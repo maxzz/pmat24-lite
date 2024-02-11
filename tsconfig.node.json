@@ -2,9 +2,9 @@
     "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
     "include": [
         "electron.vite.config.*",
-        "src/electron/main/**/*",
+        "src/electron/app/**/*",
         "src/electron/preload/**/*"
-    ],
+, "src/electron/app/start-main-window", "src/electron/app/ipc-main"    ],
     "compilerOptions": {
         "composite": true,
         "noUnusedLocals": false,

@@ -7,7 +7,7 @@ export default defineConfig({
         build: {
             rollupOptions: {
                 input: {
-                    index: resolve(__dirname, 'src/electron/main/index.ts'),
+                    index: resolve(__dirname, 'src/electron/app/index.ts'),
                 }
             }
         },
