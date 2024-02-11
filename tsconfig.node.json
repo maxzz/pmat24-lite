@@ -3,8 +3,11 @@
     "include": [
         "electron.vite.config.*",
         "src/electron/app/**/*",
-        "src/electron/preload/**/*"
-, "src/electron/app/start-main-window", "src/electron/app/ipc-main"    ],
+        "src/electron/preload/**/*",
+        "src/electron/app/start-main-window",
+        "src/electron/app/ipc-main",
+        "src/renderer/src/shared/**/*"
+    ],
     "compilerOptions": {
         "composite": true,
         "noUnusedLocals": false,
@@ -12,6 +15,11 @@
         "noImplicitReturns": false,
         "types": [
             "electron-vite/node"
-        ]
-    }
+        ],
+        "paths": {
+            "@shared/*": [
+                "./src/renderer/src/shared/*"
+            ]
+        }
+    },
 }

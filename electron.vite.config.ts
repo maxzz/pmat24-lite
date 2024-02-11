@@ -27,8 +27,9 @@ export default defineConfig({
         resolve: {
             alias: {
                 '@': join(__dirname, 'src/renderer/src'),
-                '@ui': join(__dirname, 'src/renderer/src/components/ui/'),
-                '@renderer': resolve('src/renderer/src')
+                '@ui': join(__dirname, 'src/renderer/src/components/ui'),
+                '@renderer': resolve('src/renderer/src'),
+                "@shared": resolve('src/renderer/src/shared'),
             }
         },
         plugins: [react()]
