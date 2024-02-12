@@ -7,11 +7,11 @@ import { connect_MainWindowListeners, createWindow } from './start-main-window/m
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
     (function () {
-        const orginalInfo = console.info;
-        console.info = function (...rest: any[]) {
-            console.log('info', ...rest);
+        const orginalInfo = console.log;
+        console.log = function (...rest: any[]) {
+            orginalInfo('info', ...rest);
             if (!/Download the React DevTools/.test(rest[0])) {
-                console.log('info match', ...rest);
+                orginalInfo('info match', ...rest);
                 orginalInfo.apply(console, rest);
             }
         };
