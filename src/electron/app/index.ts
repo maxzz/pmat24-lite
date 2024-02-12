@@ -1,22 +1,13 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { connect_MainWindowListeners, createWindow } from './start-main-window/main-window';
+//import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-    (function () {
-        const orginalInfo = console.log;
-        console.log = function (...rest: any[]) {
-            orginalInfo('info', ...rest);
-            if (!/Download the React DevTools/.test(rest[0])) {
-                orginalInfo('info match', ...rest);
-                orginalInfo.apply(console, rest);
-            }
-        };
-    })();
-    
+app.whenReady().then(async () => {
+    //await installExtension(REACT_DEVELOPER_TOOLS);    
 
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron');
