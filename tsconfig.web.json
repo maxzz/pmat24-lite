@@ -1,10 +1,12 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
     "include": [
-        "src/renderer/src/env.d.ts",
-        "src/renderer/src/**/*",
-        "src/renderer/src/**/*.tsx",
-        "src/electron/preload/*.d.ts"
+        "./src/renderer/src/vite-typescript/env.d.ts",
+        "./src/renderer/src/**/*",
+        "./src/renderer/src/**/*.tsx",
+        "./src/electron/preload/*.d.ts",
+        "./src/electron/app/**/*",
+        "./src/shared/**/*"
     ],
     "compilerOptions": {
         "composite": true,
@@ -12,19 +14,21 @@
         "noUnusedParameters": false,
         "noImplicitReturns": false,
         "jsx": "react-jsx",
-        "baseUrl": ".",
         "paths": {
             "@/*": [
-                "src/renderer/src/*"
+                "./src/renderer/src/*"
             ],
             "@ui/*": [
-                "src/renderer/src/components/ui/*"
+                "./src/renderer/src/ui/*"
             ],
             "@renderer/*": [
-                "src/renderer/src/*"
+                "./src/renderer/src/*"
+            ],
+            "@electron/*": [
+                "./src/electron/app/*"
             ],
             "@shared/*": [
-                "src/renderer/src/shared/*"
+                "./src/shared/*"
             ]
         }
     }

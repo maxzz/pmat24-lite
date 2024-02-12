@@ -27,9 +27,10 @@ export default defineConfig({
         resolve: {
             alias: {
                 '@': join(__dirname, 'src/renderer/src'),
-                '@ui': join(__dirname, 'src/renderer/src/components/ui'),
+                '@ui': join(__dirname, 'src/renderer/src/ui'),
                 '@renderer': resolve('src/renderer/src'),
-                "@shared": resolve('src/renderer/src/shared'),
+                '@electron': resolve('src/electron/app'),
+                "@shared": resolve('src/shared'),
             }
         },
         plugins: [react()]

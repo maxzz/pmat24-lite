@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } from "electron";
 import { is } from '@electron-toolkit/utils';
-import { loadIniOptions, saveIniOptions } from "../utils-main/ini-file-options";
+import { loadIniFileOptions, saveIniFileOptions } from "../utils-main/ini-file-options";
 import icon from '../../../../resources/icon.png?asset';
 
 export let winApp: BrowserWindow | null;
@@ -9,7 +9,7 @@ export let winApp: BrowserWindow | null;
 const preloadPath = join(__dirname, '../preload/index.js');
 
 export async function createWindow() {
-    const iniFileOptions = loadIniOptions();
+    const iniFileOptions = loadIniFileOptions();
 
     // Create the browser window.
     const winApp = new BrowserWindow({
@@ -26,11 +26,14 @@ export async function createWindow() {
     });
 
     winApp.on('ready-to-show', () => {
-        winApp.show();
+        if (iniFileOptions?.devTools && !winApp?.webContents.isDevToolsOpened()) {
+            winApp?.webContents.toggleDevTools();
+        }
+        winApp?.show();
     });
 
     winApp.on('close', () => {
-        winApp && saveIniOptions(winApp);
+        winApp && saveIniFileOptions(winApp);
     });
 
     winApp.webContents.setWindowOpenHandler((details) => {

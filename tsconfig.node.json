@@ -2,11 +2,9 @@
     "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
     "include": [
         "electron.vite.config.*",
-        "src/electron/app/**/*",
-        "src/electron/preload/**/*",
-        "src/electron/app/start-main-window",
-        "src/electron/app/ipc-main",
-        "src/renderer/src/shared/**/*"
+        "./src/electron/app/**/*",
+        "./src/electron/preload/**/*",
+        "./src/shared/**/*"
     ],
     "compilerOptions": {
         "composite": true,
@@ -17,8 +15,14 @@
             "electron-vite/node"
         ],
         "paths": {
+            "@/*": [
+                "./src/renderer/src/*"
+            ],
+            "@electron/*": [
+                "./src/electron/app/*"
+            ],
             "@shared/*": [
-                "./src/renderer/src/shared/*"
+                "./src/shared/*"
             ]
         }
     },
