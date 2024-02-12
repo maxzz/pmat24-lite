@@ -6,6 +6,18 @@ import { connect_MainWindowListeners, createWindow } from './start-main-window/m
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+    (function () {
+        const orginalInfo = console.info;
+        console.info = function (...rest: any[]) {
+            console.log('info', ...rest);
+            if (!/Download the React DevTools/.test(rest[0])) {
+                console.log('info match', ...rest);
+                orginalInfo.apply(console, rest);
+            }
+        };
+    })();
+    
+
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron');
 
