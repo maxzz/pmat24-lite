@@ -5,7 +5,7 @@ import { Button } from '@/ui';
 export function ButtonClear() {
     const setFilesContent = useSetAtom(filesContentAtom);
     return (
-        <Button variant="outline" onClick={() => setFilesContent([])}>
+        <Button variant="outline" size="sm" onClick={() => setFilesContent([])}>
             Clear
         </Button>
     );

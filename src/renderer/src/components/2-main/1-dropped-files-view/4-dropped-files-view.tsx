@@ -8,24 +8,22 @@ import { SectionHeader } from './1-header';
 export function DroppedFilesView() {
     const filesContent = useAtomValue(filesContentAtom);
     return (<>
-        <div className="border-neutral-900/20 border rounded shadow-sm">
-            <SectionHeader>
-                <div className="h-9 flex items-center justify-between">
-                    <div>
-                        {filesContent.length ? 'Loaded content' : 'Drop files here'}
-                    </div>
-
-                    {!!filesContent.length && (
-                        <ButtonClear />
-                    )}
+        <SectionHeader>
+            <div className="h-9 flex items-center justify-between">
+                <div>
+                    {filesContent.length ? 'Loaded content' : 'Drop files here'}
                 </div>
-            </SectionHeader>
 
-            <div className="mt-4 grid gap-2 grid-cols-[repeat(auto-fill,minmax(20ch,1fr))]">
-                {filesContent.map((fileContent, idx) => (
-                    <Card fileContent={fileContent} key={`${idx}=${fileContent.name}`} />
-                ))}
+                {!!filesContent.length && (
+                    <ButtonClear />
+                )}
             </div>
+        </SectionHeader>
+
+        <div className="mt-4 grid gap-2 grid-cols-[repeat(auto-fill,minmax(20ch,1fr))]">
+            {filesContent.map((fileContent, idx) => (
+                <Card fileContent={fileContent} key={`${idx}=${fileContent.name}`} />
+            ))}
         </div>
     </>);
 }
