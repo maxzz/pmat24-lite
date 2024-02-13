@@ -1,5 +1,5 @@
 import { Button } from '@/ui';
-import { DroppedFilesView } from './1-dropped-files-view';
+import { DroppedFilesView } from './1-dropped-files-view/4-dropped-files-view';
 import { Versions } from '../versions-list';
 
 export function SectionMain() {
@@ -11,7 +11,10 @@ export function SectionMain() {
             </div>
 
             <div className="flex items-center gap-2">
-                <Button variant="outline" onClick={ipcHandle}>Send IPC</Button>
+                <Button variant="outline" onClick={ipcHandle}>
+                    Send IPC
+                </Button>
+                
                 <Versions />
             </div>
         </div>
