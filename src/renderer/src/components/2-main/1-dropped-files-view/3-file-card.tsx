@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import { IconFile, IconFolderClosed } from '@ui/icons/normal/temp2';
 import { M4RInvoke } from '@electron/ipc-main';
-import { Textarea, TextareaAutoGrowWoRef } from '@/ui';
+import { Textarea, fixTextareaResizeClasses } from '@/ui';
 
 function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }: { fileContent: M4RInvoke.FileContent; } & HTMLAttributes<HTMLElement>) {
     return (
@@ -28,15 +28,8 @@ function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }:
 function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.FileContent; }) {
     return (
         <div className="flex">
-            {/* <TextareaAutoGrowWoRef
-                className="w-full px-2 py-1 text-[.5rem] bg-background outline-none cursor-default smallscroll"
-                value={notOur ? 'Not our file' : cnt}
-                rows={5}
-                readOnly
-            /> */}
-
             <Textarea
-                className="w-full px-2 py-1 text-[.5rem] bg-background outline-none cursor-default smallscroll"
+                className={`w-full px-2 py-1 text-[.5rem] bg-background outline-none cursor-default ${fixTextareaResizeClasses}`}
                 value={notOur ? 'Not our file' : cnt}
                 rows={5}
                 readOnly
