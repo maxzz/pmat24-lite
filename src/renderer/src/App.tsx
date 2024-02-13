@@ -1,9 +1,9 @@
 import { SectionHeader } from "./components/1-header";
 import { SectionMain } from "./components/2-main";
 import { SectionFooter } from "./components/3-footer";
-import { UISymbolDefs } from "@ui/icons";
-import { DropItDoc } from "./ui";
 import { doDroppedFilesAtom } from "./store";
+import { DropItDoc } from "./ui";
+import { UISymbolDefs } from "@ui/icons";
 
 export function App(): JSX.Element {
     return (<>
