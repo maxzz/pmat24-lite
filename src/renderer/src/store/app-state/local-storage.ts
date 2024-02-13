@@ -3,7 +3,7 @@ import { initializeUiState } from './local-storage-utils';
 import { mergeDefaultAndLoaded } from '@/utils';
 import { sendClientOptions } from '..';
 
-const STORAGE_UI_KEY = 'electron-window-monitor:ui';
+const STORAGE_UI_KEY = 'electron-window-monitor-old:ui';
 const STORAGE_UI_VER = 'v1';
 
 export type UiState = {
@@ -30,7 +30,7 @@ const initialAppUi: AppUi = {
 
 export const appUi = proxy<AppUi>(loadUiInitialState());
 
-initializeUiState(appUi.uiState);
+// initializeUiState(appUi.uiState);
 
 // Local storage
 

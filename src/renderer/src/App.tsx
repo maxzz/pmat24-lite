@@ -9,7 +9,7 @@ export function App(): JSX.Element {
     return (<>
         <UISymbolDefs />
 
-        <div className="dark h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto]">
+        <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto]">
             <SectionHeader />
             <SectionMain />
             <SectionFooter />
