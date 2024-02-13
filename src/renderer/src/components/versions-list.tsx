@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
 export function Versions(): JSX.Element {
+    if (!window.electron) {
+        return <div className="versions" style={{ display: 'block', padding: '0.5rem 1rem' }}>No electron running</div>;
+    }
     const [versions] = useState(window.electron.process.versions);
     return (
         <ul className="versions">
