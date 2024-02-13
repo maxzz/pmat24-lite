@@ -4,6 +4,7 @@
         "electron.vite.config.*",
         "./src/electron/app/**/*",
         "./src/electron/preload/**/*",
+        "./src/renderer/src/vite-typescript/**/*",
         "./src/shared/**/*"
     ],
     "compilerOptions": {
@@ -17,6 +18,9 @@
         "paths": {
             "@/*": [
                 "./src/renderer/src/*"
+            ],
+            "@ui/*": [
+                "./src/renderer/src/ui/*"
             ],
             "@electron/*": [
                 "./src/electron/app/*"

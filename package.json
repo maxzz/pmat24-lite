@@ -31,6 +31,7 @@
     },
     "scripts": {
         "dev": "electron-vite dev",
+        "web": "vite --config electron.vite.config-browser.mts",
         "preview": "electron-vite preview",
         "build": "npm run typecheck && electron-vite build",
         "postinstall": "electron-builder install-app-deps",
