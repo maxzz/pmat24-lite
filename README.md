@@ -11,3 +11,10 @@ An Electron application with React and TypeScript
 # refs
 * https://electron-vite.org/guide/dev
 * https://www.electronjs.org/docs/latest/tutorial/context-isolation
+
+## packages installation
+
+```
+p add -D @radix-ui/react-accordion @radix-ui/react-icons @radix-ui/react-slot class-variance-authority @radix-ui/react-checkbox @radix-ui/react-radio-group react-re
+sizable-panels @radix-ui/react-scroll-area @radix-ui/react-select sonner @radix-ui/react-switch @radix-ui/react-tooltip
+```
