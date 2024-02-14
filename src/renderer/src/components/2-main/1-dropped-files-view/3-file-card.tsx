@@ -14,10 +14,10 @@ function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }:
                 </div>
             </div>
 
-            <div className="flex items-center space-x-1">
+            <div className="ml-5 flex items-start space-x-1">
                 <IconFolderClosed className="size-4 flex-none" />
 
-                <div className="text-[.5rem] leading-[.75rem]">
+                <div className="pt-0.5 text-[.5rem] leading-[.75rem]">
                     {fullPath}
                 </div>
             </div>
@@ -40,7 +40,7 @@ function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.Fil
 
 export function Card({ fileContent }: { fileContent: M4RInvoke.FileContent; }) {
     return (
-        <div className="border-border border rounded shadow overflow-hidden grid grid-rows-[auto,1fr]">
+        <div className="border-muted-foreground border rounded shadow overflow-hidden grid grid-rows-[auto,1fr]">
             <CardTitle fileContent={fileContent} />
             <CardBody fileContent={fileContent} />
         </div>
