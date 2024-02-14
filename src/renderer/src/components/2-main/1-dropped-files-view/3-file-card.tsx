@@ -29,7 +29,7 @@ function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.Fil
     return (
         <div className="flex">
             <Textarea
-                className={`w-full px-2 py-1 text-[.5rem] bg-background outline-none cursor-default ${fixTextareaResizeClasses}`}
+                className={`w-full px-2 py-1 text-[.5rem] bg-background border-none outline-none focus-visible:ring-0 rounded-none cursor-default ${fixTextareaResizeClasses}`}
                 value={notOur ? 'Not our file' : cnt}
                 rows={5}
                 readOnly
@@ -40,7 +40,7 @@ function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.Fil
 
 export function Card({ fileContent }: { fileContent: M4RInvoke.FileContent; }) {
     return (
-        <div className="border-muted-foreground border rounded shadow overflow-hidden grid grid-rows-[auto,1fr]">
+        <div className="ring-muted-foreground border rounded focus-within:ring-1 focus-within:shadow overflow-hidden grid grid-rows-[auto,1fr]">
             <CardTitle fileContent={fileContent} />
             <CardBody fileContent={fileContent} />
         </div>
