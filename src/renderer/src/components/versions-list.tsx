@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { hasMain } from '@shared/ipc-client';
 
 export function Versions(): JSX.Element {
-    if (!hasMain()) {
+    //TODO: if (!hasMain()) { this is not working yet
+    if (!window.electron) {
         return <div>No electron running</div>;
     }
     const [versions] = useState(window.electron.process.versions);
