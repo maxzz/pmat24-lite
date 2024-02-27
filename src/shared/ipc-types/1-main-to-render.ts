@@ -1,5 +1,5 @@
 import { TargetPosition } from "@electron/napi-calls";
-import { M4RInvoke } from "./types-to-main-invoke";
+import { M4RInvoke } from "./2-render-to-main-invoke";
 
 export namespace M2R { // Main to Renderer
 
