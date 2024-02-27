@@ -4,7 +4,6 @@ import { Card } from './3-file-card';
 import { ButtonClear } from './2-button-clear';
 import { SectionHeader } from './1-header';
 
-
 export function DroppedFilesView() {
     const filesContent = useAtomValue(filesContentAtom);
     return (<>
