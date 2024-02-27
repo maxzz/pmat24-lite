@@ -6,6 +6,9 @@ export function FileMenu() {
             <MenubarTrigger>File</MenubarTrigger>
             <MenubarContent>
                 <MenubarItem>
+                    Open Files <MenubarShortcut>Ctrl+T</MenubarShortcut>
+                </MenubarItem>
+                <MenubarItem>
                     New Tab <MenubarShortcut>⌘T</MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem>
