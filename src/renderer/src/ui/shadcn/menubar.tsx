@@ -90,24 +90,28 @@ const MenubarSubContent = forwardRef<ElementRef<typeof Prim.SubContent>, Compone
 MenubarSubContent.displayName = Prim.SubContent.displayName;
 
 const MenubarContentClasses2 = "\
-z-50 \
+p-1 \
 min-w-[12rem] \
-overflow-hidden \
+z-50 \
 rounded-md \
 border \
 bg-popover \
-p-1 \
 text-popover-foreground \
 shadow-md \
+\
 data-[state=open]:animate-in \
-data-[state=closed]:fade-out-0 \
 data-[state=open]:fade-in-0 \
-data-[state=closed]:zoom-out-95 \
 data-[state=open]:zoom-in-95 \
+\
+data-[state=closed]:fade-out-0 \
+data-[state=closed]:zoom-out-95 \
+\
 data-[side=bottom]:slide-in-from-top-2 \
 data-[side=left]:slide-in-from-right-2 \
 data-[side=right]:slide-in-from-left-2 \
 data-[side=top]:slide-in-from-bottom-2 \
+\
+overflow-hidden \
 ";
 const MenubarContentClasses = "\
 p-1 min-w-[12rem] z-50 \
@@ -119,7 +123,7 @@ data-[state=open]:animate-in \
 data-[state=open]:fade-in-0 \
 data-[state=open]:zoom-in-95 \
 \
-data-[state=closed]:animate-out \
+_data-[state=closed]:animate-out \
 data-[state=closed]:fade-out-0 \
 data-[state=closed]:zoom-out-95 \
 \
@@ -138,7 +142,7 @@ const MenubarContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentProp
                 align={align}
                 alignOffset={alignOffset}
                 sideOffset={sideOffset}
-                className={cn(MenubarContentClasses, className )}
+                className={cn(MenubarContentClasses2, className )}
                 {...rest}
             />
         </Prim.Portal>
