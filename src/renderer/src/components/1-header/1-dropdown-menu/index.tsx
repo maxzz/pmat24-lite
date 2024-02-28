@@ -19,15 +19,21 @@ export function DropdownMenuDemo() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="px-1">
+                <Button className="px-1" variant="outline" size="sm">
                     <IconMenuHamburger className="size-6" />
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+            <DropdownMenuContent className="w-36 " align="start">
+
+                <DropdownMenuItem>
+                    Open Folder ...
+                </DropdownMenuItem>
+
+                {/* <DropdownMenuSeparator /> */}
+
+
+                {/* <DropdownMenuGroup>
                     <DropdownMenuItem>
                         Profile
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -46,6 +52,7 @@ export function DropdownMenuDemo() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
+
                 <DropdownMenuGroup>
                     <DropdownMenuItem>Team</DropdownMenuItem>
                     <DropdownMenuSub>
@@ -65,14 +72,13 @@ export function DropdownMenuDemo() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem>GitHub</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuItem disabled>API</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    Log out
-                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                <DropdownMenuItem>Log out <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut></DropdownMenuItem> */}
+
             </DropdownMenuContent>
         </DropdownMenu>
     );
