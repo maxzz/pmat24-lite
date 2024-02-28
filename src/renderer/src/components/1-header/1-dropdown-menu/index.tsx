@@ -1,3 +1,4 @@
+import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn/button";
 import {
     DropdownMenu,
@@ -18,9 +19,11 @@ export function DropdownMenuDemo() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">Open</Button>
+                <Button variant="outline" size="sm" className="px-1">
+                    <IconMenuHamburger className="size-6" />
+                </Button>
             </DropdownMenuTrigger>
-            
+
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
