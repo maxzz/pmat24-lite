@@ -21,6 +21,9 @@ export default defineConfig(() => {
                 "@shared": resolve('src/shared'),
             }
         },
-        plugins: [react()]
+        plugins: [react()],
+        server: {
+            port: 3000,
+        }
     };
 });
