@@ -4,3 +4,7 @@ out
 .DS_Store
 *.log*
 *.tsbuildinfo
+
+release
+dist-electron/*
+!dist-electron/plugins

@@ -1,7 +1,8 @@
 appId: com.electron.app
 productName: pmat24
 directories:
-  buildResources: build
+  #buildResources: build
+  output: release/${version}
 files:
   - '!**/.vscode/*'
   - '!src/*'
@@ -11,6 +12,7 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+  - dist-electron/**
 win:
   executableName: pmat24
 nsis:
