@@ -2,8 +2,8 @@
     "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
     "include": [
         "electron.vite.config.*",
-        "./src/electron/app/**/*",
-        "./src/electron/preload/**/*",
+        "./src/shell/app/**/*",
+        "./src/shell/preload/**/*",
         "./src/renderer/src/vite-typescript/**/*",
         "./src/shared/**/*"
     ],
@@ -23,7 +23,7 @@
                 "./src/renderer/src/ui/*"
             ],
             "@electron/*": [
-                "./src/electron/app/*"
+                "./src/shell/app/*"
             ],
             "@shared/*": [
                 "./src/shared/*"

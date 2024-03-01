@@ -7,7 +7,7 @@ export default defineConfig({
         build: {
             rollupOptions: {
                 input: {
-                    index: resolve(__dirname, 'src/electron/app/index.ts'),
+                    index: resolve(__dirname, 'src/shell/app/index.ts'),
                 }
             }
         },
@@ -17,7 +17,7 @@ export default defineConfig({
         build: {
             rollupOptions: {
                 input: {
-                    index: resolve(__dirname, 'src/electron/preload/index.ts')
+                    index: resolve(__dirname, 'src/shell/preload/index.ts')
                 }
             }
         },
@@ -29,7 +29,7 @@ export default defineConfig({
                 '@': join(__dirname, 'src/renderer/src'),
                 '@ui': join(__dirname, 'src/renderer/src/ui'),
                 '@renderer': resolve('src/renderer/src'),
-                '@electron': resolve('src/electron/app'),
+                '@electron': resolve('src/shell/app'),
                 "@shared": resolve('src/shared'),
             }
         },
