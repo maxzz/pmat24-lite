@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { IconFile, IconFolderClosed } from '@ui/icons/normal/temp2';
-import { M4RInvoke } from '@electron/ipc-main';
+import { M4RInvoke } from '@shell/ipc-main';
 import { Textarea, fixTextareaResizeClasses } from '@/ui';
 
 function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }: { fileContent: M4RInvoke.FileContent; } & HTMLAttributes<HTMLElement>) {

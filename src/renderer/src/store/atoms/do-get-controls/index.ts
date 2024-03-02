@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { buildState, clientState } from "../../app-state";
 import { invokeMain } from "../../../../../shared/ipc-client";
 import { getSubError } from "@/utils";
-import { WindowControlsCollectFinalAfterParse } from "@electron/napi-calls";
+import { WindowControlsCollectFinalAfterParse } from "@shell/napi-calls";
 import { lastBuildProgressAtom } from "..";
 import { EngineControlsWithMeta, controlsReplyToEngineControlWithMeta } from "./controls-meta";
 

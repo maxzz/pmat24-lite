@@ -1,4 +1,4 @@
-import { TargetClientRect } from "@electron/napi-calls";
+import { TargetClientRect } from "@shell/napi-calls";
 
 export namespace M4R { // Main from Renderer
     export type ClientOptions = {

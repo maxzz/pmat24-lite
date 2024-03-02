@@ -1,4 +1,4 @@
-import { TargetClientRect } from "@electron/napi-calls";
+import { TargetClientRect } from "@shell/napi-calls";
 import { atom } from "jotai";
 import { sawHandleAtom, sendToMain } from "..";
 

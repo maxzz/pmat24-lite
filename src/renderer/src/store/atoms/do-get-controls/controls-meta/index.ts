@@ -1,4 +1,4 @@
-import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@electron/napi-calls";
+import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shell/napi-calls";
 import { FieldPath, MPath, Meta, RoleStateNames, getRoleStateNames, splitPool } from "pm-manifest";
 import { uuid } from "pm-manifest/src/utils";
 
