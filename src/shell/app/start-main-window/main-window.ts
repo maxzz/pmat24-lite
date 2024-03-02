@@ -4,15 +4,15 @@ import { is } from '@electron-toolkit/utils';
 import { loadIniFileOptions, saveIniFileOptions } from "../utils-main/ini-file-options";
 import icon from '../../../../resources/icon.png?asset';
 
-export let winApp: BrowserWindow | null;
-
 const preloadPath = join(__dirname, '../preload/index.js');
+
+export let winApp: BrowserWindow | null;
 
 export async function createWindow() {
     const iniFileOptions = loadIniFileOptions();
 
     // Create the browser window.
-    const winApp = new BrowserWindow({
+    winApp = new BrowserWindow({
         ...(iniFileOptions?.bounds),
         // width: 900,
         // height: 670,
@@ -24,6 +24,16 @@ export async function createWindow() {
             sandbox: false
         }
     });
+
+    // HMR for renderer base on electron-vite cli.
+    // Load the remote URL for development or the local html file for production.
+    const ELECTRON_RENDERER_URL = process.env['ELECTRON_RENDERER_URL'];
+
+    if (is.dev && ELECTRON_RENDERER_URL) {
+        winApp.loadURL(ELECTRON_RENDERER_URL);
+    } else {
+        winApp.loadFile(join(__dirname, '../renderer/index.html'));
+    }
 
     winApp.on('ready-to-show', () => {
         if (iniFileOptions?.devTools && !winApp?.webContents.isDevToolsOpened()) {
@@ -40,14 +50,6 @@ export async function createWindow() {
         shell.openExternal(details.url);
         return { action: 'deny' };
     });
-
-    // HMR for renderer base on electron-vite cli.
-    // Load the remote URL for development or the local html file for production.
-    if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-        winApp.loadURL(process.env['ELECTRON_RENDERER_URL']);
-    } else {
-        winApp.loadFile(join(__dirname, '../renderer/index.html'));
-    }
 }
 
 export function connect_MainWindowListeners() {
@@ -61,5 +63,4 @@ export function connect_MainWindowListeners() {
             app.quit();
         }
     });
-
 }
