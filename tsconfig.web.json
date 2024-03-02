@@ -24,7 +24,7 @@
             "@renderer/*": [
                 "./src/renderer/src/*"
             ],
-            "@electron/*": [
+            "@shell/*": [
                 "./src/shell/app/*"
             ],
             "@shared/*": [

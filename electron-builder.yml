@@ -1,7 +1,7 @@
 appId: com.electron.app
 productName: pmat24
 directories:
-  #buildResources: build
+  buildResources: build
   output: release/${version}
 files:
   - '!**/.vscode/*'

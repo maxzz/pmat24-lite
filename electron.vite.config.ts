@@ -2,6 +2,8 @@ import { join, resolve } from 'path';
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 
+console.log('------ electron.vite.config.ts:__dirname =', __dirname);
+
 export default defineConfig({
     main: {
         build: {
@@ -9,6 +11,12 @@ export default defineConfig({
                 input: {
                     index: resolve(__dirname, 'src/shell/app/index.ts'),
                 }
+            }
+        },
+        resolve: {
+            alias: {
+                '@electron': resolve(__dirname, 'src/shell/app'),
+                "@shared": resolve(__dirname, 'src/shared'),
             }
         },
         plugins: [externalizeDepsPlugin()]
@@ -26,11 +34,11 @@ export default defineConfig({
     renderer: {
         resolve: {
             alias: {
-                '@': join(__dirname, 'src/renderer/src'),
-                '@ui': join(__dirname, 'src/renderer/src/ui'),
-                '@renderer': resolve('src/renderer/src'),
-                '@electron': resolve('src/shell/app'),
-                "@shared": resolve('src/shared'),
+                '@': resolve(__dirname, 'src/renderer/src'),
+                '@ui': resolve(__dirname, 'src/renderer/src/ui'),
+                '@renderer': resolve(__dirname, 'src/renderer/src'),
+                '@electron': resolve(__dirname, 'src/shell/app'),
+                "@shared": resolve(__dirname, 'src/shared'),
             }
         },
         plugins: [react()]

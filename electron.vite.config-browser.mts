@@ -2,6 +2,8 @@ import { join, resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+console.log('------ electron.vite.config-browser.ts:__dirname =', __dirname);
+
 // https://vitejs.dev/config
 export default defineConfig(() => {
     return {
@@ -14,11 +16,11 @@ export default defineConfig(() => {
         // },
         resolve: {
             alias: {
-                '@': join(__dirname, 'src/renderer/src'),
-                '@ui': join(__dirname, 'src/renderer/src/ui'),
-                '@renderer': resolve('src/renderer/src'),
-                '@electron': resolve('src/electron/app'),
-                "@shared": resolve('src/shared'),
+                '@': resolve(__dirname, 'src/renderer/src'),
+                '@ui': resolve(__dirname, 'src/renderer/src/ui'),
+                '@renderer': resolve(__dirname, 'src/renderer/src'),
+                '@electron': resolve(__dirname, 'src/electron/app'),
+                "@shared": resolve(__dirname, 'src/shared'),
             }
         },
         plugins: [react()],

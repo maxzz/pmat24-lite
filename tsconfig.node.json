@@ -22,7 +22,7 @@
             "@ui/*": [
                 "./src/renderer/src/ui/*"
             ],
-            "@electron/*": [
+            "@shell/*": [
                 "./src/shell/app/*"
             ],
             "@shared/*": [
