@@ -10,7 +10,13 @@ export default defineConfig({
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/shell/app/index.ts'),
-                }
+                },
+                // output: {
+                //     dir: join(__dirname, 'dist-electron/main'),
+                // },
+                external: [
+                    'pmat_plugin_nodejs.node',
+                ]
             }
         },
         resolve: {
@@ -26,7 +32,10 @@ export default defineConfig({
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/shell/preload/index.ts')
-                }
+                },
+                // output: {
+                //     dir: join(__dirname, 'dist-electron/preload'),
+                // }
             }
         },
         plugins: [externalizeDepsPlugin()]
