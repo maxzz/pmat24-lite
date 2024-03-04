@@ -8,7 +8,7 @@ import { ThemeMode } from "@/utils";
 
 function MenuItem({ label, theme, current }: { label: string; theme: ThemeMode; current: ThemeMode; }) {
     return (
-        <DropdownMenuItem className="grid grid-cols-[16px,1fr] items-center gap-x-2" onClick={() => appSettings.theme = theme}>
+        <DropdownMenuItem className="grid grid-cols-[16px,1fr] items-center gap-x-2" onClick={() => appSettings.ui.theme = theme}>
             {current === theme && <CheckIcon className="size-4" />}
 
             <div className="col-start-2">
@@ -19,7 +19,7 @@ function MenuItem({ label, theme, current }: { label: string; theme: ThemeMode; 
 }
 
 export function ThemeSwitch() {
-    const { theme: snapTheme } = useSnapshot(appSettings);
+    const { theme: snapTheme } = useSnapshot(appSettings).ui;
     const isDark = snapTheme === "dark";
     const isSystem = snapTheme === "system";
     const isLight = !isDark && !isSystem;
@@ -30,7 +30,7 @@ export function ThemeSwitch() {
                 size="xs"
                 tabIndex={-1}
                 className="py-0 border-y border-l border-input rounded-r-none"
-                onClick={() => appSettings.theme = appSettings.theme === 'dark' ? 'light' : 'dark'}
+                onClick={() => appSettings.ui.theme = appSettings.ui.theme === 'dark' ? 'light' : 'dark'}
             >
                 {isSystem && <IconSystem className="size-4" />}
                 {isLight && <IconLight className="size-4" />}

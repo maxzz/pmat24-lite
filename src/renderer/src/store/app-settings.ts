@@ -2,13 +2,20 @@ import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { mergeConfigRecursively } from "@/utils/merge-options";
 import { debounce } from "@/utils";
+import { ResizablesState, defaultResizablesState } from "./ui-state";
 
 export type AppSettings = {
-    theme: ThemeMode;
+    ui: {
+        theme: ThemeMode;
+        resisablesState: ResizablesState;
+    },
 };
 
 const defaultSettings: AppSettings = {
-    theme: 'light',
+    ui: {
+        theme: 'light',
+        resisablesState: defaultResizablesState,
+    },
 };
 
 const STORE_KEY = "pmat24-lite-app-settings";
@@ -28,9 +35,9 @@ function initialSettings(): AppSettings {
     return merged;
 }
 
-themeApplyMode(appSettings.theme);
+themeApplyMode(appSettings.ui.theme);
 subscribe(appSettings, () => {
-    themeApplyMode(appSettings.theme);
+    themeApplyMode(appSettings.ui.theme);
 });
 
 const saveDebounced = debounce(() => localStorage.setItem(STORE_KEY, JSON.stringify(appSettings)), 400);
