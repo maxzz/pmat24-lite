@@ -2,7 +2,7 @@ import { Notification } from "electron";
 import { M4R } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
 import { getElectronModulePaths, highlightRect } from "@shell/napi-calls";
-import { mainToRenderer } from "./ipc-main-commands";
+import { mainToRenderer } from "./main-to-renderer";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {
     switch (data.type) {
