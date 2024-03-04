@@ -19,7 +19,8 @@ export function MainResizable() {
                 <PanelA />
             </ResizablePanel>
 
-            <ResizableHandle withHandle />
+            {/* <ResizableHandle withHandle /> */}
+            <ResizableHandle />
 
             <ResizablePanel>
                 <PanelB />
