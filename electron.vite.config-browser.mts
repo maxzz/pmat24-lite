@@ -21,6 +21,7 @@ export default defineConfig(() => {
                 '@renderer': resolve(__dirname, 'src/renderer/src'),
                 '@electron': resolve(__dirname, 'src/electron/app'),
                 "@shared": resolve(__dirname, 'src/shared'),
+                "@shell": resolve(__dirname, 'src/shell/app'),
             }
         },
         plugins: [react()],

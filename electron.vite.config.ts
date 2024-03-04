@@ -23,6 +23,7 @@ export default defineConfig({
             alias: {
                 '@electron': resolve(__dirname, 'src/shell/app'),
                 "@shared": resolve(__dirname, 'src/shared'),
+                "@shell": resolve(__dirname, 'src/shell/app'),
             }
         },
         plugins: [externalizeDepsPlugin()]
@@ -48,6 +49,7 @@ export default defineConfig({
                 '@renderer': resolve(__dirname, 'src/renderer/src'),
                 '@electron': resolve(__dirname, 'src/shell/app'),
                 "@shared": resolve(__dirname, 'src/shared'),
+                "@shell": resolve(__dirname, 'src/shell/app'),
             }
         },
         plugins: [react()]
