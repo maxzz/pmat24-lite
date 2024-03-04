@@ -16,9 +16,13 @@ const ResizablePanelGroup = ({ className, ...rest }: React.ComponentProps<typeof
 const ResizablePanel = R.Panel;
 
 const ResizableHandleClasses = "\
-relative w-px \
+relative pb-2 w-px \
 \
 bg-border \
+hover:w-[3px] \
+hover:bg-sky-500/70 \
+t1ransition-colors \
+d1elay-[.2s] \
 \
 after:absolute \
 after:left-1/2 \
@@ -40,7 +44,7 @@ data-[panel-group-direction=vertical]:after:w-full \
 data-[panel-group-direction=vertical]:after:h-1 \
 [&[data-panel-group-direction=vertical]>div]:rotate-90 \
 \
-flex items-center justify-center \
+flex items-end justify-center \
 ";
 
 function ResizableHandle({ withHandle, className, ...rest }: ComponentProps<typeof R.PanelResizeHandle> & { withHandle?: boolean; }) {

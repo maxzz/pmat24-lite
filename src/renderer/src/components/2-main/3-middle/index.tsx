@@ -11,7 +11,7 @@ const panelsStorage: PanelGroupStorage = {
     }
 };
 
-export function ResizableDemo() {
+export function MainResizable() {
     return (
         <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md rounded-lg border" autoSaveId="tm-example" storage={panelsStorage}>
 
@@ -21,8 +21,9 @@ export function ResizableDemo() {
 
             <ResizableHandle withHandle />
 
-            <ResizablePanel >
-                <ResizablePanelGroup direction="vertical" autoSaveId="tm-example2" storage={panelsStorage}>
+            <ResizablePanel>
+                <PanelB />
+                {/* <ResizablePanelGroup direction="vertical" autoSaveId="tm-example2" storage={panelsStorage}>
 
                     <ResizablePanel defaultSize={25}>
                         <PanelB />
@@ -34,7 +35,7 @@ export function ResizableDemo() {
                         <PanelC />
                     </ResizablePanel>
 
-                </ResizablePanelGroup>
+                </ResizablePanelGroup> */}
             </ResizablePanel>
 
         </ResizablePanelGroup>
