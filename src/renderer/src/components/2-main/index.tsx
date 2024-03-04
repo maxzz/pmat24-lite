@@ -2,6 +2,7 @@ import { Button } from '@/ui';
 import { DroppedFilesView } from './1-dropped-files-view/4-dropped-files-view';
 import { Versions } from '../versions-list';
 import { hasMain } from '@shared/ipc-client';
+import { PanelHwndGrid } from './2-active-saw';
 
 export function SectionMain() {
     const ipcHandle = (): void => window.electron.ipcRenderer.send('ping');
@@ -10,6 +11,8 @@ export function SectionMain() {
             <div className="flex-1">
                 <DroppedFilesView />
             </div>
+
+            <PanelHwndGrid />
 
             <div className="flex items-center gap-2">
                 {hasMain() && (
