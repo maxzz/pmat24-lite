@@ -1,42 +1,42 @@
 export namespace M4RInvoke { // Main from Renderer invoke and get result
     type DoLoadfiles = {
-        type: 'load-files';
+        type: 'r2mi:load-files';
         filenames: string[];
         allowedExt?: string[];
     };
 
     type DoLoadfiles2 = {
-        type: 'load-files2';
+        type: 'r2mi:load-files2';
         filenames: string[];
     };
 
     type DoLoadfiles3 = {
-        type: 'load-files3';
+        type: 'r2mi:load-files3';
         filenames: string[];
     };
 
     type GetSecondWindowHandle = {
-        type: 'get-target-hwnd';
+        type: 'r2mi:get-target-hwnd';
     };
 
     type GetSecondWindowContent = {
-        type: 'get-window-controls';
+        type: 'r2mi:get-window-controls';
         hwnd: string;
     };
 
     type GetSecondWindowIcon = {
-        type: 'get-window-icon';
+        type: 'r2mi:get-window-icon';
         hwnd: string;
     };
 
     type GetSecondWindowMani = {
-        type: 'get-window-mani';
+        type: 'r2mi:get-window-mani';
         hwnd: string;
         wantXml: boolean;
     };
 
     type GetWindowPos = {
-        type: 'get-window-pos';
+        type: 'r2mi:get-window-pos';
         hwnd: string;
     };
 

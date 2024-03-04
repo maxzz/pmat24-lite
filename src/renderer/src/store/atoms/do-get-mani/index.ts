@@ -32,7 +32,7 @@ export const doGetWindowManiAtom = atom(
             clientState.buildError = '';
             clientState.buildFailedBody = '';
 
-            const res = await invokeMain<string>({ type: 'get-window-mani', hwnd, wantXml });
+            const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
             const prev = get(sawManiStrAtom);
             if (prev === res) {

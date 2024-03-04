@@ -26,7 +26,7 @@ export const doGetWindowControlsAtom = atom(
             clientState.buildError = '';
             clientState.buildFailedBody = '';
 
-            const res = await invokeMain<string>({ type: 'get-window-controls', hwnd });
+            const res = await invokeMain<string>({ type: 'r2mi:get-window-controls', hwnd });
 
             const prev = get(sawContentStrAtom);
             if (prev === res) {

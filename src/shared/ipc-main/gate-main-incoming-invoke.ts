@@ -7,13 +7,13 @@ let tempCounter = 0;
 
 export async function invokeFromRendererToMain(data: M4RInvoke.InvokeCalls): Promise<any> {
     switch (data.type) {
-        case 'load-files': {
+        case 'r2mi:load-files': {
             return loadFilesContent(data.filenames, data.allowedExt);
         }
-        case 'load-files2': {
+        case 'r2mi:load-files2': {
             return loadFilesContent(data.filenames);
         }
-        case 'get-target-hwnd': {
+        case 'r2mi:get-target-hwnd': {
             // const res = await getTargetHwnd();
             // return res;
             const msg = { hwnd: `${tempCounter++}`, req: require2.cache, addon2: addon }
@@ -21,19 +21,19 @@ export async function invokeFromRendererToMain(data: M4RInvoke.InvokeCalls): Pro
             
             return JSON.stringify(msg);
         }
-        case 'get-window-controls': {
+        case 'r2mi:get-window-controls': {
             const res = await getWindowControls(data.hwnd);
             return res;
         }
-        case 'get-window-icon': {
+        case 'r2mi:get-window-icon': {
             const res = await getWindowIcon(data.hwnd);
             return res;
         }
-        case 'get-window-pos': {
+        case 'r2mi:get-window-pos': {
             const res = await getWindowPos(data.hwnd);
             return res;
         }
-        case 'get-window-mani': {
+        case 'r2mi:get-window-mani': {
             const res = await getWindowMani(data.hwnd, data.wantXml);
             return res;
         }

@@ -20,7 +20,7 @@ export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
         try {
-            const res = await invokeMain<string>({ type: 'get-target-hwnd' });
+            const res = await invokeMain<string>({ type: 'r2mi:get-target-hwnd' });
 
             const prev = get(sawHandleStrAtom);
             if (prev === res) {

@@ -27,7 +27,7 @@ export async function invokeMain<TResult>(data: M4RInvoke.InvokeCalls): Promise<
 
 export function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<M4RInvoke.FileContent[]> {
     const d: M4RInvoke.InvokeCalls = {
-        type: 'load-files',
+        type: 'r2mi:load-files',
         filenames,
         ...(allowedExt && { allowedExt }),
     };
