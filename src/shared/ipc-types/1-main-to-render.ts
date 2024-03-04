@@ -6,7 +6,7 @@ export namespace M2R { // Main to Renderer
     // menu commands
 
     export type DarkMode = {
-        type: 'dark-mode';
+        type: 'm2r:dark-mode';
         active: boolean;
     };
 

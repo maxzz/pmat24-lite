@@ -6,26 +6,26 @@ export namespace M4R { // Main from Renderer
     }
 
     export type NotifyMessage = {
-        type: 'notify';
+        type: 'r2m:notify';
         message: string;
     };
 
     export type DarkMode = {
-        type: 'dark-mode';
+        type: 'r2m:dark-mode';
         active: boolean;
     };
 
     export type SetClientOptions = {
-        type: 'set-client-options';
+        type: 'r2m:set-client-options';
         state: ClientOptions;
     };
 
     export type CancelDetection = {
-        type: 'cancel-detection';
+        type: 'r2m:cancel-detection';
     };
 
     export type HighlightRect = {
-        type: 'highlight-rect';
+        type: 'r2m:highlight-rect';
         hwnd: string;
         rect: TargetClientRect;
     };

@@ -6,23 +6,23 @@ import { mainToRenderer } from "./ipc-main-commands";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {
     switch (data.type) {
-        case 'notify': {
+        case 'r2m:notify': {
             new Notification({ title: 'My Noti', body: data.message }).show();
             break;
         }
-        case 'dark-mode': {
+        case 'r2m:dark-mode': {
             data.active;
             break;
         }
-        case 'set-client-options': {
+        case 'r2m:set-client-options': {
             mainStore.maxControls = data.state.maxControls;
             break;
         }
-        case 'cancel-detection': {
+        case 'r2m:cancel-detection': {
             mainStore.cancelDetection = true;
             break;
         }
-        case 'highlight-rect': {
+        case 'r2m:highlight-rect': {
             highlightRect(data.hwnd, data.rect);
             break;
         }
