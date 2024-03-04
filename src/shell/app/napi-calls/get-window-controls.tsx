@@ -36,7 +36,7 @@ export function getWindowControls(hwnd: string): Promise<string> {
                         }
 
                         //console.log('cb:', JSON.stringify(res));
-                        mainToRenderer({ type: 'detection-progress', progress: res.progress });
+                        mainToRenderer({ type: 'm2r:detection-progress', progress: res.progress });
                         return;
                     }
 
@@ -59,7 +59,7 @@ export function getWindowControls(hwnd: string): Promise<string> {
                     // }
 
                     reject(msg);
-                    mainToRenderer({ type: 'failed-raw-content', body: str });
+                    mainToRenderer({ type: 'm2r:failed-raw-content', body: str });
                 }
             });
         }

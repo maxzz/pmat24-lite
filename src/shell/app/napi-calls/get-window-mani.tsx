@@ -41,7 +41,7 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                             return;
                         }
 
-                        mainToRenderer({ type: 'detection-progress', progress: res.progress });
+                        mainToRenderer({ type: 'm2r:detection-progress', progress: res.progress });
                         return;
                     }
 
@@ -50,7 +50,7 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                 } catch (error) {
                     const msg = `>>>${error instanceof Error ? error.message : `${error}`}`;
                     reject(msg);
-                    mainToRenderer({ type: 'failed-raw-content', body: str });
+                    mainToRenderer({ type: 'm2r:failed-raw-content', body: str });
                 }
             });
         }

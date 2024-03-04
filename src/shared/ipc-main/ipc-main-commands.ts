@@ -22,7 +22,7 @@ export async function openFileDialog(appWin: BrowserWindow | null | undefined, w
         }
 
         const filesCnt = loadFilesContent(filePaths, M4RInvoke.allowedExt);
-        mainToRenderer({ type: 'opened-files', filesCnt });
+        mainToRenderer({ type: 'm2r:opened-files', filesCnt });
             
     } catch (error) {
         console.error(error);

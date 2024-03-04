@@ -21,7 +21,7 @@ export function getWindowPos(hwnd: string): Promise<TargetPosition> {
                     if (res.status === 'progress') {
                         console.log('progress', res.point);
 
-                        mainToRenderer({type: "position-progress", progress: res})
+                        mainToRenderer({type: "m2r:position-progress", progress: res})
                         return;
                     }
     

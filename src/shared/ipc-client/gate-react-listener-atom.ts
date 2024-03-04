@@ -11,23 +11,23 @@ export const doFromMainAtom = atom(
                 console.log('case dark-mode, active', data.active);
                 break;
             }
-            case 'reload-files': {
-                console.log('reload-files');
+            case 'm2r:reload-files': {
+                console.log('m2r:reload-files');
                 break;
             }
-            case 'opened-files': {
+            case 'm2r:opened-files': {
                 set(filesContentAtom, data.filesCnt);
                 break;
             }
-            case 'detection-progress': {
+            case 'm2r:detection-progress': {
                 buildState.buildCounter = data.progress;
                 break;
             }
-            case 'position-progress': {
+            case 'm2r:position-progress': {
                 buildState.getPosProgress = data.progress;
                 break;
             }
-            case 'failed-raw-content': {
+            case 'm2r:failed-raw-content': {
                 clientState.buildFailedBody = data.body;
                 break;
             }
