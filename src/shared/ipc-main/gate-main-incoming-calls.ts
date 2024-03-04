@@ -1,7 +1,7 @@
 import { Notification } from "electron";
 import { M4R } from "@shared/ipc-types";
-import { mainStore } from "../../shell/app/store-main";
-import { addon, highlightRect, require2 } from "../../shell/app/napi-calls";
+import { mainStore } from "@shell/store-main";
+import { getElectronModulePaths, highlightRect } from "@shell/napi-calls";
 import { mainToRenderer } from "./ipc-main-commands";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {
@@ -27,9 +27,7 @@ export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<voi
             break;
         }
         case 'r2m:test': {
-            const msg = JSON.stringify({ req: require2.cache, addon2: Object.keys(addon) });
-            mainToRenderer({ type: 'm2r:log', body: msg });
-
+            mainToRenderer({ type: 'm2r:log', body: getElectronModulePaths() });
             break;
         }
         default: {

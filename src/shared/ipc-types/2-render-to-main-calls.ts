@@ -3,7 +3,7 @@ import { TargetClientRect } from "@shell/napi-calls";
 export namespace M4R { // Main from Renderer
     export type ClientOptions = {
         maxControls: number;
-    }
+    };
 
     export type NotifyMessage = {
         type: 'r2m:notify';
@@ -34,11 +34,11 @@ export namespace M4R { // Main from Renderer
         type: 'r2m:test';
     };
 
-    export type ToMainCalls = 
-    | NotifyMessage 
-    | DarkMode 
-    | SetClientOptions 
-    | CancelDetection 
-    | HighlightRect
-    | StartTestFromMain;
+    export type ToMainCalls =
+        | NotifyMessage
+        | DarkMode
+        | SetClientOptions
+        | CancelDetection
+        | HighlightRect
+        | StartTestFromMain;
 }
