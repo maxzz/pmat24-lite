@@ -18,3 +18,8 @@ An Electron application with React and TypeScript
 p add -D @radix-ui/react-accordion @radix-ui/react-icons @radix-ui/react-slot class-variance-authority @radix-ui/react-checkbox @radix-ui/react-radio-group react-re
 sizable-panels @radix-ui/react-scroll-area @radix-ui/react-select sonner @radix-ui/react-switch @radix-ui/react-tooltip
 ```
+
+## asar archive
+
+[G: how to view node js asar](https://stackoverflow.com/questions/38523617/how-to-unpack-an-asar-file)
+``` pnpx @electron/asar extract app.asar <destfolder> ```
