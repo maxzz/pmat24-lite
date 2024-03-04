@@ -31,6 +31,10 @@ export const doFromMainAtom = atom(
                 clientState.buildFailedBody = data.body;
                 break;
             }
+            case 'm2r:log': {
+                console.log('m2r:log', JSON.stringify(JSON.parse(data.body), null, 4));
+                break;
+            }
             default: {
                 const really: never = data;
                 throw new Error(`\nUnknown IPC-listener: ${JSON.stringify(really)}\n`);

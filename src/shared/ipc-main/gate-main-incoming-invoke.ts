@@ -1,6 +1,9 @@
 import { M4RInvoke } from "@shared/ipc-types";
 import { loadFilesContent } from "../../shell/app/utils-main/load-files";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "../../shell/app/napi-calls";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos, require2, addon } from "../../shell/app/napi-calls";
+import { mainToRenderer } from "./ipc-main-commands";
+
+let tempCounter = 0;
 
 export async function invokeFromRendererToMain(data: M4RInvoke.InvokeCalls): Promise<any> {
     switch (data.type) {
@@ -11,8 +14,12 @@ export async function invokeFromRendererToMain(data: M4RInvoke.InvokeCalls): Pro
             return loadFilesContent(data.filenames);
         }
         case 'get-target-hwnd': {
-            const res = await getTargetHwnd();
-            return res;
+            // const res = await getTargetHwnd();
+            // return res;
+            const msg = { hwnd: `${tempCounter++}`, req: require2.cache, addon2: addon }
+            mainToRenderer({ type: 'm2r:log', body: JSON.stringify(msg)});
+            
+            return JSON.stringify(msg);
         }
         case 'get-window-controls': {
             const res = await getWindowControls(data.hwnd);

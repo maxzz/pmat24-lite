@@ -34,5 +34,17 @@ export namespace M2R { // Main to Renderer
         body: string;
     };
 
-    export type RendererCalls = DarkMode | ReloadFiles | OpenedFiles | DetectionProgress | FailedRawContent | PositionProgress;
+    export type LogMainToRenderer = {
+        type: 'm2r:log';
+        body: string;
+    };
+
+    export type RendererCalls =
+        | DarkMode
+        | ReloadFiles
+        | OpenedFiles
+        | DetectionProgress
+        | FailedRawContent
+        | PositionProgress
+        | LogMainToRenderer;
 }

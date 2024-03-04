@@ -1,7 +1,8 @@
 import { Notification } from "electron";
 import { M4R } from "@shared/ipc-types";
 import { mainStore } from "../../shell/app/store-main";
-import { highlightRect } from "../../shell/app/napi-calls";
+import { addon, highlightRect, require2 } from "../../shell/app/napi-calls";
+import { mainToRenderer } from "./ipc-main-commands";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {
     switch (data.type) {
@@ -23,6 +24,12 @@ export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<voi
         }
         case 'highlight-rect': {
             highlightRect(data.hwnd, data.rect);
+            break;
+        }
+        case 'r2m:test': {
+            const msg = JSON.stringify({ req: require2.cache, addon2: Object.keys(addon) });
+            mainToRenderer({ type: 'm2r:log', body: msg });
+
             break;
         }
         default: {

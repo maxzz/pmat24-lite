@@ -30,5 +30,15 @@ export namespace M4R { // Main from Renderer
         rect: TargetClientRect;
     };
 
-    export type ToMainCalls = NotifyMessage | DarkMode | SetClientOptions | CancelDetection | HighlightRect;
+    export type StartTestFromMain = {
+        type: 'r2m:test';
+    };
+
+    export type ToMainCalls = 
+    | NotifyMessage 
+    | DarkMode 
+    | SetClientOptions 
+    | CancelDetection 
+    | HighlightRect
+    | StartTestFromMain;
 }

@@ -1,3 +1,4 @@
+import { doGetTargetHwndAtom, sendToMain } from "@/store";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn/button";
 import {
@@ -14,8 +15,10 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
+import { useSetAtom } from "jotai";
 
 export function DropdownMenuDemo() {
+    const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -24,10 +27,28 @@ export function DropdownMenuDemo() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-36 " align="start">
+            <DropdownMenuContent className="w-42 " align="start">
 
                 <DropdownMenuItem>
                     Open Folder ...
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                    onClick={() => {
+                        console.log('click');
+                        doGetTargetHwnd();
+                    }}
+                >
+                    Get Second Active Window
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                    onClick={() => {
+                        console.log('click trace');
+                        sendToMain({type: 'r2m:test'});
+                    }}
+                >
+                    Get trace
                 </DropdownMenuItem>
 
                 {/* <DropdownMenuSeparator /> */}

@@ -1,13 +1,8 @@
 import { createRequire } from 'module'; //console.log(`window-monitor.ts:import.meta.url = "${import.meta.url}"`);
 import { AddonTypes } from './pmat-plugin-types';
 
-const require = createRequire(import.meta.url);
-
-export const addon: AddonTypes = require('../plugins/pmat_plugin_nodejs.node');
-
-console.log('window-monitor.ts:import.meta.url =', import.meta.url, require);
-
-// console.log('addon', addon);
+export const require2 = createRequire(import.meta.url);
+export const addon: AddonTypes = require2('../plugins/pmat_plugin_nodejs.node'); // out/plugins/pmat_plugin_nodejs.node
 
 export * from './pmat-plugin-types';
 export * from './get-target-hwnd';

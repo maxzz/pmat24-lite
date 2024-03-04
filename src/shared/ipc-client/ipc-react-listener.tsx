@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
-import { doFromMainAtom } from "./ipc-react-listener-atom";
+import { doFromMainAtom } from "./gate-react-listener-atom";
 
 import { sendToMain } from "../../renderer/src/store";
 import { appUi } from "../../renderer/src/store/app-state";
