@@ -1,8 +1,8 @@
 import { basename, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { M4RInvoke } from '@shared/ipc-types';
+import { FileContent } from '@shared/ipc-types';
 
-function collect(filenames: string[], rv: Partial<M4RInvoke.FileContent>[]) {
+function collect(filenames: string[], rv: Partial<FileContent>[]) {
     (filenames || []).forEach((filename) => {
         filename = normalize(filename);
         try {
@@ -27,8 +27,8 @@ function collect(filenames: string[], rv: Partial<M4RInvoke.FileContent>[]) {
     });
 }
 
-export function loadFilesContent(filenames: string[], allowedExt?: string[]): M4RInvoke.FileContent[] {
-    let files: Partial<M4RInvoke.FileContent>[] = [];
+export function loadFilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
+    let files: Partial<FileContent>[] = [];
     collect(filenames, files);
 
     files = allowedExt
@@ -48,5 +48,5 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): M4
         }
     });
 
-    return files as Required<M4RInvoke.FileContent>[];
+    return files as Required<FileContent>[];
 }

@@ -1,4 +1,4 @@
-import { M4RInvoke } from "@shared/ipc-types";
+import { FileContent } from "@shared/ipc-types";
 import { ext } from "./os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-data-transfer-item-list";
 
@@ -39,8 +39,8 @@ function textFileReader(file: File): Promise<string> {
     });
 }
 
-async function webLoadFilesContent(dropItems: DropItem[]): Promise<M4RInvoke.FileContent[]> {
-    const res: M4RInvoke.FileContent[] = [];
+async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]> {
+    const res: FileContent[] = [];
     for (const item of dropItems) {
         try {
             if (!item.file) {
@@ -80,7 +80,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<M4RInvoke.Fil
     return res;
 }
 
-export async function webLoadDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<M4RInvoke.FileContent[]> {
+export async function webLoadDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(dataTransferItemList);
     items = allowedExt
         ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())
@@ -107,7 +107,7 @@ async function webGetFilesFromDialog(files: File[]): Promise<DropItem[]> {
     return rv;
 }
 
-export async function webLoadDialogOpen(files: File[], allowedExt?: string[]): Promise<M4RInvoke.FileContent[]> {
+export async function webLoadDialogOpen(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesFromDialog(files);
     items = allowedExt
         ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())

@@ -1,16 +1,16 @@
 import { atom } from "jotai";
 import { hasMain, invokeLoadFiles } from ".";
 import { electronGetPathes, webLoadDataTransferContent, webLoadDialogOpen } from "@/utils";
-import { M4RInvoke } from "@shared/ipc-types";
+import { FileContent, M4RInvoke } from "@shared/ipc-types";
 
-export const filesContentAtom = atom<M4RInvoke.FileContent[]>([]);
+export const filesContentAtom = atom<FileContent[]>([]);
 
 // handle files drop for web and electron environments
 
 export const doDroppedFilesAtom = atom(
     null,
     async (get, set, dataTransfer: DataTransfer) => {
-        let filesCnt: M4RInvoke.FileContent[];
+        let filesCnt: FileContent[];
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];
@@ -33,7 +33,7 @@ export type DoDroppedFilesAtom = typeof doDroppedFilesAtom;
 export const doDialogFilesAtom = atom(
     null,
     async (get, set, files: File[]) => {
-        let filesCnt: M4RInvoke.FileContent[] = await webLoadDialogOpen(files, M4RInvoke.allowedExt);
+        let filesCnt: FileContent[] = await webLoadDialogOpen(files, M4RInvoke.allowedExt);
         if (filesCnt) {
             set(filesContentAtom, filesCnt);
         }

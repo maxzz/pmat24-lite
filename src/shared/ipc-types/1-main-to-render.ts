@@ -1,5 +1,5 @@
 import { TargetPosition } from "@shell/napi-calls";
-import { M4RInvoke } from "./2-render-to-main-invoke";
+import { FileContent } from "./3-file-content";
 
 export namespace M2R { // Main to Renderer
 
@@ -16,7 +16,7 @@ export namespace M2R { // Main to Renderer
 
     export type OpenedFiles = {
         type: 'm2r:opened-files';
-        filesCnt: M4RInvoke.FileContent[];
+        filesCnt: FileContent[];
     };
 
     export type DetectionProgress = {

@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react';
-import { M4RInvoke } from '@shared/ipc-types';
+import { FileContent } from '@shared/ipc-types';
 import { Textarea, fixTextareaResizeClasses } from '@/ui';
 import { IconFile, IconFolderClosed } from '@ui/icons/normal/temp2';
 
-function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }: { fileContent: M4RInvoke.FileContent; } & HTMLAttributes<HTMLElement>) {
+function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }: { fileContent: FileContent; } & HTMLAttributes<HTMLElement>) {
     return (
         <div className={`px-2 py-2 ${notOur ? 'bg-accent' : failed ? 'bg-red-600' : 'bg-accent'} text-muted-foreground row-span-2 grid-rows-subgrid grid gap-2`} {...rest}>
             <div className="flex items-center space-x-1">
@@ -25,7 +25,7 @@ function CardTitle({ fileContent: { name, fullPath, failed, notOur }, ...rest }:
     );
 }
 
-function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.FileContent; }) {
+function CardBody({ fileContent: { cnt, notOur } }: { fileContent: FileContent; }) {
     return (
         <div className="flex">
             <Textarea
@@ -38,7 +38,7 @@ function CardBody({ fileContent: { cnt, notOur } }: { fileContent: M4RInvoke.Fil
     );
 }
 
-export function Card({ fileContent }: { fileContent: M4RInvoke.FileContent; }) {
+export function Card({ fileContent }: { fileContent: FileContent; }) {
     return (
         <div className="ring-muted-foreground border rounded focus-within:ring-1 focus-within:shadow overflow-hidden grid grid-rows-[auto,1fr]">
             <CardTitle fileContent={fileContent} />

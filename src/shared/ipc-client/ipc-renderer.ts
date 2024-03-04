@@ -1,4 +1,4 @@
-import { M4RInvoke, M4R } from "@shared/ipc-types";
+import { M4RInvoke, M4R, FileContent } from "@shared/ipc-types";
 import { worldStore } from "./ipc-react-listener";
 
 // main process APIs
@@ -25,11 +25,11 @@ export async function invokeMain<TResult>(data: M4RInvoke.InvokeCalls): Promise<
     return mainApi?.invokeMain<M4RInvoke.InvokeCalls, TResult>(data);
 }
 
-export function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<M4RInvoke.FileContent[]> {
+export function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<FileContent[]> {
     const d: M4RInvoke.InvokeCalls = {
         type: 'r2mi:load-files',
         filenames,
         ...(allowedExt && { allowedExt }),
     };
-    return mainApi?.invokeMain(d) as Promise<M4RInvoke.FileContent[]>;
+    return mainApi?.invokeMain(d) as Promise<FileContent[]>;
 }
