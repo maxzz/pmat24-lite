@@ -1,6 +1,7 @@
 import { Button } from '@/ui';
-import { hasMain } from '@shared/ipc-client';
+import { DroppedFilesView } from './1-dropped-files-view';
 import { PanelHwndGrid } from './2-active-saw';
+import { hasMain } from '@shared/ipc-client';
 import { Versions } from './versions-list';
 
 function sendPingPong(): void {
@@ -16,7 +17,11 @@ function PingPongButton() {
 
 export function Demos() {
     return (
-        <div>
+        <div className="p-4 flex flex-col">
+            <div className="flex-1">
+                <DroppedFilesView />
+            </div>
+
             <PanelHwndGrid />
 
             <div className="flex items-center gap-2">
