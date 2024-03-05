@@ -17,7 +17,7 @@ const panelsStorage: PanelGroupStorage = {
 
 const toysClasses = "\
 p-px \
-size-12 \
+size-4 \
 invisible \
 group-hover:visible \
 group-hover:bg-border \
@@ -25,7 +25,6 @@ outline \
 outline-1 \
 outline-border \
 rounded-sm \
-\
 ";
 
 export function MainResizable() {
@@ -41,19 +40,22 @@ export function MainResizable() {
             </ResizablePanel>
 
             <ResizableHandle className="group">
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-1">
                     <button className={toysClasses} onClick={() => {
-                        console.log('refA', refA);
                         refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
                     }}>
                         <IconChevronLeft />
                     </button>
                     <ResizableHandleToys />
-                    <IconChevronLeft className={`${toysClasses} rotate-180`} />
+                    <button className={toysClasses} onClick={() => {
+                        refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
+                    }}>
+                        <IconChevronLeft className={`${toysClasses} rotate-180`} />
+                    </button>
                 </div>
             </ResizableHandle>
 
-            <ResizablePanel ref={refB}>
+            <ResizablePanel ref={refB} collapsible>
                 <PanelB />
                 {/* <ResizablePanelGroup direction="vertical" autoSaveId="sub-right" storage={panelsStorage}>
 
