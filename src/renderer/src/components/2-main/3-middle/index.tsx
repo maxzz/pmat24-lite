@@ -18,7 +18,7 @@ export function MainResizable() {
     const refA = useRef<ImperativePanelHandle>(null);
     const refB = useRef<ImperativePanelHandle>(null);
     console.log('refA', refA);
-    
+
     return (
         <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md r1ounded-lg b1order" autoSaveId="main" storage={panelsStorage}>
 
@@ -27,7 +27,10 @@ export function MainResizable() {
             </ResizablePanel>
 
             {/* <ResizableHandle withHandle /> */}
-            <ResizableHandle />
+            <ResizableHandle>
+                <div className="">11</div>
+            </ResizableHandle>
+            {/* <ResizableHandle /> */}
 
             <ResizablePanel ref={refB}>
                 <PanelB />

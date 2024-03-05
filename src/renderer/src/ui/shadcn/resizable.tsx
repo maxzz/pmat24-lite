@@ -15,9 +15,6 @@ const ResizablePanelGroup = ({ className, ...rest }: React.ComponentProps<typeof
 
 const ResizablePanel = R.Panel;
 
-//hover:bg-sky-700 transition-colors delay-[.15s] \
-//hover:bg-sky-500 [transition:background-color_.1s_ease_.4s] \
-
 const ResizableHandleClasses = "\
 relative pb-2 w-px \
 \
@@ -47,7 +44,7 @@ data-[panel-group-direction=vertical]:after:h-1 \
 flex items-end justify-center \
 ";
 
-function ResizableHandle({ withHandle, className, ...rest }: ComponentProps<typeof R.PanelResizeHandle> & { withHandle?: boolean; }) {
+function ResizableHandle({ withHandle, className, children, ...rest }: ComponentProps<typeof R.PanelResizeHandle> & { withHandle?: boolean; }) {
     return (
         <R.PanelResizeHandle
             className={cn(ResizableHandleClasses, className)} {...rest}>
@@ -56,6 +53,7 @@ function ResizableHandle({ withHandle, className, ...rest }: ComponentProps<type
                     <DragHandleDots2Icon className="h-2.5 w-2.5" />
                 </div>
             )}
+            {children}
         </R.PanelResizeHandle>
     );
 }
