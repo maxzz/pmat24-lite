@@ -3,7 +3,7 @@ import { appSettings } from "@/store";
 import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels";
 import { PanelA } from "../1-left";
 import { PanelB } from "../2-right";
-import { MutableRefObject, RefObject, useRef } from "react";
+import { RefObject, useRef } from "react";
 import { IconChevronLeft } from "@/ui/icons";
 
 const panelsStorage: PanelGroupStorage = {
@@ -20,6 +20,9 @@ p-px \
 size-4 \
 invisible \
 group-hover:visible \
+transition-all \
+delay-150 \
+d1uration-1000 \
 bg-border \
 outline \
 outline-1 \
@@ -32,13 +35,17 @@ function togglePanel(panel: ImperativePanelHandle | null) {
 }
 
 function panelToggle(refA: RefObject<ImperativePanelHandle>, refB: RefObject<ImperativePanelHandle>, isA: boolean) {
-    const isACollapsed = refA.current?.isCollapsed();
-    const isBCollapsed = refB.current?.isCollapsed();
-    if (!isACollapsed && !isBCollapsed) {
-        togglePanel(isA ? refA.current : refB.current);
-        return;
+    const a = refA.current;
+    const b = refB.current;
+    if (a && b) {
+        togglePanel((!a.isCollapsed() && !b.isCollapsed() ? isA : !isA) ? a : b);
     }
-    togglePanel(!isA ? refA.current : refB.current);
+    
+    // if (noneCollapsed) {
+    //     togglePanel(isA ? a : b);
+    // } else {
+    //     togglePanel(!isA ? a : b);
+    // }
 };
 
 export function MainResizable() {

@@ -19,7 +19,7 @@ const ResizableHandleClasses = "\
 relative pb-2 w-px \
 \
 bg-border \
-hover:bg-sky-700 transition-colors delay-[.15s] \
+hover:bg-muted-foreground/60 transition-colors delay-[.15s] \
 \
 after:absolute \
 after:left-1/2 \
