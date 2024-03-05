@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes } from "react"; // https://heroicons.com/outline/chevron-left
 import { classNames } from "@/utils";
 
 export function IconChevronLeft({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {

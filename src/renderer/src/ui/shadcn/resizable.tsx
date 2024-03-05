@@ -1,7 +1,7 @@
-import { ComponentProps } from "react";
+import { ComponentProps, HTMLAttributes, RefObject } from "react";
 import * as R from "react-resizable-panels";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
-import { cn } from "@/utils";
+import { classNames, cn } from "@/utils";
 
 /**
  * https://github.com/bvaughn/react-resizable-panels
@@ -16,10 +16,10 @@ const ResizablePanelGroup = ({ className, ...rest }: React.ComponentProps<typeof
 const ResizablePanel = R.Panel;
 
 const ResizableHandleClasses = "\
-relative pb-2 w-px \
+relative group pb-2 w-px \
 \
 bg-border \
-hover:bg-muted-foreground/60 transition-colors delay-[.15s] \
+hover:bg-sky-600 transition-colors delay-[.15s] \
 \
 after:absolute \
 after:left-1/2 \
@@ -41,12 +41,31 @@ data-[panel-group-direction=vertical]:after:w-full \
 data-[panel-group-direction=vertical]:after:h-1 \
 [&[data-panel-group-direction=vertical]>div]:rotate-90 \
 \
-flex items-end justify-center \
-";
+flex items-end justify-center";
 
-function ResizableHandleToys() {
+export function togglePanel(panel: R.ImperativePanelHandle | null) {
+    panel?.[panel.isCollapsed() ? 'expand' : 'collapse']();
+}
+
+export function togglePanels(refA: RefObject<R.ImperativePanelHandle>, refB: RefObject<R.ImperativePanelHandle>, isA: boolean) {
+    const a = refA.current;
+    const b = refB.current;
+    if (a && b) {
+        togglePanel((!a.isCollapsed() && !b.isCollapsed() ? isA : !isA) ? a : b);
+    }
+};
+
+export const toysMiddleClasses = "invisible group-hover:visible transition-all delay-150";
+export const toysArrowClasses = "\
+p-px size-4 \
+invisible group-hover:visible transition-all delay-150 \
+bg-border \
+outline outline-1 outline-muted-foreground/30 \
+rounded-sm";
+
+function ResizableHandleToys({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="w-3 h-4 rounded-sm border bg-border flex items-center justify-center z-10">
+        <div className={classNames("w-3 h-4 rounded-sm border bg-border flex items-center justify-center z-10", className)} {...rest}>
             <DragHandleDots2Icon className="h-2.5 w-2.5" />
         </div>
     );
