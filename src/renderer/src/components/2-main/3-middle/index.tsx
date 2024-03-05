@@ -1,9 +1,10 @@
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup, } from "@ui/shadcn/resizable";
+import { ResizableHandle, ResizableHandleToys, ResizablePanel, ResizablePanelGroup, } from "@ui/shadcn/resizable";
 import { appSettings } from "@/store";
 import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels";
 import { PanelA } from "../1-left";
 import { PanelB } from "../2-right";
 import { useRef } from "react";
+import { IconChevronLeft, IconChevronRight } from "@/ui/icons";
 
 const panelsStorage: PanelGroupStorage = {
     getItem(name: string): string {
@@ -26,11 +27,13 @@ export function MainResizable() {
                 <PanelA />
             </ResizablePanel>
 
-            {/* <ResizableHandle withHandle /> */}
             <ResizableHandle>
-                <div className="">11</div>
+                <div className="flex flex-col items-center">
+                    <IconChevronLeft className="size-4 rotate-180" />
+                    <ResizableHandleToys />
+                    <IconChevronRight className="size-4" />
+                </div>
             </ResizableHandle>
-            {/* <ResizableHandle /> */}
 
             <ResizablePanel ref={refB}>
                 <PanelB />
