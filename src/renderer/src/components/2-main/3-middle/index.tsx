@@ -25,7 +25,7 @@ export function MainResizable() {
                 <PanelA />
             </ResizablePanel>
 
-            <ResizableHandle>
+            <ResizableHandle className="pb-2 items-end">
                 <div className="flex items-center gap-1">
                     <button className={toysArrowClasses} onClick={() => togglePanels(refA, refB, true)}>
                         <IconChevronLeft />

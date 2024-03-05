@@ -6,17 +6,17 @@ import { classNames, cn } from "@/utils";
 /**
  * https://github.com/bvaughn/react-resizable-panels
  */
-const ResizablePanelGroup = ({ className, ...rest }: React.ComponentProps<typeof R.PanelGroup>) => (
+export const ResizablePanelGroup = ({ className, ...rest }: React.ComponentProps<typeof R.PanelGroup>) => (
     <R.PanelGroup
         className={cn("w-full h-full flex data-[panel-group-direction=vertical]:flex-col", className)}
         {...rest}
     />
 );
 
-const ResizablePanel = R.Panel;
+export const ResizablePanel = R.Panel;
 
 const ResizableHandleClasses = "\
-relative group pb-2 w-px \
+relative group w-px \
 \
 bg-border \
 hover:bg-sky-600 transition-colors delay-[.15s] \
@@ -41,7 +41,15 @@ data-[panel-group-direction=vertical]:after:w-full \
 data-[panel-group-direction=vertical]:after:h-1 \
 [&[data-panel-group-direction=vertical]>div]:rotate-90 \
 \
-flex items-end justify-center";
+flex items-center justify-center";
+
+export function ResizableHandle({ className, children, ...rest }: ComponentProps<typeof R.PanelResizeHandle>) {
+    return (
+        <R.PanelResizeHandle className={cn(ResizableHandleClasses, className)} {...rest}>
+            {children}
+        </R.PanelResizeHandle>
+    );
+}
 
 export function togglePanel(panel: R.ImperativePanelHandle | null) {
     panel?.[panel.isCollapsed() ? 'expand' : 'collapse']();
@@ -63,20 +71,10 @@ bg-border \
 outline outline-1 outline-muted-foreground/30 \
 rounded-sm";
 
-function ResizableHandleToys({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+export function ResizableHandleToys({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("w-3 h-4 rounded-sm border bg-border flex items-center justify-center z-10", className)} {...rest}>
             <DragHandleDots2Icon className="h-2.5 w-2.5" />
         </div>
     );
 }
-
-function ResizableHandle({ className, children, ...rest }: ComponentProps<typeof R.PanelResizeHandle>) {
-    return (
-        <R.PanelResizeHandle className={cn(ResizableHandleClasses, className)} {...rest}>
-            {children}
-        </R.PanelResizeHandle>
-    );
-}
-
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle, ResizableHandleToys };
