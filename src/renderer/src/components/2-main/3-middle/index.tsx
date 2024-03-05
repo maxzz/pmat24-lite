@@ -3,7 +3,7 @@ import { appSettings } from "@/store";
 import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels";
 import { PanelA } from "../1-left";
 import { PanelB } from "../2-right";
-import { useRef } from "react";
+import { MutableRefObject, RefObject, useRef } from "react";
 import { IconChevronLeft } from "@/ui/icons";
 
 const panelsStorage: PanelGroupStorage = {
@@ -20,18 +20,20 @@ p-px \
 size-4 \
 invisible \
 group-hover:visible \
-group-hover:bg-border \
+bg-border \
 outline \
 outline-1 \
-outline-border \
+outline-muted-foreground/30 \
 rounded-sm \
 ";
+
+function panelToggle(refA: RefObject<ImperativePanelHandle>, refB: RefObject<ImperativePanelHandle>) {
+    refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
+};
 
 export function MainResizable() {
     const refA = useRef<ImperativePanelHandle>(null);
     const refB = useRef<ImperativePanelHandle>(null);
-    // console.log('refA', refA);
-
     return (
         <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md r1ounded-lg b1order" autoSaveId="main" storage={panelsStorage}>
 
@@ -41,15 +43,11 @@ export function MainResizable() {
 
             <ResizableHandle className="group">
                 <div className="flex items-center gap-1">
-                    <button className={toysClasses} onClick={() => {
-                        refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
-                    }}>
+                    <button className={toysClasses} onClick={() => panelToggle(refA, refB)}>
                         <IconChevronLeft />
                     </button>
                     <ResizableHandleToys />
-                    <button className={toysClasses} onClick={() => {
-                        refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
-                    }}>
+                    <button className={toysClasses} onClick={() => panelToggle(refA, refB)}>
                         <IconChevronLeft className={`${toysClasses} rotate-180`} />
                     </button>
                 </div>
