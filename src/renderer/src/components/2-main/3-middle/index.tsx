@@ -27,8 +27,18 @@ outline-muted-foreground/30 \
 rounded-sm \
 ";
 
-function panelToggle(refA: RefObject<ImperativePanelHandle>, refB: RefObject<ImperativePanelHandle>) {
-    refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
+function togglePanel(panel: ImperativePanelHandle | null) {
+    panel?.[panel.isCollapsed() ? 'expand' : 'collapse']();
+}
+
+function panelToggle(refA: RefObject<ImperativePanelHandle>, refB: RefObject<ImperativePanelHandle>, isA: boolean) {
+    const isACollapsed = refA.current?.isCollapsed();
+    const isBCollapsed = refB.current?.isCollapsed();
+    if (!isACollapsed && !isBCollapsed) {
+        togglePanel(isA ? refA.current : refB.current);
+        return;
+    }
+    togglePanel(!isA ? refA.current : refB.current);
 };
 
 export function MainResizable() {
@@ -43,11 +53,11 @@ export function MainResizable() {
 
             <ResizableHandle className="group">
                 <div className="flex items-center gap-1">
-                    <button className={toysClasses} onClick={() => panelToggle(refA, refB)}>
+                    <button className={toysClasses} onClick={() => panelToggle(refA, refB, true)}>
                         <IconChevronLeft />
                     </button>
                     <ResizableHandleToys />
-                    <button className={toysClasses} onClick={() => panelToggle(refA, refB)}>
+                    <button className={toysClasses} onClick={() => panelToggle(refA, refB, false)}>
                         <IconChevronLeft className={`${toysClasses} rotate-180`} />
                     </button>
                 </div>
