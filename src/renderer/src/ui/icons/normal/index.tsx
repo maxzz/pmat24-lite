@@ -7,5 +7,5 @@ export * from "./icon03-stop";
 export * from "./icon04-target";
 export * from "./icon05-target2";
 
-export * from "./06-chevron-left";
-export * from "./06-chevron-right";
+export * from "./06-chevron-left-single-rotatable";
+

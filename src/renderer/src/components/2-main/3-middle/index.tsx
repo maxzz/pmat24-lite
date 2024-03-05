@@ -4,7 +4,7 @@ import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels
 import { PanelA } from "../1-left";
 import { PanelB } from "../2-right";
 import { useRef } from "react";
-import { IconChevronLeft, IconChevronRight } from "@/ui/icons";
+import { IconChevronLeft } from "@/ui/icons";
 
 const panelsStorage: PanelGroupStorage = {
     getItem(name: string): string {
@@ -15,23 +15,41 @@ const panelsStorage: PanelGroupStorage = {
     }
 };
 
+const toysClasses = "\
+p-px \
+size-12 \
+invisible \
+group-hover:visible \
+group-hover:bg-border \
+outline \
+outline-1 \
+outline-border \
+rounded-sm \
+\
+";
+
 export function MainResizable() {
     const refA = useRef<ImperativePanelHandle>(null);
     const refB = useRef<ImperativePanelHandle>(null);
-    console.log('refA', refA);
+    // console.log('refA', refA);
 
     return (
         <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md r1ounded-lg b1order" autoSaveId="main" storage={panelsStorage}>
 
-            <ResizablePanel ref={refA} defaultSize={25}>
+            <ResizablePanel ref={refA} collapsible defaultSize={25}>
                 <PanelA />
             </ResizablePanel>
 
-            <ResizableHandle>
-                <div className="flex flex-col items-center">
-                    <IconChevronLeft className="size-4 rotate-180" />
+            <ResizableHandle className="group">
+                <div className="flex flex-col items-center gap-1">
+                    <button className={toysClasses} onClick={() => {
+                        console.log('refA', refA);
+                        refA.current?.[refA.current.isCollapsed() ? 'expand' : 'collapse']();
+                    }}>
+                        <IconChevronLeft />
+                    </button>
                     <ResizableHandleToys />
-                    <IconChevronRight className="size-4" />
+                    <IconChevronLeft className={`${toysClasses} rotate-180`} />
                 </div>
             </ResizableHandle>
 
