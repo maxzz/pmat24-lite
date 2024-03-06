@@ -29,7 +29,7 @@ export function DemoTreeWithOptions() {
             return (
                 <Tree
                     data={dataWithState}
-                    className={`w-full h-full border rounded-l-md ${inputFocusClasses} overflow-hidden`}
+                    className={`w-full h-full rounded-l-md ${inputFocusClasses}`}
                     initialSelectedItemId={initialItemId}
                     onSelectChange={(item) => setContent(item?.name ?? "")}
                     IconForFolder={IconFolder}
@@ -43,7 +43,7 @@ export function DemoTreeWithOptions() {
 
     return (
         <div className="relative w-full h-full">
-            <div className="absolute inset-px bottom-1.5 text-xs select-none">
+            <div className="absolute inset-px bottom-0.5 text-xs select-none">
                 {TreeMemo}
             </div>
         </div>
