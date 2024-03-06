@@ -3,7 +3,7 @@ import { DropdownMenuDemo } from "./1-dropdown-menu";
 
 export function SectionHeader() {
     return (
-        <div className="p-4 border-border/50 border-b flex items-center justify-between">
+        <div className="px-4 py-2 bg-muted border-border/50 border-b flex items-center justify-between">
             <DropdownMenuDemo />
             <ThemeSwitch />
         </div>
