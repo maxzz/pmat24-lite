@@ -45,14 +45,19 @@ export function DemoTreeWithOptions() {
     );
 
     return (
-        <div className="mr-12 p-0.5 w-full h-full">
+        <div className="mr-12 p-0.5 w-full h-full overflow-hidden relative">
 
             {/* <SimpleSplitPane vertical={false} className="splitpane h-full"> */}
-                <div className="w-full">
+            {/* <div className="w-full h-full bg-green-500">
                     {TreeMemo}
-                </div>
+                    111
+                </div> */}
 
-                {/* <div className={classNames("flex-1 w-full h-full min-w-0 border border-l rounded-r-md z-10", inputFocusClasses)} tabIndex={0}>
+            <div className="absolute inset-0 bg-green-500">
+                {TreeMemo}
+            </div>
+
+            {/* <div className={classNames("flex-1 w-full h-full min-w-0 border border-l rounded-r-md z-10", inputFocusClasses)} tabIndex={0}>
                     <div className="min-w-0 overflow-hidden">
                         <div className="px-2 py-1">
                             {content}
