@@ -3,7 +3,7 @@ import { DemoTreeWithOptions } from "./2-tree-demo";
 
 export function PanelA() {
     return (
-        <div className="m-1 h-full bg-muted rounded-md">
+        <div className="m-1 h-full">
             {/* <span className="font-semibold">One</span> */}
             {/* <LongPanel /> */}
             <DemoTreeWithOptions />

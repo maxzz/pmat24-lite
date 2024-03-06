@@ -8,6 +8,11 @@ export default {
     darkMode: "class",
     theme: {
         extend: {
+            colors: {
+                primary: colors.zinc,
+                secondary: colors.green,
+                // ...shadcnColors.colors,
+            },
         },
     },
     plugins: [
