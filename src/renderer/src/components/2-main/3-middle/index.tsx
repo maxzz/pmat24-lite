@@ -19,13 +19,13 @@ export function ResizableABPanels() {
     const refA = useRef<ImperativePanelHandle>(null);
     const refB = useRef<ImperativePanelHandle>(null);
     return (
-        <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md r1ounded-lg b1order" autoSaveId="main" storage={panelsStorage}>
+        <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md" autoSaveId="main" storage={panelsStorage}>
 
             <ResizablePanel ref={refA} collapsible defaultSize={25}>
                 <PanelA />
             </ResizablePanel>
 
-            <ResizableHandle className="pb-2 items-end">
+            <ResizableHandle className="my-1 pb-2 items-end">
                 <div className="flex items-center gap-1">
                     <button className={toysArrowClasses} onClick={() => togglePanels(refA, refB, true)}>
                         <IconChevronLeft />

@@ -21,7 +21,7 @@ export function DemoTreeWithOptions() {
         return initialItem?.name || "No content selected";
     });
 
-    const snapArrowFirst = false;
+    const snapArrowFirst = true;
     const snapHideFolderIcon = false;
 
     const TreeMemo = useMemo(
@@ -42,8 +42,8 @@ export function DemoTreeWithOptions() {
     );
 
     return (
-        <div className="relative p-0.5 w-full h-full">
-            <div className="absolute inset-px bottom-1.5 text-xs">
+        <div className="relative w-full h-full">
+            <div className="absolute inset-px bottom-1.5 text-xs select-none">
                 {TreeMemo}
             </div>
         </div>
