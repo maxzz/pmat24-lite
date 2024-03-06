@@ -2,7 +2,7 @@ import { ResizableABPanels } from './3-middle';
 
 export function SectionMain() {
     return (
-        <div className="p1-1 overflow-hidden">
+        <div className="bg-muted overflow-hidden">
             <ResizableABPanels />
         </div>
     );
