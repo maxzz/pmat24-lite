@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { buildState, clientState } from "../../app-state";
-import { invokeMain } from "../../../../../shared/ipc-client";
+import { invokeMain } from "../../../xternal-to-main";
 import { getSubError } from "@/utils";
 import { WindowControlsCollectFinalAfterParse } from "@shell/napi-calls";
 import { lastBuildProgressAtom } from "..";

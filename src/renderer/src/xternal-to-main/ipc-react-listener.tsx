@@ -3,8 +3,8 @@ import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
 import { doFromMainAtom } from "./gate-react-listener-atom";
 
-import { sendToMain } from "../../renderer/src/store";
-import { appUi } from "../../renderer/src/store/app-state";
+import { sendToMain } from "../store";
+import { appUi } from "../store/app-state";
 
 export const worldStore = {
     listeners: new Set<(data: unknown) => void>(),

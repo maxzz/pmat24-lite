@@ -1,7 +1,7 @@
 import { Button } from '@/ui';
 import { DroppedFilesView } from './1-dropped-files-view';
 import { PanelHwndGrid } from './2-active-saw';
-import { hasMain } from '@shared/ipc-client';
+import { hasMain } from '@/xternal-to-main';
 import { Versions } from './versions-list';
 
 function sendPingPong(): void {

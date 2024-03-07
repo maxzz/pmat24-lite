@@ -23,8 +23,6 @@ export const doDroppedFilesAtom = atom(
             filesCnt = await webLoadDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
         }
 
-        console.log('doDroppedFilesAtom: filesCnt: ', filesCnt);
-
         if (filesCnt) {
             set(filesContentAtom, filesCnt);
         }

@@ -1,4 +1,4 @@
-import { M2R } from "../ipc-types";
+import { M2R } from "../../../shared/ipc-types";
 import { atom } from "jotai";
 import { filesContentAtom } from "@/store/atom-dropped-files";
 import { buildState, clientState } from "@/store/app-state";
