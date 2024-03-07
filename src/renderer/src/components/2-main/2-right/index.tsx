@@ -8,8 +8,8 @@ export function PanelB() {
             <div className={`${panel2Classes} rounded-r`}>
                 <div className={panel3Classes}>
                     <PanelHeader />
-                    
-                    <div className="outline-none overflow-auto" tabIndex={0}>
+
+                    <div className="flex-1 outline-none overflow-auto" tabIndex={0}>
                         <LongPanel />
                     </div>
                 </div>
