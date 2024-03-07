@@ -27,7 +27,7 @@ export function DropdownMenuDemo() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-42 text-sm" align="start">
+            <DropdownMenuContent className="w-42 text-xs" align="start">
 
                 <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
                     Open Files...
@@ -36,8 +36,6 @@ export function DropdownMenuDemo() {
                 <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
                     Open Folder...
                 </DropdownMenuItem>
-
-                <DropdownMenuSeparator />
 
                 <DropdownMenuSeparator />
 
@@ -53,7 +51,7 @@ export function DropdownMenuDemo() {
                 <DropdownMenuSub>
                     <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                        <DropdownMenuSubContent>
+                        <DropdownMenuSubContent className="text-xs">
                             <DropdownMenuItem
                                 onClick={() => {
                                     console.log('click');
