@@ -4,9 +4,9 @@ import { DemoTreeWithOptions } from "./2-tree-demo";
 export function PanelA() {
     return (
         <div className="p-1 pr-0.5 h-full">
-            <div className={`h-full rounded-l-md bg-background`}>
+            <div className={`h-full flex flex-col rounded-l-md bg-background`}>
                 <PanelHeader />
-                
+
                 <DemoTreeWithOptions />
             </div>
         </div>
