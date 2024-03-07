@@ -25,7 +25,7 @@ export function ResizableABPanels() {
                 <PanelA />
             </ResizablePanel>
 
-            <ResizableHandle className="my-1 pb-2 items-end">
+            <ResizableHandle className="my-[3px] pb-2 items-end" tabIndex={-1}>
                 <div className="flex items-center gap-1">
                     <button className={toysArrowClasses} onClick={() => togglePanels(refA, refB, true)}>
                         <IconChevronLeft />
