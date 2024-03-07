@@ -34,11 +34,23 @@ export namespace M4R { // Main from Renderer
         type: 'r2m:test';
     };
 
+    export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog
+        type: 'r2m:file:load-manifests-dialog';
+        opendirs?: boolean;
+    };
+
+    export type LoadTestManifests = {   // will reply with 'm2r:opened-files' from dialog
+        type: 'r2m:file:load-test-manifests';
+    };
+
     export type ToMainCalls =
         | NotifyMessage
         | DarkMode
         | SetClientOptions
         | CancelDetection
         | HighlightRect
-        | StartTestFromMain;
+        | StartTestFromMain
+        | LoadManifestsDialog
+        | LoadTestManifests
+        ;
 }

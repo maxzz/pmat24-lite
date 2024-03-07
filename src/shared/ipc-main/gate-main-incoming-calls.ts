@@ -3,6 +3,8 @@ import { M4R } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
 import { getElectronModulePaths, highlightRect } from "@shell/napi-calls";
 import { mainToRenderer } from "./main-to-renderer";
+import { openFileDialog } from "@shell/commands";
+import { winApp } from "@shell/start-main-window/main-window";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {
     switch (data.type) {
@@ -28,6 +30,18 @@ export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<voi
         }
         case 'r2m:test': {
             mainToRenderer({ type: 'm2r:log', body: getElectronModulePaths() });
+            break;
+        }
+        case 'r2m:file:load-manifests-dialog': {
+            openFileDialog(winApp, { openDirs: data.opendirs });
+            // const loadedFiles = await mainStore.loadTestManifests();
+            // mainToRenderer({ type: 'm2r:opened-files', filesCnt: loadedFiles });
+            break;
+        }
+        case 'r2m:file:load-test-manifests': {
+            openFileDialog(winApp);
+            // const loadedFiles = await mainStore.loadTestManifests();
+            // mainToRenderer({ type: 'm2r:opened-files', filesCnt: loadedFiles });
             break;
         }
         default: {

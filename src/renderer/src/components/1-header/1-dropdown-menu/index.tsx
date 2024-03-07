@@ -22,33 +22,58 @@ export function DropdownMenuDemo() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button className="px-1" variant="outline" size="sm">
+                <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-42 " align="start">
+            <DropdownMenuContent className="w-42 text-sm" align="start">
 
-                <DropdownMenuItem>
-                    Open Folder ...
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
+                    Open Files...
                 </DropdownMenuItem>
 
-                <DropdownMenuItem
-                    onClick={() => {
-                        console.log('click');
-                        doGetTargetHwnd();
-                    }}
-                >
-                    Get Second Active Window
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
+                    Open Folder...
                 </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuSeparator />
 
                 <DropdownMenuItem
                     onClick={() => {
                         console.log('click trace');
-                        sendToMain({type: 'r2m:test'});
+                        sendToMain({ type: 'r2m:test' });
                     }}
                 >
                     Get trace
+                </DropdownMenuItem>
+
+                <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                            <DropdownMenuItem
+                                onClick={() => {
+                                    console.log('click');
+                                    doGetTargetHwnd();
+                                }}
+                            >
+                                Get Second Active Window
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>Email</DropdownMenuItem>
+                            <DropdownMenuItem>Message</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>More...</DropdownMenuItem>
+                        </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                </DropdownMenuSub>
+
+                <DropdownMenuItem
+                >
+                    Settings
                 </DropdownMenuItem>
 
                 {/* <DropdownMenuSeparator /> */}
