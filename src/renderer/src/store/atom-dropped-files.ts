@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { hasMain, invokeLoadFiles } from ".";
 import { electronGetPathes, webLoadDataTransferContent, webLoadDialogOpen } from "@/utils";
-import { FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
+import type { FileContent } from "@shared/ipc-types";
+import { pmAllowedToOpenExt } from "@shared/ipc-types";
 
 export const filesContentAtom = atom<FileContent[]>([]);
 
@@ -22,6 +23,8 @@ export const doDroppedFilesAtom = atom(
         } else {
             filesCnt = await webLoadDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
         }
+
+        console.log('doDroppedFilesAtom: filesCnt: ', filesCnt);
 
         if (filesCnt) {
             set(filesContentAtom, filesCnt);

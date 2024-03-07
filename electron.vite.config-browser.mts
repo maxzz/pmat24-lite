@@ -8,12 +8,16 @@ console.log('------ electron.vite.config-browser.ts:__dirname =', __dirname);
 export default defineConfig(() => {
     return {
         base: '',
-        root: resolve(__dirname, 'src/renderer'),
-        // build: {
-        //     rollupOptions: {
-        //         input: resolve(__dirname, 'src/renderer/index.html'),
-        //     },
-        // },
+        // root: resolve(__dirname, 'src/renderer'),
+        root: resolve(__dirname, 'src/'),
+        // nested: resolve(__dirname, 'src/shared'),
+        build: {
+            rollupOptions: {
+                // input: resolve(__dirname, 'src/renderer/index.html'),
+                // input: [resolve(__dirname, 'src/renderer'), resolve(__dirname, 'src/shared'),],
+                input: join(__dirname, 'src/renderer/index.html'),
+            },
+        },
         resolve: {
             alias: {
                 '@': resolve(__dirname, 'src/renderer/src'),
