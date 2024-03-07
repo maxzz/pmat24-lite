@@ -39,17 +39,8 @@ export function DropdownMenuDemo() {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem
-                    onClick={() => {
-                        console.log('click trace');
-                        sendToMain({ type: 'r2m:test' });
-                    }}
-                >
-                    Get trace
-                </DropdownMenuItem>
-
                 <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                    <DropdownMenuSubTrigger>Preferences</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent className="text-xs">
                             <DropdownMenuItem
@@ -61,17 +52,31 @@ export function DropdownMenuDemo() {
                                 Get Second Active Window
                             </DropdownMenuItem>
 
-                            <DropdownMenuItem>Email</DropdownMenuItem>
-                            <DropdownMenuItem>Message</DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => {
+                                    console.log('click trace');
+                                    sendToMain({ type: 'r2m:test' });
+                                }}
+                            >
+                                Get trace
+                            </DropdownMenuItem>
+
                             <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                            >
+                                Settings
+                            </DropdownMenuItem>
+
                             <DropdownMenuItem>More...</DropdownMenuItem>
                         </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
 
+                <DropdownMenuSeparator />
+
                 <DropdownMenuItem
                 >
-                    Settings
+                    Exit
                 </DropdownMenuItem>
 
                 {/* <DropdownMenuSeparator /> */}
