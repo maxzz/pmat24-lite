@@ -1,6 +1,9 @@
-export function PanelHeader() {
+import { HTMLAttributes } from "react";
+import { classNames } from "@/utils";
+
+export function PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="px-3 py-2 text-xs bg-muted ring-border ring-1 rounded-tl">
+        <div className={classNames("px-3 py-2 text-xs bg-muted border-border border-b", className)} {...rest}>
             Files
         </div>
     );

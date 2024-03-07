@@ -29,7 +29,7 @@ export function DemoTreeWithOptions() {
             return (
                 <Tree
                     data={dataWithState}
-                    className={`w-full h-full rounded-l-md ${inputFocusClasses} overflow-hidden`}
+                    className={`w-full h-full outline-none`}
                     initialSelectedItemId={initialItemId}
                     onSelectChange={(item) => setContent(item?.name ?? "")}
                     IconForFolder={IconFolder}
