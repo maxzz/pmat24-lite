@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { hasMain, invokeLoadFiles } from ".";
 import { electronGetPathes, webLoadDataTransferContent, webLoadDialogOpen } from "@/utils";
-import { FileContent, M4RInvoke } from "@shared/ipc-types";
+import { FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 
 export const filesContentAtom = atom<FileContent[]>([]);
 
@@ -18,9 +18,9 @@ export const doDroppedFilesAtom = atom(
             if (!filenames.length) {
                 return;
             }
-            filesCnt = await invokeLoadFiles(filenames, M4RInvoke.allowedExt);
+            filesCnt = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
         } else {
-            filesCnt = await webLoadDataTransferContent(dataTransfer.items, M4RInvoke.allowedExt);
+            filesCnt = await webLoadDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
         }
 
         if (filesCnt) {
@@ -33,7 +33,7 @@ export type DoDroppedFilesAtom = typeof doDroppedFilesAtom;
 export const doDialogFilesAtom = atom(
     null,
     async (get, set, files: File[]) => {
-        let filesCnt: FileContent[] = await webLoadDialogOpen(files, M4RInvoke.allowedExt);
+        let filesCnt: FileContent[] = await webLoadDialogOpen(files, pmAllowedToOpenExt);
         if (filesCnt) {
             set(filesContentAtom, filesCnt);
         }

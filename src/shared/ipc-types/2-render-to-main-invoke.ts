@@ -48,6 +48,4 @@ export namespace M4RInvoke { // Main from Renderer invoke and get result
         | GetSecondWindowIcon
         | GetSecondWindowMani
         | GetWindowPos;
-
-    export const allowedExt = ['dpm', 'dpn'];
 }

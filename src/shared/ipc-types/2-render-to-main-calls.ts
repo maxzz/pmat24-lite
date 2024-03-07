@@ -1,6 +1,13 @@
 import { TargetClientRect } from "@shell/napi-calls";
 
 export namespace M4R { // Main from Renderer
+    export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog
+        type: 'r2m:file:load-manifests-dialog';
+        opendirs?: boolean;
+    };
+
+    //
+
     export type ClientOptions = {
         maxControls: number;
     };
@@ -30,27 +37,26 @@ export namespace M4R { // Main from Renderer
         rect: TargetClientRect;
     };
 
-    export type StartTestFromMain = {
-        type: 'r2m:test';
-    };
-
-    export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog
-        type: 'r2m:file:load-manifests-dialog';
-        opendirs?: boolean;
-    };
+    //
 
     export type LoadTestManifests = {   // will reply with 'm2r:opened-files' from dialog
         type: 'r2m:file:load-test-manifests';
     };
 
+    export type StartTestFromMain = {
+        type: 'r2m:test';
+    };
+
     export type ToMainCalls =
+        | LoadTestManifests
+
         | NotifyMessage
         | DarkMode
         | SetClientOptions
         | CancelDetection
         | HighlightRect
-        | StartTestFromMain
+
         | LoadManifestsDialog
-        | LoadTestManifests
+        | StartTestFromMain
         ;
 }
