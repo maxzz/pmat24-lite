@@ -1,18 +1,17 @@
-import { inputFocusWithinClasses } from "../2-right";
 import { PanelHeader } from "./0-header";
 import { DemoTreeWithOptions } from "./2-tree-demo";
+import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 
 export function PanelA() {
     return (
-        <div className="p-1 pr-0 h-full text-xs">
-            <div className={`h-full ring-border/70 ring-1 rounded-l overflow-hidden ${inputFocusWithinClasses} focus-within:ring-offset-0`}>
-                <div className={`h-full bg-background flex flex-col`}>
+        <div className={`${panel1Classes} pr-0`}>
+            <div className={`${panel2Classes} rounded-l`}>
+                <div className={panel3Classes}>
                     <PanelHeader />
-                    
+
                     <DemoTreeWithOptions />
                 </div>
             </div>
         </div>
     );
 }
-//rounded-l-md ${inputFocusClasses} overflow-hidden

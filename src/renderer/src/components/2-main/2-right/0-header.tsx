@@ -8,4 +8,3 @@ export function PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>
         </div>
     );
 }
-//ring-border ring-1 rounded-tr
