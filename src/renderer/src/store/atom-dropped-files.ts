@@ -1,8 +1,7 @@
 import { atom } from "jotai";
 import { hasMain, invokeLoadFiles } from ".";
 import { electronGetPathes, webLoadDataTransferContent, webLoadDialogOpen } from "@/utils";
-import type { FileContent } from "@shared/ipc-types";
-import { pmAllowedToOpenExt } from "@shared/ipc-types";
+import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 
 export const filesContentAtom = atom<FileContent[]>([]);
 
