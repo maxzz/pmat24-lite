@@ -1,5 +1,4 @@
 import { proxy, subscribe } from 'valtio';
-//import { initializeUiState } from './local-storage-utils';
 import { sendClientOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
 
@@ -7,7 +6,6 @@ const STORAGE_UI_KEY = 'electron-window-monitor-old:ui';
 const STORAGE_UI_VER = 'v1';
 
 export type UiState = {
-    darkMode: boolean;
     maxControls: number;        // max # of controls before detection canceled. 0 is unlimited
     acquireXml: boolean;
     iconAutoUpdate: boolean;    // get window icon automatically
@@ -20,7 +18,6 @@ type AppUi = {
 
 const initialAppUi: AppUi = {
     uiState: {
-        darkMode: false,
         maxControls: 0,
         acquireXml: false,
         iconAutoUpdate: true,
@@ -29,8 +26,6 @@ const initialAppUi: AppUi = {
 };
 
 export const appUi = proxy<AppUi>(loadUiInitialState());
-
-// initializeUiState(appUi.uiState);
 
 // Local storage
 
