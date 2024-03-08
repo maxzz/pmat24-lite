@@ -1,6 +1,6 @@
 import { M2R } from "../../../shared/ipc-types";
 import { atom } from "jotai";
-import { filesContentAtom } from "@/store/atom-dropped-files";
+import { filesContentAtom } from "@/store/atoms";
 import { buildState, clientState } from "@/store/app-state";
 
 export const doFromMainAtom = atom(

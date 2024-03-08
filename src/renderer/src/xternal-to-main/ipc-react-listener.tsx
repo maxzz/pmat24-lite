@@ -29,7 +29,7 @@ export function WorldToReactListener() {
     return null;
 }
 
-// Initial state exchange with main
+// Initial state exchange with main process
 
 export function sendClientOptions() {
     sendToMain({ type: 'r2m:set-client-options', state: { maxControls: appUi.uiState.maxControls } });
