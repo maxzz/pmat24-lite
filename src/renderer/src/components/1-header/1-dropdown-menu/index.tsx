@@ -1,4 +1,6 @@
-import { doGetTargetHwndAtom, sendToMain } from "@/store";
+import { useSetAtom } from "jotai";
+import { sendToMain } from "@/xternal-to-main";
+import { doGetTargetHwndAtom } from "@/store";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn/button";
 import {
@@ -15,7 +17,6 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
-import { useSetAtom } from "jotai";
 
 export function DropdownMenuDemo() {
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);

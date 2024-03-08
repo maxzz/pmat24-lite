@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { hasMain, invokeLoadFiles } from "..";
+import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { electronGetPathes, webLoadDataTransferContent, webLoadDialogOpen } from "@/utils";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 

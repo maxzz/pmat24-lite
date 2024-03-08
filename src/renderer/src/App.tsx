@@ -1,7 +1,8 @@
 import { SectionHeader } from "./components/1-header";
 import { SectionMain } from "./components/2-main";
 import { SectionFooter } from "./components/3-footer";
-import { OnAppMount, WorldToReactListener, doDroppedFilesAtom } from "./store";
+import { doDroppedFilesAtom } from "./store";
+import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
 

@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
 import { doFromMainAtom } from "./gate-react-listener-atom";
-
-import { sendToMain } from "../store";
+import { sendToMain } from "./to-main-apis";
 import { appUi } from "../store/app-state";
 
 export const worldStore = {

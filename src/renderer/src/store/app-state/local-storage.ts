@@ -1,7 +1,7 @@
 import { proxy, subscribe } from 'valtio';
-import { initializeUiState } from './local-storage-utils';
+//import { initializeUiState } from './local-storage-utils';
+import { sendClientOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
-import { sendClientOptions } from '..';
 
 const STORAGE_UI_KEY = 'electron-window-monitor-old:ui';
 const STORAGE_UI_VER = 'v1';

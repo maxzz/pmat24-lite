@@ -1,6 +1,7 @@
 import { TargetClientRect } from "@shared/ipc-types";
 import { atom } from "jotai";
-import { sawHandleAtom, sendToMain } from "..";
+import { sawHandleAtom } from "./do-get-hwnd";
+import { sendToMain } from "@/xternal-to-main";
 
 export const doHighlightRectAtom = atom(
     null,
