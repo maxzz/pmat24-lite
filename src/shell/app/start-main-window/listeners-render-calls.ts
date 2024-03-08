@@ -1,5 +1,5 @@
 import { IpcMainEvent, IpcMainInvokeEvent, ipcMain } from "electron";
-import { callFromRendererToMain, invokeFromRendererToMain } from "@shared/ipc-main";
+import { callFromRendererToMain, invokeFromRendererToMain } from "../../xternal-to-renderer";
 import { M4R, M4RInvoke } from "@shared/ipc-types";
 
 export function connect_ListenersForCallFromRenderer() {

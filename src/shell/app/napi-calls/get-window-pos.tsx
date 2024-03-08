@@ -1,4 +1,4 @@
-import { mainToRenderer } from "@shared/ipc-main";;
+import { mainToRenderer } from "../../xternal-to-renderer";
 import { DragAndDropParams, DragAndDropResult, TargetPosition, addon } from ".";
 
 export function getWindowPos(hwnd: string): Promise<TargetPosition> {

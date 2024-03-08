@@ -10,7 +10,7 @@ export function PanelB() {
                     <PanelHeader />
 
                     <div className="flex-1 outline-none overflow-auto" tabIndex={0}>
-                        <LongPanel />
+                        {/* <LongPanel /> */}
                     </div>
                 </div>
             </div>

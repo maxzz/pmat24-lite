@@ -1,5 +1,5 @@
 import { addon } from ".";
-import { mainToRenderer } from "@shared/ipc-main";
+import { mainToRenderer } from "../../xternal-to-renderer";
 import { mainStore } from "../store-main";
 import { WindowControlsCollectorCollectResult, WindowControlsCollectorCollectParams } from "./pmat-plugin-types";
 
