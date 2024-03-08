@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
-import { buildState, clientState } from "../../app-state";
+import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { EngineControl } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { lastBuildProgressAtom } from "..";
 import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
+import { lastBuildProgressAtom } from "../do-get-hwnd";
 
 type SawContentReply = {
     pool: string;
@@ -23,22 +23,22 @@ export const doGetWindowManiAtom = atom(
                 throw new Error('No hwnd');
             }
 
-            if (clientState.buildRunning) {
+            if (maniBuildState.buildRunning) {
                 return;
             }
 
-            clientState.buildRunning = true;
-            buildState.buildCounter = 0;
-            clientState.buildError = '';
-            clientState.buildFailedBody = '';
+            maniBuildState.buildRunning = true;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = '';
+            maniBuildState.buildFailedBody = '';
 
             const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
             const prev = get(sawManiStrAtom);
             if (prev === res) {
-                clientState.buildRunning = false;
-                buildState.buildCounter = 0;
-                clientState.buildError = '';
+                maniBuildState.buildRunning = false;
+                buildProgressState.buildCounter = 0;
+                maniBuildState.buildError = '';
                 return;
             }
             set(sawManiStrAtom, res);
@@ -55,17 +55,17 @@ export const doGetWindowManiAtom = atom(
                 console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
             }
 
-            set(lastBuildProgressAtom, buildState.buildCounter);
-            clientState.buildRunning = false;
-            buildState.buildCounter = 0;
-            clientState.buildError = '';
+            set(lastBuildProgressAtom, buildProgressState.buildCounter);
+            maniBuildState.buildRunning = false;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = '';
         } catch (error) {
             set(sawManiStrAtom, '');
             set(sawManiAtom, null);
 
-            clientState.buildRunning = false;
-            buildState.buildCounter = 0;
-            clientState.buildError = getSubError(error);
+            maniBuildState.buildRunning = false;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = getSubError(error);
 
             console.error(`'doGetWindowManiAtom' ${error instanceof Error ? error.message : `${error}`}`);
         }

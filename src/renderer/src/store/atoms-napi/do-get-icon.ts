@@ -1,8 +1,8 @@
 import { atom } from "jotai";
-import { invokeMain } from "../../xternal-to-main";
-import { clientState } from "../app-state";
-import { getSubError } from "@/utils";
+import { invokeMain } from "@/xternal-to-main";
+import { maniBuildState } from "@/store/state-debug";
 import { WindowIconGetterResult } from "@shared/ipc-types";
+import { getSubError } from "@/utils";
 //import { sawHandleAtom } from "./do-get-hwnd";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
@@ -38,13 +38,13 @@ export const doGetWindowIconAtom = atom(
                 set(sawIconAtom, image);
             }
 
-            clientState.buildError = '';
+            maniBuildState.buildError = '';
 
             //console.log('doGetSawIconAtom.set', JSON.stringify(str, null, 4));
         } catch (error) {
             set(sawIconStrAtom, '');
 
-            clientState.buildError = getSubError(error);
+            maniBuildState.buildError = getSubError(error);
 
             console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
         }

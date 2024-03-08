@@ -1,7 +1,7 @@
 import { M2R } from "../../../shared/ipc-types";
 import { atom } from "jotai";
 import { filesContentAtom } from "@/store/atoms";
-import { buildState, clientState } from "@/store/app-state";
+import { buildProgressState, maniBuildState } from "@/store/state-debug";
 
 export const doFromMainAtom = atom(
     null,
@@ -20,15 +20,15 @@ export const doFromMainAtom = atom(
                 break;
             }
             case 'm2r:detection-progress': {
-                buildState.buildCounter = data.progress;
+                buildProgressState.buildCounter = data.progress;
                 break;
             }
             case 'm2r:position-progress': {
-                buildState.getPosProgress = data.progress;
+                buildProgressState.getPosProgress = data.progress;
                 break;
             }
             case 'm2r:failed-raw-content': {
-                clientState.buildFailedBody = data.body;
+                maniBuildState.buildFailedBody = data.body;
                 break;
             }
             case 'm2r:log': {

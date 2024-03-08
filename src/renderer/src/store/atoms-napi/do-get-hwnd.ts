@@ -1,8 +1,9 @@
 import { atom } from "jotai";
-import { invokeMain } from "../../xternal-to-main";
+import { invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
-import { doGetWindowIconAtom, sawContentAtom, sawContentStrAtom } from ".";
-import { appUi, clientStateAtom } from "../app-state";
+import { debugState, maniBuildStateAtom } from "@/store/state-debug";
+import { sawContentAtom, sawContentStrAtom } from "./do-get-controls";
+import { doGetWindowIconAtom } from "./do-get-icon";
 
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
@@ -34,7 +35,7 @@ export const doGetTargetHwndAtom = atom(
             const obj = JSON.parse(res || '{}') as GetTargetWindowResult;
             set(sawHandleAtom, obj);
 
-            if (appUi.uiState.iconAutoUpdate) {
+            if (debugState.uiState.iconAutoUpdate) {
                 if (obj.hwnd) {
                     set(doGetWindowIconAtom, obj.hwnd);
                 }
@@ -52,7 +53,7 @@ export const doGetTargetHwndAtom = atom(
 export const sawGetDisabledAtom = atom(
     (get) => {
         const secondActiveWindow = get(sawHandleAtom);
-        const { buildRunning } = get(clientStateAtom);
+        const { buildRunning } = get(maniBuildStateAtom);
         const hwnd = secondActiveWindow?.hwnd;
         const isDisabled = !hwnd || buildRunning;
         return isDisabled;

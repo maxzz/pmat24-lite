@@ -2,28 +2,28 @@ import { TargetPosition } from '@shared/ipc-types';
 import { atomWithProxy } from 'jotai-valtio';
 import { proxy } from 'valtio';
 
-type ClientState = {
+type ManiBuildState = {
     buildRunning: boolean;                      // content check build is runnning
     buildError: string;                         // error message if build failed
     buildFailedBody: string;                    // raw string returned from main that failed to parse
 };
 
-export const clientState = proxy<ClientState>({
+export const maniBuildState = proxy<ManiBuildState>({
     buildRunning: false,
     buildError: '',
     buildFailedBody: '',
 });
 
-export const clientStateAtom = atomWithProxy(clientState);
+export const maniBuildStateAtom = atomWithProxy(maniBuildState);
 
 //
 
-type BuildState = {
+type BuildProgressState = {
     buildCounter: number;                       // controls detection progress
-    getPosProgress: TargetPosition | null;    // get window position progress
+    getPosProgress: TargetPosition | null;      // get window position progress
 };
 
-export const buildState = proxy<BuildState>({
+export const buildProgressState = proxy<BuildProgressState>({
     buildCounter: 0,
     getPosProgress: null,
 });

@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { buildState, clientState } from "../../app-state";
-import { invokeMain } from "../../../xternal-to-main";
+import { buildProgressState, maniBuildState } from "@/store/state-debug";
+import { invokeMain } from "@/xternal-to-main";
 import { getSubError } from "@/utils";
 import { WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { lastBuildProgressAtom } from "..";
+import { lastBuildProgressAtom } from "../do-get-hwnd";
 import { EngineControlsWithMeta, controlsReplyToEngineControlWithMeta } from "./controls-meta";
 
 export const sawContentStrAtom = atom<string | undefined>('');
@@ -17,22 +17,22 @@ export const doGetWindowControlsAtom = atom(
                 throw new Error('No hwnd');
             }
 
-            if (clientState.buildRunning) {
+            if (maniBuildState.buildRunning) {
                 return;
             }
 
-            clientState.buildRunning = true;
-            buildState.buildCounter = 0;
-            clientState.buildError = '';
-            clientState.buildFailedBody = '';
+            maniBuildState.buildRunning = true;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = '';
+            maniBuildState.buildFailedBody = '';
 
             const res = await invokeMain<string>({ type: 'r2mi:get-window-controls', hwnd });
 
             const prev = get(sawContentStrAtom);
             if (prev === res) {
-                clientState.buildRunning = false;
-                buildState.buildCounter = 0;
-                clientState.buildError = '';
+                maniBuildState.buildRunning = false;
+                buildProgressState.buildCounter = 0;
+                maniBuildState.buildError = '';
                 return;
             }
             set(sawContentStrAtom, res);
@@ -42,21 +42,21 @@ export const doGetWindowControlsAtom = atom(
 
             set(sawContentAtom, final);
 
-            set(lastBuildProgressAtom, buildState.buildCounter);
-            clientState.buildRunning = false;
-            buildState.buildCounter = 0;
-            clientState.buildError = '';
+            set(lastBuildProgressAtom, buildProgressState.buildCounter);
+            maniBuildState.buildRunning = false;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = '';
 
             console.log('doGetWindowControlsAtom.set', JSON.stringify(reply, null, 4));
         } catch (error) {
             set(sawContentStrAtom, '');
             set(sawContentAtom, null);
 
-            clientState.buildRunning = false;
-            buildState.buildCounter = 0;
-            clientState.buildError = getSubError(error);
+            maniBuildState.buildRunning = false;
+            buildProgressState.buildCounter = 0;
+            maniBuildState.buildError = getSubError(error);
 
-            set(lastBuildProgressAtom, buildState.buildCounter);
+            set(lastBuildProgressAtom, buildProgressState.buildCounter);
 
             console.error(`'doGetWindowControlsAtom' ${error instanceof Error ? error.message : `${error}`}`);
         }
