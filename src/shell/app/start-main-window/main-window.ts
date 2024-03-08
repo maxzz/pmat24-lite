@@ -1,8 +1,8 @@
 import { join } from 'path';
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } from "electron";
 import { is } from '@electron-toolkit/utils';
-import { loadIniFileOptions, saveIniFileOptions } from "../utils-main/ini-file-options";
-import icon from '../../../../resources/icon.png?asset';
+import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
+import icon from '../../../../resources/icon.png?asset'; // This is only for linux
 
 const preloadPath = join(__dirname, '../preload/index.js');
 

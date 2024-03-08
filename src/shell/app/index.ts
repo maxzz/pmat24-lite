@@ -3,8 +3,7 @@ import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { connect_MainWindowListeners, createWindow } from './start-main-window/main-window';
 import { connect_ListenersForCallFromRenderer } from './start-main-window/listeners-render-calls';
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
+// This method will be called when Electron has finished initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
     
