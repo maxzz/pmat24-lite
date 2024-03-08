@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog } from "electron";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
-import { mainToRenderer } from "..";
+import { mainToRenderer } from "../main-to-renderer";
 import { loadFilesContent } from "@shell/utils-main/load-files";
 
 export async function openFileDialog(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {
