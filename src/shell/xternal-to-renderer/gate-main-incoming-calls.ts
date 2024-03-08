@@ -1,9 +1,9 @@
 import { Notification } from "electron";
 import { M4R } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
-import { getElectronModulePaths, highlightRect } from "@shell/napi-calls";
+import { getElectronModulePaths, highlightRect } from "./calls-napi";
 import { mainToRenderer } from "./main-to-renderer";
-import { openFileDialog } from "@shell/commands";
+import { openFileDialog } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";
 
 export async function callFromRendererToMain(data: M4R.ToMainCalls): Promise<void> {

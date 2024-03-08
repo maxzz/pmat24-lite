@@ -1,4 +1,4 @@
-import { TargetClientRect } from "@shell/napi-calls";
+import { TargetClientRect } from "@shared/ipc-types";
 import { atom } from "jotai";
 import { sawHandleAtom, sendToMain } from "..";
 

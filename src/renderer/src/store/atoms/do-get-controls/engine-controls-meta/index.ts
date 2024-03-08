@@ -1,4 +1,4 @@
-import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shell/napi-calls";
+import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { FieldPath, MPath, MSAA_ROLE, Meta, splitPool } from "pm-manifest";
 import { uuid } from "pm-manifest/src/utils";
 

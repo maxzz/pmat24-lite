@@ -1,4 +1,4 @@
-import { mainToRenderer } from "../../xternal-to-renderer";
+import { mainToRenderer } from "..";
 import { DragAndDropParams, DragAndDropResult, TargetPosition, addon } from ".";
 
 export function getWindowPos(hwnd: string): Promise<TargetPosition> {

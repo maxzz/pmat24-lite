@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { buildState, clientState } from "../../app-state";
-import { EngineControl } from "@shell/napi-calls";
+import { EngineControl } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 import { lastBuildProgressAtom } from "..";
 import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";

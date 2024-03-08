@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { invokeMain } from "../../xternal-to-main";
-import { GetTargetWindowResult } from "@shell/napi-calls";
+import { GetTargetWindowResult } from "@shared/ipc-types";
 import { doGetWindowIconAtom, sawContentAtom, sawContentStrAtom } from ".";
 import { appUi, clientStateAtom } from "../app-state";
 

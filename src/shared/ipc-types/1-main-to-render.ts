@@ -1,4 +1,4 @@
-import { TargetPosition } from "@shell/napi-calls";
+import { TargetPosition } from "@shared/ipc-types";
 import { FileContent } from "./3-file-content";
 
 export namespace M2R { // Main to Renderer

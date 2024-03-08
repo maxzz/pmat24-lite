@@ -1,4 +1,4 @@
-import { TargetClientRect } from "@shell/napi-calls";
+import { TargetClientRect } from "@shared/ipc-types";
 
 export namespace M4R { // Main from Renderer
     export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog

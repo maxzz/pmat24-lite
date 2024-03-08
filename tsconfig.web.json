@@ -10,7 +10,16 @@
         "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
         "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
         "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/main-to-renderer.ts"
+        "src/shell/xternal-to-renderer/main-to-renderer.ts",
+        "src/shell/xternal-to-renderer/commands",
+        "src/shell/xternal-to-renderer/calls-napi/pmat-plugin-types",
+        "src/shell/xternal-to-renderer/calls-napi/get-target-hwnd.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/get-window-controls.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/get-window-icon.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/get-window-mani.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/get-window-pos.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/highligth-rect.tsx",
+        "src/shell/xternal-to-renderer/calls-napi/index.ts"
     ],
     "compilerOptions": {
         "composite": true,

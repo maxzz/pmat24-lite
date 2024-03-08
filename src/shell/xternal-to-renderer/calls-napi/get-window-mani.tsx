@@ -1,6 +1,6 @@
 import { addon } from ".";
-import { mainToRenderer } from "../../xternal-to-renderer";
-import { mainStore } from "../store-main";
+import { mainToRenderer } from "..";
+import { mainStore } from "../../app/store-main";
 import { ManifestForWindowCreatorParams, ManifestForWindowCreatorResult } from "./pmat-plugin-types";
 
 export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
