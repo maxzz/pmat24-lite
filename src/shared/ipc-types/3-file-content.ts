@@ -1,4 +1,5 @@
 export type FileContent = {
+    id: number;                     // unique id as relative time from the start of the app
     name: string;                   // file name wo/ path
     fullPath: string;               // file full path and filename
     cnt: string;                    // file content or error message

@@ -1,6 +1,7 @@
 import { FileContent } from "@shared/ipc-types";
 import { ext } from "./os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-data-transfer-item-list";
+import { uuid } from "./uuid";
 
 type DropItem = {
     name: string;
@@ -48,6 +49,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
             }
             if (item.notOur) {
                 res.push({
+                    id: uuid.asRelativeNumber(),
                     entry: item.entry,
                     file: item.file,
                     name: item.name,
@@ -60,6 +62,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
             }
             const cnt = await textFileReader(item.file);
             res.push({
+                id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
                 name: item.name,
@@ -68,6 +71,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
             });
         } catch (error) {
             res.push({
+                id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
                 name: item.name,
