@@ -47,7 +47,7 @@ export namespace R2M { // Main from Renderer
         type: 'r2m:test';
     };
 
-    export type ToMainCalls =
+    export type AllCalls =
         | LoadTestManifests
 
         | NotifyMessage

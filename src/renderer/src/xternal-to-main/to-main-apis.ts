@@ -15,12 +15,12 @@ mainApi?.setCbCallFromMain((_event: unknown, data: unknown) => worldStore.update
 
 // call
 
-export function sendToMain(data: R2M.ToMainCalls): void {
+export function sendToMain(data: R2M.AllCalls): void {
     mainApi?.callMain(data);
 }
 
 // invoke
 
-export async function invokeMain<TResult>(data: R2MInvoke.InvokeCalls): Promise<TResult | undefined> {
-    return mainApi?.invokeMain<R2MInvoke.InvokeCalls, TResult>(data);
+export async function invokeMain<TResult>(data: R2MInvoke.AllInvokes): Promise<TResult | undefined> {
+    return mainApi?.invokeMain<R2MInvoke.AllInvokes, TResult>(data);
 }

@@ -1,4 +1,7 @@
 export namespace R2MInvoke { // Main from Renderer invoke and get result
+
+    // load
+
     type DoLoadfiles = {
         type: 'r2mi:load-files';
         filenames: string[];
@@ -14,6 +17,8 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         type: 'r2mi:load-files3';
         filenames: string[];
     };
+
+    // napi
 
     type GetSecondWindowHandle = {
         type: 'r2mi:get-target-hwnd';
@@ -40,7 +45,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         hwnd: string;
     };
 
-    export type InvokeCalls =
+    //
+
+    export type AllInvokes =
         | DoLoadfiles
         | DoLoadfiles2/* | DoLoadfiles3*/
         | GetSecondWindowHandle

@@ -39,7 +39,7 @@ export namespace M2R { // Main to Renderer
         body: string;
     };
 
-    export type MainToRendererCalls =
+    export type AllTypes =
         | DarkMode
         | ReloadFiles
         | OpenedFiles

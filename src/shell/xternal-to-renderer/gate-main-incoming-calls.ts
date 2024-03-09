@@ -6,7 +6,7 @@ import { mainToRenderer } from "./main-to-renderer";
 import { openFileDialog } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";
 
-export async function callFromRendererToMain(data: R2M.ToMainCalls): Promise<void> {
+export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
         case 'r2m:file:load-manifests-dialog': {
             openFileDialog(winApp, { openDirs: data.opendirs });

@@ -5,7 +5,7 @@ import { buildProgressState, maniBuildState } from "@/store/state-debug";
 
 export const doFromMainAtom = atom(
     null,
-    (get, set, data: M2R.MainToRendererCalls) => {
+    (get, set, data: M2R.AllTypes) => {
         switch (data.type) {
             case 'm2r:dark-mode': {
                 console.log('case dark-mode, active', data.active);

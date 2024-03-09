@@ -2,14 +2,20 @@ import { R2MInvoke } from "@shared/ipc-types";
 import { loadFilesContent } from "@shell/utils-main/load-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./calls-napi";
 
-export async function invokeFromRendererToMain(data: R2MInvoke.InvokeCalls): Promise<any> {
+export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Promise<any> {
     switch (data.type) {
+        
+        // load
+        
         case 'r2mi:load-files': {
             return loadFilesContent(data.filenames, data.allowedExt);
         }
         case 'r2mi:load-files2': {
             return loadFilesContent(data.filenames);
         }
+
+        // napi
+
         case 'r2mi:get-target-hwnd': {
             const res = await getTargetHwnd();
             return res;
@@ -30,6 +36,9 @@ export async function invokeFromRendererToMain(data: R2MInvoke.InvokeCalls): Pro
             const res = await getWindowMani(data.hwnd, data.wantXml);
             return res;
         }
+
+        //
+
         default: {
             const really: never = data;
             throw new Error(`\nUnknown IPC-invoke: ${JSON.stringify(really)}\n`);

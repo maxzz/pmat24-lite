@@ -18,7 +18,7 @@ export function WorldToReactListener() {
     const doFromMain = useSetAtom(doFromMainAtom);
 
     useEffect(() => {
-        const cb = (data?: unknown) => data && doFromMain(data as M2R.MainToRendererCalls);
+        const cb = (data?: unknown) => data && doFromMain(data as M2R.AllTypes);
         worldStore.listeners.add(cb);
         return () => {
             worldStore.listeners.delete(cb); // TODO: we can remove all listeners from HMR.
