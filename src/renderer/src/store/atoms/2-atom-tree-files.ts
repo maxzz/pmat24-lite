@@ -9,7 +9,7 @@ export type TreeFileItem =
     }
     & DataItem;
 
-export const treeFilesAtom = atom<TreeFileItem[] | TreeFileItem>(
+export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
         const files = get(filesContentAtom);
         console.log('treeFilesAtom', files);
