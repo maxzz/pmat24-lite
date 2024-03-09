@@ -1,6 +1,6 @@
 import { TargetClientRect } from "@shared/ipc-types";
 
-export namespace M4R { // Main from Renderer
+export namespace R2M { // Main from Renderer
     export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog
         type: 'r2m:file:load-manifests-dialog';
         opendirs?: boolean;

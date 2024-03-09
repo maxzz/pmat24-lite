@@ -1,4 +1,4 @@
-export namespace M4RInvoke { // Main from Renderer invoke and get result
+export namespace R2MInvoke { // Main from Renderer invoke and get result
     type DoLoadfiles = {
         type: 'r2mi:load-files';
         filenames: string[];

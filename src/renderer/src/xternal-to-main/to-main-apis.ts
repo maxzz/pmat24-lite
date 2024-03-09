@@ -1,4 +1,4 @@
-import { M4RInvoke, M4R } from "@shared/ipc-types";
+import { R2MInvoke, R2M } from "@shared/ipc-types";
 import { worldStore } from "./ipc-react-listener";
 
 // main process APIs
@@ -15,12 +15,12 @@ mainApi?.setCbCallFromMain((_event: unknown, data: unknown) => worldStore.update
 
 // call
 
-export function sendToMain(data: M4R.ToMainCalls): void {
+export function sendToMain(data: R2M.ToMainCalls): void {
     mainApi?.callMain(data);
 }
 
 // invoke
 
-export async function invokeMain<TResult>(data: M4RInvoke.InvokeCalls): Promise<TResult | undefined> {
-    return mainApi?.invokeMain<M4RInvoke.InvokeCalls, TResult>(data);
+export async function invokeMain<TResult>(data: R2MInvoke.InvokeCalls): Promise<TResult | undefined> {
+    return mainApi?.invokeMain<R2MInvoke.InvokeCalls, TResult>(data);
 }

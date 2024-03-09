@@ -1,7 +1,7 @@
 import { M2R } from "@shared/ipc-types";
 import { winApp } from "@shell/start-main-window/main-window";
 
-export function mainToRenderer(data: M2R.RendererCalls) {
+export function mainToRenderer(data: M2R.MainToRendererCalls) {
     const channel: PreloadChannelNames = 'send-to-renderer';
     winApp?.webContents.send(channel, data);
 }

@@ -1,8 +1,8 @@
-import { M4RInvoke } from "@shared/ipc-types";
+import { R2MInvoke } from "@shared/ipc-types";
 import { loadFilesContent } from "@shell/utils-main/load-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./calls-napi";
 
-export async function invokeFromRendererToMain(data: M4RInvoke.InvokeCalls): Promise<any> {
+export async function invokeFromRendererToMain(data: R2MInvoke.InvokeCalls): Promise<any> {
     switch (data.type) {
         case 'r2mi:load-files': {
             return loadFilesContent(data.filenames, data.allowedExt);
