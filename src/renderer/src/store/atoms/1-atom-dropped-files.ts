@@ -5,16 +5,13 @@ import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 
 /**
  * File content is coming from different sources:
- * - without electron (web process only)
- *   - dropped files
+ *   * a. without electron (web process only): dropped files
  *     - just files from a single folder (no folders or subfolders)
- * - with electron
- *   - dropped file names from renderer
+ *   * b. with electron: dropped file names from renderer
  *     - just files from a single folder (no folders or subfolders)
- * - with electron (main process)
- *   - dialog open folder
+ *   * c. with electron (main process): dialog open folder
  *     - from a single chosen folder all files and folders recursively
- *   - dialog open files
+ *   * d. with electron (main process): dialog open files
  *     - just files from a single folder (no folders or subfolders)
  */
 export const filesContentAtom = atom<FileContent[]>([]);
