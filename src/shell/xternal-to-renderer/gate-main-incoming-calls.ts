@@ -3,13 +3,13 @@ import { R2M } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
 import { getElectronModulePaths, highlightRect } from "./calls-napi";
 import { mainToRenderer } from "./main-to-renderer";
-import { openFileDialog } from "./commands";
+import { openFileDialogAndReply } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";
 
 export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
         case 'r2m:file:load-manifests-dialog': {
-            openFileDialog(winApp, { openDirs: data.opendirs });
+            openFileDialogAndReply(winApp, { openDirs: data.opendirs });
             break;
         }
 
@@ -39,7 +39,7 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
         //
         
         case 'r2m:file:load-test-manifests': {
-            openFileDialog(winApp);
+            openFileDialogAndReply(winApp);
             // const loadedFiles = await mainStore.loadTestManifests();
             // mainToRenderer({ type: 'm2r:opened-files', filesCnt: loadedFiles });
             break;

@@ -3,7 +3,7 @@ import { pmAllowedToOpenExt } from "@shared/ipc-types";
 import { mainToRenderer } from "../main-to-renderer";
 import { loadFilesContent } from "@shell/utils-main/load-files";
 
-export async function openFileDialog(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {
+export async function openFileDialogAndReply(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {
     if (!appWin) {
         return;
     }
