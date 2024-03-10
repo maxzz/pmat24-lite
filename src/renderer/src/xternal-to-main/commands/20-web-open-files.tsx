@@ -12,6 +12,8 @@ export function FileInputDlg({ openFolder, onChangeDone }: { openFolder?: boolea
             accept=".dpm,.dpn"
             {...doDirOptions}
             onChange={(event) => {
+                console.log('FileInputDlg onChange', event.target.files);
+                
                 event.target.files && doDialogFiles([...event.target.files]);
                 onChangeDone?.();
             }}

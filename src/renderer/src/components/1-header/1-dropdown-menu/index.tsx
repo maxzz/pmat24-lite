@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { sendToMain } from "@/xternal-to-main";
+import { hasMain, sendToMain } from "@/xternal-to-main";
 import { doGetTargetHwndAtom } from "@/store";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn/button";
@@ -17,6 +17,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
+import { FileInputDlg } from "@/xternal-to-main/commands/20-web-open-files";
 
 export function DropdownMenuDemo() {
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);
@@ -30,9 +31,23 @@ export function DropdownMenuDemo() {
 
             <DropdownMenuContent className="w-42 text-xs" align="start">
 
-                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                    Open Files...
-                </DropdownMenuItem>
+                {hasMain()
+                    ? (
+                        <DropdownMenuItem onClick={() => {
+                            sendToMain({ type: "r2m:file:load-manifests-dialog" });
+                        }}>
+                            Open Files...
+                        </DropdownMenuItem>
+                    )
+                    : (
+                        <DropdownMenuItem asChild>
+                            <label className="cursor-pointer">
+                                <FileInputDlg openFolder={false} />
+                                <div className="">Open Folder2...</div>
+                            </label>
+                        </DropdownMenuItem>
+                    )
+                }
 
                 <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
                     Open Folder...
