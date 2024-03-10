@@ -99,12 +99,14 @@ export async function webLoadDataTransferContent(dataTransferItemList: DataTrans
 async function webGetFilesFromDialog(files: File[]): Promise<DropItem[]> {
     let rv: DropItem[] = [];
     try {
-        rv = await Promise.all(files.map(async (file) => ({
-            name: file.name,
-            fullPath: file.webkitRelativePath,
-            entry: undefined,
-            file: file,
-        })));
+        rv = await Promise.all(files.map(
+            async (file) => ({
+                name: file.name,
+                fullPath: file.webkitRelativePath,
+                entry: undefined,
+                file: file,
+            })
+        ));
     } catch (error) {
         console.error('cannot read from File[]', files);
     }
