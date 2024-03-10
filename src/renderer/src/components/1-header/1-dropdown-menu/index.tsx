@@ -41,10 +41,10 @@ export function DropdownMenuDemo() {
                     )
                     : (
                         <label>
-                            <DropdownMenuItem asChild>
-                                <>
-                                    <FileInputDlg openFolder={false} />
+                            <FileInputDlg openFolder={false} />
 
+                            <DropdownMenuItem>
+                                <>
                                     {/* <div className="">Open Folder2...</div> */}
                                     Open Folder2...
                                 </>
