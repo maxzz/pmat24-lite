@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 import { doGetTargetHwndAtom } from "@/store";
 import { IconMenuHamburger } from "@/ui/icons";
-import { Button } from "@/ui/shadcn/button";
+import { Button } from "@/ui/shadcn";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -40,14 +40,36 @@ export function DropdownMenuDemo() {
                         </DropdownMenuItem>
                     )
                     : (
-                        <DropdownMenuItem asChild>
-                            <label className="cursor-pointer">
-                                <FileInputDlg openFolder={false} />
-                                <div className="">Open Folder2...</div>
-                            </label>
-                        </DropdownMenuItem>
+                        <label>
+                            <DropdownMenuItem asChild>
+                                <>
+                                    <FileInputDlg openFolder={false} />
+
+                                    {/* <div className="">Open Folder2...</div> */}
+                                    Open Folder2...
+                                </>
+                            </DropdownMenuItem>
+                        </label>
                     )
                 }
+
+                {/* : (
+                <Button asChild>
+                    <DropdownMenuItem asChild>
+                        <label className="cursor-pointer">
+                            <FileInputDlg openFolder={false} />
+                            <div className="">Open Folder2...</div>
+                        </label>
+                    </DropdownMenuItem>
+                </Button>
+                ) */}
+
+                {/* <DropdownMenuItem asChild>
+                    <label className="cursor-pointer">
+                        <FileInputDlg openFolder={false} />
+                        <div className="">Open Folder2...</div>
+                    </label>
+                </DropdownMenuItem> */}
 
                 <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
                     Open Folder...
