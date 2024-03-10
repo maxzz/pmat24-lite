@@ -18,11 +18,13 @@ import {
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
 import { FileInputDlg } from "@/xternal-to-main/commands/20-web-open-files";
+import { useState } from "react";
 
 export function DropdownMenuDemo() {
+    const [open, onOpenChange] = useState<boolean>(false);
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);
     return (
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={onOpenChange}>
             <DropdownMenuTrigger asChild>
                 <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
@@ -41,9 +43,11 @@ export function DropdownMenuDemo() {
                     )
                     : (
                         <label>
-                            <FileInputDlg openFolder={false} />
-
-                            <DropdownMenuItem asChild>
+                            <FileInputDlg openFolder={false} onChangeDone={() => onOpenChange(false)} />
+                            <DropdownMenuItem onSelect={(e) => {
+                                e.preventDefault();
+                                // onOpenChange(false);
+                            }}>
                                 <>
                                     {/* <div className="">Open Folder2...</div> */}
                                     Open Folder2...
@@ -52,6 +56,18 @@ export function DropdownMenuDemo() {
                         </label>
                     )
                 }
+
+                {/* <label>
+                    <FileInputDlg openFolder={false} />
+
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                        <>
+                            {/* <div className="">Open Folder2...</div> * /}
+                            Open Folder2...
+                        </>
+                    </DropdownMenuItem>
+                </label> */}
+
 
                 {/* : (
                 <Button asChild>
