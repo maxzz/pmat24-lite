@@ -8,6 +8,6 @@ export * from './merge-options';
 export * from "./merge-refs";
 export * from "./uuid";
 
-export * from './web-drop-utils';
-export * from './web-data-transfer-item-list';
+export * from '../store/atoms/1-atom-dropped-files/web-drop-utils';
+export * from '../store/atoms/1-atom-dropped-files/web-data-transfer-item-list';
 export * from './x-sub-error';

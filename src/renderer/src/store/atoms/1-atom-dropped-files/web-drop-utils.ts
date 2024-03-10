@@ -1,7 +1,7 @@
 import { FileContent } from "@shared/ipc-types";
-import { ext } from "./os-utils";
+import { ext } from "../../../utils/os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-data-transfer-item-list";
-import { uuid } from "./uuid";
+import { uuid } from "../../../utils/uuid";
 
 type DropItem = {
     name: string;
