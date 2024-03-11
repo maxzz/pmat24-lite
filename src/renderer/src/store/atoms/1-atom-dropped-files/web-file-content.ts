@@ -1,6 +1,6 @@
 import { FileContent } from "@shared/ipc-types";
 import { ext } from "../../../utils/os-utils";
-import { fileEntryToFile, getAllFileEntries } from "./web-data-transfer-item-list";
+import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../utils/uuid";
 
 type DropItem = {
@@ -10,24 +10,6 @@ type DropItem = {
     entry?: FileSystemFileEntry; // FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     file: File;                  // File object from async entry.file() call
 };
-
-// Web drag and drop
-
-async function webGetFilesTransferItems(dataTransferItemList: DataTransferItemList): Promise<DropItem[]> {
-    const entries = await getAllFileEntries(dataTransferItemList);
-    let rv: DropItem[] = [];
-    try {
-        rv = await Promise.all(entries.map(async (entry) => ({
-            name: entry.name,
-            fullPath: entry.fullPath,
-            entry,
-            file: await fileEntryToFile(entry),
-        })));
-    } catch (error) {
-        console.error('cannot read from DataTransferItemList', dataTransferItemList);
-    }
-    return rv;
-}
 
 function textFileReader(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -40,13 +22,14 @@ function textFileReader(file: File): Promise<string> {
     });
 }
 
-async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]> {
+async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
     for (const item of dropItems) {
         try {
             if (!item.file) {
                 throw new Error('Empty entry or file');
             }
+
             if (item.notOur) {
                 res.push({
                     id: uuid.asRelativeNumber(),
@@ -60,6 +43,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
                 });
                 continue;
             }
+
             const cnt = await textFileReader(item.file);
             res.push({
                 id: uuid.asRelativeNumber(),
@@ -69,6 +53,7 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
                 fullPath: item.fullPath,
                 cnt,
             });
+
         } catch (error) {
             res.push({
                 id: uuid.asRelativeNumber(),
@@ -84,43 +69,67 @@ async function webLoadFilesContent(dropItems: DropItem[]): Promise<FileContent[]
     return res;
 }
 
-export async function webLoadDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
+// Web drag and drop
+
+export async function webLoadAfterDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(dataTransferItemList);
+
     items = allowedExt
         ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())
             ? item
             : { ...item, notOur: true, failed: true })
         : items;
-    return webLoadFilesContent(items);
+
+    return mapDropItemsToFileContents(items);
+
+    async function webGetFilesTransferItems(dataTransferItemList: DataTransferItemList): Promise<DropItem[]> {
+        const entries = await getAllFileEntries(dataTransferItemList);
+        let rv: DropItem[] = [];
+        try {
+            rv = await Promise.all(entries.map(
+                async (entry) => ({
+                    name: entry.name,
+                    fullPath: entry.fullPath,
+                    entry,
+                    file: await fileEntryToFile(entry),
+                }))
+            );
+        } catch (error) {
+            console.error('cannot read from DataTransferItemList', dataTransferItemList);
+        }
+        return rv;
+    }
 }
 
 // Web dialog open file/directory
 
-async function webGetFilesFromDialog(files: File[]): Promise<DropItem[]> {
-    let rv: DropItem[] = [];
-    try {
-        rv = await Promise.all(files.map(
-            async (file) => ({
-                name: file.name,
-                fullPath: file.webkitRelativePath,
-                entry: undefined,
-                file: file,
-            })
-        ));
-    } catch (error) {
-        console.error('cannot read from File[]', files);
-    }
-    return rv;
-}
+export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
+    let items: DropItem[] = await mapToDropItems(files);
 
-export async function webLoadDialogOpen(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
-    let items: DropItem[] = await webGetFilesFromDialog(files);
     items = allowedExt
         ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())
             ? item
             : { ...item, notOur: true, failed: true })
         : items;
-    return webLoadFilesContent(items);
+
+    return mapDropItemsToFileContents(items);
+
+    async function mapToDropItems(files: File[]): Promise<DropItem[]> {
+        let rv: DropItem[] = [];
+        try {
+            rv = await Promise.all(files.map(
+                async (file) => ({
+                    name: file.name,
+                    fullPath: file.webkitRelativePath,
+                    entry: undefined,
+                    file: file,
+                })
+            ));
+        } catch (error) {
+            console.error('cannot read from File[]', files);
+        }
+        return rv;
+    }
 }
 
 // electron filenames
