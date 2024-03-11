@@ -59,7 +59,7 @@ function DropdownMenuItem_Folder({ setMenuOpen, children }: DropdownMenuItemWith
     );
 }
 
-export function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_FileOpen({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
     return (<>
         {hasMain()
@@ -89,7 +89,7 @@ export function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) =
     </>);
 }
 
-export function PersistentMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     const doDialogFiles = useSetAtom(doSetFilesFromDialogAtom);
     return (<>
         <InputFileAsDlg

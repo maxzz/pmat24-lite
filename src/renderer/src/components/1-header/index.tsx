@@ -1,5 +1,5 @@
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
-import { DropdownMenuDemo } from "./1-dropdown-menu";
+import { DropdownMenuDemo } from "./1-main-menu";
 
 export function SectionHeader() {
     return (
