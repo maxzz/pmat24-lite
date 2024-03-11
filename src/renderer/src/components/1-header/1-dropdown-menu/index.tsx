@@ -57,6 +57,35 @@ function DropdownMenuItemWithInputFileAsDlg({ setMenuOpen, onFiles, children, op
     );
 }
 
+function DropdownMenuItemWithInputFolderAsDlg({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
+    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
+    // const doDialogFiles = useSetAtom(doDialogFilesAtom);
+    return (
+        <DropdownMenuItem asChild
+            onSelect={(e) => e.preventDefault()}
+            onFocus={(e) => {
+                if (fileDlgOpen) {
+                    setMenuOpen(false);
+                }
+                setFileDlgOpen(false);
+            }}
+        >
+            <label htmlFor="open-folders" onClick={() => setFileDlgOpen(true)}>
+                {/* <InputFileAsDlg
+                    accept=".dpm,.dpn"
+                    openFolder={openFolder}
+                    onChange={(event) => {
+                        // event.target.files && doDialogFiles([...event.target.files]);
+                        event.target.files && onFiles([...event.target.files]);
+                        setMenuOpen(false);
+                    }}
+                /> */}
+                {children}
+            </label>
+        </DropdownMenuItem>
+    );
+}
+
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
     // const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
@@ -68,6 +97,18 @@ export function DropdownMenuDemo() {
             <DropdownMenuTrigger asChild>
                 <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
+
+                    <InputFileAsDlg
+                        id="open-folders"
+                        accept=".dpm,.dpn"
+                        openFolder={true}
+                        onChange={(event) => {
+                            // event.target.files && doDialogFiles([...event.target.files]);
+                            event.target.files && doDialogFiles([...event.target.files]);
+                            setOpen(false);
+                        }}
+                    />
+
                 </Button>
             </DropdownMenuTrigger>
 
@@ -115,9 +156,9 @@ export function DropdownMenuDemo() {
                         </DropdownMenuItem>
                     )
                     : (
-                        <DropdownMenuItemWithInputFileAsDlg setMenuOpen={setOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
+                        <DropdownMenuItemWithInputFolderAsDlg setMenuOpen={setOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
                             Open Folder...
-                        </DropdownMenuItemWithInputFileAsDlg>
+                        </DropdownMenuItemWithInputFolderAsDlg>
                     )
                 }
 
