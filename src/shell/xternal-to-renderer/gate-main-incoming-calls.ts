@@ -15,15 +15,16 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
 
         //
 
-        case 'r2m:notify': {
-            new Notification({ title: 'My Noti', body: data.message }).show();
-            break;
-        }
         case 'r2m:dark-mode': {
             data.active;
             break;
         }
 
+        case 'r2m:notify': {
+            new Notification({ title: 'My Noti', body: data.message }).show();
+            break;
+        }
+        
         // napi
 
         case 'r2m:set-napi-options': {

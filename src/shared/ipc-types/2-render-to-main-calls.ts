@@ -8,8 +8,9 @@ export namespace R2M { // Main from Renderer
 
     //
 
-    export type ClientOptions = {
-        maxControls: number;
+    export type DarkMode = {
+        type: 'r2m:dark-mode';
+        active: boolean;
     };
 
     export type NotifyMessage = {
@@ -17,17 +18,18 @@ export namespace R2M { // Main from Renderer
         message: string;
     };
 
-    export type DarkMode = {
-        type: 'r2m:dark-mode';
-        active: boolean;
-    };
+    //
 
-    export type SetClientOptions = {
-        type: 'r2m:set-napi-options';
-        state: ClientOptions;
+    export type NapiOptions = {
+        maxControls: number;
     };
 
     // napi
+
+    export type SetNapiOptions = {      // ui options to control napi calls
+        type: 'r2m:set-napi-options';
+        state: NapiOptions;
+    };
 
     export type CancelDetection = {
         type: 'r2m:cancel-detection';
@@ -39,7 +41,7 @@ export namespace R2M { // Main from Renderer
         rect: TargetClientRect;
     };
 
-    //
+    // tests
 
     export type LoadTestManifests = {   // will reply with 'm2r:loaded-files' from dialog
         type: 'r2m:file:load-test-manifests';
@@ -52,10 +54,10 @@ export namespace R2M { // Main from Renderer
     export type AllCalls =
         | LoadTestManifests
 
-        | NotifyMessage
         | DarkMode
-        | SetClientOptions
+        | NotifyMessage
 
+        | SetNapiOptions
         | CancelDetection
         | HighlightRect
 

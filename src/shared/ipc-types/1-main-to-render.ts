@@ -5,6 +5,13 @@ export namespace M2R { // Main to Renderer
 
     // menu commands
 
+    export type OpenedFiles = {
+        type: 'm2r:loaded-files';
+        filesCnt: FileContent[];
+    };
+
+    //
+
     export type DarkMode = {
         type: 'm2r:dark-mode';
         active: boolean;
@@ -14,10 +21,7 @@ export namespace M2R { // Main to Renderer
         type: 'm2r:reload-files';
     };
 
-    export type OpenedFiles = {
-        type: 'm2r:loaded-files';
-        filesCnt: FileContent[];
-    };
+    // napi
 
     export type DetectionProgress = {
         type: 'm2r:detection-progress';
@@ -28,6 +32,8 @@ export namespace M2R { // Main to Renderer
         type: 'm2r:position-progress';
         progress: TargetPosition;
     };
+
+    //
 
     export type FailedRawContent = {
         type: 'm2r:failed-raw-content';
@@ -40,11 +46,15 @@ export namespace M2R { // Main to Renderer
     };
 
     export type AllTypes =
+        | OpenedFiles
+
         | DarkMode
         | ReloadFiles
-        | OpenedFiles
+
         | DetectionProgress
-        | FailedRawContent
         | PositionProgress
-        | LogMainToRenderer;
+        
+        | FailedRawContent
+        | LogMainToRenderer
+        ;
 }
