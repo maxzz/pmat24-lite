@@ -22,16 +22,19 @@ import { useState } from "react";
 
 export function DropdownMenuDemo() {
     const [open, onOpenChange] = useState<boolean>(false);
+    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);
     return (
-        <DropdownMenu open={open} onOpenChange={onOpenChange}>
+        <DropdownMenu open={open} onOpenChange={onOpenChange} modal={true}>
             <DropdownMenuTrigger asChild>
                 <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-42 text-xs" align="start">
+            <DropdownMenuContent className="w-42 text-xs" align="start" onFocusOutside={() => {
+                console.log('onFocusOutside');
+            }}>
 
                 {hasMain()
                     ? (
@@ -42,18 +45,45 @@ export function DropdownMenuDemo() {
                         </DropdownMenuItem>
                     )
                     : (
-                        <label>
-                            <FileInputDlg openFolder={false} onChangeDone={() => onOpenChange(false)} />
-                            <DropdownMenuItem onSelect={(e) => {
+                        <DropdownMenuItem asChild
+                            onSelect={(e) => {
+                                console.log('menuitem click', e);
+
                                 e.preventDefault();
                                 // onOpenChange(false);
-                            }}>
+                                // setTimeout(() => {
+                                //     console.log('timeout');
+                                //     onOpenChange(false);
+                                // }, 1000);
+                            }}
+                            onFocus={(e) => {
+                                console.log('menuitem focus', e);
+                                if (fileDlgOpen) {
+                                    onOpenChange(false);
+                                }
+                                setFileDlgOpen(false);
+                            }}
+                        >
+                            <label>
+                                <FileInputDlg
+                                    openFolder={false}
+                                    onChangeDone={(event) => {
+                                        onOpenChange(false);
+                                        // event.preventDefault();
+                                    }}
+                                    onClick={(event) => {
+                                        console.log('FileInputDlg onClick', event);
+                                        setFileDlgOpen(true);
+                                        //event.preventDefault();
+                                        // onOpenChange(false);
+                                    }}
+                                />
                                 <>
                                     {/* <div className="">Open Folder2...</div> */}
                                     Open Folder2...
                                 </>
-                            </DropdownMenuItem>
-                        </label>
+                            </label>
+                        </DropdownMenuItem>
                     )
                 }
 
