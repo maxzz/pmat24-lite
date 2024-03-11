@@ -8,6 +8,20 @@ import { winApp } from "@shell/start-main-window/main-window";
 
 export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
+        case 'r2m:menu:command': {
+            switch (data.what) {
+                case 'exit': {
+                    winApp?.close();
+                    break;
+                }
+                case 'open-dev-tools': {
+                    winApp?.webContents.openDevTools();
+                    break;
+                }
+            }
+            break;
+        }
+
         case 'r2m:file:load-manifests-dialog': {
             openFileDialogAndReply(winApp, { openDirs: data.openDirs });
             break;

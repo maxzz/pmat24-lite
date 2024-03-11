@@ -19,6 +19,7 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { useState } from "react";
 import { PersistentMenuItems, FileOpenMenuItems } from "./10-file-open";
+import { MenuItem_FileExit } from "./19-file-exit";
 
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
@@ -71,13 +72,7 @@ export function DropdownMenuDemo() {
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
 
-                {hasMain() && (<>
-                    <DropdownMenuSeparator />
-
-                    <DropdownMenuItem>
-                        Exit
-                    </DropdownMenuItem>
-                </>)}
+                <MenuItem_FileExit />
 
                 {/* <DropdownMenuSeparator /> */}
 

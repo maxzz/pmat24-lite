@@ -1,6 +1,11 @@
 import { TargetClientRect } from "@shared/ipc-types";
 
 export namespace R2M { // Main from Renderer
+    export type MenuCommand = {   // will reply with 'm2r:loaded-files' from dialog
+        type: 'r2m:menu:command';
+        what: 'exit' | 'open-dev-tools';
+    };
+
     export type LoadManifestsDialog = {   // will reply with 'm2r:loaded-files' from dialog
         type: 'r2m:file:load-manifests-dialog';
         openDirs?: boolean;
@@ -52,6 +57,7 @@ export namespace R2M { // Main from Renderer
     };
 
     export type AllCalls =
+        | MenuCommand
         | LoadTestManifests
 
         | DarkMode
