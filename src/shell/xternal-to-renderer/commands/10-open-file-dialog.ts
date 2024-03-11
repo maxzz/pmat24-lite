@@ -18,7 +18,7 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
         }
 
         const filesCnt = loadFilesContent(filePaths, pmAllowedToOpenExt);
-        mainToRenderer({ type: 'm2r:opened-files', filesCnt });
+        mainToRenderer({ type: 'm2r:loaded-files', filesCnt });
             
     } catch (error) {
         console.error(error);

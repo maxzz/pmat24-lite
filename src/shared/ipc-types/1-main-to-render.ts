@@ -15,7 +15,7 @@ export namespace M2R { // Main to Renderer
     };
 
     export type OpenedFiles = {
-        type: 'm2r:opened-files';
+        type: 'm2r:loaded-files';
         filesCnt: FileContent[];
     };
 

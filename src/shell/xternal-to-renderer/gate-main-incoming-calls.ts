@@ -23,7 +23,10 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
             data.active;
             break;
         }
-        case 'r2m:set-client-options': {
+
+        // napi
+
+        case 'r2m:set-napi-options': {
             mainStore.maxControls = data.state.maxControls;
             break;
         }
@@ -36,12 +39,12 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
             break;
         }
 
-        //
+        // tests
         
         case 'r2m:file:load-test-manifests': {
             openFileDialogAndReply(winApp);
             // const loadedFiles = await mainStore.loadTestManifests();
-            // mainToRenderer({ type: 'm2r:opened-files', filesCnt: loadedFiles });
+            // mainToRenderer({ type: 'm2r:loaded-files', filesCnt: loadedFiles });
             break;
         }
         case 'r2m:test': {

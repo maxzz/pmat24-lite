@@ -1,5 +1,5 @@
 import { proxy, subscribe } from 'valtio';
-import { sendClientOptions } from '@/xternal-to-main';
+import { sendNapiOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
 import { DebugMonitorState, initialDebugMonitorState } from './state-debug-monitor';
 
@@ -41,6 +41,6 @@ function loadUiInitialState(): DebugState {
 subscribe(debugState.uiState, () => {
     //console.log('store ui  ', appUi.uiState);
 
-    sendClientOptions();
+    sendNapiOptions();
     localStorage.setItem(STORAGE_UI_KEY, JSON.stringify({ [STORAGE_UI_VER]: debugState.uiState }));
 });

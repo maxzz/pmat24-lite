@@ -13,7 +13,7 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
         const files = get(filesContentAtom);
         
-        console.log('treeFilesAtom', files);
+        console.log('treeFiles.atom', files);
 
         if (!files.length) {
             return [];

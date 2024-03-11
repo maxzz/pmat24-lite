@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
-import { doFromMainAtom } from "./gate-react-listener-atom";
 import { sendToMain } from "./to-main-apis";
+import { doFromMainAtom } from "./gate-react-listener-atom";
 import { debugState } from "../store/state-debug";
 
 export const worldStore = {
@@ -30,13 +30,13 @@ export function WorldToReactListener() {
 
 // Initial state exchange with main process
 
-export function sendClientOptions() {
-    sendToMain({ type: 'r2m:set-client-options', state: { maxControls: debugState.uiState.maxControls } });
+export function sendNapiOptions() {
+    sendToMain({ type: 'r2m:set-napi-options', state: { maxControls: debugState.uiState.maxControls } });
 }
 
 export function OnAppMount() {
     useEffect(() => {
-        sendClientOptions();
+        sendNapiOptions();
     }, []);
     return null;
 }
