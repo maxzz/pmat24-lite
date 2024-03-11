@@ -18,7 +18,7 @@ import {
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
 import { useState } from "react";
-import { PersistentMenuItems, FileOpenMenuItems } from "./10-file-open-menus";
+import { PersistentMenuItems, FileOpenMenuItems } from "./10-file-open";
 
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);

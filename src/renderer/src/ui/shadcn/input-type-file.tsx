@@ -1,14 +1,15 @@
 import { InputHTMLAttributes } from "react";
 
-export function InputFileAsDlg({ openFolder, ...rest }: { openFolder?: boolean; } & InputHTMLAttributes<HTMLInputElement>) {
-    const doDirOptions = { ...(openFolder && { webkitdirectory: '' }) };
+type InputFileAsDlgProps = {
+    openFolder?: boolean;
+    multiple?: boolean;
+};
+
+export function InputFileAsDlg({ openFolder, multiple = true, ...rest }: InputFileAsDlgProps & InputHTMLAttributes<HTMLInputElement>) {
+    const options = {
+        ...(openFolder && { webkitdirectory: '' }),
+    };
     return (
-        <input
-            className="hidden"
-            type="file"
-            multiple
-            {...doDirOptions}
-            {...rest}
-        />
+        <input className="hidden" type="file" multiple={multiple} {...options} {...rest} />
     );
 }

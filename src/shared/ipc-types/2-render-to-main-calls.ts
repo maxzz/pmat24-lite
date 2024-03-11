@@ -3,7 +3,7 @@ import { TargetClientRect } from "@shared/ipc-types";
 export namespace R2M { // Main from Renderer
     export type LoadManifestsDialog = {   // will reply with 'm2r:opened-files' from dialog
         type: 'r2m:file:load-manifests-dialog';
-        opendirs?: boolean;
+        openDirs?: boolean;
     };
 
     //
