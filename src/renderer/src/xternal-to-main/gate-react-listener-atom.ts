@@ -1,5 +1,5 @@
-import { M2R } from "../../../shared/ipc-types";
 import { atom } from "jotai";
+import { M2R } from "../../../shared/ipc-types";
 import { filesContentAtom } from "@/store/atoms";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
 
@@ -22,6 +22,7 @@ export const doFromMainAtom = atom(
                 console.log('m2r:reload-files');
                 break;
             }
+            
             //
 
             case 'm2r:detection-progress': {

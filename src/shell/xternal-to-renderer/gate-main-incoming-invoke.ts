@@ -10,9 +10,9 @@ export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Prom
         case 'r2mi:load-files': {
             return loadFilesContent(data.filenames, data.allowedExt);
         }
-        case 'r2mi:load-files2': {
-            return loadFilesContent(data.filenames);
-        }
+        // case 'r2mi:load-files2': {
+        //     return loadFilesContent(data.filenames);
+        // }
 
         // napi
 

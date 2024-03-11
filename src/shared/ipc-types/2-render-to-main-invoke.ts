@@ -8,15 +8,14 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         allowedExt?: string[];
     };
 
-    type DoLoadfiles2 = {
-        type: 'r2mi:load-files2';
-        filenames: string[];
-    };
-
-    type DoLoadfiles3 = {
-        type: 'r2mi:load-files3';
-        filenames: string[];
-    };
+    // type DoLoadfiles2 = {
+    //     type: 'r2mi:load-files2';
+    //     filenames: string[];
+    // };
+    // type DoLoadfiles3 = {
+    //     type: 'r2mi:load-files3';
+    //     filenames: string[];
+    // };
 
     // napi
 
@@ -49,10 +48,12 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     export type AllInvokes =
         | DoLoadfiles
-        | DoLoadfiles2/* | DoLoadfiles3*/
+        // | DoLoadfiles2/* | DoLoadfiles3*/
+
         | GetSecondWindowHandle
         | GetSecondWindowContent
         | GetSecondWindowIcon
         | GetSecondWindowMani
-        | GetWindowPos;
+        | GetWindowPos
+        ;
 }
