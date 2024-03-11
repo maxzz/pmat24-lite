@@ -34,7 +34,7 @@ export const filesContentAtom = atom<FileContent[]>([]);
 
 // handle files drop for web and electron environments
 
-export const doDroppedFilesAtom = atom(
+export const doSetFilesFromDropAtom = atom(
     null,
     async (get, set, dataTransfer: DataTransfer) => {
         let filesCnt: FileContent[];
@@ -55,9 +55,9 @@ export const doDroppedFilesAtom = atom(
         }
     }
 );
-export type DoDroppedFilesAtom = typeof doDroppedFilesAtom;
+export type DoSetFilesFromDropAtom = typeof doSetFilesFromDropAtom;
 
-export const doDialogFilesAtom = atom(
+export const doSetFilesFromDialogAtom = atom(
     null,
     async (get, set, files: File[] | null) => {
         if (!files) {

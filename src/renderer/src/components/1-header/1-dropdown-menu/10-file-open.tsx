@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui/shadcn";
 import { hasMain, sendToMain } from "@/xternal-to-main";
-import { doDialogFilesAtom } from "@/store";
+import { doSetFilesFromDialogAtom } from "@/store";
 
 type DropdownMenuItemWithInputFileAsDlgProps = {
     children: ReactNode;
@@ -60,7 +60,7 @@ function DropdownMenuItem_Folder({ setMenuOpen, children }: DropdownMenuItemWith
 }
 
 export function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doDialogFiles = useSetAtom(doDialogFilesAtom);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
     return (<>
         {hasMain()
             ? (
@@ -76,11 +76,11 @@ export function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) =
             )
             : (
                 <>
-                    <DropdownMenuItem_Files setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)}>
+                    <DropdownMenuItem_Files setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
                         Open Files...
                     </DropdownMenuItem_Files>
                     
-                    <DropdownMenuItem_Folder setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
+                    <DropdownMenuItem_Folder setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
                         Open Folder...
                     </DropdownMenuItem_Folder>
                 </>
@@ -90,7 +90,7 @@ export function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) =
 }
 
 export function PersistentMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doDialogFiles = useSetAtom(doDialogFilesAtom);
+    const doDialogFiles = useSetAtom(doSetFilesFromDialogAtom);
     return (<>
         <InputFileAsDlg
             id={openFoldersId}
