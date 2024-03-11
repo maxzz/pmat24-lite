@@ -107,6 +107,28 @@ function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void;
     </>);
 }
 
+function PersistentMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+    const doDialogFiles = useSetAtom(doDialogFilesAtom);
+    return (
+        <>
+            <InputFileAsDlg
+                id="open-folders"
+                openFolder={true}
+                onChange={(event) => {
+                    console.log('InputFileAsDlg.onChange');
+
+                    event.target.files && doDialogFiles([...event.target.files]);
+                    setMenuOpen(false);
+
+                    const input = document.getElementById('open-folders') as HTMLInputElement;
+                    input && (input.value = '');
+                }}
+            />
+
+        </>
+    );
+}
+
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
     // const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
@@ -119,7 +141,9 @@ export function DropdownMenuDemo() {
                 <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
 
-                    <InputFileAsDlg
+                    <PersistentMenuItems setMenuOpen={setOpen} />
+
+                    {/* <InputFileAsDlg
                         id="open-folders"
                         openFolder={true}
                         onChange={(event) => {
@@ -134,7 +158,7 @@ export function DropdownMenuDemo() {
                             input && (input.value = '');
                             //input && (input.filename = '');
                         }}
-                    />
+                    /> */}
                 </Button>
             </DropdownMenuTrigger>
 
