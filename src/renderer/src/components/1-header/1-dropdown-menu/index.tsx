@@ -21,15 +21,14 @@ import { InputFileAsDlg } from "@/ui/shadcn/input-type-file";
 import { ReactNode, useState } from "react";
 
 type DropdownMenuItemWithInputFileAsDlgProps = {
-    setMenuOpen: (v: boolean) => void;
-    onFiles: (files: File[]) => void;
     children: ReactNode;
     openFolder?: boolean;
+    setMenuOpen: (v: boolean) => void;
+    onFiles: (files: File[]) => void;
 };
 
 function DropdownMenuItemWithInputFileAsDlg({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
     const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    // const doDialogFiles = useSetAtom(doDialogFilesAtom);
     return (
         <DropdownMenuItem asChild
             onSelect={(e) => e.preventDefault()}
@@ -46,7 +45,6 @@ function DropdownMenuItemWithInputFileAsDlg({ setMenuOpen, onFiles, children, op
                     openFolder={openFolder}
                     onClick={() => setFileDlgOpen(true)}
                     onChange={(event) => {
-                        // event.target.files && doDialogFiles([...event.target.files]);
                         event.target.files && onFiles([...event.target.files]);
                         setMenuOpen(false);
                     }}
@@ -57,13 +55,14 @@ function DropdownMenuItemWithInputFileAsDlg({ setMenuOpen, onFiles, children, op
     );
 }
 
-function DropdownMenuItemWithInputFolderAsDlg({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItemWithInputFolderAsDlg({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
     const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    // const doDialogFiles = useSetAtom(doDialogFilesAtom);
     return (
         <DropdownMenuItem asChild
             onSelect={(e) => e.preventDefault()}
             onFocus={(e) => {
+                //console.log('DropdownMenuItemWithInputFolderAsDlg.onFocus');
+
                 if (fileDlgOpen) {
                     setMenuOpen(false);
                 }
@@ -71,19 +70,41 @@ function DropdownMenuItemWithInputFolderAsDlg({ setMenuOpen, onFiles, children, 
             }}
         >
             <label htmlFor="open-folders" onClick={() => setFileDlgOpen(true)}>
-                {/* <InputFileAsDlg
-                    accept=".dpm,.dpn"
-                    openFolder={openFolder}
-                    onChange={(event) => {
-                        // event.target.files && doDialogFiles([...event.target.files]);
-                        event.target.files && onFiles([...event.target.files]);
-                        setMenuOpen(false);
-                    }}
-                /> */}
                 {children}
             </label>
         </DropdownMenuItem>
     );
+}
+
+function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+    const doDialogFiles = useSetAtom(doDialogFilesAtom);
+    return (<>
+        {hasMain()
+            ? (
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
+                    Open Files...
+                </DropdownMenuItem>
+            )
+            : (
+                <DropdownMenuItemWithInputFileAsDlg setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)}>
+                    Open Files...
+                </DropdownMenuItemWithInputFileAsDlg>
+            )
+        }
+
+        {hasMain()
+            ? (
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
+                    Open Folder...
+                </DropdownMenuItem>
+            )
+            : (
+                <DropdownMenuItemWithInputFolderAsDlg setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
+                    Open Folder...
+                </DropdownMenuItemWithInputFolderAsDlg>
+            )
+        }
+    </>);
 }
 
 export function DropdownMenuDemo() {
@@ -100,71 +121,26 @@ export function DropdownMenuDemo() {
 
                     <InputFileAsDlg
                         id="open-folders"
-                        accept=".dpm,.dpn"
                         openFolder={true}
                         onChange={(event) => {
-                            // event.target.files && doDialogFiles([...event.target.files]);
+                            console.log('InputFileAsDlg.onChange');
+
                             event.target.files && doDialogFiles([...event.target.files]);
                             setOpen(false);
+                            // document.getElementById('open-folders')?.setAttribute('value', '');
+                            // (document.getElementById('open-folders') as HTMLInputElement).value = '11';
+                            const input = document.getElementById('open-folders') as HTMLInputElement;
+                            console.log('input', input);
+                            input && (input.value = '');
+                            //input && (input.filename = '');
                         }}
                     />
-
                 </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="w-42 text-xs" align="start">
 
-                {hasMain()
-                    ? (
-                        <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                            Open Files...
-                        </DropdownMenuItem>
-                    )
-                    : (
-                        <DropdownMenuItemWithInputFileAsDlg setMenuOpen={setOpen} onFiles={(files) => doDialogFiles(files)}>
-                            Open Files...
-                        </DropdownMenuItemWithInputFileAsDlg>
-                        // <DropdownMenuItem asChild
-                        //     onSelect={(e) => e.preventDefault()}
-                        //     onFocus={(e) => {
-                        //         if (fileDlgOpen) {
-                        //             setOpen(false);
-                        //         }
-                        //         setFileDlgOpen(false);
-                        //     }}
-                        // >
-                        //     <label>
-                        //         <InputFileAsDlg
-                        //             accept=".dpm,.dpn"
-                        //             openFolder={false}
-                        //             onClick={() => setFileDlgOpen(true)}
-                        //             onChange={(event) => {
-                        //                 event.target.files && doDialogFiles([...event.target.files]);
-                        //                 setOpen(false);
-                        //             }}
-                        //         />
-                        //         Open Folder2...
-                        //     </label>
-                        // </DropdownMenuItem>
-                    )
-                }
-
-                {hasMain()
-                    ? (
-                        <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
-                            Open Folder...
-                        </DropdownMenuItem>
-                    )
-                    : (
-                        <DropdownMenuItemWithInputFolderAsDlg setMenuOpen={setOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
-                            Open Folder...
-                        </DropdownMenuItemWithInputFolderAsDlg>
-                    )
-                }
-
-                {/* <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
-                    Open Folder...
-                </DropdownMenuItem> */}
+                <FileOpenMenuItems setMenuOpen={setOpen} />
 
                 <DropdownMenuSeparator />
 
