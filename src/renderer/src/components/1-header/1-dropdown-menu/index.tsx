@@ -109,56 +109,32 @@ function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void;
 
 function PersistentMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     const doDialogFiles = useSetAtom(doDialogFilesAtom);
-    return (
-        <>
-            <InputFileAsDlg
-                id="open-folders"
-                openFolder={true}
-                onChange={(event) => {
-                    console.log('InputFileAsDlg.onChange');
+    return (<>
+        <InputFileAsDlg
+            id="open-folders"
+            openFolder={true}
+            onChange={(event) => {
+                console.log('InputFileAsDlg.onChange');
 
-                    event.target.files && doDialogFiles([...event.target.files]);
-                    setMenuOpen(false);
+                event.target.files && doDialogFiles([...event.target.files]);
+                setMenuOpen(false);
 
-                    const input = document.getElementById('open-folders') as HTMLInputElement;
-                    input && (input.value = '');
-                }}
-            />
-
-        </>
-    );
+                const input = document.getElementById('open-folders') as HTMLInputElement;
+                input && (input.value = '');
+            }}
+        />
+    </>);
 }
 
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
-    // const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);
-    const doDialogFiles = useSetAtom(doDialogFilesAtom);
     return (
         <DropdownMenu open={open} onOpenChange={setOpen} modal={true}>
             <DropdownMenuTrigger asChild>
                 <Button className="px-0.5" variant="outline" size="xs">
                     <IconMenuHamburger className="size-6" />
-
                     <PersistentMenuItems setMenuOpen={setOpen} />
-
-                    {/* <InputFileAsDlg
-                        id="open-folders"
-                        openFolder={true}
-                        onChange={(event) => {
-                            console.log('InputFileAsDlg.onChange');
-
-                            event.target.files && doDialogFiles([...event.target.files]);
-                            setOpen(false);
-                            // document.getElementById('open-folders')?.setAttribute('value', '');
-                            // (document.getElementById('open-folders') as HTMLInputElement).value = '11';
-                            const input = document.getElementById('open-folders') as HTMLInputElement;
-                            console.log('input', input);
-                            input && (input.value = '');
-                            //input && (input.filename = '');
-                        }}
-                    /> */}
                 </Button>
             </DropdownMenuTrigger>
 
@@ -201,12 +177,13 @@ export function DropdownMenuDemo() {
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
 
-                <DropdownMenuSeparator />
+                {hasMain() && (<>
+                    <DropdownMenuSeparator />
 
-                <DropdownMenuItem
-                >
-                    Exit
-                </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        Exit
+                    </DropdownMenuItem>
+                </>)}
 
                 {/* <DropdownMenuSeparator /> */}
 
