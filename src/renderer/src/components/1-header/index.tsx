@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { DropdownMenuDemo } from "./1-dropdown-menu";
 import { test } from "@/utils/fnames-common-path";
-import { FileInputDlg } from "@/xternal-to-main/commands/20-web-open-files";
+import { InputFileAsDlg } from "@/ui/shadcn/input-type-file";
 import { Button } from "@/ui";
 
 test();
@@ -15,7 +15,7 @@ export function SectionHeader() {
 
             <Button asChild>
                 <label className="cursor-pointer">
-                    <FileInputDlg onChangeDone={() => setOpen((v) => !v)} openFolder={false} />
+                    <InputFileAsDlg onChange={() => setOpen((v) => !v)} openFolder={false} />
                     <div className="">Open Folder...</div>
                 </label>
             </Button>
