@@ -1,12 +1,13 @@
 import { DropdownMenuItem } from "@/ui/shadcn";
+import { notImplYet } from "../not-impl-yet";
 
 export function MenuItem_Settings() {
     return (<>
-        <DropdownMenuItem>
+        <DropdownMenuItem {...notImplYet}>
             Settings
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
+        <DropdownMenuItem {...notImplYet}>
             More...
         </DropdownMenuItem>
     </>);

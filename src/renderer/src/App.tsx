@@ -3,7 +3,7 @@ import { SectionMain } from "./components/2-main";
 import { SectionFooter } from "./components/3-footer";
 import { doSetFilesFromDropAtom } from "./store";
 import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
-import { DropItDoc } from "./ui";
+import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
 
 export function App(): JSX.Element {
@@ -19,5 +19,6 @@ export function App(): JSX.Element {
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
         <WorldToReactListener />
         <OnAppMount />
+        <Toaster />
     </>);
 }

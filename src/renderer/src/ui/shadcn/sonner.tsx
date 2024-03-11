@@ -5,12 +5,15 @@ type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const toastClasses = "\
 group toast \
+group-[.toaster]:text-xs \
 group-[.toaster]:text-foreground \
 group-[.toaster]:bg-background \
 group-[.toaster]:border-border \
 group-[.toaster]:shadow-lg \
 ";
-const descriptionClasses = "group-[.toast]:text-muted-foreground";
+const descriptionClasses = "\
+group-[.toast]:text-muted-foreground \
+";
 const actionButtonClasses = "\
 group-[.toast]:text-primary-foreground \
 group-[.toast]:bg-primary \
