@@ -25,8 +25,8 @@ export function DropdownMenuDemo() {
     return (
         <DropdownMenu open={open} onOpenChange={setOpen} modal={true}>
             <DropdownMenuTrigger asChild>
-                <Button className="px-0.5" variant="outline" size="xs">
-                    <IconMenuHamburger className="size-6" />
+                <Button className="px-1" variant="outline" size="xs">
+                    <IconMenuHamburger className="size-5" />
                     <MenuItems_Persistent setMenuOpen={setOpen} />
                 </Button>
             </DropdownMenuTrigger>

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { filesContentAtom } from "./1-atom-dropped-files";
+import { filesContentAtom } from "../1-atom-dropped-files";
 import { FileContent } from "@shared/ipc-types";
 import { DataItem } from "@/ui/shadcn/tree";
 

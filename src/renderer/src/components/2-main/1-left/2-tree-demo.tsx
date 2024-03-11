@@ -15,7 +15,8 @@ function addStateToTreeItems(data: DataItem[]): DataItemWState[] {
 
 const dataWithState = addStateToTreeItems(data);
 
-export function DemoTreeWithOptions() {
+export function FilesTree() {
+    
     const [content, setContent] = useState(() => {
         const initialItem = findTreeItemById(dataWithState, initialItemId);
         return initialItem?.name || "No content selected";

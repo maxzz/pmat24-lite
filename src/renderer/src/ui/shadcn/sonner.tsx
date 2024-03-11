@@ -11,13 +11,16 @@ group-[.toaster]:bg-background \
 group-[.toaster]:border-border \
 group-[.toaster]:shadow-lg \
 ";
+
 const descriptionClasses = "\
 group-[.toast]:text-muted-foreground \
 ";
+
 const actionButtonClasses = "\
 group-[.toast]:text-primary-foreground \
 group-[.toast]:bg-primary \
 ";
+
 const cancelButtonClasses = "\
 group-[.toast]:text-muted-foreground \
 group-[.toast]:bg-muted \
