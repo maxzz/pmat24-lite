@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { hasMain, sendToMain } from "@/xternal-to-main";
-import { doDialogFilesAtom, doGetTargetHwndAtom } from "@/store";
+import { doGetTargetHwndAtom } from "@/store";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
 import {
@@ -17,114 +17,8 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/ui/shadcn/dropdown-menu";
-import { InputFileAsDlg } from "@/ui/shadcn/input-type-file";
-import { ReactNode, useState } from "react";
-
-type DropdownMenuItemWithInputFileAsDlgProps = {
-    children: ReactNode;
-    openFolder?: boolean;
-    setMenuOpen: (v: boolean) => void;
-    onFiles: (files: File[]) => void;
-};
-
-function DropdownMenuItemWithInputFileAsDlg({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
-    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    return (
-        <DropdownMenuItem asChild
-            onSelect={(e) => e.preventDefault()}
-            onFocus={(e) => {
-                if (fileDlgOpen) {
-                    setMenuOpen(false);
-                }
-                setFileDlgOpen(false);
-            }}
-        >
-            <label>
-                <InputFileAsDlg
-                    accept=".dpm,.dpn"
-                    openFolder={openFolder}
-                    onClick={() => setFileDlgOpen(true)}
-                    onChange={(event) => {
-                        event.target.files && onFiles([...event.target.files]);
-                        setMenuOpen(false);
-                    }}
-                />
-                {children}
-            </label>
-        </DropdownMenuItem>
-    );
-}
-
-function DropdownMenuItemWithInputFolderAsDlg({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
-    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    return (
-        <DropdownMenuItem asChild
-            onSelect={(e) => e.preventDefault()}
-            onFocus={(e) => {
-                //console.log('DropdownMenuItemWithInputFolderAsDlg.onFocus');
-
-                if (fileDlgOpen) {
-                    setMenuOpen(false);
-                }
-                setFileDlgOpen(false);
-            }}
-        >
-            <label htmlFor="open-folders" onClick={() => setFileDlgOpen(true)}>
-                {children}
-            </label>
-        </DropdownMenuItem>
-    );
-}
-
-function FileOpenMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doDialogFiles = useSetAtom(doDialogFilesAtom);
-    return (<>
-        {hasMain()
-            ? (
-                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                    Open Files...
-                </DropdownMenuItem>
-            )
-            : (
-                <DropdownMenuItemWithInputFileAsDlg setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)}>
-                    Open Files...
-                </DropdownMenuItemWithInputFileAsDlg>
-            )
-        }
-
-        {hasMain()
-            ? (
-                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", opendirs: true })}>
-                    Open Folder...
-                </DropdownMenuItem>
-            )
-            : (
-                <DropdownMenuItemWithInputFolderAsDlg setMenuOpen={setMenuOpen} onFiles={(files) => doDialogFiles(files)} openFolder={true}>
-                    Open Folder...
-                </DropdownMenuItemWithInputFolderAsDlg>
-            )
-        }
-    </>);
-}
-
-function PersistentMenuItems({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doDialogFiles = useSetAtom(doDialogFilesAtom);
-    return (<>
-        <InputFileAsDlg
-            id="open-folders"
-            openFolder={true}
-            onChange={(event) => {
-                console.log('InputFileAsDlg.onChange');
-
-                event.target.files && doDialogFiles([...event.target.files]);
-                setMenuOpen(false);
-
-                const input = document.getElementById('open-folders') as HTMLInputElement;
-                input && (input.value = '');
-            }}
-        />
-    </>);
-}
+import { useState } from "react";
+import { PersistentMenuItems, FileOpenMenuItems } from "./10-file-open-menus";
 
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
