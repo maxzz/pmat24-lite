@@ -5,7 +5,7 @@ import { ScrollArea } from "@ui/shadcn/scroll-area";
 import useResizeObserver from "use-resize-observer";
 import { ChevronRight } from "lucide-react";
 import { classNames, cn } from "@/utils";
-import { DataItemNavigation, DataItemCore, TypeTreeFolder, TypeTreeFolderTrigger, DataItem, TreenIconType } from "./shared/types";
+import { DataItemNavigation, DataItemCore, TypeTreeFolder, TypeTreeFolderTrigger, TreenIconType } from "./shared/types";
 import { collectExpandedItemIds, findTreeItemById, getNextId } from "./shared/utils";
 import { treeItemBaseClasses, treeItemSelectedClasses, treeItemIconClasses, leafBaseClasses, leafSelectedClasses, leafIconClasses } from "./shared/classes";
 
@@ -257,7 +257,7 @@ const FolderContent = forwardRef<ElementRef<typeof A.Content>, ComponentPropsWit
 );
 FolderContent.displayName = 'Tree.Folder.Content';
 
-function TreeIconAndText({ item, Icon, classes, hideFolderIcon }: { item: DataItem; Icon?: TreenIconType; classes: string; } & Pick<TreeOptions, 'hideFolderIcon'>) {
+function TreeIconAndText({ item, Icon, classes, hideFolderIcon }: { item: DataItemNavigation<DataItemCore>; Icon?: TreenIconType; classes: string; } & Pick<TreeOptions, 'hideFolderIcon'>) {
     return (<>
         {item.icon && <item.icon className={classes} aria-hidden="true" />}
         {!item.icon && Icon && !hideFolderIcon && <Icon className={classes} aria-hidden="true" />}

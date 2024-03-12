@@ -1,13 +1,15 @@
 import { atom } from "jotai";
 import { filesContentAtom } from "../1-atom-dropped-files";
 import { FileContent } from "@shared/ipc-types";
-import { DataItem } from "@/ui/shadcn/tree";
+import { DataItemCore, DataItemNavigation, ItemState } from "@/ui/shadcn/tree";
 
-export type TreeFileItem =
-    & DataItem
-    & {
-        fcnt: FileContent;
-    };
+export type TreeFcntItem = {
+    fcnt: FileContent;
+};
+
+export type TreeFileItem<T = {}> = Prettify<
+    DataItemNavigation<DataItemCore & TreeFcntItem & T>
+>;
 
 export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {

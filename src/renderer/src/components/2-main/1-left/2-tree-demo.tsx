@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { proxy } from "valtio";
-import { Tree, DataItemWState, DataItem, duplicateTree, findTreeItemById, walkItems, DataItemNav } from "@ui/shadcn/tree";
+import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { data } from "./1-tree-data";
 import { useAtomValue } from "jotai";
@@ -8,15 +8,19 @@ import { TreeFileItem, treeFilesAtom } from "@/store";
 
 const initialItemId = "6.1.2";
 
-function addStateToTreeItems<T extends DataItemNav>(data: T[]): (T & DataItemWState)[] {
-    const newTree = duplicateTree(data);
-    walkItems(newTree, (item) => (item as T & DataItemWState).state = proxy({ selected: false }));
-    return newTree as (T & DataItemWState)[];
+type TT = TreeFileItem<ItemState>;
+
+function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
+    const newTree = duplicateTree(data) as unknown as (TreeFileItem<ItemState>)[];
+    walkItems(newTree, (item) => { item.state = proxy({ selected: false }); });
+    return newTree;
 }
 
-type TreeItem = Prettify<ReturnType<typeof addStateToTreeItems>>;
+//type TreeItem = Prettify<ReturnType<typeof addStateToTreeItems>>;
 
 //const dataWithState = addStateToTreeItems(data);
+
+export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
 
 export function FilesTree() {
 

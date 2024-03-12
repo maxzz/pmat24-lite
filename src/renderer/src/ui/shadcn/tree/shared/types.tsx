@@ -16,8 +16,8 @@ export type DataItemCore = {
     icon?: TreenIconType;
 };
 
-export type DataItem = DataItemNavigation<DataItemCore>;
-export type DataItemNav = DataItemNavigation<any>;
+// export type DataItem = DataItemNavigation<DataItemCore>;
+// export type DataItemNav = DataItemNavigation<any>;
 
 export const AttrTreeId = "data-tree-id";
 export const AttrTreeFolder = "data-tree-folder";
