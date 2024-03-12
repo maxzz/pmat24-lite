@@ -14,6 +14,7 @@
         "jotai-valtio": "^0.4.0",
         "pm-manifest": "^1.1.1",
         "pm-manifest-icons": "^1.0.3",
+        "react-syntax-highlighter": "^15.5.0",
         "use-resize-observer": "^9.1.0",
         "valtio": "^1.13.1"
     },
