@@ -3,8 +3,8 @@ import { proxy } from "valtio";
 import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { data } from "./1-tree-data";
-import { useAtomValue } from "jotai";
-import { TreeFileItem, treeFilesAtom } from "@/store";
+import { useAtomValue, useSetAtom } from "jotai";
+import { TreeFileItem, treeFilesAtom, xmlTextAtom } from "@/store";
 
 const initialItemId = "6.1.2";
 
@@ -33,6 +33,8 @@ export function FilesTree() {
 
     const treeFiles = useAtomValue(treeFilesAtom);
 
+    const xmlText = useSetAtom(xmlTextAtom);
+
     const TreeMemo = useMemo(
         () => {
             const dataWithState = addStateToTreeItems(treeFiles);
@@ -41,7 +43,16 @@ export function FilesTree() {
                     data={dataWithState}
                     className={`w-full h-full outline-none`}
                     initialSelectedItemId={undefined}
-                    onSelectChange={(item) => setContent(item?.name ?? "")}
+                    onSelectChange={(item) => {
+                        const selected = findTreeItemById(dataWithState, item?.id);
+
+                        console.log('onSelectChange', selected);
+
+                        const text = selected?.fcnt?.cnt || '';
+                        xmlText(text);
+
+                        setContent(item?.name ?? "");
+                    }}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
                     arrowFirst={snapArrowFirst}
