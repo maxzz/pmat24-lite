@@ -1,14 +1,25 @@
-import { useAtomValue } from "jotai";
-import { treeFilesAtom } from "@/store";
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
+import { IconTrash } from "@/ui/icons";
+import { Button } from "@/ui";
+import { useSetAtom } from "jotai";
+import { filesContentAtom } from "@/store";
 
-export function PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
-    const treeFiles = useAtomValue(treeFilesAtom);
+export const panelHeaderClasses = "px-3 py-2 text-xs bg-muted border-border border-b group-focus-within:bg-background/30 select-none";
+
+export function PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    const filesContent = useSetAtom(filesContentAtom);
     return (
-        <div className={classNames("px-3 py-2 text-xs bg-muted border-border border-b group-focus-within:bg-background/30 select-none", className)} {...rest}>
-            Files
-            {treeFiles?.length > 0 && <span className="ml-2 text-sm text-text/60">{treeFiles.length}</span>}
+        <div className={classNames(panelHeaderClasses, "h-8 flex items-center justify-between", className)} {...rest}>
+
+            <div className="">Files</div>
+
+            <Button
+                className="px-1 h-6" variant={"outline"} size={"xs"}
+                onClick={() => { filesContent([]); }}
+            >
+                <IconTrash className="size-4 fill-current" />
+            </Button>
         </div>
     );
 }
