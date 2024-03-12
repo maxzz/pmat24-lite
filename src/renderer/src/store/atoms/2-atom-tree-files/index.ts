@@ -4,15 +4,15 @@ import { FileContent } from "@shared/ipc-types";
 import { DataItem } from "@/ui/shadcn/tree";
 
 export type TreeFileItem =
+    & DataItem
     & {
         fcnt: FileContent;
-    }
-    & DataItem;
+    };
 
 export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
         const files = get(filesContentAtom);
-        
+
         console.log('treeFiles.atom', files);
 
         if (!files.length) {
