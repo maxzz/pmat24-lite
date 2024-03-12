@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { proxy } from "valtio";
 import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
-import { data } from "./1-tree-data";
+// import { data } from "./1-tree-data";
 import { useAtomValue, useSetAtom } from "jotai";
 import { TreeFileItem, treeFilesAtom, xmlTextAtom } from "@/store";
 
@@ -44,12 +44,15 @@ export function FilesTree() {
                     className={`w-full h-full outline-none`}
                     initialSelectedItemId={undefined}
                     onSelectChange={(item) => {
-                        const selected = findTreeItemById(dataWithState, item?.id);
-
-                        console.log('onSelectChange', selected);
-
+                        // const selected = findTreeItemById(dataWithState, item?.id);
+                        // const text = selected?.fcnt?.cnt || '';
+                        // xmlText(text);
+                        
+                        const selected = (item as TT);
                         const text = selected?.fcnt?.cnt || '';
                         xmlText(text);
+
+                        console.log('onSelectChange', selected);
 
                         setContent(item?.name ?? "");
                     }}

@@ -17,7 +17,7 @@ export type DataItemCore = {
 };
 
 // export type DataItem = DataItemNavigation<DataItemCore>;
-// export type DataItemNav = DataItemNavigation<any>;
+export type DataItemNav = DataItemNavigation<any>;
 
 export const AttrTreeId = "data-tree-id";
 export const AttrTreeFolder = "data-tree-folder";
