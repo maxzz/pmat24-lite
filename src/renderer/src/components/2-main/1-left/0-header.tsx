@@ -3,12 +3,12 @@ import { classNames } from "@/utils";
 import { IconTrash } from "@/ui/icons";
 import { Button } from "@/ui";
 import { useSetAtom } from "jotai";
-import { filesContentAtom } from "@/store";
+import { doClearFileContentAtom } from "@/store";
 
 export const panelHeaderClasses = "px-3 py-2 text-xs bg-muted border-border border-b group-focus-within:bg-background/30 select-none";
 
 export function PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const filesContent = useSetAtom(filesContentAtom);
+    const doClearFileContent = useSetAtom(doClearFileContentAtom);
     return (
         <div className={classNames(panelHeaderClasses, "h-8 flex items-center justify-between", className)} {...rest}>
 
@@ -16,7 +16,7 @@ export function PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElemen
 
             <Button
                 className="px-1 h-6" variant={"outline"} size={"xs"}
-                onClick={() => { filesContent([]); }}
+                onClick={() => { doClearFileContent(); }}
             >
                 <IconTrash className="size-4 fill-current" />
             </Button>
