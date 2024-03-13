@@ -13,7 +13,7 @@ export function PanelB() {
                 <div className={panel3Classes}>
                     <PanelHeader />
 
-                    <div className="flex-1 outline-none overflow-auto" tabIndex={0}>
+                    <div className="flex-1 outline-none" tabIndex={0}>
                         {/* <LongPanel /> */}
                         
                         <Body_Xml text={xmlText} />
