@@ -1,26 +1,44 @@
+:root {
+    --hljs-meta : #ababab;
+    --hljs-tag : #c54b09;
+    --hljs-name : #b200bf;
+    --hljs-attr : #003eb2;
+    --hljs-string : #c54b09;
+    --hljs-symbol : #82aaff;
+}
+
+.dark {
+    --hljs-meta : #82aaff;
+    --hljs-tag : #7fdbca;
+    --hljs-name : #32ffda;
+    --hljs-attr : #00c4ff;
+    --hljs-string : #ecc48d;
+    --hljs-symbol : #82aaff;
+}
+
 /* order is important here */
 
 .hljs-meta {
-    color: #82aaff;
+    color: var(--hljs-meta);
 }
 
 .hljs-tag {
-    color: #7fdbca;
+    color: var(--hljs-tag);
 }
 
 .hljs-name {
-    color: #32ffda;
+    color: var(--hljs-name);
     /* font-size: 0.65rem; */
 }
 
 .hljs-attr {
-    color: #00c4ff;
+    color: var(--hljs-attr);
 }
 
 .hljs-string {
-    color: #ecc48d;
+    color: var(--hljs-string);
 }
 
 .hljs-symbol {
-    color: #82aaff;
+    color: var(--hljs-symbol);
 }
