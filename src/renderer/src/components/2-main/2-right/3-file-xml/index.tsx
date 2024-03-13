@@ -1,13 +1,13 @@
-import { HTMLAttributes, useRef } from 'react';
-import { SyntaxHighlighterXml } from './syntax-highlighter-xml';
+import { CSSProperties, Children, HTMLAttributes } from 'react';
 import { ScrollArea } from '@/ui';
+import { SyntaxHighlighterXml } from './syntax-highlighter-xml';
 import useResizeObserver from 'use-resize-observer';
+import { classNames } from '@/utils';
 
-export function Body_Xml({ text, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {
-    const refRoot = useRef<HTMLDivElement | null>(null);
-    const { ref: refRootCb, width, height } = useResizeObserver();
+export function Body_Xml({ text, className, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {
+    const { ref, width, height } = useResizeObserver();
     return (<>
-        <div className="h-full" ref={refRootCb}>
+        <div className={classNames("h-full", className)} ref={ref} {...rest}>
             <ScrollArea style={{ width, height }} horizontal>
                 <SyntaxHighlighterXml className="p-1 dark:opacity-60">
                     {text}
@@ -16,5 +16,3 @@ export function Body_Xml({ text, ...rest }: { text: string; } & HTMLAttributes<H
         </div>
     </>);
 }
-
-//TODO: extension 'text highlight' may cause a problem when user switch manifests (this is a thirdparty problem).
