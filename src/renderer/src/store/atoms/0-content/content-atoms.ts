@@ -29,5 +29,7 @@ import { type FileContent } from "@shared/ipc-types";
 ```
 */
 export const deliveredAtom = atom<FileContent[]>([]);   // files content populated from web or electron environments
+
 export const filesAtom = atom<FileContent[]>([]);       // files with reactive content and IDs
+
 export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree

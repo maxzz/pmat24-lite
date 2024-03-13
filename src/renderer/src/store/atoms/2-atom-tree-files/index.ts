@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { deliveredAtom } from "../1-atom-dropped-files";
 import { FileContent } from "@shared/ipc-types";
+import { deliveredAtom } from "../0-content/content-atoms";
 import { DataItemCore, DataItemNavigation, ItemState } from "@/ui/shadcn/tree";
 import { uuid } from "@/utils";
 import { xmlTextAtom } from "../3-right-panel";
