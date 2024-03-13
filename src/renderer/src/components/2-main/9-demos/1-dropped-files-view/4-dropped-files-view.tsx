@@ -1,11 +1,11 @@
 import { useAtomValue } from 'jotai';
-import { filesContentAtom } from '@/store';
+import { deliveredAtom } from '@/store';
 import { Card } from './3-file-card';
 import { ButtonClear } from './2-button-clear';
 import { SectionHeader } from './1-header';
 
 export function DroppedFilesView() {
-    const filesContent = useAtomValue(filesContentAtom);
+    const filesContent = useAtomValue(deliveredAtom);
     return (<>
         <SectionHeader>
             <div className="h-9 flex items-center justify-between">

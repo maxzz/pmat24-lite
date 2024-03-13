@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { M2R } from "../../../shared/ipc-types";
-import { filesContentAtom } from "@/store/atoms";
+import { deliveredAtom } from "@/store/atoms";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
 
 export const doFromMainAtom = atom(
@@ -8,7 +8,7 @@ export const doFromMainAtom = atom(
     (get, set, data: M2R.AllTypes) => {
         switch (data.type) {
             case 'm2r:loaded-files': {
-                set(filesContentAtom, data.filesCnt);
+                set(deliveredAtom, data.filesCnt);
                 break;
             }
 

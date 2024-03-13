@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { filesContentAtom } from "../1-atom-dropped-files";
+import { deliveredAtom } from "../1-atom-dropped-files";
 import { FileContent } from "@shared/ipc-types";
 import { DataItemCore, DataItemNavigation, ItemState } from "@/ui/shadcn/tree";
 import { uuid } from "@/utils";
@@ -15,7 +15,7 @@ export type TreeFileItem<T = {}> = Prettify<
 
 export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
-        const files = get(filesContentAtom);
+        const files = get(deliveredAtom);
 
         console.log('treeFiles.atom', files);
 
@@ -38,7 +38,7 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
 export const doClearFileContentAtom = atom(
     null,
     (get, set) => {
-        set(filesContentAtom, []);
+        set(deliveredAtom, []);
         set(xmlTextAtom, '');
     }
 );

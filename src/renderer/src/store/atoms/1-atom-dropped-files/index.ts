@@ -30,7 +30,9 @@ import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 └───────────────────────────────────────────┴─────────────────────────────────────┘
 ```
 */
-export const filesContentAtom = atom<FileContent[]>([]);
+export const deliveredAtom = atom<FileContent[]>([]);   // files content populated from web or electron environments
+export const filesAtom = atom<FileContent[]>([]);       // files with reactive content and IDs
+export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree
 
 // handle files drop for web and electron environments
 
@@ -51,7 +53,7 @@ export const doSetFilesFromDropAtom = atom(
         }
 
         if (filesCnt) {
-            set(filesContentAtom, filesCnt);
+            set(deliveredAtom, filesCnt);
         }
     }
 );
@@ -65,7 +67,7 @@ export const doSetFilesFromDialogAtom = atom(
         }
         let filesCnt: FileContent[] = await webLoadAfterDialogOpen(files, pmAllowedToOpenExt);
         if (filesCnt) {
-            set(filesContentAtom, filesCnt);
+            set(deliveredAtom, filesCnt);
         }
     }
 );
