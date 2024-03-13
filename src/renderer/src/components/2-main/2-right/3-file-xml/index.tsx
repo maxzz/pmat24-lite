@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useRef } from 'react';
+import { HTMLAttributes, useRef } from 'react';
 import { SyntaxHighlighterXml } from './syntax-highlighter-xml';
 import { ScrollArea } from '@/ui';
 import useResizeObserver from 'use-resize-observer';
@@ -8,7 +8,7 @@ export function Body_Xml({ text, ...rest }: { text: string; } & HTMLAttributes<H
     const { ref: refRootCb, width, height } = useResizeObserver();
     return (<>
         <div className="h-full" ref={refRootCb}>
-            <ScrollArea style={{ width, height }}>
+            <ScrollArea style={{ width, height }} horizontal>
                 <SyntaxHighlighterXml className="p-1 dark:opacity-60">
                     {text}
                 </SyntaxHighlighterXml>
