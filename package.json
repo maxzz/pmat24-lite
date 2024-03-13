@@ -62,7 +62,7 @@
         "build:mac": "electron-vite build && electron-builder --mac",
         "build:linux": "electron-vite build && electron-builder --linux",
         "build:web": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir",
-        "build:web:github": "vite --config electron.vite.config-browser.mts build --outDir --emptyOutDir ../../dist && gh-pages -d ./dist",
+        "build:web:github": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir && gh-pages -d ./dist",
         "build:web:preview": "vite --config electron.vite.config-browser.mts preview --outDir ../../dist",
         "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
