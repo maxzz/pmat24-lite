@@ -31,7 +31,7 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
         const filesTree: TreeFileItem[] = files.map((fcnt) => {
             return {
                 id: fcnt.id || uuid.asRelativeNumber(),
-                name: fcnt.basename,
+                name: fcnt.fname,
                 fcnt,
             };
         });

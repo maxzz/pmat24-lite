@@ -36,8 +36,8 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                     id: uuid.asRelativeNumber(),
                     entry: item.entry,
                     file: item.file,
-                    basename: item.name,
-                    fullname: item.fullPath,
+                    fname: item.name,
+                    fpath: item.fullPath,
                     raw: '',
                     failed: true,
                     notOur: true,
@@ -50,8 +50,8 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
-                basename: item.name,
-                fullname: item.fullPath,
+                fname: item.name,
+                fpath: item.fullPath,
                 raw: cnt,
             });
 
@@ -60,8 +60,8 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
-                basename: item.name,
-                fullname: item.fullPath,
+                fname: item.name,
+                fpath: item.fullPath,
                 raw: error instanceof Error ? error.message : JSON.stringify(error),
                 failed: true,
             });

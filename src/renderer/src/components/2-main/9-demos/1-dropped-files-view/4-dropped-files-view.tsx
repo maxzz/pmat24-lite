@@ -21,7 +21,7 @@ export function DroppedFilesView() {
 
         <div className="mt-4 grid gap-2 grid-cols-[repeat(auto-fill,minmax(20ch,1fr))]">
             {filesContent.map((fileContent, idx) => (
-                <Card fileContent={fileContent} key={`${idx}=${fileContent.basename}`} />
+                <Card fileContent={fileContent} key={`${idx}=${fileContent.fname}`} />
             ))}
         </div>
     </>);

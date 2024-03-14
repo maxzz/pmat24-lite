@@ -10,8 +10,8 @@ function collectNamesRecursively(filenames: string[], rv: Partial<FileContent>[]
 
             if (st.isFile()) {
                 rv.push({
-                    basename: basename(filename),
-                    fullname: filename,
+                    fname: basename(filename),
+                    fpath: filename,
                 });
             } else if (st.isDirectory()) {
                 const entries = readdirSync(filename).map((entry) => join(filename, entry));
@@ -20,8 +20,8 @@ function collectNamesRecursively(filenames: string[], rv: Partial<FileContent>[]
 
         } catch (error) {
             rv.push({
-                basename: basename(filename),
-                fullname: filename,
+                fname: basename(filename),
+                fpath: filename,
                 raw: error instanceof Error ? error.message : JSON.stringify(error),
                 failed: true,
             });
@@ -29,25 +29,30 @@ function collectNamesRecursively(filenames: string[], rv: Partial<FileContent>[]
     });
 }
 
+function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
+    const ext = extname(filename || '').replace('.', '').toLowerCase();
+    return allowedExt.includes(ext);
+}
+
 export function loadFilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
     let files: Partial<FileContent>[] = [];
     collectNamesRecursively(filenames, files);
 
-    files = allowedExt
-        ? files.map(
+    if (allowedExt) {
+        files = files.map(
             (fileContent) => (
-                allowedExt.includes(extname(fileContent.basename || '').replace('.', '').toLowerCase())
+                isOurExt(fileContent.fname, allowedExt)
                     ? fileContent
                     : { ...fileContent, notOur: true, failed: true }
             )
-        )
-        : files;
+        );
+    }
 
     files.forEach(
         (file) => {
             if (!file.failed && !file.notOur) {
                 try {
-                    file.raw = readFileSync(file.fullname!).toString();
+                    file.raw = readFileSync(file.fpath!).toString();
                 } catch (error) {
                     file.raw = error instanceof Error ? error.message : JSON.stringify(error);
                     file.failed = true;

@@ -3,7 +3,7 @@ import { FileContent } from '@shared/ipc-types';
 import { Textarea, fixTextareaResizeClasses } from '@/ui';
 import { IconFile, IconFolderClosed } from '@ui/icons/normal/temp2';
 
-function CardTitle({ fileContent: { basename: name, fullname: fullPath, failed, notOur }, ...rest }: { fileContent: FileContent; } & HTMLAttributes<HTMLElement>) {
+function CardTitle({ fileContent: { fname: name, fpath: fullPath, failed, notOur }, ...rest }: { fileContent: FileContent; } & HTMLAttributes<HTMLElement>) {
     return (
         <div className={`px-2 py-2 ${notOur ? 'bg-accent' : failed ? 'bg-red-600' : 'bg-accent'} text-muted-foreground row-span-2 grid-rows-subgrid grid gap-2`} {...rest}>
             <div className="flex items-center space-x-1">
