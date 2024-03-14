@@ -26,7 +26,7 @@ function textFileReader(file: File): Promise<string> {
 async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
 
-    dropItems.forEach((item, idx) => {
+    for (const [idx, item] of dropItems.entries()) {
         try {
             if (!item.file) {
                 throw new Error('Empty entry or file');
@@ -75,7 +75,7 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 failed: true,
             });
         }
-    });
+    }
 
     return res;
 }
