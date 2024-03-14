@@ -1,1 +1,1 @@
-export * from "./content-atoms";
+export * from "./any-delivered";

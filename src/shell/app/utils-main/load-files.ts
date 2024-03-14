@@ -37,16 +37,18 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): Fi
             : { ...file, notOur: true, failed: true })
         : files;
 
-    files.forEach((file) => {
-        if (!file.failed && !file.notOur) {
-            try {
-                file.cnt = readFileSync(file.fullPath!).toString();
-            } catch (error) {
-                file.cnt = error instanceof Error ? error.message : JSON.stringify(error);
-                file.failed = true;
+    files.forEach(
+        (file) => {
+            if (!file.failed && !file.notOur) {
+                try {
+                    file.cnt = readFileSync(file.fullPath!).toString();
+                } catch (error) {
+                    file.cnt = error instanceof Error ? error.message : JSON.stringify(error);
+                    file.failed = true;
+                }
             }
         }
-    });
+    );
 
     return files as Required<FileContent>[];
 }

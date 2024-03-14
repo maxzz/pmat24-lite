@@ -1,5 +1,5 @@
 export type FileContent = {
-    id: number;                     // unique id as relative time from the start of the app
+    id: number;                     // unique ID (as relative time from the start of the app). electron will not provide it, but it will be added in the renderer.
     name: string;                   // file name wo/ path
     fullPath: string;               // file full path and filename
     cnt: string;                    // file content or error message
