@@ -4,11 +4,12 @@ import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../utils/uuid";
 
 type DropItem = {
-    name: string;
+    name: string;                   //
     fullPath: string;
-    notOur?: boolean;            // load of file content was blocked by allowedExt list.
-    entry?: FileSystemFileEntry; // FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
-    file: File;                  // File object from async entry.file() call
+    notOur?: boolean;               // load of file content was blocked by allowedExt list.
+
+    entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
+    file: File;                     // web: File object from async entry.file() call
 };
 
 function textFileReader(file: File): Promise<string> {
@@ -35,9 +36,9 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                     id: uuid.asRelativeNumber(),
                     entry: item.entry,
                     file: item.file,
-                    name: item.name,
-                    fullPath: item.fullPath,
-                    cnt: '',
+                    basename: item.name,
+                    fullname: item.fullPath,
+                    raw: '',
                     failed: true,
                     notOur: true,
                 });
@@ -49,9 +50,9 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
-                name: item.name,
-                fullPath: item.fullPath,
-                cnt,
+                basename: item.name,
+                fullname: item.fullPath,
+                raw: cnt,
             });
 
         } catch (error) {
@@ -59,9 +60,9 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 id: uuid.asRelativeNumber(),
                 entry: item.entry,
                 file: item.file,
-                name: item.name,
-                fullPath: item.fullPath,
-                cnt: error instanceof Error ? error.message : JSON.stringify(error),
+                basename: item.name,
+                fullname: item.fullPath,
+                raw: error instanceof Error ? error.message : JSON.stringify(error),
                 failed: true,
             });
         }

@@ -49,7 +49,7 @@ export function FilesTree() {
                         // xmlText(text);
                         
                         const selected = (item as TT);
-                        const text = selected?.fcnt?.cnt || '';
+                        const text = selected?.fcnt?.raw || '';
                         xmlText(text);
 
                         console.log('onSelectChange', selected);
