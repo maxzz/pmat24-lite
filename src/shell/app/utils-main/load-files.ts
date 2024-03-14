@@ -12,6 +12,9 @@ function collectNamesRecursively(filenames: string[], rv: Partial<FileContent>[]
                 rv.push({
                     fname: basename(filename),
                     fpath: filename,
+                    fmodi: st.mtimeMs,
+                    size: st.size,
+                    main: true,
                 });
             } else if (st.isDirectory()) {
                 const entries = readdirSync(filename).map((entry) => join(filename, entry));
@@ -49,9 +52,10 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): Fi
     }
 
     files.forEach(
-        (file) => {
+        (file, idx) => {
             if (!file.failed && !file.notOur) {
                 try {
+                    file.idx = idx;
                     file.raw = readFileSync(file.fpath!).toString();
                 } catch (error) {
                     file.raw = error instanceof Error ? error.message : JSON.stringify(error);

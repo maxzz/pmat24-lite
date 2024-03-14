@@ -13,6 +13,7 @@ export type FileContent = {
 
     entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     file?: File;                    // web: File object from async entry.file() call
+    main?: boolean;                 // electron: true if loaded from electron main process, and has full absolute path; can be stored in the main process
 };
 
 export const pmAllowedToOpenExt = ['dpm', 'dpn'];
