@@ -1,5 +1,5 @@
 import { R2MInvoke } from "@shared/ipc-types";
-import { loadFilesContent } from "@shell/utils-main/load-files";
+import { loadFilesContent } from "./commands/10-open-file-dialog/load-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./calls-napi";
 
 export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Promise<any> {

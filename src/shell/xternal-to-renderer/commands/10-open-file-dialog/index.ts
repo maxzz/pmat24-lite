@@ -1,7 +1,7 @@
 import { BrowserWindow, dialog } from "electron";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
-import { mainToRenderer } from "../main-to-renderer";
-import { loadFilesContent } from "@shell/utils-main/load-files";
+import { mainToRenderer } from "../../main-to-renderer";
+import { loadFilesContent } from "./load-files";
 
 export async function openFileDialogAndReply(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {
     if (!appWin) {
