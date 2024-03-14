@@ -32,34 +32,23 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
                 throw new Error('Empty entry or file');
             }
 
+            const cnt = item.notOur ? '' : await textFileReader(item.file);
+            const newItem: FileContent = {
+                id: uuid.asRelativeNumber(),
+                idx,
+                entry: item.entry,
+                file: item.file,
+                fname: item.name,
+                fpath: item.fullPath,
+                fmodi: item.file.lastModified,
+                size: item.file.size,
+                raw: cnt,
+            };
             if (item.notOur) {
-                res.push({
-                    id: uuid.asRelativeNumber(),
-                    idx,
-                    entry: item.entry,
-                    file: item.file,
-                    fname: item.name,
-                    fpath: item.fullPath,
-                    fmodi: item.file.lastModified,
-                    size: item.file.size,
-                    raw: '',
-                    failed: true,
-                    notOur: true,
-                });
-            } else {
-                const cnt = await textFileReader(item.file);
-                res.push({
-                    id: uuid.asRelativeNumber(),
-                    idx,
-                    entry: item.entry,
-                    file: item.file,
-                    fname: item.name,
-                    fpath: item.fullPath,
-                    fmodi: item.file.lastModified,
-                    size: item.file.size,
-                    raw: cnt,
-                });
+                newItem.notOur = true;
+                newItem.failed = true;
             }
+            res.push(newItem);
 
         } catch (error) {
             res.push({
