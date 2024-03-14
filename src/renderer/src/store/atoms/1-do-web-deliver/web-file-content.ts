@@ -25,7 +25,8 @@ function textFileReader(file: File): Promise<string> {
 
 async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
-    for (const item of dropItems) {
+
+    dropItems.forEach((item, idx) => {
         try {
             if (!item.file) {
                 throw new Error('Empty entry or file');
@@ -34,39 +35,48 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
             if (item.notOur) {
                 res.push({
                     id: uuid.asRelativeNumber(),
+                    idx,
                     entry: item.entry,
                     file: item.file,
                     fname: item.name,
                     fpath: item.fullPath,
+                    fmodi: item.file.lastModified,
+                    size: item.file.size,
                     raw: '',
                     failed: true,
                     notOur: true,
                 });
-                continue;
+            } else {
+                const cnt = await textFileReader(item.file);
+                res.push({
+                    id: uuid.asRelativeNumber(),
+                    idx,
+                    entry: item.entry,
+                    file: item.file,
+                    fname: item.name,
+                    fpath: item.fullPath,
+                    fmodi: item.file.lastModified,
+                    size: item.file.size,
+                    raw: cnt,
+                });
             }
-
-            const cnt = await textFileReader(item.file);
-            res.push({
-                id: uuid.asRelativeNumber(),
-                entry: item.entry,
-                file: item.file,
-                fname: item.name,
-                fpath: item.fullPath,
-                raw: cnt,
-            });
 
         } catch (error) {
             res.push({
                 id: uuid.asRelativeNumber(),
+                idx,
                 entry: item.entry,
                 file: item.file,
                 fname: item.name,
                 fpath: item.fullPath,
+                fmodi: item.file.lastModified,
+                size: item.file.size,
                 raw: error instanceof Error ? error.message : JSON.stringify(error),
                 failed: true,
             });
         }
-    }
+    });
+
     return res;
 }
 
