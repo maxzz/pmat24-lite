@@ -1,16 +1,14 @@
 import { FileContent } from "@shared/ipc-types";
-import { ext } from "../../../utils/os-utils";
+import { extensionWoDot } from "../../../utils/os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../utils/uuid";
 
 type DropItem = {
-    name: string;                   // basename as filename w/ extension but wo/ path
-    fullPath: string;               // file full (in this case relative the root of drop) path and filename
-
-    notOur?: boolean;               // load of file content was blocked by allowedExt list.
-
+    fname: string;                  // basename as filename w/ extension but wo/ path
+    fpath: string;                  // file full (in this case relative the root of drop) path and filename
+    fileHandle: File;               // web: File object from async entry.file() call
     entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
-    file: File;                     // web: File object from async entry.file() call
+    notOur?: boolean;               // load of file content was blocked by allowedExt list.
 };
 
 function textFileReader(file: File): Promise<string> {
@@ -28,7 +26,7 @@ async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent
     const res: FileContent[] = [];
 
     for (const [idx, item] of dropItems.entries()) {
-        if (!item.file) {
+        if (!item.fileHandle) {
             console.error('Empty entry or file', item);
             continue;
         }
@@ -37,21 +35,21 @@ async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent
             const newItem: FileContent = {
                 id: uuid.asRelativeNumber(),
                 idx,
-                fname: item.name,
-                fpath: item.fullPath,
-                fmodi: item.file.lastModified,
-                size: item.file.size,
+                fname: item.fname,
+                fpath: item.fpath,
+                fmodi: item.fileHandle.lastModified,
+                size: item.fileHandle.size,
                 raw: '',
 
                 entry: item.entry,
-                file: item.file,
+                file: item.fileHandle,
 
                 notOur: item.notOur,
                 failed: false,
             };
 
             try {
-                newItem.raw = item.notOur ? '' : await textFileReader(item.file);
+                newItem.raw = item.notOur ? '' : await textFileReader(item.fileHandle);
                 item.notOur && (newItem.failed = true);
             } catch (error) {
                 newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
@@ -60,46 +58,42 @@ async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent
 
             res.push(newItem);
         } catch (error) {
-            console.error('Error processing drop item:', error);
+            console.error('Error processing drop item:', error, item);
         }
     }
 
     return res;
 }
 
-// Web drag and drop
+function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
+    const ext = extensionWoDot(filename || '').replace('.', '').toLowerCase();
+    return allowedExt.includes(ext);
+}
 
+/**
+ * Create FileContent items from web drag and drop operation
+ */
 export async function webLoadAfterDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(dataTransferItemList);
 
-    if (allowedExt) {
-        items = items.map(
-            (item) => (
-                isOurExt(item.name, allowedExt)
-                    ? item
-                    : { ...item, notOur: true }
-            )
-        );
-    }
+    allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
     return mapToFileContentItems(items);
-
-    function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
-        const ex = ext(filename || '').replace('.', '').toLowerCase();
-        return allowedExt.includes(ex);
-    }
 
     async function webGetFilesTransferItems(dataTransferItemList: DataTransferItemList): Promise<DropItem[]> {
         const entries = await getAllFileEntries(dataTransferItemList);
         let rv: DropItem[] = [];
         try {
             rv = await Promise.all(entries.map(
-                async (entry) => ({
-                    name: entry.name,
-                    fullPath: entry.fullPath,
-                    entry,
-                    file: await fileEntryToFile(entry),
-                }))
+                async (entry) => {
+                    return {
+                        fname: entry.name,
+                        fpath: entry.fullPath,
+                        fileHandle: await fileEntryToFile(entry),
+                        entry,
+                        notOur: false,
+                    };
+                })
             );
         } catch (error) {
             console.error('cannot read from DataTransferItemList', dataTransferItemList);
@@ -108,16 +102,13 @@ export async function webLoadAfterDataTransferContent(dataTransferItemList: Data
     }
 }
 
-// Web dialog open file/directory
-
+/**
+ * Create FileContent items from open file/directory web dialog
+ */
 export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await mapToDropItems(files);
 
-    items = allowedExt
-        ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())
-            ? item
-            : { ...item, notOur: true, failed: true })
-        : items;
+    allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
     return mapToFileContentItems(items);
 
@@ -125,12 +116,15 @@ export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[
         let rv: DropItem[] = [];
         try {
             rv = await Promise.all(files.map(
-                async (file) => ({
-                    name: file.name,
-                    fullPath: file.webkitRelativePath,
-                    entry: undefined,
-                    file: file,
-                })
+                async (file) => {
+                    return {
+                        fname: file.name,
+                        fpath: file.webkitRelativePath,
+                        fileHandle: file,
+                        entry: undefined,
+                        notOur: false,
+                    };
+                }
             ));
         } catch (error) {
             console.error('cannot read from File[]', files);

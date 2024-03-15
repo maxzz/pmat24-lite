@@ -15,6 +15,6 @@ export function returnFileSize(number: number): string {
 //     return ss.length > 1 ? ss[ss.length - 1] : '';          // a.b -> b; a.b/c -> 'b/c'
 // }
 
-export function ext(filename: string): string {
+export function extensionWoDot(filename: string): string {
     return /(?:\.([^./\\]+))?$/.exec(filename)?.[1] || '';  // a.b -> b; a.b/c -> ''
 }
