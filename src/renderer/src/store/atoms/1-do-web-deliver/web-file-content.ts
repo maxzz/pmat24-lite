@@ -4,8 +4,9 @@ import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../utils/uuid";
 
 type DropItem = {
-    name: string;                   //
-    fullPath: string;
+    name: string;                   // basename as filename w/ extension but wo/ path
+    fullPath: string;               // file full (in this case relative the root of drop) path and filename
+
     notOur?: boolean;               // load of file content was blocked by allowedExt list.
 
     entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
@@ -23,46 +24,43 @@ function textFileReader(file: File): Promise<string> {
     });
 }
 
-async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
+async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
 
     for (const [idx, item] of dropItems.entries()) {
-        try {
-            if (!item.file) {
-                throw new Error('Empty entry or file');
-            }
+        if (!item.file) {
+            console.error('Empty entry or file', item);
+            continue;
+        }
 
-            const cnt = item.notOur ? '' : await textFileReader(item.file);
+        try {
             const newItem: FileContent = {
                 id: uuid.asRelativeNumber(),
                 idx,
-                entry: item.entry,
-                file: item.file,
                 fname: item.name,
                 fpath: item.fullPath,
                 fmodi: item.file.lastModified,
                 size: item.file.size,
-                raw: cnt,
+                raw: '',
+
+                entry: item.entry,
+                file: item.file,
+
+                notOur: item.notOur,
+                failed: false,
             };
-            if (item.notOur) {
-                newItem.notOur = true;
+
+            try {
+                newItem.raw = item.notOur ? '' : await textFileReader(item.file);
+                item.notOur && (newItem.failed = true);
+            } catch (error) {
+                newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
                 newItem.failed = true;
             }
-            res.push(newItem);
 
+            res.push(newItem);
         } catch (error) {
-            res.push({
-                id: uuid.asRelativeNumber(),
-                idx,
-                entry: item.entry,
-                file: item.file,
-                fname: item.name,
-                fpath: item.fullPath,
-                fmodi: item.file.lastModified,
-                size: item.file.size,
-                raw: error instanceof Error ? error.message : JSON.stringify(error),
-                failed: true,
-            });
+            console.error('Error processing drop item:', error);
         }
     }
 
@@ -74,13 +72,22 @@ async function mapDropItemsToFileContents(dropItems: DropItem[]): Promise<FileCo
 export async function webLoadAfterDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(dataTransferItemList);
 
-    items = allowedExt
-        ? items.map((item) => allowedExt.includes(ext(item.name).toLowerCase())
-            ? item
-            : { ...item, notOur: true, failed: true })
-        : items;
+    if (allowedExt) {
+        items = items.map(
+            (item) => (
+                isOurExt(item.name, allowedExt)
+                    ? item
+                    : { ...item, notOur: true }
+            )
+        );
+    }
 
-    return mapDropItemsToFileContents(items);
+    return mapToFileContentItems(items);
+
+    function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
+        const ex = ext(filename || '').replace('.', '').toLowerCase();
+        return allowedExt.includes(ex);
+    }
 
     async function webGetFilesTransferItems(dataTransferItemList: DataTransferItemList): Promise<DropItem[]> {
         const entries = await getAllFileEntries(dataTransferItemList);
@@ -112,7 +119,7 @@ export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[
             : { ...item, notOur: true, failed: true })
         : items;
 
-    return mapDropItemsToFileContents(items);
+    return mapToFileContentItems(items);
 
     async function mapToDropItems(files: File[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
