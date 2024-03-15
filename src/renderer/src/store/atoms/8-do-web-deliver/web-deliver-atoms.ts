@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
-import { deliveredAtom } from "../0-content/any-delivered";
+import { deliveredAtom } from "../7-content/any-delivered";
 import { electronGetPathes, webLoadAfterDataTransferContent, webLoadAfterDialogOpen } from "./web-file-content";
 
 // handle files drop for web and electron environments
