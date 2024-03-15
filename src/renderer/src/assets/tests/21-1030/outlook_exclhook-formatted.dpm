@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<options>
+		<processes>
+			<process
+				name="outlook.exe"
+				type="skip"
+			/>
+			<process
+				name="outlook2.exe"
+				type="skip"
+			/>
+		</processes>
+		<tada
+		  value="tata"
+		/>
+		<tada
+		  value="tata2"
+		/>
+		<tada2
+		  value="tata 2"
+		/>
+	</options>
+</manifest>

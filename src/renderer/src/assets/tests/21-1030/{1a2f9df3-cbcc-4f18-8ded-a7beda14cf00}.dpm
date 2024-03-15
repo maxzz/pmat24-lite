@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{1bdf3d92-c738-4014-9914-9db7393f241e}"
+		created="1d79eaf 41d87063"
+		modified="1d79eaf 4a71a8e4"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Log in to TeamCity — TeamCity"
+				web_ourl="http://dp-tc.crossmatch.net:90/login.html"
+				web_murl="http://dp-tc.crossmatch.net:90/login.html"
+				web_qurl="http://dp-tc.crossmatch.net:90/login.html"
+				web_checkurl="1"
+				names_ext="101:#dp#&lt;;)lid=1^dot;username^dot;username:#dp#&lt;;)lid=1:#dp#&lt;;)lid=1^dot;password^dot;password"
+				processname="%25ProgramFiles%25\Google\Chrome\Application\chrome.exe"
+				commandline="%25ProgramFiles%25\Google\Chrome\Application\chrome.exe"
+			/>
+			<options
+				choosename="Team City"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Username"
+					type="edit"
+					dbname="{a1ad4308-821b-4443-a066-5797098a4d34}"
+					path_ext="[sid]0.1.2.."
+					useit="1"
+				/>
+				<field
+					displayname="Password"
+					type="edit"
+					dbname="{fa48204d-9d34-49f5-955e-9d568f6168bb}"
+					path_ext="[sid]0.3.2.."
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Remember me"
+					type="check"
+					dbname="{930ab5b6-c594-4f50-98f8-0120aec814cf}"
+					value="0"
+					useit="1"
+				/>
+				<field
+					displayname="button"
+					type="button"
+					dbname="{b096a0f9-1bd3-4155-b1b4-1045114b3712}"
+					useit="1"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>

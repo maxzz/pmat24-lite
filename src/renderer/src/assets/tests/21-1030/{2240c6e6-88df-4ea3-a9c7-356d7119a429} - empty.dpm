@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{35c9bff2-10a9-4ab3-aaa5-d3d3fb852bf8}"
+		created="1d61e9e 7f7d3790"
+		modified="1d61e9e 95450b57"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				dlg_class="Windows.UI.Core.CoreWindow"
+				processname="C:\Windows\System32\MicrosoftEdgeCP.exe"
+				commandline="C:\Windows\System32\MicrosoftEdgeCP.exe"
+			/>
+			<options
+				choosename="Vault - Password Only - Excluded"
+				quicklink="Vault - Password Only"
+				usequicklink="1"
+			/>
+		</form>
+	</forms>
+</manifest>
