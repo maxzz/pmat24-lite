@@ -2,32 +2,38 @@ import { basename, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { FileContent } from '@shared/ipc-types';
 
-function collectNamesRecursively(filenames: string[], rv: Partial<FileContent>[]) {
+type MainFileContent = Omit<FileContent, 'id' | 'entry' | 'file'>;
+
+function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach((filename) => {
         filename = normalize(filename);
+
+        const newItem: MainFileContent = {
+            idx: 0,
+            fname: basename(filename),
+            fpath: filename,
+            fmodi: 0,
+            size: 0,
+            raw: '',
+            main: true,
+            failed: false,
+        };
+
         try {
             const st = statSync(filename);
 
             if (st.isFile()) {
-                rv.push({
-                    fname: basename(filename),
-                    fpath: filename,
-                    fmodi: st.mtimeMs,
-                    size: st.size,
-                    main: true,
-                });
+                newItem.fmodi = st.mtimeMs;
+                newItem.size = st.size;
+                rv.push(newItem);
             } else if (st.isDirectory()) {
                 const entries = readdirSync(filename).map((entry) => join(filename, entry));
                 collectNamesRecursively(entries, rv);
             }
-
         } catch (error) {
-            rv.push({
-                fname: basename(filename),
-                fpath: filename,
-                raw: error instanceof Error ? error.message : JSON.stringify(error),
-                failed: true,
-            });
+            newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
+            newItem.failed = true;
+            rv.push(newItem);
         }
     });
 }
@@ -38,24 +44,16 @@ function isOurExt(filename: string | undefined, allowedExt: string[]): boolean |
 }
 
 export function loadFilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
-    let files: Partial<FileContent>[] = [];
+    let files: MainFileContent[] = [];
     collectNamesRecursively(filenames, files);
 
-    if (allowedExt) {
-        files = files.map(
-            (fileContent) => (
-                isOurExt(fileContent.fname, allowedExt)
-                    ? fileContent
-                    : { ...fileContent, notOur: true, failed: true }
-            )
-        );
-    }
+    allowedExt && files.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
     files.forEach(
         (file, idx) => {
+            file.idx = idx;
             if (!file.failed && !file.notOur) {
                 try {
-                    file.idx = idx;
                     file.raw = readFileSync(file.fpath!).toString();
                 } catch (error) {
                     file.raw = error instanceof Error ? error.message : JSON.stringify(error);
