@@ -9,8 +9,8 @@ import { FileUsAtomType } from '@/store/store-types';
 
 function ContentForSelected({ selectedAtom }: { selectedAtom: FileUsAtomType; }) {
     const selected = useAtomValue(selectedAtom);
-    console.log('render ContentForSelected', selected, selected.raw);
-    
+    console.log('render ContentForSelected', `${selectedAtom}`, selected);
+
     return (
         <Body_Xml text={selected.raw || "Not supported format"} />
     );
@@ -19,7 +19,7 @@ function ContentForSelected({ selectedAtom }: { selectedAtom: FileUsAtomType; })
 export function PanelB() {
     const { selected } = useSnapshot(rightPanel);
     console.log('render PanelB', selected);
-    
+
     return (
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>
@@ -29,9 +29,10 @@ export function PanelB() {
                     <div className="flex-1 outline-none" tabIndex={0}>
                         {/* <LongPanel /> */}
 
-                        {selected ? (
-                            <ContentForSelected selectedAtom={selected} />
-                        )
+                        {selected
+                            ? (
+                                <ContentForSelected selectedAtom={selected} />
+                            )
                             : (
                                 <div className="flex items-center justify-center h-full text-muted-foreground">
                                     No file selected
@@ -41,6 +42,7 @@ export function PanelB() {
                     </div>
                 </div>
             </div>
+            {console.log('render PanelB end')!}
         </div>
     );
 }
