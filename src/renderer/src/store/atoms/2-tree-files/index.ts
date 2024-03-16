@@ -28,7 +28,7 @@ export const treeFilesAtom = atom(
         console.log('get treeFiles.atom', files);
 
         if (!files.length) {
-            return [];
+            set(_treeFilesAtom, []);
         }
 
         const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
