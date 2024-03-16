@@ -9,7 +9,7 @@ import { deliveredAtom } from '../7-delivered';
 import { FileContent } from '@shared/ipc-types';
 import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats, isEmpty, isManual } from '@/store/store-utils';
-import { totalManis } from '../9-ui-state';
+import { busyIndicator, totalManis } from '../9-ui-state';
 
 function deliveredToFileUs(deliveredFile: FileContent): FileUs {
     const newFileUs: FileUs = {
@@ -54,7 +54,9 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
             meta = buildManiMetaForms(mani);
 
             if (fcat) {
-                /** TODO: later
+                /** 
+                 * TODO: later. one per root folder including A, B, C subfolders
+                 * 
                 const { items } = buildCatalogMeta(fcat); //TODO: we need to load multiple catalog files
                 set(fldCatItemsAtom, items);
                 */
@@ -78,6 +80,7 @@ export const doSetFilesAtom = atom(
     (get, set) => {
         const deliveredContent = get(deliveredAtom);
 
+        busyIndicator.msg = 'Parsing...';
         totalManis.normal = 0;
         totalManis.manual = 0;
         totalManis.empty = 0;
@@ -89,11 +92,11 @@ export const doSetFilesAtom = atom(
                     const newFileUs = deliveredToFileUs(deliveredFile);
 
                     if (isEmpty(newFileUs)) {
-                        ++totalManis.empty;
+                        totalManis.empty++;
                     } else if (isManual(newFileUs)) {
-                        ++totalManis.manual;
+                        totalManis.manual++;
                     } else {
-                        ++totalManis.normal;
+                        totalManis.normal++;
                     }
 
                     return newFileUs;
@@ -110,6 +113,8 @@ export const doSetFilesAtom = atom(
 
         //set(_foldAllCardsAtom, -1);
         set(files2Atom, fileUsAtoms);
+
+        busyIndicator.msg = '';
         //set(doUpdateCacheAtom);
         //set(rightPanelData.panelAtom, undefined);
     }

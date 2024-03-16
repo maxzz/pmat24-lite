@@ -4,7 +4,7 @@ import { files2Atom } from './0-files-atom';
 import { buildCatalogMeta, buildManiMetaForms, CatalogFile, Mani, Meta, parseXMLFile } from '@/store/manifest';
 import { fileUsStats, isEmpty, isManual, textFileReader } from '@/store/store-utils';
 import { fldCatItemsAtom } from '../8-field-catalog/all-items';
-import { busyAtom, totalManis } from '../9-ui-state';
+// import { busyAtom, totalManis } from '../9-ui-state';
 
 // Cache
 
@@ -14,7 +14,7 @@ export const doUpdateCacheAtom = atom(
         // set(totalManis.normalAtom, 0);
         // set(totalManis.manualAtom, 0);
         // set(totalManis.emptyAtom, 0);
-        set(busyAtom, 'Parsing...');
+        // set(busyAtom, 'Parsing...');
 
         const total = { normal: 0, manual: 0, empty: 0 };
 
@@ -69,6 +69,6 @@ export const doUpdateCacheAtom = atom(
             }
         }
 
-        set(busyAtom, '');
+        // set(busyAtom, '');
     }
 );
