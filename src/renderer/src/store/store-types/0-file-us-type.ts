@@ -17,8 +17,8 @@ export type FileUsStats = {
     url?: string;
     title?: string;
     
-    isSubFolder?: boolean;      // Now it's a simple check to see if the path is in front of the filename.
-    subFolder?: string;         // This is now the full path available from the browser, i.e. not a subfolder.
+    isSubFolder?: boolean;          // Now it's a simple check to see if the path is in front of the filename.
+    subFolder?: string;             // This is now the full path available from the browser, i.e. not a subfolder.
     
     dateCreated?: string;
     dateModified?: string;
@@ -26,23 +26,24 @@ export type FileUsStats = {
 
 export type FileUs = {
     id: string;
-    idx: number;                // index in the loaded list wo/ counting on filters, i.e. absolute index
+    idx: number;                    // index in the loaded list wo/ counting on filters, i.e. absolute index
 
-    fname: string;              // filename
-    fpath: string;              // file relative path to the dropped folder
-    fmodi: number;              // file.lastModified
-    size: number;               // file size
+    fname: string;                  // filename
+    fpath: string;                  // file relative path to the dropped folder
+    fmodi: number;                  // file.lastModified
+    size: number;                   // file size
+    raw?: string;                   // raw manifest as it was loaded
 
-    raw?: string;               // raw manifest as it was loaded
-    mani?: Mani.Manifest;       // json raw manifest
-    meta?: Meta.Form[];         // meta data on manifest
+    mani?: Mani.Manifest;           // json raw manifest
+    meta?: Meta.Form[];             // meta data on manifest
+    fcat?: CatalogFile.Root;        // field catalog
 
-    fcat?: CatalogFile.Root;    // field catalog
+    entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
+    file?: File;                    // web: File object from async entry.file() call
+    main?: boolean;                 // electron: true if loaded from electron main process, and has full absolute path; can be stored in the main process
 
-    file?: File;                // file OS handle
-
-    state: FileUsState;         // local state atoms: is currnet; is selected
-    stats: FileUsStats;         // quick access statistics
+    state: FileUsState;             // local state atoms: is currnet; is selected
+    stats: FileUsStats;             // quick access statistics
 };
 
 export type FileUsAtomType = WritableAtom<FileUs, [FileUs], void>;

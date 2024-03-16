@@ -4,9 +4,9 @@ export type FileContent = {
     
     fname: string;                  // basename as filename w/ extension but wo/ path
     fpath: string;                  // file full path and filename
-    raw: string;                    // file content as it was loaded or error message
     fmodi: number;                  // file.lastModified
     size: number;                   // file size
+    raw: string;                    // file content as it was loaded or error message
     
     failed?: boolean;               // if failed the cnt member has error text
     notOur?: boolean;               // load of file content was blocked by allowedExt list.

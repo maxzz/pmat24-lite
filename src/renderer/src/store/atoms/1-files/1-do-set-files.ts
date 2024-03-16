@@ -23,13 +23,14 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
         raw: deliveredFile.raw,
 
         file: deliveredFile.file,
+        entry: deliveredFile.entry,
         state: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
         stats: {} as FileUsStats, // the real one will be assigned after caching content
     };
-    
+
     addParseData(newFileUs);
     return newFileUs;
 
