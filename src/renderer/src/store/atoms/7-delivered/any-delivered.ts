@@ -40,7 +40,7 @@ export const deliveredAtom = atom(
     },
     (_get, set, filesCnt: FileContent[]) => {
         set(_deliveredAtom, filesCnt);
-        set(doSetFilesAtom);
+        set(doSetFilesAtom, filesCnt);
     }
 );
 

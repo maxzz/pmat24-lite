@@ -77,9 +77,7 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
 
 export const doSetFilesAtom = atom(
     null,
-    (get, set) => {
-        const deliveredContent = get(deliveredAtom);
-
+    (get, set, deliveredContent: FileContent[]) => {
         busyIndicator.msg = 'Parsing...';
         totalManis.normal = 0;
         totalManis.manual = 0;
@@ -111,6 +109,7 @@ export const doSetFilesAtom = atom(
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
 
+        console.log('set files2Atom', fileUsAtoms);
         //set(_foldAllCardsAtom, -1);
         set(files2Atom, fileUsAtoms);
 

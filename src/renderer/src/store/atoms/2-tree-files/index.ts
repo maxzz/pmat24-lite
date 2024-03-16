@@ -23,7 +23,7 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
         const files = get(files2Atom);
 
-        console.log('treeFiles.atom', files);
+        console.log('get treeFiles.atom', files);
 
         if (!files.length) {
             return [];
@@ -37,6 +37,8 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
                 fcnt: fcntAtom,
             };
         });
+
+        console.log('return treeFiles.atom', filesTree);
 
         return filesTree;
     }

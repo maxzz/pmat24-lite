@@ -24,6 +24,9 @@ export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
 
 export function FilesTree() {
 
+    console.log('render FilesTree');
+    
+
     const [content, setContent] = useState(() => {
         return "No content selected";
     });
@@ -32,6 +35,8 @@ export function FilesTree() {
     const snapHideFolderIcon = false;
 
     const treeFiles = useAtomValue(treeFilesAtom);
+
+    console.log('treeFiles', treeFiles);
 
     const TreeMemo = useMemo(
         () => {
@@ -45,8 +50,9 @@ export function FilesTree() {
                         // const selected = findTreeItemById(dataWithState, item?.id);
                         // const text = selected?.fcnt?.cnt || '';
                         // xmlText(text);
+                        console.log('onSelectChange', item);
                         
-                        const selectedAtom = (item as TT).fcnt;
+                        const selectedAtom = (item as TT)?.fcnt;
                         rightPanel.selected = selectedAtom;
                        
                         console.log('onSelectChange', selectedAtom);
