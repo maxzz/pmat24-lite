@@ -1,8 +1,9 @@
 import { atom } from "jotai";
 import { type FileContent } from "@shared/ipc-types";
+import { doSetFilesAtom } from "../1-files/1-do-set-files";
 
 /**
- * File content is coming from different sources:
+ * File content is populated from web or electron environment:
 ```
 ┌───────────────────────────────────────────┬─────────────────────────────────────┐
 │ with electron                             │ without electron                    │
@@ -31,4 +32,16 @@ import { type FileContent } from "@shared/ipc-types";
 - filesAtom     - files with reactive content and IDs
 - filteredAtom  - files to show in the tree
 */
-export const deliveredAtom = atom<FileContent[]>([]);   // files content populated from web or electron environments
+//export const deliveredAtom = atom<FileContent[]>([]);
+
+export const deliveredAtom = atom(
+    (get) => {
+        return get(_deliveredAtom);
+    },
+    (_get, set, filesCnt: FileContent[]) => {
+        set(_deliveredAtom, filesCnt);
+        set(doSetFilesAtom);
+    }
+);
+
+const _deliveredAtom = atom<FileContent[]>([]);
