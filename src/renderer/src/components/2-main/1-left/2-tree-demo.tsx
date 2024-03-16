@@ -4,7 +4,7 @@ import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataI
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 // import { data } from "./1-tree-data";
 import { useAtomValue, useSetAtom } from "jotai";
-import { TreeFileItem, treeFilesAtom, xmlTextAtom } from "@/store";
+import { TreeFileItem, rightPanel, treeFilesAtom } from "@/store";
 
 const initialItemId = "6.1.2";
 
@@ -33,8 +33,6 @@ export function FilesTree() {
 
     const treeFiles = useAtomValue(treeFilesAtom);
 
-    const xmlText = useSetAtom(xmlTextAtom);
-
     const TreeMemo = useMemo(
         () => {
             const dataWithState = addStateToTreeItems(treeFiles);
@@ -48,11 +46,10 @@ export function FilesTree() {
                         // const text = selected?.fcnt?.cnt || '';
                         // xmlText(text);
                         
-                        const selected = (item as TT);
-                        const text = selected?.fcnt?.raw || '';
-                        xmlText(text);
-
-                        console.log('onSelectChange', selected);
+                        const selectedAtom = (item as TT).fcnt;
+                        rightPanel.selected = selectedAtom;
+                       
+                        console.log('onSelectChange', selectedAtom);
 
                         setContent(item?.name ?? "");
                     }}
