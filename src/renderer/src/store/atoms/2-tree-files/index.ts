@@ -1,12 +1,13 @@
-import { atom } from "jotai";
+import { atom, useAtomValue } from "jotai";
+import { FileUsAtomType } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
-import { deliveredAtom } from "../7-delivered/any-delivered";
-import { DataItemCore, DataItemNavigation, ItemState } from "@/ui/shadcn/tree";
-import { uuid } from "@/utils";
-import { xmlTextAtom } from "../3-right-panel";
+import { files2Atom } from "../1-files";
+import { rightPanel } from "../3-right-panel";
+import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
+import { deliveredAtom } from "../7-delivered";
 
 export type TreeFcntItem = {
-    fcnt: FileContent;
+    fcnt: FileUsAtomType;
 };
 
 export type TreeFileItem<T = {}> = Prettify<
@@ -20,7 +21,7 @@ export const filteredAtom = atom<FileContent[]>([]);    // files to show in the 
 
 export const treeFilesAtom = atom<TreeFileItem[]>(
     (get) => {
-        const files = get(deliveredAtom);
+        const files = get(files2Atom);
 
         console.log('treeFiles.atom', files);
 
@@ -28,11 +29,12 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
             return [];
         }
 
-        const filesTree: TreeFileItem[] = files.map((fcnt) => {
+        const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
+            const fcnt = useAtomValue(fcntAtom);
             return {
-                id: fcnt.id || uuid.asRelativeNumber(),
+                id: fcnt.id,
                 name: fcnt.fname,
-                fcnt,
+                fcnt: fcntAtom,
             };
         });
 
@@ -44,6 +46,6 @@ export const doClearFileContentAtom = atom(
     null,
     (get, set) => {
         set(deliveredAtom, []);
-        set(xmlTextAtom, '');
+        rightPanel.selected = null;
     }
 );
