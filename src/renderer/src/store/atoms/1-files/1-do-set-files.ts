@@ -29,7 +29,7 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        stats: {} as FileUsStats, // the real one will be assigned after caching content
+        stats: {} as FileUsStats, // the real one will be assigned after parsing content
     };
 
     addParseData(newFileUs);

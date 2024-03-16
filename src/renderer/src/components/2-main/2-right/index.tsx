@@ -1,9 +1,9 @@
+import { useAtomValue } from 'jotai';
+import { xmlTextAtom } from '@/store';
 import { LongPanel } from "./LongPanel";
 import { PanelHeader } from "./0-header";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 import { Body_Xml } from "./3-file-xml";
-import { useAtomValue } from 'jotai';
-import { xmlTextAtom } from '@/store';
 
 export function PanelB() {
     const xmlText = useAtomValue(xmlTextAtom);
