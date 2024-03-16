@@ -5,6 +5,8 @@ import { DropdownMenuDemo } from "./1-main-menu";
 
 export function SectionHeader() {
     const treeFiles = useAtomValue(treeFilesAtom);
+    console.log('render Header', treeFiles);
+    
     return (
         <div className="px-4 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between">
             <div className="flex items-center gap-2">

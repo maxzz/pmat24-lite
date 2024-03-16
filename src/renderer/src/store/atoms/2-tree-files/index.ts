@@ -18,9 +18,11 @@ export type TreeFileItem<T = {}> = Prettify<
 
 export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree
 
+const _treeFilesAtom = atom<TreeFileItem[]>([]);
 
-export const treeFilesAtom = atom<TreeFileItem[]>(
-    (get) => {
+export const treeFilesAtom = atom(
+    (get) => get(_treeFilesAtom),
+    (get, set) => {
         const files = get(files2Atom);
 
         console.log('get treeFiles.atom', files);
@@ -40,7 +42,7 @@ export const treeFilesAtom = atom<TreeFileItem[]>(
 
         console.log('return treeFiles.atom', filesTree);
 
-        return filesTree;
+        set(_treeFilesAtom, filesTree);
     }
 );
 

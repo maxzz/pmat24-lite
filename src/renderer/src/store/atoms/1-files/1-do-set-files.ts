@@ -10,6 +10,7 @@ import { FileContent } from '@shared/ipc-types';
 import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats, isEmpty, isManual } from '@/store/store-utils';
 import { busyIndicator, totalManis } from '../9-ui-state';
+import { treeFilesAtom } from '../2-tree-files';
 
 function deliveredToFileUs(deliveredFile: FileContent): FileUs {
     const newFileUs: FileUs = {
@@ -112,6 +113,7 @@ export const doSetFilesAtom = atom(
         console.log('set files2Atom', fileUsAtoms);
         //set(_foldAllCardsAtom, -1);
         set(files2Atom, fileUsAtoms);
+        set(treeFilesAtom);
 
         busyIndicator.msg = '';
         //set(doUpdateCacheAtom);
