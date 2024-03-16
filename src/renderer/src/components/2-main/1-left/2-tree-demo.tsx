@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { proxy } from "valtio";
+import { proxy, ref } from "valtio";
 import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 // import { data } from "./1-tree-data";
@@ -36,7 +36,7 @@ export function FilesTree() {
 
     const treeFiles = useAtomValue(treeFilesAtom);
 
-    console.log('treeFiles', treeFiles);
+    // console.log('treeFiles', treeFiles);
 
     const TreeMemo = useMemo(
         () => {
@@ -50,12 +50,12 @@ export function FilesTree() {
                         // const selected = findTreeItemById(dataWithState, item?.id);
                         // const text = selected?.fcnt?.cnt || '';
                         // xmlText(text);
-                        console.log('onSelectChange', item);
+                        console.log('onSelectChange real', item);
                         
                         const selectedAtom = (item as TT)?.fcnt;
-                        rightPanel.selected = selectedAtom;
+                        rightPanel.selected = selectedAtom ? ref(selectedAtom) : null;
                        
-                        console.log('onSelectChange', selectedAtom);
+                        console.log('onSelectChange atom', selectedAtom);
 
                         setContent(item?.name ?? "");
                     }}
