@@ -1,7 +1,9 @@
+import { classNames } from "@/utils";
+import { HTMLAttributes } from "react";
 
-export function LongPanel() {
+export function LongPanel({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="p-2 h-full">
+        <div className={classNames("p-2", className)} {...rest}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur neque repellendus voluptas voluptates sed possimus. Itaque debitis praesentium, minima reiciendis voluptas facere delectus exercitationem aspernatur magni animi architecto quam deserunt!
             Earum rerum nesciunt enim sequi deserunt laborum quas delectus eveniet asperiores magni repellendus facilis explicabo dolor quo, quia veniam sunt minima necessitatibus animi iste vitae incidunt similique dignissimos? Nulla, accusantium.
             Ullam repellat explicabo ipsum ipsam aliquam. Culpa id, repudiandae nihil, aspernatur tempora saepe laborum suscipit quam nemo eaque dolorem voluptate aut laudantium enim beatae cupiditate animi vero minus quae odio.

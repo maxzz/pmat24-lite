@@ -3,6 +3,7 @@ import { rightPanelSelectedContentAtom } from '@/store';
 import { PanelHeader } from "./0-header";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 import { Body_Xml } from "./3-file-xml";
+import { LongPanel } from './LongPanel';
 
 function ContentForSelected() {
     const selected = useAtomValue(rightPanelSelectedContentAtom);
@@ -26,19 +27,14 @@ export function PanelB() {
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>
                 <div className={panel3Classes}>
-                {/* <div className={`w-full h-full grid grid-rows-[auto,minmax(0,1fr)] min-w-0 min-h-0`}> */}
                     <PanelHeader />
 
                     <div className="relative w-full h-full">
-                        <div className="absolute inset-px bottom-0.5 text-xs select-none">
+                        <div className="absolute inset-px bottom-0.5 text-xs">
+                            {/* <LongPanel className="w-full h-20 overflow-auto" /> */}
                             <ContentForSelected />
                         </div>
                     </div>
-
-                    {/* <div className="w-full h-full 1flex-1 outline-none" tabIndex={0}>
-                        {/* <LongPanel /> * /}
-                        <ContentForSelected />
-                    </div> */}
                 </div>
             </div>
         </div>
