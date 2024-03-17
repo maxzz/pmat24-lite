@@ -1,13 +1,11 @@
 import { atom } from 'jotai';
-import { FileUs, FileUsAtomType, FileUsStats } from "@/store/store-types";
+import { FileUs, FileUsStats } from "@/store/store-types";
 import { files2Atom } from './0-files-atom';
-import { doUpdateCacheAtom } from './4-do-update-cache';
 //import { _foldAllCardsAtom } from '../9-ui-state';
 //import { rightPanelData } from '../2-right-panel';
 import { uuid } from '@/utils';
-import { deliveredAtom } from '../7-delivered';
 import { FileContent } from '@shared/ipc-types';
-import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
+import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats, isEmpty, isManual } from '@/store/store-utils';
 import { busyIndicator, totalManis } from '../9-ui-state';
 import { treeFilesAtom } from '../2-tree-files';
