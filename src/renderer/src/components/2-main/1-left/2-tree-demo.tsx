@@ -4,7 +4,7 @@ import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, Dat
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 // import { data } from "./1-tree-data";
 import { useAtomValue, useSetAtom } from "jotai";
-import { TreeFileItem, rPanelSelectedAtom, treeFilesAtom } from "@/store";
+import { TreeFileItem, rightPanelAtom, treeFilesAtom } from "@/store";
 
 type TT = TreeFileItem<ItemState>;
 
@@ -25,7 +25,7 @@ export function FilesTree() {
     const snapHideFolderIcon = false;
 
     const treeFiles = useAtomValue(treeFilesAtom);
-    const setSelected = useSetAtom(rPanelSelectedAtom);
+    const setSelected = useSetAtom(rightPanelAtom);
 
     // console.log('treeFiles', treeFiles);
 

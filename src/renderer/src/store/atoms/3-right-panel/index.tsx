@@ -1,15 +1,11 @@
-import { FileUsAtomType } from "@/store/store-types";
 import { atom } from "jotai";
+import { FileUsAtomType } from "@/store/store-types";
 
-export const rPanelSelectedAtom = atom<FileUsAtomType | null>(null)
+export const rightPanelAtom = atom<FileUsAtomType | null>(null)
 
-export const rPanelSelectedContentAtom = atom(
+export const rightPanelSelectedContentAtom = atom(
     (get) => {
-        const selected = get(rPanelSelectedAtom);
-        if (!selected) {
-            return selected;
-        }
-
-        return get(selected);
+        const selectedAtom = get(rightPanelAtom);
+        return selectedAtom ? get(selectedAtom) : null;
     },
 );

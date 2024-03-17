@@ -1,11 +1,11 @@
 import { useAtomValue } from 'jotai';
-import { rPanelSelectedContentAtom } from '@/store';
+import { rightPanelSelectedContentAtom } from '@/store';
 import { PanelHeader } from "./0-header";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 import { Body_Xml } from "./3-file-xml";
 
 function ContentForSelected() {
-    const selected = useAtomValue(rPanelSelectedContentAtom);
+    const selected = useAtomValue(rightPanelSelectedContentAtom);
 
     const staticText = !selected ? 'No file selected' : !selected.raw ? 'Not supported format' : undefined;
     if (staticText) {

@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
 import { files2Atom } from "../1-files";
-import { rPanelSelectedAtom } from "../3-right-panel";
+import { rightPanelAtom } from "../3-right-panel";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { deliveredAtom } from "../7-delivered";
 
@@ -24,8 +24,6 @@ export const treeFilesAtom = atom(
     (get) => get(_treeFilesAtom),
     (get, set) => {
         const files = get(files2Atom);
-
-        console.log('get treeFiles.atom', files);
 
         if (!files.length) {
             set(_treeFilesAtom, []);
@@ -50,6 +48,6 @@ export const doClearFileContentAtom = atom(
     null,
     (get, set) => {
         set(deliveredAtom, []);
-        set(rPanelSelectedAtom, null);
+        set(rightPanelAtom, null);
     }
 );
