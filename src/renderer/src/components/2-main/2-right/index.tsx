@@ -6,19 +6,35 @@ import { Body_Xml } from "./3-file-xml";
 import { useSnapshot } from 'valtio';
 import { rightPanel } from '@/store';
 import { FileUsAtomType } from '@/store/store-types';
+import { memo } from 'react';
 
-function ContentForSelected({ selectedAtom }: { selectedAtom: FileUsAtomType; }) {
+// function ContentForSelected({ selectedAtom }: { selectedAtom: FileUsAtomType; }) {
+//     // const selected = useAtomValue(selectedAtom);
+//     // console.log('render ContentForSelected', `${selectedAtom}`, selected);
+    
+//     console.log('render ContentForSelected');
+
+//     return null;
+//     // return (
+//     //     <Body_Xml text={selected.raw || "Not supported format"} />
+//     // );
+// }
+
+const ContentForSelected = memo(function _ContentForSelected({ selectedAtom }: { selectedAtom: FileUsAtomType; }) {
     const selected = useAtomValue(selectedAtom);
     console.log('render ContentForSelected', `${selectedAtom}`, selected);
+    
+    // console.log('render ContentForSelected');
 
+    // return null;
     return (
         <Body_Xml text={selected.raw || "Not supported format"} />
     );
-}
+})
 
 export function PanelB() {
     const { selected } = useSnapshot(rightPanel);
-    console.log('render PanelB', selected);
+    console.log('render PanelB', `${selected}`);
 
     return (
         <div className={`${panel1Classes} pl-0`}>
@@ -30,8 +46,11 @@ export function PanelB() {
                         {/* <LongPanel /> */}
 
                         {selected
-                            ? (
+                            ? (<>
+                                {console.log('ContentForSelected render before')!}
                                 <ContentForSelected selectedAtom={selected} />
+                                {console.log('ContentForSelected render after')!}
+                            </>
                             )
                             : (
                                 <div className="flex items-center justify-center h-full text-muted-foreground">
