@@ -1,5 +1,4 @@
 import { Button } from '@/ui';
-import { DroppedFilesView } from './1-dropped-files-view';
 import { PanelHwndGrid } from './2-active-saw';
 import { hasMain } from '@/xternal-to-main';
 import { Versions } from './versions-list';
@@ -18,9 +17,6 @@ function PingPongButton() {
 export function Demos() {
     return (
         <div className="p-4 flex flex-col">
-            <div className="flex-1">
-                <DroppedFilesView />
-            </div>
 
             <PanelHwndGrid />
 
