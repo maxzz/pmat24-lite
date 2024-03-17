@@ -15,3 +15,15 @@ export const rightPanel = proxy<RightPanel>({
 subscribe(rightPanel, () => {
     console.log('---------------rightPanel.selected', rightPanel.selected);
 });
+
+export const rightPanelSelectedAtom = atom(
+    (get) => {
+        console.log('>>>>>>>>>>>>>>>> rightPanelSelectedAtom', rightPanel.selected);
+
+        const selected = rightPanel.selected;
+        if (!selected) {
+            return selected;
+        }
+        return get(selected);
+    },
+);
