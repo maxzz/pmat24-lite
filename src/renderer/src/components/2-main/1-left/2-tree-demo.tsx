@@ -1,12 +1,10 @@
 import { useMemo, useState } from "react";
 import { proxy, ref } from "valtio";
-import { Tree, DataItemWState, duplicateTree, findTreeItemById, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
+import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 // import { data } from "./1-tree-data";
 import { useAtomValue, useSetAtom } from "jotai";
 import { TreeFileItem, rPanelSelectedAtom, treeFilesAtom } from "@/store";
-
-const initialItemId = "6.1.2";
 
 type TT = TreeFileItem<ItemState>;
 
@@ -23,19 +21,10 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
 export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
 
 export function FilesTree() {
-
-    console.log('render FilesTree');
-    
-
-    const [content, setContent] = useState(() => {
-        return "No content selected";
-    });
-
     const snapArrowFirst = true;
     const snapHideFolderIcon = false;
 
     const treeFiles = useAtomValue(treeFilesAtom);
-
     const setSelected = useSetAtom(rPanelSelectedAtom);
 
     // console.log('treeFiles', treeFiles);
@@ -52,16 +41,9 @@ export function FilesTree() {
                         // const selected = findTreeItemById(dataWithState, item?.id);
                         // const text = selected?.fcnt?.cnt || '';
                         // xmlText(text);
-                        console.log('onSelectChange real', item);
-                        
-                        const selectedAtom = (item as TT)?.fcnt;
-                        // rightPanel.selected = selectedAtom ? ref(selectedAtom) : null;
-
-                        setSelected(selectedAtom ? selectedAtom : null);
                        
-                        console.log('onSelectChange atom', selectedAtom);
-
-                        setContent(item?.name ?? "");
+                        const selectedAtom = (item as TT)?.fcnt;
+                        setSelected(selectedAtom ? selectedAtom : null);
                     }}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
