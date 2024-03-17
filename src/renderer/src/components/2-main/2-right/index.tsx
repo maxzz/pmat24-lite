@@ -1,35 +1,27 @@
 import { useAtomValue } from 'jotai';
+import { rPanelSelectedContentAtom } from '@/store';
 import { PanelHeader } from "./0-header";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 import { Body_Xml } from "./3-file-xml";
-import { rPanelSelectedContentAtom } from '@/store';
 
 function ContentForSelected() {
     const selected = useAtomValue(rPanelSelectedContentAtom);
 
-    if (!selected) {
+    const staticText = !selected ? 'No file selected' : !selected.raw ? 'Not supported format' : undefined;
+    if (staticText) {
         return (
-            <div className="flex items-center justify-center h-full text-muted-foreground">
-                No file selected
-            </div>
-        );
-    } else if (!selected.raw) {
-        return (
-            <div className="flex items-center justify-center h-full text-muted-foreground">
-                Not supported format
+            <div className="h-full text-muted-foreground flex items-center justify-center">
+                {staticText}
             </div>
         );
     }
 
     return (
-        <Body_Xml text={selected.raw} />
+        <Body_Xml text={selected?.raw || ''} />
     );
 }
 
 export function PanelB() {
-
-    console.log('render PanelB');
-
     return (
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>
