@@ -26,12 +26,19 @@ export function PanelB() {
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>
                 <div className={panel3Classes}>
+                {/* <div className={`w-full h-full grid grid-rows-[auto,minmax(0,1fr)] min-w-0 min-h-0`}> */}
                     <PanelHeader />
 
-                    <div className="flex-1 outline-none" tabIndex={0}>
-                        {/* <LongPanel /> */}
-                        <ContentForSelected />
+                    <div className="relative w-full h-full">
+                        <div className="absolute inset-px bottom-0.5 text-xs select-none">
+                            <ContentForSelected />
+                        </div>
                     </div>
+
+                    {/* <div className="w-full h-full 1flex-1 outline-none" tabIndex={0}>
+                        {/* <LongPanel /> * /}
+                        <ContentForSelected />
+                    </div> */}
                 </div>
             </div>
         </div>

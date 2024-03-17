@@ -9,7 +9,7 @@ export function Body_Xml({ text, className, ...rest }: { text: string; } & HTMLA
     const { ref, width, height } = useResizeObserver();
     console.log('Body_Xml', { width, height });
     return (<>
-        <div className={classNames("h-full", className)} ref={ref} {...rest}>
+        <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
             <ScrollArea style={{ width, height }} horizontal>
                 <SyntaxHighlighterXml className="p-1 dark:opacity-60">
                     {text}
