@@ -78,10 +78,7 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
 
 export const doSetFilesAtom = atom(
     null,
-    // (get, set, deliveredContent: FileContent[]) => {
-    (get, set) => {
-        const deliveredContent = get(deliveredAtom);
-
+    (get, set, deliveredContent: FileContent[]) => {
         busyIndicator.msg = 'Parsing...';
         totalManis.normal = 0;
         totalManis.manual = 0;
