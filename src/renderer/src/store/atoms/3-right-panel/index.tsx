@@ -1,6 +1,6 @@
 import { FileUsAtomType } from "@/store/store-types";
 import { atom } from "jotai";
-import { proxy } from "valtio";
+import { proxy, subscribe } from "valtio";
 
 // export const xmlTextAtom = atom('');
 
@@ -10,4 +10,8 @@ export type RightPanel = {
 
 export const rightPanel = proxy<RightPanel>({
     selected: null,
+});
+
+subscribe(rightPanel, () => {
+    console.log('---------------rightPanel.selected', rightPanel.selected);
 });
