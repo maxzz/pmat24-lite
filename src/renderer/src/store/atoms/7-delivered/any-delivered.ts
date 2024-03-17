@@ -32,16 +32,16 @@ import { doSetFilesAtom } from "../1-files/1-do-set-files";
 - filesAtom     - files with reactive content and IDs
 - filteredAtom  - files to show in the tree
 */
-//export const deliveredAtom = atom<FileContent[]>([]);
+export const deliveredAtom = atom<FileContent[]>([]);
 
-export const deliveredAtom = atom(
-    (get) => {
-        return get(_deliveredAtom);
-    },
-    (_get, set, filesCnt: FileContent[]) => {
-        set(_deliveredAtom, filesCnt);
-        set(doSetFilesAtom, filesCnt);
-    }
-);
+// export const deliveredAtom = atom(
+//     (get) => {
+//         return get(_deliveredAtom);
+//     },
+//     (_get, set, filesCnt: FileContent[]) => {
+//         set(_deliveredAtom, filesCnt);
+//         set(doSetFilesAtom, filesCnt);
+//     }
+// );
 
-const _deliveredAtom = atom<FileContent[]>([]);
+// const _deliveredAtom = atom<FileContent[]>([]);

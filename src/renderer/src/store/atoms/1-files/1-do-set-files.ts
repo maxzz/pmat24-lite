@@ -78,7 +78,10 @@ function deliveredToFileUs(deliveredFile: FileContent): FileUs {
 
 export const doSetFilesAtom = atom(
     null,
-    (get, set, deliveredContent: FileContent[]) => {
+    // (get, set, deliveredContent: FileContent[]) => {
+    (get, set) => {
+        const deliveredContent = get(deliveredAtom);
+
         busyIndicator.msg = 'Parsing...';
         totalManis.normal = 0;
         totalManis.manual = 0;
@@ -120,6 +123,51 @@ export const doSetFilesAtom = atom(
         //set(rightPanelData.panelAtom, undefined);
     }
 );
+
+// export const doSetFilesAtom = atom(
+//     null,
+//     (get, set, deliveredContent: FileContent[]) => {
+//         busyIndicator.msg = 'Parsing...';
+//         totalManis.normal = 0;
+//         totalManis.manual = 0;
+//         totalManis.empty = 0;
+
+//         const fileUsItems =
+//             deliveredContent
+//                 .filter((file) => file.size)
+//                 .map((deliveredFile) => {
+//                     const newFileUs = deliveredToFileUs(deliveredFile);
+
+//                     if (isEmpty(newFileUs)) {
+//                         totalManis.empty++;
+//                     } else if (isManual(newFileUs)) {
+//                         totalManis.manual++;
+//                     } else {
+//                         totalManis.normal++;
+//                     }
+
+//                     return newFileUs;
+//                 })
+//                 .filter((fileUs) => {
+//                     if (fileUs.failed) {
+//                         console.error(fileUs.raw);
+//                     }
+//                     return !fileUs.failed;
+//                 });
+
+//         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
+
+
+//         console.log('set files2Atom', fileUsAtoms);
+//         //set(_foldAllCardsAtom, -1);
+//         set(files2Atom, fileUsAtoms);
+//         set(treeFilesAtom);
+
+//         busyIndicator.msg = '';
+//         //set(doUpdateCacheAtom);
+//         //set(rightPanelData.panelAtom, undefined);
+//     }
+// );
 
 // export const doSetFilesAtom = atom(
 //     null,
