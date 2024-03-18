@@ -1,11 +1,8 @@
 import { atom } from 'jotai';
 import { filesAtom } from './0-files-atom';
-//import { _foldAllCardsAtom } from '../9-ui-state';
-//import { rightPanelData } from '../2-right-panel';
 import { FileContent } from '@shared/ipc-types';
 import { isEmpty, isManual } from '@/store/store-utils';
 import { busyIndicator, totalManis } from '../9-ui-state';
-import { treeFilesAtom } from '../2-tree-files';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
 
 /**
@@ -73,7 +70,6 @@ export const doSetDeliveredFilesAtom = atom(
 
         //set(_foldAllCardsAtom, -1);
         set(filesAtom, fileUsAtoms);
-        // set(treeFilesAtom);
 
         busyIndicator.msg = '';
         //set(doUpdateCacheAtom);
