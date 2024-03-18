@@ -73,7 +73,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         //set(_foldAllCardsAtom, -1);
         set(filesAtom, fileUsAtoms);
-        set(treeFilesAtom);
+        // set(treeFilesAtom);
 
         busyIndicator.msg = '';
         //set(doUpdateCacheAtom);

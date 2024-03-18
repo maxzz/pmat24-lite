@@ -14,17 +14,17 @@ export type TreeFileItem<T = {}> = Prettify<
 
 //export const filesAtom = atom<FileContent[]>([]);       // files with reactive content and IDs
 
-export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree
+//export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree
 
 const _treeFilesAtom = atom<TreeFileItem[]>([]);
 
 export const treeFilesAtom = atom(
-    (get) => get(_treeFilesAtom),
-    (get, set) => {
+    (get) => {
         const files = get(filesAtom);
 
         if (!files.length) {
-            set(_treeFilesAtom, []);
+            console.log('return treeFiles.atom []');
+            return [];
         }
 
         const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
@@ -38,6 +38,38 @@ export const treeFilesAtom = atom(
 
         console.log('return treeFiles.atom', filesTree);
 
-        set(_treeFilesAtom, filesTree);
+        return filesTree;
     }
 );
+
+
+
+
+
+
+
+// const _treeFilesAtom = atom<TreeFileItem[]>([]);
+
+// export const treeFilesAtom = atom(
+//     (get) => get(_treeFilesAtom),
+//     (get, set) => {
+//         const files = get(filesAtom);
+
+//         if (!files.length) {
+//             set(_treeFilesAtom, []);
+//         }
+
+//         const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
+//             const fcnt = get(fcntAtom);
+//             return {
+//                 id: fcnt.id,
+//                 name: fcnt.fname,
+//                 fcnt: fcntAtom,
+//             };
+//         });
+
+//         console.log('return treeFiles.atom', filesTree);
+
+//         set(_treeFilesAtom, filesTree);
+//     }
+// );
