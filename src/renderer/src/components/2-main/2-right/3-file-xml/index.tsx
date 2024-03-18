@@ -7,7 +7,6 @@ import { classNames } from '@/utils';
 /**/
 export function Body_Xml({ text, className, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {
     const { ref, width, height } = useResizeObserver();
-    console.log('Body_Xml', { width, height });
     return (<>
         <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
             <ScrollArea style={{ width, height }} horizontal>
