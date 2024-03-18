@@ -1,14 +1,11 @@
 import { useSnapshot } from 'valtio';
 import { useSpring, a } from "@react-spring/web";
-import { busyAtom, busyIndicator } from '@/store';
+import { busyIndicator } from '@/store';
 import { IconRocket } from "@ui/icons";
 import css from "./busy-indicator.module.css";
-import { useAtomValue } from 'jotai';
 
 export function BusyIndicator() {
     const { msg } = useSnapshot(busyIndicator);
-    // const msg = useAtomValue(busyAtom);
-    // const msg = 'Loading...';
     console.log(`---busyIndicator.msg = "${msg}"`);
 
     const styles = useSpring({

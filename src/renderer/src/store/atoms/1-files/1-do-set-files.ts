@@ -4,7 +4,7 @@ import { FileContent } from '@shared/ipc-types';
 import { delay, isEmpty, isManual } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
 import { rightPanelAtom } from '../3-right-panel';
-import { busyAtom, busyIndicator, totalManis } from '../9-ui-state';
+import { busyIndicator, totalManis } from '../9-ui-state';
 
 /**
  * File content is populated from web or electron environment:
@@ -40,8 +40,7 @@ export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredContent: FileContent[]) => {
         busyIndicator.msg = 'Parsing...';
-        // set(busyAtom,  'Loading...');
-        await delay(1000); // to show busyIndicator (it's not shown if the process is too fast
+        await delay(1000); // to update busyIndicator UI (it's not shown if the process is too fast). TODO: all heavy stuff is already done in the main process, so it should be done earlier
 
         totalManis.normal = 0;
         totalManis.manual = 0;
@@ -76,6 +75,5 @@ export const doSetDeliveredFilesAtom = atom(
 
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
-        // set(busyAtom,  '');
     }
 );
