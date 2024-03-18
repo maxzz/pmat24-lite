@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
-import { doSetDeliveredFilesAtom, files2Atom } from "../1-files";
+import { doSetDeliveredFilesAtom, filesAtom } from "../1-files";
 import { rightPanelAtom } from "../3-right-panel";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 
@@ -22,7 +22,7 @@ const _treeFilesAtom = atom<TreeFileItem[]>([]);
 export const treeFilesAtom = atom(
     (get) => get(_treeFilesAtom),
     (get, set) => {
-        const files = get(files2Atom);
+        const files = get(filesAtom);
 
         if (!files.length) {
             set(_treeFilesAtom, []);

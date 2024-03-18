@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { files2Atom } from './0-files-atom';
+import { filesAtom } from './0-files-atom';
 //import { _foldAllCardsAtom } from '../9-ui-state';
 //import { rightPanelData } from '../2-right-panel';
 import { FileContent } from '@shared/ipc-types';
@@ -74,7 +74,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         console.log('set files2Atom', fileUsAtoms);
         //set(_foldAllCardsAtom, -1);
-        set(files2Atom, fileUsAtoms);
+        set(filesAtom, fileUsAtoms);
         set(treeFilesAtom);
 
         busyIndicator.msg = '';

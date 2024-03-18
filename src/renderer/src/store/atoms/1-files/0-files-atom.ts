@@ -3,4 +3,4 @@ import type { FileUsAtomType } from "@/store/store-types";
 
 // Files
 
-export const files2Atom = atom<FileUsAtomType[]>([]);
+export const filesAtom = atom<FileUsAtomType[]>([]);
