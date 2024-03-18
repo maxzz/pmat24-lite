@@ -8,7 +8,7 @@ import { busyIndicator, totalManis } from '../9-ui-state';
 import { treeFilesAtom } from '../2-tree-files';
 import { deliveredToFileUs } from './1-delivered-to-file-us';
 
-export const doSetFilesAtom = atom(
+export const doSetDeliveredFilesAtom = atom(
     null,
     (get, set, deliveredContent: FileContent[]) => {
         busyIndicator.msg = 'Parsing...';

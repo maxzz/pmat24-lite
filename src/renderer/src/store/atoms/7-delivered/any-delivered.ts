@@ -1,6 +1,6 @@
-import { atom } from "jotai";
-import { type FileContent } from "@shared/ipc-types";
-import { doSetFilesAtom } from "../1-files/1-do-set-files";
+// import { atom } from "jotai";
+// import { type FileContent } from "@shared/ipc-types";
+// import { doSetDeliveredFilesAtom } from "../1-files/1-do-set-files";
 
 /**
  * File content is populated from web or electron environment:
@@ -34,14 +34,14 @@ import { doSetFilesAtom } from "../1-files/1-do-set-files";
 */
 //export const deliveredAtom = atom<FileContent[]>([]);
 
-export const deliveredAtom = atom(
-    (get) => {
-        return get(_deliveredAtom);
-    },
-    (_get, set, filesCnt: FileContent[]) => {
-        set(_deliveredAtom, filesCnt);
-        set(doSetFilesAtom, filesCnt);
-    }
-);
+// export const deliveredAtom = atom(
+//     (get) => {
+//         return get(_deliveredAtom);
+//     },
+//     (_get, set, filesCnt: FileContent[]) => {
+//         set(_deliveredAtom, filesCnt);
+//         set(doSetDeliveredFilesAtom, filesCnt);
+//     }
+// );
 
-const _deliveredAtom = atom<FileContent[]>([]);
+// const _deliveredAtom = atom<FileContent[]>([]);

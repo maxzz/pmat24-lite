@@ -1,10 +1,9 @@
 import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
-import { files2Atom } from "../1-files";
+import { doSetDeliveredFilesAtom, files2Atom } from "../1-files";
 import { rightPanelAtom } from "../3-right-panel";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
-import { deliveredAtom } from "../7-delivered";
 
 export type TreeFcntItem = {
     fcnt: FileUsAtomType;
@@ -47,7 +46,7 @@ export const treeFilesAtom = atom(
 export const doClearFileContentAtom = atom(
     null,
     (get, set) => {
-        set(deliveredAtom, []);
+        set(doSetDeliveredFilesAtom, []);
         set(rightPanelAtom, null);
     }
 );

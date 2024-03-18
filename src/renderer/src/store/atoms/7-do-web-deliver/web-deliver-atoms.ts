@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
-import { deliveredAtom } from "../7-delivered/any-delivered";
+import { doSetDeliveredFilesAtom } from "../1-files";
 import { electronGetPathes, webLoadAfterDataTransferContent, webLoadAfterDialogOpen } from "./web-file-content";
 
 // handle files drop for web and electron environments
@@ -23,7 +23,7 @@ export const doSetFilesFromDropAtom = atom(
         }
 
         if (filesCnt) {
-            set(deliveredAtom, filesCnt);
+            set(doSetDeliveredFilesAtom, filesCnt);
         }
     }
 );
@@ -37,7 +37,7 @@ export const doSetFilesFromDialogAtom = atom(
         }
         let filesCnt: FileContent[] = await webLoadAfterDialogOpen(files, pmAllowedToOpenExt);
         if (filesCnt) {
-            set(deliveredAtom, filesCnt);
+            set(doSetDeliveredFilesAtom, filesCnt);
         }
     }
 );
