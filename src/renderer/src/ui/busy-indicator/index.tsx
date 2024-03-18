@@ -6,8 +6,8 @@ import css from "./busy-indicator.module.css";
 import { useAtomValue } from 'jotai';
 
 export function BusyIndicator() {
-    // const { msg } = useSnapshot(busyIndicator);
-    const msg = useAtomValue(busyAtom);
+    const { msg } = useSnapshot(busyIndicator);
+    // const msg = useAtomValue(busyAtom);
     // const msg = 'Loading...';
     console.log(`---busyIndicator.msg = "${msg}"`);
 

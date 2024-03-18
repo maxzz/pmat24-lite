@@ -39,14 +39,16 @@ import { busyAtom, busyIndicator, totalManis } from '../9-ui-state';
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredContent: FileContent[]) => {
-        //busyIndicator.msg = 'Parsing...';
-        set(busyAtom,  'Loading...');
+        busyIndicator.msg = 'Parsing...';
+        // set(busyAtom,  'Loading...');
+        await delay(1000); // to show busyIndicator (it's not shown if the process is too fast
+
         totalManis.normal = 0;
         totalManis.manual = 0;
         totalManis.empty = 0;
 
         set(rightPanelAtom, null);
-        await delay(0); // to show busyIndicator (it's not shown if the process is too fast
+
         const fileUsItems =
             deliveredContent
                 .filter((file) => file.size)
@@ -73,7 +75,7 @@ export const doSetDeliveredFilesAtom = atom(
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
         set(filesAtom, fileUsAtoms);
-        //busyIndicator.msg = '';
-        set(busyAtom,  '');
+        busyIndicator.msg = '';
+        // set(busyAtom,  '');
     }
 );
