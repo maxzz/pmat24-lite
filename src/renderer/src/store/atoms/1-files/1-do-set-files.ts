@@ -1,10 +1,10 @@
 import { atom } from 'jotai';
 import { filesAtom } from './0-files-atom';
 import { FileContent } from '@shared/ipc-types';
-import { isEmpty, isManual } from '@/store/store-utils';
+import { delay, isEmpty, isManual } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
 import { rightPanelAtom } from '../3-right-panel';
-import { busyIndicator, totalManis } from '../9-ui-state';
+import { busyAtom, busyIndicator, totalManis } from '../9-ui-state';
 
 /**
  * File content is populated from web or electron environment:
@@ -38,14 +38,15 @@ import { busyIndicator, totalManis } from '../9-ui-state';
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    (get, set, deliveredContent: FileContent[]) => {
-        busyIndicator.msg = 'Parsing...';
+    async (get, set, deliveredContent: FileContent[]) => {
+        //busyIndicator.msg = 'Parsing...';
+        set(busyAtom,  'Loading...');
         totalManis.normal = 0;
         totalManis.manual = 0;
         totalManis.empty = 0;
 
         set(rightPanelAtom, null);
-
+        await delay(0); // to show busyIndicator (it's not shown if the process is too fast
         const fileUsItems =
             deliveredContent
                 .filter((file) => file.size)
@@ -72,6 +73,7 @@ export const doSetDeliveredFilesAtom = atom(
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
         set(filesAtom, fileUsAtoms);
-        busyIndicator.msg = '';
+        //busyIndicator.msg = '';
+        set(busyAtom,  '');
     }
 );
