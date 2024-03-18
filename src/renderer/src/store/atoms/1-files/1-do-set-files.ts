@@ -71,8 +71,6 @@ export const doSetDeliveredFilesAtom = atom(
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
-
-        console.log('set files2Atom', fileUsAtoms);
         //set(_foldAllCardsAtom, -1);
         set(filesAtom, fileUsAtoms);
         set(treeFilesAtom);
