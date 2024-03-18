@@ -9,6 +9,7 @@
         "@electron-toolkit/preload": "^3.0.0",
         "@electron-toolkit/utils": "^3.0.0",
         "@radix-ui/react-menubar": "^1.0.4",
+        "@react-spring/web": "^9.7.3",
         "electron-updater": "^6.1.8",
         "jotai": "^2.7.1",
         "jotai-valtio": "^0.4.0",

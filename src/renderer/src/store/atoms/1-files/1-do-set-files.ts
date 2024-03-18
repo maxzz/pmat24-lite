@@ -2,8 +2,9 @@ import { atom } from 'jotai';
 import { filesAtom } from './0-files-atom';
 import { FileContent } from '@shared/ipc-types';
 import { isEmpty, isManual } from '@/store/store-utils';
-import { busyIndicator, totalManis } from '../9-ui-state';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
+import { rightPanelAtom } from '../3-right-panel';
+import { busyIndicator, totalManis } from '../9-ui-state';
 
 /**
  * File content is populated from web or electron environment:
@@ -43,6 +44,8 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.manual = 0;
         totalManis.empty = 0;
 
+        set(rightPanelAtom, null);
+
         const fileUsItems =
             deliveredContent
                 .filter((file) => file.size)
@@ -68,11 +71,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
-        //set(_foldAllCardsAtom, -1);
         set(filesAtom, fileUsAtoms);
-
         busyIndicator.msg = '';
-        //set(doUpdateCacheAtom);
-        //set(rightPanelData.panelAtom, undefined);
     }
 );
