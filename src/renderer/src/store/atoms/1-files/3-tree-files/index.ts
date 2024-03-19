@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
-import { filesAtom } from "../1-files";
+import { filesAtom } from "..";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 
 export type TreeFcntItem = {

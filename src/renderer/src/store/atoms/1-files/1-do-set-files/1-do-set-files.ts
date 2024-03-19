@@ -1,10 +1,10 @@
 import { atom } from 'jotai';
-import { filesAtom } from './0-files-atom';
+import { filesAtom } from '../0-files-atom';
 import { FileContent } from '@shared/ipc-types';
 import { delay, isEmpty, isManual } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
-import { rightPanelAtom } from '../3-right-panel';
-import { busyIndicator, totalManis } from '../9-ui-state';
+import { rightPanelAtom } from '../../3-right-panel';
+import { busyIndicator, totalManis } from '../../9-ui-state';
 
 /**
  * File content is populated from web or electron environment:
@@ -42,14 +42,13 @@ export const doSetDeliveredFilesAtom = atom(
 
         if (deliveredContent.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
-            await delay(1000);                  // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+            await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
+        set(rightPanelAtom, null);
 
         totalManis.normal = 0;
         totalManis.manual = 0;
         totalManis.empty = 0;
-
-        set(rightPanelAtom, null);
 
         const fileUsItems =
             deliveredContent

@@ -1,7 +1,7 @@
 import { FileContent } from "@shared/ipc-types";
-import { extensionWoDot } from "../../../utils/os-utils";
+import { extensionWoDot } from "../../../../utils/os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
-import { uuid } from "../../../utils/uuid";
+import { uuid } from "../../../../utils/uuid";
 
 type DropItem = {
     fname: string;                  // basename as filename w/ extension but wo/ path
