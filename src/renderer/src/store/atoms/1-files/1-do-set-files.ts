@@ -40,9 +40,9 @@ export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredContent: FileContent[]) => {
 
-        if (deliveredContent.length) {          // Allow fast cleaning, no files, no delay
+        if (deliveredContent.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
-            await delay(3000);                  // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+            await delay(1000);                  // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
 
         totalManis.normal = 0;
