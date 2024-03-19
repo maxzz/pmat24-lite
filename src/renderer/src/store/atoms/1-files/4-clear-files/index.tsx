@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { doSetDeliveredFilesAtom } from "..";
-import { rightPanelAtom } from "../../3-right-panel";
+import { rightPanelAtom } from "../../2-right-panel";
 
 export const doClearFileContentAtom = atom(
     null,

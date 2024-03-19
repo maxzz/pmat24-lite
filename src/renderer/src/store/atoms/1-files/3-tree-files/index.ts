@@ -25,9 +25,10 @@ export const treeFilesAtom = atom(
 
         const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
             const fcnt = get(fcntAtom);
+            const site = fcnt.stats.domain || fcnt.fname;
             return {
                 id: fcnt.id,
-                name: fcnt.fname,
+                name: site,
                 fcnt: fcntAtom,
             };
         });

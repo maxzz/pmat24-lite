@@ -3,7 +3,7 @@ import { filesAtom } from '../0-files-atom';
 import { FileContent } from '@shared/ipc-types';
 import { delay, isEmpty, isManual } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
-import { rightPanelAtom } from '../../3-right-panel';
+import { rightPanelAtom } from '../../2-right-panel';
 import { busyIndicator, totalManis } from '../../9-ui-state';
 
 /**
