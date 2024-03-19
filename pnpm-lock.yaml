@@ -7,10 +7,10 @@ settings:
 dependencies:
   '@electron-toolkit/preload':
     specifier: ^3.0.0
-    version: 3.0.0(electron@29.1.1)
+    version: 3.0.0(electron@29.1.4)
   '@electron-toolkit/utils':
     specifier: ^3.0.0
-    version: 3.0.0(electron@29.1.1)
+    version: 3.0.0(electron@29.1.4)
   '@radix-ui/react-menubar':
     specifier: ^1.0.4
     version: 1.0.4(@types/react-dom@18.2.22)(@types/react@18.2.67)(react-dom@18.2.0)(react@18.2.0)
@@ -95,8 +95,8 @@ devDependencies:
     specifier: ^0.7.0
     version: 0.7.0
   electron:
-    specifier: ^29.1.1
-    version: 29.1.1
+    specifier: ^29.1.4
+    version: 29.1.4
   electron-builder:
     specifier: ^24.13.3
     version: 24.13.3(electron-builder-squirrel-windows@25.0.0-alpha.4)
@@ -508,12 +508,12 @@ packages:
       ajv-keywords: 3.5.2(ajv@6.12.6)
     dev: true
 
-  /@electron-toolkit/preload@3.0.0(electron@29.1.1):
+  /@electron-toolkit/preload@3.0.0(electron@29.1.4):
     resolution: {integrity: sha512-DTyvNGits43J1RiQGFN00/OxjjcTcozLWMjgQBANt97FFptEYiLVasq7kMC24nMwwoOpdDYY9CE6C+4wQJ55/w==}
     peerDependencies:
       electron: '>=13.0.0'
     dependencies:
-      electron: 29.1.1
+      electron: 29.1.4
     dev: false
 
   /@electron-toolkit/tsconfig@1.0.1(@types/node@20.11.29):
@@ -524,12 +524,12 @@ packages:
       '@types/node': 20.11.29
     dev: true
 
-  /@electron-toolkit/utils@3.0.0(electron@29.1.1):
+  /@electron-toolkit/utils@3.0.0(electron@29.1.4):
     resolution: {integrity: sha512-GaXHDhiT7KCvMJjXdp/QqpYinq69T/Pdl49Z1XLf8mKGf63dnsODMWyrmIjEQ0z/vG7dO8qF3fvmI6Eb2lUNZA==}
     peerDependencies:
       electron: '>=13.0.0'
     dependencies:
-      electron: 29.1.1
+      electron: 29.1.4
     dev: false
 
   /@electron/asar@3.2.9:
@@ -3120,8 +3120,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron@29.1.1:
-    resolution: {integrity: sha512-cXN15NgCi7MkzGo5/23ZQbii+0UfhmUiDjACunmzcUofYCjF42XhFbL7JZnwgI0qtBCCeJU8qZNZt9lU91gUFw==}
+  /electron@29.1.4:
+    resolution: {integrity: sha512-IWXys0SqgmIfrqXusUGQC0gGG7CCqA5vfmNsUMj8dFkAnK3lisKyjSESStWlrsste/OX/AAC5wsVlf23reUNnw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -3430,7 +3430,7 @@ packages:
       function-bind: 1.1.2
       has-proto: 1.0.3
       has-symbols: 1.0.3
-      hasown: 2.0.1
+      hasown: 2.0.2
     optional: true
 
   /get-nonce@1.0.1:
@@ -3584,8 +3584,8 @@ packages:
       function-bind: 1.1.2
     dev: true
 
-  /hasown@2.0.1:
-    resolution: {integrity: sha512-1/th4MHjnwncwXsIW6QMzlvYL9kG5e/CpVvLRZe4XPa8TOUNbCELqmvhDmnkNsAjwaG4+I8gJJL0JBvTTLO9qA==}
+  /hasown@2.0.2:
+    resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
     requiresBuild: true
     dependencies:
