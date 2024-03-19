@@ -6,7 +6,8 @@ import css from "./busy-indicator.module.css";
 
 export function BusyIndicator() {
     const { msg } = useSnapshot(busyIndicator);
-    console.log(`---busyIndicator.msg = "${msg}"`);
+    // const msg = 'Loading...';
+    // console.log(`---busyIndicator.msg = "${msg}"`);
 
     const styles = useSpring({
         opacity: msg ? 1 : 0,
@@ -14,7 +15,7 @@ export function BusyIndicator() {
     });
 
     return (
-        <a.div style={styles} className="text-green-400/70 flex items-center gap-1">
+        <a.div style={styles} className="pl-2 text-green-400 flex items-center gap-1">
 
             {/* Busy icon animation */}
             <IconRocket className="ml-2 size-4" style={{ animation: msg ? `${css.rocketAnimation} 1.2s infinite` : '' }} />
