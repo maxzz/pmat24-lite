@@ -39,8 +39,11 @@ import { busyIndicator, totalManis } from '../9-ui-state';
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredContent: FileContent[]) => {
-        busyIndicator.msg = 'Parsing...';
-        await delay(1000); // to update busyIndicator UI (it's not shown if the process is too fast). TODO: all heavy stuff is already done in the main process, so it should be done earlier
+
+        if (deliveredContent.length) {          // Allow fast cleaning, no files, no delay
+            busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
+            await delay(3000);                  // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+        }
 
         totalManis.normal = 0;
         totalManis.manual = 0;
