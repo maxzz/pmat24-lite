@@ -1,7 +1,7 @@
 import * as D from "@/ui/shadcn/dialog";
 import { Input, Label } from "@/ui/shadcn";
 
-export function DialogBody() {
+export function DialogFilterBody() {
     return (<>
         <D.DialogHeader>
             <D.DialogTitle>
