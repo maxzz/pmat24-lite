@@ -1,6 +1,7 @@
 export * from "./00-theme-mode";
 export * from "./03-menu-burger";
 export * from "./04-trash";
+export * from "./04-trash24";
 export * from "./06-chevron-left-single-rotatable";
 
 export * from "./11-copy";

@@ -1,9 +1,7 @@
 import { atom } from 'jotai';
 import { filesAtom } from '../0-files-atom';
 import { FileUsAtomType, Order, SortBy } from "@/store/store-types";
-import { useFileUsByFilter } from '@/store/store-utils';
-import { createRegexByFilter } from "@/store/store-utils/4-filters";
-import { isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual } from "@/store/store-utils/3-mani-utils";
+import { createRegexByFilter, isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual, useFileUsByFilter } from '@/store/store-utils';
 import { searchFilterData } from '../../9-ui-state/4-filters-search';
 import { appSettings } from '@/store/app-settings';
 import { busyIndicator } from '../../9-ui-state';
