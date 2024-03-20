@@ -1,1 +1,1 @@
-export * from "./1-layout";
+export * from "./1-left-layout";

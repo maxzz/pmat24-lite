@@ -20,23 +20,23 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
                     onClick={() => { doClearFileContent(); }}
                     title="clear files list"
                 >
-                    <IconSearch className="size-4" />
+                    <IconSearch className="p-px size-4" />
                 </Button>
 
-                <Button
+                {/* <Button
                     className="" variant={"ghost"}
                     onClick={() => { doClearFileContent(); }}
                     title="clear files list"
                 >
                     <IconTrash className="size-4" />
-                </Button>
+                </Button> */}
 
                 <Button
                     className="" variant={"ghost"}
                     onClick={() => { doClearFileContent(); }}
                     title="clear files list"
                 >
-                    <IconTrash24 className="size-4" />
+                    <IconTrash24 className="size-3.5" />
                 </Button>
 
                 <Button className="" variant={"ghost"} size={"xs"}>
