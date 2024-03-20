@@ -1,10 +1,10 @@
 import { HTMLAttributes } from "react";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
-import { panelHeaderClasses } from "../1-left/0-header";
+import { panelHeaderClasses } from "../../1-left/0-header/1-layout";
 import { IconMenuHamburger } from "@/ui/icons";
 
-export function PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(panelHeaderClasses, "flex items-center justify-between", className)} {...rest}>
             <div className="">File</div>

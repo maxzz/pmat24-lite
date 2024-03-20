@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { rightPanelSelectedContentAtom } from '@/store';
-import { PanelHeader } from "./0-header";
+import { R_PanelHeader } from "./0-header";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 import { Body_Xml } from "./3-file-xml";
 import { LongPanel } from './LongPanel';
@@ -27,7 +27,7 @@ export function PanelB() {
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>
                 <div className={panel3Classes}>
-                    <PanelHeader />
+                    <R_PanelHeader />
 
                     <div className="relative w-full h-full">
                         <div className="absolute inset-px bottom-0.5 text-xs">
