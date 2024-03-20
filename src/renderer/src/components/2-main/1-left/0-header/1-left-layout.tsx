@@ -4,6 +4,7 @@ import { doClearFileContentAtom } from "@/store";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
 import { IconMenuHamburger, IconSearch, IconTrash, IconTrash24 } from "@/ui/icons";
+import { DialogDemoWoTrigger } from "./3-search";
 
 export const panelHeaderClasses = "px-2 py-1 h-10 text-xs bg-muted border-border border-b group-focus-within:bg-background/30 select-none";
 
@@ -39,10 +40,7 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
                     <IconTrash24 className="size-3.5" />
                 </Button>
 
-                <Button className="" variant={"ghost"} size={"xs"}>
-                    <IconMenuHamburger className="size-4 fill-current" />
-                </Button>
-
+                <DialogDemoWoTrigger />
             </div>
         </div>
     );

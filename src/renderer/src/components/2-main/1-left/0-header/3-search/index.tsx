@@ -1,5 +1,1 @@
-export function DialogSearch() {
-    return (
-        <div>DialogSearch</div>
-    );
-}
+export * from "./20-dialog-wo-trigger";
