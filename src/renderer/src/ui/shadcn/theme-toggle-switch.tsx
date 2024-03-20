@@ -8,7 +8,7 @@ import { ThemeMode } from "@/utils";
 
 function MenuItem({ label, theme, current }: { label: string; theme: ThemeMode; current: ThemeMode; }) {
     return (
-        <DropdownMenuItem className="grid grid-cols-[16px,1fr] items-center gap-x-2" onClick={() => appSettings.ui.theme = theme}>
+        <DropdownMenuItem className="text-xs grid grid-cols-[16px,1fr] items-center gap-x-2" onClick={() => appSettings.ui.theme = theme}>
             {current === theme && <CheckIcon className="size-4" />}
 
             <div className="col-start-2">
