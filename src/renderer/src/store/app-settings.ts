@@ -2,11 +2,14 @@ import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { ResizablesState, defaultResizablesState } from "./state-ui";
+import { FilesSortOrder, ShownManis, defaultFilesSortOrder, defaultShownManis } from "./atoms";
 
 export type AppSettings = {
     ui: {
         theme: ThemeMode;
         resisablesState: ResizablesState;
+        shownManis: ShownManis;
+        filesSortOrder: FilesSortOrder;
     },
 };
 
@@ -14,6 +17,8 @@ const defaultSettings: AppSettings = {
     ui: {
         theme: 'light',
         resisablesState: defaultResizablesState,
+        shownManis: defaultShownManis,
+        filesSortOrder: defaultFilesSortOrder,
     },
 };
 

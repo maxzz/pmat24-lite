@@ -20,5 +20,3 @@ export const defaultFilesSortOrder: FilesSortOrder = {
     sortBy: SortBy.index,
     order: Order.highToLow,
 };
-
-export const filesSortOrder = proxy<FilesSortOrder>(defaultFilesSortOrder);
