@@ -36,8 +36,8 @@ const buttonVariantsClasses = cva(defaultVariantClasses, {
         },
     },
     defaultVariants: {
-        variant: "default",
-        size: "default",
+        variant: "outline",
+        size: "xs",
     },
 });
 
