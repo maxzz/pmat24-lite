@@ -5,19 +5,23 @@ import { useFileUsByFilter } from '@/store/store-utils';
 import { createRegexByFilter } from "@/store/store-utils/4-filters";
 import { isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual } from "@/store/store-utils/3-mani-utils";
 import { searchFilterData } from '../../9-ui-state/4-filters-search';
+import { appSettings } from '@/store/app-settings';
+import { busyIndicator } from '../../9-ui-state';
+
 //import { busyAtom, orderAtom, searchFilterData, showManiAtoms, sortByAtom } from '../../9-ui-state';
 
 export const filteredAtom = atom<FileUsAtomType[]>(
     (get) => {
-        const { regex, winOnly, webOnly, whyOnly, capOnly, clsOnly } = createRegexByFilter(get(searchFilterData.textAtom), get(searchFilterData.caseSensitiveAtom));
+        const { regex, winOnly, webOnly, whyOnly, capOnly, clsOnly } = createRegexByFilter(
+            get(searchFilterData.textAtom),
+            get(searchFilterData.caseSensitiveAtom)
+        );
 
-        const showNormal = get(showManiAtoms.normalAtom);
-        const showManual = get(showManiAtoms.manualAtom);
-        const showEmpty = get(showManiAtoms.emptyAtom);
+        const { showNormal, showManual, showEmpty, } = appSettings.ui.shownManis;
 
         const files = get(filesAtom);
 
-        const isFilesLoading = !!get(busyAtom);
+        const isFilesLoading = !!busyIndicator.msg;
         if (isFilesLoading) {
             return files;
         }
@@ -45,8 +49,7 @@ export const filteredAtom = atom<FileUsAtomType[]>(
             return useItNow;
         });
 
-        const sortBy = get(sortByAtom);
-        const order = get(orderAtom);
+        const { order, sortBy } = appSettings.ui.filesSortOrder;
 
         if (sortBy === SortBy.index) {
             if (order === Order.highToLow) {
