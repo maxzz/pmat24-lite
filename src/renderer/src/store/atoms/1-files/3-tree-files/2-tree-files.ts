@@ -19,20 +19,24 @@ export const treeFilesAtom = atom(
     (get) => {
         const files = get(filteredAtom);
 
+        // console.log('------filteredAtom', files);
+
         if (!files.length) {
             console.log('return treeFiles.atom []');
             return [];
         }
 
-        const filesTree: TreeFileItem[] = files.map((fcntAtom) => {
-            const fcnt = get(fcntAtom);
-            const site = fcnt.stats.domain || fcnt.fname;
-            return {
-                id: fcnt.id,
-                name: site,
-                fcnt: fcntAtom,
-            };
-        });
+        const filesTree: TreeFileItem[] = files.map(
+            (fcntAtom) => {
+                const fcnt = get(fcntAtom);
+                const site = fcnt.stats.domain || fcnt.fname;
+                return {
+                    id: fcnt.id,
+                    name: site,
+                    fcnt: fcntAtom,
+                };
+            }
+        );
 
         console.log('return treeFiles.atom', filesTree);
 

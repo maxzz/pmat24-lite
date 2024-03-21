@@ -15,14 +15,17 @@ export const filteredAtom = atom<FileUsAtomType[]>(
             get(searchFilterData.caseSensitiveAtom)
         );
 
+        console.log('filteredAtom filter:', get(searchFilterData.textAtom));
+
+
         const { showNormal, showManual, showEmpty, } = appSettings.ui.shownManis;
 
         const files = get(filesAtom);
 
-        const isFilesLoading = !!busyIndicator.msg;
-        if (isFilesLoading) {
-            return files;
-        }
+        // const isFilesLoading = !!busyIndicator.msg;
+        // if (isFilesLoading) {
+        //     return files;
+        // }
 
         let result = files.filter((fileAtom: FileUsAtomType) => {
             const fileUs = get(fileAtom);
@@ -46,6 +49,8 @@ export const filteredAtom = atom<FileUsAtomType[]>(
             }
             return useItNow;
         });
+
+        console.log('filteredAtom result:', result);
 
         const { order, sortBy } = appSettings.ui.filesSortOrder;
 
