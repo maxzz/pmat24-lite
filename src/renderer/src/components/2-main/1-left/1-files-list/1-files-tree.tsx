@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { proxy } from "valtio";
 import { TreeFileItem, rightPanelAtom, treeFilesAtom } from "@/store";
 import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
-import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
+import { AppWindow as IconFile, Folder as IconFolder, PanelTop, Globe, Chrome } from "lucide-react"; // Workflow as IconFile, File as IconFile
 
 type TT = TreeFileItem<ItemState>;
 
@@ -12,7 +12,10 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
 
     walkItems(newTree, (item) => {
         item.state = proxy({ selected: false });
-        item.icon = IconFolder;
+        // item.icon = IconFolder;
+        // item.icon = PanelTop;
+        // item.icon = Globe;
+        item.icon = Chrome;
     });
 
     return newTree;
