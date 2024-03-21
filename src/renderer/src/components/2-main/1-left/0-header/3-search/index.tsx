@@ -1,1 +1,1 @@
-export * from "./1-dialog";
+export * from "./1-filter-dialog";
