@@ -17,7 +17,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
         // item.icon = PanelTop;
         //item.icon = Globe;
         // item.icon = Chrome;
-        item.icon = SymbolAppWebChrome;
+        //item.icon = SymbolAppWebChrome;
     });
 
     return newTree;

@@ -3,7 +3,7 @@ import { classNames } from '@/utils';
 
 // WinXp outlined flag
 
-export function SvgSymbolAppWindows() {
+export function SvgSymbolAppWin() {
     return (
         <symbol id="app-win32" viewBox="0 0 24 24">
             <path strokeLinecap="square" strokeLinejoin="bevel"
@@ -13,7 +13,7 @@ export function SvgSymbolAppWindows() {
     );
 }
 
-export function SymbolAppWindows({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolAppWin({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} {...rest}>
             {title && <title>{title}</title>}

@@ -4,3 +4,4 @@ export * from "./3-mani-utils";
 export * from "./4-filters";
 export * from "./5-file-us-stats";
 export * from "./6-form-utils";
+export * from "./7-mani-app-icon";
