@@ -1,4 +1,5 @@
 import { type LucideIcon as LucideIconType } from "lucide-react"; // https://github.com/shadcn-ui/ui/issues/355#issuecomment-1703767574 'G: shadcn tree'
+import { HTMLAttributes, SVGAttributes } from "react";
 
 export type DataItemNavigation<T> =
     & {
@@ -13,7 +14,8 @@ export type TreenIconType = LucideIconType;
 export type DataItemCore = {
     id: string | number;
     name: string;
-    icon?: TreenIconType;
+    // icon?: TreenIconType;
+    icon?: TreenIconType | ((props: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) => JSX.Element);
 };
 
 // export type DataItem = DataItemNavigation<DataItemCore>;

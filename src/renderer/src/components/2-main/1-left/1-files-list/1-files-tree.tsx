@@ -4,6 +4,7 @@ import { proxy } from "valtio";
 import { TreeFileItem, rightPanelAtom, treeFilesAtom } from "@/store";
 import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder, PanelTop, Globe, Chrome } from "lucide-react"; // Workflow as IconFile, File as IconFile
+import { SymbolAppWebChrome } from "@/ui/icons";
 
 type TT = TreeFileItem<ItemState>;
 
@@ -14,8 +15,9 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
         item.state = proxy({ selected: false });
         // item.icon = IconFolder;
         // item.icon = PanelTop;
-        // item.icon = Globe;
-        item.icon = Chrome;
+        //item.icon = Globe;
+        // item.icon = Chrome;
+        item.icon = SymbolAppWebChrome;
     });
 
     return newTree;
