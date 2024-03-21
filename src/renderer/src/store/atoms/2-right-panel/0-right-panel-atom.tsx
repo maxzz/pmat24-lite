@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
 
-export const rightPanelAtom = atom<FileUsAtomType | null>(null)
+export const rightPanelAtom = atom<FileUsAtomType | null | undefined>(null)
 
 export const rightPanelSelectedContentAtom = atom(
     (get) => {

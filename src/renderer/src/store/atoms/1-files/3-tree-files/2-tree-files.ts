@@ -1,7 +1,5 @@
 import { atom } from "jotai";
 import { FileUsAtomType } from "@/store/store-types";
-import { FileContent } from "@shared/ipc-types";
-import { filesAtom } from "..";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
 
@@ -13,16 +11,12 @@ export type TreeFileItem<T = {}> = Prettify<
     DataItemNavigation<DataItemCore & TreeFcntItem & T>
 >;
 
-//export const filteredAtom = atom<FileContent[]>([]);    // files to show in the tree
-
-export const treeFilesAtom = atom(
+export const treeFilesAtom = atom( // files to show in the tree
     (get) => {
         const files = get(filteredAtom);
 
-        // console.log('------filteredAtom', files);
-
         if (!files.length) {
-            console.log('return treeFiles.atom []');
+            // console.log('return treeFiles.atom []');
             return [];
         }
 
@@ -38,7 +32,7 @@ export const treeFilesAtom = atom(
             }
         );
 
-        console.log('return treeFiles.atom', filesTree);
+        // console.log('return treeFiles.atom', filesTree);
 
         return filesTree;
     }
