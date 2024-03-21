@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/ui/shadcn";
 import * as D from "@/ui/shadcn";
+import { useKey } from "react-use";
 import { DialogFilterBody } from "./2-body";
 import { IconFilter, IconSearch } from "@/ui/icons";
 
 export function DialogFilterFiles() {
     const [isOpen, setIsOpen] = useState(false);
+
+    useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
+
     return (<>
-        <Button className="" variant={"ghost"} onClick={() => setIsOpen(true)} title="Filter files">
+        <Button className="" variant={"ghost"} onClick={() => setIsOpen(true)} title="Filter files (Ctrl+D)">
             {/* <IconSearch className="p-px size-4" /> */}
             <IconFilter className="p-px size-4" />
         </Button>
@@ -15,7 +19,7 @@ export function DialogFilterFiles() {
         <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
             <D.DialogContent className="px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose>
 
-                <DialogFilterBody />
+                <DialogFilterBody setIsOpen={setIsOpen} />
 
             </D.DialogContent>
         </D.Dialog>
