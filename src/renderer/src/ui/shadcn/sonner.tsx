@@ -15,6 +15,11 @@ const descriptionClasses = "\
 group-[.toast]:text-muted-foreground \
 ";
 
+const closeButtonClasses = "\
+[--toast-close-button-start:initial] \
+[--toast-close-button-end:0] \
+";
+
 const actionButtonClasses = "\
 group-[.toast]:text-primary-foreground \
 group-[.toast]:bg-primary \
@@ -33,6 +38,22 @@ group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
+const infoClasses = "\
+group-[.toaster]:text-white \
+group-[.toaster]:bg-sky-600 \
+group-[.toaster]:border-sky-700 \
+group-[.toaster]:shadow-muted-foreground/30 \
+group-[.toaster]:shadow-md \
+";
+
+const warningClasses = "\
+group-[.toaster]:text-black \
+group-[.toaster]:bg-orange-400 \
+group-[.toaster]:border-orange-500 \
+group-[.toaster]:shadow-muted-foreground/30 \
+group-[.toaster]:shadow-md \
+";
+
 /**
  * To use toast() from anywhere, even wo/ hooks context, simply add <Toaster /> into <App> component.
  * https://sonner.emilkowal.ski - docs
@@ -46,7 +67,10 @@ export function Toaster(props: ToasterProps) {
             toastOptions={{
                 classNames: {
                     toast: toastClasses,
+                    closeButton: closeButtonClasses,
                     error: errorClasses,
+                    info: infoClasses,
+                    warning: warningClasses,
                     description: descriptionClasses,
                     actionButton: actionButtonClasses,
                     cancelButton: cancelButtonClasses,

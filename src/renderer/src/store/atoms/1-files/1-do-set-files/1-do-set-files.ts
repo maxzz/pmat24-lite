@@ -85,7 +85,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         if (unsupported.length) {
             //console.warn('Unsupported files:', unsupported);
-            toast.error(`There are ${unsupported.length} unsupported file${unsupported.length > 1 ? 's' : ''}.`, { duration: 435000 });
+            toast.warning(unsupportedMsg(unsupported), { duration: 435000, closeButton: true});
         }
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
@@ -93,4 +93,9 @@ export const doSetDeliveredFilesAtom = atom(
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
     }
-);;
+);
+
+function unsupportedMsg(unsupported: FileUs[]) {
+    const multiple = unsupported.length > 1;
+    return `There ${multiple ? 'are' : 'is'} ${unsupported.length} unsupported file${multiple ? 's' : ''}.`;
+}
