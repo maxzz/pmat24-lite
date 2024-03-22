@@ -260,20 +260,7 @@ FolderContent.displayName = 'Tree.Folder.Content';
 function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: { item: DataItemNavigation<DataItemCore>; Icon?: TreenIconType; iconClasses: string; } & Pick<TreeOptions, 'hideFolderIcon'>) {
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
     return (<>
-
         {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
-
-        {/* {item.icon
-            ? (
-                <item.icon className={iconClasses} aria-hidden="true" />
-            )
-            : Icon && !hideFolderIcon && (
-                <Icon className={iconClasses} aria-hidden="true" />
-            )
-        } */}
-
-        {/* {item.icon && <item.icon className={iconClasses} aria-hidden="true" />}
-        {!item.icon && Icon && !hideFolderIcon && <Icon className={iconClasses} aria-hidden="true" />} */}
 
         <span className="flex-grow truncate">
             {item.name}
