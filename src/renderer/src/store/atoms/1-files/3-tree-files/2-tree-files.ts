@@ -1,8 +1,8 @@
 import { atom } from "jotai";
-import { FileUsAtomType } from "@/store/store-types";
+import { FileUs, FileUsAtomType } from "@/store/store-types";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
-import { AppIconType, appIcon } from "@/store/store-utils";
+import { AppIconType, appIcon, isAnyWhy } from "@/store/store-utils";
 
 export type TreeFcntItem = {
     fcnt: FileUsAtomType;
@@ -24,20 +24,34 @@ export const treeFilesAtom = atom( // files to show in the tree
         const filesTree: TreeFileItem[] = files.map(
             (fcntAtom) => {
                 const fcnt = get(fcntAtom);
+                if (fcnt.fcat || !fcnt.mani) {
+                    return;
+                }
                 const site = fcnt.stats.domain || fcnt.fname;
-                const fileIcon = fcnt.stats.isWeb ? AppIconType.web : AppIconType.win;
+                const icon = fileIcon(fcnt);
                 const rv: TreeFileItem = {
                     id: fcnt.id,
                     name: site,
                     fcnt: fcntAtom,
-                    icon: appIcon(fileIcon),
-                }
+                    icon: appIcon(icon),
+                };
                 return rv;
             }
-        );
+        ).filter(Boolean);
 
         // console.log('return treeFiles.atom', filesTree);
 
         return filesTree;
+
+        function fileIcon(fcnt: FileUs) {
+            const hasBailOut = isAnyWhy(fcnt);
+            return hasBailOut ?
+                fcnt.stats.isWeb
+                    ? AppIconType.webWarning
+                    : AppIconType.winWarning
+                : fcnt.stats.isWeb
+                    ? AppIconType.web
+                    : AppIconType.win;
+        }
     }
 );

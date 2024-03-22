@@ -3,6 +3,7 @@
     "include": [
         "./src/renderer/src/vite-typescript/env.d.ts",
         "./src/renderer/src/vite-typescript/svg-icon-type.d.ts",
+        "./src/renderer/src/vite-typescript/lib.es5.d.ts",
         "./src/renderer/src/**/*",
         "./src/renderer/src/**/*.tsx",
         "./src/shell/preload/*.d.ts",
