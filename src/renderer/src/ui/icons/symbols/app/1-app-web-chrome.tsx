@@ -1,8 +1,6 @@
 import { HTMLAttributes, SVGAttributes } from 'react';
 import { classNames } from '@/utils'; // https://lucide.dev/icons/chrome
 
-// WinXp outlined flag
-
 export function SvgSymbolAppWebChrome() {
     return (
         <symbol id="app-web-chrome" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">

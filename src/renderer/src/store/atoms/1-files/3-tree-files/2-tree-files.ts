@@ -25,9 +25,9 @@ export const treeFilesAtom = atom( // files to show in the tree
             .map(
                 (fcntAtom) => {
                     const fcnt = get(fcntAtom);
-                    // if (fcnt.fcat || !fcnt.mani) {
-                    //     return;
-                    // }
+                    if (fcnt.fcat || !fcnt.mani) {
+                        return;
+                    }
                     const site = fcnt.stats.domain || fcnt.fname;
                     const icon = fileIcon(fcnt);
                     const rv: TreeFileItem = {
@@ -38,8 +38,8 @@ export const treeFilesAtom = atom( // files to show in the tree
                     };
                     return rv;
                 }
-            );
-            //.filter(Boolean);
+            )
+            .filter(Boolean);
 
         // console.log('return treeFiles.atom', filesTree);
 
