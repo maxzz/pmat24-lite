@@ -60,25 +60,26 @@ bg-red-500 \
 //     );
 // }
 
+//https://github.com/ballerine-io/ballerine/blob/dev/apps/backoffice-v2/src/common/components/organisms/Toaster/Toaster.tsx
 export const Toaster = ({ className, toastOptions, ...props }: ToasterProps) => {
     return (
         <Sonner
             className={classNames('toaster group', className)}
             richColors
             icons={{
-                success: <CheckCircle2 size="medium" />,
-                info: <Info size="medium" />,
-                error: <AlertCircle size="medium" />,
-                warning: <AlertTriangle size="medium" />,
+                success: <CheckCircle2 size="16" />,
+                info: <Info size="16" />,
+                error: <AlertCircle size="16" />,
+                warning: <AlertTriangle size="16" />,
             }}
-            toastOptions={{
-                ...toastOptions,
-                classNames: {
-                    toast: 'group toast group-[.toaster]:shadow-lg font-inter',
-                    actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-                    cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
-                },
-            }}
+            // toastOptions={{
+            //     ...toastOptions,
+            //     classNames: {
+            //         toast: 'group toast group-[.toaster]:shadow-lg font-inter',
+            //         actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
+            //         cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+            //     },
+            // }}
             {...props}
         />
     );
