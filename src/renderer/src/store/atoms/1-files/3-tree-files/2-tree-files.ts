@@ -21,23 +21,25 @@ export const treeFilesAtom = atom( // files to show in the tree
             return [];
         }
 
-        const filesTree: TreeFileItem[] = files.map(
-            (fcntAtom) => {
-                const fcnt = get(fcntAtom);
-                if (fcnt.fcat || !fcnt.mani) {
-                    return;
+        const filesTree: TreeFileItem[] = files
+            .map(
+                (fcntAtom) => {
+                    const fcnt = get(fcntAtom);
+                    // if (fcnt.fcat || !fcnt.mani) {
+                    //     return;
+                    // }
+                    const site = fcnt.stats.domain || fcnt.fname;
+                    const icon = fileIcon(fcnt);
+                    const rv: TreeFileItem = {
+                        id: fcnt.id,
+                        name: site,
+                        fcnt: fcntAtom,
+                        icon: appIcon(icon),
+                    };
+                    return rv;
                 }
-                const site = fcnt.stats.domain || fcnt.fname;
-                const icon = fileIcon(fcnt);
-                const rv: TreeFileItem = {
-                    id: fcnt.id,
-                    name: site,
-                    fcnt: fcntAtom,
-                    icon: appIcon(icon),
-                };
-                return rv;
-            }
-        ).filter(Boolean);
+            );
+            //.filter(Boolean);
 
         // console.log('return treeFiles.atom', filesTree);
 
@@ -45,6 +47,9 @@ export const treeFilesAtom = atom( // files to show in the tree
 
         function fileIcon(fcnt: FileUs) {
             const hasBailOut = isAnyWhy(fcnt);
+            if (fcnt.fcat) {
+                return AppIconType.cat;
+            }
             return hasBailOut ?
                 fcnt.stats.isWeb
                     ? AppIconType.webWarning
