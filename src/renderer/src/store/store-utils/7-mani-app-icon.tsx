@@ -1,6 +1,7 @@
 import { AppWindow } from "lucide-react";
-import { SymbolAppWebChrome } from "@/ui/icons";
+import { SymbolAppWebChrome, SymbolAppWin } from "@/ui/icons";
 import { TreenIconType } from "@/ui/shadcn/tree";
+import { classNames } from "@/utils";
 
 export const enum AppIconType {
     web,
@@ -12,8 +13,9 @@ export function appIcon(iconType: AppIconType): TreenIconType {
         case AppIconType.web:
             return SymbolAppWebChrome;
         case AppIconType.win:
-            return AppWindow;
+            // return AppWindow;
             // return SymbolAppWin;
+            return ({ className }: SVGIconTypeProps) => <AppWindow className={classNames("text-red-500 size-4", className)} />;
         default: {
             const _exhaustiveCheck: never = iconType;
             return _exhaustiveCheck;
