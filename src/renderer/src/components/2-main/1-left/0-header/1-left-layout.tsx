@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 import { DialogFilterFiles } from "./1-filter";
-import { CurrentFilter } from "./2-current-filter";
+import { CurrentFilter } from "./2-filter-indicator";
 import { L_PanelMenu } from "./3-menu";
 
 export const panelHeaderClasses = "px-2 py-1 h-10 text-xs bg-muted border-border border-b group-focus-within:bg-background/30 select-none";

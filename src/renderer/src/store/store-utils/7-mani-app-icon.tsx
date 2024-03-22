@@ -1,7 +1,6 @@
 import { TreenIconType } from "@/ui/shadcn/tree";
 import { SymbolAppWebChrome, SymbolAppWin, SymbolCatalog } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { BookOpen } from "lucide-react";
 
 export const enum AppIconType {
     web,
