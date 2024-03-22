@@ -1,7 +1,6 @@
 import { TreenIconType } from "@/ui/shadcn/tree";
 import { SymbolAppWebChrome, SymbolAppWin } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { AppWindow } from "lucide-react";
 
 export const enum AppIconType {
     web,
@@ -10,29 +9,22 @@ export const enum AppIconType {
     winWarning,
 }
 
-// function AppIcon({ TreenIcon, className, ...rest }: SVGIconTypeProps & { TreenIcon: TreenIconType }) {
-//     return <TreenIcon {...rest} />;
-// }
+const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-muted-foreground", className)} {...rest} />;
 
-const aa = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("", className)} {...rest} />
+const WebWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-red-500", className)} {...rest} />;
+
+const WinWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWin className={classNames("text-red-500", className)} {...rest} />;
 
 export function appIcon(iconType: AppIconType): TreenIconType {
     switch (iconType) {
         case AppIconType.web:
-        case AppIconType.webWarning: {
-            const warning = iconType === AppIconType.webWarning;
-            const warningClasses = warning ? "text-red-500" : "text-muted-foreground";
-            return aa;
-            // return ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames(warningClasses, className)} {...rest} />;
-            // return AppIcon({ TreenIcon: SymbolAppWebChrome, className: warningClasses });
-        }
+            return Web;
+        case AppIconType.webWarning:
+            return WebWarning;
         case AppIconType.win:
-            // return AppWindow;
-            return SymbolAppWin;
-        case AppIconType.winWarning: {
-            const warningClasses = "text-red-500";
-            return ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWin className={classNames(warningClasses, className)} {...rest} />;
-        }
+            return SymbolAppWin; // return AppWindow;
+        case AppIconType.winWarning:
+            return WinWarning;
         default: {
             const _exhaustiveCheck: never = iconType;
             return _exhaustiveCheck;
