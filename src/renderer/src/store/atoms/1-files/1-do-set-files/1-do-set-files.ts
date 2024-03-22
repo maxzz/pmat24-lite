@@ -5,6 +5,8 @@ import { delay, isEmpty, isManual } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
 import { rightPanelAtom } from '../../2-right-panel';
 import { busyIndicator, totalManis } from '../../9-ui-state';
+import { FileUs } from '@/store/store-types';
+import { toast } from 'sonner';
 
 /**
  * File content is populated from web or electron environment:
@@ -50,32 +52,45 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.manual = 0;
         totalManis.empty = 0;
 
+        const unsupported: FileUs[] = [];
+
         const fileUsItems =
             deliveredContent
                 .filter((file) => file.size)
-                .map((deliveredFile) => {
-                    const newFileUs = deliveredToFileUs(deliveredFile);
+                .map(
+                    (deliveredFile) => {
+                        const newFileUs = deliveredToFileUs(deliveredFile);
 
-                    if (isEmpty(newFileUs)) {
-                        totalManis.empty++;
-                    } else if (isManual(newFileUs)) {
-                        totalManis.manual++;
-                    } else {
-                        totalManis.normal++;
-                    }
+                        if (isEmpty(newFileUs)) {
+                            totalManis.empty++;
+                        } else if (isManual(newFileUs)) {
+                            totalManis.manual++;
+                        } else {
+                            totalManis.normal++;
+                        }
 
-                    return newFileUs;
-                })
-                .filter((fileUs) => {
-                    if (fileUs.failed) {
-                        console.error(fileUs.raw);
+                        return newFileUs;
                     }
-                    return !fileUs.failed;
-                });
+                )
+                .filter(
+                    (fileUs) => {
+                        const notUs = fileUs.failed || (!fileUs.mani && !fileUs.fcat);
+                        if (notUs) {
+                            fileUs.failed && console.error(fileUs.raw);
+                            unsupported.push(fileUs);
+                        }
+                        return !notUs;
+                    }
+                );
+
+        if (unsupported.length) {
+            //console.warn('Unsupported files:', unsupported);
+            toast.error(`There are ${unsupported.length} unsupported file${unsupported.length > 1 ? 's' : ''}.`);
+        }
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
     }
-);
+);;
