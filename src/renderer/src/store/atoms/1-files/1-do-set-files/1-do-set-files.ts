@@ -85,7 +85,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         if (unsupported.length) {
             //console.warn('Unsupported files:', unsupported);
-            toast.error(`There are ${unsupported.length} unsupported file${unsupported.length > 1 ? 's' : ''}.`);
+            toast.error(`There are ${unsupported.length} unsupported file${unsupported.length > 1 ? 's' : ''}.`, { duration: 435000 });
         }
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));

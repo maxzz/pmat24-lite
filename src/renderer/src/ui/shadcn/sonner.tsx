@@ -1,7 +1,9 @@
 // import { useTheme } from "next-themes";
+import { appSettings } from "@/store";
 import { classNames } from "@/utils";
 import { AlertCircle, AlertTriangle, CheckCircle2, Info } from "lucide-react";
 import { Toaster as Sonner } from "sonner";
+import { useSnapshot } from "valtio";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
@@ -29,7 +31,11 @@ group-[.toast]:bg-muted \
 ";
 
 const errorClasses = "\
-bg-red-500 \
+group-[.toaster]:bg-red-600 \
+group-[.toaster]:text-white \
+group-[.toaster]:border-red-700 \
+group-[.toaster]:shadow-muted-foreground/30 \
+group-[.toaster]:shadow-md \
 ";
 
 /**
@@ -38,49 +44,51 @@ bg-red-500 \
  * https://github.com/emilkowalski/sonner
  * https://github.com/pacocoursey/next-themes
  */
-// export function Toaster(props: ToasterProps) {
-//     // const { theme = "system" } = useTheme();
-//     const theme = "system";
-//     return (
-//         <Sonner
-//             theme={theme as ToasterProps["theme"]}
-//             className="toaster group"
-//             toastOptions={{
-//                 classNames: {
-//                     toast: toastClasses,
-//                     error: errorClasses,
-//                     description: descriptionClasses,
-//                     actionButton: actionButtonClasses,
-//                     cancelButton: cancelButtonClasses,
-//                 },
-//             }}
-//             richColors
-//             {...props}
-//         />
-//     );
-// }
-
-//https://github.com/ballerine-io/ballerine/blob/dev/apps/backoffice-v2/src/common/components/organisms/Toaster/Toaster.tsx
-export const Toaster = ({ className, toastOptions, ...props }: ToasterProps) => {
+export function Toaster(props: ToasterProps) {
+    // const { theme = "system" } = useTheme();
+    // const { theme: snapTheme } = useSnapshot(appSettings).ui;
+    const theme = "system";
     return (
         <Sonner
-            className={classNames('toaster group', className)}
-            richColors
-            icons={{
-                success: <CheckCircle2 size="16" />,
-                info: <Info size="16" />,
-                error: <AlertCircle size="16" />,
-                warning: <AlertTriangle size="16" />,
+            // theme={theme as ToasterProps["theme"]}
+            // theme={snapTheme}
+            className="toaster group"
+            toastOptions={{
+                classNames: {
+                    toast: toastClasses,
+                    error: errorClasses,
+                    description: descriptionClasses,
+                    actionButton: actionButtonClasses,
+                    cancelButton: cancelButtonClasses,
+                },
             }}
-            // toastOptions={{
-            //     ...toastOptions,
-            //     classNames: {
-            //         toast: 'group toast group-[.toaster]:shadow-lg font-inter',
-            //         actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-            //         cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
-            //     },
-            // }}
+            richColors
             {...props}
         />
     );
-};
+}
+
+// //https://github.com/ballerine-io/ballerine/blob/dev/apps/backoffice-v2/src/common/components/organisms/Toaster/Toaster.tsx
+// export const Toaster = ({ className, toastOptions, ...props }: ToasterProps) => {
+//     return (
+//         <Sonner
+//             className={classNames('toaster group', className)}
+//             richColors
+//             icons={{
+//                 success: <CheckCircle2 size="16" />,
+//                 info: <Info size="16" />,
+//                 error: <AlertCircle size="16" />,
+//                 warning: <AlertTriangle size="16" />,
+//             }}
+//             // toastOptions={{
+//             //     ...toastOptions,
+//             //     classNames: {
+//             //         toast: 'group toast group-[.toaster]:shadow-lg font-inter',
+//             //         actionButton: 'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
+//             //         cancelButton: 'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+//             //     },
+//             // }}
+//             {...props}
+//         />
+//     );
+// };
