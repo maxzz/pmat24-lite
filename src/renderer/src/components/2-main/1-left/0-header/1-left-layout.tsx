@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import { DialogFilterFiles } from "./1-filter";
+import { FilterFilesDialog } from "./1-filter";
 import { CurrentFilter } from "./2-filter-indicator";
 import { L_PanelMenu } from "./3-menu";
 
@@ -13,7 +13,7 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
             <div className="pl-2.5">Files</div>
 
             <div className="flex-1 flex items-center gap-1">
-                <DialogFilterFiles />
+                <FilterFilesDialog />
                 <CurrentFilter />
             </div>
 

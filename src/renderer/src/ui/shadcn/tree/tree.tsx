@@ -25,6 +25,7 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
         initialSelectedItemId?: string;
         expandAll?: boolean;
 
+        IconTextRender: TreeIconAndTextType;
         IconForFolder?: TreenIconType;
         IconForItem?: TreenIconType;
     }
@@ -37,7 +38,7 @@ type TreeState = {
 };
 
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
-    ({ data, initialSelectedItemId, onSelectChange, expandAll, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, className, ...rest }, ref) => {
+    ({ data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, className, ...rest }, ref) => {
 
         const [treeState] = useState(() => {
             const uiState = proxy<TreeState>({
@@ -45,6 +46,8 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
             });
             return uiState;
         });
+
+        const iconTextRender = IconTextRender || TreeIconAndText;
 
         const expandedItemIds = useMemo(
             () => {
@@ -102,6 +105,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
                             data={data}
                             handleSelectChange={handleSelectChange}
                             expandedItemIds={expandedItemIds}
+                            IconTextRender={iconTextRender}
                             IconForFolder={IconForFolder}
                             IconForItem={IconForItem}
                             arrowFirst={arrowFirst}
@@ -119,7 +123,7 @@ Tree.displayName = 'Tree.Root';
 type HandleSelectChange = (event: SyntheticEvent<any>, item: DataItemWState | undefined) => void;
 
 type TreeItemProps = Prettify<
-    & Pick<TreeProps, 'data' | 'IconForFolder' | 'IconForItem'>
+    & Pick<TreeProps, 'data' | 'IconForFolder' | 'IconForItem' | 'IconTextRender'>
     & {
         handleSelectChange: HandleSelectChange;
         expandedItemIds: string[];
@@ -128,7 +132,7 @@ type TreeItemProps = Prettify<
 >;
 
 const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLDivElement>>(
-    ({ className, data, handleSelectChange, expandedItemIds, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, ...rest }, ref) => {
+    ({ className, data, handleSelectChange, expandedItemIds, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, ...rest }, ref) => {
         return (
             <div ref={ref} role="tree" className={className} {...rest}>
                 <ul>
@@ -141,6 +145,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                                             <A.Item value={`${item.id}`} data-tree-id={item.id} data-tree-folder={TypeTreeFolder}>
                                                 <Folder
                                                     item={item}
+                                                    IconTextRender={IconTextRender}
                                                     Icon={IconForFolder}
                                                     arrowFirst={arrowFirst}
                                                     hideFolderIcon={hideFolderIcon}
@@ -152,6 +157,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                                                         data={item.children}
                                                         handleSelectChange={handleSelectChange}
                                                         expandedItemIds={expandedItemIds}
+                                                        IconTextRender={IconTextRender}
                                                         IconForFolder={IconForFolder}
                                                         IconForItem={IconForItem}
                                                         arrowFirst={arrowFirst}
@@ -163,6 +169,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                                     ) : (
                                         <Leaf
                                             item={item}
+                                            IconTextRender={IconTextRender}
                                             onClick={(e) => handleSelectChange(e, item)}
                                             Icon={IconForItem}
                                         />
@@ -173,6 +180,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                             <li>
                                 <Leaf
                                     item={data}
+                                    IconTextRender={IconTextRender}
                                     onClick={(e) => handleSelectChange(e, data)}
                                     Icon={IconForItem}
                                 />
@@ -186,8 +194,8 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
 );
 TreeItem.displayName = 'Tree.TreeItem';
 
-const Leaf = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & { item: DataItemWState, Icon?: TreenIconType; }>(
-    ({ className, item, Icon, ...rest }, ref) => {
+const Leaf = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & { item: DataItemWState, Icon?: TreenIconType; IconTextRender: TreeIconAndTextType; }>(
+    ({ className, item, IconTextRender, Icon, ...rest }, ref) => {
         const { selected } = useSnapshot(item.state);
         return (
             <div
@@ -196,15 +204,15 @@ const Leaf = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & { item:
                 data-tree-id={item.id}
                 {...rest}
             >
-                <TreeIconAndText item={item} Icon={Icon} iconClasses={leafIconClasses} hideFolderIcon={false} />
+                <IconTextRender item={item} Icon={Icon} iconClasses={leafIconClasses} hideFolderIcon={false} />
             </div>
         );
     }
 );
 Leaf.displayName = 'Tree.Leaf';
 
-const Folder = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement> & { item: DataItemWState, Icon?: TreenIconType; } & TreeOptions>(
-    ({ className, item, Icon, arrowFirst = true, hideFolderIcon, ...rest }, ref) => {
+const Folder = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement> & { item: DataItemWState, Icon?: TreenIconType; IconTextRender: TreeIconAndTextType; } & TreeOptions>(
+    ({ className, item, IconTextRender, Icon, arrowFirst = true, hideFolderIcon, ...rest }, ref) => {
         const { selected } = useSnapshot(item.state);
         return (
             <FolderTrigger
@@ -214,7 +222,7 @@ const Folder = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement> &
                 ref={ref}
                 {...rest}
             >
-                <TreeIconAndText item={item} Icon={Icon} hideFolderIcon={hideFolderIcon} iconClasses={treeItemIconClasses} />
+                <IconTextRender item={item} Icon={Icon} hideFolderIcon={hideFolderIcon} iconClasses={treeItemIconClasses} />
             </FolderTrigger>
         );
     }
@@ -259,7 +267,18 @@ const FolderContent = forwardRef<ElementRef<typeof A.Content>, ComponentPropsWit
 );
 FolderContent.displayName = 'Tree.Folder.Content';
 
-function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: { item: DataItemNavigation<DataItemCore>; Icon?: TreenIconType; iconClasses: string; } & Pick<TreeOptions, 'hideFolderIcon'>) {
+type TreeIconAndTextProps = Prettify<
+    & {
+        item: DataItemNavigation<DataItemCore>;
+        Icon?: TreenIconType;
+        iconClasses: string;
+    }
+    & Pick<TreeOptions, 'hideFolderIcon'>
+>;
+
+type TreeIconAndTextType = typeof TreeIconAndText;
+
+function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
     return (<>
         {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}

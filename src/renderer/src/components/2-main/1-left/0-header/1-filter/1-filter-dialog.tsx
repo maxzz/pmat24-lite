@@ -5,7 +5,7 @@ import { useKey } from "react-use";
 import { DialogFilterBody } from "./2-body";
 import { IconFilter, IconSearch } from "@/ui/icons";
 
-export function DialogFilterFiles() {
+export function FilterFilesDialog() {
     const [isOpen, setIsOpen] = useState(false);
 
     useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
@@ -25,3 +25,11 @@ export function DialogFilterFiles() {
         </D.Dialog>
     </>);
 }
+
+//TODO: multiple prefixes; now only one effective
+//TODO: add (15 last) prefixes history dropdown
+
+//TODO: icons const instances
+//TODO: filename for win apps
+//TODO: tree custom leafs
+//TODO: options page
