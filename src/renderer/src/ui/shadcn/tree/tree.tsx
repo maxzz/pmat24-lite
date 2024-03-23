@@ -25,7 +25,8 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
         initialSelectedItemId?: string;
         expandAll?: boolean;
 
-        IconTextRender: TreeIconAndTextType;
+        IconTextRender?: TreeIconAndTextType;
+
         IconForFolder?: TreenIconType;
         IconForItem?: TreenIconType;
     }
@@ -123,7 +124,8 @@ Tree.displayName = 'Tree.Root';
 type HandleSelectChange = (event: SyntheticEvent<any>, item: DataItemWState | undefined) => void;
 
 type TreeItemProps = Prettify<
-    & Pick<TreeProps, 'data' | 'IconForFolder' | 'IconForItem' | 'IconTextRender'>
+    & Pick<TreeProps, 'data' | 'IconForFolder' | 'IconForItem'>
+    & { IconTextRender: TreeIconAndTextType; }
     & {
         handleSelectChange: HandleSelectChange;
         expandedItemIds: string[];
