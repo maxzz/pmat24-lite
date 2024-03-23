@@ -15,7 +15,7 @@ export function SvgSymbolAppWin() {
 
 export function SymbolAppWin({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} {...rest}>
+        <svg className={classNames("fill-none stroke-current stroke-1", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-win32" />

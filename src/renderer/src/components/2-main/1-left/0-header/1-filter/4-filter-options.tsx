@@ -28,20 +28,9 @@ export function FilterOptions() {
                 </Button>
             </D.DrawerTrigger>
 
-            <D.DrawerContent>
-                <div className="mx-auto w-full max-w-sm">
-                    {/* <D.DrawerHeader>
-                        <D.DrawerTitle>Search options:</D.DrawerTitle>
-                        <D.DrawerDescription>Set your daily activity goal.</D.DrawerDescription>
-                    </D.DrawerHeader> */}
-
+            <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" noTopBar>
+                <div className="grid place-content-center">
                     <DrawerItems />
-
-                    {/* <D.DrawerFooter>
-                        <D.DrawerClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                        </D.DrawerClose>
-                    </D.DrawerFooter> */}
                 </div>
             </D.DrawerContent>
         </D.Drawer>
