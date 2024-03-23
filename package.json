@@ -20,7 +20,8 @@
         "react-syntax-highlighter": "^15.5.0",
         "react-use": "^17.5.0",
         "use-resize-observer": "^9.1.0",
-        "valtio": "^1.13.2"
+        "valtio": "^1.13.2",
+        "vaul": "^0.9.0"
     },
     "devDependencies": {
         "@electron-toolkit/tsconfig": "^1.0.1",

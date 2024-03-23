@@ -2,6 +2,7 @@ import { treeFilesAtom } from "@/store";
 import { ScrollArea } from "@/ui";
 import { SymbolDot } from "@/ui/icons";
 import { useAtomValue } from "jotai";
+import { FilterOptions } from "./4-filter-options";
 
 export function FilteredFilesList() {
     const files = useAtomValue(treeFilesAtom);
@@ -25,7 +26,8 @@ export function FilteredFilesList() {
                         })}
                     </div>
 
-                    <PopupContent />
+                    {/* <PopupContent /> */}
+                    <FilterOptions />
                 </div>
             </ScrollArea>
 

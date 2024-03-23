@@ -12,6 +12,7 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
 
             <div className="relative">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 p-px size-4" />
+                
                 <Input
                     className="pl-9"
                     value={text}
@@ -37,7 +38,6 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
             </div>
 
             <FilteredFilesList />
-
         </div>
     </>);
 }
