@@ -17,18 +17,15 @@ export function FilteredFilesList() {
                             return (
                                 IconToRender && (
                                     <div key={file.id} className="flex items-center gap-1 leading-5">
-                                        <IconToRender className="p-px size-4" />
-                                        {file.name}
+                                        <IconToRender className="flex-none p-px size-4" />
+                                        <div className="">{file.name}</div>
                                     </div>
                                 )
                             );
                         })}
                     </div>
 
-                    <div className="">
-                        Options
-                        <PopupContent />
-                    </div>
+                    <PopupContent />
                 </div>
             </ScrollArea>
 
@@ -36,13 +33,13 @@ export function FilteredFilesList() {
     );
 }
 
-const popupContentDotClasses = "w-3 h-3 inline fill-none stroke-black";
+const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
 
 export function PopupContent() {
     return (
-        <div className="text-sm py-1 px-1">
-            <div className="font-bold">Search (Ctrl+D)</div>
+        <div className="text-xs px-1">
+            <div className="pb-2 font-bold">Search options:</div>
             <div className="pb-1">Use the search prefix to dispay only:</div>
             <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>win:</span> logins for Windows apps</div>
             <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>web:</span> logins for web apps</div>

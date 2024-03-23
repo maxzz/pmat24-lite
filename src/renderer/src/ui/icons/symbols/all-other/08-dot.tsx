@@ -1,3 +1,4 @@
+import { classNames } from '@/utils';
 import { HTMLAttributes, SVGAttributes } from 'react';
 
 export function SvgSymbolDot() {
@@ -8,9 +9,9 @@ export function SvgSymbolDot() {
     </>);
 }
 
-export function SymbolDot({ title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolDot({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg fill="currentColor" {...rest}>
+        <svg className={classNames("fill-current", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#icon-dot" />
