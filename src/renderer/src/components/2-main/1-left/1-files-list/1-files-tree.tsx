@@ -2,9 +2,8 @@ import { useMemo } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { proxy } from "valtio";
 import { TreeFileItem, rightPanelAtom, treeFilesAtom } from "@/store";
-import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
+import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState, TreeIconAndTextProps } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder, PanelTop, Globe, Chrome } from "lucide-react"; // Workflow as IconFile, File as IconFile
-import { SymbolAppWebChrome } from "@/ui/icons";
 
 type TT = TreeFileItem<ItemState>;
 
@@ -13,11 +12,6 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
 
     walkItems(newTree, (item) => {
         item.state = proxy({ selected: false });
-        // item.icon = IconFolder;
-        // item.icon = PanelTop;
-        //item.icon = Globe;
-        // item.icon = Chrome;
-        //item.icon = SymbolAppWebChrome;
     });
 
     return newTree;
@@ -27,6 +21,17 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TT[] {
 //const dataWithState = addStateToTreeItems(data);
 
 export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
+
+function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
+    const IconToRender = item.icon || (!hideFolderIcon && Icon);
+    return (<>
+        {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
+
+        <span className="flex-grow truncate">
+            {item.name}
+        </span>
+    </>);
+}
 
 export function FilesTree() {
 
@@ -40,6 +45,7 @@ export function FilesTree() {
                 <Tree
                     data={dataWithState}
                     className={`w-full h-full outline-none`}
+                    IconTextRender={TreeIconAndText}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
                     arrowFirst={true}

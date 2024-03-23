@@ -17,6 +17,11 @@ export type ItemState = {
 
 export type DataItemWState = DataItemNavigation<DataItemCore & ItemState>;
 
+type TreeOptions = { arrowFirst?: boolean; hideFolderIcon?: boolean; };
+type TreeState = {
+    selectedId: string | number | undefined;
+};
+
 type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
     & {
         data: T[] | T;
@@ -32,11 +37,6 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
     }
     & TreeOptions
 >;
-
-type TreeOptions = { arrowFirst?: boolean; hideFolderIcon?: boolean; };
-type TreeState = {
-    selectedId: string | number | undefined;
-};
 
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
     ({ data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, className, ...rest }, ref) => {
@@ -269,7 +269,7 @@ const FolderContent = forwardRef<ElementRef<typeof A.Content>, ComponentPropsWit
 );
 FolderContent.displayName = 'Tree.Folder.Content';
 
-type TreeIconAndTextProps = Prettify<
+export type TreeIconAndTextProps = Prettify<
     & {
         item: DataItemNavigation<DataItemCore>;
         Icon?: TreenIconType;
@@ -278,7 +278,7 @@ type TreeIconAndTextProps = Prettify<
     & Pick<TreeOptions, 'hideFolderIcon'>
 >;
 
-type TreeIconAndTextType = typeof TreeIconAndText;
+export type TreeIconAndTextType = typeof TreeIconAndText;
 
 function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
