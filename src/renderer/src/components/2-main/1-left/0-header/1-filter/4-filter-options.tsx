@@ -1,91 +1,47 @@
-import { useState } from "react";
 import { Button } from "@ui/shadcn/button";
 import * as D from "@ui/shadcn/drawer";
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
+import { SymbolDot } from "@/ui/icons";
 
-const data = [
-    { goal: 400, },
-    { goal: 300, },
-    { goal: 200, },
-    { goal: 300, },
-    { goal: 200, },
-    { goal: 278, },
-    { goal: 189, },
-    { goal: 239, },
-    { goal: 300, },
-    { goal: 200, },
-    { goal: 278, },
-    { goal: 189, },
-    { goal: 349, },
-];
+const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
+const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
 
 function DrawerItems() {
-    const [goal, setGoal] = useState(350);
-
-    function onClick(adjustment: number) {
-        setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-    }
-
     return (
-        <div className="p-4 pb-0">
-            <div className="flex items-center justify-center space-x-2">
-                <Button
-                    variant="outline" size="icon" className="shrink-0 w-8 h-8 rounded-full" disabled={goal <= 200} onClick={() => onClick(-10)}>
-                    <MinusIcon className="w-4 h-4" />
-                    <span className="sr-only">Decrease</span>
-                </Button>
-
-                <div className="flex-1 text-center">
-                    <div className="text-7xl font-bold tracking-tighter">
-                        {goal}
-                    </div>
-                    <div className="text-[0.70rem] uppercase text-muted-foreground">
-                        Calories/day
-                    </div>
-                </div>
-
-                <Button
-                    variant="outline" size="icon" className="shrink-0 w-8 h-8 rounded-full" disabled={goal >= 400} onClick={() => onClick(10)}>
-                    <PlusIcon className="w-4 h-4" />
-                    <span className="sr-only">Increase</span>
-                </Button>
-            </div>
-
-            {/* <div className="mt-3 h-[120px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data}>
-                        <Bar dataKey="goal" style={{ fill: "hsl(var(--foreground))", opacity: 0.9, }} />
-                    </BarChart>
-                </ResponsiveContainer>
-            </div> */}
+        <div className="text-xs px-1">
+            <div className="pb-2 font-bold">Search options:</div>
+            <div className="pb-1">Use the search prefix to dispay only:</div>
+            <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>win:</span> logins for Windows apps</div>
+            <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>web:</span> logins for web apps</div>
+            <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>why:</span> logins with problems to check why</div>
+            <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>cap:</span> logins with window caption</div>
+            <div className=""><SymbolDot className={popupContentDotClasses} /><span className={popupContentTextClasses}>cls:</span> logins with window classname</div>
         </div>
     );
 }
 
 export function FilterOptions() {
     return (
-        <D.Drawer>
+        <D.Drawer shouldScaleBackground={false}>
             <D.DrawerTrigger asChild>
-                <Button variant="outline" className="">
+                <Button variant="outline" className="font-normal">
                     Fiter options
                 </Button>
             </D.DrawerTrigger>
 
             <D.DrawerContent>
                 <div className="mx-auto w-full max-w-sm">
-                    <D.DrawerHeader>
-                        <D.DrawerTitle>Move Goal</D.DrawerTitle>
+                    {/* <D.DrawerHeader>
+                        <D.DrawerTitle>Search options:</D.DrawerTitle>
                         <D.DrawerDescription>Set your daily activity goal.</D.DrawerDescription>
-                    </D.DrawerHeader>
+                    </D.DrawerHeader> */}
 
                     <DrawerItems />
 
-                    <D.DrawerFooter>
-                        <Button>Submit</Button>
+                    {/* <D.DrawerFooter>
                         <D.DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </D.DrawerClose>
-                    </D.DrawerFooter>
+                    </D.DrawerFooter> */}
                 </div>
             </D.DrawerContent>
         </D.Drawer>
