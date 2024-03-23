@@ -70,8 +70,7 @@ export function CardTitleAttention({ fileUs }: { fileUs: FileUs; }) {
     const hasBailOut = isAnyWhy(fileUs);
     const fileIndex = fileUs.idx + 1;
     if (!hasBailOut) {
-        // return <CardTitleFileIndex idx={fileIndex} />;
-        return <div className="">11</div>
+        return <CardTitleFileIndex idx={fileIndex} />;
     }
     return (
         <TooltipProvider>
@@ -81,13 +80,13 @@ export function CardTitleAttention({ fileUs }: { fileUs: FileUs; }) {
                     popperOptions={{ delayShow: 300 }} // , visible: true
                     className="!p-0 !bg-primary-100 !border-primary-100"
                     */}
-                    {/* <CardTitleFileIndex idx={fileIndex} errors={true} /> */}
-                    <div className="">33</div>
+                    <div>
+                        <CardTitleFileIndex idx={fileIndex} errors={true} />
+                    </div>
                 </TooltipTrigger>
 
                 <TooltipContent>
-                    {/* <TooltipBody fileUs={fileUs} fileIndex={fileIndex} /> */}
-                    <div className="">22</div>
+                    <TooltipBody fileUs={fileUs} fileIndex={fileIndex} />
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
