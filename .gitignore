@@ -5,6 +5,8 @@ dist
 *.log*
 *.tsbuildinfo
 
+visualization.html
+
 release
 dist-electron/*
 !dist-electron/plugins
