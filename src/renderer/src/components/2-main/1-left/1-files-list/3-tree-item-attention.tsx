@@ -3,7 +3,8 @@ import { FileUs } from "@/store/store-types";
 import { isAnyWhy } from "@/store/store-utils";
 import { SymbolDot } from "@ui/icons";
 import { classNames } from "@/utils";
-import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/ui";
+import { Button, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 export function CardTitleFileIndex({ idx, errors }: { idx: number; errors?: boolean; }) {
     return (
@@ -22,49 +23,32 @@ export function CardTitleFileIndex({ idx, errors }: { idx: number; errors?: bool
 
 function TooltipBody({ fileUs, fileIndex }: { fileUs: FileUs; fileIndex: number; }) {
     const bailOuts = [fileUs.meta?.[0]?.disp.bailOut, fileUs.meta?.[1]?.disp.bailOut];
-    return (
-        <div className="pb-2 max-w-[17rem] text-sm bg-primary-100 rounded-[2px]">
+    return (<div className="px-3 py-1.5">
 
-            <div className="px-3 py-4 bg-red-700 text-primary-100 rounded-sm rounded-b-none">
-                <div className="">There are problems in the file with index {fileIndex} to check why:</div>
-            </div>
+        <div className="border-border border">There are problems in the file with index {fileIndex} to check why:</div>
 
-            {bailOuts.map((bailOut, idx) => (
-                <Fragment key={`bailout${idx}`}>
-                    {bailOut &&
-                        <div className="px-3 py-1">
-                            <div className="font-bold">
-                                {idx === 0 ? 'Login:' : 'Password change:'}
-                            </div>
+        {bailOuts.map((bailOut, idx) => (
+            <Fragment key={`bailout${idx}`}>
+                {bailOut &&
+                    <div className="px-3 py-1">
+                        <div className="font-bold">
+                            {idx === 0 ? 'Login:' : 'Password change:'}
+                        </div>
 
-                            {bailOut.map((item, key) => (
-                                <div className="flex items-center" key={key}>
-                                    <SymbolDot className="ml-1 w-4 h-4 flex-none self-start mt-0.5" />
+                        {bailOut.map((item, key) => (
+                            <div className="flex items-center" key={key}>
+                                <SymbolDot className="ml-1 w-4 h-4 flex-none self-start mt-0.5" />
+                                <div className="">
                                     {item}
                                 </div>
-                            ))}
-                        </div>
-                    }
-                </Fragment>
-            ))}
-        </div>
-    );
+                            </div>
+                        ))}
+                    </div>
+                }
+            </Fragment>
+        ))}
+    </div>);
 }
-
-// export function TooltipDemo() {
-//     return (
-//         <TooltipProvider>
-//             <Tooltip>
-//                 <TooltipTrigger asChild>
-//                     <Button variant="outline">Hover</Button>
-//                 </TooltipTrigger>
-//                 <TooltipContent>
-//                     <p>Add to library</p>
-//                 </TooltipContent>
-//             </Tooltip>
-//         </TooltipProvider>
-//     );
-// }
 
 export function CardTitleAttention({ fileUs }: { fileUs: FileUs; }) {
     const hasBailOut = isAnyWhy(fileUs);
@@ -74,41 +58,20 @@ export function CardTitleAttention({ fileUs }: { fileUs: FileUs; }) {
     }
     return (
         <TooltipProvider>
-            <Tooltip>
+            <Tooltip /**/ open={true}/**/>
                 <TooltipTrigger asChild>
-                    {/*
-                    popperOptions={{ delayShow: 300 }} // , visible: true
-                    className="!p-0 !bg-primary-100 !border-primary-100"
-                    */}
                     <div>
                         <CardTitleFileIndex idx={fileIndex} errors={true} />
                     </div>
                 </TooltipTrigger>
 
-                <TooltipContent>
-                    <TooltipBody fileUs={fileUs} fileIndex={fileIndex} />
-                </TooltipContent>
+                <TooltipPortal>
+                    <TooltipContent className="p-0 max-w-72 text-xs border-border border shadow">
+                        <TooltipBody fileUs={fileUs} fileIndex={fileIndex} />
+                        <TooltipArrow className="fill-primary" />
+                    </TooltipContent>
+                </TooltipPortal>
             </Tooltip>
         </TooltipProvider>
     );
 }
-
-// export function CardTitleAttention({ fileUs }: { fileUs: FileUs; }) {
-//     const hasBailOut = isAnyWhy(fileUs);
-//     const fileIndex = fileUs.idx + 1;
-//     if (!hasBailOut) {
-//         return <CardTitleFileIndex idx={fileIndex} />;
-//     }
-//     const bailOuts = [fileUs.meta?.[0]?.disp.bailOut, fileUs.meta?.[1]?.disp.bailOut];
-//     return (
-//         <UiTip
-//             trigger={
-//                 <CardTitleFileIndex idx={fileIndex} errors={true} />
-//             }
-//             popperOptions={{ delayShow: 300 }} // , visible: true
-//             className="!p-0 !bg-primary-100 !border-primary-100"
-//         >
-//             <TooltipBody fileUs={fileUs} fileIndex={fileIndex} />
-//         </UiTip>
-//     );
-// }
