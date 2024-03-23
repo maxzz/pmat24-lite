@@ -28,7 +28,7 @@ export function FilterOptions() {
                 </Button>
             </D.DrawerTrigger>
 
-            <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" noTopBar>
+            <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" withTopBar>
                 <div className="grid place-content-center">
                     <DrawerItems />
                 </div>
