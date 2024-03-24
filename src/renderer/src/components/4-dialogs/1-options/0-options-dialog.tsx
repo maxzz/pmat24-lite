@@ -4,7 +4,7 @@ import { Button } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogOptionsBody } from "./1-body";
 
-export function FilterFilesDialog() {
+export function OptionsFilesDialog() {
     const [optionsDialogOpen, setOptionsDialogOpen] = useAtom(optionsDialogOpenAtom);
 
     // useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setOptionsDialogOpen(true); });
