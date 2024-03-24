@@ -64,7 +64,7 @@ export function collectExpandedItemIds(data: DataItemNav[] | DataItemNav, initia
                         rv.pop();
                     }
                 }
-            } else if (!expandAll && items.id === targetId) {
+            } else if (!expandAll && items.id == targetId) {
                 return true;
             } else if (items.children) {
                 return walkTreeItems(items.children, targetId);
