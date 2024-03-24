@@ -27,7 +27,7 @@ export function findTreeItemById<T extends DataItemNav>(items: T[] | T | undefin
     if (id && items) {
         !Array.isArray(items) && (items = [items]);
         for (const item of items) {
-            if (item.id === id) {
+            if (item.id == id) {
                 return item;
             }
             if (item.children) {
@@ -92,7 +92,7 @@ export function getNextId(root: HTMLDivElement, e: KeyboardEvent<HTMLDivElement>
         return expandedNow[0].id;
     }
 
-    const selectedIdx = expandedNow.findIndex((item) => item.id === selectedItemId);
+    const selectedIdx = expandedNow.findIndex((item) => item.id == selectedItemId);
     if (selectedIdx !== -1) {
         switch (e.key) {
             case "ArrowDown":
