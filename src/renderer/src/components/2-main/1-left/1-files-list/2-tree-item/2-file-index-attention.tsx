@@ -4,7 +4,7 @@ import { CardTitleFileIndex } from "./1-file-index";
 import { TooltipBody } from "./3-tooltip-body";
 import { RealTooltip } from "./3-real-tooltip";
 
-export function TooltipAttention({ fileUs }: { fileUs: FileUs; }) {
+export function FileIndexAttention({ fileUs }: { fileUs: FileUs; }) {
     const hasBailOut = isAnyWhy(fileUs);
     const fileIndex = fileUs.idx + 1;
     if (!hasBailOut) {
