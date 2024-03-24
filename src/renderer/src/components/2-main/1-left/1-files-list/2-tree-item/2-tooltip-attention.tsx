@@ -1,3 +1,4 @@
+import { FunctionComponent, ReactNode } from "react";
 import { FileUs } from "@/store/store-types";
 import { isAnyWhy } from "@/store/store-utils";
 import { Button, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
@@ -5,12 +6,15 @@ import { TooltipArrow } from "@radix-ui/react-tooltip";
 import { CardTitleFileIndex } from "./1-file-index";
 import { TooltipBody } from "./3-tooltip-body";
 
-export function TooltipAttention({ fileUs }: { fileUs: FileUs; }) {
+export function TooltipAttention({ Children: Children, fileUs }: { fileUs: FileUs; Children: FunctionComponent<{ idx: number } | { idx: number; errors?: boolean }>}) {
     const hasBailOut = isAnyWhy(fileUs);
     const fileIndex = fileUs.idx + 1;
 
+    Children = CardTitleFileIndex;
+
     if (!hasBailOut) {
-        return <CardTitleFileIndex idx={fileIndex} />;
+        return <Children idx={fileIndex} />;
+        // return <CardTitleFileIndex idx={fileIndex} />;
     }
 
     return (
