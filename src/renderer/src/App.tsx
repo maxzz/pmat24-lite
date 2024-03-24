@@ -5,6 +5,7 @@ import { doSetFilesFromDropAtom } from "./store";
 import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
+import { AppGlobalShortcuts } from "./store/atoms/8-dialogs";
 
 export function App(): JSX.Element {
     return (<>
@@ -16,6 +17,7 @@ export function App(): JSX.Element {
             <SectionFooter />
         </div>
 
+        <AppGlobalShortcuts />
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
         <WorldToReactListener />
         <OnAppMount />

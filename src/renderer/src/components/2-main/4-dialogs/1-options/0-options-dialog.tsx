@@ -7,7 +7,7 @@ import { DialogOptionsBody } from "./1-body";
 export function FilterFilesDialog() {
     const [optionsDialogOpen, setOptionsDialogOpen] = useAtom(optionsDialogOpenAtom);
 
-    // useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
+    // useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setOptionsDialogOpen(true); });
 
     return (<>
         {/* <Button className="" variant={"ghost"} onClick={() => setOptionsDialogOpen(true)} title="Filter files (Ctrl+D)">
