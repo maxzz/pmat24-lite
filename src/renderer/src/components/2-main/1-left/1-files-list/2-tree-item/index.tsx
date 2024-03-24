@@ -1,7 +1,7 @@
-import { TreeIconAndTextProps } from "@ui/shadcn/tree";
-import { treeItemToFileUs } from "./1-files-tree";
 import { useAtomValue } from "jotai";
-import { CardTitleAttention } from "./3-tree-item-attention";
+import { TreeIconAndTextProps } from "@ui/shadcn/tree";
+import { treeItemToFileUs } from "../1-files-tree";
+import { TooltipAttention } from "./2-tooltip-attention";
 
 export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
     const fileUsItem = treeItemToFileUs(item);
@@ -9,7 +9,7 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
 
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
     return (<>
-        <CardTitleAttention fileUs={fileUs} />
+        <TooltipAttention fileUs={fileUs} />
         
         {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
 
