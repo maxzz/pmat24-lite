@@ -1,8 +1,7 @@
 import { useAtomValue } from "jotai";
 import { TreeIconAndTextProps } from "@ui/shadcn/tree";
-import { treeItemToFileUs } from "../1-files-tree";
+import { treeItemToFileUs } from "../0-files-tree";
 import { FileIconAttention } from "./2-file-icon-attention";
-// import { FileIndexAttention } from "./2-file-index-attention";
 import { classNames } from "@/utils";
 import { CardTitleFileIndex } from "./1-file-index";
 
@@ -15,7 +14,6 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
 
     return (<>
         <CardTitleFileIndex idx={fileIndex} />
-        {/* <FileIndexAttention fileUs={fileUs} /> */}
 
         <FileIconAttention fileUs={fileUs} IconToRender={IconToRender} name={item.name} iconClasses={iconClasses} />
 
