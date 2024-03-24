@@ -26,16 +26,12 @@ import { TooltipBody } from "./3-tooltip-body";
 //     );
 // }
 
-export function FileNameAttention({ IconToRender, name, fileUs, iconClasses }: { fileUs: FileUs; IconToRender: false | TreenIconType | undefined; name: string; iconClasses: string; }) {
+export function FileIconAttention({ IconToRender, name, fileUs, iconClasses }: { fileUs: FileUs; IconToRender: false | TreenIconType | undefined; name: string; iconClasses: string; }) {
     const hasBailOut = isAnyWhy(fileUs);
     const fileIndex = fileUs.idx + 1;
 
     const Body = (<>
         {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
-
-        <span className="flex-grow truncate">
-            {name}
-        </span>
     </>);
 
     if (!hasBailOut) {
@@ -61,7 +57,11 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     return (<>
         <FileIndexAttention fileUs={fileUs} />
 
-        <FileNameAttention fileUs={fileUs} IconToRender={IconToRender} name={item.name} iconClasses={iconClasses} />
+        <FileIconAttention fileUs={fileUs} IconToRender={IconToRender} name={item.name} iconClasses={iconClasses} />
+
+        <span className="flex-grow truncate">
+            {item.name}
+        </span>
 
         {/* {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
 
