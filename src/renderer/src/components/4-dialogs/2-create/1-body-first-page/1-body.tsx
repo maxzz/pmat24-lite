@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { atom, useSetAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { Button, ScrollArea } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { detectedWindows } from "./4-test-detected-windows";
@@ -12,7 +12,9 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
     const selectedIdxAtom = useState(() => atom(-1))[0];
 
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
-    const setToastId = useSetAtom(toastIdAtom);
+    const [toastId, setToastId] = useAtom(toastIdAtom);
+
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
     
     return (
         <div className="min-h-56 text-xs">

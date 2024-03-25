@@ -7,7 +7,7 @@ export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom
     const selectedIdx = useAtomValue(selectedIdxAtom);
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId, selectedIdx]);
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [selectedIdx]);
 
     return (
         <Button variant="default" size="sm"
