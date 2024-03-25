@@ -9,14 +9,16 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
         <div className="min-h-56 text-xs">
 
             <D.DialogHeader className="relative text-base font-bold flex items-center">
-                <div className="py-4">Options</div>
+                <div className="py-4">Settings</div>
                 <D.DialogCloseButton onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
-            <div className="mt-4 px-4">
-                <Label className="text-xs font-normal flex place-items-center gap-1">
+            <div className="mt-2 px-4">
+                <Label className="block mb-2">File list options</Label>
+
+                <Label className="text-xs font-normal flex place-items-center gap-2">
                     <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.ui.fileListItems.showIndex = !!v} />
-                    Show files index
+                    Show file index
                 </Label>
 
             </div>

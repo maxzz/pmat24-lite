@@ -16,7 +16,7 @@ import {
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
 import { sendToMain } from "@/xternal-to-main";
-import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit } from "./10-file";
+import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_CreateMani } from "./10-file";
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "./20-preferences";
 import { MenuItem_Settings } from "./21-settings";
 
@@ -35,6 +35,8 @@ export function DropdownMenuDemo() {
 
                 <MenuItems_FileOpen setMenuOpen={setOpen} />
 
+                <DropdownMenuSeparator />
+                <MenuItem_CreateMani />
                 <DropdownMenuSeparator />
 
                 <DropdownMenuSub>
