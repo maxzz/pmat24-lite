@@ -7,9 +7,6 @@ import { toast } from "sonner";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const selectedIdxAtom = useState(() => atom(-1))[0];
-    const selectedIdx = useAtomValue(selectedIdxAtom);
-    const [toastId, setToastId] = useState<string | number | undefined>(undefined);
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
     return (
         <div className="min-h-56 text-xs">
 
@@ -41,24 +38,33 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 </div> */}
 
                 <div className="mt-4 flex items-center justify-end">
-                    <Button variant="default" size="sm"
-                        onClick={() => {
-                            let id: string | number | undefined;
-                            if (selectedIdx === -1) {
-                                id = toast('Select application window first.');
-                            } else {
-                                id = toast('No login fields detected.');
-                            }
-                            id && setToastId(id);
-                        }}
-                    >
-                        Create manifest
-                    </Button>
+                    <ButtonCreate selectedIdxAtom={selectedIdxAtom} />
                 </div>
 
             </div>
 
         </div>
+    );
+}
+
+function ButtonCreate({ selectedIdxAtom }: { selectedIdxAtom: PrimitiveAtom<number>; }) {
+    const selectedIdx = useAtomValue(selectedIdxAtom);
+    const [toastId, setToastId] = useState<string | number | undefined>(undefined);
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId, selectedIdx]);
+    return (
+        <Button variant="default" size="sm"
+            onClick={() => {
+                let id: string | number | undefined;
+                if (selectedIdx === -1) {
+                    id = toast('Select application window first.');
+                } else {
+                    id = toast('No login fields detected.');
+                }
+                id && setToastId(id);
+            }}
+        >
+            Create manifest
+        </Button>
     );
 }
 
