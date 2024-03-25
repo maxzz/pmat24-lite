@@ -1,11 +1,15 @@
-import { useState } from "react";
-import { PrimitiveAtom, atom, useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { PrimitiveAtom, atom, useAtom, useAtomValue } from "jotai";
 import { Button, Checkbox, Label, ScrollArea } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { DetectedWindow, detectedWindows } from "./2-test-detected-windows";
+import { toast } from "sonner";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const selectedIdxAtom = useState(() => atom(-1))[0];
+    const selectedIdx = useAtomValue(selectedIdxAtom);
+    const [toastId, setToastId] = useState<string | number | undefined>(undefined);
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
     return (
         <div className="min-h-56 text-xs">
 
@@ -19,8 +23,11 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                     Select the login window for which you will create a manifest.
                 </div>
 
-                <div className="mb-1">
+                <div className="mb-1 flex items-center justify-between">
                     Application windows
+                    <Button className="font-normal" variant="ghost" size="xs">
+                        Refresh
+                    </Button>
                 </div>
 
                 <div className="border-border border rounded">
@@ -29,12 +36,24 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                     </ScrollArea>
                 </div>
 
-                <div className="my-4">
+                {/* <div className="my-4">
                     No login fields detected
-                </div>
+                </div> */}
 
                 <div className="mt-4 flex items-center justify-end">
-                    <Button variant="default" size="sm">Create manifest</Button>
+                    <Button variant="default" size="sm"
+                        onClick={() => {
+                            let id: string | number | undefined;
+                            if (selectedIdx === -1) {
+                                id = toast('Select application window first.');
+                            } else {
+                                id = toast('No login fields detected.');
+                            }
+                            id && setToastId(id);
+                        }}
+                    >
+                        Create manifest
+                    </Button>
                 </div>
 
             </div>
