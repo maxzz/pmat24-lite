@@ -1,28 +1,8 @@
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { Button, Checkbox, Label, ScrollArea } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
-import { Button, Checkbox, Label } from "@/ui";
-
-const detectedWindows = [
-    {
-        id: 1,
-        name: "Login window",
-        url: "https://example.com/login",
-    },
-    {
-        id: 2,
-        name: "Register window",
-        url: "https://example.com/register",
-    },
-    {
-        id: 3,
-        name: "Forgot password window",
-        url: "https://example.com/forgot-password",
-    },
-];
+import { detectedWindows } from "./2-test-detected-windows";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
-    const snap = useSnapshot(appSettings).ui.fileListItems;
     return (
         <div className="min-h-56 text-xs">
 
@@ -36,21 +16,26 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                     Select the login window for which you will create a manifest.
                 </div>
 
-                <div className="mb-2">
-                    Windows
+                <div className="mb-1">
+                    Application windows
                 </div>
 
-                <div className="h-64 flex flex-col gap-2">
-                    {detectedWindows.map((window) => (
-                        <Label key={window.id} className="text-xs font-normal flex items-center gap-1">
-                            <Checkbox className="size-4" />
-                            <div>{window.name}</div>
-                        </Label>
-                    ))}
+                <div className="border-border border rounded">
+                    <ScrollArea className="h-[25vh]">
+                        <div className="px-3 py-2 flex flex-col gap-2">
+                            {detectedWindows.length === 0 && <div className="text-muted-foreground">No windows detected</div>}
+                            {detectedWindows.length !== 0 && detectedWindows.map((window) => (
+                                <Label key={window.id} className="text-xs font-normal flex items-center gap-1">
+                                    <Checkbox className="size-4" />
+                                    <div>{window.name}</div>
+                                </Label>
+                            ))}
+                        </div>
+                    </ScrollArea>
                 </div>
 
-                <div className="flex items-center justify-end">
-                    <Button className="mt-4">Create manifest</Button>
+                <div className="mt-4 flex items-center justify-end">
+                    <Button variant="default" size="sm">Create manifest</Button>
                 </div>
 
             </div>
