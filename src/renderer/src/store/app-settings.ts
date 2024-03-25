@@ -2,7 +2,7 @@ import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { ResizablesState, defaultResizablesState } from "./state-ui";
-import { FilesSortOrder, ShownManis, defaultFilesSortOrder, defaultShownManis } from "./atoms";
+import { FileListItemsState, FilesSortOrder, ShownManis, defaultFileListItemsState, defaultFilesSortOrder, defaultShownManis } from "./atoms";
 
 export type AppSettings = {
     ui: {
@@ -10,6 +10,7 @@ export type AppSettings = {
         resisablesState: ResizablesState;
         shownManis: ShownManis;
         filesSortOrder: FilesSortOrder;
+        fileListItems: FileListItemsState;
     },
 };
 
@@ -19,6 +20,7 @@ const defaultSettings: AppSettings = {
         resisablesState: defaultResizablesState,
         shownManis: defaultShownManis,
         filesSortOrder: defaultFilesSortOrder,
+        fileListItems: defaultFileListItemsState,
     },
 };
 
@@ -46,5 +48,5 @@ subscribe(appSettings, () => {
     themeApplyMode(appSettings.ui.theme);
 });
 
-const saveDebounced = debounce(() => localStorage.setItem(STORE_KEY, JSON.stringify({[STORE_VER]: appSettings})), 400);
+const saveDebounced = debounce(() => localStorage.setItem(STORE_KEY, JSON.stringify({ [STORE_VER]: appSettings })), 400);
 subscribe(appSettings, saveDebounced);

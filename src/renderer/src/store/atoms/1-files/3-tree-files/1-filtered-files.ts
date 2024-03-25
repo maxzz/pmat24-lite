@@ -2,7 +2,7 @@ import { atom } from 'jotai';
 import { filesAtom } from '../0-files-atom';
 import { FileUsAtomType, Order, SortBy } from "@/store/store-types";
 import { createRegexByFilter, isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual, useFileUsByFilter } from '@/store/store-utils';
-import { searchFilterData } from '../../9-ui-state/4-filters-search';
+import { searchFilterData } from '../../9-ui-state/04-filters-search';
 import { appSettings } from '@/store/app-settings';
 
 export const filteredAtom = atom<FileUsAtomType[]>(
