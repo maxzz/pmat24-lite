@@ -4,6 +4,8 @@ import { treeItemToFileUs } from "../0-files-tree";
 import { FileIconAttention } from "./2-file-icon-attention";
 import { classNames } from "@/utils";
 import { CardTitleFileIndex } from "./1-file-index";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 
 export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
     const fileUsItem = treeItemToFileUs(item);
@@ -12,8 +14,10 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
     iconClasses = classNames("mr-1.5", iconClasses);
 
+    const showIndex = useSnapshot(appSettings).ui.fileListItems.showIndex;
+
     return (<>
-        <CardTitleFileIndex idx={fileIndex} />
+        {showIndex && <CardTitleFileIndex idx={fileIndex} />}
 
         <FileIconAttention fileUs={fileUs} IconToRender={IconToRender} name={item.name} iconClasses={iconClasses} />
 
