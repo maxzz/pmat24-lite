@@ -15,7 +15,7 @@ export function SvgSymbolAppWebChrome() {
 
 export function SymbolAppWebChrome({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} {...rest}>
+        <svg className={classNames("fill-none stroke-current stroke-[1]", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-web-chrome" />

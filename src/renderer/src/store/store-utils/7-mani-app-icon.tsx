@@ -14,6 +14,8 @@ const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome cl
 
 const WebWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-red-500", className)} {...rest} />;
 
+const Win = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWin className={classNames("text-muted-foreground", className)} {...rest} />;
+
 const WinWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWin className={classNames("text-red-500", className)} {...rest} />;
 
 const Catalog = ({ className, ...rest }: SVGIconTypeProps) => <SymbolCatalog className={classNames("text-muted-foreground", className)} {...rest} />;
@@ -25,7 +27,7 @@ export function appIcon(iconType: AppIconType): TreenIconType {
         case AppIconType.webWarning:
             return WebWarning;
         case AppIconType.win:
-            return SymbolAppWin; // return AppWindow;
+            return Win; //return SymbolAppWin; // return AppWindow;
         case AppIconType.winWarning:
             return WinWarning;
         case AppIconType.cat:

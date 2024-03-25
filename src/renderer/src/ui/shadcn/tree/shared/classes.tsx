@@ -17,7 +17,7 @@ before:opacity-100 \
 before:border-l-2 \
 before:border-l-accent-foreground/50 \
 ";
-export const treeItemIconClasses = "shrink-0 mr-2 w-4 h-4 text-accent-foreground/50";
+export const treeItemIconClasses = "shrink-0 mr-2 size-4 text-accent-foreground/50";
 
 // tree leaf
 
@@ -44,4 +44,4 @@ before:border-l-2 \
 before:border-l-accent-foreground/50 \
 ";
 
-export const leafIconClasses = "shrink-0 mr-2 w-4 h-4 text-accent-foreground/50";
+export const leafIconClasses = "shrink-0 mr-2 size-4 text-accent-foreground/50";
