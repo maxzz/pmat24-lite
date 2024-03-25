@@ -5,6 +5,8 @@ import * as D from "@/ui/shadcn/dialog";
 import { detectedWindows } from "./4-test-detected-windows";
 import { ButtonCreate } from "./3-button-create";
 import { WindowsList } from "./2-windows-list";
+import { IconRefresh } from "@/ui/icons";
+import { toast } from "sonner";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const selectedIdxAtom = useState(() => atom(-1))[0];
@@ -23,8 +25,9 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
 
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
-                    <Button className="font-normal" variant="ghost" size="xs">
-                        Refresh
+
+                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> toast('Updated')}>
+                        <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>
 

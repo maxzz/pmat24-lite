@@ -1,9 +1,9 @@
 import { HTMLAttributes } from "react";
-import { Button } from "@/ui";
-import { classNames } from "@/utils";
-import { panelHeaderClasses } from "../../1-left/0-header/0-left-layout";
-import { IconMenuHamburger } from "@/ui/icons";
 import { R_PanelMenu } from "./2-menu";
+import { panelHeaderClasses } from "../../1-left/0-header/0-left-layout";
+import { classNames } from "@/utils";
+import { Button } from "@/ui";
+import { IconMenuHamburger } from "@/ui/icons";
 
 export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
@@ -13,7 +13,7 @@ export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElemen
             {/* <Button className="" variant="ghost" size="xs">
                 <IconMenuHamburger className="size-4 fill-current" />
             </Button> */}
-            
+
             <R_PanelMenu />
         </div>
     );
