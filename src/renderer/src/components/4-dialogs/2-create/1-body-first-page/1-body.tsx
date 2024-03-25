@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { atom } from "jotai";
+import { useEffect, useState } from "react";
+import { atom, useSetAtom } from "jotai";
 import { Button, ScrollArea } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { detectedWindows } from "./4-test-detected-windows";
@@ -10,6 +10,10 @@ import { toast } from "sonner";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const selectedIdxAtom = useState(() => atom(-1))[0];
+
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    const setToastId = useSetAtom(toastIdAtom);
+    
     return (
         <div className="min-h-56 text-xs">
 
@@ -26,7 +30,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
 
-                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> toast('Updated')}>
+                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> setToastId(toast('Updated'))}>
                         <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>
@@ -42,7 +46,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 </div> */}
 
                 <div className="mt-4 flex items-center justify-end">
-                    <ButtonCreate selectedIdxAtom={selectedIdxAtom} />
+                    <ButtonCreate selectedIdxAtom={selectedIdxAtom} toastIdAtom={toastIdAtom} />
                 </div>
 
             </div>
