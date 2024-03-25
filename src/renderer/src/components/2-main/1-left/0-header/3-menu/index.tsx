@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/ui/shadcn";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger } from "@/ui/icons";
-import { MenuItem_ClearFiles } from "./1-clear-files";
+import { MenuItem_FilterFiles } from "./1-filter-files";
+import { MenuItem_ClearFiles } from "./2-clear-files";
 
 export function L_PanelMenu() {
     const [open, setOpen] = useState<boolean>(false);
@@ -15,8 +16,11 @@ export function L_PanelMenu() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-42 text-xs" align="start">
+            <DropdownMenuContent className="min-w-36 text-xs" align="start">
 
+                <MenuItem_FilterFiles />
+                <DropdownMenuSeparator />
+                
                 <MenuItem_ClearFiles />
 
             </DropdownMenuContent>

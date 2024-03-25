@@ -4,10 +4,11 @@ import * as D from "@/ui/shadcn";
 import { useKey } from "react-use";
 import { DialogFilterBody } from "./2-body";
 import { IconFilter, IconSearch } from "@/ui/icons";
-import { shortcutNameFilter } from "@/store/atoms/4-dialogs";
+import { filterDialogOpenAtom, shortcutNameFilter } from "@/store/atoms/4-dialogs";
+import { useAtom } from "jotai";
 
 export function FilterFilesDialog() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
 
     useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
 
