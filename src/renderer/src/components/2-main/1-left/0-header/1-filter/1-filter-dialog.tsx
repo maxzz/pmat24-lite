@@ -4,6 +4,7 @@ import * as D from "@/ui/shadcn";
 import { useKey } from "react-use";
 import { DialogFilterBody } from "./2-body";
 import { IconFilter, IconSearch } from "@/ui/icons";
+import { shortcutNameFilter } from "@/store/atoms/4-dialogs";
 
 export function FilterFilesDialog() {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +12,7 @@ export function FilterFilesDialog() {
     useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
 
     return (<>
-        <Button className="" variant={"ghost"} onClick={() => setIsOpen(true)} title="Filter files (Ctrl+D)">
+        <Button className="" variant={"ghost"} onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
             {/* <IconSearch className="p-px size-4" /> */}
             <IconFilter className="p-px size-4" />
         </Button>

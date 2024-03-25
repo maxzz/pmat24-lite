@@ -13,3 +13,5 @@ bg-background \
 text-foreground \
 border-primary-400 \
 border rounded";
+
+export const menuShortcutClasses = "pl-2 tracking-tight";

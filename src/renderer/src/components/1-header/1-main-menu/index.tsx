@@ -15,10 +15,10 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
-import { sendToMain } from "@/xternal-to-main";
 import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_CreateMani } from "./10-file";
-import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "./20-preferences";
-import { MenuItem_Settings } from "./21-settings";
+import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "./21-debug";
+import { MenuItem_Settings } from "./20-settings";
+import { MenuItem_More } from "./22-more";
 
 export function DropdownMenuDemo() {
     const [open, setOpen] = useState<boolean>(false);
@@ -31,11 +31,11 @@ export function DropdownMenuDemo() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-42 text-xs" align="start">
+            <DropdownMenuContent className="min-w-40 text-xs" align="start">
 
                 <MenuItems_FileOpen setMenuOpen={setOpen} />
-
                 <DropdownMenuSeparator />
+
                 <MenuItem_CreateMani />
                 <DropdownMenuSeparator />
 
@@ -43,10 +43,22 @@ export function DropdownMenuDemo() {
                     <DropdownMenuSubTrigger>Preferences</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent className="text-xs">
-                            <MenuItem_GetSaw />
-                            <MenuItem_GetTestDirs />
-                            <DropdownMenuSeparator />
+                            
                             <MenuItem_Settings />
+                            <DropdownMenuSeparator />
+
+                            <DropdownMenuSub>
+                                <DropdownMenuSubTrigger>Debug</DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent className="text-xs">
+                                        <MenuItem_GetSaw />
+                                        <MenuItem_GetTestDirs />
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuSub>
+
+                            <MenuItem_More />
+
                         </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
