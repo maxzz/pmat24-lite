@@ -1,3 +1,4 @@
+import { classNames } from '@/utils';
 import { HTMLAttributes, SVGAttributes } from 'react';
 
 export function SvgSymbolIconManualMode() {
@@ -9,9 +10,9 @@ export function SvgSymbolIconManualMode() {
     </>);
 }
 
-export function SymbolManualMode({ title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolManualMode({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg fill="none" stroke="currentColor" strokeWidth=".6" {...rest}>
+        <svg className={classNames("fill-none stroke-current scale-x-[-1] rotate-[25deg]", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-manual-mode" />
