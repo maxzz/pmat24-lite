@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { Button } from "@/ui";
 import { toast } from "sonner";
 
-export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>;}) {
+export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>; }) {
     const selectedIdx = useAtomValue(selectedIdxAtom);
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [selectedIdx]);
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId, selectedIdx]);
 
     return (
         <Button variant="default" size="sm"

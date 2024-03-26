@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { atom, useAtom, useSetAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { Button, ScrollArea } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { detectedWindows } from "./4-test-detected-windows";
@@ -20,7 +20,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
         <div className="min-h-56 text-xs">
 
             <D.DialogHeader className="relative text-base font-bold flex items-center">
-                <div className="py-4">Create manifest</div>
+                <div className="py-4">New manifest</div>
                 <D.DialogCloseButton onClick={() => setIsOpen(false)} tabIndex={-1} />
             </D.DialogHeader>
 
@@ -32,7 +32,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
 
-                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> setToastId(toast('Updated'))}>
+                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> setToastId(toast('Updated'))} tabIndex={-1}>
                         <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>
@@ -56,5 +56,3 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
         </div>
     );
 }
-
-

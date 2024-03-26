@@ -18,7 +18,7 @@ export function WindowsList({ selectedIdxAtom }: { windows: DetectedWindow[]; se
                     const checked = idx === selectedIdx;
                     return (
                         <Label
-                            className={classNames("px-3 py-1.5 text-xs font-normal cursor-pointer flex items-center gap-1", checked && "bg-accent")}
+                            className={classNames("px-3 py-1.5 text-xs font-normal cursor-pointer select-none flex items-center gap-2.5", checked && "bg-accent")}
                             key={window.id}
                         >
                             <Checkbox className="size-4" checked={checked} onCheckedChange={(v) => setSelectedIdx(!!v ? idx : -1)} />
