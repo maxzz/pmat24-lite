@@ -8,21 +8,21 @@ export type FileUsState = {
 };
 
 export type FileUsStats = {
-    domain?: string;
+    domain?: string;                    // fileUs.meta?.[0]?.disp.domain
 
-    isWeb: boolean;
-    isChrome: boolean;
-    isFCat: boolean;
-    isCustomization: boolean;
+    isWeb: boolean;                     // is web apploication
+    isChrome: boolean;                  // is web apploication and not IE; isWeb && !fileUs.meta?.[0]?.disp.isIe
+    isFCat: boolean;                    // is field catalog
+    isCustomization: boolean;           // !fileUs.meta?.length && !!fileUs.mani?.options
 
-    url?: string;
-    title?: string;
+    url?: string;                       // loginForm?.detection.web_ourl
+    title?: string;                     // loginForm?.options.choosename
 
-    isSubFolder?: boolean;          // Now it's a simple check to see if the path is in front of the filename.
-    subFolder?: string;             // This is now the full path available from the browser, i.e. not a subfolder.
+    isSubFolder?: boolean;              // Now it's a simple check to see if the path is in front of the filename.
+    subFolder?: string;                 // This is now the full path available from the browser, i.e. not a subfolder.
 
-    dateCreated?: string;
-    dateModified?: string;
+    dateCreated?: string;               // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.created)
+    dateModified?: string;              // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)
 };
 
 export type FileUs =
