@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FileUs, FileUsAtomType } from "@/store/store-types";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
-import { AppIconType, appIcon, isAnyWhy } from "@/store/store-utils";
+import { AppIconType, appIcon, isAnyWhy, isManual } from "@/store/store-utils";
 
 export type TreeFcntItem = {
     fcnt: FileUsAtomType;
@@ -46,17 +46,22 @@ export const treeFilesAtom = atom( // files to show in the tree
         return filesTree;
 
         function fileIcon(fcnt: FileUs) {
-            const hasBailOut = isAnyWhy(fcnt);
             if (fcnt.fcat) {
                 return AppIconType.cat;
             }
+            const isMan = isManual(fcnt);
+            const hasBailOut = isAnyWhy(fcnt);
             return hasBailOut ?
                 fcnt.stats.isWeb
                     ? AppIconType.webWarning
-                    : AppIconType.winWarning
+                    : isMan
+                        ? AppIconType.manWarning
+                        : AppIconType.winWarning
                 : fcnt.stats.isWeb
                     ? AppIconType.web
-                    : AppIconType.win;
+                    : isMan
+                        ? AppIconType.man
+                        : AppIconType.win;
         }
     }
 );
