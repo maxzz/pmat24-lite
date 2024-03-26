@@ -5,6 +5,7 @@
     "main": "./out/main/index.js",
     "author": "example.com",
     "homepage": "https://electron-vite.org",
+    "packageManager": "pnpm@8.15.5",
     "dependencies": {
         "@electron-toolkit/preload": "^3.0.0",
         "@electron-toolkit/utils": "^3.0.0",

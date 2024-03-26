@@ -5,7 +5,24 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 //console.log('------ electron.vite.config-browser.ts:__dirname =', __dirname);
 
+// const dd = [
+//     "@babel/runtime",
+//     "highlight",
+//     "lowlight",
+//     "prismjs",
+//     "refractor",
+// ]
+
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
+    // if (dd.some((name) => id.includes(name)) ) {
+    //     return "rare";
+    // }
+    if (id.includes("react-dom")) {
+        return "vendor-dom";
+    }
+    if (id.includes("node_modules")) {
+        return "vendor";
+    }
     if (id.includes("@radix-ui")) {
         return "radix-ui";
     }
@@ -14,9 +31,6 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     }
     if (id.includes("fast-xml-parser")) {
         return "rare";
-    }
-    if (id.includes("node_modules")) {
-        return "vendor";
     }
 }
 
