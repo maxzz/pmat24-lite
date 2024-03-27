@@ -61,11 +61,11 @@ export function RightTitle() {
 
     // const transition = useTransition(rightPanel, {
     const transition = useTransition(!!rightPanel, {
-        from: { opacity: 0, height: 0 },
-        enter: { opacity: 1, height },
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
         leave: { opacity: 0, config: { duration: 0 } },
         config: { duration: 400 },
-        //exitBeforeEnter: true,
+        exitBeforeEnter: true,
     });
 
     console.log('render.rightPanel', height, rightPanel);
@@ -78,9 +78,16 @@ export function RightTitle() {
             {transition((style, item) => {
                 console.log('transition', item);
 
-                return item && (
-                    <a.div ref={ref} style={style} className="h-48 bg-red-500">Name {rightPanel?.fname}</a.div>
-                );
+                // return item && (
+                //     <a.div ref={ref} style={style} className="h-48 bg-red-500">Name {rightPanel?.fname}</a.div>
+                // );
+                return item ?
+                    (
+                        <a.div style={style} className="h-48 bg-red-500">Name 1{rightPanel?.fname}</a.div>
+                    ) :
+                    (
+                        <a.div ref={ref} style={style} className="bg-green-500">Name 2{rightPanel?.fname}</a.div>
+                    );
             })}
         </div>
     </>);

@@ -8,7 +8,7 @@ import { RightTitle } from "./1-title";
 
 export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames(panelHeaderClasses, "flex items-center justify-between", className)} {...rest}>
+        <div className={classNames(panelHeaderClasses, "h-auto", "flex items-center justify-between", className)} {...rest}>
             <RightTitle />
 
             {/* <Button className="" variant="ghost" size="xs">
