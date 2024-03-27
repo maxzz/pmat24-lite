@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai";
 import { rightPanelSelectedContentAtom } from "@/store";
-import { a, useTransition } from "@react-spring/web";
+import { a, useResize, useTransition } from "@react-spring/web";
+import { useRef } from "react";
 
 /** /
 export function RightTitle() {
@@ -40,7 +41,8 @@ export function RightTitle() {
 export function RightTitle() {
     const rightPanel = useAtomValue(rightPanelSelectedContentAtom);
 
-    console.log('render.rightPanel', rightPanel);
+    const ref = useRef<HTMLDivElement>(null);
+    const { width, height } = useResize({ container: ref });
 
     // const [transition] = useTransition(rightPanel,
     //     () => {
@@ -59,12 +61,14 @@ export function RightTitle() {
 
     // const transition = useTransition(rightPanel, {
     const transition = useTransition(!!rightPanel, {
-        from: { opacity: 0 },
-        enter: { opacity: 1 },
-        leave: { opacity: 0, config: { duration: 0 }},
+        from: { opacity: 0, height: 0 },
+        enter: { opacity: 1, height },
+        leave: { opacity: 0, config: { duration: 0 } },
         config: { duration: 400 },
         //exitBeforeEnter: true,
     });
+
+    console.log('render.rightPanel', height, rightPanel);
 
     return (<>
         <div>
@@ -75,7 +79,7 @@ export function RightTitle() {
                 console.log('transition', item);
 
                 return item && (
-                    <a.div style={style}>Name {rightPanel?.fname}</a.div>
+                    <a.div ref={ref} style={style} className="h-48 bg-red-500">Name {rightPanel?.fname}</a.div>
                 );
             })}
         </div>
