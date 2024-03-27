@@ -4,11 +4,12 @@ import { panelHeaderClasses } from "../../1-left/0-header/0-left-layout";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { IconMenuHamburger } from "@/ui/icons";
+import { RightTitle } from "./1-title";
 
 export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(panelHeaderClasses, "flex items-center justify-between", className)} {...rest}>
-            <div className="">File</div>
+            <RightTitle />
 
             {/* <Button className="" variant="ghost" size="xs">
                 <IconMenuHamburger className="size-4 fill-current" />
