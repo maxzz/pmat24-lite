@@ -61,9 +61,9 @@ export function RightTitle() {
     const transition = useTransition(!!rightPanel, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
-        leave: { opacity: 0 },
-        config: { duration: 1300 },
-        exitBeforeEnter: true,
+        leave: { opacity: 0, config: { duration: 0 }},
+        config: { duration: 400 },
+        //exitBeforeEnter: true,
     });
 
     return (<>
@@ -75,7 +75,7 @@ export function RightTitle() {
                 console.log('transition', item);
 
                 return item && (
-                    <a.div style={style}>Name {item ? "1" : "2"}</a.div>
+                    <a.div style={style}>Name {rightPanel?.fname}</a.div>
                 );
             })}
         </div>
