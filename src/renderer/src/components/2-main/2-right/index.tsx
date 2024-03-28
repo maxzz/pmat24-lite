@@ -1,14 +1,17 @@
 import { useAtomValue } from 'jotai';
-import { rightPanelSelectedContentAtom } from '@/store';
-import { R_PanelHeader } from "./0-header";
+import { useSnapshot } from 'valtio';
+import { RightPanelView, appSettings, rightPanelSelectedContentAtom } from '@/store';
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
-import { Body_Xml } from "./3-file-xml";
+import { R_PanelHeader } from "./0-header";
+import { Body_Mani } from './1-file-mani';
+import { Body_Xml } from "./2-file-xml";
 import { LongPanel } from './LongPanel';
 
 function ContentForSelected() {
-    const selected = useAtomValue(rightPanelSelectedContentAtom);
+    const fileUs = useAtomValue(rightPanelSelectedContentAtom);
+    const { view } = useSnapshot(appSettings.ui).rightPanelState;
 
-    const staticText = !selected ? 'No file selected' : !selected.raw ? 'Not supported format' : undefined;
+    const staticText = !fileUs ? 'No file selected' : !fileUs.raw ? 'Not supported format' : undefined;
     if (staticText) {
         return (
             <div className="h-full text-muted-foreground flex items-center justify-center">
@@ -17,9 +20,15 @@ function ContentForSelected() {
         );
     }
 
-    return (
-        <Body_Xml text={selected?.raw || ''} />
-    );
+    return (<>
+        {view === RightPanelView.forms
+            ? (
+                <Body_Mani />
+            ) : (
+                <Body_Xml text={fileUs?.raw || ''} />
+            )
+        }
+    </>);
 }
 
 export function PanelB() {
