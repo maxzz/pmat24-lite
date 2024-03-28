@@ -5,8 +5,9 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { IconMenuHamburger } from "@/ui/icons";
 import { RightTitle } from "./1-title";
+import { XmlSwitch } from "./3-xml-switch";
 
-export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+export function R_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(panelHeaderClasses, "flex items-start justify-between", className)} {...rest}>
             <RightTitle />
@@ -15,7 +16,10 @@ export function R_PanelHeader({className, ...rest}: HTMLAttributes<HTMLDivElemen
                 <IconMenuHamburger className="size-4 fill-current" />
             </Button> */}
 
-            <R_PanelMenu />
+            <div className="flex items-center gap-4">
+                <XmlSwitch />
+                <R_PanelMenu />
+            </div>
         </div>
     );
 }
