@@ -12,11 +12,15 @@ function TitleWitFileUs({ fileUs }: { fileUs: FileUs; }) {
 }
 
 export function RightTitle() {
-    const rightPanel = useAtomValue(rightPanelSelectedContentAtom);
-    if (!rightPanel) {
-        return <div className="h-full select-none flex items-center">No File</div>;
-    }
-    return (
-        <TitleWitFileUs fileUs={rightPanel} />
-    );
+    const fileUs = useAtomValue(rightPanelSelectedContentAtom);
+    return (<>
+        {!fileUs
+            ? (
+                <div className="h-full select-none flex items-center">No File</div>
+            )
+            : (
+                <TitleWitFileUs fileUs={fileUs} />
+            )
+        }
+    </>);
 }
