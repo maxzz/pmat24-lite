@@ -29,7 +29,7 @@ export function PanelB() {
                 <div className={panel3Classes}>
                     <R_PanelHeader />
 
-                    <div className="relative w-full h-full">
+                    <div className="relative w-full h-full" tabIndex={0}>
                         <div className="absolute inset-px bottom-0.5 text-xs">
                             {/* <LongPanel className="w-full h-20 overflow-auto" /> */}
                             <ContentForSelected />
