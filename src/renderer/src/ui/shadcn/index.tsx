@@ -13,6 +13,7 @@ export * from "./scroll-area";
 export * from "./select";
 export * from "./sonner";
 export * from "./switch";
+export * from "./tabs";
 export * from "./textarea";
 export * from "./textarea-auto-grow";
 export * from "./tooltip";
