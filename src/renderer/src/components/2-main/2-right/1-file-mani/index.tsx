@@ -53,7 +53,7 @@ export function FormsSwitch() {
                 <TabsTrigger value="switch2" className="text-xs">Password change</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="switch1" className="1p-2 pr-1 flex-1 h-full bg-muted rounded border-muted-foreground/50 border">
+            <TabsContent value="switch1" className="p-2 pr-1 flex-1 1h-full min-h-0 bg-muted rounded border-muted-foreground/50 border">
                 <FormBody fileUs={fileUs} formIdx={0} />
             </TabsContent>
 
