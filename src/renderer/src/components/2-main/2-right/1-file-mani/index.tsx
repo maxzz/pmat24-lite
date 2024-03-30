@@ -1,11 +1,9 @@
-import { HTMLAttributes } from "react";
-import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui";
 import { rightPanelSelectedContentAtom } from "@/store";
 import { FileUs } from "@/store/store-types";
-import { classNames } from "@/utils";
-import { FormEditor } from "./2-form-editor";
+import { FormEditor } from "./1-form-editor";
 
 export function FormBody({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
     const { ref, width, height } = useResizeObserver();
@@ -18,7 +16,7 @@ export function FormBody({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number;
     );
 }
 
-export function FormsSwitch() {
+export function Body_Mani() {
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
     if (!fileUs) {
         return null;
@@ -38,13 +36,5 @@ export function FormsSwitch() {
                 <FormBody fileUs={fileUs} formIdx={1} />
             </TabsContent>
         </Tabs>
-    );
-}
-
-export function Body_Mani({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    return (
-        <div className={classNames("w-full h-full", className)} {...rest}>
-            <FormsSwitch />
-        </div>
     );
 }
