@@ -33,7 +33,7 @@ function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
 export function FormBody({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
     const { ref, width, height } = useResizeObserver();
     return (
-        <div className={classNames("h-full w-full")} ref={ref}>
+        <div className="h-full w-full overflow-hidden" ref={ref}>
             <ScrollArea style={{ width, height }} horizontal>
                 <FormEditor fileUs={fileUs} formIdx={formIdx} />
             </ScrollArea>
@@ -47,18 +47,18 @@ export function FormsSwitch() {
         return null;
     }
     return (
-        <Tabs defaultValue="switch1" className="px-2 py-2 h-full flex flex-col">
-            <TabsList className="1mt-2">
+        <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
+            <TabsList className="self-center">
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
                 <TabsTrigger value="switch2" className="text-xs">Password change</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="switch1" className="p-2 pr-1 flex-1 1h-full min-h-0 bg-muted rounded border-muted-foreground/50 border">
+            <TabsContent value="switch1" className="flex-1 min-h-0 mt-1 p-2 pr-1 bg-muted rounded border-muted-foreground/50 border">
                 <FormBody fileUs={fileUs} formIdx={0} />
             </TabsContent>
 
-            <TabsContent value="switch2" className="1p-2 pr-1 h-full bg-muted rounded border-muted-foreground/50 border">
-                {/* <FormBody fileUs={fileUs} formIdx={1} /> */}
+            <TabsContent value="switch2" className="flex-1 min-h-0 mt-1 p-2 pr-1 bg-muted rounded border-muted-foreground/50 border">
+                <FormBody fileUs={fileUs} formIdx={1} />
             </TabsContent>
         </Tabs>
     );
@@ -66,7 +66,7 @@ export function FormsSwitch() {
 
 export function Body_Mani({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("1my-8 w-full h-full", className)} {...rest}>
+        <div className={classNames("w-full h-full", className)} {...rest}>
             <FormsSwitch />
         </div>
     );
