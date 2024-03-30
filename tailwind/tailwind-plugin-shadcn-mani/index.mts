@@ -16,7 +16,7 @@ export const shadcnManiPlugin = plugin(
             },
             ".dark": {
                 "--manisection": "358 76% 10%",
-                "--manisection-foreground": "358 100% 81%",
+                "--manisection-foreground": "169.17 100% 59.8%",
                 "--manisection-border": "357 89% 16%",
             }
         });

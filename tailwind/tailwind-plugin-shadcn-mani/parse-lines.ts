@@ -77,6 +77,10 @@ type ParsedSelectors = {
  *     ":root": {
  *         "--background": "0 0% 100%",
  *         "--foreground": "222.2 47.4% 11.2%", // ...
+ * 
+ *         "--warning": "49 100% 97%",
+ *         "--warning-foreground": "31 92% 45%",
+ *         "--warning-border": "49 91% 91%",
  *     },
  *     ".dark": {
  *         "--background": "224 71% 4%",

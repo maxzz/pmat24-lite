@@ -7,13 +7,9 @@ import { FileUs } from "@/store/store-types";
 import { classNames } from "@/utils";
 import { LongPanel } from "../9-nun/LongPanel";
 
-export function FormBody_nun({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
-    const title = formIdx === 0 ? 'Login' : 'Password change';
+function MainEditor() {
     return (
-        <div className="">
-            Form {title}
-            {/* {fileUs.meta?.[formIdx]?.disp} */}
-        </div>
+        <div className=""></div>
     );
 }
 
@@ -24,6 +20,7 @@ export function FormBody({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number;
         <div className={classNames("h-full w-full")} ref={ref}>
             <ScrollArea style={{ width, height }} horizontal>
                 Form {title}
+                {/* {fileUs.meta?.[formIdx]?.disp} */}
                 <LongPanel />
             </ScrollArea>
         </div>
@@ -53,28 +50,10 @@ export function FormsSwitch() {
     );
 }
 
-function MainEditor() {
-    return (
-        <FormsSwitch />
-    );
-}
-
 export function Body_Mani({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const { ref, width, height } = useResizeObserver();
-    return (<>
-        <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
+    return (
+        <div className={classNames("h-full w-full", className)} {...rest}>
             <FormsSwitch />
         </div>
-    </>);
+    );
 }
-
-// export function Body_Mani_nun({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-//     const { ref, width, height } = useResizeObserver();
-//     return (<>
-//         <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
-//             <ScrollArea style={{ width, height }} horizontal>
-//                 <MainEditor />
-//             </ScrollArea>
-//         </div>
-//     </>);
-// }
