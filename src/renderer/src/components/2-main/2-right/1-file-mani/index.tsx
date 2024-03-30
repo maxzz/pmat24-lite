@@ -8,6 +8,8 @@ import { classNames, disableHiddenChildren } from "@/utils";
 import { LongPanel } from "../9-nun/LongPanel";
 import { useMeasure } from "react-use";
 import { a, useSpring } from "@react-spring/web";
+import { ManiOpenSectionKey, maniOpenSections } from "./0-open-sections";
+import { useSnapshot } from "valtio";
 
 export function UiAccordion({ open, children }: { open: boolean, children: ReactNode; }) {
     const [refFn, { height, top }] = useMeasure<HTMLDivElement>();
@@ -28,11 +30,12 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
     );
 }
 
-function SubSectionAccordion({ label, openAtom, children }: { label: ReactNode; openAtom: PrimitiveAtom<boolean>; } & HTMLAttributes<HTMLDivElement>) {
-    const [open, setOpen] = useAtom(openAtom);
+function SubSectionAccordion({ label, children, openKey }: { label: ReactNode; openKey: ManiOpenSectionKey; } & HTMLAttributes<HTMLDivElement>) {
+    const open = useSnapshot(maniOpenSections)[openKey];
+    const setOpen = (v: boolean) => maniOpenSections[openKey] = v;
     return (<>
         <div className="inline-block">
-            <div className="pb-1 text-base flex items-center select-none cursor-pointer text-[#32ffdaa0]" onClick={() => setOpen(v => !v)}>
+            <div className="pb-1 text-base flex items-center select-none cursor-pointer text-[#32ffdaa0]" onClick={() => setOpen(!open)}>
                 <UiArrow className="w-4 h-4 pt-1" open={open} />
                 {label}
             </div>
@@ -46,14 +49,6 @@ function SubSectionAccordion({ label, openAtom, children }: { label: ReactNode; 
     </>);
 }
 
-export type ManiOpenSections = {
-    form: boolean;
-    fields: boolean;
-    submit: boolean;
-    policy: boolean;
-    options: boolean;
-};
-
 function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
     const title = formIdx === 0 ? 'Login' : 'Password change';
     const formMeta = fileUs.meta?.[formIdx];
@@ -62,11 +57,15 @@ function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
             Form {title}
             <div className="text-mani_section-foreground/70">
                 {formMeta?.disp?.domain}
-                {/* <SubSectionAccordion label="Form" openAtom={formMeta?.openAtom}>
-                    <div className="text-mani_section-foreground/70">
-                        111
-                    </div>
-                </SubSectionAccordion> */}
+
+                <div className="">
+                    <SubSectionAccordion label="Form" openKey="fields">
+                        <div className="text-mani_section-foreground/70">
+                            111
+                        </div>
+                    </SubSectionAccordion>
+
+                </div>
             </div>
         </div>
     );
