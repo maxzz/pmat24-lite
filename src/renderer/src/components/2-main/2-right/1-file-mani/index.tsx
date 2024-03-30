@@ -13,7 +13,7 @@ function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
     return (
         <div className="">
             Form {title}
-            <div className="">
+            <div className="text-mani_section-foreground/70">
                 {formMeta?.disp?.domain}
             </div>
         </div>
@@ -38,17 +38,17 @@ export function FormsSwitch() {
         return null;
     }
     return (
-        <Tabs defaultValue="switch1" className="mt-2 h-full">
+        <Tabs defaultValue="switch1" className="px-2 mt-2 h-full">
             <TabsList>
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
                 <TabsTrigger value="switch2" className="text-xs">Password change</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="switch1" className="h-full bg-red-500">
+            <TabsContent value="switch1" className="p-2 pr-1 h-full bg-muted rounded border-muted-foreground/50 border">
                 <FormBody fileUs={fileUs} formIdx={0} />
             </TabsContent>
 
-            <TabsContent value="switch2" className="h-full bg-green-500/40">
+            <TabsContent value="switch2" className="p-2 pr-1 h-full bg-muted rounded border-muted-foreground/50 border">
                 <FormBody fileUs={fileUs} formIdx={1} />
             </TabsContent>
         </Tabs>

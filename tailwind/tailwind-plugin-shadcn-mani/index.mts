@@ -10,14 +10,10 @@ export const shadcnManiPlugin = plugin(
     function ({ addBase, theme }) {
         addBase({
             ":root": {
-                "--manisection": "0 100% 97%",
-                "--manisection-foreground": "169.17 100% 59.8%",
-                "--manisection-border": "359 100% 94%",
+                "--mani_section-foreground": "169 100% 60%", // "#32ffdaa0"
             },
             ".dark": {
-                "--manisection": "358 76% 10%",
-                "--manisection-foreground": "169.17 100% 59.8%",
-                "--manisection-border": "357 89% 16%",
+                "--mani_section-foreground": "169 100% 60%",
             }
         });
     },
@@ -27,10 +23,8 @@ export const shadcnManiPlugin = plugin(
         theme: {
             extend: {
                 colors: {
-                    manisection: {
-                        DEFAULT: "hsl(var(--manisection))",
-                        foreground: "hsl(var(--manisection-foreground))",
-                        border: "hsl(var(--manisection-border))",
+                    mani_section: {
+                        foreground: "hsl(var(--mani_section-foreground))",
                     },
                 },
             }
