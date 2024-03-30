@@ -20,6 +20,7 @@ export function LongPanel({className, ...rest}: HTMLAttributes<HTMLDivElement>) 
             Pariatur hic quos incidunt minus voluptates magni, recusandae, earum ullam accusamus esse necessitatibus, asperiores fugiat eum possimus ratione tempora similique corrupti assumenda nihil. Iure consequuntur ad minima dolore in amet.
             Repudiandae a eum harum. Explicabo tempore dolor voluptate maiores molestiae nostrum ratione fugit quis excepturi. Quasi officiis repudiandae saepe dignissimos eius? Magnam id nulla rem officiis animi voluptates libero veritatis.
             Sit perspiciatis nulla voluptas, animi ratione nemo sint atque adipisci dicta, consequuntur iusto maxime quia officiis nam itaque ad ullam quidem? Maxime tempora dolorum ea excepturi quos dolor rerum in!
+            END
         </div>
     );
 }
