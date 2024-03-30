@@ -7,20 +7,25 @@ import { FileUs } from "@/store/store-types";
 import { classNames } from "@/utils";
 import { LongPanel } from "../9-nun/LongPanel";
 
-function MainEditor() {
+function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
+    const title = formIdx === 0 ? 'Login' : 'Password change';
+    const formMeta = fileUs.meta?.[formIdx];
     return (
-        <div className=""></div>
+        <div className="">
+            Form {title}
+            <div className="">
+                {formMeta?.disp?.domain}
+            </div>
+        </div>
     );
 }
 
 export function FormBody({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
     const { ref, width, height } = useResizeObserver();
-    const title = formIdx === 0 ? 'Login' : 'Password change';
     return (
         <div className={classNames("h-full w-full")} ref={ref}>
             <ScrollArea style={{ width, height }} horizontal>
-                Form {title}
-                {/* {fileUs.meta?.[formIdx]?.disp} */}
+                <FormEditor fileUs={fileUs} formIdx={formIdx} />
                 <LongPanel />
             </ScrollArea>
         </div>
