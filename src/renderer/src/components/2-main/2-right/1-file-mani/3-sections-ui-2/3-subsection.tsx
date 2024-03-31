@@ -1,10 +1,9 @@
-import { ComponentPropsWithoutRef, ReactNode, useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
-import { LongPanel } from "../../9-nun/LongPanel";
-import { AccordionMultipleProps } from "@radix-ui/react-accordion";
+import { ReactNode } from "react";
 import { useSnapshot } from "valtio";
 import { FormIdx } from "@/store/store-types";
-import { FormOpenSections, formOpenSections } from "../3-sections-ui-2";
+import { LongPanel } from "../../9-nun/LongPanel";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
+import { formOpenSections } from ".";
 
 function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
@@ -21,20 +20,23 @@ function SubSection({ value, label, children }: { value: string; label: ReactNod
 }
 
 export function FormSections({ formIdx }: { formIdx: FormIdx; }) {
-    const name = formIdx ? 'cpass' : 'login';
-    const value = useSnapshot(formOpenSections)[name] as string[];
+    const value = useSnapshot(formOpenSections)[formIdx];
     return (
-        <Accordion type="multiple" className="w-full" value={value} onValueChange={(v) => formOpenSections[name] = v}>
+        <Accordion type="multiple" className="w-full" value={value as string[]} onValueChange={(v) => formOpenSections[formIdx] = v}>
 
-            <SubSection value="item-1" label="Long1">
+            <SubSection value="fields" label="Fields">
                 <LongPanel />
             </SubSection>
 
-            <SubSection value="item-2" label="Long2">
+            <SubSection value="submit" label="Submit options">
                 <LongPanel />
             </SubSection>
 
-            <SubSection value="item-3" label="Long3">
+            <SubSection value="policy" label="Policy">
+                <LongPanel />
+            </SubSection>
+
+            <SubSection value="options" label="Form options">
                 <LongPanel />
             </SubSection>
 

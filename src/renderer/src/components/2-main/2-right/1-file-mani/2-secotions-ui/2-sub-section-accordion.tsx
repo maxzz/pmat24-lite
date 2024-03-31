@@ -20,3 +20,15 @@ export function SubSectionAccordion({ label, children, openKey }: { label: React
         </UiAccordion>
     </>);
 }
+
+/* <SubSectionAccordion label="Form" openKey="fields">
+    <div className="w-96">
+        <LongPanel />
+    </div>
+</SubSectionAccordion>
+
+<SubSectionAccordion label="Form" openKey="options">
+    <div className="w-96">
+        111
+    </div>
+</SubSectionAccordion> */
