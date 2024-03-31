@@ -9,7 +9,7 @@ export function SubSectionAccordion({ label, children, openKey }: { label: React
     const setOpen = (v: boolean) => maniOpenSections[openKey] = v;
     return (<>
         <div className="pb-1 text-base flex items-center select-none cursor-pointer text-mani_section-foreground/70" onClick={() => setOpen(!open)}>
-            <UiArrow className="w-4 h-4 pt-1" open={open} />
+            <UiArrow className="size-4 pt-1" open={open} />
             {label}
         </div>
 

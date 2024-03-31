@@ -38,7 +38,29 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/ui/shadcn/accordion";
-import { useState } from "react";
+import * as Prim from "@radix-ui/react-accordion";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from "react";
+import { cn } from "@/utils";
+
+const AccordionTriggerClasses = "\
+flex-1 py-4 text-sm font-medium \
+hover:underline \
+[&>svg]:-rotate-90 \
+[&[data-state=open]>svg]:rotate-0 \
+transition-all \
+flex items-center justify-start";
+
+// const AccordionTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
+//     ({ className, children, ...rest }, ref) => (
+//         <Prim.Header className="flex">
+//             <Prim.Trigger ref={ref} className={cn(AccordionTriggerClasses, className)} {...rest}>
+//                 <ChevronDownIcon className="shrink-0 size-4 text-muted-foreground transition-transform duration-200" />
+//                 <div>{children}</div>
+//             </Prim.Trigger>
+//         </Prim.Header>
+//     )
+// );
 
 export function AccordionDemo({initialValue}: {initialValue: string[]}) {
     const [value, setValue] = useState<string[]>(initialValue);
@@ -50,7 +72,7 @@ export function AccordionDemo({initialValue}: {initialValue: string[]}) {
         <Accordion type="multiple" className="w-full" value={value} onValueChange={onValueChange}>
 
             <AccordionItem value="item-1">
-                <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                <AccordionTrigger iconFirst className={AccordionTriggerClasses}>Is it accessible?</AccordionTrigger>
                 <AccordionContent>
                     Yes. It adheres to the WAI-ARIA design pattern.
                 </AccordionContent>

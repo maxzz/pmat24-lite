@@ -23,15 +23,19 @@ flex items-center justify-between";
  * Customization:
  * ``<div>{children}</div>`` can be accessed from AccordionTrigger as className="[&>div]:w-full [&>div]:text-left"
  */
-const AccordionTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
-    ({ className, children, ...rest }, ref) => (
-        <Prim.Header className="flex">
-            <Prim.Trigger ref={ref} className={cn(AccordionTriggerClasses, className)} {...rest}>
-                <div>{children}</div>
-                <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
-            </Prim.Trigger>
-        </Prim.Header>
-    )
+const AccordionTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger> & { iconFirst?: boolean; }>(
+    ({ className, children, iconFirst, ...rest }, ref) => {
+        const Icon = <ChevronDownIcon className="shrink-0 size-4 text-muted-foreground transition-transform duration-200" />;
+        return (
+            <Prim.Header className="flex">
+                <Prim.Trigger ref={ref} className={cn(AccordionTriggerClasses, className)} {...rest}>
+                    {iconFirst && Icon}
+                    <div>{children}</div>
+                    {!iconFirst && Icon}
+                </Prim.Trigger>
+            </Prim.Header>
+        );
+    }
 );
 AccordionTrigger.displayName = Prim.Trigger.displayName;
 
