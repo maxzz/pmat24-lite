@@ -1,5 +1,5 @@
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FormSectionsOpenState, SubSection } from "../3-sections-ui-2/2-subsection";
+import { FormSectionsOpenState, SubSection } from "../2-sections-ui/2-subsection";
 import { LongPanel } from "../../9-nun/LongPanel";
 
 function FormSections() {
