@@ -33,3 +33,5 @@ export function Body_Mani() {
         </Tabs>
     );
 }
+
+//TODO: shared scroll area for both tabs is not good idea when tabs switching it will reser scroll position
