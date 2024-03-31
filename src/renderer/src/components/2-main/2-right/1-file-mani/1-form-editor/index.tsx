@@ -24,7 +24,7 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: numbe
                     </div>
                 </SubSectionAccordion>
 
-                <AccordionDemo />
+                <AccordionDemo initialValue={!formIdx ? ["item-1"]:["item-2", "item-3"]} />
             </div>
 
             <LongPanel />
@@ -38,10 +38,16 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/ui/shadcn/accordion";
+import { useState } from "react";
 
-export function AccordionDemo() {
+export function AccordionDemo({initialValue}: {initialValue: string[]}) {
+    const [value, setValue] = useState<string[]>(initialValue);
+    function onValueChange(value: string[]) {
+        console.log('AccordionDemo value changed:', value);
+        setValue(value);
+    }
     return (
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="multiple" className="w-full" value={value} onValueChange={onValueChange}>
 
             <AccordionItem value="item-1">
                 <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -63,7 +69,7 @@ export function AccordionDemo() {
                     Yes. It's animated by default, but you can disable it if you prefer.
                 </AccordionContent>
             </AccordionItem>
-            
+
         </Accordion>
     );
 }
