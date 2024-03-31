@@ -1,11 +1,13 @@
-import { FileUs } from "@/store/store-types";
+import { FileUs, FormIdx } from "@/store/store-types";
 import { SubSectionAccordion } from "../2-secotions-ui";
 import { LongPanel } from "../../9-nun/LongPanel";
-import { AccordionDemo } from "../2-secotions-ui/3-subsection";
+import { FormSections } from "../2-secotions-ui/3-subsection";
+import { proxy, useSnapshot } from "valtio";
 
-export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: number; }) {
+export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     const title = formIdx === 0 ? 'Login' : 'Password change';
     const formMeta = fileUs.meta?.[formIdx];
+
     return (
         <div className="flex flex-col">
             Form {title}
@@ -25,7 +27,8 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: numbe
                     </div>
                 </SubSectionAccordion>
 
-                <AccordionDemo initialValue={!formIdx ? ["item-1"] : ["item-2", "item-3"]} />
+                <FormSections formIdx={formIdx} />
+                {/* <FormSections initialValue={!formIdx ? ["item-1"] : ["item-2", "item-3"]} /> */}
             </div>
 
             {/* <LongPanel /> */}
