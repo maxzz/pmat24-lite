@@ -72,7 +72,7 @@ export function AccordionDemo({initialValue}: {initialValue: string[]}) {
         <Accordion type="multiple" className="w-full" value={value} onValueChange={onValueChange}>
 
             <AccordionItem value="item-1">
-                <AccordionTrigger iconFirst className={AccordionTriggerClasses}>Is it accessible?</AccordionTrigger>
+                <AccordionTrigger iconFirst leftDown>Is it accessible?</AccordionTrigger>
                 <AccordionContent>
                     Yes. It adheres to the WAI-ARIA design pattern.
                 </AccordionContent>
