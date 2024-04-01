@@ -12,7 +12,7 @@ export function Body_Mani() {
     }
     return (
         <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
-            <TabsList className="self-center">
+            <TabsList className="self-start">
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
                 <TabsTrigger value="switch2" className="text-xs">Password change</TabsTrigger>
             </TabsList>

@@ -26,13 +26,8 @@ function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }
 }
 
 export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
-    const title = formIdx === 0 ? 'Login' : 'Password change';
-    const formMeta = fileUs.meta?.[formIdx];
-
     return (
         <div className="flex flex-col">
-            {/* Form {title} */}
-            {/* {formMeta?.disp?.domain} */}
 
             <FormSectionsOpenState formIdx={formIdx}>
                 <FormSections fileUs={fileUs} formIdx={formIdx} />
@@ -40,3 +35,8 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         </div>
     );
 }
+
+    // const title = formIdx === 0 ? 'Login' : 'Password change';
+    // const formMeta = fileUs.meta?.[formIdx];
+    //         {/* Form {title} */}
+    //         {/* {formMeta?.disp?.domain} */}
