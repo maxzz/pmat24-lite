@@ -1,23 +1,26 @@
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FormSectionsOpenState, SubSection } from "../2-sections-ui/2-subsection";
-import { LongPanel } from "../../9-nun/LongPanel";
+import { FormSectionsOpenState, SubSection } from "../2-sections-ui";
+import { TabFields } from "./1-fields";
+import { TabSubmit } from "./2-submit";
+import { TabPolicy } from "./3-policy";
+import { TabOptions } from "./4-options";
 
-function FormSections() {
+function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>
         <SubSection value="fields" label="Fields">
-            <LongPanel />
+            <TabFields fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="submit" label="Submit options">
-            <LongPanel />
+            <TabSubmit fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="policy" label="Policy">
-            <LongPanel />
+            <TabPolicy fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="options" label="Form options">
-            <LongPanel />
+            <TabOptions fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
     </>);
 }
@@ -32,7 +35,7 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
             {/* {formMeta?.disp?.domain} */}
 
             <FormSectionsOpenState formIdx={formIdx}>
-                <FormSections />
+                <FormSections fileUs={fileUs} formIdx={formIdx} />
             </FormSectionsOpenState>
         </div>
     );
