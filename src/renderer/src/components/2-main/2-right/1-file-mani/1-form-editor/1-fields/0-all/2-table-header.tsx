@@ -6,12 +6,20 @@ const rowColumns = [
     ['Type',                /**/ 'Type of field'],
 ];
 
+const headerClasses = "\
+mb-2 px-1 text-[.65rem] \
+text-primary-400 border-primary-100 \
+border-b \
+select-none";
+
 export function TableHeader() {
     return (<>
-        {rowColumns.map(([title, hint], idx) => (
-            <div className="mb-2 px-1 text-[.65rem] text-primary-400 border-primary-100 border-b select-none" title={hint} key={idx}>
-                {title}
-            </div>
-        ))}
+        {rowColumns.map(
+            ([title, hint], idx) => (
+                <div className={headerClasses} title={hint} key={idx}>
+                    {title}
+                </div>
+            ))
+        }
     </>);
 }
