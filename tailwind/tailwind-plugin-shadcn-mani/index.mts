@@ -10,11 +10,17 @@ export const shadcnManiPlugin = plugin(
     function ({ addBase, theme }) {
         addBase({
             ":root": {
-                "--mani_section-foreground": "169 100% 60%", // "#32ffdaa0"
+                "--mani_section-foreground": "169 100% 60%",    // "#32ffdaa0"
+                "--mani_foreground": "214, 32%, 91%",           // "#e2e8f0" // slate.200
+                "--mani_background": "217, 33%, 17%",           // "#1e293b" // slate.800
+                "--mani_muted-background": "215, 25%, 27%",     // "#334155" // slate.700
             },
             ".dark": {
-                "--mani_section-foreground": "169 100% 60%",
-            }
+                "--mani_section-foreground": "169 100% 60%",    // "#32ffdaa0"
+                "--mani_foreground": "214, 32%, 91%",           // "#e2e8f0" // slate.200
+                "--mani_background": "217, 33%, 17%",           // "#1e293b" // slate.800
+                "--mani_muted-background": "215, 25%, 27%",     // "#334155" // slate.700
+            },
         });
     },
 
@@ -25,6 +31,15 @@ export const shadcnManiPlugin = plugin(
                 colors: {
                     mani_section: {
                         foreground: "hsl(var(--mani_section-foreground))",
+                    },
+                    mani_foreground: {
+                        DEFAULT: "hsl(var(--mani_foreground))",
+                    },
+                    mani_background: {
+                        DEFAULT: "hsl(var(--mani_background))",
+                    },
+                    mani_muted: {
+                        background: "hsl(var(--mani_muted-background))",
                     },
                 },
             }
