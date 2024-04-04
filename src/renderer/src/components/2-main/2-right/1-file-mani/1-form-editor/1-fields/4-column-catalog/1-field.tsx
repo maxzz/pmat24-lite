@@ -42,12 +42,12 @@ export function Column4_Catalog(props: Column4_CatalogProps & InputHTMLAttribute
 
     const openFldCatDialog = useSetAtom(openFldCatDialogAtom);
 
-    const fldCatOutBoxAtom = useState(creteOutBoxAtom<FldCatOutData>())[0];
+    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FldCatOutData>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
     useEffect(() => {
         if (fldCatOutBox) {
-            console.log('outData', fldCatOutBox);
+            console.log('Result of the field catalog dialog', fldCatOutBox);
         }
     }, [fldCatOutBox]);
 
