@@ -24,5 +24,6 @@ export default {
         require('./tailwind/tailwind-plugin-shadcn-mani'),
         require("./tailwind/tailwind-plugin-overflow-overlay"),
         require("tailwind-scrollbar"),
+        require('@tailwindcss/forms')({ strategy: 'class' }),
     ],
 };

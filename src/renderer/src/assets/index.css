@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Checkboxes */
+
+@layer components {
+    .dark-checkbox {
+        @apply form-checkbox 
+        text-primary-700 bg-primary-800 ring-1 focus:ring-1 focus:ring-offset-primary-800 ring-primary-600 focus:ring-primary-400 
+        rounded border-none cursor-pointer transition-all;
+    }
+}
+
+/* Radio buttons */
+
+@layer components {
+    .dark-radio {
+        @apply form-radio
+        text-primary-700 bg-primary-800 border-none
+        ring-1 focus:ring-1 ring-primary-600 focus:ring-primary-400 checked:ring-primary-600 focus:ring-offset-primary-800
+        transition-shadow cursor-pointer;
+    }
+}
