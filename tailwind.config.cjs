@@ -9,7 +9,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: colors.zinc,
+                primary: colors.slate,
                 secondary: colors.green,
                 // ...shadcnColors.colors,
             },

@@ -6,9 +6,23 @@
 
 @layer components {
     .dark-checkbox {
-        @apply form-checkbox 
-        text-primary-700 bg-primary-800 ring-1 focus:ring-1 focus:ring-offset-primary-800 ring-primary-600 focus:ring-primary-400 
-        rounded border-none cursor-pointer transition-all;
+        @apply 
+        form-checkbox 
+
+        text-mani-muted 
+        bg-mani-background 
+
+        ring-1 
+        focus:ring-1 
+        ring-primary-600 
+        focus:ring-primary-400 
+        focus:ring-offset-mani-background
+
+        rounded 
+        border-none 
+        transition-all
+        cursor-pointer 
+        ;
     }
 }
 
@@ -16,9 +30,23 @@
 
 @layer components {
     .dark-radio {
-        @apply form-radio
-        text-primary-700 bg-primary-800 border-none
-        ring-1 focus:ring-1 ring-primary-600 focus:ring-primary-400 checked:ring-primary-600 focus:ring-offset-primary-800
-        transition-shadow cursor-pointer;
+        @apply 
+        form-radio
+        
+        text-mani-muted 
+        bg-mani-background 
+        
+        ring-1 
+        focus:ring-1 
+        ring-primary-600 
+        focus:ring-primary-400 
+        focus:ring-offset-mani-background
+
+        checked:ring-primary-600 
+
+        border-none
+        transition-shadow 
+        cursor-pointer
+        ;
     }
 }

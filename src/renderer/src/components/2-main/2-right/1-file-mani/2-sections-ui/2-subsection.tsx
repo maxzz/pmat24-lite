@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@
 export function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
         <AccordionItem value={value}>
-            <AccordionTrigger iconFirst leftDown className="py-2 text-mani_section-foreground/60">
+            <AccordionTrigger iconFirst leftDown className="py-2 text-mani-title/60">
                 {label}
             </AccordionTrigger>
 

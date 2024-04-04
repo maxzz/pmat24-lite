@@ -10,16 +10,18 @@ export const shadcnManiPlugin = plugin(
     function ({ addBase, theme }) {
         addBase({
             ":root": {
-                "--mani_section-foreground": "169 100% 60%",    // "#32ffdaa0"
-                "--mani_foreground": "214, 32%, 91%",           // "#e2e8f0" // slate.200
-                "--mani_background": "217, 33%, 17%",           // "#1e293b" // slate.800
-                "--mani_muted-background": "215, 25%, 27%",     // "#334155" // slate.700
+                "--mani-title": "169 100% 60%",                 // "#32ffdaa0"
+                "--mani-foreground": "214 32% 91%",             // "#e2e8f0" // slate.200
+                "--mani-background": "217 33% 17%",             // "#1e293b" // slate.800
+                "--mani-muted-background": "215 25% 27%",       // "#334155" // slate.700
+                "--mani-muted-foreground": "215 16% 47%",       // "#64748b" // slate.500
             },
             ".dark": {
-                "--mani_section-foreground": "169 100% 60%",    // "#32ffdaa0"
-                "--mani_foreground": "214, 32%, 91%",           // "#e2e8f0" // slate.200
-                "--mani_background": "217, 33%, 17%",           // "#1e293b" // slate.800
-                "--mani_muted-background": "215, 25%, 27%",     // "#334155" // slate.700
+                "--mani-title": "169 100% 60%",                 // "#32ffdaa0"
+                "--mani-foreground": "214 32% 91%",             // "#e2e8f0" // slate.200
+                "--mani-background": "217 33% 17%",             // "#1e293b" // slate.800
+                "--mani-muted-background": "215 25% 27%",       // "#334155" // slate.700
+                "--mani-muted-foreground": "215 16% 47%",       // "#64748b" // slate.500
             },
         });
     },
@@ -29,17 +31,14 @@ export const shadcnManiPlugin = plugin(
         theme: {
             extend: {
                 colors: {
-                    mani_section: {
-                        foreground: "hsl(var(--mani_section-foreground))",
-                    },
-                    mani_foreground: {
-                        DEFAULT: "hsl(var(--mani_foreground))",
-                    },
-                    mani_background: {
-                        DEFAULT: "hsl(var(--mani_background))",
-                    },
-                    mani_muted: {
-                        background: "hsl(var(--mani_muted-background))",
+                    mani: {
+                        title: "hsl(var(--mani-title))",
+                        foreground: "hsl(var(--mani-foreground))",
+                        background: "hsl(var(--mani-background))",
+                        muted: {
+                            DEFAULT: "hsl(var(--mani-muted-background))",
+                            foreground: "hsl(var(--mani-muted-foreground))",
+                        },
                     },
                 },
             }
