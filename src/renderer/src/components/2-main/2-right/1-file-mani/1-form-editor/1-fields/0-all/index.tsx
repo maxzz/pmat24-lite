@@ -1,3 +1,4 @@
+import { FormIdx, FileUs } from '@/store/store-types';
 import { FieldTyp, Meta } from '@/store/manifest';
 import { TableHeader } from './2-table-header';
 import { TableRow } from './3-table-row';
@@ -27,12 +28,25 @@ export function ManiSection1_Fields({ fields }: { fields: Meta.Field[] | undefin
     );
 }
 
-import { FileUs, FormIdx } from "@/store/store-types";
+function NoForm({ formType }: { formType: FormIdx; }) {
+    const label = formType === FormIdx.login ? "No login form" : "No password change form";
+    return (
+        <div className="px-4 text-lg text-[#32ffdaa0] select-none">
+            {label}
+        </div>
+    );
+}
 
 export function TabFields({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+    const metaForm = fileUs.meta?.[formIdx];
+
+    if (!metaForm) {
+        return <NoForm formType={formIdx} />;
+    }
+    
     return (
         <div>
-            Fields
+            <ManiSection1_Fields fields={metaForm.fields} />
         </div>
     );
 }
