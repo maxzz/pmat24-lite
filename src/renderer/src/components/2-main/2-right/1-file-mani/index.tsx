@@ -19,7 +19,7 @@ export function Body_Mani() {
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-1 bg-muted rounded border-muted-foreground/50 border">
                 <div className="h-full w-full overflow-hidden" ref={ref}>
-                    <ScrollArea style={{ width, height }} horizontal className="[&_[data-radix-scroll-area-viewport]>div]:h-full">
+                    <ScrollArea style={{ width, height }} horizontal heightFull>
                         <TabsContent value="switch1" className="h-full">
                             <FormEditor fileUs={fileUs} formIdx={0} />
                         </TabsContent>
