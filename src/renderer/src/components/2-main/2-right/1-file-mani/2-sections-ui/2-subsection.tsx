@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 import { FormIdx } from "@/store/store-types";
-import { formOpenSections } from "./1-sections-state";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
 
 export function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
@@ -19,9 +19,9 @@ export function SubSection({ value, label, children }: { value: string; label: R
 }
 
 export function FormSectionsOpenState({ formIdx, children }: { formIdx: FormIdx; children: ReactNode;}) {
-    const value = useSnapshot(formOpenSections)[formIdx];
+    const value = useSnapshot(appSettings).ui.mainOpenSections[formIdx];
     return (
-        <Accordion type="multiple" className="w-full" value={value as string[]} onValueChange={(v) => formOpenSections[formIdx] = v}>
+        <Accordion type="multiple" className="w-full" value={value as string[]} onValueChange={(v) => appSettings.ui.mainOpenSections[formIdx] = v}>
             {children}
         </Accordion>
     );

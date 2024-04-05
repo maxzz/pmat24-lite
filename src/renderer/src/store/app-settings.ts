@@ -2,7 +2,7 @@ import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { ResizablesState, defaultResizablesState } from "./state-ui";
-import { FileListItemsState, FilesSortOrder, RightPanelState, ShownManis, defaultFileListItemsState, defaultFilesSortOrder, defaultRightPanelState, defaultShownManis } from "./atoms";
+import { FileListItemsState, FilesSortOrder, FormOpenSections, RightPanelState, ShownManis, defaultFileListItemsState, defaultFilesSortOrder, defaultFormOpenSections, defaultRightPanelState, defaultShownManis } from "./atoms";
 
 export type AppSettings = {
     ui: {
@@ -11,7 +11,8 @@ export type AppSettings = {
         shownManis: ShownManis;
         filesSortOrder: FilesSortOrder;
         fileListItems: FileListItemsState;
-        rightPanelState: RightPanelState
+        rightPanelState: RightPanelState;
+        mainOpenSections: FormOpenSections;
     },
 };
 
@@ -23,6 +24,7 @@ const defaultSettings: AppSettings = {
         filesSortOrder: defaultFilesSortOrder,
         fileListItems: defaultFileListItemsState,
         rightPanelState: defaultRightPanelState,
+        mainOpenSections: defaultFormOpenSections,
     },
 };
 
