@@ -1,1 +1,1 @@
-export * from "./2-subsection";
+export * from "./1-subsection";
