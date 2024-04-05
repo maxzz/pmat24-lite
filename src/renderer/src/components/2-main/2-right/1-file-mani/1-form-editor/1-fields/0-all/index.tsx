@@ -21,17 +21,19 @@ export function ManiSection1_Fields({ fields }: { fields: Meta.Field[] | undefin
         <div className={gridClasses}>
             <TableHeader />
 
-            {nonButtonFields.map((field, idx) => (
-                <TableRow field={field} key={idx} />
-            ))}
+            {nonButtonFields.map(
+                (field, idx) => (
+                    <TableRow field={field} key={idx} />
+                ))
+            }
         </div>
     );
 }
 
-function NoForm({ formType }: { formType: FormIdx; }) {
+function NoFileds({ formType }: { formType: FormIdx; }) {
     const label = formType === FormIdx.login ? "No login form" : "No password change form";
     return (
-        <div className="px-4 text-lg text-[#32ffdaa0] select-none">
+        <div className="px-4 text-xs text-mani-title/30 select-none">
             {label}
         </div>
     );
@@ -41,9 +43,9 @@ export function TabFields({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormId
     const metaForm = fileUs.meta?.[formIdx];
 
     if (!metaForm) {
-        return <NoForm formType={formIdx} />;
+        return <NoFileds formType={formIdx} />;
     }
-    
+
     return (
         <div>
             <ManiSection1_Fields fields={metaForm.fields} />

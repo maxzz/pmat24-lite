@@ -25,9 +25,24 @@ function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }
     </>);
 }
 
-export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+function NoForm({ formType }: { formType: FormIdx; }) {
+    const label = formType === FormIdx.login ? "No login form" : "No password change form";
     return (
-        <div className="flex flex-col">
+        <div className="h-full flex items-center justify-center">
+            <div className="px-4 text-xs text-mani-title/30 select-none">
+                {label}
+            </div>
+        </div>
+    );
+}
+
+export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+    const hasForm = fileUs.meta?.[formIdx];
+    if (!hasForm) {
+        return <NoForm formType={formIdx} />;
+    }
+    return (
+        <div className="h-full flex flex-col">
 
             <FormSectionsOpenState formIdx={formIdx}>
                 <FormSections fileUs={fileUs} formIdx={formIdx} />
@@ -36,7 +51,7 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     );
 }
 
-    // const title = formIdx === 0 ? 'Login' : 'Password change';
-    // const formMeta = fileUs.meta?.[formIdx];
-    //         {/* Form {title} */}
-    //         {/* {formMeta?.disp?.domain} */}
+// const title = formIdx === 0 ? 'Login' : 'Password change';
+// const formMeta = fileUs.meta?.[formIdx];
+//         {/* Form {title} */}
+//         {/* {formMeta?.disp?.domain} */}
