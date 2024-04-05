@@ -13,7 +13,7 @@ import { FileThemes } from "./parse-lines";
 * }
 *```
 */
-type ValueVar = string | Record<string, string>; // name -> value | Record<subName, value> // subName: 'DEFAULT' | 'foreground' | 'border' i.e. wo/ group name
+type ValueVar = Record<string, string>; // name -> value | Record<subName, value> // subName: 'DEFAULT' | 'foreground' | 'border' i.e. wo/ group name
 type ValueVars = Record<string, ValueVar>;
 
 /**
@@ -85,7 +85,7 @@ export function parseToGroups(fileThemes: FileThemes) {
                         rv[group] = {};
                     }
 
-                    rv[group][key] = value;
+                    rv[group][key || 'DEFAULT'] = value;
                 } else {
                     invalidNames.push({ [name]: value });
                 }
