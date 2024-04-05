@@ -1,5 +1,39 @@
+import { useState } from "react";
 import { FormIdx } from "@/store/store-types";
 import { Button } from "@/ui";
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/ui/shadcn/select";
+
+export function ButtonCreate() {
+    const [selected, setSelected] = useState('');
+    if (selected) {
+        return null;
+    }
+    return (
+        <Select onValueChange={(value)=> {console.log(value); setSelected(value)}}>
+            <SelectTrigger className="px-2 w-max text-xs font-semibold gap-1">
+                <SelectValue placeholder="Create a password change form" />
+            </SelectTrigger>
+
+            <SelectContent>
+                <SelectGroup>
+                    <SelectLabel>How to create form</SelectLabel>
+                    <SelectItem className="text-xs" value="banana">Create from application</SelectItem>
+                    <SelectItem className="text-xs" value="blueberry">Define form manually</SelectItem>
+                    <SelectItem className="text-xs" value="apple">Create manual mode (Windows apps only)</SelectItem>
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    );
+}
 
 export function NoForm({ formType }: { formType: FormIdx; }) {
     const label = formType === FormIdx.login ? "No login form" : "No password change form";
@@ -16,9 +50,10 @@ export function NoForm({ formType }: { formType: FormIdx; }) {
                         Create a password change form
                     </Button>
                 )}
+
+                <ButtonCreate />
             </div>
 
         </div>
     );
 }
-
