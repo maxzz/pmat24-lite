@@ -4,6 +4,7 @@ import { TabFields } from "./1-fields";
 import { TabSubmit } from "./2-submit";
 import { TabPolicy } from "./3-policy";
 import { TabOptions } from "./4-options";
+import { NoForm } from "./5-no-form";
 
 function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>
@@ -23,17 +24,6 @@ function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }
             <TabOptions fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
     </>);
-}
-
-function NoForm({ formType }: { formType: FormIdx; }) {
-    const label = formType === FormIdx.login ? "No login form" : "No password change form";
-    return (
-        <div className="h-full flex items-center justify-center">
-            <div className="px-4 text-xs text-mani-title/30 select-none">
-                {label}
-            </div>
-        </div>
-    );
 }
 
 export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {

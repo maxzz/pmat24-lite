@@ -10,7 +10,7 @@ export const shadcnManiPlugin = plugin(
     function ({ addBase, theme }) {
         addBase({
             ":root": {
-                "--mani-title": "169 100% 60%",                 // "#32ffdaa0"
+                "--mani-title": "144 85% 36%",                  // "#0ea94d"
                 "--mani-foreground": "214 32% 91%",             // "#e2e8f0" // slate.200
                 "--mani-background": "217 33% 17%",             // "#1e293b" // slate.800
                 "--mani-muted-background": "215 25% 27%",       // "#334155" // slate.700

@@ -17,14 +17,14 @@ export function Body_Mani() {
                 <TabsTrigger value="switch2" className="text-xs">Password change</TabsTrigger>
             </TabsList>
 
-            <div className="flex-1 min-h-0 mt-1 p-2 pr-1 bg-muted rounded border-muted-foreground/50 border">
+            <div className="flex-1 min-h-0 mt-1 p-2 pr-2 max-w-4xl bg-muted rounded border-muted-foreground/50 border">
                 <div className="h-full w-full overflow-hidden" ref={ref}>
-                    <ScrollArea style={{ width, height }} horizontal fullheight fixedWidth>
-                        <TabsContent value="switch1" className="h-full">
+                    <ScrollArea style={{ width, height }} horizontal fullheight>
+                        <TabsContent value="switch1">
                             <FormEditor fileUs={fileUs} formIdx={0} />
                         </TabsContent>
 
-                        <TabsContent value="switch2" className="h-full">
+                        <TabsContent value="switch2">
                             <FormEditor fileUs={fileUs} formIdx={1} />
                         </TabsContent>
                     </ScrollArea>
