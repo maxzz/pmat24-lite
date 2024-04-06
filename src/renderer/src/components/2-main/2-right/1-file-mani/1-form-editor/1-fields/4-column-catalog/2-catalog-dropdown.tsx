@@ -24,8 +24,20 @@ overflow-auto \
 "; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
-relative pl-8 pr-4 py-2 text-xs flex items-center cursor-default select-none rounded-md outline-none \
-text-primary-700 data-highlighted:bg-primary-700 data-highlighted:text-primary-100 \
+relative \
+pl-8 \
+pr-4 \
+py-2 \
+text-xs \
+flex \
+items-center \
+cursor-default \
+select-none \
+rounded-md \
+outline-none \
+text-primary-700 \
+data-highlighted:bg-primary-700 \
+data-highlighted:text-primary-100 \
 ";
 
 export function isKeyToClearDefault(key: string) {
