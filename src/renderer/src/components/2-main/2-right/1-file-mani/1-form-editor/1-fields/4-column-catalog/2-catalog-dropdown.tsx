@@ -19,25 +19,23 @@ radix-side-bottom:animate-slide-down \
 \
 rounded-lg shadow-md \
 smallscroll smallscroll-light \
+\
 grid grid-cols-1 \
 overflow-auto \
 "; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
-relative \
-pl-8 \
-pr-4 \
-py-2 \
-text-xs \
-flex \
-items-center \
-cursor-default \
-select-none \
-rounded-md \
-outline-none \
+relative pl-8 pr-4 py-2 text-xs \
+\
 text-primary-700 \
+\
 data-highlighted:bg-primary-700 \
 data-highlighted:text-primary-100 \
+\
+rounded-md outline-none select-none cursor-default \
+\
+flex \
+items-center \
 ";
 
 export function isKeyToClearDefault(key: string) {
