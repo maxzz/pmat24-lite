@@ -50,16 +50,16 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
 
             <menu.Portal container={document.getElementById('portal')}>
                 <menu.Content className={menuContentClasses}>
-                    {items.map((item, idx) => {
-                        return CatalogItem(item, idx, selectedIndex, onSetIndex)
-                    })}
+                    {items.map((item, idx) => (
+                        <CatalogItem item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
+                    ))}
                 </menu.Content>
             </menu.Portal>
         </menu.Root>
     );
 }
 
-function CatalogItem(item: string, idx: number, selectedIndex: number, onSetIndex: (idx: number) => void): JSX.Element {
+function CatalogItem({ item, idx, selectedIndex, onSetIndex }: { item: string; idx: number; selectedIndex: number; onSetIndex: (idx: number) => void; }): JSX.Element {
     const isSelected = idx === selectedIndex;
     const rv = item === '-'
         ? (
