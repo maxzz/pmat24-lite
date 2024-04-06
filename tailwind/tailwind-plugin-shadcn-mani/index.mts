@@ -46,6 +46,7 @@ export const shadcnManiPlugin = plugin(
                         title: "#0ea94d",           // --mani-title
                         foreground: "#e2e8f0",      // --mani-foreground // slate.200
                         background: "#1e293b",      // --mani-background // slate.800
+                        
                         muted: {
                             DEFAULT: "#334155",     // --mani-muted-background // slate.700
                             foreground: "#64748b",  // --mani-muted-foreground // slate.500
