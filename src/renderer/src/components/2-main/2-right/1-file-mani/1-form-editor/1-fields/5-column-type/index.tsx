@@ -13,9 +13,9 @@ export function Column5_Type({ useItAtom, field, className, ...rest }: Column5_T
     const { password, type = 'NOTYPE' } = field.mani;
     const useIt = useAtomValue(useItAtom);
     return (
-        <div className={classNames("flex items-center space-x-0.5 select-none", !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-            <FieldTypeIconComponent field={field.mani} className="size-5 text-primary-500" />
-            <div className="text-primary-500">{`${password ? 'psw' : type}`}</div>
+        <div className={classNames("text-[.6rem] 1text-primary-500 bg-mani-muted-nested-foreground 1bg-mani-foreground rounded flex flex-col items-center select-none", !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+            <FieldTypeIconComponent field={field.mani} className="size-5" />
+            <div className="-mt-2">{`${password ? 'psw' : type}`}</div>
         </div>
     );
 }
