@@ -9,12 +9,12 @@ type CatalogDropdownProps = {
     onSetIndex: (idx: number) => void;
 };
 
-const menuContentClasses = classNames(
-    "radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
-    "mx-4 px-1 py-1 grid grid-cols-1 rounded-lg shadow-md",
-    "bg-primary-100 dark:bg-gray-800",
-    "overflow-auto max-h-[50vh] smallscroll smallscroll-light" //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
-);
+const menuContentClasses = "\
+radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down \
+mx-4 px-1 py-1 grid grid-cols-1 rounded-lg shadow-md \
+bg-primary-100 dark:bg-gray-800 \
+overflow-auto max-h-[50vh] smallscroll smallscroll-light \
+"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = classNames(
     "relative pl-8 pr-4 py-2 text-xs flex items-center cursor-default select-none rounded-md outline-none",
