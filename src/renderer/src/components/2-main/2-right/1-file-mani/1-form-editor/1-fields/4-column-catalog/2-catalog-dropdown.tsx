@@ -51,7 +51,7 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
             <menu.Portal container={document.getElementById('portal')}>
                 <menu.Content className={menuContentClasses}>
                     {items.map((item, idx) => {
-                        return CatalogItem(item, idx, selectedIndex)
+                        return CatalogItem(item, idx, selectedIndex, onSetIndex)
                     })}
                 </menu.Content>
             </menu.Portal>
@@ -59,7 +59,7 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
     );
 }
 
-function CatalogItem(item: string, idx: number, selectedIndex: number): JSX.Element {
+function CatalogItem(item: string, idx: number, selectedIndex: number, onSetIndex: (idx: number) => void): JSX.Element {
     const isSelected = idx === selectedIndex;
     const rv = item === '-'
         ? (
