@@ -16,10 +16,10 @@ bg-primary-100 dark:bg-gray-800 \
 overflow-auto max-h-[50vh] smallscroll smallscroll-light \
 "; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
-const menuItemClasses = classNames(
-    "relative pl-8 pr-4 py-2 text-xs flex items-center cursor-default select-none rounded-md outline-none",
-    "text-primary-700 data-highlighted:bg-primary-700 data-highlighted:text-primary-100",
-);
+const menuItemClasses = "\
+relative pl-8 pr-4 py-2 text-xs flex items-center cursor-default select-none rounded-md outline-none \
+text-primary-700 data-highlighted:bg-primary-700 data-highlighted:text-primary-100 \
+";
 
 export function isKeyToClearDefault(key: string) {
     return key === 'Backspace' || /^[a-z0-9]$/i.test(key);
