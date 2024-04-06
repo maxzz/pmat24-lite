@@ -10,10 +10,17 @@ type CatalogDropdownProps = {
 };
 
 const menuContentClasses = "\
-radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down \
-mx-4 px-1 py-1 grid grid-cols-1 rounded-lg shadow-md \
+mx-4 px-1 py-1 max-h-[50vh] \
+\
 bg-primary-100 dark:bg-gray-800 \
-overflow-auto max-h-[50vh] smallscroll smallscroll-light \
+\
+radix-side-top:animate-slide-up \
+radix-side-bottom:animate-slide-down \
+\
+rounded-lg shadow-md \
+smallscroll smallscroll-light \
+grid grid-cols-1 \
+overflow-auto \
 "; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
