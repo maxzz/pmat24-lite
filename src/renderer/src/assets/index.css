@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --mani-title: #0ea94d;              /* #0ea94d */
+    --mani-foreground: #e2e8f0;         /* slate.200 */
+    --mani-background: #1e293b;         /* slate.800 */
+    --mani-muted-background: #334155;   /* slate.700 */
+    --mani-muted-foreground: #64748b;   /* slate.500 */
+}
+
+.dark {
+    --mani-title: #45a194;              /* #32ffdaa0 */
+    --mani-foreground: #e2e8f0;         /* slate.200 */
+    --mani-background: #1e293b;         /* slate.800 */
+    --mani-muted-background: #334155;   /* slate.700 */
+    --mani-muted-foreground: #64748b;   /* slate.500 */
+}
+
 /* Checkboxes */
 
 @layer components {

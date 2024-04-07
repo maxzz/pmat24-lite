@@ -25,7 +25,7 @@ export const shadcnManiPlugin = plugin(
 
     // 1. Add CSS variable definitions to the base layer
     function ({ addBase, theme }) {
-        addBase(newColors);
+        //addBase(newColors);
     },
 
     // 2. Extend the Tailwind theme with "themable" utilities
@@ -33,6 +33,16 @@ export const shadcnManiPlugin = plugin(
         theme: {
             extend: {
                 colors: {
+                    mani: {
+                        title: "var(--mani-title)",
+                        foreground: "var(--mani-foreground)",
+                        background: "var(--mani-background)",
+                        muted: {
+                            DEFAULT: "var(--mani-muted-background)",
+                            foreground: "var(--mani-muted-foreground)",
+                        },
+                    },
+
                     // mani: {
                     //     title: "hsl(var(--mani-title))",
                     //     foreground: "hsl(var(--mani-foreground))",
@@ -42,21 +52,22 @@ export const shadcnManiPlugin = plugin(
                     //         foreground: "hsl(var(--mani-muted-foreground))",
                     //     },
                     // },
-                    mani: {
-                        title: "#45a194",           // --mani-title
-                        foreground: "#e2e8f0",      // --mani-foreground // slate.200
-                        background: "#1e293b",      // --mani-background // slate.800
 
-                        muted: {
-                            DEFAULT: "#334155",     // --mani-muted-background // slate.700
-                            foreground: "#64748b",  // --mani-muted-foreground // slate.500
+                    // mani: {
+                    //     title: "#45a194",           // --mani-title
+                    //     foreground: "#e2e8f0",      // --mani-foreground // slate.200
+                    //     background: "#1e293b",      // --mani-background // slate.800
 
-                            nested: {
-                                DEFAULT: "#f00",
-                                foreground: "#f77",
-                            }
-                        },
-                    },
+                    //     muted: {
+                    //         DEFAULT: "#334155",     // --mani-muted-background // slate.700
+                    //         foreground: "#64748b",  // --mani-muted-foreground // slate.500
+
+                    //         nested: {
+                    //             DEFAULT: "#f00",
+                    //             foreground: "#f77",
+                    //         }
+                    //     },
+                    // },
                 },
             }
         }
