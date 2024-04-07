@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { CatalogItem, Meta, TransformValue } from '@/store/manifest';
-import { createUiAtoms, debCombineFromAtoms } from './1-create-ui-atoms';
+import { createUiAtoms, debouncedCombinedResultFromAtoms } from './0-create-ui-atoms';
 import { Column1_UseIt } from '../1-column-useIt';
 import { Column2_Label } from '../2-column-label';
 import { Column3_Value } from '../3-column-value';
@@ -12,7 +12,7 @@ export function TableRow({ field }: { field: Meta.Field; }) {
     const rowAtoms = useState(() => createUiAtoms(field,
         ({ get, set }) => {
             //console.log('changed', field, field.mani.displayname);
-            debCombineFromAtoms(rowAtoms, get, set);
+            debouncedCombinedResultFromAtoms(rowAtoms, get, set);
         })
     )[0];
 

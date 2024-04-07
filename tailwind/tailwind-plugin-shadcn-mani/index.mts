@@ -13,7 +13,7 @@ const newColors = {
         "--mani-muted-foreground": "215 16% 47%",       // "#64748b" // slate.500
     },
     ".dark": {
-        "--mani-title": "169 100% 60%",                 // "#32ffdaa0"
+        "--mani-title": "169 100% 60%",                 // "#45a194" "#32ffdaa0"
         "--mani-foreground": "214 32% 91%",             // "#e2e8f0" // slate.200
         "--mani-background": "217 33% 17%",             // "#1e293b" // slate.800
         "--mani-muted-background": "215 25% 27%",       // "#334155" // slate.700
@@ -43,10 +43,10 @@ export const shadcnManiPlugin = plugin(
                     //     },
                     // },
                     mani: {
-                        title: "#0ea94d",           // --mani-title
+                        title: "#45a194",           // --mani-title
                         foreground: "#e2e8f0",      // --mani-foreground // slate.200
                         background: "#1e293b",      // --mani-background // slate.800
-                        
+
                         muted: {
                             DEFAULT: "#334155",     // --mani-muted-background // slate.700
                             foreground: "#64748b",  // --mani-muted-foreground // slate.500
