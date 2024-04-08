@@ -3,7 +3,7 @@ import { PrimitiveAtom as PA, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
 import { Dropdown, isKeyToClearDefault } from "../6-shared-ui";
-import { classNames } from "@/utils";
+import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\
 grid grid-cols-[minmax(0,1fr)_auto] \
@@ -68,7 +68,7 @@ export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className
                 readOnly={disabled}
                 disabled={disabled}
                 title={title}
-                autoComplete="off" list="autocompleteOff" spellCheck={false}
+                {...turnOffAutoComplete}
             />
 
             {!!dropdownAllItems.length &&

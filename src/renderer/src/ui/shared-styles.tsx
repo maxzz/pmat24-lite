@@ -1,17 +1,14 @@
 export const inputFocusClasses = "\
-focus:ring-primary-600 \
-dark:focus:ring-primary-400 \
-focus:ring-offset-primary-200 \
-dark:focus:ring-offset-primary-800 \
+focus:ring-mani-ring-activated \
+focus:ring-offset-mani-foreground \
+dark:focus:ring-offset-mani-background \
 focus:ring-1 \
 focus:ring-offset-1 \
 focus:outline-none";
 
 export const inputClasses = "\
 px-2 py-1 w-full \
-bg-background \
-text-foreground \
-border-primary-400 \
+text-foreground bg-background border-mani-ring \
 border rounded";
 
 export const menuShortcutClasses = "pl-2 tracking-tight";

@@ -3,7 +3,7 @@ import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jo
 import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Meta } from "@/store/manifest";
 import { CatalogDropdown, isKeyToClearDefault } from "./2-catalog-dropdown";
-import { classNames } from "@/utils";
+import { classNames, turnOffAutoComplete } from "@/utils";
 
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
@@ -62,7 +62,8 @@ export function Column4_Catalog(props: Column4_CatalogProps) {
                 onChange={onSetInputText}
                 onKeyDown={onSetKey}
                 onBlur={onBlur}
-                multiple autoComplete="off" list="autocompleteOff" spellCheck={false}
+                multiple
+                {...turnOffAutoComplete}
             />
 
             <CatalogDropdown items={dropdownItems} selectedIndex={selectedIndex} onSetIndex={onSetDropdownIndex} />

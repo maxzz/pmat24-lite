@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
-import { classNames } from '@/utils';
+import { classNames, turnOffAutoComplete } from '@/utils';
 
 type Column2_LabelProps =
     & {
@@ -32,7 +32,7 @@ export function Column2_Label({ useItAtom, valueAtom, className, ...rest }: Colu
             value={value}
             onChange={(event) => setValue(event.target.value)}
             title={useIt ? "The label is shown to the user next to\nthe field for entering a value." : undefined}
-            autoComplete="off" list="autocompleteOff" spellCheck={false}
+            {...turnOffAutoComplete}
             {...rest}
         />
     );

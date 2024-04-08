@@ -23,4 +23,5 @@ export function disableHiddenChildren(visible: boolean, parent: HTMLElement | nu
     }
 }
 
-export const turnOffAutoComplete: AllHTMLAttributes<HTMLElement> = { autoComplete: "new-password", list: "autocompleteOff", spellCheck: "false", };
+//https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#browser_compatibility
+export const turnOffAutoComplete: AllHTMLAttributes<HTMLElement> = { autoComplete: "one-time-code", list: "autocompleteOff", spellCheck: "false", };
