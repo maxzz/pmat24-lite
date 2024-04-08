@@ -12,11 +12,11 @@ type Column2_LabelProps =
 const Column2_LabelClasses = "\
 px-2 py-3 h-8 \
 \
-bg-primary-700 text-primary-200 \
+text-mani-foreground bg-mani-background \
 \
-ring-primary-600 \
-focus:ring-offset-primary-800 \
-focus:ring-primary-400 \
+ring-mani-ring \
+focus:ring-offset-mani-background \
+focus:ring-mani-ring-activated \
 focus:ring-1 \
 focus:ring-offset-1 \
 outline-none \

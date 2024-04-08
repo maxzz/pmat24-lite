@@ -5,11 +5,9 @@ import { TableRow } from './3-table-row';
 
 const gridClasses = "\
 p-2 \
-grid grid-cols-[max-content_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center \
-gap-1 \
-text-foreground bg-muted \
+grid grid-cols-[max-content_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 \
+text-foreground \
 rounded-sm";
-// old: text-primary-200 bg-primary-800 \
 
 export function ManiSection1_Fields({ fields }: { fields: Meta.Field[] | undefined; }) {
     const nonButtonFields = fields?.filter((field) => field.ftyp !== FieldTyp.button); // buttons are shown on another section

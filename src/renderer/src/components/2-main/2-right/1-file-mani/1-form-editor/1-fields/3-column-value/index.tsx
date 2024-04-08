@@ -8,15 +8,15 @@ import { classNames } from "@/utils";
 const inputParentClasses = "\
 grid grid-cols-[minmax(0,1fr)_auto] \
 \
-bg-primary-700 \
+bg-mani-background \
 \
-ring-primary-600 focus-within:ring-offset-primary-800 focus-within:ring-primary-400 \
+ring-mani-ring focus-within:ring-offset-mani-background focus-within:ring-mani-ring-activated \
 focus-within:ring-1 focus-within:ring-offset-1 \
 rounded overflow-hidden";
 
 const inputClasses = "\
 px-2 py-3 h-8 \
-!bg-primary-700 !text-primary-200 \
+!bg-mani-background !text-mani-foreground \
 outline-none";
 
 export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: { useItAtom: PA<boolean>; valueLifeAtom: PA<ValueLife>; choosevalue: string | undefined; } & InputHTMLAttributes<HTMLInputElement>) {

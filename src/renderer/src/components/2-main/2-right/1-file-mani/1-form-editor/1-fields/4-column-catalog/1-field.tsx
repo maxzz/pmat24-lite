@@ -8,16 +8,16 @@ import { classNames } from "@/utils";
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
-const columnSizeClasses = "grid grid-cols-[minmax(0,1fr)_auto] bg-primary-700 rounded overflow-hidden";
+const columnSizeClasses = "grid grid-cols-[minmax(0,1fr)_auto] bg-mani-background rounded overflow-hidden";
 
 const columnRingClasses = "\
-ring-primary-600 \
-focus-within:ring-primary-400 \
-focus-within:ring-offset-primary-800 \
+ring-mani-ring \
+focus-within:ring-mani-ring-activated \
+focus-within:ring-offset-mani-background \
 focus-within:ring-1 \
 focus-within:ring-offset-1";
 
-const inputClasses = "px-2 py-3 h-8 !bg-primary-700 !text-primary-200 outline-none";
+const inputClasses = "px-2 py-3 h-8 !bg-mani-background !text-mani-foreground outline-none";
 
 type Column4_CatalogProps =
     & {

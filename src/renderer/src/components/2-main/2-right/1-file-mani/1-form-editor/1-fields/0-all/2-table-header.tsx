@@ -8,7 +8,7 @@ const rowColumns = [
 
 const headerClasses = "\
 mb-2 px-1 text-[.65rem] \
-text-primary-400 border-primary-100 \
+text-muted-foreground border-mani-muted-foreground \
 border-b \
 select-none";
 

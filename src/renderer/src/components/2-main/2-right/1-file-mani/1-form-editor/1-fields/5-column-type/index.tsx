@@ -13,7 +13,7 @@ export function Column5_Type({ useItAtom, field, className, ...rest }: Column5_T
     const { password, type = 'NOTYPE' } = field.mani;
     const useIt = useAtomValue(useItAtom);
     return (
-        <div className={classNames("text-[.6rem] text-mani-muted-foreground 1text-primary-500 bg-mani-muted-nested-foreground bg-mani-foreground rounded flex flex-col items-center select-none", !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+        <div className={classNames("text-[.6rem] text-mani-muted-foreground bg-mani-background rounded flex flex-col items-center select-none", !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
             <FieldTypeIconComponent field={field.mani} className="size-5" />
             <div className="-mt-2">{`${password ? 'psw' : type}`}</div>
         </div>
