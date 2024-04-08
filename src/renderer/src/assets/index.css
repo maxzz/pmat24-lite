@@ -10,8 +10,8 @@
         --mani-muted-background: theme(colors.slate.200);
         --mani-muted-foreground: theme(colors.slate.500);
 
-        --mani-ring: theme(colors.slate.600);
-        --mani-ring-activated: theme(colors.slate.400);
+        --mani-ring: theme(colors.slate.200);
+        --mani-ring-activated: theme(colors.slate.600);
     }
 
     .dark {
@@ -21,8 +21,8 @@
         --mani-muted-background: theme(colors.slate.700);
         --mani-muted-foreground: theme(colors.slate.500);
 
-        --mani-ring: theme(colors.slate.400);
-        --mani-ring-activated: theme(colors.slate.600);
+        --mani-ring: theme(colors.slate.600);
+        --mani-ring-activated: theme(colors.slate.400);
     }
 }
 
@@ -38,8 +38,8 @@
 
         ring-1
         focus:ring-1
-        ring-primary-600
-        focus:ring-primary-400
+        ring-mani-ring
+        focus:ring-mani-ring-activated
         focus:ring-offset-mani-background
 
         rounded
@@ -62,11 +62,11 @@
 
         ring-1
         focus:ring-1
-        ring-primary-600
-        focus:ring-primary-400
+        ring-mani-ring
+        focus:ring-mani-ring-activated
         focus:ring-offset-mani-background
 
-        checked:ring-primary-600
+        checked:ring-mani-ring
 
         border-none
         transition-shadow
