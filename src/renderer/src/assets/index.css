@@ -2,21 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --mani-title: #0ea94d;              /* #0ea94d */
-    --mani-foreground: #e2e8f0;         /* slate.200 */
-    --mani-background: #1e293b;         /* slate.800 */
-    --mani-muted-background: #334155;   /* slate.700 */
-    --mani-muted-foreground: #64748b;   /* slate.500 */
-}
+/** /
+@layer base {
+    :root {
+        --mani-title: #429062;              /* #0ea94d * /
+        --mani-foreground: #e2e8f0;         /* slate.200 * /
+        --mani-background: #1e293b;         /* slate.800 * /
+        --mani-muted-background: #334155;   /* slate.700 * /
+        --mani-muted-foreground: #64748b;   /* slate.500 * /
+    }
 
-.dark {
-    --mani-title: #45a194;              /* #32ffdaa0 */
-    --mani-foreground: #e2e8f0;         /* slate.200 */
-    --mani-background: #1e293b;         /* slate.800 */
-    --mani-muted-background: #334155;   /* slate.700 */
-    --mani-muted-foreground: #64748b;   /* slate.500 */
+    .dark {
+        /*--mani-title: #45a194;              /* #32ffdaa0 * /
+        --mani-title: theme(colors.red.500);              /* #32ffdaa0 * /
+        --mani-foreground: #e2e8f0;         /* slate.200 * /
+        --mani-background: #1e293b;         /* slate.800 * /
+        --mani-muted-background: #334155;   /* slate.700 * /
+        --mani-muted-foreground: #64748b;   /* slate.500 * /
+        --test: theme(colors.slate.200);
+    }
 }
+/**/
+
+/**/
+/* these are doubled vars */
+@layer base {
+    :root {
+        --mani-title: #429062;                                          /* #0ea94d */
+        --mani-foreground: theme(colors.slate.200) /* #e2e8f0;          /* slate.200 */
+        --mani-background: theme(colors.slate.800) /* #1e293b;          /* slate.800 */
+        --mani-muted-background: theme(colors.slate.700) /* #334155;    /* slate.700 */
+        --mani-muted-foreground: theme(colors.slate.500) /* #64748b;    /* slate.500 */
+    }
+
+    .dark {
+        --mani-title: #45a194;                                          /* #32ffdaa0 */
+        --mani-foreground: theme(colors.slate.200) /*#e2e8f0;           /* slate.200 */
+        --mani-background: theme(colors.slate.800) /* #1e293b;          /* slate.800 */
+        --mani-muted-background: theme(colors.slate.700) /* #334155;    /* slate.700 */
+        --mani-muted-foreground: theme(colors.slate.500) /* #64748b;    /* slate.500 */
+    }
+}
+/**/
 
 /* Checkboxes */
 
