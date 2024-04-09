@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes } from "react";
 import { PrimitiveAtom as PA, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
-import { Dropdown, isKeyToClearDefault } from "../6-shared-ui";
+import { Dropdown, isKeyToClearDefault } from "./1-dropdown";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\

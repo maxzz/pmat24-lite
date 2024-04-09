@@ -41,7 +41,7 @@ export function Dropdown(useItAtom: PrimitiveAtom<boolean>, items: string[], sel
             </menu.Trigger>
 
             <menu.Portal container={document.getElementById('portal')}>
-                <menu.Content className={menuContentClasses} sideOffset={4} >
+                <menu.Content className={menuContentClasses} sideOffset={4} align='end' >
 
                     {items.map(
                         (item, idx) => {
