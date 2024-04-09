@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
-import { Dropdown, isKeyToClearDefault } from "./2-value-dropdown";
+import { ValueDropdown, isKeyToClearDefault } from "./2-value-dropdown";
 import { inputRingClasses } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
@@ -78,9 +78,9 @@ export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className
                 {...turnOffAutoComplete}
             />
 
-            {!!dropdownAllItems.length &&
-                Dropdown(useItAtom, dropdownAllItems, dropdownSelectedIndex, onSetDropdownIndex)
-            }
+            {!!dropdownAllItems.length && (
+                <ValueDropdown useItAtom={useItAtom} items={dropdownAllItems} selectedIndex={dropdownSelectedIndex} onSetIndex={onSetDropdownIndex} />
+            )}
         </div>
     );
 }

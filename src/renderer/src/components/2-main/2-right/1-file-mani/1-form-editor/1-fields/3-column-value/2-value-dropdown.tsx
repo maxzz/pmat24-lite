@@ -31,7 +31,7 @@ rounded-md outline-none select-none cursor-default \
 \
 flex items-center";
 
-export function Dropdown(useItAtom: PrimitiveAtom<boolean>, items: string[], selectedIndex: number, onSetIndex: (idx: number) => void) {
+export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: { useItAtom: PrimitiveAtom<boolean>; items: string[]; selectedIndex: number; onSetIndex: (idx: number) => void; }) {
     return (
         <menu.Root>
             <menu.Trigger asChild>
