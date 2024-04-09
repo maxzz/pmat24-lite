@@ -8,16 +8,26 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
-const columnSizeClasses = "grid grid-cols-[minmax(0,1fr)_auto] bg-mani-background rounded overflow-hidden";
+const inputParentClasses = "\
+grid grid-cols-[minmax(0,1fr)_auto] \
+\
+bg-mani-background \
+\
+border-mani-border-muted border \
+\
+rounded overflow-hidden";
 
-const columnRingClasses = "\
+const inputParentRingClasses = "\
 ring-mani-ring \
 focus-within:ring-mani-ring-activated \
 focus-within:ring-offset-mani-background \
 focus-within:ring-1 \
 focus-within:ring-offset-1";
 
-const inputClasses = "px-2 py-3 h-8 !bg-mani-background !text-mani-foreground outline-none";
+const inputClasses = "\
+px-2 py-3 h-8 \
+!bg-mani-background !text-mani-foreground \
+outline-none";
 
 type Column4_CatalogProps =
     & {
@@ -54,7 +64,7 @@ export function Column4_Catalog(props: Column4_CatalogProps) {
     }, [fldCatOutBox]);
 
     return (
-        <div className={classNames(columnSizeClasses, columnRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
+        <div className={classNames(inputParentClasses, inputParentRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
             
             <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines

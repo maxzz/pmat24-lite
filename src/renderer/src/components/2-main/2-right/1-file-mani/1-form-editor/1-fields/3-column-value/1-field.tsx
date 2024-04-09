@@ -13,6 +13,7 @@ bg-mani-background \
 border-mani-border-muted border \
 \
 ring-mani-ring \
+\
 focus-within:ring-offset-mani-background \
 focus-within:ring-mani-ring-activated \
 focus-within:ring-1 \
