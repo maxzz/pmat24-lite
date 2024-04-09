@@ -4,7 +4,7 @@ import { classNames } from '@/utils';
 import { SymbolChevronDown, SymbolDot } from '@ui/icons';
 
 const menuContentClasses = "\
-px-1 py-1 max-h-[50vh] \
+py-1 max-h-[50vh] \
 \
 text-popover-foreground bg-popover \
 \
@@ -20,7 +20,7 @@ overflow-auto smallscroll smallscroll-light \
 grid grid-cols-1"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
-relative pl-7 pr-2 py-1.5 text-xs \
+relative mx-1 pl-7 pr-2 py-1.5 text-xs \
 \
 text-accent-foreground \
 \
@@ -35,7 +35,7 @@ export function Dropdown(useItAtom: PrimitiveAtom<boolean>, items: string[], sel
     return (
         <menu.Root>
             <menu.Trigger asChild>
-                <button className="px-2 border-l border-mani-border-separator outline-none group">
+                <button className="px-2 border-mani-border-separator border-l outline-none group">
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded group-focus-within:border" />
                 </button>
             </menu.Trigger>

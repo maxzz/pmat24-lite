@@ -9,7 +9,7 @@ type CatalogDropdownProps = {
 };
 
 const menuContentClasses = "\
-px-1 py-1 max-h-[50vh] \
+py-1 max-h-[50vh] \
 \
 text-popover-foreground bg-popover \
 \
@@ -25,7 +25,7 @@ overflow-auto smallscroll smallscroll-light \
 grid grid-cols-1"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
-relative pl-8 pr-4 py-2 text-xs \
+relative mx-1 pl-7 pr-4 py-1.5 text-xs \
 \
 text-accent-foreground \
 \
@@ -36,15 +36,11 @@ rounded-md outline-none select-none cursor-default \
 \
 flex items-center";
 
-export function isKeyToClearDefault(key: string) {
-    return key === 'Backspace' || /^[a-z0-9]$/i.test(key);
-}
-
 export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDropdownProps) {
     return (
         <menu.Root>
             <menu.Trigger asChild>
-                <button className="px-2 border-l border-mani-background outline-none group">
+                <button className="px-2 border-mani-border-separator border-l outline-none group">
                     <SymbolChevronDown className="size-4 border-primary-500 rounded group-focus-within:border" />
                 </button>
             </menu.Trigger>
@@ -64,15 +60,22 @@ function CatalogItem({ item, idx, selectedIndex, onSetIndex }: { item: string; i
     const isSelected = idx === selectedIndex;
     const rv = item === '-'
         ? (
-            <menu.Separator className="my-1 h-px bg-gray-200 dark:bg-gray-700" key={idx} />
+            <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />
         )
         : (
-            <menu.Item className={classNames(menuItemClasses, isSelected && "bg-primary-300")} onSelect={() => onSetIndex(idx)} key={idx}>
+            <menu.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
                 {isSelected && (
-                    <SymbolDot className={`absolute left-2 size-5 ${isSelected ? 'hover:fill-primary-200' : 'fill-primary-700'}`} />
+                    <SymbolDot className={`absolute left-1.5 size-5 fill-foreground`} />
                 )}
-                <span className="ml-2 flex-grow self-start">{item}</span>
+
+                <span className="flex-grow">
+                    {item}
+                </span>
             </menu.Item>
         );
     return rv;
+}
+
+export function isKeyToClearDefault(key: string) {
+    return key === 'Backspace' || /^[a-z0-9]$/i.test(key);
 }
