@@ -14,11 +14,14 @@ px-2 py-3 h-8 \
 \
 text-mani-foreground bg-mani-background \
 \
+border-mani-border-muted border \
+\
 ring-mani-ring \
-focus:ring-offset-mani-background \
-focus:ring-mani-ring-activated \
 focus:ring-1 \
 focus:ring-offset-1 \
+focus:ring-offset-mani-background \
+focus:ring-mani-ring-activated \
+\
 outline-none \
 rounded \
 ";
