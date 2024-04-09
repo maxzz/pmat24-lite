@@ -6,9 +6,6 @@ import { CatalogDropdown, isKeyToClearDefault } from "./2-catalog-dropdown";
 import { inputRingClasses } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
-const CATALOG_Not = "Not from catalog";
-const CATALOG_More = "More fields ...";
-
 const inputParentClasses = "\
 grid grid-cols-[minmax(0,1fr)_auto] \
 \
@@ -23,14 +20,15 @@ px-2 py-3 h-8 \
 !bg-mani-background !text-mani-foreground \
 outline-none";
 
-type Column4_CatalogProps =
-    & {
-        useItAtom: PA<boolean>;
-        fieldCatAtom: PA<string>;
-        onSelectCatItem: (item: CatalogItem | undefined) => void;
-        field: Meta.Field;
-    }
-    & InputHTMLAttributes<HTMLInputElement>;
+type Column4_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
+    useItAtom: PA<boolean>;
+    fieldCatAtom: PA<string>;
+    onSelectCatItem: (item: CatalogItem | undefined) => void;
+    field: Meta.Field;
+};
+
+const CATALOG_Not = "Not from catalog";
+const CATALOG_More = "More fields ...";
 
 export function Column4_Catalog(props: Column4_CatalogProps) {
     const { useItAtom, onSelectCatItem, fieldCatAtom, field, className, ...rest } = props;
@@ -59,7 +57,7 @@ export function Column4_Catalog(props: Column4_CatalogProps) {
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
-            
+
             <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
                 value={inputText}

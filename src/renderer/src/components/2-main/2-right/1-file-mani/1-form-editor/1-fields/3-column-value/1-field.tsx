@@ -1,8 +1,9 @@
-import React, { InputHTMLAttributes } from "react";
-import { PrimitiveAtom as PA, useAtom, useAtomValue } from "jotai";
+import { InputHTMLAttributes } from "react";
+import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
 import { Dropdown, isKeyToClearDefault } from "./2-value-dropdown";
+import { inputRingClasses } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\
@@ -12,13 +13,6 @@ bg-mani-background \
 \
 border-mani-border-muted border \
 \
-ring-mani-ring \
-\
-focus-within:ring-offset-mani-background \
-focus-within:ring-mani-ring-activated \
-focus-within:ring-1 \
-focus-within:ring-offset-1 \
-\
 rounded overflow-hidden";
 
 const inputClasses = "\
@@ -27,8 +21,8 @@ px-2 py-3 h-8 \
 outline-none";
 
 type Column3_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
-    useItAtom: PA<boolean>;
-    valueLifeAtom: PA<ValueLife>;
+    useItAtom: PrimitiveAtom<boolean>;
+    valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
 };
 
@@ -67,7 +61,7 @@ export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className
     }
 
     return (
-        <div className={classNames(inputParentClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
             <input
                 className={classNames(
                     inputClasses,
