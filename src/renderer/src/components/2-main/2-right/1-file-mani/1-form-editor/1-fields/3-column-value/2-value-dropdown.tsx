@@ -31,7 +31,14 @@ rounded-md outline-none select-none cursor-default \
 \
 flex items-center";
 
-export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: { useItAtom: PrimitiveAtom<boolean>; items: string[]; selectedIndex: number; onSetIndex: (idx: number) => void; }) {
+type ValueDropdownProps = {
+    useItAtom: PrimitiveAtom<boolean>;
+    items: string[];
+    selectedIndex: number;
+    onSetIndex: (idx: number) => void;
+};
+
+export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: ValueDropdownProps) {
     return (
         <menu.Root>
             <menu.Trigger asChild>
@@ -68,8 +75,4 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: {
             </menu.Portal>
         </menu.Root>
     );
-}
-
-export function isKeyToClearDefault(key: string) {
-    return key === 'Backspace' || /^[a-z0-9]$/i.test(key);
 }

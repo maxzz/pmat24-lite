@@ -56,7 +56,14 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
     );
 }
 
-function CatalogItem({ item, idx, selectedIndex, onSetIndex }: { item: string; idx: number; selectedIndex: number; onSetIndex: (idx: number) => void; }): JSX.Element {
+type CatalogItemProps = {
+    item: string;
+    idx: number;
+    selectedIndex: number;
+    onSetIndex: (idx: number) => void;
+};
+
+function CatalogItem({ item, idx, selectedIndex, onSetIndex }: CatalogItemProps): JSX.Element {
     const isSelected = idx === selectedIndex;
     const rv = item === '-'
         ? (

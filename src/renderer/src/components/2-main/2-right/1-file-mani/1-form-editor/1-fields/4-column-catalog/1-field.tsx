@@ -2,8 +2,8 @@ import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Meta } from "@/store/manifest";
-import { CatalogDropdown, isKeyToClearDefault } from "./2-catalog-dropdown";
-import { inputRingClasses } from "../6-shared-ui";
+import { CatalogDropdown } from "./2-catalog-dropdown";
+import { inputRingClasses, isKeyToClearDefault } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\

@@ -2,8 +2,8 @@ import { InputHTMLAttributes } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
-import { ValueDropdown, isKeyToClearDefault } from "./2-value-dropdown";
-import { inputRingClasses } from "../6-shared-ui";
+import { ValueDropdown } from "./2-value-dropdown";
+import { inputRingClasses, isKeyToClearDefault } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\
