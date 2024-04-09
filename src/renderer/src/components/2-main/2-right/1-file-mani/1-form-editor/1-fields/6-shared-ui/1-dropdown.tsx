@@ -4,55 +4,56 @@ import { classNames } from '@/utils';
 import { SymbolChevronDown, SymbolDot } from '@ui/icons';
 
 const menuContentClasses = "\
-px-1.5 py-1 max-h-[50vh] \
+py-1 max-h-[50vh] \
 \
-bg-primary-100 \
-dark:bg-gray-800 \
+text-popover-foreground bg-muted \
 \
-rounded-lg shadow-md \
-overflow-auto smallscroll smallscroll-light \
+border-mani-border border \
 \
 radix-side-top:animate-slide-up \
 radix-side-bottom:animate-slide-down \
+\
+rounded-lg shadow-md \
+overflow-auto smallscroll smallscroll-light \
 \
 grid grid-cols-1";
 //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
-relative pl-8 pr-4 py-2 text-xs \
-text-primary-700 \
-data-highlighted:bg-primary-700 \
-data-highlighted:text-primary-100 \
+relative pl-7 pr-2 py-1.5 text-xs \
+\
+text-accent-foreground \
+\
+focus:text-accent-foreground \
+focus:bg-accent \
+\
 rounded-md outline-none select-none cursor-default \
+\
 flex items-center";
 
 export function Dropdown(useItAtom: PrimitiveAtom<boolean>, items: string[], selectedIndex: number, onSetIndex: (idx: number) => void) {
     return (
         <menu.Root>
             <menu.Trigger asChild>
-                <button className="px-2 border-l border-primary-800 outline-none group">
-                    <SymbolChevronDown className="size-4 border-primary-500 rounded group-focus-within:border" />
+                <button className="px-2 border-l border-mani-border-separator outline-none group">
+                    <SymbolChevronDown className="size-4 border-muted-foreground rounded group-focus-within:border" />
                 </button>
             </menu.Trigger>
 
             <menu.Portal container={document.getElementById('portal')}>
-                <menu.Content className={menuContentClasses}>
+                <menu.Content className={menuContentClasses} sideOffset={4} >
 
                     {items.map(
                         (item, idx) => {
                             const isSelected = selectedIndex === idx;
                             const isSeparator = item === '-';
                             if (isSeparator) {
-                                return <menu.Separator className="my-1 h-px bg-gray-200 dark:bg-gray-700" key={idx} />;
+                                return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
                             }
                             return (
-                                <menu.Item
-                                    className={classNames(menuItemClasses, isSelected && "bg-primary-300")}
-                                    onSelect={() => onSetIndex(idx)}
-                                    key={idx}
-                                >
+                                <menu.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
                                     {isSelected && (
-                                        <SymbolDot className="absolute left-2 size-5 fill-primary-700" />
+                                        <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
                                     )}
 
                                     <span className="flex-grow">
