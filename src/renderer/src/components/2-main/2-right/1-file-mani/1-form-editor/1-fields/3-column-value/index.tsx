@@ -10,8 +10,14 @@ grid grid-cols-[minmax(0,1fr)_auto] \
 \
 bg-mani-background \
 \
-ring-mani-ring focus-within:ring-offset-mani-background focus-within:ring-mani-ring-activated \
-focus-within:ring-1 focus-within:ring-offset-1 \
+border-mani-border-muted border \
+\
+ring-mani-ring \
+focus-within:ring-offset-mani-background \
+focus-within:ring-mani-ring-activated \
+focus-within:ring-1 \
+focus-within:ring-offset-1 \
+\
 rounded overflow-hidden";
 
 const inputClasses = "\
