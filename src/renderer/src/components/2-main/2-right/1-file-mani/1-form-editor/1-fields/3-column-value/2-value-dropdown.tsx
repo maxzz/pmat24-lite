@@ -4,7 +4,7 @@ import { classNames } from '@/utils';
 import { SymbolChevronDown, SymbolDot } from '@ui/icons';
 
 const menuContentClasses = "\
-py-1 max-h-[50vh] \
+px-1 py-1 max-h-[50vh] \
 \
 text-popover-foreground bg-popover \
 \
@@ -14,10 +14,10 @@ radix-side-top:animate-slide-up \
 radix-side-bottom:animate-slide-down \
 \
 rounded-lg shadow-md \
+\
 overflow-auto smallscroll smallscroll-light \
 \
-grid grid-cols-1";
-//TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
+grid grid-cols-1"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
 relative pl-7 pr-2 py-1.5 text-xs \
@@ -41,7 +41,7 @@ export function Dropdown(useItAtom: PrimitiveAtom<boolean>, items: string[], sel
             </menu.Trigger>
 
             <menu.Portal container={document.getElementById('portal')}>
-                <menu.Content className={menuContentClasses} sideOffset={4} align='end' >
+                <menu.Content className={menuContentClasses} sideOffset={4} align="end" >
 
                     {items.map(
                         (item, idx) => {

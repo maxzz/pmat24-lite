@@ -1,7 +1,6 @@
-import React from 'react';
-import { classNames } from '@/utils';
-import { SymbolChevronDown, SymbolDot } from '@ui/icons';
 import * as menu from '@radix-ui/react-dropdown-menu';
+import { SymbolChevronDown, SymbolDot } from '@ui/icons';
+import { classNames } from '@/utils';
 
 type CatalogDropdownProps = {
     items: string[];
@@ -10,26 +9,28 @@ type CatalogDropdownProps = {
 };
 
 const menuContentClasses = "\
-mx-4 px-1 py-1 max-h-[50vh] \
+px-1 py-1 max-h-[50vh] \
 \
-bg-primary-100 dark:bg-gray-800 \
+text-popover-foreground bg-popover \
+\
+border-mani-border border \
 \
 radix-side-top:animate-slide-up \
 radix-side-bottom:animate-slide-down \
 \
 rounded-lg shadow-md \
-smallscroll smallscroll-light \
 \
-overflow-auto \
+overflow-auto smallscroll smallscroll-light \
+\
 grid grid-cols-1"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
 relative pl-8 pr-4 py-2 text-xs \
 \
-text-primary-700 \
+text-accent-foreground \
 \
-data-highlighted:bg-primary-700 \
-data-highlighted:text-primary-100 \
+focus:text-accent-foreground \
+focus:bg-accent \
 \
 rounded-md outline-none select-none cursor-default \
 \
@@ -49,7 +50,7 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
             </menu.Trigger>
 
             <menu.Portal container={document.getElementById('portal')}>
-                <menu.Content className={menuContentClasses}>
+                <menu.Content className={menuContentClasses} sideOffset={4} align="end">
                     {items.map((item, idx) => (
                         <CatalogItem item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
                     ))}
