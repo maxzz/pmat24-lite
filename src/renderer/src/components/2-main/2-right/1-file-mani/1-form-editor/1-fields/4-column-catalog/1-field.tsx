@@ -3,6 +3,7 @@ import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jo
 import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Meta } from "@/store/manifest";
 import { CatalogDropdown, isKeyToClearDefault } from "./2-catalog-dropdown";
+import { inputRingClasses } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const CATALOG_Not = "Not from catalog";
@@ -16,13 +17,6 @@ bg-mani-background \
 border-mani-border-muted border \
 \
 rounded overflow-hidden";
-
-const inputParentRingClasses = "\
-ring-mani-ring \
-focus-within:ring-mani-ring-activated \
-focus-within:ring-offset-mani-background \
-focus-within:ring-1 \
-focus-within:ring-offset-1";
 
 const inputClasses = "\
 px-2 py-3 h-8 \
@@ -64,7 +58,7 @@ export function Column4_Catalog(props: Column4_CatalogProps) {
     }, [fldCatOutBox]);
 
     return (
-        <div className={classNames(inputParentClasses, inputParentRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
+        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
             
             <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
