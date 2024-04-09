@@ -6,7 +6,7 @@ import { SymbolChevronDown, SymbolDot } from '@ui/icons';
 const menuContentClasses = "\
 py-1 max-h-[50vh] \
 \
-text-popover-foreground bg-muted \
+text-popover-foreground bg-popover \
 \
 border-mani-border border \
 \
