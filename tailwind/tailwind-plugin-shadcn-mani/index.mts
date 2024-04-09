@@ -41,6 +41,11 @@ export const shadcnManiPlugin = plugin(
                             DEFAULT: "var(--mani-muted-background)",
                             foreground: "var(--mani-muted-foreground)",
                         },
+                        border: {
+                            DEFAULT: "var(--mani-border)",
+                            muted: "var(--mani-border-muted)",
+                            separator: "var(--mani-border-separator)",  // button separator inside parent button
+                        },
                         ring: {
                             DEFAULT: "var(--mani-ring)",
                             activated: "var(--mani-ring-activated)",
