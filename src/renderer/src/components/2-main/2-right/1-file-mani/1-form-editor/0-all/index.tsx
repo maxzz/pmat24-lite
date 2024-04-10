@@ -11,7 +11,7 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     }
     
     return (
-        <div className="h-full flex flex-col">
+        <div className="mr-1 h-full flex flex-col">
 
             <FormSectionsOpenState formIdx={formIdx}>
                 <FormSections fileUs={fileUs} formIdx={formIdx} />

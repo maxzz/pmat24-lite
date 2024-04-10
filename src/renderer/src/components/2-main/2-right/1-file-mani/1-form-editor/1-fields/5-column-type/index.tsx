@@ -4,18 +4,33 @@ import { Meta } from '@/store/manifest';
 import { classNames } from '@/utils';
 import { FieldTypeIconComponent } from '@/store/manifest/manifest-field-icons';
 
-type Column5_TypeProps = {
+const column5_TypeClasses = "\
+text-[.6rem] \
+\
+text-mani-muted-foreground bg-mani-background \
+\
+border-mani-border-muted border \
+\
+rounded \
+select-none \
+flex flex-col items-center \
+";
+
+type Column5_TypeProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
     field: Meta.Field;
-} & InputHTMLAttributes<HTMLInputElement>;
+};
 
 export function Column5_Type({ useItAtom, field, className, ...rest }: Column5_TypeProps) {
     const { password, type = 'NOTYPE' } = field.mani;
     const useIt = useAtomValue(useItAtom);
     return (
-        <div className={classNames("text-[.6rem] text-mani-muted-foreground bg-mani-background rounded flex flex-col items-center select-none", !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-            <FieldTypeIconComponent field={field.mani} className="size-5" />
-            <div className="-mt-2">{`${password ? 'psw' : type}`}</div>
+        <div className={classNames(column5_TypeClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+            <FieldTypeIconComponent className="size-5" field={field.mani} />
+
+            <div className="-mt-2">
+                {`${password ? 'psw' : type}`}
+            </div>
         </div>
     );
 }
