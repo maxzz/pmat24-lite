@@ -58,15 +58,7 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: V
                                 return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
                             }
                             return (
-                                <menu.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
-                                    {isSelected && (
-                                        <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
-                                    )}
-
-                                    <span className="flex-grow">
-                                        {item}
-                                    </span>
-                                </menu.Item>
+                                <ValueItemMenu item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
                             );
                         })
                     }
@@ -74,5 +66,31 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: V
                 </menu.Content>
             </menu.Portal>
         </menu.Root>
+    );
+}
+
+type ValueItemMenuProps = {
+    item: string;
+    idx: number;
+    selectedIndex: number;
+    onSetIndex: (idx: number) => void;
+};
+
+function ValueItemMenu({ item, idx, selectedIndex, onSetIndex }: ValueItemMenuProps): JSX.Element {
+    const isSelected = selectedIndex === idx;
+    const isSeparator = item === '-';
+    if (isSeparator) {
+        return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
+    }
+    return (
+        <menu.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
+            {isSelected && (
+                <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
+            )}
+
+            <span className="flex-grow">
+                {item}
+            </span>
+        </menu.Item>
     );
 }
