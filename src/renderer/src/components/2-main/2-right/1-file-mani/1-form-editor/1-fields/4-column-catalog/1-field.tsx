@@ -7,7 +7,7 @@ import { inputRingClasses, isKeyToClearDefault } from "../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\
-grid grid-cols-[minmax(0,1fr)_auto] \
+h-8 grid grid-cols-[minmax(0,1fr)_auto] \
 \
 bg-mani-background \
 \
@@ -17,7 +17,7 @@ rounded overflow-hidden";
 
 const inputClasses = "\
 px-2 py-3 h-8 \
-!bg-mani-background !text-mani-foreground \
+bg-mani-background text-mani-foreground \
 outline-none";
 
 type Column4_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {

@@ -5,7 +5,7 @@ import { classNames } from '@/utils';
 import { FieldTypeIconComponent } from '@/store/manifest/manifest-field-icons';
 
 const column5_TypeClasses = "\
-text-[.6rem] \
+size-8 text-[.6rem] \
 \
 text-mani-muted-foreground bg-mani-background \
 \
