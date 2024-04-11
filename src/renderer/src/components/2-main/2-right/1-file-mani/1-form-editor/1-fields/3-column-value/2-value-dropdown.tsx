@@ -42,7 +42,7 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: V
     return (
         <menu.Root>
             <menu.Trigger asChild>
-                <button className="px-2 border-mani-border-separator border-l outline-none group">
+                <button className="group px-2 border-mani-border-separator border-l outline-none">
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded group-focus-within:border" />
                 </button>
             </menu.Trigger>
