@@ -3,8 +3,6 @@ import { treeFilesAtom } from "@/store";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { DropdownMenuDemo } from "./1-main-menu";
 
-export * from "./1-main-menu/not-impl-yet";
-
 export function SectionHeader() {
     const treeFiles = useAtomValue(treeFilesAtom);
     return (

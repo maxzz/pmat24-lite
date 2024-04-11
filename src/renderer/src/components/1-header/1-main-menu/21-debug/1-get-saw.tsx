@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn/dropdown-menu";
 import { doGetTargetHwndAtom } from "@/store";
-import { checkDevTools } from "../not-impl-yet";
+import { checkDevTools } from "@/ui";
 
 export function MenuItem_GetSaw() {
     const doGetTargetHwnd = useSetAtom(doGetTargetHwndAtom);

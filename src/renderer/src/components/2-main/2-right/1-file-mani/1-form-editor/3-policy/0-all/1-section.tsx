@@ -4,8 +4,7 @@ import { FileUs, FormIdx } from '@/store/store-types';
 import { Meta } from '@/store/manifest';
 import { TableHeader } from './2-table-header';
 import { PoliciesGrid } from './3-table-grid';
-import { Button } from '@/ui';
-import { notImplYet } from '@/components/1-header';
+import { Button, notImplYet } from '@/ui';
 
 export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     const policiesAtom = useState(() => atom<Meta.Field[]>([]))[0];
