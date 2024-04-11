@@ -66,7 +66,7 @@ export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className
             <input
                 className={classNames(
                     inputClasses,
-                    showAsRef && !valueLife.isNon && "text-[0.6rem] text-blue-400 cursor-default",
+                    showAsRef && !valueLife.isNon && "text-[0.6rem] !text-blue-400 cursor-default",
                     disabled && "pointer-events-none",
                 )}
                 value={showInputText ? '' : inputText}

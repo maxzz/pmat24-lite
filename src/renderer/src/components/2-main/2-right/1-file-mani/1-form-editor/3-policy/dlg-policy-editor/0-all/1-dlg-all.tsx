@@ -33,7 +33,7 @@ export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
                     return null;
                 }
                 return (
-                    <DialogContent container={document.getElementById('portal')}>
+                    <DialogContent className="text-xs" container={document.getElementById('portal')}>
                         <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
                     </DialogContent>
                 );
