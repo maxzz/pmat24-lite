@@ -16,30 +16,34 @@ export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
         config: config.stiff,
     });
 
-    const atoms = useState(() => createUiAtoms({ policy: field.mani.policy, policy2: field.mani.policy2 }, ({ get, set }) => debouncedCombinedResultFromAtoms(atoms, get, set)))[0];
+    const atoms = useState(
+        () => createUiAtoms({ policy: field.mani.policy, policy2: field.mani.policy2 }, ({ get, set }) => debouncedCombinedResultFromAtoms(atoms, get, set))
+    )[0];
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger className="px-4 py-3 h-full active:scale-[.97] select-none" asChild>
-                <Button size="lg">Edit</Button>
+            <Dialog.Trigger className="px-4 h-full active:scale-[.97] select-none" asChild>
+                <Button size="sm">
+                    Edit
+                </Button>
             </Dialog.Trigger>
 
-            {transitions((styles, item) => (
-                !item
-                    ? null
-                    : <>
-                        <Dialog.Portal container={document.getElementById('portal')}>
-                            <a.div className="fixed inset-0 bg-primary-900/80" style={{ opacity: styles.opacity, }} />
+            {transitions((styles, item) => {
+                if (!item) {
+                    return null;
+                }
+                return (
+                    <Dialog.Portal container={document.getElementById('portal')}>
+                        <a.div className="fixed inset-0 bg-primary-900/80" style={{ opacity: styles.opacity, }} />
 
-                            <Dialog.Content forceMount asChild className="fixed inset-0 flex justify-center items-center">
-                                <a.div style={styles}>
-                                    <PolicyEditorBody atoms={atoms} />
-                                </a.div>
-                            </Dialog.Content>
-
-                        </Dialog.Portal>
-                    </>
-            ))}
+                        <Dialog.Content forceMount asChild className="fixed inset-0 flex justify-center items-center z-50">
+                            <a.div style={styles}>
+                                <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
+                            </a.div>
+                        </Dialog.Content>
+                    </Dialog.Portal>
+                );
+            })}
         </Dialog.Root>
     );
 }
