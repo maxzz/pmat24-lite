@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { Atomize } from "@/util-hooks";
-import { PolicyUi } from "./0-create-ui-atoms";
+import { PolicyUiForAtoms } from "./0-create-ui-atoms";
 import { DialogHeader, SectionRuleTypes, SectionMinMaxLength, SectionTestRoom, SectionHistory, SectionGenerationBy, BottomButton } from "../3-sections";
 import { Check } from "../4-constrols";
 import { classNames } from "@/utils";
@@ -17,7 +17,7 @@ flex flex-col space-y-4";
 
 const sectionClasses = "text-sm font-bold border-primary-700 border-b";
 
-export function PolicyEditorBody({ atoms }: { atoms: Atomize<PolicyUi>; }) {
+export function PolicyEditorBody({ atoms }: { atoms: Atomize<PolicyUiForAtoms>; }) {
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
     return (
         <div className={frameClasses}>

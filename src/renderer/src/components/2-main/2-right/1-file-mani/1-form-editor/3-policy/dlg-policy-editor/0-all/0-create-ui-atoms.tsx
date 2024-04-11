@@ -1,8 +1,9 @@
 import { Getter, Setter } from "jotai";
-import { Atomize, atomWithCallback } from "@/util-hooks";
+import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { ConstrainPsw, ConstrainSet, UseAs } from "@/store/manifest";
+import { debounce } from "@/utils";
 
-export type PolicyUi = {
+export type PolicyUiForAtoms = {
     enabled: boolean;           // Enable password policy
     isCustomRule: '0' | '1';    // boolean; rule type: predefined or custom rule
 
@@ -20,9 +21,12 @@ export type PolicyUi = {
     useAs: string;              // UseAs; by user / by system
 };
 
-export function createUiAtoms(policy: string | undefined, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): Atomize<PolicyUi> {
+type PolicyUiAtoms = Atomize<PolicyUiForAtoms>;
+
+export function createUiAtoms(policy: string | undefined, onChange: OnValueChangeAny): PolicyUiAtoms {
     
     //TODO: parse policy and assign onChange callback
+
     if (!policy) {
         //TODO: create the default policy but dissabled initially
     }
@@ -41,19 +45,21 @@ export function createUiAtoms(policy: string | undefined, onChange: ({ get, set 
     };
 }
 
-export function combineValueFromAtoms(atoms: Atomize<PolicyUi>, get: Getter, set: Setter) {
+export function combineResultFromAtoms(atoms: Atomize<PolicyUiForAtoms>, get: Getter, set: Setter) {
     const result = {
-        'enabled': get(atoms.enabledAtom),
-        'isCustomRule': get(atoms.isCustomRuleAtom),
-        'constrainSet': get(atoms.constrainSetAtom),
-        'custom': get(atoms.customAtom),
-        'minLength': get(atoms.minLengthAtom),
-        'maxLength': get(atoms.maxLengthAtom),
-        'textVerify': get(atoms.textVerifyAtom),
-        'textGenerate': get(atoms.textGenerateAtom),
-        'constrainsPsw': get(atoms.constrainsPswAtom),
-        'useAs': get(atoms.useAsAtom),
+        enabled: get(atoms.enabledAtom),
+        isCustomRule: get(atoms.isCustomRuleAtom),
+        constrainSet: get(atoms.constrainSetAtom),
+        custom: get(atoms.customAtom),
+        minLength: get(atoms.minLengthAtom),
+        maxLength: get(atoms.maxLengthAtom),
+        textVerify: get(atoms.textVerifyAtom),
+        textGenerate: get(atoms.textGenerateAtom),
+        constrainsPsw: get(atoms.constrainsPswAtom),
+        useAs: get(atoms.useAsAtom),
     };
-    
+
     console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
 }
+
+export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

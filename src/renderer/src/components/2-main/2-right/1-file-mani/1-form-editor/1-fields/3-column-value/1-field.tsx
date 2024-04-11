@@ -62,10 +62,11 @@ export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+            
             <input
                 className={classNames(
                     inputClasses,
-                    showAsRef && !valueLife.isNon && "text-[0.6rem] !text-blue-400 cursor-default",
+                    showAsRef && !valueLife.isNon && "text-[0.6rem] text-blue-400 cursor-default",
                     disabled && "pointer-events-none",
                 )}
                 value={showInputText ? '' : inputText}

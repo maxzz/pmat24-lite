@@ -1,11 +1,11 @@
 import { useAtom } from "jotai";
 import { Atomize } from "@/util-hooks";
 import { namesConstrainSet } from "@/store/manifest";
-import { PolicyUi } from "../0-all/0-create-ui-atoms";
+import { PolicyUiForAtoms } from "../0-all/0-create-ui-atoms";
 import { Radio, Input, Dropdown } from "../4-constrols";
 import { classNames } from "@/utils";
 
-export function SectionRuleTypes({ atoms }: { atoms: Atomize<PolicyUi>; }) {
+export function SectionRuleTypes({ atoms }: { atoms: Atomize<PolicyUiForAtoms>; }) {
     const [isCustomRule, setIsCustomRule] = useAtom(atoms.isCustomRuleAtom);
     return (
         <div className="space-y-8">

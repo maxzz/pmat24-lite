@@ -56,10 +56,10 @@ export function Column4_Catalog(props: Column4_CatalogProps) {
     }, [fldCatOutBox]);
 
     return (
-        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className,)} {...rest}>
+        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
             <input
-                className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
+                className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
                 value={inputText}
                 onChange={onSetInputText}
                 onKeyDown={onSetKey}

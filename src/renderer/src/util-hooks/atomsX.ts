@@ -2,6 +2,7 @@ import { atom, Getter, PrimitiveAtom, SetStateAction, Setter, WritableAtom } fro
 // version: 04.03.24
 
 export type OnValueChange<Value> = ({ get, set, nextValue }: { get: Getter; set: Setter; nextValue: Value; }) => void;
+export type OnValueChangeAny = ({ get, set }: { get: Getter; set: Setter; }) => void;
 
 export function atomWithCallback<Value>(initialValue: Value, onValueChange: OnValueChange<Value>): WritableAtom<Value, [update: SetStateAction<Value>], void> {
     const baseAtom = atom(initialValue);
