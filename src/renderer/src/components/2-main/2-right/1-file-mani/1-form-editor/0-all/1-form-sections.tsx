@@ -15,7 +15,7 @@ export function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: For
             <TabSubmit fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
-        <SubSection value="policy" label="Policy">
+        <SubSection value="policy" label="Password policy">
             <TabPolicy fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 

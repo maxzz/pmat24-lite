@@ -1,14 +1,14 @@
 import { classNames } from '@/utils';
 
 const tableColumns = [
-    ["Field for", "Name of the field to which the policy will be applied" /*hint*/, "" /*classes*/],
+    ["Policy for", "Name of the field to which the policy will be applied" /*hint*/, "" /*classes*/],
     ["Policy", "Field policy" /*hint*/, "col-span-2" /*classes*/],
 ] as const;
 
 const tableHeaderClasses = "\
 mb-2 px-1 text-[.65rem] \
 \
-text-primary-400 border-primary-100 \
+text-muted-foreground border-mani-muted-foreground \
 \
 border-b \
 select-none";
