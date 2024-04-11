@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Meta } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { PolicyEditorBody } from "./2-editor-body";
-import { Button } from "@/ui";
+import { Button, DialogContent } from "@/ui";
 
 export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
     const [open, setOpen] = useState(false);
@@ -33,16 +33,22 @@ export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
                     return null;
                 }
                 return (
-                    <Dialog.Portal container={document.getElementById('portal')}>
-                        <a.div className="fixed inset-0 bg-primary-900/80" style={{ opacity: styles.opacity, }} />
-
-                        <Dialog.Content forceMount asChild className="fixed inset-0 flex justify-center items-center z-50">
-                            <a.div style={styles}>
-                                <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
-                            </a.div>
-                        </Dialog.Content>
-                    </Dialog.Portal>
+                    <DialogContent container={document.getElementById('portal')}>
+                        <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
+                    </DialogContent>
                 );
+
+                // return (
+                //     <Dialog.Portal container={document.getElementById('portal')}>
+                //         <a.div className="fixed inset-0 bg-primary-900/80" style={{ opacity: styles.opacity, }} />
+
+                //         <Dialog.Content forceMount asChild className="fixed inset-0 flex justify-center items-center z-50">
+                //             <a.div style={styles}>
+                //                 <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
+                //             </a.div>
+                //         </Dialog.Content>
+                //     </Dialog.Portal>
+                // );
             })}
         </Dialog.Root>
     );
