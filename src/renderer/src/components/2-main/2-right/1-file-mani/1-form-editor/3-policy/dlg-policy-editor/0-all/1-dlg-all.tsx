@@ -16,7 +16,7 @@ export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
         config: config.stiff,
     });
 
-    const atoms = useState(() => createUiAtoms(field.mani.policy || field.mani.policy2, ({ get, set }) => debouncedCombinedResultFromAtoms(atoms, get, set)))[0];
+    const atoms = useState(() => createUiAtoms({ policy: field.mani.policy, policy2: field.mani.policy2 }, ({ get, set }) => debouncedCombinedResultFromAtoms(atoms, get, set)))[0];
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>

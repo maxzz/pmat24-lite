@@ -23,13 +23,21 @@ export type PolicyUiForAtoms = {
 
 type PolicyUiAtoms = Atomize<PolicyUiForAtoms>;
 
-export function createUiAtoms(policy: string | undefined, onChange: OnValueChangeAny): PolicyUiAtoms {
-    
+type FieldPolicies = {
+    policy: string | undefined;
+    policy2: string | undefined;
+};
+
+export function createUiAtoms(policies: FieldPolicies, onChange: OnValueChangeAny): PolicyUiAtoms {
+
     //TODO: parse policy and assign onChange callback
+    const policy = policies.policy || policies.policy2;
 
     if (!policy) {
         //TODO: create the default policy but dissabled initially
     }
+
+    //TODO: add place wher to store the resulting policy
 
     return {
         enabledAtom: atomWithCallback(true, onChange),
