@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { Atomize } from "@/util-hooks";
 import { PolicyUi } from "./0-create-ui-atoms";
-import { DialogHeader, SectionRuleTypes, SectionMinMaxLength, SectionTestRoom, SectionHistory, SectionGenerationBy, BottomButton } from "./3-sections";
-import { Check } from "./4-constrols";
+import { DialogHeader, SectionRuleTypes, SectionMinMaxLength, SectionTestRoom, SectionHistory, SectionGenerationBy, BottomButton } from "../3-sections";
+import { Check } from "../4-constrols";
 import { classNames } from "@/utils";
 
 const frameClasses = "p-4 \

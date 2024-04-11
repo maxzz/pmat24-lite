@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Atomize } from "@/util-hooks";
 import { namesConstrainSet } from "@/store/manifest";
-import { PolicyUi } from "../0-create-ui-atoms";
+import { PolicyUi } from "../0-all/0-create-ui-atoms";
 import { Radio, Input, Dropdown } from "../4-constrols";
 import { classNames } from "@/utils";
 
