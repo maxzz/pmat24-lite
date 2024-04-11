@@ -21,10 +21,11 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
 
     if (!policies?.length) {
         return (
-            <div className="px-2 pt-1 pb-4 flex items-center gap-2">
+            <div className="px-5 pt-1 pb-4 flex items-center gap-2">
                 <div className="">
                     No policy specified.
                 </div>
+
                 <Button size="sm" {...notImplYet}>Create policy</Button>
             </div>
         );
@@ -37,3 +38,5 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
         </div>
     );
 }
+
+//TODO: for multiple password fields we need to select field to which policy will be applied
