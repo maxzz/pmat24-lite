@@ -3,6 +3,8 @@ import { treeFilesAtom } from "@/store";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { DropdownMenuDemo } from "./1-main-menu";
 
+export * from "./1-main-menu/not-impl-yet";
+
 export function SectionHeader() {
     const treeFiles = useAtomValue(treeFilesAtom);
     return (
@@ -14,7 +16,7 @@ export function SectionHeader() {
                     <div className="text-[.65rem] text-muted-foreground">
                         loaded{' '}
                         <span className="text-text/60">{treeFiles.length}</span>
-                        {` file${treeFiles.length > 1 ? 's' : '' }`}
+                        {` file${treeFiles.length > 1 ? 's' : ''}`}
                     </div>
                 )}
             </div>

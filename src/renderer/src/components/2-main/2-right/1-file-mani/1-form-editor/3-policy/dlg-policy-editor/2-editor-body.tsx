@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { Atomize } from "@/hooks";
+import { Atomize } from "@/util-hooks";
 import { PolicyUi } from "./0-create-ui-atoms";
 import { DialogHeader, SectionRuleTypes, SectionMinMaxLength, SectionTestRoom, SectionHistory, SectionGenerationBy, BottomButton } from "./3-sections";
 import { Check } from "./4-constrols";

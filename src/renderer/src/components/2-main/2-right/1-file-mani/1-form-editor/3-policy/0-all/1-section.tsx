@@ -4,6 +4,8 @@ import { FileUs, FormIdx } from '@/store/store-types';
 import { Meta } from '@/store/manifest';
 import { TableHeader } from './2-table-header';
 import { PoliciesGrid } from './3-table-grid';
+import { Button } from '@/ui';
+import { notImplYet } from '@/components/1-header';
 
 export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     const policiesAtom = useState(() => atom<Meta.Field[]>([]))[0];
@@ -19,7 +21,14 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
     ); // TODO: we should monitor current form fields and list here all password fields to allow add to them policy
 
     if (!policies?.length) {
-        return <div>Policy not specified</div>;
+        return (
+            <div className="px-2 pt-1 pb-4 flex items-center gap-2">
+                <div className="">
+                    No policy specified.
+                </div>
+                <Button size="sm" {...notImplYet}>Create policy</Button>
+            </div>
+        );
     }
 
     return (

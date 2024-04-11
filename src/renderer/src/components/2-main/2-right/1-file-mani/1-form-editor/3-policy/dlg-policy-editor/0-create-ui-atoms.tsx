@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { Atomize, atomWithCallback } from "@/hooks";
+import { Atomize, atomWithCallback } from "@/util-hooks";
 import { ConstrainPsw, ConstrainSet, UseAs } from "@/store/manifest";
 
 export type PolicyUi = {

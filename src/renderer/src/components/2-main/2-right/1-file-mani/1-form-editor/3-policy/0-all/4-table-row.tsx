@@ -1,5 +1,5 @@
 import { Meta } from '@/store/manifest';
-//import { PolicyEditorDlg } from '../dlg-policy-editor';
+import { PolicyEditorDlg } from '../dlg-policy-editor';
 
 export function FieldWithPolicyRow({ field }: { field: Meta.Field; }) {
     return (<>
@@ -25,8 +25,8 @@ export function FieldWithPolicyRow({ field }: { field: Meta.Field; }) {
             </>)}
         </div>
 
-        {/* <div className="flex items-center">
+        <div className="flex items-center">
             <PolicyEditorDlg field={field} />
-        </div> */}
+        </div>
     </>);
 }
