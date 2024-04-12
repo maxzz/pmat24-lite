@@ -30,9 +30,6 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
             {/* <SectionMinMaxLength atoms={atoms} /> */}
 
             {/* Test section */}
-            <h2 className={sectionClasses}>
-                Test password complexity
-            </h2>
             <SectionTestRoom atoms={atoms} />
 
             {/* History */}
