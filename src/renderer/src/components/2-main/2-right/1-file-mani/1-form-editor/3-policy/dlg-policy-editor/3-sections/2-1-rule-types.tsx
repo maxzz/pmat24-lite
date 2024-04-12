@@ -5,6 +5,7 @@ import { Dropdown } from "../4-constrols";
 import { classNames } from "@/utils";
 import { Button, Input, Label } from "@/ui";
 import { SectionMinMaxLength } from "./3-2-min-max-length";
+import { SectionTestRoom } from "./4-test-room";
 
 const selectNames = [...namesConstrainSet, 'Custom rule'];
 
@@ -23,12 +24,16 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyUiAtoms; }) {
                 <SectionMinMaxLength atoms={atoms} />
             </div>
 
-            <div className={classNames("flex items-center justify-between space-x-2", !isCustom && "invisible pointer-events-none")}>
-                <Input className="flex-1" />
+            <div className="space-y-2">
+                <div className={classNames("flex items-center justify-between space-x-2", !isCustom && "invisible pointer-events-none")}>
+                    <Input className="flex-1" />
 
-                <Button className="h-full aspect-square rounded-full" variant="outline" size="sm" tabIndex={-1} title="Explanation" >
-                    ?
-                </Button>
+                    <Button className="h-full aspect-square rounded-full" variant="outline" size="sm" tabIndex={-1} title="Explanation" >
+                        ?
+                    </Button>
+                </div>
+
+                <SectionTestRoom atoms={atoms} />
             </div>
         </div>
     );

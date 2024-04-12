@@ -30,7 +30,7 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
             {/* <SectionMinMaxLength atoms={atoms} /> */}
 
             {/* Test section */}
-            <SectionTestRoom atoms={atoms} />
+            {/* <SectionTestRoom atoms={atoms} /> */}
 
             {/* History */}
             <h2 className={sectionClasses}>

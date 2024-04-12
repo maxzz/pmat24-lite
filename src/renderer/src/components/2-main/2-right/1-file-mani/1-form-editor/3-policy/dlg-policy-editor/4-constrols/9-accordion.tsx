@@ -1,11 +1,12 @@
 import { ReactNode, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
+import { Button } from "@/ui";
 
 export function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
-        <AccordionItem value={value}>
+        <AccordionItem value={value} className="border-none">
             <div className="inline-block">
-                <AccordionTrigger iconFirst leftDown className="1p-2 1pb-0 text-mani-title">
+                <AccordionTrigger iconFirst leftDown className="px-2 py-2 text-xs border-border border rounded">
                     {label}
                 </AccordionTrigger>
             </div>
