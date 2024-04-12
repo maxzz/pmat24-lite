@@ -34,7 +34,7 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
 
             {/* History */}
             <h2 className={sectionClasses}>
-                Password history restrictions
+                History restrictions
             </h2>
             <SectionHistory atoms={atoms} />
 

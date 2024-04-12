@@ -6,7 +6,7 @@ export function TestAreaSection({ value, label, children }: { value: string; lab
     return (
         <AccordionItem value={value} className="border-none">
             <div className="inline-block">
-                <AccordionTrigger iconFirst leftDown className="px-2 py-2 text-xs border-border border rounded">
+                <AccordionTrigger iconFirst leftDown className="pl-2 pr-4 py-2 text-xs border-border border rounded shadow">
                     {label}
                 </AccordionTrigger>
             </div>

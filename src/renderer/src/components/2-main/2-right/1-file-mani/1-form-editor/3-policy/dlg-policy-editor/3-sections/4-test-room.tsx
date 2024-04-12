@@ -1,24 +1,24 @@
+import { Button, Input } from "@/ui";
 import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
-import { Input } from "../4-constrols";
 import { TestAreaOpenState, TestAreaSection } from "../4-constrols/9-accordion";
 
 function TestAreaBody() {
     return (
-        <div className="flex flex-col space-y-2">
-            <div className="flex items-center space-x-2">
+        <div className="mt-2 flex flex-col space-y-2">
+            <div className="h-9 flex items-center space-x-2">
                 <Input className="" />
 
-                <button className="px-4 py-2 inline-block hover:bg-primary-700 border-primary-500 active:scale-[.97] border rounded select-none">
+                <Button className="h-full" variant="outline" size="sm" tabIndex={-1} title="Explanation" >
                     Verify
-                </button>
+                </Button>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="h-9 flex items-center space-x-2">
                 <Input className="" />
 
-                <button className="px-4 py-2 inline-block hover:bg-primary-700 border-primary-500 active:scale-[.97] border rounded select-none">
+                <Button className="h-full" variant="outline" size="sm" tabIndex={-1} title="Explanation" >
                     Generate
-                </button>
+                </Button>
             </div>
         </div>
     );
