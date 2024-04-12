@@ -52,7 +52,6 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: V
 
                     {items.map(
                         (item, idx) => {
-                            const isSelected = selectedIndex === idx;
                             const isSeparator = item === '-';
                             if (isSeparator) {
                                 return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
