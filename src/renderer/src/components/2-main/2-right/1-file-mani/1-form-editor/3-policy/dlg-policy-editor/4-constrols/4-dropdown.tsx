@@ -3,6 +3,7 @@ import { PrimitiveAtom, useAtom } from "jotai";
 import * as Select from '@radix-ui/react-select';
 import { SymbolChevronDown } from "@ui/icons";
 import { CheckIcon } from "@radix-ui/react-icons";
+import { classNames } from "@/utils";
 
 const viewportClasses = "\
 px-1.5 py-1 \
@@ -42,8 +43,8 @@ type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
 export function Dropdown({ items, value, onValueChange, className }: DropdownProps) {
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
-            <Select.Trigger className={className}>
-                <div className="p-2 text-primary-300 bg-primary-700 flex items-center justify-between space-x-1 rounded">
+            <Select.Trigger asChild>
+                <div className={classNames("flex-1 p-2 h-9 border-input border flex items-center justify-between space-x-1 rounded", className)}>
                     <Select.Value />
                     <Select.Icon><SymbolChevronDown className="size-4" /></Select.Icon>
                 </div>

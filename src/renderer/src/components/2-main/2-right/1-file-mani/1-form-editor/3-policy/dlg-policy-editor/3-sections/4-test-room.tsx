@@ -1,8 +1,7 @@
-import { Atomize } from "@/util-hooks";
-import { PolicyUiForAtoms } from "../0-all/0-create-ui-atoms";
+import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
 import { Input } from "../4-constrols";
 
-export function SectionTestRoom({ atoms }: { atoms: Atomize<PolicyUiForAtoms>; }) {
+export function SectionTestRoom({ atoms }: { atoms: PolicyUiAtoms; }) {
     return (
         <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-2">

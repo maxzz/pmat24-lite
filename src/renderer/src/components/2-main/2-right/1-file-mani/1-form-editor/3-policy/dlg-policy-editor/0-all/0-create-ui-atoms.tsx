@@ -21,7 +21,7 @@ export type PolicyUiForAtoms = {
     useAs: string;              // UseAs; by user / by system
 };
 
-type PolicyUiAtoms = Atomize<PolicyUiForAtoms>;
+export type PolicyUiAtoms = Atomize<PolicyUiForAtoms>;
 
 type FieldPolicies = {
     policy: string | undefined;

@@ -1,10 +1,8 @@
 import { useAtom } from "jotai";
-import { Atomize } from "@/util-hooks";
-import { PolicyUiForAtoms } from "../0-all/0-create-ui-atoms";
+import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
 import { Input } from "@/ui";
-// import { Input } from "../4-constrols";
 
-export function SectionMinMaxLength({ atoms }: { atoms: Atomize<PolicyUiForAtoms>; }) {
+export function SectionMinMaxLength({ atoms }: { atoms: PolicyUiAtoms; }) {
     const [min, setMin] = useAtom(atoms.minLengthAtom);
     const [max, setMax] = useAtom(atoms.maxLengthAtom);
     return (
@@ -12,7 +10,7 @@ export function SectionMinMaxLength({ atoms }: { atoms: Atomize<PolicyUiForAtoms
             <div>
                 Length
             </div>
-            
+
             <Input className="max-w-[6ch]" value={`${min}`} onChange={(e) => setMin(+e.target.value)} />
 
             <div className="">

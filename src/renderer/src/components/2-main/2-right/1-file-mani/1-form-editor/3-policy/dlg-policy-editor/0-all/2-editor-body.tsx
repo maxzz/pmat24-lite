@@ -1,14 +1,13 @@
 import { useAtom } from "jotai";
-import { Atomize } from "@/util-hooks";
-import { PolicyUiForAtoms } from "./0-create-ui-atoms";
-import { DialogHeader, SectionRuleTypes, SectionMinMaxLength, SectionTestRoom, SectionHistory, SectionGenerationBy } from "../3-sections";
+import { PolicyUiAtoms } from "./0-create-ui-atoms";
+import { DialogHeader, SectionRuleTypes, SectionTestRoom, SectionHistory, SectionGenerationBy } from "../3-sections";
 import { Check } from "../4-constrols";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 
 const sectionClasses = "text-sm font-bold border-primary-700 border-b";
 
-export function PolicyEditorBody({ atoms, setOpen }: { atoms: Atomize<PolicyUiForAtoms>; setOpen: (v: boolean) => void; }) {
+export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; setOpen: (v: boolean) => void; }) {
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
     return (<>
         <DialogHeader
