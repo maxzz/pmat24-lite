@@ -33,10 +33,15 @@ radix-disabled:opacity-50 \
 rounded select-none cursor-default \
 flex items-center";
 
-export function Dropdown({ items, valueAtom, className }: { items: string[]; valueAtom: PrimitiveAtom<string>; } & HTMLAttributes<HTMLButtonElement>) {
-    const [val, setVal] = useAtom(valueAtom);
+type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
+    items: string[];
+    value?: string;
+    onValueChange?(value: string): void;
+};
+
+export function Dropdown({ items, value, onValueChange, className }: DropdownProps) {
     return (
-        <Select.Root value={val} onValueChange={(v: string) => setVal(v)}>
+        <Select.Root value={value} onValueChange={onValueChange}>
             <Select.Trigger className={className}>
                 <div className="p-2 text-primary-300 bg-primary-700 flex items-center justify-between space-x-1 rounded">
                     <Select.Value />

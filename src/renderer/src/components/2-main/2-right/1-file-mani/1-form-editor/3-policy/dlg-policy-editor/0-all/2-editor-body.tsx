@@ -28,7 +28,7 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: Atomize<PolicyUiFo
             <SectionRuleTypes atoms={atoms} />
 
             {/* Min / Max length */}
-            <SectionMinMaxLength atoms={atoms} />
+            {/* <SectionMinMaxLength atoms={atoms} /> */}
 
             {/* Test section */}
             <h2 className={sectionClasses}>

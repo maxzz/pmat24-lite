@@ -72,7 +72,7 @@ w-full \
 h-[var(--radix-select-trigger-height)] \
 min-w-[var(--radix-select-trigger-width)]";
 
-const SelectContent = forwardRef<React.ElementRef<typeof Prim.Content>, React.ComponentPropsWithoutRef<typeof Prim.Content>>(
+const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
     ({ className, children, position = "popper", ...rest }, ref) => (
         <Prim.Portal>
             <Prim.Content
