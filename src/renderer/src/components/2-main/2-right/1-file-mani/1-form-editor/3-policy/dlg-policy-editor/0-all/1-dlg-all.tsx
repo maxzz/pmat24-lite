@@ -8,7 +8,12 @@ export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
     const [open, setOpen] = useState(false);
 
     const atoms = useState( //TODO: use memo or update atoms value?
-        () => createUiAtoms({ policy: field.mani.policy, policy2: field.mani.policy2 }, ({ get, set }) => debouncedCombinedResultFromAtoms(atoms, get, set))
+        () => createUiAtoms(
+            { policy: field.mani.policy, policy2: field.mani.policy2 },
+            ({ get, set }) => {
+                //console.log('policy changed', field, field.mani.displayname);
+                debouncedCombinedResultFromAtoms(atoms, get, set);
+            })
     )[0];
 
     return (
