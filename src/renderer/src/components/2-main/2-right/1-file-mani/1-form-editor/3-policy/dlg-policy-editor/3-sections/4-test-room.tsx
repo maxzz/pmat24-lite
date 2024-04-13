@@ -1,6 +1,6 @@
 import { Button, Input } from "@/ui";
 import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
-import { TestAreaOpenState, TestAreaSection } from "../4-constrols/9-accordion";
+import { TestAreaOpenState, TestAreaSection } from "./2-complexity/9-accordion";
 
 function TestAreaBody() {
     return (
