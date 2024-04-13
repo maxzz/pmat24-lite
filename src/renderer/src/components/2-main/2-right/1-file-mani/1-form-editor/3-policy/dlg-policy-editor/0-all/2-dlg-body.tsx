@@ -1,9 +1,12 @@
 import { useAtom } from "jotai";
 import { PolicyUiAtoms } from "./0-create-ui-atoms";
-import { DialogHeader, SectionRuleTypes, SectionHistory, SectionGenerationBy } from "../1-header";
-import { Check } from "../9-constrols";
-import { classNames } from "@/utils";
 import { Button } from "@/ui";
+import { Check } from "../9-constrols";
+import { DialogHeader } from "../1-header";
+import { SectionRuleTypes } from "../2-complexity";
+import { SectionHistory } from "../3-history";
+import { SectionGenerationBy } from "../4-generate-by";
+import { classNames } from "@/utils";
 
 const sectionClasses = "text-sm font-bold border-primary-700 border-b";
 
