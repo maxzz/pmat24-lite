@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { PolicyUiAtoms } from "../../0-all/0-create-ui-atoms";
+import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
 import { Input } from "@/ui";
 
 export function SectionMinMaxLength({ atoms }: { atoms: PolicyUiAtoms; }) {
