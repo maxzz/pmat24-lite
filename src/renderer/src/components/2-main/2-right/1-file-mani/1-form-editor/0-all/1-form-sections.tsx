@@ -24,8 +24,3 @@ export function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: For
         </SubSection>
     </>);
 }
-
-// const title = formIdx === 0 ? 'Login' : 'Password change';
-// const formMeta = fileUs.meta?.[formIdx];
-//         {/* Form {title} */}
-//         {/* {formMeta?.disp?.domain} */}

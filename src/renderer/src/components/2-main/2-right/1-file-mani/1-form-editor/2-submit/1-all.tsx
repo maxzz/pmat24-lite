@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react';
+import { FileUs, FormIdx } from "@/store/store-types";
 import { FieldTyp, Meta, SUBMIT } from '@/store/manifest';
-import { RadioGroup } from './1-radio-group';
+import { createUiAtoms, debouncedCombinedResultFromAtoms } from './0-create-ui-atoms';
+import { RadioGroup } from './2-radio-group';
 
-export function ManiSection2_Submit({ form }: { form: Meta.Form | undefined; }) {
+function ManiSection2_Submit({ form }: { form: Meta.Form; }) {
+
     const [items, setItems] = useState<string[]>([]);
     const [selected, setSelected] = useState(0);
+
+    const atoms = useState(
+        () => createUiAtoms(form,
+            ({ get, set }) => {
+                debouncedCombinedResultFromAtoms(atoms, get, set);
+            }
+        )
+    )[0]; //TODO: not used yet
 
     useEffect(() => {
         const isWeb = !!form?.mani.detection.web_ourl;
@@ -32,10 +43,11 @@ export function ManiSection2_Submit({ form }: { form: Meta.Form | undefined; }) 
     );
 }
 
-import { FileUs, FormIdx } from "@/store/store-types";
-
 export function TabSubmit({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     const metaForm = fileUs.meta?.[formIdx];
+    if (!metaForm) {
+        return null;
+    }
     return (
         <div className="ml-1">
             <ManiSection2_Submit form={metaForm} />
