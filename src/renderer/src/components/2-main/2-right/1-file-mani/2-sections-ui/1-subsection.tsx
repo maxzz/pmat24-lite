@@ -6,7 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@
 
 export function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
-        <AccordionItem value={value}>
+        <AccordionItem value={value} className="border-none">
             <div className="inline-block">
                 <AccordionTrigger iconFirst leftDown className="p-2 pb-0 text-mani-title">
                     {label}

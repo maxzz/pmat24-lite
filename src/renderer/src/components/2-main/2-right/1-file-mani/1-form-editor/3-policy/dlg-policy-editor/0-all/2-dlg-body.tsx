@@ -30,16 +30,20 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
             <SectionRuleTypes atoms={atoms} />
 
             {/* History */}
-            <h2 className={sectionClasses}>
-                History restrictions
-            </h2>
-            <SectionHistory atoms={atoms} />
+            <div className="">
+                <h2 className={""}>
+                    History restrictions
+                </h2>
+                <SectionHistory atoms={atoms} />
+            </div>
 
             {/* Generation */}
-            <h2 className={sectionClasses}>
-                Password generation
-            </h2>
-            <SectionGenerationBy atoms={atoms} />
+            <div className="flex flex-col gap-2">
+                <h2 className="">
+                    Password generation
+                </h2>
+                <SectionGenerationBy atoms={atoms} />
+            </div>
         </div>
 
         {/* Buttons */}
