@@ -1,1 +1,1 @@
-export * from "./2-1-rule-types";
+export * from "./1-all";
