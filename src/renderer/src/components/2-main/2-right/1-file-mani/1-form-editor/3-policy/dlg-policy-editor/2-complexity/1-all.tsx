@@ -5,7 +5,7 @@ import { Dropdown } from "../9-constrols";
 import { classNames } from "@/utils";
 import { Button, Input, Label } from "@/ui";
 import { SectionMinMaxLength } from "./2-min-max-length";
-import { SectionTestRoom } from "./SectionTestRoom";
+import { SectionTestRoom } from "./4-test-room";
 
 const selectNames = [...namesConstrainSet, 'Custom rule'];
 

@@ -1,7 +1,9 @@
 import { ReactNode, useState } from "react";
+import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
+import { TestAreaBody } from "./3-test-area-body";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
 
-export function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
+function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
         <AccordionItem value={value} className="border-none">
             <div className="inline-block">
@@ -17,11 +19,23 @@ export function TestAreaSection({ value, label, children }: { value: string; lab
     );
 }
 
-export function TestAreaOpenState({ children }: { children: ReactNode; }) {
+function TestAreaOpenState({ children }: { children: ReactNode; }) {
     const [value, setvalue] = useState<string[]>([]);
     return (
         <Accordion type="multiple" value={value} onValueChange={(v) => setvalue(v)}>
             {children}
         </Accordion>
+    );
+}
+
+export function SectionTestRoom({ atoms }: { atoms: PolicyUiAtoms; }) {
+    return (
+        <TestAreaOpenState>
+            <TestAreaSection label="Test area" value="policy">
+
+                <TestAreaBody />
+
+            </TestAreaSection>
+        </TestAreaOpenState>
     );
 }
