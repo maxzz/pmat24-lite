@@ -24,11 +24,11 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyUiAtoms; }) {
                 <SectionMinMaxLength atoms={atoms} />
             </div>
 
-            <div className={classNames("space-y-2", !isCustom && "invisible pointer-events-none")}>
-                <div className={classNames("flex items-center justify-between space-x-2")}>
+            <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
+                <div className={classNames("flex-1 relative h-8 flex items-center justify-between space-x-2")}>
                     <Input className="flex-1" />
 
-                    <Button className="h-full aspect-square rounded-full" variant="outline" size="sm" tabIndex={-1} title="Explanation" >
+                    <Button className="absolute right-2 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
                         ?
                     </Button>
                 </div>

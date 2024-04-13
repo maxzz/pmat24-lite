@@ -1,5 +1,4 @@
 import { HTMLAttributes } from "react";
-import { PrimitiveAtom, useAtom } from "jotai";
 import * as Select from '@radix-ui/react-select';
 import { SymbolChevronDown } from "@ui/icons";
 import { CheckIcon } from "@radix-ui/react-icons";
@@ -44,7 +43,7 @@ export function Dropdown({ items, value, onValueChange, className }: DropdownPro
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
             <Select.Trigger asChild>
-                <div className={classNames("flex-1 p-2 h-9 border-input border flex items-center justify-between space-x-1 rounded", className)}>
+                <div className={classNames("flex-1 p-2 h-9 border-input border flex items-center justify-between space-x-1 rounded", className)} tabIndex={0}>
                     <Select.Value />
                     <Select.Icon><SymbolChevronDown className="size-4" /></Select.Icon>
                 </div>
