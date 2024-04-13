@@ -1,6 +1,5 @@
 import { ReactNode, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
-import { Button } from "@/ui";
 
 export function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (

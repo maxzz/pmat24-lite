@@ -1,8 +1,6 @@
 import { Button, Input } from "@/ui";
-import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
-import { TestAreaOpenState, TestAreaSection } from "./9-accordion";
 
-function TestAreaBody() {
+export function TestAreaBody() {
     return (
         <div className="mt-2 flex flex-col space-y-2">
             <div className="h-9 flex items-center space-x-2">
@@ -21,17 +19,5 @@ function TestAreaBody() {
                 </Button>
             </div>
         </div>
-    );
-}
-
-export function SectionTestRoom({ atoms }: { atoms: PolicyUiAtoms; }) {
-    return (
-        <TestAreaOpenState>
-            <TestAreaSection label="Test area" value="policy">
-
-                <TestAreaBody />
-
-            </TestAreaSection>
-        </TestAreaOpenState>
     );
 }
