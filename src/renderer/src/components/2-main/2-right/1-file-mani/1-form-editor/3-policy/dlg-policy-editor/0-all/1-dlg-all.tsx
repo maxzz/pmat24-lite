@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Meta } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
-import { PolicyEditorBody } from "./2-editor-body";
+import { PolicyEditorBody } from "./2-dlg-body";
 
 export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
     const [open, setOpen] = useState(false);

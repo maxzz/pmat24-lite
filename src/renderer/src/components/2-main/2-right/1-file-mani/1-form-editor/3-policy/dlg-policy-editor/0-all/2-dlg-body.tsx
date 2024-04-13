@@ -26,12 +26,6 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
             </h2>
             <SectionRuleTypes atoms={atoms} />
 
-            {/* Min / Max length */}
-            {/* <SectionMinMaxLength atoms={atoms} /> */}
-
-            {/* Test section */}
-            {/* <SectionTestRoom atoms={atoms} /> */}
-
             {/* History */}
             <h2 className={sectionClasses}>
                 History restrictions
