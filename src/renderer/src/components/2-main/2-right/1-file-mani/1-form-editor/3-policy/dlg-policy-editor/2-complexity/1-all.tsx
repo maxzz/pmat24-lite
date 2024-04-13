@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { namesConstrainSet } from "@/store/manifest";
 import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
-import { Dropdown } from "../4-constrols";
+import { Dropdown } from "../9-constrols";
 import { classNames } from "@/utils";
 import { Button, Input, Label } from "@/ui";
 import { SectionMinMaxLength } from "./2-min-max-length";

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { UseAs } from "@/store/manifest";
 import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
-import { Radio } from "../4-constrols";
+import { Radio } from "../9-constrols";
 
 export function SectionGenerationBy({ atoms }: { atoms: PolicyUiAtoms; }) {
     const [useAs, setUseUs] = useAtom(atoms.useAsAtom);

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { PolicyUiAtoms } from "./0-create-ui-atoms";
 import { DialogHeader, SectionRuleTypes, SectionTestRoom, SectionHistory, SectionGenerationBy } from "../3-sections";
-import { Check } from "../4-constrols";
+import { Check } from "../9-constrols";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 
