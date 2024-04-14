@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-export const createDialogOpenAtom = atom(false);
+export const doOpenCreateDialogAtom = atom(false);
 
 // Second page atoms
 
@@ -11,4 +11,4 @@ export const enum SecondPage {
     manual,
 }
 
-export const createDialogSecondOpenAtom = atom<SecondPage>(SecondPage.none);
+export const doOpenCreateDialogSecondAtom = atom<SecondPage>(SecondPage.none);
