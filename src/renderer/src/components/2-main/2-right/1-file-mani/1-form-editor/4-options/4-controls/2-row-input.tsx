@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { classNames } from '@/utils';
-import { inputRingClasses } from '../../1-fields/6-shared-ui';
+import { inputRingClasses } from '@/ui';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 \

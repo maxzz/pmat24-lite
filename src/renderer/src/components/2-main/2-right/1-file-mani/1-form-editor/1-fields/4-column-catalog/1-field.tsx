@@ -3,8 +3,9 @@ import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jo
 import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Meta } from "@/store/manifest";
 import { CatalogDropdown } from "./2-catalog-dropdown";
-import { inputRingClasses, isKeyToClearDefault } from "../6-shared-ui";
+import { isKeyToClearDefault } from "../../6-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { inputRingClasses } from "@/ui";
 
 const inputParentClasses = "\
 h-8 grid grid-cols-[minmax(0,1fr)_auto] \
