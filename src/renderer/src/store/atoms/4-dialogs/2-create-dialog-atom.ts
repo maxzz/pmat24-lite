@@ -12,3 +12,7 @@ export const enum SecondPage {
 }
 
 export const doOpenCreateDialogSecondAtom = atom<SecondPage>(SecondPage.none);
+
+// Drawer atoms
+
+export const doOpenDrawerAtom = atom(false);
