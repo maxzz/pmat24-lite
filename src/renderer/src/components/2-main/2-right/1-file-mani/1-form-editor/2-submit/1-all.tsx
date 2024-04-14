@@ -49,7 +49,7 @@ export function TabSubmit({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormId
         return null;
     }
     return (
-        <div className="ml-1">
+        <div className="px-1">
             <ManiSection2_Submit form={metaForm} />
         </div>
     );

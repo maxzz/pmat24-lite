@@ -2,13 +2,15 @@ import { InputHTMLAttributes } from 'react';
 
 function RadioButton({ label, ...rest }: { label: string; } & InputHTMLAttributes<HTMLElement>) {
     return (
-        <label className="h-6 cursor-pointer select-none flex items-center space-x-3">
-            <input type="radio" className="size-4 dark-radio" {...rest} />
+        <div>
+            <label className="h-6 cursor-pointer select-none inline-flex items-center space-x-3">
+                <input type="radio" className="size-4 dark-radio" {...rest} />
 
-            <div>
-                {label}
-            </div>
-        </label>
+                <div>
+                    {label}
+                </div>
+            </label>
+        </div>
     );
 }
 

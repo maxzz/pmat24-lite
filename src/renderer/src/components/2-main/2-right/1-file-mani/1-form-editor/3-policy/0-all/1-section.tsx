@@ -30,7 +30,7 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
 
     if (!policies?.length) {
         return (
-            <div className="px-5 pt-1 pb-4 flex items-center gap-2">
+            <div className="px-4 pt-1 pb-4 flex items-center gap-2">
                 <div className="">
                     No policy specified.
                 </div>
@@ -41,7 +41,7 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
     }
 
     return (
-        <div className="px-1 py-2 grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-1 items-stretch rounded">
+        <div className="pl-3 pr-2 py-2 grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-1 items-stretch rounded">
             <TableHeader />
             <PoliciesGrid policies={policies} />
         </div>

@@ -8,7 +8,7 @@ export function SubSection({ value, label, children }: { value: string; label: R
     return (
         <AccordionItem value={value} className="border-none">
             <div className="inline-block">
-                <AccordionTrigger iconFirst leftDown className="p-2 pb-0 text-mani-title">
+                <AccordionTrigger leftDown className="p-2 pb-0 text-mani-title">
                     {label}
                 </AccordionTrigger>
             </div>

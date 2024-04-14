@@ -50,9 +50,9 @@ export function TabOptions({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         return null;
     }
     const fileUsAtom = rightPanelSelectedContentAtom as PrimitiveAtom<FileUs>;
-    
+
     return (
-        <div className="ml-4">
+        <div className="ml-4 mr-1">
             <ManiSection4_FormOptions fileUsAtom={fileUsAtom} formIdx={formIdx} />
         </div>
     );
