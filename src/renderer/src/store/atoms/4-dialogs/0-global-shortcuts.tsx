@@ -12,9 +12,10 @@ export function AppGlobalShortcuts() {
     const setCreateDialogOpen = useSetAtom(createDialogOpenAtom);
 
     useKey((event) => event.ctrlKey && event.key === ',', (event) => { event.preventDefault(); setOptionsDialogOpen(true); });
-    useKey((event) => event.ctrlKey && event.key === 's', (event) => { event.preventDefault(); setOptionsDialogOpen(true); });  // temporary
+    // useKey((event) => event.ctrlKey && event.key === 's', (event) => { event.preventDefault(); setOptionsDialogOpen(true); });  // temporary
  
-    useKey((event) => event.altKey && event.key === 's', (event) => { event.preventDefault(); setCreateDialogOpen(true); });    // temporary
+    // useKey((event) => event.altKey && event.key === 's', (event) => { event.preventDefault(); setCreateDialogOpen(true); });    // temporary
+    useKey((event) => event.ctrlKey && event.key === 's', (event) => { event.preventDefault(); setCreateDialogOpen(true); });    // temporary
 
     return null;
 }

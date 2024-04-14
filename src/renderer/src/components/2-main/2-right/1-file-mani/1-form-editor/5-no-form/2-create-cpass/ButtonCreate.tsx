@@ -20,11 +20,11 @@ export function ButtonCreate() {
                 <SelectValue placeholder="Create a password change form" />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent align="center">
                 <SelectGroup>
                     <SelectLabel>How to create form</SelectLabel>
-                    <SelectItem className="text-xs" value="banana">Create from application</SelectItem>
-                    <SelectItem className="text-xs" value="blueberry">Define form manually</SelectItem>
+                    <SelectItem className="text-xs" value="banana">Create from website or Windows application</SelectItem>
+                    <SelectItem className="text-xs" value="blueberry">Define form manually for website</SelectItem>
                     <SelectItem className="text-xs" value="apple">Create manual mode (for Windows apps only)</SelectItem>
                 </SelectGroup>
             </SelectContent>
