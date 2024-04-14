@@ -1,1 +1,1 @@
-export * from "./1-all-fields";
+export * from "./1-all-columns";
