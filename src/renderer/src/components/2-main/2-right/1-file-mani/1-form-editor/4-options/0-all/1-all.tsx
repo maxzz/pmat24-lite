@@ -20,7 +20,7 @@ export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: 
     const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
     return (
-        <div className="mr-1 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 items-center font-light text-primary-400">
+        <div className="mr-1 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 items-center font-light text-mani-foreground select-none">
             <Section label="General" />
             <Part1General atoms={atoms} />
 
