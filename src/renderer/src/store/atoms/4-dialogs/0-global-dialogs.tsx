@@ -1,8 +1,8 @@
-import { CreateManiDialog, OptionsFilesDialog } from "@/components/4-dialogs";
+import { ManiCreateDialogs, OptionsFilesDialog } from "@/components/4-dialogs";
 
 export function AppGlobalDialogs() {
     return (<>
+        <ManiCreateDialogs />
         <OptionsFilesDialog />
-        <CreateManiDialog />
     </>);
 }

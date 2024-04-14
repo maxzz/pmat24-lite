@@ -1,1 +1,1 @@
-export * from "./0-options-dialog";
+export * from "./0-start";

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
-import { createDialogOpenAtom, optionsDialogOpenAtom } from "@/store/atoms/4-dialogs";
+import { createDialogOpenAtom } from "@/store/atoms/4-dialogs";
 import * as D from "@/ui/shadcn/dialog";
-import { DialogCreateManiBody } from "./1-body-first-page";
+import { DialogCreateManiBody } from "./1-body";
 
 export function CreateManiDialog() {
     const [createDialogOpen, setCreateDialogOpen] = useAtom(createDialogOpenAtom);

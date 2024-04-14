@@ -4,7 +4,7 @@ export const createDialogOpenAtom = atom(false);
 
 // Second page atoms
 
-const enum SecondPage {
+export const enum SecondPage {
     none,
     grab,
     define,
