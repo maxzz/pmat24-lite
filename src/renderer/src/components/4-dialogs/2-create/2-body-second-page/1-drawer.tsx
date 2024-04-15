@@ -24,15 +24,15 @@ function DrawerItems() {
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
     return (
-        <D.Drawer shouldScaleBackground={false} open={doOpenDrawer} onOpenChange={setDoOpenDrawer}>
+        <D.Drawer shouldScaleBackground={false} open={doOpenDrawer} onOpenChange={setDoOpenDrawer} direction="left" modal>
             {/* <D.DrawerTrigger asChild>
                 <Button variant="outline" className="font-normal">
                     Fiter options
                 </Button>
             </D.DrawerTrigger> */}
 
-            <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded">
-                <div className="grid place-content-center">
+            <D.DrawerContent className="mt-0 py-4 w-full h-full max-w-3xl rounded outline-none" withoutOverlay>
+                <div className="h-full grid place-content-center">
                     <DrawerItems />
                 </div>
             </D.DrawerContent>

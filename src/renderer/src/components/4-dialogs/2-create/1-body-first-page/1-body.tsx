@@ -9,7 +9,8 @@ import { IconRefresh } from "@/ui/icons";
 import { toast } from "sonner";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
-    const selectedIdxAtom = useState(() => atom(-1))[0];
+    // const selectedIdxAtom = useState(() => atom(-1))[0];
+    const selectedIdxAtom = useState(() => atom(1))[0];
 
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const [toastId, setToastId] = useAtom(toastIdAtom);

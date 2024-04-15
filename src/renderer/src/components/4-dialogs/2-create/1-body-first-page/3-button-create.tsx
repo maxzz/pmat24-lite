@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
 import { toast } from "sonner";
-import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom } from "@/store/atoms/4-dialogs";
+import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom, doOpenDrawerAtom } from "@/store/atoms/4-dialogs";
 
 export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>; }) {
     const selectedIdx = useAtomValue(selectedIdxAtom);
@@ -12,6 +12,8 @@ export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom
 
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
     const doOpenCreateDialogSecond = useSetAtom(doOpenCreateDialogSecondAtom);
+    const doOpenDrawer = useSetAtom(doOpenDrawerAtom);
+    
     return (
         <Button variant="default" size="sm"
             onClick={() => {
@@ -19,7 +21,9 @@ export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom
                 if (selectedIdx === -1) {
                     id = toast('Select application window first.');
                 } else if (selectedIdx === 1) {
-                    doOpenCreateDialogSecond(SecondPage.grab);
+                    // doOpenCreateDialogSecond(SecondPage.grab);
+                    // doOpenDrawer(true);
+                    setTimeout(() => doOpenDrawer(true), 0);
                     doOpenCreateDialog(false);
                     return;
                 } else {
