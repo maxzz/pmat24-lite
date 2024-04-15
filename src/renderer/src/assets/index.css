@@ -65,7 +65,7 @@
         /**/
         text-mani-muted bg-mani-background
         /**/
-        ring-1 focus:ring-1 ring-mani-ring focus:ring-mani-ring-activated focus:ring-offset-mani-background
+        ring-1 focus:ring-1 ring-mani-border-muted focus:ring-mani-ring-activated focus:ring-offset-mani-background
         /**/
         rounded border-none transition-all cursor-pointer;
     }
