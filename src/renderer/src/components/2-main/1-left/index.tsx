@@ -1,4 +1,4 @@
-import { L_PanelHeader } from "./0-header/0-left-layout";
+import { L_PanelHeader } from "./0-header/0-all";
 import { FilesTree } from "./1-files-list";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
 

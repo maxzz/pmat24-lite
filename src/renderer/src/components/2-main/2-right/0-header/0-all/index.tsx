@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { R_PanelMenu } from "../2-menu";
-import { panelHeaderClasses } from "../../../1-left/0-header/0-left-layout";
+import { panelHeaderClasses } from "../../../1-left/0-header/0-all";
 import { classNames } from "@/utils";
 import { RightTitle } from "../1-title";
 import { XmlSwitch } from "../3-xml-switch";
