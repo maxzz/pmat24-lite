@@ -81,8 +81,6 @@
         /**/
         ring-1 focus:ring-1 ring-mani-ring focus:ring-mani-ring-activated focus:ring-offset-mani-background
         /**/
-        /* checked:ring-mani-ring */
-        /**/
         border-none transition-shadow cursor-pointer;
     }
 }
