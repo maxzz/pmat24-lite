@@ -3,11 +3,12 @@ import { treeFilesAtom } from "@/store";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { DropdownMenuDemo } from "./1-main-menu";
 import { Button } from "@/ui";
-import { doOpenDrawerAtom } from "@/store/atoms/4-dialogs";
+import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/4-dialogs";
 
 export function SectionHeader() {
     const treeFiles = useAtomValue(treeFilesAtom);
 
+    const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
     const doOpenDrawer = useSetAtom(doOpenDrawerAtom);
     return (
         <div className="px-4 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between">
@@ -21,6 +22,10 @@ export function SectionHeader() {
                         {` file${treeFiles.length > 1 ? 's' : ''}`}
                     </div>
                 )}
+
+                <Button variant="outline" className="text-[.65rem]" onClick={()=> doOpenCreateDialog(true)}>
+                    Create mani
+                </Button>
 
                 <Button variant="outline" className="text-[.65rem]" onClick={()=> doOpenDrawer(true)}>
                     Create
