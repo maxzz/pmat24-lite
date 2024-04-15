@@ -2,6 +2,14 @@ import { useAtomValue } from "jotai";
 import { FileUs } from "@/store/store-types";
 import { rightPanelSelectedContentAtom } from "@/store";
 
+function TitleNoFile() {
+    return (
+        <div className="h-full select-none flex items-center">
+            No File
+        </div>
+    );
+}
+
 function TitleWitFileUs({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className="py-1 text-muted-foreground space-y-1">
@@ -13,14 +21,10 @@ function TitleWitFileUs({ fileUs }: { fileUs: FileUs; }) {
 
 export function RightTitle() {
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
-    return (<>
-        {!fileUs
-            ? (
-                <div className="h-full select-none flex items-center">No File</div>
-            )
-            : (
-                <TitleWitFileUs fileUs={fileUs} />
-            )
-        }
-    </>);
+
+    if (!fileUs) {
+        return <TitleNoFile />;
+    } else {
+        return <TitleWitFileUs fileUs={fileUs} />;
+    }
 }
