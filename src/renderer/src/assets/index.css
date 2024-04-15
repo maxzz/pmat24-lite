@@ -63,7 +63,7 @@
     .dark-checkbox {
         @apply form-checkbox
         /**/
-        text-mani-muted bg-mani-background
+        text-mani-muted bg-mani-background checked:bg-mani-background
         /**/
         ring-1 focus:ring-1 ring-mani-border-muted focus:ring-mani-ring-activated focus:ring-offset-mani-background
         /**/
@@ -77,11 +77,11 @@
     .dark-radio {
         @apply form-radio
         /**/
-        text-mani-muted bg-mani-background
+        text-mani-muted bg-mani-background checked:bg-mani-background
         /**/
         ring-1 focus:ring-1 ring-mani-ring focus:ring-mani-ring-activated focus:ring-offset-mani-background
         /**/
-        checked:ring-mani-ring
+        /* checked:ring-mani-ring */
         /**/
         border-none transition-shadow cursor-pointer;
     }
