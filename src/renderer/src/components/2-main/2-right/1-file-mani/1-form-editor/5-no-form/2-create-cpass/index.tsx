@@ -9,7 +9,7 @@ import {
     SelectValue
 } from "@/ui/shadcn/select";
 
-export function ButtonCreate() {
+export function ButtonCreateFormSelector({label}: {label: string}) {
     const [selected, setSelected] = useState('');
     if (selected) {
         return null;
@@ -17,7 +17,7 @@ export function ButtonCreate() {
     return (
         <Select onValueChange={(value) => { console.log(value); setSelected(value); }}>
             <SelectTrigger className="px-2 w-max text-xs font-semibold gap-1">
-                <SelectValue placeholder="Create a password change form" />
+                <SelectValue placeholder={label} />
             </SelectTrigger>
 
             <SelectContent align="center">

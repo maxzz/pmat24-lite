@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/store-types";
 import { Button } from "@/ui";
 
-import { ButtonCreate } from "./2-create-cpass";
+import { ButtonCreateFormSelector } from "./2-create-cpass";
 
 export function NoForm({ formType }: { formType: FormIdx; }) {
     const label = formType === FormIdx.login ? "No login form" : "No password change form";
@@ -18,7 +18,7 @@ export function NoForm({ formType }: { formType: FormIdx; }) {
                         Create a password change form
                     </Button> */}
 
-                    <ButtonCreate />
+                    <ButtonCreateFormSelector label="Create a password change form" />
                 </>)}
             </div>
 
