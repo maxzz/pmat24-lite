@@ -9,7 +9,7 @@ import {
     SelectValue
 } from "@/ui/shadcn/select";
 
-export function ButtonCreateFormSelector({label}: {label: string}) {
+export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLabel: string; subLabel?: string; }) {
     const [selected, setSelected] = useState('');
     if (selected) {
         return null;
@@ -17,12 +17,13 @@ export function ButtonCreateFormSelector({label}: {label: string}) {
     return (
         <Select onValueChange={(value) => { console.log(value); setSelected(value); }}>
             <SelectTrigger className="px-2 w-max text-xs font-semibold gap-1">
-                <SelectValue placeholder={label} />
+                <SelectValue placeholder={triggerLabel} />
             </SelectTrigger>
 
             <SelectContent align="center">
                 <SelectGroup>
-                    <SelectLabel>How to create form</SelectLabel>
+                    {subLabel && <SelectLabel>{subLabel}</SelectLabel>}
+                    
                     <SelectItem className="text-xs" value="banana">Create from website or Windows application</SelectItem>
                     <SelectItem className="text-xs" value="blueberry">Define form manually for website</SelectItem>
                     <SelectItem className="text-xs" value="apple">Create manual mode (for Windows apps only)</SelectItem>

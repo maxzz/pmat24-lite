@@ -1,6 +1,4 @@
 import { FormIdx } from "@/store/store-types";
-import { Button } from "@/ui";
-
 import { ButtonCreateFormSelector } from "./2-create-cpass";
 
 export function NoForm({ formType }: { formType: FormIdx; }) {
@@ -13,15 +11,10 @@ export function NoForm({ formType }: { formType: FormIdx; }) {
                     {label}
                 </div>
 
-                {isCpass && (<>
-                    {/* <Button className="ml-2" onClick={() => alert('TODO: create password change form')}>
-                        Create a password change form
-                    </Button> */}
-
-                    <ButtonCreateFormSelector label="Create a password change form" />
-                </>)}
+                {isCpass && (
+                    <ButtonCreateFormSelector triggerLabel="Create a password change form" subLabel="How to create form" />
+                )}
             </div>
-
         </div>
     );
 }

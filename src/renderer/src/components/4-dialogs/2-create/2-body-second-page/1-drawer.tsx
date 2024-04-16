@@ -11,7 +11,7 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 function DrawerItems() {
     return (
         <div className="text-xs px-1">
-            <ButtonCreateFormSelector label="Create new manifest" />
+            <ButtonCreateFormSelector triggerLabel="Create new manifest" />
         </div>
     );
 }
