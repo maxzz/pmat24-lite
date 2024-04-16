@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/store-types";
-import { ButtonCreateFormSelector } from "./2-create-cpass";
+import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 
 export function NoForm({ formType }: { formType: FormIdx; }) {
     const label = formType === FormIdx.login ? "No login form" : "No password change form";
@@ -7,7 +7,7 @@ export function NoForm({ formType }: { formType: FormIdx; }) {
     return (
         <div className="h-full flex items-center justify-center">
             <div className="flex flex-col items-center gap-2">
-                <div className="px-4 text-xs text-mani-title dark:text-mani-title/50 select-none">
+                <div className="px-4 text-xs text-mani-title select-none">
                     {label}
                 </div>
 
