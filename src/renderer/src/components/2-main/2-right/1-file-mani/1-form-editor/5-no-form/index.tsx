@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/store-types";
 import { Button } from "@/ui";
 
-import { ButtonCreate } from "./2-create-cpass/ButtonCreate";
+import { ButtonCreate } from "./2-create-cpass";
 
 export function NoForm({ formType }: { formType: FormIdx; }) {
     const label = formType === FormIdx.login ? "No login form" : "No password change form";
@@ -13,13 +13,13 @@ export function NoForm({ formType }: { formType: FormIdx; }) {
                     {label}
                 </div>
 
-                {isCpass && (
-                    <Button className="ml-2" onClick={() => alert('TODO: create password change form')}>
+                {isCpass && (<>
+                    {/* <Button className="ml-2" onClick={() => alert('TODO: create password change form')}>
                         Create a password change form
-                    </Button>
-                )}
+                    </Button> */}
 
-                <ButtonCreate />
+                    <ButtonCreate />
+                </>)}
             </div>
 
         </div>

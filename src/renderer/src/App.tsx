@@ -19,9 +19,11 @@ export function App(): JSX.Element {
 
         <AppGlobalShortcuts />
         <AppGlobalDialogs />
+        <Toaster />
+
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
+        
         <WorldToReactListener />
         <OnAppMount />
-        <Toaster />
     </>);
 }

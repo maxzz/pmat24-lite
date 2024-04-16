@@ -24,6 +24,7 @@ export function MainDropdownMenu() {
     const [open, setOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={open} onOpenChange={setOpen} modal={true}>
+
             <DropdownMenuTrigger asChild>
                 <Button className="px-1" variant="outline" size="xs">
                     <IconMenuHamburger className="size-5" />
@@ -40,15 +41,20 @@ export function MainDropdownMenu() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>Preferences</DropdownMenuSubTrigger>
+                    <DropdownMenuSubTrigger>
+                        Preferences
+                    </DropdownMenuSubTrigger>
+
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent className="text-xs">
-                            
                             <MenuItem_Settings />
                             <DropdownMenuSeparator />
 
                             <DropdownMenuSub>
-                                <DropdownMenuSubTrigger>Debug</DropdownMenuSubTrigger>
+                                <DropdownMenuSubTrigger>
+                                    Debug
+                                </DropdownMenuSubTrigger>
+                                
                                 <DropdownMenuPortal>
                                     <DropdownMenuSubContent className="text-xs">
                                         <MenuItem_GetSaw />
@@ -58,14 +64,13 @@ export function MainDropdownMenu() {
                             </DropdownMenuSub>
 
                             <MenuItem_More />
-
                         </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                 </DropdownMenuSub>
 
                 <MenuItem_FileExit />
-
             </DropdownMenuContent>
+
         </DropdownMenu>
     );
 }
