@@ -7,11 +7,11 @@ import { TabOptions } from "../4-options";
 
 export function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>
-        <SubSection value="fields" label="Fields">
+        <SubSection value="fields" label="Form fields">
             <TabFields fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
-        <SubSection value="submit" label="Submit options">
+        <SubSection value="submit" label="Form submit options">
             <TabSubmit fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 

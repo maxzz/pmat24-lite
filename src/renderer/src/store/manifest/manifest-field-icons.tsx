@@ -15,22 +15,23 @@ export const fieldIcons: Record<Exclude<keyof typeof FieldTyp, 'und'>, FC> = {
     listbx: SymbolFieldLst,
 };
 
-export type FieldIconTypes = Pick<Mani.Field, 'type' | 'password' | 'choosevalue'>;
+export type TypeFieldsForIcon = Pick<Mani.Field, 'type' | 'password' | 'choosevalue'>;
 
-export function FieldTypeIconComponent({ field, className }: { field: FieldIconTypes; className?: string; }) {
-    const type = field.password ? "psw" : field.type as keyof typeof fieldIcons;
-    const Icon =
-        fieldIcons[type]?.({
-            className,
-            title: type !== "list"
-                ? `Field type: ${type}`
-                : `Field choices: ${field.choosevalue}`,
-        })
-        || <div className="text-red-500">nan</div>;
+export function FieldTypeIconComponent({ field, className }: { field: TypeFieldsForIcon; className?: string; }) {
+    const type = field.password
+        ? "psw"
+        : field.type as keyof typeof fieldIcons;
+        
+    const title =
+        type === "list"
+            ? `Field choices: ${field.choosevalue}`
+            : `Field type: ${type}`;
+
+    const Icon = fieldIcons[type]?.({ className, title }) || <div className="text-red-500">nan</div>;
     return Icon;
 }
 
-export function engineControlToFieldIconType(item: EngineControl): FieldIconTypes {
+export function engineControlToFieldIconType(item: EngineControl): TypeFieldsForIcon {
     const isPsw = item.type === 'psw';
     return {
         type: (isPsw ? 'edit' : item.type) as Mani.FieldTypeStr,

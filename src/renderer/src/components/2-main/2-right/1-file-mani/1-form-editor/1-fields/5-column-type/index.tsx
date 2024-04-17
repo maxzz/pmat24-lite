@@ -7,9 +7,9 @@ import { FieldTypeIconComponent } from '@/store/manifest/manifest-field-icons';
 const column5_TypeClasses = "\
 size-8 pt-1 text-[.6rem] \
 \
-text-mani-muted-foreground 1bg-mani-background \
+text-mani-muted-foreground \
 \
-border-mani-border border \
+border-muted-foreground/40 border \
 \
 rounded \
 select-none \
