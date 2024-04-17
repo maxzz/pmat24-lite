@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { FieldTyp, Mani } from "@/store/manifest";
-import { EngineControl } from "@shared/ipc-types";
 import { SymbolFieldBtn, SymbolFieldTxt, SymbolFieldChk, SymbolFieldLst, SymbolFieldPsw, SymbolFieldEdt } from "@ui/icons";
+import { EngineControl } from "@shared/ipc-types";
 
-export const fieldIcons: Record<Exclude<keyof typeof FieldTyp, 'und'>, FC> = {
+type FieldValidKeys = Exclude<keyof typeof FieldTyp, 'und'>;
+
+export const fieldIcons: Record<FieldValidKeys, FC> = {
     edit: SymbolFieldEdt,
     psw: SymbolFieldPsw,
     check: SymbolFieldChk,
@@ -15,34 +17,47 @@ export const fieldIcons: Record<Exclude<keyof typeof FieldTyp, 'und'>, FC> = {
     listbx: SymbolFieldLst,
 };
 
-export type TypeFieldsForIcon = Pick<Mani.Field, 'type' | 'password' | 'choosevalue'>;
+export type FieldPartsToSelectIcon = Pick<Mani.Field, 'type' | 'password' | 'choosevalue'>;
 
-export function FieldTypeIconComponent({ field, className }: { field: TypeFieldsForIcon; className?: string; }) {
+export function FieldTypeIconComponent({ field, className, title }: { field: FieldPartsToSelectIcon; className?: string; title?: string; }) {
     const type = field.password
         ? "psw"
         : field.type as keyof typeof fieldIcons;
-        
-    const Icon = fieldIcons[type]?.({ className }) || <div className="text-red-500">nan</div>;
+
+    const Icon = fieldIcons[type]?.({ className, title }) || <div className="text-red-500">nan</div>;
     return Icon;
 }
 
-export function fieldTypeTitle(field: TypeFieldsForIcon) {
+export const fieldTitle: Record<FieldValidKeys, string> = {
+    edit: 'edit',
+    psw: 'psw',
+    check: 'checkbox',
+    radio: 'radio button',
+    list: 'listbox',
+    combo: 'combobox',
+    text: 'text',
+    button: 'button',
+    listbx: 'listbox',
+};
+
+export function fieldTypeTitle(field: FieldPartsToSelectIcon) {
     const type = field.password
         ? "psw"
-        : field.type as keyof typeof fieldIcons;
-        
+        : field.type as keyof typeof fieldTitle;
+    const typeName = fieldTitle[type]
+
     const title =
         type === "list"
-            ? `Field choices: ${field.choosevalue}`
-            : `Field type: ${type}`;
+            ? `Field ${typeName} choices:\n${field.choosevalue?.split(':').join('\n') || 'No choices'}`
+            : `Field type: ${typeName}`;
     return title;
 }
 
-export function engineControlToFieldIconType(item: EngineControl): TypeFieldsForIcon {
+export function engineControlToFieldIconType(item: EngineControl): FieldPartsToSelectIcon {
     const isPsw = item.type === 'psw';
     return {
         type: (isPsw ? 'edit' : item.type) as Mani.FieldTypeStr,
         password: isPsw,
-        ...(item.choosevalues.length && { choosevalue: item.choosevalues.join(',') }),
+        ...(item.choosevalues.length && { choosevalue: item.choosevalues.join(', ') }),
     };
 }

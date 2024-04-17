@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import { PrimitiveAtom as PA, useAtomValue } from 'jotai';
 import { Meta } from '@/store/manifest';
 import { classNames } from '@/utils';
-import { FieldTypeIconComponent } from '@/store/manifest/manifest-field-icons';
+import { FieldTypeIconComponent, fieldTypeTitle } from '@/store/manifest/manifest-field-icons';
 
 const column5_TypeClasses = "\
 size-8 pt-1 text-[.6rem] \
@@ -22,10 +22,11 @@ type Column5_TypeProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export function Column5_Type({ useItAtom, field, className, ...rest }: Column5_TypeProps) {
-    const { password, type = 'NOTYPE' } = field.mani;
     const useIt = useAtomValue(useItAtom);
+    const { password, type = 'NOTYPE' } = field.mani;
+    const title = fieldTypeTitle(field.mani);
     return (
-        <div className={classNames(column5_TypeClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+        <div className={classNames(column5_TypeClasses, !useIt && "opacity-30 cursor-pointer", className)} title={title} {...rest}>
             <FieldTypeIconComponent className="size-5" field={field.mani} />
 
             <div className="-mt-2">
