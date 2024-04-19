@@ -29,12 +29,12 @@ export const treeFilesAtom = atom( // files to show in the tree
                         return;
                     }
                     const site = fcnt.stats.domain || fcnt.fname;
-                    const icon = fileIcon(fcnt);
+                    const { icon, hasBailOut } = fileIcon(fcnt);
                     const rv: TreeFileItem = {
                         id: fcnt.id,
                         name: site,
                         fcnt: fcntAtom,
-                        icon: appIcon(icon),
+                        icon: appIcon(icon, hasBailOut),
                     };
                     return rv;
                 }
@@ -47,21 +47,42 @@ export const treeFilesAtom = atom( // files to show in the tree
 
         function fileIcon(fcnt: FileUs) {
             if (fcnt.fcat) {
-                return AppIconType.cat;
+                return { icon: AppIconType.cat };
             }
             const isMan = isManual(fcnt);
             const hasBailOut = isAnyWhy(fcnt);
-            return hasBailOut ?
-                fcnt.stats.isWeb
-                    ? AppIconType.webWarning
-                    : isMan
-                        ? AppIconType.manWarning
-                        : AppIconType.winWarning
-                : fcnt.stats.isWeb
+            return {
+                icon: fcnt.stats.isWeb
                     ? AppIconType.web
                     : isMan
                         ? AppIconType.man
-                        : AppIconType.win;
+                        : AppIconType.win,
+                hasBailOut,
+            };
+
+            // hasBailOut ?
+            //     fcnt.stats.isWeb
+            //         ? AppIconType.webWarning
+            //         : isMan
+            //             ? AppIconType.manWarning
+            //             : AppIconType.winWarning
+            //     : fcnt.stats.isWeb
+            //         ? AppIconType.web
+            //         : isMan
+            //             ? AppIconType.man
+            //             : AppIconType.win;
+
+            // return hasBailOut ?
+            //     fcnt.stats.isWeb
+            //         ? AppIconType.webWarning
+            //         : isMan
+            //             ? AppIconType.manWarning
+            //             : AppIconType.winWarning
+            //     : fcnt.stats.isWeb
+            //         ? AppIconType.web
+            //         : isMan
+            //             ? AppIconType.man
+            //             : AppIconType.win;
         }
     }
 );
