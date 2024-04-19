@@ -1,7 +1,7 @@
 import { HTMLAttributes, SVGAttributes } from 'react';
-import { classNames } from '@/utils'; // https://lucide.dev/icons/chrome
+import { classNames } from '@/utils';
 
-export function SvgSymbolAppWebChrome() {
+export function SvgSymbolAppWebChrome() { // https://lucide.dev/icons/chrome
     return (
         <symbol id="app-web-chrome" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" />
@@ -15,7 +15,7 @@ export function SvgSymbolAppWebChrome() {
 
 export function SymbolAppWebChrome({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current stroke-[1]", className)} {...rest}>
+        <svg className={classNames("fill-none stroke-current", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-web-chrome" />

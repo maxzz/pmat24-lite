@@ -1,9 +1,7 @@
 import { HTMLAttributes, SVGAttributes } from 'react';
 import { classNames } from '@/utils';
 
-// WinXp outlined flag
-
-export function SvgSymbolAppWin() {
+export function SvgSymbolAppWin() { // WinXp outlined flag
     return (
         <symbol id="app-win32" viewBox="0 0 24 24">
             <path strokeLinecap="square" strokeLinejoin="bevel"
@@ -15,7 +13,7 @@ export function SvgSymbolAppWin() {
 
 export function SymbolAppWin({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current stroke-1", className)} {...rest}>
+        <svg className={classNames("fill-none stroke-current", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-win32" />
