@@ -3,6 +3,8 @@ import { SymbolAppWebChrome, SymbolAppWin, SymbolCatalog, SymbolManualMode } fro
 import { classNames } from "@/utils";
 import { SymbolAppWebIE } from "@/ui/icons/symbols/app/4-app-web-ie";
 import { SymbolAppWebIEText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
+import { FileUs } from "../store-types";
+import { isAnyWhy, isManual } from "./3-mani-utils";
 
 export const enum AppIconType {
     web,    // web chrome
@@ -34,3 +36,26 @@ export function appIcon(iconType: AppIconType, warning?: boolean): TreenIconType
 
 // const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE     className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
 // const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIEText className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
+
+export function fileUsToIcon(fcnt: FileUs): { icon: AppIconType; hasBailOut: boolean } {
+    if (fcnt.fcat) {
+        return { icon: AppIconType.cat, hasBailOut: false };
+    }
+
+    const hasBailOut = isAnyWhy(fcnt);
+
+    // if (isAnyIe6(fcnt)) { // OK: but commented out ie6 for now. there are too many of them
+    //     return { icon: AppIconType.ie6, hasBailOut };
+    // }
+
+    const icon =
+        fcnt.stats.isWeb
+            ? AppIconType.web
+            : isManual(fcnt)
+                ? AppIconType.man
+                : AppIconType.win;
+    return {
+        icon,
+        hasBailOut,
+    };
+}
