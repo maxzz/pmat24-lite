@@ -51,9 +51,9 @@ function fileIcon(fcnt: FileUs) {
 
     const hasBailOut = isAnyWhy(fcnt);
 
-    if (isAnyIe6(fcnt)) {
-        return { icon: AppIconType.ie6, hasBailOut };
-    }
+    // if (isAnyIe6(fcnt)) { // OK: but commented out ie6 for now. there are too many of them
+    //     return { icon: AppIconType.ie6, hasBailOut };
+    // }
 
     const icon =
         fcnt.stats.isWeb
