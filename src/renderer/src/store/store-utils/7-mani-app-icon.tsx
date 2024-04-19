@@ -7,8 +7,9 @@ import { SymbolAppWebIEText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 export const enum AppIconType {
     web,
     win,
-    man,            // manual mode
-    cat,            // field catalog
+    man,        // manual mode
+    cat,        // field catalog
+    ie6,        // internet explorer 6-11
 }
 
 // webWarning,     // web app warning
@@ -29,17 +30,24 @@ const ManWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolManualMo
 
 const Catalog = ({ className, ...rest }: SVGIconTypeProps) => <SymbolCatalog className={classNames("text-muted-foreground", className)} {...rest} />;
 
-const components = {
-    [AppIconType.web]: { icon: SymbolAppWebChrome, /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
-    [AppIconType.win]: { icon: SymbolAppWin,       /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
-    [AppIconType.man]: { icon: SymbolManualMode,   /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
-    [AppIconType.cat]: { icon: SymbolCatalog,      /**/ normalClasses: "text-muted-foreground", warningClasses: "" },
+type IconsTable = Record<AppIconType, { Icon: TreenIconType, normalClasses: string, warningClasses: string }>;
+
+const normalClasses = "text-muted-foreground";
+const warningClasses = "text-red-500 fill-red-300 opacity-75";
+
+const components: IconsTable = {
+    [AppIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
+    [AppIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
+    [AppIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: "text-muted-foreground", warningClasses: "text-red-500 fill-red-300 opacity-75" },
+    [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: "text-muted-foreground", warningClasses: "" },
+    [AppIconType.ie6]: { Icon: SymbolAppWebIEText, /**/ normalClasses: "text-muted-foreground", warningClasses: "" },
 };
 
 export function appIcon(iconType: AppIconType, warning?: boolean): TreenIconType {
-    const { icon, normalClasses, warningClasses } = components[iconType];
-    
-    const fn = ({ className, ...rest }: SVGIconTypeProps) => icon({ className: classNames(normalClasses, warning && warningClasses, className), ...rest });
+    const { Icon, normalClasses, warningClasses } = components[iconType];
+
+    // const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => icon({ className: classNames(warning ? warningClasses : normalClasses, className), ...rest });
+    const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />;
     return fn;
 }
 
