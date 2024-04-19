@@ -1,0 +1,10 @@
+<svg id="renders" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-2{fill:none;stroke:#000;stroke-width:.4px}
+    </style>
+  </defs>
+  <path fill="#ccc" stroke-width="0" d="M0 0h24v24H0z"/>
+  <path class="cls-2" d="M2.38 17.52h2.79V6.48H2.38V4.95h8.3v1.53H7.77v11.05h2.91v1.53h-8.3v-1.53Z"/>
+  <path class="cls-2" d="M12.68 4.95h8.82v1.53h-6.22v4.4h5.36v1.53h-5.36v5.12h6.35v1.53h-8.95V4.95Z"/>
+</svg>

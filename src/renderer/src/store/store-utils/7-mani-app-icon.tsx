@@ -1,6 +1,8 @@
 import { TreenIconType } from "@/ui/shadcn/tree";
 import { SymbolAppWebChrome, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
+import { SymbolAppWebIE } from "@/ui/icons/symbols/app/4-app-web-ie";
+import { SymbolAppWebIEText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 
 export const enum AppIconType {
     web,
@@ -12,7 +14,9 @@ export const enum AppIconType {
     cat,            // field catalog
 }
 
-const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-muted-foreground", className)} {...rest} />;
+// const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-muted-foreground", className)} {...rest} />;
+// const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
+const Web = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIEText className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
 
 const WebWarning = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebChrome className={classNames("text-red-500 fill-red-300 opacity-75", className)} {...rest} />;
 
