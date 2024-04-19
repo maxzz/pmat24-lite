@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FileUs, FileUsAtomType } from "@/store/store-types";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
-import { AppIconType, appIcon, isAnyWhy, isManual } from "@/store/store-utils";
+import { AppIconType, appIcon, isAnyIe6, isAnyWhy, isManual } from "@/store/store-utils";
 
 export type TreeFcntItem = {
     fcnt: FileUsAtomType;
@@ -17,7 +17,6 @@ export const treeFilesAtom = atom( // files to show in the tree
         const files = get(filteredAtom);
 
         if (!files.length) {
-            // console.log('return treeFiles.atom []');
             return [];
         }
 
@@ -41,48 +40,29 @@ export const treeFilesAtom = atom( // files to show in the tree
             )
             .filter(Boolean);
 
-        // console.log('return treeFiles.atom', filesTree);
-
         return filesTree;
-
-        function fileIcon(fcnt: FileUs) {
-            if (fcnt.fcat) {
-                return { icon: AppIconType.cat };
-            }
-            const isMan = isManual(fcnt);
-            const hasBailOut = isAnyWhy(fcnt);
-            return {
-                icon: fcnt.stats.isWeb
-                    ? AppIconType.web
-                    : isMan
-                        ? AppIconType.man
-                        : AppIconType.win,
-                hasBailOut,
-            };
-
-            // hasBailOut ?
-            //     fcnt.stats.isWeb
-            //         ? AppIconType.webWarning
-            //         : isMan
-            //             ? AppIconType.manWarning
-            //             : AppIconType.winWarning
-            //     : fcnt.stats.isWeb
-            //         ? AppIconType.web
-            //         : isMan
-            //             ? AppIconType.man
-            //             : AppIconType.win;
-
-            // return hasBailOut ?
-            //     fcnt.stats.isWeb
-            //         ? AppIconType.webWarning
-            //         : isMan
-            //             ? AppIconType.manWarning
-            //             : AppIconType.winWarning
-            //     : fcnt.stats.isWeb
-            //         ? AppIconType.web
-            //         : isMan
-            //             ? AppIconType.man
-            //             : AppIconType.win;
-        }
     }
 );
+
+function fileIcon(fcnt: FileUs) {
+    if (fcnt.fcat) {
+        return { icon: AppIconType.cat };
+    }
+
+    const hasBailOut = isAnyWhy(fcnt);
+
+    if (isAnyIe6(fcnt)) {
+        return { icon: AppIconType.ie6, hasBailOut };
+    }
+
+    const icon =
+        fcnt.stats.isWeb
+            ? AppIconType.web
+            : isManual(fcnt)
+                ? AppIconType.man
+                : AppIconType.win;
+    return {
+        icon,
+        hasBailOut,
+    };
+}

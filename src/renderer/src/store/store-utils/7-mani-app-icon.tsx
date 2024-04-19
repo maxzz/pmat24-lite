@@ -5,11 +5,11 @@ import { SymbolAppWebIE } from "@/ui/icons/symbols/app/4-app-web-ie";
 import { SymbolAppWebIEText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 
 export const enum AppIconType {
-    web,
-    win,
+    web,    // web chrome
+    win,    // windows app
     man,    // manual mode
-    cat,    // field catalog
     ie6,    // internet explorer 6-11
+    cat,    // field catalog
 }
 
 type IconsTable = Record<AppIconType, { Icon: TreenIconType, normalClasses: string, warningClasses: string }>;
@@ -21,8 +21,8 @@ const components: IconsTable = {
     [AppIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
     [AppIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
     [AppIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
     [AppIconType.ie6]: { Icon: SymbolAppWebIEText, /**/ normalClasses: normalClasses, warningClasses: "" },
+    [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
 export function appIcon(iconType: AppIconType, warning?: boolean): TreenIconType {
@@ -32,5 +32,5 @@ export function appIcon(iconType: AppIconType, warning?: boolean): TreenIconType
     return fn;
 }
 
-// const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
-const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIEText className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
+// const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE     className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
+// const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIEText className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
