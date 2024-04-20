@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { FileUs, FileUsAtomType } from "@/store/store-types";
-import { appTypeToIcon, fileUsToAppType } from "@/store/store-utils";
+import { FileUsAtomType } from "@/store/store-types";
+import { appTypeToIcon, fileUsToAppType, getFileListDisplayName } from "@/store/store-utils";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
 
@@ -48,7 +48,4 @@ export const treeFilesAtom = atom( // files to show in the tree
     }
 );
 
-//TODO: move to store-utils
-function getFileListDisplayName(fileUs: FileUs) {
-    return fileUs.stats.domain || fileUs.fname;
-}
+
