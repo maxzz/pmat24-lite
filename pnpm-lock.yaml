@@ -33,11 +33,11 @@ dependencies:
     specifier: ^4.3.6
     version: 4.3.6
   jotai:
-    specifier: ^2.7.1
-    version: 2.7.1(@types/react@18.2.79)(react@18.2.0)
+    specifier: ^2.8.0
+    version: 2.8.0(@types/react@18.2.79)(react@18.2.0)
   jotai-valtio:
     specifier: ^0.4.0
-    version: 0.4.0(jotai@2.7.1)(valtio@1.13.2)
+    version: 0.4.0(jotai@2.8.0)(valtio@1.13.2)
   pm-manifest:
     specifier: ^1.1.1
     version: 1.1.1
@@ -155,8 +155,8 @@ devDependencies:
     specifier: ^3.4.3
     version: 3.4.3
   typescript:
-    specifier: ^5.4.2
-    version: 5.4.3
+    specifier: ^5.4.5
+    version: 5.4.5
   vite:
     specifier: ^5.1.6
     version: 5.2.6(@types/node@20.12.7)
@@ -2988,7 +2988,7 @@ packages:
     resolution: {integrity: sha512-6boGVaglwblBgJqGyxm4+xCmEGcWgnWHSWHY5jad58awQhB6gftq0G8HbzU39YqCIYHMLAiL1yjwiZ36m/CL8w==}
     dependencies:
       glob: 10.3.10
-      typescript: 5.4.3
+      typescript: 5.4.5
     dev: true
 
   /console-control-strings@1.1.0:
@@ -4119,18 +4119,18 @@ packages:
     hasBin: true
     dev: true
 
-  /jotai-valtio@0.4.0(jotai@2.7.1)(valtio@1.13.2):
+  /jotai-valtio@0.4.0(jotai@2.8.0)(valtio@1.13.2):
     resolution: {integrity: sha512-j19IjUHjlbIzwM3I5dE8Me9nVGa/uJMQrnprg+wnR9xxdB7uXf4b+fldlTyNFgDN6HP8XSdIztKTMHlIp1365Q==}
     peerDependencies:
       jotai: '>=1.11.0'
       valtio: '*'
     dependencies:
-      jotai: 2.7.1(@types/react@18.2.79)(react@18.2.0)
+      jotai: 2.8.0(@types/react@18.2.79)(react@18.2.0)
       valtio: 1.13.2(@types/react@18.2.79)(react@18.2.0)
     dev: false
 
-  /jotai@2.7.1(@types/react@18.2.79)(react@18.2.0):
-    resolution: {integrity: sha512-bsaTPn02nFgWNP6cBtg/htZhCu4s0wxqoklRHePp6l/vlsypR9eLn7diRliwXYWMXDpPvW/LLA2afI8vwgFFaw==}
+  /jotai@2.8.0(@types/react@18.2.79)(react@18.2.0):
+    resolution: {integrity: sha512-yZNMC36FdLOksOr8qga0yLf14miCJlEThlp5DeFJNnqzm2+ZG7wLcJzoOyij5K6U6Xlc5ljQqPDlJRgqW0Y18g==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -5673,8 +5673,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /typescript@5.4.3:
-    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
+  /typescript@5.4.5:
+    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
