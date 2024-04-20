@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@electron-toolkit/preload':
-    specifier: ^3.0.0
-    version: 3.0.0(electron@29.1.6)
+    specifier: ^3.0.1
+    version: 3.0.1(electron@30.0.1)
   '@electron-toolkit/utils':
     specifier: ^3.0.0
-    version: 3.0.0(electron@29.1.6)
+    version: 3.0.0(electron@30.0.1)
   '@radix-ui/react-dialog':
     specifier: ^1.0.5
     version: 1.0.5(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react@18.2.0)
@@ -116,8 +116,8 @@ devDependencies:
     specifier: ^0.7.0
     version: 0.7.0
   electron:
-    specifier: ^29.1.6
-    version: 29.1.6
+    specifier: ^30.0.1
+    version: 30.0.1
   electron-builder:
     specifier: ^24.13.3
     version: 24.13.3(electron-builder-squirrel-windows@25.0.0-alpha.6)
@@ -427,12 +427,12 @@ packages:
       ajv-keywords: 3.5.2(ajv@6.12.6)
     dev: true
 
-  /@electron-toolkit/preload@3.0.0(electron@29.1.6):
-    resolution: {integrity: sha512-DTyvNGits43J1RiQGFN00/OxjjcTcozLWMjgQBANt97FFptEYiLVasq7kMC24nMwwoOpdDYY9CE6C+4wQJ55/w==}
+  /@electron-toolkit/preload@3.0.1(electron@30.0.1):
+    resolution: {integrity: sha512-EzoQmpK8jqqU8YnM5jRe0GJjGVJPke2KtANqz8QtN2JPT96ViOvProBdK5C6riCm0j1T8jjAGVQCZLQy9OVoIA==}
     peerDependencies:
       electron: '>=13.0.0'
     dependencies:
-      electron: 29.1.6
+      electron: 30.0.1
     dev: false
 
   /@electron-toolkit/tsconfig@1.0.1(@types/node@20.12.7):
@@ -443,12 +443,12 @@ packages:
       '@types/node': 20.12.7
     dev: true
 
-  /@electron-toolkit/utils@3.0.0(electron@29.1.6):
+  /@electron-toolkit/utils@3.0.0(electron@30.0.1):
     resolution: {integrity: sha512-GaXHDhiT7KCvMJjXdp/QqpYinq69T/Pdl49Z1XLf8mKGf63dnsODMWyrmIjEQ0z/vG7dO8qF3fvmI6Eb2lUNZA==}
     peerDependencies:
       electron: '>=13.0.0'
     dependencies:
-      electron: 29.1.6
+      electron: 30.0.1
     dev: false
 
   /@electron/asar@3.2.9:
@@ -3371,8 +3371,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron@29.1.6:
-    resolution: {integrity: sha512-UIYfpHR9gRBFKHyejHuXUVQ7nNzZRnoPVOHlijkvqR+DSLwgJ2ZcVVt0LNduNeO8PhPkY1+6kHonL52OTC1cOw==}
+  /electron@30.0.1:
+    resolution: {integrity: sha512-iwxkI/n2wBd29NH7TH0ZY8aWGzCoKpzJz+D10u7aGSJi1TV6d4MSM3rWyKvT/UkAHkTKOEgYfUyCa2vWQm8L0g==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
