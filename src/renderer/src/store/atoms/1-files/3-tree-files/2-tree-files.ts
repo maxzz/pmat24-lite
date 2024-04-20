@@ -29,12 +29,11 @@ export const treeFilesAtom = atom( // files to show in the tree
                         return;
                     }
 
-                    const site = getFileListDisplayName(fileUs);
                     const { icon, hasBailOut } = fileUsToAppType(fileUs);
 
                     const rv: TreeFileItem = {
                         id: fileUs.id,
-                        name: site,
+                        name: getFileListDisplayName(fileUs),
                         fcnt: fileUsAtom,
                         icon: appTypeToIcon(icon, hasBailOut),
                     };
