@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FileUsAtomType } from "@/store/store-types";
+import { FileUs, FileUsAtomType } from "@/store/store-types";
 import { appTypeToIcon, fileUsToAppType } from "@/store/store-utils";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
@@ -22,20 +22,20 @@ export const treeFilesAtom = atom( // files to show in the tree
 
         const filesTree: TreeFileItem[] = files
             .map(
-                (fcntAtom) => {
-                    const fcnt = get(fcntAtom);
+                (fileUsAtom) => {
+                    const fileUs = get(fileUsAtom);
 
-                    if (fcnt.fcat || !fcnt.mani) {
+                    if (fileUs.fcat || !fileUs.mani) {
                         return;
                     }
-                    
-                    const site = fcnt.stats.domain || fcnt.fname;
-                    const { icon, hasBailOut } = fileUsToAppType(fcnt);
+
+                    const site = getFileListDisplayName(fileUs);
+                    const { icon, hasBailOut } = fileUsToAppType(fileUs);
 
                     const rv: TreeFileItem = {
-                        id: fcnt.id,
+                        id: fileUs.id,
                         name: site,
-                        fcnt: fcntAtom,
+                        fcnt: fileUsAtom,
                         icon: appTypeToIcon(icon, hasBailOut),
                     };
 
@@ -47,3 +47,8 @@ export const treeFilesAtom = atom( // files to show in the tree
         return filesTree;
     }
 );
+
+//TODO: move to store-utils
+function getFileListDisplayName(fileUs: FileUs) {
+    return fileUs.stats.domain || fileUs.fname;
+}
