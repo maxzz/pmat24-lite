@@ -2,9 +2,9 @@ import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { ResizablesState, defaultResizablesState } from "./state-ui";
-import { FormOpenSections, RightPanelState, defaultFormOpenSections, defaultRightPanelState } from "./atoms";
 import { FileListOptions, defaultFileListOptions } from "./atoms/9-ui-state/1-files-list";
 import { atomWithProxy } from "jotai-valtio";
+import { RightPanelOptions, defaultRightPanelOptions } from "./atoms/9-ui-state/2-right-panel";
 
 export type AppSettings = {
     ui: {
@@ -12,9 +12,7 @@ export type AppSettings = {
         resisablesState: ResizablesState;
 
         fileListOptions: FileListOptions;
-
-        rightPanelState: RightPanelState;
-        mainOpenSections: FormOpenSections;
+        rightPanelOptions: RightPanelOptions;
     },
 };
 
@@ -24,9 +22,7 @@ const defaultSettings: AppSettings = {
         resisablesState: defaultResizablesState,
 
         fileListOptions: defaultFileListOptions,
-
-        rightPanelState: defaultRightPanelState,
-        mainOpenSections: defaultFormOpenSections,
+        rightPanelOptions: defaultRightPanelOptions,
     },
 };
 
