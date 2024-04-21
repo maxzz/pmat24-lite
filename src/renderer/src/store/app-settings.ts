@@ -8,9 +8,11 @@ export type AppSettings = {
     ui: {
         theme: ThemeMode;
         resisablesState: ResizablesState;
+        
         shownManis: ShownManis;
         filesSortOrder: FilesSortOrder;
         fileListItems: FileListItemsState;
+
         rightPanelState: RightPanelState;
         mainOpenSections: FormOpenSections;
     },
@@ -20,9 +22,11 @@ const defaultSettings: AppSettings = {
     ui: {
         theme: 'light',
         resisablesState: defaultResizablesState,
+
         shownManis: defaultShownManis,
         filesSortOrder: defaultFilesSortOrder,
         fileListItems: defaultFileListItemsState,
+
         rightPanelState: defaultRightPanelState,
         mainOpenSections: defaultFormOpenSections,
     },

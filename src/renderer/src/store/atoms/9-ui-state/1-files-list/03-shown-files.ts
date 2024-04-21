@@ -1,5 +1,3 @@
-import { proxy } from "valtio";
-
 // Filters state
 
 export type ShownManis = { // currently shown manifests

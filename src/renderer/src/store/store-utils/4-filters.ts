@@ -6,10 +6,12 @@ const reDefaultEscapeCharsRegex = /[-|\\{}()[\]^$+.]/g; // This is defult set bu
 
 const reQuestion = /[\?]/g;
 const reWildcard = /[\*]/g;
+
 function convertToRegex(s: string): string {
     // 0. Wildcard to RegEx. First dot and only then star.
     return s.replace(reDefaultEscapeCharsRegex, '\\$&').replace(reQuestion, '.').replace(reWildcard, '.*');
 }
+
 type FilterParams = {
     winOnly: boolean;
     webOnly: boolean;
@@ -25,9 +27,11 @@ export function createRegexByFilter(s?: string, casesensitive?: boolean): Filter
     let whyOnly = !!(s && s.match(/^why\:/));
     let capOnly = !!(s && s.match(/^cap\:/));
     let clsOnly = !!(s && s.match(/^cls\:/));
+
     if (winOnly || webOnly || whyOnly || capOnly || clsOnly) {
         s = s?.replace(/^(win|web|why|cap|cls)\:/, '');
     }
+    
     return {
         winOnly,
         webOnly,
