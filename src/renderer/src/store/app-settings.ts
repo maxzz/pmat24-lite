@@ -7,15 +7,15 @@ import { RightPanelOptions, defaultRightPanelOptions } from "./atoms/9-ui-state/
 import { AppUIOptions, defaultAppUIOptions } from "./atoms/9-ui-state/3-app-ui";
 
 export type AppSettings = {
-    appUIOptions: AppUIOptions;
-    fileListOptions: FileListOptions;
-    rightPanelOptions: RightPanelOptions;
+    appUI: AppUIOptions;
+    fileList: FileListOptions;
+    rightPanel: RightPanelOptions;
 };
 
 const defaultSettings: AppSettings = {
-    appUIOptions: defaultAppUIOptions,
-    fileListOptions: defaultFileListOptions,
-    rightPanelOptions: defaultRightPanelOptions,
+    appUI: defaultAppUIOptions,
+    fileList: defaultFileListOptions,
+    rightPanel: defaultRightPanelOptions,
 };
 
 const STORE_KEY = "pmat24-lite-app-settings";
@@ -41,10 +41,10 @@ function initialSettings(): AppSettings {
 
 // Apply theme changes
 
-themeApplyMode(appSettings.appUIOptions.theme);
+themeApplyMode(appSettings.appUI.theme);
 
 subscribe(appSettings, () => {
-    themeApplyMode(appSettings.appUIOptions.theme);
+    themeApplyMode(appSettings.appUI.theme);
 });
 
 // Save settings changes to localStorage
@@ -57,4 +57,4 @@ subscribe(appSettings, saveDebounced);
 
 // Valtio state to Jotai atoms bridge
 
-export const fileListOptionsAtom = atomWithProxy<FileListOptions>(appSettings.fileListOptions);
+export const fileListOptionsAtom = atomWithProxy<FileListOptions>(appSettings.fileList);
