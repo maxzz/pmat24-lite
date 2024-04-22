@@ -1,23 +1,19 @@
-import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
+import { themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
-import { ResizablesState, defaultResizablesState } from "./state-ui";
 import { FileListOptions, defaultFileListOptions } from "./atoms/9-ui-state/1-files-list";
 import { atomWithProxy } from "jotai-valtio";
 import { RightPanelOptions, defaultRightPanelOptions } from "./atoms/9-ui-state/2-right-panel";
+import { AppUIOptions, defaultAppUIOptions } from "./atoms/9-ui-state/3-app-ui";
 
 export type AppSettings = {
-    theme: ThemeMode;
-    resisablesState: ResizablesState;
-
+    appUIOptions: AppUIOptions;
     fileListOptions: FileListOptions;
     rightPanelOptions: RightPanelOptions;
 };
 
 const defaultSettings: AppSettings = {
-    theme: 'light',
-    resisablesState: defaultResizablesState,
-
+    appUIOptions: defaultAppUIOptions,
     fileListOptions: defaultFileListOptions,
     rightPanelOptions: defaultRightPanelOptions,
 };
@@ -45,10 +41,10 @@ function initialSettings(): AppSettings {
 
 // Apply theme changes
 
-themeApplyMode(appSettings.theme);
+themeApplyMode(appSettings.appUIOptions.theme);
 
 subscribe(appSettings, () => {
-    themeApplyMode(appSettings.theme);
+    themeApplyMode(appSettings.appUIOptions.theme);
 });
 
 // Save settings changes to localStorage

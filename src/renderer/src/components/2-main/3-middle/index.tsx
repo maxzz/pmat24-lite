@@ -8,10 +8,10 @@ import { IconChevronLeft } from "@/ui/icons";
 
 const panelsStorage: PanelGroupStorage = {
     getItem(name: string): string {
-        return appSettings.resisablesState.positions[name] || '';
+        return appSettings.appUIOptions.resizablesState.positions[name] || '';
     },
     setItem(name: string, value: string): void {
-        appSettings.resisablesState.positions[name] = value; // {"{\"defaultSize\":25},{\"defaultSize\":50}":{"expandToSizes":{},"layout":[50,50]}}
+        appSettings.appUIOptions.resizablesState.positions[name] = value; // {"{\"defaultSize\":25},{\"defaultSize\":50}":{"expandToSizes":{},"layout":[50,50]}}
     }
 };
 
