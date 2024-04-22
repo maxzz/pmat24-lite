@@ -2,14 +2,14 @@ import { ShownManis, defaultShownManis } from "./03-shown-files";
 import { FilesSortOrder, defaultFilesSortOrder } from "./05-files-sort-order";
 import { FileListItemsState, defaultFileListItemsState } from "./07-ui-file-items";
 
-export type FileListOptions = {
+export type FileListSettings = {
     shownManis: ShownManis;
-    filesSortOrder: FilesSortOrder;
-    fileListItems: FileListItemsState;
+    sortOrder: FilesSortOrder;
+    itemsState: FileListItemsState;
 };
 
-export const defaultFileListOptions: FileListOptions = {
+export const defaultFileListSettings: FileListSettings = {
     shownManis: defaultShownManis,
-    filesSortOrder: defaultFilesSortOrder,
-    fileListItems: defaultFileListItemsState,
+    sortOrder: defaultFilesSortOrder,
+    itemsState: defaultFileListItemsState,
 };

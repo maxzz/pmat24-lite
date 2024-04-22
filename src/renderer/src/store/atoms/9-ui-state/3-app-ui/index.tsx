@@ -1,12 +1,12 @@
 import { ThemeMode } from "@/utils";
-import { ResizablesState, defaultResizablesState } from "./1-resizables";
+import { DividerState, defaultDividerState } from "./1-divider";
 
-export type AppUIOptions = {
+export type AppUISettings = {
     theme: ThemeMode;
-    resizablesState: ResizablesState;
+    divider: DividerState;
 };
 
-export const defaultAppUIOptions: AppUIOptions = {
+export const defaultAppUISettings: AppUISettings = {
     theme: 'light',
-    resizablesState: defaultResizablesState,
+    divider: defaultDividerState,
 };

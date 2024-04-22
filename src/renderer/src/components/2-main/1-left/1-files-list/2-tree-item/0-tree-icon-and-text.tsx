@@ -14,7 +14,7 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
     iconClasses = classNames("mr-1.5", iconClasses);
 
-    const showIndex = useSnapshot(appSettings).fileList.fileListItems.showIndex;
+    const showIndex = useSnapshot(appSettings).fileList.itemsState.showIndex;
 
     return (<>
         {showIndex && <CardTitleFileIndex idx={fileIndex} />}

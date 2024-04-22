@@ -50,7 +50,7 @@ export const filteredAtom = atom<FileUsAtomType[]>(
 
         // 2. Sort
 
-        const { order, sortBy } = fileListOptions.filesSortOrder;
+        const { order, sortBy } = fileListOptions.sortOrder;
 
         sortResult(sortBy, order, rv, get);
 

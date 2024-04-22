@@ -1,21 +1,21 @@
 import { themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
-import { FileListOptions, defaultFileListOptions } from "./atoms/9-ui-state/1-files-list";
+import { FileListSettings, defaultFileListSettings } from "./atoms/9-ui-state/1-files-list";
 import { atomWithProxy } from "jotai-valtio";
-import { RightPanelOptions, defaultRightPanelOptions } from "./atoms/9-ui-state/2-right-panel";
-import { AppUIOptions, defaultAppUIOptions } from "./atoms/9-ui-state/3-app-ui";
+import { RightPanelSettings, defaultRightPanelSettings } from "./atoms/9-ui-state/2-right-panel";
+import { AppUISettings, defaultAppUISettings } from "./atoms/9-ui-state/3-app-ui";
 
 export type AppSettings = {
-    appUI: AppUIOptions;
-    fileList: FileListOptions;
-    rightPanel: RightPanelOptions;
+    appUI: AppUISettings;
+    fileList: FileListSettings;
+    rightPanel: RightPanelSettings;
 };
 
 const defaultSettings: AppSettings = {
-    appUI: defaultAppUIOptions,
-    fileList: defaultFileListOptions,
-    rightPanel: defaultRightPanelOptions,
+    appUI: defaultAppUISettings,
+    fileList: defaultFileListSettings,
+    rightPanel: defaultRightPanelSettings,
 };
 
 const STORE_KEY = "pmat24-lite-app-settings";
@@ -57,4 +57,4 @@ subscribe(appSettings, saveDebounced);
 
 // Valtio state to Jotai atoms bridge
 
-export const fileListOptionsAtom = atomWithProxy<FileListOptions>(appSettings.fileList);
+export const fileListOptionsAtom = atomWithProxy<FileListSettings>(appSettings.fileList);
