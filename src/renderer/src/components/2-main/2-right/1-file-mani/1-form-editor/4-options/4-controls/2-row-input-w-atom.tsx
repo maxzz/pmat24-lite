@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
-import { inputRingClasses } from '@/ui';
+import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 \
@@ -16,11 +16,23 @@ outline-none";
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
     const [value, setValue] = useAtom(valueAtom);
     return (
-        <input
-            className={classNames(rowInputClasses, inputRingClasses, className)}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            {...rest}
-        />
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <input
+                        className={classNames(rowInputClasses, inputRingClasses, className)}
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        {...rest}
+                    />
+                </TooltipTrigger>
+
+                <TooltipPortal>
+                    <TooltipContent>
+                        1111111
+                    </TooltipContent>
+                </TooltipPortal>
+            </Tooltip>
+        </TooltipProvider>
     );
 }

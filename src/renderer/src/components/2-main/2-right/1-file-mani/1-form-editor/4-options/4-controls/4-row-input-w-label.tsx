@@ -4,25 +4,12 @@ import { RowInputWAtom } from "./2-row-input-w-atom";
 
 export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<string>; }) {
     return (<>
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
-                        <div className="">
-                            {label}
-                        </div>
-                        <RowInputWAtom valueAtom={valueAtom} />
-                    </Label>
-                </TooltipTrigger>
-
-                <TooltipPortal>
-                    <TooltipContent>
-                        1111111
-                    </TooltipContent>
-                </TooltipPortal>
-            </Tooltip>
-        </TooltipProvider>
-
+        <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
+            <div className="">
+                {label}
+            </div>
+            <RowInputWAtom valueAtom={valueAtom} />
+        </Label>
     </>);
 }
 
