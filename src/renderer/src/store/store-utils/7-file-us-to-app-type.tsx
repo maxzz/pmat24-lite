@@ -1,5 +1,5 @@
 import { FileUs } from "../store-types";
-import { isAnyWhy, isManual } from "./3-mani-utils";
+import { isAnyWhy, isManual } from "./4-mani-utils";
 import { AppIconType } from "./8-app-type-to-icon";
 
 export function fileUsToAppType(fcnt: FileUs): { icon: AppIconType; hasBailOut: boolean; } {
