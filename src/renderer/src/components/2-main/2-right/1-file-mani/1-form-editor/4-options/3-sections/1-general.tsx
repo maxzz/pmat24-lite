@@ -1,6 +1,7 @@
 import { useAtom } from 'jotai';
 import { FormOptionsAtoms } from '../0-all/0-create-atoms';
 import { RowInput } from '../4-controls';
+import { RowInputWLabel } from '../4-controls/4-row-input-w-label';
 
 export function Part1General({ atoms }: { atoms: FormOptionsAtoms; }) {
     const [name, setName] = useAtom(atoms.uiPart1General.nameAtom);
@@ -13,6 +14,8 @@ export function Part1General({ atoms }: { atoms: FormOptionsAtoms; }) {
             Managed login name
         </div>
         <RowInput value={name} onChange={(e) => setName(e.target.value)} />
+
+        <RowInputWLabel valueAtom={atoms.uiPart1General.nameAtom} label="Managed login name" />
 
         <div className="">
             Description

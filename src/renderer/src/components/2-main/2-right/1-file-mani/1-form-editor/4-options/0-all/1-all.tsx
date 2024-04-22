@@ -33,10 +33,12 @@ export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: 
             <Section label="Quick link" />
             <Part4QL atoms={atoms} />
 
-            {!isWeb && <>
-                <Section label="Password Manager Icon" />
-                <Part5PasswordManagerIcon atoms={atoms} />
-            </>}
+            {!isWeb && (
+                <>
+                    <Section label="Password Manager Icon" />
+                    <Part5PasswordManagerIcon atoms={atoms} />
+                </>
+            )}
         </div>
     );
 }
@@ -49,7 +51,8 @@ export function TabOptions({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     if (!fileUs2) {
         return null;
     }
-    const fileUsAtom = rightPanelSelectedContentAtom as PrimitiveAtom<FileUs>;
+
+    const fileUsAtom = rightPanelSelectedContentAtom as PrimitiveAtom<FileUs>; // to omit null
 
     return (
         <div className="ml-4 mr-1">
