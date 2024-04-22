@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useKey } from "react-use";
-import { doOpenOptionsDialogAtom } from "./1-options-dialog-atom";
-import { doOpenCreateDialogAtom } from "./2-create-dialog-atom";
+import { doOpenOptionsDialogAtom } from "../1-options-dialog-atoms";
+import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
 
 export const shortcutNameFilter = "Ctrl+D";     // Filter manifest list
 export const shortcutNameCreate = "Ctrl+S";     // Create new manifest
