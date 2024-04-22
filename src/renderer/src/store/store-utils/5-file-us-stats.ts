@@ -6,7 +6,8 @@ export function fileUsStats(fileUs: FileUs): FileUsStats {
     const domain = fileUs.meta?.[0]?.disp.domain;
     const isWeb = !!domain;
     const isSubFolder = !!fileUs.fpath; // fpath is empty for single items //const hasSubFolders = !!fileUs.fpath?.match(/\//);
-    return {
+
+    const rv: FileUsStats = {
         domain,
         isWeb,
         isChrome: isWeb && !fileUs.meta?.[0]?.disp.isIe,
@@ -19,4 +20,6 @@ export function fileUsStats(fileUs: FileUs): FileUsStats {
         dateCreated: TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.created),
         dateModified: TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified),
     };
+    
+    return rv;
 }

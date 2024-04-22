@@ -14,12 +14,18 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
             </D.DialogHeader>
 
             <div className="mt-2 px-4">
-                <Label className="block mb-2">File list options</Label>
+                <Label className="block mb-4">File list options</Label>
 
-                <Label className="text-xs font-normal flex place-items-center gap-2">
-                    <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.fileList.itemsState.showIndex = !!v} />
-                    Show file index
-                </Label>
+                <div className="flex flex-col gap-2">
+                    <Label className="text-xs font-normal flex place-items-center gap-2">
+                        <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.fileList.itemsState.showIndex = !!v} />
+                        Show file index
+                    </Label>
+                    <Label className="text-xs font-normal flex place-items-center gap-2">
+                        <Checkbox checked={snap.showChosen} onCheckedChange={v => appSettings.fileList.itemsState.showChosen = !!v} />
+                        Show user defined name instead of domain name
+                    </Label>
+                </div>
 
             </div>
 
