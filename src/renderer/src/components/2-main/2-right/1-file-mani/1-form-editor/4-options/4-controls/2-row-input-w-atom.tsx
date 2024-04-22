@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
 import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
@@ -15,17 +15,20 @@ outline-none";
 
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
     const [value, setValue] = useAtom(valueAtom);
+    const [openTooltip, setOpenTooltip] = useState(false);
     return (
         <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <input
-                        className={classNames(rowInputClasses, inputRingClasses, className)}
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        {...rest}
-                    />
-                </TooltipTrigger>
+            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+                {/* <TooltipTrigger asChild>
+                </TooltipTrigger> */}
+
+                <input
+                    className={classNames(rowInputClasses, inputRingClasses, className)}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onClick={() => setOpenTooltip(v => !v)}
+                    {...rest}
+                />
 
                 <TooltipPortal>
                     <TooltipContent>
