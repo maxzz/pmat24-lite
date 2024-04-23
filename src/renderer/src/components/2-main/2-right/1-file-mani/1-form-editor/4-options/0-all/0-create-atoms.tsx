@@ -7,7 +7,7 @@ type UiPart1General = {
     name: string;       // login name
     desc: string;       // login description
     hint: string;       // user hint
-    balloon: number;    // show balloon # times
+    balloon: string;    // show balloon # times; note: value should be a number, but it's stored as string
 };
 
 type UiPart2ScreenDetection = {
@@ -49,7 +49,7 @@ export function createAtoms(v: string, onChange: OnValueChangeAny, fileUsAtom: F
             nameAtom: atomWithCallback('', onChange),
             descAtom: atomWithCallback('', onChange),
             hintAtom: atomWithCallback('', onChange),
-            balloonAtom: atomWithCallback(3, onChange),
+            balloonAtom: atomWithCallback('3', onChange),
         },
         uiPart2ScreenDetection: {
             captionAtom: atomWithCallback('', onChange),
@@ -83,7 +83,7 @@ export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, get: Getter, se
             'name': get(uiPart1General.nameAtom),
             'desc': get(uiPart1General.descAtom),
             'hint': get(uiPart1General.hintAtom),
-            'balloon': get(uiPart1General.balloonAtom),
+            'balloon': +get(uiPart1General.balloonAtom),
         },
         uiPart2ScreenDetection: {
             'caption': get(uiPart2ScreenDetection.captionAtom),
