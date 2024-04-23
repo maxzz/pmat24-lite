@@ -1,12 +1,15 @@
 export * from "./accordion";
 export * from "./button";
 export * from "./checkbox";
+export * from "./collapsible";
 export * from "./dialog";
 export * from "./drawer";
 export * from "./dropdown-menu";
+export * from "./popover";
 export * from "./input-type-file";
-export * from "./label";
 export * from "./input";
+export * from "./label";
+export * from "./menubar";
 export * from "./radio-group";
 export * from "./resizable";
 export * from "./scroll-area";
@@ -14,8 +17,8 @@ export * from "./select";
 export * from "./sonner";
 export * from "./switch";
 export * from "./tabs";
-export * from "./textarea";
 export * from "./textarea-auto-grow";
+export * from "./textarea";
 export * from "./tooltip";
 
 export * from "./ui-drop-it-doc";
