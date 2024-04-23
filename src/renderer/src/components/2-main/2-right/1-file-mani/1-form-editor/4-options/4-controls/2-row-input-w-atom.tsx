@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
-import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, inputRingClasses } from '@/ui';
+import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
 import { PopoverAnchor } from '@radix-ui/react-popover';
 
 const rowInputClasses = "\
@@ -15,6 +15,35 @@ rounded-sm \
 outline-none";
 
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
+    const [value, setValue] = useAtom(valueAtom);
+    const [openTooltip, setOpenTooltip] = useState(false);
+    return (
+        <TooltipProvider>
+            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+                <TooltipTrigger asChild>
+                    <input
+                        className={classNames(rowInputClasses, inputRingClasses, className)}
+                        value={value}
+                        onChange={(e) => {
+                            setOpenTooltip(e.target.value === '111');
+                            setValue(e.target.value);
+                        }}
+                        // onClick={() => setOpenTooltip(v => !v)}
+                        {...rest}
+                    />
+                </TooltipTrigger>
+
+                <TooltipPortal>
+                    <TooltipContent align="start">
+                        1111111
+                    </TooltipContent>
+                </TooltipPortal>
+            </Tooltip>
+        </TooltipProvider>
+    );
+}
+
+export function RowInputWAtom2({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
     return (
@@ -36,7 +65,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     // onClick={() => setOpenTooltip(v => !v)}
-                    onClick={() => {}}
+                    onClick={() => { }}
                     onBlur={() => {
                         const isValid = value.trim().length > 0;
                         if (!isValid) {
