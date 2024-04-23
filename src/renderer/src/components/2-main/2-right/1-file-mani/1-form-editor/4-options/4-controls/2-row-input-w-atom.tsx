@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
-import { Popover, PopoverArrow, PopoverContent, PopoverTrigger, inputRingClasses } from '@/ui';
+import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, inputRingClasses } from '@/ui';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 \
@@ -36,22 +36,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                 This field cannot be empty
                 This field cannot be empty
 
-                {/* <PopoverArrow className="fill-popover stroke-popover-foreground stroke-2" /> */}
-
-                {/* <PopoverArrow className="fill-popover stroke-popover-foreground stroke-2" asChild>
-                    <div className="w-4 h-4 bg-red-500"></div>
-                </PopoverArrow> */}
-
-                <PopoverArrow className="-mt-px stroke-popover-foreground" asChild>
-                    <svg className="fill-popover 1stroke-red-500 stroke-[1.5]" width="10" height="5" viewBox="0 0 30 10" preserveAspectRatio="none">
-                        {/* <polygon points="0,0 30,0 15,10"> */}
-                        {/* <polygon points="0,0 15,10 30,0">
-                        </polygon> */}
-                        <polyline points="0,0 15,9 30,0">
-                        </polyline>
-                        <rect className="fill-popover stroke-none" x="0" y="0" width="30" height="1" fill="none" stroke="none" />
-                    </svg>
-                </PopoverArrow>
+                <PopoverArrorWoBottom />
             </PopoverContent>
 
         </Popover>
