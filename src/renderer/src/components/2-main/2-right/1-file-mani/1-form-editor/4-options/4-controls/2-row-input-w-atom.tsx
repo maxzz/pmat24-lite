@@ -5,7 +5,7 @@ import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, Tooltip,
 import { PopoverAnchor } from '@radix-ui/react-popover';
 
 const rowInputClasses = "\
-px-2 py-1 h-6 \
+my-0.5 px-2 py-1 h-6 \
 \
 text-mani-foreground bg-mani-background \
 \
@@ -18,6 +18,9 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
 
+    const [touched, setTouched] = useState(false);
+    const [valid, setValid] = useState(true);
+
     useEffect(() => {
         console.log('useEffect value', value);
     }, [value]);
@@ -29,10 +32,12 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
                 <TooltipTrigger asChild>
                     <input
-                        className={classNames(rowInputClasses, inputRingClasses, className)}
+                        className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 !ring-red-500", className)}
                         value={value}
                         onChange={(e) => {
-                            setOpenTooltip(e.target.value === '111');
+                            const isValid = e.target.value === '111';
+                            setOpenTooltip(isValid);
+                            setValid(isValid);
                             setValue(e.target.value);
                         }}
                         // onClick={() => setOpenTooltip(v => !v)}
@@ -40,10 +45,10 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     />
                 </TooltipTrigger>
 
-                {openTooltip && (
+                {!valid && (
                     <TooltipPortal>
                         <TooltipContent align="start">
-                            Value is {value}
+                            Value is {value} and it is {valid ? 'valid' : 'invalid'}
                         </TooltipContent>
                     </TooltipPortal>
                 )}
