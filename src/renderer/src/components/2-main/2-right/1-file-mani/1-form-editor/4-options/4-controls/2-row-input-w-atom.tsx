@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
 import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
@@ -17,6 +17,13 @@ outline-none";
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
+
+    useEffect(() => {
+        console.log('useEffect value', value);
+    }, [value]);
+    
+    console.log('Tooltip is open', openTooltip, 'value', value);
+    
     return (
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
@@ -33,11 +40,14 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     />
                 </TooltipTrigger>
 
-                <TooltipPortal>
-                    <TooltipContent align="start">
-                        1111111
-                    </TooltipContent>
-                </TooltipPortal>
+                {openTooltip && (
+                    <TooltipPortal>
+                        <TooltipContent align="start">
+                            Value is {value}
+                        </TooltipContent>
+                    </TooltipPortal>
+                )}
+
             </Tooltip>
         </TooltipProvider>
     );

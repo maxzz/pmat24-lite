@@ -105,7 +105,7 @@ export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, get: Getter, se
         },
     };
 
-    console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
+    // console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
