@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
-import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
+import { Popover, PopoverArrow, PopoverContent, PopoverTrigger, inputRingClasses } from '@/ui';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 \
@@ -17,11 +17,8 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
     return (
-        <TooltipProvider>
-            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-                {/* <TooltipTrigger asChild>
-                </TooltipTrigger> */}
-
+        <Popover open={openTooltip} onOpenChange={setOpenTooltip}>
+            <PopoverTrigger asChild>
                 <input
                     className={classNames(rowInputClasses, inputRingClasses, className)}
                     value={value}
@@ -29,13 +26,15 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     onClick={() => setOpenTooltip(v => !v)}
                     {...rest}
                 />
+            </PopoverTrigger>
 
-                <TooltipPortal>
-                    <TooltipContent>
-                        1111111
-                    </TooltipContent>
-                </TooltipPortal>
-            </Tooltip>
-        </TooltipProvider>
+            <PopoverContent className="px-4 py-2 w-auto max-w-64 text-xs border-none" sideOffset={-12} align="center">
+                This field cannpt be empty
+                This field cannpt be empty
+                This field cannpt be empty
+                <PopoverArrow className="fill-popover" />
+            </PopoverContent>
+
+        </Popover>
     );
 }
