@@ -5,7 +5,7 @@ import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverTrigger, Tooltip,
 import { PopoverAnchor } from '@radix-ui/react-popover';
 
 const rowInputClasses = "\
-1my-0.5 px-2 py-1 h-6 \
+px-2 py-1 h-6 \
 \
 text-mani-foreground bg-mani-background \
 \
