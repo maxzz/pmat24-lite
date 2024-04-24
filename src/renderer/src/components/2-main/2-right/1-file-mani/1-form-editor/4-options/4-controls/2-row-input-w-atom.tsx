@@ -14,6 +14,10 @@ border-mani-border-muted border \
 rounded-sm \
 outline-none";
 
+function validateValue(value: string) {
+    return value === '111';
+}
+
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
@@ -35,10 +39,16 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                         className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 ring-red-500", className)}
                         value={value}
                         onChange={(e) => {
-                            const isValid = e.target.value === '111';
+                            const isValid = validateValue(e.target.value);
                             setOpenTooltip(isValid);
                             setValid(isValid);
                             setValue(e.target.value);
+                        }}
+                        onBlur={() => {
+                            setTouched(true);
+                            const isValid = validateValue(value);
+                            setOpenTooltip(!isValid);
+                            setValid(isValid);
                         }}
                         // onClick={() => setOpenTooltip(v => !v)}
                         {...rest}
