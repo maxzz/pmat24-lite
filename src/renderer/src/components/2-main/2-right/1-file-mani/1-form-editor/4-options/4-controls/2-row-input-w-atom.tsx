@@ -14,8 +14,8 @@ border-mani-border-muted border \
 rounded-sm \
 outline-none";
 
-function validateValue(value: string) {
-    return value === '111';
+function validateError(value: string) {
+    return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
 }
 
 export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
@@ -23,7 +23,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
     const [openTooltip, setOpenTooltip] = useState(false);
 
     const [touched, setTouched] = useState(false);
-    const [valid, setValid] = useState(true);
+    const [error, setError] = useState('');
 
     return (
         <TooltipProvider>
@@ -31,33 +31,33 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
 
                 <div className="relative">
                     <input
-                        className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 ring-red-500", className)}
+                        className={classNames(rowInputClasses, inputRingClasses, error && "!ring-1 ring-red-500", className)}
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
-                            const isValid = validateValue?.(e.target.value) ?? true;
-                            setValid(isValid);
+                            const errorMsg = validateError?.(e.target.value) ?? '';
+                            setError(errorMsg);
                         }}
                         onBlur={() => {
                             setTouched(true);
-                            const isValid = validateValue?.(value) ?? true;
-                            setValid(isValid);
+                            const errorMsg = validateError?.(value) ?? '';
+                            setError(errorMsg);
                         }}
                         {...rest}
                     />
                     <TooltipTrigger asChild>
                         <div>
-                            {!valid && (
+                            {error && (
                                 <SymbolWarning className="absolute mt-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500" />
                             )}
                         </div>
                     </TooltipTrigger>
                 </div>
 
-                {!valid && (
+                {error && (
                     <TooltipPortal container={document.getElementById("portal")}>
                         <TooltipContent align="end" sideOffset={-2}>
-                            Value is {value} and it is {valid ? 'valid' : 'invalid'}
+                            {error}
                         </TooltipContent>
                     </TooltipPortal>
                 )}
