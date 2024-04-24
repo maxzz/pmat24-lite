@@ -1,3 +1,4 @@
+import { classNames } from '@/utils';
 import { HTMLAttributes, SVGAttributes } from 'react';
 
 export function SvgSymbolInfo() {
@@ -10,9 +11,9 @@ export function SvgSymbolInfo() {
     </>);
 }
 
-export function SymbolInfo({ title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolInfo({ className, children, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className="fill-none stroke-current stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round" {...rest}>
+        <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} stroke-linecap="round" stroke-linejoin="round" {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#icon-info" />
