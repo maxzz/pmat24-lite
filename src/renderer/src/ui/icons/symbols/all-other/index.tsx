@@ -12,6 +12,7 @@ import { SvgSymbolChevronUp } from "./21-chevron-up";
 import { SvgSymbolChevronDoubleDown } from "./22-chevron-double-down";
 import { SvgSymbolChevronRight } from "./23-chevron-right";
 import { SvgSymbolInfo } from "./24-info";
+import { SvgSymbolWarning } from "./24-warning";
 
 export * from "./06-folder";
 export * from "./08-dot";
@@ -27,6 +28,7 @@ export * from "./21-chevron-up";
 export * from "./22-chevron-double-down";
 export * from "./23-chevron-right";
 export * from "./24-info";
+export * from "./24-warning";
 
 export function DefAllOtherTypes() {
     return (<>
@@ -44,5 +46,6 @@ export function DefAllOtherTypes() {
         {SvgSymbolChevronDoubleDown()}
         {SvgSymbolChevronRight()}
         {SvgSymbolInfo()}
+        {SvgSymbolWarning()}
     </>);
 }
