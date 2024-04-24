@@ -2,7 +2,7 @@ import { InputHTMLAttributes, useEffect, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
-import { SymbolInfo } from '@/ui/icons';
+import { SymbolInfo, SymbolWarning } from '@/ui/icons';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 w-full \
@@ -48,7 +48,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                         onBlur={() => {
                             setTouched(true);
                             const isValid = validateValue(value);
-                            setOpenTooltip(!isValid);
+                            // setOpenTooltip(!isValid);
                             setValid(isValid);
                         }}
                         // onClick={() => setOpenTooltip(v => !v)}
@@ -56,15 +56,21 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     />
                     <TooltipTrigger asChild>
                         <div className="">
-                        <SymbolInfo className="absolute size-4 right-2 top-1/2 transform -translate-y-1/2 text-red-500" />
+                            {/* <SymbolInfo className="absolute size-4 right-2 top-1/2 transform -translate-y-1/2 text-red-500" /> */}
+
+                            {!valid ? (
+                                <SymbolWarning className="absolute mt-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500" />
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </TooltipTrigger>
                 </div>
                 {/* </TooltipTrigger> */}
 
                 {!valid && (
-                    <TooltipPortal>
-                        <TooltipContent align="start">
+                    <TooltipPortal container={document.getElementById("portal")}>
+                        <TooltipContent align="end" sideOffset={-2}>
                             Value is {value} and it is {valid ? 'valid' : 'invalid'}
                         </TooltipContent>
                     </TooltipPortal>
