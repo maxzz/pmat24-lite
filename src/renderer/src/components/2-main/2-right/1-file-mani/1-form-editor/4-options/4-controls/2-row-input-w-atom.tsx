@@ -31,7 +31,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
 
                 <div className="relative">
                     <input
-                        className={classNames(rowInputClasses, inputRingClasses, error && "!ring-1 ring-red-500", className)}
+                        className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"*/, className)}
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
@@ -48,13 +48,13 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                     <TooltipTrigger asChild>
                         <div>
                             {error && (
-                                <SymbolWarning className="absolute mt-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500" />
+                                <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
                             )}
                         </div>
                     </TooltipTrigger>
                 </div>
 
-                {error && (
+                {error && touched && (
                     <TooltipPortal container={document.getElementById("portal")}>
                         <TooltipContent align="end" sideOffset={-2}>
                             {error}
