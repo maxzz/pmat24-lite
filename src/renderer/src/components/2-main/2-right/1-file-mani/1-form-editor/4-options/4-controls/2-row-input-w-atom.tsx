@@ -2,7 +2,7 @@ import { InputHTMLAttributes, useEffect, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 import { classNames } from '@/utils';
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
-import { SymbolInfo, SymbolWarning } from '@/ui/icons';
+import { SymbolWarning } from '@/ui/icons';
 
 const rowInputClasses = "\
 px-2 py-1 h-6 w-full \
@@ -25,48 +25,34 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
     const [touched, setTouched] = useState(false);
     const [valid, setValid] = useState(true);
 
-    useEffect(() => {
-        console.log('useEffect value', value);
-    }, [value]);
-
-    console.log('Tooltip is open', openTooltip, 'value', value);
-
     return (
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-                {/* <TooltipTrigger asChild> */}
+
                 <div className="relative">
                     <input
                         className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 ring-red-500", className)}
                         value={value}
                         onChange={(e) => {
-                            const isValid = validateValue(e.target.value);
-                            setOpenTooltip(isValid);
-                            setValid(isValid);
                             setValue(e.target.value);
+                            const isValid = validateValue?.(e.target.value) || true;
+                            setValid(isValid);
                         }}
                         onBlur={() => {
                             setTouched(true);
-                            const isValid = validateValue(value);
-                            // setOpenTooltip(!isValid);
+                            const isValid = validateValue?.(value) || true;
                             setValid(isValid);
                         }}
-                        // onClick={() => setOpenTooltip(v => !v)}
                         {...rest}
                     />
                     <TooltipTrigger asChild>
-                        <div className="">
-                            {/* <SymbolInfo className="absolute size-4 right-2 top-1/2 transform -translate-y-1/2 text-red-500" /> */}
-
-                            {!valid ? (
+                        <div>
+                            {!valid && (
                                 <SymbolWarning className="absolute mt-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500" />
-                            ) : (
-                                <></>
                             )}
                         </div>
                     </TooltipTrigger>
                 </div>
-                {/* </TooltipTrigger> */}
 
                 {!valid && (
                     <TooltipPortal container={document.getElementById("portal")}>
