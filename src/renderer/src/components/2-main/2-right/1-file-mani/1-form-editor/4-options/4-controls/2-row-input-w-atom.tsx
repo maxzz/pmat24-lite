@@ -28,35 +28,39 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
     useEffect(() => {
         console.log('useEffect value', value);
     }, [value]);
-    
+
     console.log('Tooltip is open', openTooltip, 'value', value);
-    
+
     return (
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-                <TooltipTrigger asChild>
-                    <div className="relative">
-                        <input
-                            className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 ring-red-500", className)}
-                            value={value}
-                            onChange={(e) => {
-                                const isValid = validateValue(e.target.value);
-                                setOpenTooltip(isValid);
-                                setValid(isValid);
-                                setValue(e.target.value);
-                            }}
-                            onBlur={() => {
-                                setTouched(true);
-                                const isValid = validateValue(value);
-                                setOpenTooltip(!isValid);
-                                setValid(isValid);
-                            }}
-                            // onClick={() => setOpenTooltip(v => !v)}
-                            {...rest}
-                        />
+                {/* <TooltipTrigger asChild> */}
+                <div className="relative">
+                    <input
+                        className={classNames(rowInputClasses, inputRingClasses, !valid && "!ring-1 ring-red-500", className)}
+                        value={value}
+                        onChange={(e) => {
+                            const isValid = validateValue(e.target.value);
+                            setOpenTooltip(isValid);
+                            setValid(isValid);
+                            setValue(e.target.value);
+                        }}
+                        onBlur={() => {
+                            setTouched(true);
+                            const isValid = validateValue(value);
+                            setOpenTooltip(!isValid);
+                            setValid(isValid);
+                        }}
+                        // onClick={() => setOpenTooltip(v => !v)}
+                        {...rest}
+                    />
+                    <TooltipTrigger asChild>
+                        <div className="">
                         <SymbolInfo className="absolute size-4 right-2 top-1/2 transform -translate-y-1/2 text-red-500" />
-                    </div>
-                </TooltipTrigger>
+                        </div>
+                    </TooltipTrigger>
+                </div>
+                {/* </TooltipTrigger> */}
 
                 {!valid && (
                     <TooltipPortal>
