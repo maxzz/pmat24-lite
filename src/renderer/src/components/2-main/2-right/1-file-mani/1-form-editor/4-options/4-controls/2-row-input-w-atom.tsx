@@ -35,12 +35,12 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
-                            const isValid = validateValue?.(e.target.value) || true;
+                            const isValid = validateValue?.(e.target.value) ?? true;
                             setValid(isValid);
                         }}
                         onBlur={() => {
                             setTouched(true);
-                            const isValid = validateValue?.(value) || true;
+                            const isValid = validateValue?.(value) ?? true;
                             setValid(isValid);
                         }}
                         {...rest}
