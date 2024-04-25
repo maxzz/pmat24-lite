@@ -38,6 +38,8 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
 
         IconForFolder?: TreenIconType;
         IconForItem?: TreenIconType;
+
+        selectAsTrigger?: boolean; // click on selected item will deselect it; and no deselecting on click on empty space.
     }
     & TreeIconOptions
 >;
@@ -70,7 +72,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
             }, [data, initialSelectedItemId, expandAll]
         );
 
-        const handleSelectChange = useCallback(
+        const handleSelectChangeOld = useCallback(
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
                 event.stopPropagation();
 
@@ -84,6 +86,44 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
                     treeState.selectedId = item.id;
                 } else {
                     treeState.selectedId = undefined;
+                }
+
+                onSelectChange?.(item);
+            }, [data, treeState, onSelectChange]
+        );
+
+        const handleSelectChange = useCallback(
+            (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
+                event.stopPropagation();
+
+                const selectAsTrigger = false;
+
+                if (item) {
+                    if (selectAsTrigger) {
+                        const clickedNewItem = treeState.selectedId !== item.id;
+                        if (clickedNewItem) {
+                            clearPrevSelectedState();
+                            item.state.selected = !item.state.selected;
+                            treeState.selectedId = item.id;
+                        } else {
+                            item.state.selected = false;
+                            treeState.selectedId = undefined;
+                        }
+                    } else {
+                        clearPrevSelectedState();
+                        item.state.selected = !item.state.selected;
+                        treeState.selectedId = item.id;
+                    }
+                } else {
+                    clearPrevSelectedState();
+                    treeState.selectedId = undefined;
+                }
+
+                function clearPrevSelectedState() {
+                    if (treeState.selectedId) {
+                        const prevItem = findTreeItemById(data, treeState.selectedId);
+                        prevItem && (prevItem.state.selected = false);
+                    }
                 }
 
                 onSelectChange?.(item);

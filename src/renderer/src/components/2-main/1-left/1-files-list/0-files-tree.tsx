@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { proxy } from "valtio";
-import { TreeFileItem, rightPanelAtom, treeFilesAtom } from "@/store";
+import { TreeFileItem, doSetRightPanelSelectedAtom, treeFilesAtom } from "@/store";
 import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeIconAndText } from "./2-tree-item";
@@ -28,7 +28,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
 export function FilesTree() {
 
     const treeFiles = useAtomValue(treeFilesAtom);
-    const setSelected = useSetAtom(rightPanelAtom);
+    const setSelected = useSetAtom(doSetRightPanelSelectedAtom);
 
     const TreeMemo = useMemo(
         () => {
