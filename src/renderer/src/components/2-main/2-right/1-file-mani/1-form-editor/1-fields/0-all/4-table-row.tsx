@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { CatalogItem, Meta, TransformValue } from '@/store/manifest';
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from './0-create-ui-atoms';
+import { createUiAtoms, debouncedCombinedResultFromAtoms } from '../../../0-all/0-create-ui-atoms/1-fields-atoms';
 import { Column1_UseIt } from '../1-column-useIt';
 import { Column2_Label } from '../2-column-label';
 import { Column3_Value } from '../3-column-value';

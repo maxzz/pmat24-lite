@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { FormOptionsAtoms } from '../0-all/0-create-atoms';
+import { FormOptionsAtoms } from '../../../0-all/0-create-ui-atoms/4-options-atoms';
 import { RowInput, RowBoolean } from '../4-controls';
 
 export function Part4QL({ atoms }: { atoms: FormOptionsAtoms; }) {

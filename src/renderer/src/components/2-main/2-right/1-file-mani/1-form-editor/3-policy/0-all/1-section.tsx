@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { atom, useAtom } from 'jotai';
 import { FileUs, FormIdx } from '@/store/store-types';
 import { Meta } from '@/store/manifest';
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from './0-create-ui-atoms';
+import { createUiAtoms, debouncedCombinedResultFromAtoms } from '../../../0-all/0-create-ui-atoms/3-policy-atoms';
 import { TableHeader } from './2-table-header';
 import { PoliciesGrid } from './3-table-grid';
 import { Button, notImplYet } from '@/ui';

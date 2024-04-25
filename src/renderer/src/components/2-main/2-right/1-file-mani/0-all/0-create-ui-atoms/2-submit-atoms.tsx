@@ -7,7 +7,7 @@ type SubitForAtoms = {
     doSubmit: boolean;
 };
 
-type SubitAtoms = Prettify<Atomize<SubitForAtoms>>;
+export type SubitAtoms = Prettify<Atomize<SubitForAtoms>>;
 
 export function createUiAtoms(form: Meta.Form, onChange: OnValueChangeAny): SubitAtoms {
     return {

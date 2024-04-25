@@ -1,4 +1,4 @@
-import { FormOptionsAtoms } from '../0-all/0-create-atoms';
+import { FormOptionsAtoms } from '../../../0-all/0-create-ui-atoms/4-options-atoms';
 import { RowBoolean } from '../4-controls';
 
 export function Part3Authentication({ atoms }: { atoms: FormOptionsAtoms; }) {

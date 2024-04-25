@@ -13,7 +13,7 @@ type TableRowForAtoms = {
     fieldCat: string;
 };
 
-type TableRowAtoms = Prettify<Atomize<TableRowForAtoms>>;
+export type TableRowAtoms = Prettify<Atomize<TableRowForAtoms>>;
 
 export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): TableRowAtoms {
     const { useit, displayname, type: typ, value: val } = field.mani;

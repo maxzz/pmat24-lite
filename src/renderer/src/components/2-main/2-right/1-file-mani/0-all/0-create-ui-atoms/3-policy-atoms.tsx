@@ -8,7 +8,7 @@ type PolicyForAtoms = {
     policy2: string;
 };
 
-type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
+export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
 
 export function createUiAtoms(form: Meta.Form | undefined, onChange: OnValueChangeAny): PolicyAtoms {
     return {
