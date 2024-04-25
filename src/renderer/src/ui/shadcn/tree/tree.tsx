@@ -96,27 +96,31 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
                 event.stopPropagation();
 
-                const selectAsTrigger = false;
+                const selectAsTrigger = true;
 
                 if (item) {
                     if (selectAsTrigger) {
                         const clickedNewItem = treeState.selectedId !== item.id;
                         if (clickedNewItem) {
                             clearPrevSelectedState();
-                            item.state.selected = !item.state.selected;
-                            treeState.selectedId = item.id;
+                            // item.state.selected = !item.state.selected;
+                            // treeState.selectedId = item.id;
                         } else {
-                            item.state.selected = false;
-                            treeState.selectedId = undefined;
+                            // item.state.selected = false;
+                            // treeState.selectedId = undefined;
                         }
+                        item.state.selected = clickedNewItem;
+                        treeState.selectedId = clickedNewItem ? item.id : undefined;
                     } else {
                         clearPrevSelectedState();
                         item.state.selected = !item.state.selected;
                         treeState.selectedId = item.id;
                     }
                 } else {
-                    clearPrevSelectedState();
-                    treeState.selectedId = undefined;
+                    if (!selectAsTrigger) {
+                        clearPrevSelectedState();
+                        treeState.selectedId = undefined;
+                    }
                 }
 
                 function clearPrevSelectedState() {
