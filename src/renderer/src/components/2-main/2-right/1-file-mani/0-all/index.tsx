@@ -11,6 +11,10 @@ export function Body_Mani() {
     if (!fileUs) {
         return null;
     }
+
+    console.log('------------------Body_Mani render');
+    
+
     const hasCpass = fileUs.meta?.length === 2;
     const tabA = useMemo(() => <TabsContent value="switch1">        <FormEditor fileUs={fileUs} formIdx={0} />    </TabsContent>, [fileUs]);
     const tabB = useMemo(() => <TabsContent value="switch2">        <FormEditor fileUs={fileUs} formIdx={1} />    </TabsContent>, [fileUs]);

@@ -9,6 +9,8 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     if (!hasForm) {
         return <NoForm formType={formIdx} />;
     }
+
+    console.log('FormEditor render', formIdx);
     
     return (
         <div className="mr-1 h-full flex flex-col">
