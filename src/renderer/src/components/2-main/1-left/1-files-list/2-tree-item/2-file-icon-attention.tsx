@@ -16,16 +16,19 @@ export function FileIconAttention({ IconToRender, name, fileUs, iconClasses }: F
     const fileIndex = fileUs.idx + 1;
 
     const Body = (<>
-        {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
+        {IconToRender && (
+            <IconToRender className={iconClasses} aria-hidden="true" />
+        )}
     </>);
 
     if (!hasBailOut) {
         return Body;
     }
-    
+
     return (
         <RealTooltip
             trigger={Body}
-            body={<TooltipBody fileUs={fileUs} fileIndex={fileIndex} />} />
+            body={<TooltipBody fileUs={fileUs} fileIndex={fileIndex} />}
+        />
     );
 }

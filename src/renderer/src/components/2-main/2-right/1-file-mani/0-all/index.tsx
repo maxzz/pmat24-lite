@@ -6,7 +6,7 @@ import { FormEditor } from "../1-form-editor";
 import { useMemo, useState } from "react";
 import { classNames } from "@/utils";
 
-export function Body_Mani() {
+export function Body_Mani_() {
     const { ref, width, height } = useResizeObserver();
 
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
@@ -22,7 +22,7 @@ export function Body_Mani() {
         <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col" value={selectedTab} onValueChange={setSelectedTab} >
             <TabsList className="self-start">
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
-                <TabsTrigger value="switch2" className="text-xs">{`Password change${hasCpass ? '' : ': empty'}`}</TabsTrigger>
+                <TabsTrigger value="switch2" className="text-xs">{`${hasCpass ? 'Password change' : 'No password change'}`}</TabsTrigger>
             </TabsList>
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
@@ -44,7 +44,7 @@ export function Body_Mani() {
     );
 }
 
-export function Body_Mani__() {
+export function Body_Mani() {
     const { ref, width, height } = useResizeObserver();
 
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
@@ -58,7 +58,7 @@ export function Body_Mani__() {
         <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
             <TabsList className="self-start">
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
-                <TabsTrigger value="switch2" className="text-xs">{`Password change${hasCpass ? '' : ': empty'}`}</TabsTrigger>
+                <TabsTrigger value="switch2" className="text-xs">{`${hasCpass ? 'Password change' : 'No password change'}`}</TabsTrigger>
             </TabsList>
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
