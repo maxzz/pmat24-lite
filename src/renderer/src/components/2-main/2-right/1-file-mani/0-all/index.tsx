@@ -3,6 +3,7 @@ import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui";
 import { rightPanelSelectedContentAtom } from "@/store";
 import { FormEditor } from "../1-form-editor";
+import { useMemo } from "react";
 
 export function Body_Mani() {
     const { ref, width, height } = useResizeObserver();
@@ -11,6 +12,8 @@ export function Body_Mani() {
         return null;
     }
     const hasCpass = fileUs.meta?.length === 2;
+    const tabA = useMemo(() => <FormEditor fileUs={fileUs} formIdx={0} />, [fileUs]);
+    const tabB = useMemo(() => <FormEditor fileUs={fileUs} formIdx={0} />, [fileUs]);
     return (
         <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
             <TabsList className="self-start">
@@ -22,11 +25,13 @@ export function Body_Mani() {
                 <div className="h-full w-full overflow-hidden" ref={ref}>
                     <ScrollArea style={{ width, height }} horizontal fullheight>
                         <TabsContent value="switch1">
-                            <FormEditor fileUs={fileUs} formIdx={0} />
+                            {/* <FormEditor fileUs={fileUs} formIdx={0} /> */}
+                            {tabA}
                         </TabsContent>
 
                         <TabsContent value="switch2">
-                            <FormEditor fileUs={fileUs} formIdx={1} />
+                            {/* <FormEditor fileUs={fileUs} formIdx={1} /> */}
+                            {tabB}
                         </TabsContent>
                     </ScrollArea>
                 </div>
