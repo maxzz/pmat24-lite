@@ -45,7 +45,7 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
 >;
 
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
-    ({ data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, className, ...rest }, ref) => {
+    ({ data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, selectAsTrigger, className, ...rest }, ref) => {
 
         const [treeState] = useState(() => {
             const uiState = proxy<TreeState>({
@@ -72,43 +72,14 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
             }, [data, initialSelectedItemId, expandAll]
         );
 
-        const handleSelectChangeOld = useCallback(
-            (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
-                event.stopPropagation();
-
-                if (treeState.selectedId) {
-                    const prevItem = findTreeItemById(data, treeState.selectedId);
-                    prevItem && (prevItem.state.selected = false);
-                }
-
-                if (item) {
-                    item.state.selected = !item.state.selected;
-                    treeState.selectedId = item.id;
-                } else {
-                    treeState.selectedId = undefined;
-                }
-
-                onSelectChange?.(item);
-            }, [data, treeState, onSelectChange]
-        );
-
         const handleSelectChange = useCallback(
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
                 event.stopPropagation();
 
-                const selectAsTrigger = true;
-
                 if (item) {
                     if (selectAsTrigger) {
                         const clickedNewItem = treeState.selectedId !== item.id;
-                        if (clickedNewItem) {
-                            clearPrevSelectedState();
-                            // item.state.selected = !item.state.selected;
-                            // treeState.selectedId = item.id;
-                        } else {
-                            // item.state.selected = false;
-                            // treeState.selectedId = undefined;
-                        }
+                        clickedNewItem && clearPrevSelectedState();
                         item.state.selected = clickedNewItem;
                         treeState.selectedId = clickedNewItem ? item.id : undefined;
                     } else {
@@ -131,7 +102,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
                 }
 
                 onSelectChange?.(item);
-            }, [data, treeState, onSelectChange]
+            }, [data, treeState, onSelectChange, selectAsTrigger]
         );
 
         const refRoot = useRef<HTMLDivElement | null>(null);
