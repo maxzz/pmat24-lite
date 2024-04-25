@@ -30,13 +30,13 @@ export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get:
 
 function combineResultFromAtoms(atoms: TableRowAtoms, get: Getter, set: Setter) {
     const result = {
-        useItAtom: get(atoms.useItAtom),
-        labelAtom: get(atoms.labelAtom),
-        typeAtom: get(atoms.typeAtom), //TODO:
-        valueAtom: get(atoms.valueAtom),
-        valueAsAtom: get(atoms.valueAsAtom),
-        valueLifeAtom: get(atoms.valueLifeAtom),
-        fieldCatAtom: get(atoms.fieldCatAtom), //TODO: catalog
+        useIt: get(atoms.useItAtom),
+        label: get(atoms.labelAtom),
+        type: get(atoms.typeAtom), //TODO:
+        value: get(atoms.valueAtom),
+        valueAs: get(atoms.valueAsAtom),
+        valueLife: get(atoms.valueLifeAtom),
+        fieldCat: get(atoms.fieldCatAtom), //TODO: catalog
     };
     
     console.log('TableRow atoms', JSON.stringify(result));

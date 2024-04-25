@@ -12,27 +12,27 @@ export function Body_Mani() {
         return null;
     }
     const hasCpass = fileUs.meta?.length === 2;
-    const tabA = useMemo(() => <FormEditor fileUs={fileUs} formIdx={0} />, [fileUs]);
-    const tabB = useMemo(() => <FormEditor fileUs={fileUs} formIdx={0} />, [fileUs]);
+    const tabA = useMemo(() => <TabsContent value="switch1">        <FormEditor fileUs={fileUs} formIdx={0} />    </TabsContent>, [fileUs]);
+    const tabB = useMemo(() => <TabsContent value="switch2">        <FormEditor fileUs={fileUs} formIdx={1} />    </TabsContent>, [fileUs]);
     return (
         <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
             <TabsList className="self-start">
                 <TabsTrigger value="switch1" className="text-xs">Login</TabsTrigger>
-                <TabsTrigger value="switch2" className="text-xs">{`Password change${hasCpass?'':': empty'}`}</TabsTrigger>
+                <TabsTrigger value="switch2" className="text-xs">{`Password change${hasCpass ? '' : ': empty'}`}</TabsTrigger>
             </TabsList>
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
                 <div className="h-full w-full overflow-hidden" ref={ref}>
                     <ScrollArea style={{ width, height }} horizontal fullheight>
-                        <TabsContent value="switch1">
-                            {/* <FormEditor fileUs={fileUs} formIdx={0} /> */}
-                            {tabA}
+                        {/* <TabsContent value="switch1">
+                            <FormEditor fileUs={fileUs} formIdx={0} />
                         </TabsContent>
 
                         <TabsContent value="switch2">
-                            {/* <FormEditor fileUs={fileUs} formIdx={1} /> */}
-                            {tabB}
-                        </TabsContent>
+                            <FormEditor fileUs={fileUs} formIdx={1} />
+                        </TabsContent> */}
+                        {tabA}
+                        {tabB}
                     </ScrollArea>
                 </div>
             </div>
