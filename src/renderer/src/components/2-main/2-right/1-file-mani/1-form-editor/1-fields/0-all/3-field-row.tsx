@@ -8,7 +8,7 @@ import { Column3_Value } from "../3-column-value";
 import { Column4_Catalog } from "../4-column-catalog";
 import { Column5_Type } from "../5-column-type";
 
-export function TableRow({ field }: { field: Meta.Field; }) {
+export function FieldRow({ field }: { field: Meta.Field; }) {
     const rowAtoms = useState(() => TableRowState.createUiAtoms(field, ({ get, set }) => TableRowState.debouncedCombinedResultFromAtoms(rowAtoms, get, set)))[0];
 
     const [useIt, setUseIt] = useAtom(rowAtoms.useItAtom);
