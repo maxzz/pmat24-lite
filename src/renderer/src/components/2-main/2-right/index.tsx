@@ -9,7 +9,6 @@ import { LongPanel } from "./9-nun/LongPanel";
 
 function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
-    const fileUsAtom = useAtomValue(rightPanelSelectedAtomAtom);
     const { view } = useSnapshot(appSettings).rightPanel.rightPanelState;
 
     const staticText = !fileUs ? 'No file selected' : !fileUs.raw ? 'Not supported format' : undefined;
@@ -24,7 +23,7 @@ function ContentForSelected() {
     return (<>
         {view === RightPanelView.forms
             ? (
-                <ManiBody fileUsAtom={fileUsAtom} />
+                <ManiBody />
             ) : (
                 <Body_Xml text={fileUs?.raw || ''} />
             )

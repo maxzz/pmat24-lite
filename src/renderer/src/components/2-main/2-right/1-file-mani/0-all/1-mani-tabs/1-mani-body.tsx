@@ -1,12 +1,17 @@
 import { useAtomValue } from "jotai";
-import { FileUsAtomType } from "@/store/store-types";
+import { rightPanelAtom } from "@/store";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
 
-export function ManiBody({ fileUsAtom }: { fileUsAtom: FileUsAtomType; }) {
+export function ManiBody() {
     const { ref, width, height } = useResizeObserver();
+
+    const fileUsAtom = useAtomValue(rightPanelAtom);
+    if (!fileUsAtom) {
+        return null;
+    }
 
     const fileUs = useAtomValue(fileUsAtom);
     if (!fileUs) {
