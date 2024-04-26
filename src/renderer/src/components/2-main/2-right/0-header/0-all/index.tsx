@@ -1,14 +1,13 @@
 import { useAtomValue } from "jotai";
-import { rightPanelSelectedContentAtom } from "@/store";
+import { rightPanelContentAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/0-header/0-all";
 import { TitleNoFile } from "./1-title-no-file";
 import { TitleWithFileUs } from "./2-title-with-file-us";
 import { R_PanelMenu } from "../2-menu";
-import { XmlSwitch } from "../3-xml-switch";
 
 export function R_PanelHeader() {
-    const fileUs = useAtomValue(rightPanelSelectedContentAtom);
 
+    const fileUs = useAtomValue(rightPanelContentAtom);
     if (!fileUs) {
         return (
             <div className={`${panelHeaderClasses} h-10`}>
@@ -22,7 +21,7 @@ export function R_PanelHeader() {
             <TitleWithFileUs fileUs={fileUs} />
 
             <div className="flex items-center gap-4">
-                <XmlSwitch />
+                {/* <XmlSwitch /> */}
                 <R_PanelMenu />
             </div>
         </div>
