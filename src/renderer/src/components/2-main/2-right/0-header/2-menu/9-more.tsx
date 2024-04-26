@@ -3,7 +3,7 @@ import { notImplYet } from "@/ui/not-impl-yet";
 
 export function MenuItem_More() {
     return (
-        <DropdownMenuItem {...notImplYet}>
+        <DropdownMenuItem className="pl-8" {...notImplYet}>
             More...
         </DropdownMenuItem>
     );
