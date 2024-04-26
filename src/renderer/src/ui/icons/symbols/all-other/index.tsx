@@ -14,6 +14,7 @@ import { SvgSymbolChevronRight } from "./23-chevron-right";
 import { SvgSymbolInfo } from "./24-info";
 import { SvgSymbolQuestion } from "./24-question";
 import { SvgSymbolWarning } from "./24-warning";
+import { SvgSymbolCode } from "./25-code";
 
 export * from "./06-folder";
 export * from "./08-dot";
@@ -31,6 +32,7 @@ export * from "./23-chevron-right";
 export * from "./24-info";
 export * from "./24-question";
 export * from "./24-warning";
+export * from "./25-code";
 
 export function DefAllOtherTypes() {
     return (<>
@@ -50,5 +52,6 @@ export function DefAllOtherTypes() {
         {SvgSymbolInfo()}
         {SvgSymbolQuestion()}
         {SvgSymbolWarning()}
+        {SvgSymbolCode()}
     </>);
 }
