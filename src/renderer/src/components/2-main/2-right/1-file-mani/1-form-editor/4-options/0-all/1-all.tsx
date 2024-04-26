@@ -9,14 +9,15 @@ export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: 
     // const fileUs = useAtomValue(fileUsAtom);
     // const metaForm = fileUs.meta?.[formIdx];
 
-    const atoms = OptionsState.createAtoms('', fileUsAtom, formIdx,
+    const fileUs = useAtomValue(fileUsAtom);
+
+    const atoms = OptionsState.createAtoms(fileUs, fileUsAtom, formIdx,
         ({ get, set }) => {
             //console.log('options changed', field, field.mani.displayname);
             OptionsState.debouncedCombinedResultFromAtoms(atoms, get, set);
         }
     );
 
-    const fileUs = useAtomValue(atoms.fileUsAtom);
     const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
     return (

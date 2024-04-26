@@ -4,6 +4,8 @@ import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
+import { createManiAtoms } from "../0-create-ui-atoms/0-all";
+import { useEffect } from "react";
 
 export function ManiBody() {
     const { ref, width, height } = useResizeObserver();
@@ -17,6 +19,14 @@ export function ManiBody() {
     if (!fileUs) {
         return null;
     }
+
+    useEffect(() => {
+        if (!fileUs.atoms) {
+            console.log('-------------- ManiBody: createManiAtoms');
+
+            fileUs.atoms = createManiAtoms(fileUs, fileUsAtom);
+        }
+    }, [fileUs, fileUsAtom]);
 
     const hasCpass = fileUs.meta?.length === 2;
 
