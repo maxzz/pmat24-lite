@@ -15,6 +15,7 @@ import { SvgSymbolInfo } from "./24-info";
 import { SvgSymbolQuestion } from "./24-question";
 import { SvgSymbolWarning } from "./24-warning";
 import { SvgSymbolCode } from "./25-code";
+import { SvgSymbolForms } from "./25-forms";
 
 export * from "./06-folder";
 export * from "./08-dot";
@@ -33,6 +34,7 @@ export * from "./24-info";
 export * from "./24-question";
 export * from "./24-warning";
 export * from "./25-code";
+export * from "./25-forms";
 
 export function DefAllOtherTypes() {
     return (<>
@@ -53,5 +55,6 @@ export function DefAllOtherTypes() {
         {SvgSymbolQuestion()}
         {SvgSymbolWarning()}
         {SvgSymbolCode()}
+        {SvgSymbolForms()}
     </>);
 }
