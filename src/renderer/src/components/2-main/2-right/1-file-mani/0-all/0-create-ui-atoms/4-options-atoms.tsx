@@ -1,12 +1,12 @@
-import { Getter, Setter, atom } from 'jotai';
+import { Getter, Setter, useAtom } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FileUsAtom, FormIdx } from '@/store/store-types';
+import { FileUs, FileUsAtom, FormIdx } from '@/store/store-types';
 import { debounce } from '@/utils';
 
 type UiPart1General = {
     name: string;       // login name
-    desc: string;       // login description
-    hint: string;       // user hint
+    desc: string;       // login description; Mani.Options.sidekick
+    hint: string;       // user hint; Mani.Options.ownernote
     balloon: string;    // show balloon # times; note: value should be a number, but it's stored as string
 };
 
@@ -45,31 +45,33 @@ export type FormOptionsAtoms = {
 
 export namespace OptionsState {
 
-    export function createAtoms(v: string, fileUsAtom: FileUsAtom, formIdx: FormIdx, onChange: OnValueChangeAny): FormOptionsAtoms {
+    export function createAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx, onChange: OnValueChangeAny): FormOptionsAtoms {
+        const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
+        const options = fileUs.mani?.forms?.[formIdx]?.options || {};
         return {
             uiPart1General: {
-                nameAtom: atomWithCallback('', onChange),
-                descAtom: atomWithCallback('', onChange),
-                hintAtom: atomWithCallback('', onChange),
-                balloonAtom: atomWithCallback('3', onChange),
+                nameAtom: atomWithCallback(options.choosename || '', onChange),
+                descAtom: atomWithCallback(options.sidekick || '', onChange),
+                hintAtom: atomWithCallback(options.ownernote || '', onChange),
+                balloonAtom: atomWithCallback(options.balooncount || '3', onChange),
             },
             uiPart2ScreenDetection: {
-                captionAtom: atomWithCallback('', onChange),
-                monitorAtom: atomWithCallback(false, onChange),
-                urlAtom: atomWithCallback('', onChange),
+                captionAtom: atomWithCallback(detection.caption || '', onChange), //TODO: show only for Win32
+                monitorAtom: atomWithCallback(options.recheckwindowafterfillin === '1', onChange), //TODO: strange name for monitor changes
+                urlAtom: atomWithCallback(detection.web_ourl || '', onChange),
             },
             uiPart3Authentication: {
-                aimAtom: atomWithCallback(false, onChange),
-                lockAtom: atomWithCallback(false, onChange),
+                aimAtom: atomWithCallback(options.autoprompt === '1', onChange),
+                lockAtom: atomWithCallback(options.lockfields === '1', onChange),
             },
             uiPart4QL: {
                 dashboardAtom: atomWithCallback(true, onChange),
                 nameAtom: atomWithCallback('', onChange),
-                urlAtom: atomWithCallback('', onChange),
+                urlAtom: atomWithCallback(detection.web_qurl || '', onChange),
             },
             uiPart5PasswordManagerIcon: {
-                idAtom: atomWithCallback('', onChange),
-                locAtom: atomWithCallback('', onChange),
+                idAtom: atomWithCallback(options.iconkey || '', onChange),
+                locAtom: atomWithCallback(options.iconlocation || '', onChange),
             },
 
             fileUsAtom,
