@@ -1,11 +1,11 @@
-import { useAtomValue } from 'jotai';
-import { useSnapshot } from 'valtio';
-import { RightPanelView, appSettings, rightPanelSelectedContentAtom } from '@/store';
-import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-panels";
+import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
+import { RightPanelView, appSettings, rightPanelSelectedContentAtom } from "@/store";
+import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-classes";
 import { R_PanelHeader } from "./0-header";
-import { ManiBody } from './1-file-mani';
+import { ManiBody } from "./1-file-mani";
 import { Body_Xml } from "./2-file-xml";
-import { LongPanel } from './9-nun/LongPanel';
+import { LongPanel } from "./9-nun/LongPanel";
 
 function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelSelectedContentAtom);
