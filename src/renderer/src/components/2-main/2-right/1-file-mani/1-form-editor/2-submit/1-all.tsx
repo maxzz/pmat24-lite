@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FieldTyp, Meta, SUBMIT } from '@/store/manifest';
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from '../../0-all/0-create-ui-atoms/2-submit-atoms';
-import { RadioGroup } from './2-radio-group';
+import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
+import { SubmitState } from "../../0-all/0-create-ui-atoms";
+import { RadioGroup } from "./2-radio-group";
 
 function ManiSection2_Submit({ form }: { form: Meta.Form; }) {
 
@@ -10,9 +10,9 @@ function ManiSection2_Submit({ form }: { form: Meta.Form; }) {
     const [selected, setSelected] = useState(0);
 
     const atoms = useState(
-        () => createUiAtoms(form,
+        () => SubmitState.createUiAtoms(form,
             ({ get, set }) => {
-                debouncedCombinedResultFromAtoms(atoms, get, set);
+                SubmitState.debouncedCombinedResultFromAtoms(atoms, get, set);
             }
         )
     )[0]; //TODO: not used yet

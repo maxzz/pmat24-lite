@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { atom, useAtom } from 'jotai';
-import { FileUs, FormIdx } from '@/store/store-types';
-import { Meta } from '@/store/manifest';
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from '../../../0-all/0-create-ui-atoms/3-policy-atoms';
-import { TableHeader } from './2-table-header';
-import { PoliciesGrid } from './3-table-grid';
-import { Button, notImplYet } from '@/ui';
+import { useEffect, useState } from "react";
+import { atom, useAtom } from "jotai";
+import { FileUs, FormIdx } from "@/store/store-types";
+import { Meta } from "@/store/manifest";
+import { PolicyState } from "../../../0-all/0-create-ui-atoms";
+import { TableHeader } from "./2-table-header";
+import { PoliciesGrid } from "./3-table-grid";
+import { Button, notImplYet } from "@/ui";
 
 export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
     const policiesAtom = useState(() => atom<Meta.Field[]>([]))[0];
@@ -14,9 +14,9 @@ export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formI
     const metaForm = fileUs.meta?.[formIdx];
 
     const atoms = useState(
-        () => createUiAtoms(metaForm,
+        () => PolicyState.createUiAtoms(metaForm,
             ({ get, set }) => {
-                debouncedCombinedResultFromAtoms(atoms, get, set);
+                PolicyState.debouncedCombinedResultFromAtoms(atoms, get, set);
             }
         )
     )[0]; //TODO: not used yet

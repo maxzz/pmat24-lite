@@ -9,18 +9,21 @@ type SubitForAtoms = {
 
 export type SubitAtoms = Prettify<Atomize<SubitForAtoms>>;
 
-export function createUiAtoms(form: Meta.Form, onChange: OnValueChangeAny): SubitAtoms {
-    return {
-        doSubmitAtom: atomWithCallback(true, onChange),
-    };
-}
+export namespace SubmitState {
 
-function combineResultFromAtoms(atoms: SubitAtoms, get: Getter, set: Setter) {
-    const result = {
-        doSubmit: get(atoms.doSubmitAtom),
-    };
-    
-    console.log('Submit atoms', JSON.stringify(result));
-}
+    export function createUiAtoms(form: Meta.Form, onChange: OnValueChangeAny): SubitAtoms {
+        return {
+            doSubmitAtom: atomWithCallback(true, onChange),
+        };
+    }
 
-export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+    function combineResultFromAtoms(atoms: SubitAtoms, get: Getter, set: Setter) {
+        const result = {
+            doSubmit: get(atoms.doSubmitAtom),
+        };
+
+        console.log('Submit atoms', JSON.stringify(result));
+    }
+
+    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+}

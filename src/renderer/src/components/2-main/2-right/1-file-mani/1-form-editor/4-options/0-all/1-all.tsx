@@ -1,18 +1,18 @@
+import { PrimitiveAtom, useAtomValue } from "jotai";
 import { FileUs, FileUsAtomType, FormIdx } from "@/store/store-types";
-import { PrimitiveAtom, useAtomValue } from 'jotai';
-import { createAtoms, debouncedCombinedResultFromAtoms } from '../../../0-all/0-create-ui-atoms/4-options-atoms';
-import { Section } from '../4-controls';
-import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from '../3-sections';
+import { OptionsState } from "../../../0-all/0-create-ui-atoms";
+import { Section } from "../4-controls";
+import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { rightPanelSelectedContentAtom } from "@/store";
 
 export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: FileUsAtomType; formIdx: FormIdx; }) {
     // const fileUs = useAtomValue(fileUsAtom);
     // const metaForm = fileUs.meta?.[formIdx];
 
-    const atoms = createAtoms('', fileUsAtom, formIdx,
+    const atoms = OptionsState.createAtoms('', fileUsAtom, formIdx,
         ({ get, set }) => {
             //console.log('options changed', field, field.mani.displayname);
-            debouncedCombinedResultFromAtoms(atoms, get, set);
+            OptionsState.debouncedCombinedResultFromAtoms(atoms, get, set);
         }
     );
 

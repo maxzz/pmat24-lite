@@ -10,20 +10,23 @@ type PolicyForAtoms = {
 
 export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
 
-export function createUiAtoms(form: Meta.Form | undefined, onChange: OnValueChangeAny): PolicyAtoms {
-    return {
-        policyAtom: atomWithCallback('', onChange),
-        policy2Atom: atomWithCallback('', onChange),
-    };
+export namespace PolicyState {
+
+    export function createUiAtoms(form: Meta.Form | undefined, onChange: OnValueChangeAny): PolicyAtoms {
+        return {
+            policyAtom: atomWithCallback('', onChange),
+            policy2Atom: atomWithCallback('', onChange),
+        };
+    }
+
+    function combineResultFromAtoms(atoms: PolicyAtoms, get: Getter, set: Setter) {
+        const result = {
+            policy: get(atoms.policyAtom),
+            policy2: get(atoms.policy2Atom),
+        };
+
+        console.log('Policy atoms', JSON.stringify(result));
+    }
+
+    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
 }
-
-function combineResultFromAtoms(atoms: PolicyAtoms, get: Getter, set: Setter) {
-    const result = {
-        policy: get(atoms.policyAtom),
-        policy2: get(atoms.policy2Atom),
-    };
-
-    console.log('Policy atoms', JSON.stringify(result));
-}
-
-export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

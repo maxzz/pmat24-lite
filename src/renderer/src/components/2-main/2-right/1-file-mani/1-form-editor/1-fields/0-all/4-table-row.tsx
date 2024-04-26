@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
-import { CatalogItem, Meta, TransformValue } from '@/store/manifest';
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from '../../../0-all/0-create-ui-atoms/1-fields-atoms';
-import { Column1_UseIt } from '../1-column-useIt';
-import { Column2_Label } from '../2-column-label';
-import { Column3_Value } from '../3-column-value';
-import { Column4_Catalog } from '../4-column-catalog';
-import { Column5_Type } from '../5-column-type';
+import { useEffect, useState } from "react";
+import { useAtom, useSetAtom } from "jotai";
+import { CatalogItem, Meta, TransformValue } from "@/store/manifest";
+import { TableRowState } from "../../../0-all/0-create-ui-atoms";
+import { Column1_UseIt } from "../1-column-useIt";
+import { Column2_Label } from "../2-column-label";
+import { Column3_Value } from "../3-column-value";
+import { Column4_Catalog } from "../4-column-catalog";
+import { Column5_Type } from "../5-column-type";
 
 export function TableRow({ field }: { field: Meta.Field; }) {
-    const rowAtoms = useState(() => createUiAtoms(field, ({ get, set }) => debouncedCombinedResultFromAtoms(rowAtoms, get, set)))[0];
+    const rowAtoms = useState(() => TableRowState.createUiAtoms(field, ({ get, set }) => TableRowState.debouncedCombinedResultFromAtoms(rowAtoms, get, set)))[0];
 
     const [useIt, setUseIt] = useAtom(rowAtoms.useItAtom);
     const setLabel = useSetAtom(rowAtoms.labelAtom);
