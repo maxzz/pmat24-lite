@@ -1,3 +1,4 @@
+import { FieldTyp } from "pm-manifest";
 import { FileUs, FileUsAtomType, FormIdx } from "@/store/store-types";
 import { TableRowState } from "./1-fields-atoms";
 import { SubmitState } from "./2-submit-atoms";
@@ -6,7 +7,10 @@ import { OptionsState } from "./4-options-atoms";
 
 function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtomType, formIdx: FormIdx) {
 
-    const tableRowAtoms = fileUs.meta?.[formIdx].fields.map((field, idx) => TableRowState.createUiAtoms(field, () => { })) || [];
+    const fields = fileUs.meta?.[formIdx].fields || [];
+    const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
+
+    const tableRowAtoms = nonButtonFields.map((field, idx) => TableRowState.createUiAtoms(field, () => { })) || [];
 
     const metaForm = fileUs.meta?.[formIdx];
 
