@@ -7,10 +7,12 @@ export function XmlSwitch() {
     const { view } = useSnapshot(appSettings).rightPanel.rightPanelState;
     return (
         <div className="text-[0.55rem] flex flex-col items-center gap-1.5">
-            <div className="flex items-center justify-between gap-1">
-                <SymbolForms className="size-3" title="Forms" />
-                <SymbolCode className="size-3" title="XML" />
+            
+            <div className="text-muted-foreground flex items-center justify-between gap-2">
+                <SymbolForms className="size-2.5" title="Forms" />
+                <SymbolCode className="size-2.5" title="XML" />
             </div>
+
             <Switch
                 className="w-7 h-2"
                 thumbClasses="data-[state=checked]:translate-x-3"
