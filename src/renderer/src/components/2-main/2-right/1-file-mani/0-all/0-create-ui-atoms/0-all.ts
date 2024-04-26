@@ -1,11 +1,11 @@
 import { FieldTyp } from "pm-manifest";
-import { FileUs, FileUsAtomType, FormIdx } from "@/store/store-types";
+import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { TableRowState } from "./1-fields-atoms";
 import { SubmitState } from "./2-submit-atoms";
 import { PolicyState } from "./3-policy-atoms";
 import { OptionsState } from "./4-options-atoms";
 
-function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtomType, formIdx: FormIdx) {
+function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx) {
 
     const fields = fileUs.meta?.[formIdx].fields || [];
     const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
@@ -24,7 +24,7 @@ function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtomType, formIdx: Fo
     return rv;
 }
 
-export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtomType) {
+export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom) {
 
     const loginAtoms = createFormAtoms(fileUs, fileUsAtom, FormIdx.login);
     const cpassAtoms = createFormAtoms(fileUs, fileUsAtom, FormIdx.cpass);

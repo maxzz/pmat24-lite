@@ -1,6 +1,7 @@
 import { PrimitiveAtom, WritableAtom } from "jotai";
 import { CatalogFile, Mani, Meta } from "../manifest";
 import { FileContent } from "@shared/ipc-types";
+import { ManiAtoms } from "@/components/2-main/2-right/1-file-mani/0-all/0-create-ui-atoms/9-types";
 
 export type FileUsState = {
     isGroupAtom: PrimitiveAtom<boolean>;    // this fileUs selected for bulk group operation
@@ -25,15 +26,15 @@ export type FileUsStats = {
     dateModified?: string;              // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)
 };
 
-export type FileUs =
-    & FileContent
-    & {
-        mani?: Mani.Manifest;           // json raw manifest
-        meta?: Meta.Form[];             // meta data on manifest
-        fcat?: CatalogFile.Root;        // field catalog
+export type FileUs = FileContent & {
+    mani?: Mani.Manifest;               // json raw manifest
+    meta?: Meta.Form[];                 // meta data on manifest
+    fcat?: CatalogFile.Root;            // field catalog
 
-        state: FileUsState;             // local state atoms: is currnet; is selected
-        stats: FileUsStats;             // quick access statistics
-    };
+    state: FileUsState;                 // local state atoms: is currnet; is selected
+    stats: FileUsStats;                 // quick access statistics
 
-export type FileUsAtomType = WritableAtom<FileUs, [FileUs], void>;
+    atoms?: ManiAtoms;                  // mani editor ui atoms; created when file selected
+};
+
+export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

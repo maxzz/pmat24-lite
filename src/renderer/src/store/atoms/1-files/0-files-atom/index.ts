@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
-import type { FileUsAtomType } from "@/store/store-types";
+import type { FileUsAtom } from "@/store/store-types";
 
 // Files
 
-export const filesAtom = atom<FileUsAtomType[]>([]);
+export const filesAtom = atom<FileUsAtom[]>([]);

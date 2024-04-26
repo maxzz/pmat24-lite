@@ -1,12 +1,12 @@
 import { atom } from "jotai";
-import { FileUsAtomType } from "@/store/store-types";
+import { FileUsAtom } from "@/store/store-types";
 import { fileListOptionsAtom } from "@/store/app-settings";
 import { appTypeToIcon, fileUsToAppType, getFileListDisplayName } from "@/store/store-utils";
 import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
 import { filteredAtom } from "./1-filtered-files";
 
 export type TreeFcntItem = {
-    fcnt: FileUsAtomType;
+    fcnt: FileUsAtom;
 };
 
 export type TreeFileItem<T = {}> = Prettify<

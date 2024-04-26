@@ -1,4 +1,4 @@
-import { FileUsAtomType } from "./0-file-us-type";
+import { FileUsAtom } from "./0-file-us-type";
 
 export const enum FormIdx {
     login = 0,// 0 - login (even if login does not exist)
@@ -7,6 +7,6 @@ export const enum FormIdx {
 }
 
 export type FileUsFormData = {
-    fileUsAtom: FileUsAtomType;
+    fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
 };

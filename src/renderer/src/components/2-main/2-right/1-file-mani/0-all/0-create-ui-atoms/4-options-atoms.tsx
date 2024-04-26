@@ -1,6 +1,6 @@
 import { Getter, Setter, atom } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FileUsAtomType, FormIdx } from '@/store/store-types';
+import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { debounce } from '@/utils';
 
 type UiPart1General = {
@@ -39,13 +39,13 @@ export type FormOptionsAtoms = {
     uiPart3Authentication: Atomize<UiPart3Authentication>;
     uiPart5PasswordManagerIcon: Atomize<UiPart5PasswordManagerIcon>;
 
-    fileUsAtom: FileUsAtomType;
+    fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
 };
 
 export namespace OptionsState {
 
-    export function createAtoms(v: string, fileUsAtom: FileUsAtomType, formIdx: FormIdx, onChange: OnValueChangeAny): FormOptionsAtoms {
+    export function createAtoms(v: string, fileUsAtom: FileUsAtom, formIdx: FormIdx, onChange: OnValueChangeAny): FormOptionsAtoms {
         return {
             uiPart1General: {
                 nameAtom: atomWithCallback('', onChange),

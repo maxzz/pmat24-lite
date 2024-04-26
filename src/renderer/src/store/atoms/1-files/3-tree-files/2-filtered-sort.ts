@@ -1,7 +1,7 @@
 import { Getter } from 'jotai';
-import { FileUsAtomType, Order, SortBy } from "@/store/store-types";
+import { FileUsAtom, Order, SortBy } from "@/store/store-types";
 
-export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtomType[], get: Getter) {
+export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtom[], get: Getter) {
 
     if (sortBy === SortBy.url) {
         result.sort(compareDomain_AtoZ);
@@ -12,7 +12,7 @@ export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtomType[
         }
     }
 
-    function CompareIndices_9to0(atomA: FileUsAtomType, atomB: FileUsAtomType) {
+    function CompareIndices_9to0(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
 
@@ -21,7 +21,7 @@ export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtomType[
         return a < b ? 1 : a > b ? -1 : 0;
     }
 
-    function compareDomain_AtoZ(atomA: FileUsAtomType, atomB: FileUsAtomType) {
+    function compareDomain_AtoZ(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
 

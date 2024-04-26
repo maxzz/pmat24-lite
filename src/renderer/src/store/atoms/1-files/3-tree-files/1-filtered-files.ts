@@ -1,12 +1,12 @@
 import { atom } from 'jotai';
 import { filesAtom } from '../0-files-atom';
-import { FileUsAtomType } from "@/store/store-types";
+import { FileUsAtom } from "@/store/store-types";
 import { createRegexByFilter, isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual, useFileUsByFilter } from '@/store/store-utils';
 import { searchFilterData } from '../../9-ui-state/04-filters-search';
 import { fileListOptionsAtom } from '@/store/app-settings';
 import { sortResult } from './2-filtered-sort';
 
-export const filteredAtom = atom<FileUsAtomType[]>(
+export const filteredAtom = atom<FileUsAtom[]>(
     (get) => {
         const { regex, winOnly, webOnly, whyOnly, capOnly, clsOnly } = createRegexByFilter(
             get(searchFilterData.textAtom),
@@ -24,7 +24,7 @@ export const filteredAtom = atom<FileUsAtomType[]>(
         const files = get(filesAtom);
 
         const rv = files.filter(
-            (fileAtom: FileUsAtomType) => {
+            (fileAtom: FileUsAtom) => {
                 const fileUs = get(fileAtom);
 
                 if (capOnly) {
