@@ -4,6 +4,11 @@ import { FormSections } from "./2-form-sections";
 import { NoForm } from "./3-no-form-tab-content";
 
 export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+    const fileUsAtoms = fileUs.atoms;
+    if (!fileUsAtoms) {
+        return null;
+    }
+    
     const hasForm = fileUs.meta?.[formIdx];
     
     if (!hasForm) {

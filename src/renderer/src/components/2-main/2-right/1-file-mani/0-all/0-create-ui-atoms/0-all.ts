@@ -42,6 +42,9 @@ function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormId
         submitAtoms,
         policyAtoms,
         optionsAtoms,
+
+        fileUsAtom,
+        formIdx,
     };
 }
 

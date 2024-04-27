@@ -5,10 +5,12 @@ import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
 import { createManiAtoms } from "../0-create-ui-atoms/0-all";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function ManiBody() {
     const { ref, width, height } = useResizeObserver();
+
+    // const [fileUsAtoms, setFileUsAtoms] = useState()
 
     const fileUsAtom = useAtomValue(rightPanelAtom);
     if (!fileUsAtom) {
@@ -16,9 +18,6 @@ export function ManiBody() {
     }
 
     const fileUs = useAtomValue(fileUsAtom);
-    if (!fileUs) {
-        return null;
-    }
 
     useEffect(() => {
         if (!fileUs.atoms) {
