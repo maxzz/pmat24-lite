@@ -43,6 +43,8 @@ export namespace FieldRowState {
 
         console.log('TableRow atoms', JSON.stringify(result));
         //TODO: use result
+
+        //TODO: cannot return anything
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

@@ -12,6 +12,15 @@ export type SubmitAtoms = Prettify<Atomize<SubmitForAtoms>>;
 export namespace SubmitState {
 
     export function createUiAtoms(form: Meta.Form | undefined, onChange: OnValueChangeAny): SubmitAtoms {
+
+        // const metaForm = fileUs.meta?.[formIdx];
+        // if (!metaForm) {
+        //     return [];
+        // }
+
+        // const fields = metaForm.fields || [];
+        // const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
+        
         return {
             doSubmitAtom: atomWithCallback(true, onChange),
         };

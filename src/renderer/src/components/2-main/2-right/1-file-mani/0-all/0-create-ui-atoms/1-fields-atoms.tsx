@@ -29,7 +29,14 @@ export namespace FieldsState {
         return rv;
     }
 
-    function combineResultFromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldsAtoms, get: Getter, set: Setter) {
+        atoms.forEach((atom) => {
+            FieldRowState.debouncedCombinedResultFromAtoms(atom, get, set);
+        });
+
+        //TODO: there cannot be a return value, so each atom must do its own thing
+        
+        //console.log('TableRow atoms', JSON.stringify(result));
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
