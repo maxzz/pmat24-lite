@@ -11,14 +11,14 @@ type FieldRowForAtoms = {
     fieldCat: string;
 };
 
-export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & { mani: Mani.Field; };
+export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & { mani: Mani.Field; org: FieldRowForAtoms; changed: boolean; };
 
 export namespace FieldRowState {
 
     /**
      * Fields that are used in this editor
      */
-    export type ThisType = Pick<Mani.Field, 
+    export type ThisType = Pick<Mani.Field,
         | 'useit'
         | 'displayname'
         | 'type'
@@ -28,7 +28,7 @@ export namespace FieldRowState {
         | 'onetvalue'
     >;
 
-    function field2FieldsForAtoms(field: Meta.Field): FieldRowForAtoms {
+    function forAtoms(field: Meta.Field): FieldRowForAtoms {
         const { useit, displayname } = field.mani;
         const rv: FieldRowForAtoms = {
             useIt: !!useit,
@@ -40,7 +40,18 @@ export namespace FieldRowState {
         return rv;
     }
 
-    function field4FieldsForAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter): FieldRowForAtoms {
+    function toAtoms(initialState: FieldRowForAtoms, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): Atomize<FieldRowForAtoms> {
+        const { useIt, label, type, valueLife, fieldCat } = initialState;
+        return {
+            useItAtom: atomWithCallback(useIt, onChange),
+            labelAtom: atomWithCallback(label, onChange),
+            typeAtom: atomWithCallback(type, onChange),
+            valueLifeAtom: atomWithCallback(valueLife, onChange),
+            fieldCatAtom: atomWithCallback(fieldCat, onChange), //TODO:
+        };
+    }
+
+    function fromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter): FieldRowForAtoms {
         const rv = {
             useIt: get(atoms.useItAtom),
             label: get(atoms.labelAtom),
@@ -51,44 +62,30 @@ export namespace FieldRowState {
         return rv;
     }
 
+    function toMani(from: FieldRowForAtoms): ThisType {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            ...fieldTyp2Obj(from.type),
+        };
+
+        TransformValue.valueLife2Mani(from.valueLife, rv);
+        return rv;
+    }
+
     export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): FieldRowAtoms {
-        const fieldsForAtoms = field2FieldsForAtoms(field);
+        const initialState = forAtoms(field);
         return {
-            useItAtom: atomWithCallback(fieldsForAtoms.useIt, onChange),
-            labelAtom: atomWithCallback(fieldsForAtoms.label, onChange),
-            typeAtom: atomWithCallback(fieldsForAtoms.type, onChange),
-            valueLifeAtom: atomWithCallback(fieldsForAtoms.valueLife, onChange),
-            fieldCatAtom: atomWithCallback(fieldsForAtoms.fieldCat, onChange), //TODO:
+            ...toAtoms(initialState, onChange),
             mani: field.mani,
+            org: initialState,
+            changed: false,
         };
     }
 
     function combineResultFromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter) {
-        const result = field4FieldsForAtoms(atoms, get, set);
-
-        // const result2 = {
-        //     useIt: get(atoms.useItAtom),
-        //     label: get(atoms.labelAtom),
-        //     type: fieldTyp2Obj(get(atoms.typeAtom)),
-        //     valueLife: get(atoms.valueLifeAtom),
-        //     fieldCat: get(atoms.fieldCatAtom), //TODO: catalog
-        // };
-
-        // const maniField: Mani.Field = {
-        //     ...atoms.mani,
-        //     useit: result.useIt,
-        //     displayname: result.label,
-        //     ...result.type,
-        // };
-        
-        const maniField: ThisType = {
-            useit: result.useIt,
-            displayname: result.label,
-            // ...result.type,
-            ...fieldTyp2Obj(result.type),
-        };
-
-        TransformValue.valueLife2Mani(result.valueLife, maniField);
+        const state = fromAtoms(atoms, get, set);
+        const maniField = toMani(state);
 
         console.log('TableRow atoms', JSON.stringify(maniField));
         //TODO: use result
