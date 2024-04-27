@@ -1,7 +1,6 @@
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { FieldTyp } from "pm-manifest";
 import { FormAtoms, ManiAtoms } from "./9-types";
-import { TableRowState } from "./1-field-atoms";
+import { FieldsState } from "./1-fields-atoms";
 import { SubmitState } from "./2-submit-atoms";
 import { PolicyState } from "./3-policy-atoms";
 import { OptionsState } from "./4-options-atoms";
@@ -13,13 +12,7 @@ function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormId
         return;
     }
 
-    const fields = metaForm.fields || [];
-    const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
-
-    const tableRowAtoms = nonButtonFields.map((field, idx) => {
-        const rv = TableRowState.createUiAtoms(field, ({ get, set }) => TableRowState.debouncedCombinedResultFromAtoms(rv, get, set));
-        return rv;
-    }) || [];
+    const fieldsAtoms = FieldsState.createUiAtoms(fileUs, fileUsAtom, formIdx);
 
     const submitAtoms = SubmitState.createUiAtoms(metaForm,
         ({ get, set }) => {
@@ -41,7 +34,7 @@ function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormId
     );
 
     return {
-        fieldsAtoms: tableRowAtoms,
+        fieldsAtoms,
         submitAtoms,
         policyAtoms,
         optionsAtoms,

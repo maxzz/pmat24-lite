@@ -3,7 +3,7 @@ import { Meta, TransformValue, ValueLife } from '@/store/manifest';
 import { Atomize, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
 
-type TableRowForAtoms = {
+type FieldRowForAtoms = {
     useIt: boolean;
     label: string;
     type: string;
@@ -13,11 +13,11 @@ type TableRowForAtoms = {
     fieldCat: string;
 };
 
-export type TableRowAtoms = Prettify<Atomize<TableRowForAtoms>>;
+export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>>;
 
-export namespace TableRowState {
+export namespace FieldRowState {
 
-    export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): TableRowAtoms {
+    export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): FieldRowAtoms {
         const { useit, displayname, type: typ, value: val } = field.mani;
         return {
             useItAtom: atomWithCallback(!!useit, onChange),
@@ -30,7 +30,7 @@ export namespace TableRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: TableRowAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter) {
         const result = {
             useIt: get(atoms.useItAtom),
             label: get(atoms.labelAtom),
