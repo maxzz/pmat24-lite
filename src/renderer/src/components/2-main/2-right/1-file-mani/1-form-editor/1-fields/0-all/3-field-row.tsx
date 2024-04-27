@@ -16,24 +16,17 @@ export function FieldRow({ field }: { field: Meta.Field; }) {
     const [useIt, setUseIt] = useAtom(rowAtoms.useItAtom);
     const setLabel = useSetAtom(rowAtoms.labelAtom);
     const setType = useSetAtom(rowAtoms.typeAtom);
-    //const setValue = useSetAtom(rowAtoms.valueAtom);
-    //const setValueAs = useSetAtom(rowAtoms.valueAsAtom);
     const setValueLife = useSetAtom(rowAtoms.valueLifeAtom);
     const setFieldCat = useSetAtom(rowAtoms.fieldCatAtom);
 
-    //const rowClassName = useIt ? "" : "opacity-30 pointer-events-none";
     const enableRow = () => !useIt && setUseIt(true);
 
-    //console.log('============================================================');
     useEffect(() => {
-        //console.log('-----------------------------------');
-        const { useit, displayname, type: typ, value: val } = field.mani;
+        const { useit, displayname } = field.mani;
 
         setUseIt(!!useit);
         setLabel(displayname || '');
         setType(fieldTyp4Str(field.mani)); //TODO:
-        //setValue(val || '');
-        //setValueAs(val || '');
         setValueLife(TransformValue.valueLife4Mani(field.mani));
         setFieldCat(''); //TODO:
     }, [field]);
