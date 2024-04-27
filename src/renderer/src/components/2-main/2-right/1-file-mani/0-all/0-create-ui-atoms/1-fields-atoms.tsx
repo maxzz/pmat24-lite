@@ -1,48 +1,33 @@
 import { Getter, Setter } from 'jotai';
-import { Meta, TransformValue, ValueLife } from '@/store/manifest';
-import { Atomize, atomWithCallback } from '@/util-hooks';
+import { FieldTyp } from '@/store/manifest';
+import { OnValueChangeAny } from '@/util-hooks';
 import { debounce } from '@/utils';
+import { FileUs, FileUsAtom, FormIdx } from '@/store/store-types';
+import { TableRowAtoms, TableRowState } from './1-field-atoms';
 
-type TableRowForAtoms = {
-    useIt: boolean;
-    label: string;
-    type: string;
-    value: string;
-    valueAs: string;
-    valueLife: ValueLife;
-    fieldCat: string;
-};
+export type FieldsAtoms = TableRowAtoms[];
 
-export type TableRowAtoms = Prettify<Atomize<TableRowForAtoms>>;
+export namespace FieldsState {
 
-export namespace TableRowState {
+    export function createUiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx, onChange: OnValueChangeAny): FieldsAtoms {
 
-    export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): TableRowAtoms {
-        const { useit, displayname, type: typ, value: val } = field.mani;
-        return {
-            useItAtom: atomWithCallback(!!useit, onChange),
-            labelAtom: atomWithCallback(displayname || '', onChange),
-            typeAtom: atomWithCallback('', onChange), //TODO:
-            valueAtom: atomWithCallback(val || '', onChange),
-            valueAsAtom: atomWithCallback(val || '', onChange),
-            valueLifeAtom: atomWithCallback(TransformValue.valueLife4Mani(field.mani), onChange),
-            fieldCatAtom: atomWithCallback('', onChange), //TODO:
-        };
+        const metaForm = fileUs.meta?.[formIdx];
+        if (!metaForm) {
+            return [];
+        }
+    
+        const fields = metaForm.fields || [];
+        const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
+    
+        const tableRowAtoms = nonButtonFields.map((field, idx) => {
+            const rv = TableRowState.createUiAtoms(field, ({ get, set }) => TableRowState.debouncedCombinedResultFromAtoms(rv, get, set));
+            return rv;
+        }) || [];
+    
+        return tableRowAtoms;
     }
 
     function combineResultFromAtoms(atoms: TableRowAtoms, get: Getter, set: Setter) {
-        const result = {
-            useIt: get(atoms.useItAtom),
-            label: get(atoms.labelAtom),
-            type: get(atoms.typeAtom), //TODO:
-            value: get(atoms.valueAtom),
-            valueAs: get(atoms.valueAsAtom),
-            valueLife: get(atoms.valueLifeAtom),
-            fieldCat: get(atoms.fieldCatAtom), //TODO: catalog
-        };
-
-        console.log('TableRow atoms', JSON.stringify(result));
-        //TODO: use result
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
