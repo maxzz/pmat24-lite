@@ -11,7 +11,7 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
     const { useItAtom, labelAtom, valueLifeAtom, fieldCatAtom, maniField } = fieldRowAtoms;
 
     const setUseIt = useSetAtom(useItAtom);
-    const enableRow = () => setUseIt((v) => !v);
+    const enableRow = () => setUseIt(true);
 
     function onSelectCatItem(item: CatalogItem | undefined) {
     }

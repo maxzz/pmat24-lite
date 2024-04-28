@@ -1,9 +1,9 @@
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { FormAtoms, ManiAtoms } from "./9-types";
-import { FieldsState } from "./1-fields/1-fields-atoms";
-import { SubmitState } from "./2-submit";
-import { PolicyState } from "./3-policy";
-import { OptionsState } from "./4-options";
+import { FormAtoms, ManiAtoms } from "../9-types";
+import { FieldsState } from "../1-fields/1-fields-atoms";
+import { SubmitState } from "../2-submit";
+import { PolicyState } from "../3-policy";
+import { OptionsState } from "../4-options";
 
 function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx): FormAtoms | undefined {
 
