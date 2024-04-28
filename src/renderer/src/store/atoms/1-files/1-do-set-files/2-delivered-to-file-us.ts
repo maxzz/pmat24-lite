@@ -4,6 +4,7 @@ import { uuid } from '@/utils';
 import { FileContent } from '@shared/ipc-types';
 import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats } from '@/store/store-utils';
+import { ManiAtoms } from '@/components/2-main/2-right/1-file-mani/0-all/0-create-ui-atoms/9-types';
 
 export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
     const newFileUs: FileUs = {
@@ -24,6 +25,8 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
             isCurrentAtom: atom<boolean>(false),
         },
         stats: {} as FileUsStats, // the real one will be assigned after parsing content
+        
+        atoms: atom<ManiAtoms | null>(null),
     };
 
     addParseData(newFileUs);

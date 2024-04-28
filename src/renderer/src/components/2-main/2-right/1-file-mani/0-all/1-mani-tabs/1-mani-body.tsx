@@ -1,11 +1,11 @@
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { rightPanelAtom } from "@/store";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
 import { createManiAtoms } from "../0-create-ui-atoms/0-all";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function ManiBody() {
     const { ref, width, height } = useResizeObserver();
@@ -19,13 +19,23 @@ export function ManiBody() {
 
     const fileUs = useAtomValue(fileUsAtom);
 
-    useEffect(() => {
-        if (!fileUs.atoms) {
-            console.log('-------------- ManiBody: createManiAtoms');
+    const [fileUsAtoms, setFileUsAtoms] = useAtom(fileUs.atoms);
 
-            fileUs.atoms = createManiAtoms(fileUs, fileUsAtom);
+    useEffect(() => {
+        if (!fileUsAtoms) {
+            console.log('-------------- ManiBody: createManiAtoms', fileUsAtoms);
+            setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
         }
-    }, [fileUs, fileUsAtom]);
+
+        // if (!fileUs.atoms) {
+        //     console.log('-------------- ManiBody: createManiAtoms');
+        //     setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
+        // }
+    }, [fileUs, fileUsAtom, fileUsAtoms]);
+
+    if (!fileUsAtoms) {
+        return null;
+    }
 
     const hasCpass = fileUs.meta?.length === 2;
 
