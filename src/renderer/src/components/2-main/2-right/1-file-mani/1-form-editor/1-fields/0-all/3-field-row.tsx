@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { CatalogItem, Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
-import { FieldRowState } from "../../../0-all/0-create-ui-atoms/1-fields/3-field-atoms";
+import { FieldRowState } from "../../../0-all/0-create-ui-atoms/1-fields/2-field-atoms";
 import { FieldsState } from "../../../0-all/0-create-ui-atoms";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Label } from "../2-column-label";
