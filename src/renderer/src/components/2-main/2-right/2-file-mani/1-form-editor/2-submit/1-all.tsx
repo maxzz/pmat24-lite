@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
-import { ManiAtoms, SubmitState } from "../../0-all/0-create-ui-atoms";
+import { ManiAtoms, SubmitState } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 
 function ManiSection2_Submit({ maniAtoms, form }: { maniAtoms: ManiAtoms; form: Meta.Form; }) {

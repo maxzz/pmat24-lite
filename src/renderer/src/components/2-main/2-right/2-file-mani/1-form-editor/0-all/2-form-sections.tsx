@@ -4,7 +4,7 @@ import { TabFields } from "../1-fields";
 import { TabSubmit } from "../2-submit";
 import { TabPolicy } from "../3-policy";
 import { TabOptions } from "../4-options";
-import { ManiAtoms } from "../../0-all/0-create-ui-atoms";
+import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 export function FormSections({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>

@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/store-types";
 import { FieldsGrid } from "./2-field-grid";
 import { NoFileds } from "./5-no-fileds";
-import { ManiAtoms } from "../../../0-all/0-create-ui-atoms/9-types";
+import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 export function TabFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
 

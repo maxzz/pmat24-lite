@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { FormOptionsAtoms } from '../../../0-all/0-create-ui-atoms/4-options';
+import { FormOptionsAtoms } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowInput } from '../4-controls';
 
 export function Part5PasswordManagerIcon({ atoms }: { atoms: FormOptionsAtoms; }) {

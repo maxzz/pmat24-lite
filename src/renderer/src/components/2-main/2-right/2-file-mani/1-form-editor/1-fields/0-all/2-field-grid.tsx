@@ -1,4 +1,4 @@
-import { FormAtoms } from "../../../0-all/0-create-ui-atoms";
+import { FormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { FieldRow } from "./3-field-row";
 import { TableHeader } from "./4-table-header";
 

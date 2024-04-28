@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { FieldsState } from "../../../0-all/0-create-ui-atoms";
+import { FieldsState } from "@/store/atoms/3-file-mani-atoms";
 import { CatalogItem } from "@/store/manifest";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Label } from "../2-column-label";

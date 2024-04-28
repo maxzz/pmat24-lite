@@ -1,6 +1,6 @@
 import { PrimitiveAtom, useAtomValue } from "jotai";
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { ManiAtoms, OptionsState } from "../../../0-all/0-create-ui-atoms";
+import { ManiAtoms, OptionsState } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { rightPanelContentAtom } from "@/store";

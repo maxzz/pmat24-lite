@@ -4,7 +4,7 @@ import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
-import { createManiAtoms } from "../0-create-ui-atoms/0-all";
+import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
 import { useEffect } from "react";
 
 export function ManiBody() {
