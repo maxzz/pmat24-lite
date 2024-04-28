@@ -12,7 +12,6 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     }
     
     const hasForm = fileUs.meta?.[formIdx];
-    
     if (!hasForm) {
         return <NoForm formType={formIdx} />;
     }

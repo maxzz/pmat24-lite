@@ -2,9 +2,9 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { RightPanelView, appSettings, rightPanelContentAtom } from "@/store";
 import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-classes";
-import { R_PanelHeader } from "./0-header";
-import { ManiBody } from "./1-file-mani";
-import { Body_Xml } from "./2-file-xml";
+import { R_PanelHeader } from "./1-header";
+import { ManiBody } from "./2-file-mani";
+import { Body_Xml } from "./3-file-xml";
 
 function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelContentAtom);

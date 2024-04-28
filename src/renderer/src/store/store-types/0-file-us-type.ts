@@ -1,7 +1,7 @@
 import { PrimitiveAtom, WritableAtom } from "jotai";
 import { CatalogFile, Mani, Meta } from "../manifest";
 import { FileContent } from "@shared/ipc-types";
-import { ManiAtoms } from "@/components/2-main/2-right/1-file-mani/0-all/0-create-ui-atoms/9-types";
+import { ManiAtoms } from "@/components/2-main/2-right/2-file-mani/0-all/0-create-ui-atoms/9-types";
 
 export type FileUsState = {
     isGroupAtom: PrimitiveAtom<boolean>;    // this fileUs selected for bulk group operation
