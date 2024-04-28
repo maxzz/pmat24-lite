@@ -1,17 +1,1 @@
-import { L_PanelHeader } from "./0-header/0-all";
-import { FilesTree } from "./1-files-list";
-import { panel1Classes, panel2Classes, panel3Classes } from "../3-middle/shared-classes";
-
-export function PanelA() {
-    return (
-        <div className={`${panel1Classes} pr-0`}>
-            <div className={`${panel2Classes} rounded-l`}>
-                <div className={panel3Classes}>
-                    <L_PanelHeader />
-
-                    <FilesTree />
-                </div>
-            </div>
-        </div>
-    );
-}
+export * from "./0-all";
