@@ -1,12 +1,16 @@
-import { FormIdx, FileUs } from "@/store/store-types";
+import { FormIdx } from "@/store/store-types";
 import { FieldsGrid } from "./2-field-grid";
 import { NoFileds } from "./5-no-fileds";
 import { ManiAtoms } from "../../../0-all/0-create-ui-atoms/9-types";
 
-export function TabFields({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
+export function TabFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
 
-    const metaForm = fileUs.meta?.[formIdx];
-    if (!metaForm) {
+    const formAtoms = maniAtoms[formIdx];
+    if (!formAtoms) {
+        return null;
+    }
+
+    if (!formAtoms.fieldsAtoms.length) {
         return (
             <NoFileds formType={formIdx} />
         );
@@ -14,7 +18,7 @@ export function TabFields({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms
 
     return (
         <div>
-            <FieldsGrid maniAtoms={maniAtoms} fields={metaForm.fields} />
+            <FieldsGrid formAtoms={formAtoms} />
         </div>
     );
 }

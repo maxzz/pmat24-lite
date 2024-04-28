@@ -10,7 +10,7 @@ export namespace FieldRowState {
         const initialState = FieldConv.forAtoms(field);
         return {
             ...FieldConv.toAtoms(initialState, onChange),
-            mani: field.mani,
+            maniField: field.mani,
             org: initialState,
             changed: false,
         };

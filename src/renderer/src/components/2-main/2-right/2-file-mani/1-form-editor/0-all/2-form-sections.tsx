@@ -9,7 +9,7 @@ import { ManiAtoms } from "../../0-all/0-create-ui-atoms";
 export function FormSections({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>
         <SubSection value="fields" label="Form fields">
-            <TabFields maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
+            <TabFields maniAtoms={maniAtoms} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="submit" label="Form submit options">

@@ -12,13 +12,13 @@ export namespace FieldConv {
         fieldCat: string;
     };
 
-    export type FieldAtoms =
-        & Prettify<Atomize<FieldForAtoms>>
+    export type FieldAtoms = Prettify<
+        & Atomize<FieldForAtoms>
         & {
-            mani: Mani.Field;       // all fields from original to combine with fields from atoms to create new field
+            maniField: Mani.Field;  // all fields from original to combine with fields from atoms to create new field
             org: FieldForAtoms;     // original state to compare with
             changed: boolean;       // state from atoms is different from original state
-        };
+        }>;
 
     /**
      * Fields that are used in this editor
