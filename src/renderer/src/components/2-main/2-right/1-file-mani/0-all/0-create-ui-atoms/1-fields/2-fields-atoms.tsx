@@ -2,13 +2,14 @@ import { Getter, Setter } from 'jotai';
 import { FieldTyp } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FileUs, FileUsAtom, FormIdx } from '@/store/store-types';
-import { FieldRowState } from './2-field-atoms';
-
-export type FieldsAtoms = FieldRowState.FieldRowAtoms[];
+import { FieldConv } from './1-conv';
+import { FieldRowState } from './3-field-atoms';
 
 export namespace FieldsState {
 
-    export function createUiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx): FieldsAtoms {
+    export type Atoms = FieldConv.FieldRowAtoms;
+
+    export function createUiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx): Atoms[] {
 
         const metaForm = fileUs.meta?.[formIdx];
         if (!metaForm) {
@@ -29,7 +30,7 @@ export namespace FieldsState {
         return rv;
     }
 
-    function combineResultFromAtoms(atoms: FieldsAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: Atoms[], get: Getter, set: Setter) {
         atoms.forEach((atom) => {
             FieldRowState.debouncedCombinedResultFromAtoms(atom, get, set);
         });

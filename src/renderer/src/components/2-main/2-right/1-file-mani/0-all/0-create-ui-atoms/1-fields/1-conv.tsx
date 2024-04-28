@@ -1,20 +1,23 @@
-import { Getter, Setter } from 'jotai';
-import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from '@/store/manifest';
-import { Atomize, atomWithCallback } from '@/util-hooks';
-import { debounce } from '@/utils';
+import { Getter, Setter } from "jotai";
+import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
+import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
 
-export namespace FieldRowState {
+export namespace FieldConv {
 
     export type FieldRowForAtoms = {
         useIt: boolean;
         label: string;
         type: FieldTyp;
-        valueLife: ValueLife; // this includes value and valueAs
+        valueLife: ValueLife;   // this includes value and valueAs
         fieldCat: string;
     };
-    
-    export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & { mani: Mani.Field; org: FieldRowForAtoms; changed: boolean; };
-    
+
+    export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & {
+        mani: Mani.Field;       // all fields from original to combine with fields from atoms to create new field
+        org: FieldRowForAtoms;  // original state to compare with
+        changed: boolean;       // state from atoms is different from original state
+    };
+
     /**
      * Fields that are used in this editor
      */
@@ -28,7 +31,7 @@ export namespace FieldRowState {
         | 'onetvalue'
     >;
 
-    function forAtoms(field: Meta.Field): FieldRowForAtoms {
+    export function forAtoms(field: Meta.Field): FieldRowForAtoms {
         const { useit, displayname } = field.mani;
         const rv: FieldRowForAtoms = {
             useIt: !!useit,
@@ -40,7 +43,7 @@ export namespace FieldRowState {
         return rv;
     }
 
-    function toAtoms(initialState: FieldRowForAtoms, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): Atomize<FieldRowForAtoms> {
+    export function toAtoms(initialState: FieldRowForAtoms, onChange: OnValueChangeAny): Atomize<FieldRowForAtoms> {
         const { useIt, label, type, valueLife, fieldCat } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),
@@ -51,7 +54,7 @@ export namespace FieldRowState {
         };
     }
 
-    function fromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter): FieldRowForAtoms {
+    export function fromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter): FieldRowForAtoms {
         const rv = {
             useIt: get(atoms.useItAtom),
             label: get(atoms.labelAtom),
@@ -62,7 +65,7 @@ export namespace FieldRowState {
         return rv;
     }
 
-    function toMani(from: FieldRowForAtoms): ThisType {
+    export function toMani(from: FieldRowForAtoms): ThisType {
         const rv: ThisType = {
             useit: from.useIt,
             displayname: from.label,
@@ -72,26 +75,4 @@ export namespace FieldRowState {
         TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
     }
-
-    export function createUiAtoms(field: Meta.Field, onChange: ({ get, set }: { get: Getter; set: Setter; }) => void): FieldRowAtoms {
-        const initialState = forAtoms(field);
-        return {
-            ...toAtoms(initialState, onChange),
-            mani: field.mani,
-            org: initialState,
-            changed: false,
-        };
-    }
-
-    function combineResultFromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter) {
-        const state = fromAtoms(atoms, get, set);
-        const maniField = toMani(state);
-
-        console.log('TableRow atoms', JSON.stringify(maniField));
-        //TODO: use result
-
-        //TODO: cannot return anything
-    }
-
-    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
 }
