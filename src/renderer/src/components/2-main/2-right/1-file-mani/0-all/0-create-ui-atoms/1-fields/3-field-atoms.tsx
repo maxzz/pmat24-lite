@@ -6,7 +6,7 @@ import { OnValueChangeAny } from '@/util-hooks';
 
 export namespace FieldRowState {
 
-    export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldRowAtoms {
+    export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
         const initialState = FieldConv.forAtoms(field);
         return {
             ...FieldConv.toAtoms(initialState, onChange),
@@ -16,9 +16,9 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: FieldConv.FieldRowAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, get: Getter, set: Setter) {
         const state = FieldConv.fromAtoms(atoms, get, set);
-        const maniField = FieldConv.toMani(state);
+        const maniField = FieldConv.forMani(state);
 
         console.log('TableRow atoms', JSON.stringify(maniField));
         //TODO: use result

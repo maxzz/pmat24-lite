@@ -7,7 +7,7 @@ import { FieldRowState } from './3-field-atoms';
 
 export namespace FieldsState {
 
-    export type Atoms = FieldConv.FieldRowAtoms;
+    export type Atoms = FieldConv.FieldAtoms;
 
     export function createUiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormIdx): Atoms[] {
 

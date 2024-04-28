@@ -4,19 +4,21 @@ import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp
 
 export namespace FieldConv {
 
-    export type FieldRowForAtoms = {
+    type FieldForAtoms = {
         useIt: boolean;
         label: string;
         type: FieldTyp;
-        valueLife: ValueLife;   // this includes value and valueAs
+        valueLife: ValueLife;       // this includes value and valueAs
         fieldCat: string;
     };
 
-    export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & {
-        mani: Mani.Field;       // all fields from original to combine with fields from atoms to create new field
-        org: FieldRowForAtoms;  // original state to compare with
-        changed: boolean;       // state from atoms is different from original state
-    };
+    export type FieldAtoms =
+        & Prettify<Atomize<FieldForAtoms>>
+        & {
+            mani: Mani.Field;       // all fields from original to combine with fields from atoms to create new field
+            org: FieldForAtoms;     // original state to compare with
+            changed: boolean;       // state from atoms is different from original state
+        };
 
     /**
      * Fields that are used in this editor
@@ -25,15 +27,15 @@ export namespace FieldConv {
         | 'useit'
         | 'displayname'
         | 'type'
-        | 'value' // | 'choosevalue'
+        | 'value' // | 'choosevalue' - so far cannot be changed
         | 'password'
         | 'askalways'
         | 'onetvalue'
     >;
 
-    export function forAtoms(field: Meta.Field): FieldRowForAtoms {
+    export function forAtoms(field: Meta.Field): FieldForAtoms {
         const { useit, displayname } = field.mani;
-        const rv: FieldRowForAtoms = {
+        const rv: FieldForAtoms = {
             useIt: !!useit,
             label: displayname || '',
             type: fieldTyp4Str(field.mani),
@@ -43,7 +45,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    export function toAtoms(initialState: FieldRowForAtoms, onChange: OnValueChangeAny): Atomize<FieldRowForAtoms> {
+    export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
         const { useIt, label, type, valueLife, fieldCat } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),
@@ -54,7 +56,7 @@ export namespace FieldConv {
         };
     }
 
-    export function fromAtoms(atoms: FieldRowAtoms, get: Getter, set: Setter): FieldRowForAtoms {
+    export function fromAtoms(atoms: FieldAtoms, get: Getter, set: Setter): FieldForAtoms {
         const rv = {
             useIt: get(atoms.useItAtom),
             label: get(atoms.labelAtom),
@@ -65,7 +67,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    export function toMani(from: FieldRowForAtoms): ThisType {
+    export function forMani(from: FieldForAtoms): ThisType {
         const rv: ThisType = {
             useit: from.useIt,
             displayname: from.label,
