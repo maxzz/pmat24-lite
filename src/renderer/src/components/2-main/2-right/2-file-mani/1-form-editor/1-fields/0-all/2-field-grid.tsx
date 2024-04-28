@@ -1,7 +1,6 @@
-import { Meta } from "@/store/manifest";
-import { TableHeader } from "./4-table-header";
-import { FieldRow } from "./3-field-row";
 import { FormAtoms } from "../../../0-all/0-create-ui-atoms";
+import { FieldRow } from "./3-field-row";
+import { TableHeader } from "./4-table-header";
 
 const gridClasses = "\
 p-2 \
@@ -10,13 +9,6 @@ text-foreground \
 rounded-sm";
 
 export function FieldsGrid({ formAtoms }: { formAtoms: FormAtoms; }) {
-    // const nonButtonFields = fields?.filter((field) => field.ftyp !== FieldTyp.button); // buttons are shown on another section
-
-    // if (!nonButtonFields?.length) {
-    //     return (
-    //         <div>no fields</div>
-    //     );
-    // }
 
     if (!formAtoms.fieldsAtoms.length) {
         return (
@@ -33,10 +25,6 @@ export function FieldsGrid({ formAtoms }: { formAtoms: FormAtoms; }) {
                     <FieldRow fieldRowAtoms={fieldRowAtoms} key={idx} />
                 ))
             }
-            {/* {nonButtonFields.map(
-                (field, idx) => (
-                    <FieldRow fieldRowAtoms={fieldRowAtoms} field={field} key={idx} />
-                ))} */}
         </div>
     );
 }
