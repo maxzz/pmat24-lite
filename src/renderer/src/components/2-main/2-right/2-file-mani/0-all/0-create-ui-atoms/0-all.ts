@@ -49,5 +49,5 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const loginAtoms = createFormAtoms(fileUs, fileUsAtom, FormIdx.login);
     const cpassAtoms = createFormAtoms(fileUs, fileUsAtom, FormIdx.cpass);
 
-    return { loginAtoms, cpassAtoms };
+    return [loginAtoms, cpassAtoms];
 }

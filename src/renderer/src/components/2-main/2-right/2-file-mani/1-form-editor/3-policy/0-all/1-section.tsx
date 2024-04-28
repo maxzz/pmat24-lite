@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { Meta } from "@/store/manifest";
-import { PolicyState } from "../../../0-all/0-create-ui-atoms";
+import { ManiAtoms, PolicyState } from "../../../0-all/0-create-ui-atoms";
 import { TableHeader } from "./2-table-header";
 import { PoliciesGrid } from "./3-table-grid";
 import { Button, notImplYet } from "@/ui";
 
-export function ManiSection3_Policy({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+export function ManiSection3_Policy({ maniAtoms,fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
     const policiesAtom = useState(() => atom<Meta.Field[]>([]))[0];
     const [policies, setPolicies] = useAtom(policiesAtom);
 

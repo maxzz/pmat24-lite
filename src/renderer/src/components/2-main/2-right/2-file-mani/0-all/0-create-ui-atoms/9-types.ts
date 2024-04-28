@@ -14,7 +14,4 @@ export type FormAtoms = {
     formIdx: FormIdx;
 };
 
-export type ManiAtoms = {
-    loginAtoms: FormAtoms | undefined;
-    cpassAtoms: FormAtoms | undefined;
-};
+export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined];

@@ -4,23 +4,24 @@ import { TabFields } from "../1-fields";
 import { TabSubmit } from "../2-submit";
 import { TabPolicy } from "../3-policy";
 import { TabOptions } from "../4-options";
+import { ManiAtoms } from "../../0-all/0-create-ui-atoms";
 
-export function FormSections({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+export function FormSections({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
     return (<>
         <SubSection value="fields" label="Form fields">
-            <TabFields fileUs={fileUs} formIdx={formIdx} />
+            <TabFields maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="submit" label="Form submit options">
-            <TabSubmit fileUs={fileUs} formIdx={formIdx} />
+            <TabSubmit maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="policy" label="Password policy">
-            <TabPolicy fileUs={fileUs} formIdx={formIdx} />
+            <TabPolicy maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="options" label="Form options">
-            <TabOptions fileUs={fileUs} formIdx={formIdx} />
+            <TabOptions maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
     </>);
 }

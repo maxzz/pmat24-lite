@@ -1,11 +1,11 @@
 import { PrimitiveAtom, useAtomValue } from "jotai";
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { OptionsState } from "../../../0-all/0-create-ui-atoms";
+import { ManiAtoms, OptionsState } from "../../../0-all/0-create-ui-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { rightPanelContentAtom } from "@/store";
 
-export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: FileUsAtom; formIdx: FormIdx; }) {
+export function ManiSection4_FormOptions({ maniAtoms, fileUsAtom, formIdx }: { maniAtoms: ManiAtoms; fileUsAtom: FileUsAtom; formIdx: FormIdx; }) {
     // const fileUs = useAtomValue(fileUsAtom);
     // const metaForm = fileUs.meta?.[formIdx];
 
@@ -46,7 +46,7 @@ export function ManiSection4_FormOptions({ fileUsAtom, formIdx }: { fileUsAtom: 
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-export function TabOptions({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+export function TabOptions({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
 
     const fileUs2 = useAtomValue(rightPanelContentAtom);
     if (!fileUs2) {
@@ -57,7 +57,7 @@ export function TabOptions({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
 
     return (
         <div className="ml-4 mr-1">
-            <ManiSection4_FormOptions fileUsAtom={fileUsAtom} formIdx={formIdx} />
+            <ManiSection4_FormOptions maniAtoms={maniAtoms} fileUsAtom={fileUsAtom} formIdx={formIdx} />
         </div>
     );
 }
