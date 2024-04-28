@@ -1,8 +1,8 @@
 import { CatalogItem } from '@/store/manifest';
 
-export * from './all-items';
-export * from './mru-items';
-export * from './ui-state';
+export * from './0-all-items';
+export * from './2-mru-items';
+export * from './1-ui-state';
 
 // For debugging
 

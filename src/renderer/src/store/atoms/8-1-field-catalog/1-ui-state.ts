@@ -8,10 +8,6 @@ export type FldCatInData = {
     outBoxAtom?: PrimitiveAtom<FldCatOutData | null>;
 };
 
-export type FldCatOutData = {
-    fldCatItem: CatalogItem | null;
-};
-
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
 export const openFldCatDialogAtom = atom(
@@ -21,17 +17,27 @@ export const openFldCatDialogAtom = atom(
     }
 );
 
+// Field catalog dialog output data
+
+export type FldCatOutData = {
+    fldCatItem: CatalogItem | null;
+};
+
 export const closeFldCatDialogAtom = atom(
     null,
     (get, set, outData: FldCatOutData) => {
         const inData = get(fldCatTriggerAtom);
+
         const outBox = inData?.outBoxAtom;
         if (outBox) {
             set(outBox, outData);
         }
+
         inData && set(fldCatTriggerAtom, null);
     }
 );
+
+// atom to store result of the field catalog dialog
 
 export function creteOutBoxAtom<T>() {
     return atom<T | null>(null);
