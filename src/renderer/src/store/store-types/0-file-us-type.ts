@@ -34,7 +34,7 @@ export type FileUs = FileContent & {
     state: FileUsState;                 // local state atoms: is currnet; is selected
     stats: FileUsStats;                 // quick access statistics
 
-    atoms: FileUsAtomsAtom;             // mani editor ui atoms; created when file selected
+    atomsAtom: FileUsAtomsAtom;         // mani editor ui atoms; created when file selected
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

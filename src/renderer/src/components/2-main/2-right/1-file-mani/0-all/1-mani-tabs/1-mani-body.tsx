@@ -10,8 +10,6 @@ import { useEffect } from "react";
 export function ManiBody() {
     const { ref, width, height } = useResizeObserver();
 
-    // const [fileUsAtoms, setFileUsAtoms] = useState()
-
     const fileUsAtom = useAtomValue(rightPanelAtom);
     if (!fileUsAtom) {
         return null;
@@ -19,18 +17,14 @@ export function ManiBody() {
 
     const fileUs = useAtomValue(fileUsAtom);
 
-    const [fileUsAtoms, setFileUsAtoms] = useAtom(fileUs.atoms);
+    const [fileUsAtoms, setFileUsAtoms] = useAtom(fileUs.atomsAtom);
 
     useEffect(() => {
+        console.log('++++++++++++++++++ ManiBody: createManiAtoms', fileUsAtoms);
         if (!fileUsAtoms) {
             console.log('-------------- ManiBody: createManiAtoms', fileUsAtoms);
             setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
         }
-
-        // if (!fileUs.atoms) {
-        //     console.log('-------------- ManiBody: createManiAtoms');
-        //     setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
-        // }
     }, [fileUs, fileUsAtom, fileUsAtoms]);
 
     if (!fileUsAtoms) {
