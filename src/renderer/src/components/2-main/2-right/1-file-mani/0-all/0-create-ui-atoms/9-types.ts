@@ -1,11 +1,11 @@
 import { FileUsAtom, FormIdx } from "@/store/store-types";
-import { FieldRowAtoms } from "./1-fields/2-field-atoms";
+import { FieldsState } from "./1-fields";
 import { SubmitAtoms } from "./2-submit";
 import { PolicyAtoms } from "./3-policy";
 import { FormOptionsAtoms } from "./4-options";
 
 export type FormAtoms = {
-    fieldsAtoms: FieldRowAtoms[];
+    fieldsAtoms: FieldsState.Atoms[];
     submitAtoms: SubmitAtoms;
     policyAtoms: PolicyAtoms;
     optionsAtoms: FormOptionsAtoms;
