@@ -3,18 +3,18 @@ import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp
 import { Atomize, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
 
-type FieldRowForAtoms = {
-    useIt: boolean;
-    label: string;
-    type: FieldTyp;
-    valueLife: ValueLife; // this includes value and valueAs
-    fieldCat: string;
-};
-
-export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & { mani: Mani.Field; org: FieldRowForAtoms; changed: boolean; };
-
 export namespace FieldRowState {
 
+    export type FieldRowForAtoms = {
+        useIt: boolean;
+        label: string;
+        type: FieldTyp;
+        valueLife: ValueLife; // this includes value and valueAs
+        fieldCat: string;
+    };
+    
+    export type FieldRowAtoms = Prettify<Atomize<FieldRowForAtoms>> & { mani: Mani.Field; org: FieldRowForAtoms; changed: boolean; };
+    
     /**
      * Fields that are used in this editor
      */

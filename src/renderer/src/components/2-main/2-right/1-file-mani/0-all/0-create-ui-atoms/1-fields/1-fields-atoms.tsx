@@ -2,9 +2,9 @@ import { Getter, Setter } from 'jotai';
 import { FieldTyp } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FileUs, FileUsAtom, FormIdx } from '@/store/store-types';
-import { FieldRowAtoms, FieldRowState } from './1-field-atoms';
+import { FieldRowState } from './2-field-atoms';
 
-export type FieldsAtoms = FieldRowAtoms[];
+export type FieldsAtoms = FieldRowState.FieldRowAtoms[];
 
 export namespace FieldsState {
 

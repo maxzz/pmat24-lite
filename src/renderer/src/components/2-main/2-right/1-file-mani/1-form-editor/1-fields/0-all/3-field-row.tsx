@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { CatalogItem, Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
-import { FieldRowAtoms, FieldRowState } from "../../../0-all/0-create-ui-atoms/1-field-atoms";
+import { FieldRowState } from "../../../0-all/0-create-ui-atoms/1-fields/2-field-atoms";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Label } from "../2-column-label";
 import { Column3_Value } from "../3-column-value";
@@ -10,7 +10,7 @@ import { Column5_Type } from "../5-column-type";
 
 export function FieldRow({ field }: { field: Meta.Field; }) {
     const rowAtoms = useState(
-        (): FieldRowAtoms => FieldRowState.createUiAtoms(field, ({ get, set }) => FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, get, set))
+        (): FieldRowState.FieldRowAtoms => FieldRowState.createUiAtoms(field, ({ get, set }) => FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, get, set))
     )[0];
 
     const [useIt, setUseIt] = useAtom(rowAtoms.useItAtom);

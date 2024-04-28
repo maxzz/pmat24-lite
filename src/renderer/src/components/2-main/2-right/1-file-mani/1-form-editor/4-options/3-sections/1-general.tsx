@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { FormOptionsAtoms } from '../../../0-all/0-create-ui-atoms/4-options-atoms';
+import { FormOptionsAtoms } from '../../../0-all/0-create-ui-atoms/4-options';
 import { RowInput } from '../4-controls';
 import { RowInputWLabel } from '../4-controls/4-row-input-w-label';
 

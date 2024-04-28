@@ -1,8 +1,8 @@
 import { FileUsAtom, FormIdx } from "@/store/store-types";
-import { FieldRowAtoms } from "./1-field-atoms";
-import { SubmitAtoms } from "./2-submit-atoms";
-import { PolicyAtoms } from "./3-policy-atoms";
-import { FormOptionsAtoms } from "./4-options-atoms";
+import { FieldRowAtoms } from "./1-fields/2-field-atoms";
+import { SubmitAtoms } from "./2-submit";
+import { PolicyAtoms } from "./3-policy";
+import { FormOptionsAtoms } from "./4-options";
 
 export type FormAtoms = {
     fieldsAtoms: FieldRowAtoms[];
