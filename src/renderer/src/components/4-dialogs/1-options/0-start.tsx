@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { doOpenOptionsDialogAtom } from "@/store/atoms/4-dialogs";
+import { doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogOptionsBody } from "./1-body";
 

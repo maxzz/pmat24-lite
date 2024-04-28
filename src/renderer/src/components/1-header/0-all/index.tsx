@@ -3,7 +3,7 @@ import { treeFilesAtom } from "@/store";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
-import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/4-dialogs";
+import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 
 function LoadedCounter() {
     const treeFiles = useAtomValue(treeFilesAtom);

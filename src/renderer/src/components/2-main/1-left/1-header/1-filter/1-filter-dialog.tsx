@@ -4,7 +4,7 @@ import * as D from "@/ui/shadcn";
 import { useKey } from "react-use";
 import { DialogFilterBody } from "./2-body";
 import { IconFilter, IconSearch } from "@/ui/icons";
-import { filterDialogOpenAtom, shortcutNameFilter } from "@/store/atoms/4-dialogs";
+import { filterDialogOpenAtom, shortcutNameFilter } from "@/store/atoms/7-dialogs";
 import { useAtom } from "jotai";
 
 export function FilterFilesDialog() {

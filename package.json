@@ -78,6 +78,7 @@
         "build:web:preview": "vite --config electron.vite.config-browser.mts preview --outDir ../../dist",
         "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-        "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false"
+        "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+        "tsc": "tsc --noEmit -p tsconfig.web.json --composite false"
     }
 }

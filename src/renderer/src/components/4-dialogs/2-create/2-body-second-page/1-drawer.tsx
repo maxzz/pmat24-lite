@@ -2,7 +2,7 @@ import { Button } from "@ui/shadcn/button";
 import * as D from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
 import { useAtom } from "jotai";
-import { doOpenDrawerAtom } from "@/store/atoms/4-dialogs";
+import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";

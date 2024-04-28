@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { doOpenCreateDialogAtom, shortcutNameCreate } from "@/store/atoms/4-dialogs";
+import { doOpenCreateDialogAtom, shortcutNameCreate } from "@/store/atoms/7-dialogs";
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/ui/shadcn";
 import { menuShortcutClasses } from "@/ui/shared-styles";
 
