@@ -9,8 +9,7 @@ export namespace FieldConv {
         label: string;
         type: FieldTyp;
         valueLife: ValueLife;           // this includes value and valueAs
-        dbname: string;                 //TODO: field guid from manifest or field catalog
-        fieldCat: string;
+        dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
     };
 
     export type FieldAtoms = Prettify<
@@ -51,7 +50,6 @@ export namespace FieldConv {
             type: fieldTyp4Str(field.mani),
             valueLife,
             dbname: field.mani.dbname,
-            fieldCat: '', //TODO:
         };
         return rv;
     }
@@ -71,14 +69,13 @@ export namespace FieldConv {
     //
 
     export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
-        const { useIt, label, type, dbname, valueLife, fieldCat } = initialState;
+        const { useIt, label, type, dbname, valueLife } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),
             labelAtom: atomWithCallback(label, onChange),
             typeAtom: atomWithCallback(type, onChange),
             valueLifeAtom: atomWithCallback(valueLife, onChange),
             dbnameAtom: atomWithCallback(dbname, onChange),
-            fieldCatAtom: atomWithCallback(fieldCat, onChange), //TODO:
         };
     }
 
@@ -89,7 +86,6 @@ export namespace FieldConv {
             type: get(atoms.typeAtom),
             valueLife: get(atoms.valueLifeAtom),
             dbname: get(atoms.dbnameAtom),
-            fieldCat: get(atoms.fieldCatAtom), //TODO: catalog
         };
         return rv;
     }

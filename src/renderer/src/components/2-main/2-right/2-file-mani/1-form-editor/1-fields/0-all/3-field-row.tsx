@@ -8,7 +8,7 @@ import { Column4_Catalog } from "../4-column-catalog";
 import { Column5_Type } from "../5-column-type";
 
 export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; }) {
-    const { useItAtom, labelAtom, valueLifeAtom, fieldCatAtom, maniField } = fieldRowAtoms;
+    const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom, maniField } = fieldRowAtoms;
 
     const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
@@ -36,7 +36,7 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
 
         <Column4_Catalog
             useItAtom={useItAtom}
-            fieldCatAtom={fieldCatAtom}
+            fieldCatAtom={dbnameAtom}
             onSelectCatItem={onSelectCatItem}
             maniField={maniField}
             onClick={enableRow}
