@@ -16,14 +16,13 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         return <NoForm formType={formIdx} />;
     }
 
-    console.log('FormEditor render', formIdx);
-
     return (
         <div className="mr-1 h-full flex flex-col">
 
             <FormSectionsOpenState formIdx={formIdx}>
                 <FormSections maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
             </FormSectionsOpenState>
+            
         </div>
     );
 }

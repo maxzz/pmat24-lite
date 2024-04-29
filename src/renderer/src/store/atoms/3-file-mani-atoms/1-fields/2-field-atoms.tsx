@@ -7,17 +7,18 @@ import { OnValueChangeAny } from '@/util-hooks';
 export namespace FieldRowState {
 
     export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
-        const initialState = FieldConv.forAtoms(field);
+        const forAtoms = FieldConv.forAtoms(field);
         return {
-            ...FieldConv.toAtoms(initialState, onChange),
+            ...FieldConv.toAtoms(forAtoms, onChange),
             maniField: field.mani,
-            org: initialState,
+            fromFile: forAtoms,
             changed: false,
         };
     }
 
     function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, get: Getter, set: Setter) {
         const state = FieldConv.fromAtoms(atoms, get, set);
+
         const maniField = FieldConv.forMani(state);
 
         console.log('TableRow atoms', JSON.stringify(maniField));
