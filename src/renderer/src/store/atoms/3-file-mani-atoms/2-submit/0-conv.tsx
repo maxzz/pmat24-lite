@@ -1,8 +1,7 @@
 import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
-import { ManiChangesAtom } from '../9-types';
+import { CreateAtomsParams } from '../9-types';
 
 type SubmitForAtoms = {
     doSubmit: boolean;
@@ -12,7 +11,7 @@ export type SubmitAtoms = Prettify<Atomize<SubmitForAtoms>>;
 
 export namespace SubmitState {
 
-    export function createUiAtoms(form: Meta.Form | undefined, changesAtom: ManiChangesAtom, onChange: OnValueChangeAny): SubmitAtoms {
+    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, onChange: OnValueChangeAny): SubmitAtoms {
 
         // const metaForm = fileUs.meta?.[formIdx];
         // if (!metaForm) {
@@ -21,6 +20,13 @@ export namespace SubmitState {
 
         // const fields = metaForm.fields || [];
         // const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
+
+
+
+        // const metaForm = fileUs.meta?.[formIdx];
+        // if (!metaForm) {
+        //     return;
+        // }
         
         return {
             doSubmitAtom: atomWithCallback(true, onChange),

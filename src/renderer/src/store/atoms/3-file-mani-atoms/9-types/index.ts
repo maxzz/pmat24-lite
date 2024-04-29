@@ -1,5 +1,5 @@
 import { PrimitiveAtom } from "jotai";
-import { FileUsAtom, FormIdx } from "@/store/store-types";
+import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { FieldsState } from "../1-fields";
 import { SubmitAtoms } from "../2-submit";
 import { PolicyAtoms } from "../3-policy";
@@ -19,3 +19,12 @@ export type FormAtoms = {
 export type ManiChangesAtom = PrimitiveAtom<number>;
 
 export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, PrimitiveAtom<number>];
+
+//
+
+export type CreateAtomsParams = {
+    fileUs: FileUs;
+    fileUsAtom: FileUsAtom;
+    formIdx: FormIdx;
+    changesAtom: ManiChangesAtom;
+};

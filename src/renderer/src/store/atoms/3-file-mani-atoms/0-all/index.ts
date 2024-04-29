@@ -13,21 +13,23 @@ function createFormAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom, formIdx: FormId
         return;
     }
 
-    const fieldsAtoms = FieldsState.createUiAtoms(fileUs, fileUsAtom, formIdx, changesAtom);
+    const createParams = { fileUs, fileUsAtom, formIdx, changesAtom };
 
-    const submitAtoms = SubmitState.createUiAtoms(metaForm, changesAtom,
+    const fieldsAtoms = FieldsState.createUiAtoms(createParams);
+
+    const submitAtoms = SubmitState.createUiAtoms(createParams,
         ({ get, set }) => {
             SubmitState.debouncedCombinedResultFromAtoms(submitAtoms, get, set);
         }
     );
 
-    const policyAtoms = PolicyState.createUiAtoms(metaForm, changesAtom,
+    const policyAtoms = PolicyState.createUiAtoms(createParams,
         ({ get, set }) => {
             PolicyState.debouncedCombinedResultFromAtoms(policyAtoms, get, set);
         }
     );
 
-    const optionsAtoms = OptionsState.createAtoms(fileUs, fileUsAtom, formIdx, changesAtom,
+    const optionsAtoms = OptionsState.createAtoms(createParams,
         ({ get, set }) => {
             //console.log('options changed', field, field.mani.displayname);
             OptionsState.debouncedCombinedResultFromAtoms(optionsAtoms, get, set);
