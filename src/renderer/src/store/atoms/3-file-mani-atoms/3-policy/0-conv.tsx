@@ -2,6 +2,7 @@ import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
+import { ManiChangesAtom } from '../9-types';
 
 type PolicyForAtoms = {
     policy: string;
@@ -12,7 +13,7 @@ export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
 
 export namespace PolicyState {
 
-    export function createUiAtoms(form: Meta.Form | undefined, onChange: OnValueChangeAny): PolicyAtoms {
+    export function createUiAtoms(form: Meta.Form | undefined, changesAtom: ManiChangesAtom, onChange: OnValueChangeAny): PolicyAtoms {
         return {
             policyAtom: atomWithCallback('', onChange),
             policy2Atom: atomWithCallback('', onChange),
