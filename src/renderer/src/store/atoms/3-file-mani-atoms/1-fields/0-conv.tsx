@@ -39,7 +39,10 @@ export namespace FieldConv {
     export function forAtoms(field: Meta.Field): FieldForAtoms {
         const { useit, displayname } = field.mani;
         const valueLife = TransformValue.valueLife4Mani(field.mani);
-        !valueLife.value && (valueLife.value = ""); //TODO: cleanup all empty values to undefined when saving manifest
+        
+        !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
+        !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
+
         const rv: FieldForAtoms = {
             useIt: !!useit,
             label: displayname || '',
@@ -87,22 +90,30 @@ export namespace FieldConv {
 
     //
 
-    function theSameValue(from: ValueLife, to: ValueLife) {
-        console.log('  theSameValue fr', JSON.stringify(from));
-        console.log('  theSameValue to', JSON.stringify(to));
-        
-        return from.value === to.value
-            && from.valueAs === to.valueAs
-            && from.isRef === to.isRef;
+    function theSameValue(from: ValueLife, to: ValueLife): boolean {
+        const rv = (
+            from.value === to.value &&
+            from.valueAs === to.valueAs &&
+            from.isRef === to.isRef
+        );
+
+        console.log('  theSameValue fr rv', rv, JSON.stringify(from));
+        console.log('  theSameValue to rv', rv, JSON.stringify(to));
+
+        return rv;
     }
 
-    export function areTheSame(from: FieldForAtoms, to: FieldForAtoms) {
-        console.log('  from.valueLife.valueAs === to.valueLife.valueAs', from.valueLife.valueAs === to.valueLife.valueAs);
-        
-        return from.useIt === to.useIt
-            && from.label === to.label
-            && from.type === to.type
-            && theSameValue(from.valueLife, to.valueLife)
-            && from.valueLife.valueAs === to.valueLife.valueAs;
+    export function areTheSame(from: FieldForAtoms, to: FieldForAtoms): boolean {
+        const rv = (
+            from.useIt === to.useIt &&
+            from.label === to.label &&
+            from.type === to.type &&
+            theSameValue(from.valueLife, to.valueLife) &&
+            from.valueLife.valueAs === to.valueLife.valueAs
+        );
+
+        console.log('  from.valueLife.valueAs === to.valueLife.valueAs', from.valueLife.valueAs, to.valueLife.valueAs, rv);
+
+        return rv;
     }
 }
