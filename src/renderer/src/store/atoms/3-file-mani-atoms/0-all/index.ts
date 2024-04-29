@@ -40,9 +40,7 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams): FormAtoms | unde
         policyAtoms,
         optionsAtoms,
 
-        changesAtom: createAtomsParams.changesAtom,
-        fileUsAtom: createAtomsParams.fileUsAtom,
-        formIdx: createAtomsParams.formIdx,
+        params: createAtomsParams,
     };
 }
 
