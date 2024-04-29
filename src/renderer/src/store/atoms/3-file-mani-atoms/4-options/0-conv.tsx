@@ -1,6 +1,6 @@
-import { Getter, Setter, useAtom } from 'jotai';
+import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FileUs, FileUsAtom, FormIdx } from '@/store/store-types';
+import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { debounce } from '@/utils';
 import { CreateAtomsParams, ManiChangesAtom } from '../9-types';
 
@@ -82,7 +82,7 @@ export namespace OptionsState {
         };
     }
 
-    export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter) {
+    export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
         const result = {

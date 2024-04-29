@@ -1,7 +1,7 @@
 import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
-import { CreateAtomsParams } from '../9-types';
+import { CreateAtomsParams, ManiChangesAtom } from '../9-types';
 
 type PolicyForAtoms = {
     policy: string;
@@ -19,7 +19,7 @@ export namespace PolicyState {
         };
     }
 
-    function combineResultFromAtoms(atoms: PolicyAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: PolicyAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
         const result = {
             policy: get(atoms.policyAtom),
             policy2: get(atoms.policy2Atom),

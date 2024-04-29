@@ -1,7 +1,7 @@
 import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
-import { CreateAtomsParams } from '../9-types';
+import { CreateAtomsParams, ManiChangesAtom } from '../9-types';
 
 type SubmitForAtoms = {
     doSubmit: boolean;
@@ -33,7 +33,7 @@ export namespace SubmitState {
         };
     }
 
-    function combineResultFromAtoms(atoms: SubmitAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: SubmitAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
         const result = {
             doSubmit: get(atoms.doSubmitAtom),
         };

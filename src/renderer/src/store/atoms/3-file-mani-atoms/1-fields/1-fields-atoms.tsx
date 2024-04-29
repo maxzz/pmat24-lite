@@ -22,7 +22,7 @@ export namespace FieldsState {
         const rv = nonButtonFields.map((field, idx) => {
             const rowAtoms = FieldRowState.createUiAtoms(field,
                 ({ get, set }) => {
-                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, get, set);
+                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, get, set);
                 });
             return rowAtoms;
         }) || [];
@@ -30,15 +30,15 @@ export namespace FieldsState {
         return rv;
     }
 
-    function combineResultFromAtoms(atoms: Atoms[], get: Getter, set: Setter) {
-        atoms.forEach((atom) => {
-            FieldRowState.debouncedCombinedResultFromAtoms(atom, get, set);
-        });
+    // function combineResultFromAtoms(atoms: Atoms[], get: Getter, set: Setter) {
+    //     atoms.forEach((atom) => {
+    //         FieldRowState.debouncedCombinedResultFromAtoms(atom, get, set);
+    //     });
 
-        //TODO: there cannot be a return value, so each atom must do its own thing
+    //     //TODO: there cannot be a return value, so each atom must do its own thing
 
-        //console.log('TableRow atoms', JSON.stringify(result));
-    }
+    //     //console.log('TableRow atoms', JSON.stringify(result));
+    // }
 
-    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+    // export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
 }
