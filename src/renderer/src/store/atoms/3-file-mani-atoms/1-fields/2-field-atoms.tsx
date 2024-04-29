@@ -18,10 +18,14 @@ export namespace FieldRowState {
 
     function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, get: Getter, set: Setter) {
         const state = FieldConv.fromAtoms(atoms, get, set);
+        const same = FieldConv.areTheSame(state, atoms.fromFile);
 
         const maniField = FieldConv.forMani(state);
+        const maniFiel2 = FieldConv.forMani(atoms.fromFile);
 
-        console.log('TableRow atoms', JSON.stringify(maniField));
+        console.log('------------------------------------');
+        console.log('TableRow atoms fr, same =', same, 'fields:', JSON.stringify(maniField));
+        console.log('TableRow atoms to, same =', same, 'fields:', JSON.stringify(maniFiel2));
         //TODO: use result
 
         //TODO: cannot return anything

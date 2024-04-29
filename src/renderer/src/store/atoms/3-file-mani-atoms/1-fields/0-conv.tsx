@@ -38,11 +38,13 @@ export namespace FieldConv {
 
     export function forAtoms(field: Meta.Field): FieldForAtoms {
         const { useit, displayname } = field.mani;
+        const valueLife = TransformValue.valueLife4Mani(field.mani);
+        !valueLife.value && (valueLife.value = ""); //TODO: cleanup all empty values to undefined when saving manifest
         const rv: FieldForAtoms = {
             useIt: !!useit,
             label: displayname || '',
             type: fieldTyp4Str(field.mani),
-            valueLife: TransformValue.valueLife4Mani(field.mani),
+            valueLife,
             fieldCat: '', //TODO:
         };
         return rv;
@@ -85,11 +87,22 @@ export namespace FieldConv {
 
     //
 
+    function theSameValue(from: ValueLife, to: ValueLife) {
+        console.log('  theSameValue fr', JSON.stringify(from));
+        console.log('  theSameValue to', JSON.stringify(to));
+        
+        return from.value === to.value
+            && from.valueAs === to.valueAs
+            && from.isRef === to.isRef;
+    }
+
     export function areTheSame(from: FieldForAtoms, to: FieldForAtoms) {
+        console.log('  from.valueLife.valueAs === to.valueLife.valueAs', from.valueLife.valueAs === to.valueLife.valueAs);
+        
         return from.useIt === to.useIt
             && from.label === to.label
             && from.type === to.type
-            && from.valueLife.value === to.valueLife.value
+            && theSameValue(from.valueLife, to.valueLife)
             && from.valueLife.valueAs === to.valueLife.valueAs;
     }
 }
