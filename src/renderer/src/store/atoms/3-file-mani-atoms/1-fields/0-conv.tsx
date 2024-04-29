@@ -9,6 +9,7 @@ export namespace FieldConv {
         label: string;
         type: FieldTyp;
         valueLife: ValueLife;           // this includes value and valueAs
+        dbname: string;                 //TODO: field guid from manifest or field catalog
         fieldCat: string;
     };
 
@@ -28,6 +29,7 @@ export namespace FieldConv {
         | 'useit'
         | 'displayname'
         | 'type'
+        | 'dbname'
         | 'value' // | 'choosevalue' - so far cannot be changed
         | 'password'
         | 'askalways'
@@ -48,6 +50,7 @@ export namespace FieldConv {
             label: displayname || '',
             type: fieldTyp4Str(field.mani),
             valueLife,
+            dbname: field.mani.dbname,
             fieldCat: '', //TODO:
         };
         return rv;
@@ -57,6 +60,7 @@ export namespace FieldConv {
         const rv: ThisType = {
             useit: from.useIt,
             displayname: from.label,
+            dbname: from.dbname,
             ...fieldTyp2Obj(from.type),
         };
 
@@ -67,12 +71,13 @@ export namespace FieldConv {
     //
 
     export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
-        const { useIt, label, type, valueLife, fieldCat } = initialState;
+        const { useIt, label, type, dbname, valueLife, fieldCat } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),
             labelAtom: atomWithCallback(label, onChange),
             typeAtom: atomWithCallback(type, onChange),
             valueLifeAtom: atomWithCallback(valueLife, onChange),
+            dbnameAtom: atomWithCallback(dbname, onChange),
             fieldCatAtom: atomWithCallback(fieldCat, onChange), //TODO:
         };
     }
@@ -83,6 +88,7 @@ export namespace FieldConv {
             label: get(atoms.labelAtom),
             type: get(atoms.typeAtom),
             valueLife: get(atoms.valueLifeAtom),
+            dbname: get(atoms.dbnameAtom),
             fieldCat: get(atoms.fieldCatAtom), //TODO: catalog
         };
         return rv;
@@ -96,10 +102,6 @@ export namespace FieldConv {
             from.valueAs === to.valueAs &&
             from.isRef === to.isRef
         );
-
-        console.log('  theSameValue fr rv', rv, JSON.stringify(from));
-        console.log('  theSameValue to rv', rv, JSON.stringify(to));
-
         return rv;
     }
 
@@ -108,12 +110,10 @@ export namespace FieldConv {
             from.useIt === to.useIt &&
             from.label === to.label &&
             from.type === to.type &&
+            from.dbname === to.dbname &&
             theSameValue(from.valueLife, to.valueLife) &&
             from.valueLife.valueAs === to.valueLife.valueAs
         );
-
-        console.log('  from.valueLife.valueAs === to.valueLife.valueAs', from.valueLife.valueAs, to.valueLife.valueAs, rv);
-
         return rv;
     }
 }
