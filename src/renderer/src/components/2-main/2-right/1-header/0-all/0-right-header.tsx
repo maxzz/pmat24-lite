@@ -6,26 +6,15 @@ import { TitleWithFileUs } from "./2-title-with-file-us";
 import { R_PanelMenu } from "../2-menu";
 import { Button } from "@/ui";
 import { FileUs } from "@/store/store-types";
-import { ManiChangesAtom } from "@/store/atoms/3-file-mani-atoms/9-types";
 
-function SaveButton({ changesAtom }: { changesAtom: ManiChangesAtom; }) {
-    const changesCount = useAtomValue(changesAtom);
+function SaveButtonAccess({ fileUs }: { fileUs: FileUs; }) {
+    const changesCount = useAtomValue(fileUs.changesAtom);
     const hasChanges = !!changesCount;
     return (<>
         {hasChanges && (
             <Button className="text-background bg-orange-400">Save</Button>
         )}
     </>);
-}
-
-function SaveButtonAccess({ fileUs }: { fileUs: FileUs; }) {
-    const atoms = useAtomValue(fileUs.atomsAtom);
-    if (!atoms) {
-        return null;
-    }
-    return (
-        <SaveButton changesAtom={atoms[2]} />
-    );
 }
 
 export function R_PanelHeader() {

@@ -35,6 +35,7 @@ export type FileUs = FileContent & {
     stats: FileUsStats;                     // quick access statistics
 
     atomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
+    changesAtom: PrimitiveAtom<number>;     // mani editor changes counter; created when file selected at top level
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

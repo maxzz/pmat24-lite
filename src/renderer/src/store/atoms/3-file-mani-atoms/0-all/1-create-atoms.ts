@@ -4,7 +4,6 @@ import { FieldsState } from "../1-fields/1-fields-atoms";
 import { SubmitState } from "../2-submit";
 import { PolicyState } from "../3-policy";
 import { OptionsState } from "../4-options";
-import { atom } from "jotai";
 
 function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
 
@@ -50,7 +49,7 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const rv: any = [];
     const callbackAtoms = rv as ManiAtoms;
 
-    const changesAtom = atom(1);
+    const changesAtom = fileUs.changesAtom;
 
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom }, callbackAtoms));
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom }, callbackAtoms));
