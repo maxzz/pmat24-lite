@@ -7,8 +7,6 @@ import { R_PanelMenu } from "../2-menu";
 import { Button } from "@/ui";
 
 export function R_PanelHeader() {
-    const hasChanges = false;
-
     const fileUs = useAtomValue(rightPanelContentAtom);
     if (!fileUs) {
         return (
@@ -17,6 +15,14 @@ export function R_PanelHeader() {
             </div>
         );
     }
+
+    const atoms = useAtomValue(fileUs.atomsAtom);
+    if (!atoms) {
+        return null;
+    }
+
+    const changesCount = useAtomValue(atoms[2]);
+    const hasChanges = !!changesCount;
 
     return (
         <div className={`${panelHeaderClasses} flex items-start justify-between`}>

@@ -50,7 +50,7 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const rv: any = [];
     const callbackAtoms = rv as ManiAtoms;
 
-    const changesAtom = atom(0);
+    const changesAtom = atom(1);
 
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom }, callbackAtoms));
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom }, callbackAtoms));
