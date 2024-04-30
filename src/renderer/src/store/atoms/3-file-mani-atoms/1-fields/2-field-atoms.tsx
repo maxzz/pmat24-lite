@@ -20,9 +20,13 @@ export namespace FieldRowState {
     function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
 
         console.log('callbackAtoms', callbackAtoms);
-        
+
         const state = FieldConv.fromAtoms(atoms, get, set);
         const same = FieldConv.areTheSame(state, atoms.fromFile);
+
+        console.log('counters:', get(callbackAtoms[2]));
+
+        set(callbackAtoms[2], (n: number) => same ? n - 1 : n + 1);
 
         const maniField = FieldConv.forMani(state);
         const maniFiel2 = FieldConv.forMani(atoms.fromFile);
