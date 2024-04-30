@@ -3,7 +3,7 @@ import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { ManiChangesAtom } from '../9-types';
+import { ManiAtoms, ManiChangesAtom } from '../9-types';
 
 export namespace FieldRowState {
 
@@ -17,7 +17,10 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+
+        console.log('callbackAtoms', callbackAtoms);
+        
         const state = FieldConv.fromAtoms(atoms, get, set);
         const same = FieldConv.areTheSame(state, atoms.fromFile);
 

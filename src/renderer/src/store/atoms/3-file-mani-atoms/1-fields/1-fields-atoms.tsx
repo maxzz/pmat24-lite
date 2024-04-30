@@ -1,15 +1,13 @@
-import { Getter, Setter } from 'jotai';
 import { FieldTyp } from '@/store/manifest';
-import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { FieldRowState } from './2-field-atoms';
-import { CreateAtomsParams } from '../9-types';
+import { CreateAtomsParams, ManiAtoms } from '../9-types';
 
 export namespace FieldsState {
 
     export type Atoms = FieldConv.FieldAtoms;
 
-    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams): Atoms[] {
+    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
         const metaForm = fileUs.meta?.[formIdx];
         if (!metaForm) {
@@ -22,8 +20,9 @@ export namespace FieldsState {
         const rv = nonButtonFields.map((field, idx) => {
             const rowAtoms = FieldRowState.createUiAtoms(field,
                 ({ get, set }) => {
-                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, get, set);
-                });
+                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, callbackAtoms, get, set);
+                }
+            );
             return rowAtoms;
         }) || [];
 

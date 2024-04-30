@@ -1,7 +1,7 @@
 import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
-import { CreateAtomsParams, ManiChangesAtom } from '../9-types';
+import { CreateAtomsParams, ManiAtoms, ManiChangesAtom } from '../9-types';
 
 type PolicyForAtoms = {
     policy: string;
@@ -12,7 +12,7 @@ export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
 
 export namespace PolicyState {
 
-    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, onChange: OnValueChangeAny): PolicyAtoms {
+    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): PolicyAtoms {
         return {
             policyAtom: atomWithCallback('', onChange),
             policy2Atom: atomWithCallback('', onChange),

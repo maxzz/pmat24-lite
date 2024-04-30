@@ -6,7 +6,7 @@ import { PolicyState } from "../3-policy";
 import { OptionsState } from "../4-options";
 import { atom } from "jotai";
 
-function createFormAtoms(createAtomsParams: CreateAtomsParams): FormAtoms | undefined {
+function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
 
     const { fileUs, formIdx, changesAtom } = createAtomsParams;
 
@@ -15,21 +15,21 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams): FormAtoms | unde
         return;
     }
 
-    const fieldsAtoms = FieldsState.createUiAtoms(createAtomsParams);
+    const fieldsAtoms = FieldsState.createUiAtoms(createAtomsParams, callbackAtoms);
 
-    const submitAtoms = SubmitState.createUiAtoms(createAtomsParams,
+    const submitAtoms = SubmitState.createUiAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
             SubmitState.debouncedCombinedResultFromAtoms(submitAtoms, changesAtom, get, set);
         }
     );
 
-    const policyAtoms = PolicyState.createUiAtoms(createAtomsParams,
+    const policyAtoms = PolicyState.createUiAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
             PolicyState.debouncedCombinedResultFromAtoms(policyAtoms, changesAtom, get, set);
         }
     );
 
-    const optionsAtoms = OptionsState.createAtoms(createAtomsParams,
+    const optionsAtoms = OptionsState.createAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
             //console.log('options changed', field, field.mani.displayname);
             OptionsState.debouncedCombinedResultFromAtoms(optionsAtoms, changesAtom, get, set);
@@ -47,10 +47,23 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams): FormAtoms | unde
 }
 
 export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAtoms {
+    const rv: any = [];
+    const callbackAtoms = rv as ManiAtoms;
 
     const changesAtom = atom(0);
-    const loginAtoms = createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom });
-    const cpassAtoms = createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom });
 
-    return [loginAtoms, cpassAtoms, changesAtom];
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom }, callbackAtoms));
+    rv.push(changesAtom);
+
+    return rv;
 }
+
+// export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAtoms {
+
+//     const changesAtom = atom(0);
+//     const loginAtoms = createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom });
+//     const cpassAtoms = createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom });
+
+//     return [loginAtoms, cpassAtoms, changesAtom];
+// }
