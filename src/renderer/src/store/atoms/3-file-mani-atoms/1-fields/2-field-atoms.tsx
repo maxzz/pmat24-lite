@@ -21,6 +21,8 @@ export namespace FieldRowState {
 
         console.log('callbackAtoms', callbackAtoms);
 
+        //const changes =
+
         const state = FieldConv.fromAtoms(atoms, get, set);
         const same = FieldConv.areTheSame(state, atoms.fromFile);
 
