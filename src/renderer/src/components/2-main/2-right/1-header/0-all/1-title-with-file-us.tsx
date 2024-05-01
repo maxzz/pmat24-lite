@@ -1,5 +1,6 @@
 import { FileUs } from "@/store/store-types";
 import { appTypeToIcon, fileUsToAppType } from "@/store/store-utils";
+import { ManiFilenameParts } from "./2-filename-parts";
 
 function TitleFinename({ fileUs }: { fileUs: FileUs; }) {
     let name = fileUs.fname;
@@ -35,6 +36,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
             <div className="1text-foreground text-sm 1font-semibold" title="Title from file">{fileUs.stats.title}</div>
 
             <TitleFinename fileUs={fileUs} />
+            <ManiFilenameParts fname={fileUs.fname} />
         </div>
     );
 }
