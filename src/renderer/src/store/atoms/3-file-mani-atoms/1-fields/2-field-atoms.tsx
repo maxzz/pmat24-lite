@@ -7,7 +7,7 @@ import { ManiAtoms, ManiChangesAtom } from '../9-types';
 
 export namespace FieldRowState {
 
-    export function createUiAtoms(field: Meta.Field, fieldIdx: number, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
+    export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
         const forAtoms = FieldConv.forAtoms(field);
         return {
             ...FieldConv.toAtoms(forAtoms, onChange),
@@ -17,7 +17,7 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, fieldIdx: number, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
 
         console.log('callbackAtoms', callbackAtoms);
 

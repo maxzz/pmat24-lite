@@ -18,9 +18,9 @@ export namespace FieldsState {
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
         const rv = nonButtonFields.map((field, idx) => {
-            const rowAtoms = FieldRowState.createUiAtoms(field, idx,
+            const rowAtoms = FieldRowState.createUiAtoms(field,
                 ({ get, set }) => {
-                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, callbackAtoms, get, set);
+                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, idx, callbackAtoms, get, set);
                 }
             );
             return rowAtoms;
