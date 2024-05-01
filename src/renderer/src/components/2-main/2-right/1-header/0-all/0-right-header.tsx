@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { rightPanelContentAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
-import { TitleNoFile } from "./1-title-no-file";
-import { TitleWithFileUs } from "./2-title-with-file-us";
+import { TitleNoFile } from "./2-title-no-file";
+import { TitleWithFileUs } from "./1-title-with-file-us";
 import { R_PanelMenu } from "../2-menu";
 import { Button } from "@/ui";
 import { FileUs } from "@/store/store-types";
