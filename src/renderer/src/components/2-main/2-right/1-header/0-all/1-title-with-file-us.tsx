@@ -2,7 +2,10 @@ import { FileUs } from "@/store/store-types";
 import { appTypeToIcon, fileUsToAppType } from "@/store/store-utils";
 
 function TitleFinename({ fileUs }: { fileUs: FileUs; }) {
-    const name = fileUs.fname;
+    let name = fileUs.fname;
+    name = name
+        .replaceAll('{', '<div class="text-foreground">{</div>')
+        .replaceAll('}', '<div class="text-foreground">}</div>');
     return (
         <div className="" title="Filename">{name}</div>
     );
@@ -29,7 +32,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
                 }
             </div>
 
-            <div className="" title="Title from file">{fileUs.stats.title}</div>
+            <div className="1text-foreground text-sm 1font-semibold" title="Title from file">{fileUs.stats.title}</div>
 
             <TitleFinename fileUs={fileUs} />
         </div>
