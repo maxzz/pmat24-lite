@@ -4,6 +4,7 @@ import { FieldsState } from "../1-fields/1-fields-atoms";
 import { SubmitState } from "../2-submit";
 import { PolicyState } from "../3-policy";
 import { OptionsState } from "../4-options";
+import { proxy } from "valtio";
 
 function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
 
@@ -35,6 +36,13 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
         }
     );
 
+    const changes = proxy({
+        fields: fieldsAtoms.map(() => false),
+        submit: false,
+        policy: false,
+        options: false,
+    });
+
     return {
         fieldsAtoms,
         submitAtoms,
@@ -42,6 +50,7 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
         optionsAtoms,
 
         params: createAtomsParams,
+        changes,
     };
 }
 

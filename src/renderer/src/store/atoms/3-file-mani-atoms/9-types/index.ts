@@ -12,6 +12,13 @@ export type CreateAtomsParams = {
     changesAtom: ManiChangesAtom;
 };
 
+export type FormChangesProxy = {
+    fields: boolean[];
+    submit: boolean;
+    policy: boolean;
+    options: boolean;
+}
+
 export type FormAtoms = {
     fieldsAtoms: FieldsState.Atoms[];
     submitAtoms: SubmitAtoms;
@@ -19,6 +26,7 @@ export type FormAtoms = {
     optionsAtoms: FormOptionsAtoms;
 
     params: CreateAtomsParams;
+    changes: FormChangesProxy;
 };
 
 export type ManiChangesAtom = PrimitiveAtom<number>;
