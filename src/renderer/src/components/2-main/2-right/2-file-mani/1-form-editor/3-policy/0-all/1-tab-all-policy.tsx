@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { Meta } from "@/store/manifest";
-import { FormAtoms, ManiAtoms, PolicyState } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { TableHeader } from "./2-table-header";
 import { PoliciesGrid } from "./3-table-grid";
 import { Button, notImplYet } from "@/ui";
@@ -12,14 +12,6 @@ export function ManiSection3_Policy({ maniAtoms, formAtoms, fileUs, formIdx }: {
     const [policies, setPolicies] = useAtom(policiesAtom);
 
     const metaForm = fileUs.meta?.[formIdx];
-
-    const atoms = useState(
-        () => PolicyState.createUiAtoms(metaForm,
-            ({ get, set }) => {
-                PolicyState.debouncedCombinedResultFromAtoms(atoms, get, set);
-            }
-        )
-    )[0]; //TODO: not used yet
 
     useEffect(
         () => {

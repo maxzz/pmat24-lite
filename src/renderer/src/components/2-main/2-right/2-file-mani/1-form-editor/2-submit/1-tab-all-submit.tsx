@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
-import { FormAtoms, ManiAtoms, SubmitState } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 
 function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; form: Meta.Form; }) {
 
     const [items, setItems] = useState<string[]>([]);
     const [selected, setSelected] = useState(0);
-
-    const atoms = useState(
-        () => SubmitState.createUiAtoms(form,
-            ({ get, set }) => {
-                SubmitState.debouncedCombinedResultFromAtoms(atoms, get, set);
-            }
-        )
-    )[0]; //TODO: not used yet
 
     useEffect(() => {
         const isWeb = !!form?.mani.detection.web_ourl;
