@@ -20,6 +20,8 @@ underline \
 underline-offset-2 \
 ";
 
+//TOD: open domain in browser if url is not defined
+
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
     return (<>
         Login is defined for the site

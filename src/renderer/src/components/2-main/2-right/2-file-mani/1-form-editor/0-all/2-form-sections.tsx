@@ -21,7 +21,7 @@ export function FormSections({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAt
         </SubSection>
 
         <SubSection value="options" label="Form options">
-            <TabOptions maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
+            <TabOptions maniAtoms={maniAtoms} formIdx={formIdx} />
         </SubSection>
     </>);
 }

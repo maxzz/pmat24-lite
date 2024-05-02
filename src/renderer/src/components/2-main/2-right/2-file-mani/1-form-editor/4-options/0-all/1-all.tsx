@@ -1,23 +1,14 @@
-import { PrimitiveAtom, useAtomValue } from "jotai";
-import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { ManiAtoms, OptionsState } from "@/store/atoms/3-file-mani-atoms";
+import { useAtomValue } from "jotai";
+import { FormIdx } from "@/store/store-types";
+import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
-import { rightPanelContentAtom } from "@/store";
 
-export function ManiSection4_FormOptions({ maniAtoms, fileUsAtom, formIdx }: { maniAtoms: ManiAtoms; fileUsAtom: FileUsAtom; formIdx: FormIdx; }) {
-    // const fileUs = useAtomValue(fileUsAtom);
-    // const metaForm = fileUs.meta?.[formIdx];
+export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: FormAtoms; formIdx: FormIdx; }) {
 
-    const fileUs = useAtomValue(fileUsAtom);
-
-    const atoms = OptionsState.createAtoms(fileUs, fileUsAtom, formIdx,
-        ({ get, set }) => {
-            //console.log('options changed', field, field.mani.displayname);
-            OptionsState.debouncedCombinedResultFromAtoms(atoms, get, set);
-        }
-    );
-
+    const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
+    
+    const atoms = formAtoms.optionsAtoms;
     const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
     return (
@@ -46,18 +37,16 @@ export function ManiSection4_FormOptions({ maniAtoms, fileUsAtom, formIdx }: { m
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-export function TabOptions({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
-
-    const fileUs2 = useAtomValue(rightPanelContentAtom);
-    if (!fileUs2) {
+export function TabOptions({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
+    
+    const formAtoms = maniAtoms[formIdx];
+    if (!formAtoms) {
         return null;
     }
 
-    const fileUsAtom = rightPanelContentAtom as PrimitiveAtom<FileUs>; // to omit null
-
     return (
         <div className="ml-4 mr-1">
-            <ManiSection4_FormOptions maniAtoms={maniAtoms} fileUsAtom={fileUsAtom} formIdx={formIdx} />
+            <ManiSection4_FormOptions formAtoms={formAtoms} formIdx={formIdx} />
         </div>
     );
 }
