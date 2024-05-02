@@ -1,41 +1,34 @@
 import { FileUs } from "@/store/store-types";
-import { appTypeToIcon, fileUsToAppType } from "@/store/store-utils";
+import { appTypeToIcon, fileUsToAppType, isManual } from "@/store/store-utils";
 import { ManiFilenameParts } from "./2-filename-parts";
-
-function TitleFinename({ fileUs }: { fileUs: FileUs; }) {
-    let name = fileUs.fname;
-    name = name
-        .replaceAll('{', '<div class="text-foreground">{</div>')
-        .replaceAll('}', '<div class="text-foreground">}</div>');
-    return (
-        <div className="" title="Filename">{name}</div>
-    );
-}
 
 export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
 
     const { icon, hasBailOut } = fileUsToAppType(fileUs);
     const Icon = appTypeToIcon(icon, hasBailOut);
 
+    const manual = isManual(fileUs);
+
     return (
         <div className="py-1 text-muted-foreground space-y-1 cursor-default">
 
+            <div className="pl-1 1text-foreground text-sm font-semibold" title="Title from file">{fileUs.stats.title}</div>
+
             <div className="flex items-center gap-1">
-                <Icon className="size-5" />
+                <Icon className="size-4" />
 
                 {!fileUs.stats.domain
-                    ? 'Windows application'
+                    ? manual
+                        ? 'Manually defined Windows application'
+                        : 'Windows application'
                     : (
                         <>
-                            Website: <div className="1text-foreground text-sm 1font-semibold">{fileUs.stats.domain}</div>
+                            Website: <div className="1text-foreground 1text-sm 1font-semibold">{fileUs.stats.domain}</div>
                         </>
                     )
                 }
             </div>
 
-            <div className="1text-foreground text-sm 1font-semibold" title="Title from file">{fileUs.stats.title}</div>
-
-            <TitleFinename fileUs={fileUs} />
             <ManiFilenameParts fname={fileUs.fname} />
         </div>
     );
