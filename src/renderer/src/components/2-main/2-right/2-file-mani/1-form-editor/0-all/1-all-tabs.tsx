@@ -20,7 +20,7 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         <div className="mr-1 h-full flex flex-col">
 
             <FormSectionsOpenState formIdx={formIdx}>
-                <FormSections maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
+                <FormSections maniAtoms={maniAtoms} formIdx={formIdx} />
             </FormSectionsOpenState>
             
         </div>

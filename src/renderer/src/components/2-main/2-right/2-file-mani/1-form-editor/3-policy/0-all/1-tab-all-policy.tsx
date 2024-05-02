@@ -7,10 +7,11 @@ import { TableHeader } from "./2-table-header";
 import { PoliciesGrid } from "./3-table-grid";
 import { Button, notImplYet } from "@/ui";
 
-export function ManiSection3_Policy({ maniAtoms, formAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
+export function ManiSection3_Policy({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
     const policiesAtom = useState(() => atom<Meta.Field[]>([]))[0];
     const [policies, setPolicies] = useAtom(policiesAtom);
 
+    const fileUs = formAtoms.params.fileUs;
     const metaForm = fileUs.meta?.[formIdx];
 
     useEffect(
@@ -41,3 +42,11 @@ export function ManiSection3_Policy({ maniAtoms, formAtoms, fileUs, formIdx }: {
 }
 
 //TODO: for multiple password fields we need to select field to which policy will be applied
+
+export function TabPolicy({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+    return (
+        <div className="ml-1">
+            <ManiSection3_Policy maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+        </div>
+    );
+}

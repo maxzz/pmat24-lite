@@ -35,8 +35,8 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAt
     );
 }
 
-export function TabSubmit({ maniAtoms, formAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
-    const metaForm = fileUs.meta?.[formIdx];
+export function TabSubmit({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+    const metaForm = formAtoms.params.fileUs.meta?.[formIdx];
     if (!metaForm) {
         return null;
     }
