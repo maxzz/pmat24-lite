@@ -5,6 +5,7 @@ import { SubmitState } from "../2-submit";
 import { PolicyState } from "../3-policy";
 import { OptionsState } from "../4-options";
 import { proxy } from "valtio";
+import { proxySet } from "valtio/utils";
 
 function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
 
@@ -59,9 +60,11 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const callbackAtoms = rv as ManiAtoms;
 
     const changesAtom = fileUs.changesAtom;
+    const changesSet = proxySet<string>();
 
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom }, callbackAtoms));
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom }, callbackAtoms));
+
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom, changesSet }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom, changesSet }, callbackAtoms));
     rv.push(changesAtom);
 
     return rv;

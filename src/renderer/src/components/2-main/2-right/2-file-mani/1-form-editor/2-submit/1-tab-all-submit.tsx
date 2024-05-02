@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FileUs, FormIdx } from "@/store/store-types";
 import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
 import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";

@@ -10,6 +10,7 @@ export type CreateAtomsParams = {
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
     changesAtom: ManiChangesAtom;
+    changesSet: ChangesSet;
 };
 
 export type FormChangesProxy = {
@@ -40,3 +41,6 @@ export type TabSectionProps = {
     formAtoms: FormAtoms;
     formIdx: FormIdx;
 };
+
+//
+type ChangesSet = Set<string>;

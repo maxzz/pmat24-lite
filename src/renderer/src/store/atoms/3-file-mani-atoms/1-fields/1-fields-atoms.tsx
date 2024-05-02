@@ -7,7 +7,9 @@ export namespace FieldsState {
 
     export type Atoms = FieldConv.FieldAtoms;
 
-    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
+
+        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx];
         if (!metaForm) {

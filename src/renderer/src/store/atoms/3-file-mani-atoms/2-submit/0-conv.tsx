@@ -11,7 +11,9 @@ export type SubmitAtoms = Prettify<Atomize<SubmitForAtoms>>;
 
 export namespace SubmitState {
 
-    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): SubmitAtoms {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): SubmitAtoms {
+
+        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
 
         // const metaForm = fileUs.meta?.[formIdx];
         // if (!metaForm) {

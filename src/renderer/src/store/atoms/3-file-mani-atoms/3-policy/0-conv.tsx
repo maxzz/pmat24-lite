@@ -12,7 +12,10 @@ export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
 
 export namespace PolicyState {
 
-    export function createUiAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): PolicyAtoms {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): PolicyAtoms {
+
+        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
+
         return {
             policyAtom: atomWithCallback('', onChange),
             policy2Atom: atomWithCallback('', onChange),

@@ -46,7 +46,9 @@ export type FormOptionsAtoms = {
 
 export namespace OptionsState {
 
-    export function createAtoms({ fileUs, fileUsAtom, formIdx, changesAtom }: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): FormOptionsAtoms {
+    export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): FormOptionsAtoms {
+
+        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
         
         const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
         const options = fileUs.mani?.forms?.[formIdx]?.options || {};
