@@ -27,8 +27,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(jotai@2.8.0(@types/react@18.3.1)(react@18.3.1))(valtio@1.13.2(@types/react@18.3.1)(react@18.3.1))
       pm-manifest:
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.4
+        version: 1.2.4
       pm-manifest-icons:
         specifier: ^1.0.3
         version: 1.0.3(react@18.3.1)
@@ -50,7 +50,7 @@ importers:
     devDependencies:
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
-        version: 1.0.1(@types/node@20.12.7)
+        version: 1.0.1(@types/node@20.12.8)
       '@radix-ui/react-accordion':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -106,8 +106,8 @@ importers:
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.3)
       '@types/node':
-        specifier: ^20.12.7
-        version: 20.12.7
+        specifier: ^20.12.8
+        version: 20.12.8
       '@types/react':
         specifier: ^18.3.1
         version: 18.3.1
@@ -116,7 +116,7 @@ importers:
         version: 18.3.0
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.2.1(vite@5.2.10(@types/node@20.12.7))
+        version: 4.2.1(vite@5.2.10(@types/node@20.12.8))
       autoprefixer:
         specifier: ^10.4.18
         version: 10.4.19(postcss@8.4.38)
@@ -131,7 +131,7 @@ importers:
         version: 24.13.3(electron-builder-squirrel-windows@25.0.0-alpha.6(dmg-builder@24.13.3))
       electron-vite:
         specifier: ^2.2.0
-        version: 2.2.0(vite@5.2.10(@types/node@20.12.7))
+        version: 2.2.0(vite@5.2.10(@types/node@20.12.8))
       lucide-react:
         specifier: ^0.376.0
         version: 0.376.0(react@18.3.1)
@@ -167,7 +167,7 @@ importers:
         version: 5.4.5
       vite:
         specifier: ^5.2.10
-        version: 5.2.10(@types/node@20.12.7)
+        version: 5.2.10(@types/node@20.12.8)
 
 packages:
 
@@ -1422,8 +1422,8 @@ packages:
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  '@types/node@20.12.7':
-    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
+  '@types/node@20.12.8':
+    resolution: {integrity: sha512-NU0rJLJnshZWdE/097cdCBbyW1h4hEg0xpovcoAQYHl8dnEyp/NAOiE45pvc+Bd1Dt+2r94v2eGFpQJ4R7g+2w==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -2770,8 +2770,8 @@ packages:
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
 
-  pm-manifest@1.2.3:
-    resolution: {integrity: sha512-uUREPYpHSLEeTdBajkkHt++GqA57iPZQp75E2qLxfV80ILcBXM3ezQdBkFVyRMOPXUEwYQpwhkNEKAcG9VrxyA==}
+  pm-manifest@1.2.4:
+    resolution: {integrity: sha512-z64vUPMGcbjzH/sUzcTraUSruzgC6zmHQAHPabbZDyCpbz8oTAPAlZax/LaWCJ0d0qGzB13AslpZvktiqwwmWg==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -3677,9 +3677,9 @@ snapshots:
     dependencies:
       electron: 30.0.1
 
-  '@electron-toolkit/tsconfig@1.0.1(@types/node@20.12.7)':
+  '@electron-toolkit/tsconfig@1.0.1(@types/node@20.12.8)':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@electron-toolkit/utils@3.0.0(electron@30.0.1)':
     dependencies:
@@ -4698,7 +4698,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -4709,7 +4709,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/hast@2.3.10':
     dependencies:
@@ -4721,17 +4721,17 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/ms@0.7.34': {}
 
-  '@types/node@20.12.7':
+  '@types/node@20.12.8':
     dependencies:
       undici-types: 5.26.5
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       xmlbuilder: 15.1.1
     optional: true
 
@@ -4748,7 +4748,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/unist@2.0.10': {}
 
@@ -4757,17 +4757,17 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
     optional: true
 
-  '@vitejs/plugin-react@4.2.1(vite@5.2.10(@types/node@20.12.7))':
+  '@vitejs/plugin-react@4.2.1(vite@5.2.10(@types/node@20.12.8))':
     dependencies:
       '@babel/core': 7.24.3
       '@babel/plugin-transform-react-jsx-self': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-react-jsx-source': 7.24.1(@babel/core@7.24.3)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.2.10(@types/node@20.12.7)
+      vite: 5.2.10(@types/node@20.12.8)
     transitivePeerDependencies:
       - supports-color
 
@@ -5444,7 +5444,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.2.0(vite@5.2.10(@types/node@20.12.7)):
+  electron-vite@2.2.0(vite@5.2.10(@types/node@20.12.8)):
     dependencies:
       '@babel/core': 7.24.4
       '@babel/plugin-transform-arrow-functions': 7.24.1(@babel/core@7.24.4)
@@ -5452,14 +5452,14 @@ snapshots:
       esbuild: 0.19.12
       magic-string: 0.30.10
       picocolors: 1.0.0
-      vite: 5.2.10(@types/node@20.12.7)
+      vite: 5.2.10(@types/node@20.12.8)
     transitivePeerDependencies:
       - supports-color
 
   electron@30.0.1:
     dependencies:
       '@electron/get': 2.0.3
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -6317,7 +6317,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  pm-manifest@1.2.3:
+  pm-manifest@1.2.4:
     dependencies:
       fast-xml-parser: 4.2.7
 
@@ -6971,13 +6971,13 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite@5.2.10(@types/node@20.12.7):
+  vite@5.2.10(@types/node@20.12.8):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.15.0
     optionalDependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       fsevents: 2.3.3
 
   wcwidth@1.0.1:
