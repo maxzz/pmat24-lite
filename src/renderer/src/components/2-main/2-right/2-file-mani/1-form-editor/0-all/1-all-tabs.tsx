@@ -1,6 +1,6 @@
 import { FileUs, FormIdx } from "@/store/store-types";
 import { FormSectionsOpenState } from "../../2-sections-ui";
-import { FormSections } from "./2-form-sections";
+import { FormSections } from "./2-all-sections";
 import { NoForm } from "./3-no-form-tab-content";
 import { useAtomValue } from "jotai";
 
