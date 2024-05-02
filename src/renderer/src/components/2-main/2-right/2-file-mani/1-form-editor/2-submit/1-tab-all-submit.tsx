@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
-import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 
 function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; form: Meta.Form; }) {
@@ -35,7 +35,7 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAt
     );
 }
 
-export function TabSubmit({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+export function TabSubmit({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
     const metaForm = formAtoms.params.fileUs.meta?.[formIdx];
     if (!metaForm) {
         return null;

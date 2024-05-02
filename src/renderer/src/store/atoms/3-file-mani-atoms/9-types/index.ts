@@ -17,7 +17,7 @@ export type FormChangesProxy = {
     submit: boolean;
     policy: boolean;
     options: boolean;
-}
+};
 
 export type FormAtoms = {
     fieldsAtoms: FieldsState.Atoms[];
@@ -32,3 +32,11 @@ export type FormAtoms = {
 export type ManiChangesAtom = PrimitiveAtom<number>;
 
 export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, PrimitiveAtom<number>];
+
+//
+
+export type TabSectionProps = {
+    maniAtoms: ManiAtoms;
+    formAtoms: FormAtoms;
+    formIdx: FormIdx;
+};

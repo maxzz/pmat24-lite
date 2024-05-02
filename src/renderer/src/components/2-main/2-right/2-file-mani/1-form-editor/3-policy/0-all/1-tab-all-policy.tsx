@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
-import { FileUs, FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/store-types";
 import { Meta } from "@/store/manifest";
-import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { TableHeader } from "./2-table-header";
 import { PoliciesGrid } from "./3-table-grid";
 import { Button, notImplYet } from "@/ui";
@@ -43,7 +43,7 @@ export function ManiSection3_Policy({ maniAtoms, formAtoms, formIdx }: { maniAto
 
 //TODO: for multiple password fields we need to select field to which policy will be applied
 
-export function TabPolicy({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+export function TabPolicy({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
     return (
         <div className="ml-1">
             <ManiSection3_Policy maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />

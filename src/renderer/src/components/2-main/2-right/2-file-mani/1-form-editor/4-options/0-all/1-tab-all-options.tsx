@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { FormIdx } from "@/store/store-types";
-import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 
@@ -37,8 +37,7 @@ export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: Fo
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-export function TabOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
-
+export function TabOptions({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
     return (
         <div className="ml-4 mr-1">
             <ManiSection4_FormOptions formAtoms={formAtoms} formIdx={formIdx} />

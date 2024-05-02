@@ -1,9 +1,8 @@
-import { FormIdx } from "@/store/store-types";
 import { FieldsGrid } from "./2-field-grid";
 import { NoFileds } from "./5-no-fileds";
-import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 
-export function TabFields({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+export function TabFields({ formAtoms, formIdx }: TabSectionProps) {
 
     if (!formAtoms.fieldsAtoms.length) {
         return (
