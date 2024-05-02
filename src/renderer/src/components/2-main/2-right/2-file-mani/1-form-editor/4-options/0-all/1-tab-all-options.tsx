@@ -7,7 +7,7 @@ import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5
 export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: FormAtoms; formIdx: FormIdx; }) {
 
     const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
-    
+
     const atoms = formAtoms.optionsAtoms;
     const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
@@ -37,12 +37,7 @@ export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: Fo
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-export function TabOptions({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
-    
-    const formAtoms = maniAtoms[formIdx];
-    if (!formAtoms) {
-        return null;
-    }
+export function TabOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
 
     return (
         <div className="ml-4 mr-1">

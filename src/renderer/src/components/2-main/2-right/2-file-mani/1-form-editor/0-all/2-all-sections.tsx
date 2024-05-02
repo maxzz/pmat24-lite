@@ -7,21 +7,27 @@ import { TabOptions } from "../4-options";
 import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 export function FormSections({ maniAtoms, fileUs, formIdx }: { maniAtoms: ManiAtoms; fileUs: FileUs; formIdx: FormIdx; }) {
+
+    const formAtoms = maniAtoms[formIdx];
+    if (!formAtoms) {
+        return null;
+    }
+
     return (<>
         <SubSection value="fields" label="Form fields">
-            <TabFields maniAtoms={maniAtoms} formIdx={formIdx} />
+            <TabFields maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="submit" label="Form submit options">
-            <TabSubmit maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
+            <TabSubmit maniAtoms={maniAtoms} formAtoms={formAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="policy" label="Password policy">
-            <TabPolicy maniAtoms={maniAtoms} fileUs={fileUs} formIdx={formIdx} />
+            <TabPolicy maniAtoms={maniAtoms} formAtoms={formAtoms} fileUs={fileUs} formIdx={formIdx} />
         </SubSection>
 
         <SubSection value="options" label="Form options">
-            <TabOptions maniAtoms={maniAtoms} formIdx={formIdx} />
+            <TabOptions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </SubSection>
     </>);
 }
