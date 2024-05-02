@@ -2,22 +2,39 @@ import { FileUs } from "@/store/store-types";
 import { isManual } from "@/store/store-utils";
 
 const ManiUrlPartsClasses = "\
-1text-foreground \
+text-foreground \
+opacity-70 \
+hover:opacity-100 \
 hover:text-foreground \
 underline \
 underline-offset-2 \
-1underline-offset-auto \
-1text-sm \
-1font-semibold \
+";
+
+const ManiNoUrlPartsClasses = "\
+text-foreground \
+opacity-70 \
+hover:opacity-100 \
+hover:text-foreground \
+underline \
+underline-offset-2 \
 ";
 
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
     return (<>
         Login is defined for the site
 
-        <div className={ManiUrlPartsClasses}>
-            {domain}
-        </div>
+        {url
+            ? (
+                <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener">
+                    {domain}
+                </a>
+            )
+            : (
+                <div className={ManiNoUrlPartsClasses}>
+                    {domain}
+                </div>
+            )
+        }
     </>);
 }
 
