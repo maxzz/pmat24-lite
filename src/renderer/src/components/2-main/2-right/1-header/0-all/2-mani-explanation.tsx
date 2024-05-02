@@ -1,13 +1,14 @@
 import { FileUs } from "@/store/store-types";
 import { isManual } from "@/store/store-utils";
+import { SymbolOpenLink } from "@/ui/icons";
 
 const ManiUrlPartsClasses = "\
 text-foreground \
-opacity-70 \
-hover:opacity-100 \
 hover:text-foreground \
-underline \
-underline-offset-2 \
+hover:opacity-100 \
+opacity-70 \
+underline underline-offset-2 \
+flex items-center gap-1 \
 ";
 
 const ManiNoUrlPartsClasses = "\
@@ -24,11 +25,12 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
         Login is defined for the site
 
         {url
-            ? (
+            ? (<>
                 <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener">
                     {domain}
+                    <SymbolOpenLink className="pt-0.5 size-3" />
                 </a>
-            )
+            </>)
             : (
                 <div className={ManiNoUrlPartsClasses}>
                     {domain}
