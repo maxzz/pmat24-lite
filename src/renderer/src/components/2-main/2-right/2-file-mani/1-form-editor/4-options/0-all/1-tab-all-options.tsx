@@ -1,10 +1,9 @@
 import { useAtomValue } from "jotai";
-import { FormIdx } from "@/store/store-types";
-import { FormAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 
-export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: FormAtoms; formIdx: FormIdx; }) {
+export function TabOptions({ formAtoms }: TabSectionProps) {
 
     const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
 
@@ -12,35 +11,29 @@ export function ManiSection4_FormOptions({ formAtoms, formIdx }: { formAtoms: Fo
     const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
     return (
-        <div className="mr-1 mb-4 font-light text-mani-foreground select-none grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 space-y-1">
-            <Section label="General" />
-            <Part1General atoms={atoms} />
+        <div className="ml-4 mr-1">
+            <div className="mr-1 mb-4 font-light text-mani-foreground select-none grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 space-y-1">
+                <Section label="General" />
+                <Part1General atoms={atoms} />
 
-            <Section label="Screen detection" />
-            <Part2ScreenDetection atoms={atoms} />
+                <Section label="Screen detection" />
+                <Part2ScreenDetection atoms={atoms} />
 
-            <Section label="Authentication" />
-            <Part3Authentication atoms={atoms} />
+                <Section label="Authentication" />
+                <Part3Authentication atoms={atoms} />
 
-            <Section label="Quick link" />
-            <Part4QL atoms={atoms} />
+                <Section label="Quick link" />
+                <Part4QL atoms={atoms} />
 
-            {!isWeb && (
-                <>
-                    <Section label="Password Manager Icon" />
-                    <Part5PasswordManagerIcon atoms={atoms} />
-                </>
-            )}
+                {!isWeb && (
+                    <>
+                        <Section label="Password Manager Icon" />
+                        <Part5PasswordManagerIcon atoms={atoms} />
+                    </>
+                )}
+            </div>
         </div>
     );
 }
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
-
-export function TabOptions({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
-    return (
-        <div className="ml-4 mr-1">
-            <ManiSection4_FormOptions formAtoms={formAtoms} formIdx={formIdx} />
-        </div>
-    );
-}
