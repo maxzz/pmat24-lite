@@ -30,27 +30,35 @@ function isHeuristicSubmit(metaForm: Meta.Form): boolean {
     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
 }
 
+export function getChoices(metaForm: Meta.Form) {
+    const isWeb = !!metaForm?.mani.detection.web_ourl;
+    const buttonFields = getButtonFields(metaForm);
+    const buttonNames = getButtonNames(buttonFields, isWeb);
+    const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
+    const heuristicSubmit = isHeuristicSubmit(metaForm);
+
+    const initialSelected = (
+        heuristicSubmit || selectedButtonIdx !== -1
+            ? isWeb
+                ? 0
+                : selectedButtonIdx
+            : -1
+    ) + 1;
+
+    return {
+        buttonNames,
+        initialSelected,
+    };
+}
+
 function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
 
     const [items, setItems] = useState<string[]>([]);
     const [selected, setSelected] = useState(0);
 
     useEffect(() => {
-        const isWeb = !!metaForm?.mani.detection.web_ourl;
-
-        const buttonFields = getButtonFields(metaForm);
-        const buttonNames = getButtonNames(buttonFields, isWeb);
-        const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
-        const heuristicSubmit = isHeuristicSubmit(metaForm);
-
-        const initialSelected = (
-            heuristicSubmit || selectedButtonIdx !== -1
-                ? isWeb
-                    ? 0
-                    : selectedButtonIdx
-                : -1
-        ) + 1;
-
+        const { buttonNames, initialSelected } = getChoices(metaForm);
+        
         setItems(buttonNames);
         setSelected(initialSelected);
     }, [metaForm]);
