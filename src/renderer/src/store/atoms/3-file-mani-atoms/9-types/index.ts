@@ -1,8 +1,8 @@
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { FieldsState } from "../1-fields";
-import { SubmitAtoms } from "../2-submit";
-import { PolicyAtoms } from "../3-policy";
-import { FormOptionsAtoms } from "../4-options";
+import { SubmitState } from "../2-submit";
+import { PolicyState } from "../3-policy";
+import { OptionsState } from "../4-options";
 
 export type ChangesSet = Set<string>;
 
@@ -15,9 +15,9 @@ export type CreateAtomsParams = {
 
 export type FormAtoms = {
     fieldsAtoms: FieldsState.Atoms[];
-    submitAtoms: SubmitAtoms;
-    policyAtoms: PolicyAtoms;
-    optionsAtoms: FormOptionsAtoms;
+    submitAtoms: SubmitState.Atoms;
+    policyAtoms: PolicyState.Atoms;
+    optionsAtoms: OptionsState.Atoms;
 
     params: CreateAtomsParams;
 };
