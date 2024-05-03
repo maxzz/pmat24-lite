@@ -2,7 +2,7 @@ import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { debounce } from '@/utils';
-import { CreateAtomsParams, ManiAtoms, ManiChangesAtom } from '../9-types';
+import { CreateAtomsParams, ManiAtoms } from '../9-types';
 
 type UiPart1General = {
     name: string;       // login name
@@ -48,7 +48,7 @@ export namespace OptionsState {
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): FormOptionsAtoms {
 
-        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
+        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
         
         const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
         const options = fileUs.mani?.forms?.[formIdx]?.options || {};
@@ -84,7 +84,7 @@ export namespace OptionsState {
         };
     }
 
-    export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
+    export function combineOptionsFromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter) {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
         const result = {

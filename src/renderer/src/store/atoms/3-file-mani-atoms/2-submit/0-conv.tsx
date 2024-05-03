@@ -1,7 +1,7 @@
 import { Getter, Setter } from 'jotai';
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { debounce } from '@/utils';
-import { CreateAtomsParams, ManiAtoms, ManiChangesAtom } from '../9-types';
+import { CreateAtomsParams, ManiAtoms } from '../9-types';
 
 type SubmitForAtoms = {
     doSubmit: boolean;
@@ -13,7 +13,7 @@ export namespace SubmitState {
 
     export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): SubmitAtoms {
 
-        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
+        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         // const metaForm = fileUs.meta?.[formIdx];
         // if (!metaForm) {
@@ -29,13 +29,13 @@ export namespace SubmitState {
         // if (!metaForm) {
         //     return;
         // }
-        
+
         return {
             doSubmitAtom: atomWithCallback(true, onChange),
         };
     }
 
-    function combineResultFromAtoms(atoms: SubmitAtoms, changesAtom: ManiChangesAtom, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: SubmitAtoms, get: Getter, set: Setter) {
         const result = {
             doSubmit: get(atoms.doSubmitAtom),
         };

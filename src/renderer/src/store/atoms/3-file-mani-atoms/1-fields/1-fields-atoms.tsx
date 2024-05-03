@@ -9,7 +9,7 @@ export namespace FieldsState {
 
     export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
-        const { fileUs, fileUsAtom, formIdx, changesAtom } = createAtomsParams;
+        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx];
         if (!metaForm) {
@@ -22,7 +22,7 @@ export namespace FieldsState {
         const rv = nonButtonFields.map((field, idx) => {
             const rowAtoms = FieldRowState.createUiAtoms(field,
                 ({ get, set }) => {
-                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, changesAtom, createAtomsParams, callbackAtoms, idx, get, set);
+                    return FieldRowState.debouncedCombinedResultFromAtoms(rowAtoms, createAtomsParams, callbackAtoms, idx, get, set);
                 }
             );
             return rowAtoms;

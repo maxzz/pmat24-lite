@@ -1,23 +1,16 @@
-import { PrimitiveAtom } from "jotai";
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { FieldsState } from "../1-fields";
 import { SubmitAtoms } from "../2-submit";
 import { PolicyAtoms } from "../3-policy";
 import { FormOptionsAtoms } from "../4-options";
 
+export type ChangesSet = Set<string>;
+
 export type CreateAtomsParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
-    changesAtom: ManiChangesAtom;
     changesSet: ChangesSet;
-};
-
-export type FormChangesProxy = {
-    fields: boolean[];
-    submit: boolean;
-    policy: boolean;
-    options: boolean;
 };
 
 export type FormAtoms = {
@@ -27,10 +20,7 @@ export type FormAtoms = {
     optionsAtoms: FormOptionsAtoms;
 
     params: CreateAtomsParams;
-    changes: FormChangesProxy;
 };
-
-export type ManiChangesAtom = PrimitiveAtom<number>;
 
 export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, ChangesSet];
 
@@ -41,6 +31,3 @@ export type TabSectionProps = {
     formAtoms: FormAtoms;
     formIdx: FormIdx;
 };
-
-//
-export type ChangesSet = Set<string>;

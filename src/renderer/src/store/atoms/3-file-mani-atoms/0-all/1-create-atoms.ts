@@ -9,7 +9,7 @@ import { proxySet } from "valtio/utils";
 
 function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
 
-    const { fileUs, formIdx, changesAtom } = createAtomsParams;
+    const { fileUs, formIdx } = createAtomsParams;
 
     const metaForm = fileUs.meta?.[formIdx];
     if (!metaForm) {
@@ -20,20 +20,20 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
 
     const submitAtoms = SubmitState.createUiAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
-            SubmitState.debouncedCombinedResultFromAtoms(submitAtoms, changesAtom, get, set);
+            SubmitState.debouncedCombinedResultFromAtoms(submitAtoms, get, set);
         }
     );
 
     const policyAtoms = PolicyState.createUiAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
-            PolicyState.debouncedCombinedResultFromAtoms(policyAtoms, changesAtom, get, set);
+            PolicyState.debouncedCombinedResultFromAtoms(policyAtoms, get, set);
         }
     );
 
     const optionsAtoms = OptionsState.createAtoms(createAtomsParams, callbackAtoms,
         ({ get, set }) => {
             //console.log('options changed', field, field.mani.displayname);
-            OptionsState.debouncedCombinedResultFromAtoms(optionsAtoms, changesAtom, get, set);
+            OptionsState.debouncedCombinedResultFromAtoms(optionsAtoms, get, set);
         }
     );
 
@@ -51,7 +51,6 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
         optionsAtoms,
 
         params: createAtomsParams,
-        changes,
     };
 }
 
@@ -59,12 +58,10 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const rv: any = [];
     const callbackAtoms = rv as ManiAtoms;
 
-    const changesAtom = fileUs.changesAtom;
     const changesSet = proxySet<string>();
 
-
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom, changesSet }, callbackAtoms));
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom, changesSet }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesSet }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesSet }, callbackAtoms));
     rv.push(changesSet);
 
     return rv;
