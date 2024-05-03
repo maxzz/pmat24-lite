@@ -17,7 +17,9 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+
+        const atoms: FieldConv.FieldAtoms = callbackAtoms[createAtomsParams.formIdx]!.fieldsAtoms[fieldIdx];
 
         const state = FieldConv.fromAtoms(atoms, get, set);
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
