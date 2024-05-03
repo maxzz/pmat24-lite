@@ -19,33 +19,24 @@ export namespace FieldRowState {
 
     function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
 
-        console.log('callbackAtoms', callbackAtoms);
-
-        //const changes =
-
         const state = FieldConv.fromAtoms(atoms, get, set);
-        const same = FieldConv.areTheSame(state, atoms.fromFile);
+        const changed = !FieldConv.areTheSame(state, atoms.fromFile);
 
-        // console.log('counters:', get(callbackAtoms[2]));
-        // set(callbackAtoms[2], (n: number) => same ? n - 1 : n + 1);
+        atoms.changed = changed;
 
         const changes = callbackAtoms[2];
-        console.log('changes:', changes.entries());
-        changes[same ? 'delete' : 'add']('field' + fieldIdx);
-        // if (same) {
-        //     changes.delete('field' + fieldIdx);
-        // } else {
-        //     changes.add('field' + fieldIdx);
-        // }
+        changes[changed ? 'add' : 'delete'](`${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
+
+        console.log('changes:', [...changes.keys()]);
         
-        const maniField = FieldConv.forMani(state);
-        const maniFiel2 = FieldConv.forMani(atoms.fromFile);
+        // const maniField = FieldConv.forMani(state);
+        // const maniFiel2 = FieldConv.forMani(atoms.fromFile);
 
-        console.log('------------------------------------');
-        console.log('TableRow atoms fr, same =', same, 'fields:', JSON.stringify(maniField));
-        console.log('TableRow atoms to, same =', same, 'fields:', JSON.stringify(maniFiel2));
+        // console.log('------------------------------------');
+        // console.log('TableRow atoms fr, same =', same, 'fields:', JSON.stringify(maniField));
+        // console.log('TableRow atoms to, same =', same, 'fields:', JSON.stringify(maniFiel2));
+
         //TODO: use result
-
         //TODO: cannot return anything
     }
 

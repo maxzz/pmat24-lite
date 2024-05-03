@@ -9,7 +9,7 @@ export namespace FieldsState {
 
     export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
-        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
+        const { fileUs, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx];
         if (!metaForm) {
