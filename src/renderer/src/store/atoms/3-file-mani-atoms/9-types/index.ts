@@ -32,7 +32,7 @@ export type FormAtoms = {
 
 export type ManiChangesAtom = PrimitiveAtom<number>;
 
-export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, PrimitiveAtom<number>];
+export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, ChangesSet];
 
 //
 
@@ -43,4 +43,4 @@ export type TabSectionProps = {
 };
 
 //
-type ChangesSet = Set<string>;
+export type ChangesSet = Set<string>;

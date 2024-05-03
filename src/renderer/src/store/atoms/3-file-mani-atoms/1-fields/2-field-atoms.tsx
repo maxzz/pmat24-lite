@@ -3,7 +3,7 @@ import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { ManiAtoms, ManiChangesAtom } from '../9-types';
+import { CreateAtomsParams, ManiAtoms, ManiChangesAtom } from '../9-types';
 
 export namespace FieldRowState {
 
@@ -17,7 +17,7 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, fieldIdx: number, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(atoms: FieldConv.FieldAtoms, changesAtom: ManiChangesAtom, createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
 
         console.log('callbackAtoms', callbackAtoms);
 
@@ -26,10 +26,18 @@ export namespace FieldRowState {
         const state = FieldConv.fromAtoms(atoms, get, set);
         const same = FieldConv.areTheSame(state, atoms.fromFile);
 
-        console.log('counters:', get(callbackAtoms[2]));
+        // console.log('counters:', get(callbackAtoms[2]));
+        // set(callbackAtoms[2], (n: number) => same ? n - 1 : n + 1);
 
-        set(callbackAtoms[2], (n: number) => same ? n - 1 : n + 1);
-
+        const changes = callbackAtoms[2];
+        console.log('changes:', changes.entries());
+        changes[same ? 'delete' : 'add']('field' + fieldIdx);
+        // if (same) {
+        //     changes.delete('field' + fieldIdx);
+        // } else {
+        //     changes.add('field' + fieldIdx);
+        // }
+        
         const maniField = FieldConv.forMani(state);
         const maniFiel2 = FieldConv.forMani(atoms.fromFile);
 

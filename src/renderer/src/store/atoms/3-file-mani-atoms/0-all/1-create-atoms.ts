@@ -65,7 +65,7 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
 
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesAtom, changesSet }, callbackAtoms));
     rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesAtom, changesSet }, callbackAtoms));
-    rv.push(changesAtom);
+    rv.push(changesSet);
 
     return rv;
 }

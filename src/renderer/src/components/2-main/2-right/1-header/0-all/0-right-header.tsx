@@ -6,14 +6,27 @@ import { TitleWithFileUs } from "./1-title-with-file-us";
 import { R_PanelMenu } from "../2-menu";
 import { Button } from "@/ui";
 import { FileUs } from "@/store/store-types";
+import { ChangesSet, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { useSnapshot } from "valtio";
 
-function SaveButtonAccess({ fileUs }: { fileUs: FileUs; }) {
-    const changesCount = useAtomValue(fileUs.changesAtom);
-    const hasChanges = !!changesCount;
+function SaveButtonAccess({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
+    const changesSet: ChangesSet = maniAtoms[2];
+    const changes = useSnapshot(changesSet);
+    const hasChanges = !!changes.size;
     return (<>
         {hasChanges && (
             <Button className="text-background bg-orange-400">Save</Button>
         )}
+    </>);
+}
+
+function SaveButtonAccessGuard({ fileUs }: { fileUs: FileUs; }) {
+    const maniAtoms = useAtomValue(fileUs.atomsAtom);
+    if (!maniAtoms) {
+        return null;
+    }
+    return (<>
+        <SaveButtonAccess maniAtoms={maniAtoms} />
     </>);
 }
 
@@ -31,7 +44,7 @@ export function R_PanelHeader() {
             <TitleWithFileUs fileUs={fileUs} />
 
             <div className="flex items-center gap-2">
-                <SaveButtonAccess fileUs={fileUs} />
+                <SaveButtonAccessGuard fileUs={fileUs} />
 
                 <R_PanelMenu />
             </div>
