@@ -3,31 +3,42 @@ import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
 import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 
-function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; form: Meta.Form; }) {
+function getButtonNames(isWeb: boolean, buttonFields: Meta.Field[]) {
+    const rv = ['Do Not Submit'];
+    if (isWeb) {
+        rv.push('Automatically submit login data');
+    } else {
+        let NameIdx = 0;
+        rv.push(...buttonFields.map((field) => field.mani.displayname || `no name ${++NameIdx}`));
+    }
+    return rv;
+}
+
+function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
 
     const [items, setItems] = useState<string[]>([]);
     const [selected, setSelected] = useState(0);
 
     useEffect(() => {
-        const isWeb = !!form?.mani.detection.web_ourl;
+        const isWeb = !!metaForm?.mani.detection.web_ourl;
 
-        const submits = form?.fields?.filter((field) => field.ftyp === FieldTyp.button || field.mani.submit) || [];
-        const submitNames = isWeb ? [] : submits.map((field) => field.mani.displayname || 'no name');
+        const buttonFields = metaForm?.fields?.filter((field) => field.ftyp === FieldTyp.button || field.mani.submit) || [];
+        const buttonNames = getButtonNames(isWeb, buttonFields);
 
         let buttonSelected = -1;
-        submits.forEach((field, idx) => field.mani.useit && (buttonSelected = idx));
+        buttonFields.forEach((field, idx) => field.mani.useit && (buttonSelected = idx));
 
-        const forceSubmit = form?.mani?.options?.submittype === SUBMIT.dosumbit;
+        const forceSubmit = metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
         const initialSelected = (forceSubmit || buttonSelected !== -1 ? isWeb ? 0 : buttonSelected : -1) + 1;
 
-        setItems(['Do Not Submit', ...(isWeb ? ['Automatically submit login data'] : submitNames)]);
+        setItems(['Do Not Submit', ...(isWeb ? ['Automatically submit login data'] : buttonNames)]);
         setSelected(initialSelected);
-    }, [form]);
+    }, [metaForm]);
 
     return (
         <RadioGroup
             items={items}
-            groupName={`submit-form-${form?.type}`}
+            groupName={`submit-form-${metaForm?.type}`}
             selected={selected}
             setSelected={setSelected}
         />
@@ -35,13 +46,10 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, form }: { maniAtoms: ManiAt
 }
 
 export function TabSubmit({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
-    const metaForm = formAtoms.params.fileUs.meta?.[formIdx];
-    if (!metaForm) {
-        return null;
-    }
+    const metaForm = formAtoms.params.fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
     return (
         <div className="px-1">
-            <ManiSection2_Submit maniAtoms={maniAtoms} formAtoms={formAtoms} form={metaForm} />
+            <ManiSection2_Submit maniAtoms={maniAtoms} formAtoms={formAtoms} metaForm={metaForm} />
         </div>
     );
 }

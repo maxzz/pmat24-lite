@@ -3,12 +3,15 @@ import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 
-export function TabOptions({ formAtoms }: TabSectionProps) {
+export function TabOptions({ formAtoms, formIdx }: TabSectionProps) {
 
-    const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
+    //const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
+    //const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
+
+    const metaForm = formAtoms.params.fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
     const atoms = formAtoms.optionsAtoms;
-    const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
+    const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     return (
         <div className="ml-4 mr-1">

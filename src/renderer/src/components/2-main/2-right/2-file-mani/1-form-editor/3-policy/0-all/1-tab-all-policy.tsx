@@ -11,7 +11,7 @@ export function TabPolicy({ formAtoms, formIdx }: TabSectionProps) {
     const [policies, setPolicies] = useAtom(policiesAtom);
 
     const fileUs = formAtoms.params.fileUs;
-    const metaForm = fileUs.meta?.[formIdx];
+    const metaForm = formAtoms.params.fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
     useEffect(
         () => {

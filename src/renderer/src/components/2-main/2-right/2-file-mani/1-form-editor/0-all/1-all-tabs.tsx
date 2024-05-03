@@ -11,8 +11,8 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         return null;
     }
 
-    const hasForm = fileUs.meta?.[formIdx];
-    if (!hasForm) {
+    const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
+    if (!metaForm) {
         return <NoForm formType={formIdx} />;
     }
 

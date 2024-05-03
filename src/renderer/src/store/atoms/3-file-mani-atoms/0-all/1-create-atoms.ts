@@ -11,7 +11,7 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
 
     const { fileUs, formIdx } = createAtomsParams;
 
-    const metaForm = fileUs.meta?.[formIdx];
+    const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
     if (!metaForm) {
         return;
     }
