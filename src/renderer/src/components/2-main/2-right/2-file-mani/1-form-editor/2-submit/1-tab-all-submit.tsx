@@ -7,8 +7,10 @@ function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
     return metaForm.fields?.filter((field) => field.ftyp === FieldTyp.button || field.mani.submit) || [];
 }
 
-function getButtonNames(isWeb: boolean, buttonFields: Meta.Field[]): string[] {
-    const rv = ['Do Not Submit'];
+function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): string[] {
+    const noSubmitOption = !isWeb && !buttonFields.length;
+
+    const rv = noSubmitOption ? ['There is no control to submit'] : ['Do not submit'];
     if (isWeb) {
         rv.push('Automatically submit login data');
     } else {
@@ -24,7 +26,7 @@ function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): numbe
     return rv;
 }
 
-function getIsForceSubmit(metaForm: Meta.Form): boolean {
+function isHeuristicSubmit(metaForm: Meta.Form): boolean {
     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
 }
 
@@ -37,23 +39,19 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
         const isWeb = !!metaForm?.mani.detection.web_ourl;
 
         const buttonFields = getButtonFields(metaForm);
-        const buttonNames = getButtonNames(isWeb, buttonFields);
+        const buttonNames = getButtonNames(buttonFields, isWeb);
         const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
-        const forceSubmit = getIsForceSubmit(metaForm);
+        const heuristicSubmit = isHeuristicSubmit(metaForm);
 
         const initialSelected = (
-            forceSubmit || selectedButtonIdx !== -1
+            heuristicSubmit || selectedButtonIdx !== -1
                 ? isWeb
                     ? 0
                     : selectedButtonIdx
                 : -1
         ) + 1;
 
-        setItems([
-            'Do Not Submit',
-            ...(isWeb ? ['Automatically submit login data'] : buttonNames)
-        ]);
-
+        setItems(buttonNames);
         setSelected(initialSelected);
     }, [metaForm]);
 
