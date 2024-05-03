@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { OnValueChangeAny, atomWithCallback } from "@/util-hooks";
+import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { SubmitConv } from "./0-conv";
@@ -18,23 +18,9 @@ export namespace SubmitState {
 
         const onChange = ({ get, set }) => {
             const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
+            console.log('--------', atoms);
             debouncedCombinedResultFromAtoms(atoms, get, set);
         }
-
-        // const metaForm = fileUs.meta?.[formIdx];
-        // if (!metaForm) {
-        //     return [];
-        // }
-
-        // const fields = metaForm.fields || [];
-        // const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
-
-
-
-        // const metaForm = fileUs.meta?.[formIdx];
-        // if (!metaForm) {
-        //     return;
-        // }
 
         return {
             doSubmitAtom: atomWithCallback(true, onChange),

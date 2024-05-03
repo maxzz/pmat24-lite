@@ -3,7 +3,11 @@ import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
 import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 
-function getButtonNames(isWeb: boolean, buttonFields: Meta.Field[]) {
+function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
+    return metaForm.fields?.filter((field) => field.ftyp === FieldTyp.button || field.mani.submit) || [];
+}
+
+function getButtonNames(isWeb: boolean, buttonFields: Meta.Field[]): string[] {
     const rv = ['Do Not Submit'];
     if (isWeb) {
         rv.push('Automatically submit login data');
@@ -14,6 +18,16 @@ function getButtonNames(isWeb: boolean, buttonFields: Meta.Field[]) {
     return rv;
 }
 
+function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): number {
+    let rv = -1;
+    buttonFields.forEach((field, idx) => field.mani.useit && (rv = idx));
+    return rv;
+}
+
+function getIsForceSubmit(metaForm: Meta.Form): boolean {
+    return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
+}
+
 function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
 
     const [items, setItems] = useState<string[]>([]);
@@ -22,16 +36,24 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     useEffect(() => {
         const isWeb = !!metaForm?.mani.detection.web_ourl;
 
-        const buttonFields = metaForm?.fields?.filter((field) => field.ftyp === FieldTyp.button || field.mani.submit) || [];
+        const buttonFields = getButtonFields(metaForm);
         const buttonNames = getButtonNames(isWeb, buttonFields);
+        const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
+        const forceSubmit = getIsForceSubmit(metaForm);
 
-        let buttonSelected = -1;
-        buttonFields.forEach((field, idx) => field.mani.useit && (buttonSelected = idx));
+        const initialSelected = (
+            forceSubmit || selectedButtonIdx !== -1
+                ? isWeb
+                    ? 0
+                    : selectedButtonIdx
+                : -1
+        ) + 1;
 
-        const forceSubmit = metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
-        const initialSelected = (forceSubmit || buttonSelected !== -1 ? isWeb ? 0 : buttonSelected : -1) + 1;
+        setItems([
+            'Do Not Submit',
+            ...(isWeb ? ['Automatically submit login data'] : buttonNames)
+        ]);
 
-        setItems(['Do Not Submit', ...(isWeb ? ['Automatically submit login data'] : buttonNames)]);
         setSelected(initialSelected);
     }, [metaForm]);
 
