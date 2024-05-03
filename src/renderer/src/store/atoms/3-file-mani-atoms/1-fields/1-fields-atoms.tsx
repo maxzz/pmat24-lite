@@ -11,10 +11,7 @@ export namespace FieldsState {
 
         const { fileUs, formIdx } = createAtomsParams;
 
-        const metaForm = fileUs.meta?.[formIdx];
-        if (!metaForm) {
-            return [];
-        }
+        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);

@@ -50,6 +50,8 @@ export namespace OptionsState {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
         
+        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+
         const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
         const options = fileUs.mani?.forms?.[formIdx]?.options || {};
 

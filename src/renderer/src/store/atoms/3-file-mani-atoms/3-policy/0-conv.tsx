@@ -16,6 +16,8 @@ export namespace PolicyState {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
+        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+
         return {
             policyAtom: atomWithCallback('', onChange),
             policy2Atom: atomWithCallback('', onChange),
