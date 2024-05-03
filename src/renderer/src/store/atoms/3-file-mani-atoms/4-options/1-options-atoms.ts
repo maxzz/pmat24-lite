@@ -8,7 +8,12 @@ export namespace OptionsState {
 
     export type Atoms = OptionsConv.FormOptionsAtoms;
 
-    export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): Atoms {
+    export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
+
+        const onChange = ({ get, set }) => {
+            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
+            debouncedCombinedResultFromAtoms(atoms, get, set);
+        }
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
         

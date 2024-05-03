@@ -8,13 +8,18 @@ export namespace SubmitState {
 
     export type Atoms = SubmitConv.SubmitAtoms;
 
-    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): Atoms {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const isWeb = !!metaForm?.mani.detection.web_ourl;
+
+        const onChange = ({ get, set }) => {
+            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
+            debouncedCombinedResultFromAtoms(atoms, get, set);
+        }
 
         // const metaForm = fileUs.meta?.[formIdx];
         // if (!metaForm) {

@@ -8,11 +8,16 @@ export namespace PolicyState {
 
     export type Atoms = PolicyConv.PolicyAtoms;
 
-    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, onChange: OnValueChangeAny): Atoms {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+
+        const onChange = ({ get, set }) => {
+            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
+            debouncedCombinedResultFromAtoms(atoms, get, set);
+        }
 
         return {
             policyAtom: atomWithCallback('', onChange),

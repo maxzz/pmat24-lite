@@ -17,25 +17,9 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
     }
 
     const fieldsAtoms = FieldsState.createUiAtoms(createAtomsParams, callbackAtoms);
-
-    const submitAtoms = SubmitState.createUiAtoms(createAtomsParams, callbackAtoms,
-        ({ get, set }) => {
-            SubmitState.debouncedCombinedResultFromAtoms(submitAtoms, get, set);
-        }
-    );
-
-    const policyAtoms = PolicyState.createUiAtoms(createAtomsParams, callbackAtoms,
-        ({ get, set }) => {
-            PolicyState.debouncedCombinedResultFromAtoms(policyAtoms, get, set);
-        }
-    );
-
-    const optionsAtoms = OptionsState.createAtoms(createAtomsParams, callbackAtoms,
-        ({ get, set }) => {
-            //console.log('options changed', field, field.mani.displayname);
-            OptionsState.debouncedCombinedResultFromAtoms(optionsAtoms, get, set);
-        }
-    );
+    const submitAtoms = SubmitState.createUiAtoms(createAtomsParams, callbackAtoms);
+    const policyAtoms = PolicyState.createUiAtoms(createAtomsParams, callbackAtoms);
+    const optionsAtoms = OptionsState.createAtoms(createAtomsParams, callbackAtoms);
 
     const changes = proxy({
         fields: fieldsAtoms.map(() => false),
