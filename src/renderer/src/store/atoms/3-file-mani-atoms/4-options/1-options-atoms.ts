@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { OnValueChangeAny, atomWithCallback } from "@/util-hooks";
+import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { OptionsConv } from "./0-conv";

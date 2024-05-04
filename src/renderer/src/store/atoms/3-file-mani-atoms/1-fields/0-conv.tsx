@@ -12,13 +12,11 @@ export namespace FieldConv {
         dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
     };
 
-    export type FieldAtoms = Prettify<
-        & Atomize<FieldForAtoms>
-        & {
-            maniField: Mani.Field;      // all fields from original to combine with fields from atoms to create new field
-            fromFile: FieldForAtoms;    // original state to compare with
-            changed: boolean;           // state from atoms is different from original state
-        }
+    export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
+        maniField: Mani.Field;          // all fields from original to combine with fields from atoms to create new field
+        fromFile: FieldForAtoms;        // original state to compare with
+        changed: boolean;               // state from atoms is different from original state
+    }
     >;
 
     /**
@@ -40,7 +38,7 @@ export namespace FieldConv {
     export function forAtoms(field: Meta.Field): FieldForAtoms {
         const { useit, displayname } = field.mani;
         const valueLife = TransformValue.valueLife4Mani(field.mani);
-        
+
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
         !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
 
