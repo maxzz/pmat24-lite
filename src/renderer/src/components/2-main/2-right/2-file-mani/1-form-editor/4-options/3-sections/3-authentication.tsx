@@ -1,7 +1,7 @@
-import { FormOptionsAtoms } from '@/store/atoms/3-file-mani-atoms/4-options';
+import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowBoolean } from '../4-controls';
 
-export function Part3Authentication({ atoms }: { atoms: FormOptionsAtoms; }) {
+export function Part3Authentication({ atoms }: { atoms: OptionsState.Atoms; }) {
     return (<>
         <div className="mb-1" title="Start authentication immediately">
             Authenticate immediately

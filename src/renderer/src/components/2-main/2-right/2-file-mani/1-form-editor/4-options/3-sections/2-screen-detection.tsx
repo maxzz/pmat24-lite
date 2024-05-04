@@ -1,8 +1,9 @@
 import { useAtom, useAtomValue } from 'jotai';
-import { FormOptionsAtoms } from '@/store/atoms/3-file-mani-atoms/4-options';
+import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowInput } from '../4-controls';
 
-export function Part2ScreenDetection({ atoms }: { atoms: FormOptionsAtoms; }) {
+export function Part2ScreenDetection({ atoms }: { atoms: OptionsState.Atoms; }) {
+    
     const [url, setUrl] = useAtom(atoms.uiPart2ScreenDetection.urlAtom);
     const [caption, setCaption] = useAtom(atoms.uiPart2ScreenDetection.captionAtom); //TODO: show only if web app
     const [monitor, setMonitor] = useAtom(atoms.uiPart2ScreenDetection.monitorAtom);

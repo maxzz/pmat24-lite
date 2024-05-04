@@ -1,8 +1,9 @@
 import { useAtom } from 'jotai';
-import { FormOptionsAtoms } from '@/store/atoms/3-file-mani-atoms/4-options';
+import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowInput } from '../4-controls';
 
-export function Part5PasswordManagerIcon({ atoms }: { atoms: FormOptionsAtoms; }) {
+export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
+    
     const [id, setId] = useAtom(atoms.uiPart5PasswordManagerIcon.idAtom);
     const [loc, setLoc] = useAtom(atoms.uiPart5PasswordManagerIcon.locAtom);
 
