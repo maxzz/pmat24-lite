@@ -7,6 +7,7 @@ export namespace PolicyConv {
     type PolicyForAtoms = {
         policy: string;
         policy2: string;
+        policyText: string;             // display text to show in grid; short policy explabation
     };
 
     export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms> & {
@@ -19,7 +20,8 @@ export namespace PolicyConv {
     export function forAtoms(field: Meta.Field): PolicyForAtoms {
         const rv: PolicyForAtoms = {
             policy: field.mani.policy || '',
-            policy2: field.mani.policy2 || ''
+            policy2: field.mani.policy2 || '',
+            policyText: 'TODO: short policy explabation', // or show custom policy rule, or standard policy rule
         };
         return rv;
     }
@@ -42,10 +44,11 @@ export namespace PolicyConv {
     //
 
     export function toAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
-        const { policy, policy2 } = initialState;
+        const { policy, policy2, policyText } = initialState;
         return {
             policyAtom: atomWithCallback(policy, onChange),
             policy2Atom: atomWithCallback(policy2, onChange),
+            policyTextAtom: atomWithCallback(policyText, onChange),
         };
     }
 
@@ -53,6 +56,7 @@ export namespace PolicyConv {
         const rv = {
             policy: get(atoms.policyAtom),
             policy2: get(atoms.policy2Atom),
+            policyText: get(atoms.policyTextAtom),
         };
         return rv;
     }

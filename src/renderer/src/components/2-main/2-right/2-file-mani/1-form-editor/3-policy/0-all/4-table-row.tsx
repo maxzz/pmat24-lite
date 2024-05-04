@@ -6,6 +6,7 @@ function PolicyLine({ label, value }: { label: string; value: string | undefined
         <div className="text-mani-muted-foreground">
             {label}
         </div>
+        
         <div className="text-xs font-mono text-mani-foreground">
             {value || 'no policy'}
         </div>
