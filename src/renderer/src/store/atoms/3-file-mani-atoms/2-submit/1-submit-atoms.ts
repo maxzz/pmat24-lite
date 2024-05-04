@@ -1,9 +1,7 @@
 import { Getter, Setter } from "jotai";
-import { atomWithCallback } from "@/util-hooks";
-import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { debounce } from "@/utils";
 import { SubmitConv } from "./0-conv";
-import { getSubmitChoices } from "./9-submit-choices";
 
 export namespace SubmitState {
 
@@ -15,9 +13,6 @@ export namespace SubmitState {
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const isWeb = !!metaForm?.mani.detection.web_ourl;
-        
-        const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
-
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {
@@ -25,10 +20,7 @@ export namespace SubmitState {
         }
 
         const rv: Atoms = {
-            buttonNamesAtom: atomWithCallback(buttonNames, onChange),
-            selectedAtom: atomWithCallback(initialSelected, onChange),
-            doSubmitAtom: atomWithCallback(true, onChange),
-            isDoSubmitUndefinedAtom: atomWithCallback(forAtoms.isDoSubmitUndefined, onChange),
+            ...(SubmitConv.toAtoms(forAtoms, onChange)),
             isWeb,
             fromFile: forAtoms,
             changed: false,
@@ -40,13 +32,14 @@ export namespace SubmitState {
     function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
         const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
 
-        const result = {
-            buttonNames: get(atoms.buttonNamesAtom),
-            selected: get(atoms.selectedAtom),
-            doSubmit: get(atoms.doSubmitAtom),
-        };
+        const state = SubmitConv.fromAtoms(atoms, get, set);
+        const changed = !SubmitConv.areTheSame(state, atoms.fromFile);
+        atoms.changed = changed;
 
-        console.log('Submit atoms', JSON.stringify(result));
+        const changes = callbackAtoms[2];
+        changes[changed ? 'add' : 'delete'](`${createAtomsParams.formIdx?'c':'l'}-submit`);
+
+        console.log('Submit atoms', JSON.stringify(state));
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

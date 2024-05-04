@@ -23,7 +23,6 @@ export namespace FieldRowState {
 
         const state = FieldConv.fromAtoms(atoms, get, set);
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
-
         atoms.changed = changed;
 
         const changes = callbackAtoms[2];
