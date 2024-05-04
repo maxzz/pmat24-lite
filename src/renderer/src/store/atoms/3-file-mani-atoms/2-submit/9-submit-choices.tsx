@@ -24,7 +24,7 @@ function isHeuristicSubmit(metaForm: Meta.Form): boolean {
     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
 }
 
-export function getChoices(metaForm: Meta.Form) {
+export function getSubmitChoices(metaForm: Meta.Form) {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
     const buttonFields = getButtonFields(metaForm);
     const buttonNames = getButtonNames(buttonFields, isWeb);

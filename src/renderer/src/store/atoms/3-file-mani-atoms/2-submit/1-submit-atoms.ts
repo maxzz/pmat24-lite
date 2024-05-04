@@ -3,6 +3,7 @@ import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { SubmitConv } from "./0-conv";
+import { getSubmitChoices } from "./9-submit-choices";
 
 export namespace SubmitState {
 
@@ -11,10 +12,9 @@ export namespace SubmitState {
     export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
-
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
-
         const isWeb = !!metaForm?.mani.detection.web_ourl;
+        const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
 
         const onChange = ({ get, set }) => {
             const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
@@ -22,9 +22,14 @@ export namespace SubmitState {
             debouncedCombinedResultFromAtoms(atoms, get, set);
         }
 
-        return {
+        const rv: Atoms = {
+            buttonNamesAtom: atomWithCallback(buttonNames, onChange),
+            selectedAtom: atomWithCallback(initialSelected, onChange),
             doSubmitAtom: atomWithCallback(true, onChange),
+            isWeb,
         };
+
+        return rv;
     }
 
     function combineResultFromAtoms(atoms: Atoms, get: Getter, set: Setter) {
