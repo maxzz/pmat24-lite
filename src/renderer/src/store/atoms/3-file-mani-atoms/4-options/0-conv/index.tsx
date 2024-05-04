@@ -33,6 +33,14 @@ export namespace OptionsConv {
         id: string;         // Location ID
         loc: string;        // Location
     };
+
+    // export type OptionsForAtoms = {
+    //     uiPart1General: UiPart1General;
+    //     uiPart4QL: UiPart4QL;
+    //     uiPart2ScreenDetection: UiPart2ScreenDetection;
+    //     uiPart3Authentication: UiPart3Authentication;
+    //     uiPart5PasswordManagerIcon: UiPart5PasswordManagerIcon;
+    // }
     
     export type FormOptionsAtoms = {
         uiPart1General: Atomize<UiPart1General>;
