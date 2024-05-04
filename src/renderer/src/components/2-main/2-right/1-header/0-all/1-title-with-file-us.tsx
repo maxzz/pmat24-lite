@@ -1,15 +1,9 @@
 import { FileUs } from "@/store/store-types";
-import { appTypeToIcon, fileUsToAppType, isManual } from "@/store/store-utils";
-import { ManiFilenameParts } from "./3-filename-parts";
-import { ManiExplanation } from "./2-mani-explanation";
+import { ManiAppIcons } from "./2-mani-icons";
+import { ManiExplanation } from "./3-mani-explanation";
+import { ManiFilenameParts } from "./4-filename-parts";
 
 export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
-    
-    const iconTypeWithWarning = fileUsToAppType(fileUs);
-    const Icon = appTypeToIcon(iconTypeWithWarning);
-
-    const manual = isManual(fileUs);
-
     return (
         <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
 
@@ -18,7 +12,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
             </div>
 
             <div className="flex items-center gap-1.5">
-                <Icon className="size-4" />
+                <ManiAppIcons fileUs={fileUs} />
                 <ManiExplanation fileUs={fileUs} />
             </div>
 
