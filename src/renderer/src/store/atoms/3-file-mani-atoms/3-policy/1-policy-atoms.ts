@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { OnValueChangeAny, atomWithCallback } from "@/util-hooks";
+import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { PolicyConv } from "./0-conv";
@@ -15,8 +15,7 @@ export namespace PolicyState {
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const onChange = ({ get, set }) => {
-            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
-            debouncedCombinedResultFromAtoms(atoms, get, set);
+            debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, get, set);
         }
 
         return {
@@ -25,7 +24,9 @@ export namespace PolicyState {
         };
     }
 
-    function combineResultFromAtoms(atoms: Atoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+        const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
+
         const result = {
             policy: get(atoms.policyAtom),
             policy2: get(atoms.policy2Atom),

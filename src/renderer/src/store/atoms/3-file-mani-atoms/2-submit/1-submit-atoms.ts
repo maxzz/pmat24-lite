@@ -17,9 +17,7 @@ export namespace SubmitState {
         const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
 
         const onChange = ({ get, set }) => {
-            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
-            console.log('--------', atoms);
-            debouncedCombinedResultFromAtoms(atoms, get, set);
+            debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, get, set);
         }
 
         const rv: Atoms = {
@@ -32,8 +30,12 @@ export namespace SubmitState {
         return rv;
     }
 
-    function combineResultFromAtoms(atoms: Atoms, get: Getter, set: Setter) {
+    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+        const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.submitAtoms;
+
         const result = {
+            buttonNames: get(atoms.buttonNamesAtom),
+            selected: get(atoms.selectedAtom),
             doSubmit: get(atoms.doSubmitAtom),
         };
 

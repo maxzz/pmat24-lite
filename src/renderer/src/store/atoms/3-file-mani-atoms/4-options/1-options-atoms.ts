@@ -10,17 +10,16 @@ export namespace OptionsState {
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
-        const onChange = ({ get, set }) => {
-            const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
-            debouncedCombinedResultFromAtoms(atoms, get, set);
-        }
-
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
         
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
         const options = fileUs.mani?.forms?.[formIdx]?.options || {};
+
+        const onChange = ({ get, set }) => {
+            debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, get, set);
+        }
 
         return {
             uiPart1General: {
@@ -53,7 +52,9 @@ export namespace OptionsState {
         };
     }
 
-    export function combineOptionsFromAtoms(atoms: Atoms, get: Getter, set: Setter) {
+    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+        const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
+
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
         const result = {

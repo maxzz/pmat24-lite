@@ -1,24 +1,16 @@
-import { useEffect, useState } from "react";
 import { Meta } from "@/store/manifest";
 import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
-import { getSubmitChoices } from "../../../../../../store/atoms/3-file-mani-atoms/2-submit/9-submit-choices";
+import { useAtom, useAtomValue } from "jotai";
 
 function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
 
-    const [submitNames, setSubmitNames] = useState<string[]>([]);
-    const [selected, setSelected] = useState(0);
-
-    useEffect(() => {
-        const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
-
-        setSubmitNames(buttonNames);
-        setSelected(initialSelected);
-    }, [metaForm]);
+    const buttonNames = useAtomValue(formAtoms.submitAtoms.buttonNamesAtom);
+    const [selected, setSelected] = useAtom(formAtoms.submitAtoms.selectedAtom);
 
     return (
         <RadioGroup
-            items={submitNames}
+            items={buttonNames}
             groupName={`submit-form-${metaForm?.type}`}
             selected={selected}
             setSelected={setSelected}
