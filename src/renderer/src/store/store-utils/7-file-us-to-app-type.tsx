@@ -7,6 +7,15 @@ export type IconTypeWithWarning = {
     warning?: boolean;
 };
 
+export function getAppIconType(isWeb: boolean, isManual: boolean): AppIconType {
+    const icon = isWeb
+        ? AppIconType.web
+        : isManual
+            ? AppIconType.man
+            : AppIconType.win;
+    return icon;
+}
+
 export function fileUsToAppType(fileUs: FileUs): IconTypeWithWarning {
     if (fileUs.fcat) {
         return { appIcon: AppIconType.cat, warning: false };
