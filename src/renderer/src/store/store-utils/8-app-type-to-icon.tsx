@@ -13,7 +13,7 @@ export const enum AppIconType {
     cat,    // field catalog
 }
 
-type IconsTable = Record<AppIconType, { Icon: TreenIconType, normalClasses: string, warningClasses: string }>;
+type IconsTable = Record<AppIconType, { Icon: TreenIconType, normalClasses: string, warningClasses: string; }>;
 
 const normalClasses = "text-muted-foreground";
 const warningClasses = "text-red-500 fill-red-300 opacity-75";
@@ -26,10 +26,13 @@ const components: IconsTable = {
     [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function appTypeToIcon({appIcon, warning}: IconTypeWithWarning): TreenIconType {
+export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconType {
     const { Icon, normalClasses, warningClasses } = components[appIcon];
 
-    const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />;
+    const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => (
+        <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
+    );
+    
     return fn;
 }
 

@@ -20,19 +20,23 @@ underline \
 underline-offset-2 \
 ";
 
-//TOD: open domain in browser if url is not defined
+function FollowUrl({ url, domain, title }: { url: string | undefined; domain?: string; title: string; }) {
+    return (
+        <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener" title={title}>
+            {domain}
+            <SymbolOpenLink className="pt-0.5 size-3" />
+        </a>
+    );
+}
 
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
     return (<>
-        Login is defined for the site
+        The login is defined for 
 
         {url
-            ? (<>
-                <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener">
-                    {domain}
-                    <SymbolOpenLink className="pt-0.5 size-3" />
-                </a>
-            </>)
+            ? (
+                <FollowUrl url={url} domain={domain} title="Open login website" />
+            )
             : (
                 <div className={ManiNoUrlPartsClasses}>
                     {domain}
@@ -51,7 +55,16 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
             : 'Login for a Windows application';
     }
 
-    return (
-        <ManiUrlParts url={fileUs.stats.url} domain={fileUs.stats.domain} />
-    );
+    const domain = fileUs.stats.domain;
+    const loginUrl = fileUs.stats.url || domain; // open domain in browser if url is not defined
+    const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
+    const showCpass = cpassUrl && cpassUrl !== loginUrl;
+
+    return (<>
+        <ManiUrlParts url={loginUrl} domain={domain} />
+
+        {showCpass && (
+            <FollowUrl url={cpassUrl} title="Open password change website" />
+        )}
+    </>);
 }

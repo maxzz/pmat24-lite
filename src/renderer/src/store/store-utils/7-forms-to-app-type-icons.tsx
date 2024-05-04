@@ -1,7 +1,8 @@
 import { FileUs } from "../store-types";
+import { TreenIconType } from "@/ui/shadcn/tree";
 import { isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from "./4-mani-utils";
 import { IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
-import { AppIconType } from "./8-app-type-to-icon";
+import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
 export function formToAppType(fileUs: FileUs): IconTypeWithWarning {
 
@@ -19,12 +20,16 @@ export function formToAppType(fileUs: FileUs): IconTypeWithWarning {
     };
 }
 
-export function formToAppTypeIcons(fileUs: FileUs) {
+export function formToAppTypeIcons(fileUs: FileUs): TreenIconType[] {
     if (fileUs.fcat) {
-        return [{ appIcon: AppIconType.cat, warning: false }];
+        return [appTypeToIcon({ appIcon: AppIconType.cat, warning: false })];
     }
 
-    const forms = fileUs.meta?.map((form) => {
+    if (!fileUs.meta) {
+        return [];
+    }
+
+    const forms = fileUs.meta.map((form) => {
         if (!form) {
             return;
         }
@@ -41,5 +46,20 @@ export function formToAppTypeIcons(fileUs: FileUs) {
         };
 
         return rv;
-    });
+    }).filter(Boolean);
+
+    const login = forms?.[0];
+    const cpass = forms?.[1];
+
+    const rv: TreenIconType[] = [];
+
+    if (login) {
+        rv.push(appTypeToIcon(login));
+    }
+
+    if (login && cpass && (login.appIcon !== cpass.appIcon || login.warning !== cpass.warning)) {
+        rv.push(appTypeToIcon(cpass));
+    }
+
+    return rv;
 }
