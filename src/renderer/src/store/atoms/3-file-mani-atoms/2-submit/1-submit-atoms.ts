@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
 import { debounce } from "@/utils";
 import { SubmitConv } from "./0-conv";
 
@@ -36,10 +36,9 @@ export namespace SubmitState {
         const changed = !SubmitConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = callbackAtoms[2];
-        changes[changed ? 'add' : 'delete'](`${createAtomsParams.formIdx?'c':'l'}-submit`);
+        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-submit`);
 
-        console.log('Submit atoms', JSON.stringify(state));
+        console.log('changes submit:', [...changes.keys()]);
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

@@ -31,3 +31,11 @@ export type TabSectionProps = {
     formAtoms: FormAtoms;
     formIdx: FormIdx;
 };
+
+//
+
+export function setManiChanges(maniAtoms: ManiAtoms, changed: boolean, changeName: string): ChangesSet {
+    const changes = maniAtoms[2];
+    changes[changed ? 'add' : 'delete'](changeName);
+    return changes;
+}

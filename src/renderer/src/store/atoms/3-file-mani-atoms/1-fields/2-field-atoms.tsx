@@ -3,7 +3,7 @@ import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { CreateAtomsParams, ManiAtoms } from '../9-types';
+import { CreateAtomsParams, ManiAtoms, setManiChanges } from '../9-types';
 
 export namespace FieldRowState {
 
@@ -25,10 +25,9 @@ export namespace FieldRowState {
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = callbackAtoms[2];
-        changes[changed ? 'add' : 'delete'](`${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
+        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
 
-        console.log('changes:', [...changes.keys()]);
+        console.log('changes fields:', [...changes.keys()]);
         
         // const maniField = FieldConv.forMani(state);
         // const maniFiel2 = FieldConv.forMani(atoms.fromFile);
