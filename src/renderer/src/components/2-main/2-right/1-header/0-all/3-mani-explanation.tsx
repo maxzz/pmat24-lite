@@ -30,20 +30,22 @@ function FollowUrl({ url, domain, title }: { url: string | undefined; domain?: s
 }
 
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
-    return (<>
-        The login is defined for 
+    return (
+        <div className="flex items-center gap-1">
+            The login is defined for {' '}
 
-        {url
-            ? (
-                <FollowUrl url={url} domain={domain} title="Open login website" />
-            )
-            : (
-                <div className={ManiNoUrlPartsClasses}>
-                    {domain}
-                </div>
-            )
-        }
-    </>);
+            {url
+                ? (
+                    <FollowUrl url={url} domain={domain} title="Open login website" />
+                )
+                : (
+                    <div className={ManiNoUrlPartsClasses}>
+                        {domain}
+                    </div>
+                )
+            }
+        </div>
+    );
 }
 
 export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
@@ -60,11 +62,13 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
     const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
     const showCpass = cpassUrl && cpassUrl !== loginUrl;
 
-    return (<>
-        <ManiUrlParts url={loginUrl} domain={domain} />
+    return (
+        <div className="flex items-center">
+            <ManiUrlParts url={loginUrl} domain={domain} />
 
-        {showCpass && (
-            <FollowUrl url={cpassUrl} title="Open password change website" />
-        )}
-    </>);
+            {showCpass && (
+                <FollowUrl url={cpassUrl} title="Open password change website" />
+            )}
+        </div>
+    );
 }
