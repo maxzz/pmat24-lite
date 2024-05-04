@@ -32,12 +32,10 @@ export const treeFilesAtom = atom( // files to show in the tree
                         return;
                     }
 
-                    const { icon, hasBailOut } = fileUsToAppType(fileUs);
-
                     const rv: TreeFileItem = {
                         id: fileUs.id,
                         name: getFileListDisplayName(fileUs, fileListOptions.itemsState),
-                        icon: appTypeToIcon(icon, hasBailOut),
+                        icon: appTypeToIcon(fileUsToAppType(fileUs)),
                         fcnt: fileUsAtom,
                     };
 
@@ -49,5 +47,3 @@ export const treeFilesAtom = atom( // files to show in the tree
         return filesTree;
     }
 );
-
-

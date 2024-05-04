@@ -4,9 +4,9 @@ import { ManiFilenameParts } from "./3-filename-parts";
 import { ManiExplanation } from "./2-mani-explanation";
 
 export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
-
-    const { icon, hasBailOut } = fileUsToAppType(fileUs);
-    const Icon = appTypeToIcon(icon, hasBailOut);
+    
+    const iconTypeWithWarning = fileUsToAppType(fileUs);
+    const Icon = appTypeToIcon(iconTypeWithWarning);
 
     const manual = isManual(fileUs);
 

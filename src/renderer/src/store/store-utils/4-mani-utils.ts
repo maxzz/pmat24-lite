@@ -1,9 +1,17 @@
 import { FileUs } from "@/store/store-types";
 import { Meta } from '@/store/manifest';
 
-// Utilities
+// Utilities at form level
 
-export const isManual = (fileUs: FileUs): boolean => !!fileUs.meta?.some((form: Meta.Form) => form.disp.isScript);
+export const isManualForm = (form: Meta.Form | undefined): boolean => !!form?.disp.isScript;
+
+export const isWebForm = (form: Meta.Form | undefined): boolean => !!form?.disp.domain;
+
+export const isWhyForm = (form: Meta.Form | undefined): boolean => !!form?.disp.bailOut;
+
+// Utilities at file level
+
+export const isManual = (fileUs: FileUs): boolean => !!fileUs.meta?.some(isManualForm);
 
 export const isEmpty = (fileUs: FileUs): boolean => !fileUs.meta?.length || !!fileUs.meta?.some((form: Meta.Form) => form.disp.noFields);
 

@@ -1,4 +1,5 @@
 import { TreenIconType } from "@/ui/shadcn/tree";
+import { IconTypeWithWarning } from "./7-file-us-to-app-type";
 import { SymbolAppWebChrome, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { SymbolAppWebIE } from "@/ui/icons/symbols/app/4-app-web-ie";
@@ -25,8 +26,8 @@ const components: IconsTable = {
     [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function appTypeToIcon(iconType: AppIconType, warning?: boolean): TreenIconType {
-    const { Icon, normalClasses, warningClasses } = components[iconType];
+export function appTypeToIcon({appIcon, warning}: IconTypeWithWarning): TreenIconType {
+    const { Icon, normalClasses, warningClasses } = components[appIcon];
 
     const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />;
     return fn;
