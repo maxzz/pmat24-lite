@@ -6,22 +6,6 @@ import { TableHeader } from "./2-table-header";
 import { PoliciesGrid } from "./3-table-grid";
 import { NoPasswordsForPolies } from "./9-no-polies";
 
-function PolicyItem({ policyAtoms }: { policyAtoms: PolicyState.Atoms; }) {
-    const { policyAtom, policy2Atom, policyTextAtom } = policyAtoms;
-
-    const policy = useAtomValue(policyAtom);
-    const policy2 = useAtomValue(policy2Atom);
-    const policyText = useAtomValue(policyTextAtom);
-
-    return (
-        <div className="flex items-center">
-            <div className="flex-1">{policyAtoms.maniField.displayname || 'no name field'}</div>
-            <div className="flex-1">{policy}</div>
-            <div className="flex-1">{policy2}</div>
-        </div>
-    );
-}
-
 export function TabPolicy({ formAtoms, formIdx }: TabSectionProps) {
 
     const policies = formAtoms.policyAtoms;
@@ -48,14 +32,14 @@ export function TabPolicy({ formAtoms, formIdx }: TabSectionProps) {
         <div className="ml-1">
             <div className="pl-3 pr-2 py-2 grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-1 items-stretch rounded">
                 <TableHeader />
-                
-                {policies.map(
+
+                {/* {policies.map(
                     (policy, idx) => (
                         <PolicyItem key={idx} policyAtoms={policy} />
                     )
-                )}
+                )} */}
 
-                {/* <PoliciesGrid policies={policies} /> */}
+                <PoliciesGrid policies={policies} />
             </div>
         </div>
     );

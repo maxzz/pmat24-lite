@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Meta } from "@/store/manifest";
+import { Mani } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 
-export function PolicyEditorDlg({ field }: { field: Meta.Field; }) {
+export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
     const [open, setOpen] = useState(false);
 
     const atoms = useState( //TODO: use memo or update atoms value?
         () => createUiAtoms(
-            { policy: field.mani.policy, policy2: field.mani.policy2 },
+            { policy: field.policy, policy2: field.policy2 },
             ({ get, set }) => {
                 //console.log('policy changed', field, field.mani.displayname);
                 debouncedCombinedResultFromAtoms(atoms, get, set);
