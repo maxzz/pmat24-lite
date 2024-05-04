@@ -6,14 +6,10 @@ import { ManiTabsList } from "./3-mani-tabs-list";
 import { FormEditor } from "../../1-form-editor";
 import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
 import { useEffect } from "react";
+import { FileUsAtom } from "@/store/store-types";
 
-export function ManiBody() {
+function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
-
-    const fileUsAtom = useAtomValue(rightPanelAtom);
-    if (!fileUsAtom) {
-        return null;
-    }
 
     const fileUs = useAtomValue(fileUsAtom);
     const [fileUsAtoms, setFileUsAtoms] = useAtom(fileUs.atomsAtom);
@@ -22,7 +18,7 @@ export function ManiBody() {
         !fileUsAtoms && setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
     }, [fileUs, fileUsAtom, fileUsAtoms]);
 
-    if (!fileUsAtoms) {
+    if (!fileUsAtoms) { // atoms not ready yet but will be on the next render
         return null;
     }
 
@@ -49,5 +45,15 @@ export function ManiBody() {
                 </div>
             </div>
         </Tabs>
+    );
+}
+
+export function ManiBody() {
+    const fileUsAtom = useAtomValue(rightPanelAtom);
+    if (!fileUsAtom) {
+        return null;
+    }
+    return (
+        <ManiBodyGuarded fileUsAtom={fileUsAtom} />
     );
 }
