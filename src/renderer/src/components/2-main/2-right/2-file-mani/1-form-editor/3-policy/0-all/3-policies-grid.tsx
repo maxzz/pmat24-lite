@@ -1,4 +1,4 @@
-import { PolicyItem } from './4-table-row';
+import { PolicyItem } from './4-policy-row';
 import { PolicyState } from '@/store/atoms/3-file-mani-atoms';
 
 export function PoliciesGrid({ policies }: { policies: PolicyState.Atoms[]; }) {

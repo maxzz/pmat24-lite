@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { Meta } from "@/store/manifest";
 import { PolicyState, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
-import { TableHeader } from "./2-table-header";
-import { PoliciesGrid } from "./3-table-grid";
+import { TableHeader } from "./2-grid-header";
+import { PoliciesGrid } from "./3-policies-grid";
 import { NoPasswordsForPolies } from "./9-no-polies";
 
 export function TabPolicy({ formAtoms, formIdx }: TabSectionProps) {
