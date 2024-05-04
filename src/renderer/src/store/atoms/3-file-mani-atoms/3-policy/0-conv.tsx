@@ -1,6 +1,6 @@
 import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny } from '@/util-hooks';
-import { Meta } from "pm-manifest";
+import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
+import { Mani, Meta } from "pm-manifest";
 
 export namespace PolicyConv {
 
@@ -8,92 +8,63 @@ export namespace PolicyConv {
         policy: string;
         policy2: string;
     };
+
+    export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms> & {
+        maniField: Mani.Field;          // all fields from original to combine with fields from atoms to create new field
+        fromFile: PolicyForAtoms;       // original state to compare with
+        changed: boolean;               // state from atoms is different from original state
+    }>;
+
+    /**/
+    export function forAtoms(field: Meta.Field): PolicyForAtoms {
+        const rv: PolicyForAtoms = {
+            policy: field.mani.policy || '',
+            policy2: field.mani.policy2 || ''
+        };
+        return rv;
+    }
+    /**/
+
+    /** /
+    export function forMani(from: PolicyForAtoms, metaForm: Meta.Form) {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            dbname: from.dbname,
+            ...fieldTyp2Obj(from.type),
+        };
     
-    export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms>>;
+        TransformValue.valueLife2Mani(from.valueLife, rv);
+        return rv;
+    }
+    /**/
 
-/** /
-export function forAtoms(metaForm: Meta.Form): SubmitForAtoms {
-    const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
+    //
 
-    const doSubmit = metaForm.mani.options?.submittype === 'dosubmit';
-    const isDoSubmitUndefined = typeof metaForm.mani.options?.submittype === 'undefined';
+    export function toAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
+        const { policy, policy2 } = initialState;
+        return {
+            policyAtom: atomWithCallback(policy, onChange),
+            policy2Atom: atomWithCallback(policy2, onChange),
+        };
+    }
 
-    const rv: SubmitForAtoms = {
-        buttonNames,
-        selected: initialSelected,
-        doSubmit,
-        isDoSubmitUndefined,
-    };
-    return rv;
-}
-/**/
-/** /
-export function forMani(from: SubmitForAtoms, metaForm: Meta.Form) {
-    const rv: ThisType = {
-        useit: from.useIt,
-        displayname: from.label,
-        dbname: from.dbname,
-        ...fieldTyp2Obj(from.type),
-    };
-
-    TransformValue.valueLife2Mani(from.valueLife, rv);
-    return rv;
-}
-/**/
-
-//
-/** /
-
-export function toAtoms(initialState: SubmitForAtoms, onChange: OnValueChangeAny): Atomize<SubmitForAtoms> {
-    const { useIt, label, type, dbname, valueLife } = initialState;
-    return {
-        useItAtom: atomWithCallback(useIt, onChange),
-        labelAtom: atomWithCallback(label, onChange),
-        typeAtom: atomWithCallback(type, onChange),
-        valueLifeAtom: atomWithCallback(valueLife, onChange),
-        dbnameAtom: atomWithCallback(dbname, onChange),
-    };
-}
-/**/
-/** /
-
-export function fromAtoms(atoms: SubmitAtoms, get: Getter, set: Setter): SubmitForAtoms {
-    const rv = {
-        useIt: get(atoms.useItAtom),
-        label: get(atoms.labelAtom),
-        type: get(atoms.typeAtom),
-        valueLife: get(atoms.valueLifeAtom),
-        dbname: get(atoms.dbnameAtom),
-    };
-    return rv;
-}
-/** /
-
-//
-/** /
-
-function theSameValue(from: ValueLife, to: ValueLife): boolean {
-    const rv = (
-        from.value === to.value &&
-        from.valueAs === to.valueAs &&
-        from.isRef === to.isRef
-    );
-    return rv;
-}
-/** /
-
-/** /
-export function areTheSame(from: SubmitForAtoms, to: SubmitForAtoms): boolean {
-    const rv = (
-        from.useIt === to.useIt &&
-        from.label === to.label &&
-        from.type === to.type &&
-        from.dbname === to.dbname &&
-        theSameValue(from.valueLife, to.valueLife) &&
-        from.valueLife.valueAs === to.valueLife.valueAs
-    );
-    return rv;
-}
-/**/
+    export function fromAtoms(atoms: PolicyAtoms, get: Getter, set: Setter): PolicyForAtoms {
+        const rv = {
+            policy: get(atoms.policyAtom),
+            policy2: get(atoms.policy2Atom),
+        };
+        return rv;
+    }
+    
+    //
+    
+    export function areTheSame(from: PolicyForAtoms, to: PolicyForAtoms): boolean {
+        const rv = (
+            from.policy === to.policy &&
+            from.policy2 === to.policy2
+        );
+        return rv;
+    }
 
 }

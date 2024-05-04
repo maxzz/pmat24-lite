@@ -16,14 +16,16 @@ export namespace FieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        const rv = nonButtonFields.map((field, idx) => {
-            const rowAtoms = FieldRowState.createUiAtoms(field,
-                ({ get, set }) => {
-                    return FieldRowState.debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, idx, get, set);
-                }
-            );
-            return rowAtoms;
-        }) || [];
+        const rv = nonButtonFields.map(
+            (field, idx) => {
+                const rowAtoms = FieldRowState.createUiAtoms(field,
+                    ({ get, set }) => {
+                        return FieldRowState.debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, idx, get, set);
+                    }
+                );
+                return rowAtoms;
+            }
+        ) || [];
 
         return rv;
     }

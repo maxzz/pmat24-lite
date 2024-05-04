@@ -8,7 +8,7 @@ function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): string[] {
 
     const rv = noSubmitOption ? ['There is no control to submit'] : ['Do not submit'];
     if (isWeb) {
-        rv.push('Automatically submit login data');
+        rv.push('Submit form data after filling out fields');
     } else {
         let NameIdx = 0;
         rv.push(...buttonFields.map((field) => field.mani.displayname || `no name ${++NameIdx}`));

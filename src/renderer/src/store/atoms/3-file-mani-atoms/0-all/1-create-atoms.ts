@@ -19,7 +19,7 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
     const policyAtoms = PolicyState.createUiAtoms(createAtomsParams, callbackAtoms);
     const optionsAtoms = OptionsState.createAtoms(createAtomsParams, callbackAtoms);
 
-    return {
+    const rv: FormAtoms = {
         fieldsAtoms,
         submitAtoms,
         policyAtoms,
@@ -27,6 +27,8 @@ function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: Ma
 
         params: createAtomsParams,
     };
+
+    return rv;
 }
 
 export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAtoms {

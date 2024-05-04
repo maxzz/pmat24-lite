@@ -1,38 +1,58 @@
 import { Getter, Setter } from "jotai";
-import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
-import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
 import { PolicyConv } from "./0-conv";
+import { FieldTyp } from "pm-manifest";
 
 export namespace PolicyState {
 
     export type Atoms = PolicyConv.PolicyAtoms;
 
-    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
+    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
-        const onChange = ({ get, set }) => {
-            debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, get, set);
+        const passwordFields = metaForm.fields.filter((f) => f.ftyp === FieldTyp.psw);
+        if (!passwordFields.length) {
+            return [];
         }
 
-        return {
-            policyAtom: atomWithCallback('', onChange),
-            policy2Atom: atomWithCallback('', onChange),
-        };
+        const rv: Atoms[] = passwordFields.map(
+            (field, policyIdx) => {
+                const initialState = PolicyConv.forAtoms(field);
+                const atoms = PolicyConv.toAtoms(initialState,
+                    ({ get, set }) => {
+                        debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, policyIdx, get, set);
+                    }
+                );
+                return {
+                    ...atoms,
+                    maniField: field.mani,
+                    fromFile: initialState,
+                    changed: false,
+                };
+            }
+        );
+
+        return rv;
     }
 
-    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
-        const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
+    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, policyIdx: number, get: Getter, set: Setter) {
+        const atoms: Atoms[] = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
+        if (!atoms.length) {
+            return;
+        }
 
-        const result = {
-            policy: get(atoms.policyAtom),
-            policy2: get(atoms.policy2Atom),
-        };
+        const state = PolicyConv.fromAtoms(atoms[policyIdx], get, set);
 
-        console.log('Policy atoms', JSON.stringify(result));
+        const changed = !PolicyConv.areTheSame(state, atoms[policyIdx].fromFile);
+        atoms[policyIdx].changed = changed;
+
+        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
+
+        console.log('changes policy:', [...changes.keys()]);
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

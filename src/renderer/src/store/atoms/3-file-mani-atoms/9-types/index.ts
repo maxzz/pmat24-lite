@@ -16,7 +16,7 @@ export type CreateAtomsParams = {
 export type FormAtoms = {
     fieldsAtoms: FieldsState.Atoms[];
     submitAtoms: SubmitState.Atoms;
-    policyAtoms: PolicyState.Atoms;
+    policyAtoms: PolicyState.Atoms[];
     optionsAtoms: OptionsState.Atoms;
 
     params: CreateAtomsParams;
