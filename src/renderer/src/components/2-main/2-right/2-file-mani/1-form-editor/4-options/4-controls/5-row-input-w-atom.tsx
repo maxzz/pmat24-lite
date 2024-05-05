@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useEffect, useState } from 'react';
 import { PrimitiveAtom, atom, useAtom, useAtomValue } from 'jotai';
 import { classNames } from '@/utils';
-import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
+import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
 import { SymbolWarning } from '@/ui/icons';
 
 const rowInputClasses = "\
@@ -22,13 +22,14 @@ type RowInputState<Value> = {
     fromString?: (value: string) => Value;
 };
 
-type RowInputStateAtom = PrimitiveAtom<RowInputState<string>>
+type RowInputStateAtom = PrimitiveAtom<RowInputState<string>>;
 
 type RowInputProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
     stateAtom: RowInputStateAtom;
 };
 
-function RawInput({ stateAtom, className, ...rest }: RowInputProps) {
+function RawInput({ label, stateAtom, className, ...rest }: RowInputProps) {
     const [value, setValue] = useAtom(stateAtom);
     return (
         <input
@@ -49,7 +50,7 @@ function RawInput({ stateAtom, className, ...rest }: RowInputProps) {
     );
 }
 
-export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomProps) {
+export function RowInputWAtom({ label, valueAtom, className, ...rest }: RowInputWAtomProps) {
     // const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
 
@@ -60,13 +61,18 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
     const state = useAtomValue(stateAtom);
 
     return (
-        <TooltipProvider>
-            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+        <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
+            <div className="">
+                {label}
+            </div>
 
-                <div className="relative">
-                    <RawInput stateAtom={stateAtom} className={className} {...rest} />
+            <TooltipProvider>
+                <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
 
-                    {/* <input
+                    <div className="relative">
+                        <RawInput label={label} stateAtom={stateAtom} className={className} {...rest} />
+
+                        {/* <input
                         className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"* /, className)}
                         value={value}
                         onChange={(e) => {
@@ -82,25 +88,26 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
                         {...rest}
                     /> */}
 
-                    <TooltipTrigger asChild>
-                        <div>
-                            {state.error && (
-                                <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
-                            )}
-                        </div>
-                    </TooltipTrigger>
-                </div>
+                        <TooltipTrigger asChild>
+                            <div>
+                                {state.error && (
+                                    <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
+                                )}
+                            </div>
+                        </TooltipTrigger>
+                    </div>
 
-                {state.error && state.touched && (
-                    <TooltipPortal container={document.getElementById("portal")}>
-                        <TooltipContent align="end" sideOffset={-2}>
-                            {state.error}
-                        </TooltipContent>
-                    </TooltipPortal>
-                )}
+                    {state.error && state.touched && (
+                        <TooltipPortal container={document.getElementById("portal")}>
+                            <TooltipContent align="end" sideOffset={-2}>
+                                {state.error}
+                            </TooltipContent>
+                        </TooltipPortal>
+                    )}
 
-            </Tooltip>
-        </TooltipProvider>
+                </Tooltip>
+            </TooltipProvider>
+        </Label>
     );
 }
 
@@ -112,6 +119,7 @@ function validateError(value: string) {
 }
 
 type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
     valueAtom: PrimitiveAtom<string>;
 };
 

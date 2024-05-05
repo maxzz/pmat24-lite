@@ -3,14 +3,9 @@ import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, Tooltip
 import { RowInputWAtom } from "./5-row-input-w-atom";
 
 export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<string>; }) {
-    return (<>
-        <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
-            <div className="">
-                {label}
-            </div>
-            <RowInputWAtom valueAtom={valueAtom} />
-        </Label>
-    </>);
+    return (
+        <RowInputWAtom label={label} valueAtom={valueAtom} />
+    );
 }
 
 //TODO: validate value, show error tooltip
