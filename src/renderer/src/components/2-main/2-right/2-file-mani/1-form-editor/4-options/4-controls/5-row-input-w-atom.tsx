@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, useEffect, useState } from 'react';
-import { PrimitiveAtom, atom, useAtom } from 'jotai';
+import { PrimitiveAtom, atom, useAtom, useAtomValue } from 'jotai';
 import { classNames } from '@/utils';
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
 import { SymbolWarning } from '@/ui/icons';
@@ -50,13 +50,14 @@ function RawInput({ stateAtom, className, ...rest }: RowInputProps) {
 }
 
 export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomProps) {
-    const [value, setValue] = useAtom(valueAtom);
+    // const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
 
-    const [touched, setTouched] = useState(false);
-    const [error, setError] = useState('');
+    // const [touched, setTouched] = useState(false);
+    // const [error, setError] = useState('');
 
-    const stateAtom = useState(() => atom<RowInputState<string>>({ data: value, error, touched, validate: validateError }))[0];
+    const stateAtom = useState(() => atom<RowInputState<string>>({ data: 'value', error: undefined, touched: undefined, validate: validateError }))[0];
+    const state = useAtomValue(stateAtom);
 
     return (
         <TooltipProvider>
@@ -83,17 +84,17 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
 
                     <TooltipTrigger asChild>
                         <div>
-                            {error && (
+                            {state.error && (
                                 <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
                             )}
                         </div>
                     </TooltipTrigger>
                 </div>
 
-                {error && touched && (
+                {state.error && state.touched && (
                     <TooltipPortal container={document.getElementById("portal")}>
                         <TooltipContent align="end" sideOffset={-2}>
-                            {error}
+                            {state.error}
                         </TooltipContent>
                     </TooltipPortal>
                 )}
