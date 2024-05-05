@@ -3,9 +3,11 @@ import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowInput } from '../4-controls';
 
 export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
+
+    const { idAtom, locAtom } = atoms.uiPart5PasswordManagerIcon;
     
-    const [id, setId] = useAtom(atoms.uiPart5PasswordManagerIcon.idAtom);
-    const [loc, setLoc] = useAtom(atoms.uiPart5PasswordManagerIcon.locAtom);
+    const [id, setId] = useAtom(idAtom);
+    const [loc, setLoc] = useAtom(locAtom);
 
     return (<>
         <div className="">

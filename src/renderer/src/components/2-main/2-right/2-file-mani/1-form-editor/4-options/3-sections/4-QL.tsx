@@ -3,10 +3,12 @@ import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
 import { RowInput, RowBoolean } from '../4-controls';
 
 export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
-    
-    const [dashboard, setDashboard] = useAtom(atoms.uiPart4QL.dashboardAtom);
-    const [name, setName] = useAtom(atoms.uiPart4QL.nameAtom);
-    const [url, setUrl] = useAtom(atoms.uiPart4QL.urlAtom);
+
+    const { dashboardAtom, nameAtom, urlAtom } = atoms.uiPart4QL;
+
+    const [dashboard, setDashboard] = useAtom(dashboardAtom);
+    const [name, setName] = useAtom(nameAtom);
+    const [url, setUrl] = useAtom(urlAtom);
 
     return (<>
         <div className="">
@@ -17,7 +19,7 @@ export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
         <div className="my-1">
             Display on mini-dashboard
         </div>
-        <RowBoolean className="my-1 justify-self-start" useItAtom={atoms.uiPart4QL.dashboardAtom} />
+        <RowBoolean className="my-1 justify-self-start" useItAtom={dashboardAtom} />
 
         {dashboard && <>
             <div className="">
