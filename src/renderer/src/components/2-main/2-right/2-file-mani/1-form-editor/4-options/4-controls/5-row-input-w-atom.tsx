@@ -18,7 +18,11 @@ function validateError(value: string) {
     return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
 }
 
-export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: PrimitiveAtom<string>; } & InputHTMLAttributes<HTMLInputElement>) {
+type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
+    valueAtom: PrimitiveAtom<string>;
+};
+
+export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomProps) {
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
 
@@ -45,6 +49,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: { valueAtom: Pr
                         }}
                         {...rest}
                     />
+
                     <TooltipTrigger asChild>
                         <div>
                             {error && (
