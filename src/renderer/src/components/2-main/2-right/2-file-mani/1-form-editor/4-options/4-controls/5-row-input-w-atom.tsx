@@ -22,6 +22,37 @@ type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
     valueAtom: PrimitiveAtom<string>;
 };
 
+type RowInputState<Value> = {
+    data: Value;
+    error?: string;
+    touched?: boolean;
+};
+
+type RowInputProps<Value> = InputHTMLAttributes<HTMLInputElement> & {
+    valueAtom: PrimitiveAtom<RowInputState<Value>>;
+};
+
+function RawInput({ valueAtom, className, ...rest }: RowInputProps<string>) {
+    const [value, setValue] = useAtom(valueAtom);
+    return (
+        <input
+            className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"*/, className)}
+            value={value.data}
+            onChange={(e) => {
+                setValue((v) => ({ ...v, data: e.target.value }));
+                const errorMsg = validateError?.(e.target.value) ?? '';
+                setValue((v) => ({ ...v, error: errorMsg }));
+            }}
+            onBlur={() => {
+                setValue((v) => ({ ...v, touched: true }));
+                const errorMsg = validateError?.(value.data) ?? '';
+                setValue((v) => ({ ...v, error: errorMsg }));
+            }}
+            {...rest}
+        />
+    );
+}
+
 export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomProps) {
     const [value, setValue] = useAtom(valueAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
