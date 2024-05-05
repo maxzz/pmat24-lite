@@ -56,7 +56,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
     const [touched, setTouched] = useState(false);
     const [error, setError] = useState('');
 
-    const stateAtom = useState(() => atom({ data: value, error, touched, validate: validateError }))[0];
+    const stateAtom = useState(() => atom<RowInputState<string>>({ data: value, error, touched, validate: validateError }))[0];
 
     return (
         <TooltipProvider>
@@ -65,8 +65,8 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
                 <div className="relative">
                     <RawInput stateAtom={stateAtom} className={className} {...rest} />
 
-                    <input
-                        className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"*/, className)}
+                    {/* <input
+                        className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"* /, className)}
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
@@ -79,7 +79,7 @@ export function RowInputWAtom({ valueAtom, className, ...rest }: RowInputWAtomPr
                             setError(errorMsg);
                         }}
                         {...rest}
-                    />
+                    /> */}
 
                     <TooltipTrigger asChild>
                         <div>
