@@ -22,13 +22,11 @@ export function OptionInput({ stateAtom, className, ...rest }: OptionInputProps)
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setState((v) => ({ ...v, data: e.target.value }));
-        setState((v) => ({ ...v, error: state.validate?.(e.target.value) }));
+        setState((v) => ({ ...v, data: e.target.value, error: state.validate?.(e.target.value) }));
     }
 
     function onBlur() {
-        setState((v) => ({ ...v, touched: true }));
-        setState((v) => ({ ...v, error: state.validate?.(state.data) }));
+        setState((v) => ({ ...v, touched: true, error: state.validate?.(state.data) }));
     }
 
     return (

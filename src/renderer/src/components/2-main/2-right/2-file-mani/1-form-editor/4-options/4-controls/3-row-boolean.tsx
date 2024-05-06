@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { classNames } from '@/utils';
 import { PrimitiveAtom, useAtom } from 'jotai';
 
