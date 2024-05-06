@@ -13,7 +13,7 @@ export function SvgSymbolInfo() {
 
 export function SymbolInfo({ className, children, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} stroke-linecap="round" stroke-linejoin="round" {...rest}>
+        <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} strokeLinecap="round" strokeLinejoin="round" {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#icon-info" />

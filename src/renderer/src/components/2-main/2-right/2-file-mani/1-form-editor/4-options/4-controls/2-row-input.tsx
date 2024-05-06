@@ -3,7 +3,7 @@ import { classNames } from '@/utils';
 import { inputRingClasses } from '@/ui';
 
 const rowInputClasses = "\
-px-2 py-1 h-6 \
+px-2 py-1 h-7 \
 \
 text-mani-foreground bg-mani-background \
 \

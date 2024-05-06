@@ -1,3 +1,4 @@
+export * from "./1-options-row";
 export * from "./2-section";
 export * from "./2-row-input";
 export * from "./3-row-boolean";

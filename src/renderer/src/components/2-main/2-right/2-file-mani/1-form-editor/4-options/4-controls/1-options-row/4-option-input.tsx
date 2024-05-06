@@ -5,7 +5,7 @@ import { inputRingClasses } from '@/ui';
 import { RowInputStateAtom } from './9-types';
 
 const optionInputClasses = "\
-px-2 py-1 h-6 w-full \
+px-2 py-1 h-7 w-full \
 \
 text-mani-foreground bg-mani-background \
 \

@@ -1,12 +1,16 @@
-const SectionClasses = "\
+import { SymbolInfo } from "@/ui/icons";
+
+const sectionClasses = "\
 col-span-2 \
 \
 mt-2 mb-1 \
+pb-1 \
 \
 font-normal \
 text-mani-title \
 border-mani-title \
 border-b \
+flex items-center gap-1 justify-between \
 ";
 // border-b-[length:0.2px]
 // text-[#32ffdaa0] \
@@ -14,8 +18,9 @@ border-b \
 
 export function Section({ label }: { label: string; }) {
     return (
-        <div className={SectionClasses}>
+        <div className={sectionClasses}>
             {label}
+            <SymbolInfo className="mr-3 size-4 text-muted-foreground opacity-50" />
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
-import { RowInputWLabel } from '../4-controls/1-options-row/0-all-row-input';
+import { RowInputWLabel } from '../4-controls';
 
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
 
