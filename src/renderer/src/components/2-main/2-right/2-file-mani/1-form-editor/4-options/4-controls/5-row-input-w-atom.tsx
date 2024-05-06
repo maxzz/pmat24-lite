@@ -25,21 +25,24 @@ rounded-sm \
 outline-none";
 
 function RawInput({ stateAtom, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
-    const [value, setValue] = useAtom(stateAtom);
+    const [state, setState] = useAtom(stateAtom);
+
+    function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setState((v) => ({ ...v, data: e.target.value }));
+        setState((v) => ({ ...v, error: state.validate?.(e.target.value) }));
+    }
+
+    function onBlur() {
+        setState((v) => ({ ...v, touched: true }));
+        setState((v) => ({ ...v, error: state.validate?.(state.data) }));
+    }
+
     return (
         <input
-            className={classNames(rowInputClasses, inputRingClasses/*, error && "ring-1 ring-red-500/70"*/, className)}
-            value={value.data}
-            onChange={(e) => {
-                setValue((v) => ({ ...v, data: e.target.value }));
-                const errorMsg = value.validate?.(e.target.value) ?? '';
-                setValue((v) => ({ ...v, error: errorMsg }));
-            }}
-            onBlur={() => {
-                setValue((v) => ({ ...v, touched: true }));
-                const errorMsg = value.validate?.(value.data) ?? '';
-                setValue((v) => ({ ...v, error: errorMsg }));
-            }}
+            className={classNames(rowInputClasses, inputRingClasses/*, vakue.error && "ring-1 ring-red-500/70"*/, className)}
+            value={state.data}
+            onChange={onChange}
+            onBlur={onBlur}
             {...rest}
         />
     );
@@ -56,7 +59,15 @@ export function InputLabel({ label, children, ...rest }: InputHTMLAttributes<HTM
     );
 }
 
-export function InputBody({ stateAtom, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
+function InputTrigger({ error }: { error: string | undefined; }) {
+    return (<>
+        {error && (
+            <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
+        )}
+    </>);
+}
+
+export function InputBody({ stateAtom, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
     const [openTooltip, setOpenTooltip] = useState(false);
 
     const state = useAtomValue(stateAtom);
@@ -66,13 +77,11 @@ export function InputBody({ stateAtom, className, ...rest }: InputHTMLAttributes
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
 
                 <div className="relative">
-                    <RawInput stateAtom={stateAtom} className={className} {...rest} />
+                    <RawInput stateAtom={stateAtom} {...rest} />
 
                     <TooltipTrigger asChild>
                         <div>
-                            {state.error && (
-                                <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
-                            )}
+                            <InputTrigger error={state.error} />
                         </div>
                     </TooltipTrigger>
                 </div>
@@ -95,10 +104,10 @@ type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
     stateAtom: RowInputStateAtom;
 };
 
-export function RowInputWAtom({ label, stateAtom, className, ...rest }: RowInputWAtomProps) {
+export function RowInputWAtom({ label, ...rest }: RowInputWAtomProps) {
     return (
         <InputLabel label={label}>
-            <InputBody stateAtom={stateAtom} className={className} {...rest} />
+            <InputBody {...rest} />
         </InputLabel>
     );
 }

@@ -7,7 +7,7 @@ function validateError(value: string) {
     return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
 }
 
-function useDebounce(value: string, delay: number) {
+function useDebouncedValue<Value>(value: Value, delay: number) {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function useDebounce(value: string, delay: number) {
 
 function useDebounceAtom(valueAtom: PrimitiveAtom<string>, delay: number) {
     const [value, setValue] = useAtom(valueAtom);
-    const debouncedValue = useDebounce(value, delay);
+    const debouncedValue = useDebouncedValue(value, delay);
 
     return [debouncedValue, setValue] as const;
 }
