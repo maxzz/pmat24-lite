@@ -1,12 +1,18 @@
 import { InputHTMLAttributes, useState } from 'react';
-import { PrimitiveAtom, atom, useAtom, useAtomValue } from 'jotai';
+import { PrimitiveAtom, useAtom, useAtomValue } from 'jotai';
 import { classNames } from '@/utils';
 import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger, inputRingClasses } from '@/ui';
 import { SymbolWarning } from '@/ui/icons';
 
-function validateError(value: string) {
-    return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
-}
+export type RowInputState = {
+    data: string;
+    dirty: boolean;
+    error: string | undefined;
+    touched: boolean | undefined;
+    validate?: (value: string) => string | undefined;
+};
+
+export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
 
 const rowInputClasses = "\
 px-2 py-1 h-6 w-full \
@@ -17,16 +23,6 @@ border-mani-border-muted border \
 \
 rounded-sm \
 outline-none";
-
-type RowInputState<Value> = {
-    data: Value;
-    error?: string;
-    touched?: boolean;
-    validate?: (value: Value) => string | undefined;
-    fromString?: (value: string) => Value;
-};
-
-type RowInputStateAtom = PrimitiveAtom<RowInputState<string>>;
 
 type RowInputProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
@@ -41,12 +37,12 @@ function RawInput({ label, stateAtom, className, ...rest }: RowInputProps) {
             value={value.data}
             onChange={(e) => {
                 setValue((v) => ({ ...v, data: e.target.value }));
-                const errorMsg = validateError?.(e.target.value) ?? '';
+                const errorMsg = value.validate?.(e.target.value) ?? '';
                 setValue((v) => ({ ...v, error: errorMsg }));
             }}
             onBlur={() => {
                 setValue((v) => ({ ...v, touched: true }));
-                const errorMsg = validateError?.(value.data) ?? '';
+                const errorMsg = value.validate?.(value.data) ?? '';
                 setValue((v) => ({ ...v, error: errorMsg }));
             }}
             {...rest}
@@ -56,21 +52,27 @@ function RawInput({ label, stateAtom, className, ...rest }: RowInputProps) {
 
 type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
-    valueAtom: PrimitiveAtom<string>;
+    stateAtom: RowInputStateAtom;
 };
 
-export function RowInputWAtom({ label, valueAtom, className, ...rest }: RowInputWAtomProps) {
-    const [openTooltip, setOpenTooltip] = useState(false);
-
-    const stateAtom = useState(() => atom<RowInputState<string>>({ data: 'value', error: undefined, touched: undefined, validate: validateError }))[0];
-    const state = useAtomValue(stateAtom);
-
+export function InputLabel({ label, children, ...rest }: InputHTMLAttributes<HTMLInputElement> & { label: string; }) {
     return (
         <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
             <div>
                 {label}
             </div>
+            {children}
+        </Label>
+    );
+}
 
+export function RowInputWAtom({ label, stateAtom, className, ...rest }: RowInputWAtomProps) {
+    const [openTooltip, setOpenTooltip] = useState(false);
+
+    const state = useAtomValue(stateAtom);
+
+    return (
+        <InputLabel label={label}>
             <TooltipProvider>
                 <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
 
@@ -96,6 +98,6 @@ export function RowInputWAtom({ label, valueAtom, className, ...rest }: RowInput
 
                 </Tooltip>
             </TooltipProvider>
-        </Label>
+        </InputLabel>
     );
 }

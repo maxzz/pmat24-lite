@@ -1,11 +1,22 @@
-import { PrimitiveAtom } from "jotai";
-import { Label, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
-import { RowInputWAtom } from "./5-row-input-w-atom";
+import { PrimitiveAtom, atom } from "jotai";
+import { RowInputState, RowInputWAtom } from "./5-row-input-w-atom";
+import { useState } from "react";
 
-export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<string>; }) {
-    return (
-        <RowInputWAtom label={label} valueAtom={valueAtom} />
-    );
+function validateError(value: string) {
+    return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
 }
 
-//TODO: validate value, show error tooltip
+export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<string>; }) {
+
+    const stateAtom = useState(() => atom<RowInputState>({
+        data: 'value',
+        dirty: false,
+        error: undefined,
+        touched: undefined,
+        validate: validateError,
+    }))[0];
+
+    return (
+        <RowInputWAtom label={label} stateAtom={stateAtom} />
+    );
+}
