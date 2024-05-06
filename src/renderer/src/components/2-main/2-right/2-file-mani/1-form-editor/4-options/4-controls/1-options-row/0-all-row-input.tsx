@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PrimitiveAtom, atom } from "jotai";
 import { RowInputState } from "./9-types";
-import { RowInputGuard } from "./1-row-input";
+import { RowInputGuard } from "./1-row-input-guard";
 
 function validateError(value: string) {
     return value === '111' ? '' : `Value ${value} is invalid, should be 111`;

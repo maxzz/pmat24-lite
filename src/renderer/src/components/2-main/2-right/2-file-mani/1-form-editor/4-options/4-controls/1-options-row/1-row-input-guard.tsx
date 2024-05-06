@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 import { RowInputStateAtom } from './9-types';
-import { InputLabel } from './3-input-label';
-import { InputBody } from './5-input-body';
+import { RowLabel } from './2-row-label';
+import { InputBody } from './5-option-body-w-tooltip';
 
 type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
@@ -10,8 +10,8 @@ type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function RowInputGuard({ label, ...rest }: RowInputWAtomProps) {
     return (
-        <InputLabel label={label}>
+        <RowLabel label={label}>
             <InputBody {...rest} />
-        </InputLabel>
+        </RowLabel>
     );
 }
