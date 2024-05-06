@@ -1,5 +1,5 @@
 import { PrimitiveAtom, atom } from "jotai";
-import { RowInputState, RowInputWAtom } from "./5-row-input-w-atom";
+import { RowInputState, RowInputWAtom } from "./1-row-input";
 import { useState } from "react";
 
 function validateError(value: string) {
