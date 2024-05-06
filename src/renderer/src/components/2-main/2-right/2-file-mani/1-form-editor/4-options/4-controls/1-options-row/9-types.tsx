@@ -2,8 +2,10 @@ import { PrimitiveAtom } from 'jotai';
 
 
 export type RowInputState = {
+    type: 'string' | 'number' | 'boolean';
     data: string;
-    dirty: boolean;
+    initialData: string;
+    dirty: boolean;                 // if the value has been changed
     error: string | undefined;
     touched: boolean | undefined;
     validate?: (value: string) => string | undefined;

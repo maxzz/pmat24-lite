@@ -10,7 +10,9 @@ function validateError(value: string) {
 export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<string>; }) {
 
     const stateAtom = useState(() => atom<RowInputState>({
+        type: 'string',
         data: 'value',
+        initialData: 'value',
         dirty: false,
         error: undefined,
         touched: undefined,

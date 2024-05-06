@@ -1,7 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { useAtom } from 'jotai';
 import { classNames } from '@/utils';
-import { inputRingClasses } from '@/ui';
 import { RowInputStateAtom } from './9-types';
 
 type OptionCheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
