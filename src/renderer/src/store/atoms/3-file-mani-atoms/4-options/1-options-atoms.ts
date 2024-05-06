@@ -1,12 +1,39 @@
-import { Getter, Setter } from "jotai";
-import { atomWithCallback } from "@/util-hooks";
+import { Getter, PrimitiveAtom, Setter } from "jotai";
+import { OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { OptionsConv } from "./0-conv";
+import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
 
 export namespace OptionsState {
 
     export type Atoms = OptionsConv.FormOptionsAtoms;
+
+    function newAtomForInput(value: string, onChange: OnValueChangeAny): PrimitiveAtom<RowInputState> {
+        const state: RowInputState = {
+            type: 'string',
+            data: value,
+            initialData: value,
+            dirty: false,
+            error: undefined,
+            touched: undefined,
+            validate: undefined,
+        };
+        return atomWithCallback(state, onChange);
+    }
+
+    function newAtomForCheck(value: string, onChange: OnValueChangeAny): PrimitiveAtom<RowInputState> {
+        const state: RowInputState = {
+            type: 'boolean',
+            data: value,
+            initialData: value,
+            dirty: false,
+            error: undefined,
+            touched: undefined,
+            validate: undefined,
+        };
+        return atomWithCallback(state, onChange);
+    }
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 

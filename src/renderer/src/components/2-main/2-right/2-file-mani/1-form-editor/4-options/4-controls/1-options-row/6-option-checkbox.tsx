@@ -11,19 +11,19 @@ export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckbox
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setState((v) => ({ ...v, data: (state.data === '1' ? '' : '1')}))
+        const value = e.target.checked ? '' : '1';
+        setState((v) => ({ ...v, data: value, dirty: state.initialData !== value }));
     }
 
     function onBlur() {
-        setState((v) => ({ ...v, touched: true }));
+        setState((v) => ({ ...v, touched: true, dirty: state.initialData !== v.data }));
     }
 
     return (
         <input
-            type="checkbox"
             className={classNames("place-self-center size-4 dark-checkbox", className)}
+            type="checkbox"
             checked={state.data === '1'}
-            value={state.data}
             onChange={onChange}
             onBlur={onBlur}
             {...rest} />
