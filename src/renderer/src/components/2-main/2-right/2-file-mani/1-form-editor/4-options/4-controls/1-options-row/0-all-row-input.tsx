@@ -1,6 +1,7 @@
-import { PrimitiveAtom, atom } from "jotai";
-import { RowInputState, RowInputWAtom } from "./1-row-input";
 import { useState } from "react";
+import { PrimitiveAtom, atom } from "jotai";
+import { RowInputState } from "./9-types";
+import { RowInputGuard } from "./1-row-input";
 
 function validateError(value: string) {
     return value === '111' ? '' : `Value ${value} is invalid, should be 111`;
@@ -17,6 +18,6 @@ export function RowInputWLabel({ label, valueAtom }: { label: string; valueAtom:
     }))[0];
 
     return (
-        <RowInputWAtom label={label} stateAtom={stateAtom} />
+        <RowInputGuard label={label} stateAtom={stateAtom} />
     );
 }
