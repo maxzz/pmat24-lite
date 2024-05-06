@@ -24,12 +24,7 @@ border-mani-border-muted border \
 rounded-sm \
 outline-none";
 
-type RowInputProps = InputHTMLAttributes<HTMLInputElement> & {
-    label: string;
-    stateAtom: RowInputStateAtom;
-};
-
-function RawInput({ label, stateAtom, className, ...rest }: RowInputProps) {
+function RawInput({ stateAtom, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
     const [value, setValue] = useAtom(stateAtom);
     return (
         <input
@@ -50,11 +45,6 @@ function RawInput({ label, stateAtom, className, ...rest }: RowInputProps) {
     );
 }
 
-type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
-    label: string;
-    stateAtom: RowInputStateAtom;
-};
-
 export function InputLabel({ label, children, ...rest }: InputHTMLAttributes<HTMLInputElement> & { label: string; }) {
     return (
         <Label className="grid grid-cols-subgrid col-span-2 items-center text-xs font-light">
@@ -66,38 +56,49 @@ export function InputLabel({ label, children, ...rest }: InputHTMLAttributes<HTM
     );
 }
 
-export function RowInputWAtom({ label, stateAtom, className, ...rest }: RowInputWAtomProps) {
+export function InputBody({ stateAtom, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
     const [openTooltip, setOpenTooltip] = useState(false);
 
     const state = useAtomValue(stateAtom);
 
     return (
+        <TooltipProvider>
+            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+
+                <div className="relative">
+                    <RawInput stateAtom={stateAtom} className={className} {...rest} />
+
+                    <TooltipTrigger asChild>
+                        <div>
+                            {state.error && (
+                                <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
+                            )}
+                        </div>
+                    </TooltipTrigger>
+                </div>
+
+                {state.error && state.touched && (
+                    <TooltipPortal container={document.getElementById("portal")}>
+                        <TooltipContent align="end" sideOffset={-2}>
+                            {state.error}
+                        </TooltipContent>
+                    </TooltipPortal>
+                )}
+
+            </Tooltip>
+        </TooltipProvider>
+    );
+}
+
+type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
+    stateAtom: RowInputStateAtom;
+};
+
+export function RowInputWAtom({ label, stateAtom, className, ...rest }: RowInputWAtomProps) {
+    return (
         <InputLabel label={label}>
-            <TooltipProvider>
-                <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-
-                    <div className="relative">
-                        <RawInput label={label} stateAtom={stateAtom} className={className} {...rest} />
-
-                        <TooltipTrigger asChild>
-                            <div>
-                                {state.error && (
-                                    <SymbolWarning className="absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90" />
-                                )}
-                            </div>
-                        </TooltipTrigger>
-                    </div>
-
-                    {state.error && state.touched && (
-                        <TooltipPortal container={document.getElementById("portal")}>
-                            <TooltipContent align="end" sideOffset={-2}>
-                                {state.error}
-                            </TooltipContent>
-                        </TooltipPortal>
-                    )}
-
-                </Tooltip>
-            </TooltipProvider>
+            <InputBody stateAtom={stateAtom} className={className} {...rest} />
         </InputLabel>
     );
 }
