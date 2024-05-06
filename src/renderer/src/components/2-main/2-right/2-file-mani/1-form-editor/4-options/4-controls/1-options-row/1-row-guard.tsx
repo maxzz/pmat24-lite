@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 import { RowInputStateAtom } from './9-types';
 import { RowLabel } from './2-row-label';
-import { InputBody } from './5-option-body-w-tooltip';
+import { InputBody } from './4-row-body-w-tooltip';
 
 type RowInputWAtomProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;

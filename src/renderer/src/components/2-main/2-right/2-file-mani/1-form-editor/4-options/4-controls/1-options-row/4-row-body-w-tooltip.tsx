@@ -2,10 +2,14 @@ import { InputHTMLAttributes, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from '@/ui';
 import { RowInputStateAtom } from './9-types';
-import { OptionInput } from './4-option-input';
+import { OptionInput } from './5-option-input';
 import { RowTrigger } from './3-row-trigger';
 
-export function InputBody({ stateAtom, ...rest }: InputHTMLAttributes<HTMLInputElement> & { stateAtom: RowInputStateAtom; }) {
+type InputBodyProps = InputHTMLAttributes<HTMLInputElement> & {
+    stateAtom: RowInputStateAtom;
+};
+
+export function InputBody({ stateAtom, ...rest }: InputBodyProps) {
     const [openTooltip, setOpenTooltip] = useState(false);
 
     const state = useAtomValue(stateAtom);

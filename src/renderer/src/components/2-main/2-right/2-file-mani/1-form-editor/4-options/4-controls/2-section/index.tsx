@@ -20,7 +20,9 @@ export function Section({ label }: { label: string; }) {
     return (
         <div className={sectionClasses}>
             {label}
-            <SymbolInfo className="mr-3 size-4 text-muted-foreground opacity-50" />
+            {/* <SymbolInfo className="mr-3 size-4 text-muted-foreground 1opacity-50" /> */}
         </div>
     );
 }
+
+//TODO: show info icon on section with focus
