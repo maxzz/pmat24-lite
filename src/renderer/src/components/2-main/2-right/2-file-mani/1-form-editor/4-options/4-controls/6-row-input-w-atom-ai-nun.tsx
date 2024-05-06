@@ -1,3 +1,5 @@
+// 5-row-input-w-atom-ai-ideas.tsx
+
 import { useEffect, useState } from 'react';
 import { PrimitiveAtom, useAtom } from 'jotai';
 
