@@ -11,7 +11,7 @@ export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckbox
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.checked ? '' : '1';
+        const value = e.target.checked ? '1' : '';
         setState((v) => ({ ...v, data: value, dirty: state.initialData !== value }));
     }
 

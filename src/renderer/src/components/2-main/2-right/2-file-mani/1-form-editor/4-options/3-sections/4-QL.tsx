@@ -9,7 +9,7 @@ export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
     return (<>
         <RowInputWLabel stateAtom={nameAtom} label="Quick Link URL" />
 
-        <RowInputWLabel stateAtom={dashboardAtom} label="Display on mini-dashboard" />
+        <RowInputWLabel stateAtom={dashboardAtom} label="Display on mini-dashboard" asCheckbox />
         <DashboardOption atoms={atoms} />
     </>);
 }

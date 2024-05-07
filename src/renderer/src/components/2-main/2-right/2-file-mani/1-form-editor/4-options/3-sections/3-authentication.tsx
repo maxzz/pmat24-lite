@@ -6,7 +6,7 @@ export function Part3Authentication({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { aimAtom, lockAtom } = atoms.uiPart3Authentication;
 
     return (<>
-        <RowInputWLabel stateAtom={aimAtom} label="Authenticate immediately" />
-        <RowInputWLabel stateAtom={lockAtom} label="Lock out login fields" />
+        <RowInputWLabel stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
+        <RowInputWLabel stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
     </>);
 }

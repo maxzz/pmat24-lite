@@ -16,7 +16,7 @@ export function Part2ScreenDetection({ atoms }: { atoms: OptionsState.Atoms; }) 
             </>)
             : (<>
                 <RowInputWLabel stateAtom={captionAtom} label="Windows Caption" />
-                <RowInputWLabel stateAtom={monitorAtom} label="Monitor screen changes" />
+                <RowInputWLabel stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
             </>)
     );
 }
