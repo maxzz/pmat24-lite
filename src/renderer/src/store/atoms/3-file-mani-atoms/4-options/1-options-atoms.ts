@@ -9,32 +9,6 @@ export namespace OptionsState {
 
     export type Atoms = OptionsConv.FormOptionsAtoms;
 
-    function newAtomForInput(value: string, onChange: OnValueChangeAny): PrimitiveAtom<RowInputState> {
-        const state: RowInputState = {
-            type: 'string',
-            data: value,
-            initialData: value,
-            dirty: false,
-            error: undefined,
-            touched: undefined,
-            validate: undefined,
-        };
-        return atomWithCallback(state, onChange);
-    }
-
-    function newAtomForCheck(value: string, onChange: OnValueChangeAny): PrimitiveAtom<RowInputState> {
-        const state: RowInputState = {
-            type: 'boolean',
-            data: value,
-            initialData: value,
-            dirty: false,
-            error: undefined,
-            touched: undefined,
-            validate: undefined,
-        };
-        return atomWithCallback(state, onChange);
-    }
-
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
