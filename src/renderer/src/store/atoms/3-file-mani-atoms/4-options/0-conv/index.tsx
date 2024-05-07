@@ -1,5 +1,5 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
-import { Atomize, OnValueChange, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
+import { Atomize, AtomizeWithType, OnValueChange, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Meta } from "pm-manifest";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
@@ -48,11 +48,11 @@ export namespace OptionsConv {
     };
 
     export type FormOptionsAtoms = {
-        uiPart1General: Atomize<UiPart1General>;
-        uiPart4QL: Atomize<UiPart4QL>;
-        uiPart2ScreenDetection: Atomize<UiPart2ScreenDetection>;
-        uiPart3Authentication: Atomize<UiPart3Authentication>;
-        uiPart5PasswordManagerIcon: Atomize<UiPart5PasswordManagerIcon>;
+        uiPart1General: AtomizeWithType<UiPart1General, RowInputState>;
+        uiPart4QL: AtomizeWithType<UiPart4QL, RowInputState>;
+        uiPart2ScreenDetection: AtomizeWithType<UiPart2ScreenDetection, RowInputState>;
+        uiPart3Authentication: AtomizeWithType<UiPart3Authentication, RowInputState>;
+        uiPart5PasswordManagerIcon: AtomizeWithType<UiPart5PasswordManagerIcon, RowInputState>;
 
         fileUsAtom: FileUsAtom;
         formIdx: FormIdx;
@@ -116,7 +116,7 @@ export namespace OptionsConv {
 
     //
 
-    function newAtomForInput(value: string, onChange: OnValueChangeAny, type: RowInputState['type'] = 'string'): PrimitiveAtom<RowInputState> {
+    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, type: RowInputState['type'] = 'string'): PrimitiveAtom<RowInputState> {
         const state: RowInputState = {
             type,
             data: value,
@@ -126,46 +126,47 @@ export namespace OptionsConv {
             touched: undefined,
             validate: undefined,
         };
-        return atomWithCallback(state, onChange);
+        const rv = atomWithCallback(state, onChange);
+        return rv;
     }
 
-    function newAtomForCheck(value: string, onChange: OnValueChangeAny): PrimitiveAtom<RowInputState> {
-        return newAtomForInput(value, onChange, 'boolean');
+    function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
+        return newAtomForInput(value ? '1' : '', onChange, 'boolean');
     }
 
     export function toAtoms(initialState: OptionsForAtoms, onChange: OnChangeValueWithPpdateName): FormOptionsAtoms {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = initialState;
 
-        const rv = {
+        const rv: FormOptionsAtoms = {
             uiPart1General: {
-                nameAtom: atomWithCallback(uiPart1General.name, onChange('name')),
-                descAtom: atomWithCallback(uiPart1General.desc, onChange('desc')),
-                hintAtom: atomWithCallback(uiPart1General.hint, onChange('hint')),
-                balloonAtom: atomWithCallback(uiPart1General.balloon, onChange('balloon')),
+                nameAtom: newAtomForInput(uiPart1General.name, onChange('name')),
+                descAtom: newAtomForInput(uiPart1General.desc, onChange('desc')),
+                hintAtom: newAtomForInput(uiPart1General.hint, onChange('hint')),
+                balloonAtom: newAtomForInput(uiPart1General.balloon, onChange('balloon')),
             },
             uiPart2ScreenDetection: {
-                captionAtom: atomWithCallback(uiPart2ScreenDetection.caption, onChange('caption')),
-                monitorAtom: atomWithCallback(uiPart2ScreenDetection.monitor, onChange('monitor')),
-                urlAtom: atomWithCallback(uiPart2ScreenDetection.url, onChange('url')),
+                captionAtom: newAtomForInput(uiPart2ScreenDetection.caption, onChange('caption')),
+                monitorAtom: newAtomForCheck(uiPart2ScreenDetection.monitor, onChange('monitor')),
+                urlAtom: newAtomForInput(uiPart2ScreenDetection.url, onChange('url')),
             },
             uiPart3Authentication: {
-                aimAtom: atomWithCallback(uiPart3Authentication.aim, onChange('aim')),
-                lockAtom: atomWithCallback(uiPart3Authentication.lock, onChange('lock')),
+                aimAtom: newAtomForCheck(uiPart3Authentication.aim, onChange('aim')),
+                lockAtom: newAtomForCheck(uiPart3Authentication.lock, onChange('lock')),
             },
             uiPart4QL: {
-                dashboardAtom: atomWithCallback(uiPart4QL.dashboard, onChange('dashboard')),
-                nameAtom: atomWithCallback(uiPart4QL.name, onChange('name')),
-                urlAtom: atomWithCallback(uiPart4QL.url, onChange('url')),
+                dashboardAtom: newAtomForCheck(uiPart4QL.dashboard, onChange('dashboard')),
+                nameAtom: newAtomForInput(uiPart4QL.name, onChange('name')),
+                urlAtom: newAtomForInput(uiPart4QL.url, onChange('url')),
             },
             uiPart5PasswordManagerIcon: {
-                idAtom: atomWithCallback(uiPart5PasswordManagerIcon.id || '', onChange('id')),
-                locAtom: atomWithCallback(uiPart5PasswordManagerIcon.loc || '', onChange('loc')),
+                idAtom: newAtomForInput(uiPart5PasswordManagerIcon.id || '', onChange('id')),
+                locAtom: newAtomForInput(uiPart5PasswordManagerIcon.loc || '', onChange('loc')),
             },
 
             fileUsAtom: initialState.fileUsAtom,
             formIdx: initialState.formIdx,
-        }
-        
+        };
+
         return rv;
     }
 
@@ -174,28 +175,28 @@ export namespace OptionsConv {
 
         const rv: OptionsForAtoms = {
             uiPart1General: {
-                name: get(uiPart1General.nameAtom),
-                desc: get(uiPart1General.descAtom),
-                hint: get(uiPart1General.hintAtom),
-                balloon: get(uiPart1General.balloonAtom),
+                name: get(uiPart1General.nameAtom).data,
+                desc: get(uiPart1General.descAtom).data,
+                hint: get(uiPart1General.hintAtom).data,
+                balloon: get(uiPart1General.balloonAtom).data,
             },
             uiPart2ScreenDetection: {
-                caption: get(uiPart2ScreenDetection.captionAtom),
-                monitor: get(uiPart2ScreenDetection.monitorAtom),
-                url: get(uiPart2ScreenDetection.urlAtom),
+                caption: get(uiPart2ScreenDetection.captionAtom).data,
+                monitor: get(uiPart2ScreenDetection.monitorAtom).data === '1',
+                url: get(uiPart2ScreenDetection.urlAtom).data,
             },
             uiPart3Authentication: {
-                aim: get(uiPart3Authentication.aimAtom),
-                lock: get(uiPart3Authentication.lockAtom),
+                aim: get(uiPart3Authentication.aimAtom).data === '1',
+                lock: get(uiPart3Authentication.lockAtom).data === '1',
             },
             uiPart4QL: {
-                dashboard: get(uiPart4QL.dashboardAtom),
-                name: get(uiPart4QL.nameAtom),
-                url: get(uiPart4QL.urlAtom),
+                dashboard: get(uiPart4QL.dashboardAtom).data === '1',
+                name: get(uiPart4QL.nameAtom).data,
+                url: get(uiPart4QL.urlAtom).data,
             },
             uiPart5PasswordManagerIcon: {
-                id: get(uiPart5PasswordManagerIcon.idAtom),
-                loc: get(uiPart5PasswordManagerIcon.locAtom),
+                id: get(uiPart5PasswordManagerIcon.idAtom).data,
+                loc: get(uiPart5PasswordManagerIcon.locAtom).data,
             },
 
             fileUsAtom: atoms.fileUsAtom,
@@ -204,7 +205,7 @@ export namespace OptionsConv {
 
         return rv;
     }
-    
+
     //
 
     /** /
