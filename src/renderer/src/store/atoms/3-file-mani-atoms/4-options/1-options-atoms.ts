@@ -9,9 +9,11 @@ export namespace OptionsState {
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
-        const onChange = ({ get, set }) => {
-            debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, get, set);
-        };
+        const onChange = (updateName: string) => {
+            return ({ get, set }) => {
+                debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, updateName, get, set);
+            };
+        }
 
         const state = OptionsConv.forAtoms(createAtomsParams);
         const rv = OptionsConv.toAtoms(state, onChange);
@@ -19,7 +21,7 @@ export namespace OptionsState {
         return rv;
     }
 
-    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
+    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter) {
         const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
 
         const result = OptionsConv.fromAtoms(atoms, get, set);

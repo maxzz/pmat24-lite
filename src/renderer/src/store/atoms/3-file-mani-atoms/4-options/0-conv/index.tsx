@@ -58,6 +58,8 @@ export namespace OptionsConv {
         formIdx: FormIdx;
     };
 
+    type OnChangeValueWithPpdateName = (updateName: string) => OnValueChangeAny;
+
     export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
@@ -131,33 +133,33 @@ export namespace OptionsConv {
         return newAtomForInput(value, onChange, 'boolean');
     }
 
-    export function toAtoms(initialState: OptionsForAtoms, onChange: OnValueChangeAny): FormOptionsAtoms {
+    export function toAtoms(initialState: OptionsForAtoms, onChange: OnChangeValueWithPpdateName): FormOptionsAtoms {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = initialState;
 
         const rv = {
             uiPart1General: {
-                nameAtom: atomWithCallback(uiPart1General.name, onChange),
-                descAtom: atomWithCallback(uiPart1General.desc, onChange),
-                hintAtom: atomWithCallback(uiPart1General.hint, onChange),
-                balloonAtom: atomWithCallback(uiPart1General.balloon, onChange),
+                nameAtom: atomWithCallback(uiPart1General.name, onChange('name')),
+                descAtom: atomWithCallback(uiPart1General.desc, onChange('desc')),
+                hintAtom: atomWithCallback(uiPart1General.hint, onChange('hint')),
+                balloonAtom: atomWithCallback(uiPart1General.balloon, onChange('balloon')),
             },
             uiPart2ScreenDetection: {
-                captionAtom: atomWithCallback(uiPart2ScreenDetection.caption, onChange),
-                monitorAtom: atomWithCallback(uiPart2ScreenDetection.monitor, onChange),
-                urlAtom: atomWithCallback(uiPart2ScreenDetection.url, onChange),
+                captionAtom: atomWithCallback(uiPart2ScreenDetection.caption, onChange('caption')),
+                monitorAtom: atomWithCallback(uiPart2ScreenDetection.monitor, onChange('monitor')),
+                urlAtom: atomWithCallback(uiPart2ScreenDetection.url, onChange('url')),
             },
             uiPart3Authentication: {
-                aimAtom: atomWithCallback(uiPart3Authentication.aim, onChange),
-                lockAtom: atomWithCallback(uiPart3Authentication.lock, onChange),
+                aimAtom: atomWithCallback(uiPart3Authentication.aim, onChange('aim')),
+                lockAtom: atomWithCallback(uiPart3Authentication.lock, onChange('lock')),
             },
             uiPart4QL: {
-                dashboardAtom: atomWithCallback(uiPart4QL.dashboard, onChange),
-                nameAtom: atomWithCallback(uiPart4QL.name, onChange),
-                urlAtom: atomWithCallback(uiPart4QL.url, onChange),
+                dashboardAtom: atomWithCallback(uiPart4QL.dashboard, onChange('dashboard')),
+                nameAtom: atomWithCallback(uiPart4QL.name, onChange('name')),
+                urlAtom: atomWithCallback(uiPart4QL.url, onChange('url')),
             },
             uiPart5PasswordManagerIcon: {
-                idAtom: atomWithCallback(uiPart5PasswordManagerIcon.id || '', onChange),
-                locAtom: atomWithCallback(uiPart5PasswordManagerIcon.loc || '', onChange),
+                idAtom: atomWithCallback(uiPart5PasswordManagerIcon.id || '', onChange('id')),
+                locAtom: atomWithCallback(uiPart5PasswordManagerIcon.loc || '', onChange('loc')),
             },
 
             fileUsAtom: initialState.fileUsAtom,
@@ -167,7 +169,6 @@ export namespace OptionsConv {
         return rv;
     }
 
-    /**/
     export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): OptionsForAtoms {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
@@ -203,21 +204,9 @@ export namespace OptionsConv {
 
         return rv;
     }
-    /**/
     
     //
-    /** /
-    
-    function theSameValue(from: ValueLife, to: ValueLife): boolean {
-        const rv = (
-            from.value === to.value &&
-            from.valueAs === to.valueAs &&
-            from.isRef === to.isRef
-        );
-        return rv;
-    }
-    /** /
-    
+
     /** /
     export function areTheSame(from: OptionsForAtoms, to: OptionsForAtoms): boolean {
         const rv = (
