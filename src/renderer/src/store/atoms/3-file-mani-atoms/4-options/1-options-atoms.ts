@@ -27,6 +27,7 @@ export namespace OptionsState {
 
         const result = OptionsConv.fromAtoms(atoms, get, set);
         console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
+        console.log('         nextValue', JSON.stringify(nextValue));
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);

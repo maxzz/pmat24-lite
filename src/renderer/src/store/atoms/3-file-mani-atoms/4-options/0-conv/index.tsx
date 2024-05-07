@@ -116,9 +116,9 @@ export namespace OptionsConv {
 
     //
 
-    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, type: RowInputState['type'] = 'string'): PrimitiveAtom<RowInputState> {
+    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
         const state: RowInputState = {
-            type,
+            type: 'string',
             data: value,
             initialData: value,
             dirty: false,
@@ -126,12 +126,12 @@ export namespace OptionsConv {
             touched: undefined,
             validate: undefined,
         };
-        const rv = atomWithCallback(state, onChange);
+        const rv = atomWithCallback(more ? { ...state, ...more } : state, onChange);
         return rv;
     }
 
     function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
-        return newAtomForInput(value ? '1' : '', onChange, 'boolean');
+        return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
     }
 
     export function toAtoms(initialState: OptionsForAtoms, onChange: OnChangeValueWithPpdateName): FormOptionsAtoms {

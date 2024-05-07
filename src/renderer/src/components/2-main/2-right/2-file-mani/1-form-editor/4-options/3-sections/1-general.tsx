@@ -6,10 +6,10 @@ export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.uiPart1General;
     
     return (<>
-        <RowInputWLabel valueAtom={nameAtom} label="Managed login name" />
-        <RowInputWLabel valueAtom={descAtom} label="Description" />
-        <RowInputWLabel valueAtom={hintAtom} label="User hint" />
-        <RowInputWLabel valueAtom={balloonAtom} label="Show balloon" />
+        <RowInputWLabel stateAtom={nameAtom} label="Managed login name" />
+        <RowInputWLabel stateAtom={descAtom} label="Description" />
+        <RowInputWLabel stateAtom={hintAtom} label="User hint" />
+        <RowInputWLabel stateAtom={balloonAtom} label="Show balloon" />
     </>);
 }
 
