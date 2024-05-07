@@ -1,8 +1,9 @@
 import { Getter, Setter } from "jotai";
 import { debounce } from "@/utils";
-import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
 import { OptionsConv } from "./0-conv";
 import { OnValueChange } from "@/util-hooks";
+import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
 
 export namespace OptionsState {
 
@@ -10,7 +11,7 @@ export namespace OptionsState {
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
-        const onChange = (updateName: string): OnValueChange<string> => {
+        const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
                 debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, updateName, get, set, nextValue);
             };
@@ -22,12 +23,21 @@ export namespace OptionsState {
         return rv;
     }
 
-    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: string) {
+    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
         const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
 
-        const result = OptionsConv.fromAtoms(atoms, get, set);
-        console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
-        console.log('         nextValue', JSON.stringify(nextValue));
+        if (nextValue.dirty) {
+            const result = OptionsConv.fromAtoms(atoms, get, set) as any;
+            delete result.fileUsAtom;
+            console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
+        }
+
+        const changes = setManiChanges(callbackAtoms, nextValue.dirty, `${createAtomsParams.formIdx ? 'c' : 'l'}-o-${updateName}`);
+        console.log('changes options:', [...changes.keys()]);
+
+        // console.log('------------------', updateName);
+        // console.log('         initValue', JSON.stringify(nextValue.initialData));
+        // console.log('         nextValue', JSON.stringify(nextValue));
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
