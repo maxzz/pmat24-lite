@@ -59,12 +59,11 @@ export namespace OptionsConv {
     };
 
     export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
-
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
-        const detection = fileUs.mani?.forms?.[formIdx]?.detection || {};
-        const options = fileUs.mani?.forms?.[formIdx]?.options || {};
+        const detection = metaForm.mani?.[formIdx]?.detection || {};
+        const options = metaForm.mani?.[formIdx]?.options || {};
 
         const rv: OptionsForAtoms = {
             uiPart1General: {
@@ -132,8 +131,6 @@ export namespace OptionsConv {
         return newAtomForInput(value, onChange, 'boolean');
     }
 
-    /**/
-    
     export function toAtoms(initialState: OptionsForAtoms, onChange: OnValueChangeAny): FormOptionsAtoms {
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = initialState;
 
@@ -169,20 +166,44 @@ export namespace OptionsConv {
         
         return rv;
     }
+
     /**/
-    /** /
-    
-    export function fromAtoms(atoms: SubmitAtoms, get: Getter, set: Setter): OptionsForAtoms {
-        const rv = {
-            useIt: get(atoms.useItAtom),
-            label: get(atoms.labelAtom),
-            type: get(atoms.typeAtom),
-            valueLife: get(atoms.valueLifeAtom),
-            dbname: get(atoms.dbnameAtom),
+    export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): OptionsForAtoms {
+        const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
+
+        const rv: OptionsForAtoms = {
+            uiPart1General: {
+                name: get(uiPart1General.nameAtom),
+                desc: get(uiPart1General.descAtom),
+                hint: get(uiPart1General.hintAtom),
+                balloon: get(uiPart1General.balloonAtom),
+            },
+            uiPart2ScreenDetection: {
+                caption: get(uiPart2ScreenDetection.captionAtom),
+                monitor: get(uiPart2ScreenDetection.monitorAtom),
+                url: get(uiPart2ScreenDetection.urlAtom),
+            },
+            uiPart3Authentication: {
+                aim: get(uiPart3Authentication.aimAtom),
+                lock: get(uiPart3Authentication.lockAtom),
+            },
+            uiPart4QL: {
+                dashboard: get(uiPart4QL.dashboardAtom),
+                name: get(uiPart4QL.nameAtom),
+                url: get(uiPart4QL.urlAtom),
+            },
+            uiPart5PasswordManagerIcon: {
+                id: get(uiPart5PasswordManagerIcon.idAtom),
+                loc: get(uiPart5PasswordManagerIcon.locAtom),
+            },
+
+            fileUsAtom: atoms.fileUsAtom,
+            formIdx: atoms.formIdx,
         };
+
         return rv;
     }
-    /** /
+    /**/
     
     //
     /** /
