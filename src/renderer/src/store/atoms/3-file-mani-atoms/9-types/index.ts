@@ -10,7 +10,6 @@ export type CreateAtomsParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
-    changesSet: ChangesSet;
 };
 
 export type FormAtoms = {
@@ -22,7 +21,7 @@ export type FormAtoms = {
     params: CreateAtomsParams;
 };
 
-export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined, ChangesSet];
+export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined];
 
 //
 
@@ -34,8 +33,8 @@ export type TabSectionProps = {
 
 //
 
-export function setManiChanges(maniAtoms: ManiAtoms, changed: boolean, changeName: string): ChangesSet {
-    const changes = maniAtoms[2];
+export function setManiChanges(createAtomsParams: CreateAtomsParams, changed: boolean, changeName: string): ChangesSet {
+    const changes = createAtomsParams.fileUs.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
     return changes;
 }

@@ -32,7 +32,7 @@ export namespace OptionsState {
             console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
         }
 
-        const changes = setManiChanges(callbackAtoms, nextValue.dirty, `${createAtomsParams.formIdx ? 'c' : 'l'}-o-${updateName}`);
+        const changes = setManiChanges(createAtomsParams, nextValue.dirty, `${createAtomsParams.formIdx ? 'c' : 'l'}-o-${updateName}`);
         console.log('changes options:', [...changes.keys()]);
 
         // console.log('------------------', updateName);

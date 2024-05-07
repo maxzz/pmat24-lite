@@ -25,7 +25,7 @@ export namespace FieldRowState {
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
+        const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
 
         console.log('changes fields:', [...changes.keys()]);
         

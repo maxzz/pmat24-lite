@@ -1,28 +1,13 @@
-import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { FileUs } from "@/store/store-types";
-import { ChangesSet, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { useSnapshot } from "valtio";
 
-function SaveButtonAccess({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
-    const changesSet: ChangesSet = maniAtoms[2];
-    const changes = useSnapshot(changesSet);
+export function SaveButton({ fileUs }: { fileUs: FileUs; }) {
+    const changes = useSnapshot(fileUs.changesSet);
     const hasChanges = !!changes.size;
     return (<>
         {hasChanges && (
             <Button className="text-background bg-orange-400">Save</Button>
         )}
     </>);
-}
-
-export function SaveButtonAccessGuard({ fileUs }: { fileUs: FileUs; }) {
-    
-    const maniAtoms = useAtomValue(fileUs.atomsAtom);
-    if (!maniAtoms) {
-        return null;
-    }
-    
-    return (
-        <SaveButtonAccess maniAtoms={maniAtoms} />
-    );
 }

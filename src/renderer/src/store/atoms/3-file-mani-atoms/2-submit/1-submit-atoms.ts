@@ -36,7 +36,7 @@ export namespace SubmitState {
         const changed = !SubmitConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-submit`);
+        const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-submit`);
 
         console.log('changes submit:', [...changes.keys()]);
     }

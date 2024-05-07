@@ -4,7 +4,7 @@ import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
 import { TitleNoFile } from "./9-title-no-file";
 import { TitleWithFileUs } from "./1-title-with-file-us";
 import { R_PanelMenu } from "../2-menu";
-import { SaveButtonAccessGuard } from "./5-save-button";
+import { SaveButton } from "./5-save-button";
 
 export function R_PanelHeader() {
 
@@ -22,7 +22,7 @@ export function R_PanelHeader() {
             <TitleWithFileUs fileUs={fileUs} />
 
             <div className="flex items-center gap-2">
-                <SaveButtonAccessGuard fileUs={fileUs} />
+                <SaveButton fileUs={fileUs} />
 
                 <R_PanelMenu />
             </div>

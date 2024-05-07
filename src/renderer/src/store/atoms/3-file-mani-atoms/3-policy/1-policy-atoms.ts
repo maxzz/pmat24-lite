@@ -50,7 +50,7 @@ export namespace PolicyState {
         const changed = !PolicyConv.areTheSame(state, atoms[policyIdx].fromFile);
         atoms[policyIdx].changed = changed;
 
-        const changes = setManiChanges(callbackAtoms, changed, `${createAtomsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
+        const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
 
         console.log('changes policy:', [...changes.keys()]);
     }

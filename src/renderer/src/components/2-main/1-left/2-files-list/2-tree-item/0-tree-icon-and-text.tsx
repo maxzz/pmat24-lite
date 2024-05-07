@@ -12,10 +12,10 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     const fileUs = useAtomValue(fileUsItem.fcnt);
     const fileIndex = fileUs.idx + 1;
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
-    
-    //const isDirty = fileUs.changesAtom
-    //const maniAtoms = useAtomValue(fileUs.atomsAtom);
 
+    const changes = useSnapshot(fileUs.changesSet);
+    const hasChanges = !!changes.size;
+    
     const showIndex = useSnapshot(appSettings).fileList.itemsState.showIndex;
 
     return (<>
@@ -30,7 +30,7 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
             iconClasses={classNames("mr-1.5", iconClasses)}
         />
 
-        <span className="flex-grow truncate">
+        <span className={classNames("flex-grow truncate", hasChanges && "!text-red-500")}>
             {item.name}
         </span>
     </>);

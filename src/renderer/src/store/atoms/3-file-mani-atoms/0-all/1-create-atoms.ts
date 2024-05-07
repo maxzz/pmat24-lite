@@ -37,8 +37,8 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
 
     const changesSet = proxySet<string>();
 
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login, changesSet }, callbackAtoms));
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass, changesSet }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, callbackAtoms));
     rv.push(changesSet);
 
     return rv;
