@@ -1,9 +1,18 @@
-import { PrimitiveAtom } from "jotai";
-import { RowInputState } from "@/store/atoms/3-file-mani-atoms/4-options";
-import { RowInputGuard } from "./1-row-guard";
+import { InputHTMLAttributes } from "react";
+import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { RowLabel } from "./2-row-label";
+import { InputBody } from "./4-row-body-w-tooltip";
 
-export function RowInputWLabel({ label, stateAtom }: { label: string; stateAtom: PrimitiveAtom<RowInputState>; }) {
+type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
+    stateAtom: RowInputStateAtom;
+    asCheckbox?: boolean;
+};
+
+export function RowInputWLabel({ label, asCheckbox, ...rest }: RowInputWLabelProps) {
     return (
-        <RowInputGuard label={label} stateAtom={stateAtom} />
+        <RowLabel label={label}>
+            <InputBody {...rest} />
+        </RowLabel>
     );
 }
