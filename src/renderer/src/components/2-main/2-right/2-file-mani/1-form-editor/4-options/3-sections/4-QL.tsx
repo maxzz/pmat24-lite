@@ -1,6 +1,6 @@
-import { useAtom, useAtomValue } from 'jotai';
-import { OptionsState } from '@/store/atoms/3-file-mani-atoms/4-options';
-import { RowInputWLabel } from '../4-controls';
+import { useAtom, useAtomValue } from "jotai";
+import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { RowInputWLabel } from "../4-controls";
 
 export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 

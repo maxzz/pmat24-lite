@@ -1,8 +1,9 @@
-import { Getter, PrimitiveAtom, Setter } from "jotai";
-import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
+import { Getter, Setter } from "jotai";
+import { AtomizeWithType, OnValueChange } from '@/util-hooks';
 import { FileUsAtom, FormIdx } from '@/store/store-types';
-import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
 import { CreateAtomsParams } from "../../9-types";
+import { RowInputState } from "../19-types";
+import { newAtomForInput, validateManifestName, newAtomForCheck } from "./2-atom-helpers";
 
 export namespace OptionsConv {
 
@@ -59,26 +60,6 @@ export namespace OptionsConv {
 
     type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
-    // Atoms helpers
-
-    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
-        const state: RowInputState = {
-            type: 'string',
-            data: value,
-            initialData: value,
-            dirty: false,
-            error: undefined,
-            touched: undefined,
-            validate: undefined,
-        };
-        const rv = atomWithCallback(more ? { ...state, ...more } : state, onChange);
-        return rv;
-    }
-
-    function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
-        return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
-    }
-
     // Atoms
 
     export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
@@ -126,7 +107,7 @@ export namespace OptionsConv {
 
         const rv: FormOptionsAtoms = {
             uiPart1General: {
-                nameAtom: newAtomForInput(uiPart1General.name, onChange('name')),
+                nameAtom: newAtomForInput(uiPart1General.name, onChange('name'), { validate: validateManifestName }),
                 descAtom: newAtomForInput(uiPart1General.desc, onChange('desc')),
                 hintAtom: newAtomForInput(uiPart1General.hint, onChange('hint')),
                 balloonAtom: newAtomForInput(uiPart1General.balloon, onChange('balloon')),

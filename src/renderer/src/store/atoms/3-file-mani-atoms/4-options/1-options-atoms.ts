@@ -1,9 +1,9 @@
 import { Getter, Setter } from "jotai";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
+import { RowInputState } from "./19-types";
 import { OptionsConv } from "./0-conv";
 import { OnValueChange } from "@/util-hooks";
-import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
 
 export namespace OptionsState {
 

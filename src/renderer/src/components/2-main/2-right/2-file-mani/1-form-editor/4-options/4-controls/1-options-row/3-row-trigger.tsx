@@ -1,4 +1,4 @@
-import { SymbolWarning } from '@/ui/icons';
+import { SymbolWarning } from "@/ui/icons";
 
 export function RowTrigger({ error }: { error: string | undefined; }) {
     return (<>

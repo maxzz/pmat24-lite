@@ -1,6 +1,5 @@
 import { PrimitiveAtom } from 'jotai';
 
-
 export type RowInputState = {
     type: 'string' | 'number' | 'boolean';
     data: string;

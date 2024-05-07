@@ -1,4 +1,3 @@
-import { useAtomValue } from "jotai";
 import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";

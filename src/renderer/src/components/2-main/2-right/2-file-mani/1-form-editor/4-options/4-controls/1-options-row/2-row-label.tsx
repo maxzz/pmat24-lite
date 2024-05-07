@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Label } from '@/ui';
+import { ReactNode } from "react";
+import { Label } from "@/ui";
 
 export function RowLabel({ label, children }: { label: string; children: ReactNode;}) {
     return (
