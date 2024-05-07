@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { proxySet } from 'valtio/utils';
 import { FileUs, FileUsStats } from "@/store/store-types";
 import { uuid } from '@/utils';
 import { FileContent } from '@shared/ipc-types';
@@ -27,7 +28,7 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
         stats: {} as FileUsStats, // the real one will be assigned after parsing content
         
         atomsAtom: atom<ManiAtoms | null>(null),
-        changesAtom: atom<number>(0),
+        changesSet: proxySet<string>(),
     };
 
     addParseData(newFileUs);

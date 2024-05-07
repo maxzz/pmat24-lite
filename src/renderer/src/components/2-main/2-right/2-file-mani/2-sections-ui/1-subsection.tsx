@@ -20,7 +20,7 @@ export function SubSection({ value, label, children }: { value: string; label: R
     );
 }
 
-export function FormSectionsOpenState({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
+export function FormSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
     const value = useSnapshot(appSettings).rightPanel.mainOpenSections[formIdx];
     return (
         <Accordion

@@ -1,5 +1,5 @@
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FormSectionsOpenState } from "../../2-sections-ui";
+import { FormSectionsAccordion } from "../../2-sections-ui";
 import { FormSections } from "./2-all-sections";
 import { NoForm } from "./3-no-form-tab-content";
 import { useAtomValue } from "jotai";
@@ -19,9 +19,9 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
     return (
         <div className="mr-1 h-full flex flex-col">
 
-            <FormSectionsOpenState formIdx={formIdx}>
+            <FormSectionsAccordion formIdx={formIdx}>
                 <FormSections maniAtoms={maniAtoms} formIdx={formIdx} />
-            </FormSectionsOpenState>
+            </FormSectionsAccordion>
             
         </div>
     );

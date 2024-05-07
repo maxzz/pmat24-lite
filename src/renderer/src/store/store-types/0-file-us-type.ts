@@ -1,7 +1,7 @@
 import { PrimitiveAtom, WritableAtom } from "jotai";
 import { CatalogFile, Mani, Meta } from "../manifest";
 import { FileContent } from "@shared/ipc-types";
-import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms/9-types";
+import { ChangesSet, ManiAtoms } from "@/store/atoms/3-file-mani-atoms/9-types";
 
 export type FileUsState = {
     isGroupAtom: PrimitiveAtom<boolean>;    // this fileUs selected for bulk group operation
@@ -35,7 +35,7 @@ export type FileUs = FileContent & {
     stats: FileUsStats;                     // quick access statistics
 
     atomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
-    changesAtom: PrimitiveAtom<number>;     // mani editor changes counter; created when file selected at top level
+    changesSet: ChangesSet;                 // mani editor changes set; created when file selected at top level
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;
