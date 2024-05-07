@@ -1,6 +1,5 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
-import { Atomize, AtomizeWithType, OnValueChange, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Meta } from "pm-manifest";
+import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
 import { CreateAtomsParams } from "../../9-types";
@@ -60,6 +59,28 @@ export namespace OptionsConv {
 
     type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
+    // Atoms helpers
+
+    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+        const state: RowInputState = {
+            type: 'string',
+            data: value,
+            initialData: value,
+            dirty: false,
+            error: undefined,
+            touched: undefined,
+            validate: undefined,
+        };
+        const rv = atomWithCallback(more ? { ...state, ...more } : state, onChange);
+        return rv;
+    }
+
+    function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
+        return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
+    }
+
+    // Atoms
+
     export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
 
@@ -98,40 +119,6 @@ export namespace OptionsConv {
         };
 
         return rv;
-    }
-
-    /** /
-    export function forMani(from: OptionsForAtoms, metaForm: Meta.Form) {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
-        };
-    
-        TransformValue.valueLife2Mani(from.valueLife, rv);
-        return rv;
-    }
-    /**/
-
-    //
-
-    function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
-        const state: RowInputState = {
-            type: 'string',
-            data: value,
-            initialData: value,
-            dirty: false,
-            error: undefined,
-            touched: undefined,
-            validate: undefined,
-        };
-        const rv = atomWithCallback(more ? { ...state, ...more } : state, onChange);
-        return rv;
-    }
-
-    function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
-        return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
     }
 
     export function toAtoms(initialState: OptionsForAtoms, onChange: OnChangeValueWithPpdateName): FormOptionsAtoms {
@@ -206,18 +193,18 @@ export namespace OptionsConv {
         return rv;
     }
 
-    //
+    // Back to manifest
 
     /** /
-    export function areTheSame(from: OptionsForAtoms, to: OptionsForAtoms): boolean {
-        const rv = (
-            from.useIt === to.useIt &&
-            from.label === to.label &&
-            from.type === to.type &&
-            from.dbname === to.dbname &&
-            theSameValue(from.valueLife, to.valueLife) &&
-            from.valueLife.valueAs === to.valueLife.valueAs
-        );
+    export function forMani(from: OptionsForAtoms, metaForm: Meta.Form) {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            dbname: from.dbname,
+            ...fieldTyp2Obj(from.type),
+        };
+    
+        TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
     }
     /**/

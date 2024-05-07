@@ -33,7 +33,7 @@ export namespace FieldConv {
         | 'onetvalue'
     >;
 
-    //
+    // Atoms
 
     export function forAtoms(field: Meta.Field): FieldForAtoms {
         const { useit, displayname } = field.mani;
@@ -51,20 +51,6 @@ export namespace FieldConv {
         };
         return rv;
     }
-
-    export function forMani(from: FieldForAtoms): ThisType {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
-        };
-
-        TransformValue.valueLife2Mani(from.valueLife, rv);
-        return rv;
-    }
-
-    //
 
     export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
         const { useIt, label, type, dbname, valueLife } = initialState;
@@ -88,7 +74,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    //
+    // Comparison
 
     function theSameValue(from: ValueLife, to: ValueLife): boolean {
         const rv = (
@@ -110,4 +96,19 @@ export namespace FieldConv {
         );
         return rv;
     }
+
+    // Back to manifest
+
+    export function forMani(from: FieldForAtoms): ThisType {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            dbname: from.dbname,
+            ...fieldTyp2Obj(from.type),
+        };
+
+        TransformValue.valueLife2Mani(from.valueLife, rv);
+        return rv;
+    }
+
 }

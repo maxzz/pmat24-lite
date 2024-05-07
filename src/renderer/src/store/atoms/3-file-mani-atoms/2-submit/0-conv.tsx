@@ -18,7 +18,7 @@ export namespace SubmitConv {
         changed: boolean;               // state from atoms is different from original state
     }>;
 
-    //
+    // Atoms
 
     export function forAtoms(metaForm: Meta.Form): SubmitForAtoms {
         const { buttonNames, initialSelected } = getSubmitChoices(metaForm);
@@ -34,22 +34,6 @@ export namespace SubmitConv {
         };
         return rv;
     }
-
-    /** /
-    export function forMani(from: SubmitForAtoms, metaForm: Meta.Form) {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
-        };
-
-        TransformValue.valueLife2Mani(from.valueLife, rv);
-        return rv;
-    }
-    /**/
-
-    //
 
     export function toAtoms(initialState: SubmitForAtoms, onChange: OnValueChangeAny): Atomize<SubmitForAtoms> {
         const { buttonNames, selected, doSubmit, isDoSubmitUndefined } = initialState;
@@ -71,7 +55,7 @@ export namespace SubmitConv {
         return rv;
     }
 
-    //
+    // Comparison
 
     export function areTheSame(from: SubmitForAtoms, to: SubmitForAtoms): boolean {
         const rv = (
@@ -81,4 +65,20 @@ export namespace SubmitConv {
         );
         return rv;
     }
+
+    // Back to manifest
+
+    /** /
+    export function forMani(from: SubmitForAtoms, metaForm: Meta.Form) {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            dbname: from.dbname,
+            ...fieldTyp2Obj(from.type),
+        };
+
+        TransformValue.valueLife2Mani(from.valueLife, rv);
+        return rv;
+    }
+    /**/
 }

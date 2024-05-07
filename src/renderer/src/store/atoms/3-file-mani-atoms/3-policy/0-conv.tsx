@@ -16,7 +16,8 @@ export namespace PolicyConv {
         changed: boolean;               // state from atoms is different from original state
     }>;
 
-    /**/
+    // Atoms
+
     export function forAtoms(field: Meta.Field): PolicyForAtoms {
         const rv: PolicyForAtoms = {
             policy: field.mani.policy || '',
@@ -25,23 +26,6 @@ export namespace PolicyConv {
         };
         return rv;
     }
-    /**/
-
-    /** /
-    export function forMani(from: PolicyForAtoms, metaForm: Meta.Form) {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
-        };
-    
-        TransformValue.valueLife2Mani(from.valueLife, rv);
-        return rv;
-    }
-    /**/
-
-    //
 
     export function toAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
         const { policy, policy2, policyText } = initialState;
@@ -60,9 +44,9 @@ export namespace PolicyConv {
         };
         return rv;
     }
-    
-    //
-    
+
+    // Comparison
+
     export function areTheSame(from: PolicyForAtoms, to: PolicyForAtoms): boolean {
         const rv = (
             from.policy === to.policy &&
@@ -70,5 +54,21 @@ export namespace PolicyConv {
         );
         return rv;
     }
+
+    // Back to manifest
+
+    /** /
+    export function forMani(from: PolicyForAtoms, metaForm: Meta.Form) {
+        const rv: ThisType = {
+            useit: from.useIt,
+            displayname: from.label,
+            dbname: from.dbname,
+            ...fieldTyp2Obj(from.type),
+        };
+    
+        TransformValue.valueLife2Mani(from.valueLife, rv);
+        return rv;
+    }
+    /**/
 
 }
