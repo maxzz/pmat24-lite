@@ -2,6 +2,7 @@ import { Getter, Setter } from "jotai";
 import { debounce } from "@/utils";
 import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { OptionsConv } from "./0-conv";
+import { OnValueChange } from "@/util-hooks";
 
 export namespace OptionsState {
 
@@ -9,11 +10,11 @@ export namespace OptionsState {
 
     export function createAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms {
 
-        const onChange = (updateName: string) => {
-            return ({ get, set }) => {
-                debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, updateName, get, set);
+        const onChange = (updateName: string): OnValueChange<string> => {
+            return ({ get, set, nextValue }) => {
+                debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, updateName, get, set, nextValue);
             };
-        }
+        };
 
         const state = OptionsConv.forAtoms(createAtomsParams);
         const rv = OptionsConv.toAtoms(state, onChange);
@@ -21,11 +22,10 @@ export namespace OptionsState {
         return rv;
     }
 
-    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter) {
+    export function combineOptionsFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: string) {
         const atoms: Atoms = callbackAtoms[createAtomsParams.formIdx]!.optionsAtoms;
 
         const result = OptionsConv.fromAtoms(atoms, get, set);
-
         console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
     }
 

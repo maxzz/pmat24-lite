@@ -1,5 +1,5 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
+import { Atomize, OnValueChange, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Meta } from "pm-manifest";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { RowInputState } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls";
@@ -58,7 +58,7 @@ export namespace OptionsConv {
         formIdx: FormIdx;
     };
 
-    type OnChangeValueWithPpdateName = (updateName: string) => OnValueChangeAny;
+    type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
     export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
         const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
