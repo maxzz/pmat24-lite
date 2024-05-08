@@ -11,6 +11,7 @@ import { SvgSymbolChevronDown } from "./20-chevron-down";
 import { SvgSymbolChevronUp } from "./21-chevron-up";
 import { SvgSymbolChevronDoubleDown } from "./22-chevron-double-down";
 import { SvgSymbolChevronRight } from "./23-chevron-right";
+import { SvgSymbolFire } from "./24-fire";
 import { SvgSymbolInfo } from "./24-info";
 import { SvgSymbolQuestion } from "./24-question";
 import { SvgSymbolWarning } from "./24-warning";
@@ -31,6 +32,7 @@ export * from "./21-chevron-up";
 export * from "./22-chevron-double-down";
 export * from "./23-chevron-right";
 export * from "./24-info";
+export * from "./24-fire";
 export * from "./24-question";
 export * from "./24-warning";
 export * from "./25-code";
@@ -51,6 +53,7 @@ export function DefAllOtherTypes() {
         {SvgSymbolChevronUp()}
         {SvgSymbolChevronDoubleDown()}
         {SvgSymbolChevronRight()}
+        {SvgSymbolFire()}
         {SvgSymbolInfo()}
         {SvgSymbolQuestion()}
         {SvgSymbolWarning()}
