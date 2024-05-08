@@ -1,8 +1,8 @@
 import { FileUs } from "@/store/store-types";
 import { TreenIconType } from "@ui/shadcn/tree";
 import { isAnyWhy } from "@/store/store-utils";
-import { RealTooltip } from "./3-real-tooltip";
-import { TooltipBody } from "./4-tooltip-body";
+import { TreeItemTooltip } from "./4-tooltip-all";
+import { TooltipBody } from "./5-tooltip-body";
 
 type FileIconAttentionProps = {
     fileUs: FileUs;
@@ -11,7 +11,7 @@ type FileIconAttentionProps = {
     iconClasses: string;
 };
 
-export function FileIconAttention({ IconToRender, name, fileUs, iconClasses }: FileIconAttentionProps) {
+export function TreeItemIconWithAttention({ IconToRender, name, fileUs, iconClasses }: FileIconAttentionProps) {
     const hasBailOut = isAnyWhy(fileUs);
     const fileIndex = fileUs.idx + 1;
 
@@ -26,7 +26,7 @@ export function FileIconAttention({ IconToRender, name, fileUs, iconClasses }: F
     }
 
     return (
-        <RealTooltip
+        <TreeItemTooltip
             trigger={Body}
             body={<TooltipBody fileUs={fileUs} fileIndex={fileIndex} />}
         />

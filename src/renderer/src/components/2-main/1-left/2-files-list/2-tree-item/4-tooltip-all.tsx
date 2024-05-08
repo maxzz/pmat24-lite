@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
 import { TooltipArrow } from "@radix-ui/react-tooltip";
 
-export function RealTooltip({ trigger, body }: { trigger: ReactNode; body: ReactNode; }) {
+export function TreeItemTooltip({ trigger, body }: { trigger: ReactNode; body: ReactNode; }) {
     return (
         <TooltipProvider>
             <Tooltip /** / open={true}/**/>
