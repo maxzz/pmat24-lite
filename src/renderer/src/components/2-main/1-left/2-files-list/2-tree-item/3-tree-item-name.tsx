@@ -8,9 +8,10 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
 
     const changes = useSnapshot(fileUs.changesSet);
     const hasChanges = !!changes.size;
+    const title = hasChanges ? "This file has changes" : undefined;
 
     return (
-        <span className={classNames("flex-grow truncate flex items-center", hasChanges && "!text-orange-300")}>
+        <span className={classNames("flex-grow truncate flex items-center", hasChanges && "text-orange-300 font-semibold")} title={title}>
 
             {hasChanges && (
                 <SymbolFire className="mr-0.5 size-3" />
