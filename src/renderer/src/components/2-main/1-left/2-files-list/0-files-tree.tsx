@@ -37,6 +37,7 @@ export function FilesTree() {
                 <Tree
                     data={dataWithState}
                     className={`w-full h-full outline-none`}
+                    scrollAreaProps={{ horizontal: true }}
                     IconTextRender={TreeIconAndText}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
