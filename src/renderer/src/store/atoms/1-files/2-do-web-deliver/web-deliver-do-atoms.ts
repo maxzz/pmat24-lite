@@ -9,7 +9,7 @@ import { electronGetPathes, webLoadAfterDataTransferContent, webLoadAfterDialogO
 export const doSetFilesFromDropAtom = atom(
     null,
     async (get, set, dataTransfer: DataTransfer) => {
-        let filesCnt: FileContent[];
+        let filesCnt: FileContent[] | undefined;
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];
@@ -19,7 +19,10 @@ export const doSetFilesFromDropAtom = atom(
             }
             filesCnt = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
         } else {
-            filesCnt = await webLoadAfterDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
+            const hasFiles = !![...dataTransfer.items].filter((item) => item.kind === 'file').length; // avoid drop of non-files
+            if (hasFiles) {
+                filesCnt = await webLoadAfterDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
+            }
         }
 
         if (filesCnt) {

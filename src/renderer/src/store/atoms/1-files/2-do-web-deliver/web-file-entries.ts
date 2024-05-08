@@ -34,7 +34,9 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
         const item = dataTransferItemList[i];
         const entry = item.webkitGetAsEntry();
-        entry ? queue.push(entry) : console.error('no entry for item', item);
+        entry
+            ? queue.push(entry)
+            : console.error('no entry for item', item);
     }
 
     while (queue.length > 0) {
