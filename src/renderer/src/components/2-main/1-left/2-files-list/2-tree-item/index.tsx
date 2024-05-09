@@ -1,1 +1,1 @@
-export * from "./0-tree-icon-and-text";
+export * from "./0-all";
