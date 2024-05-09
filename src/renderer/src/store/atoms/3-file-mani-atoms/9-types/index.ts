@@ -3,6 +3,7 @@ import { FieldsState } from "../1-fields";
 import { SubmitState } from "../2-submit";
 import { PolicyState } from "../3-policy";
 import { OptionsState } from "../4-options";
+import { proxySet } from "valtio/utils";
 
 export type ChangesSet = Set<string>;
 
@@ -31,10 +32,20 @@ export type TabSectionProps = {
     formIdx: FormIdx;
 };
 
-//
+// fileUs changes
 
 export function setManiChanges(createAtomsParams: CreateAtomsParams, changed: boolean, changeName: string): ChangesSet {
-    const changes = createAtomsParams.fileUs.changesSet;
+    
+    const fileUs = createAtomsParams.fileUs;
+    
+    const changes = fileUs.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
+
+    allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.id}`);
+
     return changes;
 }
+
+// all files changes
+
+export const allFileUsChanges = proxySet<string>();
