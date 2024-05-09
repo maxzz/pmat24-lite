@@ -1,18 +1,16 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import { FilterFilesDialog } from "../1-filter";
 import { CurrentFilter } from "../2-filter-indicator";
 import { L_PanelMenu } from "../3-menu";
 import { SymbolFire } from "@/ui/icons";
 import { useSnapshot } from "valtio";
 import { allFileUsChanges } from "@/store/atoms/3-file-mani-atoms";
+import { FilterFilesDialog } from "@/components/4-dialogs";
 
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
 export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    
-    const changes = useSnapshot(allFileUsChanges);
-    const hasChanges = !!changes.size;
+    const hasChanges = !!useSnapshot(allFileUsChanges).size;
 
     return (
         <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center gap-2", className)} {...rest}>
