@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FileUs } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
 
-const saveOneAtoms = atom(null,
+export const saveOneAtoms = atom(null,
     (get, set, maniAtoms: ManiAtoms) => {
         const loginFormAtoms = maniAtoms[0];
         const cpassFormAtoms = maniAtoms[1];
