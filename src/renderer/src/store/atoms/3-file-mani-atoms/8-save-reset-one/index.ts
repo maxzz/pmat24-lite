@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
 
-export const saveOneAtom = atom(null,
+export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
 

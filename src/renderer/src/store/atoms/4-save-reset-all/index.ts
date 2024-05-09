@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { filesAtom } from "../1-files";
 
-export const saveAllAtoms = atom(null,
+export const doSaveAllAtom = atom(null,
     (get, set) => {
         const files = get(filesAtom);
 
