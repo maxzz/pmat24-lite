@@ -4,7 +4,7 @@ import { TableHeader } from "./4-table-header";
 
 const gridClasses = "\
 p-2 \
-grid grid-cols-[max-content_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 \
+grid grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-1 \
 text-foreground \
 rounded-sm";
 

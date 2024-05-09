@@ -17,6 +17,12 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
     }
 
     return (<>
+        <Column5_Type
+            useItAtom={useItAtom}
+            maniField={maniField}
+            onClick={enableRow}
+        />
+
         <Column1_UseIt
             useItAtom={useItAtom}
         />
@@ -38,12 +44,6 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
             useItAtom={useItAtom}
             fieldCatAtom={dbnameAtom}
             onSelectCatItem={onSelectCatItem}
-            maniField={maniField}
-            onClick={enableRow}
-        />
-
-        <Column5_Type
-            useItAtom={useItAtom}
             maniField={maniField}
             onClick={enableRow}
         />
