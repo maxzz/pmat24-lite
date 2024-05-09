@@ -19,6 +19,7 @@ import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_C
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
+import { MenuItem_SaveAll } from "../10-file/15-save-all";
 
 export function MainDropdownMenu() {
     const [open, setOpen] = useState<boolean>(false);
@@ -38,6 +39,9 @@ export function MainDropdownMenu() {
                 <DropdownMenuSeparator />
 
                 <MenuItem_CreateMani />
+                <DropdownMenuSeparator />
+
+                <MenuItem_SaveAll />
                 <DropdownMenuSeparator />
 
                 <DropdownMenuSub>
