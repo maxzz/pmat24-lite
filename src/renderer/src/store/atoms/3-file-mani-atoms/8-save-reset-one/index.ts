@@ -6,6 +6,11 @@ export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
 
+        const changed = !!fileUs.changesSet.size;
+        if (!changed) {
+            return;
+        }
+
         const maniAtoms = get(fileUs.atomsAtom);
         if (!maniAtoms) {
             return;
