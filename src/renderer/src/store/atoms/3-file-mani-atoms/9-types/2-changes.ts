@@ -17,6 +17,6 @@ export function setManiChanges(createAtomsParams: CreateAtomsParams, changed: bo
     return changes;
 }
 
-// all files changes
+// all files changes; it is important to show that some files have changes due to scrolling 
 
 export const allFileUsChanges = proxySet<string>();
