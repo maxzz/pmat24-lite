@@ -1,3 +1,9 @@
+export const gridClasses = "\
+p-2 \
+grid grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-[3px] \
+text-foreground \
+rounded-sm";
+
 const rowColumns = [
     ['Type',                /**/ 'Type of field'],
     ['Use it',              /**/ 'Use this field or not'],
