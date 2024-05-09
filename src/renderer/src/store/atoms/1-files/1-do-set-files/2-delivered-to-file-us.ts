@@ -5,7 +5,7 @@ import { uuid } from '@/utils';
 import { FileContent } from '@shared/ipc-types';
 import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats } from '@/store/store-utils';
-import { ManiAtoms } from '@/store/atoms/3-file-mani-atoms/9-types';
+import { ManiAtoms } from "../../3-file-mani-atoms/9-types";
 
 export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
     const newFileUs: FileUs = {

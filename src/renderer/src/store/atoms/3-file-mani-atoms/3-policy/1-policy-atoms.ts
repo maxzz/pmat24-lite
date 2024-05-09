@@ -1,6 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { debounce } from "@/utils";
-import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
+import { setManiChanges } from "../9-types";
+import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { PolicyConv } from "./0-conv";
 import { FieldTyp } from "pm-manifest";
 

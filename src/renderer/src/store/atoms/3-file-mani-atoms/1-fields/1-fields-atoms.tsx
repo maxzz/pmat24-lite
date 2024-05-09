@@ -1,7 +1,7 @@
 import { FieldTyp } from '@/store/manifest';
 import { FieldConv } from './0-conv';
 import { FieldRowState } from './2-field-atoms';
-import { CreateAtomsParams, ManiAtoms } from '../9-types';
+import { CreateAtomsParams, ManiAtoms } from "../9-types";
 
 export namespace FieldsState {
 

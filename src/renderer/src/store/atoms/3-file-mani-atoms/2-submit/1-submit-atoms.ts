@@ -1,5 +1,6 @@
 import { Getter, Setter } from "jotai";
-import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
+import { setManiChanges } from "../9-types";
+import { CreateAtomsParams, ManiAtoms } from "../9-types";
 import { debounce } from "@/utils";
 import { SubmitConv } from "./0-conv";
 

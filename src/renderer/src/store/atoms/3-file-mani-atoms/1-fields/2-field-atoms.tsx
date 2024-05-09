@@ -3,7 +3,8 @@ import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { CreateAtomsParams, ManiAtoms, setManiChanges } from '../9-types';
+import { setManiChanges } from '../9-types';
+import { CreateAtomsParams, ManiAtoms } from "../9-types";
 
 export namespace FieldRowState {
 
