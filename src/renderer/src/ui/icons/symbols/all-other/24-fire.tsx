@@ -10,13 +10,16 @@ export function SvgSymbolFire() {
     </>);
 }
 
-//fill-orange-600 #ea580c
-//fill-orange-50  #fff7ed
-const fireIconClasses = "fill-none stroke-current stroke-[1.5] [--fill-a:#ea580c] [--fill-b:#fff7ed]";
+const fireIconClasses = "fill-none stroke-current stroke-[1.5]";
+const fireColorClasses = "[--fill-a:#ea580c] [--fill-b:#fff7ed]"; //fill-orange-600 #ea580c fill-orange-50  #fff7ed
 
-export function SymbolFire({ className, children, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+type SymbolFireProps = SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement> & {
+    colorize?: boolean;
+};
+
+export function SymbolFire({ className, children, title, colorize, ...rest }: SymbolFireProps) {
     return (
-        <svg className={classNames(fireIconClasses, className)} strokeLinecap="round" strokeLinejoin="round" {...rest}>
+        <svg className={classNames(fireIconClasses, colorize && fireColorClasses, className)} strokeLinecap="round" strokeLinejoin="round" {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#icon-fire" />
