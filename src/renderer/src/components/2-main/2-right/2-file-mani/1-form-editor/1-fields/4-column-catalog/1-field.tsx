@@ -8,7 +8,7 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
 const inputParentClasses = "\
-h-8 grid grid-cols-[minmax(0,1fr)_auto] \
+h-7 grid grid-cols-[minmax(0,1fr)_auto] \
 \
 bg-mani-background \
 \
@@ -17,7 +17,7 @@ border-mani-border-muted border \
 rounded overflow-hidden";
 
 const inputClasses = "\
-px-2 py-3 h-8 \
+px-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
 outline-none";
 

@@ -10,7 +10,7 @@ type Column2_LabelProps =
     & InputHTMLAttributes<HTMLInputElement>;
 
 const Column2_LabelClasses = "\
-px-2 py-3 h-8 \
+px-2 py-3 h-7 \
 \
 text-mani-foreground bg-mani-background \
 \

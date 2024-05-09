@@ -5,7 +5,7 @@ import { classNames } from '@/utils';
 import { FieldTypeIconComponent, fieldTypeTitle } from '@/store/manifest/manifest-field-icons';
 
 const column5_TypeClasses = "\
-size-8 pt-1 text-[.6rem] \
+size-7 pt-1 text-[.6rem] \
 \
 text-mani-muted-foreground \
 \
@@ -13,8 +13,7 @@ border-muted-foreground/40 border \
 \
 rounded \
 select-none \
-flex flex-col items-center \
-";
+flex flex-col items-center gap-0.5";
 
 type Column5_TypeProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
@@ -27,7 +26,7 @@ export function Column5_Type({ useItAtom, maniField, className, ...rest }: Colum
     const title = fieldTypeTitle(maniField);
     return (
         <div className={classNames(column5_TypeClasses, !useIt && "opacity-30 cursor-pointer", className)} title={title} {...rest}>
-            <FieldTypeIconComponent className="size-5" field={maniField} />
+            <FieldTypeIconComponent className="size-3" field={maniField} />
 
             <div className="-mt-2">
                 {`${password ? 'psw' : type}`}
