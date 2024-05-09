@@ -1,8 +1,8 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
+import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
 import { classNames } from "@/utils";
 import { inputRingClasses } from "@/ui";
-import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
 
 const optionInputClasses = "\
 px-2 py-1 h-7 w-full \
