@@ -15,4 +15,4 @@ export function MenuItem_SaveAll() {
     </>);
 }
 
-//TODO: add shortcut
+//TODO: add shortcut Ctrol+Shift+S

@@ -19,7 +19,9 @@ import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_C
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
-import { MenuItem_SaveAll } from "../10-file/15-save-all";
+import { MenuItem_SaveAll } from "../10-file/17-save-all";
+import { MenuItem_SaveCurrent } from "../10-file/15-save-current";
+import { MenuItem_SaveCurrentAs } from "../10-file/16-save-current-as";
 
 export function MainDropdownMenu() {
     const [open, setOpen] = useState<boolean>(false);
@@ -41,6 +43,8 @@ export function MainDropdownMenu() {
                 <MenuItem_CreateMani />
                 <DropdownMenuSeparator />
 
+                <MenuItem_SaveCurrent />
+                <MenuItem_SaveCurrentAs />
                 <MenuItem_SaveAll />
                 <DropdownMenuSeparator />
 
@@ -58,7 +62,7 @@ export function MainDropdownMenu() {
                                 <DropdownMenuSubTrigger>
                                     Debug
                                 </DropdownMenuSubTrigger>
-                                
+
                                 <DropdownMenuPortal>
                                     <DropdownMenuSubContent className="text-xs">
                                         <MenuItem_GetSaw />
