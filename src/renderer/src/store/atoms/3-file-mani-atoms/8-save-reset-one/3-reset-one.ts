@@ -20,15 +20,15 @@ export const doResetOneAtom = atom(null,
 
         //TODO: collect all data from all atoms
 
-        const loginFormAtoms = maniAtoms[0];
-        const cpassFormAtoms = maniAtoms[1];
+        // const loginFormAtoms = maniAtoms[0];
+        // const cpassFormAtoms = maniAtoms[1];
 
-        if (loginFormAtoms) {
-            loginFormAtoms.fieldsAtoms;
-            loginFormAtoms.submitAtoms;
-            loginFormAtoms.policyAtoms;
-            loginFormAtoms.optionsAtoms;
-        }
+        // if (loginFormAtoms) {
+        //     loginFormAtoms.fieldsAtoms;
+        //     loginFormAtoms.submitAtoms;
+        //     loginFormAtoms.policyAtoms;
+        //     loginFormAtoms.optionsAtoms;
+        // }
 
         // Done
 

@@ -1,11 +1,12 @@
 import { atom } from "jotai";
-import { FileUs, FileUsAtom } from "@/store/store-types";
-import { ManiAtoms } from "../9-types";
+import { FileUsAtom } from "@/store/store-types";
+import { doSaveOneAtom } from "./1-save-one";
 
 export const doSaveOneAsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
 
         //TODO: get new filename
+        const newFilename = 'newFilename';
 
         const fileUs = get(fileUsAtom);
 
@@ -19,21 +20,9 @@ export const doSaveOneAsAtom = atom(null,
             return;
         }
 
+        set(doSaveOneAtom, fileUsAtom, newFilename);
+
         console.log('saved as', fileUs.fname);
-
-        //TODO: collect all data from all atoms
-
-        const loginFormAtoms = maniAtoms[0];
-        const cpassFormAtoms = maniAtoms[1];
-
-        if (loginFormAtoms) {
-            loginFormAtoms.fieldsAtoms;
-            loginFormAtoms.submitAtoms;
-            loginFormAtoms.policyAtoms;
-            loginFormAtoms.optionsAtoms;
-        }
-
-        fileUs.changesSet.clear();
     }
 );
 

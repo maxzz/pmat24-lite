@@ -3,7 +3,7 @@ import { FileUs, FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
 
 export const doSaveOneAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom) => {
+    (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
         const changed = !!fileUs.changesSet.size;

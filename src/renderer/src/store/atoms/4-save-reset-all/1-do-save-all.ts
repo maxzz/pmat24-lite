@@ -15,8 +15,6 @@ export const doSaveAllAtom = atom(null,
             }
 
             set(doSaveOneAtom, fileUsAtom);
-
-            console.log('saved', fileUs.fname);
         });
     }
 );
