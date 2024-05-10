@@ -6,14 +6,11 @@ import { doSaveOneAsAtom } from "@/store/atoms/3-file-mani-atoms";
 export function MenuItem_SaveCurrentAs() {
 
     const fileUsAtom = useAtomValue(rightPanelAtom);
-    const doSaveOne = useSetAtom(doSaveOneAsAtom);
+    const doSaveOneAs = useSetAtom(doSaveOneAsAtom);
     
     return (<>
-        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne(fileUsAtom)} disabled={!fileUsAtom}>
+        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOneAs(fileUsAtom)} disabled={!fileUsAtom}>
             Save As...
-            {/* <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameCreate}</DropdownMenuShortcut> */}
         </DropdownMenuItem>
     </>);
 }
-
-//TODO: add shortcut
