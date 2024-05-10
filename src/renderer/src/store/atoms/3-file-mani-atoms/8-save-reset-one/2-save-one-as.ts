@@ -2,8 +2,11 @@ import { atom } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
 
-export const doSaveOneAtom = atom(null,
+export const doSaveOneAsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
+
+        //TODO: get new filename
+
         const fileUs = get(fileUsAtom);
 
         const changed = !!fileUs.changesSet.size;
@@ -17,6 +20,8 @@ export const doSaveOneAtom = atom(null,
         }
 
         console.log('saved', fileUs.fname);
+
+        //TODO: collect all data from all atoms
 
         const loginFormAtoms = maniAtoms[0];
         const cpassFormAtoms = maniAtoms[1];
