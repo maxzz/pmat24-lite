@@ -1,12 +1,12 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { rightPanelAtom } from "@/store";
-import { doSaveOneAtom } from "@/store/atoms/3-file-mani-atoms";
+import { doSaveOneAsAtom } from "@/store/atoms/3-file-mani-atoms";
 
 export function MenuItem_SaveCurrentAs() {
 
     const fileUsAtom = useAtomValue(rightPanelAtom);
-    const doSaveOne = useSetAtom(doSaveOneAtom);
+    const doSaveOne = useSetAtom(doSaveOneAsAtom);
     
     return (<>
         <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne(fileUsAtom)} disabled={!fileUsAtom}>

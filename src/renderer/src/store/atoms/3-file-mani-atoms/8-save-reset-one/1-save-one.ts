@@ -18,6 +18,8 @@ export const doSaveOneAtom = atom(null,
 
         console.log('saved', fileUs.fname);
 
+        //TODO: collect all data from all atoms
+
         const loginFormAtoms = maniAtoms[0];
         const cpassFormAtoms = maniAtoms[1];
 
@@ -27,6 +29,10 @@ export const doSaveOneAtom = atom(null,
             loginFormAtoms.policyAtoms;
             loginFormAtoms.optionsAtoms;
         }
+
+        // Done
+
+        fileUs.changesSet.clear();
     }
 );
 

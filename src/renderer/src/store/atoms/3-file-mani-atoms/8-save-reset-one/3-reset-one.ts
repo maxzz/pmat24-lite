@@ -18,20 +18,20 @@ export const doResetOneAtom = atom(null,
 
         console.log('reset', fileUs.fname);
 
-        /*
-        (get, set, maniAtoms: ManiAtoms) => {
+        //TODO: collect all data from all atoms
 
         const loginFormAtoms = maniAtoms[0];
         const cpassFormAtoms = maniAtoms[1];
 
         if (loginFormAtoms) {
-            loginFormAtoms.params.fileUsAtom
-
-            loginFormAtoms.fieldsAtoms
-            loginFormAtoms.submitAtoms
-            loginFormAtoms.policyAtoms
-            loginFormAtoms.optionsAtoms
+            loginFormAtoms.fieldsAtoms;
+            loginFormAtoms.submitAtoms;
+            loginFormAtoms.policyAtoms;
+            loginFormAtoms.optionsAtoms;
         }
-        */
+
+        // Done
+
+        fileUs.changesSet.clear();
     }
 );

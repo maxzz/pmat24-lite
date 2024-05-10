@@ -19,7 +19,7 @@ export const doSaveOneAsAtom = atom(null,
             return;
         }
 
-        console.log('saved', fileUs.fname);
+        console.log('saved as', fileUs.fname);
 
         //TODO: collect all data from all atoms
 
@@ -32,6 +32,8 @@ export const doSaveOneAsAtom = atom(null,
             loginFormAtoms.policyAtoms;
             loginFormAtoms.optionsAtoms;
         }
+
+        fileUs.changesSet.clear();
     }
 );
 
