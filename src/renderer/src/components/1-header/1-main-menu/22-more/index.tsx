@@ -1,1 +1,1 @@
-export * from "./2-more";
+export * from "./1-more";

@@ -15,13 +15,11 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
-import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_CreateMani } from "../10-file";
+import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_CreateMani, MenuItem_SaveCurrent, MenuItem_SaveCurrentAs } from "../10-file";
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
-import { MenuItem_SaveAll } from "../10-file/17-save-all";
-import { MenuItem_SaveCurrent } from "../10-file/15-save-current";
-import { MenuItem_SaveCurrentAs } from "../10-file/16-save-current-as";
+import { MenuItem_SaveAll } from "../10-file";
 
 export function MainDropdownMenu() {
     const [open, setOpen] = useState<boolean>(false);

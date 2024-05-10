@@ -1,7 +1,8 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { DropdownMenuItem } from "@/ui/shadcn";
+import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 import { rightPanelAtom } from "@/store";
 import { doSaveOneAtom } from "@/store/atoms/3-file-mani-atoms";
+import { shortcutNameSave } from "@/store/atoms/7-dialogs";
 
 export function MenuItem_SaveCurrent() {
 
@@ -11,7 +12,7 @@ export function MenuItem_SaveCurrent() {
     return (<>
         <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne(fileUsAtom)} disabled={!fileUsAtom}>
             Save
-            {/* <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameCreate}</DropdownMenuShortcut> */}
+            <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameSave}</DropdownMenuShortcut>
         </DropdownMenuItem>
     </>);
 }

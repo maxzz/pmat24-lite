@@ -1,6 +1,5 @@
-import { DropdownMenuItem } from "@/ui/shadcn/dropdown-menu";
 import { sendToMain } from "@/xternal-to-main";
-import { checkDevTools } from "@/ui";
+import { DropdownMenuItem, checkDevTools } from "@/ui";
 
 export function MenuItem_GetTestDirs() {
     return (

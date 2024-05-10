@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/ui/shadcn";
 import * as D from "@/ui/shadcn";
 import { useKey } from "react-use";
@@ -10,7 +9,7 @@ import { useAtom } from "jotai";
 export function FilterFilesDialog() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
 
-    useKey((event) => event.ctrlKey && event.key === 'd', (event) => { event.preventDefault(); setIsOpen(true); });
+    useKey((event) => event.ctrlKey && event.key === 'f', (event) => { event.preventDefault(); setIsOpen(true); });
 
     return (<>
         <Button className="" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>

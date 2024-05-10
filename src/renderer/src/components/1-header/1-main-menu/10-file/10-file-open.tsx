@@ -1,8 +1,8 @@
 import { ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
-import { DropdownMenuItem, InputFileAsDlg } from "@/ui/shadcn";
-import { hasMain, sendToMain } from "@/xternal-to-main";
 import { doSetFilesFromDialogAtom } from "@/store";
+import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
+import { hasMain, sendToMain } from "@/xternal-to-main";
 
 type DropdownMenuItemWithInputFileAsDlgProps = {
     children: ReactNode;

@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { DropdownMenuItem } from "@/ui/shadcn";
+import { DropdownMenuItem } from "@/ui";
 import { rightPanelAtom } from "@/store";
 import { doSaveOneAsAtom } from "@/store/atoms/3-file-mani-atoms";
 
