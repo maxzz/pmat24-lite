@@ -5,6 +5,7 @@ import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
 import { doSaveOneAtom } from "../../3-file-mani-atoms";
 import { doSaveAllAtom } from "../../4-save-reset-all";
 import { rightPanelAtom } from "../../2-right-panel";
+import { filterDialogOpenAtom } from "../3-filter-dialog-atoms";
 
 export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dialog
 export const shortcutNameFilter   /**/ = "Ctrl+F";          // Filter manifest list
@@ -13,6 +14,7 @@ export const shortcutNameSave     /**/ = "Ctrl+S";          // Save current mani
 export const shortcutNameSaveAll  /**/ = "Ctrl+Shift+S";    // Save all manifests
 
 export function AppGlobalShortcuts() {
+    const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
     const doSaveOne = useSetAtom(doSaveOneAtom);
@@ -23,6 +25,11 @@ export function AppGlobalShortcuts() {
     // Ctrl+,
     useKey((event) => event.ctrlKey && event.key === ',', (event) => {
         event.preventDefault(); doOpenOptionsDialog(true);
+    });
+
+    // Ctrl+F
+    useKey((event) => event.ctrlKey && event.key === 'f', (event) => {
+        event.preventDefault(); doOpenFilterDialog(true);
     });
     // Ctrl+1 // temporary for debbuging quick access
     // useKey((event) => event.ctrlKey && event.key === '1', (event) => { event.preventDefault(); doOpenOptionsDialog(true); });

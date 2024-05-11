@@ -1,8 +1,8 @@
-import * as D from "@/ui/shadcn/dialog";
-import { Input } from "@/ui/shadcn";
-import { IconFilter, IconSearch } from "@/ui/icons";
+import { KeyboardEvent } from "react";
 import { useAtom } from "jotai";
 import { searchFilterData } from "@/store";
+import { Input } from "@/ui";
+import { IconSearch } from "@/ui/icons";
 import { FilteredFilesList } from "./3-files-list";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
@@ -12,26 +12,11 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
 
             <div className="relative">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 p-px size-4" />
-                
+
                 <Input
                     className="pl-9 text-xs"
                     value={text}
-                    onKeyDown={(e) => {
-                        if (!text) {
-                            return;
-                        }
-
-                        if (e.key === 'Escape') {
-                            e.preventDefault();
-                            setText('');
-                        }
-
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            setIsOpen(false);
-                        }
-
-                    }}
+                    onKeyDown={onKeyDown}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Search for manifests"
                 />
@@ -40,4 +25,20 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
             <FilteredFilesList />
         </div>
     </>);
+
+    function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (!text) {
+            return;
+        }
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            setText('');
+        }
+
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setIsOpen(false);
+        }
+    }
 }
