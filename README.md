@@ -6,6 +6,8 @@ An Electron application with React and TypeScript
 
 ![](./src/renderer/src/assets/previews/2024-04-26_15-08-18.png)
 
+![](./src/renderer/src/assets/previews/2024-05-10_17-32-32-submit.png)
+
 # commands
 
 * ```tsc -p tsconfig.web.json -w --noEmit```
