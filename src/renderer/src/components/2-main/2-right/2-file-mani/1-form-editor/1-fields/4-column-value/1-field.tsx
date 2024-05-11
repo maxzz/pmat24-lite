@@ -21,13 +21,13 @@ px-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
 outline-none";
 
-type Column3_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
+type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
 };
 
-export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column3_ValueProps) {
+export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column4_ValueProps) {
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
