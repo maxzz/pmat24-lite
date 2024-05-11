@@ -28,6 +28,7 @@ type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column4_ValueProps) {
+
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
@@ -42,24 +43,6 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className
     } = getValueUiState(valueLife, choosevalue);
 
     const showInputText = !useIt && !valueLife.isRef && !valueLife.value;
-
-    function onSetDropdownIndex(idx: number) {
-        setValueLife((v) => mapIndexToValueLife(idx, v, context));
-    }
-
-    function onSetText(value: string) {
-        setValueLife((v) => ({ ...v, value, isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
-    }
-
-    function onSetKey(event: React.KeyboardEvent) {
-        showAsRef && isKeyToClearDefault(event.key) &&
-            setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: true, }));
-    }
-
-    function onBlur() {
-        showAsRef && !inputText &&
-            setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
-    }
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
@@ -85,6 +68,25 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className
             )}
         </div>
     );
+
+    function onSetDropdownIndex(idx: number) {
+        setValueLife((v) => mapIndexToValueLife(idx, v, context));
+    }
+
+    function onSetText(value: string) {
+        setValueLife((v) => ({ ...v, value, isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
+    }
+
+    function onSetKey(event: React.KeyboardEvent) {
+        showAsRef && isKeyToClearDefault(event.key) &&
+            setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: true, }));
+    }
+
+    function onBlur() {
+        showAsRef && !inputText &&
+            setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
+    }
+
 }
 
 //NOTE: Theoretically, two buttons cannot be selected. Only the first one will be pressed, but it depends on the application (submit vs. trigger).

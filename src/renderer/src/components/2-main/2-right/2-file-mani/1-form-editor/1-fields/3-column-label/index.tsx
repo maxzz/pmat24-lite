@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
-import { PrimitiveAtom, useAtom } from 'jotai';
+import { PrimitiveAtom, useAtom, useAtomValue } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
 
 const Column3_LabelClasses = "\
@@ -26,7 +26,7 @@ type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function Column3_Label({ useItAtom, valueAtom, className, ...rest }: Column3_LabelProps) {
     const [value, setValue] = useAtom(valueAtom);
-    const [useIt, setUseIt] = useAtom(useItAtom);
+    const useIt = useAtomValue(useItAtom);
     return (
         <input
             className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}

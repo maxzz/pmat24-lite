@@ -32,6 +32,7 @@ const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
+    
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniField, className, ...rest } = props;
 
     const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniField.password, maniField.dbname);

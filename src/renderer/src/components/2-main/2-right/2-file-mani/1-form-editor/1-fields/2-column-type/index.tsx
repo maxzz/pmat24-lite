@@ -21,9 +21,11 @@ type Column2_TypeProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export function Column2_Type({ useItAtom, maniField, className, ...rest }: Column2_TypeProps) {
+
     const useIt = useAtomValue(useItAtom);
     const { password, type = 'NOTYPE' } = maniField;
     const title = fieldTypeTitle(maniField);
+    
     return (
         <div className={classNames(column2_TypeClasses, !useIt && "opacity-30 cursor-pointer", className)} title={title} {...rest}>
             <FieldTypeIconComponent className="size-3" field={maniField} />

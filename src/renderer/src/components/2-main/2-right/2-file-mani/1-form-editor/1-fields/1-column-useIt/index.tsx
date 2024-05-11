@@ -18,7 +18,9 @@ type Column1_UseItProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export function Column1_UseIt({ useItAtom, className, ...rest }: Column1_UseItProps) {
+
     const [useIt, setUseIt] = useAtom(useItAtom);
+    
     return (
         <input
             type="checkbox"
