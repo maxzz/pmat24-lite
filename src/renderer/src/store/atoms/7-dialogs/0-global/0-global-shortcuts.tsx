@@ -2,9 +2,9 @@ import { useSetAtom } from "jotai";
 import { useKey } from "react-use";
 import { doOpenOptionsDialogAtom } from "../1-options-dialog-atoms";
 import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
-import { doSaveOneIfNotNullAtom } from "../../3-file-mani-atoms";
-import { doSaveAllAtom } from "../../4-save-reset-all";
 import { filterDialogOpenAtom } from "../3-filter-dialog-atoms";
+import { doSaveOneIfNotNullAtom } from "../../3-file-mani-atoms";
+import { doSaveAllAtom } from "../../4-save-reset";
 
 export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dialog
 export const shortcutNameFilter   /**/ = "Ctrl+F";          // Filter manifest list
