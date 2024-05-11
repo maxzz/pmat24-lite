@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
-import { getPolicyExplanation } from "./9-policy-helpers";
+import { PolicyAction, getPolicyExplanation } from "./9-policy-helpers";
 
 export namespace FieldConv {
 
@@ -17,7 +17,7 @@ export namespace FieldConv {
     export type PoliciesForAtoms = {
         policy: string;
         policy2: string;
-        explanation: string;
+        explanation: PolicyAction;
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
@@ -52,7 +52,7 @@ export namespace FieldConv {
         const policies: PoliciesForAtoms = {
             policy: field.mani.policy || '',
             policy2: field.mani.policy2 || '',
-            explanation: getPolicyExplanation(field.mani.policy, field.mani.policy2),
+            explanation: getPolicyExplanation(field.mani.policy, field.mani.policy2, field),
         };
 
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
