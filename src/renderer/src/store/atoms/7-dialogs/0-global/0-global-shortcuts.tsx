@@ -10,7 +10,7 @@ export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dia
 export const shortcutNameFilter   /**/ = "Ctrl+F";          // Filter manifest list
 export const shortcutNameCreate   /**/ = "Ctrl+N";          // Create new manifest
 export const shortcutNameSave     /**/ = "Ctrl+S";          // Save current manifest
-export const shortcutNameSaveAll  /**/ = "Ctrl+Shift+S";    // Save all manifests
+export const shortcutNameSaveAll  /**/ = "Alt+S";           // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -39,8 +39,8 @@ export function AppGlobalShortcuts() {
         event.preventDefault(); doSaveOneIfNotNull();
     });
 
-    // Ctrl+Shift+S
-    useKey((event) => event.ctrlKey && event.shiftKey && event.key === 's', (event) => {
+    // Alt+S
+    useKey((event) => event.altKey && event.key === 's', (event) => {
         event.preventDefault(); doSaveAll();
     });
 
