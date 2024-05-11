@@ -32,7 +32,7 @@ export function Column6_Policy({ useItAtom, valueAtom, className, ...rest }: Col
             className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
             value={value}
             onChange={(event) => setValue(event.target.value)}
-            title={useIt ? "The label is shown to the user next to\nthe field for entering a value." : undefined}
+            title={useIt ? "This is the label that appears next to the value entry field." : undefined}
             {...turnOffAutoComplete}
             {...rest}
         />

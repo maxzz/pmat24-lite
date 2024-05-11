@@ -32,7 +32,7 @@ export function Column3_Label({ useItAtom, valueAtom, className, ...rest }: Colu
             className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}
             value={value}
             onChange={(event) => setValue(event.target.value)}
-            title={useIt ? "The label is shown to the user next to\nthe field for entering a value." : undefined}
+            title={useIt ? "This is a label that appears next to an input field." : undefined}
             {...turnOffAutoComplete}
             {...rest}
         />
