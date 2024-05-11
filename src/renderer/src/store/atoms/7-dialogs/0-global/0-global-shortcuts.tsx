@@ -14,8 +14,8 @@ export const shortcutNameSave     /**/ = "Ctrl+S";          // Save current mani
 export const shortcutNameSaveAll  /**/ = "Ctrl+Shift+S";    // Save all manifests
 
 export function AppGlobalShortcuts() {
-    const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
+    const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
     const doSaveOne = useSetAtom(doSaveOneAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
@@ -31,15 +31,11 @@ export function AppGlobalShortcuts() {
     useKey((event) => event.ctrlKey && event.key === 'f', (event) => {
         event.preventDefault(); doOpenFilterDialog(true);
     });
-    // Ctrl+1 // temporary for debbuging quick access
-    // useKey((event) => event.ctrlKey && event.key === '1', (event) => { event.preventDefault(); doOpenOptionsDialog(true); });
 
-    // Ctrl+Shift+C
+    // Ctrl+N
     useKey((event) => event.ctrlKey && event.key === 'n', (event) => {
         event.preventDefault(); doOpenCreateDialog(true);
     });
-    // Ctrl+2 // temporary for debbuging quick access
-    // useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
 
     // Ctrl+S
     useKey((event) => event.ctrlKey && event.key === 's', (event) => {
@@ -50,6 +46,9 @@ export function AppGlobalShortcuts() {
     useKey((event) => event.ctrlKey && event.shiftKey && event.key === 's', (event) => {
         event.preventDefault(); doSaveAll();
     });
+
+    // Ctrl+1 // temporary for debbuging quick access
+    // useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
 
     return null;
 }
