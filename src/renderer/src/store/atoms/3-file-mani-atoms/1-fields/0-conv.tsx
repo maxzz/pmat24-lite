@@ -1,6 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
+import { getPolicyExplanation } from "./9-policy-helpers";
 
 export namespace FieldConv {
 
@@ -10,6 +11,13 @@ export namespace FieldConv {
         type: FieldTyp;
         valueLife: ValueLife;           // this includes value and valueAs
         dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
+        policies: PoliciesForAtoms;
+    };
+
+    export type PoliciesForAtoms = {
+        policy: string;
+        policy2: string;
+        explanation: string;
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
@@ -28,6 +36,8 @@ export namespace FieldConv {
         | 'type'
         | 'dbname'
         | 'value' // | 'choosevalue' - so far cannot be changed
+        | 'policy'
+        | 'policy2'
         | 'password'
         | 'askalways'
         | 'onetvalue'
@@ -39,6 +49,12 @@ export namespace FieldConv {
         const { useit, displayname } = field.mani;
         const valueLife = TransformValue.valueLife4Mani(field.mani);
 
+        const policies: PoliciesForAtoms = {
+            policy: field.mani.policy || '',
+            policy2: field.mani.policy2 || '',
+            explanation: getPolicyExplanation(field.mani.policy, field.mani.policy2),
+        };
+
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
         !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
 
@@ -48,18 +64,20 @@ export namespace FieldConv {
             type: fieldTyp4Str(field.mani),
             valueLife,
             dbname: field.mani.dbname,
+            policies: policies,
         };
         return rv;
     }
 
     export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
-        const { useIt, label, type, dbname, valueLife } = initialState;
+        const { useIt, label, type, dbname, valueLife, policies } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),
             labelAtom: atomWithCallback(label, onChange),
             typeAtom: atomWithCallback(type, onChange),
             valueLifeAtom: atomWithCallback(valueLife, onChange),
             dbnameAtom: atomWithCallback(dbname, onChange),
+            policiesAtom: atomWithCallback(policies, onChange),
         };
     }
 
@@ -70,6 +88,7 @@ export namespace FieldConv {
             type: get(atoms.typeAtom),
             valueLife: get(atoms.valueLifeAtom),
             dbname: get(atoms.dbnameAtom),
+            policies: get(atoms.policiesAtom),
         };
         return rv;
     }
@@ -85,6 +104,14 @@ export namespace FieldConv {
         return rv;
     }
 
+    function theSamePolicies(from: PoliciesForAtoms, to: PoliciesForAtoms): boolean {
+        const rv = (
+            from.policy === to.policy &&
+            from.policy2 === to.policy2
+        );
+        return rv;
+    }
+
     export function areTheSame(from: FieldForAtoms, to: FieldForAtoms): boolean {
         const rv = (
             from.useIt === to.useIt &&
@@ -92,7 +119,8 @@ export namespace FieldConv {
             from.type === to.type &&
             from.dbname === to.dbname &&
             theSameValue(from.valueLife, to.valueLife) &&
-            from.valueLife.valueAs === to.valueLife.valueAs
+            from.valueLife.valueAs === to.valueLife.valueAs &&
+            theSamePolicies(from.policies, to.policies)
         );
         return rv;
     }
@@ -105,10 +133,12 @@ export namespace FieldConv {
             displayname: from.label,
             dbname: from.dbname,
             ...fieldTyp2Obj(from.type),
+            policy: from.policies.policy,
+            policy2: from.policies.policy2,
         };
 
         TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
-    }
+    } //TODO: filter out undefined values when saving manifest
 
 }
