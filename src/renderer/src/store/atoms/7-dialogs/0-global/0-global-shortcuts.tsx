@@ -1,10 +1,9 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useKey } from "react-use";
 import { doOpenOptionsDialogAtom } from "../1-options-dialog-atoms";
 import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
-import { doSaveOneAtom } from "../../3-file-mani-atoms";
+import { doSaveOneIfNotNullAtom } from "../../3-file-mani-atoms";
 import { doSaveAllAtom } from "../../4-save-reset-all";
-import { rightPanelAtom } from "../../2-right-panel";
 import { filterDialogOpenAtom } from "../3-filter-dialog-atoms";
 
 export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dialog
@@ -17,10 +16,8 @@ export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
     const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
-    const doSaveOne = useSetAtom(doSaveOneAtom);
+    const doSaveOneIfNotNull = useSetAtom(doSaveOneIfNotNullAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
-
-    const fileUsAtom = useAtomValue(rightPanelAtom);
 
     // Ctrl+,
     useKey((event) => event.ctrlKey && event.key === ',', (event) => {
@@ -39,7 +36,7 @@ export function AppGlobalShortcuts() {
 
     // Ctrl+S
     useKey((event) => event.ctrlKey && event.key === 's', (event) => {
-        event.preventDefault(); fileUsAtom && doSaveOne(fileUsAtom);
+        event.preventDefault(); doSaveOneIfNotNull();
     });
 
     // Ctrl+Shift+S

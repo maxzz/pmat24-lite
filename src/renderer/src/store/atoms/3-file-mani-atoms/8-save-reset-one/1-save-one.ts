@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
+import { rightPanelAtom } from "../../2-right-panel";
 
 export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
@@ -18,14 +19,14 @@ export const doSaveOneAtom = atom(null,
 
         console.log('saved', fileUs.fname);
 
-        
-        
+
+
         //TODO: validate
         //TODO: check if we can save from web or electron
         //TODO: collect all data from all atoms
         //TODO: each file may have no filename
 
-        
+
 
         // const loginFormAtoms = maniAtoms[0];
         // const cpassFormAtoms = maniAtoms[1];
@@ -40,6 +41,18 @@ export const doSaveOneAtom = atom(null,
         // Done
 
         fileUs.changesSet.clear();
+    }
+);
+
+export const doSaveOneIfNotNullAtom = atom(null,
+    (get, set) => {
+        const fileUsAtom = get(rightPanelAtom);
+
+        if (!fileUsAtom) {
+            return;
+        }
+
+        set(doSaveOneAtom, fileUsAtom);
     }
 );
 
