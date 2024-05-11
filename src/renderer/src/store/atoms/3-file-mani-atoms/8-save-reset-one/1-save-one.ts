@@ -1,7 +1,8 @@
 import { atom } from "jotai";
-import { FileUs, FileUsAtom } from "@/store/store-types";
+import { FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../9-types";
 import { rightPanelAtom } from "../../2-right-panel";
+import { packManifestData } from "./10-pack-manifest-data";
 
 export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
@@ -12,33 +13,7 @@ export const doSaveOneAtom = atom(null,
             return;
         }
 
-        const maniAtoms = get(fileUs.atomsAtom);
-        if (!maniAtoms) {
-            return;
-        }
-
-        console.log('saved', fileUs.fname);
-
-
-
-        //TODO: validate
-        //TODO: check if we can save from web or electron
-        //TODO: collect all data from all atoms
-        //TODO: each file may have no filename
-
-
-
-        // const loginFormAtoms = maniAtoms[0];
-        // const cpassFormAtoms = maniAtoms[1];
-
-        // if (loginFormAtoms) {
-        //     loginFormAtoms.fieldsAtoms;
-        //     loginFormAtoms.submitAtoms;
-        //     loginFormAtoms.policyAtoms;
-        //     loginFormAtoms.optionsAtoms;
-        // }
-
-        // Done
+        packManifestData(fileUs, fileUsAtom, get, set, newFilename);
 
         fileUs.changesSet.clear();
     }
