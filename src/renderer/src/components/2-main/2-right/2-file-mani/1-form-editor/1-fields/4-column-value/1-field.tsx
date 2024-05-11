@@ -27,7 +27,7 @@ type Column3_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
     choosevalue: string | undefined;
 };
 
-export function Column3_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column3_ValueProps) {
+export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column3_ValueProps) {
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 

@@ -15,7 +15,7 @@ const rowColumns = [
 const headerClasses = "\
 mb-2 px-1 text-[.65rem] \
 text-muted-foreground border-mani-muted-foreground \
-border-b \
+border-b truncate \
 select-none";
 
 export function TableHeader() {

@@ -26,7 +26,7 @@ outline-none \
 rounded \
 ";
 
-export function Column2_Label({ useItAtom, valueAtom, className, ...rest }: Column2_LabelProps) {
+export function Column3_Label({ useItAtom, valueAtom, className, ...rest }: Column2_LabelProps) {
     const [value, setValue] = useAtom(valueAtom);
     const [useIt, setUseIt] = useAtom(useItAtom);
     return (

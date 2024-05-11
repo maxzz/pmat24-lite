@@ -2,10 +2,10 @@ import { useSetAtom } from "jotai";
 import { FieldsState } from "@/store/atoms/3-file-mani-atoms";
 import { CatalogItem } from "@/store/manifest";
 import { Column1_UseIt } from "../1-column-useIt";
-import { Column2_Label } from "../2-column-label";
-import { Column3_Value } from "../3-column-value";
-import { Column4_Catalog } from "../4-column-catalog";
-import { Column5_Type } from "../5-column-type";
+import { Column3_Label } from "../3-column-label";
+import { Column4_Value } from "../4-column-value";
+import { Column5_Catalog } from "../5-column-catalog";
+import { Column2_Type } from "../2-column-type";
 
 export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; }) {
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom, maniField } = fieldRowAtoms;
@@ -17,7 +17,7 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
     }
 
     return (<>
-        <Column5_Type
+        <Column2_Type
             useItAtom={useItAtom}
             maniField={maniField}
             onClick={enableRow}
@@ -27,20 +27,20 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
             useItAtom={useItAtom}
         />
 
-        <Column2_Label
+        <Column3_Label
             useItAtom={useItAtom}
             valueAtom={labelAtom}
             onClick={enableRow}
         />
 
-        <Column3_Value
+        <Column4_Value
             useItAtom={useItAtom}
             valueLifeAtom={valueLifeAtom}
             choosevalue={maniField.choosevalue}
             onClick={enableRow}
         />
 
-        <Column4_Catalog
+        <Column5_Catalog
             useItAtom={useItAtom}
             fieldCatAtom={dbnameAtom}
             onSelectCatItem={onSelectCatItem}

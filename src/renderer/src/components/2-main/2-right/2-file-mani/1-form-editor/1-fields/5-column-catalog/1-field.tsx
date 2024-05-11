@@ -31,7 +31,7 @@ type Column4_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
-export function Column4_Catalog(props: Column4_CatalogProps) {
+export function Column5_Catalog(props: Column4_CatalogProps) {
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniField, className, ...rest } = props;
 
     const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniField.password, maniField.dbname);

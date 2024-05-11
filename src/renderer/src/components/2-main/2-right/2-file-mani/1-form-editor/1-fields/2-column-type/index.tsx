@@ -20,7 +20,7 @@ type Column5_TypeProps = InputHTMLAttributes<HTMLInputElement> & {
     maniField: Mani.Field;
 };
 
-export function Column5_Type({ useItAtom, maniField, className, ...rest }: Column5_TypeProps) {
+export function Column2_Type({ useItAtom, maniField, className, ...rest }: Column5_TypeProps) {
     const useIt = useAtomValue(useItAtom);
     const { password, type = 'NOTYPE' } = maniField;
     const title = fieldTypeTitle(maniField);
