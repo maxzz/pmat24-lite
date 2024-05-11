@@ -18,7 +18,7 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     );
 }
 
-export function TabSubmit({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
+export function TabSubmitOld({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
     const metaForm = formAtoms.params.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="px-1">
