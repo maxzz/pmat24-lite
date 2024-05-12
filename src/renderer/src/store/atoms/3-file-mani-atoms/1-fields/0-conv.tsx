@@ -36,11 +36,11 @@ export namespace FieldConv {
         | 'type'
         | 'dbname'
         | 'value' // | 'choosevalue' - so far cannot be changed
-        | 'policy'
-        | 'policy2'
         | 'password'
         | 'askalways'
         | 'onetvalue'
+        | 'policy'
+        | 'policy2'
     >;
 
     // Atoms
@@ -139,6 +139,9 @@ export namespace FieldConv {
 
         TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
-    } //TODO: filter out undefined values when saving manifest
+    }
+    
+    //TODO: filter out undefined values when saving manifest
+    //TODO: we need to correlate policies with password change form
 
 }
