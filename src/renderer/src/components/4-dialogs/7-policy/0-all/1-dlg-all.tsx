@@ -3,9 +3,11 @@ import { Mani } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
+import { useAtom } from "jotai";
+import { policyDialogOpenAtom } from "@/store/atoms/7-dialogs";
 
 export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useAtom(policyDialogOpenAtom);
 
     const atoms = useState( //TODO: use memo or update atoms value?
         () => createUiAtoms(
