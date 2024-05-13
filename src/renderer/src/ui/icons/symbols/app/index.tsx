@@ -14,9 +14,9 @@ export function DefAppTypes() {
     return (<>
         {SvgSymbolAppWebChrome()}
         {SvgSymbolAppWin()}
-        {SvgSymbolCatalog()}
         {SvgSymbolAppWebIe()}
         {SvgSymbolAppWebIeText()}
         {SvgSymbolIconManualMode()}
+        {SvgSymbolCatalog()}
     </>);
 }
