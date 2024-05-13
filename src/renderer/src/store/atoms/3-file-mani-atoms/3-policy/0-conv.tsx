@@ -22,7 +22,7 @@ export namespace PolicyConv {
         const rv: PolicyForAtoms = {
             policy: field.mani.policy || '',
             policy2: field.mani.policy2 || '',
-            policyText: 'TODO: short policy explabation', // or show custom policy rule, or standard policy rule
+            policyText: 'TODO: short policy explanation', // or show custom policy rule, or standard policy rule
         };
         return rv;
     }
