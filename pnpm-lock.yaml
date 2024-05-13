@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.1
-        version: 3.0.1(electron@30.0.1)
+        version: 3.0.1(electron@30.0.3)
       '@electron-toolkit/utils':
         specifier: ^3.0.0
-        version: 3.0.0(electron@30.0.1)
+        version: 3.0.0(electron@30.0.3)
       electron-updater:
         specifier: ^6.1.8
         version: 6.1.8
@@ -124,8 +124,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       electron:
-        specifier: ^30.0.1
-        version: 30.0.1
+        specifier: ^30.0.3
+        version: 30.0.3
       electron-builder:
         specifier: ^24.13.3
         version: 24.13.3(electron-builder-squirrel-windows@25.0.0-alpha.7(dmg-builder@24.13.3))
@@ -1887,8 +1887,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@30.0.1:
-    resolution: {integrity: sha512-iwxkI/n2wBd29NH7TH0ZY8aWGzCoKpzJz+D10u7aGSJi1TV6d4MSM3rWyKvT/UkAHkTKOEgYfUyCa2vWQm8L0g==}
+  electron@30.0.3:
+    resolution: {integrity: sha512-h+suwx6e0fnv/9wi0/cmCMtG+4LrPzJZa+3DEEpxcPcP+pcWnBI70t8QspxgMNIh2wzXLMD9XVqrLkEbiBAInw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -2103,8 +2103,8 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
 
-  globalthis@1.0.3:
-    resolution: {integrity: sha512-sFdI5LyBiNTHjRd7cGPWapiHWMOXKyuBNX/cWJ3NfzrZQVa8GI/8cofCl74AOVqq9W5kNmguTIzJ/1s2gyI9wA==}
+  globalthis@1.0.4:
+    resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==}
     engines: {node: '>= 0.4'}
 
   gopd@1.0.1:
@@ -3603,17 +3603,17 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  '@electron-toolkit/preload@3.0.1(electron@30.0.1)':
+  '@electron-toolkit/preload@3.0.1(electron@30.0.3)':
     dependencies:
-      electron: 30.0.1
+      electron: 30.0.3
 
   '@electron-toolkit/tsconfig@1.0.1(@types/node@20.12.11)':
     dependencies:
       '@types/node': 20.12.11
 
-  '@electron-toolkit/utils@3.0.0(electron@30.0.1)':
+  '@electron-toolkit/utils@3.0.0(electron@30.0.3)':
     dependencies:
-      electron: 30.0.1
+      electron: 30.0.3
 
   '@electron/asar@3.2.10':
     dependencies:
@@ -5344,7 +5344,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@30.0.1:
+  electron@30.0.3:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 20.12.11
@@ -5626,15 +5626,16 @@ snapshots:
       es6-error: 4.1.1
       matcher: 3.0.0
       roarr: 2.15.4
-      semver: 7.6.0
+      semver: 7.6.2
       serialize-error: 7.0.1
     optional: true
 
   globals@11.12.0: {}
 
-  globalthis@1.0.3:
+  globalthis@1.0.4:
     dependencies:
       define-properties: 1.2.1
+      gopd: 1.0.1
     optional: true
 
   gopd@1.0.1:
@@ -6447,7 +6448,7 @@ snapshots:
     dependencies:
       boolean: 3.2.0
       detect-node: 2.1.0
-      globalthis: 1.0.3
+      globalthis: 1.0.4
       json-stringify-safe: 5.0.1
       semver-compare: 1.0.0
       sprintf-js: 1.1.3
