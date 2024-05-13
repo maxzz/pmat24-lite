@@ -12,7 +12,7 @@ export namespace FieldRowState {
         const forAtoms = FieldConv.forAtoms(field);
         return {
             ...FieldConv.toAtoms(forAtoms, onChange),
-            maniField: field.mani,
+            metaField: field,
             fromFile: forAtoms,
             changed: false,
         };

@@ -21,7 +21,7 @@ export namespace FieldConv {
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
-        maniField: Mani.Field;          // all fields from original to combine with fields from atoms to create new field
+        metaField: Meta.Field;          // all fields from original to combine with fields from atoms to create new field
         fromFile: FieldForAtoms;        // original state to compare with
         changed: boolean;               // state from atoms is different from original state
     }
@@ -46,24 +46,26 @@ export namespace FieldConv {
     // Atoms
 
     export function forAtoms(field: Meta.Field): FieldForAtoms {
-        const { useit, displayname } = field.mani;
-        const valueLife = TransformValue.valueLife4Mani(field.mani);
+        const maniField = field.mani;
+        const { useit, displayname } = maniField;
 
-        const policies: PoliciesForAtoms = {
-            policy: field.mani.policy || '',
-            policy2: field.mani.policy2 || '',
-            explanation: getPolicyExplanation(field.mani.policy, field.mani.policy2, field),
-        };
+        const valueLife = TransformValue.valueLife4Mani(maniField);
 
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
         !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
 
+        const policies: PoliciesForAtoms = {
+            policy: maniField.policy || '',
+            policy2: maniField.policy2 || '',
+            explanation: getPolicyExplanation(maniField.policy, maniField.policy2, field),
+        };
+
         const rv: FieldForAtoms = {
             useIt: !!useit,
             label: displayname || '',
-            type: fieldTyp4Str(field.mani),
+            type: fieldTyp4Str(maniField),
             valueLife,
-            dbname: field.mani.dbname,
+            dbname: maniField.dbname,
             policies: policies,
         };
         return rv;
