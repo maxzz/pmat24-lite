@@ -5,6 +5,7 @@ import { FieldConv } from '@/store/atoms/3-file-mani-atoms/1-fields/0-conv';
 import { Button } from '@/ui';
 import { getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
 import { Meta } from 'pm-manifest';
+import { SymbolEllipsis } from '@/ui/icons';
 
 const Column6_PolicyClasses = "\
 px-2 py-3 h-7 \
@@ -43,6 +44,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
             onClick={() => { }}
             {...rest}
         >
+            <SymbolEllipsis className="size-3 mr-1" />
             {'<'}{text}{'>'}
         </Button>
     );
