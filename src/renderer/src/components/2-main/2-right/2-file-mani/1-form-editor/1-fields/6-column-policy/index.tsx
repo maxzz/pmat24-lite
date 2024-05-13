@@ -3,7 +3,7 @@ import { PrimitiveAtom, useAtom, useAtomValue } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
 import { FieldConv } from '@/store/atoms/3-file-mani-atoms/1-fields/0-conv';
 import { Button } from '@/ui';
-import { getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
+import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
 import { Meta } from 'pm-manifest';
 import { SymbolEllipsis } from '@/ui/icons';
 
@@ -20,6 +20,7 @@ focus:ring-offset-1 \
 focus:ring-offset-mani-background \
 focus:ring-mani-ring-activated \
 \
+flex items-center justify-center gap-0.5 \
 outline-none \
 rounded \
 ";
@@ -35,8 +36,12 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
     const [value, setValue] = useAtom(policiesAtom);
     const useIt = useAtomValue(useItAtom);
 
-    const action = getPolicyExplanation(value.policy, value.policy2, metaField)
+    const action = getPolicyExplanation(value.policy, value.policy2, metaField);
     const text = getPolicyExplanationText(action);
+
+    if (action === PolicyAction.na) {
+        return <div className="text-center"></div>;
+    }
 
     return (
         <Button
@@ -44,8 +49,14 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
             onClick={() => { }}
             {...rest}
         >
-            <SymbolEllipsis className="size-3 mr-1" />
-            {'<'}{text}{'>'}
+            <div className="text-[.65rem]">Add...</div>
+            {/* <div className="text-[.65rem]">Edit...</div> */}
+
+            {/* {text} */}
+            {/* <div className="text-[.65rem]">Create</div> */}
+            {/* <div className="text-[.65rem]">None</div> */}
+
+            {/* <SymbolEllipsis className="size-3 rotate-90" /> */}
         </Button>
     );
 }
