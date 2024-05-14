@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
-import { PolicyAction, getPolicyExplanation } from "./9-policy-helpers";
+import { PoliciesForAtoms, getPolicyExplanation } from "../../7-dialogs";
 
 export namespace FieldConv {
 
@@ -12,12 +12,6 @@ export namespace FieldConv {
         valueLife: ValueLife;           // this includes value and valueAs
         dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
         policies: PoliciesForAtoms;
-    };
-
-    export type PoliciesForAtoms = {
-        policy: string;
-        policy2: string;
-        explanation: PolicyAction;
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
