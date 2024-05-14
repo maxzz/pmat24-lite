@@ -48,8 +48,16 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" onClick={() => setOpen(false)}>OK</Button>
-            <Button size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+            {/* <Button size="sm" onClick={() => setOpen(false)}>OK</Button>
+            <Button size="sm" onClick={() => setOpen(false)}>Cancel</Button> */}
+            <Button size="sm" onClick={() => {
+                console.log('from dlg click false');
+                
+                setOpen(false)}}>OK</Button>
+            <Button size="sm" onClick={() => {
+                console.log('from dlg click false');
+                
+                setOpen(false)}}>Cancel</Button>
         </div>
     </>);
 }

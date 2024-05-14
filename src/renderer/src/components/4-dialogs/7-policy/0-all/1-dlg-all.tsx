@@ -33,14 +33,16 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
     );
 }
 
-export function PolicyEditorNewDlg({ triggerAtom }: { triggerAtom: PrimitiveAtom<PoliciesForAtoms>; }) {
-    const [open, setOpen] = useAtom(policyDialogOpenAtom);
+export function PolicyEditorNewDlg({ dataAtom }: { dataAtom: PrimitiveAtom<PoliciesForAtoms>; }) {
+    const [isOpen, setIsOpen] = useAtom(policyDialogOpenAtom);
 
-    const triggerData = useAtomValue(triggerAtom);
+    const triggerData = useAtomValue(dataAtom);
+
+    console.log('PolicyEditorNewDlg render', 'open =', isOpen);
 
     const atoms = useMemo(
         () => {
-            console.log('triggerData', triggerData);
+            console.log('triggerData createUiAtoms()', triggerData);
 
             return createUiAtoms(
                 {
@@ -64,15 +66,20 @@ export function PolicyEditorNewDlg({ triggerAtom }: { triggerAtom: PrimitiveAtom
     // )[0];
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className="px-4 h-full active:scale-[.97] select-none" asChild>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            {/* <DialogTrigger className="px-4 h-full active:scale-[.97] select-none" asChild>
                 <Button size="sm">
                     Edit
                 </Button>
-            </DialogTrigger>
+            </DialogTrigger> */}
 
             <DialogContent className="text-xs" container={document.getElementById('portal')}>
-                <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
+                {/* <PolicyEditorBody atoms={atoms} setOpen={setIsOpen} /> */}
+                <PolicyEditorBody atoms={atoms} setOpen={(v) => {
+                    console.log('click from body', v);
+                    
+                    setIsOpen(v);
+                }} />
             </DialogContent>
         </Dialog>
     );
