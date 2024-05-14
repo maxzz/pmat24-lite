@@ -66,7 +66,11 @@ export function PolicyEditorNewDlg({ dataAtom, openAtom }: { dataAtom: Primitive
     // )[0];
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <Dialog open={isOpen} onOpenChange={(v) => {
+            console.log('click from Dialog', isOpen, 'v', v);
+            
+            setIsOpen(v);
+        }}>
             {/* <DialogTrigger className="px-4 h-full active:scale-[.97] select-none" asChild>
                 <Button size="sm">
                     Edit
@@ -75,9 +79,10 @@ export function PolicyEditorNewDlg({ dataAtom, openAtom }: { dataAtom: Primitive
 
             <DialogContent className="text-xs" container={document.getElementById('portal')}>
                 {/* <PolicyEditorBody atoms={atoms} setOpen={setIsOpen} /> */}
+
                 <PolicyEditorBody atoms={atoms} setOpen={(v) => {
                     console.log('click from body', v);
-                    
+
                     setIsOpen(v);
                 }} />
             </DialogContent>

@@ -38,7 +38,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
     // const [open, setOpen] = useAtom(policyDialogOpenAtom);
     // const setOpen = useSetAtom(policyDialogOpenAtom);
 
-    const openAtom = useState(() => atom(false))[0];
+    const openAtom = useState(() => atom<boolean>(false))[0];
     const setOpen = useSetAtom(openAtom);
 
     console.log('Column6_Policy');
@@ -55,11 +55,11 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
     //     return <div className="text-center"></div>;
     // }
 
-    return (
+    return (<>
         <Button
             className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
             onClick={() => setOpen(true)}
-            // {...rest}
+        // {...rest}
         >
             <div className="text-[.65rem]">Add...</div>
             {/* <div className="text-[.65rem]">Edit...</div> */}
@@ -70,9 +70,9 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
 
             {/* <SymbolEllipsis className="size-3 rotate-90" /> */}
 
-            <PolicyEditorNewDlg dataAtom={policiesAtom} openAtom={openAtom} />
         </Button>
-    );
+        <PolicyEditorNewDlg dataAtom={policiesAtom} openAtom={openAtom} />
+    </>);
 }
 
 //TODO: add default text 'Give me a name' or 'No name, give me one';
