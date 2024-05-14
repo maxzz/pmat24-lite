@@ -6,6 +6,8 @@ import { Button } from '@/ui';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
 import { Meta } from 'pm-manifest';
 import { SymbolEllipsis } from '@/ui/icons';
+import { PoliciesForAtoms } from '@/store/atoms/7-dialogs';
+import { PolicyEditorNewDlg } from '@/components/4-dialogs';
 
 const Column6_PolicyClasses = "\
 px-2 py-3 h-7 \
@@ -27,7 +29,7 @@ rounded \
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
-    policiesAtom: PrimitiveAtom<FieldConv.PoliciesForAtoms>;
+    policiesAtom: PrimitiveAtom<PoliciesForAtoms>;
     metaField: Meta.Field;
 };
 
@@ -57,6 +59,8 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
             {/* <div className="text-[.65rem]">None</div> */}
 
             {/* <SymbolEllipsis className="size-3 rotate-90" /> */}
+
+            <PolicyEditorNewDlg triggerAtom={policiesAtom} />
         </Button>
     );
 }
