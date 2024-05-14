@@ -23,22 +23,20 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
         </Check>
 
         <div className={classNames("flex flex-col space-y-4", !enabled && "opacity-10 pointer-events-none")}>
-            {/* Predefined or Custom rule */}
-            <h2 className={sectionClasses}>
+
+            <h2 className={sectionClasses}> {/* Predefined or Custom rule */}
                 Password complexity
             </h2>
             <SectionRuleTypes atoms={atoms} />
 
-            {/* History */}
-            <div className="">
+            <div className=""> {/* History */}
                 <h2 className={""}>
                     History restrictions
                 </h2>
                 <SectionHistory atoms={atoms} />
             </div>
 
-            {/* Generation */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2"> {/* Generation */}
                 <h2 className="">
                     Password generation
                 </h2>
@@ -48,16 +46,8 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; set
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            {/* <Button size="sm" onClick={() => setOpen(false)}>OK</Button>
-            <Button size="sm" onClick={() => setOpen(false)}>Cancel</Button> */}
-            <Button size="sm" onClick={() => {
-                console.log('from dlg click false');
-                
-                setOpen(false)}}>OK</Button>
-            <Button size="sm" onClick={() => {
-                console.log('from dlg click false');
-                
-                setOpen(false)}}>Cancel</Button>
+            <Button size="sm" onClick={() => setOpen(false)}>OK</Button>
+            <Button size="sm" onClick={() => setOpen(false)}>Cancel</Button>
         </div>
     </>);
 }

@@ -1,16 +1,14 @@
-import { HTMLAttributes, InputHTMLAttributes, useState } from 'react';
-import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { classNames, turnOffAutoComplete } from '@/utils';
-import { FieldConv } from '@/store/atoms/3-file-mani-atoms/1-fields/0-conv';
+import { HTMLAttributes, useState } from 'react';
+import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
+import { Meta } from 'pm-manifest';
+import { classNames } from '@/utils';
 import { Button } from '@/ui';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
-import { Meta } from 'pm-manifest';
-import { SymbolEllipsis } from '@/ui/icons';
-import { PoliciesForAtoms, policyDialogOpenAtom } from '@/store/atoms/7-dialogs';
+import { PoliciesForAtoms } from '@/store/atoms/7-dialogs';
 import { PolicyEditorNewDlg } from '@/components/4-dialogs';
 
 const Column6_PolicyClasses = "\
-px-2 py-3 h-7 \
+px-2 py-3 h-7 text-[.65rem] \
 \
 text-mani-foreground bg-mani-background \
 \
@@ -22,10 +20,8 @@ focus:ring-offset-1 \
 focus:ring-offset-mani-background \
 focus:ring-mani-ring-activated \
 \
-flex items-center justify-center gap-0.5 \
-outline-none \
-rounded \
-";
+rounded outline-none \
+flex items-center justify-center gap-0.5";
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
@@ -33,55 +29,35 @@ type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     metaField: Meta.Field;
 };
 
-export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, ...rest }: Column6_LabelProps) {
-
-    // const [open, setOpen] = useAtom(policyDialogOpenAtom);
-    // const setOpen = useSetAtom(policyDialogOpenAtom);
-
-    const openAtom = useState(() => atom<boolean>(false))[0];
+export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableClick, ...rest }: Column6_LabelProps) {
+    const openAtom = useState(() => atom(false))[0];
     const setOpen = useSetAtom(openAtom);
 
-    console.log('Column6_Policy');
-    const useIt = true;
-    // console.log('Column6_Policy', 'open', open);
+    const useIt = useAtomValue(useItAtom);
+    const policies = useAtomValue(policiesAtom);
 
-    // const [value, setValue] = useAtom(policiesAtom);
-    // const useIt = useAtomValue(useItAtom);
+    const action = getPolicyExplanation(policies.policy, policies.policy2, metaField);
 
-    // const action = getPolicyExplanation(value.policy, value.policy2, metaField);
-    // const text = getPolicyExplanationText(action);
+    if (action === PolicyAction.na) {
+        return <div className="text-center" />;
+    }
 
-    // if (action === PolicyAction.na) {
-    //     return <div className="text-center"></div>;
-    // }
+    const text = getPolicyExplanationText(action);
 
     return (<>
         <Button
             className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
-            onClick={() => setOpen(true)}
-        // {...rest}
+            onClick={(e) => { enableClick?.(e); setOpen(true); }}
+            {...rest}
         >
-            <div className="text-[.65rem]">Add...</div>
-            {/* <div className="text-[.65rem]">Edit...</div> */}
-
-            {/* {text} */}
-            {/* <div className="text-[.65rem]">Create</div> */}
-            {/* <div className="text-[.65rem]">None</div> */}
-
-            {/* <SymbolEllipsis className="size-3 rotate-90" /> */}
-
+            {text}...
         </Button>
-        <PolicyEditorNewDlg dataAtom={policiesAtom} openAtom={openAtom} />
+
+        <PolicyEditorNewDlg
+            dataAtom={policiesAtom}
+            openAtom={openAtom}
+        />
     </>);
 }
 
 //TODO: add default text 'Give me a name' or 'No name, give me one';
-
-{/* <input
-className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
-value={value}
-onChange={(event) => setValue(event.target.value)}
-title={useIt ? "This is the label that appears next to the value entry field." : undefined}
-{...turnOffAutoComplete}
-{...rest}
-/> */}

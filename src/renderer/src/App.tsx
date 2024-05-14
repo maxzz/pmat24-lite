@@ -6,7 +6,7 @@ import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
 import { AppGlobalDialogs, AppGlobalShortcuts } from "./store/atoms/7-dialogs";
-import { SpySvgSymbols } from "./util-hooks";
+// import { SpySvgSymbols } from "./util-hooks";
 
 export function App(): JSX.Element {
     return (<>
@@ -21,7 +21,7 @@ export function App(): JSX.Element {
         <AppGlobalShortcuts />
         <AppGlobalDialogs />
         <Toaster />
-        <SpySvgSymbols />
+        {/* <SpySvgSymbols /> */}
 
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
         
