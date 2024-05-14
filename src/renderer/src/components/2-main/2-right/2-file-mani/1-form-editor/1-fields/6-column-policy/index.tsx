@@ -1,5 +1,5 @@
-import { HTMLAttributes, InputHTMLAttributes } from 'react';
-import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { HTMLAttributes, InputHTMLAttributes, useState } from 'react';
+import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
 import { FieldConv } from '@/store/atoms/3-file-mani-atoms/1-fields/0-conv';
 import { Button } from '@/ui';
@@ -36,7 +36,10 @@ type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
 export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, ...rest }: Column6_LabelProps) {
 
     // const [open, setOpen] = useAtom(policyDialogOpenAtom);
-    const setOpen = useSetAtom(policyDialogOpenAtom);
+    // const setOpen = useSetAtom(policyDialogOpenAtom);
+
+    const openAtom = useState(() => atom(false))[0];
+    const setOpen = useSetAtom(openAtom);
 
     console.log('Column6_Policy');
     const useIt = true;
@@ -67,7 +70,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
 
             {/* <SymbolEllipsis className="size-3 rotate-90" /> */}
 
-            <PolicyEditorNewDlg dataAtom={policiesAtom} />
+            <PolicyEditorNewDlg dataAtom={policiesAtom} openAtom={openAtom} />
         </Button>
     );
 }

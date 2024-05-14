@@ -33,8 +33,8 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
     );
 }
 
-export function PolicyEditorNewDlg({ dataAtom }: { dataAtom: PrimitiveAtom<PoliciesForAtoms>; }) {
-    const [isOpen, setIsOpen] = useAtom(policyDialogOpenAtom);
+export function PolicyEditorNewDlg({ dataAtom, openAtom }: { dataAtom: PrimitiveAtom<PoliciesForAtoms>; openAtom: PrimitiveAtom<boolean>; }) {
+    const [isOpen, setIsOpen] = useAtom(openAtom);
 
     const triggerData = useAtomValue(dataAtom);
 
