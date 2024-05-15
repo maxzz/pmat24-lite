@@ -18,7 +18,7 @@ export function combineResultFromAtoms(atoms: PolicyDlgConv.PolicyUiAtoms, get: 
 
     const changed = !PolicyDlgConv.areTheSame(result, atoms.fromFile);
 
-    console.log('PolicyDlgEditor atoms', changed, JSON.stringify(result));
+    console.log('PolicyDlg changed=', changed, JSON.stringify(result));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

@@ -5,7 +5,7 @@ import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 
 export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const atoms = useState( //TODO: use memo or update atoms value?
         () => createUiAtoms(
@@ -16,7 +16,7 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
     )[0];
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger className="px-4 h-full active:scale-[.97] select-none" asChild>
                 <Button size="sm">
                     Edit
@@ -24,7 +24,7 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
             </DialogTrigger>
 
             <DialogContent className="text-xs" container={document.getElementById('portal')}>
-                <PolicyEditorBody atoms={atoms} setOpen={setOpen} />
+                <PolicyEditorBody atoms={atoms} setIsOpen={setIsOpen} />
             </DialogContent>
         </Dialog>
     );

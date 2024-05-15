@@ -27,7 +27,7 @@ export function PolicyEditorNewDlg({ openAtom, dataAtom }: { openAtom: Primitive
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
 
             <DialogContent className="text-xs" container={document.getElementById('portal')}>
-                <PolicyEditorBody atoms={atoms} setOpen={setIsOpen} />
+                <PolicyEditorBody atoms={atoms} setIsOpen={setIsOpen} />
             </DialogContent>
 
         </Dialog>

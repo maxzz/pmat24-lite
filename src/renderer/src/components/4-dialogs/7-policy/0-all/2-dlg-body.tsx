@@ -10,7 +10,7 @@ import { classNames } from "@/utils";
 
 const sectionClasses = "text-sm font-bold border-primary-700 border-b";
 
-export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyDlgConv.PolicyUiAtoms; setOpen: (v: boolean) => void; }) {
+export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.PolicyUiAtoms; setIsOpen: (v: boolean) => void; }) {
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
     return (<>
         <DialogHeader
@@ -18,25 +18,28 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyDlgConv.Poli
             subHeader="Specify password complexity, history and generation requirements."
         />
 
-        <Check checked={enabled} onChange={() => setEnabled(v => !v)}>
+        <Check checked={enabled} onChange={() => setEnabled((v) => !v)}>
             Enable password policy
         </Check>
 
         <div className={classNames("flex flex-col space-y-4", !enabled && "opacity-10 pointer-events-none")}>
 
-            <h2 className={sectionClasses}> {/* Predefined or Custom rule */}
+            {/* Predefined or Custom rule */}
+            <h2 className={sectionClasses}>
                 Password complexity
             </h2>
             <SectionRuleTypes atoms={atoms} />
 
-            <div className=""> {/* History */}
+            {/* History */}
+            <div className="">
                 <h2 className={""}>
                     History restrictions
                 </h2>
                 <SectionHistory atoms={atoms} />
             </div>
 
-            <div className="flex flex-col gap-2"> {/* Generation */}
+            {/* Generation */}
+            <div className="flex flex-col gap-2">
                 <h2 className="">
                     Password generation
                 </h2>
@@ -46,8 +49,8 @@ export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyDlgConv.Poli
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" onClick={() => setOpen(false)}>OK</Button>
-            <Button size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button size="sm" onClick={() => setIsOpen(false)}>OK</Button>
+            <Button size="sm" onClick={() => setIsOpen(false)}>Cancel</Button>
         </div>
     </>);
 }
