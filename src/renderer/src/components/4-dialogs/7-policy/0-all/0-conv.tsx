@@ -28,8 +28,8 @@ export namespace PolicyDlgConv {
     };
 
     export type PolicyUiAtoms = Prettify<Atomize<PolicyUiForAtoms> & {
-        fromFile: FieldPolicies;        // original state to compare with
-        changed: boolean;               // state from atoms is different from original state
+        fromFile: PolicyUiForAtoms; // original state to compare with
+        changed: boolean;           // state from atoms is different from original state
     }>;
 
     // Inital policy

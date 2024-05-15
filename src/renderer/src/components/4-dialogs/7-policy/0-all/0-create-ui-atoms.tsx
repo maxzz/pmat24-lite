@@ -8,7 +8,7 @@ export function createUiAtoms(policies: PolicyDlgConv.FieldPolicies, onChange: O
     const atoms = PolicyDlgConv.toAtoms(data, onChange);
     return {
         ...atoms,
-        fromFile: policies,
+        fromFile: data,
         changed: false,
     };
 }
@@ -16,7 +16,9 @@ export function createUiAtoms(policies: PolicyDlgConv.FieldPolicies, onChange: O
 export function combineResultFromAtoms(atoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
     const result = PolicyDlgConv.fromAtoms(atoms, get, set);
 
-    console.log('PolicyDlgEditor atoms', JSON.stringify(result, null, 4));
+    const changed = !PolicyDlgConv.areTheSame(result, atoms.fromFile);
+
+    console.log('PolicyDlgEditor atoms', changed, JSON.stringify(result));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
