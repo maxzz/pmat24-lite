@@ -1,18 +1,16 @@
 import { useMemo } from "react";
+import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
-import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { PoliciesForAtoms } from "@/store/atoms/7-dialogs";
 
-export function PolicyEditorNewDlg({ dataAtom, openAtom }: { dataAtom: PrimitiveAtom<PoliciesForAtoms>; openAtom: PrimitiveAtom<boolean>; }) {
+export function PolicyEditorNewDlg({ openAtom, dataAtom }: { openAtom: PrimitiveAtom<boolean>; dataAtom: PrimitiveAtom<PoliciesForAtoms>; }) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const triggerData = useAtomValue(dataAtom);
 
     const atoms = useMemo(
         () => {
-            console.log('triggerData createUiAtoms()', triggerData);
-
             return createUiAtoms(
                 {
                     policy: triggerData.policy,

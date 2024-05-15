@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { PolicyUiAtoms } from "./0-create-ui-atoms";
+import { PolicyDlgConv } from "./0-conv";
 import { Button } from "@/ui";
 import { Check } from "../9-constrols";
 import { DialogHeader } from "../1-header";
@@ -10,7 +10,7 @@ import { classNames } from "@/utils";
 
 const sectionClasses = "text-sm font-bold border-primary-700 border-b";
 
-export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyUiAtoms; setOpen: (v: boolean) => void; }) {
+export function PolicyEditorBody({ atoms, setOpen }: { atoms: PolicyDlgConv.PolicyUiAtoms; setOpen: (v: boolean) => void; }) {
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
     return (<>
         <DialogHeader
