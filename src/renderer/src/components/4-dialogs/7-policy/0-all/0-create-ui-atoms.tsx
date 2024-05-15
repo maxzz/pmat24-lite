@@ -1,73 +1,24 @@
 import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { ConstrainPsw, ConstrainSet, UseAs } from "@/store/manifest";
+import { OnValueChangeAny } from "@/util-hooks";
 import { debounce } from "@/utils";
+import { PolicyDlgConv } from "./0-conv";
 
-export type PolicyUiForAtoms = {
-    enabled: boolean;           // Enable password policy
-    isCustomRule: '0' | '1';    // boolean; rule type: predefined or custom rule
-
-    constrainSet: string;       // ConstrainSet; predefined rule
-    custom: string;             // customRule
-
-    minLength: number;          // min password length
-    maxLength: number;          // max password length
-
-    textVerify: string;         // text to verify policy
-    textGenerate: string;       // text to verify policy generation
-
-    constrainsPsw: string;      // ConstrainPsw
-
-    useAs: string;              // UseAs; by user / by system
-};
-
-export type PolicyUiAtoms = Atomize<PolicyUiForAtoms>;
-
-type FieldPolicies = {
-    policy: string | undefined;
-    policy2: string | undefined;
-};
-
-export function createUiAtoms(policies: FieldPolicies, onChange: OnValueChangeAny): PolicyUiAtoms {
-
-    //TODO: parse policy and assign onChange callback
-    const policy = policies.policy || policies.policy2;
-
-    if (!policy) {
-        //TODO: create the default policy but dissabled initially
-    }
-
-    //TODO: add place wher to store the resulting policy
-
+export function createUiAtoms(policies: PolicyDlgConv.FieldPolicies, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
+    const data = PolicyDlgConv.forAtoms(policies);
+    const atoms = PolicyDlgConv.toAtoms(data, onChange);
     return {
-        enabledAtom: atomWithCallback(true, onChange),
-        isCustomRuleAtom: atomWithCallback<'0' | '1'>('0', onChange),
-        constrainSetAtom: atomWithCallback(`${ConstrainSet.withspecial}`, onChange),
-        customAtom: atomWithCallback('', onChange),
-        minLengthAtom: atomWithCallback(8, onChange),
-        maxLengthAtom: atomWithCallback(12, onChange),
-        textVerifyAtom: atomWithCallback('', onChange),
-        textGenerateAtom: atomWithCallback('', onChange),
-        constrainsPswAtom: atomWithCallback(`${ConstrainPsw.diffAp}`, onChange),
-        useAsAtom: atomWithCallback(`${UseAs.verify}`, onChange),
+        ...atoms,
+        fromFile: policies,
+        changed: false,
     };
 }
 
-export function combineResultFromAtoms(atoms: Atomize<PolicyUiForAtoms>, get: Getter, set: Setter) {
-    const result = {
-        enabled: get(atoms.enabledAtom),
-        isCustomRule: get(atoms.isCustomRuleAtom),
-        constrainSet: get(atoms.constrainSetAtom),
-        custom: get(atoms.customAtom),
-        minLength: get(atoms.minLengthAtom),
-        maxLength: get(atoms.maxLengthAtom),
-        textVerify: get(atoms.textVerifyAtom),
-        textGenerate: get(atoms.textGenerateAtom),
-        constrainsPsw: get(atoms.constrainsPswAtom),
-        useAs: get(atoms.useAsAtom),
-    };
+export function combineResultFromAtoms(atoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
+    const result = PolicyDlgConv.fromAtoms(atoms, get, set);
 
-    console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
+    console.log('PolicyDlgEditor atoms', JSON.stringify(result, null, 4));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+
+//TODO: add place where to store the resulting policy

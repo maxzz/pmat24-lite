@@ -34,7 +34,7 @@ export namespace PolicyDlgConv {
 
     // Inital policy
 
-    export const initialPolicy: PolicyUiForAtoms = {
+    const initialPolicy: PolicyUiForAtoms = {
         enabled: true,
         isCustomRule: '0',
         constrainSet: `${ConstrainSet.withspecial}`,
@@ -50,7 +50,13 @@ export namespace PolicyDlgConv {
     // Atoms
 
     export function forAtoms(policies: FieldPolicies): PolicyUiForAtoms {
-        const rv: PolicyUiForAtoms = initialPolicy; //TODO: parse policies and assign to rv
+        //TODO: create the default policy but dissabled initially
+        //TODO: parse policies and assign to rv
+
+        //TODO: parse policy and assign onChange callback
+        // const policy = policies.policy || policies.policy2;
+
+        const rv: PolicyUiForAtoms = initialPolicy;
         return rv;
     }
 
