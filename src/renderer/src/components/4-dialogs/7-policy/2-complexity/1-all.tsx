@@ -35,21 +35,27 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
                 <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
 
                     <div className={classNames("flex-1 relative h-8 flex items-center justify-between space-x-2")}>
-                        <Input className="flex-1 h-8" />
 
-                        <Button className="absolute right-2 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
+                        <div className="w-full flex items-center gap-2">
+                            Custom rule
+                            <Input className="flex-1 h-8" />
+                        </div>
+
+                        <Button className="absolute right-2 h-6 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
                             ?
                         </Button>
                     </div>
-                    
+
                     <Button size="sm" onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}>
                         Test area
                     </Button>
                 </div>
 
-                <SectionTestRoom atoms={atoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                {isCustom &&
+                    <SectionTestRoom atoms={atoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                }
             </div>
-            
+
         </div>
     );
 }
