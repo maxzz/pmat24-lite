@@ -17,7 +17,7 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
     const isCustom = +selected === selectNames.length - 1;
 
     const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
-    //const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
+    const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
 
     return (
         <div className="flex flex-col gap-2 select-none">
@@ -40,8 +40,15 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
                     </Button>
                 </div>
 
-                <SectionTestRoom atoms={atoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                <Button onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}>
+                    Test area
+                </Button>
+
+
             </div>
+
+            <SectionTestRoom atoms={atoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+
         </div>
     );
 }
