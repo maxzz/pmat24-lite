@@ -23,7 +23,7 @@ function TestAreaSection({ value, label, children }: { value: string; label: Rea
 function TestAreaOpenState({ children }: { children: ReactNode; }) {
     const [value, setvalue] = useState<string[]>([]);
     return (<>
-        <Button onClick={() => setvalue([])}>
+        <Button onClick={() => setvalue(value.length ? [] : ['policy'])}>
             Trigger
         </Button>
 
