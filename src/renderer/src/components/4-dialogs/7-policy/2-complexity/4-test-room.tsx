@@ -3,6 +3,7 @@ import { PolicyDlgConv } from "../0-all/0-conv";
 import { TestAreaBody } from "./3-test-area-body";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
 import { Button } from "@/ui";
+import { PrimitiveAtom } from "jotai";
 
 function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
@@ -20,7 +21,7 @@ function TestAreaSection({ value, label, children }: { value: string; label: Rea
     );
 }
 
-function TestAreaOpenState({ children }: { children: ReactNode; }) {
+function TestAreaOpenState({ children, isTestAreaOpenAtom }: { children: ReactNode; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
     const [value, setvalue] = useState<string[]>([]);
     return (<>
         <Button onClick={() => setvalue(value.length ? [] : ['policy'])}>
@@ -33,9 +34,9 @@ function TestAreaOpenState({ children }: { children: ReactNode; }) {
     </>);
 }
 
-export function SectionTestRoom({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function SectionTestRoom({ atoms, isTestAreaOpenAtom }: { atoms: PolicyDlgConv.PolicyUiAtoms; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
     return (
-        <TestAreaOpenState>
+        <TestAreaOpenState isTestAreaOpenAtom={isTestAreaOpenAtom}>
             <TestAreaSection label="Test area" value="policy">
 
                 <TestAreaBody />
