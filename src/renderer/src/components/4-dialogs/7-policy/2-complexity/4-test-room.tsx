@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { TestAreaBody } from "./3-test-area-body";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
+import { Button } from "@/ui";
 
 function TestAreaSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
@@ -21,11 +22,15 @@ function TestAreaSection({ value, label, children }: { value: string; label: Rea
 
 function TestAreaOpenState({ children }: { children: ReactNode; }) {
     const [value, setvalue] = useState<string[]>([]);
-    return (
+    return (<>
+        <Button onClick={() => setvalue([])}>
+            Trigger
+        </Button>
+
         <Accordion type="multiple" value={value} onValueChange={(v) => setvalue(v)}>
             {children}
         </Accordion>
-    );
+    </>);
 }
 
 export function SectionTestRoom({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
