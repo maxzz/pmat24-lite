@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { PolicyUiAtoms } from "../0-all/0-create-ui-atoms";
+import { PolicyDlgConv } from "../0-all/0-conv";
 import { TestAreaBody } from "./3-test-area-body";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
 
@@ -28,7 +28,7 @@ function TestAreaOpenState({ children }: { children: ReactNode; }) {
     );
 }
 
-export function SectionTestRoom({ atoms }: { atoms: PolicyUiAtoms; }) {
+export function SectionTestRoom({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
         <TestAreaOpenState>
             <TestAreaSection label="Test area" value="policy">
