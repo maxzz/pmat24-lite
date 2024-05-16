@@ -20,9 +20,13 @@ function TestAreaSection({ value, label, children }: { value: string; label: Rea
 }
 
 function TestAreaOpenState({ children }: { children: ReactNode; }) {
-    const [value, setvalue] = useState<string[]>([]);
+    const [value, setvalue] = useState<string>('');
     return (
-        <Accordion type="multiple" value={value} onValueChange={(v) => setvalue(v)}>
+        <Accordion type="single" value={value} onValueChange={(v) => {
+            console.log('TestAreaOpenState value=', v);
+            
+            setvalue(v === 'policy' ? '' : 'policy');
+        }}>
             {children}
         </Accordion>
     );
