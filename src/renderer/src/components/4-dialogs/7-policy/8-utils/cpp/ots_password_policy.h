@@ -820,7 +820,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		}
         /**/
 
-        //** / done
+        /** / done
 		template <typename stringT>
 		inline bool hasDuplicateChars(__in const stringT& psw_)
 		{
@@ -843,10 +843,12 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			}//for
 			
 			return false;
-		} //hasDuplicateChars()
+		}
+        /**/
 
 		/////////////////////////////////////////////////////////////////////
 
+        //** / done
 		inline string_t removeDuplicateChars(__in const string_t& psw_)
 		{
 			// 0. To idenitfy and replace any duplicate character with its corresponding unused set.

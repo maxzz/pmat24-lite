@@ -220,7 +220,7 @@ export namespace utils {
 
         for (const currentChar of psw_) {
             let isCurrDigit = isCharNumber(currentChar);
-            
+
             if (isCurrDigit && isPrevDigit) {
                 return true;
             }
@@ -230,4 +230,14 @@ export namespace utils {
 
         return false;
     }
+
+    export function hasDuplicateChars(psw_: string): boolean {
+        // 0. To validate whether password has any duplicate characters: letters or digits or symbols.
+
+        let charCount = new Set<string>(psw_);
+        return charCount.size !== psw_.length;
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
 }
