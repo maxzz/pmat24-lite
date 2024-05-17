@@ -537,6 +537,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 	namespace utils
 	{
+        /** / done
 		const string_t SET_AlphaLower("abcdefghikjlmnopqrstuvwxyz");
 		const string_t SET_AlphaUpper("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		const string_t SET_AlphaBoth("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghikjlmnopqrstuvwxyz");
@@ -544,6 +545,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		const string_t SET_Special("!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~@");
 		const string_t SET_AlphaNumeric = SET_AlphaBoth + SET_Numeric;
 		const string_t SET_AlphaNumericSpecial = SET_AlphaNumeric + SET_Special;
+        /**/
 
 		inline size_t getRandomInRange(size_t min_, size_t max_) throw(...)
 		{
@@ -564,8 +566,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			//size_t rv = min_ + getRandom(max_ - min_);
 			return rv;
-
-		} //getRandomInRange()
+		}
 
 		template <typename stringT>
 		void genSubSet(__in const stringT& buildFromChars_, __in const stringT& excludeChars_, __in size_t pswLength_, __inout stringT& rv_psw_) throw(...)
@@ -780,7 +781,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			// genPswBySet(SET_AlphaNumericSpecial, pswLength_, rv_psw);
 			return rv_psw;
-		} //genAlphaNumSpecial()
+		}
 
 		/////////////////////////////////////////////////////////////////////
 
