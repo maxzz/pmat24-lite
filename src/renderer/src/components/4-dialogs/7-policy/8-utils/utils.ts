@@ -129,25 +129,53 @@ export namespace utils {
         return rv_psw;
     }
 
-    export function genAlpha(pswLength_: number): string
-    {
+    export function genAlpha(pswLength_: number): string {
         let rv_psw: string = '';
         genSubSet(SET_AlphaBoth, '', pswLength_, rv_psw);
         return rv_psw;
     }
 
-    export function genNumeric(pswLength_: number): string
-    {
+    export function genNumeric(pswLength_: number): string {
         let rv_psw: string = '';
         genSubSet(SET_Numeric, '', pswLength_, rv_psw);
         return rv_psw;
     }
 
-    export function genSpecial(pswLength_: number): string
-    {
+    export function genSpecial(pswLength_: number): string {
         let rv_psw: string = '';
         genSubSet(SET_Special, '', pswLength_, rv_psw); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
         return rv_psw;
+    }
+
+
+    export function randomizeCharsInString(v_: string): string {
+        // 0. Randomize password string within its length.
+
+        if (!v) {
+            return '';
+        }
+
+        var buf = new Uint8Array(v_.length + 1);
+        crypto.getRandomValues(buf);
+
+        let resBuffer = [...buf];
+
+        let arr = v_.split('');
+
+        var ii = 0;
+
+        arr.forEach(
+            (current, i) => {
+                let index = resBuffer[ii++] % v_.length;
+
+                let temp = arr[index];
+                arr[index] = current;
+                arr[i] = temp;
+            }
+        );
+
+        let rv = arr.join('');
+        return rv;
     }
 
 }

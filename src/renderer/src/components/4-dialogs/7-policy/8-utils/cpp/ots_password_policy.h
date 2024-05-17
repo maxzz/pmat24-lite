@@ -683,7 +683,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		} //genAlphaNumeric()
         /**/
 
-        /**/ done
+        /** / done
 		inline string_t genAlpha(__in size_t pswLength_)
 		{
 			string_t rv_psw;
@@ -691,7 +691,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			genSubSet(SET_AlphaBoth, string_t(), pswLength_, rv_psw);
 			return rv_psw;
-		} //genAlpha()
+		}
 
 		inline string_t genNumeric(__in size_t pswLength_)
 		{
@@ -700,7 +700,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			genSubSet(SET_Numeric, string_t(), pswLength_, rv_psw);
 			return rv_psw;
-		} //genNumeric()
+		}
 
 		inline string_t genSpecial(__in size_t pswLength_)
 		{
@@ -710,9 +710,10 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			genSubSet(SET_Special, string_t(), pswLength_, rv_psw);
 
 			return rv_psw;
-		} //genSpecial()
+		}
         /**/
 
+        /** / done
 		template<typename stringT>
 		inline void randomizeCharsInString(__inout stringT& v_)
 		{
@@ -759,7 +760,9 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			CryptReleaseContext(hCryptProv, 0);
 
 		} //randomizeCharsInString()
+        /**/
 
+        //** / done
 		inline string_t genAlphaNumSpecial(__in size_t pswLength_)
 		{
 			// 0. The goal is to generate password containing alpha, number and special.
