@@ -207,4 +207,27 @@ export namespace utils {
         return rv_psw;
     }
 
+    /////////////////////////////////////////////////////////////////////
+
+    function isCharNumber(c) {
+        return c >= '0' && c <= '9';
+    }
+
+    export function hasAdjacentDigits(psw_: string): boolean {
+        // 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
+
+        let isPrevDigit = false;
+
+        for (const currentChar of psw_) {
+            let isCurrDigit = isCharNumber(currentChar);
+            
+            if (isCurrDigit && isPrevDigit) {
+                return true;
+            }
+
+            isPrevDigit = isCurrDigit;
+        }
+
+        return false;
+    }
 }

@@ -762,7 +762,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		} //randomizeCharsInString()
         /**/
 
-        //** / done
+        /** / done
 		inline string_t genAlphaNumSpecial(__in size_t pswLength_)
 		{
 			// 0. The goal is to generate password containing alpha, number and special.
@@ -797,7 +797,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 		/////////////////////////////////////////////////////////////////////
 
-        //** / done
+        /** / done
 		inline bool hasAdjacentDigits(__in const string_t& psw_)
 		{
 			// 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
@@ -817,8 +817,10 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			}//for
 
 			return false;
-		} //hasAdjacentDigits()
+		}
+        /**/
 
+        //** / done
 		template <typename stringT>
 		inline bool hasDuplicateChars(__in const stringT& psw_)
 		{
