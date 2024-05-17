@@ -80,21 +80,21 @@ export namespace password {
         policyExt: string,    // Extended policy string.
     };
 
-    function policyFromStringSimple(v_: string) {
-        if (!v_)
+    function policyFromStringSimple(v_: string, rv: Partial<polycy_t>) { // initial rv is {}
+        if (!v_) {
             return;
+        }
 
         const ss = v_.split(":");
 
-        if (ss.length != 5)
+        if (ss.length != 5) {
             return;
-
-        const rv: Partial<polycy_t> = {};
+        }
 
         if (ss[0] === "[p4]v") {
             rv.type = POLICYTYPE.verify;
         }
-        else if (ss[0] == "[p4]g") {
+        else if (ss[0] === "[p4]g") {
             rv.type = POLICYTYPE.generate;
         }
         else {
@@ -106,68 +106,68 @@ export namespace password {
         rv.simpleChSet = charsetcast(ss[3]);
         rv.constrains = conv_constrains_t(ss[4]);
     }
-    /*
-        void policyFromStringExtended(__in const string_t& v_) {
-            m_useExt = false;
-            m_policyExt.clear();
-    
-            if (v_.empty() || v_.length() < 4)
-                return;
-    
-            string_t v = v_;
-    
-            string_t policyPF = v.substr(0, 6);
-            if (policyPF == "[e1]v:")
-                m_type = POLICYTYPE:: verify;
-            else if (policyPF == "[e1]g:")
-                m_type = POLICYTYPE:: generate;
-            else {
-                m_type = POLICYTYPE:: none;
-                return;
-            }
-    
-            v.replace(0, 6, "");
-    
-            m_useExt = true;
-            m_policyExt = v;
-    
-            getExtendedParts(v, m_policyExt, m_minLength, m_maxLength);
-        } // policyFromStringExtended()
-    
-        string_t policyToStringExtended() const {
-            string_t rv;
-        if (m_useExt) {
-            switch (m_type) {
-                case POLICYTYPE:: none:
+
+    function policyFromStringExtended(v_: string, rv: Partial<polycy_t>) { // initial rv is {}
+        rv.useExt = false;
+        rv.policyExt = '';
+
+        if (!v_ || v_.length < 4)
+            return;
+
+        let v: string = v_;
+
+        let policyPF: string = v.substring(0, 6);
+
+        if (policyPF === "[e1]v:")
+            rv.type = POLICYTYPE.verify;
+        else if (policyPF === "[e1]g:")
+            rv.type = POLICYTYPE.generate;
+        else {
+            rv.type = POLICYTYPE.none;
+            return;
+        }
+
+        v = v.substring(6);
+
+        rv.useExt = true;
+        rv.policyExt = v;
+
+        const parts = getExtendedParts(v, rv.minLength || 0, rv.maxLength || 0);
+        rv = { ...rv, ...parts };
+    }
+
+    function policyToStringExtended(v: Partial<polycy_t>): string {
+        let rv: string = '';
+
+        if (v.useExt) {
+            switch (v.type) {
+                case POLICYTYPE.none:
                     return rv;
-                case POLICYTYPE:: verify:
+                case POLICYTYPE.verify:
                     rv = "[e1]v:";
                     break;
-                case POLICYTYPE:: generate:
+                case POLICYTYPE.generate:
                     rv = "[e1]g:";
                     break;
             }
         }
-        rv += sformat("%s<%d,%d>", m_policyExt, m_minLength, m_maxLength);
+
+        rv = `${rv}${v.policyExt}<${v.minLength},${v.maxLength}>`; // rv += sformat("%s<%d,%d>", m_policyExt, m_minLength, m_maxLength);
         return rv;
     }
-    */
-
-
-
 
 
     function charsetcast(v_: string): CHARSETTYPE {
         let rv: CHARSETTYPE;
         if (!v_)
             rv = CHARSETTYPE.alphanumeric;
-        else if (v_ == "alpha")
+        else if (v_ === "alpha")
             rv = CHARSETTYPE.alpha;
-        else if (v_ == "numeric")
+        else if (v_ === "numeric")
             rv = CHARSETTYPE.numeric;
-        else if (v_ == "withspecial")
+        else if (v_ === "withspecial")
             rv = CHARSETTYPE.withspecial;
-        else if (v_ == "atleastonenumber")
+        else if (v_ === "atleastonenumber")
             rv = CHARSETTYPE.atleastonenumber;
         else
             rv = CHARSETTYPE.alphanumeric;
@@ -189,13 +189,13 @@ export namespace password {
 
     function conv_constrains_t(v_: string): RESTRICTTYPE {
         let rv: RESTRICTTYPE;
-        if (!v_) 
+        if (!v_)
             rv = RESTRICTTYPE.no_restrictions;
-        else if (v_ == "different_wp")
+        else if (v_ === "different_wp")
             rv = RESTRICTTYPE.different_wp;
-        else if (v_ == "different_ap")
+        else if (v_ === "different_ap")
             rv = RESTRICTTYPE.different_ap;
-        else if (v_ == "different_pp")
+        else if (v_ === "different_pp")
             rv = RESTRICTTYPE.different_pp; else rv = RESTRICTTYPE.no_restrictions;
         return rv;
     }
@@ -212,6 +212,51 @@ export namespace password {
         return rv;
     }
 
+    function getExtendedParts(v_: string, minlength_: number, maxlength_: number) {
+        const rv: {
+            patternPart_: string;
+            minlength_: number;
+            maxlength_: number;
+        } = {
+            patternPart_: '',
+            minlength_,
+            maxlength_,
+        };
+
+        if (!v_) {
+            return rv;
+        }
+
+        const beginpos = v_.lastIndexOf('<');
+        if (beginpos === -1) {
+            rv.patternPart_ = v_;
+            return rv;
+        }
+
+        const endpos = v_.indexOf('>', beginpos);
+        if (endpos === -1) {
+            rv.patternPart_ = v_;
+            return rv;
+        }
+
+        let minmaxvalue = v_.substring(beginpos + 1, endpos - beginpos - 1);
+        if (!minmaxvalue) {
+            rv.patternPart_ = v_;
+            return;
+        }
+
+
+        const values = minmaxvalue.split(',');
+
+        if (values.length !== 2) {
+            rv.patternPart_ = v_;
+            return;
+        }
+
+        rv.patternPart_ = v_.substring(0, beginpos) + v_.substring(endpos + 1);
+        rv.minlength_ = +values[0];
+        rv.maxlength_ = +values[1];
+    }
 
 
 }
