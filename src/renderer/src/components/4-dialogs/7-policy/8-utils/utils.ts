@@ -8,6 +8,23 @@ export namespace utils {
     const SET_AlphaNumeric = SET_AlphaBoth + SET_Numeric;
     const SET_AlphaNumericSpecial = SET_AlphaNumeric + SET_Special;
 
+    const setSET_AlphaLower = new Set(SET_AlphaLower);
+    const setSET_AlphaUpper = new Set(SET_AlphaUpper);
+    const setSET_AlphaBoth = new Set(SET_AlphaBoth);
+    const setSET_Numeric = new Set(SET_Numeric);
+    const setSET_Special = new Set(SET_Special);
+    const setSET_AlphaNumeric = new Set(SET_AlphaNumeric);
+    const setSET_AlphaNumericSpecial = new Set(SET_AlphaNumericSpecial);
+
+    export function strFindFirstOf(str: string, ch: Set<string>): number {
+        for (let i = 0; i < str.length; ++i) {
+            if (ch.has(str[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     function getRandomIntInclusive(min: number, max: number): number {
         // Keep it simple so far it used to get passowd length only.
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -65,20 +82,6 @@ export namespace utils {
 
         rv_psw_ += newPswPart;
     }
-
-    export function strFindFirstOf(str: string, ch: Set<string>): number {
-        for (let i = 0; i < str.length; ++i) {
-            if (ch.has(str[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    const setSET_Numeric = new Set(SET_Numeric);
-    const setSET_AlphaLower = new Set(SET_AlphaLower);
-    const setSET_AlphaUpper = new Set(SET_AlphaUpper);
-    const setSET_Special = new Set(SET_Special);
 
     export function genAlphaNumeric(pswLength_: number): string {
         //return genPswBySet(SET_AlphaNumeric, pswLength_);
