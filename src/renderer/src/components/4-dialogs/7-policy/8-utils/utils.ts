@@ -75,6 +75,11 @@ export namespace utils {
         return -1;
     }
 
+    const setSET_Numeric = new Set(SET_Numeric);
+    const setSET_AlphaLower = new Set(SET_AlphaLower);
+    const setSET_AlphaUpper = new Set(SET_AlphaUpper);
+    const setSET_Special = new Set(SET_Special);
+
     export function genAlphaNumeric(pswLength_: number): string {
         //return genPswBySet(SET_AlphaNumeric, pswLength_);
 
@@ -91,10 +96,6 @@ export namespace utils {
         // Do until we have password containing all character sets to be used.
         // NOTE: If length <= 2 then we cannot ensure so we ensure: lower/upper + numeric.
         let newSubSet = alphaL + alphaU + numeric;
-
-        const setSET_Numeric = new Set(SET_Numeric);
-        const setSET_AlphaLower = new Set(SET_AlphaLower);
-        const setSET_AlphaUpper = new Set(SET_AlphaUpper);
 
         let doAgain = true;
         do {
@@ -236,6 +237,105 @@ export namespace utils {
 
         let charCount = new Set<string>(psw_);
         return charCount.size !== psw_.length;
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
+    export function removeDuplicateChars(psw_: string): string
+    {
+        // 0. To idenitfy and replace any duplicate character with its corresponding unused set.
+        // i.e. Any duplicate of letter will be replaced with its corresponding unused set of letters.
+        // Similary digits and symbols will be replaced with its corresponding unused 
+        // set of digits and symbols respectively.
+
+        // 0. Fiter out duplication of characters and generate new one from the same character type set.
+
+        let rv_psw = psw_;
+
+        // 1. Set include character set i.e. Alpha upper/lower or digit or special.
+
+        let includeSet = '';
+
+        if (strFindFirstOf(rv_psw, setSET_AlphaLower) !== -1)
+        {
+            includeSet += SET_AlphaLower;
+        }
+
+        if (strFindFirstOf(rv_psw, setSET_AlphaUpper) !== -1)
+        {
+            includeSet += SET_AlphaUpper;
+        }
+
+        if (strFindFirstOf(rv_psw, setSET_Numeric) !== -1)
+        {
+            includeSet += SET_Numeric;
+        }
+
+        if (strFindFirstOf(rv_psw, setSET_Special) !== -1)
+        {
+            includeSet += SET_Special;
+        }
+
+        // 2. Cache all characters and their indexes.
+
+        typedef std::vector<int> indexes_t;
+        typedef std::map<char, indexes_t> charIndexes_t;
+        charIndexes_t charIndexes;
+
+        string_t excludeSet;
+        int curIndex = 0;
+
+        for (string_t::const_iterator it = rv_psw.begin(); it != rv_psw.end(); ++it, curIndex++)
+        {
+            const char& currentChar = *it;
+
+            excludeSet += currentChar; // Add the current one to excluded set. It may contain duplicates but it does not matter.
+
+            charIndexes[currentChar].push_back(curIndex);
+
+            string_t::size_type pos = includeSet.find(currentChar);
+            if (pos != string_t::npos)
+            {
+                includeSet.replace(pos, 1, "");
+            }
+
+        }//for
+
+        // 2. Identify characters with duplicates and re-generate new character of the same type excluding 
+        // previously used characters of the same type.
+
+        for (charIndexes_t::iterator it = charIndexes.begin(); it != charIndexes.end(); ++it)
+        {
+            const char& currentChar = (*it).first;
+            indexes_t& currentIndexes = (*it).second;
+
+            // 2.1 More than 1 index mean we have duplicates.
+
+            if (currentIndexes.size() == 1)
+            {
+                continue;
+            }
+
+            // 2.3 Generate new character for each occurence of character excluding the generated one.
+            // NOTE: Skip the first entry as it is the first occurence.
+
+            for (indexes_t::iterator itIdx = currentIndexes.begin()+1; itIdx != currentIndexes.end(); ++itIdx)
+            {
+                int& currentIndex = *itIdx;
+
+                string_t value;
+                utils::genSubSet(includeSet, excludeSet, 1, value);
+                char currentChar = value[0];
+
+                rv_psw[currentIndex] = currentChar;
+
+                excludeSet += currentChar; // Add current character to exclude range.
+            }//for
+
+        }//for
+
+
+        return rv_psw;
     }
 
     /////////////////////////////////////////////////////////////////////
