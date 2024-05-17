@@ -547,6 +547,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		const string_t SET_AlphaNumericSpecial = SET_AlphaNumeric + SET_Special;
         /**/
 
+        /** / done
 		inline size_t getRandomInRange(size_t min_, size_t max_) throw(...)
 		{
 			// 0. Generate a number in range min and max.
@@ -567,6 +568,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			//size_t rv = min_ + getRandom(max_ - min_);
 			return rv;
 		}
+        /**/
 
 		template <typename stringT>
 		void genSubSet(__in const stringT& buildFromChars_, __in const stringT& excludeChars_, __in size_t pswLength_, __inout stringT& rv_psw_) throw(...)

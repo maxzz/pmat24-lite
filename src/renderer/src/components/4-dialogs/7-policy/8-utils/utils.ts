@@ -39,4 +39,32 @@ export namespace utils {
         */
     }
 
+    export function genSubSet(buildFromChars_: string, excludeChars_: string, pswLength_: number, rv_psw_: string) {
+        if (pswLength_ <= 0) {
+            throw new Error("inv.arg.length");
+        }
+
+        // let combinedSubset: string = new Set(buildFromChars_).filter((c) => !excludeChars_.includes(c)).join('');
+        let combinedSubset2 = new Set(buildFromChars_);
+        for (const c of excludeChars_) {
+            combinedSubset2.delete(c);
+        }
+        let combinedSubset = Array.from(combinedSubset2).join('');
+
+        if (!combinedSubset) {
+            throw new Error("empty.comb.set");
+        }
+
+        var buf = new Uint8Array(pswLength_ + 1);
+        crypto.getRandomValues(buf);
+
+        let resBuffer = [...buf];
+
+        const newPswPart = resBuffer.map((v) => {
+            return combinedSubset[v % combinedSubset.length];
+        }).join('');
+
+        rv_psw_ += newPswPart;
+    }
+
 }
