@@ -129,4 +129,25 @@ export namespace utils {
         return rv_psw;
     }
 
+    export function genAlpha(pswLength_: number): string
+    {
+        let rv_psw: string = '';
+        genSubSet(SET_AlphaBoth, '', pswLength_, rv_psw);
+        return rv_psw;
+    }
+
+    export function genNumeric(pswLength_: number): string
+    {
+        let rv_psw: string = '';
+        genSubSet(SET_Numeric, '', pswLength_, rv_psw);
+        return rv_psw;
+    }
+
+    export function genSpecial(pswLength_: number): string
+    {
+        let rv_psw: string = '';
+        genSubSet(SET_Special, '', pswLength_, rv_psw); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
+        return rv_psw;
+    }
+
 }

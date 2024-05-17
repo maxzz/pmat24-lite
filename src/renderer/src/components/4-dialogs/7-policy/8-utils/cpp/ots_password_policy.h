@@ -624,7 +624,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		}
         /**/
 
-        //**/ done
+        /** / done
 		inline string_t genAlphaNumeric(__in size_t pswLength_)
 		{
 			//return genPswBySet(SET_AlphaNumeric, pswLength_);
@@ -681,7 +681,9 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			return rv_psw;
 		} //genAlphaNumeric()
+        /**/
 
+        /**/ done
 		inline string_t genAlpha(__in size_t pswLength_)
 		{
 			string_t rv_psw;
@@ -709,6 +711,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			return rv_psw;
 		} //genSpecial()
+        /**/
 
 		template<typename stringT>
 		inline void randomizeCharsInString(__inout stringT& v_)
