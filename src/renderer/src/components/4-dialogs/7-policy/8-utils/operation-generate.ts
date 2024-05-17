@@ -49,7 +49,7 @@ public:
                 skipDuplicates = finalPswLength > utils::SET_AlphaNumeric.length();
                 break;
             default:
-                atltrace::error(wformat(L"generate: Inv.pol.mix=%d", (int)policy_.GetSimpleCharSet()));
+                console.log(wformat(L"generate: Inv.pol.mix=%d", (int)policy_.GetSimpleCharSet()));
                 rv_psw = utils::genAlphaNumeric(finalPswLength);
                 skipDuplicates = finalPswLength > utils::SET_AlphaNumeric.length();
         }

@@ -1,24 +1,33 @@
 export namespace utils {
 
-    const SET_AlphaLower = "abcdefghikjlmnopqrstuvwxyz";
-    const SET_AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const SET_AlphaBoth = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghikjlmnopqrstuvwxyz";
-    const SET_Numeric = "0123456789";
-    const SET_Special = "!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~@";
-    const SET_AlphaNumeric = SET_AlphaBoth + SET_Numeric;
-    const SET_AlphaNumericSpecial = SET_AlphaNumeric + SET_Special;
+    export const SET_AlphaLower = "abcdefghikjlmnopqrstuvwxyz";
+    export const SET_AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    export const SET_AlphaBoth = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghikjlmnopqrstuvwxyz";
+    export const SET_Numeric = "0123456789";
+    export const SET_Special = "!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~@";
+    export const SET_AlphaNumeric = SET_AlphaBoth + SET_Numeric;
+    export const SET_AlphaNumericSpecial = SET_AlphaNumeric + SET_Special;
 
-    const setSET_AlphaLower = new Set(SET_AlphaLower);
-    const setSET_AlphaUpper = new Set(SET_AlphaUpper);
-    const setSET_AlphaBoth = new Set(SET_AlphaBoth);
-    const setSET_Numeric = new Set(SET_Numeric);
-    const setSET_Special = new Set(SET_Special);
-    const setSET_AlphaNumeric = new Set(SET_AlphaNumeric);
-    const setSET_AlphaNumericSpecial = new Set(SET_AlphaNumericSpecial);
+    export const setSET_AlphaLower = new Set(SET_AlphaLower);
+    export const setSET_AlphaUpper = new Set(SET_AlphaUpper);
+    export const setSET_AlphaBoth = new Set(SET_AlphaBoth);
+    export const setSET_Numeric = new Set(SET_Numeric);
+    export const setSET_Special = new Set(SET_Special);
+    export const setSET_AlphaNumeric = new Set(SET_AlphaNumeric);
+    export const setSET_AlphaNumericSpecial = new Set(SET_AlphaNumericSpecial);
 
     export function strFindFirstOf(str: string, ch: Set<string>): number {
         for (let i = 0; i < str.length; ++i) {
             if (ch.has(str[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    export function strFindFirstNotOf(str: string, ch: Set<string>): number {
+        for (let i = 0; i < str.length; ++i) {
+            if (!ch.has(str[i])) {
                 return i;
             }
         }
