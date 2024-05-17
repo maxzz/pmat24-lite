@@ -152,7 +152,7 @@ export namespace utils {
     export function randomizeCharsInString(v_: string): string {
         // 0. Randomize password string within its length.
 
-        if (!v) {
+        if (!v_) {
             return '';
         }
 
@@ -278,62 +278,49 @@ export namespace utils {
 
         // 2. Cache all characters and their indexes.
 
-        typedef std::vector<int> indexes_t;
-        typedef std::map<char, indexes_t> charIndexes_t;
-        charIndexes_t charIndexes;
+        let excludeSet: string = '';
+        let charIndexes = new Map<string, number[]>();
 
-        string_t excludeSet;
-        int curIndex = 0;
-
-        for (string_t::const_iterator it = rv_psw.begin(); it != rv_psw.end(); ++it, curIndex++)
-        {
-            const char& currentChar = *it;
-
+        const arr1 = Array.from(psw_);
+        arr1.forEach((currentChar, idx) => {
             excludeSet += currentChar; // Add the current one to excluded set. It may contain duplicates but it does not matter.
 
-            charIndexes[currentChar].push_back(curIndex);
-
-            string_t::size_type pos = includeSet.find(currentChar);
-            if (pos != string_t::npos)
-            {
-                includeSet.replace(pos, 1, "");
+            let thisArr = charIndexes.get(currentChar);
+            if (!thisArr) {
+                charIndexes.set(currentChar, []);
+                thisArr = charIndexes.get(currentChar)!;
             }
+            thisArr.push(idx);
 
-        }//for
+            let pos = includeSet.indexOf(currentChar);
+            if (pos !== -1) {
+                includeSet = includeSet.substring(0, pos) + includeSet.substring(pos + 1);
+            }
+        });
 
         // 2. Identify characters with duplicates and re-generate new character of the same type excluding 
         // previously used characters of the same type.
 
-        for (charIndexes_t::iterator it = charIndexes.begin(); it != charIndexes.end(); ++it)
-        {
-            const char& currentChar = (*it).first;
-            indexes_t& currentIndexes = (*it).second;
-
+        Object.entries(charIndexes).forEach(([_, indices]) => {
             // 2.1 More than 1 index mean we have duplicates.
 
-            if (currentIndexes.size() == 1)
-            {
-                continue;
+            if (indices.length === 1) {
+                return;
             }
 
             // 2.3 Generate new character for each occurence of character excluding the generated one.
             // NOTE: Skip the first entry as it is the first occurence.
 
-            for (indexes_t::iterator itIdx = currentIndexes.begin()+1; itIdx != currentIndexes.end(); ++itIdx)
-            {
-                int& currentIndex = *itIdx;
+            indices.forEach((currentIndex) => {
+                let value = '';
+                genSubSet(includeSet, excludeSet, 1, value);
+                let newChar = value[0];
 
-                string_t value;
-                utils::genSubSet(includeSet, excludeSet, 1, value);
-                char currentChar = value[0];
+                rv_psw = rv_psw.substring(0, currentIndex) + newChar + rv_psw.substring(currentIndex + 1);
 
-                rv_psw[currentIndex] = currentChar;
-
-                excludeSet += currentChar; // Add current character to exclude range.
-            }//for
-
-        }//for
-
+                excludeSet += newChar; // Add current character to exclude range.
+            })
+        });
 
         return rv_psw;
     }

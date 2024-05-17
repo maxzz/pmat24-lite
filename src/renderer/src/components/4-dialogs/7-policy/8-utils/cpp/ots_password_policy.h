@@ -848,7 +848,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 		/////////////////////////////////////////////////////////////////////
 
-        //** / done
+        /** / done
 		inline string_t removeDuplicateChars(__in const string_t& psw_)
 		{
 			// 0. To idenitfy and replace any duplicate character with its corresponding unused set.
@@ -945,6 +945,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			return rv_psw;
 		} //removeDuplicateChars()
+        /**/
 
 	} //namespace utils
 
