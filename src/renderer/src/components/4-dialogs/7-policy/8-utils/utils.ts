@@ -178,4 +178,33 @@ export namespace utils {
         return rv;
     }
 
+    export function genAlphaNumSpecial(pswLength_: number): string {
+        // 0. The goal is to generate password containing alpha, number and special.
+        // Characters from each set should exist. Otherwise, atleast 1 from each set 
+        // should exist (i.e. alpha, numeric and symbol).
+
+        // 1. Determine length of each character set to generate.
+        //
+        // To ensure we have atleast: 1 upper, 1 lower and 1 number.
+        let specialLen = (pswLength_ > 3) ? getRandomInRange(1, pswLength_ - 3) : 1;
+        let alphaNumericLen = pswLength_ - specialLen;
+
+        // 2. Generate characters by upper boundary.
+        let rv_psw = '';
+
+        if (alphaNumericLen > 0) {
+            rv_psw += genAlphaNumeric(alphaNumericLen);
+        }
+
+        if (specialLen > 0) {
+            rv_psw += genSpecial(specialLen);
+        }
+
+        // 3. Randomize characters in place.
+        randomizeCharsInString(rv_psw);
+
+        // genPswBySet(SET_AlphaNumericSpecial, pswLength_, rv_psw);
+        return rv_psw;
+    }
+
 }

@@ -793,9 +793,11 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 			// genPswBySet(SET_AlphaNumericSpecial, pswLength_, rv_psw);
 			return rv_psw;
 		}
+        /**/
 
 		/////////////////////////////////////////////////////////////////////
 
+        //** / done
 		inline bool hasAdjacentDigits(__in const string_t& psw_)
 		{
 			// 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
