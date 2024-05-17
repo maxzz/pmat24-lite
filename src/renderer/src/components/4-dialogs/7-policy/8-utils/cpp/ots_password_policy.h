@@ -570,6 +570,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		}
         /**/
 
+        /** / done
 		template <typename stringT>
 		void genSubSet(__in const stringT& buildFromChars_, __in const stringT& excludeChars_, __in size_t pswLength_, __inout stringT& rv_psw_) throw(...)
 		{
@@ -620,8 +621,10 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 			CryptReleaseContext(hCryptProv, 0);
 
-		} // genByChSet()
+		}
+        /**/
 
+        //**/ done
 		inline string_t genAlphaNumeric(__in size_t pswLength_)
 		{
 			//return genPswBySet(SET_AlphaNumeric, pswLength_);

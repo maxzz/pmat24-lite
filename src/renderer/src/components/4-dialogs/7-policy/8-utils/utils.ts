@@ -44,12 +44,11 @@ export namespace utils {
             throw new Error("inv.arg.length");
         }
 
-        // let combinedSubset: string = new Set(buildFromChars_).filter((c) => !excludeChars_.includes(c)).join('');
-        let combinedSubset2 = new Set(buildFromChars_);
+        let combinedSubsetIn = new Set(buildFromChars_);
         for (const c of excludeChars_) {
-            combinedSubset2.delete(c);
+            combinedSubsetIn.delete(c);
         }
-        let combinedSubset = Array.from(combinedSubset2).join('');
+        let combinedSubset = Array.from(combinedSubsetIn).join('');
 
         if (!combinedSubset) {
             throw new Error("empty.comb.set");
@@ -65,6 +64,69 @@ export namespace utils {
         }).join('');
 
         rv_psw_ += newPswPart;
+    }
+
+    export function strFindFirstOf(str: string, ch: Set<string>): number {
+        for (let i = 0; i < str.length; ++i) {
+            if (ch.has(str[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    export function genAlphaNumeric(pswLength_: number): string {
+        //return genPswBySet(SET_AlphaNumeric, pswLength_);
+
+        //string_t alphaL; genPswBySet(SET_AlphaLower, pswLength_, alphaL);
+        //string_t alphaU; genPswBySet(SET_AlphaUpper, pswLength_, alphaU);
+        //string_t numeric; genPswBySet(SET_Numeric, pswLength_, numeric);
+
+        let alphaL: string = ''; genSubSet(SET_AlphaLower, '', pswLength_, alphaL);
+        let alphaU: string = ''; genSubSet(SET_AlphaUpper, '', pswLength_, alphaU);
+        let numeric: string = ''; genSubSet(SET_Numeric, '', pswLength_, numeric);
+
+        let rv_psw: string = '';
+
+        // Do until we have password containing all character sets to be used.
+        // NOTE: If length <= 2 then we cannot ensure so we ensure: lower/upper + numeric.
+        let newSubSet = alphaL + alphaU + numeric;
+
+        const setSET_Numeric = new Set(SET_Numeric);
+        const setSET_AlphaLower = new Set(SET_AlphaLower);
+        const setSET_AlphaUpper = new Set(SET_AlphaUpper);
+
+        let doAgain = true;
+        do {
+
+            rv_psw = '';
+            genSubSet(newSubSet, '', pswLength_, rv_psw);
+
+            // Check whether we should iterate again to generate an acceptable mix of value.
+            if (pswLength_ > 2) {
+                // Should have all mix: numeric, lower and upper alphabet.
+                doAgain =
+                    strFindFirstOf(rv_psw, setSET_Numeric) === -1 ||
+                    strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 ||
+                    strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1;
+            } else if (pswLength_ == 2) {
+                // Should have atleast: numeric and lower/upper alphabet.
+                doAgain =
+                    strFindFirstOf(rv_psw, setSET_Numeric) === -1 || (
+                        strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 &&
+                        strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1
+                    );
+            } else {
+                // Should have atleast: numeric or lower or upper alphabet.
+                doAgain =
+                    strFindFirstOf(rv_psw, setSET_Numeric) === -1 &&
+                    strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 &&
+                    strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1;
+            }
+
+        } while (doAgain);
+
+        return rv_psw;
     }
 
 }
