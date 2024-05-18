@@ -27,3 +27,5 @@ sizable-panels @radix-ui/react-scroll-area @radix-ui/react-select sonner @radix-
 
 [G: how to view node js asar](https://stackoverflow.com/questions/38523617/how-to-unpack-an-asar-file)
 ``` pnpx @electron/asar extract app.asar <destfolder> ```
+
+This is phone edit test
