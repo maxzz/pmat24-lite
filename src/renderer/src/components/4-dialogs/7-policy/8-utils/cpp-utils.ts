@@ -16,6 +16,6 @@ export function strFindFirstNotOf(str: string, ch: Set<string>): number {
     return -1;
 }
 
-export function isCharNumber(c) {
+export function isCharNumber(c: string): boolean {
     return c >= '0' && c <= '9';
 }

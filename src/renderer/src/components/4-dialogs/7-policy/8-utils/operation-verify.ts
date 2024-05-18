@@ -1,11 +1,12 @@
-// class verify_t {
-    //TODO: We need to generate explanation to user why policy verification failed. Later.
-
 import { password } from "./types";
 import { utils } from "./utils";
+import { strFindFirstNotOf, strFindFirstOf } from "./cpp-utils";
 
-function operator_verify(policy_: password.policy_t, psw_: string): boolean {
-    
+// class verify_t {
+//TODO: We need to generate explanation to user why policy verification failed. Later.
+
+export function operator_verify(policy_: password.policy_t, psw_: string): boolean {
+
     if (psw_.length < policy_.minLength || psw_.length > policy_.maxLength) {
         console.log("inv.pol.length");
         return false;
@@ -20,17 +21,17 @@ function operator_verify(policy_: password.policy_t, psw_: string): boolean {
 
     switch (policy_.simpleChSet) {
         case password.CHARSETTYPE.alphanumeric:
-            if (utils.strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) { // 1. We should validate whether the input string contains any characters other than alpha and numberic.
+            if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) { // 1. We should validate whether the input string contains any characters other than alpha and numberic.
                 console.log("utils.setSET_AlphaNumeric");
                 return false;
             }
 
-            if (utils.strFindFirstOf(psw_, utils.setSET_AlphaBoth) === -1) { // 2. Should also validate whether the input string has both: alpha and numeric characters.
+            if (strFindFirstOf(psw_, utils.setSET_AlphaBoth) === -1) { // 2. Should also validate whether the input string has both: alpha and numeric characters.
                 console.log("no letter in the password");
                 return false;
             }
 
-            if (utils.strFindFirstOf(psw_, utils.setSET_Numeric) === -1) {
+            if (strFindFirstOf(psw_, utils.setSET_Numeric) === -1) {
                 console.log("no number in the password");
                 return false;
             }
@@ -41,40 +42,40 @@ function operator_verify(policy_: password.policy_t, psw_: string): boolean {
             //}
             break;
         case password.CHARSETTYPE.alpha:
-            if (utils.strFindFirstNotOf(psw_, utils.setSET_AlphaBoth) !== -1) {
+            if (strFindFirstNotOf(psw_, utils.setSET_AlphaBoth) !== -1) {
                 console.log("alpha/utils.setSET_AlphaBoth");
                 return false;
             }
             break;
         case password.CHARSETTYPE.numeric:
-            if (utils.strFindFirstNotOf(psw_, utils.setSET_Numeric) !== -1) {
+            if (strFindFirstNotOf(psw_, utils.setSET_Numeric) !== -1) {
                 console.log("numeric/utils.setSET_Numeric");
                 return false;
             }
             break;
         case password.CHARSETTYPE.withspecial:
-            if (utils.strFindFirstNotOf(psw_, utils.setSET_AlphaNumericSpecial) !== -1) {
+            if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumericSpecial) !== -1) {
                 console.log("withspecial/utils.setSET_AlphaNumericSpecial");
                 return false;
             }
 
-            if (utils.strFindFirstOf(psw_, utils.setSET_Special) === -1) {
+            if (strFindFirstOf(psw_, utils.setSET_Special) === -1) {
                 console.log("no spec character in the password");
                 return false;
             }
             break;
         case password.CHARSETTYPE.atleastonenumber:
-            if (utils.strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) {
+            if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) {
                 console.log("atleastonenumber/utils.setSET_AlphaNumeric");
                 return false;
             }
 
-            if (utils.strFindFirstOf(psw_, utils.setSET_AlphaBoth) === -1) {
+            if (strFindFirstOf(psw_, utils.setSET_AlphaBoth) === -1) {
                 console.log("no letter in the password");
                 return false;
             }
 
-            if (utils.strFindFirstOf(psw_, utils.setSET_Numeric) === -1) {
+            if (strFindFirstOf(psw_, utils.setSET_Numeric) === -1) {
                 console.log("no digit in the password");
                 return false;
             }
