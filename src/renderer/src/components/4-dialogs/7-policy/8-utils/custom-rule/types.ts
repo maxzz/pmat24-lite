@@ -1,3 +1,4 @@
+import { is } from "@electron-toolkit/utils";
 import { isCharNumber } from "../cpp-utils";
 
 export namespace advancedpswpolicy {
@@ -73,10 +74,12 @@ export namespace advancedpswpolicy {
         m_what: string = '';		// Error message.
         m_errorType: ParseerrorType_t = ParseerrorType_t.errNone;
         m_errorPos: number = 0;		// Position in source text where error occured.
+        expected: string = '';		// Expected character.
 
-        constructor(what: string, errorType: ParseerrorType_t, errorPos: number = 0) {
+        constructor(what: string, errorType: ParseerrorType_t, expected: string = '') {
             this.m_what = what;
             this.m_errorType = errorType;
+            this.expected = expected;
         }
     }
 
@@ -124,9 +127,9 @@ export namespace advancedpswpolicy {
         doparse() {
             this.m_sourceTextPos = 0;
             this.m_rulesSet.m_ruleEntries = [];
-/** / not yet
-            this.parse_start();
-/**/
+            /** / not yet
+                        this.parse_start();
+            /**/
             console.log("Done");
         } //doparse()
 
@@ -151,8 +154,7 @@ export namespace advancedpswpolicy {
             }
         }
 
-        hasChar(): boolean // hasNextChar
-        {
+        hasChar(): boolean { // hasNextChar
             let rv = this.m_sourceTextPos < this.m_sourceText.length;
             return rv;
         }
@@ -165,8 +167,7 @@ export namespace advancedpswpolicy {
             this.m_sourceTextPos--;
         }
 
-        getChar(): string // getNextChar
-        {
+        getChar(): string { // getNextChar
             if (!this.hasChar()) {
                 throw new parseError("no more text", ParseerrorType_t.errExpMoreText);
             }
@@ -177,8 +178,7 @@ export namespace advancedpswpolicy {
             return rv;
         }
 
-        getCharNoThrow(): NextChar // Internal method to avoid recursion with skipWhitespace and getNumberIfExistWs.
-        {
+        getCharNoThrow(): NextChar { // Internal method to avoid recursion with skipWhitespace and getNumberIfExistWs.
             if (!this.hasChar()) {
                 return { ch: '', hasChar: false };
             }
@@ -197,22 +197,20 @@ export namespace advancedpswpolicy {
             const rv = this.getCharNoThrow();
             return rv;
         }
-        /** / not yet
-                void ExpectedCharWs(__in wchar_t expected_) throw(...) // Skip whitespace and check next character.
-                {
-                    skipWhitespace();
-        
-                    wchar_t ch = getChar();
-                    if (ch != expected_)
-                        throw new parseError("expected" + expected_, ParseerrorType_t.errExpChar, expected_);
-        
-                }
-        /**/
+
+        ExpectedCharWs(expected_: string): void { // Skip whitespace and check next character.
+            this.skipWhitespace();
+
+            let ch = this.getChar();
+            if (ch != expected_) {
+                throw new parseError("expected" + expected_, ParseerrorType_t.errExpChar, expected_);
+            }
+        }
 
         getNumberIfExistWs(): NextNumber { // Skip whitespace and get number.
             this.skipWhitespace();
 
-			let buffer = '';
+            let buffer = '';
 
             while (true) {
                 const { ch, hasChar } = this.getCharNoThrow();
@@ -220,7 +218,7 @@ export namespace advancedpswpolicy {
                     break;
                 }
 
-				let gotDigit = isCharNumber(ch);
+                let gotDigit = isCharNumber(ch);
                 if (!gotDigit) {
                     this.ungetChar();
                     break;
@@ -241,48 +239,48 @@ export namespace advancedpswpolicy {
             return rv;
         }
 
-        /** / not yet
-                void getRangeEntryWs(__in wchar_t OPEN_,  __in wchar_t CLOSE_,  __inout rangeEntry_t& rangeEntry_) throw(...) // Get range if exist.
-                {
-                    wchar_t ch = 0;
-                    if (!getCharIfExistWs(ch))
-                    {
-                        return;
-                    }
-        
-                    if (ch != OPEN_)
-                    {
-                        ungetChar();
-                        return;
-                    }
-        
-                    bool hasN = getNumberIfExistWs(rangeEntry_.m_min);
-                    if (!hasN)
-                        throw new parseError("expected number", ParseerrorType_t.errExpNum);
-        
-                    skipWhitespace();
-                    if (getChar() == CLOSE_)
-                    {
-                        rangeEntry_.m_max = rangeEntry_.m_min; // Simplified version of length <2,2> as <2>.
-                        return;
-                    }
-                    ungetChar();
-                    ExpectedCharWs(',');
-        
-                    bool hasM = getNumberIfExistWs(rangeEntry_.m_max);
-                    if (!hasM)
-                    {
-                        rangeEntry_.m_max = -2; //rangeEntry_.m_min;
-                    }
-        
-                    ExpectedCharWs(CLOSE_);
-                    if (hasM)
-                    {
-                        if (rangeEntry_.m_min > rangeEntry_.m_max)
-                            throw new parseError("invalid range", ParseerrorType_t.errInvRange); 
-                    }
+        getRangeEntryWs(OPEN_: string, CLOSE_: string): rangeEntry_t { // Get range if exist.
+            const rv: rangeEntry_t = { m_min: -1, m_max: -1 };
+
+            const { ch, hasChar } = this.getCharIfExistWs();
+            if (!hasChar) {
+                return rv;
+            }
+
+            if (ch != OPEN_) {
+                this.ungetChar();
+                return rv;
+            }
+
+            const { num: min, hasChar: hasN } = this.getNumberIfExistWs();
+            rv.m_min = min;
+            if (!hasChar || isNaN(min)) {
+                throw new parseError("expected number", ParseerrorType_t.errExpNum);
+            }
+
+            this.skipWhitespace();
+            if (this.getChar() == CLOSE_) {
+                rv.m_max = rv.m_min; // Simplified version of length <2,2> as <2>.
+                return rv;
+            }
+            this.ungetChar();
+            this.ExpectedCharWs(',');
+
+            const { num: max, hasChar: hasM } = this.getNumberIfExistWs();
+            rv.m_max = max;
+            if (!hasM || isNaN(max)) {
+                rv.m_max = -2; //rangeEntry_.m_min;
+            }
+
+            this.ExpectedCharWs(CLOSE_);
+            if (hasM) {
+                if (rv.m_min > rv.m_max) {
+                    throw new parseError("invalid range", ParseerrorType_t.errInvRange);
                 }
-        /**/
+            }
+            return rv;
+        }
+
         /** / not yet
                 void parse_finalPswLength(__inout rangeEntry_t& rangeEntry_) throw(...) // Get final length of password: <2,2> or <2>.
                 {
