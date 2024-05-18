@@ -1,0 +1,44 @@
+{
+	"files": [
+		{
+			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp/2-ots_password_policy_advanced.h",
+			"bookmarks": [
+				{
+					"line": 1152,
+					"column": 24,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp/wiz_page3_collect2_fields_policy_dlg.cpp",
+			"bookmarks": [
+				{
+					"line": 246,
+					"column": 24,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp/ots_password_policy_advanced_ui.h",
+			"bookmarks": [
+				{
+					"line": 384,
+					"column": 15,
+					"label": ""
+				},
+				{
+					"line": 456,
+					"column": 14,
+					"label": ""
+				},
+				{
+					"line": 470,
+					"column": 19,
+					"label": ""
+				}
+			]
+		}
+	]
+}
