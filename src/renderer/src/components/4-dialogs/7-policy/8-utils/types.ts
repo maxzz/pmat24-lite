@@ -36,6 +36,17 @@ export namespace password {
         policyExt: string,    // Extended policy string.
     };
 
+    export function GetPolicyType(policy: policy_t):POLICYTYPE         /**/ { return policy.type; }
+    export function IsPolicyToGenerate(policy: policy_t): boolean      /**/ { return policy.type == POLICYTYPE.generate; }
+    export function IsPolicyToVerify(policy: policy_t): boolean        /**/ { return policy.type == POLICYTYPE.verify; }
+    export function IsEmptyPolicy(policy: policy_t): boolean           /**/ { return policy.type == POLICYTYPE.none; }
+    export function  GetConstrains(policy: policy_t):RESTRICTTYPE      /**/ { return policy.constrains; }
+    export function  GetSimpleCharSet(policy: policy_t):CHARSETTYPE    /**/ { return policy.simpleChSet; }
+    export function IsExtendedPolicy(policy: policy_t): boolean        /**/ { return policy.useExt; }
+    export function  GetExtendedPolicyStr(policy: policy_t): string    /**/ { return policy.policyExt; }
+    export function  GetMinLength(policy: policy_t): number            /**/ { return policy.minLength; }
+    export function  GetMaxLength(policy: policy_t): number            /**/ { return policy.maxLength; }
+
     // Constructor from #### policyFromString ####
     export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): policy_t {
         const rv = {

@@ -217,12 +217,15 @@ namespace password
 		}
         /**/
 
+        /** / done
 		bool IsValifPolicy() const {
 			return 
 				!((!m_useExt && m_type == password::POLICYTYPE::none) ||   // Simple without policy type - Invalid
 				  (m_useExt && m_policyExt.empty()));                      // Extended without pattern text - Invalid
 		}
+        /**/
 		
+        /** / done
 		POLICYTYPE GetPolicyType()      const { return m_type; }
 		bool IsPolicyToGenerate()       const { return m_type == POLICYTYPE::generate; }
 		bool IsPolicyToVerify()         const { return m_type == POLICYTYPE::verify; }
@@ -233,6 +236,7 @@ namespace password
 		string_t GetExtendedPolicyStr() const { return m_policyExt; }
 		UINT GetMinLength()             const { return m_minLength; }
 		UINT GetMaxLength()             const { return m_maxLength; }
+        /**/
 
         /** / I don't know what this is for
 		static void compatibility_split_optionsFromPolicy(__inout string_t& customRuleOptions_, __inout string_t& policyText_) {
