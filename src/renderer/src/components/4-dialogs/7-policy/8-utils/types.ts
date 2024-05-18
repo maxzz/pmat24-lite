@@ -42,7 +42,7 @@ export namespace password {
             type,
         } as polycy_t;
 
-        const {policyOld: policySimple, policyExt} = compatibility_split_policy(v_);
+        const { policyOld: policySimple, policyExt } = compatibility_split_policy(v_);
 
         policyFromStringSimple(policySimple, rv);
         policyFromStringExtended(policyExt, rv);
@@ -50,8 +50,19 @@ export namespace password {
         return rv;
     }
 
+    export function theSame(a: polycy_t, b: polycy_t): boolean {
+        const rv =
+            a.type === b.type &&
+            a.constrains === b.constrains &&
+            a.simpleChSet === b.simpleChSet &&
+            a.minLength === b.minLength &&
+            a.maxLength === b.maxLength &&
+            a.useExt === b.useExt &&
+            a.policyExt === b.policyExt;
+        return rv;
+    }
 
-     export function policyToStringSimple(policy: polycy_t): string {
+    export function policyToStringSimple(policy: polycy_t): string {
 
         let strType = '';
         switch (policy.type) {
@@ -64,7 +75,7 @@ export namespace password {
         return rv;
     }
 
-    export function  policyToString(policy: polycy_t): string {
+    export function policyToString(policy: polycy_t): string {
         let rvSimple = policyToStringSimple(policy);
         let rvExt = policyToStringExtended(policy);
 

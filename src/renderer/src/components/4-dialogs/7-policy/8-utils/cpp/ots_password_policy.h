@@ -81,6 +81,7 @@ namespace password
 		}
         /**/
 
+        /** / I don't know what this is for
 		// Contructor from optionsdata_t #### optionsData2PasswordPolicy ####
 		policy_t(__in const passwordpolicy::optionsdata_t& optionsdata_, __in password::POLICYTYPE policyType_) : policy_t(policyType_) {
 			if (!optionsdata_.IsCurrentRuleBlank()) {
@@ -96,6 +97,7 @@ namespace password
 				m_constrains = static_cast<password::RESTRICTTYPE>(strings::conv_int(optionsdata_.GetGetCurrentRuleRestriction()));
 			}
 		}
+        /**/
 
 		policy_t(
             POLICYTYPE type, 
@@ -119,6 +121,7 @@ namespace password
 			}
 		}
 
+        /** / No need
 		policy_t(const policy_t& rhs) {
 			m_type = rhs.m_type;
 			m_constrains = rhs.m_constrains;
@@ -128,7 +131,9 @@ namespace password
 			m_useExt = rhs.m_useExt;
 			m_policyExt = rhs.m_policyExt;
 		}
+        /**/
 
+        /** / done
 		policy_t& operator=(const policy_t& rhs) {
 			if (this != &rhs) {
 				m_type = rhs.m_type;
@@ -141,6 +146,7 @@ namespace password
 			}
 			return *this;
 		}
+        /**/
 
         /** / done
 		string_t policyToStringSimple() const {
