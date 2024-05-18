@@ -19,3 +19,7 @@ export function strFindFirstNotOf(str: string, ch: Set<string>): number {
 export function isCharNumber(c: string): boolean {
     return c >= '0' && c <= '9';
 }
+
+export function isCharHexNumber(c: string): boolean {
+    return isCharNumber(c) || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
+}

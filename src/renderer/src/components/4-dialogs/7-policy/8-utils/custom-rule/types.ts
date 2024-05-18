@@ -1,5 +1,6 @@
 import { is } from "@electron-toolkit/utils";
-import { isCharNumber } from "../cpp-utils";
+import { isCharHexNumber, isCharNumber } from "../cpp-utils";
+import { parse } from "path";
 
 export namespace advancedpswpolicy {
     /////////////////////////////////////////////////////////////////////////
@@ -281,75 +282,67 @@ export namespace advancedpswpolicy {
             return rv;
         }
 
-        /** / not yet
-                void parse_finalPswLength(__inout rangeEntry_t& rangeEntry_) throw(...) // Get final length of password: <2,2> or <2>.
-                {
-                    getRangeEntryWs('<', '>', rangeEntry_);
-                	
-                    if (rangeEntry_.m_max == -1)
-                        rangeEntry_.m_max = rangeEntry_.m_min;
-        
+        parse_finalPswLength(): rangeEntry_t { // Get final length of password: <2,2> or <2>.
+            let rv: rangeEntry_t = this.getRangeEntryWs('<', '>');
+
+            if (rv.m_max == -1) {
+                rv.m_max = rv.m_min;
+            }
+
+            return rv;
+        }
+
+        parse_range(): rangeEntry_t { // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
+            return this.getRangeEntryWs('{', '}');
+        }
+
+        getCharOfCharset(): string { // single character like: a b \u1234 \U1234 \u+1234 \U+1234 \u-1234 \U-1234
+            let rv_char_ = '';
+
+            let ch = '';
+            ch = this.getChar();
+
+            if (ch != '\\') {
+                return ch; // Not an escape then return as it is.
+            }
+
+            ch = this.getChar();
+            if (ch != 'u' && ch != 'U') {
+                return ch; // Not an unicode then return as it is.
+            }
+
+            ch = this.getChar();
+            if (ch != '+' && ch != '-') {
+                this.ungetChar(); // Don't eat if it is not an optional '+' or '-'.
+            }
+
+            // Get 4 hexidecimal digits.
+
+            let buffer = '';
+            let i = 0;
+            while (i++ < 4) {
+                ch = ch = this.getChar();
+
+                let gotDigit = isCharHexNumber(ch);
+                if (!gotDigit) {
+                    throw new parseError("expected digit", ParseerrorType_t.errExpDigit);
                 }
-        
-                void parse_range(__inout rangeEntry_t& rangeEntry_) throw(...) // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
-                {
-                    getRangeEntryWs('{', '}', rangeEntry_);
-        
-                }
-        /**/
-        /** / not yet
-                void getCharOfCharset(__out wchar_t& rv_char_) throw(...) // single character like: a b \u1234 \U1234 \u+1234 \U+1234 \u-1234 \U-1234
-                {
-                    rv_char_ = 0;
-                    wchar_t ch = 0;
-        
-                    ch = getChar();
-                    if (ch != '\\')
-                    {
-                        rv_char_ = ch; // Not an escape then return as it is.
-                        return;
-                    }
-        
-                    ch = getChar();
-                    if (ch != 'u' && ch != 'U')
-                    {
-                        rv_char_ = ch; // Not an unicode then return as it is.
-                        return;
-                    }
-        
-                    ch = getChar();
-                    if (ch != '+' && ch != '-')
-                    {
-                        ungetChar(); // Don't eat if it is not an optional '+' or '-'.
-                    }
-        
-                    // Get 4 hexidecimal digits.
-        
-                    wstring_t buffer;
-                    int i = 0;
-                    while (i++ < 4)
-                    {
-                        ch = getChar();
-        
-                        bool gotDigit = iswdigit(ch) != 0 || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f');
-                        if (!gotDigit)
-                            throw new parseError("expected digit", ParseerrorType_t.errExpDigit);
-        
-                        buffer += ch;
-                    }//while
-        
-                    // Convert to wchar_t
-                	
-                    int number = -1;
-                    convert_hex(buffer, -1, number); // TODO: Check that we can handle lower and upper case.
-        
-                    if (number > 0xFFFF || number < 0)
-                        throw new parseError("expected 4 hex digits", ParseerrorType_t.errExp4Digits);
-        
-                    rv_char_ = (wchar_t)number;
-        
-                }
-        /**/
+
+                buffer += ch;
+            }
+
+            // Convert to wchar_t
+
+            let number = parseInt(buffer, 16);
+
+            if (isNaN(number) || number > 0xFFFF || number < 0) {
+                throw new parseError("expected 4 hex digits", ParseerrorType_t.errExp4Digits);
+            }
+
+            rv_char_ = number.toString(16); // 0xff -> 'ff'
+            return rv_char_;
+        }
+
         /** / not yet
                 void parse_charset(__out wstring_t& rv_charset_) throw(...) // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
                 {
