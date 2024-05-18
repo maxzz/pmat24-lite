@@ -1,39 +1,41 @@
 //#include "ots_password_policy.h"
 //
-#pragma once
+// #pragma once
 
-#include <wincrypt.h>
-#include <time.h>
-#include <locale>
-#include "transform_json.h"
-#include <random>
-#include "changepassword_policyoptions.h"
+// #include <wincrypt.h>
+// #include <time.h>
+// #include <locale>
+// #include "transform_json.h"
+// #include <random>
+// #include "changepassword_policyoptions.h"
 
-namespace password
-{
-	enum POLICYTYPE {
-		none,
-		verify,				// TODO: describe
-		generate,			// TODO: describe
-	};
+// namespace password
+// {
+	// enum POLICYTYPE {
+	// 	none,
+	// 	verify,				// TODO: describe
+	// 	generate,			// TODO: describe
+	// };
 
-	enum CHARSETTYPE {
-		alphanumeric,		// TODO: describe
-		alpha,				// TODO: describe
-		numeric,			// TODO: describe
-		withspecial,		// TODO: describe
-		atleastonenumber,	// TODO: describe
-	};
+	// enum CHARSETTYPE {
+	// 	alphanumeric,		// TODO: describe
+	// 	alpha,				// TODO: describe
+	// 	numeric,			// TODO: describe
+	// 	withspecial,		// TODO: describe
+	// 	atleastonenumber,	// TODO: describe
+	// };
 
-	enum RESTRICTTYPE {
-		no_restrictions,    // Nothing specified.
-		different_wp,       // Different from window password.
-		different_ap,       // Different from any password.
-		different_pp,       // Different from previous password.
-	};
+	// enum RESTRICTTYPE {
+	// 	no_restrictions,    // Nothing specified.
+	// 	different_wp,       // Different from window password.
+	// 	different_ap,       // Different from any password.
+	// 	different_pp,       // Different from previous password.
+	// };
 
-	class policy_t {
-	public:
+	// class policy_t {
+	// public:
+
+        /** / done
 		policy_t() : 
             m_type(POLICYTYPE::none), 
             m_minLength(0), 
@@ -43,7 +45,9 @@ namespace password
             m_useExt(false)
 		{
 		}
+        /**/
 
+        /** / done
 		// Default policy constructor #### defaultpolicy ####
 		policy_t(POLICYTYPE type_) : 
             m_type(type_), 
@@ -69,6 +73,7 @@ namespace password
 					break;
 			}
 		}
+        /**/
 
         /** / done
 		// Constructor from #### policyFromString ####
@@ -99,6 +104,7 @@ namespace password
 		}
         /**/
 
+        /** / No need
 		policy_t(
             POLICYTYPE type, 
             RESTRICTTYPE constrains, 
@@ -120,6 +126,7 @@ namespace password
 					m_policyExt = policyExt;
 			}
 		}
+        /**/
 
         /** / No need
 		policy_t(const policy_t& rhs) {
@@ -570,7 +577,7 @@ namespace password
 			}
 		}
         /**/
-	}; //class policy_t
+//	}; //class policy_t
 
         /** / I don't know what this is for
 __declspec(selectany) char* policy_t::POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
@@ -578,8 +585,9 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERREPEAT = "~";
 __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
         /**/
 
-	namespace utils
-	{
+	// namespace utils
+	// {
+
         /** / done
 		const string_t SET_AlphaLower("abcdefghikjlmnopqrstuvwxyz");
 		const string_t SET_AlphaUpper("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -990,7 +998,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		} //removeDuplicateChars()
         /**/
 
-	} //namespace utils
+//	} //namespace utils
 
 	/////////////////////////////////////////////////////////////////////////
 
@@ -1151,4 +1159,4 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 	}; //class generate_t
     /**/
 
-}//namespace password
+//}//namespace password

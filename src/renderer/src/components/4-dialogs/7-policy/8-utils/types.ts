@@ -2,50 +2,83 @@ export namespace password {
 
     export enum POLICYTYPE {
         none,
-        verify,				// TODO: describe
-        generate,			// TODO: describe
+        verify,				        // TODO: describe
+        generate,			        // TODO: describe
     };
 
     export enum CHARSETTYPE {
-        alphanumeric,		// TODO: describe
-        alpha,				// TODO: describe
-        numeric,			// TODO: describe
-        withspecial,		// TODO: describe
-        atleastonenumber,	// TODO: describe
+        alphanumeric,		        // TODO: describe
+        alpha,				        // TODO: describe
+        numeric,			        // TODO: describe
+        withspecial,		        // TODO: describe
+        atleastonenumber,	        // TODO: describe
     };
 
     export enum RESTRICTTYPE {
-        no_restrictions,    // Nothing specified.
-        different_wp,       // Different from window password.
-        different_ap,       // Different from any password.
-        different_pp,       // Different from previous password.
+        no_restrictions,            // Nothing specified.
+        different_wp,               // Different from window password.
+        different_ap,               // Different from any password.
+        different_pp,               // Different from previous password.
     };
-
-    export const POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
-    export const TOKEN_PREVENT_CHARACTERREPEAT = "~";
-    export const TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
     export type policy_t = {
         type: POLICYTYPE,           // This is for simple and complex policy.
         constrains: RESTRICTTYPE,   // This is for simple and complex policy.
         simpleChSet: CHARSETTYPE,   // This is for simple policy only.
-        minLength: number,        // This is for simple and complex policy.
-        maxLength: number,      // This is for simple and complex policy.
+        minLength: number,          // This is for simple and complex policy.
+        maxLength: number,          // This is for simple and complex policy.
 
-        useExt: boolean,        // Is extended policy in effective now?
-        policyExt: string,    // Extended policy string.
+        useExt: boolean,            // Is extended policy in effective now?
+        policyExt: string,          // Extended policy string.
     };
 
-    export function GetPolicyType(policy: policy_t):POLICYTYPE         /**/ { return policy.type; }
+    const defaultPolicy: policy_t = {
+        type: POLICYTYPE.none,
+        constrains: RESTRICTTYPE.no_restrictions,
+        simpleChSet: CHARSETTYPE.alphanumeric,
+        minLength: 0,
+        maxLength: 0,
+        useExt: false,
+        policyExt: '',
+    };
+
+    // Default policy constructor #### defaultpolicy ####
+    export function defaultPolicyType(type_: POLICYTYPE): policy_t {
+        const rv = { ...defaultPolicy };
+
+        rv.simpleChSet = CHARSETTYPE.withspecial;
+        rv.constrains = RESTRICTTYPE.different_ap;
+
+        switch (type_) {
+            case POLICYTYPE.none:
+                break;
+            case POLICYTYPE.verify:
+                rv.minLength = 8;
+                rv.maxLength = 32;
+                break;
+            case POLICYTYPE.generate:
+                rv.minLength = 16;
+                rv.maxLength = 16;
+                break;
+        }
+
+        return rv;
+    }
+
+    export const POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
+    export const TOKEN_PREVENT_CHARACTERREPEAT = "~";
+    export const TOKEN_PREVENT_CHARACTERPOSITION = "&";
+
+    export function GetPolicyType(policy: policy_t): POLICYTYPE        /**/ { return policy.type; }
     export function IsPolicyToGenerate(policy: policy_t): boolean      /**/ { return policy.type == POLICYTYPE.generate; }
     export function IsPolicyToVerify(policy: policy_t): boolean        /**/ { return policy.type == POLICYTYPE.verify; }
     export function IsEmptyPolicy(policy: policy_t): boolean           /**/ { return policy.type == POLICYTYPE.none; }
-    export function  GetConstrains(policy: policy_t):RESTRICTTYPE      /**/ { return policy.constrains; }
-    export function  GetSimpleCharSet(policy: policy_t):CHARSETTYPE    /**/ { return policy.simpleChSet; }
+    export function GetConstrains(policy: policy_t): RESTRICTTYPE      /**/ { return policy.constrains; }
+    export function GetSimpleCharSet(policy: policy_t): CHARSETTYPE    /**/ { return policy.simpleChSet; }
     export function IsExtendedPolicy(policy: policy_t): boolean        /**/ { return policy.useExt; }
-    export function  GetExtendedPolicyStr(policy: policy_t): string    /**/ { return policy.policyExt; }
-    export function  GetMinLength(policy: policy_t): number            /**/ { return policy.minLength; }
-    export function  GetMaxLength(policy: policy_t): number            /**/ { return policy.maxLength; }
+    export function GetExtendedPolicyStr(policy: policy_t): string     /**/ { return policy.policyExt; }
+    export function GetMinLength(policy: policy_t): number             /**/ { return policy.minLength; }
+    export function GetMaxLength(policy: policy_t): number             /**/ { return policy.maxLength; }
 
     // Constructor from #### policyFromString ####
     export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): policy_t {
