@@ -4,7 +4,7 @@
 import { password } from "./types";
 import { utils } from "./utils";
 
-function operator_verify(policy_: password.polycy_t, psw_: string): boolean {
+function operator_verify(policy_: password.policy_t, psw_: string): boolean {
     
     if (psw_.length < policy_.minLength || psw_.length > policy_.maxLength) {
         console.log("inv.pol.length");

@@ -25,7 +25,7 @@ export namespace password {
     export const TOKEN_PREVENT_CHARACTERREPEAT = "~";
     export const TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
-    export type polycy_t = {
+    export type policy_t = {
         type: POLICYTYPE,           // This is for simple and complex policy.
         constrains: RESTRICTTYPE,   // This is for simple and complex policy.
         simpleChSet: CHARSETTYPE,   // This is for simple policy only.
@@ -37,10 +37,10 @@ export namespace password {
     };
 
     // Constructor from #### policyFromString ####
-    export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): polycy_t {
+    export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): policy_t {
         const rv = {
             type,
-        } as polycy_t;
+        } as policy_t;
 
         const { policyOld: policySimple, policyExt } = compatibility_split_policy(v_);
 
@@ -50,7 +50,7 @@ export namespace password {
         return rv;
     }
 
-    export function theSame(a: polycy_t, b: polycy_t): boolean {
+    export function theSame(a: policy_t, b: policy_t): boolean {
         const rv =
             a.type === b.type &&
             a.constrains === b.constrains &&
@@ -62,7 +62,16 @@ export namespace password {
         return rv;
     }
 
-    export function policyToStringSimple(policy: polycy_t): string {
+    export function IsValidPolicy(policy: policy_t): boolean {
+        return (
+            !(
+                (!policy.useExt && policy.type == POLICYTYPE.none) ||   // Simple without policy type - Invalid
+                (policy.useExt && !policy.policyExt)                    // Extended without pattern text - Invalid
+            )
+        );
+    }
+
+    export function policyToStringSimple(policy: policy_t): string {
 
         let strType = '';
         switch (policy.type) {
@@ -75,7 +84,7 @@ export namespace password {
         return rv;
     }
 
-    export function policyToString(policy: polycy_t): string {
+    export function policyToString(policy: policy_t): string {
         let rvSimple = policyToStringSimple(policy);
         let rvExt = policyToStringExtended(policy);
 
@@ -128,7 +137,7 @@ export namespace password {
         return policy_;
     }
 
-    function policyFromStringSimple(v_: string | undefined, rv: Partial<polycy_t>) { // initial rv is {}
+    function policyFromStringSimple(v_: string | undefined, rv: Partial<policy_t>) { // initial rv is {}
         if (!v_) {
             return;
         }
@@ -155,7 +164,7 @@ export namespace password {
         rv.constrains = conv_constrains_t(ss[4]);
     }
 
-    function policyFromStringExtended(v_: string | undefined, rv: Partial<polycy_t>) { // initial rv is {}
+    function policyFromStringExtended(v_: string | undefined, rv: Partial<policy_t>) { // initial rv is {}
         rv.useExt = false;
         rv.policyExt = '';
 
@@ -184,7 +193,7 @@ export namespace password {
         rv = { ...rv, ...parts };
     }
 
-    function policyToStringExtended(v: Partial<polycy_t>): string {
+    function policyToStringExtended(v: Partial<policy_t>): string {
         let rv: string = '';
 
         if (v.useExt) {

@@ -2,7 +2,7 @@ import { password } from "./types";
 import { utils } from "./utils";
 
 // class generate_t
-export function operator_generate(policy_: password.polycy_t): string {
+export function operator_generate(policy_: password.policy_t): string {
 
     // Check whether min is lower than max.
     if (policy_.minLength > policy_.maxLength) {
