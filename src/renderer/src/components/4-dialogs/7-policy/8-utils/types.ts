@@ -36,6 +36,21 @@ export namespace password {
         policyExt: string,    // Extended policy string.
     };
 
+    // Constructor from #### policyFromString ####
+    export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): polycy_t {
+        const rv = {
+            type,
+        } as polycy_t;
+
+        const {policyOld: policySimple, policyExt} = compatibility_split_policy(v_);
+
+        policyFromStringSimple(policySimple, rv);
+        policyFromStringExtended(policyExt, rv);
+
+        return rv;
+    }
+
+
      export function policyToStringSimple(policy: polycy_t): string {
 
         let strType = '';
@@ -102,7 +117,7 @@ export namespace password {
         return policy_;
     }
 
-    function policyFromStringSimple(v_: string, rv: Partial<polycy_t>) { // initial rv is {}
+    function policyFromStringSimple(v_: string | undefined, rv: Partial<polycy_t>) { // initial rv is {}
         if (!v_) {
             return;
         }
@@ -129,7 +144,7 @@ export namespace password {
         rv.constrains = conv_constrains_t(ss[4]);
     }
 
-    function policyFromStringExtended(v_: string, rv: Partial<polycy_t>) { // initial rv is {}
+    function policyFromStringExtended(v_: string | undefined, rv: Partial<polycy_t>) { // initial rv is {}
         rv.useExt = false;
         rv.policyExt = '';
 

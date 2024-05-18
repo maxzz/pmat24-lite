@@ -70,6 +70,7 @@ namespace password
 			}
 		}
 
+        /** / done
 		// Constructor from #### policyFromString ####
 		policy_t(__in const string_t& v_, POLICYTYPE type = POLICYTYPE::none) : policy_t(type) {
 			string_t policySimple, policyExt;
@@ -78,6 +79,7 @@ namespace password
 			policyFromStringSimple(policySimple);
 			policyFromStringExtended(policyExt);
 		}
+        /**/
 
 		// Contructor from optionsdata_t #### optionsData2PasswordPolicy ####
 		policy_t(__in const passwordpolicy::optionsdata_t& optionsdata_, __in password::POLICYTYPE policyType_) : policy_t(policyType_) {
@@ -226,6 +228,7 @@ namespace password
 		UINT GetMinLength()             const { return m_minLength; }
 		UINT GetMaxLength()             const { return m_maxLength; }
 
+        /** / I don't know what this is for
 		static void compatibility_split_optionsFromPolicy(__inout string_t& customRuleOptions_, __inout string_t& policyText_) {
 			// 0. Splits custom rule options from policy (if available).
 			//
@@ -261,6 +264,7 @@ namespace password
 			setCustomRulePolicyOptionsToText(customRuleOptions_, policy.m_policyExt);
 			policyStr_ = policy.policyToString();
 		}
+        /**/
 
         /** / done
 	private:
@@ -558,11 +562,11 @@ namespace password
         /**/
 	}; //class policy_t
 
-/** / I don't know what this is for
+        /** / I don't know what this is for
 __declspec(selectany) char* policy_t::POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
 __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERREPEAT = "~";
 __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
-/**/
+        /**/
 
 	namespace utils
 	{
