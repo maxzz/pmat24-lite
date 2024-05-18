@@ -503,53 +503,45 @@ export namespace advancedpswpolicy {
             }
         }
 
-        /** / not yet
-                void parse_start() throw(...)
-                {
-                    while (true)
-                    {
-                        wchar_t ch = 0;
-                        if (!getCharIfExistWs(ch))
-                        {
-                            return;
-                        }
-        
-                        switch (ch)
-                        {
-                            case '~': // To avoid the same character be used consecutively (global),
-                                {
-                                    m_rulesSet.m_avoidConsecutiveChars = true;
-                                }
-                            break;
-                            case '&': // To avoid the same character in the same position from its previous value (recent one only).
-                                {
-                                    m_rulesSet.m_checkPrevPasswordCharPosition = true;
-                                }
-                            break;
-                            case '(': // group
-                            case '[': // charset
-                            case 'd': // shorthand d
-                            case 'a': // shorthand a
-                            case 'A': // shorthand A
-                            case 's': // shorthand s
-                                {
-                                    ungetChar();
-                                    parse_rules(m_rulesSet.m_ruleEntries);
-                                }
-                            break;
-                            case '<': // final psw length can be at the begin or at the end of input string.
-                                {
-                                    ungetChar();
-                                    parse_finalPswLength(m_rulesSet.m_pswlenSet);
-                                }
-                            break;
-                            default:
-                                throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
-                        }//switch
-                    }//while (true)
-        
+        parse_start(): void {
+            while (true) {
+
+                const { ch, hasChar } = this.getCharIfExistWs();
+                if (!hasChar) {
+                    return;
                 }
-        /**/
+
+                switch (ch) {
+                    case '~': { // To avoid the same character be used consecutively (global),
+                        this.m_rulesSet.m_avoidConsecutiveChars = true;
+                        break;
+                    }
+                    case '&': { // To avoid the same character in the same position from its previous value (recent one only).
+                        this.m_rulesSet.m_checkPrevPasswordCharPosition = true;
+                        break;
+                    }
+                    case '(': // group
+                    case '[': // charset
+                    case 'd': // shorthand d
+                    case 'a': // shorthand a
+                    case 'A': // shorthand A
+                    case 's': { // shorthand s
+                        this.ungetChar();
+                        this.m_rulesSet.m_ruleEntries = this.parse_rules();
+                        break;
+                    }
+                    case '<': { // final psw length can be at the begin or at the end of input string.
+                        this.ungetChar();
+                        this.m_rulesSet.m_pswlenSet = this.parse_finalPswLength();
+                        break;
+                    }
+                    default: {
+                        throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
+                    }
+                }
+            }
+        }
+
     }; //class apparser_t
 
     /** / not yet
