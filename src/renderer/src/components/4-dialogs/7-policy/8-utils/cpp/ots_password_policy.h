@@ -34,12 +34,25 @@ namespace password
 
 	class policy_t {
 	public:
-		policy_t() : m_type(POLICYTYPE::none), m_minLength(0), m_maxLength(0), m_simpleChSet(CHARSETTYPE::alphanumeric), m_constrains(RESTRICTTYPE::no_restrictions), m_useExt(false)
+		policy_t() : 
+            m_type(POLICYTYPE::none), 
+            m_minLength(0), 
+            m_maxLength(0), 
+            m_simpleChSet(CHARSETTYPE::alphanumeric), 
+            m_constrains(RESTRICTTYPE::no_restrictions), 
+            m_useExt(false)
 		{
 		}
 
 		// Default policy constructor #### defaultpolicy ####
-		policy_t(POLICYTYPE type_) : m_type(type_), m_minLength(0), m_maxLength(0), m_simpleChSet(CHARSETTYPE::alphanumeric), m_constrains(RESTRICTTYPE::no_restrictions), m_useExt(false) {
+		policy_t(POLICYTYPE type_) : 
+            m_type(type_), 
+            m_minLength(0), 
+            m_maxLength(0), 
+            m_simpleChSet(CHARSETTYPE::alphanumeric), 
+            m_constrains(RESTRICTTYPE::no_restrictions), 
+            m_useExt(false)
+        {
 			m_simpleChSet = CHARSETTYPE::withspecial;
 			m_constrains = RESTRICTTYPE::different_ap;
 
@@ -82,7 +95,16 @@ namespace password
 			}
 		}
 
-		policy_t(POLICYTYPE type, RESTRICTTYPE constrains, CHARSETTYPE simpleChSet, UINT minLength, UINT maxLength, bool useExt = false, const string_t& policyExt = "") : policy_t(type) {
+		policy_t(
+            POLICYTYPE type, 
+            RESTRICTTYPE constrains, 
+            CHARSETTYPE simpleChSet, 
+            UINT minLength, 
+            UINT maxLength, 
+            bool useExt = false, 
+            const string_t& policyExt = ""
+        ) : policy_t(type)
+        {
 			m_type = type;
 			if (m_type != POLICYTYPE::none) {
 				m_constrains = constrains;
@@ -118,6 +140,7 @@ namespace password
 			return *this;
 		}
 
+        /** / done
 		string_t policyToStringSimple() const {
 			std::ostringstream os;
 
@@ -139,6 +162,7 @@ namespace password
 			compatibility_combine_policy(rv, rvSimple, rvExt);
 			return rv;
 		}
+        /**/
 
         /** / done
 		static void compatibility_split_policy(__in const string_t& policy_, __out string_t& policyOld_, __out string_t& policyExt_) {
@@ -238,6 +262,7 @@ namespace password
 			policyStr_ = policy.policyToString();
 		}
 
+        /** / done
 	private:
 		POLICYTYPE   m_type;        // This is for simple and complex policy.
 		RESTRICTTYPE m_constrains;  // This is for simple and complex policy.
@@ -254,6 +279,7 @@ namespace password
 		static char* POLICY_SEPARATOR; // "EXtended POlicy". keep the length less then 8.
 		static char* TOKEN_PREVENT_CHARACTERREPEAT;
 		static char* TOKEN_PREVENT_CHARACTERPOSITION;
+        /**/
 
         /** / done
 		void  policyFromStringSimple(__in const string_t& v_) {
@@ -325,7 +351,7 @@ namespace password
 		}
         /**/
 
-        /** /
+        /** / done
 		static CHARSETTYPE charsetcast(__in const string_t& v_) {
 			CHARSETTYPE rv;
 			if (v_.empty())
@@ -420,6 +446,7 @@ namespace password
 		}
         /**/
 
+        /** / I don't know what this is for
 		// Checks custom rule prepended tokens '~', '&' then 
 		// places the information in JSON text within m_polExtOptions.
 		// ~&<custom rule text>
@@ -528,12 +555,14 @@ namespace password
 					customRuleText_.replace(substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION), 1, "");
 			}
 		}
+        /**/
 	}; //class policy_t
 
+/** / I don't know what this is for
 __declspec(selectany) char* policy_t::POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
 __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERREPEAT = "~";
 __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
-
+/**/
 
 	namespace utils
 	{
@@ -1107,5 +1136,5 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 	}; //class generate_t
     /**/
-    
+
 }//namespace password

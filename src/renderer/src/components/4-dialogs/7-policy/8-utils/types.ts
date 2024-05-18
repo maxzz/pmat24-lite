@@ -36,6 +36,29 @@ export namespace password {
         policyExt: string,    // Extended policy string.
     };
 
+     export function policyToStringSimple(policy: polycy_t): string {
+
+        let strType = '';
+        switch (policy.type) {
+            case POLICYTYPE.none: return '';
+            case POLICYTYPE.verify: strType = "[p4]v:"; break;
+            case POLICYTYPE.generate: strType = "[p4]g:"; break;
+        }
+
+        const rv = `${strType}:${policy.minLength}:${policy.maxLength}:${charsetcastToString(policy.simpleChSet)}:${conv_constrains_tTostring(policy.constrains)}`;
+        return rv;
+    }
+
+    export function  policyToString(policy: polycy_t): string {
+        let rvSimple = policyToStringSimple(policy);
+        let rvExt = policyToStringExtended(policy);
+
+        let rv = '';
+        compatibility_combine_policy(rv, rvSimple, rvExt);
+        return rv;
+    }
+
+
     function compatibility_split_policy(policy_: string): { policyOld?: string | undefined; policyExt?: string | undefined; } {
         // 0. Split policy_ in policyOld_ and policyNew_ to save as manifest fields: 'policy' and 'policy2'.
         // This call is for manifest_io, and for policy string parsing.
