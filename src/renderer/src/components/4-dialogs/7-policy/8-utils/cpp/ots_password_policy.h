@@ -951,6 +951,7 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 	/////////////////////////////////////////////////////////////////////////
 
+    /** / done
 	class verify_t {
 		//TODO: We need to generate explanation to user why policy verification failed. Later.
 	public:
@@ -1039,7 +1040,9 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		}
 
 	}; //class verify_t
+    /**/
 
+    /** / done
 	class generate_t
 	{
 	public:
@@ -1103,4 +1106,6 @@ __declspec(selectany) char* policy_t::TOKEN_PREVENT_CHARACTERPOSITION = "&";
 		} //operator()(const policy_t& policy_)
 
 	}; //class generate_t
+    /**/
+    
 }//namespace password
