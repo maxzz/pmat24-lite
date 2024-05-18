@@ -96,25 +96,27 @@ export namespace advancedpswpolicy {
         }
     }
 
-    // /*static*/ function generateCharRange(A_: string, B_: string, rv_: string): string {
-    //     // 0. Generate, make sure that characters are unique in set, and sort.
+    /*static*/ function generateCharRange(A_: string, B_: string, rv_: string): string {
+        // 0. Generate, make sure that characters are unique in set, and sort.
 
-    //     if (A_ > B_) {
-    //         throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
-    //     }
+        if (A_ > B_) {
+            throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
+        }
+        /** / not yet
+                //     for (wchar_t a = A_; a <= B_; a++)
+                //     {
+                //         bool isNew = rv_.find_first_of(a) == wstring_t:: npos;
+                //         if (!isNew) {
+                //             continue;
+                //         }
+        
+                //         rv_ += a;
+                //     }
+        /**/
+        //     std:: sort(rv_.begin(), rv_.end(), std:: less<wchar_t>()); // i.e. "abc"
 
-    //     for (wchar_t a = A_; a <= B_; a++)
-    //     {
-    //         bool isNew = rv_.find_first_of(a) == wstring_t:: npos;
-    //         if (!isNew) {
-    //             continue;
-    //         }
-
-    //         rv_ += a;
-    //     }
-
-    //     std:: sort(rv_.begin(), rv_.end(), std:: less<wchar_t>()); // i.e. "abc"
-    // } //generateCharRange()
+        return rv_;
+    }
 
     type NextChar = { ch: string, hasChar: boolean; };
     type NextNumber = { num: number, hasChar: boolean; };
@@ -343,67 +345,62 @@ export namespace advancedpswpolicy {
             return rv_char_;
         }
 
-        /** / not yet
-                void parse_charset(__out wstring_t& rv_charset_) throw(...) // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
-                {
-                    rv_charset_.clear();
-        
-                    wchar_t ch = getChar();
-                    bool isSquareBrStart = ch == '[';
-                    if (ch != '[')
-                    {
-                        ungetChar(); // Eat only '['
+        parse_charset(): string { // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
+            let rv_charset_ = '';
+
+            let ch = this.getChar();
+            let isSquareBrStart = ch == '[';
+            if (ch != '[') {
+                this.ungetChar(); // Eat only '['
+            }
+
+            while (true) {
+                ch = this.getChar();
+                if (ch == ']') { // Check if it is the end of character set and we started with '['.
+                    if (!isSquareBrStart) {
+                        throw new parseError("unexpected '[' before ']'", ParseerrorType_t.errUnexpChSetClose); // expected charset beging before closing.
                     }
-        
-                    while (true)
-                    {
-                        ch = getChar();
-                        if (ch == ']') // Check if it is the end of character set and we started with '['.
-                        {
-                            if (!isSquareBrStart)
-                                throw new parseError("unexpected '[' before ']'", ParseerrorType_t.errUnexpChSetClose); // expected charset beging before closing.
-                            if (rv_charset_.empty())
-                                throw new parseError("unexpected empty charset", ParseerrorType_t.errChSetEmpty);
-                            return;
-                        }
-        
-                        bool isRange = false;
-        
-                        if (ch == '-') // If it is a range of characters then eat this character.
-                        {
-                            if (rv_charset_.empty())
-                                throw new parseError("expected lower boundary char before '-'", ParseerrorType_t.errExpLowBoundCh);
-        
-                            ch = getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
-                            if (ch == '-')
-                                throw new parseError("unexpected double '--'", ParseerrorType_t.errUnexpDoubleSet);
-                            ungetChar();
-        
-                            isRange = true;
-                        }
-                        else
-                        {
-                            ungetChar();
-                        }
-        
-                        wchar_t chCharset = 0;
-                        getCharOfCharset(chCharset);
-        
-                        if (isRange)
-                        {
-                            wchar_t chFirst = rv_charset_[rv_charset_.length()-1]; // Cut the last char and use it as a first of range.
-                            rv_charset_.erase(rv_charset_.length()-1);
-                        	
-                            generateCharRange(chFirst, chCharset, rv_charset_);
-                            isRange = false;
-                            continue;
-                        }
-        
-                        rv_charset_ += chCharset;
-                    }//while (true)
-        
+
+                    if (!rv_charset_) {
+                        throw new parseError("unexpected empty charset", ParseerrorType_t.errChSetEmpty);
+                    }
+                    return rv_charset_;
                 }
-        /**/
+
+                let isRange = false;
+
+                if (ch == '-') { // If it is a range of characters then eat this character.
+                    if (!rv_charset_) {
+                        throw new parseError("expected lower boundary char before '-'", ParseerrorType_t.errExpLowBoundCh);
+                    }
+
+                    ch = this.getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
+                    if (ch == '-') {
+                        throw new parseError("unexpected double '--'", ParseerrorType_t.errUnexpDoubleSet);
+                    }
+
+                    this.ungetChar();
+
+                    isRange = true;
+                } else {
+                    this.ungetChar();
+                }
+
+                let chCharset = this.getCharOfCharset();
+
+                if (isRange) {
+                    let chFirst = rv_charset_[rv_charset_.length - 1]; // Cut the last char and use it as a first of range.
+                    rv_charset_ = rv_charset_.substring(0, rv_charset_.length - 1); // Cut the last char and use it as a first of range.
+
+                    rv_charset_ = generateCharRange(chFirst, chCharset, rv_charset_);
+                    isRange = false;
+                    continue;
+                }
+
+                rv_charset_ += chCharset;
+            } //while
+        }
+
         /** / not yet
                 void parse_group(__inout ruleEntry_t& ruleEntry_) throw(...) // '(' Rules ')' '.' // Range is handled outside.
                 {
