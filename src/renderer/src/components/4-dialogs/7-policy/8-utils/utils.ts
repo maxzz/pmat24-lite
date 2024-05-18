@@ -1,3 +1,5 @@
+import { strFindFirstOf, isCharNumber } from "./cpp-utils";
+
 export namespace utils {
 
     export const SET_AlphaLower = "abcdefghikjlmnopqrstuvwxyz";
@@ -15,24 +17,6 @@ export namespace utils {
     export const setSET_Special = new Set(SET_Special);
     export const setSET_AlphaNumeric = new Set(SET_AlphaNumeric);
     export const setSET_AlphaNumericSpecial = new Set(SET_AlphaNumericSpecial);
-
-    export function strFindFirstOf(str: string, ch: Set<string>): number {
-        for (let i = 0; i < str.length; ++i) {
-            if (ch.has(str[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    export function strFindFirstNotOf(str: string, ch: Set<string>): number {
-        for (let i = 0; i < str.length; ++i) {
-            if (!ch.has(str[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     function getRandomIntInclusive(min: number, max: number): number {
         // Keep it simple so far it used to get passowd length only.
@@ -83,7 +67,7 @@ export namespace utils {
         var buf = new Uint8Array(pswLength_ + 1);
         crypto.getRandomValues(buf);
 
-        let resBuffer = [...buf];
+        let resBuffer = Array.from(buf);
 
         const newPswPart = resBuffer.map((v) => {
             return combinedSubset[v % combinedSubset.length];
@@ -171,7 +155,7 @@ export namespace utils {
         var buf = new Uint8Array(v_.length + 1);
         crypto.getRandomValues(buf);
 
-        let resBuffer = [...buf];
+        let resBuffer = Array.from(buf);
 
         let arr = v_.split('');
 
@@ -221,10 +205,6 @@ export namespace utils {
     }
 
     /////////////////////////////////////////////////////////////////////
-
-    function isCharNumber(c) {
-        return c >= '0' && c <= '9';
-    }
 
     export function hasAdjacentDigits(psw_: string): boolean {
         // 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
