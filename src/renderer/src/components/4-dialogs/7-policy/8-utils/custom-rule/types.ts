@@ -401,122 +401,108 @@ export namespace advancedpswpolicy {
             } //while
         }
 
-        /** / not yet
-                void parse_group(__inout ruleEntry_t& ruleEntry_) throw(...) // '(' Rules ')' '.' // Range is handled outside.
-                {
-                    wchar_t ch = getChar();
-                    if (ch != '(')
-                    {
-                        throw new parseError("expected '('", ParseerrorType_t.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
-                    }
-        
-                    parse_rules(ruleEntry_.m_groupEntry.m_ruleEntries);
-        
-                    ch = getChar();
-                    if (ch != ')')
-                    {
-                        throw new parseError("expected ')'", ParseerrorType_t.errExpChar, ')'); // Expected end of group.
-                    }
-        
-                    ch = 0;
-                    if (getCharIfExistWs(ch))
-                    {
-                        if (ch == '.')
-                        {
-                            ruleEntry_.m_groupEntry.m_mix = false;
-                        }
-                        else
-                        {
-                            ungetChar();
-                        }
-                    }
-        
+        parse_group(): ruleEntry_t { // '(' Rules ')' '.' // Range is handled outside.
+            let ruleEntry_: ruleEntry_t = new ruleEntry_t();
+
+            let ch = this.getChar();
+            if (ch != '(') {
+                throw new parseError("expected '('", ParseerrorType_t.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
+            }
+
+            ruleEntry_.m_groupEntry.m_ruleEntries = this.parse_rules();
+
+            ch = this.getChar();
+            if (ch != ')') {
+                throw new parseError("expected ')'", ParseerrorType_t.errExpChar, ')'); // Expected end of group.
+            }
+
+            const { ch: ch2, hasChar } = this.getCharIfExistWs();
+
+            if (hasChar) {
+                if (ch2 == '.') {
+                    ruleEntry_.m_groupEntry.m_mix = false;
                 }
-        /**/
-        /** / not yet
-                void parse_rule(__inout ruleEntry_t& ruleEntry_) throw(...) // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
-                {
-                    wchar_t ch = 0;
-                    if (!getCharIfExistWs(ch))
-                    {
-                        return;
+                else {
+                    this.ungetChar();
+                }
+            }
+
+            return ruleEntry_;
+        }
+
+        parse_rule(): ruleEntry_t { // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
+            let ruleEntry_: ruleEntry_t = new ruleEntry_t();
+
+            const { ch, hasChar } = this.getCharIfExistWs();
+            if (!hasChar) {
+                return ruleEntry_;
+            }
+
+            switch (ch) {
+                case '(': { // group
+                    this.ungetChar();
+                    ruleEntry_ = this.parse_group();
+                    ruleEntry_.m_isgroup = true;
+                    ruleEntry_.m_groupEntry.m_rangeEntry = this.parse_range();
+                    break;
+                }
+                case '[': { // charset
+                    this.ungetChar();
+                    ruleEntry_.m_chsetEntry.m_charset = this.parse_charset();
+                    ruleEntry_.m_isgroup = false;
+                    ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
+
+                    if (ruleEntry_.m_chsetEntry.m_charset.size() > 1024) {
+                        throw new parseError("expected less then 1024 per charset", ParseerrorType_t.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
                     }
-        
-                    switch (ch)
-                    {
-                        case '(': // group
-                            {
-                                ungetChar();
-                                ruleEntry_.m_isgroup = true;
-                                parse_group(ruleEntry_);
-                                parse_range(ruleEntry_.m_groupEntry.m_rangeEntry);
-                            }
-                            break;
-                        case '[': // charset
-                            {
-                                ungetChar();
-                                ruleEntry_.m_isgroup = false;
-                                parse_charset(ruleEntry_.m_chsetEntry.m_charset);
-                                parse_range(ruleEntry_.m_chsetEntry.m_rangeEntry);
-        
-                                if (ruleEntry_.m_chsetEntry.m_charset.size() > 1024)
-                                    throw new parseError("expected less then 1024 per charset", ParseerrorType_t.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
-                            }
-                            break;
-                        case 'd': // shorthand d
-                        case 'a': // shorthand a
-                        case 'A': // shorthand A
-                        case 's': // shorthand s
-                            {
-                                ruleEntry_.m_isgroup = false;
-                                generateShorthandSet(ch, ruleEntry_.m_chsetEntry.m_charset);
-                                parse_range(ruleEntry_.m_chsetEntry.m_rangeEntry);
-                            }
-                            break;
-                        default:
-                            throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
-                    }//switch
-        
+                    break;
                 }
-        /**/
-        /** / not yet
-                void parse_rules(__inout ruleEntries_t& ruleEntries_) throw(...) // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
-                {
-                    while (true)
-                    {
-                        //const { ch, hasChar } = this.getCharNoThrow();
-                        wchar_t ch = 0;
-                        bool gotChar = getCharNoThrow(ch);
-                        if (!gotChar)
-                        {
-                            return;
-                        }
-        
-                        switch (ch)
-                        {
-                            case '(': // group
-                            case 'd': // shorthand d
-                            case 'a': // shorthand a
-                            case 'A': // shorthand A
-                            case 's': // shorthand s
-                            case '[': // charset
-                                {
-                                    ungetChar();
-                                    ruleEntry_t ruleEntry;
-                                    parse_rule(ruleEntry);
-                                    ruleEntries_.push_back(ruleEntry);
-                                }
-                                break;
-                            default:
-                                {
-                                    ungetChar();
-                                    return;
-                                }
-                        }//switch
-                    }//while (true)
-        
+                case 'd': // shorthand d
+                case 'a': // shorthand a
+                case 'A': // shorthand A
+                case 's': { // shorthand s
+                    ruleEntry_.m_chsetEntry.m_charset = generateShorthandSet(ch);
+                    ruleEntry_.m_isgroup = false;
+                    ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
+                    break;
                 }
-        /**/
+                default: {
+                    throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
+                }
+            }
+
+            return ruleEntry_;
+        }
+
+        parse_rules(): ruleEntries_t { // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
+            const ruleEntries_: ruleEntries_t = [];
+
+            while (true) {
+                const { ch, hasChar } = this.getCharNoThrow();
+                if (!hasChar) {
+                    return ruleEntries_;
+                }
+
+                switch (ch) {
+                    case '(': // group
+                    case 'd': // shorthand d
+                    case 'a': // shorthand a
+                    case 'A': // shorthand A
+                    case 's': // shorthand s
+                    case '[': { // charset
+                        this.ungetChar();
+                        let ruleEntry = this.parse_rule();
+                        ruleEntries_.push(ruleEntry);
+                        break;
+                    }
+                    default: {
+                        this.ungetChar();
+                        return ruleEntries_;
+                    }
+                }
+            }
+        }
+
         /** / not yet
                 void parse_start() throw(...)
                 {
