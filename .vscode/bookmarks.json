@@ -21,20 +21,20 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp/ots_password_policy_advanced_ui.h",
+			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp/4-ots_password_policy_advanced_ui.h",
 			"bookmarks": [
 				{
-					"line": 384,
+					"line": 383,
 					"column": 15,
 					"label": ""
 				},
 				{
-					"line": 456,
+					"line": 455,
 					"column": 14,
 					"label": ""
 				},
 				{
-					"line": 470,
+					"line": 469,
 					"column": 19,
 					"label": ""
 				}

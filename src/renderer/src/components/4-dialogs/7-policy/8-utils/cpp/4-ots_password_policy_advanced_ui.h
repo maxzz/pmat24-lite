@@ -25,8 +25,7 @@ namespace oti_password_policy
 
 			return pt;
 		}
-
-	}; //class error_message_t
+	};
 
 	namespace ui_utils
 	{
@@ -84,7 +83,7 @@ namespace oti_password_policy
 				return pt;
 			}
 
-		}; //class bound2_t
+		};
 
 		class complexity_test_t : public error_message_t // Class for Complexity test controls.
 		{
@@ -299,9 +298,9 @@ namespace oti_password_policy
 				::SetFocus(m_edit_pattern);
 			}
 
-		m_min.enable(fEnable);
+		    m_min.enable(fEnable);
 			m_max.enable(fEnable);
-		m_constrains.enable(fEnable);
+		    m_constrains.enable(fEnable);
 			m_generation.enable(fEnable);
 
 			// Enable/disable 'Test Complexity' controls.
@@ -452,7 +451,7 @@ namespace oti_password_policy
 			}
 
 			return true;
-		} //checkPattern()
+		}
 
 		bool verifypassword(__out wstring_t& rv_msgErr_, __out point_t& pt_, __out bool& showtooltip_)
 		{
@@ -496,7 +495,7 @@ namespace oti_password_policy
 			m_complexity_test.set_password(password);
 			return true;
 
-		} // generatepassword()
+		}
 
 		point_t get_rightmost_pos(HWND hwnd_)
 		{
@@ -515,7 +514,7 @@ namespace oti_password_policy
 			tooltip_ = rstring(IDS_TOOLTIP_PHELP);
 			pt_ = get_rightmost_pos(hwndControl_);
 
-		} // gettooltip_patternhelp()
+		}
 
 		bool verifyPolicyParts(__in const password::policy_t& policy_, wstring_t& errmessage_, point_t& pt_)
 		{
@@ -524,6 +523,7 @@ namespace oti_password_policy
 			bool br = true;
 			if (policy_.IsPolicyToVerify()) {
 				scope.text("p-ver");
+
 				if (!m_min.get_valid()) {
 					br = false;
 					pt_ = m_min.get_errormsg_pos();
@@ -542,6 +542,7 @@ namespace oti_password_policy
 			}
 			else if (policy_.IsPolicyToGenerate()) {
 				scope.text("p-gen");
+
 				if (!m_min.get_valid()) {
 					br = false;
 					pt_ = m_min.get_errormsg_pos();
@@ -595,7 +596,7 @@ namespace oti_password_policy
 				case password::CHARSETTYPE::atleastonenumber:
 					m_button_complexity_s.checked = !pol.IsExtendedPolicy();
 					break;
-			}//switch
+			}
 			
 			m_button_complexity_c.checked = pol.IsExtendedPolicy();
 			
