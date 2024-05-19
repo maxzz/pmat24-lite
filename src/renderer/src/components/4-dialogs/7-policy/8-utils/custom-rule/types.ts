@@ -335,7 +335,7 @@ export namespace advancedpswpolicy {
 
             while (true) {
                 ch = this.getChar();
-                
+
                 if (ch == ']') { // Check if it is the end of character set and we started with '['.
                     if (!isSquareBrStart) {
                         throw new parseError("unexpected '[' before ']'", ParseerrorType_t.errUnexpChSetClose); // expected charset beging before closing.
@@ -344,6 +344,7 @@ export namespace advancedpswpolicy {
                     if (!rv_charset_) {
                         throw new parseError("unexpected empty charset", ParseerrorType_t.errChSetEmpty);
                     }
+                    
                     return rv_charset_;
                 }
 
@@ -381,7 +382,7 @@ export namespace advancedpswpolicy {
             } //while
 
             /*static*/ function generateCharRange(chFirst: string, chSecond: string, rv_charset_: string): string {
-                // 0. Generate (a-c -> abc), make sure that characters are unique in set, and sort.
+                // 0. Generate (chFirst=a,chSecond=c as a-c -> abc), make sure that characters are unique in set, and sort.
 
                 if (chFirst > chSecond) {
                     throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
