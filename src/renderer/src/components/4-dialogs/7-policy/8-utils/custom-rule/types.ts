@@ -94,28 +94,6 @@ export namespace advancedpswpolicy {
         }
     }
 
-    /*static*/ function generateCharRange(A_: string, B_: string, rv_: string): string {
-        // 0. Generate, make sure that characters are unique in set, and sort.
-
-        if (A_ > B_) {
-            throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
-        }
-        /** / not yet
-                //     for (wchar_t a = A_; a <= B_; a++)
-                //     {
-                //         bool isNew = rv_.find_first_of(a) == wstring_t:: npos;
-                //         if (!isNew) {
-                //             continue;
-                //         }
-        
-                //         rv_ += a;
-                //     }
-        /**/
-        //     std:: sort(rv_.begin(), rv_.end(), std:: less<wchar_t>()); // i.e. "abc"
-
-        return rv_;
-    }
-
     type NextChar = { ch: string, hasChar: boolean; };
     type NextNumber = { num: number, hasChar: boolean; };
 
@@ -128,9 +106,9 @@ export namespace advancedpswpolicy {
         doparse() {
             this.m_sourceTextPos = 0;
             this.m_rulesSet.m_ruleEntries = [];
-            /** / not yet
-                        this.parse_start();
-            /**/
+
+            this.parse_start();
+
             console.log("Done");
         } //doparse()
 
@@ -388,7 +366,7 @@ export namespace advancedpswpolicy {
 
                 if (isRange) {
                     let chFirst = rv_charset_[rv_charset_.length - 1]; // Cut the last char and use it as a first of range.
-                    rv_charset_ = rv_charset_.substring(0, rv_charset_.length - 1); // Cut the last char and use it as a first of range.
+                    rv_charset_ = rv_charset_.substring(0, rv_charset_.length - 1);
 
                     rv_charset_ = generateCharRange(chFirst, chCharset, rv_charset_);
                     isRange = false;
@@ -397,6 +375,28 @@ export namespace advancedpswpolicy {
 
                 rv_charset_ += chCharset;
             } //while
+
+            /*static*/ function generateCharRange(chFirst: string, chCharset: string, rv_charset_: string): string {
+                // 0. Generate, make sure that characters are unique in set, and sort.
+
+                if (chFirst > chCharset) {
+                    throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
+                }
+
+                // for (wchar_t a = chFirst; a <= chCharset; a++)
+                // {
+                //     bool isNew = rv_charset_.find_first_of(a) == wstring_t::npos;
+                //     if (!isNew) {
+                //         continue;
+                //     }
+
+                //     rv_charset_ += a;
+                // }
+
+                //     std:: sort(rv_charset_.begin(), rv_charset_.end(), std:: less<wchar_t>()); // i.e. "abc"
+
+                return rv_charset_;
+            }
         }
 
         parse_group(): ruleEntry_t { // '(' Rules ')' '.' // Range is handled outside.
@@ -450,7 +450,7 @@ export namespace advancedpswpolicy {
                     ruleEntry_.m_isgroup = false;
                     ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
 
-                    if (ruleEntry_.m_chsetEntry.m_charset.size() > 1024) {
+                    if (ruleEntry_.m_chsetEntry.m_charset.length > 1024) {
                         throw new parseError("expected less then 1024 per charset", ParseerrorType_t.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
                     }
                     break;
@@ -565,7 +565,7 @@ export namespace advancedpswpolicy {
             rv.error = error instanceof parseError ? error : new parseError('unknown', ParseerrorType_t.errUnexpected);
             rv.error.m_errorPos = apparser.m_sourceTextPos;
 
-            console.error(`parse error: ${e.m_what} at ${e.m_errorPos}`);
+            console.error(`parse error: ${rv.error.m_what} at ${rv.error.m_errorPos}`);
         }
 
         if (rv.error.m_errorType == ParseerrorType_t.errNone) {

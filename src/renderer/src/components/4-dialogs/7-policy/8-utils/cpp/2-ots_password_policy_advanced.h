@@ -156,7 +156,7 @@ namespace advancedpswpolicy
 			}//for
 
 			std::sort(rv_.begin(), rv_.end(), std::less<wchar_t>()); // i.e. "abc"
-		} //generateCharRange()
+		}
 		
 		void skipWhitespace() throw()
 		{
