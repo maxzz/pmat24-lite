@@ -1,6 +1,4 @@
-import { is } from "@electron-toolkit/utils";
 import { isCharHexNumber, isCharNumber } from "../cpp-utils";
-import { parse } from "path";
 
 export namespace advancedpswpolicy {
     /////////////////////////////////////////////////////////////////////////
@@ -542,40 +540,41 @@ export namespace advancedpswpolicy {
             }
         }
 
-    }; //class apparser_t
+    } //class apparser_t
 
-    /** / not yet
-        inline void parse_advpolicy(__in const string_t& advpolicy_, __inout rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_) throw()
-        {
-            rv_parseError_.m_errorType = ParseerrorType_t.errNone;
-    
-            apparser_t apparser;
-            apparser.m_sourceText = utf8(advpolicy_);
-            try
-            {
-                apparser.doparse();
-            }
-            catch(parseError& er_)
-            {
-                rv_parseError_ = er_;
-                rv_parseError_.m_errorPos = apparser.m_sourceTextPos;
-    
-                atltrace::error(wformat(L"parse error: %hs", er_.what()));
-            }
-            catch(...)
-            {
-                rv_parseError_.m_errorType = ParseerrorType_t.errUnexpected;
-                rv_parseError_.m_errorPos = apparser.m_sourceTextPos;
-    
-                atltrace::error("parse error [all]");
-            }
-    
-            if (rv_parseError_.m_errorType == ParseerrorType_t.errNone)
-                rv_rulesSet_ = apparser.m_rulesSet; // TODO: use ref instead of copy
-            else
-                rv_rulesSet_.m_ruleEntries.clear();
-    
-        } //parse_advpolicy()
-    /**/
+    export type parseAdvPolicyResult = {
+        rules: rulesSet_t;
+        error: parseError;
+    };
+
+    export function parse_advpolicy(advpolicy_: string): parseAdvPolicyResult {
+
+        const rv: { rules: rulesSet_t, error: parseError; } = {
+            rules: new rulesSet_t(),
+            error: new parseError("", ParseerrorType_t.errNone)
+        };
+
+        rv.error.m_errorType = ParseerrorType_t.errNone;
+
+        const apparser = new apparser_t();
+        apparser.m_sourceText = advpolicy_;
+
+        try {
+            apparser.doparse();
+        } catch (error) {
+            rv.error = error instanceof parseError ? error : new parseError('unknown', ParseerrorType_t.errUnexpected);
+            rv.error.m_errorPos = apparser.m_sourceTextPos;
+
+            console.error(`parse error: ${e.m_what} at ${e.m_errorPos}`);
+        }
+
+        if (rv.error.m_errorType == ParseerrorType_t.errNone) {
+            rv.rules = apparser.m_rulesSet;
+        } else {
+            rv.rules.m_ruleEntries = [];
+        }
+
+        return rv;
+    }
 
 }//namespace advancedpswpolicy
