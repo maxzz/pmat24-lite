@@ -13,7 +13,7 @@ export namespace advancedpswpolicy {
         m_max: number; // Maximum length of repetition. -1 if value is undefined by rule; -2 if value is ommited by rule.
     };
 
-    type ruleEntries_t = ruleEntry_t[]; // Sequence of rules like: a{1,2}A{1,1}[0-9]{1,1}
+    export type ruleEntries_t = ruleEntry_t[]; // Sequence of rules like: a{1,2}A{1,1}[0-9]{1,1}
 
     class chsetEntry_t {		// Character set element as a simplest rule like: [a-z]{1,} with repetition.
         m_charset: string = '';	// A set of characters.
