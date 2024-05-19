@@ -34,7 +34,7 @@ export namespace advancedpswpolicy {
         m_groupEntry: groupEntry_t = new groupEntry_t();	// Group element.
     };
 
-    class rulesSet_t {
+    export class rulesSet_t {
         m_ruleEntries: ruleEntries_t = [];
         m_pswlenSet: rangeEntry_t = { m_min: -1, m_max: -1 }; // Final total length of password.
 
