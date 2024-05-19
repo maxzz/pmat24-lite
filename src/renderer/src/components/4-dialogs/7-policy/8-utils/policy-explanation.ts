@@ -1,5 +1,7 @@
 import { advancedpswpolicy } from "./custom-rule/types";
-import { stringsPolicy } from "./strings";
+import { stringsPolicy, stringsPolicy3 } from "./strings";
+import { password } from "./types";
+import { utils } from "./utils";
 
 /*
 This file expect following resource IDs to be declared and defined:
@@ -121,99 +123,95 @@ export namespace password_policy_wexplanation {
         return rv_explanation_;
     }
 
-    /** / not yet
-    // inline wstring_t getPolicyExplanation(__in const keyvalues_t& keyvalues_, __in const password::policy_t& policy_)
-    // {
-    // 	// No explanation without localized text.
-    // 	if (keyvalues_.empty())
-    // 	{
-    // 		return L"";
-    // 	}
+    export function getPolicyExplanation(policy_: password.policy_t): string
+    {
+        // No explanation without localized text.
+        // if (keyvalues_.empty())
+        // {
+        // 	return L"";
+        // }
  
-    // 	// Additional restrictions. Password must be different from:
-    // 	wstring_t res_restrictWP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_WND);	// Different from Windows Password.
-    // 	wstring_t res_restrictAP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_ANY);	// Different from Windows Password.
-    // 	wstring_t res_restrictPP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_PREVIOUS);	// Different from Previous Password.
+        // Additional restrictions. Password must be different from:
+        // wstring_t res_restrictWP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_WND);	// Different from Windows Password.
+        // wstring_t res_restrictAP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_ANY);	// Different from Windows Password.
+        // wstring_t res_restrictPP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_PREVIOUS);	// Different from Previous Password.
  
-    // 	wstring_t rv;
+        let rv = '';
  
-    // 	if (policy_.IsExtendedPolicy())
-    // 	{
-    // 		parseError parseerror;
-    // 		rulesSet_t rulesSet;
+        if (policy_.useExt) {
+            //stringsPolicy3
+            const parseAdvPolicyResult = advancedpswpolicy.parseExtPolicy2RulesSet(policy_);
  
-    // 		customRule::parseExtPolicy2RulesSet(policy_, rulesSet, parseerror);
+            // Explanation is shown only for verification hence we allow duplication of characters within a password.
+            let noduplicate = false;
+            rv = getRuleSetExplanation(parseAdvPolicyResult.rules, noduplicate);
+        }
+        else
+        {
+            let ruleLength = stringsPolicy.length(policy_.minLength, policy_.maxLength);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
  
-    // 		// Explanation is shown only for verification hence we allow duplication
-    // 		// of characters within a password.
-    // 		bool noduplicate = false;
-    // 		getRuleSetExplanation(keyvalues_, rulesSet, rv, noduplicate);
-    // 	}
-    // 	else
-    // 	{
-    // 		wstring_t res_policyLENGTH   = getKeyValue(keyvalues_, IDS_PSW_POLICY_LENGTH);
+            // wstring_t res_policyHEAD     = getKeyValue(keyvalues_, IDS_PSW_POLICY_HEAD);
+
+            // wstring_t res_policyACHSET   = getKeyValue(keyvalues_, IDS_PSW_POLICY_ACHSET);
+            // wstring_t res_policyMINCHSET = getKeyValue(keyvalues_, IDS_PSW_POLICY_MINCHSET);
  
-    // 		wstring_t ruleLength = wformat(res_policyLENGTH.c_str(), policy_.GetMinLength(), policy_.GetMaxLength());
+            rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
  
-    // 		wstring_t res_policyHEAD     = getKeyValue(keyvalues_, IDS_PSW_POLICY_HEAD);
-    // 		wstring_t res_policyACHSET   = getKeyValue(keyvalues_, IDS_PSW_POLICY_ACHSET);
-    // 		wstring_t res_policyMINCHSET = getKeyValue(keyvalues_, IDS_PSW_POLICY_MINCHSET);
+            //if (policy_.m_noduplicate)
+            //{
+            //	rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT];
+            //}
  
-    // 		rv = res_policyHEAD + ruleLength;
+            switch (policy_.simpleChSet)
+            {
+                case password.CHARSETTYPE.alphanumeric:
+                    rv += stringsPolicy.achset(utils.SET_AlphaLower);
+                    rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                    rv += stringsPolicy.achset(utils.SET_Numeric);
+                    break;
+                case password.CHARSETTYPE.alpha:
+                    rv += stringsPolicy.achset(utils.SET_AlphaLower);
+                    rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                    break;
+                case password.CHARSETTYPE.numeric: 
+                    rv += stringsPolicy.achset(utils.SET_Numeric);
+                    break;
+                case password.CHARSETTYPE.withspecial: 
+                    rv += stringsPolicy.achset(utils.SET_AlphaLower);
+                    rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                    rv += stringsPolicy.achset(utils.SET_Numeric);
+                    rv += stringsPolicy.achset(utils.SET_Special);
+                    break;
+                case password.CHARSETTYPE.atleastonenumber:
+                    rv += stringsPolicy.minchset(1, utils.SET_Numeric);
+                    rv += stringsPolicy.achset(utils.SET_AlphaLower);
+                    rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                    break;
+                //default:
+                    // Do nothing.
+            }
  
-    // 		//if (policy_.m_noduplicate)
-    // 		//{
-    // 		//	rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT];
-    // 		//}
+            switch (policy_.constrains) {
+                case password.RESTRICTTYPE.different_ap:
+                    // rv += wformat(L"   %s", res_restrictAP);
+                    rv += stringsPolicy3.diffAp;
+                    break;
+                case password.RESTRICTTYPE.different_pp:
+                    // rv += wformat(L"   %s", res_restrictPP);
+                    rv += stringsPolicy3.diffPp;
+                    break;
+                case password.RESTRICTTYPE.different_wp:
+                    // rv += wformat(L"   %s", res_restrictWP);
+                    rv += stringsPolicy3.diffWp;
+                    break;
+                case password.RESTRICTTYPE.no_restrictions: // No explanation.
+                // default: 
+                //     break;
+            }
+        }
  
-    // 		switch (policy_.GetSimpleCharSet())
-    // 		{
-    // 			case password::CHARSETTYPE::alphanumeric:
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaLower));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaUpper));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_Numeric));
-    // 				break;
-    // 			case password::CHARSETTYPE::alpha:
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaLower));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaUpper));
-    // 				break;
-    // 			case password::CHARSETTYPE::numeric: 
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_Numeric));
-    // 				break;
-    // 			case password::CHARSETTYPE::withspecial: 
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaLower));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaUpper));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_Numeric));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_Special));
-    // 				break;
-    // 			case password::CHARSETTYPE::atleastonenumber:
-    // 				rv += wformat(res_policyMINCHSET.c_str(), 1, utf8(password::utils::SET_Numeric));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaLower));
-    // 				rv += wformat(res_policyACHSET.c_str(), utf8(password::utils::SET_AlphaUpper));
-    // 				break;
-    // 			//default:
-    // 				// Do nothing.
-    // 		}//switch
- 
-    // 		switch (policy_.GetConstrains())
-    // 		{
-    // 			case password::RESTRICTTYPE::different_ap:
-    // 				rv += wformat(L"   %s", res_restrictAP);
-    // 				break;
-    // 			case password::RESTRICTTYPE::different_pp:
-    // 				rv += wformat(L"   %s", res_restrictPP);
-    // 				break;
-    // 			case password::RESTRICTTYPE::different_wp:
-    // 				rv += wformat(L"   %s", res_restrictWP);
-    // 				break;
-    // 			case password::RESTRICTTYPE::no_restrictions: // No explanation.
-    // 			default: 
-    // 				break;
-    // 		}
-    // 	}
- 
-    // 	return rv;
-    // } //getPolicyExplanation()
+        return rv;
+    }
  
     /** / not yet
     // void policyExplanation2jsonObj(__in const password_policy_wexplanation::keyvalues_t& keyvalues_, __inout Json::Value& rv_);

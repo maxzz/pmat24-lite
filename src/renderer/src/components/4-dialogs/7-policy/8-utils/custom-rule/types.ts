@@ -1,4 +1,5 @@
 import { isCharHexNumber, isCharNumber } from "../cpp-utils";
+import { password } from "../types";
 
 export namespace advancedpswpolicy {
     /////////////////////////////////////////////////////////////////////////
@@ -557,12 +558,12 @@ export namespace advancedpswpolicy {
 
     } //class apparser_t
 
-    export type parseAdvPolicyResult = {
+    export type ParseAdvPolicyResult = {
         rules: rulesSet_t;
         error: parseError;
     };
 
-    export function parse_advpolicy(advpolicy_: string): parseAdvPolicyResult {
+    export function parse_advpolicy(advpolicy_: string): ParseAdvPolicyResult {
 
         const rv: { rules: rulesSet_t, error: parseError; } = {
             rules: new rulesSet_t(),
@@ -591,5 +592,25 @@ export namespace advancedpswpolicy {
 
         return rv;
     }
+
+
+	function parseExtPattern2RulesSet(pattern_: string): ParseAdvPolicyResult
+	{
+		let rv = parse_advpolicy(pattern_);
+		
+		// if (rv.error.m_errorType !== ParseerrorType_t.errNone)
+		// {
+		// 	return;
+		// }
+
+		//resolveRulesSetBounds(rv_rulesSet_);
+
+        return rv;
+	}
+
+	export function parseExtPolicy2RulesSet(policy_: password.policy_t): ParseAdvPolicyResult {
+		let pattern_withMinMaxRange = `${policy_.policyExt}<${policy_.minLength}, ${policy_.maxLength}>`;
+		return parseExtPattern2RulesSet(pattern_withMinMaxRange);
+	}
 
 }//namespace advancedpswpolicy
