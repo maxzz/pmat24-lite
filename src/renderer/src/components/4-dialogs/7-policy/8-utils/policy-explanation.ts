@@ -54,18 +54,11 @@ export namespace password_policy_wexplanation {
     */
 
     export function getRuleEntriesExpl(ruleEntries_: advancedpswpolicy.ruleEntries_t): string {
-        let rv_ = '';
-
-        // wstring_t res_policyACHSET   = getKeyValue(keyvalues_, IDS_PSW_POLICY_ACHSET);
-        // wstring_t res_policyMAXCHSET = getKeyValue(keyvalues_, IDS_PSW_POLICY_MAXCHSET);
-        // wstring_t res_policyMMCHSET  = getKeyValue(keyvalues_, IDS_PSW_POLICY_MMCHSET);
-        // wstring_t res_policyMINCHSET = getKeyValue(keyvalues_, IDS_PSW_POLICY_MINCHSET);
+        let rv_ = ''; //TODO: make rv as array of strings and join them at the end with proper indentation.
 
         for (const ruleEntry of ruleEntries_) {
             if (ruleEntry.m_isgroup) {
-
-                // TODO: Explain grouping (repeat/mix).
-                /*
+                /* // TODO: Explain grouping (repeat/mix).
                 wstring_t groupHead = prefix;
                 if (ruleEntry.m_groupEntry.m_mix) {
                     groupHead += L"Must contain characters in any sequence:\n";
@@ -82,7 +75,7 @@ export namespace password_policy_wexplanation {
                 const set = ruleEntry.m_chsetEntry.m_charset;
 
                 let chsetExplanation = '';
-                
+
                 if (min === -1 && max === -1) {
                     chsetExplanation = stringsPolicy.achset(set);//ai:'Must contain any character.';
                 } else if (max > 0 && min > 0) {
@@ -100,96 +93,34 @@ export namespace password_policy_wexplanation {
                 }
 
                 rv_ += chsetExplanation;
-
-                // if (chsetExplanation) {
-                //     rv_ += chsetExplanation; //wformat(chsetExplanation.c_str(), ruleEntry.m_chsetEntry.m_charset)
-                // }
             }
         }
 
         return rv_;
-
-        // for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
-        // {
-        // 	const ruleEntry_t& ruleEntry = *it;
-
-        // 	if (ruleEntry.m_isgroup)
-        // 	{
-        // 		// TODO: Explain grouping (repeat/mix).
-        // 		/*
-        // 		wstring_t groupHead = prefix;
-        // 		if (ruleEntry.m_groupEntry.m_mix)
-        // 		{
-        // 			groupHead += L"Must contain characters in any sequence:\n";
-        // 		}
-        // 		else
-        // 		{
-        // 			groupHead += L"Must contain characters in the sequence:\n";
-        // 		}
-
-        // 		rv_explanation_ += groupHead;
-        // 		*/
-
-        // 		getRuleEntriesExpl(keyvalues_, ruleEntry.m_groupEntry.m_ruleEntries, rv_);
-        // 	} else {
-        // 		int min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
-        // 		int max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
-
-        // 		wstring_t chsetExplanation;
-        // 		if (min == -1 && max == -1)
-        // 		{
-        // 			chsetExplanation = res_policyACHSET;
-        // 		}
-        // 		else if (max > 0 && min > 0)
-        // 		{
-        // 			if (max == min)
-        // 			{
-        // 				if (max == 1) {
-        // 					chsetExplanation = res_policyACHSET;
-        // 				} else {
-        // 					chsetExplanation = wformat(res_policyMAXCHSET.c_str(), max, L"%s");
-        // 				}
-        // 			}
-        // 			else
-        // 			{
-        // 				chsetExplanation = wformat(res_policyMMCHSET.c_str(), min, max, L"%s");
-        // 			}
-        // 		}
-        // 		else if (min > 0)
-        // 		{
-        // 			chsetExplanation = wformat(res_policyMINCHSET.c_str(), min, L"%s");
-        // 		}
-        // 		if (chsetExplanation.length()) {
-        //             rv_ += wformat(chsetExplanation.c_str(), ruleEntry.m_chsetEntry.m_charset);
-        //         }
-        // 	}
-        // }//for
-
     }
 
-    // export function getRuleSetExplanation(rulesSet_: advancedpswpolicy.rulesSet_t, noduplicates_: boolean): string    {
-    //     let rv_explanation_ = '';
+    export function getRuleSetExplanation(rulesSet_: advancedpswpolicy.rulesSet_t, noduplicates_: boolean): string {
+        let rv_explanation_ = '';
 
-    // 	// // wstring_t res_policyLENGTH   = getKeyValue(keyvalues_, IDS_PSW_POLICY_LENGTH);
-    // 	// // wstring_t res_policyHEAD     = getKeyValue(keyvalues_, IDS_PSW_POLICY_HEAD);
-    // 	// // wstring_t res_policyNOREPEAT = getKeyValue(keyvalues_, IDS_PSW_POLICY_NOREPEAT);
- 
-    // 	// wstring_t ruleLength = wformat(res_policyLENGTH.c_str(), rulesSet_.m_pswlenSet.m_min, rulesSet_.m_pswlenSet.m_max);
+        // // wstring_t res_policyLENGTH   = getKeyValue(keyvalues_, IDS_PSW_POLICY_LENGTH);
+        // // wstring_t res_policyHEAD     = getKeyValue(keyvalues_, IDS_PSW_POLICY_HEAD);
+        // // wstring_t res_policyNOREPEAT = getKeyValue(keyvalues_, IDS_PSW_POLICY_NOREPEAT);
 
-    //     let ruleLength = 
-    //         //ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
- 
-    // 	rv_explanation_ = res_policyHEAD + ruleLength;
- 
-    // 	if (noduplicates_)
-    // 	{
-    // 		rv_explanation_ += res_policyNOREPEAT;
-    // 	}
- 
-    // 	getRuleEntriesExpl(keyvalues_, rulesSet_.m_ruleEntries, rv_explanation_);
- 
-    // } // getRuleSetExplanation()
- 
+        // wstring_t ruleLength = wformat(res_policyLENGTH.c_str(), rulesSet_.m_pswlenSet.m_min, rulesSet_.m_pswlenSet.m_max);
+
+        let ruleLength = stringsPolicy.length(rulesSet_.m_pswlenSet.m_min, rulesSet_.m_pswlenSet.m_max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
+
+        rv_explanation_ = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
+
+        if (noduplicates_) {
+            rv_explanation_ += stringsPolicy.norepeat();//ai:'Each password character must only be used one time.';
+        }
+
+        rv_explanation_ += getRuleEntriesExpl(rulesSet_.m_ruleEntries);
+
+        return rv_explanation_;
+    }
+
     /** / not yet
     // inline wstring_t getPolicyExplanation(__in const keyvalues_t& keyvalues_, __in const password::policy_t& policy_)
     // {
