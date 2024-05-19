@@ -317,8 +317,11 @@ export namespace advancedpswpolicy {
                 throw new parseError("expected 4 hex digits", ParseerrorType_t.errExp4Digits);
             }
 
-            rv_char_ = number.toString(16); // 0xff -> 'ff'
-            return rv_char_;
+            const rv = String.fromCharCode(number);
+            return rv;
+
+            // rv_char_ = `0x${number.toString(16)}`; // 0xff -> '0xff'
+            // return rv_char_;
         }
 
         parse_charset(): string { // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
@@ -332,6 +335,7 @@ export namespace advancedpswpolicy {
 
             while (true) {
                 ch = this.getChar();
+                
                 if (ch == ']') { // Check if it is the end of character set and we started with '['.
                     if (!isSquareBrStart) {
                         throw new parseError("unexpected '[' before ']'", ParseerrorType_t.errUnexpChSetClose); // expected charset beging before closing.
@@ -370,20 +374,30 @@ export namespace advancedpswpolicy {
 
                     rv_charset_ = generateCharRange(chFirst, chCharset, rv_charset_);
                     isRange = false;
-                    continue;
+                } else {
+                    rv_charset_ += chCharset;
                 }
 
-                rv_charset_ += chCharset;
             } //while
 
-            /*static*/ function generateCharRange(chFirst: string, chCharset: string, rv_charset_: string): string {
-                // 0. Generate, make sure that characters are unique in set, and sort.
+            /*static*/ function generateCharRange(chFirst: string, chSecond: string, rv_charset_: string): string {
+                // 0. Generate (a-c -> abc), make sure that characters are unique in set, and sort.
 
-                if (chFirst > chCharset) {
+                if (chFirst > chSecond) {
                     throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
                 }
 
-                // for (wchar_t a = chFirst; a <= chCharset; a++)
+                while (chFirst <= chSecond) {
+                    let isNew = rv_charset_.indexOf(chFirst) === -1;
+                    if (isNew) {
+                        rv_charset_ += chFirst;
+                    }
+                    chFirst = String.fromCharCode(chFirst.charCodeAt(0) + 1);
+                }
+
+                rv_charset_ = rv_charset_.split('').sort().join(''); // i.e. "acb" -> "abc"
+
+                // for (wchar_t a = chFirst; a <= chSecond; a++)
                 // {
                 //     bool isNew = rv_charset_.find_first_of(a) == wstring_t::npos;
                 //     if (!isNew) {
