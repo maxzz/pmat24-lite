@@ -7,54 +7,48 @@ export namespace customRule2 {
 	// typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; // Pointer to undefined character set entries
 	type undef_chsetEntries_t = advancedpswpolicy.chsetEntry_t[]; // Pointer to undefined character set entries
 
-    /** / not yet
-	inline void getBoundsRecursively(__in const ruleEntries_t& rulesEntries_, __out undef_chsetEntries_t& undefchSetEntries_, __inout int& entriesMinTotal_, __inout int& entriesMaxTotal_)
-	{
-		for (ruleEntries_t::const_iterator it = rulesEntries_.begin(); it != rulesEntries_.end(); ++it)
-		{
-			const ruleEntry_t& ruleEntry = *it;
+    type getBoundsRecursivelyParams = {
+        undefchSetEntries_: undef_chsetEntries_t,
+        entriesMinTotal_: number,
+        entriesMaxTotal_: number,
+    };
 
-			if (ruleEntry.m_isgroup)
-			{
-				getBoundsRecursively(ruleEntry.m_groupEntry.m_ruleEntries, undefchSetEntries_, entriesMinTotal_, entriesMaxTotal_);
-			}
-			else
-			{
-				const int& minRange = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
-				const int& maxRange = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
+	function getBoundsRecursively(rulesEntries_: advancedpswpolicy.ruleEntries_t, rv: getBoundsRecursivelyParams): void {
 
-				// We have min and max range set -1 if the pattern has placeholders.
-				// In that case, we have to set the range to 1 only.
-				if (minRange == -1 && maxRange == -1)
-				{
-					entriesMinTotal_++;
-					entriesMaxTotal_++;
+        rulesEntries_.forEach(
+                (ruleEntry) => {
 
-					continue;
-				}
+                if (ruleEntry.m_isgroup) {
+                    getBoundsRecursively(ruleEntry.m_groupEntry.m_ruleEntries, rv);
+                } else {
+                    const minRange = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
+                    const maxRange = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
 
-				if (minRange > 0)
-				{
-					entriesMinTotal_ += minRange;
-				}
+                    // We have min and max range set -1 if the pattern has placeholders.
+                    // In that case, we have to set the range to 1 only.
+                    if (minRange === -1 && maxRange === -1) {
+                        rv.entriesMinTotal_++;
+                        rv.entriesMaxTotal_++;
+                        return;
+                    }
 
-				if (maxRange > 0)
-				{
-					entriesMaxTotal_ += maxRange;
-				}
-				else
-				if (maxRange == -2)
-				{
-					// Add to the list of undefined rule entries.
-					// If we are here then the max range is not set for the current entry.
-					//
-					entriesMaxTotal_ += minRange; // Add min range to max total (at least).
-					undefchSetEntries_.push_back(&ruleEntry.m_chsetEntry);
-				}
-			} // 
-		}//for
+                    if (minRange > 0) {
+                        rv.entriesMinTotal_ += minRange;
+                    }
+
+                    if (maxRange > 0) {
+                        rv.entriesMaxTotal_ += maxRange;
+                    } else if (maxRange === -2) {
+                        // Add to the list of undefined rule entries.
+                        // If we are here then the max range is not set for the current entry.
+                        //
+                        rv.entriesMaxTotal_ += minRange; // Add min range to max total (at least).
+                        rv.undefchSetEntries_.push(ruleEntry.m_chsetEntry);
+                    }
+                }
+            }
+        );
 	}
-    /**/
 
     type checkRulesBoundsForGenerateResult = {
         minValid: boolean,
@@ -75,9 +69,9 @@ export namespace customRule2 {
 		let max = 0;
 
 		let undefinedChSetEntries: undef_chsetEntries_t = []; // Rule entries without any max bound value.
-/** / not yet
+
 		getBoundsRecursively(rulesSet_.m_ruleEntries, undefinedChSetEntries, min, max);
-/**/
+
 		if (min < rulesSet_.m_pswlenSet.m_min)
 		{
 			// Determine whether there are any Rule entries without max value to accommodate missing places.
