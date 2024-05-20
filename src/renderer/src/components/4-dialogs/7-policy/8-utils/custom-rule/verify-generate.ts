@@ -1,5 +1,5 @@
-import { utils } from "../utils";
 import { advancedpswpolicy } from "./types";
+import { utils } from "../utils";
 
 export namespace customRule2 {
     // using namespace advancedpswpolicy;
@@ -108,66 +108,69 @@ export namespace customRule2 {
         return rv;
     }
 
-    /** / not yet
-    struct chsetData_t
-    {
-        const chsetEntry_t* m_pChsetEntry = nullptr;
-        bool m_isgenerated = false;
-        size_t m_min = -1;
-        size_t m_max = -1;
-        size_t m_generatedLen = -1;
+    class chsetData_t {
+        //const chsetEntry_t* m_pChsetEntry = nullptr;
+        m_pChsetEntry: advancedpswpolicy.chsetEntry_t;
 
-        chsetData_t() {}
-        chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
-            : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
+        m_isgenerated = false;
+        m_min = -1;
+        m_max = -1;
+        m_generatedLen = -1;
 
-        bool generateLength() throw(...)
-        {
-            if (m_isgenerated)
+        // chsetData_t() {}
+        // chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
+        //     : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
+        constructor(pChsetEntry_: advancedpswpolicy.chsetEntry_t, min_: number, max_: number) {
+            this.m_pChsetEntry = pChsetEntry_;
+            this.m_min = min_;
+            this.m_max = max_;
+        }
+
+        generateLength(): boolean {
+            if (this.m_isgenerated)
             {
-                return m_isgenerated;
+                return this.m_isgenerated;
             }
 
-            if (!m_pChsetEntry)
+            if (!this.m_pChsetEntry)
             {
-                throw std::runtime_error("chsetEntry_t is null.");
+                throw new Error("chsetEntry_t is null.");
             }
 
-            if (m_min == -1 && m_max == -1)
+            if (this.m_min == -1 && this.m_max == -1)
             {
-                m_min = m_max = 1;
+                this.m_min = this.m_max = 1;
             }
 
-            if (m_max == -2)
+            if (this.m_max == -2)
             {
                 return false;
             }
 
-            m_generatedLen = password::utils::getRandomInRange(m_min, m_max);
-            m_isgenerated = m_generatedLen >= m_min && m_generatedLen <= m_max;
+            this.m_generatedLen = utils.getRandomInRange(this.m_min, this.m_max);
+            this.m_isgenerated = this.m_generatedLen >= this.m_min && this.m_generatedLen <= this.m_max;
 
-            return m_isgenerated;
-        } // generate()
+            return this.m_isgenerated;
+        }
 
-        wstring_t generateValue(__in const wstring_t& excludeChars_) throw(...)  // To generate unique values
+        generateValue(excludeChars_: string): string  // To generate unique values
         {
-            if (!m_pChsetEntry)
+            if (!this.m_pChsetEntry)
             {
-                throw std::runtime_error("chsetEntry_t is null.");
+                throw new Error("chsetEntry_t is null.");
             }
 
-            if (m_generatedLen <=0 )
+            if (this.m_generatedLen <=0 )
             {
-                throw std::runtime_error("Invalid length.");
+                throw new Error("Invalid length.");
             }
 
-            wstring_t generatedValue;
-            password::utils::genSubSet((*m_pChsetEntry).m_charset, excludeChars_, m_generatedLen, generatedValue);
+            let generatedValue = '';
+            utils.genSubSet(this.m_pChsetEntry.m_charset, excludeChars_, this.m_generatedLen, generatedValue);
 
             return generatedValue;
         }
     };
-    /**/
 
     /** / not yet
     typedef std::map<const chsetEntry_t*, chsetData_t*> chsetEntriesHolder_t;
