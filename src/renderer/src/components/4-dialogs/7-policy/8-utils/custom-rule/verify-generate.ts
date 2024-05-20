@@ -7,13 +7,13 @@ export namespace customRule2 {
 	// typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; // Pointer to undefined character set entries
 	type undef_chsetEntries_t = advancedpswpolicy.chsetEntry_t[]; // Pointer to undefined character set entries
 
-    type getBoundsRecursivelyParams = {
-        undefchSetEntries_: undef_chsetEntries_t,
-        entriesMinTotal_: number,
-        entriesMaxTotal_: number,
+    type GetBoundsRecursivelyParams = {
+        undefchSetEntries_: undef_chsetEntries_t, // undefined chSet entries
+        min: number, // entries min total
+        max: number, // entries max total
     };
 
-	function getBoundsRecursively(rulesEntries_: advancedpswpolicy.ruleEntries_t, rv: getBoundsRecursivelyParams): void {
+	function getBoundsRecursively(rulesEntries_: advancedpswpolicy.ruleEntries_t, rv: GetBoundsRecursivelyParams): void {
 
         rulesEntries_.forEach(
                 (ruleEntry) => {
@@ -27,22 +27,22 @@ export namespace customRule2 {
                     // We have min and max range set -1 if the pattern has placeholders.
                     // In that case, we have to set the range to 1 only.
                     if (minRange === -1 && maxRange === -1) {
-                        rv.entriesMinTotal_++;
-                        rv.entriesMaxTotal_++;
+                        rv.min++;
+                        rv.max++;
                         return;
                     }
 
                     if (minRange > 0) {
-                        rv.entriesMinTotal_ += minRange;
+                        rv.min += minRange;
                     }
 
                     if (maxRange > 0) {
-                        rv.entriesMaxTotal_ += maxRange;
+                        rv.max += maxRange;
                     } else if (maxRange === -2) {
                         // Add to the list of undefined rule entries.
                         // If we are here then the max range is not set for the current entry.
                         //
-                        rv.entriesMaxTotal_ += minRange; // Add min range to max total (at least).
+                        rv.max += minRange; // Add min range to max total (at least).
                         rv.undefchSetEntries_.push(ruleEntry.m_chsetEntry);
                     }
                 }
@@ -55,7 +55,7 @@ export namespace customRule2 {
         maxValid: boolean,
     };
 
-	function checkRulesBoundsForGenerate(rulesSet_: advancedpswpolicy.rulesSet_t): checkRulesBoundsForGenerateResult {
+	export function checkRulesBoundsForGenerate(rulesSet_: advancedpswpolicy.rulesSet_t): checkRulesBoundsForGenerateResult {
 		// Initialize return values with the assumption that the min and max values are valid.
 
         const rv: checkRulesBoundsForGenerateResult = {
@@ -64,19 +64,29 @@ export namespace customRule2 {
         };
 
 		// 0. To get min and max bounds.
+        var pm: GetBoundsRecursivelyParams = {
+            undefchSetEntries_: [], // Rule entries without any max bound value.
+            min: 0,
+            max: 0,
+        };
 
-		let min = 0;
-		let max = 0;
+		// let min = 0;
+		// let max = 0;
 
-		let undefinedChSetEntries: undef_chsetEntries_t = []; // Rule entries without any max bound value.
+		// let undefinedChSetEntries: undef_chsetEntries_t = []; 
 
-		getBoundsRecursively(rulesSet_.m_ruleEntries, undefinedChSetEntries, min, max);
+		getBoundsRecursively(rulesSet_.m_ruleEntries, pm);
 
-		if (min < rulesSet_.m_pswlenSet.m_min)
-		{
+		if (pm.min < rulesSet_.m_pswlenSet.m_min) {
 			// Determine whether there are any Rule entries without max value to accommodate missing places.
 			//
-/** / not yet            
+            let maxCharactersAvailable = pm.min;
+            pm.undefchSetEntries_.forEach((currentChEntry) => {
+                maxCharactersAvailable += currentChEntry.m_charset.length;
+            });
+            rv.minValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+
+            /** /
 			let maxCharactersAvailable = min;
 			for (undef_chsetEntries_t::iterator it = undefinedChSetEntries.begin(); it != undefinedChSetEntries.end(); ++it)
 			{
@@ -92,17 +102,20 @@ export namespace customRule2 {
 			}
 
 			rv.minValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
-/**/
-		}
-		else
-		if (min > rulesSet_.m_pswlenSet.m_max)
+            /**/
+		} else if (pm.min > rulesSet_.m_pswlenSet.m_max)
 		{
 			rv.minValid = false;
 		}
 
-		if (max < rulesSet_.m_pswlenSet.m_min)
-		{
-/** / not yet
+		if (pm.max < rulesSet_.m_pswlenSet.m_min) {
+            let maxCharactersAvailable = pm.max;
+            pm.undefchSetEntries_.forEach((currentChEntry) => {
+                maxCharactersAvailable += currentChEntry.m_charset.length;
+            });
+            rv.maxValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+            
+            /** /
 			// Determine whether there are any Rule entries without max value to accommodate missing places.
 			//
 			let maxCharactersAvailable = max;
@@ -120,10 +133,8 @@ export namespace customRule2 {
 			}
 
 			rv.maxValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
-/**/            
-		}
-
-		if (max > rulesSet_.m_pswlenSet.m_max)
+            /**/
+		} else if (pm.max > rulesSet_.m_pswlenSet.m_max)
 		{
 			rv.maxValid = false;
 		}
