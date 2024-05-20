@@ -1,7 +1,11 @@
+import { utils } from "../utils";
+import { advancedpswpolicy } from "./types";
+
 export namespace customRule2 {
 	// using namespace advancedpswpolicy;
 
-	// typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; /* Pointer to undefined character set entries */
+	// typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; // Pointer to undefined character set entries
+	type undef_chsetEntries_t = advancedpswpolicy.chsetEntry_t[]; // Pointer to undefined character set entries
 
     /** / not yet
 	inline void getBoundsRecursively(__in const ruleEntries_t& rulesEntries_, __out undef_chsetEntries_t& undefchSetEntries_, __inout int& entriesMinTotal_, __inout int& entriesMaxTotal_)
@@ -50,29 +54,36 @@ export namespace customRule2 {
 			} // 
 		}//for
 	}
-    /** / not yet
+    /**/
 
-    /** / not yet
-	inline void checkRulesBoundsForGenerate(__in const rulesSet_t& rulesSet_, __inout bool& rv_minValid_, __inout bool& rv_maxValid_) throw()
-	{
+    type checkRulesBoundsForGenerateResult = {
+        minValid: boolean,
+        maxValid: boolean,
+    };
+
+	function checkRulesBoundsForGenerate(rulesSet_: advancedpswpolicy.rulesSet_t): checkRulesBoundsForGenerateResult {
 		// Initialize return values with the assumption that the min and max values are valid.
 
-		rv_minValid_ = true;
-		rv_maxValid_ = true;
+        const rv: checkRulesBoundsForGenerateResult = {
+            minValid: true,
+            maxValid: true,
+        };
 
 		// 0. To get min and max bounds.
 
-		int min, max;
-		min = max = 0;
-		undef_chsetEntries_t undefinedChSetEntries; // Rule entries without any max bound value.
+		let min = 0;
+		let max = 0;
 
+		let undefinedChSetEntries: undef_chsetEntries_t = []; // Rule entries without any max bound value.
+/** / not yet
 		getBoundsRecursively(rulesSet_.m_ruleEntries, undefinedChSetEntries, min, max);
-
+/**/
 		if (min < rulesSet_.m_pswlenSet.m_min)
 		{
 			// Determine whether there are any Rule entries without max value to accommodate missing places.
 			//
-			int maxCharactersAvailable = min;
+/** / not yet            
+			let maxCharactersAvailable = min;
 			for (undef_chsetEntries_t::iterator it = undefinedChSetEntries.begin(); it != undefinedChSetEntries.end(); ++it)
 			{
 				if (*it == 0)
@@ -86,19 +97,21 @@ export namespace customRule2 {
 				maxCharactersAvailable += (int)currentChEntry.m_charset.length();
 			}
 
-			rv_minValid_ = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+			rv.minValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+/**/
 		}
 		else
 		if (min > rulesSet_.m_pswlenSet.m_max)
 		{
-			rv_minValid_ = false;
+			rv.minValid = false;
 		}
 
 		if (max < rulesSet_.m_pswlenSet.m_min)
 		{
+/** / not yet
 			// Determine whether there are any Rule entries without max value to accommodate missing places.
 			//
-			int maxCharactersAvailable = max;
+			let maxCharactersAvailable = max;
 			for (undef_chsetEntries_t::iterator it = undefinedChSetEntries.begin(); it != undefinedChSetEntries.end(); ++it)
 			{
 				if (*it == 0)
@@ -112,16 +125,17 @@ export namespace customRule2 {
 				maxCharactersAvailable += (int)currentChEntry.m_charset.length();
 			}
 
-			rv_maxValid_ = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+			rv.maxValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+/**/            
 		}
 
 		if (max > rulesSet_.m_pswlenSet.m_max)
 		{
-			rv_maxValid_ = false;
+			rv.maxValid = false;
 		}
 
+        return rv;
 	}
-    /** / not yet
 
     /** / not yet
 	struct chsetData_t
@@ -182,10 +196,12 @@ export namespace customRule2 {
 			return generatedValue;
 		}
 	};
-    /** / not yet
+    /**/
 
+    /** / not yet
 	typedef std::map<const chsetEntry_t*, chsetData_t*> chsetEntriesHolder_t;
 	typedef std::list<chsetData_t> chsetEntries_t;
+    /**/
 
     /** / not yet
 	inline void findCharsetEntryHolder(const wchar_t& wchar_, __in const chsetEntriesHolder_t& chSetEntriesHolder_, const ruleEntries_t& ruleEntries_, chsetEntriesHolder_t::const_iterator& itchsetEntry_)
@@ -210,7 +226,7 @@ export namespace customRule2 {
 			break;
 		} // for
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline void generatePasswordByRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in const chsetEntriesHolder_t& chSetEntriesHolder_,
@@ -340,7 +356,7 @@ export namespace customRule2 {
 		}//for
 
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline void generateForChSetEntriesHolderRecursively(__in const ruleEntries_t& ruleEntries_, __inout chsetEntriesHolder_t& chSetEntriesHolder_, 
@@ -385,7 +401,7 @@ export namespace customRule2 {
 		}//for
 
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline bool verifyPasswordAgainstRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in wstring_t& password_, __in bool mix_ = false)
@@ -479,7 +495,7 @@ export namespace customRule2 {
 
 		return rv;
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline void parseExtPattern2RulesSet(__in const string_t& pattern_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
@@ -494,9 +510,8 @@ export namespace customRule2 {
 		}
 
 		//resolveRulesSetBounds(rv_rulesSet_);
-
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	////////////////////////////////////////////////////////////////////////////
@@ -505,9 +520,8 @@ export namespace customRule2 {
 		string_t pattern_withMinMaxRange = policy_.GetExtendedPolicyStr() + sformat("<%d, %d>", policy_.GetMinLength(), policy_.GetMaxLength());
 
 		parseExtPattern2RulesSet(pattern_withMinMaxRange, rv_rulesSet_, rv_parseError_);
-
-	} //parseExtPolicy2RulesSet()
-    /** / not yet
+	}
+    /**/
 
     /** / not yet
 	inline bool verifyPasswordAgainstRuleNoThrow(__in const rulesSet_t& rulesSet_, __in const wstring_t& previousPassword_, __in const wstring_t& password_, __in bool noduplicates_) throw()
@@ -570,7 +584,7 @@ export namespace customRule2 {
 
 		return rv;
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline bool sort_ascendingByCharSetLength(const chsetData_t& first, const chsetData_t& second)
@@ -578,7 +592,7 @@ export namespace customRule2 {
 		bool isLowerCharSetLength = first.m_pChsetEntry->m_charset.length() < second.m_pChsetEntry->m_charset.length();
 		return isLowerCharSetLength ? true : false;
 	}
-    /** / not yet
+    /**/
 
     /** / not yet
 	inline void generatePasswordByRuleNoThrow(__in const rulesSet_t& rulesSet_, __in bool noduplicates_, __in const wstring_t& prevPassword_, __out wstring_t& rv_password_) throw()
@@ -670,7 +684,6 @@ export namespace customRule2 {
 		}
 
 	}
-    /** / not yet
     /**/
 
 }//namespace customRule2
