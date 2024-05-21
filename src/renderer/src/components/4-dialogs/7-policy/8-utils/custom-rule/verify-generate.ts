@@ -169,10 +169,6 @@ export namespace customRule2 {
         }
     };
 
-    /** /
-    typedef std::map<const chsetEntry_t*, chsetData_t*> chsetEntriesHolder_t;
-    typedef std::list<chsetData_t> chsetEntries_t;
-    /**/
     type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, chsetData_t>;
     type chsetEntries_t = chsetData_t[];
 
@@ -446,21 +442,16 @@ export namespace customRule2 {
         return true;
     }
 
-    /** / not yet
-    inline void parseExtPattern2RulesSet(__in const string_t& pattern_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
-    {
-        rv_rulesSet_.m_ruleEntries.clear();
-
-        parse_advpolicy(pattern_, rv_rulesSet_, rv_parseError_);
+    function parseExtPattern2RulesSet(pattern_): advancedpswpolicy.ParseAdvPolicyResult | undefined {
+        const rv = advancedpswpolicy.parse_advpolicy(pattern_);
     	
-        if (rv_parseError_.m_errorType != rv_parseError_.errNone)
+        if (rv.error.m_errorType != advancedpswpolicy.ParseerrorType_t.errNone)
         {
             return;
         }
 
         //resolveRulesSetBounds(rv_rulesSet_);
     }
-    /**/
 
     /** / not yet
     ////////////////////////////////////////////////////////////////////////////

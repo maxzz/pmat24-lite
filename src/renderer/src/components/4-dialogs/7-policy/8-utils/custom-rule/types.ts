@@ -50,7 +50,7 @@ export namespace advancedpswpolicy {
 
     /////////////////////////////////////////////////////////////////////////
 
-    enum ParseerrorType_t {
+    export enum ParseerrorType_t {
         errNone,            // No errors as a default value.
         errUnexpected,      // Any unexpected error that is thrown as a general exeption.
         errUnexpShorthand,  // "unexpected shorthand"
@@ -70,7 +70,7 @@ export namespace advancedpswpolicy {
         errLastError,       // A highest number of error.
     };
 
-    class parseError {
+    export class parseError {
         m_what: string = '';  // Error message.
         m_errorType: ParseerrorType_t = ParseerrorType_t.errNone;
         m_errorPos: number = 0;     // Position in source text where error occured.
