@@ -234,10 +234,12 @@ export namespace customRule2 {
                 rv_password_ += pswOutOfGroup;
 
                 if (avoidConsecutiveChars_) {
+                    
+                    let newPsw = '';
                     let prevCh: string | undefined;
 
                     for (let itChar = 0; itChar < rv_password_.length; itChar++) {
-                        const curCh = rv_password_[itChar];
+                        let curCh = rv_password_[itChar];
 
                         if (prevCh === curCh) {
                             let itchsetEntry = findCharsetEntryHolder(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
@@ -261,50 +263,15 @@ export namespace customRule2 {
                                 let generatedValue = '';
                                 utils.genSubSet(pchsetData.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
 
-                                rv_password_ = !generatedValue ? curCh : generatedValue[0];
+                                curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
                         }
 
-                        prevCh = rv_password_[itChar];
+                        newPsw += curCh;
+                        prevCh = curCh;
                     }
 
-                    rv_password_ = rv_password_.split('').map(
-                        (itChar) => {
-                            if (prevCh === itChar) {
-
-                                let itchsetEntry = findCharsetEntryHolder(itChar, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
-
-
-
-
-
-                                if (itchsetEntry === undefined) {
-                                    throw new Error("NO.chsetEntry_t.1");
-                                }
-
-                                let pchsetData = itchsetEntry;
-                                if (pchsetData === null) {
-                                    throw new Error("NO.chsetEntry_t.2");
-                                }
-
-                                let excludeChars = prevCh;
-                                if ((itChar + 1) !== rv_password_.length) {
-                                    excludeChars += rv_password_[itChar + 1];
-                                }
-
-                                if (!excludeChars_.empty) {
-                                    excludeChars += excludeChars_;
-                                }
-
-                                let generatedValue = '';
-                                utils.genSubSet(pchsetData.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
-                                itChar = generatedValue.length === 0 ? itChar : generatedValue[0];
-                            }
-
-                            prevCh = itChar;
-                            return itChar;
-                        }
-                    ).join('');
+                    rv_password_ = newPsw;
                 }
 
             } else {
@@ -329,130 +296,6 @@ export namespace customRule2 {
             }
         });
 
-        /** /
-        for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
-        {
-            const ruleEntry_t& ruleEntry = *it;
-
-            if (ruleEntry.m_isgroup)
-            {
-                wstring_t pswOutOfGroup;
-                generatePasswordByRuleRecursively(
-                    ruleEntry.m_groupEntry.m_ruleEntries, 
-                    chSetEntriesHolder_, 
-                    noduplicates_, 
-                    avoidConsecutiveChars_, 
-                    excludeChars_, 
-                    pswOutOfGroup
-                );
-
-                if (ruleEntry.m_groupEntry.m_mix)
-                {
-                    password::utils::randomizeCharsInString(pswOutOfGroup);
-                }
-
-                rv_password_ += pswOutOfGroup; //atltrace::text(L"(group) psw = '%s'\n", rv_password_);
-
-                if (avoidConsecutiveChars_)
-                {
-                    wchar_t prevCh = '\0';
-                    for (wstring_t::iterator itChar = rv_password_.begin(); itChar != rv_password_.end(); ++itChar)
-                    {
-                        if (prevCh == *itChar)
-                        {
-                            chsetEntriesHolder_t::const_iterator itchsetEntry = chSetEntriesHolder_.end();
-
-                            findCharsetEntryHolder(*itChar, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries, itchsetEntry);
-
-                            //if (itchsetEntry == chSetEntriesHolder_.end())
-                            //{
-                            //	throw std::runtime_error("NO.chsetEntry_t.1");
-                            //}
-
-                            if (itchsetEntry != chSetEntriesHolder_.end())
-                            {
-                                chsetData_t* pchsetData = (*itchsetEntry).second;
-                                if (pchsetData == nullptr)
-                                {
-                                    throw std::runtime_error("NO.chsetEntry_t.2");
-                                }
-
-                                wstring_t excludeChars(1, prevCh);
-                                if ((itChar + 1) != rv_password_.end())
-                                {
-                                    excludeChars += *(itChar + 1);
-                                }
-
-                                if (!excludeChars_.empty())
-                                {
-                                    excludeChars += excludeChars_;
-                                }
-
-                                wstring_t generatedValue;
-                                password::utils::genSubSet(pchsetData->m_pChsetEntry->m_charset, excludeChars, 1, generatedValue);
-                                *itChar = generatedValue.empty() ? *itChar : generatedValue[0];
-                            }
-                        }
-
-                        prevCh = *itChar;
-                    }
-                }
-            }
-            else
-            {
-                chsetEntriesHolder_t::const_iterator itchsetEntry = chSetEntriesHolder_.find(&ruleEntry.m_chsetEntry);
-                if (itchsetEntry == chSetEntriesHolder_.end())
-                {
-                    throw std::runtime_error("NO.chsetEntry_t.1");
-                }
-
-                chsetData_t* pchsetData = (*itchsetEntry).second;
-                if (pchsetData == nullptr)
-                {
-                    throw std::runtime_error("NO.chsetEntry_t.2");
-                }
-
-                wstring_t excludeChars = noduplicates_ ? rv_password_ : wstring_t();
-                if (!excludeChars_.empty())
-                {
-                    excludeChars += excludeChars_;
-                }
-
-                if (pchsetData->m_generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
-                    rv_password_ += pchsetData->generateValue(excludeChars);
-                }
-
-                if (avoidConsecutiveChars_)
-                {
-                    wchar_t prevCh = '\0';
-                    for (wstring_t::iterator itChar = rv_password_.begin(); itChar != rv_password_.end(); ++itChar)
-                    {
-                        if (prevCh == *itChar)
-                        {
-                            wstring_t excludeChars(1, prevCh);
-                            if ( (itChar + 1) != rv_password_.end())
-                            {
-                                excludeChars += *(itChar+1);
-                            }
-
-                            if (!excludeChars_.empty())
-                            {
-                                excludeChars += excludeChars_;
-                            }
-
-                            wstring_t generatedValue;
-                            password::utils::genSubSet(pchsetData->m_pChsetEntry->m_charset, excludeChars, 1, generatedValue);
-                            *itChar = generatedValue.empty() ? *itChar : generatedValue[0];
-                        }
-
-                        prevCh = *itChar;
-
-                    } // for
-                }
-            }
-
-        }//for
-        /**/
         return rv_password_;
     }
     /**/
