@@ -462,68 +462,70 @@ export namespace customRule2 {
         return parseExtPattern2RulesSet(pattern_withMinMaxRange);
     }
 
-    /** / not yet
-    inline bool verifyPasswordAgainstRuleNoThrow(__in const rulesSet_t& rulesSet_, __in const wstring_t& previousPassword_, __in const wstring_t& password_, __in bool noduplicates_) throw()
-    {
-        // Password is invalid if empty.
-        if (password_.empty())
+    function verifyPasswordAgainstRuleNoThrow(rulesSet_: advancedpswpolicy.rulesSet_t, previousPassword_: string, password_: string, noduplicates_: boolean): boolean {
+        
+        if (!password_) // Password is invalid if empty.
         {
             return false;
         }
 
         // Check length of the password is within min, max bounds.
-        int pswLen = size2int(password_.length());
-        if ((rulesSet_.m_pswlenSet.m_min != 0 && rulesSet_.m_pswlenSet.m_min > pswLen) || (rulesSet_.m_pswlenSet.m_max != 0 && rulesSet_.m_pswlenSet.m_max < pswLen))
-        {
+        let pswLen = password_.length;
+        if (
+            (rulesSet_.m_pswlenSet.m_min != 0 && rulesSet_.m_pswlenSet.m_min > pswLen) || 
+            (rulesSet_.m_pswlenSet.m_max != 0 && rulesSet_.m_pswlenSet.m_max < pswLen)
+        ) {
             return false;
         }
 
         // Check password has duplicates if specified.
-        if (noduplicates_ && password::utils::hasDuplicateChars(password_))
+        if (noduplicates_ && utils.hasDuplicateChars(password_))
         {
             return false;
         }
 
-        if (rulesSet_.m_checkPrevPasswordCharPosition && 
-            !previousPassword_.empty())
+        if (rulesSet_.m_checkPrevPasswordCharPosition && !!previousPassword_)
         {
-            wstring_t::size_type maxLength = min(previousPassword_.length(), password_.length());
-            for (wstring_t::size_type index = 0; index < maxLength; index++)
+            let maxLength = Math.min(previousPassword_.length, password_.length);
+            for (let index = 0; index < maxLength; index++)
             {
-                bool isSameCharAtSamePosition = previousPassword_[index] == password_[index];
+                let isSameCharAtSamePosition = previousPassword_[index] === password_[index];
                 if (isSameCharAtSamePosition) // Current & previous password have same character at the same position
                 {
                     return false;
                 }
-            } // for
+            }
         }
 
         if (rulesSet_.m_avoidConsecutiveChars)
         {
-            wchar_t prevChar = '\0';
-            for (wstring_t::const_iterator it = password_.begin(); it != password_.end(); ++it)
+            let prevChar = '';
+            for (let it = 0; it < password_.length; it++)
             {
-                bool isSameCharAsPreviousOne = (prevChar == *it);
+                let isSameCharAsPreviousOne = prevChar === password_[it];
                 if (isSameCharAsPreviousOne) // Current & previous character are repeated and hence invalid
                 {
                     return false;
                 }
 
-                prevChar = *it;
-            } // for
+                prevChar = password_[it];
+            }
         }
 
         // Check password against custom rule.
-        wstring_t password = password_;
-        bool rv = verifyPasswordAgainstRuleRecursively(rulesSet_.m_ruleEntries, password, false);
+        let pm: verifyPasswordAgainstRuleRecursivelyParams = {
+            ruleEntries_: rulesSet_.m_ruleEntries,
+            password_: password_,
+            mix_: false
+        };
+        let rv = verifyPasswordAgainstRuleRecursively(pm);
         if (rv)
         {
-            rv = password.length() == 0; // No characters should be left in the password if verified completely.
+            rv = !pm.password_; // No characters should be left in the password if verified completely.
         }
 
         return rv;
     }
-    /**/
 
     /** / not yet
     inline bool sort_ascendingByCharSetLength(const chsetData_t& first, const chsetData_t& second)
