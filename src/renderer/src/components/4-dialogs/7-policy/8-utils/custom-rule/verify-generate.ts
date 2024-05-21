@@ -373,6 +373,7 @@ export namespace customRule2 {
                 if (!rv) {
                     return false; // Break the loop if verification failed.
                 }
+                continue;
             } else {
                 let cur_passwordlength = password_.length;
 
@@ -382,14 +383,14 @@ export namespace customRule2 {
                 if (min === max && max === -1) {
                     min = max = 1;
                 }
-
                 if (max === -2) {
                     max = cur_passwordlength;
                 }
 
                 let countCharsFound = 0;
+                let index = 0;
 
-                for (let index = 0; index < cur_passwordlength && index < max; index++) {
+                for (; index < cur_passwordlength && index < max; index++) {
                     let pos = -1;
 
                     if (!mix_) {
@@ -430,7 +431,7 @@ export namespace customRule2 {
             }
 
         }
-        
+
         /** /
     for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
     {
