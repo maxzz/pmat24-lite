@@ -367,11 +367,8 @@ export namespace customRule2 {
         mix_: boolean,
     };
 
-    /**/
     function verifyPasswordAgainstRuleRecursively(pm: verifyPasswordAgainstRuleRecursivelyParams): boolean {
         // 0. To verify password if conforming to custom rule.
-
-        let rv = true;
 
         for (const ruleEntry of pm.ruleEntries_) {
 
@@ -380,8 +377,8 @@ export namespace customRule2 {
                     ruleEntries_: ruleEntry.m_groupEntry.m_ruleEntries,
                     password_: pm.password_,
                     mix_: ruleEntry.m_groupEntry.m_mix
-                }
-                rv = verifyPasswordAgainstRuleRecursively(newPm);
+                };
+                let rv = verifyPasswordAgainstRuleRecursively(newPm);
 
                 if (!rv) {
                     return false; // Break the loop if verification failed.
@@ -409,13 +406,13 @@ export namespace customRule2 {
                 for (; index < cur_passwordlength && index < max; index++) {
                     let pos = -1;
 
-                    if (!mix_) {
+                    if (!pm.mix_) {
                         let currentCH = pm.password_[index];
                         pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
                     } else {
                         pos = strFindFirstOf(pm.password_, new Set(ruleEntry.m_chsetEntry.m_charset));
                         if (pos !== -1) {
-                            pm.password_ = pm.password_.replace(pos, 1, '');
+                            pm.password_ = pm.password_.substring(0, pos) + pm.password_.substring(pos + 1);
                         }
                     }
 
@@ -423,7 +420,6 @@ export namespace customRule2 {
                         countCharsFound++;
 
                         // A small optimization: To stop loop if we found more characters than expected.
-                        //
                         if (countCharsFound > max) {
                             break;
                         }
@@ -435,107 +431,20 @@ export namespace customRule2 {
                 }//for
 
                 if (!pm.mix_ && index > 0) {
-                    pm.password_ = pm.password_.replace(0, index, '');
+                    pm.password_ = pm.password_.substring(index);
                 }
 
                 // Check whether characters found for current character set is range: min, max.
                 //
                 if (countCharsFound < min || countCharsFound > max) {
-                    rv = false;
                     return false;
                 }
             }
 
         }
 
-        /** /
-    for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
-    {
-        const ruleEntry_t& ruleEntry = *it;
-
-        if (ruleEntry.m_isgroup)
-        {
-            rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
-            if (!rv)
-            {
-                break; // Break the loop if verification failed.
-            }
-        }
-        else
-        {
-            int cur_passwordlength = (int)password_.length();
-
-            int min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
-            int max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
-        	
-            if (min == max && max == -1)
-            {
-                min = max = 1;
-            }
-
-            if (max == -2 )
-            {
-                max = cur_passwordlength;
-            }
-
-            int countCharsFound = 0;
-
-            int index = 0;
-            for (; index < cur_passwordlength && index < max; index++)
-            {
-                wstring_t::size_type pos = wstring_t::npos;
-
-                if (!mix_)
-                {
-                    wchar_t currentCH = password_[index];
-                    pos = ruleEntry.m_chsetEntry.m_charset.find(currentCH);
-                }
-                else
-                {
-                    pos = password_.find_first_of(ruleEntry.m_chsetEntry.m_charset);
-                    if (pos != wstring_t::npos)
-                    {
-                        password_.replace(pos, 1, L"");
-                    }
-                }
-
-                if (pos != wstring_t::npos)
-                {
-                    countCharsFound++;
-
-                    // A small optimization: To stop loop if we found more characters than expected.
-                    //
-                    if (countCharsFound > max)
-                    {
-                        break;
-                    }
-                }
-
-                if (!mix_ && pos == wstring_t::npos)
-                {
-                    break;
-                }
-            }//for
-
-            if (!mix_ && index > 0)
-            {
-                password_.replace(0, index, L"");
-            }
-
-            // Check whether characters found for current character set is range: min, max.
-            //
-            if (countCharsFound <  min || countCharsFound > max)
-            {
-                return false;
-            }
-        }
-
-    }//for
-    /**/
-
-        return rv;
+        return true;
     }
-    /**/
 
     /** / not yet
     inline void parseExtPattern2RulesSet(__in const string_t& pattern_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
