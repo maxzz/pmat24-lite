@@ -1,5 +1,6 @@
 import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
+import { a } from "@react-spring/web";
 
 export namespace customRule2 {
     // using namespace advancedpswpolicy;
@@ -174,7 +175,6 @@ export namespace customRule2 {
     type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, chsetData_t>;
     type chsetEntries_t = chsetEntriesHolder_t[];
 
-    /**/
     function findCharsetEntryHolder(
         wchar_: string,
         chSetEntriesHolder_: chsetEntriesHolder_t,
@@ -183,8 +183,6 @@ export namespace customRule2 {
         let itchsetEntry_: chsetData_t | undefined;
 
         // Find which character set the current character belongs.
-        // 
-
         for (const curRuleEntry of ruleEntries_) {
 
             if (curRuleEntry.m_isgroup) {
@@ -203,9 +201,7 @@ export namespace customRule2 {
 
         return itchsetEntry_;
     }
-    /**/
 
-    /**/
     function generatePasswordByRuleRecursively(
         ruleEntries_: advancedpswpolicy.ruleEntries_t,
         chSetEntriesHolder_: chsetEntriesHolder_t,
@@ -256,7 +252,7 @@ export namespace customRule2 {
                                     excludeChars += rv_password_[itChar + 1];
                                 }
 
-                                if (!excludeChars_) {
+                                if (excludeChars_) {
                                     excludeChars += excludeChars_;
                                 }
 
@@ -276,29 +272,53 @@ export namespace customRule2 {
 
             } else {
                 let itchsetEntry = chSetEntriesHolder_.get(ruleEntry.m_chsetEntry);
-                if (itchsetEntry === undefined) {
+                if (!itchsetEntry) {
                     throw new Error("NO.chsetEntry_t.1");
                 }
 
-                let pchsetData = itchsetEntry;
-                if (pchsetData === null) {
-                    throw new Error("NO.chsetEntry_t.2");
-                }
-
                 let excludeChars = noduplicates_ ? rv_password_ : '';
-                if (!excludeChars_.empty) {
+                if (excludeChars_) {
                     excludeChars += excludeChars_;
                 }
 
-                if (pchsetData.m_generatedLen > 0) {
-                    rv_password_ += pchsetData.generateValue(excludeChars);
+                if (itchsetEntry.m_generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
+                    rv_password_ += itchsetEntry.generateValue(excludeChars);
+                }
+
+                if (avoidConsecutiveChars_) {
+                    let newPsw = '';
+                    let prevCh: string | undefined;
+
+                    for (let itChar = 0; itChar < rv_password_.length; itChar++) {
+                        let curCh = rv_password_[itChar];
+
+                        if (prevCh === curCh) {
+                            let excludeChars = prevCh;
+                            if ((itChar + 1) !== rv_password_.length) {
+                                excludeChars += rv_password_[itChar + 1];
+                            }
+
+                            if (excludeChars_) {
+                                excludeChars += excludeChars_;
+                            }
+
+                            let generatedValue = '';
+                            utils.genSubSet(itchsetEntry.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
+
+                            curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
+                        }
+
+                        newPsw += curCh;
+                        prevCh = curCh;
+                    }
+
+                    rv_password_ = newPsw;
                 }
             }
         });
 
         return rv_password_;
     }
-    /**/
 
     /** / not yet
     inline void generateForChSetEntriesHolderRecursively(__in const ruleEntries_t& ruleEntries_, __inout chsetEntriesHolder_t& chSetEntriesHolder_, 
