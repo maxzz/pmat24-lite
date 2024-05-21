@@ -1257,7 +1257,9 @@ namespace customRule
 			{	
 				for (chsetEntries_t::iterator it = chsetEntries_togenerate.begin(); it != chsetEntries_togenerate.end(); ++it)
 				{
-					size_t maxAvbl = (size_t)floor((double)(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (double) (entriesCount > 0 ? entriesCount : 1) );
+					size_t maxAvbl = 
+                        (size_t)floor((double)(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated)
+                            /  (double) (entriesCount > 0 ? entriesCount : 1) );
 
 					chsetData_t& chsetData = (*it);
 

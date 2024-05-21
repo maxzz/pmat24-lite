@@ -445,9 +445,8 @@ export namespace customRule2 {
 
     function parseExtPattern2RulesSet(pattern_): advancedpswpolicy.ParseAdvPolicyResult | undefined {
         const rv = advancedpswpolicy.parse_advpolicy(pattern_);
-    	
-        if (rv.error.m_errorType != advancedpswpolicy.ParseerrorType_t.errNone)
-        {
+
+        if (rv.error.m_errorType != advancedpswpolicy.ParseerrorType_t.errNone) {
             return;
         }
 
@@ -455,15 +454,14 @@ export namespace customRule2 {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    function parseExtPolicy2RulesSet(policy_: password.policy_t): advancedpswpolicy.ParseAdvPolicyResult | undefined
-    {
+    function parseExtPolicy2RulesSet(policy_: password.policy_t): advancedpswpolicy.ParseAdvPolicyResult | undefined {
         let pattern_withMinMaxRange = `${policy_.policyExt}<${policy_.minLength}, ${policy_.maxLength}>`;
 
         return parseExtPattern2RulesSet(pattern_withMinMaxRange);
     }
 
     function verifyPasswordAgainstRuleNoThrow(rulesSet_: advancedpswpolicy.rulesSet_t, previousPassword_: string, password_: string, noduplicates_: boolean): boolean {
-        
+
         if (!password_) // Password is invalid if empty.
         {
             return false;
@@ -472,23 +470,20 @@ export namespace customRule2 {
         // Check length of the password is within min, max bounds.
         let pswLen = password_.length;
         if (
-            (rulesSet_.m_pswlenSet.m_min != 0 && rulesSet_.m_pswlenSet.m_min > pswLen) || 
+            (rulesSet_.m_pswlenSet.m_min != 0 && rulesSet_.m_pswlenSet.m_min > pswLen) ||
             (rulesSet_.m_pswlenSet.m_max != 0 && rulesSet_.m_pswlenSet.m_max < pswLen)
         ) {
             return false;
         }
 
         // Check password has duplicates if specified.
-        if (noduplicates_ && utils.hasDuplicateChars(password_))
-        {
+        if (noduplicates_ && utils.hasDuplicateChars(password_)) {
             return false;
         }
 
-        if (rulesSet_.m_checkPrevPasswordCharPosition && !!previousPassword_)
-        {
+        if (rulesSet_.m_checkPrevPasswordCharPosition && !!previousPassword_) {
             let maxLength = Math.min(previousPassword_.length, password_.length);
-            for (let index = 0; index < maxLength; index++)
-            {
+            for (let index = 0; index < maxLength; index++) {
                 let isSameCharAtSamePosition = previousPassword_[index] === password_[index];
                 if (isSameCharAtSamePosition) // Current & previous password have same character at the same position
                 {
@@ -497,11 +492,9 @@ export namespace customRule2 {
             }
         }
 
-        if (rulesSet_.m_avoidConsecutiveChars)
-        {
+        if (rulesSet_.m_avoidConsecutiveChars) {
             let prevChar = '';
-            for (let it = 0; it < password_.length; it++)
-            {
+            for (let it = 0; it < password_.length; it++) {
                 let isSameCharAsPreviousOne = prevChar === password_[it];
                 if (isSameCharAsPreviousOne) // Current & previous character are repeated and hence invalid
                 {
@@ -519,8 +512,7 @@ export namespace customRule2 {
             mix_: false
         };
         let rv = verifyPasswordAgainstRuleRecursively(pm);
-        if (rv)
-        {
+        if (rv) {
             rv = !pm.password_; // No characters should be left in the password if verified completely.
         }
 
@@ -540,146 +532,161 @@ export namespace customRule2 {
         let rv_password_ = '';
 
         try {
-            let chSetEntriesHolder = new Map<advancedpswpolicy.chsetEntry_t, chsetData_t>();
-            let chsetEntries_generated: chsetEntries_t = [];
-            let chsetEntries_togenerate: chsetEntries_t = [];
+            let pm: generateForChSetEntriesHolderRecursivelyParams = {
+                chSetEntriesHolder_: new Map<advancedpswpolicy.chsetEntry_t, chsetData_t>(),
+                chsetEntries_generated_: [],
+                chsetEntries_togenerate_: [],
+                pswLenGenerated_: 0, // totalLengthGenerated
+                pswLenFixedCount_: 0, // minLengthToGenerate
+            };
 
-            let totalLengthGenerated = 0;
-            let minLengthToGenerate = 0;
-
-            generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, {
-                chSetEntriesHolder_: chSetEntriesHolder,
-                chsetEntries_generated_: chsetEntries_generated,
-                chsetEntries_togenerate_: chsetEntries_togenerate,
-                pswLenGenerated_: totalLengthGenerated,
-                pswLenFixedCount_: minLengthToGenerate
-            });
+            generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, pm);
 
             // Sort ruleEntries whose max is undefined 
             // in ascending order of their character set length.
             //
-            chsetEntries_togenerate.sort(sort_ascendingByCharSetLength);
+            pm.chsetEntries_togenerate_.sort(sort_ascendingByCharSetLength);
 
-            let entriesCount = chsetEntries_togenerate.length;
+            let entriesCount = pm.chsetEntries_togenerate_.length;
             if (!!entriesCount) {
-                chsetEntries_togenerate.forEach((chsetData) => {
-                    let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (entriesCount > 0 ? entriesCount : 1));
+                pm.chsetEntries_togenerate_.forEach(
+                    (chsetData) => {
+                        let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_)
+                            / (entriesCount > 0 ? entriesCount : 1));
 
-                    if (chsetData.m_isgenerated) {
-                        // Skip entries if already generated.
-                        return;
-                    }
+                        if (chsetData.m_isgenerated) {
+                            // Skip entries if already generated.
+                            return;
+                        }
 
-                    if (maxAvbl <= 0) // No more extra characters available so set minimum length
-                    {
-                        chsetData.m_max = chsetData.m_min;
-                    } else {
-                        let isLastEntry = entriesCount === 1;
-                        if (isLastEntry) {
-                            let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
+                        if (maxAvbl <= 0) // No more extra characters available so set minimum length
+                        {
+                            chsetData.m_max = chsetData.m_min;
+                        } else {
+                            let isLastEntry = entriesCount === 1;
+                            if (isLastEntry) {
+                                let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
-                            // We have rule entries for whom password has to be generated.
-                            //
-                            if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
-                                moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
-                                let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
-                                chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
+                                // We have rule entries for whom password has to be generated.
+                                //
+                                if (pm.pswLenGenerated_ < rulesSet_.m_pswlenSet.m_min) {
+                                    moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - pm.pswLenGenerated_;
+                                    let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
+                                    chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
+                                }
+                            }
+
+                            chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
+
+                            if (isLastEntry && chsetData.m_max > rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_) {
+                                chsetData.m_max = rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_;
                             }
                         }
 
-                        chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
+                        if (chsetData.generateLength()) {
+                            pm.pswLenGenerated_ += chsetData.m_generatedLen;
 
-                        if (isLastEntry && chsetData.m_max > rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) {
-                            chsetData.m_max = rulesSet_.m_pswlenSet.m_max - totalLengthGenerated;
+                            entriesCount--;
                         }
                     }
-
-                    if (chsetData.generateLength()) {
-                        totalLengthGenerated += chsetData.m_generatedLen;
-
-                        entriesCount--;
-                    }
-                }
                 );
             }
-                // for (let it = 0; it < entriesCount; it++) {
-                //     let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (entriesCount > 0 ? entriesCount : 1));
 
-                //     let chsetData = chsetEntries_togenerate[it];
+            // for (let it = 0; it < entriesCount; it++) {
+            //     let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (entriesCount > 0 ? entriesCount : 1));
 
-                //     if (chsetData.m_isgenerated) {
-                //         // Skip entries if already generated.
-                //         continue;
-                //     }
+            //     let chsetData = chsetEntries_togenerate[it];
 
-                //     if (maxAvbl <= 0) // No more extra characters available so set minimum length
-                //     {
-                //         chsetData.m_max = chsetData.m_min;
-                //     } else {
-                //         let isLastEntry = it === entriesCount - 1;
-                //         if (isLastEntry) {
-                //             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
+            //     if (chsetData.m_isgenerated) {
+            //         // Skip entries if already generated.
+            //         continue;
+            //     }
 
-                //             // We have rule entries for whom password has to be generated.
-                //             //
-                //             if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
-                //                 moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
-                //                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
-                //                 chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
-                //             }
-                //         }
+            //     if (maxAvbl <= 0) // No more extra characters available so set minimum length
+            //     {
+            //         chsetData.m_max = chsetData.m_min;
+            //     } else {
+            //         let isLastEntry = it === entriesCount - 1;
+            //         if (isLastEntry) {
+            //             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
-                //         chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
+            //             // We have rule entries for whom password has to be generated.
+            //             //
+            //             if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
+            //                 moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
+            //                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
+            //                 chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
+            //             }
+            //         }
 
-                //         if (isLastEntry && chsetData.m_max > rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) {
-                //             chsetData.m_max = rulesSet_.m_pswlenSet.m_max - totalLengthGenerated;
-                //         }
-                //     }
+            //         chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
 
-                //     if (chsetData.generateLength()) {
-                //         totalLengthGenerated += chsetData.m_generatedLen;
+            //         if (isLastEntry && chsetData.m_max > rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) {
+            //             chsetData.m_max = rulesSet_.m_pswlenSet.m_max - totalLengthGenerated;
+            //         }
+            //     }
 
-                //         entriesCount--;
-                //     }
-                // } // for
+            //     if (chsetData.generateLength()) {
+            //         totalLengthGenerated += chsetData.m_generatedLen;
 
-            
-                
-                // for (let it = 0; it < entriesCount; it++) {
-                //     let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (entriesCount > 0 ? entriesCount : 1));
+            //         entriesCount--;
+            //     }
+            // } // for
 
-                //     let chsetData = chsetEntries_togenerate[it];
 
-                //     if (chsetData.m_isgenerated) {
-                //         // Skip entries if already generated.
-                //         continue;
-                //     }
 
-                //     if (maxAvbl <= 0) // No more extra characters available so set minimum length
-                //     {
-                //         chsetData.m_max = chsetData.m_min;
-                //     } else {
-                //         let isLastEntry = it === entriesCount - 1;
-                //         if (isLastEntry) {
-                //             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
+            // for (let it = 0; it < entriesCount; it++) {
+            //     let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (entriesCount > 0 ? entriesCount : 1));
 
-                //             // We have rule entries for whom password has to be generated.
-                //             //
-                //             if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
-                //                 moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
-                //                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
-                //                 chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
-                //             }
-                //         }
+            //     let chsetData = chsetEntries_togenerate[it];
+
+            //     if (chsetData.m_isgenerated) {
+            //         // Skip entries if already generated.
+            //         continue;
+            //     }
+
+            //     if (maxAvbl <= 0) // No more extra characters available so set minimum length
+            //     {
+            //         chsetData.m_max = chsetData.m_min;
+            //     } else {
+            //         let isLastEntry = it === entriesCount - 1;
+            //         if (isLastEntry) {
+            //             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
+
+            //             // We have rule entries for whom password has to be generated.
+            //             //
+            //             if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
+            //                 moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
+            //                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
+            //                 chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
+            //             }
+            //         }
         }
 
-
-    inline void generatePasswordByRuleNoThrow(__in const rulesSet_t& rulesSet_, __in bool noduplicates_, __in const wstring_t& prevPassword_, __out wstring_t& rv_password_) throw()
-    {
-        rv_password_.clear();
-
-        try
+        let excludeChars = '';
+        if (rulesSet_.m_checkPrevPasswordCharPosition) // Check previous password character by character if requested
         {
+            excludeChars = prevPassword_;
+        }
+
+        rv_password_ = generatePasswordByRuleRecursively(
+            rulesSet_.m_ruleEntries,
+            pm.chSetEntriesHolder_,
+            noduplicates_,
+            rulesSet_.m_avoidConsecutiveChars,
+            excludeChars
+        );
+
+        return rv_password_;
+    }
+    
+
+    /** /
+    inline void generatePasswordByRuleNoThrow(__in const rulesSet_t& rulesSet_, __in bool noduplicates_, __in const wstring_t& prevPassword_, __out wstring_t & rv_password_) throw ()
+    {
+            rv_password_.clear();
+
+            try {
             chsetEntriesHolder_t chsetEntriesHolder;
             chsetEntries_t chsetEntries_generated;
             chsetEntries_t chsetEntries_togenerate;
@@ -687,82 +694,75 @@ export namespace customRule2 {
             int totalLengthGenerated = 0;
             int minLengthToGenerate = 0;
 
-            generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, chsetEntriesHolder, chsetEntries_generated, chsetEntries_togenerate, totalLengthGenerated, minLengthToGenerate);
+                generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, chsetEntriesHolder, chsetEntries_generated, chsetEntries_togenerate, totalLengthGenerated, minLengthToGenerate);
 
-            // Sort ruleEntries whose max is undefined 
-            // in ascending order of their character set length.
-            //
-            chsetEntries_togenerate.sort(sort_ascendingByCharSetLength);
+                // Sort ruleEntries whose max is undefined 
+                // in ascending order of their character set length.
+                //
+                chsetEntries_togenerate.sort(sort_ascendingByCharSetLength);
 
             size_t entriesCount = chsetEntries_togenerate.size();
-            if (entriesCount > 0)
-            {	
-                for (chsetEntries_t::iterator it = chsetEntries_togenerate.begin(); it != chsetEntries_togenerate.end(); ++it)
-                {
-                    size_t maxAvbl = (size_t)floor((double)(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (double) (entriesCount > 0 ? entriesCount : 1) );
-
-                    chsetData_t& chsetData = (*it);
-
-                    if (chsetData.m_isgenerated) 
+                if (entriesCount > 0) {
+                    for (chsetEntries_t::iterator it = chsetEntries_togenerate.begin(); it != chsetEntries_togenerate.end(); ++it)
                     {
-                        // Skip entries if already generated.
+                    size_t maxAvbl = (size_t)floor((double)(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated) / (double)(entriesCount > 0 ? entriesCount : 1));
 
-                        continue;
-                    }
+                        chsetData_t & chsetData = (* it);
 
-                    if (maxAvbl <= 0) // No more extra characters available so set minimum length
-                    {
-                        chsetData.m_max = chsetData.m_min;
-                    }
-                    else
-                    {
-                        int isLastEntry = std::distance(it, chsetEntries_togenerate.end()) == 1;
-                        if (isLastEntry)
+                        if (chsetData.m_isgenerated) {
+                            // Skip entries if already generated.
+
+                            continue;
+                        }
+
+                        if (maxAvbl <= 0) // No more extra characters available so set minimum length
                         {
+                            chsetData.m_max = chsetData.m_min;
+                        }
+                        else {
+                        int isLastEntry = std:: distance(it, chsetEntries_togenerate.end()) == 1;
+                            if (isLastEntry) {
                             size_t moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
-                            // We have rule entries for whom password has to be generated.
-                            //
-                            if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min)
-                            {
-                                moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
+                                // We have rule entries for whom password has to be generated.
+                                //
+                                if (totalLengthGenerated < rulesSet_.m_pswlenSet.m_min) {
+                                    moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - totalLengthGenerated;
                                 size_t minimumLenToSatisfyRange = max(moreLengthToGenerate, chsetData.m_min);
-                                chsetData.m_min = min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry->m_charset.length());
+                                    chsetData.m_min = min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry -> m_charset.length());
+                                }
+                            }
+
+                            chsetData.m_max = max(chsetData.m_min, min(size_t(maxAvbl), chsetData.m_pChsetEntry -> m_charset.length()));
+
+                            if (isLastEntry && chsetData.m_max > size_t(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated)) {
+                                chsetData.m_max = rulesSet_.m_pswlenSet.m_max - totalLengthGenerated;
                             }
                         }
 
-                        chsetData.m_max = max(chsetData.m_min, min(size_t(maxAvbl), chsetData.m_pChsetEntry->m_charset.length()));
+                        if (chsetData.generateLength()) {
+                            totalLengthGenerated += (int)chsetData.m_generatedLen;
 
-                        if (isLastEntry && chsetData.m_max > size_t(rulesSet_.m_pswlenSet.m_max - totalLengthGenerated))
-                        {
-                            chsetData.m_max = rulesSet_.m_pswlenSet.m_max - totalLengthGenerated;
+                            entriesCount--;
                         }
-                    }
-
-                    if (chsetData.generateLength())
-                    {
-                        totalLengthGenerated += (int)chsetData.m_generatedLen;
-
-                        entriesCount--; 
-                    }
-                } // for
-            }
+                    } // for
+                }
 
             wstring_t excludeChars;
-            if (rulesSet_.m_checkPrevPasswordCharPosition) // Check previous password character by character if requested
+                if (rulesSet_.m_checkPrevPasswordCharPosition) // Check previous password character by character if requested
+                {
+                    excludeChars = prevPassword_;
+                }
+
+                generatePasswordByRuleRecursively(rulesSet_.m_ruleEntries, chsetEntriesHolder, noduplicates_, rulesSet_.m_avoidConsecutiveChars, excludeChars, rv_password_);
+
+            }
+            catch (...)
             {
-                excludeChars = prevPassword_;
+                rv_password_.clear();
             }
 
-            generatePasswordByRuleRecursively(rulesSet_.m_ruleEntries, chsetEntriesHolder, noduplicates_, rulesSet_.m_avoidConsecutiveChars, excludeChars, rv_password_);
-
-        }
-        catch(...)
-        {
-            rv_password_.clear();
-        }
-
-    }
-    /**/
+        };
+        /**/
 
 }//namespace customRule2
