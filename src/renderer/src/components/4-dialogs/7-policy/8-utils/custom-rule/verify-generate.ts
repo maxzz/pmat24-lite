@@ -2,6 +2,7 @@ import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
 import { a } from "@react-spring/web";
 import { strFindFirstOf } from "../cpp-utils";
+import { password } from "../types";
 
 export namespace customRule2 {
     // using namespace advancedpswpolicy;
@@ -453,15 +454,13 @@ export namespace customRule2 {
         //resolveRulesSetBounds(rv_rulesSet_);
     }
 
-    /** / not yet
     ////////////////////////////////////////////////////////////////////////////
-    inline void parseExtPolicy2RulesSet(__in const password::policy_t& policy_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
+    function parseExtPolicy2RulesSet(policy_: password.policy_t): advancedpswpolicy.ParseAdvPolicyResult | undefined
     {
-        string_t pattern_withMinMaxRange = policy_.GetExtendedPolicyStr() + sformat("<%d, %d>", policy_.GetMinLength(), policy_.GetMaxLength());
+        let pattern_withMinMaxRange = `${policy_.policyExt}<${policy_.minLength}, ${policy_.maxLength}>`;
 
-        parseExtPattern2RulesSet(pattern_withMinMaxRange, rv_rulesSet_, rv_parseError_);
+        return parseExtPattern2RulesSet(pattern_withMinMaxRange);
     }
-    /**/
 
     /** / not yet
     inline bool verifyPasswordAgainstRuleNoThrow(__in const rulesSet_t& rulesSet_, __in const wstring_t& previousPassword_, __in const wstring_t& password_, __in bool noduplicates_) throw()
