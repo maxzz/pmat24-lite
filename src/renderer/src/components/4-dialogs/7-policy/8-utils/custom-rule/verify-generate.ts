@@ -361,22 +361,37 @@ export namespace customRule2 {
         });
     }
 
+    type verifyPasswordAgainstRuleRecursivelyParams = {
+        ruleEntries_: advancedpswpolicy.ruleEntries_t,
+        password_: string,
+        mix_: boolean,
+    };
+
     /**/
-    function verifyPasswordAgainstRuleRecursively(ruleEntries_: advancedpswpolicy.ruleEntries_t, password_: string, mix_: boolean = false): boolean {
+    function verifyPasswordAgainstRuleRecursively(pm: verifyPasswordAgainstRuleRecursivelyParams): boolean {
         // 0. To verify password if conforming to custom rule.
 
         let rv = true;
 
-        for (const ruleEntry of ruleEntries_) {
+        for (const ruleEntry of pm.ruleEntries_) {
 
             if (ruleEntry.m_isgroup) {
-                rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
+                const newPm = {
+                    ruleEntries_: ruleEntry.m_groupEntry.m_ruleEntries,
+                    password_: pm.password_,
+                    mix_: ruleEntry.m_groupEntry.m_mix
+                }
+                rv = verifyPasswordAgainstRuleRecursively(newPm);
+
                 if (!rv) {
                     return false; // Break the loop if verification failed.
                 }
+
+                pm.password_ = newPm.password_;
+
                 continue;
             } else {
-                let cur_passwordlength = password_.length;
+                let cur_passwordlength = pm.password_.length;
 
                 let min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
                 let max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
@@ -395,12 +410,12 @@ export namespace customRule2 {
                     let pos = -1;
 
                     if (!mix_) {
-                        let currentCH = password_[index];
+                        let currentCH = pm.password_[index];
                         pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
                     } else {
-                        pos = strFindFirstOf(password_, new Set(ruleEntry.m_chsetEntry.m_charset));
+                        pos = strFindFirstOf(pm.password_, new Set(ruleEntry.m_chsetEntry.m_charset));
                         if (pos !== -1) {
-                            password_ = password_.replace(pos, 1, '');
+                            pm.password_ = pm.password_.replace(pos, 1, '');
                         }
                     }
 
@@ -414,13 +429,13 @@ export namespace customRule2 {
                         }
                     }
 
-                    if (!mix_ && pos === -1) {
+                    if (!pm.mix_ && pos === -1) {
                         break;
                     }
                 }//for
 
-                if (!mix_ && index > 0) {
-                    password_ = password_.replace(0, index, '');
+                if (!pm.mix_ && index > 0) {
+                    pm.password_ = pm.password_.replace(0, index, '');
                 }
 
                 // Check whether characters found for current character set is range: min, max.
