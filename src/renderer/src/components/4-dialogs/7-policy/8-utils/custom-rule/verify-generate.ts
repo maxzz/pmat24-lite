@@ -1,6 +1,7 @@
 import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
 import { a } from "@react-spring/web";
+import { strFindFirstOf } from "../cpp-utils";
 
 export namespace customRule2 {
     // using namespace advancedpswpolicy;
@@ -397,7 +398,7 @@ export namespace customRule2 {
                         let currentCH = password_[index];
                         pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
                     } else {
-                        pos = password_.indexOfAny(ruleEntry.m_chsetEntry.m_charset);
+                        pos = strFindFirstOf(password_, new Set(ruleEntry.m_chsetEntry.m_charset));
                         if (pos !== -1) {
                             password_ = password_.replace(pos, 1, '');
                         }
