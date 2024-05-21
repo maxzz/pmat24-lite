@@ -366,13 +366,79 @@ export namespace customRule2 {
 
         let rv = true;
 
+        for (const ruleEntry of ruleEntries_) {
+                
+                if (ruleEntry.m_isgroup) {
+                    rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
+                    if (!rv) {
+                        return false; // Break the loop if verification failed.
+                    }
+                } else {
+                    let cur_passwordlength = password_.length;
+    
+                    let min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
+                    let max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
+    
+                    if (min === max && max === -1) {
+                        min = max = 1;
+                    }
+    
+                    if (max === -2) {
+                        max = cur_passwordlength;
+                    }
+    
+                    let countCharsFound = 0;
+    
+                    for (let index = 0; index < cur_passwordlength && index < max; index++) {
+                        let pos = -1;
+    
+                        if (!mix_) {
+                            let currentCH = password_[index];
+                            pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
+                        } else {
+                            pos = password_.indexOfAny(ruleEntry.m_chsetEntry.m_charset);
+                            if (pos !== -1) {
+                                password_ = password_.replace(pos, 1, '');
+                            }
+                        }
+    
+                        if (pos !== -1) {
+                            countCharsFound++;
+    
+                            // A small optimization: To stop loop if we found more characters than expected.
+                            //
+                            if (countCharsFound > max) {
+                                break;
+                            }
+                        }
+    
+                        if (!mix_ && pos === -1) {
+                            break;
+                        }
+                    }//for
+    
+                    if (!mix_ && index > 0) {
+                        password_ = password_.replace(0, index, '');
+                    }
+    
+                    // Check whether characters found for current character set is range: min, max.
+                    //
+                    if (countCharsFound < min || countCharsFound > max) {
+                        rv = false;
+                        return false;
+                    }
+                }
+    
+            }
+
+            //2
         ruleEntries_.forEach(
             (ruleEntry) => {
 
                 if (ruleEntry.m_isgroup) {
                     rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
                     if (!rv) {
-                        return; // Break the loop if verification failed.
+                        return false; // Break the loop if verification failed.
                     }
                 } else {
                     let cur_passwordlength = password_.length;
