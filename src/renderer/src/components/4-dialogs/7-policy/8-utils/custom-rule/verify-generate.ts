@@ -120,6 +120,7 @@ export namespace customRule2 {
         // chsetData_t() {}
         // chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
         //     : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
+
         constructor(pChsetEntry_: advancedpswpolicy.chsetEntry_t, min_: number, max_: number) {
             this.m_pChsetEntry = pChsetEntry_;
             this.m_min = min_;
@@ -137,12 +138,12 @@ export namespace customRule2 {
                 throw new Error("chsetEntry_t is null.");
             }
 
-            if (this.m_min == -1 && this.m_max == -1)
+            if (this.m_min === -1 && this.m_max === -1)
             {
                 this.m_min = this.m_max = 1;
             }
 
-            if (this.m_max == -2)
+            if (this.m_max === -2)
             {
                 return false;
             }
@@ -160,7 +161,7 @@ export namespace customRule2 {
                 throw new Error("chsetEntry_t is null.");
             }
 
-            if (this.m_generatedLen <=0 )
+            if (this.m_generatedLen <= 0)
             {
                 throw new Error("Invalid length.");
             }
@@ -172,55 +173,150 @@ export namespace customRule2 {
         }
     };
 
-    /** / not yet
+    /** /
     typedef std::map<const chsetEntry_t*, chsetData_t*> chsetEntriesHolder_t;
     typedef std::list<chsetData_t> chsetEntries_t;
     /**/
+    type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, chsetData_t>;
+    type chsetEntries_t = chsetEntriesHolder_t[];
 
-    /** / not yet
-    inline void findCharsetEntryHolder(const wchar_t& wchar_, __in const chsetEntriesHolder_t& chSetEntriesHolder_, const ruleEntries_t& ruleEntries_, chsetEntriesHolder_t::const_iterator& itchsetEntry_)
+    /**/
+    function findCharsetEntryHolder(
+        wchar_: string, 
+        chSetEntriesHolder_: chsetEntriesHolder_t, 
+        ruleEntries_: advancedpswpolicy.ruleEntries_t, 
+    ): chsetData_t | undefined
     {
+        let itchsetEntry_: chsetData_t | undefined;
+
         // Find which character set the current character belongs.
         // 
-        for (const advancedpswpolicy::ruleEntry_t& curRuleEntry : ruleEntries_)
-        {
-            if (curRuleEntry.m_isgroup)
-            {
-                findCharsetEntryHolder(wchar_, __in chSetEntriesHolder_, curRuleEntry.m_groupEntry.m_ruleEntries, itchsetEntry_);
+
+        for (const curRuleEntry of ruleEntries_) {
+               
+            if (curRuleEntry.m_isgroup) {
+                itchsetEntry_ = findCharsetEntryHolder(wchar_, chSetEntriesHolder_, curRuleEntry.m_groupEntry.m_ruleEntries);
             }
 
-            if (curRuleEntry.m_chsetEntry.m_charset.find(wchar_) == wstring_t::npos)
-            {
+            if (curRuleEntry.m_chsetEntry.m_charset.indexOf(wchar_) === -1) {
                 // Skip current character set entry if character is not found.
                 continue;
             }
 
             // Find corresponding entry in the character set entries holder.
-            itchsetEntry_ = chSetEntriesHolder_.find(&curRuleEntry.m_chsetEntry);
+            itchsetEntry_ = chSetEntriesHolder_.get(curRuleEntry.m_chsetEntry);
             break;
-        } // for
+        }
+
+        return itchsetEntry_;
     }
     /**/
 
-    /** / not yet
-    inline void generatePasswordByRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in const chsetEntriesHolder_t& chSetEntriesHolder_,
-        __in bool noduplicates_,
-        __in bool avoidConsecutiveChars_,
-        __in const wstring_t& excludeChars_,
-        __inout wstring_t& rv_password_) throw(...)
+    /**/
+    function generatePasswordByRuleRecursively(
+        ruleEntries_: advancedpswpolicy.ruleEntries_t, 
+        chSetEntriesHolder_: chsetEntriesHolder_t,
+        noduplicates_: boolean,
+        avoidConsecutiveChars_: boolean,
+        excludeChars_: string
+    ): string
     {
+        let rv_password_ = '';
         // 0. To generate password as per custom rule specified.
+
+        ruleEntries_.forEach((ruleEntry) => {
+
+            if (ruleEntry.m_isgroup) {
+                let pswOutOfGroup = generatePasswordByRuleRecursively(
+                    ruleEntry.m_groupEntry.m_ruleEntries, 
+                    chSetEntriesHolder_, 
+                    noduplicates_, 
+                    avoidConsecutiveChars_, 
+                    excludeChars_
+                );
+
+                if (ruleEntry.m_groupEntry.m_mix) {
+                    pswOutOfGroup = utils.randomizeCharsInString(pswOutOfGroup);
+                }
+
+                rv_password_ += pswOutOfGroup;
+
+                if (avoidConsecutiveChars_) {
+                    let prevCh = '\0';
+
+                    rv_password_ = rv_password_.split('').map(
+                            (itChar) => {
+                            if (prevCh === itChar) {
+                                let itchsetEntry = chSetEntriesHolder_.get(ruleEntry.m_chsetEntry);
+
+
+
+
+                                if (itchsetEntry === undefined) {
+                                    throw new Error("NO.chsetEntry_t.1");
+                                }
+
+                                let pchsetData = itchsetEntry;
+                                if (pchsetData === null) {
+                                    throw new Error("NO.chsetEntry_t.2");
+                                }
+
+                                let excludeChars = prevCh;
+                                if ((itChar + 1) !== rv_password_.length) {
+                                    excludeChars += rv_password_[itChar + 1];
+                                }
+
+                                if (!excludeChars_.empty) {
+                                    excludeChars += excludeChars_;
+                                }
+
+                                let generatedValue = '';
+                                utils.genSubSet(pchsetData.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
+                                itChar = generatedValue.length === 0 ? itChar : generatedValue[0];
+                            }
+
+                            prevCh = itChar;
+                            return itChar;
+                        }
+                    ).join('');
+                }
+            } else {
+                let itchsetEntry = chSetEntriesHolder_.get(ruleEntry.m_chsetEntry);
+                if (itchsetEntry === undefined) {
+                    throw new Error("NO.chsetEntry_t.1");
+                }
+
+                let pchsetData = itchsetEntry;
+                if (pchsetData === null) {
+                    throw new Error("NO.chsetEntry_t.2");
+                }
+
+                let excludeChars = noduplicates_ ? rv_password_ : '';
+                if (!excludeChars_.empty) {
+                    excludeChars += excludeChars_;
+                }
+
+                if (pchsetData.m_generatedLen > 0) {
+                    rv_password_ += pchsetData.generateValue(excludeChars);
+                }
+            }
+        });
 
         for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
         {
-            atltrace::scope_t scope(__FUNCTION__);
-
             const ruleEntry_t& ruleEntry = *it;
 
             if (ruleEntry.m_isgroup)
             {
                 wstring_t pswOutOfGroup;
-                generatePasswordByRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, chSetEntriesHolder_, noduplicates_, avoidConsecutiveChars_, excludeChars_, pswOutOfGroup);
+                generatePasswordByRuleRecursively(
+                    ruleEntry.m_groupEntry.m_ruleEntries, 
+                    chSetEntriesHolder_, 
+                    noduplicates_, 
+                    avoidConsecutiveChars_, 
+                    excludeChars_, 
+                    pswOutOfGroup
+                );
 
                 if (ruleEntry.m_groupEntry.m_mix)
                 {
@@ -329,6 +425,7 @@ export namespace customRule2 {
 
         }//for
 
+        return rv_password_;
     }
     /**/
 
