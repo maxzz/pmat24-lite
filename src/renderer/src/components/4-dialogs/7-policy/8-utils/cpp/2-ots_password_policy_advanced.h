@@ -1238,7 +1238,14 @@ namespace customRule
 			int totalLengthGenerated = 0;
 			int minLengthToGenerate = 0;
 
-			generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, chsetEntriesHolder, chsetEntries_generated, chsetEntries_togenerate, totalLengthGenerated, minLengthToGenerate);
+			generateForChSetEntriesHolderRecursively(
+                rulesSet_.m_ruleEntries, 
+                chsetEntriesHolder, 
+                chsetEntries_generated, 
+                chsetEntries_togenerate, 
+                totalLengthGenerated, 
+                minLengthToGenerate
+            );
 
 			// Sort ruleEntries whose max is undefined 
 			// in ascending order of their character set length.
