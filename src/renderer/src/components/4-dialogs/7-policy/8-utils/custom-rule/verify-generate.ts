@@ -231,7 +231,7 @@ export namespace customRule2 {
                 rv_password_ += pswOutOfGroup;
 
                 if (avoidConsecutiveChars_) {
-                    
+
                     let newPsw = '';
                     let prevCh: string | undefined;
 
@@ -331,8 +331,7 @@ export namespace customRule2 {
 
     function generateForChSetEntriesHolderRecursively(
         ruleEntries_: advancedpswpolicy.ruleEntries_t,
-        pm: generateForChSetEntriesHolderRecursivelyParams): void
-    {
+        pm: generateForChSetEntriesHolderRecursivelyParams): void {
         // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
 
         ruleEntries_.forEach((ruleEntry) => {
@@ -361,95 +360,163 @@ export namespace customRule2 {
         });
     }
 
-    /** / not yet
-    inline bool verifyPasswordAgainstRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in wstring_t& password_, __in bool mix_ = false)
-    {
+    /**/
+    function verifyPasswordAgainstRuleRecursively(ruleEntries_: advancedpswpolicy.ruleEntries_t, password_: string, mix_: boolean = false): boolean {
         // 0. To verify password if conforming to custom rule.
 
-        bool rv = true;
+        let rv = true;
 
-        for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
-        {
-            const ruleEntry_t& ruleEntry = *it;
+        ruleEntries_.forEach(
+            (ruleEntry) => {
 
-            if (ruleEntry.m_isgroup)
-            {
-                rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
-                if (!rv)
-                {
-                    break; // Break the loop if verification failed.
-                }
-            }
-            else
-            {
-                int cur_passwordlength = (int)password_.length();
-
-                int min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
-                int max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
-            	
-                if (min == max && max == -1)
-                {
-                    min = max = 1;
-                }
-
-                if (max == -2 )
-                {
-                    max = cur_passwordlength;
-                }
-
-                int countCharsFound = 0;
-
-                int index = 0;
-                for (; index < cur_passwordlength && index < max; index++)
-                {
-                    wstring_t::size_type pos = wstring_t::npos;
-
-                    if (!mix_)
-                    {
-                        wchar_t currentCH = password_[index];
-                        pos = ruleEntry.m_chsetEntry.m_charset.find(currentCH);
+                if (ruleEntry.m_isgroup) {
+                    rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
+                    if (!rv) {
+                        return; // Break the loop if verification failed.
                     }
-                    else
-                    {
-                        pos = password_.find_first_of(ruleEntry.m_chsetEntry.m_charset);
-                        if (pos != wstring_t::npos)
-                        {
-                            password_.replace(pos, 1, L"");
+                } else {
+                    let cur_passwordlength = password_.length;
+
+                    let min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
+                    let max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
+
+                    if (min === max && max === -1) {
+                        min = max = 1;
+                    }
+
+                    if (max === -2) {
+                        max = cur_passwordlength;
+                    }
+
+                    let countCharsFound = 0;
+
+                    for (let index = 0; index < cur_passwordlength && index < max; index++) {
+                        let pos = -1;
+
+                        if (!mix_) {
+                            let currentCH = password_[index];
+                            pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
+                        } else {
+                            pos = password_.indexOfAny(ruleEntry.m_chsetEntry.m_charset);
+                            if (pos !== -1) {
+                                password_ = password_.replace(pos, 1, '');
+                            }
                         }
-                    }
 
-                    if (pos != wstring_t::npos)
-                    {
-                        countCharsFound++;
+                        if (pos !== -1) {
+                            countCharsFound++;
 
-                        // A small optimization: To stop loop if we found more characters than expected.
-                        //
-                        if (countCharsFound > max)
-                        {
+                            // A small optimization: To stop loop if we found more characters than expected.
+                            //
+                            if (countCharsFound > max) {
+                                break;
+                            }
+                        }
+
+                        if (!mix_ && pos === -1) {
                             break;
                         }
+                    }//for
+
+                    if (!mix_ && index > 0) {
+                        password_ = password_.replace(0, index, '');
                     }
 
-                    if (!mix_ && pos == wstring_t::npos)
+                    // Check whether characters found for current character set is range: min, max.
+                    //
+                    if (countCharsFound < min || countCharsFound > max) {
+                        rv = false;
+                        return;
+                    }
+                }
+
+            }
+        );
+
+        /** /
+    for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
+    {
+        const ruleEntry_t& ruleEntry = *it;
+
+        if (ruleEntry.m_isgroup)
+        {
+            rv = verifyPasswordAgainstRuleRecursively(ruleEntry.m_groupEntry.m_ruleEntries, password_, ruleEntry.m_groupEntry.m_mix);
+            if (!rv)
+            {
+                break; // Break the loop if verification failed.
+            }
+        }
+        else
+        {
+            int cur_passwordlength = (int)password_.length();
+
+            int min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
+            int max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
+        	
+            if (min == max && max == -1)
+            {
+                min = max = 1;
+            }
+
+            if (max == -2 )
+            {
+                max = cur_passwordlength;
+            }
+
+            int countCharsFound = 0;
+
+            int index = 0;
+            for (; index < cur_passwordlength && index < max; index++)
+            {
+                wstring_t::size_type pos = wstring_t::npos;
+
+                if (!mix_)
+                {
+                    wchar_t currentCH = password_[index];
+                    pos = ruleEntry.m_chsetEntry.m_charset.find(currentCH);
+                }
+                else
+                {
+                    pos = password_.find_first_of(ruleEntry.m_chsetEntry.m_charset);
+                    if (pos != wstring_t::npos)
+                    {
+                        password_.replace(pos, 1, L"");
+                    }
+                }
+
+                if (pos != wstring_t::npos)
+                {
+                    countCharsFound++;
+
+                    // A small optimization: To stop loop if we found more characters than expected.
+                    //
+                    if (countCharsFound > max)
                     {
                         break;
                     }
-                }//for
-
-                if (!mix_ && index > 0)
-                {
-                    password_.replace(0, index, L"");
                 }
 
-                // Check whether characters found for current character set is range: min, max.
-                //
-                if (countCharsFound <  min || countCharsFound > max)
+                if (!mix_ && pos == wstring_t::npos)
                 {
-                    return false;
+                    break;
                 }
+            }//for
+
+            if (!mix_ && index > 0)
+            {
+                password_.replace(0, index, L"");
             }
 
-        }//for
+            // Check whether characters found for current character set is range: min, max.
+            //
+            if (countCharsFound <  min || countCharsFound > max)
+            {
+                return false;
+            }
+        }
+
+    }//for
+    /**/
 
         return rv;
     }
