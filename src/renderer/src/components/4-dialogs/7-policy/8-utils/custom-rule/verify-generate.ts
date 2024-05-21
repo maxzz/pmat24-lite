@@ -527,13 +527,10 @@ export namespace customRule2 {
         return rv;
     }
 
-    /** / not yet
-    inline bool sort_ascendingByCharSetLength(const chsetData_t& first, const chsetData_t& second)
-    {
-        bool isLowerCharSetLength = first.m_pChsetEntry->m_charset.length() < second.m_pChsetEntry->m_charset.length();
+    function sort_ascendingByCharSetLength(a: chsetData_t, b: chsetData_t): boolean {
+        let isLowerCharSetLength = a.m_pChsetEntry.m_charset.length < b.m_pChsetEntry.m_charset.length;
         return isLowerCharSetLength ? true : false;
     }
-    /**/
 
     /** / not yet
     inline void generatePasswordByRuleNoThrow(__in const rulesSet_t& rulesSet_, __in bool noduplicates_, __in const wstring_t& prevPassword_, __out wstring_t& rv_password_) throw()
