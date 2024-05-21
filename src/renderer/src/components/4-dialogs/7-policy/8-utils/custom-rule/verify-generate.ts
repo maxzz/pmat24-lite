@@ -173,7 +173,7 @@ export namespace customRule2 {
     typedef std::list<chsetData_t> chsetEntries_t;
     /**/
     type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, chsetData_t>;
-    type chsetEntries_t = chsetEntriesHolder_t[];
+    type chsetEntries_t = chsetData_t[];
 
     function findCharsetEntryHolder(
         wchar_: string,
@@ -215,6 +215,7 @@ export namespace customRule2 {
         ruleEntries_.forEach((ruleEntry) => {
 
             if (ruleEntry.m_isgroup) {
+
                 let pswOutOfGroup = generatePasswordByRuleRecursively(
                     ruleEntry.m_groupEntry.m_ruleEntries,
                     chSetEntriesHolder_,
@@ -320,50 +321,45 @@ export namespace customRule2 {
         return rv_password_;
     }
 
-    /** / not yet
-    inline void generateForChSetEntriesHolderRecursively(__in const ruleEntries_t& ruleEntries_, __inout chsetEntriesHolder_t& chSetEntriesHolder_, 
-        __inout chsetEntries_t& chsetEntries_generated_, 
-        __inout chsetEntries_t& chsetEntries_togenerate_,
-        __inout int& pswLenGenerated_, __inout int& pswLenFixedCount_) throw(...)
+    type generateForChSetEntriesHolderRecursivelyParams = {
+        chSetEntriesHolder_: chsetEntriesHolder_t,
+        chsetEntries_generated_: chsetEntries_t,
+        chsetEntries_togenerate_: chsetEntries_t,
+        pswLenGenerated_: number,
+        pswLenFixedCount_: number,
+    };
+
+    function generateForChSetEntriesHolderRecursively(
+        ruleEntries_: advancedpswpolicy.ruleEntries_t,
+        pm: generateForChSetEntriesHolderRecursivelyParams): void
     {
         // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
 
-        for (ruleEntries_t::const_iterator it = ruleEntries_.begin(); it != ruleEntries_.end(); ++it)
-        {
-            const ruleEntry_t& ruleEntry = *it;
+        ruleEntries_.forEach((ruleEntry) => {
 
-            if (ruleEntry.m_isgroup)
-            {
-                generateForChSetEntriesHolderRecursively(ruleEntry.m_groupEntry.m_ruleEntries, chSetEntriesHolder_, 
-                    chsetEntries_generated_, chsetEntries_togenerate_, pswLenGenerated_, pswLenFixedCount_);
-            }
-            else
-            {
-                chsetData_t chsetData(
-                    &ruleEntry.m_chsetEntry, 
-                    ruleEntry.m_chsetEntry.m_rangeEntry.m_min, 
-                    ruleEntry.m_chsetEntry.m_rangeEntry.m_max);
+            if (ruleEntry.m_isgroup) {
+                generateForChSetEntriesHolderRecursively(ruleEntry.m_groupEntry.m_ruleEntries, pm);
+            } else {
+                let chsetData = new chsetData_t(
+                    ruleEntry.m_chsetEntry,
+                    ruleEntry.m_chsetEntry.m_rangeEntry.m_min,
+                    ruleEntry.m_chsetEntry.m_rangeEntry.m_max
+                );
 
-                if (chsetData.generateLength())
-                {
-                    chsetData_t& chsetDataSaved = *chsetEntries_generated_.insert(chsetEntries_generated_.end(), chsetData);
-                    chSetEntriesHolder_[&ruleEntry.m_chsetEntry] = &chsetDataSaved;
+                if (chsetData.generateLength()) {
+                    pm.chsetEntries_generated_.push(chsetData);
+                    pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
 
-                    pswLenGenerated_ += (int)chsetDataSaved.m_generatedLen;
-                }
-                else
-                {
-                    chsetData_t& chsetDataToGenerate = *chsetEntries_togenerate_.insert(chsetEntries_togenerate_.end(), chsetData);
-                    chSetEntriesHolder_[&ruleEntry.m_chsetEntry] = &chsetDataToGenerate;
+                    pm.pswLenGenerated_ += chsetData.m_generatedLen;
+                } else {
+                    pm.chsetEntries_togenerate_.push(chsetData);
+                    pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
 
-                    pswLenFixedCount_ += (int)chsetDataToGenerate.m_min;
+                    pm.pswLenFixedCount_ += chsetData.m_min;
                 }
             }
-
-        }//for
-
+        });
     }
-    /**/
 
     /** / not yet
     inline bool verifyPasswordAgainstRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in wstring_t& password_, __in bool mix_ = false)
