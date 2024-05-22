@@ -7,20 +7,19 @@ export namespace customRule2 {
 
     type RuleEntries = advancedpswpolicy.ruleEntries_t;
     type ChSetEntry = advancedpswpolicy.chsetEntry_t;
+    type RulesSet = advancedpswpolicy.rulesSet_t;
 
     type ChSetEntriesMap = Map<ChSetEntry, ChSetData>;
     type ChSetEntries = ChSetData[];
 
-    type undef_chsetEntries_t = ChSetEntry[]; 
-
     type GetBoundsRecursivelyResult = {
-        undefchSetEntries: ChSetEntry[], // undefined character set entries
-        min: number, // entries min total
-        max: number, // entries max total
+        undefchSetEntries: ChSetEntry[],    // undefined character set entries i.e. rule entries without any max bound value.
+        min: number,                        // entries min total
+        max: number,                        // entries max total
     };
 
-    function getBoundsRecursively(rulesEntries: RuleEntries, rv: GetBoundsRecursivelyResult): void {
-        rulesEntries.forEach(
+    function getBoundsRecursively(ruleEntries: RuleEntries, rv: GetBoundsRecursivelyResult): void {
+        ruleEntries.forEach(
             (ruleEntry) => {
                 if (ruleEntry.m_isgroup) {
                     getBoundsRecursively(ruleEntry.m_groupEntry.m_ruleEntries, rv);
@@ -45,7 +44,6 @@ export namespace customRule2 {
                     } else if (maxRange === -2) {
                         // Add to the list of undefined rule entries.
                         // If we are here then the max range is not set for the current entry.
-                        //
                         rv.max += minRange; // Add min range to max total (at least).
                         rv.undefchSetEntries.push(ruleEntry.m_chsetEntry);
                     }
@@ -59,34 +57,25 @@ export namespace customRule2 {
         maxValid: boolean,
     };
 
-    export function checkRulesBoundsForGenerate(rulesSet: advancedpswpolicy.rulesSet_t): CheckRulesBoundsForGenerateResult {
+    export function checkRulesBoundsForGenerate(rulesSet: RulesSet): CheckRulesBoundsForGenerateResult {
+        
         // Initialize return values with the assumption that the min and max values are valid.
-
         const rv: CheckRulesBoundsForGenerateResult = {
             minValid: true,
             maxValid: true,
         };
 
-        // 0. To get min and max bounds.
+        // To get min and max bounds.
         var pm: GetBoundsRecursivelyResult = {
-            undefchSetEntries: [], // Rule entries without any max bound value.
+            undefchSetEntries: [],
             min: 0,
             max: 0,
         };
-
         getBoundsRecursively(rulesSet.m_ruleEntries, pm);
 
         if (pm.min < rulesSet.m_pswlenSet.m_min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
-
-            let maxCharactersAvailable = pm.min;
-
-            pm.undefchSetEntries.forEach(
-                (currentChEntry) => {
-                    maxCharactersAvailable += currentChEntry.m_charset.length;
-                }
-            );
-
+            let maxCharactersAvailable = pm.undefchSetEntries.reduce((acc, cur) => acc + cur.m_charset.length, pm.min);
             rv.minValid = maxCharactersAvailable > rulesSet.m_pswlenSet.m_min;
         } else if (pm.min > rulesSet.m_pswlenSet.m_max) {
             rv.minValid = false;
@@ -94,17 +83,8 @@ export namespace customRule2 {
 
         if (pm.max < rulesSet.m_pswlenSet.m_min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
-
-            let maxCharactersAvailable = pm.max;
-
-            pm.undefchSetEntries.forEach(
-                (currentChEntry) => {
-                    maxCharactersAvailable += currentChEntry.m_charset.length;
-                }
-            );
-
+            let maxCharactersAvailable = pm.undefchSetEntries.reduce((acc, cur) => acc + cur.m_charset.length, pm.max);
             rv.maxValid = maxCharactersAvailable > rulesSet.m_pswlenSet.m_min;
-
         } else if (pm.max > rulesSet.m_pswlenSet.m_max) {
             rv.maxValid = false;
         }
@@ -458,7 +438,7 @@ export namespace customRule2 {
         return parseExtPattern2RulesSet(pattern_withMinMaxRange);
     }
 
-    function verifyPasswordAgainstRuleNoThrow(rulesSet_: advancedpswpolicy.rulesSet_t, previousPassword_: string, password_: string, noduplicates_: boolean): boolean {
+    function verifyPasswordAgainstRuleNoThrow(rulesSet_: RulesSet, previousPassword_: string, password_: string, noduplicates_: boolean): boolean {
 
         if (!password_) // Password is invalid if empty.
         {
@@ -526,7 +506,7 @@ export namespace customRule2 {
     }
 
     /**/
-    function generatePasswordByRuleNoThrow(rulesSet: advancedpswpolicy.rulesSet_t, noDuplicates: boolean, prevPassword: string): string {
+    function generatePasswordByRuleNoThrow(rulesSet: RulesSet, noDuplicates: boolean, prevPassword: string): string {
         let rv_password = '';
 
         try {
