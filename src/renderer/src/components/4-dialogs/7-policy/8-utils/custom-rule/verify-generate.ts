@@ -128,11 +128,7 @@ export namespace customRule2 {
         }
     };
 
-    function findChSetData(
-        ch: string,
-        chSetEntriesMap: ChSetEntriesMap,
-        rules: RuleEntries,
-    ): ChSetData | undefined {
+    function findChSetData(ch: string, chSetEntriesMap: ChSetEntriesMap, rules: RuleEntries,): ChSetData | undefined {
         let rv: ChSetData | undefined;
 
         // Find which character set the current character belongs.
@@ -143,8 +139,7 @@ export namespace customRule2 {
             }
 
             if (rule.m_chsetEntry.m_charset.indexOf(ch) === -1) {
-                // Skip current character set entry if character is not found.
-                continue;
+                continue; // Skip current character set entry if character is not found.
             }
 
             // Find corresponding entry in the character set entries holder.
@@ -156,16 +151,15 @@ export namespace customRule2 {
     }
 
     function generatePasswordByRuleRecursively(
-        ruleEntries_: RuleEntries,
+        ruleEntries: RuleEntries,
         chSetEntriesMap: ChSetEntriesMap,
         noDuplicates: boolean,
         avoidConsecutiveChars: boolean,
-        excludeChars_: string
+        excludeChars: string = ''
     ): string {
         let rv_password = '';
-        // 0. To generate password as per custom rule specified.
 
-        ruleEntries_.forEach((ruleEntry) => {
+        ruleEntries.forEach((ruleEntry) => {
 
             if (ruleEntry.m_isgroup) {
 
@@ -174,7 +168,7 @@ export namespace customRule2 {
                     chSetEntriesMap,
                     noDuplicates,
                     avoidConsecutiveChars,
-                    excludeChars_
+                    excludeChars
                 );
 
                 if (ruleEntry.m_groupEntry.m_mix) {
@@ -192,19 +186,10 @@ export namespace customRule2 {
                         let curCh = rv_password[i];
 
                         if (prevCh === curCh) {
-                            let pchsetData = findChSetData(curCh, chSetEntriesMap, ruleEntry.m_groupEntry.m_ruleEntries);
-                            if (pchsetData) {
-
-                                let newExcludeChars = prevCh;
-                                if (i !== rv_password.length - 1) {
-                                    newExcludeChars += rv_password[i + 1];
-                                }
-
-                                if (excludeChars_) {
-                                    newExcludeChars += excludeChars_;
-                                }
-
-                                let generatedValue = utils.genPswPartByChars(pchsetData.chSetEntry.m_charset, newExcludeChars, 1);
+                            let chSetData = findChSetData(curCh, chSetEntriesMap, ruleEntry.m_groupEntry.m_ruleEntries);
+                            if (chSetData) {
+                                let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
+                                let generatedValue = utils.genPswPartByChars(chSetData.chSetEntry.m_charset, newExcludeChars, 1);
 
                                 curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
@@ -218,18 +203,15 @@ export namespace customRule2 {
                 }
 
             } else {
-                let itchsetEntry = chSetEntriesMap.get(ruleEntry.m_chsetEntry);
-                if (!itchsetEntry) {
-                    throw new Error("NO.chsetEntry_t.1");
+                let chSetData = chSetEntriesMap.get(ruleEntry.m_chsetEntry);
+                if (!chSetData) {
+                    throw new Error("NO.chSetData_t.1");
                 }
 
-                let newExcludeChars = noDuplicates ? rv_password : '';
-                if (excludeChars_) {
-                    newExcludeChars += excludeChars_;
-                }
+                const newExcludeChars = (noDuplicates ? rv_password : '') + excludeChars;
 
-                if (itchsetEntry.generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
-                    rv_password += itchsetEntry.generateValue(newExcludeChars);
+                if (chSetData.generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
+                    rv_password += chSetData.generateValue(newExcludeChars);
                 }
 
                 if (avoidConsecutiveChars) {
@@ -240,17 +222,8 @@ export namespace customRule2 {
                         let curCh = rv_password[i];
 
                         if (prevCh === curCh) {
-
-                            let newExcludeChars = prevCh;
-                            if (i !== rv_password.length - 1) {
-                                newExcludeChars += rv_password[i + 1];
-                            }
-
-                            if (excludeChars_) {
-                                newExcludeChars += excludeChars_;
-                            }
-
-                            let generatedValue = utils.genPswPartByChars(itchsetEntry.chSetEntry.m_charset, newExcludeChars, 1);
+                            let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
+                            let generatedValue = utils.genPswPartByChars(chSetData.chSetEntry.m_charset, newExcludeChars, 1);
 
                             curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                         }
@@ -267,21 +240,18 @@ export namespace customRule2 {
         return rv_password;
     }
 
-    type generateForChSetEntriesHolderRecursivelyParams = {
-        chSetEntriesHolder_: ChSetEntriesMap,
+    type GenerateForChSetEntriesHolderRecursivelyParams = {
+        chSetEntriesMap: ChSetEntriesMap,
         chsetEntries_generated_: ChSetEntries,
         chsetEntries_togenerate_: ChSetEntries,
-        pswLenGenerated_: number,
-        pswLenFixedCount_: number,
+        pswLenGenerated: number,
+        pswLenFixedCount: number,
     };
 
-    function generateForChSetEntriesHolderRecursively(
-        ruleEntries_: RuleEntries,
-        pm: generateForChSetEntriesHolderRecursivelyParams): void {
+    function generateForChSetEntriesHolderRecursively(ruleEntries: RuleEntries, pm: GenerateForChSetEntriesHolderRecursivelyParams): void {
         // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
 
-        ruleEntries_.forEach((ruleEntry) => {
-
+        ruleEntries.forEach((ruleEntry) => {
             if (ruleEntry.m_isgroup) {
                 generateForChSetEntriesHolderRecursively(ruleEntry.m_groupEntry.m_ruleEntries, pm);
             } else {
@@ -293,14 +263,12 @@ export namespace customRule2 {
 
                 if (chsetData.generateLength()) {
                     pm.chsetEntries_generated_.push(chsetData);
-                    pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
-
-                    pm.pswLenGenerated_ += chsetData.generatedLen;
+                    pm.chSetEntriesMap.set(ruleEntry.m_chsetEntry, chsetData);
+                    pm.pswLenGenerated += chsetData.generatedLen;
                 } else {
                     pm.chsetEntries_togenerate_.push(chsetData);
-                    pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
-
-                    pm.pswLenFixedCount_ += chsetData.min;
+                    pm.chSetEntriesMap.set(ruleEntry.m_chsetEntry, chsetData);
+                    pm.pswLenFixedCount += chsetData.min;
                 }
             }
         });
@@ -480,12 +448,12 @@ export namespace customRule2 {
         let rv_password = '';
 
         try {
-            let pm: generateForChSetEntriesHolderRecursivelyParams = {
-                chSetEntriesHolder_: new Map<ChSetEntry, ChSetData>(),
+            let pm: GenerateForChSetEntriesHolderRecursivelyParams = {
+                chSetEntriesMap: new Map<ChSetEntry, ChSetData>(),
                 chsetEntries_generated_: [],
                 chsetEntries_togenerate_: [],
-                pswLenGenerated_: 0, // totalLengthGenerated
-                pswLenFixedCount_: 0, // minLengthToGenerate
+                pswLenGenerated: 0, // totalLengthGenerated
+                pswLenFixedCount: 0, // minLengthToGenerate
             };
 
             generateForChSetEntriesHolderRecursively(rulesSet.m_ruleEntries, pm);
@@ -498,7 +466,7 @@ export namespace customRule2 {
             pm.chsetEntries_togenerate_.forEach(
                 (chsetData, idx) => {
 
-                    let maxAvbl = Math.floor((rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_)
+                    let maxAvbl = Math.floor((rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated)
                         / (entriesCount > 0 ? entriesCount : 1));
 
                     if (chsetData.isGenerated) {
@@ -513,8 +481,8 @@ export namespace customRule2 {
                             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
                             // We have rule entries for whom password has to be generated.
-                            if (pm.pswLenGenerated_ < rulesSet.m_pswlenSet.m_min) {
-                                moreLengthToGenerate = rulesSet.m_pswlenSet.m_min - pm.pswLenGenerated_;
+                            if (pm.pswLenGenerated < rulesSet.m_pswlenSet.m_min) {
+                                moreLengthToGenerate = rulesSet.m_pswlenSet.m_min - pm.pswLenGenerated;
 
                                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.min);
                                 chsetData.min = Math.min(minimumLenToSatisfyRange, chsetData.chSetEntry.m_charset.length);
@@ -523,13 +491,13 @@ export namespace customRule2 {
 
                         chsetData.max = Math.max(chsetData.min, Math.min(maxAvbl, chsetData.chSetEntry.m_charset.length));
 
-                        if (isLastEntry && chsetData.max > rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_) {
-                            chsetData.max = rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_;
+                        if (isLastEntry && chsetData.max > rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated) {
+                            chsetData.max = rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated;
                         }
                     }
 
                     if (chsetData.generateLength()) {
-                        pm.pswLenGenerated_ += chsetData.generatedLen;
+                        pm.pswLenGenerated += chsetData.generatedLen;
                         entriesCount--;
                     }
                 }
@@ -542,7 +510,7 @@ export namespace customRule2 {
 
             rv_password = generatePasswordByRuleRecursively(
                 rulesSet.m_ruleEntries,
-                pm.chSetEntriesHolder_,
+                pm.chSetEntriesMap,
                 noDuplicates,
                 rulesSet.m_avoidConsecutiveChars,
                 excludeChars
