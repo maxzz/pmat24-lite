@@ -4,18 +4,22 @@ import { utils } from "../utils";
 import { strFindFirstOf } from "../cpp-utils";
 
 export namespace customRule2 {
-    // using namespace advancedpswpolicy;
 
-    // typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; // Pointer to undefined character set entries
-    type undef_chsetEntries_t = advancedpswpolicy.chsetEntry_t[]; // Pointer to undefined character set entries
+    type RuleEntries = advancedpswpolicy.ruleEntries_t;
+    type ChSetEntry = advancedpswpolicy.chsetEntry_t;
+
+    type ChSetEntriesMap = Map<ChSetEntry, ChSetData>;
+    type ChSetEntries = ChSetData[];
+
+    type undef_chsetEntries_t = ChSetEntry[]; 
 
     type GetBoundsRecursivelyResult = {
-        undefchSetEntries_: undef_chsetEntries_t, // undefined chSet entries
+        undefchSetEntries: ChSetEntry[], // undefined character set entries
         min: number, // entries min total
         max: number, // entries max total
     };
 
-    function getBoundsRecursively(rulesEntries: advancedpswpolicy.ruleEntries_t, rv: GetBoundsRecursivelyResult): void {
+    function getBoundsRecursively(rulesEntries: RuleEntries, rv: GetBoundsRecursivelyResult): void {
         rulesEntries.forEach(
             (ruleEntry) => {
                 if (ruleEntry.m_isgroup) {
@@ -43,7 +47,7 @@ export namespace customRule2 {
                         // If we are here then the max range is not set for the current entry.
                         //
                         rv.max += minRange; // Add min range to max total (at least).
-                        rv.undefchSetEntries_.push(ruleEntry.m_chsetEntry);
+                        rv.undefchSetEntries.push(ruleEntry.m_chsetEntry);
                     }
                 }
             }
@@ -65,7 +69,7 @@ export namespace customRule2 {
 
         // 0. To get min and max bounds.
         var pm: GetBoundsRecursivelyResult = {
-            undefchSetEntries_: [], // Rule entries without any max bound value.
+            undefchSetEntries: [], // Rule entries without any max bound value.
             min: 0,
             max: 0,
         };
@@ -77,7 +81,7 @@ export namespace customRule2 {
 
             let maxCharactersAvailable = pm.min;
 
-            pm.undefchSetEntries_.forEach(
+            pm.undefchSetEntries.forEach(
                 (currentChEntry) => {
                     maxCharactersAvailable += currentChEntry.m_charset.length;
                 }
@@ -93,7 +97,7 @@ export namespace customRule2 {
 
             let maxCharactersAvailable = pm.max;
 
-            pm.undefchSetEntries_.forEach(
+            pm.undefchSetEntries.forEach(
                 (currentChEntry) => {
                     maxCharactersAvailable += currentChEntry.m_charset.length;
                 }
@@ -108,9 +112,9 @@ export namespace customRule2 {
         return rv;
     }
 
-    class ChSetData_t {
+    class ChSetData {
         //const chsetEntry_t* m_pChsetEntry = nullptr;
-        m_pChsetEntry: advancedpswpolicy.chsetEntry_t;
+        m_pChsetEntry: ChSetEntry;
 
         m_isgenerated = false;
         m_min = -1;
@@ -121,7 +125,7 @@ export namespace customRule2 {
         // chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
         //     : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
 
-        constructor(pChsetEntry: advancedpswpolicy.chsetEntry_t, min: number, max: number) {
+        constructor(pChsetEntry: ChSetEntry, min: number, max: number) {
             this.m_pChsetEntry = pChsetEntry;
             this.m_min = min;
             this.m_max = max;
@@ -167,39 +171,36 @@ export namespace customRule2 {
         }
     };
 
-    type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, ChSetData_t>;
-    type chsetEntries_t = ChSetData_t[];
-
-    function findCharsetEntryHolder(
-        wchar_: string,
-        chSetEntriesHolder_: chsetEntriesHolder_t,
-        ruleEntries_: advancedpswpolicy.ruleEntries_t,
-    ): ChSetData_t | undefined {
-        let itchsetEntry_: ChSetData_t | undefined;
+    function findChSetData(
+        ch: string,
+        chSetEntriesMap: ChSetEntriesMap,
+        rules: RuleEntries,
+    ): ChSetData | undefined {
+        let rv: ChSetData | undefined;
 
         // Find which character set the current character belongs.
-        for (const curRuleEntry of ruleEntries_) {
+        for (const rule of rules) {
 
-            if (curRuleEntry.m_isgroup) {
-                itchsetEntry_ = findCharsetEntryHolder(wchar_, chSetEntriesHolder_, curRuleEntry.m_groupEntry.m_ruleEntries);
+            if (rule.m_isgroup) {
+                rv = findChSetData(ch, chSetEntriesMap, rule.m_groupEntry.m_ruleEntries);
             }
 
-            if (curRuleEntry.m_chsetEntry.m_charset.indexOf(wchar_) === -1) {
+            if (rule.m_chsetEntry.m_charset.indexOf(ch) === -1) {
                 // Skip current character set entry if character is not found.
                 continue;
             }
 
             // Find corresponding entry in the character set entries holder.
-            itchsetEntry_ = chSetEntriesHolder_.get(curRuleEntry.m_chsetEntry);
+            rv = chSetEntriesMap.get(rule.m_chsetEntry);
             break;
         }
 
-        return itchsetEntry_;
+        return rv;
     }
 
     function generatePasswordByRuleRecursively(
-        ruleEntries_: advancedpswpolicy.ruleEntries_t,
-        chSetEntriesHolder_: chsetEntriesHolder_t,
+        ruleEntries_: RuleEntries,
+        chSetEntriesHolder_: ChSetEntriesMap,
         noduplicates_: boolean,
         avoidConsecutiveChars_: boolean,
         excludeChars_: string
@@ -234,7 +235,7 @@ export namespace customRule2 {
                         let curCh = rv_password_[itChar];
 
                         if (prevCh === curCh) {
-                            let itchsetEntry = findCharsetEntryHolder(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
+                            let itchsetEntry = findChSetData(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
 
                             if (itchsetEntry) {
                                 let pchsetData = itchsetEntry;
@@ -317,15 +318,15 @@ export namespace customRule2 {
     }
 
     type generateForChSetEntriesHolderRecursivelyParams = {
-        chSetEntriesHolder_: chsetEntriesHolder_t,
-        chsetEntries_generated_: chsetEntries_t,
-        chsetEntries_togenerate_: chsetEntries_t,
+        chSetEntriesHolder_: ChSetEntriesMap,
+        chsetEntries_generated_: ChSetEntries,
+        chsetEntries_togenerate_: ChSetEntries,
         pswLenGenerated_: number,
         pswLenFixedCount_: number,
     };
 
     function generateForChSetEntriesHolderRecursively(
-        ruleEntries_: advancedpswpolicy.ruleEntries_t,
+        ruleEntries_: RuleEntries,
         pm: generateForChSetEntriesHolderRecursivelyParams): void {
         // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
 
@@ -334,7 +335,7 @@ export namespace customRule2 {
             if (ruleEntry.m_isgroup) {
                 generateForChSetEntriesHolderRecursively(ruleEntry.m_groupEntry.m_ruleEntries, pm);
             } else {
-                let chsetData = new ChSetData_t(
+                let chsetData = new ChSetData(
                     ruleEntry.m_chsetEntry,
                     ruleEntry.m_chsetEntry.m_rangeEntry.m_min,
                     ruleEntry.m_chsetEntry.m_rangeEntry.m_max
@@ -356,7 +357,7 @@ export namespace customRule2 {
     }
 
     type verifyPasswordAgainstRuleRecursivelyParams = {
-        ruleEntries_: advancedpswpolicy.ruleEntries_t,
+        ruleEntries_: RuleEntries,
         password_: string,
         mix_: boolean,
     };
@@ -516,7 +517,7 @@ export namespace customRule2 {
         return rv;
     }
 
-    function sort_ascendingByCharSetLength(a: ChSetData_t, b: ChSetData_t): number {
+    function sort_ascendingByCharSetLength(a: ChSetData, b: ChSetData): number {
         if (a.m_pChsetEntry.m_charset.length === b.m_pChsetEntry.m_charset.length) {
             return 0;
         }
@@ -530,7 +531,7 @@ export namespace customRule2 {
 
         try {
             let pm: generateForChSetEntriesHolderRecursivelyParams = {
-                chSetEntriesHolder_: new Map<advancedpswpolicy.chsetEntry_t, ChSetData_t>(),
+                chSetEntriesHolder_: new Map<ChSetEntry, ChSetData>(),
                 chsetEntries_generated_: [],
                 chsetEntries_togenerate_: [],
                 pswLenGenerated_: 0, // totalLengthGenerated
