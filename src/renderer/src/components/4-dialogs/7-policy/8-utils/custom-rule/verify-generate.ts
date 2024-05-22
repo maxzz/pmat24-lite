@@ -169,7 +169,7 @@ export namespace customRule2 {
         avoidConsecutiveChars_: boolean,
         excludeChars_: string
     ): string {
-        let rv_password_ = '';
+        let rv_password = '';
         // 0. To generate password as per custom rule specified.
 
         ruleEntries_.forEach((ruleEntry) => {
@@ -188,29 +188,23 @@ export namespace customRule2 {
                     pswOutOfGroup = utils.randomizeCharsInString(pswOutOfGroup);
                 }
 
-                rv_password_ += pswOutOfGroup;
+                rv_password += pswOutOfGroup;
 
                 if (avoidConsecutiveChars_) {
 
                     let newPsw = '';
                     let prevCh: string | undefined;
 
-                    for (let itChar = 0; itChar < rv_password_.length; itChar++) {
-                        let curCh = rv_password_[itChar];
+                    for (let i = 0; i < rv_password.length; i++) {
+                        let curCh = rv_password[i];
 
                         if (prevCh === curCh) {
-                            let itchsetEntry = findChSetData(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
-
-                            if (itchsetEntry) {
-                                let pchsetData = itchsetEntry;
-
-                                if (!pchsetData) {
-                                    throw new Error("NO.chsetEntry_t.2");
-                                }
+                            let pchsetData = findChSetData(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
+                            if (pchsetData) {
 
                                 let excludeChars = prevCh;
-                                if ((itChar + 1) !== rv_password_.length) {
-                                    excludeChars += rv_password_[itChar + 1];
+                                if (i !== rv_password.length - 1) {
+                                    excludeChars += rv_password[i + 1];
                                 }
 
                                 if (excludeChars_) {
@@ -228,7 +222,7 @@ export namespace customRule2 {
                         prevCh = curCh;
                     }
 
-                    rv_password_ = newPsw;
+                    rv_password = newPsw;
                 }
 
             } else {
@@ -237,26 +231,27 @@ export namespace customRule2 {
                     throw new Error("NO.chsetEntry_t.1");
                 }
 
-                let excludeChars = noduplicates_ ? rv_password_ : '';
+                let excludeChars = noduplicates_ ? rv_password : '';
                 if (excludeChars_) {
                     excludeChars += excludeChars_;
                 }
 
                 if (itchsetEntry.generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
-                    rv_password_ += itchsetEntry.generateValue(excludeChars);
+                    rv_password += itchsetEntry.generateValue(excludeChars);
                 }
 
                 if (avoidConsecutiveChars_) {
                     let newPsw = '';
                     let prevCh: string | undefined;
 
-                    for (let itChar = 0; itChar < rv_password_.length; itChar++) {
-                        let curCh = rv_password_[itChar];
+                    for (let i = 0; i < rv_password.length; i++) {
+                        let curCh = rv_password[i];
 
                         if (prevCh === curCh) {
+
                             let excludeChars = prevCh;
-                            if ((itChar + 1) !== rv_password_.length) {
-                                excludeChars += rv_password_[itChar + 1];
+                            if (i !== rv_password.length - 1) {
+                                excludeChars += rv_password[i + 1];
                             }
 
                             if (excludeChars_) {
@@ -273,12 +268,12 @@ export namespace customRule2 {
                         prevCh = curCh;
                     }
 
-                    rv_password_ = newPsw;
+                    rv_password = newPsw;
                 }
             }
         });
 
-        return rv_password_;
+        return rv_password;
     }
 
     type generateForChSetEntriesHolderRecursivelyParams = {
