@@ -22,30 +22,30 @@ export type RangeEntry = {
 export type RuleEntries = RuleEntry[];                  // Sequence of rules like: a{1,2}A{1,1}[0-9]{1,1}
 
 export class ChSetEntry {                               // Character set element as a simplest rule like: [a-z]{1,} with repetition.
-    m_charset: string = '';                             // A set of characters.
-    m_rangeEntry: RangeEntry = { min: -1, max: -1 };    // Repetition range.
+    chars: string = '';                                 // A set of characters.
+    range: RangeEntry = { min: -1, max: -1 };           // Repetition range.
 };
 
 class GroupEntry {                                      // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
-    m_ruleEntries: RuleEntry[] = [];                    // Rules inside this group.
-    m_rangeEntry: RangeEntry = { min: -1, max: -1 };    // Repetition range.
-    m_mix: boolean = true;                              // True if permutation (rearranging) is allowed for this set.
+    rules: RuleEntry[] = [];                            // Rules inside this group.
+    range: RangeEntry = { min: -1, max: -1 };           // Repetition range.
+    mix: boolean = true;                                // True if permutation (rearranging) is allowed for this set.
     // TODO: nested level. 0 for the lowest level, i.e. most nested group.
     // TODO: group start in source text.
 };
 
 export class RuleEntry {                                // Element that has either chsetEntry_t or groupEntry_t.
-    m_isgroup: boolean = false;                         // True if group element.
-    m_chsetEntry: ChSetEntry = new ChSetEntry();        // Character set element.
-    m_groupEntry: GroupEntry = new GroupEntry();        // Group element.
+    isGroup: boolean = false;                           // True if group element.
+    chSet: ChSetEntry = new ChSetEntry();               // Character set element.
+    group: GroupEntry = new GroupEntry();               // Group element.
 };
 
 export class RulesSet {
-    m_ruleEntries: RuleEntries = [];
-    m_pswlenSet: RangeEntry = { min: -1, max: -1 };     // Final total length of password.
+    rules: RuleEntries = [];
+    pswLenRange: RangeEntry = { min: -1, max: -1 };     // Final total length of password.
 
-    m_avoidConsecutiveChars: boolean = false;           // Whether to disallow repetition of same character consecutively. 
-    m_checkPrevPasswordCharPosition: boolean = false;   // Avoid same character in the same position as its recent (predecessor) value.
+    avoidConsecutiveChars: boolean = false;             // Whether to disallow repetition of same character consecutively. 
+    checkPrevPswCharPosition: boolean = false;          // Avoid same character in the same position as its recent (predecessor) value.
 };
 
 // Erorr types.

@@ -32,7 +32,7 @@ export namespace advancedpswpolicy {
 
         doparse() {
             this.m_sourceTextPos = 0;
-            this.m_rulesSet.m_ruleEntries = [];
+            this.m_rulesSet.rules = [];
 
             this.parse_start();
 
@@ -349,7 +349,7 @@ export namespace advancedpswpolicy {
                 throw new ParseError("expected '('", ParseErrorType.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
             }
 
-            ruleEntry_.m_groupEntry.m_ruleEntries = this.parse_rules();
+            ruleEntry_.group.rules = this.parse_rules();
 
             ch = this.getChar();
             if (ch != ')') {
@@ -360,7 +360,7 @@ export namespace advancedpswpolicy {
 
             if (hasChar) {
                 if (ch2 == '.') {
-                    ruleEntry_.m_groupEntry.m_mix = false;
+                    ruleEntry_.group.mix = false;
                 }
                 else {
                     this.ungetChar();
@@ -382,17 +382,17 @@ export namespace advancedpswpolicy {
                 case '(': { // group
                     this.ungetChar();
                     ruleEntry_ = this.parse_group();
-                    ruleEntry_.m_isgroup = true;
-                    ruleEntry_.m_groupEntry.m_rangeEntry = this.parse_range();
+                    ruleEntry_.isGroup = true;
+                    ruleEntry_.group.range = this.parse_range();
                     break;
                 }
                 case '[': { // charset
                     this.ungetChar();
-                    ruleEntry_.m_chsetEntry.m_charset = this.parse_charset();
-                    ruleEntry_.m_isgroup = false;
-                    ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
+                    ruleEntry_.chSet.chars = this.parse_charset();
+                    ruleEntry_.isGroup = false;
+                    ruleEntry_.chSet.range = this.parse_range();
 
-                    if (ruleEntry_.m_chsetEntry.m_charset.length > 1024) {
+                    if (ruleEntry_.chSet.chars.length > 1024) {
                         throw new ParseError("expected less then 1024 per charset", ParseErrorType.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
                     }
                     break;
@@ -401,9 +401,9 @@ export namespace advancedpswpolicy {
                 case 'a': // shorthand a
                 case 'A': // shorthand A
                 case 's': { // shorthand s
-                    ruleEntry_.m_chsetEntry.m_charset = generateShorthandSet(ch);
-                    ruleEntry_.m_isgroup = false;
-                    ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
+                    ruleEntry_.chSet.chars = generateShorthandSet(ch);
+                    ruleEntry_.isGroup = false;
+                    ruleEntry_.chSet.range = this.parse_range();
                     break;
                 }
                 default: {
@@ -453,11 +453,11 @@ export namespace advancedpswpolicy {
 
                 switch (ch) {
                     case '~': { // To avoid the same character be used consecutively (global),
-                        this.m_rulesSet.m_avoidConsecutiveChars = true;
+                        this.m_rulesSet.avoidConsecutiveChars = true;
                         break;
                     }
                     case '&': { // To avoid the same character in the same position from its previous value (recent one only).
-                        this.m_rulesSet.m_checkPrevPasswordCharPosition = true;
+                        this.m_rulesSet.checkPrevPswCharPosition = true;
                         break;
                     }
                     case '(': // group
@@ -467,12 +467,12 @@ export namespace advancedpswpolicy {
                     case 'A': // shorthand A
                     case 's': { // shorthand s
                         this.ungetChar();
-                        this.m_rulesSet.m_ruleEntries = this.parse_rules();
+                        this.m_rulesSet.rules = this.parse_rules();
                         break;
                     }
                     case '<': { // final psw length can be at the begin or at the end of input string.
                         this.ungetChar();
-                        this.m_rulesSet.m_pswlenSet = this.parse_finalPswLength();
+                        this.m_rulesSet.pswLenRange = this.parse_finalPswLength();
                         break;
                     }
                     default: {
@@ -513,7 +513,7 @@ export namespace advancedpswpolicy {
         if (rv.error.type == ParseErrorType.errNone) {
             rv.rules = apparser.m_rulesSet;
         } else {
-            rv.rules.m_ruleEntries = [];
+            rv.rules.rules = [];
         }
 
         return rv;
