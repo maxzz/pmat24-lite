@@ -93,59 +93,43 @@ export namespace customRule2 {
     }
 
     class ChSetData {
-        //const chsetEntry_t* m_pChsetEntry = nullptr;
-        m_pChsetEntry: ChSetEntry;
-
-        m_isgenerated = false;
-        m_min = -1;
-        m_max = -1;
-        m_generatedLen = -1;
-
-        // chsetData_t() {}
-        // chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
-        //     : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
+        chSetEntry: ChSetEntry;
+        isGenerated = false;
+        generatedLen = -1;
+        min = -1;
+        max = -1;
 
         constructor(pChsetEntry: ChSetEntry, min: number, max: number) {
-            this.m_pChsetEntry = pChsetEntry;
-            this.m_min = min;
-            this.m_max = max;
+            this.chSetEntry = pChsetEntry;
+            this.min = min;
+            this.max = max;
         }
 
         generateLength(): boolean {
-            if (this.m_isgenerated) {
-                return this.m_isgenerated;
+            if (this.isGenerated) {
+                return this.isGenerated;
             }
 
-            if (!this.m_pChsetEntry) {
-                throw new Error("chsetEntry_t is null.");
-            }
-
-            if (this.m_min === -1 && this.m_max === -1) {
-                this.m_min = this.m_max = 1;
-            }
-
-            if (this.m_max === -2) {
+            if (this.min === -1 && this.max === -1) {
+                this.min = this.max = 1;
+            } else if (this.max === -2) {
                 return false;
             }
 
-            this.m_generatedLen = utils.getRandomInRange(this.m_min, this.m_max);
-            this.m_isgenerated = this.m_generatedLen >= this.m_min && this.m_generatedLen <= this.m_max;
+            this.generatedLen = utils.getRandomInRange(this.min, this.max);
+            this.isGenerated = this.generatedLen >= this.min && this.generatedLen <= this.max;
 
-            return this.m_isgenerated;
+            return this.isGenerated;
         }
 
         generateValue(excludeChars: string): string  // To generate unique values
         {
-            if (!this.m_pChsetEntry) {
-                throw new Error("chsetEntry_t is null.");
-            }
-
-            if (this.m_generatedLen <= 0) {
-                throw new Error("Invalid length.");
+            if (this.generatedLen <= 0) {
+                throw new Error("invalid length");
             }
 
             let generatedValue = '';
-            utils.genSubSet(this.m_pChsetEntry.m_charset, excludeChars, this.m_generatedLen, generatedValue);
+            utils.genSubSet(this.chSetEntry.m_charset, excludeChars, this.generatedLen, generatedValue);
 
             return generatedValue;
         }
@@ -234,7 +218,7 @@ export namespace customRule2 {
                                 }
 
                                 let generatedValue = '';
-                                utils.genSubSet(pchsetData.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
+                                utils.genSubSet(pchsetData.chSetEntry.m_charset, excludeChars, 1, generatedValue);
 
                                 curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
@@ -258,7 +242,7 @@ export namespace customRule2 {
                     excludeChars += excludeChars_;
                 }
 
-                if (itchsetEntry.m_generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
+                if (itchsetEntry.generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
                     rv_password_ += itchsetEntry.generateValue(excludeChars);
                 }
 
@@ -280,7 +264,7 @@ export namespace customRule2 {
                             }
 
                             let generatedValue = '';
-                            utils.genSubSet(itchsetEntry.m_pChsetEntry.m_charset, excludeChars, 1, generatedValue);
+                            utils.genSubSet(itchsetEntry.chSetEntry.m_charset, excludeChars, 1, generatedValue);
 
                             curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                         }
@@ -325,12 +309,12 @@ export namespace customRule2 {
                     pm.chsetEntries_generated_.push(chsetData);
                     pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
 
-                    pm.pswLenGenerated_ += chsetData.m_generatedLen;
+                    pm.pswLenGenerated_ += chsetData.generatedLen;
                 } else {
                     pm.chsetEntries_togenerate_.push(chsetData);
                     pm.chSetEntriesHolder_.set(ruleEntry.m_chsetEntry, chsetData);
 
-                    pm.pswLenFixedCount_ += chsetData.m_min;
+                    pm.pswLenFixedCount_ += chsetData.min;
                 }
             }
         });
@@ -498,10 +482,10 @@ export namespace customRule2 {
     }
 
     function sort_ascendingByCharSetLength(a: ChSetData, b: ChSetData): number {
-        if (a.m_pChsetEntry.m_charset.length === b.m_pChsetEntry.m_charset.length) {
+        if (a.chSetEntry.m_charset.length === b.chSetEntry.m_charset.length) {
             return 0;
         }
-        let isLowerCharSetLength = a.m_pChsetEntry.m_charset.length < b.m_pChsetEntry.m_charset.length;
+        let isLowerCharSetLength = a.chSetEntry.m_charset.length < b.chSetEntry.m_charset.length;
         return isLowerCharSetLength ? -1 : 1;
     }
 
@@ -531,12 +515,12 @@ export namespace customRule2 {
                     let maxAvbl = Math.floor((rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_)
                         / (entriesCount > 0 ? entriesCount : 1));
 
-                    if (chsetData.m_isgenerated) {
+                    if (chsetData.isGenerated) {
                         return; // Skip entries if already generated.
                     }
 
                     if (maxAvbl <= 0) { // No more extra characters available so set minimum length
-                        chsetData.m_max = chsetData.m_min;
+                        chsetData.max = chsetData.min;
                     } else {
                         let isLastEntry = idx === pm.chsetEntries_togenerate_.length - 1;
                         if (isLastEntry) {
@@ -546,20 +530,20 @@ export namespace customRule2 {
                             if (pm.pswLenGenerated_ < rulesSet.m_pswlenSet.m_min) {
                                 moreLengthToGenerate = rulesSet.m_pswlenSet.m_min - pm.pswLenGenerated_;
 
-                                let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
-                                chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
+                                let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.min);
+                                chsetData.min = Math.min(minimumLenToSatisfyRange, chsetData.chSetEntry.m_charset.length);
                             }
                         }
 
-                        chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
+                        chsetData.max = Math.max(chsetData.min, Math.min(maxAvbl, chsetData.chSetEntry.m_charset.length));
 
-                        if (isLastEntry && chsetData.m_max > rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_) {
-                            chsetData.m_max = rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_;
+                        if (isLastEntry && chsetData.max > rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_) {
+                            chsetData.max = rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_;
                         }
                     }
 
                     if (chsetData.generateLength()) {
-                        pm.pswLenGenerated_ += chsetData.m_generatedLen;
+                        pm.pswLenGenerated_ += chsetData.generatedLen;
                         entriesCount--;
                     }
                 }
