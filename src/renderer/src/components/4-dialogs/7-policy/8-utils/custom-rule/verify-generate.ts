@@ -434,8 +434,7 @@ export namespace customRule2 {
         return isLowerCharSetLength ? -1 : 1;
     }
 
-    /**/
-    function generatePasswordByRuleNoThrow(rulesSet: RulesSet, noDuplicates: boolean, prevPassword: string): string {
+    function generatePasswordByRuleNoThrow(rulesSet: RulesSet, noDuplicates: boolean, prevPsw: string): string {
         let rv_password = '';
 
         try {
@@ -446,7 +445,6 @@ export namespace customRule2 {
                 pswLenGenerated: 0, // totalLengthGenerated
                 pswLenFixedCount: 0, // minLengthToGenerate
             };
-
             generateForChSetEntriesHolderRecursively(rulesSet.m_ruleEntries, pm);
 
             // Sort ruleEntries whose max is undefined in ascending order of their character set length.
@@ -496,7 +494,7 @@ export namespace customRule2 {
 
             let excludeChars = '';
             if (rulesSet.m_checkPrevPasswordCharPosition) { // Check previous password character by character if requested
-                excludeChars = prevPassword;
+                excludeChars = prevPsw;
             }
 
             rv_password = generatePasswordByRuleRecursively(
@@ -509,6 +507,7 @@ export namespace customRule2 {
 
         } catch (e) {
             rv_password = '';
+            console.log('Error in generatePasswordByRuleNoThrow: ', e);
         }
 
         return rv_password;
