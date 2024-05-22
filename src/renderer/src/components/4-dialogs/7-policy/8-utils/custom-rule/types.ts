@@ -1,4 +1,4 @@
-import { parseError, ParseerrorType_t, rulesSet_t, rangeEntry_t, ruleEntry_t, ruleEntries_t } from "../1-adv-psw-policy";
+import { ParseError, ParseErrorType, RulesSet, RangeEntry, RuleEntry, RuleEntries } from "../1-adv-psw-policy";
 import { isCharHexNumber, isCharNumber } from "../cpp-utils";
 import { password } from "../types";
 
@@ -16,7 +16,7 @@ export namespace advancedpswpolicy {
             case 'A': return WSHORTHAND_A;
             case 's': return WSHORTHAND_s;
             default: {
-                throw new parseError("unexpected shorthand", ParseerrorType_t.errUnexpShorthand);
+                throw new ParseError("unexpected shorthand", ParseErrorType.errUnexpShorthand);
             }
         }
     }
@@ -27,7 +27,7 @@ export namespace advancedpswpolicy {
     class apparser_t {
         //public:
         m_sourceText: string = ''; // Source text to parse.
-        m_rulesSet: rulesSet_t = new rulesSet_t();
+        m_rulesSet: RulesSet = new RulesSet();
         m_sourceTextPos: number = 0; // Current parsing position starting from 0, but at error time it's +1 already.
 
         doparse() {
@@ -75,7 +75,7 @@ export namespace advancedpswpolicy {
 
         getChar(): string { // getNextChar
             if (!this.hasChar()) {
-                throw new parseError("no more text", ParseerrorType_t.errExpMoreText);
+                throw new ParseError("no more text", ParseErrorType.errExpMoreText);
             }
 
             let rv = this.m_sourceText[this.m_sourceTextPos];
@@ -109,7 +109,7 @@ export namespace advancedpswpolicy {
 
             let ch = this.getChar();
             if (ch != expected_) {
-                throw new parseError("expected" + expected_, ParseerrorType_t.errExpChar, expected_);
+                throw new ParseError("expected" + expected_, ParseErrorType.errExpChar, expected_);
             }
         }
 
@@ -145,8 +145,8 @@ export namespace advancedpswpolicy {
             return rv;
         }
 
-        getRangeEntryWs(OPEN_: string, CLOSE_: string): rangeEntry_t { // Get range if exist.
-            const rv: rangeEntry_t = { m_min: -1, m_max: -1 };
+        getRangeEntryWs(OPEN_: string, CLOSE_: string): RangeEntry { // Get range if exist.
+            const rv: RangeEntry = { m_min: -1, m_max: -1 };
 
             const { ch, hasChar } = this.getCharIfExistWs();
             if (!hasChar) {
@@ -161,7 +161,7 @@ export namespace advancedpswpolicy {
             const { num: min, hasChar: hasN } = this.getNumberIfExistWs();
             rv.m_min = min;
             if (!hasChar || isNaN(min)) {
-                throw new parseError("expected number", ParseerrorType_t.errExpNum);
+                throw new ParseError("expected number", ParseErrorType.errExpNum);
             }
 
             this.skipWhitespace();
@@ -181,14 +181,14 @@ export namespace advancedpswpolicy {
             this.ExpectedCharWs(CLOSE_);
             if (hasM) {
                 if (rv.m_min > rv.m_max) {
-                    throw new parseError("invalid range", ParseerrorType_t.errInvRange);
+                    throw new ParseError("invalid range", ParseErrorType.errInvRange);
                 }
             }
             return rv;
         }
 
-        parse_finalPswLength(): rangeEntry_t { // Get final length of password: <2,2> or <2>.
-            let rv: rangeEntry_t = this.getRangeEntryWs('<', '>');
+        parse_finalPswLength(): RangeEntry { // Get final length of password: <2,2> or <2>.
+            let rv: RangeEntry = this.getRangeEntryWs('<', '>');
 
             if (rv.m_max == -1) {
                 rv.m_max = rv.m_min;
@@ -197,7 +197,7 @@ export namespace advancedpswpolicy {
             return rv;
         }
 
-        parse_range(): rangeEntry_t { // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
+        parse_range(): RangeEntry { // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
             return this.getRangeEntryWs('{', '}');
         }
 
@@ -230,7 +230,7 @@ export namespace advancedpswpolicy {
 
                 let gotDigit = isCharHexNumber(ch);
                 if (!gotDigit) {
-                    throw new parseError("expected digit", ParseerrorType_t.errExpDigit);
+                    throw new ParseError("expected digit", ParseErrorType.errExpDigit);
                 }
 
                 buffer += ch;
@@ -241,7 +241,7 @@ export namespace advancedpswpolicy {
             let number = parseInt(buffer, 16);
 
             if (isNaN(number) || number > 0xFFFF || number < 0) {
-                throw new parseError("expected 4 hex digits", ParseerrorType_t.errExp4Digits);
+                throw new ParseError("expected 4 hex digits", ParseErrorType.errExp4Digits);
             }
 
             const rv = String.fromCharCode(number);
@@ -265,11 +265,11 @@ export namespace advancedpswpolicy {
 
                 if (ch == ']') { // Check if it is the end of character set and we started with '['.
                     if (!isSquareBrStart) {
-                        throw new parseError("unexpected '[' before ']'", ParseerrorType_t.errUnexpChSetClose); // expected charset beging before closing.
+                        throw new ParseError("unexpected '[' before ']'", ParseErrorType.errUnexpChSetClose); // expected charset beging before closing.
                     }
 
                     if (!rv_charset_) {
-                        throw new parseError("unexpected empty charset", ParseerrorType_t.errChSetEmpty);
+                        throw new ParseError("unexpected empty charset", ParseErrorType.errChSetEmpty);
                     }
                     
                     return rv_charset_;
@@ -279,12 +279,12 @@ export namespace advancedpswpolicy {
 
                 if (ch == '-') { // If it is a range of characters then eat this character.
                     if (!rv_charset_) {
-                        throw new parseError("expected lower boundary char before '-'", ParseerrorType_t.errExpLowBoundCh);
+                        throw new ParseError("expected lower boundary char before '-'", ParseErrorType.errExpLowBoundCh);
                     }
 
                     ch = this.getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
                     if (ch == '-') {
-                        throw new parseError("unexpected double '--'", ParseerrorType_t.errUnexpDoubleSet);
+                        throw new ParseError("unexpected double '--'", ParseErrorType.errUnexpDoubleSet);
                     }
 
                     this.ungetChar();
@@ -312,7 +312,7 @@ export namespace advancedpswpolicy {
                 // 0. Generate (chFirst=a,chSecond=c as a-c -> abc), make sure that characters are unique in set, and sort.
 
                 if (chFirst > chSecond) {
-                    throw new parseError("expected set n <= m", ParseerrorType_t.errExpCharALessB);
+                    throw new ParseError("expected set n <= m", ParseErrorType.errExpCharALessB);
                 }
 
                 while (chFirst <= chSecond) {
@@ -341,19 +341,19 @@ export namespace advancedpswpolicy {
             }
         }
 
-        parse_group(): ruleEntry_t { // '(' Rules ')' '.' // Range is handled outside.
-            let ruleEntry_: ruleEntry_t = new ruleEntry_t();
+        parse_group(): RuleEntry { // '(' Rules ')' '.' // Range is handled outside.
+            let ruleEntry_: RuleEntry = new RuleEntry();
 
             let ch = this.getChar();
             if (ch != '(') {
-                throw new parseError("expected '('", ParseerrorType_t.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
+                throw new ParseError("expected '('", ParseErrorType.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
             }
 
             ruleEntry_.m_groupEntry.m_ruleEntries = this.parse_rules();
 
             ch = this.getChar();
             if (ch != ')') {
-                throw new parseError("expected ')'", ParseerrorType_t.errExpChar, ')'); // Expected end of group.
+                throw new ParseError("expected ')'", ParseErrorType.errExpChar, ')'); // Expected end of group.
             }
 
             const { ch: ch2, hasChar } = this.getCharIfExistWs();
@@ -370,8 +370,8 @@ export namespace advancedpswpolicy {
             return ruleEntry_;
         }
 
-        parse_rule(): ruleEntry_t { // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
-            let ruleEntry_: ruleEntry_t = new ruleEntry_t();
+        parse_rule(): RuleEntry { // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
+            let ruleEntry_: RuleEntry = new RuleEntry();
 
             const { ch, hasChar } = this.getCharIfExistWs();
             if (!hasChar) {
@@ -393,7 +393,7 @@ export namespace advancedpswpolicy {
                     ruleEntry_.m_chsetEntry.m_rangeEntry = this.parse_range();
 
                     if (ruleEntry_.m_chsetEntry.m_charset.length > 1024) {
-                        throw new parseError("expected less then 1024 per charset", ParseerrorType_t.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
+                        throw new ParseError("expected less then 1024 per charset", ParseErrorType.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
                     }
                     break;
                 }
@@ -407,15 +407,15 @@ export namespace advancedpswpolicy {
                     break;
                 }
                 default: {
-                    throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
+                    throw new ParseError("unexpected char", ParseErrorType.errUnexpChar, ch);
                 }
             }
 
             return ruleEntry_;
         }
 
-        parse_rules(): ruleEntries_t { // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
-            const ruleEntries_: ruleEntries_t = [];
+        parse_rules(): RuleEntries { // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
+            const ruleEntries_: RuleEntries = [];
 
             while (true) {
                 const { ch, hasChar } = this.getCharNoThrow();
@@ -476,7 +476,7 @@ export namespace advancedpswpolicy {
                         break;
                     }
                     default: {
-                        throw new parseError("unexpected char", ParseerrorType_t.errUnexpChar, ch);
+                        throw new ParseError("unexpected char", ParseErrorType.errUnexpChar, ch);
                     }
                 }
             }
@@ -485,18 +485,18 @@ export namespace advancedpswpolicy {
     } //class apparser_t
 
     export type ParseAdvPolicyResult = {
-        rules: rulesSet_t;
-        error: parseError;
+        rules: RulesSet;
+        error: ParseError;
     };
 
     export function parse_advpolicy(advpolicy_: string): ParseAdvPolicyResult {
 
-        const rv: { rules: rulesSet_t, error: parseError; } = {
-            rules: new rulesSet_t(),
-            error: new parseError("", ParseerrorType_t.errNone)
+        const rv: { rules: RulesSet, error: ParseError; } = {
+            rules: new RulesSet(),
+            error: new ParseError("", ParseErrorType.errNone)
         };
 
-        rv.error.m_errorType = ParseerrorType_t.errNone;
+        rv.error.m_errorType = ParseErrorType.errNone;
 
         const apparser = new apparser_t();
         apparser.m_sourceText = advpolicy_;
@@ -504,13 +504,13 @@ export namespace advancedpswpolicy {
         try {
             apparser.doparse();
         } catch (error) {
-            rv.error = error instanceof parseError ? error : new parseError('unknown', ParseerrorType_t.errUnexpected);
+            rv.error = error instanceof ParseError ? error : new ParseError('unknown', ParseErrorType.errUnexpected);
             rv.error.m_errorPos = apparser.m_sourceTextPos;
 
             console.error(`parse error: ${rv.error.m_what} at ${rv.error.m_errorPos}`);
         }
 
-        if (rv.error.m_errorType == ParseerrorType_t.errNone) {
+        if (rv.error.m_errorType == ParseErrorType.errNone) {
             rv.rules = apparser.m_rulesSet;
         } else {
             rv.rules.m_ruleEntries = [];
