@@ -1,8 +1,7 @@
+import { password } from "../types";
 import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
-import { a } from "@react-spring/web";
 import { strFindFirstOf } from "../cpp-utils";
-import { password } from "../types";
 
 export namespace customRule2 {
     // using namespace advancedpswpolicy;
@@ -10,17 +9,15 @@ export namespace customRule2 {
     // typedef std::vector<const chsetEntry_t*> undef_chsetEntries_t; // Pointer to undefined character set entries
     type undef_chsetEntries_t = advancedpswpolicy.chsetEntry_t[]; // Pointer to undefined character set entries
 
-    type GetBoundsRecursivelyParams = {
+    type GetBoundsRecursivelyResult = {
         undefchSetEntries_: undef_chsetEntries_t, // undefined chSet entries
         min: number, // entries min total
         max: number, // entries max total
     };
 
-    function getBoundsRecursively(rulesEntries_: advancedpswpolicy.ruleEntries_t, rv: GetBoundsRecursivelyParams): void {
-
-        rulesEntries_.forEach(
+    function getBoundsRecursively(rulesEntries: advancedpswpolicy.ruleEntries_t, rv: GetBoundsRecursivelyResult): void {
+        rulesEntries.forEach(
             (ruleEntry) => {
-
                 if (ruleEntry.m_isgroup) {
                     getBoundsRecursively(ruleEntry.m_groupEntry.m_ruleEntries, rv);
                 } else {
@@ -53,29 +50,29 @@ export namespace customRule2 {
         );
     }
 
-    type checkRulesBoundsForGenerateResult = {
+    type CheckRulesBoundsForGenerateResult = {
         minValid: boolean,
         maxValid: boolean,
     };
 
-    export function checkRulesBoundsForGenerate(rulesSet_: advancedpswpolicy.rulesSet_t): checkRulesBoundsForGenerateResult {
+    export function checkRulesBoundsForGenerate(rulesSet: advancedpswpolicy.rulesSet_t): CheckRulesBoundsForGenerateResult {
         // Initialize return values with the assumption that the min and max values are valid.
 
-        const rv: checkRulesBoundsForGenerateResult = {
+        const rv: CheckRulesBoundsForGenerateResult = {
             minValid: true,
             maxValid: true,
         };
 
         // 0. To get min and max bounds.
-        var pm: GetBoundsRecursivelyParams = {
+        var pm: GetBoundsRecursivelyResult = {
             undefchSetEntries_: [], // Rule entries without any max bound value.
             min: 0,
             max: 0,
         };
 
-        getBoundsRecursively(rulesSet_.m_ruleEntries, pm);
+        getBoundsRecursively(rulesSet.m_ruleEntries, pm);
 
-        if (pm.min < rulesSet_.m_pswlenSet.m_min) {
+        if (pm.min < rulesSet.m_pswlenSet.m_min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
 
             let maxCharactersAvailable = pm.min;
@@ -86,12 +83,12 @@ export namespace customRule2 {
                 }
             );
 
-            rv.minValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
-        } else if (pm.min > rulesSet_.m_pswlenSet.m_max) {
+            rv.minValid = maxCharactersAvailable > rulesSet.m_pswlenSet.m_min;
+        } else if (pm.min > rulesSet.m_pswlenSet.m_max) {
             rv.minValid = false;
         }
 
-        if (pm.max < rulesSet_.m_pswlenSet.m_min) {
+        if (pm.max < rulesSet.m_pswlenSet.m_min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
 
             let maxCharactersAvailable = pm.max;
@@ -102,16 +99,16 @@ export namespace customRule2 {
                 }
             );
 
-            rv.maxValid = maxCharactersAvailable > rulesSet_.m_pswlenSet.m_min;
+            rv.maxValid = maxCharactersAvailable > rulesSet.m_pswlenSet.m_min;
 
-        } else if (pm.max > rulesSet_.m_pswlenSet.m_max) {
+        } else if (pm.max > rulesSet.m_pswlenSet.m_max) {
             rv.maxValid = false;
         }
 
         return rv;
     }
 
-    class chsetData_t {
+    class ChSetData_t {
         //const chsetEntry_t* m_pChsetEntry = nullptr;
         m_pChsetEntry: advancedpswpolicy.chsetEntry_t;
 
@@ -124,10 +121,10 @@ export namespace customRule2 {
         // chsetData_t(const chsetEntry_t* pChsetEntry_, int min_, int max_)
         //     : m_pChsetEntry(pChsetEntry_), m_min(min_), m_max(max_) {}
 
-        constructor(pChsetEntry_: advancedpswpolicy.chsetEntry_t, min_: number, max_: number) {
-            this.m_pChsetEntry = pChsetEntry_;
-            this.m_min = min_;
-            this.m_max = max_;
+        constructor(pChsetEntry: advancedpswpolicy.chsetEntry_t, min: number, max: number) {
+            this.m_pChsetEntry = pChsetEntry;
+            this.m_min = min;
+            this.m_max = max;
         }
 
         generateLength(): boolean {
@@ -153,7 +150,7 @@ export namespace customRule2 {
             return this.m_isgenerated;
         }
 
-        generateValue(excludeChars_: string): string  // To generate unique values
+        generateValue(excludeChars: string): string  // To generate unique values
         {
             if (!this.m_pChsetEntry) {
                 throw new Error("chsetEntry_t is null.");
@@ -164,21 +161,21 @@ export namespace customRule2 {
             }
 
             let generatedValue = '';
-            utils.genSubSet(this.m_pChsetEntry.m_charset, excludeChars_, this.m_generatedLen, generatedValue);
+            utils.genSubSet(this.m_pChsetEntry.m_charset, excludeChars, this.m_generatedLen, generatedValue);
 
             return generatedValue;
         }
     };
 
-    type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, chsetData_t>;
-    type chsetEntries_t = chsetData_t[];
+    type chsetEntriesHolder_t = Map<advancedpswpolicy.chsetEntry_t, ChSetData_t>;
+    type chsetEntries_t = ChSetData_t[];
 
     function findCharsetEntryHolder(
         wchar_: string,
         chSetEntriesHolder_: chsetEntriesHolder_t,
         ruleEntries_: advancedpswpolicy.ruleEntries_t,
-    ): chsetData_t | undefined {
-        let itchsetEntry_: chsetData_t | undefined;
+    ): ChSetData_t | undefined {
+        let itchsetEntry_: ChSetData_t | undefined;
 
         // Find which character set the current character belongs.
         for (const curRuleEntry of ruleEntries_) {
@@ -337,7 +334,7 @@ export namespace customRule2 {
             if (ruleEntry.m_isgroup) {
                 generateForChSetEntriesHolderRecursively(ruleEntry.m_groupEntry.m_ruleEntries, pm);
             } else {
-                let chsetData = new chsetData_t(
+                let chsetData = new ChSetData_t(
                     ruleEntry.m_chsetEntry,
                     ruleEntry.m_chsetEntry.m_rangeEntry.m_min,
                     ruleEntry.m_chsetEntry.m_rangeEntry.m_max
@@ -519,7 +516,7 @@ export namespace customRule2 {
         return rv;
     }
 
-    function sort_ascendingByCharSetLength(a: chsetData_t, b: chsetData_t): number {
+    function sort_ascendingByCharSetLength(a: ChSetData_t, b: ChSetData_t): number {
         if (a.m_pChsetEntry.m_charset.length === b.m_pChsetEntry.m_charset.length) {
             return 0;
         }
@@ -528,30 +525,29 @@ export namespace customRule2 {
     }
 
     /**/
-    function generatePasswordByRuleNoThrow(rulesSet_: advancedpswpolicy.rulesSet_t, noduplicates_: boolean, prevPassword_: string): string {
-        let rv_password_ = '';
+    function generatePasswordByRuleNoThrow(rulesSet: advancedpswpolicy.rulesSet_t, noDuplicates: boolean, prevPassword: string): string {
+        let rv_password = '';
 
         try {
             let pm: generateForChSetEntriesHolderRecursivelyParams = {
-                chSetEntriesHolder_: new Map<advancedpswpolicy.chsetEntry_t, chsetData_t>(),
+                chSetEntriesHolder_: new Map<advancedpswpolicy.chsetEntry_t, ChSetData_t>(),
                 chsetEntries_generated_: [],
                 chsetEntries_togenerate_: [],
                 pswLenGenerated_: 0, // totalLengthGenerated
                 pswLenFixedCount_: 0, // minLengthToGenerate
             };
 
-            generateForChSetEntriesHolderRecursively(rulesSet_.m_ruleEntries, pm);
+            generateForChSetEntriesHolderRecursively(rulesSet.m_ruleEntries, pm);
 
-            // Sort ruleEntries whose max is undefined 
-            // in ascending order of their character set length.
-            //
+            // Sort ruleEntries whose max is undefined in ascending order of their character set length.
             pm.chsetEntries_togenerate_.sort(sort_ascendingByCharSetLength);
 
             let entriesCount = pm.chsetEntries_togenerate_.length;
 
             pm.chsetEntries_togenerate_.forEach(
                 (chsetData, idx) => {
-                    let maxAvbl = Math.floor((rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_)
+
+                    let maxAvbl = Math.floor((rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_)
                         / (entriesCount > 0 ? entriesCount : 1));
 
                     if (chsetData.m_isgenerated) {
@@ -566,9 +562,8 @@ export namespace customRule2 {
                             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
                             // We have rule entries for whom password has to be generated.
-                            //
-                            if (pm.pswLenGenerated_ < rulesSet_.m_pswlenSet.m_min) {
-                                moreLengthToGenerate = rulesSet_.m_pswlenSet.m_min - pm.pswLenGenerated_;
+                            if (pm.pswLenGenerated_ < rulesSet.m_pswlenSet.m_min) {
+                                moreLengthToGenerate = rulesSet.m_pswlenSet.m_min - pm.pswLenGenerated_;
 
                                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.m_min);
                                 chsetData.m_min = Math.min(minimumLenToSatisfyRange, chsetData.m_pChsetEntry.m_charset.length);
@@ -577,37 +572,36 @@ export namespace customRule2 {
 
                         chsetData.m_max = Math.max(chsetData.m_min, Math.min(maxAvbl, chsetData.m_pChsetEntry.m_charset.length));
 
-                        if (isLastEntry && chsetData.m_max > rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_) {
-                            chsetData.m_max = rulesSet_.m_pswlenSet.m_max - pm.pswLenGenerated_;
+                        if (isLastEntry && chsetData.m_max > rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_) {
+                            chsetData.m_max = rulesSet.m_pswlenSet.m_max - pm.pswLenGenerated_;
                         }
                     }
 
                     if (chsetData.generateLength()) {
                         pm.pswLenGenerated_ += chsetData.m_generatedLen;
-
                         entriesCount--;
                     }
                 }
             );
 
             let excludeChars = '';
-            if (rulesSet_.m_checkPrevPasswordCharPosition) { // Check previous password character by character if requested
-                excludeChars = prevPassword_;
+            if (rulesSet.m_checkPrevPasswordCharPosition) { // Check previous password character by character if requested
+                excludeChars = prevPassword;
             }
 
-            rv_password_ = generatePasswordByRuleRecursively(
-                rulesSet_.m_ruleEntries,
+            rv_password = generatePasswordByRuleRecursively(
+                rulesSet.m_ruleEntries,
                 pm.chSetEntriesHolder_,
-                noduplicates_,
-                rulesSet_.m_avoidConsecutiveChars,
+                noDuplicates,
+                rulesSet.m_avoidConsecutiveChars,
                 excludeChars
             );
 
         } catch (e) {
-            rv_password_ = '';
+            rv_password = '';
         }
 
-        return rv_password_;
+        return rv_password;
     }
     
 }//namespace customRule2
