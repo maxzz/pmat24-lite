@@ -58,7 +58,7 @@ export namespace customRule2 {
     };
 
     export function checkRulesBoundsForGenerate(rulesSet: RulesSet): CheckRulesBoundsForGenerateResult {
-        
+
         // Initialize return values with the assumption that the min and max values are valid.
         const rv: CheckRulesBoundsForGenerateResult = {
             minValid: true,
@@ -122,16 +122,9 @@ export namespace customRule2 {
             return this.isGenerated;
         }
 
-        generateValue(excludeChars: string): string  // To generate unique values
-        {
-            if (this.generatedLen <= 0) {
-                throw new Error("invalid length");
-            }
-
-            let generatedValue = '';
-            utils.genSubSet(this.chSetEntry.m_charset, excludeChars, this.generatedLen, generatedValue);
-
-            return generatedValue;
+        generateValue(excludeChars: string): string { // Generate unique value
+            let rv = utils.genPswPartByChars(this.chSetEntry.m_charset, excludeChars, this.generatedLen);
+            return rv;
         }
     };
 
@@ -164,9 +157,9 @@ export namespace customRule2 {
 
     function generatePasswordByRuleRecursively(
         ruleEntries_: RuleEntries,
-        chSetEntriesHolder_: ChSetEntriesMap,
-        noduplicates_: boolean,
-        avoidConsecutiveChars_: boolean,
+        chSetEntriesMap: ChSetEntriesMap,
+        noDuplicates: boolean,
+        avoidConsecutiveChars: boolean,
         excludeChars_: string
     ): string {
         let rv_password = '';
@@ -178,9 +171,9 @@ export namespace customRule2 {
 
                 let pswOutOfGroup = generatePasswordByRuleRecursively(
                     ruleEntry.m_groupEntry.m_ruleEntries,
-                    chSetEntriesHolder_,
-                    noduplicates_,
-                    avoidConsecutiveChars_,
+                    chSetEntriesMap,
+                    noDuplicates,
+                    avoidConsecutiveChars,
                     excludeChars_
                 );
 
@@ -190,7 +183,7 @@ export namespace customRule2 {
 
                 rv_password += pswOutOfGroup;
 
-                if (avoidConsecutiveChars_) {
+                if (avoidConsecutiveChars) {
 
                     let newPsw = '';
                     let prevCh: string | undefined;
@@ -199,20 +192,19 @@ export namespace customRule2 {
                         let curCh = rv_password[i];
 
                         if (prevCh === curCh) {
-                            let pchsetData = findChSetData(curCh, chSetEntriesHolder_, ruleEntry.m_groupEntry.m_ruleEntries);
+                            let pchsetData = findChSetData(curCh, chSetEntriesMap, ruleEntry.m_groupEntry.m_ruleEntries);
                             if (pchsetData) {
 
-                                let excludeChars = prevCh;
+                                let newExcludeChars = prevCh;
                                 if (i !== rv_password.length - 1) {
-                                    excludeChars += rv_password[i + 1];
+                                    newExcludeChars += rv_password[i + 1];
                                 }
 
                                 if (excludeChars_) {
-                                    excludeChars += excludeChars_;
+                                    newExcludeChars += excludeChars_;
                                 }
 
-                                let generatedValue = '';
-                                utils.genSubSet(pchsetData.chSetEntry.m_charset, excludeChars, 1, generatedValue);
+                                let generatedValue = utils.genPswPartByChars(pchsetData.chSetEntry.m_charset, newExcludeChars, 1);
 
                                 curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
@@ -226,21 +218,21 @@ export namespace customRule2 {
                 }
 
             } else {
-                let itchsetEntry = chSetEntriesHolder_.get(ruleEntry.m_chsetEntry);
+                let itchsetEntry = chSetEntriesMap.get(ruleEntry.m_chsetEntry);
                 if (!itchsetEntry) {
                     throw new Error("NO.chsetEntry_t.1");
                 }
 
-                let excludeChars = noduplicates_ ? rv_password : '';
+                let newExcludeChars = noDuplicates ? rv_password : '';
                 if (excludeChars_) {
-                    excludeChars += excludeChars_;
+                    newExcludeChars += excludeChars_;
                 }
 
                 if (itchsetEntry.generatedLen > 0) { // SM: Fix for Bug 88016:PMAT password change create/edit regex pw gen returns rule error only some fraction on uses
-                    rv_password += itchsetEntry.generateValue(excludeChars);
+                    rv_password += itchsetEntry.generateValue(newExcludeChars);
                 }
 
-                if (avoidConsecutiveChars_) {
+                if (avoidConsecutiveChars) {
                     let newPsw = '';
                     let prevCh: string | undefined;
 
@@ -249,17 +241,16 @@ export namespace customRule2 {
 
                         if (prevCh === curCh) {
 
-                            let excludeChars = prevCh;
+                            let newExcludeChars = prevCh;
                             if (i !== rv_password.length - 1) {
-                                excludeChars += rv_password[i + 1];
+                                newExcludeChars += rv_password[i + 1];
                             }
 
                             if (excludeChars_) {
-                                excludeChars += excludeChars_;
+                                newExcludeChars += excludeChars_;
                             }
 
-                            let generatedValue = '';
-                            utils.genSubSet(itchsetEntry.chSetEntry.m_charset, excludeChars, 1, generatedValue);
+                            let generatedValue = utils.genPswPartByChars(itchsetEntry.chSetEntry.m_charset, newExcludeChars, 1);
 
                             curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                         }
@@ -563,5 +554,5 @@ export namespace customRule2 {
 
         return rv_password;
     }
-    
+
 }//namespace customRule2

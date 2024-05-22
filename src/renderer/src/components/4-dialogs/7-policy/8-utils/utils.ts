@@ -49,22 +49,24 @@ export namespace utils {
         */
     }
 
-    export function genSubSet(buildFromChars_: string, excludeChars_: string, pswLength_: number, rv_psw_: string) {
-        if (pswLength_ <= 0) {
+    export function genPswPartByChars(buildFromChars: string, excludeChars: string, pswLength: number): string {
+        let rv = '';
+
+        if (pswLength <= 0) {
             throw new Error("inv.arg.length");
         }
 
-        let combinedSubsetIn = new Set(buildFromChars_);
-        for (const c of excludeChars_) {
-            combinedSubsetIn.delete(c);
+        let combinedSubsetIn = new Set(buildFromChars);
+        for (const ch of excludeChars) {
+            combinedSubsetIn.delete(ch);
         }
-        let combinedSubset = Array.from(combinedSubsetIn).join('');
 
+        let combinedSubset = Array.from(combinedSubsetIn).join('');
         if (!combinedSubset) {
             throw new Error("empty.comb.set");
         }
 
-        var buf = new Uint8Array(pswLength_ + 1);
+        var buf = new Uint8Array(pswLength + 1);
         crypto.getRandomValues(buf);
 
         let resBuffer = Array.from(buf);
@@ -73,7 +75,9 @@ export namespace utils {
             return combinedSubset[v % combinedSubset.length];
         }).join('');
 
-        rv_psw_ += newPswPart;
+        rv += newPswPart;
+
+        return rv;
     }
 
     export function genAlphaNumeric(pswLength_: number): string {
@@ -83,9 +87,9 @@ export namespace utils {
         //string_t alphaU; genPswBySet(SET_AlphaUpper, pswLength_, alphaU);
         //string_t numeric; genPswBySet(SET_Numeric, pswLength_, numeric);
 
-        let alphaL: string = ''; genSubSet(SET_AlphaLower, '', pswLength_, alphaL);
-        let alphaU: string = ''; genSubSet(SET_AlphaUpper, '', pswLength_, alphaU);
-        let numeric: string = ''; genSubSet(SET_Numeric, '', pswLength_, numeric);
+        let alphaL: string = genPswPartByChars(SET_AlphaLower, '', pswLength_);
+        let alphaU: string = genPswPartByChars(SET_AlphaUpper, '', pswLength_);
+        let numeric: string = genPswPartByChars(SET_Numeric, '', pswLength_);
 
         let rv_psw: string = '';
 
@@ -96,8 +100,7 @@ export namespace utils {
         let doAgain = true;
         do {
 
-            rv_psw = '';
-            genSubSet(newSubSet, '', pswLength_, rv_psw);
+            rv_psw = genPswPartByChars(newSubSet, '', pswLength_);
 
             // Check whether we should iterate again to generate an acceptable mix of value.
             if (pswLength_ > 2) {
@@ -127,20 +130,17 @@ export namespace utils {
     }
 
     export function genAlpha(pswLength_: number): string {
-        let rv_psw: string = '';
-        genSubSet(SET_AlphaBoth, '', pswLength_, rv_psw);
+        let rv_psw = genPswPartByChars(SET_AlphaBoth, '', pswLength_);
         return rv_psw;
     }
 
     export function genNumeric(pswLength_: number): string {
-        let rv_psw: string = '';
-        genSubSet(SET_Numeric, '', pswLength_, rv_psw);
+        let rv_psw = genPswPartByChars(SET_Numeric, '', pswLength_);
         return rv_psw;
     }
 
     export function genSpecial(pswLength_: number): string {
-        let rv_psw: string = '';
-        genSubSet(SET_Special, '', pswLength_, rv_psw); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
+        let rv_psw =genPswPartByChars(SET_Special, '', pswLength_); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
         return rv_psw;
     }
 
@@ -304,8 +304,7 @@ export namespace utils {
             // NOTE: Skip the first entry as it is the first occurence.
 
             indices.forEach((currentIndex) => {
-                let value = '';
-                genSubSet(includeSet, excludeSet, 1, value);
+                let value = genPswPartByChars(includeSet, excludeSet, 1);
                 let newChar = value[0];
 
                 rv_psw = rv_psw.substring(0, currentIndex) + newChar + rv_psw.substring(currentIndex + 1);
