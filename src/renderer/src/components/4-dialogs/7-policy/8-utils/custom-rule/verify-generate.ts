@@ -274,35 +274,32 @@ export namespace customRule2 {
         });
     }
 
-    type verifyPasswordAgainstRuleRecursivelyParams = {
-        ruleEntries_: RuleEntries,
-        password_: string,
-        mix_: boolean,
+    type VerifyPasswordAgainstRuleRecursivelyParams = {
+        ruleEntries: RuleEntries,
+        password: string,
+        mix: boolean,
     };
 
-    function verifyPasswordAgainstRuleRecursively(pm: verifyPasswordAgainstRuleRecursivelyParams): boolean {
+    function verifyPasswordAgainstRuleRecursively(pm: VerifyPasswordAgainstRuleRecursivelyParams): boolean {
         // 0. To verify password if conforming to custom rule.
 
-        for (const ruleEntry of pm.ruleEntries_) {
+        for (const ruleEntry of pm.ruleEntries) {
 
             if (ruleEntry.m_isgroup) {
-                const newPm = {
-                    ruleEntries_: ruleEntry.m_groupEntry.m_ruleEntries,
-                    password_: pm.password_,
-                    mix_: ruleEntry.m_groupEntry.m_mix
+                const newPm: VerifyPasswordAgainstRuleRecursivelyParams = {
+                    ruleEntries: ruleEntry.m_groupEntry.m_ruleEntries,
+                    password: pm.password,
+                    mix: ruleEntry.m_groupEntry.m_mix
                 };
-                let rv = verifyPasswordAgainstRuleRecursively(newPm);
 
+                let rv = verifyPasswordAgainstRuleRecursively(newPm);
                 if (!rv) {
                     return false; // Break the loop if verification failed.
                 }
 
-                pm.password_ = newPm.password_;
-
+                pm.password = newPm.password;
                 continue;
             } else {
-                let cur_passwordlength = pm.password_.length;
-
                 let min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
                 let max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
 
@@ -310,45 +307,42 @@ export namespace customRule2 {
                     min = max = 1;
                 }
                 if (max === -2) {
-                    max = cur_passwordlength;
+                    max = pm.password.length;
                 }
 
                 let countCharsFound = 0;
-                let index = 0;
+                let i = 0;
 
-                for (; index < cur_passwordlength && index < max; index++) {
+                for (; i < pm.password.length && i < max; i++) {
                     let pos = -1;
 
-                    if (!pm.mix_) {
-                        let currentCH = pm.password_[index];
-                        pos = ruleEntry.m_chsetEntry.m_charset.indexOf(currentCH);
+                    if (!pm.mix) {
+                        let curCh = pm.password[i];
+                        pos = ruleEntry.m_chsetEntry.m_charset.indexOf(curCh);
                     } else {
-                        pos = strFindFirstOf(pm.password_, new Set(ruleEntry.m_chsetEntry.m_charset));
+                        pos = strFindFirstOf(pm.password, new Set(ruleEntry.m_chsetEntry.m_charset));
                         if (pos !== -1) {
-                            pm.password_ = pm.password_.substring(0, pos) + pm.password_.substring(pos + 1);
+                            pm.password = pm.password.substring(0, pos) + pm.password.substring(pos + 1);
                         }
                     }
 
                     if (pos !== -1) {
                         countCharsFound++;
-
-                        // A small optimization: To stop loop if we found more characters than expected.
-                        if (countCharsFound > max) {
+                        if (countCharsFound > max) { // A small optimization: To stop loop if we found more characters than expected.
                             break;
                         }
                     }
 
-                    if (!pm.mix_ && pos === -1) {
+                    if (!pm.mix && pos === -1) {
                         break;
                     }
-                }//for
+                }
 
-                if (!pm.mix_ && index > 0) {
-                    pm.password_ = pm.password_.substring(index);
+                if (!pm.mix && i > 0) {
+                    pm.password = pm.password.substring(i);
                 }
 
                 // Check whether characters found for current character set is range: min, max.
-                //
                 if (countCharsFound < min || countCharsFound > max) {
                     return false;
                 }
@@ -372,35 +366,32 @@ export namespace customRule2 {
     ////////////////////////////////////////////////////////////////////////////
     function parseExtPolicy2RulesSet(policy_: password.policy_t): advancedpswpolicy.ParseAdvPolicyResult | undefined {
         let pattern_withMinMaxRange = `${policy_.policyExt}<${policy_.minLength}, ${policy_.maxLength}>`;
-
         return parseExtPattern2RulesSet(pattern_withMinMaxRange);
     }
 
-    function verifyPasswordAgainstRuleNoThrow(rulesSet_: RulesSet, previousPassword_: string, password_: string, noduplicates_: boolean): boolean {
+    function verifyPasswordAgainstRuleNoThrow(rulesSet: RulesSet, previousPsw: string, psw: string, noDuplicates: boolean): boolean {
 
-        if (!password_) // Password is invalid if empty.
-        {
+        if (!psw) { // Password is invalid if empty.
             return false;
         }
 
         // Check length of the password is within min, max bounds.
-        let pswLen = password_.length;
         if (
-            (rulesSet_.m_pswlenSet.m_min != 0 && rulesSet_.m_pswlenSet.m_min > pswLen) ||
-            (rulesSet_.m_pswlenSet.m_max != 0 && rulesSet_.m_pswlenSet.m_max < pswLen)
+            (rulesSet.m_pswlenSet.m_min != 0 && rulesSet.m_pswlenSet.m_min > psw.length) ||
+            (rulesSet.m_pswlenSet.m_max != 0 && rulesSet.m_pswlenSet.m_max < psw.length)
         ) {
             return false;
         }
 
         // Check password has duplicates if specified.
-        if (noduplicates_ && utils.hasDuplicateChars(password_)) {
+        if (noDuplicates && utils.hasDuplicateChars(psw)) {
             return false;
         }
 
-        if (rulesSet_.m_checkPrevPasswordCharPosition && !!previousPassword_) {
-            let maxLength = Math.min(previousPassword_.length, password_.length);
-            for (let index = 0; index < maxLength; index++) {
-                let isSameCharAtSamePosition = previousPassword_[index] === password_[index];
+        if (rulesSet.m_checkPrevPasswordCharPosition && !!previousPsw) {
+            let maxLength = Math.min(previousPsw.length, psw.length);
+            for (let i = 0; i < maxLength; i++) {
+                let isSameCharAtSamePosition = previousPsw[i] === psw[i];
                 if (isSameCharAtSamePosition) // Current & previous password have same character at the same position
                 {
                     return false;
@@ -408,28 +399,28 @@ export namespace customRule2 {
             }
         }
 
-        if (rulesSet_.m_avoidConsecutiveChars) {
+        if (rulesSet.m_avoidConsecutiveChars) {
             let prevChar = '';
-            for (let it = 0; it < password_.length; it++) {
-                let isSameCharAsPreviousOne = prevChar === password_[it];
+            for (let i = 0; i < psw.length; i++) {
+                let isSameCharAsPreviousOne = prevChar === psw[i];
                 if (isSameCharAsPreviousOne) // Current & previous character are repeated and hence invalid
                 {
                     return false;
                 }
 
-                prevChar = password_[it];
+                prevChar = psw[i];
             }
         }
 
         // Check password against custom rule.
-        let pm: verifyPasswordAgainstRuleRecursivelyParams = {
-            ruleEntries_: rulesSet_.m_ruleEntries,
-            password_: password_,
-            mix_: false
+        let pm: VerifyPasswordAgainstRuleRecursivelyParams = {
+            ruleEntries: rulesSet.m_ruleEntries,
+            password: psw,
+            mix: false
         };
         let rv = verifyPasswordAgainstRuleRecursively(pm);
         if (rv) {
-            rv = !pm.password_; // No characters should be left in the password if verified completely.
+            rv = !pm.password; // No characters should be left in the password if verified completely.
         }
 
         return rv;
