@@ -2,12 +2,13 @@ import { password } from "../types";
 import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
 import { strFindFirstOf } from "../cpp-utils";
+import { ruleEntries_t, chsetEntry_t, rulesSet_t, ParseerrorType_t } from "../1-adv-psw-policy";
 
 export namespace customRule2 {
 
-    type RuleEntries = advancedpswpolicy.ruleEntries_t;
-    type ChSetEntry = advancedpswpolicy.chsetEntry_t;
-    type RulesSet = advancedpswpolicy.rulesSet_t;
+    type RuleEntries = ruleEntries_t;
+    type ChSetEntry = chsetEntry_t;
+    type RulesSet = rulesSet_t;
 
     type ChSetEntriesMap = Map<ChSetEntry, ChSetData>;
     type ChSetEntries = ChSetData[];
@@ -356,7 +357,7 @@ export namespace customRule2 {
     function parseExtPattern2RulesSet(pattern_): advancedpswpolicy.ParseAdvPolicyResult | undefined {
         const rv = advancedpswpolicy.parse_advpolicy(pattern_);
 
-        if (rv.error.m_errorType != advancedpswpolicy.ParseerrorType_t.errNone) {
+        if (rv.error.m_errorType != ParseerrorType_t.errNone) {
             return;
         }
 
