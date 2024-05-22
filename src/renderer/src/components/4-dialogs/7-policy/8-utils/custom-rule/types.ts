@@ -146,7 +146,7 @@ export namespace advancedpswpolicy {
         }
 
         getRangeEntryWs(OPEN_: string, CLOSE_: string): RangeEntry { // Get range if exist.
-            const rv: RangeEntry = { m_min: -1, m_max: -1 };
+            const rv: RangeEntry = { min: -1, max: -1 };
 
             const { ch, hasChar } = this.getCharIfExistWs();
             if (!hasChar) {
@@ -159,28 +159,28 @@ export namespace advancedpswpolicy {
             }
 
             const { num: min, hasChar: hasN } = this.getNumberIfExistWs();
-            rv.m_min = min;
+            rv.min = min;
             if (!hasChar || isNaN(min)) {
                 throw new ParseError("expected number", ParseErrorType.errExpNum);
             }
 
             this.skipWhitespace();
             if (this.getChar() == CLOSE_) {
-                rv.m_max = rv.m_min; // Simplified version of length <2,2> as <2>.
+                rv.max = rv.min; // Simplified version of length <2,2> as <2>.
                 return rv;
             }
             this.ungetChar();
             this.ExpectedCharWs(',');
 
             const { num: max, hasChar: hasM } = this.getNumberIfExistWs();
-            rv.m_max = max;
+            rv.max = max;
             if (!hasM || isNaN(max)) {
-                rv.m_max = -2; //rangeEntry_.m_min;
+                rv.max = -2; //rangeEntry_.m_min;
             }
 
             this.ExpectedCharWs(CLOSE_);
             if (hasM) {
-                if (rv.m_min > rv.m_max) {
+                if (rv.min > rv.max) {
                     throw new ParseError("invalid range", ParseErrorType.errInvRange);
                 }
             }
@@ -190,8 +190,8 @@ export namespace advancedpswpolicy {
         parse_finalPswLength(): RangeEntry { // Get final length of password: <2,2> or <2>.
             let rv: RangeEntry = this.getRangeEntryWs('<', '>');
 
-            if (rv.m_max == -1) {
-                rv.m_max = rv.m_min;
+            if (rv.max == -1) {
+                rv.max = rv.min;
             }
 
             return rv;
@@ -496,7 +496,7 @@ export namespace advancedpswpolicy {
             error: new ParseError("", ParseErrorType.errNone)
         };
 
-        rv.error.m_errorType = ParseErrorType.errNone;
+        rv.error.type = ParseErrorType.errNone;
 
         const apparser = new apparser_t();
         apparser.m_sourceText = advpolicy_;
@@ -505,12 +505,12 @@ export namespace advancedpswpolicy {
             apparser.doparse();
         } catch (error) {
             rv.error = error instanceof ParseError ? error : new ParseError('unknown', ParseErrorType.errUnexpected);
-            rv.error.m_errorPos = apparser.m_sourceTextPos;
+            rv.error.pos = apparser.m_sourceTextPos;
 
-            console.error(`parse error: ${rv.error.m_what} at ${rv.error.m_errorPos}`);
+            console.error(`parse error: ${rv.error.what} at ${rv.error.pos}`);
         }
 
-        if (rv.error.m_errorType == ParseErrorType.errNone) {
+        if (rv.error.type == ParseErrorType.errNone) {
             rv.rules = apparser.m_rulesSet;
         } else {
             rv.rules.m_ruleEntries = [];
