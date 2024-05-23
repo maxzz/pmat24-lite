@@ -58,9 +58,9 @@ END
 // };
 
 export const stringsPolicy3 = {
-    diffWp: namesConstrainPsw[ConstrainPsw.diffWp], // former different_wp. Different from window password.             // notWinPsw, // "Different than the Windows password"
-    diffAp: namesConstrainPsw[ConstrainPsw.diffAp], // former different_ap. Different from any password.                // notPmPsw,  // "Unique within Password Manager logons"
-    diffPp: namesConstrainPsw[ConstrainPsw.diffPp], // former different_pp. Different from previous password.           // notCurPsw, // "Different than the current password"
+    diffWp: namesConstrainPsw[ConstrainPsw.diffWp], // former different_wp. Different from window password.   // notWinPsw, // "Different than the Windows password"
+    diffAp: namesConstrainPsw[ConstrainPsw.diffAp], // former different_ap. Different from any password.      // notPmPsw,  // "Unique within Password Manager logons"
+    diffPp: namesConstrainPsw[ConstrainPsw.diffPp], // former different_pp. Different from previous password. // notCurPsw, // "Different than the current password"
 };
 
 // export const namesConstrainPsw = [

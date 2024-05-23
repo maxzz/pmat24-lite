@@ -19,7 +19,7 @@ export enum RESTRICTTYPE {
     different_pp,               // Different from previous password.
 };
 
-export type policy_t = {
+export type Policy = {
     type: POLICYTYPE,           // This is for simple and complex policy.
     constrains: RESTRICTTYPE,   // This is for simple and complex policy.
     simpleChSet: CHARSETTYPE,   // This is for simple policy only.

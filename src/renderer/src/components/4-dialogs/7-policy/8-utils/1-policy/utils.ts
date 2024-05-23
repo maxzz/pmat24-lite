@@ -1,6 +1,6 @@
-import { CHARSETTYPE, POLICYTYPE, RESTRICTTYPE, policy_t } from "./types";
+import { CHARSETTYPE, POLICYTYPE, RESTRICTTYPE, Policy } from "./1-types";
 
-const defaultPolicy: policy_t = {
+const defaultPolicy: Policy = {
     type: POLICYTYPE.none,
     constrains: RESTRICTTYPE.no_restrictions,
     simpleChSet: CHARSETTYPE.alphanumeric,
@@ -11,7 +11,7 @@ const defaultPolicy: policy_t = {
 };
 
 // Default policy constructor #### defaultpolicy ####
-export function defaultPolicyType(type_: POLICYTYPE): policy_t {
+export function defaultPolicyType(type_: POLICYTYPE): Policy {
     const rv = { ...defaultPolicy };
 
     rv.simpleChSet = CHARSETTYPE.withspecial;
@@ -37,22 +37,22 @@ export const POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length 
 export const TOKEN_PREVENT_CHARACTERREPEAT = "~";
 export const TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
-export function GetPolicyType(policy: policy_t): POLICYTYPE        /**/ { return policy.type; }
-export function IsPolicyToGenerate(policy: policy_t): boolean      /**/ { return policy.type == POLICYTYPE.generate; }
-export function IsPolicyToVerify(policy: policy_t): boolean        /**/ { return policy.type == POLICYTYPE.verify; }
-export function IsEmptyPolicy(policy: policy_t): boolean           /**/ { return policy.type == POLICYTYPE.none; }
-export function GetConstrains(policy: policy_t): RESTRICTTYPE      /**/ { return policy.constrains; }
-export function GetSimpleCharSet(policy: policy_t): CHARSETTYPE    /**/ { return policy.simpleChSet; }
-export function IsExtendedPolicy(policy: policy_t): boolean        /**/ { return policy.useExt; }
-export function GetExtendedPolicyStr(policy: policy_t): string     /**/ { return policy.policyExt; }
-export function GetMinLength(policy: policy_t): number             /**/ { return policy.minLength; }
-export function GetMaxLength(policy: policy_t): number             /**/ { return policy.maxLength; }
+export function GetPolicyType(policy: Policy): POLICYTYPE        /**/ { return policy.type; }
+export function IsPolicyToGenerate(policy: Policy): boolean      /**/ { return policy.type == POLICYTYPE.generate; }
+export function IsPolicyToVerify(policy: Policy): boolean        /**/ { return policy.type == POLICYTYPE.verify; }
+export function IsEmptyPolicy(policy: Policy): boolean           /**/ { return policy.type == POLICYTYPE.none; }
+export function GetConstrains(policy: Policy): RESTRICTTYPE      /**/ { return policy.constrains; }
+export function GetSimpleCharSet(policy: Policy): CHARSETTYPE    /**/ { return policy.simpleChSet; }
+export function IsExtendedPolicy(policy: Policy): boolean        /**/ { return policy.useExt; }
+export function GetExtendedPolicyStr(policy: Policy): string     /**/ { return policy.policyExt; }
+export function GetMinLength(policy: Policy): number             /**/ { return policy.minLength; }
+export function GetMaxLength(policy: Policy): number             /**/ { return policy.maxLength; }
 
 // Constructor from #### policyFromString ####
-export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): policy_t {
+export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.none): Policy {
     const rv = {
         type,
-    } as policy_t;
+    } as Policy;
 
     const { policyOld: policySimple, policyExt } = compatibility_split_policy(v_);
 
@@ -62,7 +62,7 @@ export function constructorFromString(v_: string, type: POLICYTYPE = POLICYTYPE.
     return rv;
 }
 
-export function theSame(a: policy_t, b: policy_t): boolean {
+export function theSame(a: Policy, b: Policy): boolean {
     const rv =
         a.type === b.type &&
         a.constrains === b.constrains &&
@@ -74,7 +74,7 @@ export function theSame(a: policy_t, b: policy_t): boolean {
     return rv;
 }
 
-export function IsValidPolicy(policy: policy_t): boolean {
+export function IsValidPolicy(policy: Policy): boolean {
     return (
         !(
             (!policy.useExt && policy.type == POLICYTYPE.none) ||   // Simple without policy type - Invalid
@@ -83,7 +83,7 @@ export function IsValidPolicy(policy: policy_t): boolean {
     );
 }
 
-export function policyToStringSimple(policy: policy_t): string {
+export function policyToStringSimple(policy: Policy): string {
 
     let strType = '';
     switch (policy.type) {
@@ -96,7 +96,7 @@ export function policyToStringSimple(policy: policy_t): string {
     return rv;
 }
 
-export function policyToString(policy: policy_t): string {
+export function policyToString(policy: Policy): string {
     let rvSimple = policyToStringSimple(policy);
     let rvExt = policyToStringExtended(policy);
 
@@ -149,7 +149,7 @@ function compatibility_combine_policy(policy_: string, policyOld_: string, polic
     return policy_;
 }
 
-function policyFromStringSimple(v_: string | undefined, rv: Partial<policy_t>) { // initial rv is {}
+function policyFromStringSimple(v_: string | undefined, rv: Partial<Policy>) { // initial rv is {}
     if (!v_) {
         return;
     }
@@ -176,7 +176,7 @@ function policyFromStringSimple(v_: string | undefined, rv: Partial<policy_t>) {
     rv.constrains = conv_constrains_t(ss[4]);
 }
 
-function policyFromStringExtended(v_: string | undefined, rv: Partial<policy_t>) { // initial rv is {}
+function policyFromStringExtended(v_: string | undefined, rv: Partial<Policy>) { // initial rv is {}
     rv.useExt = false;
     rv.policyExt = '';
 
@@ -205,7 +205,7 @@ function policyFromStringExtended(v_: string | undefined, rv: Partial<policy_t>)
     rv = { ...rv, ...parts };
 }
 
-function policyToStringExtended(v: Partial<policy_t>): string {
+function policyToStringExtended(v: Partial<Policy>): string {
     let rv: string = '';
 
     if (v.useExt) {

@@ -49,27 +49,27 @@ export class RulesExtra {
 // Erorr types.
 
 export enum ParseErrorType {
-    errNone,                                            // No errors as a default value.
-    errUnexpected,                                      // Any unexpected error that is thrown as a general exeption.
-    errUnexpShorthand,                                  // "unexpected shorthand"
-    errUnexpChar,                                       // "unexpected char" character that is defined in m_expected member.
-    errExpChar,                                         // "expected" character that is defined in m_expected member.
-    errExpCharALessB,                                   // "expected character in set as a <= b"
-    errExpMoreText,                                     // "no more text"
-    errExpNum,                                          // "expected number"
-    errInvRange,                                        // "invalid range", i.e. min > max
-    errExpDigit,                                        // "expected digit"
-    errExp4Digits,                                      // "expected 4 hex digits"
-    errUnexpChSetClose,                                 // "unexpected '[' before ']'", i.e. close without open.
-    errChSetEmpty,                                      // "unexpected empty charset"
-    errExpLowBoundCh,                                   // "expected lower boundary char before '-'"
-    errUnexpDoubleSet,                                  // "unexpected double '--'". Use escape character i.e. "\-"
-    errMoreThen1024,                                    // "expected less then 1024 per charset"
-    errLastError,                                       // A highest number of error.
+    none,                                               // No errors as a default value.
+    unexpected,                                         // Any unexpected error that is thrown as a general exeption.
+    unexpShorthand,                                     // "unexpected shorthand"
+    unexpChar,                                          // "unexpected char" character that is defined in m_expected member.
+    expChar,                                            // "expected" character that is defined in m_expected member.
+    expCharALessB,                                      // "expected character in set as a <= b"
+    expMoreText,                                        // "no more text"
+    expNum,                                             // "expected number"
+    invRange,                                           // "invalid range", i.e. min > max
+    expDigit,                                           // "expected digit"
+    exp4Digits,                                         // "expected 4 hex digits"
+    unexpChSetClose,                                    // "unexpected '[' before ']'", i.e. close without open.
+    chSetEmpty,                                         // "unexpected empty charset"
+    expLowBoundCh,                                      // "expected lower boundary char before '-'"
+    unexpDoubleSet,                                     // "unexpected double '--'". Use escape character i.e. "\-"
+    moreThen1024,                                       // "expected less then 1024 per charset"
+    lastError,                                          // A highest number of error.
 };
 
 export class ParseError {
-    type: ParseErrorType = ParseErrorType.errNone;
+    type: ParseErrorType = ParseErrorType.none;
     pos: number = 0;                                    // Position in source text where error occured.
     what: string = '';                                  // Error message.
     expected: string = '';                              // Expected character.

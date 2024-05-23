@@ -1,16 +1,16 @@
-import { CHARSETTYPE, policy_t } from "./1-policy";
-import { utils } from "./utils";
+import { CHARSETTYPE, Policy } from "../1-policy";
+import { utils } from "../3-parser/utils";
 
 // class generate_t
-export function operator_generate(policy_: policy_t): string {
+export function operator_generate(policy: Policy): string {
 
     // Check whether min is lower than max.
-    if (policy_.minLength > policy_.maxLength) {
+    if (policy.minLength > policy.maxLength) {
         return "";
     }
 
     //utils::reinitRandom();
-    let finalPswLength = utils.getRandomInRange(policy_.minLength, policy_.maxLength);
+    let finalPswLength = utils.getRandomInRange(policy.minLength, policy.maxLength);
 
     let rv_psw = '';
 
@@ -18,7 +18,7 @@ export function operator_generate(policy_: policy_t): string {
     // To avoid exception when there are no unique characters within a set.
     let skipDuplicates = false;
 
-    switch (policy_.simpleChSet) {
+    switch (policy.simpleChSet) {
         case CHARSETTYPE.alphanumeric:
             rv_psw = utils.genAlphaNumeric(finalPswLength); // Initially, generate alpha numeric string.
             //rv_psw = utils::removeAdjacentDigits(rv_psw); //// Next, resolve adjacent digits.
@@ -55,7 +55,7 @@ export function operator_generate(policy_: policy_t): string {
             break;
 
         default:
-            console.log('generate: Inv.pol.mix=%d', policy_.simpleChSet);
+            console.log('generate: Inv.pol.mix=%d', policy.simpleChSet);
 
             rv_psw = utils.genAlphaNumeric(finalPswLength);
             skipDuplicates = finalPswLength > utils.SET_AlphaNumeric.length;

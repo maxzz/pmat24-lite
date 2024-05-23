@@ -1,19 +1,19 @@
-import { ParseError, ParseErrorType, Range, Rule, RulesExtra } from "../2-adv-psw-policy";
-import { isCharNumber, isCharHexNumber } from "../cpp-utils";
+import { ParseError, ParseErrorType, Range, Rule, RulesExtra } from "./1-parser-types";
+import { isCharNumber, isCharHexNumber } from "./utils-cpp";
 
 const WSHORTHAND_d = "0123456789";
 const WSHORTHAND_a = "abcdefghijklmnopqrstuvwxyz";
 const WSHORTHAND_A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const WSHORTHAND_s = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; // 21-2F, 3A-40, 5B-60, 7B-7E
 
-/*static*/ function generateShorthandSet(shorthand_: string): string {
-    switch (shorthand_) {
+function generateShorthandSet(shorthand: string): string {
+    switch (shorthand) {
         case 'd': return WSHORTHAND_d;
         case 'a': return WSHORTHAND_a;
         case 'A': return WSHORTHAND_A;
         case 's': return WSHORTHAND_s;
         default: {
-            throw new ParseError("unexpected shorthand", ParseErrorType.errUnexpShorthand);
+            throw new ParseError("unexpected shorthand", ParseErrorType.unexpShorthand);
         }
     }
 }
@@ -26,13 +26,10 @@ export class PolicyParser {
     rulesExtra: RulesExtra = new RulesExtra();
     sourceTextPos: number = 0;  // Current parsing position starting from 0, but at error time it's +1 already.
 
-    public doParse() {
+    public doParse() { //TODO: do we need to pass sourceText as a parameter?
         this.sourceTextPos = 0;
         this.rulesExtra.rules = [];
-
         this.parse_start();
-
-        console.log("Done");
     }
 
     private skipWhitespace() {
@@ -55,13 +52,13 @@ export class PolicyParser {
     }
 
     private hasChar(): boolean { // hasNextChar
-        let rv = this.sourceTextPos < this.sourceText.length;
+        const rv = this.sourceTextPos < this.sourceText.length;
         return rv;
     }
 
     private ungetChar(): void {
         if (this.sourceTextPos <= 0) {
-            console.log("impossible: no more unget"); // This is just internal error and should be fixed in logic.
+            console.error("impossible: no more unget"); // This is just internal error and should be fixed in logic.
             return;
         }
         this.sourceTextPos--;
@@ -69,12 +66,11 @@ export class PolicyParser {
 
     private getChar(): string { // getNextChar
         if (!this.hasChar()) {
-            throw new ParseError("no more text", ParseErrorType.errExpMoreText);
+            throw new ParseError("no more text", ParseErrorType.expMoreText);
         }
 
-        let rv = this.sourceText[this.sourceTextPos];
+        const rv = this.sourceText[this.sourceTextPos];
         this.sourceTextPos++;
-
         return rv;
     }
 
@@ -83,27 +79,25 @@ export class PolicyParser {
             return { ch: '', hasChar: false };
         }
 
-        let rv = {
+        const rv: NextChar = {
             ch: this.sourceText[this.sourceTextPos],
             hasChar: true
         };
-
         return rv;
     }
 
     private getCharIfExistWs(): NextChar { // Skip whitespace and get next character.
         this.skipWhitespace();
 
-        const rv = this.getCharNoThrow();
-        return rv;
+        return this.getCharNoThrow();
     }
 
-    private ExpectedCharWs(expected_: string): void { // Skip whitespace and check next character.
+    private ExpectedCharWs(expected: string): void { // Skip whitespace and check next character.
         this.skipWhitespace();
 
-        let ch = this.getChar();
-        if (ch != expected_) {
-            throw new ParseError("expected" + expected_, ParseErrorType.errExpChar, expected_);
+        const ch = this.getChar();
+        if (ch != expected) {
+            throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, expected);
         }
     }
 
@@ -131,11 +125,10 @@ export class PolicyParser {
             return { num: -1, hasChar: false };
         }
 
-        let rv = {
+        const rv: NextNumber = {
             num: parseInt(buffer),
             hasChar: true
         };
-
         return rv;
     }
 
@@ -155,7 +148,7 @@ export class PolicyParser {
         const { num: min, hasChar: hasN } = this.getNumberIfExistWs();
         rv.min = min;
         if (!hasChar || isNaN(min)) {
-            throw new ParseError("expected number", ParseErrorType.errExpNum);
+            throw new ParseError("expected number", ParseErrorType.expNum);
         }
 
         this.skipWhitespace();
@@ -169,20 +162,20 @@ export class PolicyParser {
         const { num: max, hasChar: hasM } = this.getNumberIfExistWs();
         rv.max = max;
         if (!hasM || isNaN(max)) {
-            rv.max = -2; //rangeEntry_.m_min;
+            rv.max = -2; //range.min;
         }
 
         this.ExpectedCharWs(CLOSE_);
         if (hasM) {
             if (rv.min > rv.max) {
-                throw new ParseError("invalid range", ParseErrorType.errInvRange);
+                throw new ParseError("invalid range", ParseErrorType.invRange);
             }
         }
         return rv;
     }
 
     private parse_finalPswLength(): Range { // Get final length of password: <2,2> or <2>.
-        let rv: Range = this.getRangeEntryWs('<', '>');
+        const rv: Range = this.getRangeEntryWs('<', '>');
 
         if (rv.max == -1) {
             rv.max = rv.min;
@@ -196,11 +189,9 @@ export class PolicyParser {
     }
 
     private getCharOfCharset(): string { // single character like: a b \u1234 \U1234 \u+1234 \U+1234 \u-1234 \U-1234
-        let rv_char_ = '';
-
         let ch = '';
-        ch = this.getChar();
 
+        ch = this.getChar();
         if (ch != '\\') {
             return ch; // Not an escape then return as it is.
         }
@@ -220,35 +211,33 @@ export class PolicyParser {
         let buffer = '';
         let i = 0;
         while (i++ < 4) {
-            ch = ch = this.getChar();
+            ch = this.getChar();
 
             let gotDigit = isCharHexNumber(ch);
             if (!gotDigit) {
-                throw new ParseError("expected digit", ParseErrorType.errExpDigit);
+                throw new ParseError("expected digit", ParseErrorType.expDigit);
             }
 
             buffer += ch;
         }
 
-        // Convert to wchar_t
+        // Convert number to character.
 
-        let number = parseInt(buffer, 16);
+        const number = parseInt(buffer, 16);
 
         if (isNaN(number) || number > 0xFFFF || number < 0) {
-            throw new ParseError("expected 4 hex digits", ParseErrorType.errExp4Digits);
+            throw new ParseError("expected 4 hex digits", ParseErrorType.exp4Digits);
         }
 
         const rv = String.fromCharCode(number);
         return rv;
-
-        // rv_char_ = `0x${number.toString(16)}`; // 0xff -> '0xff'
-        // return rv_char_;
     }
 
     private parse_charset(): string { // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
-        let rv_charset_ = '';
+        let rv_chSet = '';
 
         let ch = this.getChar();
+
         let isSquareBrStart = ch == '[';
         if (ch != '[') {
             this.ungetChar(); // Eat only '['
@@ -259,26 +248,26 @@ export class PolicyParser {
 
             if (ch == ']') { // Check if it is the end of character set and we started with '['.
                 if (!isSquareBrStart) {
-                    throw new ParseError("unexpected '[' before ']'", ParseErrorType.errUnexpChSetClose); // expected charset beging before closing.
+                    throw new ParseError("unexpected '[' before ']'", ParseErrorType.unexpChSetClose); // expected charset beging before closing.
                 }
 
-                if (!rv_charset_) {
-                    throw new ParseError("unexpected empty charset", ParseErrorType.errChSetEmpty);
+                if (!rv_chSet) {
+                    throw new ParseError("unexpected empty charset", ParseErrorType.chSetEmpty);
                 }
                 
-                return rv_charset_;
+                return rv_chSet;
             }
 
             let isRange = false;
 
             if (ch == '-') { // If it is a range of characters then eat this character.
-                if (!rv_charset_) {
-                    throw new ParseError("expected lower boundary char before '-'", ParseErrorType.errExpLowBoundCh);
+                if (!rv_chSet) {
+                    throw new ParseError("expected lower boundary char before '-'", ParseErrorType.expLowBoundCh);
                 }
 
                 ch = this.getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
                 if (ch == '-') {
-                    throw new ParseError("unexpected double '--'", ParseErrorType.errUnexpDoubleSet);
+                    throw new ParseError("unexpected double '--'", ParseErrorType.unexpDoubleSet);
                 }
 
                 this.ungetChar();
@@ -291,33 +280,33 @@ export class PolicyParser {
             let chCharset = this.getCharOfCharset();
 
             if (isRange) {
-                let chFirst = rv_charset_[rv_charset_.length - 1]; // Cut the last char and use it as a first of range.
-                rv_charset_ = rv_charset_.substring(0, rv_charset_.length - 1);
+                let chFirst = rv_chSet[rv_chSet.length - 1]; // Cut the last char and use it as a first of range.
+                rv_chSet = rv_chSet.substring(0, rv_chSet.length - 1);
 
-                rv_charset_ = generateCharRange(chFirst, chCharset, rv_charset_);
+                rv_chSet = generateCharRange(chFirst, chCharset, rv_chSet);
                 isRange = false;
             } else {
-                rv_charset_ += chCharset;
+                rv_chSet += chCharset;
             }
 
         } //while
 
-        /*static*/ function generateCharRange(chFirst: string, chSecond: string, rv_charset_: string): string {
-            // 0. Generate (chFirst=a,chSecond=c as a-c -> abc), make sure that characters are unique in set, and sort.
+        function generateCharRange(chFirst: string, chSecond: string, rv_chSet: string): string {
+            // Generate (chFirst=a,chSecond=c as a-c -> abc), make sure that characters are unique in set, and sort.
 
             if (chFirst > chSecond) {
-                throw new ParseError("expected set n <= m", ParseErrorType.errExpCharALessB);
+                throw new ParseError("expected set n <= m", ParseErrorType.expCharALessB);
             }
 
             while (chFirst <= chSecond) {
-                let isNew = rv_charset_.indexOf(chFirst) === -1;
+                let isNew = rv_chSet.indexOf(chFirst) === -1;
                 if (isNew) {
-                    rv_charset_ += chFirst;
+                    rv_chSet += chFirst;
                 }
                 chFirst = String.fromCharCode(chFirst.charCodeAt(0) + 1);
             }
 
-            rv_charset_ = rv_charset_.split('').sort().join(''); // i.e. "acb" -> "abc"
+            rv_chSet = rv_chSet.split('').sort().join(''); // i.e. "acb" -> "abc"
 
             // for (wchar_t a = chFirst; a <= chSecond; a++)
             // {
@@ -331,63 +320,62 @@ export class PolicyParser {
 
             //     std:: sort(rv_charset_.begin(), rv_charset_.end(), std:: less<wchar_t>()); // i.e. "abc"
 
-            return rv_charset_;
+            return rv_chSet;
         }
     }
 
     private parse_group(): Rule { // '(' Rules ')' '.' // Range is handled outside.
-        let ruleEntry_: Rule = new Rule();
+        let rv: Rule = new Rule();
 
         let ch = this.getChar();
         if (ch != '(') {
-            throw new ParseError("expected '('", ParseErrorType.errExpChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
+            throw new ParseError("expected '('", ParseErrorType.expChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
         }
 
-        ruleEntry_.group.rules = this.parse_rules();
+        rv.group.rules = this.parse_rules();
 
         ch = this.getChar();
         if (ch != ')') {
-            throw new ParseError("expected ')'", ParseErrorType.errExpChar, ')'); // Expected end of group.
+            throw new ParseError("expected ')'", ParseErrorType.expChar, ')'); // Expected end of group.
         }
 
         const { ch: ch2, hasChar } = this.getCharIfExistWs();
-
         if (hasChar) {
             if (ch2 == '.') {
-                ruleEntry_.group.mix = false;
+                rv.group.mix = false;
             }
             else {
                 this.ungetChar();
             }
         }
 
-        return ruleEntry_;
+        return rv;
     }
 
     private parse_rule(): Rule { // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
-        let ruleEntry_: Rule = new Rule();
+        let rv: Rule = new Rule();
 
         const { ch, hasChar } = this.getCharIfExistWs();
         if (!hasChar) {
-            return ruleEntry_;
+            return rv;
         }
 
         switch (ch) {
             case '(': { // group
                 this.ungetChar();
-                ruleEntry_ = this.parse_group();
-                ruleEntry_.isGroup = true;
-                ruleEntry_.group.range = this.parse_range();
+                rv = this.parse_group();
+                rv.isGroup = true;
+                rv.group.range = this.parse_range();
                 break;
             }
             case '[': { // charset
                 this.ungetChar();
-                ruleEntry_.chSet.chars = this.parse_charset();
-                ruleEntry_.isGroup = false;
-                ruleEntry_.chSet.range = this.parse_range();
+                rv.chSet.chars = this.parse_charset();
+                rv.isGroup = false;
+                rv.chSet.range = this.parse_range();
 
-                if (ruleEntry_.chSet.chars.length > 1024) {
-                    throw new ParseError("expected less then 1024 per charset", ParseErrorType.errMoreThen1024); // Charsets can be splited into different sets and then grouped together.
+                if (rv.chSet.chars.length > 1024) {
+                    throw new ParseError("expected less then 1024 per charset", ParseErrorType.moreThen1024); // Charsets can be splited into different sets and then grouped together.
                 }
                 break;
             }
@@ -395,17 +383,17 @@ export class PolicyParser {
             case 'a': // shorthand a
             case 'A': // shorthand A
             case 's': { // shorthand s
-                ruleEntry_.chSet.chars = generateShorthandSet(ch);
-                ruleEntry_.isGroup = false;
-                ruleEntry_.chSet.range = this.parse_range();
+                rv.chSet.chars = generateShorthandSet(ch);
+                rv.isGroup = false;
+                rv.chSet.range = this.parse_range();
                 break;
             }
             default: {
-                throw new ParseError("unexpected char", ParseErrorType.errUnexpChar, ch);
+                throw new ParseError("unexpected char", ParseErrorType.unexpChar, ch);
             }
         }
 
-        return ruleEntry_;
+        return rv;
     }
 
     private parse_rules(): Rule[] { // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
@@ -470,7 +458,7 @@ export class PolicyParser {
                     break;
                 }
                 default: {
-                    throw new ParseError("unexpected char", ParseErrorType.errUnexpChar, ch);
+                    throw new ParseError(`unexpected char '${ch}'`, ParseErrorType.unexpChar, ch);
                 }
             }
         }

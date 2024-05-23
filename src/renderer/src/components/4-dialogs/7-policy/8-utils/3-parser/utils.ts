@@ -1,4 +1,4 @@
-import { strFindFirstOf, isCharNumber } from "./cpp-utils";
+import { strFindFirstOf, isCharNumber } from "./utils-cpp";
 
 export namespace utils {
 
@@ -26,14 +26,12 @@ export namespace utils {
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
     }
 
-    export function getRandomInRange(min_: number, max_: number): number {
-        // 0. Generate a number in range min and max.
-
-        if (min_ > max_) {
+    export function getRandomInRange(min: number, max: number): number { // Generate a number in range min and max.
+        if (min > max) {
             throw new Error("inv.r.bounds");
         }
 
-        return getRandomIntInclusive(min_, max_);
+        return getRandomIntInclusive(min, max);
 
         /*
         // TODO: Random device is slow and expensive to create so
@@ -66,7 +64,7 @@ export namespace utils {
             throw new Error("empty.comb.set");
         }
 
-        var buf = new Uint8Array(pswLength + 1);
+        let buf = new Uint8Array(pswLength + 1);
         crypto.getRandomValues(buf);
 
         let resBuffer = Array.from(buf);
@@ -80,36 +78,29 @@ export namespace utils {
         return rv;
     }
 
-    export function genAlphaNumeric(pswLength_: number): string {
-        //return genPswBySet(SET_AlphaNumeric, pswLength_);
+    export function genAlphaNumeric(pswLength: number): string {
+        let rv_psw = '';
 
-        //string_t alphaL; genPswBySet(SET_AlphaLower, pswLength_, alphaL);
-        //string_t alphaU; genPswBySet(SET_AlphaUpper, pswLength_, alphaU);
-        //string_t numeric; genPswBySet(SET_Numeric, pswLength_, numeric);
-
-        let alphaL: string = genPswPartByChars(SET_AlphaLower, '', pswLength_);
-        let alphaU: string = genPswPartByChars(SET_AlphaUpper, '', pswLength_);
-        let numeric: string = genPswPartByChars(SET_Numeric, '', pswLength_);
-
-        let rv_psw: string = '';
+        const alphaL: string = genPswPartByChars(SET_AlphaLower, '', pswLength);
+        const alphaU: string = genPswPartByChars(SET_AlphaUpper, '', pswLength);
+        const numeric: string = genPswPartByChars(SET_Numeric, '', pswLength);
 
         // Do until we have password containing all character sets to be used.
         // NOTE: If length <= 2 then we cannot ensure so we ensure: lower/upper + numeric.
-        let newSubSet = alphaL + alphaU + numeric;
+        const newSubSet = alphaL + alphaU + numeric;
 
         let doAgain = true;
         do {
-
-            rv_psw = genPswPartByChars(newSubSet, '', pswLength_);
+            rv_psw = genPswPartByChars(newSubSet, '', pswLength);
 
             // Check whether we should iterate again to generate an acceptable mix of value.
-            if (pswLength_ > 2) {
+            if (pswLength > 2) {
                 // Should have all mix: numeric, lower and upper alphabet.
                 doAgain =
                     strFindFirstOf(rv_psw, setSET_Numeric) === -1 ||
                     strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 ||
                     strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1;
-            } else if (pswLength_ == 2) {
+            } else if (pswLength == 2) {
                 // Should have atleast: numeric and lower/upper alphabet.
                 doAgain =
                     strFindFirstOf(rv_psw, setSET_Numeric) === -1 || (
@@ -129,53 +120,50 @@ export namespace utils {
         return rv_psw;
     }
 
-    export function genAlpha(pswLength_: number): string {
-        let rv_psw = genPswPartByChars(SET_AlphaBoth, '', pswLength_);
+    export function genAlpha(pswLength: number): string {
+        let rv_psw = genPswPartByChars(SET_AlphaBoth, '', pswLength);
         return rv_psw;
     }
 
-    export function genNumeric(pswLength_: number): string {
-        let rv_psw = genPswPartByChars(SET_Numeric, '', pswLength_);
+    export function genNumeric(pswLength: number): string {
+        let rv_psw = genPswPartByChars(SET_Numeric, '', pswLength);
         return rv_psw;
     }
 
-    export function genSpecial(pswLength_: number): string {
-        let rv_psw =genPswPartByChars(SET_Special, '', pswLength_); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
+    export function genSpecial(pswLength: number): string {
+        let rv_psw = genPswPartByChars(SET_Special, '', pswLength); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
         return rv_psw;
     }
 
-
-    export function randomizeCharsInString(v_: string): string {
-        // 0. Randomize password string within its length.
-
-        if (!v_) {
+    export function randomizeCharsInString(psw: string): string { // Randomize password string within its length
+        if (!psw) {
             return '';
         }
 
-        var buf = new Uint8Array(v_.length + 1);
+        let buf = new Uint8Array(psw.length + 1);
         crypto.getRandomValues(buf);
 
         let resBuffer = Array.from(buf);
 
-        let arr = v_.split('');
+        let arr = psw.split('');
 
-        var ii = 0;
+        var i = 0;
 
         arr.forEach(
-            (current, i) => {
-                let index = resBuffer[ii++] % v_.length;
+            (current, idx) => {
+                const newIdx = resBuffer[i++] % psw.length;
 
-                let temp = arr[index];
-                arr[index] = current;
-                arr[i] = temp;
+                const temp = arr[newIdx];
+                arr[newIdx] = current;
+                arr[idx] = temp;
             }
         );
 
-        let rv = arr.join('');
+        const rv = arr.join('');
         return rv;
     }
 
-    export function genAlphaNumSpecial(pswLength_: number): string {
+    export function genAlphaNumSpecial(pswLength: number): string {
         // 0. The goal is to generate password containing alpha, number and special.
         // Characters from each set should exist. Otherwise, atleast 1 from each set 
         // should exist (i.e. alpha, numeric and symbol).
@@ -183,8 +171,8 @@ export namespace utils {
         // 1. Determine length of each character set to generate.
         //
         // To ensure we have atleast: 1 upper, 1 lower and 1 number.
-        let specialLen = (pswLength_ > 3) ? getRandomInRange(1, pswLength_ - 3) : 1;
-        let alphaNumericLen = pswLength_ - specialLen;
+        const specialLen = pswLength > 3 ? getRandomInRange(1, pswLength - 3) : 1;
+        const alphaNumericLen = pswLength - specialLen;
 
         // 2. Generate characters by upper boundary.
         let rv_psw = '';
@@ -206,13 +194,13 @@ export namespace utils {
 
     /////////////////////////////////////////////////////////////////////
 
-    export function hasAdjacentDigits(psw_: string): boolean {
+    export function hasAdjacentDigits(psw: string): boolean {
         // 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
 
         let isPrevDigit = false;
 
-        for (const currentChar of psw_) {
-            let isCurrDigit = isCharNumber(currentChar);
+        for (const curCh of psw) {
+            const isCurrDigit = isCharNumber(curCh);
 
             if (isCurrDigit && isPrevDigit) {
                 return true;
@@ -224,17 +212,16 @@ export namespace utils {
         return false;
     }
 
-    export function hasDuplicateChars(psw_: string): boolean {
-        // 0. To validate whether password has any duplicate characters: letters or digits or symbols.
+    export function hasDuplicateChars(psw: string): boolean {
+        // To validate whether password has any duplicate characters: letters or digits or symbols
 
-        let charCount = new Set<string>(psw_);
-        return charCount.size !== psw_.length;
+        const set = new Set<string>(psw);
+        return set.size !== psw.length;
     }
 
     /////////////////////////////////////////////////////////////////////
 
-    export function removeDuplicateChars(psw_: string): string
-    {
+    export function removeDuplicateChars(psw: string): string {
         // 0. To idenitfy and replace any duplicate character with its corresponding unused set.
         // i.e. Any duplicate of letter will be replaced with its corresponding unused set of letters.
         // Similary digits and symbols will be replaced with its corresponding unused 
@@ -242,29 +229,25 @@ export namespace utils {
 
         // 0. Fiter out duplication of characters and generate new one from the same character type set.
 
-        let rv_psw = psw_;
+        let rv_psw = psw;
 
         // 1. Set include character set i.e. Alpha upper/lower or digit or special.
 
         let includeSet = '';
 
-        if (strFindFirstOf(rv_psw, setSET_AlphaLower) !== -1)
-        {
+        if (strFindFirstOf(rv_psw, setSET_AlphaLower) !== -1) {
             includeSet += SET_AlphaLower;
         }
 
-        if (strFindFirstOf(rv_psw, setSET_AlphaUpper) !== -1)
-        {
+        if (strFindFirstOf(rv_psw, setSET_AlphaUpper) !== -1) {
             includeSet += SET_AlphaUpper;
         }
 
-        if (strFindFirstOf(rv_psw, setSET_Numeric) !== -1)
-        {
+        if (strFindFirstOf(rv_psw, setSET_Numeric) !== -1) {
             includeSet += SET_Numeric;
         }
 
-        if (strFindFirstOf(rv_psw, setSET_Special) !== -1)
-        {
+        if (strFindFirstOf(rv_psw, setSET_Special) !== -1) {
             includeSet += SET_Special;
         }
 
@@ -273,49 +256,50 @@ export namespace utils {
         let excludeSet: string = '';
         let charIndexes = new Map<string, number[]>();
 
-        const arr1 = Array.from(psw_);
-        arr1.forEach((currentChar, idx) => {
-            excludeSet += currentChar; // Add the current one to excluded set. It may contain duplicates but it does not matter.
+        const arr1 = Array.from(psw);
+        arr1.forEach(
+            (currentChar, idx) => {
+                excludeSet += currentChar; // Add the current one to excluded set. It may contain duplicates but it does not matter.
 
-            let thisArr = charIndexes.get(currentChar);
-            if (!thisArr) {
-                charIndexes.set(currentChar, []);
-                thisArr = charIndexes.get(currentChar)!;
-            }
-            thisArr.push(idx);
+                let thisArr = charIndexes.get(currentChar);
+                if (!thisArr) {
+                    charIndexes.set(currentChar, []);
+                    thisArr = charIndexes.get(currentChar)!;
+                }
+                thisArr.push(idx);
 
-            let pos = includeSet.indexOf(currentChar);
-            if (pos !== -1) {
-                includeSet = includeSet.substring(0, pos) + includeSet.substring(pos + 1);
+                let pos = includeSet.indexOf(currentChar);
+                if (pos !== -1) {
+                    includeSet = includeSet.substring(0, pos) + includeSet.substring(pos + 1);
+                }
             }
-        });
+        );
 
         // 2. Identify characters with duplicates and re-generate new character of the same type excluding 
         // previously used characters of the same type.
 
-        Object.entries(charIndexes).forEach(([_, indices]) => {
-            // 2.1 More than 1 index mean we have duplicates.
+        Object.entries(charIndexes).forEach(
+            ([_, indices]: [any, number[]]) => {
+                // 2.1 More than 1 index mean we have duplicates.
+                if (indices.length === 1) {
+                    return;
+                }
 
-            if (indices.length === 1) {
-                return;
+                // 2.3 Generate new character for each occurence of character excluding the generated one.
+                // NOTE: Skip the first entry as it is the first occurence.
+                indices.forEach(
+                    (currentIndex) => {
+                        let value = genPswPartByChars(includeSet, excludeSet, 1);
+                        let newChar = value[0];
+
+                        rv_psw = rv_psw.substring(0, currentIndex) + newChar + rv_psw.substring(currentIndex + 1);
+
+                        excludeSet += newChar; // Add current character to exclude range.
+                    }
+                );
             }
-
-            // 2.3 Generate new character for each occurence of character excluding the generated one.
-            // NOTE: Skip the first entry as it is the first occurence.
-
-            indices.forEach((currentIndex) => {
-                let value = genPswPartByChars(includeSet, excludeSet, 1);
-                let newChar = value[0];
-
-                rv_psw = rv_psw.substring(0, currentIndex) + newChar + rv_psw.substring(currentIndex + 1);
-
-                excludeSet += newChar; // Add current character to exclude range.
-            })
-        });
+        );
 
         return rv_psw;
     }
-
-    /////////////////////////////////////////////////////////////////////
-
 }
