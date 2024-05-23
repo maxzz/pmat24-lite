@@ -18,9 +18,7 @@ const TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
 // Constructor from #### policyFromString ####
 export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.none): Policy {
-    const rv = {
-        type,
-    } as Policy;
+    const rv = { type } as Policy;
 
     const { policyOld: policySimple, policyExt } = compatibility_split_policy(v);
 
@@ -118,38 +116,30 @@ export function policyToString(policy: Policy): string {
     return rv;
 
     function policyToStringSimple(policy: Policy): string {
-        let strType = '';
+        let type = '';
         switch (policy.type) {
             case POLICYTYPE.none: return '';
-            case POLICYTYPE.verify: strType = "[p4]v:"; break;
-            case POLICYTYPE.generate: strType = "[p4]g:"; break;
+            case POLICYTYPE.verify: type = "[p4]v:"; break;
+            case POLICYTYPE.generate: type = "[p4]g:"; break;
         }
     
         const chset = charset_str(policy.simpleChSet);
         const constr = constrains_str(policy.constrains);
     
-        const rv = `${strType}:${policy.minLength}:${policy.maxLength}:${chset}:${constr}`;
-        return rv;
+        return `${type}:${policy.minLength}:${policy.maxLength}:${chset}:${constr}`;
     }
 
     function policyToStringExtended(v: Partial<Policy>): string {
-        let rv: string = '';
-    
+        let type = '';
         if (v.useExt) {
             switch (v.type) {
-                case POLICYTYPE.none:
-                    return rv;
-                case POLICYTYPE.verify:
-                    rv = "[e1]v:";
-                    break;
-                case POLICYTYPE.generate:
-                    rv = "[e1]g:";
-                    break;
+                case POLICYTYPE.none: return '';
+                case POLICYTYPE.verify: type = "[e1]v:"; break;
+                case POLICYTYPE.generate: type = "[e1]g:"; break;
             }
         }
     
-        rv = `${rv}${v.policyExt}<${v.minLength},${v.maxLength}>`; // rv += sformat("%s<%d,%d>", m_policyExt, m_minLength, m_maxLength);
-        return rv;
+        return `${type}${v.policyExt}<${v.minLength},${v.maxLength}>`;
     }
 }
 
