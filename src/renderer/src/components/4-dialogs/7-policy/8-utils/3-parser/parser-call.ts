@@ -1,5 +1,5 @@
+import { policy_t } from "../1-policy";
 import { ParseError, ParseErrorType, RulesExtra } from "../2-adv-psw-policy";
-import { password } from "../types";
 import { PolicyParser } from "./psrser";
 
 export type ParseAdvPolicyResult = {
@@ -37,9 +37,9 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     return rv;
 }
 
-function parseExtPattern2RulesSet(pattern_: string): ParseAdvPolicyResult
+function parseExtPattern2RulesSet(pattern: string): ParseAdvPolicyResult
 {
-    let rv = parse_advpolicy(pattern_);
+    let rv = parse_advpolicy(pattern);
     
     // if (rv.error.m_errorType !== ParseerrorType_t.errNone) { return; }
 
@@ -48,7 +48,7 @@ function parseExtPattern2RulesSet(pattern_: string): ParseAdvPolicyResult
     return rv;
 }
 
-export function parseExtPolicy2RulesSet(policy_: password.policy_t): ParseAdvPolicyResult {
-    let patternWithMinMaxRange = `${policy_.policyExt}<${policy_.minLength}, ${policy_.maxLength}>`;
+export function parseExtPolicy2RulesSet(policy: policy_t): ParseAdvPolicyResult {
+    let patternWithMinMaxRange = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
     return parseExtPattern2RulesSet(patternWithMinMaxRange);
 }

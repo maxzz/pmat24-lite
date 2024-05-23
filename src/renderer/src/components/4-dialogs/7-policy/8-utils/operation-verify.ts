@@ -1,11 +1,11 @@
-import { password } from "./types";
+import { CHARSETTYPE, policy_t } from "./1-policy";
 import { utils } from "./utils";
 import { strFindFirstNotOf, strFindFirstOf } from "./cpp-utils";
 
 // class verify_t {
 //TODO: We need to generate explanation to user why policy verification failed. Later.
 
-export function operator_verify(policy_: password.policy_t, psw_: string): boolean {
+export function operator_verify(policy_: policy_t, psw_: string): boolean {
 
     if (psw_.length < policy_.minLength || psw_.length > policy_.maxLength) {
         console.log("inv.pol.length");
@@ -20,7 +20,7 @@ export function operator_verify(policy_: password.policy_t, psw_: string): boole
     //}
 
     switch (policy_.simpleChSet) {
-        case password.CHARSETTYPE.alphanumeric:
+        case CHARSETTYPE.alphanumeric:
             if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) { // 1. We should validate whether the input string contains any characters other than alpha and numberic.
                 console.log("utils.setSET_AlphaNumeric");
                 return false;
@@ -41,19 +41,19 @@ export function operator_verify(policy_: password.policy_t, psw_: string): boole
             //	return false;
             //}
             break;
-        case password.CHARSETTYPE.alpha:
+        case CHARSETTYPE.alpha:
             if (strFindFirstNotOf(psw_, utils.setSET_AlphaBoth) !== -1) {
                 console.log("alpha/utils.setSET_AlphaBoth");
                 return false;
             }
             break;
-        case password.CHARSETTYPE.numeric:
+        case CHARSETTYPE.numeric:
             if (strFindFirstNotOf(psw_, utils.setSET_Numeric) !== -1) {
                 console.log("numeric/utils.setSET_Numeric");
                 return false;
             }
             break;
-        case password.CHARSETTYPE.withspecial:
+        case CHARSETTYPE.withspecial:
             if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumericSpecial) !== -1) {
                 console.log("withspecial/utils.setSET_AlphaNumericSpecial");
                 return false;
@@ -64,7 +64,7 @@ export function operator_verify(policy_: password.policy_t, psw_: string): boole
                 return false;
             }
             break;
-        case password.CHARSETTYPE.atleastonenumber:
+        case CHARSETTYPE.atleastonenumber:
             if (strFindFirstNotOf(psw_, utils.setSET_AlphaNumeric) !== -1) {
                 console.log("atleastonenumber/utils.setSET_AlphaNumeric");
                 return false;

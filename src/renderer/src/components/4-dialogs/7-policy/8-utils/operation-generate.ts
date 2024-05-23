@@ -1,8 +1,8 @@
-import { password } from "./types";
+import { CHARSETTYPE, policy_t } from "./1-policy";
 import { utils } from "./utils";
 
 // class generate_t
-export function operator_generate(policy_: password.policy_t): string {
+export function operator_generate(policy_: policy_t): string {
 
     // Check whether min is lower than max.
     if (policy_.minLength > policy_.maxLength) {
@@ -19,28 +19,28 @@ export function operator_generate(policy_: password.policy_t): string {
     let skipDuplicates = false;
 
     switch (policy_.simpleChSet) {
-        case password.CHARSETTYPE.alphanumeric:
+        case CHARSETTYPE.alphanumeric:
             rv_psw = utils.genAlphaNumeric(finalPswLength); // Initially, generate alpha numeric string.
             //rv_psw = utils::removeAdjacentDigits(rv_psw); //// Next, resolve adjacent digits.
             skipDuplicates = finalPswLength > utils.SET_AlphaNumeric.length;
             break;
 
-        case password.CHARSETTYPE.alpha:
+        case CHARSETTYPE.alpha:
             rv_psw = utils.genAlpha(finalPswLength);
             skipDuplicates = finalPswLength > utils.SET_AlphaBoth.length;
             break;
 
-        case password.CHARSETTYPE.numeric:
+        case CHARSETTYPE.numeric:
             rv_psw = utils.genNumeric(finalPswLength);
             skipDuplicates = finalPswLength > utils.SET_Numeric.length;
             break;
 
-        case password.CHARSETTYPE.withspecial:
+        case CHARSETTYPE.withspecial:
             rv_psw = utils.genAlphaNumSpecial(finalPswLength);
             skipDuplicates = finalPswLength > utils.SET_AlphaNumericSpecial.length;
             break;
 
-        case password.CHARSETTYPE.atleastonenumber:
+        case CHARSETTYPE.atleastonenumber:
             rv_psw = utils.genAlphaNumeric(finalPswLength); // generate N alphanumeric characters
 
             if (finalPswLength == 1) // If the password length is 1 then we should ignore above generated value and use the below one.

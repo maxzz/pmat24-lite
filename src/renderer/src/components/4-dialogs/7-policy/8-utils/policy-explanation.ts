@@ -1,6 +1,7 @@
-import { advancedpswpolicy } from "./custom-rule/types";
+import { CHARSETTYPE, RESTRICTTYPE, policy_t } from "./1-policy";
+import { Rule, RulesExtra } from "./2-adv-psw-policy";
+import { parseExtPolicy2RulesSet } from "./3-parser";
 import { stringsPolicy, stringsPolicy3 } from "./strings";
-import { password } from "./types";
 import { utils } from "./utils";
 
 /*
@@ -55,11 +56,11 @@ export namespace password_policy_wexplanation {
        \t(.) Must contain atleast 1 and atmost 3 characters from the set [0-9].\n
     */
 
-    export function getRuleEntriesExpl(ruleEntries_: advancedpswpolicy.ruleEntries_t): string {
-        let rv_ = ''; //TODO: make rv as array of strings and join them at the end with proper indentation.
+    export function getRuleEntriesExpl(rules: Rule[]): string {
+        let rv = ''; //TODO: make rv as array of strings and join them at the end with proper indentation.
 
-        for (const ruleEntry of ruleEntries_) {
-            if (ruleEntry.m_isgroup) {
+        for (const ruleEntry of rules) {
+            if (ruleEntry.isGroup) {
                 /* // TODO: Explain grouping (repeat/mix).
                 wstring_t groupHead = prefix;
                 if (ruleEntry.m_groupEntry.m_mix) {
@@ -70,11 +71,11 @@ export namespace password_policy_wexplanation {
                 rv_explanation_ += groupHead;
                 */
 
-                rv_ += getRuleEntriesExpl(ruleEntry.m_groupEntry.m_ruleEntries);
+                rv += getRuleEntriesExpl(ruleEntry.group.rules);
             } else {
-                const min = ruleEntry.m_chsetEntry.m_rangeEntry.m_min;
-                const max = ruleEntry.m_chsetEntry.m_rangeEntry.m_max;
-                const set = ruleEntry.m_chsetEntry.m_charset;
+                const min = ruleEntry.chSet.range.min;
+                const max = ruleEntry.chSet.range.max;
+                const set = ruleEntry.chSet.chars;
 
                 let chsetExplanation = '';
 
@@ -94,15 +95,15 @@ export namespace password_policy_wexplanation {
                     chsetExplanation = stringsPolicy.minchset(min, set);//ai:`Must contain atleast ${min} character(s).`;
                 }
 
-                rv_ += chsetExplanation;
+                rv += chsetExplanation;
             }
         }
 
-        return rv_;
+        return rv;
     }
 
-    export function getRuleSetExplanation(rulesSet_: advancedpswpolicy.rulesSet_t, noduplicates_: boolean): string {
-        let rv_explanation_ = '';
+    export function getRuleSetExplanation(rulesExtra: RulesExtra, noduplicates_: boolean): string {
+        let rv_explanation = '';
 
         // // wstring_t res_policyLENGTH   = getKeyValue(keyvalues_, IDS_PSW_POLICY_LENGTH);
         // // wstring_t res_policyHEAD     = getKeyValue(keyvalues_, IDS_PSW_POLICY_HEAD);
@@ -110,20 +111,20 @@ export namespace password_policy_wexplanation {
 
         // wstring_t ruleLength = wformat(res_policyLENGTH.c_str(), rulesSet_.m_pswlenSet.m_min, rulesSet_.m_pswlenSet.m_max);
 
-        let ruleLength = stringsPolicy.length(rulesSet_.m_pswlenSet.m_min, rulesSet_.m_pswlenSet.m_max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
+        let ruleLength = stringsPolicy.length(rulesExtra.pswLenRange.min, rulesExtra.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
 
-        rv_explanation_ = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
+        rv_explanation = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
         if (noduplicates_) {
-            rv_explanation_ += stringsPolicy.norepeat();//ai:'Each password character must only be used one time.';
+            rv_explanation += stringsPolicy.norepeat();//ai:'Each password character must only be used one time.';
         }
 
-        rv_explanation_ += getRuleEntriesExpl(rulesSet_.m_ruleEntries);
+        rv_explanation += getRuleEntriesExpl(rulesExtra.rules);
 
-        return rv_explanation_;
+        return rv_explanation;
     }
 
-    export function getPolicyExplanation(policy_: password.policy_t): string
+    export function getPolicyExplanation(policy_: policy_t): string
     {
         // No explanation without localized text.
         // if (keyvalues_.empty())
@@ -132,19 +133,19 @@ export namespace password_policy_wexplanation {
         // }
  
         // Additional restrictions. Password must be different from:
-        // wstring_t res_restrictWP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_WND);	// Different from Windows Password.
-        // wstring_t res_restrictAP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_ANY);	// Different from Windows Password.
-        // wstring_t res_restrictPP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_PREVIOUS);	// Different from Previous Password.
+        // wstring_t res_restrictWP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_WND);	// Different from Windows Password
+        // wstring_t res_restrictAP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_ANY);	// Different from Windows Password
+        // wstring_t res_restrictPP = getKeyValue(keyvalues_, IDS_PWDPOLICY_DIFF_PREVIOUS);	// Different from Previous Password
  
         let rv = '';
  
         if (policy_.useExt) {
             //stringsPolicy3
-            const parseAdvPolicyResult = advancedpswpolicy.parseExtPolicy2RulesSet(policy_);
+            const parseAdvPolicyResult = parseExtPolicy2RulesSet(policy_);
  
-            // Explanation is shown only for verification hence we allow duplication of characters within a password.
+            // Explanation is shown only for verification hence we allow duplication of characters within a 
             let noduplicate = false;
-            rv = getRuleSetExplanation(parseAdvPolicyResult.rules, noduplicate);
+            rv = getRuleSetExplanation(parseAdvPolicyResult.rulesExtra, noduplicate);
         }
         else
         {
@@ -164,25 +165,25 @@ export namespace password_policy_wexplanation {
  
             switch (policy_.simpleChSet)
             {
-                case password.CHARSETTYPE.alphanumeric:
+                case CHARSETTYPE.alphanumeric:
                     rv += stringsPolicy.achset(utils.SET_AlphaLower);
                     rv += stringsPolicy.achset(utils.SET_AlphaUpper);
                     rv += stringsPolicy.achset(utils.SET_Numeric);
                     break;
-                case password.CHARSETTYPE.alpha:
+                case CHARSETTYPE.alpha:
                     rv += stringsPolicy.achset(utils.SET_AlphaLower);
                     rv += stringsPolicy.achset(utils.SET_AlphaUpper);
                     break;
-                case password.CHARSETTYPE.numeric: 
+                case CHARSETTYPE.numeric: 
                     rv += stringsPolicy.achset(utils.SET_Numeric);
                     break;
-                case password.CHARSETTYPE.withspecial: 
+                case CHARSETTYPE.withspecial: 
                     rv += stringsPolicy.achset(utils.SET_AlphaLower);
                     rv += stringsPolicy.achset(utils.SET_AlphaUpper);
                     rv += stringsPolicy.achset(utils.SET_Numeric);
                     rv += stringsPolicy.achset(utils.SET_Special);
                     break;
-                case password.CHARSETTYPE.atleastonenumber:
+                case CHARSETTYPE.atleastonenumber:
                     rv += stringsPolicy.minchset(1, utils.SET_Numeric);
                     rv += stringsPolicy.achset(utils.SET_AlphaLower);
                     rv += stringsPolicy.achset(utils.SET_AlphaUpper);
@@ -192,19 +193,19 @@ export namespace password_policy_wexplanation {
             }
  
             switch (policy_.constrains) {
-                case password.RESTRICTTYPE.different_ap:
+                case RESTRICTTYPE.different_ap:
                     // rv += wformat(L"   %s", res_restrictAP);
                     rv += stringsPolicy3.diffAp;
                     break;
-                case password.RESTRICTTYPE.different_pp:
+                case RESTRICTTYPE.different_pp:
                     // rv += wformat(L"   %s", res_restrictPP);
                     rv += stringsPolicy3.diffPp;
                     break;
-                case password.RESTRICTTYPE.different_wp:
+                case RESTRICTTYPE.different_wp:
                     // rv += wformat(L"   %s", res_restrictWP);
                     rv += stringsPolicy3.diffWp;
                     break;
-                case password.RESTRICTTYPE.no_restrictions: // No explanation.
+                case RESTRICTTYPE.no_restrictions: // No explanation.
                 // default: 
                 //     break;
             }

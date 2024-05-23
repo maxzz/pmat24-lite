@@ -1,6 +1,6 @@
+import { policy_t } from "../1-policy";
 import { ChSet, RulesExtra, ParseErrorType, Rule } from "../2-adv-psw-policy";
 import { ParseAdvPolicyResult, parse_advpolicy } from "../3-parser/parser-call";
-import { password } from "../types";
 import { utils } from "../utils";
 import { strFindFirstOf } from "../cpp-utils";
 
@@ -361,7 +361,7 @@ export namespace customRule2 {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    function parseExtPolicy2RulesSet(policy: password.policy_t): ParseAdvPolicyResult | undefined {
+    function parseExtPolicy2RulesSet(policy: policy_t): ParseAdvPolicyResult | undefined {
         let patternWithMinMax = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
         return parseExtPattern2RulesSet(patternWithMinMax);
     }
