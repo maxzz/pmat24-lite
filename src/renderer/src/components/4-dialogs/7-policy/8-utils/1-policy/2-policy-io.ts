@@ -1,4 +1,5 @@
-import { CHARSETTYPE, POLICYTYPE, RESTRICTTYPE, Policy, str_charset, charset_str, str_constrains, constrains_str } from "./1-types";
+import { POLICYTYPE, Policy } from "./1-types";
+import { charset_str, constrains_str, str_charset, str_constrains } from "./3-casting";
 
 const POLICY_SEPARATOR = "#expo#"; // "EXtended POlicy". keep the length less then 8.
 const TOKEN_PREVENT_CHARACTERREPEAT = "~";
@@ -55,7 +56,7 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv.constrains = str_constrains(ss[4]);
     }
 
-    function policyFromStringExtended(v_: string | undefined, rv: Partial<Policy>) { // initial rv is {}
+    function policyFromStringExtended(v_: string | undefined, rv: Partial<Policy>): void { // initial rv is {}
         rv.useExt = false;
         rv.policyExt = '';
 
@@ -84,36 +85,36 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv = { ...rv, ...parts };
     }
 
-    function getExtendedParts(v_: string, minlength_: number, maxlength_: number) {
+    function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> | undefined {
         const rv: {
-            patternPart_: string;
-            minlength_: number;
-            maxlength_: number;
+            policyExt: string;
+            minLength: number;
+            maxLength: number;
         } = {
-            patternPart_: '',
-            minlength_,
-            maxlength_,
+            policyExt: '',
+            minLength: minLength,
+            maxLength: maxLength,
         };
     
-        if (!v_) {
+        if (!v) {
             return rv;
         }
     
-        const beginpos = v_.lastIndexOf('<');
+        const beginpos = v.lastIndexOf('<');
         if (beginpos === -1) {
-            rv.patternPart_ = v_;
+            rv.policyExt = v;
             return rv;
         }
     
-        const endpos = v_.indexOf('>', beginpos);
+        const endpos = v.indexOf('>', beginpos);
         if (endpos === -1) {
-            rv.patternPart_ = v_;
+            rv.policyExt = v;
             return rv;
         }
     
-        let minmaxvalue = v_.substring(beginpos + 1, endpos - beginpos - 1);
+        let minmaxvalue = v.substring(beginpos + 1, endpos - beginpos - 1);
         if (!minmaxvalue) {
-            rv.patternPart_ = v_;
+            rv.policyExt = v;
             return;
         }
     
@@ -121,13 +122,13 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         const values = minmaxvalue.split(',');
     
         if (values.length !== 2) {
-            rv.patternPart_ = v_;
+            rv.policyExt = v;
             return;
         }
     
-        rv.patternPart_ = v_.substring(0, beginpos) + v_.substring(endpos + 1);
-        rv.minlength_ = +values[0];
-        rv.maxlength_ = +values[1];
+        rv.policyExt = v.substring(0, beginpos) + v.substring(endpos + 1);
+        rv.minLength = +values[0];
+        rv.maxLength = +values[1];
     }
 }
 
