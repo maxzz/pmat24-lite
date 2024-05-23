@@ -56,14 +56,12 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv.constrains = str_constrains(ss[4]);
     }
 
-    function policyFromStringExtended(v_: string | undefined, rv: Partial<Policy>): void { // initial rv is {}
+    function policyFromStringExtended(v: string | undefined, rv: Partial<Policy>): void { // initial rv is {}
         rv.useExt = false;
         rv.policyExt = '';
 
-        if (!v_ || v_.length < 4)
+        if (!v || v.length < 4)
             return;
-
-        let v: string = v_;
 
         let policyPF: string = v.substring(0, 6);
 
@@ -85,50 +83,29 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv = { ...rv, ...parts };
     }
 
-    function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> | undefined {
-        const rv: {
-            policyExt: string;
-            minLength: number;
-            maxLength: number;
-        } = {
-            policyExt: '',
+    function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> {
+        const rv: Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> = {
+            policyExt: v,
             minLength: minLength,
             maxLength: maxLength,
         };
     
-        if (!v) {
-            return rv;
-        }
-    
         const beginpos = v.lastIndexOf('<');
-        if (beginpos === -1) {
-            rv.policyExt = v;
-            return rv;
-        }
-    
         const endpos = v.indexOf('>', beginpos);
-        if (endpos === -1) {
-            rv.policyExt = v;
+        if (beginpos === -1 || endpos === -1) {
             return rv;
         }
     
-        let minmaxvalue = v.substring(beginpos + 1, endpos - beginpos - 1);
-        if (!minmaxvalue) {
-            rv.policyExt = v;
-            return;
-        }
-    
-    
-        const values = minmaxvalue.split(',');
-    
+        const values = v.substring(beginpos + 1, endpos - beginpos - 1).split(',');
         if (values.length !== 2) {
-            rv.policyExt = v;
-            return;
+            return rv; // console.error(`Invalid extended policy: ${v}. using default`);
         }
     
         rv.policyExt = v.substring(0, beginpos) + v.substring(endpos + 1);
         rv.minLength = +values[0];
         rv.maxLength = +values[1];
+
+        return rv;
     }
 }
 
