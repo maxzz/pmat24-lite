@@ -230,15 +230,17 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
 
     setCustomRulePolicyOptionsToText(customRuleOptions_, policy.policyExt);
     policyStr_ = policyToString(policy);
+
+    return policyStr_;
 }
 /**/
 
 /** / I don't know what this is for
 // Checks custom rule prepended tokens '~', '&' then 
 // places the information in JSON text within m_polExtOptions.
-// ~&<custom rule text>
+// ~&<custom rule text
 
-static void updateCustomRulePolicyOptionsFromText(__inout string_t& updCustomRuleText_, __inout string_t& updCustomRulePolicyOptions_) {
+function & : stringupdCustomRuleText_, __inout string_t& updCustomRulePolicyOptions_) {
     if (updCustomRuleText_.length() < 2)
         return;
 
@@ -286,62 +288,66 @@ static void updateCustomRulePolicyOptionsFromText(__inout string_t& updCustomRul
 }
 /**/
 
-/** /
-static void setCustomRulePolicyOptionsToText(__in const string_t& customRulePolicyOptions_, __inout string_t& customRuleText_) {
-    if (customRulePolicyOptions_.empty())
-        return;
+/**/
+function setCustomRulePolicyOptionsToText(customRulePolicyOptions_: string, customRuleText_: string): string {
+    if (!customRulePolicyOptions_)
+        return customRuleText_;
 
-    bool customruleopt_norep, customruleopt_chkpos;
-    customruleopt_norep = customruleopt_chkpos = false;
+    let customruleopt_norep = false;
+    let customruleopt_chkpos = false;
 
-    Json::Value jsonRoot;
-    jsonSTR2VALUE(customRulePolicyOptions_, jsonRoot);
-    Json::Value& jsonExtOptions = jsonRoot.get("chgpolopts", Json::Value());
-    if (!jsonExtOptions.empty()) {
-        customruleopt_norep = jsonExtOptions["norep"].asBool();
-        customruleopt_chkpos = jsonExtOptions["chkppos"].asBool();
+    const jsonRoot = JSON.parse(customRulePolicyOptions_);
+    const jsonExtOptions = jsonRoot["chgpolopts"];
+    if (jsonExtOptions) {
+        customruleopt_norep = jsonExtOptions["norep"];
+        customruleopt_chkpos = jsonExtOptions["chkppos"];
     }
 
-    string_t::size_type pos_preventcharrepeat = string_t::npos;
-    string_t::size_type pos_preventcharposition = string_t::npos;
+    let pos_preventcharrepeat = -1;
+    let pos_preventcharposition = -1;
 
-    string_t substr_customRule;
-    if (customRuleText_.length() > 2) {
-        substr_customRule = customRuleText_.substr(0, 2);
+    let substr_customRule = '';
+    if (customRuleText_.length > 2) {
+        substr_customRule = customRuleText_.substring(0, 2);
 
-        bool istoken_charset =
+        let istoken_charset =
             substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
             substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
             substr_customRule[0] == 's';
 
         if (istoken_charset)
-            substr_customRule.clear();
+            substr_customRule = '';
         else {
-            pos_preventcharrepeat = substr_customRule.find(TOKEN_PREVENT_CHARACTERREPEAT);
-            pos_preventcharposition = substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION);
+            pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
         }
     }
 
     if (customruleopt_norep) { // Check 'Prevent two identical consecutive characters' option.
-        if (pos_preventcharrepeat == string_t::npos)
+        if (pos_preventcharrepeat === -1)
             customRuleText_ = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText_;
     }
     else { // Update text since option is false
-        if (pos_preventcharrepeat != string_t::npos) {
-            string_t::size_type pos = substr_customRule.find(TOKEN_PREVENT_CHARACTERREPEAT);
+        if (pos_preventcharrepeat !== -1) {
+            let pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
 
-            customRuleText_.replace(pos, 1, "");
-            substr_customRule.replace(pos, 1, "");
+            customRuleText_ = customRuleText_.slice(pos);
+            substr_customRule = substr_customRule.slice(pos);
         }
     }
 
     if (customruleopt_chkpos) { // 'Prevent character in same position' option.
-        if (pos_preventcharposition == string_t::npos)
+        if (pos_preventcharposition === -1)
             customRuleText_ = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText_;
     }
     else { // Update text since option is false
-        if (pos_preventcharposition != string_t::npos)
-            customRuleText_.replace(substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION), 1, "");
+        if (pos_preventcharposition !== -1) {
+            customRuleText_ = customRuleText_.slice(substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION));
+
+            //customRuleText_.replace(substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION), 1, "");
+        }
     }
+
+    return customRuleText_;
 }
 /**/
