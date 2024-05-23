@@ -39,6 +39,21 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/components/4-dialogs/7-policy/8-utils/sources-cpp/oti_manifest_io.h",
+			"bookmarks": [
+				{
+					"line": 1315,
+					"column": 11,
+					"label": ""
+				},
+				{
+					"line": 2057,
+					"column": 5,
+					"label": ""
+				}
+			]
 		}
 	]
 }
