@@ -1,27 +1,27 @@
+import { ChSet, RulesExtra, ParseErrorType, Rule } from "../2-adv-psw-policy";
+import { ParseAdvPolicyResult, parse_advpolicy } from "../3-parser/parser-call";
 import { password } from "../types";
-import { advancedpswpolicy } from "./types";
 import { utils } from "../utils";
 import { strFindFirstOf } from "../cpp-utils";
-import { RuleEntries, ChSetEntry, RulesSet, ParseErrorType } from "../1-adv-psw-policy";
 
 export namespace customRule2 {
 
     class ChSetEntryExtra {
-        chSetEntry: ChSetEntry;
-        isGenerated = false;
-        generatedLen = -1;
+        chSet: ChSet;
         min = -1;
         max = -1;
+        isGenerated = false;
+        generatedLen = -1;
 
-        constructor(pChsetEntry: ChSetEntry, min: number, max: number) {
-            this.chSetEntry = pChsetEntry;
+        constructor(pChsetEntry: ChSet, min: number, max: number) {
+            this.chSet = pChsetEntry;
             this.min = min;
             this.max = max;
         }
 
         generateLength(): boolean {
             if (this.isGenerated) {
-                return this.isGenerated;
+                return true;
             }
 
             if (this.min === -1 && this.max === -1) {
@@ -36,22 +36,22 @@ export namespace customRule2 {
             return this.isGenerated;
         }
 
-        generateValue(excludeChars: string): string { // Generate unique value
-            let rv = utils.genPswPartByChars(this.chSetEntry.chars, excludeChars, this.generatedLen);
+        generateValue(excludeChars: string): string {
+            let rv = utils.genPswPartByChars(this.chSet.chars, excludeChars, this.generatedLen);
             return rv;
         }
     };
 
-    type ChSetExtraMap = Map<ChSetEntry, ChSetEntryExtra>;
+    type ChSetExtraMap = Map<ChSet, ChSetEntryExtra>;
 
     type GetBoundsRecursivelyResult = {
-        undefs: ChSetEntry[],               // undefined character set entries i.e. rule entries without any max bound value.
+        undefs: ChSet[],               // undefined character set entries i.e. rule entries without any max bound value.
         min: number,                        // entries min total
         max: number,                        // entries max total
     };
 
-    function getBoundsRecursively(ruleEntries: RuleEntries, rv: GetBoundsRecursivelyResult): void {
-        ruleEntries.forEach(
+    function getBoundsRecursively(rules: Rule[], rv: GetBoundsRecursivelyResult): void {
+        rules.forEach(
             (ruleEntry) => {
                 if (ruleEntry.isGroup) {
                     getBoundsRecursively(ruleEntry.group.rules, rv);
@@ -89,7 +89,7 @@ export namespace customRule2 {
         maxValid: boolean,
     };
 
-    export function checkRulesBoundsForGenerate(rulesSet: RulesSet): CheckRulesBoundsForGenerateResult {
+    export function checkRulesBoundsForGenerate(rulesExtra: RulesExtra): CheckRulesBoundsForGenerateResult {
 
         // Initialize return values with the assumption that the min and max values are valid.
         const rv: CheckRulesBoundsForGenerateResult = {
@@ -103,28 +103,28 @@ export namespace customRule2 {
             min: 0,
             max: 0,
         };
-        getBoundsRecursively(rulesSet.rules, pm);
+        getBoundsRecursively(rulesExtra.rules, pm);
 
-        if (pm.min < rulesSet.pswLenRange.min) {
+        if (pm.min < rulesExtra.pswLenRange.min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
             let maxCharactersAvailable = pm.undefs.reduce((acc, cur) => acc + cur.chars.length, pm.min);
-            rv.minValid = maxCharactersAvailable > rulesSet.pswLenRange.min;
-        } else if (pm.min > rulesSet.pswLenRange.max) {
+            rv.minValid = maxCharactersAvailable > rulesExtra.pswLenRange.min;
+        } else if (pm.min > rulesExtra.pswLenRange.max) {
             rv.minValid = false;
         }
 
-        if (pm.max < rulesSet.pswLenRange.min) {
+        if (pm.max < rulesExtra.pswLenRange.min) {
             // Determine whether there are any Rule entries without max value to accommodate missing places.
             let maxCharactersAvailable = pm.undefs.reduce((acc, cur) => acc + cur.chars.length, pm.max);
-            rv.maxValid = maxCharactersAvailable > rulesSet.pswLenRange.min;
-        } else if (pm.max > rulesSet.pswLenRange.max) {
+            rv.maxValid = maxCharactersAvailable > rulesExtra.pswLenRange.min;
+        } else if (pm.max > rulesExtra.pswLenRange.max) {
             rv.maxValid = false;
         }
 
         return rv;
     }
 
-    function findChSetData(ch: string, chSetEntriesMap: ChSetExtraMap, rules: RuleEntries,): ChSetEntryExtra | undefined {
+    function findChSetData(ch: string, chSetEntriesMap: ChSetExtraMap, rules: Rule[]): ChSetEntryExtra | undefined {
         let rv: ChSetEntryExtra | undefined;
 
         // Find which character set the current character belongs.
@@ -147,7 +147,7 @@ export namespace customRule2 {
     }
 
     function generatePasswordByRuleRecursively(
-        ruleEntries: RuleEntries,
+        rules: Rule[],
         chSetExtraMap: ChSetExtraMap,
         noDuplicates: boolean,
         avoidConsecutiveChars: boolean,
@@ -155,7 +155,7 @@ export namespace customRule2 {
     ): string {
         let rv_password = '';
 
-        ruleEntries.forEach((ruleEntry) => {
+        rules.forEach((ruleEntry) => {
 
             if (ruleEntry.isGroup) {
 
@@ -185,7 +185,7 @@ export namespace customRule2 {
                             let chSetData = findChSetData(curCh, chSetExtraMap, ruleEntry.group.rules);
                             if (chSetData) {
                                 let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
-                                let generatedValue = utils.genPswPartByChars(chSetData.chSetEntry.chars, newExcludeChars, 1);
+                                let generatedValue = utils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
 
                                 curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
@@ -219,7 +219,7 @@ export namespace customRule2 {
 
                         if (prevCh === curCh) {
                             let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
-                            let generatedValue = utils.genPswPartByChars(chSetData.chSetEntry.chars, newExcludeChars, 1);
+                            let generatedValue = utils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
 
                             curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                         }
@@ -238,16 +238,16 @@ export namespace customRule2 {
 
     type GenerateForChSetEntriesHolderRecursivelyParams = {
         chSetExtraMap: ChSetExtraMap,
-        chsetEntries_generated_:  ChSetEntryExtra[], // chsetEntries_generated_
-        chsetEntries_togenerate_:  ChSetEntryExtra[],
+        generated: ChSetEntryExtra[],   // generated
+        toGenerate: ChSetEntryExtra[],  // to generate
         pswLenGenerated: number,
         pswLenFixedCount: number,
     };
 
-    function generateForChSetEntriesHolderRecursively(ruleEntries: RuleEntries, pm: GenerateForChSetEntriesHolderRecursivelyParams): void {
+    function generateForChSetEntriesHolderRecursively(rules: Rule[], pm: GenerateForChSetEntriesHolderRecursivelyParams): void {
         // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
 
-        ruleEntries.forEach((ruleEntry) => {
+        rules.forEach((ruleEntry) => {
             if (ruleEntry.isGroup) {
                 generateForChSetEntriesHolderRecursively(ruleEntry.group.rules, pm);
             } else {
@@ -258,11 +258,11 @@ export namespace customRule2 {
                 );
 
                 if (chsetData.generateLength()) {
-                    pm.chsetEntries_generated_.push(chsetData);
+                    pm.generated.push(chsetData);
                     pm.chSetExtraMap.set(ruleEntry.chSet, chsetData);
                     pm.pswLenGenerated += chsetData.generatedLen;
                 } else {
-                    pm.chsetEntries_togenerate_.push(chsetData);
+                    pm.toGenerate.push(chsetData);
                     pm.chSetExtraMap.set(ruleEntry.chSet, chsetData);
                     pm.pswLenFixedCount += chsetData.min;
                 }
@@ -271,7 +271,7 @@ export namespace customRule2 {
     }
 
     type VerifyPasswordAgainstRuleRecursivelyParams = {
-        ruleEntries: RuleEntries,
+        rules: Rule[],
         password: string,
         mix: boolean,
     };
@@ -279,11 +279,11 @@ export namespace customRule2 {
     function verifyPasswordAgainstRuleRecursively(pm: VerifyPasswordAgainstRuleRecursivelyParams): boolean {
         // 0. To verify password if conforming to custom rule.
 
-        for (const ruleEntry of pm.ruleEntries) {
+        for (const ruleEntry of pm.rules) {
 
             if (ruleEntry.isGroup) {
                 const newPm: VerifyPasswordAgainstRuleRecursivelyParams = {
-                    ruleEntries: ruleEntry.group.rules,
+                    rules: ruleEntry.group.rules,
                     password: pm.password,
                     mix: ruleEntry.group.mix
                 };
@@ -349,8 +349,8 @@ export namespace customRule2 {
         return true;
     }
 
-    function parseExtPattern2RulesSet(pattern_): advancedpswpolicy.ParseAdvPolicyResult | undefined {
-        const rv = advancedpswpolicy.parse_advpolicy(pattern_);
+    function parseExtPattern2RulesSet(pattern: string): ParseAdvPolicyResult | undefined {
+        const rv = parse_advpolicy(pattern);
 
         if (rv.error.type != ParseErrorType.errNone) {
             return;
@@ -360,12 +360,13 @@ export namespace customRule2 {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    function parseExtPolicy2RulesSet(policy: password.policy_t): advancedpswpolicy.ParseAdvPolicyResult | undefined {
-        let pattern_withMinMaxRange = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
-        return parseExtPattern2RulesSet(pattern_withMinMaxRange);
+
+    function parseExtPolicy2RulesSet(policy: password.policy_t): ParseAdvPolicyResult | undefined {
+        let patternWithMinMax = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
+        return parseExtPattern2RulesSet(patternWithMinMax);
     }
 
-    function verifyPasswordAgainstRuleNoThrow(rulesSet: RulesSet, previousPsw: string, psw: string, noDuplicates: boolean): boolean {
+    function verifyPasswordAgainstRuleNoThrow(rulesExtra: RulesExtra, previousPsw: string, psw: string, noDuplicates: boolean): boolean {
 
         if (!psw) { // Password is invalid if empty.
             return false;
@@ -373,8 +374,8 @@ export namespace customRule2 {
 
         // Check length of the password is within min, max bounds.
         if (
-            (rulesSet.pswLenRange.min != 0 && rulesSet.pswLenRange.min > psw.length) ||
-            (rulesSet.pswLenRange.max != 0 && rulesSet.pswLenRange.max < psw.length)
+            (rulesExtra.pswLenRange.min != 0 && rulesExtra.pswLenRange.min > psw.length) ||
+            (rulesExtra.pswLenRange.max != 0 && rulesExtra.pswLenRange.max < psw.length)
         ) {
             return false;
         }
@@ -384,7 +385,7 @@ export namespace customRule2 {
             return false;
         }
 
-        if (rulesSet.checkPrevPswCharPosition && !!previousPsw) {
+        if (rulesExtra.checkPrevPswCharPosition && !!previousPsw) {
             let maxLength = Math.min(previousPsw.length, psw.length);
             for (let i = 0; i < maxLength; i++) {
                 let isSameCharAtSamePosition = previousPsw[i] === psw[i];
@@ -395,7 +396,7 @@ export namespace customRule2 {
             }
         }
 
-        if (rulesSet.avoidConsecutiveChars) {
+        if (rulesExtra.avoidConsecutiveChars) {
             let prevChar = '';
             for (let i = 0; i < psw.length; i++) {
                 let isSameCharAsPreviousOne = prevChar === psw[i];
@@ -410,7 +411,7 @@ export namespace customRule2 {
 
         // Check password against custom rule.
         let pm: VerifyPasswordAgainstRuleRecursivelyParams = {
-            ruleEntries: rulesSet.rules,
+            rules: rulesExtra.rules,
             password: psw,
             mix: false
         };
@@ -423,35 +424,35 @@ export namespace customRule2 {
     }
 
     function sort_ascendingByCharSetLength(a: ChSetEntryExtra, b: ChSetEntryExtra): number {
-        if (a.chSetEntry.chars.length === b.chSetEntry.chars.length) {
+        if (a.chSet.chars.length === b.chSet.chars.length) {
             return 0;
         }
-        let isLowerCharSetLength = a.chSetEntry.chars.length < b.chSetEntry.chars.length;
+        let isLowerCharSetLength = a.chSet.chars.length < b.chSet.chars.length;
         return isLowerCharSetLength ? -1 : 1;
     }
 
-    function generatePasswordByRuleNoThrow(rulesSet: RulesSet, noDuplicates: boolean, prevPsw: string): string {
+    function generatePasswordByRuleNoThrow(rulesExtra: RulesExtra, noDuplicates: boolean, prevPsw: string): string {
         let rv_password = '';
 
         try {
             let pm: GenerateForChSetEntriesHolderRecursivelyParams = {
-                chSetExtraMap: new Map<ChSetEntry, ChSetEntryExtra>(),
-                chsetEntries_generated_: [],
-                chsetEntries_togenerate_: [],
+                chSetExtraMap: new Map<ChSet, ChSetEntryExtra>(),
+                generated: [],
+                toGenerate: [],
                 pswLenGenerated: 0, // totalLengthGenerated
                 pswLenFixedCount: 0, // minLengthToGenerate
             };
-            generateForChSetEntriesHolderRecursively(rulesSet.rules, pm);
+            generateForChSetEntriesHolderRecursively(rulesExtra.rules, pm);
 
             // Sort ruleEntries whose max is undefined in ascending order of their character set length.
-            pm.chsetEntries_togenerate_.sort(sort_ascendingByCharSetLength);
+            pm.toGenerate.sort(sort_ascendingByCharSetLength);
 
-            let entriesCount = pm.chsetEntries_togenerate_.length;
+            let entriesCount = pm.toGenerate.length;
 
-            pm.chsetEntries_togenerate_.forEach(
+            pm.toGenerate.forEach(
                 (chsetData, idx) => {
 
-                    let maxAvbl = Math.floor((rulesSet.pswLenRange.max - pm.pswLenGenerated)
+                    let maxAvbl = Math.floor((rulesExtra.pswLenRange.max - pm.pswLenGenerated)
                         / (entriesCount > 0 ? entriesCount : 1));
 
                     if (chsetData.isGenerated) {
@@ -461,23 +462,23 @@ export namespace customRule2 {
                     if (maxAvbl <= 0) { // No more extra characters available so set minimum length
                         chsetData.max = chsetData.min;
                     } else {
-                        let isLastEntry = idx === pm.chsetEntries_togenerate_.length - 1;
+                        let isLastEntry = idx === pm.toGenerate.length - 1;
                         if (isLastEntry) {
                             let moreLengthToGenerate = 0; // Minimum more characters to satisfy the minimum length requirement.
 
                             // We have rule entries for whom password has to be generated.
-                            if (pm.pswLenGenerated < rulesSet.pswLenRange.min) {
-                                moreLengthToGenerate = rulesSet.pswLenRange.min - pm.pswLenGenerated;
+                            if (pm.pswLenGenerated < rulesExtra.pswLenRange.min) {
+                                moreLengthToGenerate = rulesExtra.pswLenRange.min - pm.pswLenGenerated;
 
                                 let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.min);
-                                chsetData.min = Math.min(minimumLenToSatisfyRange, chsetData.chSetEntry.chars.length);
+                                chsetData.min = Math.min(minimumLenToSatisfyRange, chsetData.chSet.chars.length);
                             }
                         }
 
-                        chsetData.max = Math.max(chsetData.min, Math.min(maxAvbl, chsetData.chSetEntry.chars.length));
+                        chsetData.max = Math.max(chsetData.min, Math.min(maxAvbl, chsetData.chSet.chars.length));
 
-                        if (isLastEntry && chsetData.max > rulesSet.pswLenRange.max - pm.pswLenGenerated) {
-                            chsetData.max = rulesSet.pswLenRange.max - pm.pswLenGenerated;
+                        if (isLastEntry && chsetData.max > rulesExtra.pswLenRange.max - pm.pswLenGenerated) {
+                            chsetData.max = rulesExtra.pswLenRange.max - pm.pswLenGenerated;
                         }
                     }
 
@@ -489,15 +490,15 @@ export namespace customRule2 {
             );
 
             let excludeChars = '';
-            if (rulesSet.checkPrevPswCharPosition) { // Check previous password character by character if requested
+            if (rulesExtra.checkPrevPswCharPosition) { // Check previous password character by character if requested
                 excludeChars = prevPsw;
             }
 
             rv_password = generatePasswordByRuleRecursively(
-                rulesSet.rules,
+                rulesExtra.rules,
                 pm.chSetExtraMap,
                 noDuplicates,
-                rulesSet.avoidConsecutiveChars,
+                rulesExtra.avoidConsecutiveChars,
                 excludeChars
             );
 
