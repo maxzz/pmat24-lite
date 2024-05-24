@@ -245,7 +245,7 @@
 		UINT GetMaxLength()             const { return m_maxLength; }
         /**/
 
-        /** / I don't know what this is for
+        /** / done; for manifest_io, but I don't know what this is for
 		static void compatibility_split_optionsFromPolicy(__inout string_t& customRuleOptions_, __inout string_t& policyText_) {
 			// 0. Splits custom rule options from policy (if available).
 			//
@@ -467,7 +467,7 @@
 		}
         /**/
 
-        /** / I don't know what this is for
+        /** / done; for manifest_io, but I don't know what this is for
 		// Checks custom rule prepended tokens '~', '&' then 
 		// places the information in JSON text within m_polExtOptions.
 		// ~&<custom rule text>

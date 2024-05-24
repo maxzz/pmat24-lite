@@ -193,13 +193,19 @@ export function isValidPolicy(policy: Policy): boolean {
     );
 }
 
-// for manifest_io
-
 type compatibility_split_optionsFromPolicyParams = {
     policy: string;
     options: string;
 };
 
+type UpdateCustomRulePolicyOptionsFromTextParams = {
+    text: string;
+    options: string;
+};
+
+/**
+ * for manifest_io
+ */
 function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFromPolicyParams): void {
     // 0. Splits custom rule options from policy (if available).
     //
@@ -225,8 +231,59 @@ function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFr
 
     pm.options = pm2.options; // 4. Update custom rule options.
     pm.policy = policyToString(policy); // 5. Combine policy back without custom rule options in it.
+
+    // Checks custom rule prepended tokens '~', '&' then places the information in JSON text within m_polExtOptions.
+    // ~&<custom rule text>
+    function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptionsFromTextParams): void {
+        if (pm.text.length < 2)
+            return;
+
+        let pos_preventcharrepeat = -1;
+        let pos_preventcharposition = -1;
+
+        let substr_customRule = '';
+        if (pm.text.length > 2) {
+            substr_customRule = pm.text.substr(0, 2);
+
+            let isCharsetToken =
+                substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
+                substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
+                substr_customRule[0] == 's';
+
+            if (isCharsetToken)
+                substr_customRule = '';
+            else {
+                pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+                pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+            }
+        }
+
+        let preventcharrepeat = pos_preventcharrepeat !== -1;
+        let preventcharposition = pos_preventcharposition !== -1;
+
+        const jsonRoot = JSON.parse(pm.options);
+        jsonRoot["chgpolopts"] = jsonRoot["chgpolopts"] || {};
+        jsonRoot["chgpolopts"]["norep"] = preventcharrepeat;
+        jsonRoot["chgpolopts"]["chkppos"] = preventcharposition;
+
+        pm.options = JSON.stringify(jsonRoot);
+
+        if (pos_preventcharrepeat !== -1) {
+            pm.text = pm.text.slice(0, pos_preventcharrepeat) + pm.text.slice(pos_preventcharrepeat + 1);
+            substr_customRule = substr_customRule.slice(0, pos_preventcharrepeat) + substr_customRule.slice(pos_preventcharrepeat + 1);
+
+            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+        }
+
+        if (pos_preventcharposition !== -1) {
+            pm.text = pm.text.slice(0, pos_preventcharposition) + pm.text.slice(pos_preventcharposition + 1);
+        }
+    }
 }
 
+/**
+ * for manifest_io
+ */
 function compatibility_combine_optionsToPolicy(customRuleOptions_: string, policyStr_: string): string {
     // 0. Combines custom rule options to policy (if applicable).
     //
@@ -247,126 +304,72 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
     policyStr_ = policyToString(policy);
 
     return policyStr_;
-}
 
-// Checks custom rule prepended tokens '~', '&' then places the information in JSON text within m_polExtOptions.
-// ~&<custom rule text>
-
-type UpdateCustomRulePolicyOptionsFromTextParams = {
-    text: string;
-    options: string;
-};
-
-function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptionsFromTextParams): void {
-    if (pm.text.length < 2)
-        return;
-
-    let pos_preventcharrepeat = -1;
-    let pos_preventcharposition = -1;
-
-    let substr_customRule = '';
-    if (pm.text.length > 2) {
-        substr_customRule = pm.text.substr(0, 2);
-
-        let isCharsetToken =
-            substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
-            substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
-            substr_customRule[0] == 's';
-
-        if (isCharsetToken)
-            substr_customRule = '';
-        else {
-            pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
-            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+    function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, customRuleText: string): string {
+        if (!customRulePolicyOptions) {
+            return customRuleText;
         }
-    }
 
-    let preventcharrepeat = pos_preventcharrepeat !== -1;
-    let preventcharposition = pos_preventcharposition !== -1;
+        let customruleopt_norep = false;
+        let customruleopt_chkpos = false;
 
-    const jsonRoot = JSON.parse(pm.options);
-    jsonRoot["chgpolopts"] = jsonRoot["chgpolopts"] || {};
-    jsonRoot["chgpolopts"]["norep"] = preventcharrepeat;
-    jsonRoot["chgpolopts"]["chkppos"] = preventcharposition;
-
-    pm.options = JSON.stringify(jsonRoot);
-
-    if (pos_preventcharrepeat !== -1) {
-        pm.text = pm.text.slice(0, pos_preventcharrepeat) + pm.text.slice(pos_preventcharrepeat + 1);
-        substr_customRule = substr_customRule.slice(0, pos_preventcharrepeat) + substr_customRule.slice(pos_preventcharrepeat + 1);
-
-        pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
-    }
-
-    if (pos_preventcharposition !== -1) {
-        pm.text = pm.text.slice(0, pos_preventcharposition) + pm.text.slice(pos_preventcharposition + 1);
-    }
-}
-
-function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, customRuleText: string): string {
-    if (!customRulePolicyOptions) {
-        return customRuleText;
-    }
-
-    let customruleopt_norep = false;
-    let customruleopt_chkpos = false;
-
-    const jsonRoot = JSON.parse(customRulePolicyOptions);
-    const jsonExtOptions = jsonRoot["chgpolopts"];
-    if (jsonExtOptions) {
-        customruleopt_norep = jsonExtOptions["norep"];
-        customruleopt_chkpos = jsonExtOptions["chkppos"];
-    }
-
-    let pos_preventcharrepeat = -1;
-    let pos_preventcharposition = -1;
-
-    let substr_customRule = '';
-    if (customRuleText.length > 2) {
-        substr_customRule = customRuleText.substring(0, 2);
-
-        const isCharsetToken =
-            substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
-            substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
-            substr_customRule[0] == 's';
-
-        if (isCharsetToken)
-            substr_customRule = '';
-        else {
-            pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
-            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+        const jsonRoot = JSON.parse(customRulePolicyOptions);
+        const jsonExtOptions = jsonRoot["chgpolopts"];
+        if (jsonExtOptions) {
+            customruleopt_norep = jsonExtOptions["norep"];
+            customruleopt_chkpos = jsonExtOptions["chkppos"];
         }
-    }
 
-    if (customruleopt_norep) {
-        // Check 'Prevent two identical consecutive characters' option.
-        if (pos_preventcharrepeat === -1) {
-            customRuleText = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText;
-        }
-    } else {
-        // Update text since option is false
-        if (pos_preventcharrepeat !== -1) {
-            let pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+        let pos_preventcharrepeat = -1;
+        let pos_preventcharposition = -1;
 
-            customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
-            substr_customRule = substr_customRule.slice(0, pos) + substr_customRule.slice(pos + 1);
-        }
-    }
+        let substr_customRule = '';
+        if (customRuleText.length > 2) {
+            substr_customRule = customRuleText.substring(0, 2);
 
-    if (customruleopt_chkpos) {
-        // 'Prevent character in same position' option.
-        if (pos_preventcharposition === -1) {
-            customRuleText = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText;
-        }
-    } else {
-        // Update text since option is false
-        if (pos_preventcharposition !== -1) {
-            const pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
-            if (pos !== -1) {
-                customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
+            const isCharsetToken =
+                substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
+                substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
+                substr_customRule[0] == 's';
+
+            if (isCharsetToken)
+                substr_customRule = '';
+            else {
+                pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+                pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
             }
         }
-    }
 
-    return customRuleText;
+        if (customruleopt_norep) {
+            // Check 'Prevent two identical consecutive characters' option.
+            if (pos_preventcharrepeat === -1) {
+                customRuleText = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText;
+            }
+        } else {
+            // Update text since option is false
+            if (pos_preventcharrepeat !== -1) {
+                let pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+
+                customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
+                substr_customRule = substr_customRule.slice(0, pos) + substr_customRule.slice(pos + 1);
+            }
+        }
+
+        if (customruleopt_chkpos) {
+            // 'Prevent character in same position' option.
+            if (pos_preventcharposition === -1) {
+                customRuleText = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText;
+            }
+        } else {
+            // Update text since option is false
+            if (pos_preventcharposition !== -1) {
+                const pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+                if (pos !== -1) {
+                    customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
+                }
+            }
+        }
+
+        return customRuleText;
+    }
 }
