@@ -730,7 +730,7 @@ namespace manifest
 		bool password;				//
 		bool controltosubmitdata;	// This is a former submit. This is mark of control to submit data, not a button mark how it was impropriety used everywhere.
 		fieldids_t ids;				// Field ids
-		string_t options;           // Field options (Eg. password change field policy options stringify'd JSON object).
+		string_t options;           // Field options (Eg. password change field policy options stringify'd JSON object). "norep" and "chkppos" //TODO: who puts it here? It's part of policy and policy2, not field.
 
 		field_t() : type(FIELDTYPE::unknown), useit(false), password(false), controltosubmitdata(false), rdir(RDIRECTION::none)
 		{

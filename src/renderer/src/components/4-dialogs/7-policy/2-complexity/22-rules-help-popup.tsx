@@ -1,23 +1,23 @@
 import { Fragment } from "react";
-import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from "@/ui";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider } from "@/ui";
+import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { helpRules } from "./20-help-rules";
 
-//TODO: it should be popup with trigger button
-export function RulesHelpTooltip() {
+export function RulesHelpPopup() {
     return (
-        <Popover>
-
+        <TooltipProvider>
+            <Tooltip open>
                 {/* <TooltipTrigger asChild>
                     <Button className="absolute right-2 h-6 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
                         ?
                     </Button>
             </TooltipTrigger> */}
-                <PopoverTrigger className="absolute right-2 h-6 aspect-square rounded-full">
+                <TooltipTrigger className="absolute right-2 h-6 aspect-square rounded-full">
                     ?
-                </PopoverTrigger>
+                </TooltipTrigger>
 
-                <PopoverPortal>
-                    <PopoverContent className="text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <TooltipPortal>
+                    <TooltipContent className="text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
                         <div className="p-4 max-w-96 text-xs">
                             <div className="mb-4 text-center">
@@ -34,10 +34,10 @@ export function RulesHelpTooltip() {
                             </div>
                         </div>
 
-                        {/* <TooltipArrow className="fill-primary" /> */}
-                    </PopoverContent>
-                </PopoverPortal>
-
-        </Popover>
+                        <TooltipArrow className="fill-primary" />
+                    </TooltipContent>
+                </TooltipPortal>
+            </Tooltip>
+        </TooltipProvider>
     );
 }
