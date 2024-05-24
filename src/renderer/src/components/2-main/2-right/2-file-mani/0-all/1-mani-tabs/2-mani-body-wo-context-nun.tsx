@@ -25,7 +25,7 @@ export function ManiBodyWoContextNun() {
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
                 <div className="h-full w-full overflow-hidden" ref={ref}>
-                    <ScrollArea style={{ width, height }} horizontal fullheight>
+                    <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                         <div className={classNames(selectedTab !== "switch1" && "hidden")}>
                             <FormEditor fileUs={fileUs} formIdx={0} />

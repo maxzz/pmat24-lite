@@ -25,7 +25,8 @@ export function RulesHelpPopover() {
                             Custom rule
                         </div>
 
-                        <ScrollArea className="h-64">
+                        <ScrollArea className="h-64" fullHeight>
+
                             <div className="p-4 grid grid-cols-[auto,auto] gap-2">
                                 {helpRules.map((rule, idx) => (
                                     <Fragment key={idx}>
@@ -34,6 +35,7 @@ export function RulesHelpPopover() {
                                     </Fragment>
                                 ))}
                             </div>
+
                         </ScrollArea>
                     </div>
 
