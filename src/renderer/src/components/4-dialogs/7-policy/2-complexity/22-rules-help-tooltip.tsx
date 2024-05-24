@@ -3,7 +3,7 @@ import { Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider }
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { helpRules } from "./20-help-rules";
 
-export function RulesHelpPopup() {
+export function RulesHelpTooltip() {
     return (
         <TooltipProvider>
             <Tooltip open>

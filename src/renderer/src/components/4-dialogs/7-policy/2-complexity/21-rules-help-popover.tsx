@@ -1,9 +1,10 @@
 import { Fragment } from "react";
-import { Button, Popover, PopoverContent, PopoverPortal, PopoverTrigger } from "@/ui";
+import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from "@/ui";
 import { helpRules } from "./20-help-rules";
+import { SymbolCross } from "@/ui/icons";
 
 //TODO: it should be popup with trigger button
-export function RulesHelpTooltip() {
+export function RulesHelpPopover() {
     return (
         <Popover>
             {/* <PopoverTrigger className="absolute right-2 h-6 aspect-square rounded-full">
@@ -17,9 +18,9 @@ export function RulesHelpTooltip() {
             </PopoverTrigger>
 
             <PopoverPortal>
-                <PopoverContent className="text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
-                    <div className="p-4 max-w-96 text-xs">
+                    <div className="p-4 max-w-2xl text-xs">
                         <div className="mb-4 text-center">
                             Custom rule
                         </div>
@@ -34,7 +35,12 @@ export function RulesHelpTooltip() {
                         </div>
                     </div>
 
-                    {/* <TooltipArrow className="fill-primary" /> */}
+                    <PopoverClose className="absolute top-4 right-4">
+                        <SymbolCross className="size-3" />
+                    </PopoverClose>
+
+                    <PopoverArrorWoBottom className="fill-background stroke-border" />
+
                 </PopoverContent>
             </PopoverPortal>
 

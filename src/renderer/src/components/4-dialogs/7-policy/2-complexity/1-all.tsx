@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 import { Button, Input, Label } from "@/ui";
 import { SectionMinMaxLength } from "./2-min-max-length";
 import { SectionTestRoom } from "./4-test-room";
-import { RulesHelpTooltip } from "./21-rules-help-tooltip";
+import { RulesHelpPopover } from "./21-rules-help-popover";
 
 const selectNames = [...namesConstrainSet, 'Custom rule'];
 
@@ -42,7 +42,7 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
                             <Input className="flex-1 h-8" />
                         </div>
 
-                        <RulesHelpTooltip />
+                        <RulesHelpPopover />
                         {/* <RulesHelpTooltip /> */}
                         {/* <Button className="absolute right-2 h-6 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
                             ?

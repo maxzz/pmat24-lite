@@ -7,6 +7,7 @@ import { cn } from "@/utils";
 const Popover = Prim.Root;
 const PopoverTrigger = Prim.Trigger;
 const PopoverAnchor = Prim.Anchor;
+const PopoverClose = Prim.Close;
 const PopoverArrow = Prim.Arrow;
 const PopoverPortal = Prim.Portal;
 const PopoverContentWoPortal = Prim.Content;
@@ -43,4 +44,4 @@ function PopoverArrorWoBottom({className, ...rest}: ComponentPropsWithoutRef<typ
     );
 }
 
-export { Popover, PopoverTrigger, PopoverAnchor, PopoverArrow, PopoverArrorWoBottom, PopoverPortal, PopoverContentWoPortal, PopoverContent };
+export { Popover, PopoverTrigger, PopoverAnchor, PopoverClose, PopoverArrow, PopoverArrorWoBottom, PopoverPortal, PopoverContentWoPortal, PopoverContent };
