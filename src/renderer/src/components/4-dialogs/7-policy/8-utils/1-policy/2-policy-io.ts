@@ -193,7 +193,8 @@ export function isValidPolicy(policy: Policy): boolean {
     );
 }
 
-/**/
+// for manifest_io
+
 type compatibility_split_optionsFromPolicyParams = {
     policy: string;
     options: string;
@@ -225,9 +226,7 @@ function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFr
     pm.options = pm2.options; // 4. Update custom rule options.
     pm.policy = policyToString(policy); // 5. Combine policy back without custom rule options in it.
 }
-/**/
 
-/**/
 function compatibility_combine_optionsToPolicy(customRuleOptions_: string, policyStr_: string): string {
     // 0. Combines custom rule options to policy (if applicable).
     //
@@ -249,12 +248,9 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
 
     return policyStr_;
 }
-/**/
 
-/**/
-// Checks custom rule prepended tokens '~', '&' then 
-// places the information in JSON text within m_polExtOptions.
-// ~&<custom rule text
+// Checks custom rule prepended tokens '~', '&' then places the information in JSON text within m_polExtOptions.
+// ~&<custom rule text>
 
 type UpdateCustomRulePolicyOptionsFromTextParams = {
     text: string;
@@ -306,9 +302,7 @@ function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptions
         pm.text = pm.text.slice(0, pos_preventcharposition) + pm.text.slice(pos_preventcharposition + 1);
     }
 }
-/**/
 
-/**/
 function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, customRuleText: string): string {
     if (!customRulePolicyOptions) {
         return customRuleText;
@@ -344,11 +338,13 @@ function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, custo
         }
     }
 
-    if (customruleopt_norep) { // Check 'Prevent two identical consecutive characters' option.
+    if (customruleopt_norep) {
+        // Check 'Prevent two identical consecutive characters' option.
         if (pos_preventcharrepeat === -1) {
             customRuleText = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText;
         }
-    } else { // Update text since option is false
+    } else {
+        // Update text since option is false
         if (pos_preventcharrepeat !== -1) {
             let pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
 
@@ -357,11 +353,13 @@ function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, custo
         }
     }
 
-    if (customruleopt_chkpos) { // 'Prevent character in same position' option.
+    if (customruleopt_chkpos) {
+        // 'Prevent character in same position' option.
         if (pos_preventcharposition === -1) {
             customRuleText = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText;
         }
-    } else { // Update text since option is false
+    } else {
+        // Update text since option is false
         if (pos_preventcharposition !== -1) {
             const pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
             if (pos !== -1) {
@@ -372,4 +370,3 @@ function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, custo
 
     return customRuleText;
 }
-/**/
