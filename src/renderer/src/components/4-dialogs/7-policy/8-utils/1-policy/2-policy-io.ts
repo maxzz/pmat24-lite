@@ -235,68 +235,73 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
 }
 /**/
 
-/** / I don't know what this is for
+/**/
 // Checks custom rule prepended tokens '~', '&' then 
 // places the information in JSON text within m_polExtOptions.
 // ~&<custom rule text
 
-function & : stringupdCustomRuleText_, __inout string_t& updCustomRulePolicyOptions_) {
-    if (updCustomRuleText_.length() < 2)
+type UpdateCustomRulePolicyOptionsFromTextParams = {
+    text: string;
+    options: string;
+};
+
+function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptionsFromTextParams) {
+    if (pm.text.length < 2)
         return;
 
-    string_t::size_type pos_preventcharrepeat = string_t::npos;
-    string_t::size_type pos_preventcharposition = string_t::npos;
+    let pos_preventcharrepeat = -1;
+    let pos_preventcharposition = -1;
 
-    string_t substr_customRule;
-    if (updCustomRuleText_.length() > 2) {
-        substr_customRule = updCustomRuleText_.substr(0, 2);
+    let substr_customRule = '';
+    if (pm.text.length > 2) {
+        substr_customRule = pm.text.substr(0, 2);
 
-        bool istoken_charset =
+        let isCharsetToken =
             substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
             substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
             substr_customRule[0] == 's';
 
-        if (istoken_charset)
-            substr_customRule.clear();
-        else
-        {
-            pos_preventcharrepeat = substr_customRule.find(TOKEN_PREVENT_CHARACTERREPEAT);
-            pos_preventcharposition = substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION);
+        if (isCharsetToken)
+            substr_customRule = '';
+        else {
+            pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
         }
     }
 
-    bool preventcharrepeat = pos_preventcharrepeat != string_t::npos;
-    bool preventcharposition = pos_preventcharposition != string_t::npos;
+    let preventcharrepeat = pos_preventcharrepeat !== -1;
+    let preventcharposition = pos_preventcharposition !== -1;
 
-    Json::Value jsonRoot;
-    jsonSTR2VALUE(updCustomRulePolicyOptions_, jsonRoot);
-
+    const jsonRoot = JSON.parse(pm.options);
+    jsonRoot["chgpolopts"] = jsonRoot["chgpolopts"] || {};
     jsonRoot["chgpolopts"]["norep"] = preventcharrepeat;
     jsonRoot["chgpolopts"]["chkppos"] = preventcharposition;
 
-    jsonVALUE2STR(jsonRoot, updCustomRulePolicyOptions_);
+    pm.options = JSON.stringify(jsonRoot);
 
-    if (pos_preventcharrepeat != string_t::npos) {
-        updCustomRuleText_.replace(pos_preventcharrepeat, 1, "");
+    if (pos_preventcharrepeat !== -1) {
+        pm.text = pm.text.slice(0, pos_preventcharrepeat) + pm.text.slice(pos_preventcharrepeat + 1);
+        substr_customRule = substr_customRule.slice(0, pos_preventcharrepeat) + substr_customRule.slice(pos_preventcharrepeat + 1);
 
-        substr_customRule.replace(pos_preventcharrepeat, 1, "");
-        pos_preventcharposition = substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION);
+        pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
     }
 
-    if (pos_preventcharposition != string_t::npos)
-        updCustomRuleText_.replace(substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION), 1, "");
+    if (pos_preventcharposition !== -1) {
+        pm.text = pm.text.slice(0, pos_preventcharposition) + pm.text.slice(pos_preventcharposition + 1);
+    }
 }
 /**/
 
 /**/
-function setCustomRulePolicyOptionsToText(customRulePolicyOptions_: string, customRuleText_: string): string {
-    if (!customRulePolicyOptions_)
-        return customRuleText_;
+function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, customRuleText: string): string {
+    if (!customRulePolicyOptions) {
+        return customRuleText;
+    }
 
     let customruleopt_norep = false;
     let customruleopt_chkpos = false;
 
-    const jsonRoot = JSON.parse(customRulePolicyOptions_);
+    const jsonRoot = JSON.parse(customRulePolicyOptions);
     const jsonExtOptions = jsonRoot["chgpolopts"];
     if (jsonExtOptions) {
         customruleopt_norep = jsonExtOptions["norep"];
@@ -307,15 +312,15 @@ function setCustomRulePolicyOptionsToText(customRulePolicyOptions_: string, cust
     let pos_preventcharposition = -1;
 
     let substr_customRule = '';
-    if (customRuleText_.length > 2) {
-        substr_customRule = customRuleText_.substring(0, 2);
+    if (customRuleText.length > 2) {
+        substr_customRule = customRuleText.substring(0, 2);
 
-        let istoken_charset =
+        const isCharsetToken =
             substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
             substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
             substr_customRule[0] == 's';
 
-        if (istoken_charset)
+        if (isCharsetToken)
             substr_customRule = '';
         else {
             pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
@@ -324,30 +329,31 @@ function setCustomRulePolicyOptionsToText(customRulePolicyOptions_: string, cust
     }
 
     if (customruleopt_norep) { // Check 'Prevent two identical consecutive characters' option.
-        if (pos_preventcharrepeat === -1)
-            customRuleText_ = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText_;
-    }
-    else { // Update text since option is false
+        if (pos_preventcharrepeat === -1) {
+            customRuleText = TOKEN_PREVENT_CHARACTERREPEAT + customRuleText;
+        }
+    } else { // Update text since option is false
         if (pos_preventcharrepeat !== -1) {
             let pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
 
-            customRuleText_ = customRuleText_.slice(pos);
-            substr_customRule = substr_customRule.slice(pos);
+            customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
+            substr_customRule = substr_customRule.slice(0, pos) + substr_customRule.slice(pos + 1);
         }
     }
 
     if (customruleopt_chkpos) { // 'Prevent character in same position' option.
-        if (pos_preventcharposition === -1)
-            customRuleText_ = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText_;
-    }
-    else { // Update text since option is false
+        if (pos_preventcharposition === -1) {
+            customRuleText = TOKEN_PREVENT_CHARACTERPOSITION + customRuleText;
+        }
+    } else { // Update text since option is false
         if (pos_preventcharposition !== -1) {
-            customRuleText_ = customRuleText_.slice(substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION));
-
-            //customRuleText_.replace(substr_customRule.find(TOKEN_PREVENT_CHARACTERPOSITION), 1, "");
+            const pos = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+            if (pos !== -1) {
+                customRuleText = customRuleText.slice(0, pos) + customRuleText.slice(pos + 1);
+            }
         }
     }
 
-    return customRuleText_;
+    return customRuleText;
 }
 /**/
