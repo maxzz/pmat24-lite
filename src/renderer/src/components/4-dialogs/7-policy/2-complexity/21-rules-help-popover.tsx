@@ -6,7 +6,7 @@ import { SymbolCross } from "@/ui/icons";
 //TODO: it should be popup with trigger button
 export function RulesHelpPopover() {
     return (
-        <Popover open>
+        <Popover>
             {/* <PopoverTrigger className="absolute right-2 h-6 aspect-square rounded-full">
                     ?
                 </PopoverTrigger>
@@ -18,15 +18,14 @@ export function RulesHelpPopover() {
             </PopoverTrigger>
 
             <PopoverPortal>
-                <PopoverContent className="relative p-0 w-96 text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative p-4 w-96 text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
-                    <div className="p-4 text-xs">
+                    <div className="text-xs">
                         <div className="mb-4 text-center">
                             Custom rule
                         </div>
 
                         <ScrollArea className="h-64">
-
                             <div className="p-4 grid grid-cols-[auto,auto] gap-2">
                                 {helpRules.map((rule, idx) => (
                                     <Fragment key={idx}>
