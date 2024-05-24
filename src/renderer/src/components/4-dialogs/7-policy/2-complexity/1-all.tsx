@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 import { Button, Input, Label } from "@/ui";
 import { SectionMinMaxLength } from "./2-min-max-length";
 import { SectionTestRoom } from "./4-test-room";
-import { RulesHelpPopup } from "./21-rules-help-popup";
+import { RulesHelpPopup } from "./21-rules-help-tooltip";
 
 const selectNames = [...namesConstrainSet, 'Custom rule'];
 
