@@ -192,25 +192,41 @@ export function isValidPolicy(policy: Policy): boolean {
         )
     );
 }
-/** /
-function compatibility_split_optionsFromPolicy(__inout string_t& customRuleOptions_, __inout string_t& policyText_) {
+
+/**/
+type compatibility_split_optionsFromPolicyParams = {
+    policy: string;
+    options: string;
+};
+
+function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFromPolicyParams): void {
     // 0. Splits custom rule options from policy (if available).
     //
     // NOTE: Unfortunately, we do not know whether policy has extended (custom) rule 
     // until we split. So, we split the policy string and if it contains custom rule
     // then we split custom rule options from the policy string before combining policy back.
 
-    if (policyText_.empty()) // 1. Check if we have any policy to split.
+    if (!pm.policy) { // 1. Check if we have any policy to split.
         return;
+    }
 
-    password::policy_t policy(policyText_, POLICYTYPE::none); // 2. Check if policy string has custom rule.
-    if (!policy.IsExtendedPolicy())
+    let policy: Policy = constructorFromString(pm.policy); // 2. Check if policy string has custom rule.
+    if (!policy.useExt) {
         return;
+    }
 
-    updateCustomRulePolicyOptionsFromText(policy.m_policyExt, customRuleOptions_); // 3. Update custom rule options and custom rule policy text.
-    policyText_ = policy.policyToString(); // 4. Combine policy text back without custom rule options in it.
+    let pm2: UpdateCustomRulePolicyOptionsFromTextParams = {
+        text: policy.policyExt,
+        options: pm.options,
+    };
+
+    updateCustomRulePolicyOptionsFromText(pm2); // 3. Update custom rule options and custom rule policy text.
+
+    pm.options = pm2.options; // 4. Update custom rule options.
+    pm.policy = policyToString(policy); // 5. Combine policy back without custom rule options in it.
 }
 /**/
+
 /**/
 function compatibility_combine_optionsToPolicy(customRuleOptions_: string, policyStr_: string): string {
     // 0. Combines custom rule options to policy (if applicable).
@@ -245,7 +261,7 @@ type UpdateCustomRulePolicyOptionsFromTextParams = {
     options: string;
 };
 
-function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptionsFromTextParams) {
+function updateCustomRulePolicyOptionsFromText(pm: UpdateCustomRulePolicyOptionsFromTextParams): void {
     if (pm.text.length < 2)
         return;
 
