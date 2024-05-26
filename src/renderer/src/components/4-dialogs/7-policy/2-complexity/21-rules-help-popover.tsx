@@ -7,10 +7,6 @@ import { SymbolCross } from "@/ui/icons";
 export function RulesHelpPopover() {
     return (
         <Popover>
-            {/* <PopoverTrigger className="absolute right-2 h-6 aspect-square rounded-full">
-                    ?
-                </PopoverTrigger>
-            */}
             <PopoverTrigger asChild>
                 <Button className="absolute right-2 h-6 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
                     ?
