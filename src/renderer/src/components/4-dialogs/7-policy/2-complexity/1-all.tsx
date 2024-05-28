@@ -43,10 +43,6 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
                         </div>
 
                         <RulesHelpPopover />
-                        {/* <RulesHelpTooltip /> */}
-                        {/* <Button className="absolute right-2 h-6 aspect-square rounded-full" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
-                            ?
-                        </Button> */}
                     </div>
 
                     <Button size="sm" onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}>
