@@ -6,7 +6,6 @@ import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
 import { AppGlobalDialogs, AppGlobalShortcuts } from "./store/atoms/7-dialogs";
-import { RulesHelpPopover } from "./components/4-dialogs/7-policy/2-complexity/21-rules-help-popover";
 // import { SpySvgSymbols } from "./util-hooks";
 
 export function App(): JSX.Element {
@@ -18,7 +17,6 @@ export function App(): JSX.Element {
             <SectionMain />
             <SectionFooter />
         </div>
-        <RulesHelpPopover />
 
         <AppGlobalShortcuts />
         <AppGlobalDialogs />
