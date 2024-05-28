@@ -14,19 +14,19 @@ export function RulesHelpPopover() {
             </PopoverTrigger>
 
             <PopoverPortal>
-                <PopoverContent className="relative p-4 w-96 text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
-                    <div className="text-xs">
-                        <div className="mb-4 text-center">
-                            Custom rule
+                    <div className="my-3 text-xs">
+                        <div className="mb-2 text-base text-center">
+                            Custom rules
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
 
-                            <div className="p-4 grid grid-cols-[auto,auto] gap-2">
+                            <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
                                 {helpRules.map((rule, idx) => (
                                     <Fragment key={idx}>
-                                        <div className="font-bold">{rule.c1}</div>
+                                        <div className="text-center font-bold">{rule.c1}</div>
                                         <div>{rule.c2}</div>
                                     </Fragment>
                                 ))}
