@@ -19,7 +19,7 @@ export enum RESTRICTTYPE {
     different_pp,               // Different from previous password.
 };
 
-export type Policy = {
+export type PolicyIo = {
     type: POLICYTYPE,           // Type of policy
     
     constrains: RESTRICTTYPE,   // Password repetition constrains
@@ -34,7 +34,7 @@ export type Policy = {
 
 // default policy
 
-const defaultPolicy: Policy = {
+const defaultPolicy: PolicyIo = {
     type: POLICYTYPE.none,
     simpleChSet: CHARSETTYPE.atleastonenumber,
     constrains: RESTRICTTYPE.no_restrictions,
@@ -44,7 +44,7 @@ const defaultPolicy: Policy = {
     policyExt: '',
 };
 
-export function defaultPolicyByType(type: POLICYTYPE): Policy {
+export function defaultPolicyByType(type: POLICYTYPE): PolicyIo {
     const rv = { ...defaultPolicy, type, constrains: RESTRICTTYPE.different_ap };
     switch (type) {
         case POLICYTYPE.none:

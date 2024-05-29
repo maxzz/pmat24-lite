@@ -1,4 +1,4 @@
-import { POLICYTYPE, Policy } from "./1-types";
+import { POLICYTYPE, PolicyIo } from "./1-types";
 import { charset_str, constrains_str, str_charset, str_constrains } from "./3-casting";
 
 /*
@@ -13,8 +13,8 @@ const POLICY_SEPARATOR = "#expo#";              // "ex-tended po-licy" (keep the
 const TOKEN_PREVENT_CHARACTERREPEAT = "~";
 const TOKEN_PREVENT_CHARACTERPOSITION = "&";
 
-export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.none): Policy {
-    const rv = { type } as Policy;
+export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.none): PolicyIo {
+    const rv = { type } as PolicyIo;
 
     const { policyOld: policySimple, policyExt } = compatibility_split_policy(v);
 
@@ -48,7 +48,7 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         return rv;
     }
 
-    function policyFromStringSimple(v: string | undefined, rv: Partial<Policy>) { // initial rv is {}
+    function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { // initial rv is {}
         if (!v) {
             return;
         }
@@ -75,7 +75,7 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv.constrains = str_constrains(ss[4]);
     }
 
-    function policyFromStringExtended(v: string | undefined, rv: Partial<Policy>): void { // initial rv is {}
+    function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>): void { // initial rv is {}
         rv.useExt = false;
         rv.policyExt = '';
 
@@ -100,8 +100,8 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
         rv = { ...rv, ...parts };
     }
 
-    function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> {
-        const rv: Pick<Policy, 'policyExt' | 'minLength' | 'maxLength'> = {
+    function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<PolicyIo, 'policyExt' | 'minLength' | 'maxLength'> {
+        const rv: Pick<PolicyIo, 'policyExt' | 'minLength' | 'maxLength'> = {
             policyExt: v,
             minLength: minLength,
             maxLength: maxLength,
@@ -126,7 +126,7 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
     }
 }
 
-export function policyToString(policy: Policy): string {
+export function policyToString(policy: PolicyIo): string {
     let rvSimple = policyToStringSimple(policy);
     let rvExt = policyToStringExtended(policy);
 
@@ -152,7 +152,7 @@ export function policyToString(policy: Policy): string {
         return policy;
     }
 
-    function policyToStringSimple(policy: Policy): string {
+    function policyToStringSimple(policy: PolicyIo): string {
         let type = '';
         switch (policy.type) {
             case POLICYTYPE.none: return '';
@@ -166,7 +166,7 @@ export function policyToString(policy: Policy): string {
         return `${type}:${policy.minLength}:${policy.maxLength}:${chset}:${constr}`;
     }
 
-    function policyToStringExtended(v: Partial<Policy>): string {
+    function policyToStringExtended(v: Partial<PolicyIo>): string {
         let type = '';
         if (v.useExt) {
             switch (v.type) {
@@ -180,7 +180,7 @@ export function policyToString(policy: Policy): string {
     }
 }
 
-export function theSame(a: Policy, b: Policy): boolean {
+export function theSame(a: PolicyIo, b: PolicyIo): boolean {
     const rv =
         a.type === b.type &&
         a.constrains === b.constrains &&
@@ -192,7 +192,7 @@ export function theSame(a: Policy, b: Policy): boolean {
     return rv;
 }
 
-export function isValidPolicy(policy: Policy): boolean {
+export function isValidPolicy(policy: PolicyIo): boolean {
     return (
         !(
             (!policy.useExt && policy.type == POLICYTYPE.none) ||   // Simple without policy type - Invalid
@@ -225,7 +225,7 @@ function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFr
         return;
     }
 
-    let policy: Policy = constructorFromString(pm.policy); // 2. Check if policy string has custom rule.
+    let policy: PolicyIo = constructorFromString(pm.policy); // 2. Check if policy string has custom rule.
     if (!policy.useExt) {
         return;
     }
@@ -303,7 +303,7 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
         return policyStr_;
     }
 
-    const policy: Policy = constructorFromString(policyStr_); // 2. Check if policy string has custom rule.
+    const policy: PolicyIo = constructorFromString(policyStr_); // 2. Check if policy string has custom rule.
     if (!policy.useExt) {
         return policyStr_;
     }

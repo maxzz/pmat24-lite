@@ -1,8 +1,8 @@
-import { CHARSETTYPE, Policy } from "../1-policy";
+import { CHARSETTYPE, PolicyIo } from "../1-policy";
 import { utils } from "../3-parser/utils";
 
 // class generate_t
-export function operator_generate(policy: Policy): string {
+export function operator_generate(policy: PolicyIo): string {
 
     // Check whether min is lower than max.
     if (policy.minLength > policy.maxLength) {

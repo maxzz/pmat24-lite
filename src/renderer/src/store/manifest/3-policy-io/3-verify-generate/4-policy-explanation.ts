@@ -1,4 +1,4 @@
-import { CHARSETTYPE, RESTRICTTYPE, Policy } from "../1-policy";
+import { CHARSETTYPE, RESTRICTTYPE, PolicyIo } from "../1-policy";
 import { parseExtPolicy2RulesSet } from "../3-parser";
 import { Rule, RulesExtra } from "../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
@@ -88,7 +88,7 @@ export function getRuleSetExplanation(rulesExtra: RulesExtra, noDuplicates: bool
     return rv;
 }
 
-export function getPolicyExplanation(policy_: Policy): string {
+export function getPolicyExplanation(policy_: PolicyIo): string {
     let rv = '';
 
     if (policy_.useExt) {

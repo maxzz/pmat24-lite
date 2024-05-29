@@ -1,4 +1,4 @@
-import { Policy } from "../1-policy";
+import { PolicyIo } from "../1-policy";
 import { ChSet, RulesExtra, ParseErrorType, Rule, ParseAdvPolicyResult, parse_advpolicy, strFindFirstOf, utils } from "../3-parser";
 
 export namespace customRule2 {
@@ -358,7 +358,7 @@ export namespace customRule2 {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    function parseExtPolicy2RulesSet(policy: Policy): ParseAdvPolicyResult | undefined {
+    function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult | undefined {
         let patternWithMinMax = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
         return parseExtPattern2RulesSet(patternWithMinMax);
     }

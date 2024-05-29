@@ -1,7 +1,7 @@
 {
 	"files": [
 		{
-			"path": "src/renderer/src/store/manifest/3-policy-defs/1-policy/sources-cpp/2-ots_password_policy_advanced.h",
+			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/2-ots_password_policy_advanced.h",
 			"bookmarks": [
 				{
 					"line": 1152,
@@ -11,7 +11,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/manifest/3-policy-defs/1-policy/sources-cpp/wiz_page3_collect2_fields_policy_dlg.cpp",
+			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/wiz_page3_collect2_fields_policy_dlg.cpp",
 			"bookmarks": [
 				{
 					"line": 246,
@@ -21,7 +21,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/manifest/3-policy-defs/1-policy/sources-cpp/4-ots_password_policy_advanced_ui.h",
+			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/4-ots_password_policy_advanced_ui.h",
 			"bookmarks": [
 				{
 					"line": 383,
@@ -41,7 +41,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/manifest/3-policy-defs/1-policy/sources-cpp/oti_manifest_io.h",
+			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/oti_manifest_io.h",
 			"bookmarks": [
 				{
 					"line": 1315,

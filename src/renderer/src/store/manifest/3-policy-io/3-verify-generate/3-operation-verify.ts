@@ -1,11 +1,11 @@
-import { CHARSETTYPE, Policy } from "../1-policy";
+import { CHARSETTYPE, PolicyIo } from "../1-policy";
 import { utils } from "../3-parser/utils";
 import { strFindFirstNotOf, strFindFirstOf } from "../3-parser/utils-cpp";
 
 // class verify_t {
 //TODO: We need to generate explanation to user why policy verification failed. Later.
 
-export function operator_verify(policy: Policy, psw: string): boolean {
+export function operator_verify(policy: PolicyIo, psw: string): boolean {
 
     if (psw.length < policy.minLength || psw.length > policy.maxLength) {
         console.error("inv.pol.length");

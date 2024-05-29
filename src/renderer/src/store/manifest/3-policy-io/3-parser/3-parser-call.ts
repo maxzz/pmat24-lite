@@ -1,4 +1,4 @@
-import { Policy } from "../1-policy";
+import { PolicyIo } from "../../3-policy-io/1-policy";
 import { ParseError, ParseErrorType, RulesExtra } from "./1-parser-types";
 import { PolicyParser } from "./2-parser";
 
@@ -48,7 +48,7 @@ function parseExtPattern2RulesSet(pattern: string): ParseAdvPolicyResult
     return rv;
 }
 
-export function parseExtPolicy2RulesSet(policy: Policy): ParseAdvPolicyResult {
+export function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult {
     let patternWithMinMaxRange = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
     return parseExtPattern2RulesSet(patternWithMinMaxRange);
 }
