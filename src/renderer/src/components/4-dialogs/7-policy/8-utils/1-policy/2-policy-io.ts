@@ -1,6 +1,14 @@
 import { POLICYTYPE, Policy } from "./1-types";
 import { charset_str, constrains_str, str_charset, str_constrains } from "./3-casting";
 
+/*
+    {1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm; login form:
+
+    policy="[p4]g:8:20::different_ap"
+	policy2="[e1]g:A{2,5}d{1,}[!@#$%^&amp;*._]{1,}a{2,5}&lt;8,20&gt;"
+	options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"
+*/
+
 const POLICY_SEPARATOR = "#expo#";              // "ex-tended po-licy" (keep the length < 8)
 const TOKEN_PREVENT_CHARACTERREPEAT = "~";
 const TOKEN_PREVENT_CHARACTERPOSITION = "&";
