@@ -3,7 +3,7 @@ import { OnValueChangeAny } from "@/util-hooks";
 import { debounce } from "@/utils";
 import { PolicyDlgConv } from "./0-conv";
 
-export function createUiAtoms(policies: PolicyDlgConv.FieldPolicies, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
+export function createUiAtoms(policies: PolicyDlgConv.TwoPolicies, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const data = PolicyDlgConv.forAtoms(policies);
     const atoms = PolicyDlgConv.toAtoms(data, onChange);
     return {

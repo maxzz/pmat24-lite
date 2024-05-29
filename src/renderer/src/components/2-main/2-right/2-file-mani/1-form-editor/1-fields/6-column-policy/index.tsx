@@ -29,7 +29,7 @@ type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     metaField: Meta.Field;
 };
 
-export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableClick, ...rest }: Column6_LabelProps) {
+export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
     const openAtom = useState(() => atom(false))[0];
     const setOpen = useSetAtom(openAtom);
 
@@ -47,15 +47,15 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
     return (<>
         <Button
             className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
-            onClick={(e) => { enableClick?.(e); setOpen(true); }}
+            onClick={(e) => { enableRowClick?.(e); setOpen(true); }}
             {...rest}
         >
             {text}...
         </Button>
 
         <PolicyEditorNewDlg
-            dataAtom={policiesAtom}
             openAtom={openAtom}
+            dataAtom={policiesAtom}
         />
     </>);
 }

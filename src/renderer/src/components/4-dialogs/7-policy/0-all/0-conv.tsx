@@ -4,7 +4,7 @@ import { ConstrainPsw, ConstrainSet, Mani, Meta, UseAs } from "pm-manifest";
 
 export namespace PolicyDlgConv {
 
-    export type PolicyUiForAtoms = {
+    export type ForAtoms = {
         enabled: boolean;           // Enable password policy
         isCustomRule: '0' | '1';    // boolean; rule type: predefined or custom rule
 
@@ -22,19 +22,19 @@ export namespace PolicyDlgConv {
         useAs: string;              // UseAs; by user / by system
     };
 
-    export type FieldPolicies = {
+    export type TwoPolicies = {
         policy: string | undefined;
         policy2: string | undefined;
     };
 
-    export type PolicyUiAtoms = Prettify<Atomize<PolicyUiForAtoms> & {
-        fromFile: PolicyUiForAtoms; // original state to compare with
+    export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
+        fromFile: ForAtoms; // original state to compare with
         changed: boolean;           // state from atoms is different from original state
     }>;
 
     // Inital policy
 
-    const initialPolicy: PolicyUiForAtoms = {
+    const initialPolicy: ForAtoms = {
         enabled: true,
         isCustomRule: '0',
         constrainSet: `${ConstrainSet.withspecial}`,
@@ -49,20 +49,20 @@ export namespace PolicyDlgConv {
 
     // Atoms
 
-    export function forAtoms(policies: FieldPolicies): PolicyUiForAtoms {
+    export function forAtoms(policies: TwoPolicies): ForAtoms {
         //TODO: create the default policy but dissabled initially
         //TODO: parse policies and assign to rv
 
         //TODO: parse policy and assign onChange callback
         // const policy = policies.policy || policies.policy2;
 
-        const rv: PolicyUiForAtoms = initialPolicy;
+        const rv: ForAtoms = initialPolicy;
         return rv;
     }
 
-    export function toAtoms(initialState: PolicyUiForAtoms, onChange: OnValueChangeAny): Atomize<PolicyUiForAtoms> {
+    export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
         const { enabled, isCustomRule, constrainSet, custom, minLength, maxLength, textVerify, textGenerate, constrainsPsw, useAs } = initialState;
-        const rv: Atomize<PolicyUiForAtoms> = {
+        const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             isCustomRuleAtom: atomWithCallback(isCustomRule, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
@@ -77,8 +77,8 @@ export namespace PolicyDlgConv {
         return rv;
     }
 
-    export function fromAtoms(atoms: PolicyUiAtoms, get: Getter, set: Setter): PolicyUiForAtoms {
-        const rv: PolicyUiForAtoms = {
+    export function fromAtoms(atoms: PolicyUiAtoms, get: Getter, set: Setter): ForAtoms {
+        const rv: ForAtoms = {
             enabled: get(atoms.enabledAtom),
             isCustomRule: get(atoms.isCustomRuleAtom),
             constrainSet: get(atoms.constrainSetAtom),
@@ -95,7 +95,7 @@ export namespace PolicyDlgConv {
 
     // Comparison
 
-    export function areTheSame(from: PolicyUiForAtoms, to: PolicyUiForAtoms): boolean {
+    export function areTheSame(from: ForAtoms, to: ForAtoms): boolean {
         const rv = (
             from.enabled === to.enabled &&
             from.isCustomRule === to.isCustomRule &&

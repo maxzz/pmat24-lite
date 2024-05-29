@@ -14,7 +14,6 @@ const selectNames = [...namesConstrainSet, 'Use custom rule'];
 function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [selected, setSelected] = useAtom(atoms.constrainSetAtom);
     const isCustom = +selected === selectNames.length - 1;
-    const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
     return (
         <div className="space-y-1">
             <div className="">

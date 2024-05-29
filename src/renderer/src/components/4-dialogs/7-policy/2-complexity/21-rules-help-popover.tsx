@@ -18,7 +18,7 @@ export function RulesHelpPopover() {
 
                     <div className="my-3 text-xs">
                         <div className="mb-2 text-base text-center">
-                            Custom rules
+                            Custom rule parts
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
