@@ -1,5 +1,5 @@
 import { ParseError, ParseErrorType, Range, Rule, RulesExtra } from "./1-parser-types";
-import { isCharNumber, isCharHexNumber } from "./utils-cpp";
+import { isCharNumber, isCharHexNumber } from "./9-utils-cpp";
 
 const WSHORTHAND_d = "0123456789";
 const WSHORTHAND_a = "abcdefghijklmnopqrstuvwxyz";

@@ -2,7 +2,7 @@ import { CHARSETTYPE, RESTRICTTYPE, PolicyIo } from "../1-policy";
 import { parseExtPolicy2RulesSet } from "../3-parser";
 import { Rule, RulesExtra } from "../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
-import { utils } from "../3-parser/utils";
+import { utils } from "../3-parser/8-utils";
 
 /*
 This file expect following resource IDs to be declared and defined:
