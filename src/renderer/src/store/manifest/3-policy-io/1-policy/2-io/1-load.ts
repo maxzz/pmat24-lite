@@ -13,6 +13,15 @@ export function constructorFromString(v: string): PolicyIo {
     return rv;
 }
 
+export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): PolicyIo {
+    const rv = { type: POLICYTYPE.none } as PolicyIo;
+
+    policyFromStringSimple(policy, rv);
+    policyFromStringExtended(policy2, rv);
+
+    return rv;
+}
+
 /**
  * Used only by oti_manifest_io.h to SAVE policy to manifest and somehow by constructorFromString() in this file.
  * No this is used by LOAD and was introduced due to parser limitations.
