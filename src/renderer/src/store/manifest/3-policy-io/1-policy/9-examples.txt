@@ -1,0 +1,72 @@
+//TODO: add created and modified to options UI
+//TODO: filter manifests with policies (and extended policy)
+
+{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm; visaonline.com login form:
+
+    policy="[p4]g:8:20::different_ap"
+	policy2="[e1]g:A{2,5}d{1,}[!@#$%^&amp;*._]{1,}a{2,5}&lt;8,20&gt;"                       <- [e1]g:A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
+	options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"
+
+{63b8feef-c560-4777-b26a-70413303c096}.dpm; checkfree.com login form:
+
+    policy="[p4]g:8:8::different_ap"
+	policy2="[e1]g:A{3}a{3}d{2}&lt;8,8&gt;"                                                 <- [e1]g:A{3}a{3}d{2}<8,8>
+
+{f79c0253-68f6-4e90-8c89-698ddbce96ca}.dpm; manual login form:
+    
+    policy="[p4]g:8:16:withspecial:different_ap"
+
+{f683fdbf-5dc2-4924-8f8e-9161e98c4146}.dpm; uchooserewards.com login form:
+
+    policy="[p4]g:8:12:withspecial:different_ap"
+	policy2="[e1]g:A{2,}d{1,}[_!@()#$%^&amp;*]{2,}a{2,}&lt;8,12&gt;"                        <- [e1]g:A{2,}d{1,}[_!@()#$%^&*]{2,}a{2,}<8,12>
+
+{e070764c-dbc7-41c1-98c9-d744d2aba534}.dpm; transunion.com login form:
+
+    policy="[p4]g:8:12:withspecial:different_ap"
+	policy2="[e1]g:A{2,}d{1,}[@#$!~%*]{2,}a{2,}&lt;8,12&gt;"                                <- [e1]g:A{2,}d{1,}[@#$!~%*]{2,}a{2,}<8,12>
+	options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"  <- options="{chgpolopts:{chkppos:false,norep:false}}"
+
+{c03d8527-2c7b-4be3-a551-f1420e3afd62}.dpm; cashedge.com
+
+    policy="[p4]g:8:15:withspecial:different_ap"
+    policy2="[e1]g:A{2,5}d{1,}[!@#$*]{2,}a{2,5}&lt;8,15&gt;"                                <- [e1]g:A{2,5}d{1,}[!@#$*]{2,}a{2,5}<8,15>
+
+{a4600222-37d6-41e8-b25c-3b458bef8447}.dpm; vystarlendingt login form:
+
+    policy="[p4]g:8:12:withspecial:different_ap"
+    policy2="[e1]g:A{2,}d{2,}[!#@&amp;%]{2,}a{2,}&lt;8,12&gt;"                              <- [e1]g:A{2,}d{2,}[!#@&%]{2,}a{2,}<8,12>
+
+{7f004eb0-4f64-4688-8ba8-840ad7ce73d0}.dpm; fiserv.com login form:
+
+    policy="[p4]g:8:12:withspecial:different_ap"
+    policy2="[e1]g:A{2,}d{2,}[!#@&amp;%^*()~.]{2,}a{2,}&lt;8,12&gt;"                        <- [e1]g:A{2,}d{2,}[!#@&%^*()~.]{2,}a{2,}<8,12>
+    options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"  <- options="{chgpolopts:{chkppos:false,norep:false}}"
+
+{7ecc4bb6-78b9-440c-8d54-b098e8c5a019}.dpm; hometracker.com login form:
+
+    policy="[p4]g:8:20:withspecial:different_ap"
+    policy2="[e1]g:A{2,}d{2,}[+?*$^~!@#%&amp;=:;|&apos;]{2,}a{2,}&lt;8,20&gt;"              <- [e1]g:A{2,}d{2,}[+?*$^~!@#%&=:;|']{2,}a{2,}<8,20>
+
+{7664fc68-9751-44b5-b746-cc97979be246}.dpm; fanniemae.com login form:
+
+    policy="[p4]g:8:8:withspecial:different_ap"
+    policy2="[e1]g:A{2,}a{2,}d{2,}[_@]{1,}&lt;8,8&gt;"                                      <- [e1]g:A{2,}a{2,}d{2,}[_@]{1,}<8,8>
+    options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"  <- options="{chgpolopts:{chkppos:false,norep:false}}"
+
+{72a3c959-f327-4d04-9878-525130e39fe6}.dpm; wc3.com login form:
+
+    policy="[p4]g:8:20:withspecial:different_ap"
+    policy2="[e1]g:A{2,}d{2,}[@#$%*]{2,}a{2,}&lt;8,20&gt;"                                  <- [e1]g:A{2,}d{2,}[@#$%*]{2,}a{2,}<8,20>
+
+{4c5f7d0d-b59d-4957-9064-0c985398607d}.dpm; firstdataeservices.com login form:
+
+    policy="[p4]g:8:10:withspecial:different_ap"
+    policy2="[e1]g:A{1,}d{1,}[!@#]{1,}a{1,}&lt;8,10&gt;"                                    <- [e1]g:A{1,}d{1,}[!@#]{1,}a{1,}<8,10>
+    options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"  <- options="{chgpolopts:{chkppos:false,norep:false}}"
+
+{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm; visaonline.com login form:
+
+    policy="[p4]g:8:20::different_ap"
+    policy2="[e1]g:A{2,5}d{1,}[!@#$%^&amp;*._]{1,}a{2,5}&lt;8,20&gt;"                       <- [e1]g:A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
+    options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"  <- options="{chgpolopts:{chkppos:false,norep:false}}"
