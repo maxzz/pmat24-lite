@@ -3,11 +3,11 @@ import { PolicyAction } from "./9-policy-helpers";
 
 export * from "./9-policy-helpers";
 
-export const policyDialogOpenAtom = atom(false);
+//export const policyDialogOpenAtom = atom(false);
 
 // Dialog data
 
-export type PoliciesForAtoms = {
+export type TwoFieldPoliciesForAtoms = {
     policy: string;
     policy2: string;
     explanation: PolicyAction;

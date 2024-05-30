@@ -1,11 +1,11 @@
 import { HTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
 import { Meta } from 'pm-manifest';
-import { classNames } from '@/utils';
-import { Button } from '@/ui';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
-import { PoliciesForAtoms } from '@/store/atoms/7-dialogs';
+import { TwoFieldPoliciesForAtoms } from '@/store/atoms/7-dialogs';
 import { PolicyEditorNewDlg } from '@/components/4-dialogs';
+import { Button } from '@/ui';
+import { classNames } from '@/utils';
 
 const Column6_PolicyClasses = "\
 px-2 py-3 h-7 text-[.65rem] \
@@ -25,13 +25,13 @@ flex items-center justify-center gap-0.5";
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
-    policiesAtom: PrimitiveAtom<PoliciesForAtoms>;
+    policiesAtom: PrimitiveAtom<TwoFieldPoliciesForAtoms>;
     metaField: Meta.Field;
 };
 
 export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
-    const openAtom = useState(() => atom(false))[0];
-    const setOpen = useSetAtom(openAtom);
+    const openDlgAtom = useState(() => atom(false))[0];
+    const setDlgOpen = useSetAtom(openDlgAtom);
 
     const useIt = useAtomValue(useItAtom);
     const policies = useAtomValue(policiesAtom);
@@ -47,14 +47,14 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
     return (<>
         <Button
             className={classNames(Column6_PolicyClasses, !useIt && "opacity-30 cursor-pointer", className)}
-            onClick={(e) => { enableRowClick?.(e); setOpen(true); }}
+            onClick={(e) => { enableRowClick?.(e); setDlgOpen(true); }}
             {...rest}
         >
             {text}...
         </Button>
 
         <PolicyEditorNewDlg
-            openAtom={openAtom}
+            openAtom={openDlgAtom}
             dataAtom={policiesAtom}
         />
     </>);

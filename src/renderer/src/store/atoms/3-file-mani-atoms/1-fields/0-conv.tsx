@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
-import { PoliciesForAtoms, getPolicyExplanation } from "../../7-dialogs";
+import { TwoFieldPoliciesForAtoms, getPolicyExplanation } from "../../7-dialogs";
 
 export namespace FieldConv {
 
@@ -11,7 +11,7 @@ export namespace FieldConv {
         type: FieldTyp;
         valueLife: ValueLife;           // this includes value and valueAs
         dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
-        policies: PoliciesForAtoms;
+        policies: TwoFieldPoliciesForAtoms;
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
@@ -48,7 +48,7 @@ export namespace FieldConv {
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
         !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
 
-        const policies: PoliciesForAtoms = {
+        const policies: TwoFieldPoliciesForAtoms = {
             policy: maniField.policy || '',
             policy2: maniField.policy2 || '',
             explanation: getPolicyExplanation(maniField.policy, maniField.policy2, field),
@@ -100,7 +100,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    function theSamePolicies(from: PoliciesForAtoms, to: PoliciesForAtoms): boolean {
+    function theSamePolicies(from: TwoFieldPoliciesForAtoms, to: TwoFieldPoliciesForAtoms): boolean {
         const rv = (
             from.policy === to.policy &&
             from.policy2 === to.policy2
