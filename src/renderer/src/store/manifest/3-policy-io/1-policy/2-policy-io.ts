@@ -1,14 +1,6 @@
 import { POLICYTYPE, PolicyIo } from "./1-types";
 import { charset_str, constrains_str, str_charset, str_constrains } from "./3-casting";
 
-/*
-    {1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm; login form:
-
-    policy="[p4]g:8:20::different_ap"
-	policy2="[e1]g:A{2,5}d{1,}[!@#$%^&amp;*._]{1,}a{2,5}&lt;8,20&gt;"
-	options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"
-*/
-
 const POLICY_SEPARATOR = "#expo#";              // "ex-tended po-licy" (keep the length < 8)
 const TOKEN_PREVENT_CHARACTERREPEAT = "~";
 const TOKEN_PREVENT_CHARACTERPOSITION = "&";
@@ -24,7 +16,7 @@ export function constructorFromString(v: string, type: POLICYTYPE = POLICYTYPE.n
     return rv;
 
     /**
-     * Used only by oti_manifest_io.h to save policy to manifest and somehow by constructorFromString() in this file.
+     * Used only by oti_manifest_io.h to SAVE policy to manifest and somehow by constructorFromString() in this file.
      */
     function compatibility_split_policy(policy: string): { policyOld?: string | undefined; policyExt?: string | undefined; } {
         // 0. Split 'policy' in 'policyOld' and 'policyNew' to save as manifest fields: 'policy' and 'policy2'.
@@ -131,11 +123,11 @@ export function policyToString(policy: PolicyIo): string {
     let rvExt = policyToStringExtended(policy);
 
     let rv = '';
-    compatibility_combine_policy(rv, rvSimple, rvExt);
+    rv = compatibility_combine_policy('', rvSimple, rvExt);
     return rv;
 
     /**
-     * Used only by oti_manifest_io.h to load policy from manifest and somehow by policyToString() in this file.
+     * Used only by oti_manifest_io.h to LOAD policy from manifest and somehow by policyToString() in this file.
      */
     function compatibility_combine_policy(policy: string, policyOld: string, policyExt: string): string {
         // 0. Combine 'policyOld' and 'policyNew' policies into 'policy' after manifest was loaded.
@@ -212,7 +204,7 @@ type UpdateCustomRulePolicyOptionsFromTextParams = {
 };
 
 /**
- * for manifest_io
+ * for manifest_io SAVE
  */
 function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFromPolicyParams): void {
     // 0. Splits custom rule options from policy (if available).
@@ -246,51 +238,50 @@ function compatibility_split_optionsFromPolicy(pm: compatibility_split_optionsFr
         if (pm.text.length < 2)
             return;
 
-        let pos_preventcharrepeat = -1;
-        let pos_preventcharposition = -1;
+        let posPreventCharRepeat = -1;
+        let posPreventCharPosition = -1;
 
-        let substr_customRule = '';
+        let substrCustomRule = '';
+
         if (pm.text.length > 2) {
-            substr_customRule = pm.text.substr(0, 2);
+            substrCustomRule = pm.text.substring(0, 2);
 
-            let isCharsetToken =
-                substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
-                substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
-                substr_customRule[0] == 's';
+            const ch = substrCustomRule[0];
+            const isCharsetToken = ch === '[' || ch === 'a' || ch === 'A' || ch === 'd' || ch === 's';
 
             if (isCharsetToken)
-                substr_customRule = '';
+                substrCustomRule = '';
             else {
-                pos_preventcharrepeat = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
-                pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+                posPreventCharRepeat = substrCustomRule.indexOf(TOKEN_PREVENT_CHARACTERREPEAT);
+                posPreventCharPosition = substrCustomRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
             }
         }
 
-        let preventcharrepeat = pos_preventcharrepeat !== -1;
-        let preventcharposition = pos_preventcharposition !== -1;
+        let doPreventCharRepeat = posPreventCharRepeat !== -1;
+        let doPreventCharPosition = posPreventCharPosition !== -1;
 
         const jsonRoot = JSON.parse(pm.options);
         jsonRoot["chgpolopts"] = jsonRoot["chgpolopts"] || {};
-        jsonRoot["chgpolopts"]["norep"] = preventcharrepeat;
-        jsonRoot["chgpolopts"]["chkppos"] = preventcharposition;
+        jsonRoot["chgpolopts"]["norep"] = doPreventCharRepeat;
+        jsonRoot["chgpolopts"]["chkppos"] = doPreventCharPosition;
 
         pm.options = JSON.stringify(jsonRoot);
 
-        if (pos_preventcharrepeat !== -1) {
-            pm.text = pm.text.slice(0, pos_preventcharrepeat) + pm.text.slice(pos_preventcharrepeat + 1);
-            substr_customRule = substr_customRule.slice(0, pos_preventcharrepeat) + substr_customRule.slice(pos_preventcharrepeat + 1);
+        if (posPreventCharRepeat !== -1) {
+            pm.text = pm.text.slice(0, posPreventCharRepeat) + pm.text.slice(posPreventCharRepeat + 1);
+            substrCustomRule = substrCustomRule.slice(0, posPreventCharRepeat) + substrCustomRule.slice(posPreventCharRepeat + 1);
 
-            pos_preventcharposition = substr_customRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
+            posPreventCharPosition = substrCustomRule.indexOf(TOKEN_PREVENT_CHARACTERPOSITION);
         }
 
-        if (pos_preventcharposition !== -1) {
-            pm.text = pm.text.slice(0, pos_preventcharposition) + pm.text.slice(pos_preventcharposition + 1);
+        if (posPreventCharPosition !== -1) {
+            pm.text = pm.text.slice(0, posPreventCharPosition) + pm.text.slice(posPreventCharPosition + 1);
         }
     }
 }
 
 /**
- * for manifest_io
+ * for manifest_io LOAD parser
  */
 function compatibility_combine_optionsToPolicy(customRuleOptions_: string, policyStr_: string): string {
     // 0. Combines custom rule options to policy (if applicable).
@@ -335,10 +326,8 @@ function compatibility_combine_optionsToPolicy(customRuleOptions_: string, polic
         if (customRuleText.length > 2) {
             substr_customRule = customRuleText.substring(0, 2);
 
-            const isCharsetToken =
-                substr_customRule[0] == '[' || substr_customRule[0] == 'a' ||
-                substr_customRule[0] == 'A' || substr_customRule[0] == 'd' ||
-                substr_customRule[0] == 's';
+            const ch = substr_customRule[0];
+            const isCharsetToken = ch == '[' || ch == 'a' || ch == 'A' || ch == 'd' || ch == 's';
 
             if (isCharsetToken)
                 substr_customRule = '';
