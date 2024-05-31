@@ -1,7 +1,7 @@
 import { PolicyIo } from "../1-types";
 import { TOKEN_PREVENT_CHARACTERREPEAT, TOKEN_PREVENT_CHARACTERPOSITION } from "./0-defs";
-import { constructorFromString } from "./1-load";
 import { policyToString } from "./2-save";
+//import { constructorFromString } from "./1-load";
 
 type compatibility_split_optionsFromPolicyParams = {
     policy: string;
@@ -26,7 +26,8 @@ export function compatibility_split_optionsFromPolicy(pm: compatibility_split_op
     if (!pm.policy) { // 1. Check if we have any policy to split.
         return;
     }
-
+    return;
+/* not needed, but keep for reference
     let policy: PolicyIo = constructorFromString(pm.policy); // 2. Check if policy string has custom rule.
     if (!policy.useExt) {
         return;
@@ -41,7 +42,15 @@ export function compatibility_split_optionsFromPolicy(pm: compatibility_split_op
 
     pm.options = pm2.options; // 4. Update custom rule options.
     pm.policy = policyToString(policy); // 5. Combine policy back without custom rule options in it.
+*/
 }
+
+type FilePolicyOptiion = { // Names are case-sensitive here as it comes from file.
+    chgpolopts: {
+        norep: boolean;
+        chkppos: boolean;
+    }
+};
 
 // Checks custom rule prepended tokens '~', '&' then places the information in JSON text within m_polExtOptions.
 // ~&<custom rule text>

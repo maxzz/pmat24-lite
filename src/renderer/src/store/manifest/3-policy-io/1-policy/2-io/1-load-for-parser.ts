@@ -1,6 +1,6 @@
 import { PolicyIo } from "../1-types";
 import { TOKEN_PREVENT_CHARACTERREPEAT, TOKEN_PREVENT_CHARACTERPOSITION } from "./0-defs";
-import { constructorFromString } from "./1-load";
+//import { constructorFromString } from "./1-load";
 import { policyToString } from "./2-save";
 
 /**
@@ -17,6 +17,10 @@ export function compatibility_combine_optionsToPolicy(customRuleOptions_: string
         return policyStr_;
     }
 
+
+    
+    return policyStr_;
+/* not needed, but keep for reference
     const policy: PolicyIo = constructorFromString(policyStr_); // 2. Check if policy string has custom rule.
     if (!policy.useExt) {
         return policyStr_;
@@ -26,6 +30,7 @@ export function compatibility_combine_optionsToPolicy(customRuleOptions_: string
     policyStr_ = policyToString(policy);
 
     return policyStr_;
+*/
 }
 
 function setCustomRulePolicyOptionsToText(customRulePolicyOptions: string, customRuleText: string): string {
