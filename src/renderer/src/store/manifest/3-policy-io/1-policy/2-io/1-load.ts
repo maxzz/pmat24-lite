@@ -2,6 +2,7 @@ import { POLICYTYPE, PolicyIo } from "../1-types";
 import { str_charset, str_constrains } from "../3-casting";
 import { POLICY_SEPARATOR } from "./0-defs";
 
+/** /
 export function constructorFromString(v: string): PolicyIo {
     const rv = { type: POLICYTYPE.none } as PolicyIo;
 
@@ -12,9 +13,13 @@ export function constructorFromString(v: string): PolicyIo {
 
     return rv;
 }
+/**/
 
+/**
+ * This version wo/ using compatibility_split_policy() and POLICY_SEPARATOR.
+ */
 export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): PolicyIo {
-    const rv = { type: POLICYTYPE.none } as PolicyIo;
+    const rv = { type: POLICYTYPE.none } as PolicyIo; 
 
     policyFromStringSimple(policy, rv);
     policyFromStringExtended(policy2, rv);
@@ -22,10 +27,11 @@ export function constructorFromStrings(policy: string | undefined, policy2: stri
     return rv;
 }
 
+/** /
 /**
  * Used only by oti_manifest_io.h to SAVE policy to manifest and somehow by constructorFromString() in this file.
  * No this is used by LOAD and was introduced due to parser limitations.
- */
+ * /
 function compatibility_split_policy(policy: string): { policyOld?: string | undefined; policyExt?: string | undefined; } {
     // 0. Split 'policy' in 'policyOld' and 'policyNew' to save as manifest fields: 'policy' and 'policy2'.
     // This call is for manifest_io, and for policy string parsing.
@@ -47,6 +53,7 @@ function compatibility_split_policy(policy: string): { policyOld?: string | unde
 
     return rv;
 }
+/**/
 
 /*
 * Simple policy format: [type]:min,max:charset:constrains
