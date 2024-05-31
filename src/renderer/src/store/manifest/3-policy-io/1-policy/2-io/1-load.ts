@@ -55,7 +55,7 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { 
 
     const ss = v.split(":");
 
-    if (ss.length != 5) {
+    if (ss.length !== 5) {
         return;
     }
 
@@ -79,8 +79,9 @@ function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>):
     rv.useExt = false;
     rv.policyExt = '';
 
-    if (!v || v.length < 6)
+    if (!v || v.length < 6) {
         return;
+    }
 
     const prefix: string = v.substring(0, 6);
 
@@ -89,7 +90,6 @@ function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>):
     else if (prefix === "[e1]g:")
         rv.type = POLICYTYPE.generate;
     else {
-        rv.type = POLICYTYPE.none;
         return;
     }
 
