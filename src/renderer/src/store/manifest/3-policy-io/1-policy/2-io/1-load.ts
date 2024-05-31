@@ -59,7 +59,7 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { 
     }
 
     const m = v.match(rePolicySimple);
-    if (!m) {
+    if (!m || m.length !== 6) {
         console.error(`invalid simple policy: '${v}'`);
         return;
     }
@@ -86,7 +86,7 @@ function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>):
     }
 
     const m = v.match(rePolicyComplex);
-    if (!m) {
+    if (!m || m.length !== 5) {
         console.error(`invalid extended policy: '${v}'`);
         return;
     }
