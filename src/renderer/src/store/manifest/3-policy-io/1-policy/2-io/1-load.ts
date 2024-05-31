@@ -75,52 +75,27 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { 
     rv.constrains = str_constrains(ss[4]);
 }
 
+const rePolicyComplex = /^\[e1\](v|g):(.*)<(\d),(\d)>$/; // [type]:[policyExt]<min,max>: [e1]v:ab<1,2>cde<1,2> -> m1:v; m2:ab<1,2>cde; m3:1; m4:2
+
 function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>): void { // initial rv is {}
     rv.useExt = false;
     rv.policyExt = '';
 
-    if (!v || v.length < 6) {
+    if (!v) {
         return;
     }
 
-    const prefix: string = v.substring(0, 6);
-
-    if (prefix === "[e1]v:")
-        rv.type = POLICYTYPE.verify;
-    else if (prefix === "[e1]g:")
-        rv.type = POLICYTYPE.generate;
-    else {
+    const m = v.match(rePolicyComplex);
+    if (!m) {
+        console.error(`invalid extended policy: '${v}'`);
         return;
     }
+
+    const [_, type, policyExt, minLength, maxLength] = m;
 
     rv.useExt = true;
-
-    const suffix = v.substring(6);
-    const parts = getExtendedParts(suffix, rv.minLength || 0, rv.maxLength || 0);
-    rv = { ...rv, ...parts };
-}
-
-function getExtendedParts(v: string, minLength: number, maxLength: number): Pick<PolicyIo, 'policyExt' | 'minLength' | 'maxLength'> {
-    const rv: Pick<PolicyIo, 'policyExt' | 'minLength' | 'maxLength'> = {
-        policyExt: v,
-        minLength: minLength,
-        maxLength: maxLength,
-    };
-
-    const beginpos = v.lastIndexOf('<');
-    const endpos = v.indexOf('>', beginpos);
-    if (beginpos === -1 || endpos === -1) {
-        return rv;
-    }
-
-    const values = v.substring(beginpos + 1, endpos - beginpos - 1).split(',');
-    if (values.length !== 2) {
-        return rv; // console.error(`Invalid extended policy: ${v}. using default`);
-    }
-
-    rv.policyExt = v.substring(0, beginpos) + v.substring(endpos + 1);
-    rv.minLength = +values[0];
-    rv.maxLength = +values[1];
-
-    return rv;
+    rv.type = type === 'v' ? POLICYTYPE.verify : type === 'g' ? POLICYTYPE.generate : POLICYTYPE.none;
+    rv.policyExt = policyExt;
+    rv.minLength = +minLength;
+    rv.maxLength = +maxLength;
 }
