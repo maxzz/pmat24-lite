@@ -48,34 +48,34 @@ function compatibility_split_policy(policy: string): { policyOld?: string | unde
     return rv;
 }
 
+/*
+* Simple policy format: [type]:min,max:charset:constrains
+*/
+const rePolicySimple = /^\[p4\](v|g):(\d+):(\d+):(\w*):(\w*)$/;
+
 function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { // initial rv is {}
     if (!v) {
         return;
     }
 
-    const ss = v.split(":");
-
-    if (ss.length !== 5) {
+    const m = v.match(rePolicySimple);
+    if (!m) {
+        console.error(`invalid simple policy: '${v}'`);
         return;
     }
 
-    if (ss[0] === "[p4]v") {
-        rv.type = POLICYTYPE.verify;
-    }
-    else if (ss[0] === "[p4]g") {
-        rv.type = POLICYTYPE.generate;
-    }
-    else {
-        return;
-    }
-
-    rv.minLength = +ss[1];
-    rv.maxLength = +ss[2];
-    rv.simpleChSet = str_charset(ss[3]);
-    rv.constrains = str_constrains(ss[4]);
+    const [_, type, minLength, maxLength, charset, constrains] = m;
+    rv.type = type === 'v' ? POLICYTYPE.verify : type === 'g' ? POLICYTYPE.generate : POLICYTYPE.none;
+    rv.minLength = +minLength;
+    rv.maxLength = +maxLength;
+    rv.simpleChSet = str_charset(charset);
+    rv.constrains = str_constrains(constrains);
 }
 
-const rePolicyComplex = /^\[e1\](v|g):(.*)<(\d),(\d)>$/; // [type]:[policyExt]<min,max>: [e1]v:ab<1,2>cde<1,2> -> m1:v; m2:ab<1,2>cde; m3:1; m4:2
+/*
+* Extended policy format: [type]:[policyExt]<min,max>: [e1]v:ab<1,2>cde<1,2> -> m1:v; m2:ab<1,2>cde; m3:1; m4:2
+*/
+const rePolicyComplex = /^\[e1\](v|g):(.*)<(\d+),(\d+)>$/;
 
 function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>): void { // initial rv is {}
     rv.useExt = false;
