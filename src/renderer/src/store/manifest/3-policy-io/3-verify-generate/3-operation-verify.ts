@@ -1,5 +1,5 @@
 import { CHARSETTYPE, PolicyIo } from "../1-policy";
-import { genUtils } from "../3-parser/8-utils";
+import { genUtils } from "./8-utils";
 import { strFindFirstNotOf, strFindFirstOf } from "../3-parser/9-utils-cpp";
 
 // class verify_t {

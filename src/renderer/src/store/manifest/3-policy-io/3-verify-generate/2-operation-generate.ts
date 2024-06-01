@@ -1,5 +1,5 @@
 import { CHARSETTYPE, PolicyIo } from "../1-policy";
-import { genUtils } from "../3-parser/8-utils";
+import { genUtils } from "./8-utils";
 
 // class generate_t
 export function operator_generate(policy: PolicyIo): string {
