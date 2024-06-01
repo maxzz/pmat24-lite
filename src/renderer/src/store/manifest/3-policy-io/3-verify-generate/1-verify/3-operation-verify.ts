@@ -1,6 +1,5 @@
-import { CHARSETTYPE, PolicyIo } from "../1-policy";
-import { genUtils } from "./8-utils";
-import { strFindFirstNotOf, strFindFirstOf } from "./9-utils-cpp";
+import { CHARSETTYPE, PolicyIo } from "../../1-policy";
+import { strFindFirstNotOf, genUtils, strFindFirstOf } from "../4-gen-utils";
 
 // class verify_t {
 //TODO: We need to generate explanation to user why policy verification failed. Later.

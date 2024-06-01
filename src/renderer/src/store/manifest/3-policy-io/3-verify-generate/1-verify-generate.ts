@@ -1,7 +1,7 @@
 import { PolicyIo } from "../1-policy";
 import { ChSet, RulesAndMeta, ParseErrorType, Rule, ParseAdvPolicyResult, parse_advpolicy } from "../3-parser";
-import { genUtils } from "./8-utils";
-import { strFindFirstOf } from "./9-utils-cpp";
+import { genUtils } from "./4-gen-utils/8-utils";
+import { strFindFirstOf } from "./4-gen-utils/9-utils-cpp";
 
 export namespace customRule2 {
 
