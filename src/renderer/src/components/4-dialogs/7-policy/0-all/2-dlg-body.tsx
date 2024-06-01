@@ -8,7 +8,7 @@ import { SectionHistory } from "../3-history";
 import { SectionGenerationBy } from "../4-generate-by";
 import { classNames } from "@/utils";
 
-const sectionClasses = "text-sm font-bold border-primary-700 border-b";
+const sectionClasses = "text-sm font-bold border-gray-500 border-b";
 
 export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.PolicyUiAtoms; setIsOpen: (v: boolean) => void; }) {
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
@@ -25,22 +25,24 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
         <div className={classNames("flex flex-col space-y-4", !enabled && "opacity-10 pointer-events-none")}>
 
             {/* Predefined or Custom rule */}
-            <h2 className={sectionClasses}>
-                Password complexity
-            </h2>
-            <SectionRuleTypes atoms={atoms} />
+            <div className="">
+                <h2 className={sectionClasses}>
+                    Password complexity
+                </h2>
+                <SectionRuleTypes atoms={atoms} />
+            </div>
 
             {/* History */}
             <div className="">
-                <h2 className={""}>
-                    History restrictions
+                <h2 className={sectionClasses}>
+                    Password history restrictions
                 </h2>
                 <SectionHistory atoms={atoms} />
             </div>
 
             {/* Generation */}
             <div className="flex flex-col gap-2">
-                <h2 className="">
+                <h2 className={sectionClasses}>
                     Password generation
                 </h2>
                 <SectionGenerationBy atoms={atoms} />

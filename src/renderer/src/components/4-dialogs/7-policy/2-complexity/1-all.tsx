@@ -15,22 +15,19 @@ function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [selected, setSelected] = useAtom(atoms.constrainSetAtom);
     const isCustom = +selected === selectNames.length - 1;
     return (
-        <div>
-
-            <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 space-y-1">
-                    <div>
-                        Password complexity rule
-                    </div>
-                    <Label className="flex-1 text-xs flex flex-col 1items-center">
-                        <Dropdown items={selectNames} value={selected} onValueChange={setSelected} />
-                    </Label>
+        <div className="flex items-center justify-between gap-4">
+            <div className="flex-1 space-y-1">
+                <div>
+                    Password complexity rule
                 </div>
-
-                {!isCustom && (
-                    <SectionMinMaxLength atoms={atoms} />
-                )}
+                <Label className="flex-1 text-xs flex flex-col 1items-center">
+                    <Dropdown items={selectNames} value={selected} onValueChange={setSelected} />
+                </Label>
             </div>
+
+            {!isCustom && (
+                <SectionMinMaxLength atoms={atoms} />
+            )}
         </div>
     );
 }
@@ -69,7 +66,7 @@ function CustomRuleSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
 export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
-        <div className="flex flex-col gap-2 select-none">
+        <div className="mt-2 flex flex-col gap-2 select-none">
             <RuleSelectSection atoms={atoms} />
             <CustomRuleSection atoms={atoms} />
         </div>

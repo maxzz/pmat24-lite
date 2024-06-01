@@ -7,7 +7,7 @@ export function SectionHistory({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; 
     const [selected, setSelected] = useAtom(atoms.constrainsPswAtom);
     return (
         <div>
-            <Dropdown items={namesConstrainPsw} value={selected} onValueChange={setSelected} />
+            <Dropdown className="mt-2 w-fit" items={namesConstrainPsw} value={selected} onValueChange={setSelected} />
         </div>
     );
 }

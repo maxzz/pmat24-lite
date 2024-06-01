@@ -6,7 +6,7 @@ import { Radio } from "../9-constrols";
 export function SectionGenerationBy({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [useAs, setUseUs] = useAtom(atoms.useAsAtom);
     return (
-        <div className="grid space-y-2">
+        <div className="mt-2 grid space-y-2">
             <Radio name="gen-type" checked={useAs === `${UseAs.verify}`} onChange={() => setUseUs(`${UseAs.verify}`)}>
                 By user
             </Radio>
