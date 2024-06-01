@@ -1,45 +1,7 @@
-import { PolicyIo } from "../../1-policy";
-import { ChSet, RulesAndMeta, ParseErrorType, Rule, ParseAdvPolicyResult, parse_advpolicy } from "../../3-parser";
+import { ChSet, RulesAndMeta, Rule } from "../../3-parser";
 import { genUtils } from "../9-gen-utils/8-utils";
 import { strFindFirstOf } from "../9-gen-utils/9-utils-cpp";
-
-class ChSetExtra {
-    chSet: ChSet;
-    min = -1;
-    max = -1;
-    isGenerated = false;
-    generatedLen = -1;
-
-    constructor(chSet: ChSet, min: number, max: number) {
-        this.chSet = chSet;
-        this.min = min;
-        this.max = max;
-    }
-
-    generateLength(): boolean {
-        if (this.isGenerated) {
-            return true;
-        }
-
-        if (this.min === -1 && this.max === -1) {
-            this.min = this.max = 1;
-        } else if (this.max === -2) {
-            return false;
-        }
-
-        this.generatedLen = genUtils.getRandomInRange(this.min, this.max);
-        this.isGenerated = this.generatedLen >= this.min && this.generatedLen <= this.max;
-
-        return this.isGenerated;
-    }
-
-    generateValue(excludeChars: string): string {
-        let rv = genUtils.genPswPartByChars(this.chSet.chars, excludeChars, this.generatedLen);
-        return rv;
-    }
-};
-
-type ChSetExtraMap = Map<ChSet, ChSetExtra>;
+import { ChSetExtraMap, ChSetExtra } from "./9-types";
 
 type GetBoundsRecursivelyResult = {
     undefs: ChSet[],    // undefined character set entries i.e. rule entries without any max bound value.
