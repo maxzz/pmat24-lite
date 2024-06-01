@@ -2,7 +2,7 @@ import { CHARSETTYPE, RESTRICTTYPE, PolicyIo } from "../1-policy";
 import { parseExtPolicy2RulesSet } from "../3-parser";
 import { Rule, RulesAndMeta } from "../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
-import { utils } from "../3-parser/8-utils";
+import { genUtils } from "../3-parser/8-utils";
 
 /*
 This file expect following resource IDs to be declared and defined:
@@ -106,27 +106,27 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
 
         switch (policyIo.simpleChSet) {
             case CHARSETTYPE.alphanumeric:
-                rv += stringsPolicy.achset(utils.SET_AlphaLower);
-                rv += stringsPolicy.achset(utils.SET_AlphaUpper);
-                rv += stringsPolicy.achset(utils.SET_Numeric);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
+                rv += stringsPolicy.achset(genUtils.SET_Numeric);
                 break;
             case CHARSETTYPE.alpha:
-                rv += stringsPolicy.achset(utils.SET_AlphaLower);
-                rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
                 break;
             case CHARSETTYPE.numeric:
-                rv += stringsPolicy.achset(utils.SET_Numeric);
+                rv += stringsPolicy.achset(genUtils.SET_Numeric);
                 break;
             case CHARSETTYPE.withspecial:
-                rv += stringsPolicy.achset(utils.SET_AlphaLower);
-                rv += stringsPolicy.achset(utils.SET_AlphaUpper);
-                rv += stringsPolicy.achset(utils.SET_Numeric);
-                rv += stringsPolicy.achset(utils.SET_Special);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
+                rv += stringsPolicy.achset(genUtils.SET_Numeric);
+                rv += stringsPolicy.achset(genUtils.SET_Special);
                 break;
             case CHARSETTYPE.atleastonenumber:
-                rv += stringsPolicy.minchset(1, utils.SET_Numeric);
-                rv += stringsPolicy.achset(utils.SET_AlphaLower);
-                rv += stringsPolicy.achset(utils.SET_AlphaUpper);
+                rv += stringsPolicy.minchset(1, genUtils.SET_Numeric);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
+                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
                 break;
             //default: Do nothing.
         }

@@ -1,6 +1,6 @@
 import { strFindFirstOf, isCharNumber } from "./9-utils-cpp";
 
-export namespace utils {
+export namespace genUtils {
 
     export const SET_AlphaLower = "abcdefghikjlmnopqrstuvwxyz";
     export const SET_AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

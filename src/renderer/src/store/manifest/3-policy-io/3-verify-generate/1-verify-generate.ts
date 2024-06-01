@@ -1,5 +1,5 @@
 import { PolicyIo } from "../1-policy";
-import { ChSet, RulesAndMeta, ParseErrorType, Rule, ParseAdvPolicyResult, parse_advpolicy, strFindFirstOf, utils } from "../3-parser";
+import { ChSet, RulesAndMeta, ParseErrorType, Rule, ParseAdvPolicyResult, parse_advpolicy, strFindFirstOf, genUtils } from "../3-parser";
 
 export namespace customRule2 {
 
@@ -27,14 +27,14 @@ export namespace customRule2 {
                 return false;
             }
 
-            this.generatedLen = utils.getRandomInRange(this.min, this.max);
+            this.generatedLen = genUtils.getRandomInRange(this.min, this.max);
             this.isGenerated = this.generatedLen >= this.min && this.generatedLen <= this.max;
 
             return this.isGenerated;
         }
 
         generateValue(excludeChars: string): string {
-            let rv = utils.genPswPartByChars(this.chSet.chars, excludeChars, this.generatedLen);
+            let rv = genUtils.genPswPartByChars(this.chSet.chars, excludeChars, this.generatedLen);
             return rv;
         }
     };
@@ -165,7 +165,7 @@ export namespace customRule2 {
                 );
 
                 if (ruleEntry.group.mix) {
-                    pswOutOfGroup = utils.randomizeCharsInString(pswOutOfGroup);
+                    pswOutOfGroup = genUtils.randomizeCharsInString(pswOutOfGroup);
                 }
 
                 rv_password += pswOutOfGroup;
@@ -182,7 +182,7 @@ export namespace customRule2 {
                             let chSetData = findChSetData(curCh, chSetExtraMap, ruleEntry.group.rules);
                             if (chSetData) {
                                 let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
-                                let generatedValue = utils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
+                                let generatedValue = genUtils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
 
                                 curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                             }
@@ -216,7 +216,7 @@ export namespace customRule2 {
 
                         if (prevCh === curCh) {
                             let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
-                            let generatedValue = utils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
+                            let generatedValue = genUtils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
 
                             curCh = !generatedValue ? curCh : generatedValue[0]; // i.e. replace with generated value if any.
                         }
@@ -378,7 +378,7 @@ export namespace customRule2 {
         }
 
         // Check password has duplicates if specified.
-        if (noDuplicates && utils.hasDuplicateChars(psw)) {
+        if (noDuplicates && genUtils.hasDuplicateChars(psw)) {
             return false;
         }
 

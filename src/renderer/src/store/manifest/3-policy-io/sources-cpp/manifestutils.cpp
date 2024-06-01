@@ -614,7 +614,7 @@ namespace fillinMethods
 		}
 
 		return true;
-	} //generatepsw()
+	}
 
 	void generatepasswordByFieldPolicy(__inout unpropart::upprofile_t& upprofile_)
 	{
@@ -688,8 +688,7 @@ namespace fillinMethods
 			}//for.pUPField
 
 		}//for.upfieldsByPolicy
-
-	} //generatepasswordByFieldPolicy()
+	}
 
 }//namespace fillinMethods
 
