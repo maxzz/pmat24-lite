@@ -35,18 +35,8 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     return rv;
 }
 
-function parseExtPattern2RulesSet(pattern: string): ParseAdvPolicyResult
-{
-    const rv = parse_advpolicy(pattern);
-    
-    // if (rv.error.m_errorType !== ParseerrorType_t.errNone) { return; }
-
-    //resolveRulesSetBounds(rv_rulesSet_);
-
-    return rv;
-}
-
 export function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult {
     const patternWithMinMaxRange = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
-    return parseExtPattern2RulesSet(patternWithMinMaxRange);
+    const rv = parse_advpolicy(patternWithMinMaxRange);
+    return rv;
 }
