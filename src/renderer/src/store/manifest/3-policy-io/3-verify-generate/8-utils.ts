@@ -1,4 +1,4 @@
-import { strFindFirstOf, isCharNumber } from "../3-parser/9-utils-cpp";
+import { strFindFirstOf, isCharNumber } from "./9-utils-cpp";
 
 export namespace genUtils {
 
