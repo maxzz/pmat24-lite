@@ -40,19 +40,3 @@ export function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult 
     const rv = parse_advpolicy(patternWithMinMaxRange);
     return rv;
 }
-/*
-function parseExtPattern2RulesSet(pattern: string): ParseAdvPolicyResult | undefined {
-    const rv = parse_advpolicy(pattern);
-
-    if (rv.error.type != ParseErrorType.none) {
-        return;
-    }
-
-    //resolveRulesSetBounds(rv_rulesSet_);
-}
-
-function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult | undefined {
-    let patternWithMinMax = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
-    return parseExtPattern2RulesSet(patternWithMinMax);
-}
-*/
