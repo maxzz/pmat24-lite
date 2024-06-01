@@ -6,7 +6,7 @@ const WSHORTHAND_a = "abcdefghijklmnopqrstuvwxyz";
 const WSHORTHAND_A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const WSHORTHAND_s = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; // 21-2F, 3A-40, 5B-60, 7B-7E
 
-function generateShorthandSet(shorthand: string): string {
+function getShorthandChSet(shorthand: string): string {
     switch (shorthand) {
         case 'd': return WSHORTHAND_d;
         case 'a': return WSHORTHAND_a;
@@ -383,7 +383,7 @@ export class PolicyParser {
             case 'a': // shorthand a
             case 'A': // shorthand A
             case 's': { // shorthand s
-                rv.chSet.chars = generateShorthandSet(ch);
+                rv.chSet.chars = getShorthandChSet(ch);
                 rv.isGroup = false;
                 rv.chSet.range = this.parse_range();
                 break;
@@ -407,14 +407,14 @@ export class PolicyParser {
 
             switch (ch) {
                 case '(': // group
+                case '[': // charset
                 case 'd': // shorthand d
                 case 'a': // shorthand a
                 case 'A': // shorthand A
-                case 's': // shorthand s
-                case '[': { // charset
+                case 's': { // shorthand s
                     this.ungetChar();
-                    let ruleEntry = this.parse_rule();
-                    rv.push(ruleEntry);
+                    const newRule = this.parse_rule();
+                    rv.push(newRule);
                     break;
                 }
                 default: {
