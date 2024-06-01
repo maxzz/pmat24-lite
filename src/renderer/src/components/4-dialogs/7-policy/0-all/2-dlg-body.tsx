@@ -49,8 +49,8 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" onClick={() => setIsOpen(false)}>OK</Button>
-            <Button size="sm" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button size="sm" className="min-w-16" onClick={() => setIsOpen(false)}>OK</Button>
+            <Button size="sm" className="min-w-16" onClick={() => setIsOpen(false)}>Cancel</Button>
         </div>
     </>);
 }

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
-import { Dialog, DialogContent } from "@/ui";
+import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 import { TwoFieldPoliciesForAtoms } from "@/store/atoms/7-dialogs";
 
@@ -26,8 +26,9 @@ export function PolicyEditorNewDlg({ openAtom, dataAtom }: { openAtom: Primitive
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
 
-            <DialogContent className="text-xs" container={document.getElementById('portal')} modal withScroll>
+            <DialogContent className="text-xs" container={document.getElementById('portal')} modal withScroll noClose>
                 <PolicyEditorBody atoms={atoms} setIsOpen={setIsOpen} />
+                <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>
 
         </Dialog>

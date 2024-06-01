@@ -15,15 +15,17 @@ function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [selected, setSelected] = useAtom(atoms.constrainSetAtom);
     const isCustom = +selected === selectNames.length - 1;
     return (
-        <div className="space-y-1">
-            <div className="">
-                Password complexity rule
-            </div>
+        <div>
 
-            <div className="flex items-center justify-between gap-2">
-                <Label className="flex-1 text-xs flex flex-col 1items-center">
-                    <Dropdown items={selectNames} value={selected} onValueChange={setSelected} />
-                </Label>
+            <div className="flex items-center justify-between gap-4">
+                <div className="flex-1 space-y-1">
+                    <div>
+                        Password complexity rule
+                    </div>
+                    <Label className="flex-1 text-xs flex flex-col 1items-center">
+                        <Dropdown items={selectNames} value={selected} onValueChange={setSelected} />
+                    </Label>
+                </div>
 
                 {!isCustom && (
                     <SectionMinMaxLength atoms={atoms} />
