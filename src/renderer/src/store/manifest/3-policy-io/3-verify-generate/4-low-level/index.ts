@@ -1,1 +1,1 @@
-export * from "./1-verify-generate";
+export * as customRule2 from "./1-verify-generate";
