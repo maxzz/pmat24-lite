@@ -22,8 +22,7 @@ namespace advancedpswpolicy
 		rangeEntry_t() : m_min(-1), m_max(-1)
 		{
 		}
-
-	}; //class rangeEntry_t
+	};
 
 	class ruleEntry_t;
 	typedef std::list<ruleEntry_t> ruleEntries_t;
@@ -33,8 +32,7 @@ namespace advancedpswpolicy
 	public:
 		wstring_t m_charset;	// A set of characters.
 		rangeEntry_t m_rangeEntry;
-
-	}; //class chsetEntry_t
+	};
 
 	class groupEntry_t			// Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
 	{
@@ -45,11 +43,8 @@ namespace advancedpswpolicy
 		// TODO: nested level. 0 for the lowest level, i.e. most nested group.
 		// TODO: group start in source text.
 
-		groupEntry_t() : m_mix(true)
-		{
-		}
-
-	}; //class groupEntry_t
+		groupEntry_t() : m_mix(true) {}
+	};
 
 	class ruleEntry_t			// Element that has either chsetEntry_t or groupEntry_t.
 	{
@@ -61,8 +56,7 @@ namespace advancedpswpolicy
 		ruleEntry_t() : m_isgroup(false)
 		{
 		}
-
-	}; //class ruleEntry_t
+	};
 
 	class rulesSet_t
 	{
@@ -74,8 +68,7 @@ namespace advancedpswpolicy
 		rulesSet_t() : m_avoidConsecutiveChars(false), m_checkPrevPasswordCharPosition(false)
 		{
 		}
-
-	}; //class rulesSet_t
+	};
 
 	__declspec(selectany) wchar_t WSHORTHAND_d[] = L"0123456789";
 	__declspec(selectany) wchar_t WSHORTHAND_a[] = L"abcdefghijklmnopqrstuvwxyz";
@@ -120,7 +113,7 @@ namespace advancedpswpolicy
 		{
 		}
 
-	}; //class parseError
+	};
 
 	class apparser_t
 	{
@@ -135,7 +128,7 @@ namespace advancedpswpolicy
 				default:
 					throw parseError("unexpected shorthand", parseError::errUnexpShorthand);
 			}//switch
-		} //generateShorthandSet()
+		}
 		
 		/*static*/ void generateCharRange(__in wchar_t A_, __in wchar_t B_, __inout wstring_t& rv_) const throw(...)
 		{
@@ -178,13 +171,13 @@ namespace advancedpswpolicy
 						}
 				}//switch
 			}//while
-		} //skipWhitespace()
+		}
 
 		bool hasChar() const throw() // hasNextChar
 		{
 			bool rv = m_sourceTextPos < m_sourceText.length();
 			return rv;
-		} //hasChar()
+		}
 
 		void ungetChar() throw()
 		{
@@ -194,8 +187,7 @@ namespace advancedpswpolicy
 				return;
 			}
 			m_sourceTextPos--;
-
-		} //ungetChar()
+		}
 
 		wchar_t getChar() throw(...) // getNextChar
 		{
@@ -208,7 +200,7 @@ namespace advancedpswpolicy
 			m_sourceTextPos++;
 
 			return rv;
-		} //getChar()
+		}
 
 		bool getCharNoThrow(__out wchar_t& rv_) throw() // Internal method to avoid recursion with skipWhitespace and getNumberIfExistWs.
 		{
@@ -221,7 +213,7 @@ namespace advancedpswpolicy
 			m_sourceTextPos++;
 
 			return true;
-		} //getCharNoThrow()
+		}
 
 		bool getCharIfExistWs(__out wchar_t& rv_) throw() // Skip whitespace and get next character.
 		{
@@ -229,7 +221,7 @@ namespace advancedpswpolicy
 
 			bool rv = getCharNoThrow(rv_);
 			return rv;
-		} //getCharIfExistWs()
+		}
 
 		void ExpectedCharWs(__in wchar_t expected_) throw(...) // Skip whitespace and check next character.
 		{
@@ -238,8 +230,7 @@ namespace advancedpswpolicy
 			wchar_t ch = getChar();
 			if (ch != expected_)
 				throw parseError("expected" + expected_, parseError::errExpChar, expected_);
-
-		} //ExpectedCharWs()
+		}
 
 		bool getNumberIfExistWs(__out int& rv_) throw() // Skip whitespace and get number.
 		{
@@ -274,8 +265,7 @@ namespace advancedpswpolicy
 
 			convert_int(buffer, rv_);
 			return true;
-
-		} //getNumberIfExistWs()
+		}
 
 		void getRangeEntryWs(__in wchar_t OPEN_,  __in wchar_t CLOSE_,  __inout rangeEntry_t& rangeEntry_) throw(...) // Get range if exist.
 		{
@@ -316,9 +306,7 @@ namespace advancedpswpolicy
 			    if (rangeEntry_.m_min > rangeEntry_.m_max)
     				throw parseError("invalid range", parseError::errInvRange); 
 			}
-
-					
-		} //getRangeEntryWs()
+		}
 
 		void parse_finalPswLength(__inout rangeEntry_t& rangeEntry_) throw(...) // Get final length of password: <2,2> or <2>.
 		{
@@ -326,14 +314,12 @@ namespace advancedpswpolicy
 			
 			if (rangeEntry_.m_max == -1)
 				rangeEntry_.m_max = rangeEntry_.m_min;
-
-		} //parse_finalPswLength()
+		}
 
 		void parse_range(__inout rangeEntry_t& rangeEntry_) throw(...) // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
 		{
 			getRangeEntryWs('{', '}', rangeEntry_);
-
-		} //parse_range()
+		}
 
 		void getCharOfCharset(__out wchar_t& rv_char_) throw(...) // single character like: a b \u1234 \U1234 \u+1234 \U+1234 \u-1234 \U-1234
 		{
@@ -384,8 +370,7 @@ namespace advancedpswpolicy
 				throw parseError("expected 4 hex digits", parseError::errExp4Digits);
 
 			rv_char_ = (wchar_t)number;
-
-		} //getCharOfCharset()
+		}
 
 		void parse_charset(__out wstring_t& rv_charset_) throw(...) // single character sets (don't skip whitespace) like: [a-z02 A-M-ZZY02-1]
 		{
@@ -444,8 +429,7 @@ namespace advancedpswpolicy
 
 				rv_charset_ += chCharset;
 			}//while (true)
-
-		} //parse_charset()
+		}
 
 		void parse_group(__inout ruleEntry_t& ruleEntry_) throw(...) // '(' Rules ')' '.' // Range is handled outside.
 		{
@@ -475,8 +459,7 @@ namespace advancedpswpolicy
 					ungetChar();
 				}
 			}
-
-		} //parse_group()
+		}
 
 		void parse_rule(__inout ruleEntry_t& ruleEntry_) throw(...) // single rule like: 'a{1,2}' 'A{1,1}' '[0-9]{1,1}' '(a{1,2}).{1,2}'
 		{
@@ -520,8 +503,7 @@ namespace advancedpswpolicy
 				default:
 					throw parseError("unexpected char", parseError::errUnexpChar, ch);
 			}//switch
-
-		} //parse_rule()
+		}
 
 		void parse_rules(__inout ruleEntries_t& ruleEntries_) throw(...) // sequence of character sets like: a{1,2}A{1,1}[0-9]{1,1}
 		{
@@ -556,8 +538,7 @@ namespace advancedpswpolicy
 						}
 				}//switch
 			}//while (true)
-
-		} //parse_rules()
+		}
 
 		void parse_start() throw(...)
 		{
@@ -602,8 +583,7 @@ namespace advancedpswpolicy
 						throw parseError("unexpected char", parseError::errUnexpChar, ch);
 				}//switch
 			}//while (true)
-
-		} //parse_start()
+		}
 
 	public:
 		wstring_t m_sourceText;
@@ -622,7 +602,7 @@ namespace advancedpswpolicy
 			parse_start();
 
 			atltrace::text("Done");
-		} //doparse()
+		}
 
 	}; //class apparser_t
 
@@ -655,8 +635,7 @@ namespace advancedpswpolicy
 			rv_rulesSet_ = apparser.m_rulesSet; // TODO: use ref instead of copy
 		else
 			rv_rulesSet_.m_ruleEntries.clear();
-
-	} //parse_advpolicy()
+	}
 
 }//namespace advancedpswpolicy
 
@@ -715,7 +694,7 @@ namespace customRule
 				}
 			} // 
 		}//for
-	} // getBoundsRecursively()
+	}
 
 	inline void checkRulesBoundsForGenerate(__in const rulesSet_t& rulesSet_, __inout bool& rv_minValid_, __inout bool& rv_maxValid_) throw()
 	{
@@ -784,7 +763,7 @@ namespace customRule
 			rv_maxValid_ = false;
 		}
 
-	} // checkRulesBoundsForGenerate()
+	}
 
 	struct chsetData_t
 	{
@@ -824,7 +803,7 @@ namespace customRule
 			m_isgenerated = m_generatedLen >= m_min && m_generatedLen <= m_max;
 
 			return m_isgenerated;
-		} // generate()
+		}
 
 		wstring_t generateValue(__in const wstring_t& excludeChars_) throw(...)  /* To generate unique values */
 		{
@@ -843,7 +822,7 @@ namespace customRule
 
 			return generatedValue;
 		}
-	}; // chsetData_t
+	};
 
 	typedef std::map<const chsetEntry_t*, chsetData_t*> chsetEntriesHolder_t;
 	typedef std::list<chsetData_t> chsetEntries_t;
@@ -997,7 +976,7 @@ namespace customRule
 
 		}//for
 
-	} //generatePasswordByRuleRecursively()
+	}
 
 	inline void generateForChSetEntriesHolderRecursively(__in const ruleEntries_t& ruleEntries_, __inout chsetEntriesHolder_t& chSetEntriesHolder_, 
 		__inout chsetEntries_t& chsetEntries_generated_, 
@@ -1040,7 +1019,7 @@ namespace customRule
 
 		}//for
 
-	} //generateForChSetEntriesHolderRecursively()
+	}
 
 	inline bool verifyPasswordAgainstRuleRecursively(__in const ruleEntries_t& ruleEntries_, __in wstring_t& password_, __in bool mix_ = false)
 	{
@@ -1132,7 +1111,7 @@ namespace customRule
 		}//for
 
 		return rv;
-	} //verifyPasswordAgainstRuleRecursively()
+	}
 
 	inline void parseExtPattern2RulesSet(__in const string_t& pattern_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
 	{
@@ -1215,7 +1194,7 @@ namespace customRule
 		}
 
 		return rv;
-	} // verifyPasswordAgainstRuleNoThrow()
+	}
 
 	inline bool sort_ascendingByCharSetLength(const chsetData_t& first, const chsetData_t& second)
 	{
@@ -1320,7 +1299,7 @@ namespace customRule
 			rv_password_.clear();
 		}
 
-	} // generatePasswordByRuleNoThrow()
+	}
 }//namespace customRule
 
 
