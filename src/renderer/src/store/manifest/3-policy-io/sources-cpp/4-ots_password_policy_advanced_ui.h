@@ -82,7 +82,6 @@ namespace oti_password_policy
 				pt.y = r.top + r.height;
 				return pt;
 			}
-
 		};
 
 		class complexity_test_t : public error_message_t // Class for Complexity test controls.
@@ -181,8 +180,7 @@ namespace oti_password_policy
 				rv_msgErr_  = rstring(IDS_ERR_INVALID_PASSWORD);
 				rv_msgErr_ += password_policy_wexplanation::getPolicyExplanation(keyvalues, policy_);
 				return false;
-
-			} //verifypsw()
+			}
 
 			bool generatepsw(__in const password::policy_t& policy_, __out wstring_t& password_, __out wstring_t& rv_msgErr_, __out point_t& pt_)
 			{
@@ -216,7 +214,7 @@ namespace oti_password_policy
 				}
 			
 				return true;
-			} //generatepsw()
+			}
 
 			void set_password(__in const wstring_t& psw_)
 			{
@@ -239,14 +237,14 @@ namespace oti_password_policy
 				
 				m_button_u  = dlg.controls[bu_id];
 				m_button_g  = dlg.controls[bg_id];
-			} //on_init()
+			}
 
 			void enable(bool doEnable_)
 			{
 				m_label.enabled = doEnable_;
 				m_button_u.enabled = doEnable_;
 				m_button_g.enabled = doEnable_;
-			} //enable()
+			}
 
 			bool setup_ui(const password::policy_t& pol_)
 			{
@@ -421,7 +419,7 @@ namespace oti_password_policy
 
 				case parseerror.errNone:			  /* No errors as a default value. */
 				default: /* Proceed to next validation */ break;
-			} // switch()
+			}
 
 			if (policy_.IsPolicyToGenerate())
 			{
@@ -494,7 +492,6 @@ namespace oti_password_policy
 
 			m_complexity_test.set_password(password);
 			return true;
-
 		}
 
 		point_t get_rightmost_pos(HWND hwnd_)

@@ -24,17 +24,17 @@
 			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/4-ots_password_policy_advanced_ui.h",
 			"bookmarks": [
 				{
-					"line": 383,
+					"line": 381,
 					"column": 15,
 					"label": ""
 				},
 				{
-					"line": 455,
+					"line": 453,
 					"column": 14,
 					"label": ""
 				},
 				{
-					"line": 469,
+					"line": 467,
 					"column": 19,
 					"label": ""
 				}
@@ -51,6 +51,16 @@
 				{
 					"line": 2057,
 					"column": 5,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/wiz_page3_collect2_fields_policy.cpp",
+			"bookmarks": [
+				{
+					"line": 55,
+					"column": 12,
 					"label": ""
 				}
 			]
