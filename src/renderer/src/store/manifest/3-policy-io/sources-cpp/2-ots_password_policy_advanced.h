@@ -1146,8 +1146,7 @@ namespace customRule
 		}
 
 		//resolveRulesSetBounds(rv_rulesSet_);
-
-	} // parseExtPattern2RulesSet()
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	inline void parseExtPolicy2RulesSet(__in const password::policy_t& policy_, __out rulesSet_t& rv_rulesSet_, __out parseError& rv_parseError_)
@@ -1155,8 +1154,7 @@ namespace customRule
 		string_t pattern_withMinMaxRange = policy_.GetExtendedPolicyStr() + sformat("<%d, %d>", policy_.GetMinLength(), policy_.GetMaxLength());
 
 		parseExtPattern2RulesSet(pattern_withMinMaxRange, rv_rulesSet_, rv_parseError_);
-
-	} //parseExtPolicy2RulesSet()
+	}
 
 	inline bool verifyPasswordAgainstRuleNoThrow(__in const rulesSet_t& rulesSet_, __in const wstring_t& previousPassword_, __in const wstring_t& password_, __in bool noduplicates_) throw()
 	{

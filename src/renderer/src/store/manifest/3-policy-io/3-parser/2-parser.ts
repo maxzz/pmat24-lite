@@ -1,4 +1,4 @@
-import { ParseError, ParseErrorType, Range, Rule, RulesExtra } from "./1-parser-types";
+import { ParseError, ParseErrorType, Range, Rule, RulesAndMeta } from "./1-parser-types";
 import { isCharNumber, isCharHexNumber } from "./9-utils-cpp";
 
 const WSHORTHAND_d = "0123456789";
@@ -23,12 +23,12 @@ type NextNumber = { num: number, hasChar: boolean; };
 
 export class PolicyParser {
     sourceText: string = '';    // Source text to parse.
-    rulesExtra: RulesExtra = new RulesExtra();
+    rulesAndMeta: RulesAndMeta = new RulesAndMeta();
     sourceTextPos: number = 0;  // Current parsing position starting from 0, but at error time it's +1 already.
 
     public doParse() { //TODO: do we need to pass sourceText as a parameter?
         this.sourceTextPos = 0;
-        this.rulesExtra.rules = [];
+        this.rulesAndMeta.rules = [];
         this.parse_start();
     }
 
@@ -435,11 +435,11 @@ export class PolicyParser {
 
             switch (ch) {
                 case '~': { // To avoid the same character be used consecutively (global),
-                    this.rulesExtra.avoidConsecutiveChars = true;
+                    this.rulesAndMeta.avoidConsecutiveChars = true;
                     break;
                 }
                 case '&': { // To avoid the same character in the same position from its previous value (recent one only).
-                    this.rulesExtra.checkPrevPswCharPosition = true;
+                    this.rulesAndMeta.checkPrevPswCharPosition = true;
                     break;
                 }
                 case '(': // group
@@ -449,12 +449,12 @@ export class PolicyParser {
                 case 'A': // shorthand A
                 case 's': { // shorthand s
                     this.ungetChar();
-                    this.rulesExtra.rules = this.parse_rules();
+                    this.rulesAndMeta.rules = this.parse_rules();
                     break;
                 }
                 case '<': { // final psw length can be at the begin or at the end of input string.
                     this.ungetChar();
-                    this.rulesExtra.pswLenRange = this.parse_finalPswLength();
+                    this.rulesAndMeta.pswLenRange = this.parse_finalPswLength();
                     break;
                 }
                 default: {

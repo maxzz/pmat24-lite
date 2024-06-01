@@ -1,6 +1,6 @@
 import { CHARSETTYPE, RESTRICTTYPE, PolicyIo } from "../1-policy";
 import { parseExtPolicy2RulesSet } from "../3-parser";
-import { Rule, RulesExtra } from "../3-parser/1-parser-types";
+import { Rule, RulesAndMeta } from "../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
 import { utils } from "../3-parser/8-utils";
 
@@ -74,8 +74,8 @@ export function getRuleEntriesExpl(rules: Rule[]): string {
     return rv;
 }
 
-export function getRuleSetExplanation(rulesExtra: RulesExtra, noDuplicates: boolean): string {
-    let ruleLength = stringsPolicy.length(rulesExtra.pswLenRange.min, rulesExtra.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
+export function getRuleSetExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: boolean): string {
+    let ruleLength = stringsPolicy.length(rulesAndMeta.pswLenRange.min, rulesAndMeta.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
 
     let rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
@@ -83,28 +83,28 @@ export function getRuleSetExplanation(rulesExtra: RulesExtra, noDuplicates: bool
         rv += stringsPolicy.norepeat();//ai:'Each password character must only be used one time.';
     }
 
-    rv += getRuleEntriesExpl(rulesExtra.rules);
+    rv += getRuleEntriesExpl(rulesAndMeta.rules);
 
     return rv;
 }
 
-export function getPolicyExplanation(policy_: PolicyIo): string {
+export function getPolicyExplanation(policyIo: PolicyIo): string {
     let rv = '';
 
-    if (policy_.useExt) {
-        const parseAdvPolicyResult = parseExtPolicy2RulesSet(policy_);
+    if (policyIo.useExt) {
+        const parseAdvPolicyResult = parseExtPolicy2RulesSet(policyIo);
 
         // Explanation is shown only for verification hence we allow duplication of characters within a 
         let noduplicate = false;
-        rv = getRuleSetExplanation(parseAdvPolicyResult.rulesExtra, noduplicate);
+        rv = getRuleSetExplanation(parseAdvPolicyResult.rulesAndMeta, noduplicate);
     } else {
-        let ruleLength = stringsPolicy.length(policy_.minLength, policy_.maxLength);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
+        let ruleLength = stringsPolicy.length(policyIo.minLength, policyIo.maxLength);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
 
         rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
         //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
 
-        switch (policy_.simpleChSet) {
+        switch (policyIo.simpleChSet) {
             case CHARSETTYPE.alphanumeric:
                 rv += stringsPolicy.achset(utils.SET_AlphaLower);
                 rv += stringsPolicy.achset(utils.SET_AlphaUpper);
@@ -131,7 +131,7 @@ export function getPolicyExplanation(policy_: PolicyIo): string {
             //default: Do nothing.
         }
 
-        switch (policy_.constrains) {
+        switch (policyIo.constrains) {
             case RESTRICTTYPE.different_ap:
                 rv += stringsPolicy3.diffAp;
                 break;

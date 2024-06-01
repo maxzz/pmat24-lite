@@ -38,7 +38,7 @@ export class Rule {                                     // Element that has eith
     isGroup: boolean = false;                           // True if group element.
 };
 
-export class RulesExtra {
+export class RulesAndMeta {
     rules: Rule[] = [];
     pswLenRange: Range = { min: -1, max: -1 };          // Final total length of password.
 
