@@ -1,5 +1,5 @@
 import { Poli } from "pm-manifest";
-import { str_charset, str_constrains } from "../3-casting";
+import { str_charset, str_constrains } from "./4-casting";
 import { POLICY_SEPARATOR } from "./nun/0-defs";
 
 /** /
@@ -18,7 +18,7 @@ export function constructorFromString(v: string): Poli.Policy {
 /**
  * This version wo/ using compatibility_split_policy() and POLICY_SEPARATOR.
  */
-export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): Poli.Policy {
+export function policyFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): Poli.Policy {
     const rv = { useAs: Poli.UseAs.none } as Poli.Policy; 
 
     policyFromStringSimple(policy, rv);

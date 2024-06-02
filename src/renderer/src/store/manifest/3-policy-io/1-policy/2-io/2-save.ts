@@ -1,7 +1,15 @@
 import { Poli } from "pm-manifest";
-import { charset_str, constrains_str } from "../3-casting";
-import { POLICY_SEPARATOR } from "./nun/0-defs";
+import { charset_str, constrains_str } from "./4-casting";
+//import { POLICY_SEPARATOR } from "./nun/0-defs";
 
+export function policyToStrings(policy: Poli.Policy): { policy: string, policy2: string } {
+    return {
+        policy: policyToStringSimple(policy),
+        policy2: policyToStringExtended(policy),
+    };
+}
+
+/** /
 export function policyToString(policy: Poli.Policy): string {
     let rvSimple = policyToStringSimple(policy);
     let rvExt = policyToStringExtended(policy);
@@ -10,10 +18,12 @@ export function policyToString(policy: Poli.Policy): string {
     rv = compatibility_combine_policy('', rvSimple, rvExt);
     return rv;
 }
+/**/
 
+/** /
 /**
  * Used only by oti_manifest_io.h to LOAD policy from manifest and somehow by policyToString() in this file.
- */
+ * /
 function compatibility_combine_policy(policy: string, policyOld: string, policyExt: string): string {
     // 0. Combine 'policyOld' and 'policyNew' policies into 'policy' after manifest was loaded.
     // This call is for manifest_io only.
@@ -28,6 +38,7 @@ function compatibility_combine_policy(policy: string, policyOld: string, policyE
 
     return policy;
 }
+/**/
 
 function policyToStringSimple(policy: Poli.Policy): string {
     let type = '';

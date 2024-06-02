@@ -1,5 +1,6 @@
 import { Poli } from "pm-manifest";
-import { ParseError, ParseErrorType, RulesAndMeta } from "./1-parser-types";
+import { RulesAndMeta } from "./1-parser-types";
+import { ParseError, ParseErrorType } from "./4-parser-error";
 import { PolicyParser } from "./2-parser";
 
 export type ParseAdvPolicyResult = {

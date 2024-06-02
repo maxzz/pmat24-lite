@@ -1,4 +1,5 @@
-import { ParseError, ParseErrorType, Range, Rule, RulesAndMeta } from "./1-parser-types";
+import { Range, Rule, RulesAndMeta } from "./1-parser-types";
+import { ParseError, ParseErrorType } from "./4-parser-error";
 import { isCharNumber, isCharHexNumber } from "../3-verify-generate/9-gen-utils/9-utils-cpp";
 
 const WSHORTHAND_d = "0123456789";

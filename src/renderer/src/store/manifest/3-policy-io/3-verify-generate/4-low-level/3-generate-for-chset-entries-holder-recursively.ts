@@ -1,4 +1,4 @@
-import { Rule } from "../../3-parser";
+import { Rule } from "../../3-parser/1-parser-types";
 import { ChSetExtraMap, ChSetExtra } from "./9-types";
 
 export type GenerateForChSetEntriesHolderRecursivelyParams = {

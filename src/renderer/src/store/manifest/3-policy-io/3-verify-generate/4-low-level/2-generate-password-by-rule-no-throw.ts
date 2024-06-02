@@ -1,4 +1,4 @@
-import { ChSet, Rule, RulesAndMeta } from "../../3-parser";
+import { ChSet, Rule, RulesAndMeta } from "../../3-parser/1-parser-types";
 import { ChSetExtra, ChSetExtraMap } from "./9-types";
 import { GenerateForChSetEntriesHolderRecursivelyParams, generateForChSetEntriesHolderRecursively } from "./3-generate-for-chset-entries-holder-recursively";
 import { genUtils } from "../9-gen-utils";

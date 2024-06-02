@@ -1,4 +1,4 @@
-import { ChSet, RulesAndMeta, Rule } from "../../3-parser";
+import { ChSet, RulesAndMeta, Rule } from "../../3-parser/1-parser-types";
 
 type GetBoundsRecursivelyResult = {
     undefs: ChSet[]; // undefined character set entries i.e. rule entries without any max bound value.

@@ -1,5 +1,5 @@
 import { TOKEN_PREVENT_CHARACTERREPEAT, TOKEN_PREVENT_CHARACTERPOSITION } from "./0-defs";
-import { policyToString } from "../2-save";
+//import { policyToString } from "../2-save";
 //import { constructorFromString } from "./1-load";
 
 type compatibility_split_optionsFromPolicyParams = {
