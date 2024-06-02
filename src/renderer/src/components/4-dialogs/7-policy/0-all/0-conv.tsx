@@ -2,34 +2,36 @@ import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { ConstrainPsw, ConstrainSet, Mani, Meta, UseAs } from "pm-manifest";
 
+export type TwoPolicies = {
+    policy: string | undefined;     // simple policy
+    policy2: string | undefined;    // custom policy rule
+    options?: string | undefined;   // options for policy. this should not exist in manifest
+};
+
 export namespace PolicyDlgConv {
 
     export type ForAtoms = {
-        enabled: boolean;           // Enable password policy
-        isCustomRule: '0' | '1';    // boolean; rule type: predefined or custom rule
+        enabled: boolean;               // Enable password policy
+        isCustomRule: '0' | '1';        // boolean; rule type: predefined or custom rule
 
-        constrainSet: string;       // ConstrainSet; predefined rule
-        custom: string;             // customRule
+        constrainSet: string;           // ConstrainSet; predefined rule
+        custom: string;                 // customRule
 
-        minLength: number;          // min password length
-        maxLength: number;          // max password length
+        minLength: number;              // min password length
+        maxLength: number;              // max password length
 
-        textVerify: string;         // text to verify policy
-        textGenerate: string;       // text to verify policy generation
+        textVerify: string;             // text to verify policy
+        textGenerate: string;           // text to verify policy generation
 
-        constrainsPsw: string;      // ConstrainPsw
+        constrainsPsw: string;          // ConstrainPsw
 
-        useAs: string;              // UseAs; by user / by system
-    };
-
-    export type TwoPolicies = {
-        policy: string | undefined;
-        policy2: string | undefined;
+        useAs: string;                  // UseAs; by user / by system
     };
 
     export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
-        fromFile: ForAtoms; // original state to compare with
-        changed: boolean;           // state from atoms is different from original state
+        original: TwoPolicies;          // original state to allow on/off checkbox
+        fromFile: ForAtoms;             // original state to compare with
+        changed: boolean;               // state from atoms is different from original state
     }>;
 
     // Inital policy

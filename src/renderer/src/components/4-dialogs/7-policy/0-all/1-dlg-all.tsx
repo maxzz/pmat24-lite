@@ -5,9 +5,9 @@ import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 import { TwoFieldPoliciesForAtoms } from "@/store/atoms/7-dialogs";
 
-export function PolicyEditorNewDlg({ openAtom, dataAtom }: { openAtom: PrimitiveAtom<boolean>; dataAtom: PrimitiveAtom<TwoFieldPoliciesForAtoms>; }) {
+export function PolicyEditorNewDlg({ openAtom, policiesAtom }: { openAtom: PrimitiveAtom<boolean>; policiesAtom: PrimitiveAtom<TwoFieldPoliciesForAtoms>; }) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
-    const triggerData = useAtomValue(dataAtom);
+    const triggerData = useAtomValue(policiesAtom);
 
     const atoms = useMemo(
         () => {

@@ -55,7 +55,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
 
         <PolicyEditorNewDlg
             openAtom={openDlgAtom}
-            dataAtom={policiesAtom}
+            policiesAtom={policiesAtom}
         />
     </>);
 }
