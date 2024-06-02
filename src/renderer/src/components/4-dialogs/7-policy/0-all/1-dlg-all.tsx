@@ -26,7 +26,7 @@ export function PolicyEditorNewDlg({ openAtom, dataAtom }: { openAtom: Primitive
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
 
-            <DialogContent className="px-6 py-4 text-xs" container={document.getElementById('portal')} modal withScroll noClose>
+            <DialogContent className="px-6 py-4 text-xs select-none" container={document.getElementById('portal')} modal withScroll noClose>
                 <PolicyEditorBody atoms={atoms} setIsOpen={setIsOpen} />
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>

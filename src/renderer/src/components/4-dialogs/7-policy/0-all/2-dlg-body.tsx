@@ -14,7 +14,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
     const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
     return (<>
         <DialogHeader
-            header="Policy Editor"
+            header="Password Policy Editor"
             subHeader="Specify password complexity, history and generation requirements."
         />
 
@@ -25,7 +25,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
         <div className={classNames("flex flex-col space-y-4", !enabled && "opacity-10 pointer-events-none")}>
 
             {/* Predefined or Custom rule */}
-            <div className="">
+            <div>
                 <h2 className={sectionClasses}>
                     Password complexity
                 </h2>
@@ -33,7 +33,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
             </div>
 
             {/* History */}
-            <div className="">
+            <div>
                 <h2 className={sectionClasses}>
                     Password history restrictions
                 </h2>
@@ -41,7 +41,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
             </div>
 
             {/* Generation */}
-            <div className="flex flex-col gap-2">
+            <div>
                 <h2 className={sectionClasses}>
                     Password generation
                 </h2>
