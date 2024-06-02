@@ -7,7 +7,6 @@ export function theSame(a: Poli.Policy, b: Poli.Policy): boolean {
         a.constrainSet === b.constrainSet &&
         a.minLen === b.minLen &&
         a.maxLen === b.maxLen &&
-        a.useExt === b.useExt &&
         a.custom === b.custom;
     return rv;
 }

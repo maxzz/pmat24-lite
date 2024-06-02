@@ -91,7 +91,7 @@ export function getRuleSetExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: 
 export function getPolicyExplanation(policy: Poli.Policy): string {
     let rv = '';
 
-    if (policy.useExt) {
+    if (policy.custom) {
         const parseAdvPolicyResult = parseExtPolicy2RulesSet(policy);
 
         // Explanation is shown only for verification hence we allow duplication of characters within a 

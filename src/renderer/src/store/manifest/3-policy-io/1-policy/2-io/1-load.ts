@@ -71,10 +71,10 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<Poli.Policy>)
         return;
     }
 
-    const [_, type, minLength, maxLength, charset, constrains] = m;
+    const [_, type, minLen, maxLen, charset, constrains] = m;
     rv.useAs = type === 'v' ? Poli.UseAs.verify : type === 'g' ? Poli.UseAs.generate : Poli.UseAs.none;
-    rv.minLen = +minLength;
-    rv.maxLen = +maxLength;
+    rv.minLen = +minLen;
+    rv.maxLen = +maxLen;
     rv.constrainSet = str_charset(charset);
     rv.constrainPsw = str_constrains(constrains);
 }
@@ -85,7 +85,6 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<Poli.Policy>)
 const rePolicyComplex = /^\[e1\](v|g):(.*)<(\d+),(\d+)>$/;
 
 function policyFromStringExtended(v: string | undefined, rv: Partial<Poli.Policy>): void { // initial rv is {}
-    rv.useExt = false;
     rv.custom = '';
 
     if (!v) {
@@ -98,11 +97,10 @@ function policyFromStringExtended(v: string | undefined, rv: Partial<Poli.Policy
         return;
     }
 
-    const [_, type, policyExt, minLength, maxLength] = m;
+    const [_, type, custom, minLen, maxLen] = m;
 
-    rv.useExt = true;
     rv.useAs = type === 'v' ? Poli.UseAs.verify : type === 'g' ? Poli.UseAs.generate : Poli.UseAs.none;
-    rv.custom = policyExt;
-    rv.minLen = +minLength;
-    rv.maxLen = +maxLength;
+    rv.custom = custom;
+    rv.minLen = +minLen;
+    rv.maxLen = +maxLen;
 }

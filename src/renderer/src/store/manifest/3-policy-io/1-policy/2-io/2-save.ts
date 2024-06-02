@@ -44,14 +44,14 @@ function policyToStringSimple(policy: Poli.Policy): string {
 }
 
 function policyToStringExtended(v: Partial<Poli.Policy>): string {
-    let type = '';
-    if (v.useExt) {
+    let useAs = '';
+    if (v.custom) {
         switch (v.useAs) {
             case Poli.UseAs.none: return '';
-            case Poli.UseAs.verify: type = "[e1]v:"; break;
-            case Poli.UseAs.generate: type = "[e1]g:"; break;
+            case Poli.UseAs.verify: useAs = "[e1]v:"; break;
+            case Poli.UseAs.generate: useAs = "[e1]g:"; break;
         }
     }
-
-    return `${type}${v.custom}<${v.minLen},${v.maxLen}>`;
+    
+    return `${useAs}${v.custom}<${v.minLen},${v.maxLen}>`;
 }
