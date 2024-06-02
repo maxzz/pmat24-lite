@@ -32,27 +32,27 @@ function compatibility_combine_policy(policy: string, policyOld: string, policyE
 
 function policyToStringSimple(policy: PolicyIo): string {
     let type = '';
-    switch (policy.type) {
+    switch (policy.useAs) {
         case Poli.UseAs.none: return '';
         case Poli.UseAs.verify: type = "[p4]v:"; break;
         case Poli.UseAs.generate: type = "[p4]g:"; break;
     }
 
-    const chset = charset_str(policy.simpleChSet);
-    const constr = constrains_str(policy.constrains);
+    const chset = charset_str(policy.constrainSet);
+    const constr = constrains_str(policy.constrainPsw);
 
-    return `${type}:${policy.minLength}:${policy.maxLength}:${chset}:${constr}`;
+    return `${type}:${policy.minLen}:${policy.maxLen}:${chset}:${constr}`;
 }
 
 function policyToStringExtended(v: Partial<PolicyIo>): string {
     let type = '';
     if (v.useExt) {
-        switch (v.type) {
+        switch (v.useAs) {
             case Poli.UseAs.none: return '';
             case Poli.UseAs.verify: type = "[e1]v:"; break;
             case Poli.UseAs.generate: type = "[e1]g:"; break;
         }
     }
 
-    return `${type}${v.policyExt}<${v.minLength},${v.maxLength}>`;
+    return `${type}${v.custom}<${v.minLen},${v.maxLen}>`;
 }

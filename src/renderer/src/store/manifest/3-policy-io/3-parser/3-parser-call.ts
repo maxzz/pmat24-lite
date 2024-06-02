@@ -36,7 +36,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
 }
 
 export function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult {
-    const patternWithMinMaxRange = `${policy.policyExt}<${policy.minLength}, ${policy.maxLength}>`;
+    const patternWithMinMaxRange = `${policy.custom}<${policy.minLen}, ${policy.maxLen}>`;
     const rv = parse_advpolicy(patternWithMinMaxRange);
     return rv;
 }

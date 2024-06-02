@@ -7,7 +7,7 @@ import { strFindFirstNotOf, genUtils, strFindFirstOf } from "../9-gen-utils";
 
 export function operator_verify(policy: PolicyIo, psw: string): boolean {
 
-    if (psw.length < policy.minLength || psw.length > policy.maxLength) {
+    if (psw.length < policy.minLen || psw.length > policy.maxLen) {
         console.error("inv.pol.length");
         return false;
     }
@@ -15,7 +15,7 @@ export function operator_verify(policy: PolicyIo, psw: string): boolean {
     // Never check duplication of characters during password verification.
     //if (policy.noDuplicate && hasDuplicateChars(psw)) { console.error("Password with duplicate chars."); return false; }
 
-    switch (policy.simpleChSet) {
+    switch (policy.constrainSet) {
         case Poli.ConstrainSet.alphanumeric:
             if (strFindFirstNotOf(psw, genUtils.setSET_AlphaNumeric) !== -1) { // 1. We should validate whether the input string contains any characters other than alpha and numberic.
                 console.error("utils.setSET_AlphaNumeric");
@@ -74,7 +74,7 @@ export function operator_verify(policy: PolicyIo, psw: string): boolean {
             }
             break;
         default:
-            console.error('Inv.pol.mix =', policy.simpleChSet);
+            console.error('Inv.pol.mix =', policy.constrainSet);
     }
 
     return true;

@@ -11,13 +11,13 @@ export namespace PolicyDlgConv {
         constrainSet: string;           // ConstrainSet; predefined rule
         custom: string;                 // customRule
 
-        minLength: number;              // min password length
-        maxLength: number;              // max password length
+        minLen: number;                 // min password length
+        maxLen: number;                 // max password length
 
         textVerify: string;             // text to verify policy
         textGenerate: string;           // text to verify policy generation
 
-        constrainsPsw: string;          // ConstrainPsw
+        constrainPsw: string;           // ConstrainsPsw
 
         useAs: string;                  // UseAs; by user / by system
     };
@@ -35,11 +35,11 @@ export namespace PolicyDlgConv {
         isCustomRule: '0',
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
-        minLength: 8,
-        maxLength: 12,
+        minLen: 8,
+        maxLen: 12,
         textVerify: '',
         textGenerate: '',
-        constrainsPsw: `${Poli.ConstrainPsw.diffAp}`,
+        constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
         useAs: `${Poli.UseAs.verify}`,
     };
 
@@ -57,17 +57,17 @@ export namespace PolicyDlgConv {
     }
 
     export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, isCustomRule, constrainSet, custom, minLength, maxLength, textVerify, textGenerate, constrainsPsw, useAs } = initialState;
+        const { enabled, isCustomRule, constrainSet, custom, minLen: minLength, maxLen: maxLength, textVerify, textGenerate, constrainPsw: constrainsPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             isCustomRuleAtom: atomWithCallback(isCustomRule, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
             customAtom: atomWithCallback(custom, onChange),
-            minLengthAtom: atomWithCallback(minLength, onChange),
-            maxLengthAtom: atomWithCallback(maxLength, onChange),
+            minLenAtom: atomWithCallback(minLength, onChange),
+            maxLenAtom: atomWithCallback(maxLength, onChange),
             textVerifyAtom: atomWithCallback(textVerify, onChange),
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
-            constrainsPswAtom: atomWithCallback(constrainsPsw, onChange),
+            constrainPswAtom: atomWithCallback(constrainsPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
         };
         return rv;
@@ -79,11 +79,11 @@ export namespace PolicyDlgConv {
             isCustomRule: get(atoms.isCustomRuleAtom),
             constrainSet: get(atoms.constrainSetAtom),
             custom: get(atoms.customAtom),
-            minLength: get(atoms.minLengthAtom),
-            maxLength: get(atoms.maxLengthAtom),
+            minLen: get(atoms.minLenAtom),
+            maxLen: get(atoms.maxLenAtom),
             textVerify: get(atoms.textVerifyAtom),
             textGenerate: get(atoms.textGenerateAtom),
-            constrainsPsw: get(atoms.constrainsPswAtom),
+            constrainPsw: get(atoms.constrainPswAtom),
             useAs: get(atoms.useAsAtom),
         };
         return rv;
@@ -97,11 +97,11 @@ export namespace PolicyDlgConv {
             from.isCustomRule === to.isCustomRule &&
             from.constrainSet === to.constrainSet &&
             from.custom === to.custom &&
-            from.minLength === to.minLength &&
-            from.maxLength === to.maxLength &&
+            from.minLen === to.minLen &&
+            from.maxLen === to.maxLen &&
             from.textVerify === to.textVerify &&
             from.textGenerate === to.textGenerate &&
-            from.constrainsPsw === to.constrainsPsw &&
+            from.constrainPsw === to.constrainPsw &&
             from.useAs === to.useAs
         );
         return rv;

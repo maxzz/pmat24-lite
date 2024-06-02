@@ -3,8 +3,8 @@ import { PolicyDlgConv } from "../0-all/0-conv";
 import { Input, Label } from "@/ui";
 
 export function SectionMinMaxLength({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const [min, setMin] = useAtom(atoms.minLengthAtom);
-    const [max, setMax] = useAtom(atoms.maxLengthAtom);
+    const [min, setMin] = useAtom(atoms.minLenAtom);
+    const [max, setMax] = useAtom(atoms.maxLenAtom);
     return (
         <Label className="text-xs space-y-1">
             <div className="">Password length</div>
@@ -25,8 +25,8 @@ export function SectionMinMaxLength({ atoms }: { atoms: PolicyDlgConv.PolicyUiAt
 }
 
 export function SectionMinMaxLength_Old({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const [min, setMin] = useAtom(atoms.minLengthAtom);
-    const [max, setMax] = useAtom(atoms.maxLengthAtom);
+    const [min, setMin] = useAtom(atoms.minLenAtom);
+    const [max, setMax] = useAtom(atoms.maxLenAtom);
     return (
         <div className="flex items-center space-x-2">
             <div>

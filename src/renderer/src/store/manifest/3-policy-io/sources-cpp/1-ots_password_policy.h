@@ -108,7 +108,7 @@
 		policy_t(
             POLICYTYPE type, 
             RESTRICTTYPE constrains, 
-            CHARSETTYPE simpleChSet, 
+            CHARSETTYPE constrainSet, 
             UINT minLength, 
             UINT maxLength, 
             bool useExt = false, 
@@ -118,7 +118,7 @@
 			m_type = type;
 			if (m_type != POLICYTYPE::none) {
 				m_constrains = constrains;
-				m_simpleChSet = simpleChSet;
+				m_simpleChSet = constrainSet;
 				m_minLength = minLength;
 				m_maxLength = maxLength;
 				m_useExt = useExt;

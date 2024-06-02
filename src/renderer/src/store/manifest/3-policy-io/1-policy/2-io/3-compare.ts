@@ -2,12 +2,12 @@ import { PolicyIo } from "../1-types";
 
 export function theSame(a: PolicyIo, b: PolicyIo): boolean {
     const rv =
-        a.type === b.type &&
-        a.constrains === b.constrains &&
-        a.simpleChSet === b.simpleChSet &&
-        a.minLength === b.minLength &&
-        a.maxLength === b.maxLength &&
+        a.useAs === b.useAs &&
+        a.constrainPsw === b.constrainPsw &&
+        a.constrainSet === b.constrainSet &&
+        a.minLen === b.minLen &&
+        a.maxLen === b.maxLen &&
         a.useExt === b.useExt &&
-        a.policyExt === b.policyExt;
+        a.custom === b.custom;
     return rv;
 }

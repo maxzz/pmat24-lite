@@ -99,13 +99,13 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
         let noduplicate = false;
         rv = getRuleSetExplanation(parseAdvPolicyResult.rulesAndMeta, noduplicate);
     } else {
-        let ruleLength = stringsPolicy.length(policyIo.minLength, policyIo.maxLength);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
+        let ruleLength = stringsPolicy.length(policyIo.minLen, policyIo.maxLen);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
 
         rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
         //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
 
-        switch (policyIo.simpleChSet) {
+        switch (policyIo.constrainSet) {
             case Poli.ConstrainSet.alphanumeric:
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
@@ -132,7 +132,7 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
             //default: Do nothing.
         }
 
-        switch (policyIo.constrains) {
+        switch (policyIo.constrainPsw) {
             case Poli.ConstrainPsw.diffAp:
                 rv += stringsPolicy3.diffAp;
                 break;

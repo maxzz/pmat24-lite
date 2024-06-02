@@ -6,12 +6,12 @@ import { genUtils } from "../9-gen-utils/8-utils";
 export function operator_generate(policy: PolicyIo): string {
 
     // Check whether min is lower than max.
-    if (policy.minLength > policy.maxLength) {
+    if (policy.minLen > policy.maxLen) {
         return "";
     }
 
     //utils::reinitRandom();
-    let finalPswLength = genUtils.getRandomInRange(policy.minLength, policy.maxLength);
+    let finalPswLength = genUtils.getRandomInRange(policy.minLen, policy.maxLen);
 
     let rv_psw = '';
 
@@ -19,7 +19,7 @@ export function operator_generate(policy: PolicyIo): string {
     // To avoid exception when there are no unique characters within a set.
     let skipDuplicates = false;
 
-    switch (policy.simpleChSet) {
+    switch (policy.constrainSet) {
         case Poli.ConstrainSet.alphanumeric:
             rv_psw = genUtils.genAlphaNumeric(finalPswLength); // Initially, generate alpha numeric string.
             //rv_psw = utils::removeAdjacentDigits(rv_psw); //// Next, resolve adjacent digits.
@@ -56,7 +56,7 @@ export function operator_generate(policy: PolicyIo): string {
             break;
 
         default: {
-            console.log('generate: Inv.pol.mix=%d', policy.simpleChSet);
+            console.log('generate: Inv.pol.mix=%d', policy.constrainSet);
 
             rv_psw = genUtils.genAlphaNumeric(finalPswLength);
             skipDuplicates = finalPswLength > genUtils.SET_AlphaNumeric.length;
