@@ -1,18 +1,18 @@
 import { Poli } from "pm-manifest";
 
-export type PolicyIo = {
-    useAs: Poli.UseAs,                  // Type of policy
-    constrainSet: Poli.ConstrainSet,    // This is for simple policy only
-    constrainPsw: Poli.ConstrainPsw,    // Password repetition constrains
-    minLen: number,                     // min length of password
-    maxLen: number,                     // max length of password
-    useExt: boolean,                    // Is extended policy in effective now?
-    custom: string,                     // Extended policy string
-};
+// export type PolicyIo = {
+//     useAs: Poli.UseAs,                  // Type of policy
+//     constrainSet: Poli.ConstrainSet,    // This is for simple policy only
+//     constrainPsw: Poli.ConstrainPsw,    // Password repetition constrains
+//     minLen: number,                     // min length of password
+//     maxLen: number,                     // max length of password
+//     useExt: boolean,                    // Is extended policy in effective now?
+//     custom: string,                     // Extended policy string
+// };
 
 // default policy
 
-const defaultPolicy: PolicyIo = {
+const defaultPolicy: Poli.Policy = {
     useAs: Poli.UseAs.none,
     constrainSet: Poli.ConstrainSet.atleastonenumber,
     constrainPsw: Poli.ConstrainPsw.none,
@@ -22,7 +22,7 @@ const defaultPolicy: PolicyIo = {
     custom: '',
 };
 
-export function defaultPolicyByType(type: Poli.UseAs): PolicyIo {
+export function defaultPolicyByType(type: Poli.UseAs): Poli.Policy {
     const rv = { ...defaultPolicy, type, constrains: Poli.ConstrainPsw.diffAp };
     switch (type) {
         case Poli.UseAs.none:

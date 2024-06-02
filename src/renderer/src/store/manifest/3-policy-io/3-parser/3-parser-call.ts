@@ -1,4 +1,4 @@
-import { PolicyIo } from "../../3-policy-io/1-policy";
+import { Poli } from "pm-manifest";
 import { ParseError, ParseErrorType, RulesAndMeta } from "./1-parser-types";
 import { PolicyParser } from "./2-parser";
 
@@ -35,7 +35,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     return rv;
 }
 
-export function parseExtPolicy2RulesSet(policy: PolicyIo): ParseAdvPolicyResult {
+export function parseExtPolicy2RulesSet(policy: Poli.Policy): ParseAdvPolicyResult {
     const patternWithMinMaxRange = `${policy.custom}<${policy.minLen}, ${policy.maxLen}>`;
     const rv = parse_advpolicy(patternWithMinMaxRange);
     return rv;

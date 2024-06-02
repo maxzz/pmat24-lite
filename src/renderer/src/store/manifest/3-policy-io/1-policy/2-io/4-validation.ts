@@ -1,7 +1,6 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../1-types";
 
-export function isValidPolicy(policy: PolicyIo): boolean {
+export function isValidPolicy(policy: Poli.Policy): boolean {
     return (
         !(
             (!policy.useExt && policy.useAs == Poli.UseAs.none) ||   // Simple without policy type - Invalid

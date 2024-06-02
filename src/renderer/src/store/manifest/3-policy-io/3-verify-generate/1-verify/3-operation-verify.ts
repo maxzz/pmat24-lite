@@ -1,11 +1,10 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../../1-policy";
 import { strFindFirstNotOf, genUtils, strFindFirstOf } from "../9-gen-utils";
 
 // class verify_t {
 //TODO: We need to generate explanation to user why policy verification failed. Later.
 
-export function operator_verify(policy: PolicyIo, psw: string): boolean {
+export function operator_verify(policy: Poli.Policy, psw: string): boolean {
 
     if (psw.length < policy.minLen || psw.length > policy.maxLen) {
         console.error("inv.pol.length");

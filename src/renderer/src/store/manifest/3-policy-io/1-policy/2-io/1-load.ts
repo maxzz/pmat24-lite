@@ -1,11 +1,10 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../1-types";
 import { str_charset, str_constrains } from "../3-casting";
 import { POLICY_SEPARATOR } from "./0-defs";
 
 /** /
-export function constructorFromString(v: string): PolicyIo {
-    const rv = { type: Poli.UseAs.none } as PolicyIo;
+export function constructorFromString(v: string): Poli.Policy {
+    const rv = { type: Poli.UseAs.none } as Poli.Policy;
 
     const { policyOld: policySimple, policyExt } = compatibility_split_policy(v);
 
@@ -19,8 +18,8 @@ export function constructorFromString(v: string): PolicyIo {
 /**
  * This version wo/ using compatibility_split_policy() and POLICY_SEPARATOR.
  */
-export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): PolicyIo {
-    const rv = { useAs: Poli.UseAs.none } as PolicyIo; 
+export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): Poli.Policy {
+    const rv = { useAs: Poli.UseAs.none } as Poli.Policy; 
 
     policyFromStringSimple(policy, rv);
     policyFromStringExtended(policy2, rv);
@@ -61,7 +60,7 @@ function compatibility_split_policy(policy: string): { policyOld?: string | unde
 */
 const rePolicySimple = /^\[p4\](v|g):(\d+):(\d+):(\w*):(\w*)$/;
 
-function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { // initial rv is {}
+function policyFromStringSimple(v: string | undefined, rv: Partial<Poli.Policy>) { // initial rv is {}
     if (!v) {
         return;
     }
@@ -85,7 +84,7 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { 
 */
 const rePolicyComplex = /^\[e1\](v|g):(.*)<(\d+),(\d+)>$/;
 
-function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>): void { // initial rv is {}
+function policyFromStringExtended(v: string | undefined, rv: Partial<Poli.Policy>): void { // initial rv is {}
     rv.useExt = false;
     rv.custom = '';
 

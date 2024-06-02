@@ -1,5 +1,4 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../../1-policy";
 import { parseExtPolicy2RulesSet } from "../../3-parser";
 import { Rule, RulesAndMeta } from "../../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
@@ -89,23 +88,23 @@ export function getRuleSetExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: 
     return rv;
 }
 
-export function getPolicyExplanation(policyIo: PolicyIo): string {
+export function getPolicyExplanation(policy: Poli.Policy): string {
     let rv = '';
 
-    if (policyIo.useExt) {
-        const parseAdvPolicyResult = parseExtPolicy2RulesSet(policyIo);
+    if (policy.useExt) {
+        const parseAdvPolicyResult = parseExtPolicy2RulesSet(policy);
 
         // Explanation is shown only for verification hence we allow duplication of characters within a 
         let noduplicate = false;
         rv = getRuleSetExplanation(parseAdvPolicyResult.rulesAndMeta, noduplicate);
     } else {
-        let ruleLength = stringsPolicy.length(policyIo.minLen, policyIo.maxLen);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
+        let ruleLength = stringsPolicy.length(policy.minLen, policy.maxLen);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
 
         rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
         //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
 
-        switch (policyIo.constrainSet) {
+        switch (policy.constrainSet) {
             case Poli.ConstrainSet.alphanumeric:
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
@@ -132,7 +131,7 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
             //default: Do nothing.
         }
 
-        switch (policyIo.constrainPsw) {
+        switch (policy.constrainPsw) {
             case Poli.ConstrainPsw.diffAp:
                 rv += stringsPolicy3.diffAp;
                 break;

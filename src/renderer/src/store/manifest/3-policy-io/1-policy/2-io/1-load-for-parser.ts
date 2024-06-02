@@ -1,4 +1,3 @@
-import { PolicyIo } from "../1-types";
 import { TOKEN_PREVENT_CHARACTERREPEAT, TOKEN_PREVENT_CHARACTERPOSITION } from "./0-defs";
 //import { constructorFromString } from "./1-load";
 import { policyToString } from "./2-save";

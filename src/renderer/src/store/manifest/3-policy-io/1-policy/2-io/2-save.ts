@@ -1,9 +1,8 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../1-types";
 import { charset_str, constrains_str } from "../3-casting";
 import { POLICY_SEPARATOR } from "./0-defs";
 
-export function policyToString(policy: PolicyIo): string {
+export function policyToString(policy: Poli.Policy): string {
     let rvSimple = policyToStringSimple(policy);
     let rvExt = policyToStringExtended(policy);
 
@@ -30,7 +29,7 @@ function compatibility_combine_policy(policy: string, policyOld: string, policyE
     return policy;
 }
 
-function policyToStringSimple(policy: PolicyIo): string {
+function policyToStringSimple(policy: Poli.Policy): string {
     let type = '';
     switch (policy.useAs) {
         case Poli.UseAs.none: return '';
@@ -44,7 +43,7 @@ function policyToStringSimple(policy: PolicyIo): string {
     return `${type}:${policy.minLen}:${policy.maxLen}:${chset}:${constr}`;
 }
 
-function policyToStringExtended(v: Partial<PolicyIo>): string {
+function policyToStringExtended(v: Partial<Poli.Policy>): string {
     let type = '';
     if (v.useExt) {
         switch (v.useAs) {

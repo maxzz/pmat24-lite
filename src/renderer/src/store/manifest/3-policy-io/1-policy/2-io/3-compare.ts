@@ -1,6 +1,6 @@
-import { PolicyIo } from "../1-types";
+import { Poli } from "pm-manifest";
 
-export function theSame(a: PolicyIo, b: PolicyIo): boolean {
+export function theSame(a: Poli.Policy, b: Poli.Policy): boolean {
     const rv =
         a.useAs === b.useAs &&
         a.constrainPsw === b.constrainPsw &&

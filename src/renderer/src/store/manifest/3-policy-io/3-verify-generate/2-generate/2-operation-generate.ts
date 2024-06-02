@@ -1,9 +1,8 @@
 import { Poli } from "pm-manifest";
-import { PolicyIo } from "../../1-policy";
 import { genUtils } from "../9-gen-utils/8-utils";
 
 // class generate_t
-export function operator_generate(policy: PolicyIo): string {
+export function operator_generate(policy: Poli.Policy): string {
 
     // Check whether min is lower than max.
     if (policy.minLen > policy.maxLen) {
