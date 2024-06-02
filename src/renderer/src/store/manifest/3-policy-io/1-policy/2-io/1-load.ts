@@ -1,10 +1,11 @@
-import { POLICYTYPE, PolicyIo } from "../1-types";
+import { Poli } from "pm-manifest";
+import { PolicyIo } from "../1-types";
 import { str_charset, str_constrains } from "../3-casting";
 import { POLICY_SEPARATOR } from "./0-defs";
 
 /** /
 export function constructorFromString(v: string): PolicyIo {
-    const rv = { type: POLICYTYPE.none } as PolicyIo;
+    const rv = { type: Poli.UseAs.none } as PolicyIo;
 
     const { policyOld: policySimple, policyExt } = compatibility_split_policy(v);
 
@@ -19,7 +20,7 @@ export function constructorFromString(v: string): PolicyIo {
  * This version wo/ using compatibility_split_policy() and POLICY_SEPARATOR.
  */
 export function constructorFromStrings(policy: string | undefined, policy2: string | undefined, options: string | undefined): PolicyIo {
-    const rv = { type: POLICYTYPE.none } as PolicyIo; 
+    const rv = { type: Poli.UseAs.none } as PolicyIo; 
 
     policyFromStringSimple(policy, rv);
     policyFromStringExtended(policy2, rv);
@@ -72,7 +73,7 @@ function policyFromStringSimple(v: string | undefined, rv: Partial<PolicyIo>) { 
     }
 
     const [_, type, minLength, maxLength, charset, constrains] = m;
-    rv.type = type === 'v' ? POLICYTYPE.verify : type === 'g' ? POLICYTYPE.generate : POLICYTYPE.none;
+    rv.type = type === 'v' ? Poli.UseAs.verify : type === 'g' ? Poli.UseAs.generate : Poli.UseAs.none;
     rv.minLength = +minLength;
     rv.maxLength = +maxLength;
     rv.simpleChSet = str_charset(charset);
@@ -101,7 +102,7 @@ function policyFromStringExtended(v: string | undefined, rv: Partial<PolicyIo>):
     const [_, type, policyExt, minLength, maxLength] = m;
 
     rv.useExt = true;
-    rv.type = type === 'v' ? POLICYTYPE.verify : type === 'g' ? POLICYTYPE.generate : POLICYTYPE.none;
+    rv.type = type === 'v' ? Poli.UseAs.verify : type === 'g' ? Poli.UseAs.generate : Poli.UseAs.none;
     rv.policyExt = policyExt;
     rv.minLength = +minLength;
     rv.maxLength = +maxLength;

@@ -1,4 +1,5 @@
-import { CHARSETTYPE, PolicyIo } from "../../1-policy";
+import { Poli } from "pm-manifest";
+import { PolicyIo } from "../../1-policy";
 import { genUtils } from "../9-gen-utils/8-utils";
 
 // class generate_t
@@ -19,28 +20,28 @@ export function operator_generate(policy: PolicyIo): string {
     let skipDuplicates = false;
 
     switch (policy.simpleChSet) {
-        case CHARSETTYPE.alphanumeric:
+        case Poli.ConstrainSet.alphanumeric:
             rv_psw = genUtils.genAlphaNumeric(finalPswLength); // Initially, generate alpha numeric string.
             //rv_psw = utils::removeAdjacentDigits(rv_psw); //// Next, resolve adjacent digits.
             skipDuplicates = finalPswLength > genUtils.SET_AlphaNumeric.length;
             break;
 
-        case CHARSETTYPE.alpha:
+        case Poli.ConstrainSet.alpha:
             rv_psw = genUtils.genAlpha(finalPswLength);
             skipDuplicates = finalPswLength > genUtils.SET_AlphaBoth.length;
             break;
 
-        case CHARSETTYPE.numeric:
+        case Poli.ConstrainSet.numeric:
             rv_psw = genUtils.genNumeric(finalPswLength);
             skipDuplicates = finalPswLength > genUtils.SET_Numeric.length;
             break;
 
-        case CHARSETTYPE.withspecial:
+        case Poli.ConstrainSet.withspecial:
             rv_psw = genUtils.genAlphaNumSpecial(finalPswLength);
             skipDuplicates = finalPswLength > genUtils.SET_AlphaNumericSpecial.length;
             break;
 
-        case CHARSETTYPE.atleastonenumber:
+        case Poli.ConstrainSet.atleastonenumber:
             rv_psw = genUtils.genAlphaNumeric(finalPswLength); // generate N alphanumeric characters
 
             if (finalPswLength == 1) // If the password length is 1 then we should ignore above generated value and use the below one.

@@ -1,56 +1,56 @@
-import { CHARSETTYPE, RESTRICTTYPE } from "./1-types";
+import { Poli } from "pm-manifest";
 
-export function str_charset(v: string): CHARSETTYPE {
-    let rv: CHARSETTYPE;
+export function str_charset(v: string): Poli.ConstrainSet {
+    let rv: Poli.ConstrainSet;
     if (!v)
-        rv = CHARSETTYPE.alphanumeric;
+        rv = Poli.ConstrainSet.alphanumeric;
     else if (v === "alpha")
-        rv = CHARSETTYPE.alpha;
+        rv = Poli.ConstrainSet.alpha;
     else if (v === "numeric")
-        rv = CHARSETTYPE.numeric;
+        rv = Poli.ConstrainSet.numeric;
     else if (v === "withspecial")
-        rv = CHARSETTYPE.withspecial;
+        rv = Poli.ConstrainSet.withspecial;
     else if (v === "atleastonenumber")
-        rv = CHARSETTYPE.atleastonenumber;
+        rv = Poli.ConstrainSet.atleastonenumber;
     else
-        rv = CHARSETTYPE.alphanumeric;
+        rv = Poli.ConstrainSet.alphanumeric;
     return rv;
 }
 
-export function charset_str(v: CHARSETTYPE): string {
+export function charset_str(v: Poli.ConstrainSet): string {
     let rv: string = '';
     switch (v) {
-        case CHARSETTYPE.alphanumeric:
+        case Poli.ConstrainSet.alphanumeric:
         default: break;
-        case CHARSETTYPE.alpha: rv = "alpha"; break;
-        case CHARSETTYPE.numeric: rv = "numeric"; break;
-        case CHARSETTYPE.withspecial: rv = "withspecial"; break;
-        case CHARSETTYPE.atleastonenumber: rv = "atleastonenumber"; break;
+        case Poli.ConstrainSet.alpha: rv = "alpha"; break;
+        case Poli.ConstrainSet.numeric: rv = "numeric"; break;
+        case Poli.ConstrainSet.withspecial: rv = "withspecial"; break;
+        case Poli.ConstrainSet.atleastonenumber: rv = "atleastonenumber"; break;
     }
     return rv;
 }
 
-export function str_constrains(v: string): RESTRICTTYPE {
-    let rv: RESTRICTTYPE;
+export function str_constrains(v: string): Poli.ConstrainPsw {
+    let rv: Poli.ConstrainPsw;
     if (!v)
-        rv = RESTRICTTYPE.no_restrictions;
+        rv = Poli.ConstrainPsw.none;
     else if (v === "different_wp")
-        rv = RESTRICTTYPE.different_wp;
+        rv = Poli.ConstrainPsw.diffWp;
     else if (v === "different_ap")
-        rv = RESTRICTTYPE.different_ap;
+        rv = Poli.ConstrainPsw.diffAp;
     else if (v === "different_pp")
-        rv = RESTRICTTYPE.different_pp; else rv = RESTRICTTYPE.no_restrictions;
+        rv = Poli.ConstrainPsw.diffPp; else rv = Poli.ConstrainPsw.none;
     return rv;
 }
 
-export function constrains_str(v: RESTRICTTYPE): string {
+export function constrains_str(v: Poli.ConstrainPsw): string {
     let rv: string = '';
     switch (v) {
-        case RESTRICTTYPE.no_restrictions:
+        case Poli.ConstrainPsw.none:
         default: break;
-        case RESTRICTTYPE.different_wp: rv = "different_wp"; break;
-        case RESTRICTTYPE.different_ap: rv = "different_ap"; break;
-        case RESTRICTTYPE.different_pp: rv = "different_pp"; break;
+        case Poli.ConstrainPsw.diffWp: rv = "different_wp"; break;
+        case Poli.ConstrainPsw.diffAp: rv = "different_ap"; break;
+        case Poli.ConstrainPsw.diffPp: rv = "different_pp"; break;
     }
     return rv;
 }

@@ -1,4 +1,5 @@
-import { CHARSETTYPE, PolicyIo } from "../../1-policy";
+import { Poli } from "pm-manifest";
+import { PolicyIo } from "../../1-policy";
 import { strFindFirstNotOf, genUtils, strFindFirstOf } from "../9-gen-utils";
 
 // class verify_t {
@@ -15,7 +16,7 @@ export function operator_verify(policy: PolicyIo, psw: string): boolean {
     //if (policy.noDuplicate && hasDuplicateChars(psw)) { console.error("Password with duplicate chars."); return false; }
 
     switch (policy.simpleChSet) {
-        case CHARSETTYPE.alphanumeric:
+        case Poli.ConstrainSet.alphanumeric:
             if (strFindFirstNotOf(psw, genUtils.setSET_AlphaNumeric) !== -1) { // 1. We should validate whether the input string contains any characters other than alpha and numberic.
                 console.error("utils.setSET_AlphaNumeric");
                 return false;
@@ -33,19 +34,19 @@ export function operator_verify(policy: PolicyIo, psw: string): boolean {
 
             //if (hasAdjacentDigits(psw)) { console.error("Password with adjacent digits."); return false; }
             break;
-        case CHARSETTYPE.alpha:
+        case Poli.ConstrainSet.alpha:
             if (strFindFirstNotOf(psw, genUtils.setSET_AlphaBoth) !== -1) {
                 console.error("alpha/utils.setSET_AlphaBoth");
                 return false;
             }
             break;
-        case CHARSETTYPE.numeric:
+        case Poli.ConstrainSet.numeric:
             if (strFindFirstNotOf(psw, genUtils.setSET_Numeric) !== -1) {
                 console.error("numeric/utils.setSET_Numeric");
                 return false;
             }
             break;
-        case CHARSETTYPE.withspecial:
+        case Poli.ConstrainSet.withspecial:
             if (strFindFirstNotOf(psw, genUtils.setSET_AlphaNumericSpecial) !== -1) {
                 console.error("withspecial/utils.setSET_AlphaNumericSpecial");
                 return false;
@@ -56,7 +57,7 @@ export function operator_verify(policy: PolicyIo, psw: string): boolean {
                 return false;
             }
             break;
-        case CHARSETTYPE.atleastonenumber:
+        case Poli.ConstrainSet.atleastonenumber:
             if (strFindFirstNotOf(psw, genUtils.setSET_AlphaNumeric) !== -1) {
                 console.error("atleastonenumber/utils.setSET_AlphaNumeric");
                 return false;

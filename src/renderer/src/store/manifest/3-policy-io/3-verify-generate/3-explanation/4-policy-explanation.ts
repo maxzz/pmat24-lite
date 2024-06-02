@@ -1,4 +1,5 @@
-import { CHARSETTYPE, RESTRICTTYPE, PolicyIo } from "../../1-policy";
+import { Poli } from "pm-manifest";
+import { PolicyIo } from "../../1-policy";
 import { parseExtPolicy2RulesSet } from "../../3-parser";
 import { Rule, RulesAndMeta } from "../../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
@@ -105,25 +106,25 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
         //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
 
         switch (policyIo.simpleChSet) {
-            case CHARSETTYPE.alphanumeric:
+            case Poli.ConstrainSet.alphanumeric:
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
                 rv += stringsPolicy.achset(genUtils.SET_Numeric);
                 break;
-            case CHARSETTYPE.alpha:
+            case Poli.ConstrainSet.alpha:
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
                 break;
-            case CHARSETTYPE.numeric:
+            case Poli.ConstrainSet.numeric:
                 rv += stringsPolicy.achset(genUtils.SET_Numeric);
                 break;
-            case CHARSETTYPE.withspecial:
+            case Poli.ConstrainSet.withspecial:
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
                 rv += stringsPolicy.achset(genUtils.SET_Numeric);
                 rv += stringsPolicy.achset(genUtils.SET_Special);
                 break;
-            case CHARSETTYPE.atleastonenumber:
+            case Poli.ConstrainSet.atleastonenumber:
                 rv += stringsPolicy.minchset(1, genUtils.SET_Numeric);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
                 rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
@@ -132,16 +133,16 @@ export function getPolicyExplanation(policyIo: PolicyIo): string {
         }
 
         switch (policyIo.constrains) {
-            case RESTRICTTYPE.different_ap:
+            case Poli.ConstrainPsw.diffAp:
                 rv += stringsPolicy3.diffAp;
                 break;
-            case RESTRICTTYPE.different_pp:
+            case Poli.ConstrainPsw.diffPp:
                 rv += stringsPolicy3.diffPp;
                 break;
-            case RESTRICTTYPE.different_wp:
+            case Poli.ConstrainPsw.diffWp:
                 rv += stringsPolicy3.diffWp;
                 break;
-            case RESTRICTTYPE.no_restrictions: // No explanation.
+            case Poli.ConstrainPsw.none: // No explanation.
             //default: break;
         }
     }

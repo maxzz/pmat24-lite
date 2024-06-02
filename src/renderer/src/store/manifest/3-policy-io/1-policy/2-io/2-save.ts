@@ -1,4 +1,5 @@
-import { POLICYTYPE, PolicyIo } from "../1-types";
+import { Poli } from "pm-manifest";
+import { PolicyIo } from "../1-types";
 import { charset_str, constrains_str } from "../3-casting";
 import { POLICY_SEPARATOR } from "./0-defs";
 
@@ -32,9 +33,9 @@ function compatibility_combine_policy(policy: string, policyOld: string, policyE
 function policyToStringSimple(policy: PolicyIo): string {
     let type = '';
     switch (policy.type) {
-        case POLICYTYPE.none: return '';
-        case POLICYTYPE.verify: type = "[p4]v:"; break;
-        case POLICYTYPE.generate: type = "[p4]g:"; break;
+        case Poli.UseAs.none: return '';
+        case Poli.UseAs.verify: type = "[p4]v:"; break;
+        case Poli.UseAs.generate: type = "[p4]g:"; break;
     }
 
     const chset = charset_str(policy.simpleChSet);
@@ -47,9 +48,9 @@ function policyToStringExtended(v: Partial<PolicyIo>): string {
     let type = '';
     if (v.useExt) {
         switch (v.type) {
-            case POLICYTYPE.none: return '';
-            case POLICYTYPE.verify: type = "[e1]v:"; break;
-            case POLICYTYPE.generate: type = "[e1]g:"; break;
+            case Poli.UseAs.none: return '';
+            case Poli.UseAs.verify: type = "[e1]v:"; break;
+            case Poli.UseAs.generate: type = "[e1]g:"; break;
         }
     }
 
