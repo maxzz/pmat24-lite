@@ -1,6 +1,6 @@
 import { Poli } from "pm-manifest";
 import { charset_str, constrains_str } from "../3-casting";
-import { POLICY_SEPARATOR } from "./0-defs";
+import { POLICY_SEPARATOR } from "./nun/0-defs";
 
 export function policyToString(policy: Poli.Policy): string {
     let rvSimple = policyToStringSimple(policy);
@@ -52,6 +52,6 @@ function policyToStringExtended(v: Partial<Poli.Policy>): string {
             case Poli.UseAs.generate: useAs = "[e1]g:"; break;
         }
     }
-    
+
     return `${useAs}${v.custom}<${v.minLen},${v.maxLen}>`;
 }

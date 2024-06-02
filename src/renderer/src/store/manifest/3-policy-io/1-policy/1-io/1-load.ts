@@ -1,6 +1,6 @@
 import { Poli } from "pm-manifest";
 import { str_charset, str_constrains } from "../3-casting";
-import { POLICY_SEPARATOR } from "./0-defs";
+import { POLICY_SEPARATOR } from "./nun/0-defs";
 
 /** /
 export function constructorFromString(v: string): Poli.Policy {
