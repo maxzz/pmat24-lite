@@ -11,7 +11,7 @@
 //     export const IDS_PSW_VALUES_SAME       /**/ = "Current and new password fields have same values.";
 // }
 
-import { ConstrainPsw, namesConstrainPsw } from "pm-manifest";
+import { Poli, namesConstrainPsw } from "pm-manifest";
 
 export const stringsPolicy = {
     length: (min: number, max: number)           /**/ => `   Password length must be between ${min} and ${max} characters.\n`,
@@ -58,9 +58,9 @@ END
 // };
 
 export const stringsPolicy3 = {
-    diffWp: namesConstrainPsw[ConstrainPsw.diffWp], // former different_wp. Different from window password.   // notWinPsw, // "Different than the Windows password"
-    diffAp: namesConstrainPsw[ConstrainPsw.diffAp], // former different_ap. Different from any password.      // notPmPsw,  // "Unique within Password Manager logons"
-    diffPp: namesConstrainPsw[ConstrainPsw.diffPp], // former different_pp. Different from previous password. // notCurPsw, // "Different than the current password"
+    diffWp: namesConstrainPsw[Poli.ConstrainPsw.diffWp], // former different_wp. Different from window password.   // notWinPsw, // "Different from Windows password"
+    diffAp: namesConstrainPsw[Poli.ConstrainPsw.diffAp], // former different_ap. Different from any password.      // notPmPsw,  // "Unique within Password Manager logons"
+    diffPp: namesConstrainPsw[Poli.ConstrainPsw.diffPp], // former different_pp. Different from previous password. // notCurPsw, // "Different than the current password"
 };
 
 // export const namesConstrainPsw = [

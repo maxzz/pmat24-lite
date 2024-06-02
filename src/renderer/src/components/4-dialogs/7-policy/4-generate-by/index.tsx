@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { UseAs } from "@/store/manifest";
+import { Poli } from "@/store/manifest";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { Radio } from "../9-constrols";
 
@@ -7,11 +7,11 @@ export function SectionGenerationBy({ atoms }: { atoms: PolicyDlgConv.PolicyUiAt
     const [useAs, setUseUs] = useAtom(atoms.useAsAtom);
     return (
         <div className="mt-2 grid space-y-2">
-            <Radio name="gen-type" checked={useAs === `${UseAs.verify}`} onChange={() => setUseUs(`${UseAs.verify}`)}>
+            <Radio name="gen-type" checked={useAs === `${Poli.UseAs.verify}`} onChange={() => setUseUs(`${Poli.UseAs.verify}`)}>
                 By user
             </Radio>
 
-            <Radio name="gen-type" checked={useAs === `${UseAs.generate}`} onChange={() => setUseUs(`${UseAs.generate}`)}>
+            <Radio name="gen-type" checked={useAs === `${Poli.UseAs.generate}`} onChange={() => setUseUs(`${Poli.UseAs.generate}`)}>
                 By system
             </Radio>
         </div>

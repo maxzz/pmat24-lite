@@ -1,12 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { ConstrainPsw, ConstrainSet, Mani, Meta, UseAs } from "pm-manifest";
-
-export type TwoPolicies = {
-    policy: string | undefined;     // simple policy
-    policy2: string | undefined;    // custom policy rule
-    options?: string | undefined;   // options for policy. this should not exist in manifest
-};
+import { Mani, Poli } from "pm-manifest";
 
 export namespace PolicyDlgConv {
 
@@ -29,7 +23,7 @@ export namespace PolicyDlgConv {
     };
 
     export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
-        original: TwoPolicies;          // original state to allow on/off checkbox
+        original: Mani.FieldPolicy;     // original state to allow on/off checkbox
         fromFile: ForAtoms;             // original state to compare with
         changed: boolean;               // state from atoms is different from original state
     }>;
@@ -39,19 +33,19 @@ export namespace PolicyDlgConv {
     const initialPolicy: ForAtoms = {
         enabled: true,
         isCustomRule: '0',
-        constrainSet: `${ConstrainSet.withspecial}`,
+        constrainSet: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
         minLength: 8,
         maxLength: 12,
         textVerify: '',
         textGenerate: '',
-        constrainsPsw: `${ConstrainPsw.diffAp}`,
-        useAs: `${UseAs.verify}`,
+        constrainsPsw: `${Poli.ConstrainPsw.diffAp}`,
+        useAs: `${Poli.UseAs.verify}`,
     };
 
     // Atoms
 
-    export function forAtoms(policies: TwoPolicies): ForAtoms {
+    export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
         //TODO: create the default policy but dissabled initially
         //TODO: parse policies and assign to rv
 

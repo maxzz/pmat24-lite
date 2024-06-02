@@ -14,7 +14,7 @@ export enum CHARSETTYPE {
 
 export enum RESTRICTTYPE {
     no_restrictions,            // Nothing specified.
-    different_wp,               // Different from window password.
+    different_wp,               // Different from Windows password.
     different_ap,               // Different from any password.
     different_pp,               // Different from previous password.
 };
@@ -22,11 +22,11 @@ export enum RESTRICTTYPE {
 export type PolicyIo = {
     type: POLICYTYPE,           // Type of policy
     
-    constrains: RESTRICTTYPE,   // Password repetition constrains
+    simpleChSet: CHARSETTYPE,   // This is for simple policy only
     minLength: number,          // min length of password
     maxLength: number,          // max length of password
-
-    simpleChSet: CHARSETTYPE,   // This is for simple policy only
+    
+    constrains: RESTRICTTYPE,   // Password repetition constrains
 
     useExt: boolean,            // Is extended policy in effective now?
     policyExt: string,          // Extended policy string
