@@ -18,7 +18,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
             subHeader="Specify password complexity, history and generation requirements."
         />
 
-        <Check checked={enabled} onChange={() => setEnabled((v) => !v)}>
+        <Check className="mb-2" checked={enabled} onChange={() => setEnabled((v) => !v)}>
             Enable password policy
         </Check>
 
