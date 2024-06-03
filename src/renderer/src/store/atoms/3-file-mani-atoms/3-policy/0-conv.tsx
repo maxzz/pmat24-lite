@@ -4,12 +4,11 @@ import { Mani, Meta } from "pm-manifest";
 
 export namespace PolicyConv {
 
-    type PolicyForAtoms = {
-        policy: string;
-        policy2: string;
-        options: string;
-        policyText: string;             // display text to show in grid; short policy explabation
-    };
+    type PolicyForAtoms = Prettify<
+        Mani.FieldPolicy & {
+            policyText: string;             // display text to show in grid; short policy explabation
+        }
+    >;
 
     export type PolicyAtoms = Prettify<Atomize<PolicyForAtoms> & {
         maniField: Mani.Field;          // all fields from original to combine with fields from atoms to create new field
@@ -53,9 +52,9 @@ export namespace PolicyConv {
 
     export function areTheSame(from: PolicyForAtoms, to: PolicyForAtoms): boolean {
         const rv = (
-            (from.policy || '') === (to.policy || '') &&
-            (from.policy2 || '') === (to.policy2 || '') &&
-            (from.options || '') === (to.options || '')
+            from.policy === to.policy &&
+            from.policy2 === to.policy2 &&
+            from.options === to.options
         );
         return rv;
     }

@@ -9,7 +9,11 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
 
     const atoms = useState( //TODO: use memo or update atoms value?
         () => createUiAtoms(
-            { policy: field.policy, policy2: field.policy2 },
+            {
+                policy: field.policy || '',
+                policy2: field.policy2 || '',
+                options: field.options || '',
+            },
             ({ get, set }) => {
                 debouncedCombinedResultFromAtoms(atoms, get, set);
             })

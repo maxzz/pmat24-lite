@@ -19,7 +19,8 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
             return createUiAtoms(
                 {
                     policy: policies.policy,
-                    policy2: policies.policy2
+                    policy2: policies.policy2,
+                    options: policies.options,
                 },
                 ({ get, set }) => {
                     debouncedCombinedResultFromAtoms(atoms, get, set);

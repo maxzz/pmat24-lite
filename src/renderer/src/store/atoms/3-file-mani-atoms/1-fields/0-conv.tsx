@@ -1,6 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FieldTyp, Mani, Meta, Poli, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
+import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
 
 export namespace FieldConv {
 
@@ -101,9 +101,9 @@ export namespace FieldConv {
 
     function theSamePolicyStrings(from: Mani.FieldPolicy, to: Mani.FieldPolicy): boolean {
         const rv = (
-            (from.policy || '') === (to.policy || '') &&
-            (from.policy2 || '') === (to.policy2 || '') &&
-            (from.options || '') === (to.options || '')
+            from.policy === to.policy &&
+            from.policy2 === to.policy2 &&
+            from.options === to.options
         );
         return rv;
     }
