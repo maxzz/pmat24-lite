@@ -7,20 +7,20 @@ import { PolicyEditorBody } from "./2-dlg-body";
 
 export function PolicyEditorNewDlg({ openAtom, policiesAtom }: { openAtom: PrimitiveAtom<boolean>; policiesAtom: PrimitiveAtom<Mani.FieldPolicy>; }) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
-    const triggerData = useAtomValue(policiesAtom);
+    const policies = useAtomValue(policiesAtom);
 
     const atoms = useMemo(
         () => {
             return createUiAtoms(
                 {
-                    policy: triggerData.policy,
-                    policy2: triggerData.policy2
+                    policy: policies.policy,
+                    policy2: policies.policy2
                 },
                 ({ get, set }) => {
                     debouncedCombinedResultFromAtoms(atoms, get, set);
                 }
             );
-        }, [triggerData]
+        }, [policies]
     );
 
     return (
