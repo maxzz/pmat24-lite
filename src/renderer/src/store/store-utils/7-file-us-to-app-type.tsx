@@ -1,5 +1,5 @@
+import { isAnyWhy, isManual } from "pm-manifest";
 import { FileUs } from "../store-types";
-import { isAnyWhy, isManual } from "./4-mani-utils";
 import { AppIconType } from "./8-app-type-to-icon";
 
 export type IconTypeWithWarning = {

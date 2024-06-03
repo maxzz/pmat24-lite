@@ -1,11 +1,12 @@
 import { atom } from 'jotai';
 import { filesAtom } from '../0-files-atom';
+import { FileUs } from '@/store/store-types';
 import { FileContent } from '@shared/ipc-types';
-import { delay, isEmpty, isManual } from '@/store/store-utils';
+import { isEmpty, isManual } from 'pm-manifest';
+import { delay } from '@/store/store-utils';
 import { deliveredToFileUs } from './2-delivered-to-file-us';
 import { rightPanelAtom } from '../../2-right-panel';
 import { busyIndicator, totalManis } from '../../9-ui-state';
-import { FileUs } from '@/store/store-types';
 import { toast } from 'sonner';
 
 /**

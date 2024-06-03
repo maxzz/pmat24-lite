@@ -1,5 +1,5 @@
 import { FileUs } from "@/store/store-types";
-import { isManual } from "@/store/store-utils";
+import { isManual } from "pm-manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
 const ManiUrlPartsClasses = "\
