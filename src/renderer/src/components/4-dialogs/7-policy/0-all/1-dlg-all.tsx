@@ -5,7 +5,12 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 
-export function PolicyEditorNewDlg({ openAtom, policiesAtom }: { openAtom: PrimitiveAtom<boolean>; policiesAtom: PrimitiveAtom<Mani.FieldPolicy>; }) {
+type PolicyEditorNewDlgProps = {
+    openAtom: PrimitiveAtom<boolean>;
+    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
+};
+
+export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const policies = useAtomValue(policiesAtom);
 

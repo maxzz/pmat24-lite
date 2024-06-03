@@ -5,12 +5,12 @@ import { PolicyDlgConv } from "./0-conv";
 import { Mani } from "pm-manifest";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
-    const data = PolicyDlgConv.forAtoms(policies);
-    const atoms = PolicyDlgConv.toAtoms(data, onChange);
+    const forAtoms = PolicyDlgConv.forAtoms(policies);
+    const atoms = PolicyDlgConv.toAtoms(forAtoms, onChange);
     return {
         ...atoms,
         original: policies,
-        fromFile: data,
+        fromFile: forAtoms,
         changed: false,
     };
 }

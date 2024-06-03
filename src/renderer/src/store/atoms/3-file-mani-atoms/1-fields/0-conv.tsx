@@ -101,8 +101,9 @@ export namespace FieldConv {
 
     function theSamePolicyStrings(from: Mani.FieldPolicy, to: Mani.FieldPolicy): boolean {
         const rv = (
-            from.policy === to.policy &&
-            from.policy2 === to.policy2
+            (from.policy || '') === (to.policy || '') &&
+            (from.policy2 || '') === (to.policy2 || '') &&
+            (from.options || '') === (to.options || '')
         );
         return rv;
     }
@@ -130,12 +131,13 @@ export namespace FieldConv {
             ...fieldTyp2Obj(from.type),
             policy: from.policies.policy,
             policy2: from.policies.policy2,
+            options: from.policies.options,
         };
 
         TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
     }
-    
+
     //TODO: filter out undefined values when saving manifest
     //TODO: we need to correlate policies with password change form
 

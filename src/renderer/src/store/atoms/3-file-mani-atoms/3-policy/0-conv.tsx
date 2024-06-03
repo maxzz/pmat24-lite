@@ -7,6 +7,7 @@ export namespace PolicyConv {
     type PolicyForAtoms = {
         policy: string;
         policy2: string;
+        options: string;
         policyText: string;             // display text to show in grid; short policy explabation
     };
 
@@ -22,16 +23,18 @@ export namespace PolicyConv {
         const rv: PolicyForAtoms = {
             policy: field.mani.policy || '',
             policy2: field.mani.policy2 || '',
+            options: field.mani.options || '',
             policyText: 'TODO: short policy explanation', // or show custom policy rule, or standard policy rule
         };
         return rv;
     }
 
     export function toAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
-        const { policy, policy2, policyText } = initialState;
+        const { policy, policy2, options, policyText } = initialState;
         return {
             policyAtom: atomWithCallback(policy, onChange),
             policy2Atom: atomWithCallback(policy2, onChange),
+            optionsAtom: atomWithCallback(options, onChange),
             policyTextAtom: atomWithCallback(policyText, onChange),
         };
     }
@@ -40,6 +43,7 @@ export namespace PolicyConv {
         const rv = {
             policy: get(atoms.policyAtom),
             policy2: get(atoms.policy2Atom),
+            options: get(atoms.optionsAtom),
             policyText: get(atoms.policyTextAtom),
         };
         return rv;
@@ -49,8 +53,9 @@ export namespace PolicyConv {
 
     export function areTheSame(from: PolicyForAtoms, to: PolicyForAtoms): boolean {
         const rv = (
-            from.policy === to.policy &&
-            from.policy2 === to.policy2
+            (from.policy || '') === (to.policy || '') &&
+            (from.policy2 || '') === (to.policy2 || '') &&
+            (from.options || '') === (to.options || '')
         );
         return rv;
     }
@@ -70,5 +75,4 @@ export namespace PolicyConv {
         return rv;
     }
     /**/
-
 }
