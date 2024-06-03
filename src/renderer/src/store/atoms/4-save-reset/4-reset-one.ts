@@ -11,7 +11,7 @@ export const doResetOneAtom = atom(null,
             return;
         }
 
-        const maniAtoms = get(fileUs.atomsAtom);
+        const maniAtoms = get(fileUs.maniAtomsAtom);
         if (!maniAtoms) {
             return;
         }

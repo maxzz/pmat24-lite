@@ -12,13 +12,13 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
 
     const fileUs = useAtomValue(fileUsAtom);
-    const [fileUsAtoms, setFileUsAtoms] = useAtom(fileUs.atomsAtom);
+    const [maniAtoms, setManiAtoms] = useAtom(fileUs.maniAtomsAtom);
 
     useEffect(() => {
-        !fileUsAtoms && setFileUsAtoms(createManiAtoms(fileUs, fileUsAtom));
-    }, [fileUs, fileUsAtom, fileUsAtoms]);
+        !maniAtoms && setManiAtoms(createManiAtoms(fileUs, fileUsAtom));
+    }, [fileUs, fileUsAtom, maniAtoms]);
 
-    if (!fileUsAtoms) { // atoms not ready yet but will be on the next render
+    if (!maniAtoms) { // atoms not ready yet but will be on the next render
         return null;
     }
 

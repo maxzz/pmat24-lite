@@ -27,7 +27,7 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
         },
         stats: {} as FileUsStats, // the real one will be assigned after parsing content
         
-        atomsAtom: atom<ManiAtoms | null>(null),
+        maniAtomsAtom: atom<ManiAtoms | null>(null),
         changesSet: proxySet<string>(),
     };
 

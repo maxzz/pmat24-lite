@@ -34,7 +34,7 @@ export type FileUs = FileContent & {
     state: FileUsState;                     // local state atoms: is currnet; is selected
     stats: FileUsStats;                     // quick access statistics
 
-    atomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
+    maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
     changesSet: ChangesSet;                 // mani editor changes set; created when file selected at top level
 };
 

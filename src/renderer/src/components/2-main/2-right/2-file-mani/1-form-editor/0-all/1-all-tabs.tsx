@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 
 export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
 
-    const maniAtoms = useAtomValue(fileUs.atomsAtom);
+    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
         return null;
     }

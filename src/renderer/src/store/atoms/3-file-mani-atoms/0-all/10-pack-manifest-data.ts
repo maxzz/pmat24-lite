@@ -2,7 +2,7 @@ import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 
 export function packManifestData(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set: Setter, newFilename?: string) {
-    const maniAtoms = get(fileUs.atomsAtom);
+    const maniAtoms = get(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
         return;
     }
