@@ -22,7 +22,8 @@ module.exports = plugin(
 			},
 			".animate-out": {
 				animationName: "exit",
-				animationDuration: theme("animationDuration.DEFAULT"),
+				// animationDuration: theme("animationDuration.DEFAULT"),
+				animationDuration: "3s",
 				"--tw-exit-opacity": "initial",
 				"--tw-exit-scale": "initial",
 				"--tw-exit-rotate": "initial",
