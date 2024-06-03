@@ -6,7 +6,6 @@ export namespace PolicyDlgConv {
 
     export type ForAtoms = {
         enabled: boolean;               // Enable password policy
-        isCustomRule: '0' | '1';        // boolean; rule type: predefined or custom rule
 
         constrainSet: string;           // ConstrainSet; predefined rule
         custom: string;                 // customRule
@@ -30,9 +29,8 @@ export namespace PolicyDlgConv {
 
     // Inital policy
 
-    const initialPolicy: ForAtoms = {
+    const initialForAtoms: ForAtoms = {
         enabled: true,
-        isCustomRule: '0',
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
         minLen: 8,
@@ -52,15 +50,14 @@ export namespace PolicyDlgConv {
         //TODO: parse policy and assign onChange callback
         // const policy = policies.policy || policies.policy2;
 
-        const rv: ForAtoms = initialPolicy;
+        const rv: ForAtoms = initialForAtoms;
         return rv;
     }
 
     export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, isCustomRule, constrainSet, custom, minLen: minLength, maxLen: maxLength, textVerify, textGenerate, constrainPsw: constrainsPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen: minLength, maxLen: maxLength, textVerify, textGenerate, constrainPsw: constrainsPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
-            isCustomRuleAtom: atomWithCallback(isCustomRule, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
             customAtom: atomWithCallback(custom, onChange),
             minLenAtom: atomWithCallback(minLength, onChange),
@@ -76,7 +73,6 @@ export namespace PolicyDlgConv {
     export function fromAtoms(atoms: PolicyUiAtoms, get: Getter, set: Setter): ForAtoms {
         const rv: ForAtoms = {
             enabled: get(atoms.enabledAtom),
-            isCustomRule: get(atoms.isCustomRuleAtom),
             constrainSet: get(atoms.constrainSetAtom),
             custom: get(atoms.customAtom),
             minLen: get(atoms.minLenAtom),
@@ -94,7 +90,6 @@ export namespace PolicyDlgConv {
     export function areTheSame(from: ForAtoms, to: ForAtoms): boolean {
         const rv = (
             from.enabled === to.enabled &&
-            from.isCustomRule === to.isCustomRule &&
             from.constrainSet === to.constrainSet &&
             from.custom === to.custom &&
             from.minLen === to.minLen &&
