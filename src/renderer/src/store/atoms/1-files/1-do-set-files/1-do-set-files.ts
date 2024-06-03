@@ -61,9 +61,9 @@ export const doSetDeliveredFilesAtom = atom(
                     (deliveredFile) => {
                         const newFileUs = deliveredToFileUs(deliveredFile);
 
-                        if (isEmpty(newFileUs)) {
+                        if (isEmpty(newFileUs.meta)) {
                             totalManis.empty++;
-                        } else if (isManual(newFileUs)) {
+                        } else if (isManual(newFileUs.meta)) {
                             totalManis.manual++;
                         } else {
                             totalManis.normal++;

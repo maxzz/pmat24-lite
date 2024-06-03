@@ -21,13 +21,13 @@ export function fileUsToAppType(fileUs: FileUs): IconTypeWithWarning {
         return { appIcon: AppIconType.cat, warning: false };
     }
 
-    const hasBailOut = isAnyWhy(fileUs);
+    const hasBailOut = isAnyWhy(fileUs.meta);
 
     // if (isAnyIe6(fcnt)) { // OK: but commented out ie6 for now. there are too many of them
     //     return { icon: AppIconType.ie6, hasBailOut };
     // }
 
-    const appIcon = getAppIconType(fileUs.stats.isWeb, isManual(fileUs));
+    const appIcon = getAppIconType(fileUs.stats.isWeb, isManual(fileUs.meta));
             
     return {
         appIcon,

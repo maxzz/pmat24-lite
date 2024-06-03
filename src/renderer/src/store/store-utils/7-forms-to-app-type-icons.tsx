@@ -6,13 +6,13 @@ import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
 export function formToAppType(fileUs: FileUs): IconTypeWithWarning {
 
-    const hasBailOut = isAnyWhy(fileUs);
+    const hasBailOut = isAnyWhy(fileUs.meta);
 
     // if (isAnyIe6(fcnt)) { // OK: but commented out ie6 for now. there are too many of them
     //     return { icon: AppIconType.ie6, hasBailOut };
     // }
 
-    const appIcon = getAppIconType(fileUs.stats.isWeb, isManual(fileUs));
+    const appIcon = getAppIconType(fileUs.stats.isWeb, isManual(fileUs.meta));
 
     return {
         appIcon,

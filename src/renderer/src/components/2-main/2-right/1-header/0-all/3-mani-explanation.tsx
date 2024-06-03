@@ -51,7 +51,7 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
 export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
 
     if (!fileUs.stats.domain) {
-        const manual = isManual(fileUs);
+        const manual = isManual(fileUs.meta);
         return manual
             ? 'Manually defined login for a Windows application'
             : 'Login for a Windows application';

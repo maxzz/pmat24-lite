@@ -28,19 +28,19 @@ export const filteredAtom = atom<FileUsAtom[]>(
                 const fileUs = get(fileAtom);
 
                 if (capOnly) {
-                    return isAnyCap(fileUs, regex);
+                    return isAnyCap(fileUs.mani, regex);
                 }
 
                 if (clsOnly) {
-                    return isAnyCls(fileUs, regex);
+                    return isAnyCls(fileUs.mani, regex);
                 }
 
-                const isWeb = isAnyWeb(fileUs);
-                if ((winOnly && isWeb) || (webOnly && !isWeb) || (whyOnly && !isAnyWhy(fileUs))) {
+                const isWeb = isAnyWeb(fileUs.meta);
+                if ((winOnly && isWeb) || (webOnly && !isWeb) || (whyOnly && !isAnyWhy(fileUs.meta))) {
                     return false;
                 }
 
-                let useItNow = isEmpty(fileUs) ? showEmpty : isManual(fileUs) ? showManual : showNormal;
+                let useItNow = isEmpty(fileUs.meta) ? showEmpty : isManual(fileUs.meta) ? showManual : showNormal;
                 if (useItNow && regex) {
                     useItNow = useFileUsByFilter(fileUs, regex);
                 }
