@@ -1,7 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
-import { TwoFieldPoliciesForAtoms, getPolicyExplanation } from "../../7-dialogs";
+import { FieldTyp, Mani, Meta, Poli, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
 
 export namespace FieldConv {
 
@@ -11,15 +10,14 @@ export namespace FieldConv {
         type: FieldTyp;
         valueLife: ValueLife;           // this includes value and valueAs
         dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
-        policies: TwoFieldPoliciesForAtoms;
+        policies: Mani.FieldPolicy;
     };
 
     export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
         metaField: Meta.Field;          // all fields from original to combine with fields from atoms to create new field
         fromFile: FieldForAtoms;        // original state to compare with
         changed: boolean;               // state from atoms is different from original state
-    }
-    >;
+    }>;
 
     /**
      * Fields that are used in this editor
@@ -35,6 +33,7 @@ export namespace FieldConv {
         | 'onetvalue'
         | 'policy'
         | 'policy2'
+        | 'options'
     >;
 
     // Atoms
@@ -48,10 +47,10 @@ export namespace FieldConv {
         !valueLife.value && (valueLife.value = "");     //TODO: cleanup all empty values to undefined when saving manifest
         !valueLife.isRef && (valueLife.isRef = false);  //TODO: cleanup all empty values to undefined when saving manifest
 
-        const policies: TwoFieldPoliciesForAtoms = {
+        const policies: Mani.FieldPolicy = {
             policy: maniField.policy || '',
             policy2: maniField.policy2 || '',
-            explanation: getPolicyExplanation(maniField.policy, maniField.policy2, field),
+            options: maniField.options || '',
         };
 
         const rv: FieldForAtoms = {
@@ -100,7 +99,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    function theSamePolicies(from: TwoFieldPoliciesForAtoms, to: TwoFieldPoliciesForAtoms): boolean {
+    function theSamePolicyStrings(from: Mani.FieldPolicy, to: Mani.FieldPolicy): boolean {
         const rv = (
             from.policy === to.policy &&
             from.policy2 === to.policy2
@@ -116,7 +115,7 @@ export namespace FieldConv {
             from.dbname === to.dbname &&
             theSameValue(from.valueLife, to.valueLife) &&
             from.valueLife.valueAs === to.valueLife.valueAs &&
-            theSamePolicies(from.policies, to.policies)
+            theSamePolicyStrings(from.policies, to.policies)
         );
         return rv;
     }

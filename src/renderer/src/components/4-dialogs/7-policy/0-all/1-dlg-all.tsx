@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
-import { TwoFieldPoliciesForAtoms } from "@/store/atoms/7-dialogs";
 
-export function PolicyEditorNewDlg({ openAtom, policiesAtom }: { openAtom: PrimitiveAtom<boolean>; policiesAtom: PrimitiveAtom<TwoFieldPoliciesForAtoms>; }) {
+export function PolicyEditorNewDlg({ openAtom, policiesAtom }: { openAtom: PrimitiveAtom<boolean>; policiesAtom: PrimitiveAtom<Mani.FieldPolicy>; }) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const triggerData = useAtomValue(policiesAtom);
 

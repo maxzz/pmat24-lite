@@ -7,8 +7,8 @@ export * from "./9-policy-helpers";
 
 // Dialog data
 
-export type TwoFieldPoliciesForAtoms = {
-    policy: string;
-    policy2: string;
-    explanation: PolicyAction;
-};
+// export type TwoFieldPoliciesForAtoms = {
+//     policy: string;
+//     policy2: string;
+//     explanation: PolicyAction;
+// };

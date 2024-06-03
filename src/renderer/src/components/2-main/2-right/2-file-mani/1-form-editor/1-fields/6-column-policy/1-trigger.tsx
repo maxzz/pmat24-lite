@@ -1,8 +1,7 @@
 import { HTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
-import { Meta } from 'pm-manifest';
+import { Mani, Meta } from 'pm-manifest';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
-import { TwoFieldPoliciesForAtoms } from '@/store/atoms/7-dialogs';
 import { PolicyEditorNewDlg } from '@/components/4-dialogs';
 import { Button } from '@/ui';
 import { classNames } from '@/utils';
@@ -25,7 +24,7 @@ flex items-center justify-center gap-0.5";
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
-    policiesAtom: PrimitiveAtom<TwoFieldPoliciesForAtoms>;
+    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     metaField: Meta.Field;
 };
 
