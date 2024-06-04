@@ -69,11 +69,11 @@ function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
     );
 }
 
-export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function SectionRuleTypes({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
         <div className="mt-2 flex flex-col gap-2 select-none">
-            <RuleSelectSection atoms={atoms} />
-            <CustomRuleSection dlgUiAtoms={atoms} />
+            <RuleSelectSection atoms={dlgUiAtoms} />
+            <CustomRuleSection dlgUiAtoms={dlgUiAtoms} />
         </div>
     );
 }

@@ -8,10 +8,15 @@ import { SectionHistory } from "../3-history";
 import { SectionGenerationBy } from "../4-generate-by";
 import { classNames } from "@/utils";
 
+type PolicyEditorBodyProps = {
+    dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    doCloseWithOk: (ok: boolean) => void;
+};
+
 const sectionClasses = "text-sm font-bold border-gray-500 border-b";
 
-export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.PolicyUiAtoms; setIsOpen: (v: boolean) => void; }) {
-    const [enabled, setEnabled] = useAtom(atoms.enabledAtom);
+export function PolicyEditorBody({ dlgUiAtoms, doCloseWithOk }: PolicyEditorBodyProps) {
+    const [enabled, setEnabled] = useAtom(dlgUiAtoms.enabledAtom);
     return (<>
         <DialogHeader
             header="Password Policy Editor"
@@ -29,7 +34,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
                 <h2 className={sectionClasses}>
                     Password complexity
                 </h2>
-                <SectionRuleTypes atoms={atoms} />
+                <SectionRuleTypes dlgUiAtoms={dlgUiAtoms} />
             </div>
 
             {/* History */}
@@ -37,7 +42,7 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
                 <h2 className={sectionClasses}>
                     Password history restrictions
                 </h2>
-                <SectionHistory atoms={atoms} />
+                <SectionHistory dlgUiAtoms={dlgUiAtoms} />
             </div>
 
             {/* Generation */}
@@ -45,14 +50,14 @@ export function PolicyEditorBody({ atoms, setIsOpen }: { atoms: PolicyDlgConv.Po
                 <h2 className={sectionClasses}>
                     Password generation
                 </h2>
-                <SectionGenerationBy atoms={atoms} />
+                <SectionGenerationBy dlgUiAtoms={dlgUiAtoms} />
             </div>
         </div>
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" className="min-w-16" onClick={() => setIsOpen(false)}>OK</Button>
-            <Button size="sm" className="min-w-16" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button size="sm" className="min-w-16" onClick={() => doCloseWithOk(true)}>OK</Button>
+            <Button size="sm" className="min-w-16" onClick={() => doCloseWithOk(false)}>Cancel</Button>
         </div>
     </>);
 }

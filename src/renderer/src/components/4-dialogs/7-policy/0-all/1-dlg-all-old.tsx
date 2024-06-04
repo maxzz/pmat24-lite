@@ -28,7 +28,7 @@ export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
             </DialogTrigger>
 
             <DialogContent className="text-xs" container={document.getElementById('portal')}>
-                <PolicyEditorBody atoms={atoms} setIsOpen={setIsOpen} />
+                <PolicyEditorBody dlgUiAtoms={atoms} doCloseWithOk={setIsOpen} />
             </DialogContent>
         </Dialog>
     );
