@@ -6,21 +6,22 @@ import { Mani } from "pm-manifest";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const forAtoms = PolicyDlgConv.forAtoms(policies);
-    const atoms = PolicyDlgConv.toAtoms(forAtoms, onChange);
+    const dlgUiAtoms = PolicyDlgConv.toAtoms(forAtoms, onChange);
     return {
-        ...atoms,
+        ...dlgUiAtoms,
         original: policies,
         fromFile: forAtoms,
         changed: false,
     };
 }
 
-export function combineResultFromAtoms(atoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
-    const result = PolicyDlgConv.fromAtoms(atoms, get, set);
+export function combineResultFromAtoms(dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
+    const result = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
 
-    const changed = !PolicyDlgConv.areTheSame(result, atoms.fromFile);
+    const changed = !PolicyDlgConv.areTheSame(result, dlgUiAtoms.fromFile);
+    dlgUiAtoms.changed = changed;
 
-    console.log('PolicyDlg changed=', changed, JSON.stringify(result));
+    console.log(`PolicyDlg changed=${changed}`, JSON.stringify(result));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

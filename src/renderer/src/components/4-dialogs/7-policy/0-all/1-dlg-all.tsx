@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { useMemo, useState } from "react";
+import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
-import { ok } from "assert";
+import { PolicyDlgConv } from "./0-conv";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -14,6 +14,17 @@ type PolicyEditorNewDlgProps = {
 export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const policies = useAtomValue(policiesAtom);
+
+    const doSetResultAtom = useState(
+        () => atom(
+            null,
+            (get, set, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) => {
+                const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+                console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
+            }
+        )
+    )[0];
+    const doSetResult = useSetAtom(doSetResultAtom);
 
     const dlgUiAtoms = useMemo(
         () => {
@@ -44,7 +55,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
                     dlgUiAtoms={dlgUiAtoms}
                     doCloseWithOk={(ok) => {
                         if (ok) {
-                            console.log('PolicyEditorNewDlg ok=', ok, JSON.stringify(dlgUiAtoms));
+                            doSetResult(dlgUiAtoms);
                         }
                         setIsOpen(false);
                     }}
