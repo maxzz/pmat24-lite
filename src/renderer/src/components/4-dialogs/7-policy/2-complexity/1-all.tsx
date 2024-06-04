@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Poli, namesConstrainSet } from "@/store/manifest";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { Dropdown } from "../9-constrols";
@@ -12,8 +12,20 @@ import { RulesHelpPopover } from "./21-rules-help-popover";
 const selectNames = [...namesConstrainSet, 'Use custom rule'];
 
 function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
+
+    const setSelected2 = useSetAtom(atoms.constrainSet2Atom);
     const [selected, setSelected] = useAtom(atoms.constrainSetAtom);
     const isCustom = +selected === selectNames.length - 1;
+
+    function onValueChange(value: string) {
+        if (+value !== selectNames.length - 1) {
+            console.log('onValueChange set lastSelected', value, selectNames.length - 1);
+            
+            setSelected2(value);
+        }
+        setSelected(value);
+    }
+
     return (
         <div className="flex items-center justify-between gap-4">
             <div className="flex-1 space-y-1">
@@ -21,7 +33,7 @@ function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
                     Password complexity rule
                 </div>
                 <Label className="flex-1 text-xs flex flex-col 1items-center">
-                    <Dropdown items={selectNames} value={selected} onValueChange={setSelected} />
+                    <Dropdown items={selectNames} value={selected} onValueChange={onValueChange} />
                 </Label>
             </div>
 

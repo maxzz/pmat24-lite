@@ -29,6 +29,9 @@ export namespace FieldRowState {
 
         console.log('changes fields:', [...changes.keys()]);
         
+        console.log('  state', JSON.stringify(state.policies, null, 2));
+        console.log('   file', JSON.stringify(atoms.fromFile.policies, null, 2));
+
         // const maniField = FieldConv.forMani(state);
         // const maniFiel2 = FieldConv.forMani(atoms.fromFile);
 

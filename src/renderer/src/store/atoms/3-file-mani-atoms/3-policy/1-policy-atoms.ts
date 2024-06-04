@@ -53,7 +53,10 @@ export namespace PolicyState {
 
         const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
 
+        // this is not used anymore
         console.log('changes policy:', [...changes.keys()]);
+        console.log('  state', JSON.stringify(state, null, 2));
+        console.log('   file', JSON.stringify(atoms[policyIdx].fromFile, null, 2));
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

@@ -1,6 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Mani, Poli, namesConstrainPsw, namesConstrainSet } from "pm-manifest";
+import { Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
 
 export namespace PolicyDlgConv {
@@ -9,6 +9,7 @@ export namespace PolicyDlgConv {
         enabled: boolean;               // Enable password policy
 
         constrainSet: string;           // ConstrainSet; predefined rule
+        constrainSet2: string;          // last ConstrainSet in case if custom is selected
         custom: string;                 // customRule
 
         minLen: number;                 // min password length
@@ -33,6 +34,7 @@ export namespace PolicyDlgConv {
     const initialForAtoms: ForAtoms = {
         enabled: false,
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
+        constrainSet2: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
         minLen: 8,
         maxLen: 12,
@@ -53,6 +55,7 @@ export namespace PolicyDlgConv {
                 ...initialForAtoms,
                 enabled: hasPolicy,
                 constrainSet: `${policy.constrainSet}`,
+                constrainSet2: `${policy.constrainSet}`,
                 custom: policy.custom,
                 minLen: policy.minLen,
                 maxLen: policy.maxLen,
@@ -68,16 +71,17 @@ export namespace PolicyDlgConv {
     }
 
     export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, constrainSet, custom, minLen: minLength, maxLen: maxLength, textVerify, textGenerate, constrainPsw: constrainsPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen, maxLen, textVerify, textGenerate, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
+            constrainSet2Atom: atomWithCallback(constrainSet, onChange),
             customAtom: atomWithCallback(custom, onChange),
-            minLenAtom: atomWithCallback(minLength, onChange),
-            maxLenAtom: atomWithCallback(maxLength, onChange),
+            minLenAtom: atomWithCallback(minLen, onChange),
+            maxLenAtom: atomWithCallback(maxLen, onChange),
             textVerifyAtom: atomWithCallback(textVerify, onChange),
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
-            constrainPswAtom: atomWithCallback(constrainsPsw, onChange),
+            constrainPswAtom: atomWithCallback(constrainPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
         };
         return rv;
@@ -87,6 +91,7 @@ export namespace PolicyDlgConv {
         const rv: ForAtoms = {
             enabled: get(atoms.enabledAtom),
             constrainSet: get(atoms.constrainSetAtom),
+            constrainSet2: get(atoms.constrainSet2Atom),
             custom: get(atoms.customAtom),
             minLen: get(atoms.minLenAtom),
             maxLen: get(atoms.maxLenAtom),
@@ -117,11 +122,11 @@ export namespace PolicyDlgConv {
 
     // Back to manifest
 
-    function constrainSetIdxStrToType(idxStr: string): Poli.ConstrainSet {
+    function constrainSetIdxStrToType(idxStr: string, names: string[], latestNonCustomIdx: string): Poli.ConstrainSet {
         const idx = +idxStr;
-        const isLast = idx >= namesConstrainSet.length - 1;
+        const isLast = idx >= names.length - 1;
         if (isLast) {
-            return Poli.ConstrainSet.atleastonenumber;
+            return +latestNonCustomIdx;
         }
         return idx as Poli.ConstrainSet;
     }
@@ -142,7 +147,7 @@ export namespace PolicyDlgConv {
                         : Poli.UseAs.generate,
             minLen: from.minLen,
             maxLen: from.maxLen,
-            constrainSet: constrainSetIdxStrToType(from.constrainSet),
+            constrainSet: constrainSetIdxStrToType(from.constrainSet, namesConstrainSet, from.constrainSet2),
             constrainPsw: constrainPswIdxStrToType(from.constrainPsw),
             custom: from.custom,
         };
