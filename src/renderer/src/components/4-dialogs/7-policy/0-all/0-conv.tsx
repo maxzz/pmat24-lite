@@ -1,6 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Mani, Poli } from "pm-manifest";
+import { policyFromStrings } from "@/store/manifest";
 
 export namespace PolicyDlgConv {
 
@@ -30,7 +31,7 @@ export namespace PolicyDlgConv {
     // Inital policy
 
     const initialForAtoms: ForAtoms = {
-        enabled: true,
+        enabled: false,
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
         minLen: 8,
@@ -44,14 +45,26 @@ export namespace PolicyDlgConv {
     // Atoms
 
     export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
-        //TODO: create the default policy but dissabled initially
-        //TODO: parse policies and assign to rv
+        const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
-        //TODO: parse policy and assign onChange callback
-        // const policy = policies.policy || policies.policy2;
+        const hasPolicy = policy.useAs !== Poli.UseAs.none;
+        if (hasPolicy) {
+            const rv: ForAtoms = {
+                ...initialForAtoms,
+                enabled: hasPolicy,
+                constrainSet: `${policy.constrainSet}`,
+                custom: policy.custom,
+                minLen: policy.minLen,
+                maxLen: policy.maxLen,
+                textVerify: 'TODO: short policy explanation',
+                textGenerate: 'TODO: short policy explanation',
+                constrainPsw: `${policy.constrainPsw}`,
+                useAs: `${policy.useAs}`,
+            };
+            return rv;
+        }
 
-        const rv: ForAtoms = initialForAtoms;
-        return rv;
+        return initialForAtoms;
     }
 
     export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {

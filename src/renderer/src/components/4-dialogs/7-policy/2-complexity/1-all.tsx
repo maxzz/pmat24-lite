@@ -32,22 +32,27 @@ function RuleSelectSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
     );
 }
 
-function CustomRuleSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const selected = useAtomValue(atoms.constrainSetAtom);
-    const isCustom = +selected === selectNames.length - 1;
-    //const [isCustomRule, setIsCustomRule] = useAtom(atoms.isCustomRuleAtom);
+function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const selectedIdx = useAtomValue(dlgUiAtoms.constrainSetAtom);
+    const isCustom = +selectedIdx === selectNames.length - 1;
+
+    const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
 
     const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
     const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
     return (
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
-
                 <div className="w-full space-y-1">
                     <div className="">Custom rule</div>
 
                     <div className={classNames("flex-1 relative h-8 flex items-center justify-between space-x-2")}>
-                        <Input className="flex-1 h-8" />
+                        <Input
+                            className="flex-1 h-8 font-mono text-xs"
+                            value={custom}
+                            onChange={(e) => setCustom(e.target.value)}
+                        />
+
                         <RulesHelpPopover />
                     </div>
 
@@ -58,7 +63,7 @@ function CustomRuleSection({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms; }) {
             </div>
 
             {isCustom && (
-                <SectionTestRoom atoms={atoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                <SectionTestRoom atoms={dlgUiAtoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
             )}
         </div>
     );
@@ -68,7 +73,7 @@ export function SectionRuleTypes({ atoms }: { atoms: PolicyDlgConv.PolicyUiAtoms
     return (
         <div className="mt-2 flex flex-col gap-2 select-none">
             <RuleSelectSection atoms={atoms} />
-            <CustomRuleSection atoms={atoms} />
+            <CustomRuleSection dlgUiAtoms={atoms} />
         </div>
     );
 }
