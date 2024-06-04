@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Getter, PrimitiveAtom, Setter, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
@@ -11,16 +11,30 @@ type PolicyEditorNewDlgProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
 };
 
+type DoSetResultPoliciesAtomProps = {
+    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
+    dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    ok: boolean;
+};
+
 const doSetResultPoliciesAtom = atom(null,
-    (get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) => {
+    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, ok }: DoSetResultPoliciesAtomProps) => {
+        if (!ok) {
+            //TODO: reset to original values local atoms
+            return;
+        }
+
         const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
 
         if (!dlgUiAtoms.changed) {
             return;
         }
+
         const strings = PolicyDlgConv.forMani(state);
 
         //TODO: get access to setManiChanges()
+
+        set(policiesAtom, strings);
 
         console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
         console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
@@ -35,6 +49,8 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
 
     const dlgUiAtoms = useMemo(
         () => {
+            console.log('PolicyEditorNewDlg useMemo');
+            
             return createUiAtoms(
                 {
                     policy: policies.policy,
@@ -61,9 +77,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
                 <PolicyEditorBody
                     dlgUiAtoms={dlgUiAtoms}
                     doCloseWithOk={(ok) => {
-                        if (ok) {
-                            doSetResultPolicies(dlgUiAtoms);
-                        }
+                        doSetResultPolicies({ policiesAtom, dlgUiAtoms, ok });
                         setIsOpen(false);
                     }}
                 />

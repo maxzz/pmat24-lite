@@ -130,7 +130,7 @@ export namespace PolicyDlgConv {
         return +idxStr as Poli.ConstrainPsw;
     }
 
-    export function forMani(from: ForAtoms): Mani.FieldPolicySome {
+    export function forMani(from: ForAtoms): Mani.FieldPolicy {
 
         const policy: Poli.Policy = {
             useAs: !from.enabled
@@ -147,7 +147,7 @@ export namespace PolicyDlgConv {
             custom: from.custom,
         };
 
-        const rv: Mani.FieldPolicySome = policyToStrings(policy);
+        const rv: Mani.FieldPolicy = policyToStrings(policy);
         return rv;
     }
 

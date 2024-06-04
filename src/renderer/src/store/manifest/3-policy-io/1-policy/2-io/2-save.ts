@@ -2,10 +2,11 @@ import { Poli } from "pm-manifest";
 import { charset_str, constrains_str } from "./4-casting";
 //import { POLICY_SEPARATOR } from "./nun/0-defs";
 
-export function policyToStrings(policy: Poli.Policy): { policy: string, policy2: string } {
+export function policyToStrings(policy: Poli.Policy): { policy: string, policy2: string; options: string } {
     return {
         policy: policyToStringSimple(policy),
         policy2: policyToStringExtended(policy),
+        options: '', //TODO: this is not used in manifest and should be removed later
     };
 }
 
@@ -41,17 +42,17 @@ function compatibility_combine_policy(policy: string, policyOld: string, policyE
 /**/
 
 function policyToStringSimple(policy: Poli.Policy): string {
-    let type = '';
+    let useAs = '';
     switch (policy.useAs) {
         case Poli.UseAs.none: return '';
-        case Poli.UseAs.verify: type = "[p4]v:"; break;
-        case Poli.UseAs.generate: type = "[p4]g:"; break;
+        case Poli.UseAs.verify: useAs = "v"; break;
+        case Poli.UseAs.generate: useAs = "g"; break;
     }
 
     const chset = charset_str(policy.constrainSet);
     const constr = constrains_str(policy.constrainPsw);
 
-    return `${type}:${policy.minLen}:${policy.maxLen}:${chset}:${constr}`;
+    return `[p4]${useAs}:${policy.minLen}:${policy.maxLen}:${chset}:${constr}`;
 }
 
 function policyToStringExtended(v: Partial<Poli.Policy>): string {
