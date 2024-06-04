@@ -1,8 +1,8 @@
 import { Getter, Setter } from "jotai";
 import { OnValueChangeAny } from "@/util-hooks";
-import { debounce } from "@/utils";
-import { PolicyDlgConv } from "./0-conv";
 import { Mani } from "pm-manifest";
+import { PolicyDlgConv } from "./0-conv";
+import { debounce } from "@/utils";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const forAtoms = PolicyDlgConv.forAtoms(policies);

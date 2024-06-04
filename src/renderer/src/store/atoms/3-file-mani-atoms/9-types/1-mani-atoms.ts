@@ -1,7 +1,7 @@
 import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { FieldsState } from "../1-fields";
 import { SubmitState } from "../2-submit";
-import { PolicyState } from "../3-nun-policy";
+import { PolicyState } from "../3-policy-nun";
 import { OptionsState } from "../4-options";
 
 export type CreateAtomsParams = {

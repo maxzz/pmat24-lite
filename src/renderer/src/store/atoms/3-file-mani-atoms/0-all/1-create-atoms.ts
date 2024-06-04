@@ -3,7 +3,7 @@ import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { CreateAtomsParams, FormAtoms, ManiAtoms } from "../9-types";
 import { FieldsState } from "../1-fields/1-fields-atoms";
 import { SubmitState } from "../2-submit";
-import { PolicyState } from "../3-nun-policy";
+import { PolicyState } from "../3-policy-nun";
 import { OptionsState } from "../4-options";
 
 function createFormAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {

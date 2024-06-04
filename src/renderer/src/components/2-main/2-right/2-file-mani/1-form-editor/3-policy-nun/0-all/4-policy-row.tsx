@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { PolicyState } from '@/store/atoms/3-file-mani-atoms';
-import { PolicyEditorDlg } from '@/components/4-dialogs/7-policy';
+import { PolicyEditorDlg } from '@/components/4-dialogs/7-dlg-policy';
 
 function PolicyLine({ label, value }: { label: string; value: string | undefined; }) {
     return (<>
