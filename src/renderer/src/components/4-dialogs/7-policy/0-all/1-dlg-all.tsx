@@ -25,8 +25,10 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
                 if (!dlgUiAtoms.changed) {
                     return;
                 }
+                const strings = PolicyDlgConv.forMani(state);
 
                 console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
+                console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
             }
         )
     )[0];
