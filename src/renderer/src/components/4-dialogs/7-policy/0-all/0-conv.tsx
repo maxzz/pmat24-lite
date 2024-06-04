@@ -21,6 +21,7 @@ export namespace PolicyDlgConv {
         constrainPsw: string;           // ConstrainsPsw
 
         useAs: string;                  // UseAs; by user / by system
+        fakeOptions: string;            // fake options from manifest, but not used so we just preserve it
     };
 
     export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
@@ -42,6 +43,7 @@ export namespace PolicyDlgConv {
         textGenerate: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
         useAs: `${Poli.UseAs.verify}`,
+        fakeOptions: '',
     };
 
     // Atoms
@@ -63,6 +65,7 @@ export namespace PolicyDlgConv {
                 textGenerate: 'TODO: short policy explanation',
                 constrainPsw: `${policy.constrainPsw}`,
                 useAs: `${policy.useAs}`,
+                fakeOptions: policies.options,
             };
             return rv;
         }
@@ -83,6 +86,7 @@ export namespace PolicyDlgConv {
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
+            fakeOptionsAtom: atomWithCallback(initialState.fakeOptions, onChange),
         };
         return rv;
     }
@@ -99,6 +103,7 @@ export namespace PolicyDlgConv {
             textGenerate: get(atoms.textGenerateAtom),
             constrainPsw: get(atoms.constrainPswAtom),
             useAs: get(atoms.useAsAtom),
+            fakeOptions: get(atoms.fakeOptionsAtom),
         };
         return rv;
     }
@@ -115,7 +120,8 @@ export namespace PolicyDlgConv {
             from.textVerify === to.textVerify &&
             from.textGenerate === to.textGenerate &&
             from.constrainPsw === to.constrainPsw &&
-            from.useAs === to.useAs
+            from.useAs === to.useAs &&
+            from.fakeOptions === to.fakeOptions
         );
         return rv;
     }
@@ -153,6 +159,7 @@ export namespace PolicyDlgConv {
         };
 
         const rv: Mani.FieldPolicy = policyToStrings(policy);
+        rv.options = from.fakeOptions;
         return rv;
     }
 
