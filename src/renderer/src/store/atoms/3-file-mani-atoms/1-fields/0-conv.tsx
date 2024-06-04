@@ -137,8 +137,7 @@ export namespace FieldConv {
         TransformValue.valueLife2Mani(from.valueLife, rv);
         return rv;
     }
-
-    //TODO: filter out undefined values when saving manifest
-    //TODO: we need to correlate policies with password change form
-
 }
+
+//TODO: filter out undefined values when saving manifest
+//TODO: we need to correlate policies with password change form

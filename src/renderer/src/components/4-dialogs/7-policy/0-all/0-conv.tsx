@@ -21,7 +21,8 @@ export namespace PolicyDlgConv {
         constrainPsw: string;           // ConstrainsPsw
 
         useAs: string;                  // UseAs; by user / by system
-        fakeOptions: string;            // fake options from manifest, but not used so we just preserve it
+
+        fakeOptions: string;            // Fake options from manifest but not used, so we just preserve it
     };
 
     export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
@@ -158,8 +159,7 @@ export namespace PolicyDlgConv {
             custom: from.custom,
         };
 
-        const rv: Mani.FieldPolicy = policyToStrings(policy);
-        rv.options = from.fakeOptions;
+        const rv: Mani.FieldPolicy = policyToStrings(policy, from.fakeOptions);
         return rv;
     }
 

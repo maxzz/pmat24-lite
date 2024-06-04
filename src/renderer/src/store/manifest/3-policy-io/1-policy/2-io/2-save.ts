@@ -1,12 +1,12 @@
-import { Poli } from "pm-manifest";
+import { Mani, Poli } from "pm-manifest";
 import { charset_str, constrains_str } from "./4-casting";
 //import { POLICY_SEPARATOR } from "./nun/0-defs";
 
-export function policyToStrings(policy: Poli.Policy): { policy: string, policy2: string; options: string } {
+export function policyToStrings(policy: Poli.Policy, options: string): Mani.FieldPolicy {
     return {
         policy: policyToStringSimple(policy),
         policy2: policyToStringExtended(policy),
-        options: '', //TODO: this is not used in manifest and should be removed later
+        options, //TODO: this is not used in manifest and should be removed later
     };
 }
 
@@ -56,14 +56,14 @@ function policyToStringSimple(policy: Poli.Policy): string {
 }
 
 function policyToStringExtended(v: Partial<Poli.Policy>): string {
-    let useAs = '';
     if (v.custom) {
+        let useAs = '';
         switch (v.useAs) {
             case Poli.UseAs.none: return '';
             case Poli.UseAs.verify: useAs = "[e1]v:"; break;
             case Poli.UseAs.generate: useAs = "[e1]g:"; break;
         }
+        return `${useAs}${v.custom}<${v.minLen},${v.maxLen}>`;
     }
-
-    return `${useAs}${v.custom}<${v.minLen},${v.maxLen}>`;
+    return '';
 }
