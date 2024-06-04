@@ -11,26 +11,27 @@ type PolicyEditorNewDlgProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
 };
 
-function applyPolicyChanges(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
-    const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+const doSetResultPoliciesAtom = atom(null,
+    (get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) => {
+        const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
 
-    if (!dlgUiAtoms.changed) {
-        return;
+        if (!dlgUiAtoms.changed) {
+            return;
+        }
+        const strings = PolicyDlgConv.forMani(state);
+
+        //TODO: get access to setManiChanges()
+
+        console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
+        console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
     }
-    const strings = PolicyDlgConv.forMani(state);
-
-    //TODO: get access to setManiChanges()
-
-    console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
-    console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
-}
+);
 
 export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const policies = useAtomValue(policiesAtom);
 
-    const doSetResultAtom = useState(() => atom(null, applyPolicyChanges))[0];
-    const doSetResult = useSetAtom(doSetResultAtom);
+    const doSetResultPolicies = useSetAtom(doSetResultPoliciesAtom);
 
     const dlgUiAtoms = useMemo(
         () => {
@@ -61,7 +62,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
                     dlgUiAtoms={dlgUiAtoms}
                     doCloseWithOk={(ok) => {
                         if (ok) {
-                            doSetResult(dlgUiAtoms);
+                            doSetResultPolicies(dlgUiAtoms);
                         }
                         setIsOpen(false);
                     }}
