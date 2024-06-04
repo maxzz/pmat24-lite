@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { namesConstrainSet } from "@/store/manifest";
+import { Poli, namesConstrainSet } from "@/store/manifest";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { Dropdown } from "../9-constrols";
 import { classNames } from "@/utils";

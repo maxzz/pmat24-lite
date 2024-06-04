@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Mani, Poli } from "pm-manifest";
-import { policyFromStrings } from "@/store/manifest";
+import { Mani, Poli, namesConstrainPsw, namesConstrainSet } from "pm-manifest";
+import { policyFromStrings, policyToStrings } from "@/store/manifest";
 
 export namespace PolicyDlgConv {
 
@@ -117,18 +117,38 @@ export namespace PolicyDlgConv {
 
     // Back to manifest
 
-    /** /
-    export function forMani(from: PolicyForAtoms, metaForm: Meta.Form) {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
+    function constrainSetIdxStrToType(idxStr: string): Poli.ConstrainSet {
+        const idx = +idxStr;
+        const isLast = idx >= namesConstrainSet.length - 1;
+        if (isLast) {
+            return Poli.ConstrainSet.atleastonenumber;
+        }
+        return idx as Poli.ConstrainSet;
+    }
+
+    function constrainPswIdxStrToType(idxStr: string): Poli.ConstrainPsw {
+        return +idxStr as Poli.ConstrainPsw;
+    }
+
+    export function forMani(from: ForAtoms): Mani.FieldPolicySome {
+
+        const policy: Poli.Policy = {
+            useAs: !from.enabled
+                ? Poli.UseAs.none
+                : from.useAs === '0'
+                    ? Poli.UseAs.none
+                    : from.useAs === '1'
+                        ? Poli.UseAs.verify
+                        : Poli.UseAs.generate,
+            minLen: from.minLen,
+            maxLen: from.maxLen,
+            constrainSet: constrainSetIdxStrToType(from.constrainSet),
+            constrainPsw: constrainPswIdxStrToType(from.constrainPsw),
+            custom: from.custom,
         };
-    
-        TransformValue.valueLife2Mani(from.valueLife, rv);
+
+        const rv: Mani.FieldPolicySome = policyToStrings(policy);
         return rv;
     }
-    /**/
 
 }

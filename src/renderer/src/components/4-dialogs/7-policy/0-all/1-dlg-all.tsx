@@ -5,6 +5,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 import { PolicyDlgConv } from "./0-conv";
+import { policyToStrings } from "@/store/manifest";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -20,6 +21,11 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
             null,
             (get, set, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) => {
                 const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+
+                if (!dlgUiAtoms.changed) {
+                    return;
+                }
+
                 console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
             }
         )

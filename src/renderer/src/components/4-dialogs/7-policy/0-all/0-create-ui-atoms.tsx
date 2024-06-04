@@ -15,15 +15,11 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
     };
 }
 
-export function combineResultFromAtoms(dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
-    const result = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+function combineResultFromAtoms(dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
+    const dlgUi = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
 
-    const changed = !PolicyDlgConv.areTheSame(result, dlgUiAtoms.fromFile);
+    const changed = !PolicyDlgConv.areTheSame(dlgUi, dlgUiAtoms.fromFile);
     dlgUiAtoms.changed = changed;
-
-    console.log(`PolicyDlg changed=${changed}`, JSON.stringify(result));
 }
 
 export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
-
-//TODO: add place where to store the resulting policy
