@@ -1,10 +1,16 @@
-import { ReactNode, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { useAtomValue } from "jotai";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
 import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
 import { RowTrigger } from "./3-row-trigger";
 
-export function InputBody({ stateAtom, children }: { stateAtom: RowInputStateAtom; children: ReactNode }) {
+type InputBodyProps = {
+    stateAtom: RowInputStateAtom;
+    children: ReactNode;
+    Trigger?: FC<{ error: string | undefined; }>;
+};
+
+export function InputBody({ stateAtom, children, Trigger }: InputBodyProps) {
     const [openTooltip, setOpenTooltip] = useState(false);
 
     const state = useAtomValue(stateAtom);
@@ -18,7 +24,11 @@ export function InputBody({ stateAtom, children }: { stateAtom: RowInputStateAto
 
                     <TooltipTrigger asChild>
                         <div>
-                            <RowTrigger error={state.error} />
+                            {!!Trigger
+                                ? <Trigger error={state.error} />
+                                : <RowTrigger error={state.error} />
+                            }
+
                         </div>
                     </TooltipTrigger>
                 </div>
