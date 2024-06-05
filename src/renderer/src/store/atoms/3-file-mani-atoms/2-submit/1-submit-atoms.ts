@@ -21,7 +21,7 @@ export namespace SubmitState {
         }
 
         const rv: Atoms = {
-            ...(SubmitConv.toAtoms(forAtoms, onChange)),
+            ...(SubmitConv.createAtoms(forAtoms, onChange)),
             isWeb,
             fromFile: forAtoms,
             changed: false,

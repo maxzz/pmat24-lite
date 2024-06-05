@@ -23,7 +23,7 @@ export namespace PolicyState {
         const rv: Atoms[] = passwordFields.map(
             (field, policyIdx) => {
                 const initialState = PolicyConv.forAtoms(field);
-                const atoms = PolicyConv.toAtoms(initialState,
+                const atoms = PolicyConv.createAtoms(initialState,
                     ({ get, set }) => {
                         debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, policyIdx, get, set);
                     }

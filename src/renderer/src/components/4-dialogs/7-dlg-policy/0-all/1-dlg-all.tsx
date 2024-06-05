@@ -75,7 +75,9 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
 
     function doCancelClose() {
         //TODO: reset to original values local atoms
-        console.log('PolicyEditorNewDlg doCancelClose');
+        console.log('PolicyEditorNewDlg doCancelClose. toastId', toastId);
+
+        toastId && toast.dismiss(toastId);
         
         setIsOpen(false);
     }

@@ -28,7 +28,7 @@ export namespace PolicyConv {
         return rv;
     }
 
-    export function toAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
+    export function createAtoms(initialState: PolicyForAtoms, onChange: OnValueChangeAny): Atomize<PolicyForAtoms> {
         const { policy, policy2, options, policyText } = initialState;
         return {
             policyAtom: atomWithCallback(policy, onChange),

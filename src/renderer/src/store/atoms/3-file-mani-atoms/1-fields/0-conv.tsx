@@ -64,7 +64,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    export function toAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
+    export function createAtoms(initialState: FieldForAtoms, onChange: OnValueChangeAny): Atomize<FieldForAtoms> {
         const { useIt, label, type, dbname, valueLife, policies } = initialState;
         return {
             useItAtom: atomWithCallback(useIt, onChange),

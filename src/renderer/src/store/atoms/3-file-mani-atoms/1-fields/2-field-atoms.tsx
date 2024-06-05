@@ -10,7 +10,7 @@ export namespace FieldRowState {
     export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
         const forAtoms = FieldConv.forAtoms(field);
         return {
-            ...FieldConv.toAtoms(forAtoms, onChange),
+            ...FieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
             changed: false,

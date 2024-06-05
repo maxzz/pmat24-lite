@@ -6,7 +6,7 @@ import { debounce } from "@/utils";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const forAtoms = PolicyDlgConv.forAtoms(policies);
-    const dlgUiAtoms = PolicyDlgConv.toAtoms(forAtoms, onChange);
+    const dlgUiAtoms = PolicyDlgConv.createAtoms(forAtoms, onChange);
     return {
         ...dlgUiAtoms,
         original: policies,

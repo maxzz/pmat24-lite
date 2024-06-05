@@ -92,7 +92,7 @@ export namespace PolicyDlgConv {
         return initialForAtoms;
     }
 
-    export function toAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
+    export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
         const { enabled, constrainSet, custom, minLen, maxLen, textVerify, textGenerate, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),

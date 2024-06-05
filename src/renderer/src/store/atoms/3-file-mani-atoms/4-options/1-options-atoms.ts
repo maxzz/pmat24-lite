@@ -19,7 +19,7 @@ export namespace OptionsState {
         };
 
         const state = OptionsConv.forAtoms(createAtomsParams);
-        const rv = OptionsConv.toAtoms(state, onChange);
+        const rv = OptionsConv.createAtoms(state, onChange);
 
         return rv;
     }

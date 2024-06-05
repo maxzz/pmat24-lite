@@ -35,7 +35,7 @@ export namespace SubmitConv {
         return rv;
     }
 
-    export function toAtoms(initialState: SubmitForAtoms, onChange: OnValueChangeAny): Atomize<SubmitForAtoms> {
+    export function createAtoms(initialState: SubmitForAtoms, onChange: OnValueChangeAny): Atomize<SubmitForAtoms> {
         const { buttonNames, selected, doSubmit, isDoSubmitUndefined } = initialState;
         return {
             buttonNamesAtom: atomWithCallback(buttonNames, onChange),
