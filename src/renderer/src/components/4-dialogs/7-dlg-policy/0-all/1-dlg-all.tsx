@@ -23,19 +23,23 @@ const doSetResultPoliciesAtom = atom(null,
     (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, openAtom, ok }: DoSetResultPoliciesAtomProps) => {
         if (!ok) {
             //TODO: reset to original values local atoms
+            set(openAtom, false);
             return;
         }
 
         const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
 
         if (!dlgUiAtoms.changed) {
+            set(openAtom, false);
             return;
         }
 
-        const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data >= +state.maxLen.data;
+        console.log('doSetResultPoliciesAtom', state.minLen.data, state.maxLen.data);
+
+        const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data < +state.maxLen.data;
         if (!isValid) {
             toast.error('Min length must be less than max length');
-            return
+            return;
         }
 
         const strings = PolicyDlgConv.forMani(state);
@@ -60,7 +64,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
     const dlgUiAtoms = useMemo(
         () => {
             console.log('PolicyEditorNewDlg useMemo');
-            
+
             return createUiAtoms(
                 {
                     policy: policies.policy,
