@@ -3,6 +3,7 @@ import * as Select from '@radix-ui/react-select';
 import { SymbolChevronDown } from "@ui/icons";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { classNames } from "@/utils";
+import { inputFocusClasses, inputRingClasses } from "@/ui";
 
 const viewportClasses = "\
 px-1.5 py-1 \
@@ -43,8 +44,8 @@ export function Dropdown({ items, value, onValueChange, className }: DropdownPro
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
             <Select.Trigger asChild>
-                <div className={classNames("p-2 h-8 border-input border flex items-center justify-between space-x-1 rounded", className)} tabIndex={0}>
-                    <Select.Value />
+                <div className={classNames("p-2 h-8 text-mani-foreground bg-mani-background border-mani-border-muted border flex items-center justify-between space-x-1 rounded", className)} tabIndex={0}>
+                    <Select.Value className={inputFocusClasses} />
 
                     <Select.Icon>
                         <SymbolChevronDown className="size-4" />
