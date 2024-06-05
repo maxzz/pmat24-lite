@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Getter, PrimitiveAtom, Setter, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
@@ -16,11 +16,12 @@ type DoSetResultPoliciesAtomProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
     openAtom: PrimitiveAtom<boolean>;
+    toastIdAtom: PrimitiveAtom<string | number | undefined>;
     ok: boolean;
 };
 
 const doSetResultPoliciesAtom = atom(null,
-    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, openAtom, ok }: DoSetResultPoliciesAtomProps) => {
+    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok }: DoSetResultPoliciesAtomProps) => {
         if (!ok) {
             //TODO: reset to original values local atoms
             set(openAtom, false);
@@ -34,11 +35,13 @@ const doSetResultPoliciesAtom = atom(null,
             return;
         }
 
-        console.log('doSetResultPoliciesAtom', state.minLen.data, state.maxLen.data);
-
-        const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data < +state.maxLen.data;
+        const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data <= +state.maxLen.data;
         if (!isValid) {
-            toast.error('Min length must be less than max length');
+            const msg = state.minLen.error || state.maxLen.error || 'Min length must be less than max length';
+            const toastId = toast.error(msg);
+            console.log('toastId from atom', toastId);
+            
+            set(toastIdAtom, toastId);
             return;
         }
 
@@ -58,6 +61,24 @@ const doSetResultPoliciesAtom = atom(null,
 export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const [isOpen, setIsOpen] = useAtom(openAtom);
     const policies = useAtomValue(policiesAtom);
+
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    const toastId = useAtomValue(toastIdAtom);
+
+    useEffect(
+        () => () => {
+            console.log('toastId cleanup', toastId);
+
+            toastId && toast.dismiss(toastId);
+        }, [toastId]
+    );
+
+    function doCancelClose() {
+        //TODO: reset to original values local atoms
+        console.log('PolicyEditorNewDlg doCancelClose');
+        
+        setIsOpen(false);
+    }
 
     const doSetResultPolicies = useSetAtom(doSetResultPoliciesAtom);
 
@@ -79,7 +100,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
     );
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
+        <Dialog open={isOpen} onOpenChange={doCancelClose} modal>
 
             <DialogContent
                 className="px-6 py-4 max-w-[480px] text-xs select-none"
@@ -90,7 +111,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
             >
                 <PolicyEditorBody
                     dlgUiAtoms={dlgUiAtoms}
-                    doCloseWithOk={(ok) => doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, ok })}
+                    doCloseWithOk={(ok) => doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok })}
                 />
 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
