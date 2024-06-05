@@ -2,6 +2,8 @@ import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
+import { RowInputState } from "@/store/atoms/3-file-mani-atoms/4-options/19-types";
+import { initForInput } from "@/store/atoms/3-file-mani-atoms/4-options/0-conv/2-atom-helpers";
 
 export namespace PolicyDlgConv {
 
@@ -12,8 +14,8 @@ export namespace PolicyDlgConv {
         constrainSet2: string;          // last ConstrainSet in case if custom is selected
         custom: string;                 // customRule
 
-        minLen: number;                 // min password length
-        maxLen: number;                 // max password length
+        minLen: RowInputState;          // min password length
+        maxLen: RowInputState;          // max password length
 
         textVerify: string;             // text to verify policy
         textGenerate: string;           // text to verify policy generation
@@ -38,8 +40,8 @@ export namespace PolicyDlgConv {
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         constrainSet2: `${Poli.ConstrainSet.withspecial}`,
         custom: '',
-        minLen: 8,
-        maxLen: 12,
+        minLen: initForInput('8', { type: 'number' }),
+        maxLen: initForInput('12', { type: 'number' }),
         textVerify: '',
         textGenerate: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
@@ -60,8 +62,8 @@ export namespace PolicyDlgConv {
                 constrainSet: `${policy.constrainSet}`,
                 constrainSet2: `${policy.constrainSet}`,
                 custom: policy.custom,
-                minLen: policy.minLen,
-                maxLen: policy.maxLen,
+                minLen: initForInput(`${policy.minLen}`, { type: 'number' }),
+                maxLen: initForInput(`${policy.maxLen}`, { type: 'number' }),
                 textVerify: 'TODO: short policy explanation',
                 textGenerate: 'TODO: short policy explanation',
                 constrainPsw: `${policy.constrainPsw}`,
@@ -116,8 +118,8 @@ export namespace PolicyDlgConv {
             from.enabled === to.enabled &&
             from.constrainSet === to.constrainSet &&
             from.custom === to.custom &&
-            from.minLen === to.minLen &&
-            from.maxLen === to.maxLen &&
+            from.minLen.data === to.minLen.data &&
+            from.maxLen.data === to.maxLen.data &&
             from.textVerify === to.textVerify &&
             from.textGenerate === to.textGenerate &&
             from.constrainPsw === to.constrainPsw &&
@@ -152,8 +154,8 @@ export namespace PolicyDlgConv {
                     : from.useAs === '1'
                         ? Poli.UseAs.verify
                         : Poli.UseAs.generate,
-            minLen: from.minLen,
-            maxLen: from.maxLen,
+            minLen: +from.minLen.data,
+            maxLen: +from.maxLen.data,
             constrainSet: constrainSetIdxStrToType(from.constrainSet, namesConstrainSet, from.constrainSet2),
             constrainPsw: constrainPswIdxStrToType(from.constrainPsw),
             custom: from.custom,
