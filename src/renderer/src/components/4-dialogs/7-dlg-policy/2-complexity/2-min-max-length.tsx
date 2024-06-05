@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { Input, Label } from "@/ui";
 import { OptionInput } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/5-option-input";
+import { InputBody } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/4-row-body-w-tooltip";
 
 export function SectionMinMaxLength({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     // const [min, setMin] = useAtom(dlgUiAtoms.minLenAtom);
@@ -15,13 +16,17 @@ export function SectionMinMaxLength({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.
                     min
                 </div>
                 {/* <Input className="px-2 h-8 text-xs max-w-[6ch]" value={`${min}`} onChange={(e) => setMin(+e.target.value)} /> */}
-                <OptionInput stateAtom={dlgUiAtoms.minLenAtom} className="px-2 h-8 text-xs max-w-[6ch]" />
+                <InputBody stateAtom={dlgUiAtoms.minLenAtom}>
+                    <OptionInput stateAtom={dlgUiAtoms.minLenAtom} className="px-2 h-8 text-xs max-w-[6ch]" />
+                </InputBody>
 
                 <div>
                     max
                 </div>
                 {/* <Input className="px-2 h-8 text-xs max-w-[6ch]" value={`${max}`} onChange={(e) => setMax(+e.target.value)} /> */}
-                <OptionInput stateAtom={dlgUiAtoms.maxLenAtom} className="px-2 h-8 text-xs max-w-[6ch]" />
+                <InputBody stateAtom={dlgUiAtoms.maxLenAtom}>
+                    <OptionInput stateAtom={dlgUiAtoms.maxLenAtom} className="px-2 h-8 text-xs max-w-[6ch]" />
+                </InputBody>
             </div>
         </Label>
     );

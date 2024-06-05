@@ -51,6 +51,22 @@ export namespace PolicyDlgConv {
 
     // Atoms
 
+    function validateMinLen(value: string) {
+        const num = parseInt(value, 10);
+        if (isNaN(num)) {
+            return 'Value must be a number.';
+        }
+        return num < 4 ? 'Min number must be more than 4' : '';
+    }
+
+    function validateMaxLen(value: string) {
+        const num = parseInt(value, 10);
+        if (isNaN(num)) {
+            return 'Value must be a number.';
+        }
+        return '';
+    }
+
     export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
         const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
@@ -62,8 +78,8 @@ export namespace PolicyDlgConv {
                 constrainSet: `${policy.constrainSet}`,
                 constrainSet2: `${policy.constrainSet}`,
                 custom: policy.custom,
-                minLen: initForInput(`${policy.minLen}`, { type: 'number' }),
-                maxLen: initForInput(`${policy.maxLen}`, { type: 'number' }),
+                minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
+                maxLen: initForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
                 textVerify: 'TODO: short policy explanation',
                 textGenerate: 'TODO: short policy explanation',
                 constrainPsw: `${policy.constrainPsw}`,
