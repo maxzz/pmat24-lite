@@ -5,6 +5,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 import { PolicyDlgConv } from "./0-conv";
+import { toast } from "sonner";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -28,6 +29,12 @@ const doSetResultPoliciesAtom = atom(null,
 
         if (!dlgUiAtoms.changed) {
             return;
+        }
+
+        const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data >= +state.maxLen.data;
+        if (!isValid) {
+            toast.error('Min length must be less than max length');
+            return
         }
 
         const strings = PolicyDlgConv.forMani(state);
