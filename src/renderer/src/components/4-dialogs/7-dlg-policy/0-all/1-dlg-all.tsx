@@ -15,11 +15,12 @@ type PolicyEditorNewDlgProps = {
 type DoSetResultPoliciesAtomProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    openAtom: PrimitiveAtom<boolean>;
     ok: boolean;
 };
 
 const doSetResultPoliciesAtom = atom(null,
-    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, ok }: DoSetResultPoliciesAtomProps) => {
+    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, openAtom, ok }: DoSetResultPoliciesAtomProps) => {
         if (!ok) {
             //TODO: reset to original values local atoms
             return;
@@ -45,6 +46,8 @@ const doSetResultPoliciesAtom = atom(null,
 
         console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
         console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
+
+        set(openAtom, false);
     }
 );
 
@@ -83,10 +86,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
             >
                 <PolicyEditorBody
                     dlgUiAtoms={dlgUiAtoms}
-                    doCloseWithOk={(ok) => {
-                        doSetResultPolicies({ policiesAtom, dlgUiAtoms, ok });
-                        setIsOpen(false);
-                    }}
+                    doCloseWithOk={(ok) => doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, ok })}
                 />
 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
