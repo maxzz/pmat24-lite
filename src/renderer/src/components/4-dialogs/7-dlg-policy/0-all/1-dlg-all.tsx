@@ -5,7 +5,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
 import { toast } from "sonner";
-import { doClosePolicyDlgAtom } from "./3-do-close-atom";
+import { doClosePolicyDlgAtom } from "./3-dlg-do-close-atom";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -28,7 +28,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
     );
 
     function doCancelClose() {
-        console.log('Dlg. doCancelClose. toastId =', toastId);
+        console.log('Dlg. doClosePolicyDlg by cancel. toastId =', toastId);
 
         doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false })
     }

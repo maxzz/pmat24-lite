@@ -13,14 +13,16 @@ const selectNames = [...namesConstrainSet, 'Use custom rule'];
 
 function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
-    const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet2Atom);
+    const [isCustom, setIsCustom] = useAtom(dlgUiAtoms.isCustomAtom);
     const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
-    const isCustom = +selected === selectNames.length - 1;
-
+    const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet2Atom);
+    
     function onValueChange(value: string) {
-        if (+value !== selectNames.length - 1) {
+        const isCustom = +value === selectNames.length - 1;
+        if (!isCustom) {
             setSelected2(value);
         }
+        setIsCustom(isCustom);
         setSelected(value);
     }
 
@@ -43,9 +45,8 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
 }
 
 function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const selectedIdx = useAtomValue(dlgUiAtoms.constrainSetAtom);
-    const isCustom = +selectedIdx === selectNames.length - 1;
-
+    
+    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
 
     const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];

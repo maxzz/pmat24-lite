@@ -11,7 +11,8 @@ export namespace PolicyDlgConv {
         enabled: boolean;               // Enable password policy
 
         constrainSet: string;           // ConstrainSet; predefined rule
-        constrainSet2: string;          // last ConstrainSet in case if custom is selected
+        constrainSet2: string;          // ui helper field: last ConstrainSet in case if custom is selected
+        isCustom: boolean;              // ui helper field: is custom rule selected but custom field can be empty
         custom: string;                 // customRule
 
         minLen: RowInputState;          // min password length
@@ -39,6 +40,7 @@ export namespace PolicyDlgConv {
         enabled: false,
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         constrainSet2: `${Poli.ConstrainSet.withspecial}`,
+        isCustom: false,
         custom: '',
         minLen: initForInput('8', { type: 'number' }),
         maxLen: initForInput('12', { type: 'number' }),
@@ -77,6 +79,7 @@ export namespace PolicyDlgConv {
                 enabled: hasPolicy,
                 constrainSet: `${policy.constrainSet}`,
                 constrainSet2: `${policy.constrainSet}`,
+                isCustom: policy.custom !== '',
                 custom: policy.custom,
                 minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
                 maxLen: initForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
@@ -98,6 +101,7 @@ export namespace PolicyDlgConv {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
             constrainSet2Atom: atomWithCallback(constrainSet, onChange),
+            isCustomAtom: atomWithCallback(initialState.isCustom, onChange),
             customAtom: atomWithCallback(custom, onChange),
             minLenAtom: atomWithCallback(minLen, onChange),
             maxLenAtom: atomWithCallback(maxLen, onChange),
@@ -115,6 +119,7 @@ export namespace PolicyDlgConv {
             enabled: get(atoms.enabledAtom),
             constrainSet: get(atoms.constrainSetAtom),
             constrainSet2: get(atoms.constrainSet2Atom),
+            isCustom: get(atoms.isCustomAtom),
             custom: get(atoms.customAtom),
             minLen: get(atoms.minLenAtom),
             maxLen: get(atoms.maxLenAtom),

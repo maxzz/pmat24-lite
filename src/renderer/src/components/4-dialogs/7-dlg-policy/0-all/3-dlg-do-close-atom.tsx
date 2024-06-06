@@ -29,7 +29,7 @@ export const doClosePolicyDlgAtom = atom(null,
             return;
         }
 
-        const isCustom = +state.constrainSet > namesConstrainSet.length - 1;
+        const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
             const toastId = toast.error('Custom rule is empty');
             set(toastIdAtom, toastId);
