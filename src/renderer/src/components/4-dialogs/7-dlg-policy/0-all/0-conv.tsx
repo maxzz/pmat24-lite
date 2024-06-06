@@ -5,15 +5,13 @@ import { policyFromStrings, policyToStrings } from "@/store/manifest";
 import { RowInputState } from "@/store/atoms/3-file-mani-atoms/4-options/19-types";
 import { initForInput } from "@/store/atoms/3-file-mani-atoms/4-options/0-conv/2-atom-helpers";
 
-export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
-
 export namespace PolicyDlgConv {
 
     export type ForAtoms = {
         enabled: boolean;               // Enable password policy
 
         constrainSet: string;           // ConstrainSet; predefined rule
-        constrainSet2: string;          // ui helper field: last ConstrainSet in case if custom is selected
+        constrainSet0: string;          // ui helper field: last ConstrainSet in case if custom is selected
         isCustom: boolean;              // ui helper field: is custom rule selected but custom field can be empty
         custom: string;                 // customRule
 
@@ -41,7 +39,7 @@ export namespace PolicyDlgConv {
     const initialForAtoms: ForAtoms = {
         enabled: false,
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
-        constrainSet2: `${Poli.ConstrainSet.withspecial}`,
+        constrainSet0: `${Poli.ConstrainSet.withspecial}`,
         isCustom: false,
         custom: '',
         minLen: initForInput('8', { type: 'number' }),
@@ -55,12 +53,14 @@ export namespace PolicyDlgConv {
 
     // Atoms
 
+    export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
+
     function validateMinLen(value: string) {
         const num = parseInt(value, 10);
         if (isNaN(num)) {
             return 'Value must be a number.';
         }
-        return num < 4 ? 'Min number must be more than 4' : '';
+        return num < 4 ? 'Min password length must be more than 4' : '';
     }
 
     function validateMaxLen(value: string) {
@@ -68,7 +68,7 @@ export namespace PolicyDlgConv {
         if (isNaN(num)) {
             return 'Value must be a number.';
         }
-        return '';
+        return num < 4 ? 'Max password length must be more than 4' : ''; //TODO: when isCustom assume initial values are correct
     }
 
     export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
@@ -81,8 +81,8 @@ export namespace PolicyDlgConv {
             const rv: ForAtoms = {
                 ...initialForAtoms,
                 enabled: hasPolicy,
-                constrainSet: isCustom ? `${policy.constrainSet}` : `${namesConstrainSet.length}`,
-                constrainSet2: `${policy.constrainSet}`,
+                constrainSet: isCustom ? `${chSetRuleNames.length - 1}` : `${policy.constrainSet}`,
+                constrainSet0: `${policy.constrainSet}`,
                 isCustom: isCustom,
                 custom: policy.custom,
                 minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
@@ -93,6 +93,8 @@ export namespace PolicyDlgConv {
                 useAs: `${policy.useAs}`,
                 fakeOptions: policies.options,
             };
+            console.log('PolicyDlgConv.forAtoms: rv', JSON.stringify(rv, null, 2));
+            
             return rv;
         }
 
@@ -104,7 +106,7 @@ export namespace PolicyDlgConv {
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
-            constrainSet2Atom: atomWithCallback(constrainSet, onChange),
+            constrainSet0Atom: atomWithCallback(constrainSet, onChange),
             isCustomAtom: atomWithCallback(initialState.isCustom, onChange),
             customAtom: atomWithCallback(custom, onChange),
             minLenAtom: atomWithCallback(minLen, onChange),
@@ -122,7 +124,7 @@ export namespace PolicyDlgConv {
         const rv: ForAtoms = {
             enabled: get(atoms.enabledAtom),
             constrainSet: get(atoms.constrainSetAtom),
-            constrainSet2: get(atoms.constrainSet2Atom),
+            constrainSet0: get(atoms.constrainSet0Atom),
             isCustom: get(atoms.isCustomAtom),
             custom: get(atoms.customAtom),
             minLen: get(atoms.minLenAtom),
@@ -166,7 +168,7 @@ export namespace PolicyDlgConv {
                     ? Poli.UseAs.verify
                     : Poli.UseAs.generate;
 
-        const constrainSet: Poli.ConstrainSet = from.isCustom ? +from.constrainSet2 : +from.constrainSet;
+        const constrainSet: Poli.ConstrainSet = from.isCustom ? +from.constrainSet0 : +from.constrainSet;
         const constrainPsw: Poli.ConstrainPsw = +from.constrainPsw;
 
         const policy: Poli.Policy = {

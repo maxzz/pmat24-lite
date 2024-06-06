@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv, chSetRuleNames } from "../0-all/0-conv";
+import { PolicyDlgConv } from "../0-all/0-conv";
 import { Dropdown } from "../9-constrols";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Button, Input, Label } from "@/ui";
@@ -12,10 +12,13 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
 
     const [isCustom, setIsCustom] = useAtom(dlgUiAtoms.isCustomAtom);
     const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
-    const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet2Atom);
-    
+    const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet0Atom);
+
+    console.log('RuleSelectSection: selected', selected, 'isCustom', isCustom);
+
+
     function onValueChange(value: string) {
-        const isCustom = +value === chSetRuleNames.length - 1;
+        const isCustom = +value === PolicyDlgConv.chSetRuleNames.length - 1;
         if (!isCustom) {
             setSelected2(value);
         }
@@ -30,7 +33,7 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
                     Password complexity rule
                 </div>
                 <Label className="flex-1 text-xs flex flex-col 1items-center">
-                    <Dropdown items={chSetRuleNames} value={selected} onValueChange={onValueChange} />
+                    <Dropdown items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
                 </Label>
             </div>
 
@@ -42,7 +45,7 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
 }
 
 function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    
+
     const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
 
