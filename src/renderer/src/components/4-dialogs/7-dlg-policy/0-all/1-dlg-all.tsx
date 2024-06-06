@@ -13,16 +13,16 @@ type PolicyEditorNewDlgProps = {
 };
 
 type DoSetResultPoliciesAtomProps = {
-    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     openAtom: PrimitiveAtom<boolean>;
     toastIdAtom: PrimitiveAtom<string | number | undefined>;
-    ok: boolean;
+    byOkButton: boolean;
 };
 
 const doSetResultPoliciesAtom = atom(null,
-    (get: Getter, set: Setter, { policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok }: DoSetResultPoliciesAtomProps) => {
-        if (!ok) {
+    (get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton }: DoSetResultPoliciesAtomProps) => {
+        if (!byOkButton) {
             //TODO: reset to original values local atoms
             set(openAtom, false);
             return;
@@ -79,7 +79,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
 
         toastId && toast.dismiss(toastId);
 
-        doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok: false })
+        doSetResultPolicies({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false })
         //setIsOpen(false);
     }
 
@@ -105,7 +105,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
             >
                 <PolicyEditorBody
                     dlgUiAtoms={dlgUiAtoms}
-                    doCloseWithOk={(ok) => doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok })}
+                    doCloseWithOk={(ok) => doSetResultPolicies({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: ok })}
                 />
 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />

@@ -27,11 +27,11 @@ export namespace FieldRowState {
 
         const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
 
-        console.log('changes fields:', [...changes.keys()]);
+        const str1 = JSON.stringify(state.policies, null, 2);
+        const str2 = JSON.stringify(atoms.fromFile.policies, null, 2);
+        const str3 = changes.size ? `\nstate ${str1}\nfile ${str2}` : '';
+        console.log(`%cchanges fields: [${[...changes.keys()]}]%c${str3}`, 'background-color: navy; color: bisque', 'background-color: #282828; color: white');
         
-        console.log('  state', JSON.stringify(state.policies, null, 2));
-        console.log('   file', JSON.stringify(atoms.fromFile.policies, null, 2));
-
         // const maniField = FieldConv.forMani(state);
         // const maniFiel2 = FieldConv.forMani(atoms.fromFile);
 
