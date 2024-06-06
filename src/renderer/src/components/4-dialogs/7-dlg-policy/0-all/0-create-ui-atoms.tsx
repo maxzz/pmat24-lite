@@ -17,7 +17,6 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
 
 function combineResultFromAtoms(dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {
     const dlgUi = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
-
     const changed = !PolicyDlgConv.areTheSame(dlgUi, dlgUiAtoms.fromFile);
     dlgUiAtoms.changed = changed;
 }

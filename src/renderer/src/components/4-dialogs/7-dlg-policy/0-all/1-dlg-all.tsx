@@ -51,8 +51,8 @@ const doSetResultPoliciesAtom = atom(null,
 
         set(policiesAtom, strings);
 
-        console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
-        console.log(`PolicyEditorNewDlg changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
+        console.log(`Dlg. changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
+        console.log(`Dlg. changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
 
         set(openAtom, false);
     }
@@ -67,7 +67,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
 
     useEffect(
         () => () => {
-            console.log('toastId cleanup', toastId);
+            console.log('Dlg. useEffect cleanup. toastId =', toastId);
 
             toastId && toast.dismiss(toastId);
         }, [toastId]
@@ -75,29 +75,21 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
 
     function doCancelClose() {
         //TODO: reset to original values local atoms
-        console.log('PolicyEditorNewDlg doCancelClose. toastId', toastId);
+        console.log('Dlg. doCancelClose. toastId =', toastId);
 
         toastId && toast.dismiss(toastId);
-        
-        setIsOpen(false);
+
+        doSetResultPolicies({ policiesAtom, dlgUiAtoms, openAtom, toastIdAtom, ok: false })
+        //setIsOpen(false);
     }
 
     const doSetResultPolicies = useSetAtom(doSetResultPoliciesAtom);
 
     const dlgUiAtoms = useMemo(
         () => {
-            console.log('PolicyEditorNewDlg useMemo');
+            console.log('Dlg. useMemo');
 
-            return createUiAtoms(
-                {
-                    policy: policies.policy,
-                    policy2: policies.policy2,
-                    options: policies.options,
-                },
-                ({ get, set }) => {
-                    debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set);
-                }
-            );
+            return createUiAtoms(policies, ({ get, set }) => debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set));
         }, [policies]
     );
 
