@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Getter, PrimitiveAtom, Setter, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { Mani } from "pm-manifest";
+import { Mani, namesConstrainSet } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./2-dlg-body";
@@ -24,6 +24,10 @@ const doSetResultPoliciesAtom = atom(null,
     (get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton }: DoSetResultPoliciesAtomProps) => {
         if (!byOkButton) {
             //TODO: reset to original values local atoms
+            
+            const toastId = get(toastIdAtom);
+            toastId && toast.dismiss(toastId);
+
             set(openAtom, false);
             return;
         }
@@ -35,13 +39,21 @@ const doSetResultPoliciesAtom = atom(null,
             return;
         }
 
+        const isCustom = +state.constrainSet > namesConstrainSet.length - 1;
+        if (isCustom && !state.custom) {
+            const toastId = toast.error('Dlg. close: Custom rule is empty');
+            set(toastIdAtom, toastId);
+            return;
+        }
+
         const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data <= +state.maxLen.data;
         if (!isValid) {
             const msg = state.minLen.error || state.maxLen.error || 'Min length must be less than max length';
+         
             const toastId = toast.error(msg);
-            console.log('toastId from atom', toastId);
-            
             set(toastIdAtom, toastId);
+
+            console.log('Dlg. close: toastId from atom', toastId);
             return;
         }
 
@@ -51,15 +63,18 @@ const doSetResultPoliciesAtom = atom(null,
 
         set(policiesAtom, strings);
 
-        console.log(`Dlg. changed=${dlgUiAtoms.changed}`, JSON.stringify(state, null, 2));
-        console.log(`Dlg. changed=${dlgUiAtoms.changed}`, JSON.stringify(strings, null, 2));
+
+        const str1 = JSON.stringify(state, null, 2);
+        const str2 = JSON.stringify(strings, null, 2);
+        const str3 = dlgUiAtoms.changed ? `\nstate ${str1}\nfile ${str2}` : '';
+        console.log(`%cDlg. changed=${dlgUiAtoms.changed}%c${str3}`, 'background-color: purple; color: bisque', 'background-color: #282828; color: white');
 
         set(openAtom, false);
     }
 );
 
 export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
-    const [isOpen, setIsOpen] = useAtom(openAtom);
+    const isOpen= useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
@@ -77,7 +92,7 @@ export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDl
         //TODO: reset to original values local atoms
         console.log('Dlg. doCancelClose. toastId =', toastId);
 
-        toastId && toast.dismiss(toastId);
+        //toastId && toast.dismiss(toastId);
 
         doSetResultPolicies({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false })
         //setIsOpen(false);
