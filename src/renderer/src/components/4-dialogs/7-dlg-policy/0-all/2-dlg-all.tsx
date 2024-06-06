@@ -17,19 +17,8 @@ export function PolicyEditorDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgPr
     const policies = useAtomValue(policiesAtom);
 
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
-    const toastId = useAtomValue(toastIdAtom);
-
-    useEffect(
-        () => () => {
-            console.log('Dlg. useEffect cleanup. toastId =', toastId);
-
-            toastId && toast.dismiss(toastId);
-        }, [toastId]
-    );
 
     function doCancelClose() {
-        console.log('Dlg. doClosePolicyDlg by cancel. toastId =', toastId);
-
         doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false })
     }
 
