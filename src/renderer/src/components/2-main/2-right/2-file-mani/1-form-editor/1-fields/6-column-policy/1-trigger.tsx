@@ -29,6 +29,7 @@ type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
 };
 
 export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const openDlgAtom = useState(() => atom(false))[0];
     const setDlgOpen = useSetAtom(openDlgAtom);
 
@@ -54,6 +55,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
 
         <PolicyEditorDlg
             openAtom={openDlgAtom}
+            toastIdAtom={toastIdAtom}
             policiesAtom={policiesAtom}
         />
     </>);

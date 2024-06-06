@@ -73,13 +73,15 @@ export namespace PolicyDlgConv {
         const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
         const hasPolicy = policy.useAs !== Poli.UseAs.none;
+        const isCustom = policy.custom !== '';
+
         if (hasPolicy) {
             const rv: ForAtoms = {
                 ...initialForAtoms,
                 enabled: hasPolicy,
-                constrainSet: `${policy.constrainSet}`,
+                constrainSet: isCustom ? `${policy.constrainSet}` : `${namesConstrainSet.length}`,
                 constrainSet2: `${policy.constrainSet}`,
-                isCustom: policy.custom !== '',
+                isCustom: isCustom,
                 custom: policy.custom,
                 minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
                 maxLen: initForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),

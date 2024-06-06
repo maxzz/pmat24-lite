@@ -1,5 +1,5 @@
 import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
-import { Mani, namesConstrainSet } from "pm-manifest";
+import { Mani } from "pm-manifest";
 import { PolicyDlgConv } from "./0-conv";
 import { toast } from "sonner";
 
@@ -19,6 +19,7 @@ export const doClosePolicyDlgAtom = atom(null,
 
             //TODO: reset to original values local atoms
             set(policiesAtom, dlgUiAtoms.original);
+            dlgUiAtoms.changed = false;
 
             set(openAtom, false);
             return;

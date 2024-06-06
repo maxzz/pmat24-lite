@@ -9,7 +9,7 @@ import { SectionMinMaxLength } from "./2-min-max-length";
 import { SectionTestRoom } from "./4-test-room";
 import { RulesHelpPopover } from "./21-rules-help-popover";
 
-const selectNames = [...namesConstrainSet, 'Use custom rule'];
+const chsetRuleNames = [...namesConstrainSet, 'Use custom rule'];
 
 function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -18,7 +18,7 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
     const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet2Atom);
     
     function onValueChange(value: string) {
-        const isCustom = +value === selectNames.length - 1;
+        const isCustom = +value === chsetRuleNames.length - 1;
         if (!isCustom) {
             setSelected2(value);
         }
@@ -33,7 +33,7 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
                     Password complexity rule
                 </div>
                 <Label className="flex-1 text-xs flex flex-col 1items-center">
-                    <Dropdown items={selectNames} value={selected} onValueChange={onValueChange} />
+                    <Dropdown items={chsetRuleNames} value={selected} onValueChange={onValueChange} />
                 </Label>
             </div>
 
