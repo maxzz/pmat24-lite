@@ -14,9 +14,11 @@ type DoSetResultPoliciesAtomProps = {
 export const doClosePolicyDlgAtom = atom(null,
     (get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton }: DoSetResultPoliciesAtomProps) => {
         if (!byOkButton) {
-            //TODO: reset to original values local atoms
             const toastId = get(toastIdAtom);
             toastId && toast.dismiss(toastId);
+
+            //TODO: reset to original values local atoms
+            set(policiesAtom, dlgUiAtoms.original);
 
             set(openAtom, false);
             return;
