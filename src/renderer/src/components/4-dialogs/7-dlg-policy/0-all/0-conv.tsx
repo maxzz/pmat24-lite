@@ -152,28 +152,25 @@ export namespace PolicyDlgConv {
 
     // Back to manifest
 
-    function constrainSetIdxStrToType(idxStr: string, isCustom: boolean, latestNonCustomIdx: string): Poli.ConstrainSet {
-        return isCustom ? +latestNonCustomIdx : +idxStr;
-    }
-
-    function constrainPswIdxStrToType(idxStr: string): Poli.ConstrainPsw {
-        return +idxStr as Poli.ConstrainPsw;
-    }
-
     export function forMani(from: ForAtoms): Mani.FieldPolicy {
 
-        const policy: Poli.Policy = {
-            useAs: !from.enabled
+        const useAs = !from.enabled
+            ? Poli.UseAs.none
+            : from.useAs === '0'
                 ? Poli.UseAs.none
-                : from.useAs === '0'
-                    ? Poli.UseAs.none
-                    : from.useAs === '1'
-                        ? Poli.UseAs.verify
-                        : Poli.UseAs.generate,
+                : from.useAs === '1'
+                    ? Poli.UseAs.verify
+                    : Poli.UseAs.generate;
+
+        const constrainSet: Poli.ConstrainSet = from.isCustom ? +from.constrainSet2 : +from.constrainSet;
+        const constrainPsw: Poli.ConstrainPsw = +from.constrainPsw;
+
+        const policy: Poli.Policy = {
+            useAs,
             minLen: +from.minLen.data,
             maxLen: +from.maxLen.data,
-            constrainSet: constrainSetIdxStrToType(from.constrainSet, from.isCustom, from.constrainSet2),
-            constrainPsw: constrainPswIdxStrToType(from.constrainPsw),
+            constrainSet,
+            constrainPsw,
             custom: from.custom,
         };
 
