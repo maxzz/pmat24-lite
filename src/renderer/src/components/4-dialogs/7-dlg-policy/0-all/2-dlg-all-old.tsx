@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Mani } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
-import { PolicyEditorBody } from "./2-dlg-body";
+import { PolicyEditorBody } from "./3-dlg-body";
 
 export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
     const [isOpen, setIsOpen] = useState(false);

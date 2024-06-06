@@ -3,9 +3,9 @@ import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
 import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
-import { PolicyEditorBody } from "./2-dlg-body";
+import { PolicyEditorBody } from "./3-dlg-body";
 import { toast } from "sonner";
-import { doClosePolicyDlgAtom } from "./3-dlg-do-close-atom";
+import { doClosePolicyDlgAtom } from "./1-dlg-close-atom";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
