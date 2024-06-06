@@ -2,7 +2,7 @@ import { HTMLAttributes, useState } from 'react';
 import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
 import { Mani, Meta } from 'pm-manifest';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
-import { PolicyEditorNewDlg } from '@/components/4-dialogs';
+import { PolicyEditorDlg } from '@/components/4-dialogs';
 import { Button } from '@/ui';
 import { classNames } from '@/utils';
 
@@ -52,7 +52,7 @@ export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, 
             {text}...
         </Button>
 
-        <PolicyEditorNewDlg
+        <PolicyEditorDlg
             openAtom={openDlgAtom}
             policiesAtom={policiesAtom}
         />

@@ -12,7 +12,7 @@ type PolicyEditorNewDlgProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
 };
 
-export function PolicyEditorNewDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
+export function PolicyEditorDlg({ openAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const isOpen= useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 

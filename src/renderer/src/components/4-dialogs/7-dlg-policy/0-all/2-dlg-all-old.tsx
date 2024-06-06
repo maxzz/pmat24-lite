@@ -4,7 +4,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
 
-export function PolicyEditorDlg({ field }: { field: Mani.Field; }) {
+export function PolicyEditorDlg_Old({ field }: { field: Mani.Field; }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const atoms = useState( //TODO: use memo or update atoms value?
