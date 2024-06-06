@@ -5,6 +5,8 @@ import { policyFromStrings, policyToStrings } from "@/store/manifest";
 import { RowInputState } from "@/store/atoms/3-file-mani-atoms/4-options/19-types";
 import { initForInput } from "@/store/atoms/3-file-mani-atoms/4-options/0-conv/2-atom-helpers";
 
+export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
+
 export namespace PolicyDlgConv {
 
     export type ForAtoms = {
