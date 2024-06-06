@@ -152,13 +152,8 @@ export namespace PolicyDlgConv {
 
     // Back to manifest
 
-    function constrainSetIdxStrToType(idxStr: string, names: string[], latestNonCustomIdx: string): Poli.ConstrainSet {
-        const idx = +idxStr;
-        const isLast = idx >= names.length - 1;
-        if (isLast) {
-            return +latestNonCustomIdx;
-        }
-        return idx as Poli.ConstrainSet;
+    function constrainSetIdxStrToType(idxStr: string, isCustom: boolean, latestNonCustomIdx: string): Poli.ConstrainSet {
+        return isCustom ? +latestNonCustomIdx : +idxStr;
     }
 
     function constrainPswIdxStrToType(idxStr: string): Poli.ConstrainPsw {
@@ -177,7 +172,7 @@ export namespace PolicyDlgConv {
                         : Poli.UseAs.generate,
             minLen: +from.minLen.data,
             maxLen: +from.maxLen.data,
-            constrainSet: constrainSetIdxStrToType(from.constrainSet, namesConstrainSet, from.constrainSet2),
+            constrainSet: constrainSetIdxStrToType(from.constrainSet, from.isCustom, from.constrainSet2),
             constrainPsw: constrainPswIdxStrToType(from.constrainPsw),
             custom: from.custom,
         };
