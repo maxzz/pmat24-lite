@@ -68,8 +68,10 @@ export namespace PolicyDlgConv {
         if (isNaN(num)) {
             return 'Value must be a number.';
         }
-        return num < 4 ? 'Max password length must be more than 4' : ''; //TODO: when isCustom assume initial values are correct
+        return num < 4 ? 'Max password length must be more than 4' : '';
     }
+    //TODO: when isCustom assume initial values are correct
+    //TODO: length may be missing from custom rule
 
     export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
         const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
@@ -93,8 +95,6 @@ export namespace PolicyDlgConv {
                 useAs: `${policy.useAs}`,
                 fakeOptions: policies.options,
             };
-            console.log('PolicyDlgConv.forAtoms: rv', JSON.stringify(rv, null, 2));
-            
             return rv;
         }
 

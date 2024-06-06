@@ -21,13 +21,7 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
         doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false })
     }
 
-    const dlgUiAtoms = useMemo(
-        () => {
-            console.log('%cDlg. useMemo to createUiAtoms', 'color: #f0f');
-
-            return createUiAtoms(policies, ({ get, set }) => debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set));
-        }, [policies]
-    );
+    const dlgUiAtoms = useMemo(() => createUiAtoms(policies, ({ get, set }) => debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set)), [policies]);
 
     return (
         <Dialog open={isOpen} onOpenChange={doCancelClose} modal>

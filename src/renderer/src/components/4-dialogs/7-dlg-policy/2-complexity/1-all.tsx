@@ -14,9 +14,6 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
     const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
     const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet0Atom);
 
-    console.log('RuleSelectSection: selected', selected, 'isCustom', isCustom);
-
-
     function onValueChange(value: string) {
         const isCustom = +value === PolicyDlgConv.chSetRuleNames.length - 1;
         if (!isCustom) {
