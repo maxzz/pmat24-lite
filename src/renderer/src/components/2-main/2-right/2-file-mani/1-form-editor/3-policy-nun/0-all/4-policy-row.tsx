@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { PolicyState } from '@/store/atoms/3-file-mani-atoms';
-import { PolicyEditorDlg_Old } from '@/components/4-dialogs/7-dlg-policy';
+import { PolicyEditorDlg_Nun } from '@/components/4-dialogs/7-dlg-policy';
 
 function PolicyLine({ label, value }: { label: string; value: string | undefined; }) {
     return (<>
@@ -35,7 +35,7 @@ export function PolicyItem({ policyAtoms }: { policyAtoms: PolicyState.Atoms; })
         </div>
 
         <div className="flex items-center">
-            <PolicyEditorDlg_Old field={maniField} />
+            <PolicyEditorDlg_Nun field={maniField} />
         </div>
     </>);
 }
