@@ -18,6 +18,7 @@ export namespace PolicyDlgConv {
         minLen: RowInputState;          // min password length
         maxLen: RowInputState;          // max password length
 
+        explanation: string;            // explanation of policy
         textVerify: string;             // text to verify policy
         textGenerate: string;           // text to verify policy generation
 
@@ -44,6 +45,7 @@ export namespace PolicyDlgConv {
         custom: '',
         minLen: initForInput('8', { type: 'number' }),
         maxLen: initForInput('12', { type: 'number' }),
+        explanation: '',
         textVerify: '',
         textGenerate: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
@@ -89,6 +91,7 @@ export namespace PolicyDlgConv {
                 custom: policy.custom,
                 minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
                 maxLen: initForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
+                explanation: '',
                 textVerify: 'TODO: short policy explanation',
                 textGenerate: 'TODO: short policy explanation',
                 constrainPsw: `${policy.constrainPsw}`,
@@ -102,7 +105,7 @@ export namespace PolicyDlgConv {
     }
 
     export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, constrainSet, custom, minLen, maxLen, textVerify, textGenerate, constrainPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen, maxLen, explanation, textVerify, textGenerate, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
@@ -111,6 +114,7 @@ export namespace PolicyDlgConv {
             customAtom: atomWithCallback(custom, onChange),
             minLenAtom: atomWithCallback(minLen, onChange),
             maxLenAtom: atomWithCallback(maxLen, onChange),
+            explanationAtom: atomWithCallback(explanation, onChange),
             textVerifyAtom: atomWithCallback(textVerify, onChange),
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
@@ -129,6 +133,7 @@ export namespace PolicyDlgConv {
             custom: get(atoms.customAtom),
             minLen: get(atoms.minLenAtom),
             maxLen: get(atoms.maxLenAtom),
+            explanation: get(atoms.explanationAtom),
             textVerify: get(atoms.textVerifyAtom),
             textGenerate: get(atoms.textGenerateAtom),
             constrainPsw: get(atoms.constrainPswAtom),
