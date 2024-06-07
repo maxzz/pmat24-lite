@@ -1,18 +1,44 @@
 import { Fragment } from "react";
 import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
+import { inlineButtonClasses } from "./3-1-button-test-area";
 import { helpRules } from "./3-4-help-rules-text";
 import { SymbolCross } from "@/ui/icons";
+import { classNames } from "@/utils";
+
+function ButtonTrigger() {
+    return (
+        <Button
+            className={classNames(inlineButtonClasses, "aspect-square")}
+            variant="outline" size="sm" tabIndex={-1} title="Explanation"
+        >
+            ?
+        </Button>
+    );
+}
+
+function RulesBody() {
+    return (
+        <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
+            {helpRules.map((rule, idx) => (
+                <Fragment key={idx}>
+                    <div className="text-center font-bold">
+                        {rule.c1}
+                    </div>
+
+                    <div>
+                        {rule.c2}
+                    </div>
+                </Fragment>
+            ))}
+        </div>
+    );
+}
 
 export function ButtonRulesHelp() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button
-                    className="h-6 aspect-square"
-                    variant="outline" size="sm" tabIndex={-1} title="Explanation"
-                >
-                    ?
-                </Button>
+                <ButtonTrigger />
             </PopoverTrigger>
 
             <PopoverPortal>
@@ -24,16 +50,7 @@ export function ButtonRulesHelp() {
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
-
-                            <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
-                                {helpRules.map((rule, idx) => (
-                                    <Fragment key={idx}>
-                                        <div className="text-center font-bold">{rule.c1}</div>
-                                        <div>{rule.c2}</div>
-                                    </Fragment>
-                                ))}
-                            </div>
-
+                            <RulesBody />
                         </ScrollArea>
                     </div>
 
@@ -42,7 +59,6 @@ export function ButtonRulesHelp() {
                     </PopoverClose>
 
                     <PopoverArrorWoBottom className="fill-background stroke-border" />
-
                 </PopoverContent>
             </PopoverPortal>
 
