@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
-import { helpRules } from "./20-help-rules";
+import { helpRules } from "./3-4-help-rules-text";
 import { SymbolCross } from "@/ui/icons";
 
 export function RulesHelpPopover() {

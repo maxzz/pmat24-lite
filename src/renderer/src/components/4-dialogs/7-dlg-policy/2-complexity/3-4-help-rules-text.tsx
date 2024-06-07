@@ -1,4 +1,5 @@
 export const helpRules: { c1: string; c2: string; }[] = [
+    
     { c1: 'A', c2: 'Uppercase letters, i.e. A through Z' },
     { c1: 'a', c2: 'Lowercase letters, i.e. a through z ' },
     { c1: 'd', c2: 'Digits, i.e. 0 through 9' },
