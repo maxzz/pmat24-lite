@@ -8,7 +8,10 @@ export function RulesHelpPopover() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button className="absolute right-0.5 h-[28px] aspect-square border-0" variant="outline" size="xs" tabIndex={-1} title="Explanation" >
+                <Button
+                    className="h-6 aspect-square"
+                    variant="outline" size="sm" tabIndex={-1} title="Explanation"
+                >
                     ?
                 </Button>
             </PopoverTrigger>

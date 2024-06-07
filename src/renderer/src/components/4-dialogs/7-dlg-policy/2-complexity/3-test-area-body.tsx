@@ -1,6 +1,6 @@
 import { Button, Input } from "@/ui";
 
-const localInputClasses = "text-mani-foreground bg-mani-background border-mani-border-muted";
+const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
 export function TestAreaBody() {
     return (
