@@ -10,7 +10,7 @@ import { RulesHelpPopover } from "./21-rules-help-popover";
 
 function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
-    const [isCustom, setIsCustom] = useAtom(dlgUiAtoms.isCustomAtom);
+    const setIsCustom = useSetAtom(dlgUiAtoms.isCustomAtom);
     const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
     const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet0Atom);
 
@@ -24,19 +24,31 @@ function RuleSelectSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
     }
 
     return (
-        <div className="flex items-center justify-between gap-4">
-            <div className="flex-1 space-y-1">
-                <div>
-                    Password complexity rule
-                </div>
-                <Label className="flex-1 text-xs flex flex-col 1items-center">
-                    <Dropdown items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
-                </Label>
+        <div className="flex-1 space-y-1">
+            <div>
+                Password complexity rule
             </div>
+            <Label className="flex-1 text-xs flex flex-col 1items-center">
+                <Dropdown items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
+            </Label>
+        </div>
+    );
+}
 
-            {!isCustom && (
-                <SectionMinMaxLength dlgUiAtoms={dlgUiAtoms} />
-            )}
+function MinMaxSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
+    return (<>
+        {!isCustom && (
+            <SectionMinMaxLength dlgUiAtoms={dlgUiAtoms} />
+        )}
+    </>);
+}
+
+function FirstRowSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    return (
+        <div className="flex items-center justify-between gap-4">
+            <RuleSelectSection dlgUiAtoms={dlgUiAtoms} />
+            <MinMaxSection dlgUiAtoms={dlgUiAtoms} />
         </div>
     );
 }
@@ -92,7 +104,7 @@ function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiA
 export function SectionRuleTypes({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
         <div className="mt-2 flex flex-col gap-2 select-none">
-            <RuleSelectSection dlgUiAtoms={dlgUiAtoms} />
+            <FirstRowSection dlgUiAtoms={dlgUiAtoms} />
             <CustomRuleSection dlgUiAtoms={dlgUiAtoms} />
         </div>
     );

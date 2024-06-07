@@ -3,7 +3,6 @@ import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, Po
 import { helpRules } from "./20-help-rules";
 import { SymbolCross } from "@/ui/icons";
 
-//TODO: it should be popup with trigger button
 export function RulesHelpPopover() {
     return (
         <Popover>
