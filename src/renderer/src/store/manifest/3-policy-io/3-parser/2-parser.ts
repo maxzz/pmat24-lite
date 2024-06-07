@@ -97,7 +97,7 @@ export class PolicyParser {
         this.skipWhitespace();
 
         const ch = this.getChar();
-        if (ch != expected) {
+        if (ch !== expected) {
             throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, expected);
         }
     }
@@ -141,7 +141,7 @@ export class PolicyParser {
             return rv;
         }
 
-        if (ch != OPEN_) {
+        if (ch !== OPEN_) {
             this.ungetChar();
             return rv;
         }
@@ -153,7 +153,7 @@ export class PolicyParser {
         }
 
         this.skipWhitespace();
-        if (this.getChar() == CLOSE_) {
+        if (this.getChar() === CLOSE_) {
             rv.max = rv.min; // Simplified version of length <2,2> as <2>.
             return rv;
         }
@@ -178,7 +178,7 @@ export class PolicyParser {
     private parse_finalPswLength(): Range { // Get final length of password: <2,2> or <2>.
         const rv: Range = this.getRangeEntryWs('<', '>');
 
-        if (rv.max == -1) {
+        if (rv.max === -1) {
             rv.max = rv.min;
         }
 
@@ -193,17 +193,17 @@ export class PolicyParser {
         let ch = '';
 
         ch = this.getChar();
-        if (ch != '\\') {
+        if (ch !== '\\') {
             return ch; // Not an escape then return as it is.
         }
 
         ch = this.getChar();
-        if (ch != 'u' && ch != 'U') {
+        if (ch !== 'u' && ch !== 'U') {
             return ch; // Not an unicode then return as it is.
         }
 
         ch = this.getChar();
-        if (ch != '+' && ch != '-') {
+        if (ch !== '+' && ch !== '-') {
             this.ungetChar(); // Don't eat if it is not an optional '+' or '-'.
         }
 
@@ -239,15 +239,15 @@ export class PolicyParser {
 
         let ch = this.getChar();
 
-        let isSquareBrStart = ch == '[';
-        if (ch != '[') {
+        let isSquareBrStart = ch === '[';
+        if (ch !== '[') {
             this.ungetChar(); // Eat only '['
         }
 
         while (true) {
             ch = this.getChar();
 
-            if (ch == ']') { // Check if it is the end of character set and we started with '['.
+            if (ch === ']') { // Check if it is the end of character set and we started with '['.
                 if (!isSquareBrStart) {
                     throw new ParseError("unexpected '[' before ']'", ParseErrorType.unexpChSetClose); // expected charset beging before closing.
                 }
@@ -255,19 +255,19 @@ export class PolicyParser {
                 if (!rv_chSet) {
                     throw new ParseError("unexpected empty charset", ParseErrorType.chSetEmpty);
                 }
-                
+
                 return rv_chSet;
             }
 
             let isRange = false;
 
-            if (ch == '-') { // If it is a range of characters then eat this character.
+            if (ch === '-') { // If it is a range of characters then eat this character.
                 if (!rv_chSet) {
                     throw new ParseError("expected lower boundary char before '-'", ParseErrorType.expLowBoundCh);
                 }
 
                 ch = this.getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
-                if (ch == '-') {
+                if (ch === '-') {
                     throw new ParseError("unexpected double '--'", ParseErrorType.unexpDoubleSet);
                 }
 
@@ -311,7 +311,7 @@ export class PolicyParser {
 
             // for (wchar_t a = chFirst; a <= chSecond; a++)
             // {
-            //     bool isNew = rv_charset_.find_first_of(a) == wstring_t::npos;
+            //     bool isNew = rv_charset_.find_first_of(a) === wstring_t::npos;
             //     if (!isNew) {
             //         continue;
             //     }
@@ -329,20 +329,20 @@ export class PolicyParser {
         let rv: Rule = new Rule();
 
         let ch = this.getChar();
-        if (ch != '(') {
+        if (ch !== '(') {
             throw new ParseError("expected '('", ParseErrorType.expChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
         }
 
         rv.group.rules = this.parse_rules();
 
         ch = this.getChar();
-        if (ch != ')') {
+        if (ch !== ')') {
             throw new ParseError("expected ')'", ParseErrorType.expChar, ')'); // Expected end of group.
         }
 
         const { ch: ch2, hasChar } = this.getCharIfExistWs();
         if (hasChar) {
-            if (ch2 == '.') {
+            if (ch2 === '.') {
                 rv.group.mix = false;
             }
             else {
