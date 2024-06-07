@@ -81,7 +81,7 @@ export class PolicyParser {
         }
 
         const rv: NextChar = {
-            ch: this.sourceText[this.sourceTextPos],
+            ch: this.sourceText[this.sourceTextPos++],
             hasChar: true
         };
         return rv;
