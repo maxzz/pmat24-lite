@@ -1,24 +1,11 @@
 import { useState } from "react";
-import { PrimitiveAtom, atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { Button, Input } from "@/ui";
-import { TestRoomAccordion } from "./3-1-test-room-accordion";
+import { Input } from "@/ui";
+import { TestRoomAccordion } from "./3-1-test-area-accordion";
 import { ButtonRulesHelp } from "./3-3-button-rules-help";
-
-function ButtonTestArea({ isTestAreaOpenAtom }: { isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
-    const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
-
-    return (
-        <Button
-            className="h-6"
-            size="sm"
-            onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}
-        >
-            Test area
-        </Button>
-    );
-}
+import { ButtonTestArea } from "./3-1-button-test-area";
 
 export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
