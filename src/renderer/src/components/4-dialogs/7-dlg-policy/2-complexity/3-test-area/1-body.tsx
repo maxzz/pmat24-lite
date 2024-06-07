@@ -17,17 +17,15 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                 <div className="">
                     Explanation
                 </div>
-
-                <TextareaAutoGrow
-                    value={explanation}
-                    onChange={(e) => setExplanation(e.target.value)}
-                    rows={1}
-                    className="min-h-0 text-xs"
-                    // textareaPaddingFont={cn(textareaPaddingFontDebugClasses, textareaPaddingFontClasses)}
-                    placeholder="Paste theme vars here"
-                    spellCheck={false}
-                />
-
+                <div className="">
+                    Explanation
+                </div>
+                <div className="">
+                    Explanation
+                </div>
+                <div className="">
+                    Explanation
+                </div>
             </div>
 
             <div className="h-8 flex items-center space-x-2">
