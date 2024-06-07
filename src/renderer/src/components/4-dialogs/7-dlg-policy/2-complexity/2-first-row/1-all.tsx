@@ -1,8 +1,8 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv } from "../0-all/0-conv";
-import { Dropdown } from "../9-constrols";
+import { PolicyDlgConv } from "../../0-all/0-conv";
+import { Dropdown } from "../../9-constrols";
 import { Label } from "@/ui";
-import { SectionMinMaxLength } from "./2-1-min-max-body";
+import { SectionMinMaxLength } from "./2-min-max-body";
 
 function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 

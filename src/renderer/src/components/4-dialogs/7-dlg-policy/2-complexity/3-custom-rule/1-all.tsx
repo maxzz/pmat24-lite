@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { PolicyDlgConv } from "../0-all/0-conv";
+import { PolicyDlgConv } from "../../0-all/0-conv";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
-import { TestRoomAccordion } from "./3-1-test-area-accordion";
-import { ButtonRulesHelp } from "./3-3-button-help";
-import { ButtonTestArea } from "./3-1-button-test-area";
+import { TestRoomAccordion } from "./3-test-area-accordion";
+import { ButtonRulesHelp } from "../4-help/1-button-help";
+import { ButtonTestArea } from "./2-button-test-area";
 
 export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 

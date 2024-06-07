@@ -1,22 +1,24 @@
 import { Fragment } from "react";
 import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
-import { inlineButtonClasses } from "./3-1-button-test-area";
-import { helpRules } from "./3-4-help-rules-text";
+import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
+import { helpRules } from "./2-help-rules-text";
 import { SymbolCross } from "@/ui/icons";
 import { classNames } from "@/utils";
 
 function ButtonTrigger() {
     return (
-        <Button
-            className={classNames(inlineButtonClasses, "aspect-square")}
-            variant="outline" size="sm" tabIndex={-1} title="Explanation"
-        >
-            ?
-        </Button>
+        <PopoverTrigger asChild>
+            <Button
+                className={classNames(inlineButtonClasses, "aspect-square")}
+                variant="outline" size="sm" tabIndex={-1} title="Explanation"
+            >
+                ?
+            </Button>
+        </PopoverTrigger>
     );
 }
 
-function RulesBody() {
+function RulesHelpBody() {
     return (
         <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
             {helpRules.map((rule, idx) => (
@@ -37,9 +39,7 @@ function RulesBody() {
 export function ButtonRulesHelp() {
     return (
         <Popover>
-            <PopoverTrigger asChild>
-                <ButtonTrigger />
-            </PopoverTrigger>
+            <ButtonTrigger />
 
             <PopoverPortal>
                 <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
@@ -50,7 +50,7 @@ export function ButtonRulesHelp() {
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
-                            <RulesBody />
+                            <RulesHelpBody />
                         </ScrollArea>
                     </div>
 

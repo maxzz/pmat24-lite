@@ -1,7 +1,7 @@
-import { PolicyDlgConv } from "../0-all/0-conv";
+import { PolicyDlgConv } from "../../0-all/0-conv";
 import { OptionInput } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/5-option-input";
 import { InputBody } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/4-row-body-w-tooltip";
-import { MinMaxTrigger } from "./2-2-min-max-feedback";
+import { MinMaxTrigger } from "./3-min-max-feedback";
 
 export function SectionMinMaxLength({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (

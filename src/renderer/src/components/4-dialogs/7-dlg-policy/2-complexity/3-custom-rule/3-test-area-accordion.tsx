@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
 import { Accordion, AccordionContent, AccordionItem } from "@/ui";
-import { PolicyDlgConv } from "../0-all/0-conv";
-import { TestAreaBody } from "./3-2-test-area-body";
+import { PolicyDlgConv } from "../../0-all/0-conv";
+import { TestAreaBody } from "../3-test-area/1-body";
 
 function TestAreaSection({ value, children }: { value: string; children: ReactNode; }) {
     return (
