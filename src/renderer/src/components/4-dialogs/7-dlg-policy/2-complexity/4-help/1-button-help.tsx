@@ -8,10 +8,7 @@ import { classNames } from "@/utils";
 function ButtonTrigger() {
     return (
         <PopoverTrigger asChild>
-            <Button
-                className={classNames(inlineButtonClasses, "aspect-square")}
-                variant="outline" size="sm" tabIndex={-1} title="Explanation"
-            >
+            <Button className={classNames(inlineButtonClasses, "aspect-square")} size="sm" tabIndex={-1} title="Explanation">
                 ?
             </Button>
         </PopoverTrigger>
