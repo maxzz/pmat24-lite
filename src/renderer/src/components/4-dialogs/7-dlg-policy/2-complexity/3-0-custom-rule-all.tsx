@@ -1,10 +1,24 @@
 import { useState } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { PrimitiveAtom, atom, useAtom, useAtomValue } from "jotai";
 import { PolicyDlgConv } from "../0-all/0-conv";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Button, Input } from "@/ui";
-import { SectionTestRoom } from "./3-1-test-room-accordion";
-import { RulesHelpPopover } from "./3-3-rules-help-popover";
+import { TestRoomAccordion } from "./3-1-test-room-accordion";
+import { ButtonRulesHelp } from "./3-3-button-rules-help";
+
+function ButtonTestArea({ isTestAreaOpenAtom }: { isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
+    const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
+
+    return (
+        <Button
+            className="h-6"
+            size="sm"
+            onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}
+        >
+            Test area
+        </Button>
+    );
+}
 
 export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -12,7 +26,6 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
 
     const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
-    const [isTestAreaOpen, setIsTestAreaOpen] = useAtom(isTestAreaOpenAtom);
     return (
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
@@ -27,18 +40,12 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
                                 className="flex-1 h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
                                 value={custom}
                                 onChange={(e) => setCustom(e.target.value)}
-                                {...turnOffAutoComplete} />
+                                {...turnOffAutoComplete}
+                            />
 
                             <div className="absolute right-1 flex items-center gap-1">
-                                <RulesHelpPopover />
-
-                                <Button
-                                    className="h-6"
-                                    size="sm"
-                                    onClick={() => setIsTestAreaOpen(isTestAreaOpen.length ? [] : ['policy'])}
-                                >
-                                    Test area
-                                </Button>
+                                <ButtonRulesHelp />
+                                <ButtonTestArea isTestAreaOpenAtom={isTestAreaOpenAtom} />
                             </div>
 
                         </div>
@@ -47,7 +54,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
             </div>
 
             {isCustom && (
-                <SectionTestRoom atoms={dlgUiAtoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                <TestRoomAccordion dlgUiAtoms={dlgUiAtoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
             )}
         </div>
     );

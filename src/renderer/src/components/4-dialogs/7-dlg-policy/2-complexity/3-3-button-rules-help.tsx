@@ -3,7 +3,7 @@ import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, Po
 import { helpRules } from "./3-4-help-rules-text";
 import { SymbolCross } from "@/ui/icons";
 
-export function RulesHelpPopover() {
+export function ButtonRulesHelp() {
     return (
         <Popover>
             <PopoverTrigger asChild>

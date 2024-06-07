@@ -23,7 +23,7 @@ function TestAreaOpenState({ children, isTestAreaOpenAtom }: { children: ReactNo
     );
 }
 
-export function SectionTestRoom({ atoms, isTestAreaOpenAtom }: { atoms: PolicyDlgConv.PolicyUiAtoms; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
+export function TestRoomAccordion({ dlgUiAtoms, isTestAreaOpenAtom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
     return (
         <TestAreaOpenState isTestAreaOpenAtom={isTestAreaOpenAtom}>
             <TestAreaSection value="policy">
