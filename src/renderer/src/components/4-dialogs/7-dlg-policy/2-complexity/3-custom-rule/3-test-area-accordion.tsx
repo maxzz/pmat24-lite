@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
 import { Accordion, AccordionContent, AccordionItem } from "@/ui";
-import { PolicyDlgConv } from "../../0-all/0-conv";
-import { TestAreaBody } from "../3-test-area/1-body";
 
 function TestAreaSection({ value, children }: { value: string; children: ReactNode; }) {
     return (
@@ -23,12 +21,12 @@ function TestAreaOpenState({ children, isTestAreaOpenAtom }: { children: ReactNo
     );
 }
 
-export function TestRoomAccordion({ dlgUiAtoms, isTestAreaOpenAtom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
+export function TestRoomAccordion({ children, isTestAreaOpenAtom }: { children: ReactNode; isTestAreaOpenAtom: PrimitiveAtom<string[]>; }) {
     return (
         <TestAreaOpenState isTestAreaOpenAtom={isTestAreaOpenAtom}>
             <TestAreaSection value="policy">
 
-                <TestAreaBody />
+                {children}
 
             </TestAreaSection>
         </TestAreaOpenState>

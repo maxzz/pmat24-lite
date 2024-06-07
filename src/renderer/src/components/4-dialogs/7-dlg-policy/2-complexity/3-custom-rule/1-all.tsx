@@ -4,8 +4,9 @@ import { PolicyDlgConv } from "../../0-all/0-conv";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
 import { TestRoomAccordion } from "./3-test-area-accordion";
-import { ButtonRulesHelp } from "../4-help/1-button-help";
+import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonTestArea } from "./2-button-test-area";
+import { TestAreaBody } from "../3-test-area/1-body";
 
 export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -41,7 +42,9 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
             </div>
 
             {isCustom && (
-                <TestRoomAccordion dlgUiAtoms={dlgUiAtoms} isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                <TestRoomAccordion isTestAreaOpenAtom={isTestAreaOpenAtom}>
+                    <TestAreaBody dlgUiAtoms={dlgUiAtoms} />
+                </TestRoomAccordion>
             )}
         </div>
     );
