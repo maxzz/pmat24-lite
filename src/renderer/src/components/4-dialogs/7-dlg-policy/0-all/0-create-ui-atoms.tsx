@@ -3,6 +3,7 @@ import { OnValueChangeAny } from "@/util-hooks";
 import { Mani } from "pm-manifest";
 import { PolicyDlgConv } from "./0-conv";
 import { debounce } from "@/utils";
+import { PolicyParser } from "@/store/manifest/3-policy-io/3-parser/2-parser";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const forAtoms = PolicyDlgConv.forAtoms(policies);
@@ -14,6 +15,7 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
         original: policies,
         fromFile: forAtoms,
         changed: false,
+        parser: new PolicyParser(),
     };
 }
 

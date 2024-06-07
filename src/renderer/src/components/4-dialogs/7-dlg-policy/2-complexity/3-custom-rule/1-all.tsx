@@ -1,20 +1,37 @@
 import { useState } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { PolicyDlgConv } from "../../0-all/0-conv";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
-import { TestRoomAccordion } from "./3-test-area-accordion";
-import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonTestArea } from "./2-button-test-area";
+import { AccordionSingle } from "./3-accordion";
 import { TestAreaBody } from "../3-test-area/1-body";
+import { ButtonRulesHelp } from "../4-help/1-all";
+import { getRuleEntriesExpl } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
+    const setExplanation = useSetAtom(dlgUiAtoms.explanationAtom);
+
+    function onChange(value: string) {
+        try {
+            dlgUiAtoms.parser.sourceText = value;
+            dlgUiAtoms.parser.doParse();
+            
+            const explanation = getRuleEntriesExpl(dlgUiAtoms.parser.rulesAndMeta.rules)
+            setExplanation(explanation);
+        } catch (e) {
+            console.error(e);
+        }
+
+        setCustom(value);
+    }
+    
     return (
         <Input
             className="h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
             value={custom}
-            onChange={(e) => setCustom(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}
         />
     );
@@ -45,9 +62,9 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
             </div>
 
             {isCustom && (
-                <TestRoomAccordion isTestAreaOpenAtom={isTestAreaOpenAtom}>
+                <AccordionSingle isOpenAtom={isTestAreaOpenAtom}>
                     <TestAreaBody dlgUiAtoms={dlgUiAtoms} />
-                </TestRoomAccordion>
+                </AccordionSingle>
             )}
         </div>
     );
