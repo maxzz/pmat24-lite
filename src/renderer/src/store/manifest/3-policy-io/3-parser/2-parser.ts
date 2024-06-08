@@ -7,14 +7,14 @@ export const WSHORTHAND_a = "abcdefghijklmnopqrstuvwxyz";
 export const WSHORTHAND_A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const WSHORTHAND_s = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; // 21-2F, 3A-40, 5B-60, 7B-7E
 
-function getShorthandChSet(shorthand: string): string {
+function getShorthandChSet(shorthand: string, pos: number): string {
     switch (shorthand) {
         case 'd': return WSHORTHAND_d;
         case 'a': return WSHORTHAND_a;
         case 'A': return WSHORTHAND_A;
         case 's': return WSHORTHAND_s;
         default: {
-            throw new ParseError("unexpected shorthand", ParseErrorType.unexpShorthand);
+            throw new ParseError("unexpected shorthand", ParseErrorType.unexpShorthand, pos);
         }
     }
 }
@@ -67,7 +67,7 @@ export class PolicyParser {
 
     private getChar(): string { // getNextChar
         if (!this.hasChar()) {
-            throw new ParseError("no more text", ParseErrorType.expMoreText);
+            throw new ParseError("no more text", ParseErrorType.expMoreText, this.sourceTextPos);
         }
 
         const rv = this.sourceText[this.sourceTextPos];
@@ -98,7 +98,7 @@ export class PolicyParser {
 
         const ch = this.getChar();
         if (ch !== expected) {
-            throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, expected);
+            throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, this.sourceTextPos, expected);
         }
     }
 
@@ -149,7 +149,7 @@ export class PolicyParser {
         const { num: min, hasChar: hasN } = this.getNumberIfExistWs();
         rv.min = min;
         if (!hasChar || isNaN(min)) {
-            throw new ParseError("expected number", ParseErrorType.expNum);
+            throw new ParseError("expected number", ParseErrorType.expNum, this.sourceTextPos);
         }
 
         this.skipWhitespace();
@@ -169,7 +169,7 @@ export class PolicyParser {
         this.ExpectedCharWs(CLOSE_);
         if (hasM) {
             if (rv.min > rv.max) {
-                throw new ParseError("invalid range", ParseErrorType.invRange);
+                throw new ParseError("invalid range", ParseErrorType.invRange, this.sourceTextPos);
             }
         }
         return rv;
@@ -216,7 +216,7 @@ export class PolicyParser {
 
             let gotDigit = isCharHexNumber(ch);
             if (!gotDigit) {
-                throw new ParseError("expected digit", ParseErrorType.expDigit);
+                throw new ParseError("expected digit", ParseErrorType.expDigit, this.sourceTextPos);
             }
 
             buffer += ch;
@@ -227,7 +227,7 @@ export class PolicyParser {
         const number = parseInt(buffer, 16);
 
         if (isNaN(number) || number > 0xFFFF || number < 0) {
-            throw new ParseError("expected 4 hex digits", ParseErrorType.exp4Digits);
+            throw new ParseError("expected 4 hex digits", ParseErrorType.exp4Digits, this.sourceTextPos);
         }
 
         const rv = String.fromCharCode(number);
@@ -249,11 +249,11 @@ export class PolicyParser {
 
             if (ch === ']') { // Check if it is the end of character set and we started with '['.
                 if (!isSquareBrStart) {
-                    throw new ParseError("unexpected '[' before ']'", ParseErrorType.unexpChSetClose); // expected charset beging before closing.
+                    throw new ParseError("unexpected '[' before ']'", ParseErrorType.unexpChSetClose, this.sourceTextPos); // expected charset beging before closing.
                 }
 
                 if (!rv_chSet) {
-                    throw new ParseError("unexpected empty charset", ParseErrorType.chSetEmpty);
+                    throw new ParseError("unexpected empty charset", ParseErrorType.chSetEmpty, this.sourceTextPos);
                 }
 
                 return rv_chSet;
@@ -263,12 +263,12 @@ export class PolicyParser {
 
             if (ch === '-') { // If it is a range of characters then eat this character.
                 if (!rv_chSet) {
-                    throw new ParseError("expected lower boundary char before '-'", ParseErrorType.expLowBoundCh);
+                    throw new ParseError("expected lower boundary char before '-'", ParseErrorType.expLowBoundCh, this.sourceTextPos);
                 }
 
                 ch = this.getChar(); // Check that we don't have '[--1]'. '-' should be escaped.
                 if (ch === '-') {
-                    throw new ParseError("unexpected double '--'", ParseErrorType.unexpDoubleSet);
+                    throw new ParseError("unexpected double '--'", ParseErrorType.unexpDoubleSet, this.sourceTextPos);
                 }
 
                 this.ungetChar();
@@ -284,7 +284,7 @@ export class PolicyParser {
                 let chFirst = rv_chSet[rv_chSet.length - 1]; // Cut the last char and use it as a first of range.
                 rv_chSet = rv_chSet.substring(0, rv_chSet.length - 1);
 
-                rv_chSet = generateCharRange(chFirst, chCharset, rv_chSet);
+                rv_chSet = generateCharRange(chFirst, chCharset, rv_chSet, this.sourceTextPos);
                 isRange = false;
             } else {
                 rv_chSet += chCharset;
@@ -292,11 +292,11 @@ export class PolicyParser {
 
         } //while
 
-        function generateCharRange(chFirst: string, chSecond: string, rv_chSet: string): string {
+        function generateCharRange(chFirst: string, chSecond: string, rv_chSet: string, pos: number): string {
             // Generate (chFirst=a,chSecond=c as a-c -> abc), make sure that characters are unique in set, and sort.
 
             if (chFirst > chSecond) {
-                throw new ParseError("expected set n <= m", ParseErrorType.expCharALessB);
+                throw new ParseError("expected set n <= m", ParseErrorType.expCharALessB, pos);
             }
 
             while (chFirst <= chSecond) {
@@ -330,14 +330,14 @@ export class PolicyParser {
 
         let ch = this.getChar();
         if (ch !== '(') {
-            throw new ParseError("expected '('", ParseErrorType.expChar, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
+            throw new ParseError("expected '('", ParseErrorType.expChar, this.sourceTextPos, '('); // This is just internal error and should be fixed in logic. //ungetChar(); // Eat only '('
         }
 
         rv.group.rules = this.parse_rules();
 
         ch = this.getChar();
         if (ch !== ')') {
-            throw new ParseError("expected ')'", ParseErrorType.expChar, ')'); // Expected end of group.
+            throw new ParseError("expected ')'", ParseErrorType.expChar, this.sourceTextPos, ')'); // Expected end of group.
         }
 
         const { ch: ch2, hasChar } = this.getCharIfExistWs();
@@ -376,7 +376,7 @@ export class PolicyParser {
                 rv.chSet.range = this.parse_range();
 
                 if (rv.chSet.chars.length > 1024) {
-                    throw new ParseError("expected less then 1024 per charset", ParseErrorType.moreThen1024); // Charsets can be splited into different sets and then grouped together.
+                    throw new ParseError("expected less then 1024 per charset", ParseErrorType.moreThen1024, this.sourceTextPos); // Charsets can be splited into different sets and then grouped together.
                 }
                 break;
             }
@@ -384,13 +384,13 @@ export class PolicyParser {
             case 'a': // shorthand a
             case 'A': // shorthand A
             case 's': { // shorthand s
-                rv.chSet.chars = getShorthandChSet(ch);
+                rv.chSet.chars = getShorthandChSet(ch, this.sourceTextPos);
                 rv.isGroup = false;
                 rv.chSet.range = this.parse_range();
                 break;
             }
             default: {
-                throw new ParseError("unexpected char", ParseErrorType.unexpChar, ch);
+                throw new ParseError("unexpected char", ParseErrorType.unexpChar, this.sourceTextPos, ch);
             }
         }
 
@@ -459,7 +459,7 @@ export class PolicyParser {
                     break;
                 }
                 default: {
-                    throw new ParseError(`unexpected char '${ch}'`, ParseErrorType.unexpChar, ch);
+                    throw new ParseError(`unexpected char '${ch}'`, ParseErrorType.unexpChar, this.sourceTextPos, ch);
                 }
             }
         }

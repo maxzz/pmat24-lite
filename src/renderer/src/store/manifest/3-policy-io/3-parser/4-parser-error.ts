@@ -26,9 +26,10 @@ export class ParseError {
     what: string = '';                                  // Error message.
     expected: string = '';                              // Expected character.
 
-    constructor(what: string, errorType: ParseErrorType, expected: string = '') {
+    constructor(what: string, errorType: ParseErrorType, pos: number, expected: string = '') {
         this.what = what;
         this.type = errorType;
+        this.pos = pos;
         this.expected = expected;
     }
 }
