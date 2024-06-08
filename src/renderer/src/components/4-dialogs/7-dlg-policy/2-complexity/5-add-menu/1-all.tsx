@@ -1,10 +1,17 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "@/ui";
-import { MenuAddTrigger } from "./2-button-menu-add";
-import { PolicyDlgConv } from "../../0-all/0-conv";
-import { ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
+import { PolicyDlgConv, UpdateExplanationAtom } from "../../0-all";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps } from "@/ui";
+import { MenuAddTrigger } from "./2-button-menu-add";
 
-function MenuItem({ label, ...rest }: { label: string; } & ComponentPropsWithoutRef<typeof DropdownMenuItem>) {
+const menuItems: { label: string; action: string; }[] = [
+    { label: "Add characters set [A-Z]", /**/ action: "A{1,2}" },
+    { label: "Add characters set [a-z]", /**/ action: "a{1,2}" },
+    { label: "Add set of numbers",       /**/ action: "d{1,2}" },
+    { label: "Add special characters",   /**/ action: "s{1,2}" },
+    { label: "Add characters set",       /**/ action: "[X-Z]{1,2}" }, //"[X-Z!-/]{1,2}"
+];
+
+function MenuItem({ label, ...rest }: { label: string; } & DropdownMenuItemProps) {
     return (
         <DropdownMenuItem className="text-xs" {...rest}>
             <div className="">
@@ -14,46 +21,16 @@ function MenuItem({ label, ...rest }: { label: string; } & ComponentPropsWithout
     );
 }
 
-const menuItems: { label: string; action: string; }[] = [
-    { label: "Add [A-Z]",                /**/ action: "A{1,2}" },
-    { label: "Add [a-z]",                /**/ action: "a{1,2}" },
-    { label: "Add numbers",              /**/ action: "d{1,2}" },
-    { label: "Add special characters",   /**/ action: "s{1,2}" },
-    { label: "Add characters set",       /**/ action: "[X-Z]{1,2}" }, //"[X-Z!-/]{1,2}"
-];
-
-// function onChange({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; value: string; }) {
-//     try {
-//         dlgUiAtoms.parser.sourceText = value;
-//         dlgUiAtoms.parser.doParse();
-        
-//         const final = [];
-//         getCustomRuleExplanation(dlgUiAtoms.parser.rulesAndMeta.rules, final)
-//         const explanation = final.join('\n');
-//         setExplanation(explanation);
-//     } catch (e) {
-//         console.error(e);
-//     }
-
-//     setCustom(value);
-// }
-
 export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
     const setCustom = useSetAtom(dlgUiAtoms.customAtom);
+    const updateExplanation = useSetAtom(UpdateExplanationAtom);
 
     function applyRule(idx: number) {
         setCustom((prev) => {
-            const newCustom = prev + menuItems[idx].action;
-
-            try {
-                dlgUiAtoms.parser.sourceText = newCustom;
-                dlgUiAtoms.parser.doParse();
-            } catch (error) {
-                console.error(error);                
-            }
-
-            return newCustom;
+            const value = prev + menuItems[idx].action;
+            updateExplanation({ dlgUiAtoms, value });
+            return value;
         });
     }
 

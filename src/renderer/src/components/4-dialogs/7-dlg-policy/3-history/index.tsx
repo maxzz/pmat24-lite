@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { PolicyDlgConv } from "../0-all/0-conv";
 import { namesConstrainPsw } from "@/store/manifest";
+import { PolicyDlgConv } from "../0-all";
 import { Dropdown } from "../9-constrols";
 
 export function SectionHistory({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {

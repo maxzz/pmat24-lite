@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { useAtomValue } from "jotai";
+import { PolicyDlgConv } from "../../0-all";
 import { Button, Input } from "@/ui";
 import { SymbolDot } from "@/ui/icons";
-import { PolicyDlgConv } from "../../0-all/0-conv";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
@@ -17,14 +17,13 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
 
             {explanation && (
                 <div className="mb-1">
-                    {/* <div>
-                        Explanation
-                    </div> */}
                     <div>
-                    Password should consist of
+                        Password should consist of
                     </div>
+                    
                     <div className="grid grid-cols-[auto,1fr]">
                         {/*
+                        Explanation:
                             Password should consist of 
                             at least 8 characters, 
                             including at least one uppercase letter, 
@@ -32,17 +31,18 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                             one number, 
                             and one special character.
                         */}
+
                         {explanation.split('\n').filter(Boolean).map((line, idx) => (
                             <Fragment key={idx}>
-                                <div className="pl-4 pr-1"><SymbolDot className="size-3" /></div>
+                                <div className="pl-4 pr-1">
+                                    <SymbolDot className="size-3" />
+                                </div>
 
                                 <div className="text-xs" key={idx}>
                                     {line}
                                 </div>
                             </Fragment>
-
                         ))}
-                        {/* {explanation} */}
                     </div>
                 </div>
             )}

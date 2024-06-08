@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { Poli } from "@/store/manifest";
-import { PolicyDlgConv } from "../0-all/0-conv";
+import { PolicyDlgConv } from "../0-all";
 import { Radio } from "../9-constrols";
 
 export function SectionGenerationBy({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {

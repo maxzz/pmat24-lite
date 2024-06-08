@@ -1,4 +1,4 @@
-import { PolicyDlgConv } from "../0-all/0-conv";
+import { PolicyDlgConv } from "../0-all";
 import { FirstRowSection } from "./2-first-row/1-all";
 import { CustomRuleSection } from "./3-custom-rule/1-all";
 

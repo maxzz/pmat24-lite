@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv } from "../../0-all/0-conv";
+import { PolicyDlgConv } from "../../0-all";
 import { Dropdown } from "../../9-constrols";
 import { Label } from "@/ui";
 import { SectionMinMaxLength } from "./2-min-max-body";

@@ -20,6 +20,7 @@ export namespace PolicyDlgConv {
         maxLen: RowInputState;          // max password length
 
         explanation: string;            // explanation of policy
+        errorText: string;              // error text for custom rule
         textVerify: string;             // text to verify policy
         textGenerate: string;           // text to verify policy generation
 
@@ -48,6 +49,7 @@ export namespace PolicyDlgConv {
         minLen: initForInput('8', { type: 'number' }),
         maxLen: initForInput('12', { type: 'number' }),
         explanation: '',
+        errorText: '',
         textVerify: '',
         textGenerate: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
@@ -93,9 +95,6 @@ export namespace PolicyDlgConv {
                 custom: policy.custom,
                 minLen: initForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
                 maxLen: initForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
-                explanation: '',
-                textVerify: 'TODO: short policy explanation',
-                textGenerate: 'TODO: short policy explanation',
                 constrainPsw: `${policy.constrainPsw}`,
                 useAs: `${policy.useAs}`,
                 fakeOptions: policies.options,
@@ -117,6 +116,7 @@ export namespace PolicyDlgConv {
             minLenAtom: atomWithCallback(minLen, onChange),
             maxLenAtom: atomWithCallback(maxLen, onChange),
             explanationAtom: atomWithCallback(explanation, onChange),
+            errorTextAtom: atomWithCallback(initialState.errorText, onChange),
             textVerifyAtom: atomWithCallback(textVerify, onChange),
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
@@ -136,6 +136,7 @@ export namespace PolicyDlgConv {
             minLen: get(atoms.minLenAtom),
             maxLen: get(atoms.maxLenAtom),
             explanation: get(atoms.explanationAtom),
+            errorText: get(atoms.errorTextAtom),
             textVerify: get(atoms.textVerifyAtom),
             textGenerate: get(atoms.textGenerateAtom),
             constrainPsw: get(atoms.constrainPswAtom),

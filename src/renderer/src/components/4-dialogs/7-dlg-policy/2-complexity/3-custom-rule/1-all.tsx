@@ -1,33 +1,21 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv } from "../../0-all/0-conv";
+import { PolicyDlgConv, UpdateExplanationAtom } from "../../0-all";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
 import { ButtonTestArea } from "./2-button-test-area";
 import { AccordionSingle } from "./3-accordion";
 import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
-import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
-import { MenuAddTrigger } from "../5-add-menu/2-button-menu-add";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
-    const setExplanation = useSetAtom(dlgUiAtoms.explanationAtom);
+    const updateExplanation = useSetAtom(UpdateExplanationAtom);
 
     function onChange(value: string) {
-        try {
-            dlgUiAtoms.parser.sourceText = value;
-            dlgUiAtoms.parser.doParse();
-            
-            const final = [];
-            getCustomRuleExplanation(dlgUiAtoms.parser.rulesAndMeta.rules, final)
-            const explanation = final.join('\n');
-            setExplanation(explanation);
-        } catch (e) {
-            console.error(e);
-        }
-
+        updateExplanation({ dlgUiAtoms, value });
         setCustom(value);
     }
 
