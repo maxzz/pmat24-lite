@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv, UpdateExplanationAtom } from "../../0-all";
+import { PolicyDlgConv, updateExplanationAtom } from "../../0-all";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
 import { ButtonTestArea } from "./2-button-test-area";
@@ -12,7 +12,7 @@ import { ButtonMenuAdd } from "../5-add-menu/1-all";
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
-    const updateExplanation = useSetAtom(UpdateExplanationAtom);
+    const updateExplanation = useSetAtom(updateExplanationAtom);
 
     function onChange(value: string) {
         updateExplanation({ dlgUiAtoms, value });

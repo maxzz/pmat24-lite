@@ -24,6 +24,9 @@ export namespace PolicyDlgConv {
         textVerify: string;             // text to verify policy
         textGenerate: string;           // text to verify policy generation
 
+        textVerifyResult: string;       // result of click on textVerify
+        textGenerateResult: string;     // result of click on textGenerate
+
         constrainPsw: string;           // ConstrainsPsw
 
         useAs: string;                  // UseAs; by user / by system
@@ -52,6 +55,8 @@ export namespace PolicyDlgConv {
         errorText: '',
         textVerify: '',
         textGenerate: '',
+        textVerifyResult: '',
+        textGenerateResult: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
         useAs: `${Poli.UseAs.verify}`,
         fakeOptions: '',
@@ -106,7 +111,7 @@ export namespace PolicyDlgConv {
     }
 
     export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, constrainSet, custom, minLen, maxLen, explanation, textVerify, textGenerate, constrainPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen, maxLen, explanation, textVerify, textGenerate, textVerifyResult, textGenerateResult, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
@@ -119,6 +124,8 @@ export namespace PolicyDlgConv {
             errorTextAtom: atomWithCallback(initialState.errorText, onChange),
             textVerifyAtom: atomWithCallback(textVerify, onChange),
             textGenerateAtom: atomWithCallback(textGenerate, onChange),
+            textVerifyResultAtom: atomWithCallback(textVerifyResult, onChange),
+            textGenerateResultAtom: atomWithCallback(textGenerateResult, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
             fakeOptionsAtom: atomWithCallback(initialState.fakeOptions, onChange),
@@ -139,6 +146,8 @@ export namespace PolicyDlgConv {
             errorText: get(atoms.errorTextAtom),
             textVerify: get(atoms.textVerifyAtom),
             textGenerate: get(atoms.textGenerateAtom),
+            textVerifyResult: get(atoms.textVerifyResultAtom),
+            textGenerateResult: get(atoms.textGenerateResultAtom),
             constrainPsw: get(atoms.constrainPswAtom),
             useAs: get(atoms.useAsAtom),
             fakeOptions: get(atoms.fakeOptionsAtom),

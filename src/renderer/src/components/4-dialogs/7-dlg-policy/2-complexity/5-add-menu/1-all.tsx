@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { PolicyDlgConv, UpdateExplanationAtom } from "../../0-all";
+import { PolicyDlgConv, updateExplanationAtom } from "../../0-all";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps } from "@/ui";
 import { MenuAddTrigger } from "./2-button-menu-add";
 
@@ -24,7 +24,7 @@ function MenuItem({ label, ...rest }: { label: string; } & DropdownMenuItemProps
 export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
     const setCustom = useSetAtom(dlgUiAtoms.customAtom);
-    const updateExplanation = useSetAtom(UpdateExplanationAtom);
+    const updateExplanation = useSetAtom(updateExplanationAtom);
 
     function applyRule(idx: number) {
         setCustom((prev) => {
