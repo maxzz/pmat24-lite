@@ -93,11 +93,11 @@ export class PolicyParser {
         return this.getCharNoThrow();
     }
 
-    private ExpectedCharWs(expected: string): void { // Skip whitespace and check next character.
+    private expectedCharWs(expected: string): void { // Skip whitespace and check next character.
         this.skipWhitespace();
 
-        const ch = this.getChar();
-        if (ch !== expected) {
+        const {ch, hasChar} = this.getCharNoThrow();
+        if (!hasChar || ch !== expected) {
             throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, this.sourceTextPos, expected);
         }
     }
@@ -158,7 +158,7 @@ export class PolicyParser {
             return rv;
         }
         this.ungetChar();
-        this.ExpectedCharWs(',');
+        this.expectedCharWs(',');
 
         const { num: max, hasChar: hasM } = this.getNumberIfExistWs();
         rv.max = max;
@@ -166,7 +166,7 @@ export class PolicyParser {
             rv.max = -2; //range.min;
         }
 
-        this.ExpectedCharWs(CLOSE_);
+        this.expectedCharWs(CLOSE_);
         if (hasM) {
             if (rv.min > rv.max) {
                 throw new ParseError("invalid range", ParseErrorType.invRange, this.sourceTextPos);
