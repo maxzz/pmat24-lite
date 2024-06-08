@@ -8,6 +8,7 @@ const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-ma
 
 export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const explanation = useAtomValue(dlgUiAtoms.explanationAtom);
+    const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
     return (
         <div className="relative mt-4 px-4 py-3 border-border border rounded flex flex-col gap-y-2">
 
@@ -15,35 +16,47 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                 Test area
             </div>
 
-            {explanation && (
+            {(explanation || errorText) && (
                 <div className="mb-1">
-                    <div>
-                        Password should consist of
-                    </div>
-                    
-                    <div className="grid grid-cols-[auto,1fr]">
-                        {/*
-                        Explanation:
-                            Password should consist of 
-                            at least 8 characters, 
-                            including at least one uppercase letter, 
-                            one lowercase letter, 
-                            one number, 
-                            and one special character.
-                        */}
+                    {explanation && (<>
 
-                        {explanation.split('\n').filter(Boolean).map((line, idx) => (
-                            <Fragment key={idx}>
-                                <div className="pl-4 pr-1">
-                                    <SymbolDot className="size-3" />
-                                </div>
+                        <div>
+                            Password should consist of
+                        </div>
+                        <div className="grid grid-cols-[auto,1fr]">
+                            {/*
+                                Explanation:
+                                    Password should consist of 
+                                    at least 8 characters, 
+                                    including at least one uppercase letter, 
+                                    one lowercase letter, 
+                                    one number, 
+                                    and one special character.
+                            */}
 
-                                <div className="text-xs" key={idx}>
-                                    {line}
-                                </div>
-                            </Fragment>
-                        ))}
-                    </div>
+                            {explanation.split('\n').filter(Boolean).map((line, idx) => (
+                                <Fragment key={idx}>
+                                    <div className="pl-4 pr-1">
+                                        <SymbolDot className="size-3" />
+                                    </div>
+
+                                    <div className="text-xs" key={idx}>
+                                        {line}
+                                    </div>
+                                </Fragment>
+                            ))}
+                        </div>
+                    </>
+                    )}
+
+                    {errorText && (
+                        <div className="text-red-500">
+                            Rule is invalid: {' '}
+                            <span className="font-semibold">
+                                {errorText}
+                            </span>
+                        </div>
+                    )}
                 </div>
             )}
 
