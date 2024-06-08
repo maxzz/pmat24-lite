@@ -1,8 +1,8 @@
-import { Button, Input, TextareaAutoGrow } from "@/ui";
-import { PolicyDlgConv } from "../../0-all/0-conv";
-import { Fragment, useState } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import { Fragment } from "react";
+import { useAtomValue } from "jotai";
+import { Button, Input } from "@/ui";
 import { SymbolDot } from "@/ui/icons";
+import { PolicyDlgConv } from "../../0-all/0-conv";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
@@ -17,8 +17,11 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
 
             {explanation && (
                 <div className="mb-1">
+                    {/* <div>
+                        Explanation
+                    </div> */}
                     <div>
-                        Explanation:
+                    Password should consist of
                     </div>
                     <div className="grid grid-cols-[auto,1fr]">
                         {/*

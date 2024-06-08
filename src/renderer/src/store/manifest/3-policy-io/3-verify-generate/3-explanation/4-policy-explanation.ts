@@ -3,6 +3,7 @@ import { parseExtPolicy2RulesSet } from "../../3-parser";
 import { Rule, RulesAndMeta } from "../../3-parser/1-parser-types";
 import { stringsPolicy, stringsPolicy3 } from "./5-strings";
 import { genUtils } from "../9-gen-utils";
+import { WSHORTHAND_A, WSHORTHAND_a, WSHORTHAND_d, WSHORTHAND_s } from "../../3-parser/2-parser";
 
 /*
 This file expect following resource IDs to be declared and defined:
@@ -45,24 +46,33 @@ export function getCustomRuleExplanation(rules: Rule[], final: string[]): void {
         } else {
             const min = rule.chSet.range.min;
             const max = rule.chSet.range.max;
-            const set = rule.chSet.chars;
+            // const chars = rule.chSet.chars;
+            const chars = rule.chSet.chars === WSHORTHAND_A
+                ? '[A-Z]'
+                : rule.chSet.chars === WSHORTHAND_a
+                    ? '[a-z]'
+                    : rule.chSet.chars === WSHORTHAND_d
+                        ? '[0-9]'
+                        : rule.chSet.chars === WSHORTHAND_s
+                            ? '[!@#$%^&*()_+=]'
+                            : `[${rule.chSet.chars}]`;
 
             let rv = '';
 
             if (min === -1 && max === -1) {
-                rv = stringsPolicy.chSet(set);//ai:'Must contain any character.';
+                rv = stringsPolicy.chSet(chars);//ai:'Must contain any character.';
             } else if (max > 0 && min > 0) {
                 if (max === min) {
                     if (max === 1) {
-                        rv = stringsPolicy.chSet(set);//ai:'Must contain any character.';
+                        rv = stringsPolicy.chSet(chars);//ai:'Must contain any character.';
                     } else {
-                        rv = stringsPolicy.chSetMax(max, set);//ai:`Must contain only ${max} character(s).`;
+                        rv = stringsPolicy.chSetMax(max, chars);//ai:`Must contain only ${max} character(s).`;
                     }
                 } else {
-                    rv = stringsPolicy.chSetMinMax(min, max, set);//ai:`Must contain atleast ${min} and not more than ${max} character(s).`;
+                    rv = stringsPolicy.chSetMinMax(min, max, chars);//ai:`Must contain atleast ${min} and not more than ${max} character(s).`;
                 }
             } else if (min > 0) {
-                rv = stringsPolicy.chSetMin(min, set);//ai:`Must contain atleast ${min} character(s).`;
+                rv = stringsPolicy.chSetMin(min, chars);//ai:`Must contain atleast ${min} character(s).`;
             }
 
             final.push(rv);
