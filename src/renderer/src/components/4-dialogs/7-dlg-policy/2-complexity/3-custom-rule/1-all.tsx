@@ -7,7 +7,7 @@ import { ButtonTestArea } from "./2-button-test-area";
 import { AccordionSingle } from "./3-accordion";
 import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
-import { getRuleEntriesExpl } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
+import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
@@ -18,7 +18,9 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
             dlgUiAtoms.parser.sourceText = value;
             dlgUiAtoms.parser.doParse();
             
-            const explanation = getRuleEntriesExpl(dlgUiAtoms.parser.rulesAndMeta.rules)
+            const final = [];
+            getCustomRuleExplanation(dlgUiAtoms.parser.rulesAndMeta.rules, final)
+            const explanation = final.join('\n');
             setExplanation(explanation);
         } catch (e) {
             console.error(e);
@@ -26,7 +28,7 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
 
         setCustom(value);
     }
-    
+
     return (
         <Input
             className="h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"

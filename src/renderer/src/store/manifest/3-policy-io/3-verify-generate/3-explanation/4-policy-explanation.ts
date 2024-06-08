@@ -28,9 +28,7 @@ This file expect following resource IDs to be declared and defined:
    \t(.) Must contain atleast 1 and atmost 3 characters from the set [0-9].\n
 */
 
-export function getRuleEntriesExpl(rules: Rule[]): string {
-    let rv = ''; //TODO: make rv as array of strings and join them at the end with proper indentation.
-
+export function getCustomRuleExplanation(rules: Rule[], final: string[]): void {
     for (const rule of rules) {
         if (rule.isGroup) {
             /* // TODO: Explain grouping (repeat/mix).
@@ -43,109 +41,104 @@ export function getRuleEntriesExpl(rules: Rule[]): string {
             rv += groupHead;
             */
 
-            rv += getRuleEntriesExpl(rule.group.rules);
+            getCustomRuleExplanation(rule.group.rules, final);
         } else {
             const min = rule.chSet.range.min;
             const max = rule.chSet.range.max;
             const set = rule.chSet.chars;
 
-            let chsetExplanation = '';
+            let rv = '';
 
             if (min === -1 && max === -1) {
-                chsetExplanation = stringsPolicy.achset(set);//ai:'Must contain any character.';
+                rv = stringsPolicy.chSet(set);//ai:'Must contain any character.';
             } else if (max > 0 && min > 0) {
                 if (max === min) {
                     if (max === 1) {
-                        chsetExplanation = stringsPolicy.achset(set);//ai:'Must contain any character.';
+                        rv = stringsPolicy.chSet(set);//ai:'Must contain any character.';
                     } else {
-                        chsetExplanation = stringsPolicy.maxchset(max, set);//ai:`Must contain only ${max} character(s).`;
+                        rv = stringsPolicy.chSetMax(max, set);//ai:`Must contain only ${max} character(s).`;
                     }
                 } else {
-                    chsetExplanation = stringsPolicy.mmchset(min, max, set);//ai:`Must contain atleast ${min} and not more than ${max} character(s).`;
+                    rv = stringsPolicy.chSetMinMax(min, max, set);//ai:`Must contain atleast ${min} and not more than ${max} character(s).`;
                 }
             } else if (min > 0) {
-                chsetExplanation = stringsPolicy.minchset(min, set);//ai:`Must contain atleast ${min} character(s).`;
+                rv = stringsPolicy.chSetMin(min, set);//ai:`Must contain atleast ${min} character(s).`;
             }
 
-            rv += chsetExplanation;
+            final.push(rv);
         }
     }
-
-    return rv;
 }
 
-export function getRuleSetExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: boolean): string {
-    let ruleLength = stringsPolicy.length(rulesAndMeta.pswLenRange.min, rulesAndMeta.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
-
-    let rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
+function getCustomRuleAndLenExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: boolean, final: string[]): void {
+    let ruleLength = stringsPolicy.chSetLen(rulesAndMeta.pswLenRange.min, rulesAndMeta.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;
+    final.push('\n' + ruleLength); // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
     if (noDuplicates) {
-        rv += stringsPolicy.norepeat();//ai:'Each password character must only be used one time.';
+        final.push(stringsPolicy.noRepeat());//ai:'Each password character must only be used one time.';
     }
 
-    rv += getRuleEntriesExpl(rulesAndMeta.rules);
-
-    return rv;
+    getCustomRuleExplanation(rulesAndMeta.rules, final);
 }
 
-export function getPolicyExplanation(policy: Poli.Policy): string {
-    let rv = '';
+export function getPolicyExplanation(policy: Poli.Policy, final: string[]): void {
 
     if (policy.custom) {
         const parseAdvPolicyResult = parseExtPolicy2RulesSet(policy);
 
         // Explanation is shown only for verification hence we allow duplication of characters within a 
         let noduplicate = false;
-        rv = getRuleSetExplanation(parseAdvPolicyResult.rulesAndMeta, noduplicate);
+        getCustomRuleAndLenExplanation(parseAdvPolicyResult.rulesAndMeta, noduplicate, final);
     } else {
-        let ruleLength = stringsPolicy.length(policy.minLen, policy.maxLen);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
-
-        rv = '\n' + ruleLength; // IDS_PSW_POLICY_HEAD	+ ruleLength;
+        let ruleLength = stringsPolicy.chSetLen(policy.minLen, policy.maxLen);//ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
+        final.push('\n' + ruleLength); // IDS_PSW_POLICY_HEAD	+ ruleLength;
 
         //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
 
+        let rv = '';
+
         switch (policy.constrainSet) {
             case Poli.ConstrainSet.alphanumeric:
-                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
-                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
-                rv += stringsPolicy.achset(genUtils.SET_Numeric);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaLower);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaUpper);
+                rv = stringsPolicy.chSet(genUtils.SET_Numeric);
                 break;
             case Poli.ConstrainSet.alpha:
-                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
-                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaLower);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaUpper);
                 break;
             case Poli.ConstrainSet.numeric:
-                rv += stringsPolicy.achset(genUtils.SET_Numeric);
+                rv = stringsPolicy.chSet(genUtils.SET_Numeric);
                 break;
             case Poli.ConstrainSet.withspecial:
-                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
-                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
-                rv += stringsPolicy.achset(genUtils.SET_Numeric);
-                rv += stringsPolicy.achset(genUtils.SET_Special);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaLower);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaUpper);
+                rv = stringsPolicy.chSet(genUtils.SET_Numeric);
+                rv = stringsPolicy.chSet(genUtils.SET_Special);
                 break;
             case Poli.ConstrainSet.atleastonenumber:
-                rv += stringsPolicy.minchset(1, genUtils.SET_Numeric);
-                rv += stringsPolicy.achset(genUtils.SET_AlphaLower);
-                rv += stringsPolicy.achset(genUtils.SET_AlphaUpper);
+                rv = stringsPolicy.chSetMin(1, genUtils.SET_Numeric);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaLower);
+                rv = stringsPolicy.chSet(genUtils.SET_AlphaUpper);
                 break;
             //default: Do nothing.
         }
+        final.push(rv);
 
         switch (policy.constrainPsw) {
             case Poli.ConstrainPsw.diffAp:
-                rv += stringsPolicy3.diffAp;
+                rv = stringsPolicy3.diffAp;
                 break;
             case Poli.ConstrainPsw.diffPp:
-                rv += stringsPolicy3.diffPp;
+                rv = stringsPolicy3.diffPp;
                 break;
             case Poli.ConstrainPsw.diffWp:
-                rv += stringsPolicy3.diffWp;
+                rv = stringsPolicy3.diffWp;
                 break;
             case Poli.ConstrainPsw.none: // No explanation.
             //default: break;
         }
+        final.push(rv);
     }
-
-    return rv;
 }
 

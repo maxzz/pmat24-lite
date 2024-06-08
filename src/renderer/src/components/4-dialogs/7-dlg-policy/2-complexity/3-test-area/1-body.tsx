@@ -1,7 +1,8 @@
 import { Button, Input, TextareaAutoGrow } from "@/ui";
 import { PolicyDlgConv } from "../../0-all/0-conv";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
+import { SymbolDot } from "@/ui/icons";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
@@ -15,11 +16,11 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
             </div>
 
             {explanation && (
-                <div className="mb-2">
+                <div className="mb-1">
                     <div>
                         Explanation:
                     </div>
-                    <div className="">
+                    <div className="grid grid-cols-[auto,1fr]">
                         {/*
                             Password should consist of 
                             at least 8 characters, 
@@ -28,7 +29,17 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                             one number, 
                             and one special character.
                         */}
-                        {explanation}
+                        {explanation.split('\n').filter(Boolean).map((line, idx) => (
+                            <Fragment key={idx}>
+                                <div className="pl-4 pr-1"><SymbolDot className="size-3" /></div>
+
+                                <div className="text-xs" key={idx}>
+                                    {line}
+                                </div>
+                            </Fragment>
+
+                        ))}
+                        {/* {explanation} */}
                     </div>
                 </div>
             )}
