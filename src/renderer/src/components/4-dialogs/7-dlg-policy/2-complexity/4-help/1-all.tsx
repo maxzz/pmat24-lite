@@ -1,12 +1,12 @@
 import { Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, ScrollArea } from "@/ui";
 import { SymbolCross } from "@/ui/icons";
-import { ButtonTrigger } from "./2-trigger";
+import { HelpTrigger } from "./2-button-trigger";
 import { RulesHelpBody } from "./3-body";
 
 export function ButtonRulesHelp() {
     return (
         <Popover>
-            <ButtonTrigger />
+            <HelpTrigger />
 
             <PopoverPortal>
                 <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">

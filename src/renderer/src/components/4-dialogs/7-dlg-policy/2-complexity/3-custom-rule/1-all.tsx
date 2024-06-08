@@ -8,6 +8,8 @@ import { AccordionSingle } from "./3-accordion";
 import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
 import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
+import { MenuAddTrigger } from "../5-add-menu/2-button-menu-add";
+import { ButtonMenuAdd } from "../5-add-menu/1-all";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
@@ -31,7 +33,7 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
 
     return (
         <Input
-            className="h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
+            className="pr-28 h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
             value={custom}
             onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}
@@ -56,6 +58,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
                         <CustomRuleInput dlgUiAtoms={dlgUiAtoms} />
 
                         <div className="absolute right-1 flex items-center gap-1">
+                            <ButtonMenuAdd dlgUiAtoms={dlgUiAtoms} />
                             <ButtonRulesHelp />
                             <ButtonTestArea isTestAreaOpenAtom={isTestAreaOpenAtom} />
                         </div>
