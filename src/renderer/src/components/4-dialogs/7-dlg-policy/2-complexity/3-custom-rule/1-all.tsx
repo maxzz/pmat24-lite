@@ -8,6 +8,7 @@ import { AccordionSingle } from "./3-accordion";
 import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
+import { ButtonErrorInfo } from "../6-error-info";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -46,6 +47,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
                         <CustomRuleInput dlgUiAtoms={dlgUiAtoms} />
 
                         <div className="absolute right-1 flex items-center gap-1">
+                            <ButtonErrorInfo dlgUiAtoms={dlgUiAtoms} />
                             <ButtonMenuAdd dlgUiAtoms={dlgUiAtoms} />
                             <ButtonRulesHelp />
                             <ButtonTestArea isTestAreaOpenAtom={isTestAreaOpenAtom} />

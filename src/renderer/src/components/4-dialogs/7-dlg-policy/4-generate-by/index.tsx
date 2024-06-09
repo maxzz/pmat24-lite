@@ -8,11 +8,11 @@ export function SectionGenerationBy({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.
     return (
         <div className="mt-2 grid space-y-2">
             <Radio name="gen-type" checked={useAs === `${Poli.UseAs.verify}`} onChange={() => setUseUs(`${Poli.UseAs.verify}`)}>
-                By user
+                The user will enter a password
             </Radio>
 
             <Radio name="gen-type" checked={useAs === `${Poli.UseAs.generate}`} onChange={() => setUseUs(`${Poli.UseAs.generate}`)}>
-                By system
+                The password manager will generate a password
             </Radio>
         </div>
     );
