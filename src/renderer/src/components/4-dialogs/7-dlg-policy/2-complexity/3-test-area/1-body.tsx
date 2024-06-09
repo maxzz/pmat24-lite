@@ -23,6 +23,36 @@ function InputWithCounter({ valueAtom }: { valueAtom: PrimitiveAtom<string>; }) 
     );
 }
 
+function BottonVerify({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const doVerify = useSetAtom(verifyAtom);
+    const [verifyText] = useAtom(dlgUiAtoms.textVerifyAtom);
+
+    return (
+        <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Validate password"
+            onClick={() => {
+                doVerify({ dlgUiAtoms, psw: verifyText, prevPsw: '' });
+            }}
+        >
+            Verify
+        </Button>
+    );
+}
+
+function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const doGenerate = useSetAtom(generateAtom);
+    const [generateText] = useAtom(dlgUiAtoms.textGenerateAtom);
+
+    return (
+        <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Generate password"
+            onClick={() => {
+                doGenerate({ dlgUiAtoms, prevPsw: '' });
+            }}
+        >
+            Generate
+        </Button>
+    );
+}
+
 export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const { textGenerateAtom, textVerifyAtom } = dlgUiAtoms;
 
