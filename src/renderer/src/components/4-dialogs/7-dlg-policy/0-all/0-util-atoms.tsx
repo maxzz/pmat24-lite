@@ -35,7 +35,7 @@ export const updateExplanationAtom = atom(null,
 export const generateAtom = atom(null,
     (_get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
         const { parser, textGenerateAtom } = dlgUiAtoms;
-        const newPsw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, '');
+        const newPsw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
         set(textGenerateAtom, newPsw);
     }
 );
