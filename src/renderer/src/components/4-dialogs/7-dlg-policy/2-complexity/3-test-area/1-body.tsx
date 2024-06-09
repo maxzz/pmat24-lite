@@ -55,13 +55,6 @@ function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtom
 
 export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const { textGenerateAtom, textVerifyAtom } = dlgUiAtoms;
-
-    const doGenerate = useSetAtom(generateAtom);
-    const doVerify = useSetAtom(verifyAtom);
-
-    const [generateText, setGenerateText] = useAtom(textGenerateAtom);
-    const [verifyText, setVerifyText] = useAtom(textVerifyAtom);
-
     return (
         <div className="relative mt-4 px-4 py-3 border-border border rounded flex flex-col gap-y-2">
 
@@ -73,46 +66,14 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
 
             <div className="h-8 flex items-center space-x-2">
                 <InputWithCounter valueAtom={textGenerateAtom} />
-                {/* <div className="relative w-full">
-                    <Input
-                        className={localInputClasses}
-                        value={generateText}
-                        onChange={(e) => setGenerateText(e.target.value)}
-                    />
 
-                    {generateText && (
-                        <div className="absolute right-2 top-0.5">{generateText.length}</div>
-                    )}
-                </div> */}
-
-                <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Generate password"
-                    onClick={() => {
-                        doGenerate({ dlgUiAtoms, prevPsw: '' });
-                    }}>
-                    Generate
-                </Button>
+                <ButtonGenerate dlgUiAtoms={dlgUiAtoms} />
             </div>
 
             <div className="h-8 flex items-center space-x-2">
                 <InputWithCounter valueAtom={textVerifyAtom} />
-                {/* <div className="relative w-full">
-                    <Input
-                        className={localInputClasses}
-                        value={verifyText}
-                        onChange={(e) => setVerifyText(e.target.value)}
-                    />
-                    {verifyText && (
-                        <div className="absolute right-2 top-0.5">{verifyText.length}</div>
-                    )}
-                </div> */}
 
-                <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Validate password"
-                    onClick={() => {
-                        doVerify({ dlgUiAtoms, psw: verifyText, prevPsw: '' });
-                    }}
-                >
-                    Verify
-                </Button>
+                <BottonVerify dlgUiAtoms={dlgUiAtoms} />
             </div>
         </div>
     );

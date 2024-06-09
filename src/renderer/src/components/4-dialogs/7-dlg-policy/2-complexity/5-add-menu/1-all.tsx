@@ -3,12 +3,18 @@ import { PolicyDlgConv, updateExplanationAtom } from "../../0-all";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps } from "@/ui";
 import { MenuAddTrigger } from "./2-button-menu-add";
 
-const menuItems: { label: string; action: string; }[] = [
+type MenuActionItem = {
+    label: string;
+    action: string;
+}
+
+const menuItems: MenuActionItem[] = [
     { label: "Add characters set [A-Z]", /**/ action: "A{1,2}" },
     { label: "Add characters set [a-z]", /**/ action: "a{1,2}" },
     { label: "Add set of numbers",       /**/ action: "d{1,2}" },
     { label: "Add special characters",   /**/ action: "s{1,2}" },
     { label: "Add characters set",       /**/ action: "[X-Z]{1,2}" }, //"[X-Z!-/]{1,2}"
+    { label: "Add group",                /**/ action: "" }, // add group as "(...)" //TODO: do we need to prevent adding group if it's already there?
 ];
 
 function MenuItem({ label, ...rest }: { label: string; } & DropdownMenuItemProps) {
@@ -28,7 +34,8 @@ export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Policy
 
     function applyRule(idx: number) {
         setCustom((prev) => {
-            const value = prev + menuItems[idx].action;
+            const item = menuItems[idx];
+            const value = item.action ? `${prev}${item.action}` : `(${prev})`;
             updateExplanation({ dlgUiAtoms, value });
             return value;
         });
