@@ -1,10 +1,27 @@
-import { useAtom, useSetAtom } from "jotai";
+import { PrimitiveAtom, useAtom, useSetAtom } from "jotai";
 import { PolicyDlgConv, generateAtom, verifyAtom } from "../../0-all";
 import { Button, Input } from "@/ui";
 import { RuleExplanation } from "./2-rule-explanation";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 const localButtonClasses = "min-w-20 active:scale-[.97]";
+
+function InputWithCounter({ valueAtom }: { valueAtom: PrimitiveAtom<string>; }) {
+    const [value, setValue] = useAtom(valueAtom);
+    return (
+        <div className="relative w-full">
+            <Input className={localInputClasses} value={value} onChange={(e) => setValue(e.target.value)} />
+
+            {/* TODO: show result of verify */}
+
+            {value && (
+                <div className="absolute right-2 top-0.5">
+                    {value.length}
+                </div>
+            )}
+        </div>
+    );
+}
 
 export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const { textGenerateAtom, textVerifyAtom } = dlgUiAtoms;
@@ -25,7 +42,8 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
             <RuleExplanation dlgUiAtoms={dlgUiAtoms} />
 
             <div className="h-8 flex items-center space-x-2">
-                <div className="relative w-full">
+                <InputWithCounter valueAtom={textGenerateAtom} />
+                {/* <div className="relative w-full">
                     <Input
                         className={localInputClasses}
                         value={generateText}
@@ -35,7 +53,7 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                     {generateText && (
                         <div className="absolute right-2 top-0.5">{generateText.length}</div>
                     )}
-                </div>
+                </div> */}
 
                 <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Generate password"
                     onClick={() => {
@@ -46,7 +64,8 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
             </div>
 
             <div className="h-8 flex items-center space-x-2">
-                <div className="relative w-full">
+                <InputWithCounter valueAtom={textVerifyAtom} />
+                {/* <div className="relative w-full">
                     <Input
                         className={localInputClasses}
                         value={verifyText}
@@ -55,7 +74,7 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                     {verifyText && (
                         <div className="absolute right-2 top-0.5">{verifyText.length}</div>
                     )}
-                </div>
+                </div> */}
 
                 <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Validate password"
                     onClick={() => {
