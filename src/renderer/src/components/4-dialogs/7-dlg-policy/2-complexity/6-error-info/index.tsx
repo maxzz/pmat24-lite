@@ -8,8 +8,8 @@ import { useAtomValue } from "jotai";
 function ErrorInfoTrigger() {
     return (
         <PopoverTrigger asChild>
-            <Button className={classNames(inlineButtonClasses, "p-0 1border-0 1bg-mani-background aspect-square")} size="sm" tabIndex={-1} title="Error">
-                <SymbolWarning className="pt-px size-5 text-red-500" />
+            <Button className={classNames(inlineButtonClasses, "p-0 text-red-500 hover:text-red-500 aspect-square")} size="sm" tabIndex={-1} title="Error">
+                <SymbolWarning className="pt-px size-5" />
             </Button>
         </PopoverTrigger>
     );
@@ -24,9 +24,9 @@ export function ButtonErrorInfo({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
             )}
 
             <PopoverPortal>
-                <PopoverContent className="relative mx-4 py-0 w-auto 1text-foreground 1bg-background border-red-500 border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 py-0 w-auto text-red-500 border-red-500 border shadow" sideOffset={5} align="center">
 
-                    <div className="my-3 text-xs text-red-500">
+                    <div className="my-3 text-xs">
                         {errorText}
                     </div>
 
