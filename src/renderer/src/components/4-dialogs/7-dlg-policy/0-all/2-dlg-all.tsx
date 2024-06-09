@@ -5,7 +5,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
 import { doClosePolicyDlgAtom } from "./1-dlg-close-atom";
-import { doInitialAtomsSetupAtom } from "./0-util-atoms";
+import { doInitialAtomsSetupAtom } from "./1-dlg-util-atoms";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -17,8 +17,8 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
     const isOpen = useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 
-    const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
     const doInitialAtomsSetup = useSetAtom(doInitialAtomsSetupAtom);
+    const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
     function doCancelClose() {
         doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false });
@@ -36,7 +36,7 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
         <Dialog open={isOpen} onOpenChange={doCancelClose} modal>
 
             <DialogContent
-                className="px-6 py-4 max-w-[480px] text-xs select-none"
+                className="px-6 py-4 max-w-[500px] text-xs select-none"
                 container={document.getElementById('portal')}
                 modal
                 withScroll

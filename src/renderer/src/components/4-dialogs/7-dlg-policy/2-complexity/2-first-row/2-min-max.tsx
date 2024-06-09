@@ -1,9 +1,22 @@
+import { HTMLAttributes } from "react";
+import { useAtomValue } from "jotai";
 import { PolicyDlgConv } from "../../0-all";
-import { OptionInput } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/5-option-input";
 import { InputBody } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/4-row-body-w-tooltip";
-import { MinMaxTrigger } from "./3-min-max-feedback";
+import { OptionInput } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/5-option-input";
+import { SymbolWarning } from "@/ui/icons";
+import { classNames } from "@/utils";
 
-export function SectionMinMaxLength({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
+    return (<>
+        {error && (
+            <SymbolWarning
+                className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)}
+            />
+        )}
+    </>);
+}
+
+function MinMaxLengthInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
         <div className="text-xs space-y-1">
             <div className="">Password length</div>
@@ -33,4 +46,13 @@ export function SectionMinMaxLength({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.
             </div>
         </div>
     );
+}
+
+export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
+    return (<>
+        {!isCustom && (
+            <MinMaxLengthInputs dlgUiAtoms={dlgUiAtoms} />
+        )}
+    </>);
 }

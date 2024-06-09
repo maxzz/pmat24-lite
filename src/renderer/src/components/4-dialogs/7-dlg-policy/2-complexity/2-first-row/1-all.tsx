@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { PolicyDlgConv } from "../../0-all";
 import { Dropdown } from "../../9-constrols";
 import { Label } from "@/ui";
-import { SectionMinMaxLength } from "./2-min-max-body";
+import { MinMaxInputs } from "./2-min-max";
 
 function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -31,20 +31,11 @@ function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }
     );
 }
 
-function MinMaxSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
-    return (<>
-        {!isCustom && (
-            <SectionMinMaxLength dlgUiAtoms={dlgUiAtoms} />
-        )}
-    </>);
-}
-
 export function FirstRowSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     return (
         <div className="flex items-center justify-between gap-4">
             <RuleSelect dlgUiAtoms={dlgUiAtoms} />
-            <MinMaxSelect dlgUiAtoms={dlgUiAtoms} />
+            <MinMaxInputs dlgUiAtoms={dlgUiAtoms} />
         </div>
     );
 }
