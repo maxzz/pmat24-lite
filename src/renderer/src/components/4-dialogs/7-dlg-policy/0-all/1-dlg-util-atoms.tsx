@@ -33,17 +33,19 @@ export const updateExplanationAtom = atom(null,
 
 export const generateAtom = atom(null,
     (_get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
-        const { parser, textGenerateAtom } = dlgUiAtoms;
+        const { parser, testPasswordAtom } = dlgUiAtoms;
         const newPsw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
-        set(textGenerateAtom, newPsw);
+        set(testPasswordAtom, newPsw);
     }
 );
 
 export const verifyAtom = atom(null,
     (_get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
-        const { parser, textVerifyResultAtom } = dlgUiAtoms;
+        const { parser, testVerifyResultAtom } = dlgUiAtoms;
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
-        set(textVerifyResultAtom, ok ? 'OK' : 'Failed');
+        console.log('verifyAtom', ok, psw, prevPsw);
+        
+        set(testVerifyResultAtom, ok ? 'OK' : 'Failed');
     }
 );
 

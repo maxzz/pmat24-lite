@@ -21,16 +21,12 @@ export namespace PolicyDlgConv {
 
         explanation: string;            // explanation of policy
         errorText: string;              // error text for custom rule
-        textVerify: string;             // text to verify policy
-        textGenerate: string;           // text to verify policy generation
 
-        textVerifyResult: string;       // result of click on textVerify
-        textGenerateResult: string;     // result of click on textGenerate
+        testPassword: string;           // text to verify policy generation or for generated password
+        testVerifyResult: string;       // result of testPassword verification
 
         constrainPsw: string;           // ConstrainsPsw
-
         useAs: string;                  // UseAs; by user / by system
-
         fakeOptions: string;            // Fake options from manifest but not used, so we just preserve it
     };
 
@@ -53,10 +49,8 @@ export namespace PolicyDlgConv {
         maxLen: initForInput('12', { type: 'number' }),
         explanation: '',
         errorText: '',
-        textVerify: '',
-        textGenerate: '',
-        textVerifyResult: '',
-        textGenerateResult: '',
+        testPassword: '',
+        testVerifyResult: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
         useAs: `${Poli.UseAs.verify}`,
         fakeOptions: '',
@@ -111,7 +105,7 @@ export namespace PolicyDlgConv {
     }
 
     export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, constrainSet, custom, minLen, maxLen, explanation, textVerify, textGenerate, textVerifyResult, textGenerateResult, constrainPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen, maxLen, explanation, testPassword, testVerifyResult, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
@@ -122,10 +116,8 @@ export namespace PolicyDlgConv {
             maxLenAtom: atomWithCallback(maxLen, onChange),
             explanationAtom: atomWithCallback(explanation, onChange),
             errorTextAtom: atomWithCallback(initialState.errorText, onChange),
-            textVerifyAtom: atomWithCallback(textVerify, onChange),
-            textGenerateAtom: atomWithCallback(textGenerate, onChange),
-            textVerifyResultAtom: atomWithCallback(textVerifyResult, onChange),
-            textGenerateResultAtom: atomWithCallback(textGenerateResult, onChange),
+            testPasswordAtom: atomWithCallback(testPassword, onChange),
+            testVerifyResultAtom: atomWithCallback(testVerifyResult, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
             fakeOptionsAtom: atomWithCallback(initialState.fakeOptions, onChange),
@@ -144,10 +136,8 @@ export namespace PolicyDlgConv {
             maxLen: get(atoms.maxLenAtom),
             explanation: get(atoms.explanationAtom),
             errorText: get(atoms.errorTextAtom),
-            textVerify: get(atoms.textVerifyAtom),
-            textGenerate: get(atoms.textGenerateAtom),
-            textVerifyResult: get(atoms.textVerifyResultAtom),
-            textGenerateResult: get(atoms.textGenerateResultAtom),
+            testPassword: get(atoms.testPasswordAtom),
+            testVerifyResult: get(atoms.testVerifyResultAtom),
             constrainPsw: get(atoms.constrainPswAtom),
             useAs: get(atoms.useAsAtom),
             fakeOptions: get(atoms.fakeOptionsAtom),
@@ -164,8 +154,6 @@ export namespace PolicyDlgConv {
             from.custom === to.custom &&
             from.minLen.data === to.minLen.data &&
             from.maxLen.data === to.maxLen.data &&
-            from.textVerify === to.textVerify &&
-            from.textGenerate === to.textGenerate &&
             from.constrainPsw === to.constrainPsw &&
             from.useAs === to.useAs &&
             from.fakeOptions === to.fakeOptions
