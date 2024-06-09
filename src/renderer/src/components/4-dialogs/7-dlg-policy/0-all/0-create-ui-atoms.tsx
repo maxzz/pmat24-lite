@@ -8,6 +8,7 @@ import { PolicyParser } from "@/store/manifest/3-policy-io/3-parser/2-parser";
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgConv.PolicyUiAtoms {
     const forAtoms = PolicyDlgConv.forAtoms(policies);
     const dlgUiAtoms = PolicyDlgConv.createAtoms(forAtoms, onChange);
+    const parser = new PolicyParser();
 
     console.log('%cDlg. useMemo to createUiAtoms', 'color: #f0f');
     return {
@@ -15,7 +16,7 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
         original: policies,
         fromFile: forAtoms,
         changed: false,
-        parser: new PolicyParser(),
+        parser,
     };
 }
 

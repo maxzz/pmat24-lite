@@ -4,8 +4,6 @@ import { PolicyDlgConv, generateAtom, verifyAtom } from "../../0-all";
 import { Button, Input } from "@/ui";
 import { SymbolDot } from "@/ui/icons";
 
-const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
-
 function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const explanation = useAtomValue(dlgUiAtoms.explanationAtom);
     const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
@@ -54,12 +52,18 @@ function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
     </>);
 }
 
+const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
+const localButtonClasses = "min-w-20 active:scale-[.97]";
+
 export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const { } = dlgUiAtoms;
+    const {textGenerateAtom, textVerifyAtom } = dlgUiAtoms;
+
     const doGenerate = useSetAtom(generateAtom);
     const doVerify = useSetAtom(verifyAtom);
-    const [generateText, setGenerateText] = useAtom(dlgUiAtoms.textGenerateAtom);
-    const [verifyText, setVerifyText] = useAtom(dlgUiAtoms.textVerifyAtom);
+
+    const [generateText, setGenerateText] = useAtom(textGenerateAtom);
+    const [verifyText, setVerifyText] = useAtom(textVerifyAtom);
+    
     return (
         <div className="relative mt-4 px-4 py-3 border-border border rounded flex flex-col gap-y-2">
 
@@ -72,7 +76,7 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
             <div className="h-8 flex items-center space-x-2">
                 <Input className={localInputClasses} value={generateText} onChange={(e) => setGenerateText(e.target.value)}/>
 
-                <Button className="min-w-20" variant="outline" size="sm" tabIndex={-1} title="Generate password"
+                <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Generate password"
                     onClick={() => {
                         doGenerate({ dlgUiAtoms, prevPsw: '' });
                     }}>
@@ -83,7 +87,7 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
             <div className="h-8 flex items-center space-x-2">
                 <Input className={localInputClasses} value={verifyText} onChange={(e) => setVerifyText(e.target.value)}/>
 
-                <Button className="min-w-20" variant="outline" size="sm" tabIndex={-1} title="Validate password"
+                <Button className={localButtonClasses} variant="outline" size="sm" tabIndex={-1} title="Validate password"
                     onClick={() => {
                         doVerify({ dlgUiAtoms, psw: verifyText, prevPsw: '' });
                     }}

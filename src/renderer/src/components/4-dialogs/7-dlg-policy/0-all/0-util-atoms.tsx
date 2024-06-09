@@ -25,7 +25,6 @@ export const updateExplanationAtom = atom(null,
                     : e instanceof ParseError
                         ? `${e.what} at position ${e.pos}`
                         : `${e}`;
-            // set(explanationAtom, (prev) => prev + '\nError\n' + msg);
             set(errorTextAtom, msg);
             console.error(e);
         }
@@ -45,5 +44,12 @@ export const verifyAtom = atom(null,
         const { parser, textVerifyResultAtom } = dlgUiAtoms;
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
         set(textVerifyResultAtom, ok ? 'OK' : 'Failed');
+    }
+);
+
+export const doInitialAtomsSetupAtom = atom(null,
+    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
+        const custom = get(dlgUiAtoms.customAtom);
+        set(updateExplanationAtom, { dlgUiAtoms, value: custom });
     }
 );
