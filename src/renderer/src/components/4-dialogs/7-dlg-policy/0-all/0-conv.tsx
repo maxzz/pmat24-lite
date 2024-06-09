@@ -23,7 +23,7 @@ export namespace PolicyDlgConv {
         errorText: string;              // error text for custom rule
 
         testPassword: string;           // text to verify policy generation or for generated password
-        testVerifyResult: string;       // result of testPassword verification
+        testVerified: '0' | '1' | '';   // result of testPassword verification: 0 - failed, 1 - ok, '' - not tested
 
         constrainPsw: string;           // ConstrainsPsw
         useAs: string;                  // UseAs; by user / by system
@@ -50,7 +50,7 @@ export namespace PolicyDlgConv {
         explanation: '',
         errorText: '',
         testPassword: '',
-        testVerifyResult: '',
+        testVerified: '',
         constrainPsw: `${Poli.ConstrainPsw.diffAp}`,
         useAs: `${Poli.UseAs.verify}`,
         fakeOptions: '',
@@ -105,7 +105,7 @@ export namespace PolicyDlgConv {
     }
 
     export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
-        const { enabled, constrainSet, custom, minLen, maxLen, explanation, testPassword, testVerifyResult, constrainPsw, useAs } = initialState;
+        const { enabled, constrainSet, custom, minLen, maxLen, explanation, testPassword, testVerified, constrainPsw, useAs } = initialState;
         const rv: Atomize<ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
@@ -117,7 +117,7 @@ export namespace PolicyDlgConv {
             explanationAtom: atomWithCallback(explanation, onChange),
             errorTextAtom: atomWithCallback(initialState.errorText, onChange),
             testPasswordAtom: atomWithCallback(testPassword, onChange),
-            testVerifyResultAtom: atomWithCallback(testVerifyResult, onChange),
+            testVerifiedAtom: atomWithCallback(testVerified, onChange),
             constrainPswAtom: atomWithCallback(constrainPsw, onChange),
             useAsAtom: atomWithCallback(useAs, onChange),
             fakeOptionsAtom: atomWithCallback(initialState.fakeOptions, onChange),
@@ -137,7 +137,7 @@ export namespace PolicyDlgConv {
             explanation: get(atoms.explanationAtom),
             errorText: get(atoms.errorTextAtom),
             testPassword: get(atoms.testPasswordAtom),
-            testVerifyResult: get(atoms.testVerifyResultAtom),
+            testVerified: get(atoms.testVerifiedAtom),
             constrainPsw: get(atoms.constrainPswAtom),
             useAs: get(atoms.useAsAtom),
             fakeOptions: get(atoms.fakeOptionsAtom),

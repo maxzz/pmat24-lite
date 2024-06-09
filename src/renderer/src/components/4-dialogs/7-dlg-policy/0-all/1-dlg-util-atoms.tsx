@@ -33,19 +33,26 @@ export const updateExplanationAtom = atom(null,
 
 export const generateAtom = atom(null,
     (_get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
-        const { parser, testPasswordAtom } = dlgUiAtoms;
+        const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
+
         const newPsw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
+
+        const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, newPsw, parser.rulesAndMeta.avoidConsecutiveChars);
+        set(testVerifiedAtom, ok ? '1' : '0');
+
+        console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
+
         set(testPasswordAtom, newPsw);
     }
 );
 
 export const verifyAtom = atom(null,
     (_get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
-        const { parser, testVerifyResultAtom } = dlgUiAtoms;
+        const { parser, testVerifiedAtom } = dlgUiAtoms;
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
         console.log('verifyAtom', ok, psw, prevPsw);
         
-        set(testVerifyResultAtom, ok ? 'OK' : 'Failed');
+        set(testVerifiedAtom, ok ? '1' : '0');
     }
 );
 
