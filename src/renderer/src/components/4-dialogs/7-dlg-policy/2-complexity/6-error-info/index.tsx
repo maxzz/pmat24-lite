@@ -4,6 +4,7 @@ import { SymbolCross, SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
 import { useAtomValue } from "jotai";
+import { ErrorInfo } from "../3-test-area/2-rule-explanation";
 
 function ErrorInfoTrigger() {
     return (
@@ -27,7 +28,7 @@ export function ButtonErrorInfo({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
                 <PopoverContent className="relative mx-4 py-0 w-auto text-red-500 border-red-500 border shadow" sideOffset={5} align="center">
 
                     <div className="my-3 text-xs">
-                        {errorText}
+                        <ErrorInfo errorText={errorText} />
                     </div>
 
                     <PopoverArrorWoBottom className="fill-background stroke-red-500" />
