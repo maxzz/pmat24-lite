@@ -12,6 +12,16 @@ export const updateExplanationAtom = atom(null,
             parser.sourceText = value;
             parser.doParse();
 
+            if (parser.rulesAndMeta.pswLenRange.min === -1) {
+                set(errorTextAtom, 'Min password length is not specified.');
+                return;
+            }
+
+            if (parser.rulesAndMeta.pswLenRange.max === -1) {
+                set(errorTextAtom, 'Max password length is not specified.');
+                return;
+            }
+
             const final = [];
             getCustomRuleExplanation(parser.rulesAndMeta.rules, final);
             const explanation = final.join('\n');

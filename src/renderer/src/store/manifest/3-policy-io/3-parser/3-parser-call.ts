@@ -12,7 +12,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
 
     const rv: ParseAdvPolicyResult = {
         rulesAndMeta: new RulesAndMeta(),
-        error: new ParseError('', ParseErrorType.none)
+        error: new ParseError('', ParseErrorType.none, 0)
     };
 
     const parser = new PolicyParser();
@@ -21,7 +21,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     try {
         parser.doParse();
     } catch (error) {
-        rv.error = error instanceof ParseError ? error : new ParseError('unknown', ParseErrorType.unexpected);
+        rv.error = error instanceof ParseError ? error : new ParseError('unknown', ParseErrorType.unexpected, 0);
         rv.error.pos = parser.sourceTextPos;
 
         console.error(`parse error: ${rv.error.what} at ${rv.error.pos}`);

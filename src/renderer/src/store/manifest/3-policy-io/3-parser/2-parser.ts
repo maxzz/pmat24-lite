@@ -29,7 +29,7 @@ export class PolicyParser {
 
     public doParse() { //TODO: do we need to pass sourceText as a parameter?
         this.sourceTextPos = 0;
-        this.rulesAndMeta.rules = [];
+        this.rulesAndMeta = new RulesAndMeta();
         this.parse_start();
     }
 
