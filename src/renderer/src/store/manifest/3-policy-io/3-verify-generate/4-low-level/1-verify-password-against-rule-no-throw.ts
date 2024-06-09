@@ -88,10 +88,9 @@ export function verifyPasswordAgainstRuleNoThrow(rulesAndMeta: RulesAndMeta, pre
     }
 
     // Check length of the password is within min, max bounds.
-    if (
-        (rulesAndMeta.pswLenRange.min != 0 && rulesAndMeta.pswLenRange.min > psw.length) ||
-        (rulesAndMeta.pswLenRange.max != 0 && rulesAndMeta.pswLenRange.max < psw.length)
-    ) {
+    const { pswLenRange: { min, max } } = rulesAndMeta;
+    const isLengthValid = (min === 0 || min <= psw.length) && (max === 0 || max >= psw.length);
+    if (!isLengthValid) {
         return false;
     }
 

@@ -64,7 +64,7 @@ export namespace genUtils {
             throw new Error("empty.comb.set");
         }
 
-        let buf = new Uint8Array(pswLength + 1);
+        let buf = new Uint8Array(pswLength);
         crypto.getRandomValues(buf);
 
         let resBuffer = Array.from(buf);
@@ -140,7 +140,7 @@ export namespace genUtils {
             return '';
         }
 
-        let buf = new Uint8Array(psw.length + 1);
+        let buf = new Uint8Array(psw.length);
         crypto.getRandomValues(buf);
 
         let resBuffer = Array.from(buf);
