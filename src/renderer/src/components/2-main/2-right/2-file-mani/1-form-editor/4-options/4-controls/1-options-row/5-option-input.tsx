@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { RowInputState, RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
 import { classNames } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
@@ -16,18 +16,37 @@ outline-none";
 
 type OptionInputProps = InputHTMLAttributes<HTMLInputElement> & {
     stateAtom: RowInputStateAtom;
+    onValueChange?: (newState: RowInputState) => void;
 };
 
-export function OptionInput({ stateAtom, className, ...rest }: OptionInputProps) {
+export function OptionInput({ stateAtom, className, onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        setState((v) => ({ ...v, data: value, error: state.validate?.(value), dirty: state.initialData !== value }));
+        setState((prev) => {
+            const value = e.target.value;
+            const newState: RowInputState = {
+                ...prev,
+                data: value,
+                error: prev.validate?.(value),
+                dirty: prev.initialData !== value,
+            };
+            onValueChange?.(newState);
+            return newState;
+        });
     }
 
     function onBlur() {
-        setState((v) => ({ ...v, touched: true, error: state.validate?.(state.data), dirty: state.initialData !== state.data }));
+        setState((prev) => {
+            const newState: RowInputState = {
+                ...prev,
+                touched: true,
+                error: prev.validate?.(prev.data),
+                dirty: prev.initialData !== prev.data,
+            };
+            onValueChange?.(newState);
+            return newState;
+        });
     }
 
     return (
