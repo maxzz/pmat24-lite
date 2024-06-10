@@ -1,9 +1,8 @@
 import { Getter, Setter } from "jotai";
 import { AtomizeWithType, OnValueChange } from '@/util-hooks';
+import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName } from "@/ui";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { CreateAtomsParams } from "../../9-types";
-import { RowInputState } from "../19-types";
-import { newAtomForInput, validateManifestName, newAtomForCheck } from "./2-atom-helpers";
 
 export namespace OptionsConv {
 

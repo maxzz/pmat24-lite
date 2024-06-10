@@ -2,8 +2,7 @@ import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
-import { RowInputState } from "@/store/atoms/3-file-mani-atoms/4-options/19-types";
-import { initForInput } from "@/store/atoms/3-file-mani-atoms/4-options/0-conv/2-atom-helpers";
+import { RowInputState, initForInput } from "@/ui";
 import { PolicyParser } from "@/store/manifest/3-policy-io/3-parser/2-parser";
 
 export namespace PolicyDlgConv {

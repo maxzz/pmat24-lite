@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { RowInputStateAtom } from "./9-types";
 import { classNames } from "@/utils";
 
 type OptionCheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -12,11 +12,23 @@ export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckbox
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.checked ? '1' : '';
-        setState((v) => ({ ...v, data: value, dirty: state.initialData !== value }));
+        setState((prev) => {
+            return {
+                ...prev,
+                data: value,
+                dirty: state.initialData !== value,
+            };
+        });
     }
 
     function onBlur() {
-        setState((v) => ({ ...v, touched: true, dirty: state.initialData !== v.data }));
+        setState((prev) => {
+            return {
+                ...prev,
+                touched: true,
+                dirty: state.initialData !== prev.data,
+            };
+        });
     }
 
     return (

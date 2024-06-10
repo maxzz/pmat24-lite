@@ -1,6 +1,6 @@
 import { PrimitiveAtom } from "jotai";
-import { RowInputState } from "../19-types";
 import { OnValueChange, atomWithCallback } from "@/util-hooks";
+import { RowInputState } from "./9-types";
 
 export function initForInput(value: string, more?: Partial<RowInputState>): RowInputState {
     const state: RowInputState = {
@@ -32,12 +32,4 @@ export function newAtomForInput(value: string, onChange: OnValueChange<RowInputS
 
 export function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
     return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
-}
-
-export function validateNonEmpty(value: string) {
-    return !!value ? '' : 'Value cannot be empty.';
-}
-
-export function validateManifestName(value: string) {
-    return !!value ? '' : 'The manifest name cannot be empty.';
 }

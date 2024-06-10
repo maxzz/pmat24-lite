@@ -1,17 +1,14 @@
 import { HTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { PolicyDlgConv, updateMinMaxAtom } from "../../0-all";
-import { InputBody } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/4-row-body-w-tooltip";
-import { OptionInput } from "@/components/2-main/2-right/2-file-mani/1-form-editor/4-options/4-controls/1-options-row/5-option-input";
+import { InputBody, OptionInput } from "@/ui";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 
 function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
     return (<>
         {error && (
-            <SymbolWarning
-                className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)}
-            />
+            <SymbolWarning className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)} />
         )}
     </>);
 }

@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { RowInputState, RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { RowInputState, RowInputStateAtom } from "./9-types";
 import { inputRingClasses } from "@/ui";
 
 const optionInputClasses = "\
