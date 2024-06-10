@@ -10,7 +10,7 @@ export function RulesHelpBody() {
                         {rule.c1}
                     </div>
 
-                    <div>
+                    <div className="mr-3">
                         {rule.c2}
                     </div>
                 </Fragment>
