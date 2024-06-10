@@ -79,6 +79,8 @@ export function getCustomRuleExplanation(rules: Rule[], final: string[]): void {
         }
     }
 }
+//TODO: add: Explain grouping (repeat/mix).
+//TODO: add: final password length rule. Minimum and maximum length of the final password.
 
 function getCustomRuleAndLenExplanation(rulesAndMeta: RulesAndMeta, noDuplicates: boolean, final: string[]): void {
     let ruleLength = stringsPolicy.chSetLen(rulesAndMeta.pswLenRange.min, rulesAndMeta.pswLenRange.max);//ai:`Length must be between ${rulesSet_.m_pswlenSet.m_min} and ${rulesSet_.m_pswlenSet.m_max} characters.\n`;

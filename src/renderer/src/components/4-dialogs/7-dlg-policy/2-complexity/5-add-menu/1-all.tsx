@@ -36,7 +36,7 @@ export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Policy
         setCustom((prev) => {
             const item = menuItems[idx];
             const value = item.action ? `${prev}${item.action}` : `(${prev})`;
-            updateExplanation({ dlgUiAtoms, value });
+            updateExplanation({ dlgUiAtoms, psw: value });
             return value;
         });
     }

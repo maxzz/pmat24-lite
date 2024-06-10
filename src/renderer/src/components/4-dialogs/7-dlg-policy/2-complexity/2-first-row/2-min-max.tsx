@@ -51,8 +51,8 @@ function MinMaxLengthInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUi
 export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
     return (<>
-        {!isCustom && (
+        {/* {!isCustom && ( */}
             <MinMaxLengthInputs dlgUiAtoms={dlgUiAtoms} />
-        )}
+        {/* )} */}
     </>);
 }

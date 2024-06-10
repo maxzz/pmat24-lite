@@ -5,11 +5,27 @@ import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-
 import { generatePasswordByRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/2-generate-password-by-rule-no-throw";
 import { verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/1-verify-password-against-rule-no-throw";
 
+export const doInitialAtomsSetupAtom = atom(null,
+    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
+        const custom = get(dlgUiAtoms.customAtom);
+        set(updateExplanationAtom, { dlgUiAtoms, psw: custom });
+    }
+);
+
+//<8,20>
+
+//A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
+//Is Invalid but why?
+//RBD6*vf1
+//RBD6*vfA
+//Is valid but why?
+//RBD6*vfn
+
 export const updateExplanationAtom = atom(null,
-    (_get, set, { dlgUiAtoms, value }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; value: string; }) => {
-        const { parser, explanationAtom, errorTextAtom } = dlgUiAtoms;
+    (_get, set, { dlgUiAtoms, psw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; }) => {
+        const { parser, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
         try {
-            parser.sourceText = value;
+            parser.sourceText = psw;
             parser.doParse();
 
             if (parser.rulesAndMeta.pswLenRange.min === -1) {
@@ -28,31 +44,28 @@ export const updateExplanationAtom = atom(null,
 
             set(explanationAtom, explanation);
             set(errorTextAtom, '');
+            set(verifyAtom, { dlgUiAtoms, psw: psw, prevPsw: '' });
         } catch (e) {
             const msg =
-                e instanceof Error
-                    ? e.message
-                    : e instanceof ParseError
-                        ? `${e.what} at position ${e.pos}`
+                e instanceof ParseError
+                    ? `${e.what} at position ${e.pos}`
+                    : e instanceof Error
+                        ? e.message
                         : `${e}`;
             set(errorTextAtom, msg);
-            console.error(e);
+            set(testVerifiedAtom, '');
+            //console.error(e);
         }
     }
 );
 
 export const generateAtom = atom(null,
     (_get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
-        const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
-
-        const newPsw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
-
-        const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, newPsw, parser.rulesAndMeta.avoidConsecutiveChars);
-        set(testVerifiedAtom, ok ? '1' : '0');
-
-        console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
-
-        set(testPasswordAtom, newPsw);
+        const { parser, testPasswordAtom } = dlgUiAtoms;
+        const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
+        set(testPasswordAtom, psw);
+        set(verifyAtom, { dlgUiAtoms, psw, prevPsw });
+        //console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
     }
 );
 
@@ -60,15 +73,6 @@ export const verifyAtom = atom(null,
     (_get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
         const { parser, testVerifiedAtom } = dlgUiAtoms;
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
-        console.log('verifyAtom', ok, psw, prevPsw);
-        
         set(testVerifiedAtom, ok ? '1' : '0');
-    }
-);
-
-export const doInitialAtomsSetupAtom = atom(null,
-    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
-        const custom = get(dlgUiAtoms.customAtom);
-        set(updateExplanationAtom, { dlgUiAtoms, value: custom });
     }
 );

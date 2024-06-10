@@ -30,17 +30,17 @@ export const helpRules: { c1: string; c2: string; }[] = [
         When only one value is specified - without the comma, as in {3}, then the lower and upper \
         range are the same, i.e. in this case, exactly 3 special characters.'
     },
-    {
-        c1: '<n,m>',
-        c2: 'Final password length rule. Minimum and maximum length of the final password. \
-        This rule cannot be inside a group rule "()" and n must be less than or equal to m. \
-        \
-        This rule is required if there are open range rules such as {1,}, otherwise the min/max length \
-        will be calculated based on the length from the rules. \
-        \
-        For example: \
-        a{8,}<8,12> would require a password of at least 8 characters long from [a-z] set'
-    },
+    // {
+    //     c1: '<n,m>',
+    //     c2: 'Final password length rule. Minimum and maximum length of the final password. \
+    //     This rule cannot be inside a group rule "()" and n must be less than or equal to m. \
+    //     \
+    //     This rule is required if there are open range rules such as {1,}, otherwise the min/max length \
+    //     will be calculated based on the length from the rules. \
+    //     \
+    //     For example: \
+    //     a{8,}<8,12> would require a password of at least 8 characters long from [a-z] set'
+    // },
     {
         c1: '~',
         c2: 'Prevent two identical consecutive characters \
