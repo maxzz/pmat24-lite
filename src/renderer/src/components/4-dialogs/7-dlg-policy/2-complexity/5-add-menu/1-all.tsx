@@ -35,9 +35,9 @@ export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Policy
     function applyRule(idx: number) {
         setCustom((prev) => {
             const item = menuItems[idx];
-            const value = item.action ? `${prev}${item.action}` : `(${prev})`;
-            updateExplanation({ dlgUiAtoms, psw: value });
-            return value;
+            const custom = item.action ? `${prev}${item.action}` : `(${prev})`;
+            updateExplanation({ dlgUiAtoms, custom });
+            return custom;
         });
     }
 

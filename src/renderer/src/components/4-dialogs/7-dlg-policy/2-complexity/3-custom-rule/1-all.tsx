@@ -16,7 +16,7 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
     const updateExplanation = useSetAtom(updateExplanationAtom);
 
     function onChange(value: string) {
-        updateExplanation({ dlgUiAtoms, psw: value });
+        updateExplanation({ dlgUiAtoms, custom: value });
         setCustom(value);
     }
 

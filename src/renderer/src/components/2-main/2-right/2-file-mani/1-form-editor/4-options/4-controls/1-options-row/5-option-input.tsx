@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { RowInputState, RowInputStateAtom } from "@/store/atoms/3-file-mani-atoms/4-options";
-import { classNames } from "@/utils";
+import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
 const optionInputClasses = "\
@@ -16,7 +16,7 @@ outline-none";
 
 type OptionInputProps = InputHTMLAttributes<HTMLInputElement> & {
     stateAtom: RowInputStateAtom;
-    onValueChange?: (newState: RowInputState) => void;
+    onValueChange?: () => void;
 };
 
 export function OptionInput({ stateAtom, className, onValueChange, ...rest }: OptionInputProps) {
@@ -31,9 +31,9 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
                 error: prev.validate?.(value),
                 dirty: prev.initialData !== value,
             };
-            onValueChange?.(newState);
             return newState;
         });
+        onValueChange?.();
     }
 
     function onBlur() {
@@ -44,7 +44,6 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
                 error: prev.validate?.(prev.data),
                 dirty: prev.initialData !== prev.data,
             };
-            onValueChange?.(newState);
             return newState;
         });
     }
@@ -55,6 +54,7 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
             value={state.data}
             onChange={onChange}
             onBlur={onBlur}
+            {...turnOffAutoComplete}
             {...rest} />
     );
 }
