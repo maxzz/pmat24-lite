@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { PolicyDlgConv, updateMinMaxAtom } from "../../0-all";
-import { InputBody, OptionInput } from "@/ui";
+import { InputTooltipShell, OptionInput } from "@/ui";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 
@@ -25,25 +25,25 @@ function MinMaxLengthInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUi
                     min
                 </div>
 
-                <InputBody stateAtom={dlgUiAtoms.minLenAtom} Trigger={MinMaxTrigger}>
+                <InputTooltipShell stateAtom={dlgUiAtoms.minLenAtom} Trigger={MinMaxTrigger}>
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiAtoms.minLenAtom}
                         onValueChange={onValueChange}
                     />
-                </InputBody>
+                </InputTooltipShell>
 
                 <div>
                     max
                 </div>
 
-                <InputBody stateAtom={dlgUiAtoms.maxLenAtom} Trigger={MinMaxTrigger}>
+                <InputTooltipShell stateAtom={dlgUiAtoms.maxLenAtom} Trigger={MinMaxTrigger}>
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiAtoms.maxLenAtom}
                         onValueChange={onValueChange}
                     />
-                </InputBody>
+                </InputTooltipShell>
             </div>
         </div>
     );

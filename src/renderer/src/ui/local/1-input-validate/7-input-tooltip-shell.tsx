@@ -8,11 +8,9 @@ type InputBodyProps = {
     Trigger: FC<{ error: string | undefined; }>;
 };
 
-export function InputBody({ stateAtom, children, Trigger }: InputBodyProps) {
+export function InputTooltipShell({ stateAtom, children, Trigger }: InputBodyProps) {
     const [openTooltip, setOpenTooltip] = useState(false);
-
     const state = useAtomValue(stateAtom);
-
     return (
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>

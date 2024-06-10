@@ -5,9 +5,10 @@ import { classNames } from "@/utils";
 
 type OptionCheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
     stateAtom: RowInputStateAtom;
+    onValueChange?: () => void;
 };
 
-export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckboxProps) {
+export function OptionCheckbox({ stateAtom, className, onValueChange, ...rest }: OptionCheckboxProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -19,6 +20,7 @@ export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckbox
                 dirty: state.initialData !== value,
             };
         });
+        onValueChange?.();
     }
 
     function onBlur() {
@@ -29,6 +31,7 @@ export function OptionCheckbox({ stateAtom, className, ...rest }: OptionCheckbox
                 dirty: state.initialData !== prev.data,
             };
         });
+        onValueChange?.();
     }
 
     return (

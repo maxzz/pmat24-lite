@@ -4,7 +4,6 @@ import { ParseError } from "@/store/manifest/3-policy-io/3-parser";
 import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
 import { generatePasswordByRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/2-generate-password-by-rule-no-throw";
 import { verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/1-verify-password-against-rule-no-throw";
-import { get } from "http";
 
 export const doInitialAtomsSetupAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {

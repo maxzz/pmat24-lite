@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react";
-import { InputBody, OptionCheckbox, OptionInput, RowInputStateAtom } from "@/ui";
+import { InputTooltipShell, OptionCheckbox, OptionInput, RowInputStateAtom } from "@/ui";
 import { RowLabel } from "./2-row-label";
 import { RowTrigger } from "./3-row-trigger";
 
@@ -12,12 +12,12 @@ type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
 export function RowInputWLabel({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
     return (
         <RowLabel label={label}>
-            <InputBody stateAtom={stateAtom} Trigger={RowTrigger}>
+            <InputTooltipShell stateAtom={stateAtom} Trigger={RowTrigger}>
                 {asCheckbox
                     ? <OptionCheckbox stateAtom={stateAtom} {...rest} />
                     : <OptionInput stateAtom={stateAtom} {...rest} />
                 }
-            </InputBody>
+            </InputTooltipShell>
         </RowLabel>
     );
 }
