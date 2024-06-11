@@ -4,12 +4,12 @@ import { ManiEditorState, defaultManiEditorState } from "./3-editor-tab";
 
 export type RightPanelSettings = {
     panelView: RightPanelView;
-    mainOpenSections: FormOpenSections;
+    sections: FormOpenSections;
     maniEditorState: ManiEditorState;
 };
 
 export const defaultRightPanelSettings: RightPanelSettings = {
     panelView: defaultRightPanelView,
-    mainOpenSections: defaultFormOpenSections,
+    sections: defaultFormOpenSections,
     maniEditorState: defaultManiEditorState,
 };
