@@ -10,11 +10,11 @@ function TabOptionsGuarded({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formI
         return null;
     }
 
-    const tabSectionProps: TabSectionProps = {
-        maniAtoms,
-        formAtoms,
-        formIdx,
-    };
+    // const tabSectionProps: TabSectionProps = {
+    //     maniAtoms,
+    //     formAtoms,
+    //     formIdx,
+    // };
 
     return (
         <div>

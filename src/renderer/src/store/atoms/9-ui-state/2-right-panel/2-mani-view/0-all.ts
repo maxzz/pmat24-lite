@@ -2,15 +2,14 @@ import { FormOpenSections, defaultFormOpenSections } from "./2-mani-open-section
 import { ManiEditorState, defaultManiEditorState } from "./3-editor-tab";
 
 export type MainViewSettings = {
-    mani: {
+    mani: ManiEditorState & {
         sections: FormOpenSections;
-        tabs: ManiEditorState;
     };
 };
 
 export const defaultMainViewSettings: MainViewSettings = {
     mani: {
+        ...defaultManiEditorState,
         sections: defaultFormOpenSections,
-        tabs: defaultManiEditorState,
     },
 };
