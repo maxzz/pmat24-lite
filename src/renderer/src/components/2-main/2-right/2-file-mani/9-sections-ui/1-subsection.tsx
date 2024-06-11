@@ -21,11 +21,11 @@ export function SubSection({ value, label, children }: { value: string; label: R
 }
 
 export function FormSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
-    const value = useSnapshot(appSettings).right.sections[formIdx];
+    const value = useSnapshot(appSettings).right.mani.sections[formIdx];
     return (
         <Accordion
             value={value as string[]}
-            onValueChange={(v) => appSettings.right.sections[formIdx] = v}
+            onValueChange={(v) => appSettings.right.mani.sections[formIdx] = v}
             type="multiple"
         >
             {children}

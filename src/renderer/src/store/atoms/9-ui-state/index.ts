@@ -5,4 +5,4 @@ export * from "./04-filters-search";
 export * from "./1-files-list/2-files-sort-order";
 export * from "./1-files-list/3-ui-file-items";
 export * from "./2-right-panel/1-right-panel-view";
-export * from "./2-right-panel/2-mani-open-sections";
+export * from "./2-right-panel/2-mani-view/2-mani-open-sections";

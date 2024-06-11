@@ -1,14 +1,10 @@
 import { RightPanelView, defaultRightPanelView } from "./1-right-panel-view";
-import { FormOpenSections, defaultFormOpenSections } from "./2-mani-open-sections";
-import { ManiEditorState, defaultManiEditorState } from "./3-editor-tab";
+import { MainViewSettings, defaultMainViewSettings } from "./2-mani-view/0-all";
 
-export type RightPanelSettings = RightPanelView & {
-    sections: FormOpenSections;
-    tabs: ManiEditorState;
-};
+
+export type RightPanelSettings = RightPanelView & MainViewSettings;
 
 export const defaultRightPanelSettings: RightPanelSettings = {
     ...defaultRightPanelView,
-    sections: defaultFormOpenSections,
-    tabs: defaultManiEditorState,
+    ...defaultMainViewSettings,
 };
