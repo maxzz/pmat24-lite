@@ -13,7 +13,7 @@ function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { e
     </>);
 }
 
-function MinMaxLengthInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const updateMinMax = useSetAtom(updateMinMaxAtom);
     const onValueChange = () => updateMinMax({ dlgUiAtoms });
     return (
@@ -47,13 +47,4 @@ function MinMaxLengthInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUi
             </div>
         </div>
     );
-}
-
-export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
-    return (<>
-        {/* {!isCustom && ( */}
-        <MinMaxLengthInputs dlgUiAtoms={dlgUiAtoms} />
-        {/* )} */}
-    </>);
 }

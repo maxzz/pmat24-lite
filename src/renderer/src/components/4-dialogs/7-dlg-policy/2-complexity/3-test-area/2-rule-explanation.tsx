@@ -2,14 +2,12 @@ import { Fragment } from "react";
 import { useAtomValue } from "jotai";
 import { PolicyDlgConv } from "../../0-all";
 import { SymbolDot } from "@/ui/icons";
+import { classNames } from "@/utils";
 
 export function ErrorInfo({ errorText }: { errorText: string; }) {
     return (
-        <div className="text-red-500">
-            Rule is invalid: {' '}
-            <span className="font-semibold">
-                {errorText}
-            </span>
+        <div className={classNames("mt-1 font-semibold text-red-500", !errorText && "invisible" )}>
+            Invalid rule: {' '} {errorText}
         </div>
     );
 }
@@ -23,11 +21,12 @@ export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
     }
 
     return (
-        <div className="mb-1">
+        <div className="mt-2">
             {explanation && (<>
                 <div>
                     Password should consist of
                 </div>
+                
                 <div className="grid grid-cols-[auto,1fr]">
                     {/*
                         Explanation:
@@ -53,9 +52,7 @@ export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
                 </div>
             </>)}
 
-            {errorText && (
-                <ErrorInfo errorText={errorText} />
-            )}
+            <ErrorInfo errorText={errorText} />
         </div>
     );
 }

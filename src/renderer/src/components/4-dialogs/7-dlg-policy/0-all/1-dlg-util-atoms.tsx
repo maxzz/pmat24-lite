@@ -35,6 +35,8 @@ export const updateExplanationAtom = atom(null,
             const min = +get(minLenAtom).data;
             const max = +get(maxLenAtom).data;
 
+            set(testVerifiedAtom, '');
+
             if (isNaN(min)) {
                 set(errorTextAtom, 'Min password length is not a number.');
                 return;
@@ -55,10 +57,10 @@ export const updateExplanationAtom = atom(null,
                 return;
             }
 
-            console.log(`updateExplanationAtom psw=${custom} min=${min} max=${max}`);
-
             parser.sourceText = custom;
             parser.doParse();
+
+            console.log(`updateExplanationAtom psw=${custom} min=${min} max=${max}`, parser.rulesAndMeta);
 
             if (parser.rulesAndMeta.pswLenRange.min === -1) {
                 parser.rulesAndMeta.pswLenRange.min = min;

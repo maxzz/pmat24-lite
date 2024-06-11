@@ -2,7 +2,7 @@ import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
-import { RowInputState, initForInput } from "@/ui";
+import { RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
 import { PolicyParser } from "@/store/manifest/3-policy-io/3-parser/2-parser";
 
 export namespace PolicyDlgConv {
@@ -58,24 +58,6 @@ export namespace PolicyDlgConv {
     // Atoms
 
     export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
-
-    function validateMinLen(value: string) {
-        const num = parseInt(value, 10);
-        if (isNaN(num)) {
-            return 'Value must be a number.';
-        }
-        return num < 4 ? 'Min password length must be more than 4' : '';
-    }
-
-    function validateMaxLen(value: string) {
-        const num = parseInt(value, 10);
-        if (isNaN(num)) {
-            return 'Value must be a number.';
-        }
-        return num < 4 ? 'Max password length must be more than 4' : '';
-    }
-    //TODO: when isCustom assume initial values are correct
-    //TODO: length may be missing from custom rule
 
     export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
         const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
