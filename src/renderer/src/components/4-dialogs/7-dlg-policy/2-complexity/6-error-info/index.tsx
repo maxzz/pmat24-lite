@@ -4,7 +4,7 @@ import { SymbolCross, SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
 import { useAtomValue } from "jotai";
-import { ErrorInfo } from "../3-test-area/2-rule-explanation";
+import { ErrorInfo } from "../3-test-area/4-rule-explanation";
 
 function ErrorInfoTrigger() {
     return (
