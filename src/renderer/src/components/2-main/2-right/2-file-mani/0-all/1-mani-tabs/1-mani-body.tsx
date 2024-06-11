@@ -16,7 +16,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const fileUs = useAtomValue(fileUsAtom);
     const [maniAtoms, setManiAtoms] = useAtom(fileUs.maniAtomsAtom);
 
-    const activeTab = useSnapshot(appSettings).rightPanel.tabs.currentTab;
+    const activeTab = useSnapshot(appSettings).right.tabs.currentTab;
 
     useEffect(() => {
         !maniAtoms && setManiAtoms(createManiAtoms(fileUs, fileUsAtom));
@@ -30,7 +30,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => appSettings.rightPanel.tabs.currentTab = value}>
+        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => appSettings.right.tabs.currentTab = value}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">

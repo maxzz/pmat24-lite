@@ -14,7 +14,7 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     const fileIndex = fileUs.idx + 1;
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
 
-    const showIndex = useSnapshot(appSettings).fileList.itemsState.showIndex;
+    const showIndex = useSnapshot(appSettings).files.itemsState.showIndex;
 
     return (<>
         {showIndex && (

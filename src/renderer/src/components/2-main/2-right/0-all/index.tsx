@@ -8,7 +8,7 @@ import { Body_Xml } from "../3-file-xml";
 
 function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelContentAtom);
-    const { view } = useSnapshot(appSettings).rightPanel.panelView;
+    const { activeView } = useSnapshot(appSettings).right;
 
     const staticText = !fileUs ? 'No file selected' : !fileUs.raw ? 'Not supported format' : undefined;
     if (staticText) {
@@ -20,7 +20,7 @@ function ContentForSelected() {
     }
 
     return (<>
-        {view === RightPanelViewType.forms
+        {activeView === RightPanelViewType.forms
             ? (
                 <ManiBody />
             ) : (

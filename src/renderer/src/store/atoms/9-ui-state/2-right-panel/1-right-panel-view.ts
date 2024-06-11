@@ -4,9 +4,9 @@ export const enum RightPanelViewType {
 }
 
 export type RightPanelView = {
-    view: RightPanelViewType;
+    activeView: RightPanelViewType;
 };
 
 export const defaultRightPanelView: RightPanelView = {
-    view: RightPanelViewType.forms,
+    activeView: RightPanelViewType.forms,
 };

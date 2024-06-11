@@ -4,7 +4,7 @@ import * as D from "@/ui/shadcn/dialog";
 import { Checkbox, Label } from "@/ui";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
-    const snap = useSnapshot(appSettings).fileList.itemsState;
+    const snap = useSnapshot(appSettings).files.itemsState;
     return (
         <div className="min-h-56 text-xs">
 
@@ -18,11 +18,11 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                 <div className="flex flex-col gap-2">
                     <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.fileList.itemsState.showIndex = !!v} />
+                        <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
                         Show file index
                     </Label>
                     <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snap.showChosen} onCheckedChange={v => appSettings.fileList.itemsState.showChosen = !!v} />
+                        <Checkbox checked={snap.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
                         Show user defined name instead of domain name
                     </Label>
                 </div>
