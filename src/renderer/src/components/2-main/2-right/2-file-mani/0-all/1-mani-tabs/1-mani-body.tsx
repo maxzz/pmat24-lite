@@ -27,22 +27,22 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs defaultValue="switch1" className="p-1 h-full flex flex-col">
+        <Tabs defaultValue="tab1" className="p-1 h-full flex flex-col">
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
                 <div className="h-full w-full overflow-hidden" ref={ref}>
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
-                        <TabsContent value="switch0">
+                        <TabsContent value="tab0">
                             <TabFormOptions />
                         </TabsContent>
 
-                        <TabsContent value="switch1">
+                        <TabsContent value="tab1">
                             <FormEditor fileUs={fileUs} formIdx={0} />
                         </TabsContent>
 
-                        <TabsContent value="switch2">
+                        <TabsContent value="tab2">
                             <FormEditor fileUs={fileUs} formIdx={1} />
                         </TabsContent>
 
