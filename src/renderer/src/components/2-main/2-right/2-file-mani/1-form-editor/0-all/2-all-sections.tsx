@@ -28,12 +28,12 @@ export function FormSections({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; for
             <TabSubmit maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </SubSection>
 
-        <SubSection value="policy" label="Password policy (obsolete)">
+        {/* <SubSection value="policy" label="Password policy (obsolete)">
             <TabPolicy maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
-        </SubSection>
+        </SubSection> */}
 
-        <SubSection value="options" label="Form options">
+        {/* <SubSection value="options" label="Form options">
             <TabOptions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
-        </SubSection>
+        </SubSection> */}
     </>);
 }

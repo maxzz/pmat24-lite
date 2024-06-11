@@ -30,7 +30,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs value={activeTab} className="p-1 h-full flex flex-col" onValueChange={(value) => appSettings.rightPanel.tabs.currentTab = value}>
+        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => appSettings.rightPanel.tabs.currentTab = value}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
@@ -38,7 +38,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                         <TabsContent value="tab0">
-                            <TabFormOptions />
+                            <TabFormOptions fileUs={fileUs} />
                         </TabsContent>
 
                         <TabsContent value="tab1">
