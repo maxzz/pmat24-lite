@@ -1,5 +1,5 @@
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FormSectionsAccordion } from "../../2-sections-ui";
+import { FormSectionsAccordion } from "../../9-sections-ui";
 import { FormSections } from "./2-all-sections";
 import { NoForm } from "./3-no-form-tab-content";
 import { useAtomValue } from "jotai";
