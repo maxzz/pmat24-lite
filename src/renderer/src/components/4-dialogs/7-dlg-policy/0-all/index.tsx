@@ -1,5 +1,3 @@
 export * from "./2-dlg-all";
-export * from "./2-dlg-all-nun";
-
 export * from "./0-conv";
-export * from "./1-dlg-util-atoms";
+export * from "./1-util-atoms";

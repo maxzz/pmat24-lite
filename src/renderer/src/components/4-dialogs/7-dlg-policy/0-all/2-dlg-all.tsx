@@ -4,8 +4,8 @@ import { Mani } from "pm-manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
-import { doClosePolicyDlgAtom } from "./1-dlg-close-atom";
-import { doInitialAtomsSetupAtom } from "./1-dlg-util-atoms";
+import { doClosePolicyDlgAtom } from "./1-close-atom";
+import { doInitialAtomsSetupAtom } from "./1-util-atoms";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;

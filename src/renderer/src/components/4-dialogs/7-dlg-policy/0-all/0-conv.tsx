@@ -36,6 +36,7 @@ export namespace PolicyDlgConv {
         parser: PolicyParser;           // parser for policy
     }>;
 
+    
     // Inital policy
 
     const initialForAtoms: ForAtoms = {

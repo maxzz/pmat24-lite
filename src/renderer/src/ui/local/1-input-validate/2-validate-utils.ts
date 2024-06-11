@@ -21,5 +21,3 @@ export function validateMaxLen(value: string): string {
     }
     return num < 1 ? 'Max password length must be more than 1' : '';
 }
-//TODO: when isCustom assume initial values are correct
-//TODO: length may be missing from custom rule

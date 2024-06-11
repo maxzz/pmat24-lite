@@ -28,6 +28,9 @@ export const updateMinMaxAtom = atom(null,
 //Is valid but why?
 //RBD6*vfn
 
+//TODO: when isCustom assume initial values are correct
+//TODO: length may be missing from custom rule
+
 export const updateExplanationAtom = atom(null,
     (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom: string; }) => {
         const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
