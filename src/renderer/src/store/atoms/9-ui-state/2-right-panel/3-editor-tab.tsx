@@ -1,5 +1,5 @@
 export type ManiEditorState = {
-    currentTab: 'tab0' | 'tab1' | 'tab3';
+    currentTab: string; // 'tab0' | 'tab1' | 'tab3'
     testAreaOpen: boolean;
 };
 

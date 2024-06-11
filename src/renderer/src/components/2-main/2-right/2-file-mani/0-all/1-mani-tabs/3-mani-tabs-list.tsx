@@ -6,9 +6,9 @@ export function ManiTabsList({ hasCpass, hasChanges }: { hasCpass: boolean; hasC
     return (
         <div className="flex items-center justify-between">
             <TabsList>
-                <TabsTrigger value="switch0" className="text-xs" title="Manifest options">Options</TabsTrigger>
-                <TabsTrigger value="switch1" className="text-xs" title="Login fields">Login</TabsTrigger>
-                <TabsTrigger value="switch2" className="text-xs" title="Password change fields">{label}</TabsTrigger>
+                <TabsTrigger value="tab0" className="text-xs" title="Manifest options">Options</TabsTrigger>
+                <TabsTrigger value="tab1" className="text-xs" title="Login fields">Login</TabsTrigger>
+                <TabsTrigger value="tab2" className="text-xs" title="Password change fields">{label}</TabsTrigger>
             </TabsList>
 
             {hasChanges && (

@@ -1,5 +1,6 @@
 import { useAtom, useAtomValue } from "jotai";
-import { rightPanelAtom } from "@/store";
+import { useSnapshot } from "valtio";
+import { appSettings, rightPanelAtom } from "@/store";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
@@ -15,6 +16,8 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const fileUs = useAtomValue(fileUsAtom);
     const [maniAtoms, setManiAtoms] = useAtom(fileUs.maniAtomsAtom);
 
+    const activeTab = useSnapshot(appSettings).rightPanel.tabs.currentTab;
+
     useEffect(() => {
         !maniAtoms && setManiAtoms(createManiAtoms(fileUs, fileUsAtom));
     }, [fileUs, fileUsAtom, maniAtoms]);
@@ -27,7 +30,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs defaultValue="tab1" className="p-1 h-full flex flex-col">
+        <Tabs value={activeTab} className="p-1 h-full flex flex-col" onValueChange={(value) => appSettings.rightPanel.tabs.currentTab = value}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
