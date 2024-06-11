@@ -15,11 +15,6 @@ export function ErrorInfo({ errorText }: { errorText: string; }) {
 export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
     const explanation = useAtomValue(dlgUiAtoms.explanationAtom);
     const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
-
-    if (!explanation && !errorText) {
-        return null;
-    }
-
     return (
         <div className="mt-2">
             {explanation && (<>

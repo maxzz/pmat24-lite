@@ -20,13 +20,14 @@ export const updateMinMaxAtom = atom(null,
 );
 
 //<8,20>
-
 //A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
 //Is Invalid but why?
 //RBD6*vf1
 //RBD6*vfA
 //Is valid but why?
 //RBD6*vfn
+
+//d{8,} and <8,20> generates only 8-10 characters
 
 //TODO: when isCustom assume initial values are correct
 //TODO: length may be missing from custom rule
@@ -63,7 +64,7 @@ export const updateExplanationAtom = atom(null,
             parser.sourceText = custom;
             parser.doParse();
 
-            console.log(`updateExplanationAtom psw=${custom} min=${min} max=${max}`, parser.rulesAndMeta);
+            console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
 
             if (parser.rulesAndMeta.pswLenRange.min === -1) {
                 parser.rulesAndMeta.pswLenRange.min = min;
@@ -105,8 +106,16 @@ export const updateExplanationAtom = atom(null,
 );
 
 export const generateAtom = atom(null,
-    (_get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
-        const { parser, testPasswordAtom } = dlgUiAtoms;
+    (get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
+        const { parser, customAtom, errorTextAtom, testPasswordAtom } = dlgUiAtoms;
+        
+        const custom = get(customAtom);
+        if (!custom) {
+            set(errorTextAtom, 'The custom rule is empty.');
+            return;
+        }
+        //TODO: check if custom rule generates lenght can be inside defined total passowd length and show error if not
+
         const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
         set(testPasswordAtom, psw);
         set(verifyAtom, { dlgUiAtoms, psw, prevPsw });

@@ -11,12 +11,10 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyU
                 Test area
             </div>
 
-            <div>
-                <div className="">Test password</div>
-                <div className="h-8 flex items-center space-x-2">
-                    <InputWithCounter dlgUiAtoms={dlgUiAtoms} />
-                    <ButtonGenerate dlgUiAtoms={dlgUiAtoms} />
-                </div>
+            <div className="mt-4">Test password</div>
+            <div className="h-8 flex items-center space-x-2">
+                <InputWithCounter dlgUiAtoms={dlgUiAtoms} />
+                <ButtonGenerate dlgUiAtoms={dlgUiAtoms} />
             </div>
 
             <RuleExplanation dlgUiAtoms={dlgUiAtoms} />
