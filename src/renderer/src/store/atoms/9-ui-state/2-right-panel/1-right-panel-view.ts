@@ -1,12 +1,12 @@
-export const enum RightPanelView {
+export const enum RightPanelViewType {
     forms,  // show login / password change forms
     xml,    // show XML
 }
 
-export type RightPanelState = {
-    view: RightPanelView;
+export type RightPanelView = {
+    view: RightPanelViewType;
 };
 
-export const defaultRightPanelState: RightPanelState = {
-    view: RightPanelView.forms,
+export const defaultRightPanelView: RightPanelView = {
+    view: RightPanelViewType.forms,
 };

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { RightPanelView, appSettings, rightPanelContentAtom } from "@/store";
+import { RightPanelViewType, appSettings, rightPanelContentAtom } from "@/store";
 import { panel1Classes, panel2Classes, panel3Classes } from "../../3-middle/shared-classes";
 import { R_PanelHeader } from "../1-header";
 import { ManiBody } from "../2-file-mani";
@@ -8,7 +8,7 @@ import { Body_Xml } from "../3-file-xml";
 
 function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelContentAtom);
-    const { view } = useSnapshot(appSettings).rightPanel.rightPanelState;
+    const { view } = useSnapshot(appSettings).rightPanel.panelView;
 
     const staticText = !fileUs ? 'No file selected' : !fileUs.raw ? 'Not supported format' : undefined;
     if (staticText) {
@@ -20,7 +20,7 @@ function ContentForSelected() {
     }
 
     return (<>
-        {view === RightPanelView.forms
+        {view === RightPanelViewType.forms
             ? (
                 <ManiBody />
             ) : (
