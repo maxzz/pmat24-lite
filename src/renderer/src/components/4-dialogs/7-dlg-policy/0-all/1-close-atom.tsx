@@ -34,7 +34,9 @@ export const doClosePolicyDlgAtom = atom(null,
 
         const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
-            const toastId = toast.error('Custom rule is empty');
+            const msg = 'Custom rule is empty';
+            const toastId = toast.error(msg);
+            set(dlgUiAtoms.errorTextAtom, msg);
             set(toastIdAtom, toastId);
             return;
         }
