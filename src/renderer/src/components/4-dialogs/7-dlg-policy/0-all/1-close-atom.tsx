@@ -29,10 +29,11 @@ function resetOnCancelClose(get: Getter, set: Setter, { dlgUiAtoms, policiesAtom
 }
 
 export const doClosePolicyDlgAtom = atom(null,
-    (get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton }: DoSetResultPoliciesAtomProps) => {
+    (get: Getter, set: Setter, props: DoSetResultPoliciesAtomProps) => {
+        const { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton } = props;
 
         if (!byOkButton) {
-            resetOnCancelClose(get, set, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
+            resetOnCancelClose(get, set, props);
             set(openAtom, false);
             return;
         }
