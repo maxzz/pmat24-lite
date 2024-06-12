@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { PolicyDlgConv, updateExplanationAtom } from "../../0-all";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
@@ -9,8 +8,6 @@ import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 import { ButtonErrorInfo } from "../6-error-info";
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -33,11 +30,7 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAto
 }
 
 export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-
     const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
-    const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
-    const testAreaOpen = useSnapshot(appSettings).right.mani.testAreaOpen;
-
     return (
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
@@ -60,7 +53,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
             </div>
 
             {isCustom && (
-                <AccordionSingle isOpenAtom={isTestAreaOpenAtom}>
+                <AccordionSingle>
                     <TestAreaBody dlgUiAtoms={dlgUiAtoms} />
                 </AccordionSingle>
             )}
