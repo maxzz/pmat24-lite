@@ -11,13 +11,14 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
     const parser = new PolicyParser();
 
     console.log('%cDlg. useMemo to createUiAtoms', 'color: #f0f');
-    return {
+    const rv: PolicyDlgConv.PolicyUiAtoms = {
         ...dlgUiAtoms,
         original: policies,
         fromFile: forAtoms,
         changed: false,
         parser,
     };
+    return rv;
 }
 
 function combineResultFromAtoms(dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms, get: Getter, set: Setter) {

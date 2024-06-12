@@ -116,6 +116,8 @@ export const generateAtom = atom(null,
         }
         //TODO: check if custom rule generates lenght can be inside defined total passowd length and show error if not
 
+        console.log(`generateAtom custom=${custom}`, parser);
+
         const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
         set(testPasswordAtom, psw);
         set(verifyAtom, { dlgUiAtoms, psw, prevPsw });

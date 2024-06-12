@@ -2,6 +2,7 @@ import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
 import { Mani } from "pm-manifest";
 import { PolicyDlgConv } from "./0-conv";
 import { toast } from "sonner";
+import { updateExplanationAtom } from "./1-util-atoms";
 
 type DoSetResultPoliciesAtomProps = {
     dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
@@ -23,6 +24,8 @@ export const doClosePolicyDlgAtom = atom(null,
             const values: PolicyDlgConv.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
             values.errorText = '';
             PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
+
+            set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom })
 
             dlgUiAtoms.changed = false;
 
