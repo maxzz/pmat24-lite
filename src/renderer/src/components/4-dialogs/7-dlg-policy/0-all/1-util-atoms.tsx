@@ -1,9 +1,7 @@
 import { atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
-import { ParseError } from "@/store/manifest/3-policy-io/3-parser";
-import { getCustomRuleExplanation } from "@/store/manifest/3-policy-io/3-verify-generate/3-explanation/4-policy-explanation";
-import { generatePasswordByRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/2-generate-password-by-rule-no-throw";
-import { verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io/3-verify-generate/4-low-level/1-verify-password-against-rule-no-throw";
+import { ParseError } from "@/store/manifest/3-policy-io";
+import { checkRulesBoundsForGenerate, generatePasswordByRuleNoThrow, getCustomRuleExplanation, verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io";
 
 export const doInitialAtomsSetupAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
@@ -61,11 +59,6 @@ export const updateExplanationAtom = atom(null,
                 return;
             }
 
-            parser.sourceText = custom;
-            parser.doParse();
-
-            console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
-
             if (parser.rulesAndMeta.pswLenRange.min === -1) {
                 parser.rulesAndMeta.pswLenRange.min = min;
             }
@@ -83,6 +76,16 @@ export const updateExplanationAtom = atom(null,
             //     set(errorTextAtom, 'Max password length is not specified.');
             //     return;
             // }
+
+            parser.sourceText = custom;
+            parser.doParse();
+
+            console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
+
+            const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
+            console.log(`updateExplanation bounds=${JSON.stringify(bounds)}`);
+
+            //if ()
 
             const final = [];
             getCustomRuleExplanation(parser.rulesAndMeta.rules, final);
@@ -108,7 +111,7 @@ export const updateExplanationAtom = atom(null,
 export const generateAtom = atom(null,
     (get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
         const { parser, customAtom, errorTextAtom, testPasswordAtom } = dlgUiAtoms;
-        
+
         const custom = get(customAtom);
         if (!custom) {
             set(errorTextAtom, 'The custom rule is empty.');

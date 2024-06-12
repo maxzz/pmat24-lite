@@ -3,7 +3,7 @@ import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
 import { Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
 import { RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
-import { PolicyParser } from "@/store/manifest/3-policy-io/3-parser/2-parser";
+import { PolicyParser } from "@/store/manifest/3-policy-io";
 
 export namespace PolicyDlgConv {
 

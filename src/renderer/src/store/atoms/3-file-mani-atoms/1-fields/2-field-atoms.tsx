@@ -27,20 +27,12 @@ export namespace FieldRowState {
 
         const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
 
+        /** /
         const str1 = JSON.stringify(state.policies, null, 2);
         const str2 = JSON.stringify(atoms.fromFile.policies, null, 2);
         const str3 = changes.size ? `\nstate ${str1}\nfile ${str2}` : '';
-        console.log(`%cchanges fields: [${[...changes.keys()]}]%c${str3}`, 'background-color: navy; color: bisque', 'background-color: #282828; color: white');
-        
-        // const maniField = FieldConv.forMani(state);
-        // const maniFiel2 = FieldConv.forMani(atoms.fromFile);
-
-        // console.log('------------------------------------');
-        // console.log('TableRow atoms fr, same =', same, 'fields:', JSON.stringify(maniField));
-        // console.log('TableRow atoms to, same =', same, 'fields:', JSON.stringify(maniFiel2));
-
-        //TODO: use result
-        //TODO: cannot return anything
+        console.log(`%cCombineField: [${[...changes.keys()]}]%c${str3}`, 'background-color: navy; color: bisque', 'background-color: #282828; color: white');
+        /**/
     }
 
     export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);

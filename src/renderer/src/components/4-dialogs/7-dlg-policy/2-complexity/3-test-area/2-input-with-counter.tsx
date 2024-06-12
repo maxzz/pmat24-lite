@@ -12,8 +12,6 @@ export function InputWithCounter({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Pol
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
-        console.log('onChange', value);
-
         doVerify({ dlgUiAtoms, psw: value, prevPsw: '' });
         setTestPassword(value);
     }

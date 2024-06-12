@@ -32,6 +32,11 @@ export const doClosePolicyDlgAtom = atom(null,
     (get: Getter, set: Setter, props: DoSetResultPoliciesAtomProps) => {
         const { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton } = props;
 
+        if (!dlgUiAtoms.changed) {
+            set(openAtom, false);
+            return;
+        }
+
         if (!byOkButton) {
             resetOnCancelClose(get, set, props);
             set(openAtom, false);
@@ -39,11 +44,6 @@ export const doClosePolicyDlgAtom = atom(null,
         }
 
         const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
-
-        if (!dlgUiAtoms.changed) {
-            set(openAtom, false);
-            return;
-        }
 
         const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
@@ -65,16 +65,15 @@ export const doClosePolicyDlgAtom = atom(null,
             return;
         }
 
-        const strings = PolicyDlgConv.forMani(state);
+        const policyStrings = PolicyDlgConv.forMani(state);
+        set(policiesAtom, policyStrings);
 
-        //TODO: get access to setManiChanges()
-        set(policiesAtom, strings);
-
-
+        /**/
         const str1 = JSON.stringify(state, null, 2);
-        const str2 = JSON.stringify(strings, null, 2);
+        const str2 = JSON.stringify(policyStrings, null, 2);
         const str3 = dlgUiAtoms.changed ? `\nstate ${str1}\nfile ${str2}` : '';
         console.log(`%cDlg. changed=${dlgUiAtoms.changed}%c${str3}`, 'background-color: purple; color: bisque', 'background-color: #282828; color: white');
+        /**/
 
         set(openAtom, false);
     }
