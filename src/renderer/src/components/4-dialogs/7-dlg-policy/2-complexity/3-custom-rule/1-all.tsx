@@ -9,6 +9,8 @@ import { TestAreaBody } from "../3-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 import { ButtonErrorInfo } from "../6-error-info";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 
 function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
 
@@ -34,6 +36,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
 
     const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
     const isTestAreaOpenAtom = useState(() => atom<string[]>([]))[0];
+    const testAreaOpen = useSnapshot(appSettings).right.mani.testAreaOpen;
 
     return (
         <div>
@@ -50,7 +53,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Po
                             <ButtonErrorInfo dlgUiAtoms={dlgUiAtoms} />
                             <ButtonMenuAdd dlgUiAtoms={dlgUiAtoms} />
                             <ButtonRulesHelp />
-                            <ButtonTestArea isTestAreaOpenAtom={isTestAreaOpenAtom} />
+                            <ButtonTestArea />
                         </div>
                     </div>
                 </div>
