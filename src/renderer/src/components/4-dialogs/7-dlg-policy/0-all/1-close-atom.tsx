@@ -12,23 +12,27 @@ type DoSetResultPoliciesAtomProps = {
     byOkButton: boolean;
 };
 
+function resetOnCancelClose(get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, toastIdAtom }: DoSetResultPoliciesAtomProps) {
+    const toastId = get(toastIdAtom);
+    toastId && toast.dismiss(toastId);
+
+    set(policiesAtom, dlgUiAtoms.original);
+
+    // Reset to original values local atoms
+    const values: PolicyDlgConv.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
+    values.errorText = '';
+    PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
+
+    set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom });
+
+    dlgUiAtoms.changed = false;
+}
+
 export const doClosePolicyDlgAtom = atom(null,
     (get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton }: DoSetResultPoliciesAtomProps) => {
+
         if (!byOkButton) {
-            const toastId = get(toastIdAtom);
-            toastId && toast.dismiss(toastId);
-
-            set(policiesAtom, dlgUiAtoms.original);
-
-            // Reset to original values local atoms
-            const values: PolicyDlgConv.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
-            values.errorText = '';
-            PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
-
-            set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom })
-
-            dlgUiAtoms.changed = false;
-
+            resetOnCancelClose(get, set, { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
             set(openAtom, false);
             return;
         }
