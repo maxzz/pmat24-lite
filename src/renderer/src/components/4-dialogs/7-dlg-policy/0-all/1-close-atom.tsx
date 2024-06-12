@@ -17,9 +17,13 @@ export const doClosePolicyDlgAtom = atom(null,
             const toastId = get(toastIdAtom);
             toastId && toast.dismiss(toastId);
 
-            //TODO: reset to original values local atoms
             set(policiesAtom, dlgUiAtoms.original);
-            set(dlgUiAtoms.errorTextAtom, '');
+
+            // Reset to original values local atoms
+            const values: PolicyDlgConv.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
+            values.errorText = '';
+            PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
+
             dlgUiAtoms.changed = false;
 
             set(openAtom, false);
