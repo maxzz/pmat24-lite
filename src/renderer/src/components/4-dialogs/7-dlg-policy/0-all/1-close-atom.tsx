@@ -19,6 +19,7 @@ export const doClosePolicyDlgAtom = atom(null,
 
             //TODO: reset to original values local atoms
             set(policiesAtom, dlgUiAtoms.original);
+            set(dlgUiAtoms.errorTextAtom, '');
             dlgUiAtoms.changed = false;
 
             set(openAtom, false);
