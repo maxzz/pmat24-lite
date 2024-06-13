@@ -31,7 +31,7 @@ export class PolicyParser {
         this.sourceText = custom;
         this.sourceTextPos = 0;
         this.rulesAndMeta = new RulesAndMeta();
-        
+
         this.parse_start();
 
         // Set conditionally minTotal and maxTotal from UI if not set by custom rule

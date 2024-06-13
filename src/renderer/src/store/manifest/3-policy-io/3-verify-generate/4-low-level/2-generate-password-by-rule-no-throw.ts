@@ -1,6 +1,6 @@
 import { ChSet, Rule, RulesAndMeta } from "../../3-parser/1-parser-types";
 import { ChSetExtra, ChSetExtraMap } from "./9-types";
-import { GenerateForChSetEntriesHolderRecursivelyParams, generateForChSetEntriesHolderRecursively } from "./3-generate-for-chset-entries-holder-recursively";
+import { GeneratePswByRulesRecursivelyParams, generatePswByRulesRecursively } from "./3-generate-for-chset-entries-holder-recursively";
 import { genUtils } from "../9-gen-utils";
 
 function findChSetData(ch: string, chSetExtraMap: ChSetExtraMap, rules: Rule[]): ChSetExtra | undefined {
@@ -127,14 +127,14 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
     let rv_password = '';
 
     try {
-        let pm: GenerateForChSetEntriesHolderRecursivelyParams = {
+        let pm: GeneratePswByRulesRecursivelyParams = {
             chSetExtraMap: new Map<ChSet, ChSetExtra>(),
             generated: [],
             toGenerate: [],
             pswLenGenerated: 0, // totalLengthGenerated
             pswLenFixedCount: 0, // minLengthToGenerate
         };
-        generateForChSetEntriesHolderRecursively(rulesAndMeta.rules, pm);
+        generatePswByRulesRecursively(rulesAndMeta.rules, pm);
 
         // Sort ruleEntries whose max is undefined in ascending order of their character set length.
         pm.toGenerate.sort(sortAscendingByCharSetLength);
@@ -147,7 +147,7 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
                 let maxAvbl = Math.floor((rulesAndMeta.finalLen.max - pm.pswLenGenerated)
                     / (entriesCount > 0 ? entriesCount : 1));
 
-                if (chsetData.isGenerated) {
+                if (chsetData.wasGenerated) {
                     return; // Skip entries if already generated.
                 }
 

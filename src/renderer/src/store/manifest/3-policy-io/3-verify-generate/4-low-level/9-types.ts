@@ -3,32 +3,34 @@ import { genUtils } from "../9-gen-utils/8-utils";
 
 export class ChSetExtra {
     chSet: ChSet;
-    min = -1;
-    max = -1;
-    isGenerated = false;
+    min: number;
+    max: number;
+    wasGenerated = false;
     generatedLen = -1;
 
-    constructor(chSet: ChSet, min: number, max: number) {
+    constructor(chSet: ChSet) {
         this.chSet = chSet;
-        this.min = min;
-        this.max = max;
+        this.min = chSet.range.min;
+        this.max = chSet.range.max;
     }
 
     generateLength(): boolean {
-        if (this.isGenerated) {
+        if (this.wasGenerated) {
             return true;
         }
 
         if (this.min === -1 && this.max === -1) {
-            this.min = this.max = 1;
-        } else if (this.max === -2) {
+            this.min = 1;
+            this.max = 1;
+        }
+        else if (this.max === -2) {
             return false;
         }
 
         this.generatedLen = genUtils.getRandomInRange(this.min, this.max);
-        this.isGenerated = this.generatedLen >= this.min && this.generatedLen <= this.max;
+        this.wasGenerated = this.generatedLen >= this.min && this.generatedLen <= this.max;
 
-        return this.isGenerated;
+        return this.wasGenerated;
     }
 
     generateValue(excludeChars: string): string {

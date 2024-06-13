@@ -1,7 +1,7 @@
 import { Rule } from "../../3-parser/1-parser-types";
 import { ChSetExtraMap, ChSetExtra } from "./9-types";
 
-export type GenerateForChSetEntriesHolderRecursivelyParams = {
+export type GeneratePswByRulesRecursivelyParams = {
     chSetExtraMap: ChSetExtraMap;
     generated: ChSetExtra[]; // generated
     toGenerate: ChSetExtra[]; // to generate
@@ -9,26 +9,24 @@ export type GenerateForChSetEntriesHolderRecursivelyParams = {
     pswLenFixedCount: number;
 };
 
-export function generateForChSetEntriesHolderRecursively(rules: Rule[], pm: GenerateForChSetEntriesHolderRecursivelyParams): void {
-    // 0. To generate password (only for one's with known range: min, max) as per custom rule specified.
-    rules.forEach((ruleEntry) => {
-        if (ruleEntry.isGroup) {
-            generateForChSetEntriesHolderRecursively(ruleEntry.group.rules, pm);
+/**
+ * Generate password (only for one's with known range: min, max) as per custom rule specified.
+ */
+export function generatePswByRulesRecursively(rules: Rule[], pm: GeneratePswByRulesRecursivelyParams): void {
+    rules.forEach((rule) => {
+        if (rule.isGroup) {
+            generatePswByRulesRecursively(rule.group.rules, pm);
         } else {
-            let chsetData = new ChSetExtra(
-                ruleEntry.chSet,
-                ruleEntry.chSet.range.min,
-                ruleEntry.chSet.range.max
-            );
+            const chSetExtra = new ChSetExtra(rule.chSet);
 
-            if (chsetData.generateLength()) {
-                pm.generated.push(chsetData);
-                pm.chSetExtraMap.set(ruleEntry.chSet, chsetData);
-                pm.pswLenGenerated += chsetData.generatedLen;
+            if (chSetExtra.generateLength()) {
+                pm.generated.push(chSetExtra);
+                pm.chSetExtraMap.set(rule.chSet, chSetExtra);
+                pm.pswLenGenerated += chSetExtra.generatedLen;
             } else {
-                pm.toGenerate.push(chsetData);
-                pm.chSetExtraMap.set(ruleEntry.chSet, chsetData);
-                pm.pswLenFixedCount += chsetData.min;
+                pm.toGenerate.push(chSetExtra);
+                pm.chSetExtraMap.set(rule.chSet, chSetExtra);
+                pm.pswLenFixedCount += chSetExtra.min;
             }
         }
     });
