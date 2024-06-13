@@ -137,7 +137,7 @@ export const updateExplanationAtom = atom(null,
 
             if (custom) {
                 const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
-                console.log(`updateExplanation bounds=${JSON.stringify(bounds)}`);
+                console.log(`bounds=${JSON.stringify(bounds)} ${custom}`);
 
                 if (bounds.totalMin < min) {
                     set(errorTextAtom, `The custom rule generates less than ${min} characters.`);
@@ -198,6 +198,9 @@ export const verifyAtom = atom(null,
         const { parser, testVerifiedAtom } = dlgUiAtoms;
 
         updateMinMaxFromUi(get, set, dlgUiAtoms);
+
+        console.log(`verify`, parser.rulesAndMeta);
+        
 
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
         set(testVerifiedAtom, ok ? '1' : '0');
