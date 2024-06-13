@@ -40,7 +40,7 @@ export class Rule {                                     // Element that has eith
 
 export class RulesAndMeta {
     rules: Rule[] = [];
-    pswLenRange: Range = { min: -1, max: -1 };          // Final total length of password.
+    finalLen: Range = { min: -1, max: -1 };             // Final total length of password.  finalLen is set conditionally from UI if not set by custom rule (this case was used by C++ but not used in JS).
 
     avoidConsecutiveChars: boolean = false;             // Whether to disallow repetition of same character consecutively. 
     checkPrevPswCharPosition: boolean = false;          // Avoid same character in the same position as its recent (predecessor) value.

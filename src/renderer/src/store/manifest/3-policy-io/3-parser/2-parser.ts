@@ -31,16 +31,12 @@ export class PolicyParser {
         this.sourceText = custom;
         this.sourceTextPos = 0;
         this.rulesAndMeta = new RulesAndMeta();
+        
         this.parse_start();
 
         // Set conditionally minTotal and maxTotal from UI if not set by custom rule
-        if (this.rulesAndMeta.pswLenRange.min === -1) {
-            this.rulesAndMeta.pswLenRange.min = minTotal;
-        }
-
-        if (this.rulesAndMeta.pswLenRange.max === -1) {
-            this.rulesAndMeta.pswLenRange.max = maxTotal;
-        }
+        this.rulesAndMeta.finalLen.min === -1 && (this.rulesAndMeta.finalLen.min = minTotal);
+        this.rulesAndMeta.finalLen.max === -1 && (this.rulesAndMeta.finalLen.max = maxTotal);
     }
 
     private skipWhitespace() {
@@ -465,7 +461,7 @@ export class PolicyParser {
                 }
                 case '<': { // final psw length can be at the begin or at the end of input string.
                     this.ungetChar();
-                    this.rulesAndMeta.pswLenRange = this.parse_finalPswLength();
+                    this.rulesAndMeta.finalLen = this.parse_finalPswLength();
                     break;
                 }
                 default: {

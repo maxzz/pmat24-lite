@@ -1,3 +1,5 @@
+import { Poli, namesConstrainPsw } from "pm-manifest";
+
 // export namespace PolicyStrings {
 //     export const IDS_PSW_POLICY_LENGTH     /**/ = "   Password length must be between %d and %d characters.\n";
 //     export const IDS_PSW_POLICY_ACHSET     /**/ = "   Password must contain a character from %s.\n";
@@ -11,7 +13,28 @@
 //     export const IDS_PSW_VALUES_SAME       /**/ = "Current and new password fields have same values.";
 // }
 
-import { Poli, namesConstrainPsw } from "pm-manifest";
+/*
+This file expect following resource IDs to be declared and defined:
+    ==========================================================================
+    IDS_PSW_POLICY_HEAD		"\nPassword policy settings are as follows:\n"
+    IDS_PSW_POLICY_LENGTH	"Length must be between %d and %d characters.\n"
+    IDS_PSW_POLICY_ACHSET	"Must contain a character from the set [%s].\n"
+    IDS_PSW_POLICY_MINCHSET	"Must contain atleast %d character(s) from the set: %s.\n"
+    IDS_PSW_POLICY_MAXCHSET	"Must contain only %d character(s) from the set [%s].\n"
+    IDS_PSW_POLICY_MMCHSET	"Must contain atleast %d and atmost %d character(s) from the set: %s.\n"
+    IDS_PSW_POLICY_REPEAT	"Must contain repeated occurance of:\n"
+    ==========================================================================
+*/
+/* The new password does not meet criteria specified in the password policy settings.\n */
+/* Password policy settings are as follows:\n
+   (.) Length must be between %d and %d characters.\n
+   (.) Must contain a character from the set [A-Z].\n
+   (.) Must contain atleast 2 character(s) from the set [a-z].\n
+   (.) Must contain atleast 1 and atmost 2 character(s) from the set [!@#$%^&*()_+=].\n
+   (.) Must contain in (any/the) sequence and \n
+   \t(.) Must contain atleast 2 characters from the set =>[a-z].\n
+   \t(.) Must contain atleast 1 and atmost 3 characters from the set [0-9].\n
+*/
 
 export const pluralSuffix = (n: number, s: string) => n === 1 ? s : `${s}s`;
 

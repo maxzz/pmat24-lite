@@ -67,21 +67,21 @@ export function checkRulesBoundsForGenerate(rulesAndMeta: RulesAndMeta): CheckRu
         ...all,
     };
 
-    if (all.totalMin < rulesAndMeta.pswLenRange.min) {
+    if (all.totalMin < rulesAndMeta.finalLen.min) {
         // Determine whether there are any Rule entries without max value to accommodate missing places.
         rv.minAvailableChars = all.openRanges.reduce((acc, cur) => acc + cur.chars.length, all.totalMin);
-        rv.isMinValid = rv.minAvailableChars > rulesAndMeta.pswLenRange.min;
+        rv.isMinValid = rv.minAvailableChars > rulesAndMeta.finalLen.min;
     }
-    else if (all.totalMin > rulesAndMeta.pswLenRange.max) {
+    else if (all.totalMin > rulesAndMeta.finalLen.max) {
         rv.isMinValid = false;
     }
 
-    if (all.totalMax < rulesAndMeta.pswLenRange.min) {
+    if (all.totalMax < rulesAndMeta.finalLen.min) {
         // Determine whether there are any Rule entries without max value to accommodate missing places.
         rv.maxAvailableChars = all.openRanges.reduce((acc, cur) => acc + cur.chars.length, all.totalMax);
-        rv.isMaxValid = rv.maxAvailableChars > rulesAndMeta.pswLenRange.min;
+        rv.isMaxValid = rv.maxAvailableChars > rulesAndMeta.finalLen.min;
     }
-    else if (all.totalMax > rulesAndMeta.pswLenRange.max) {
+    else if (all.totalMax > rulesAndMeta.finalLen.max) {
         rv.isMaxValid = false;
     }
 

@@ -2,12 +2,9 @@ import { Poli } from "pm-manifest";
 import { stringsPolicy, stringsPolicy3 } from "./9-strings";
 import { genUtils } from "../9-gen-utils";
 
-
 export function getSimpleExplanation(policy: Poli.Policy, final: string[]): void {
     let ruleLength = stringsPolicy.chSetLen(policy.minLen, policy.maxLen); //ai:`Length must be between ${policy_.minLength} and ${policy_.maxLength} characters.\n`;
     final.push('\n' + ruleLength); // IDS_PSW_POLICY_HEAD	+ ruleLength;
-
-
 
     //if (policy.noDuplicate) { rv += keyvalues_[IDS_PSW_POLICY_NOREPEAT]; }
     let rv = '';
