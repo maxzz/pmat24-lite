@@ -82,8 +82,20 @@ export const updateExplanationAtom = atom(null,
 
             console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
 
-            const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
-            console.log(`updateExplanation bounds=${JSON.stringify(bounds)}`);
+            if (custom) {
+                const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
+                console.log(`updateExplanation bounds=${JSON.stringify(bounds)}`);
+
+                if (bounds.totalMin < min) {
+                    set(errorTextAtom, `The custom rule generates less than ${min} characters.`);
+                    return;
+                }
+
+                if (bounds.totalMax > max) {
+                    set(errorTextAtom, `The custom rule generates more than ${max} characters.`);
+                    return;
+                }
+            }
 
             //if ()
 
@@ -129,7 +141,7 @@ export const generateAtom = atom(null,
 );
 
 export const verifyAtom = atom(null,
-    (_get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
+    (get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
         const { parser, testVerifiedAtom } = dlgUiAtoms;
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
         set(testVerifiedAtom, ok ? '1' : '0');
