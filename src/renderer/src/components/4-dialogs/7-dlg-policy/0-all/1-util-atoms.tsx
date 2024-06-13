@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { Getter, Setter, atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
 import { ParseError } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, generatePasswordByRuleNoThrow, getCustomRuleExplanation, verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io";
@@ -30,7 +30,7 @@ export const updateMinMaxAtom = atom(null,
 //TODO: when isCustom assume initial values are correct
 //TODO: length may be missing from custom rule
 
-function updateMinMaxfromUi(get, set, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
+function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
     const { parser, minLenAtom, maxLenAtom } = dlgUiAtoms;
 
     const min = +get(minLenAtom).data;
@@ -43,6 +43,44 @@ function updateMinMaxfromUi(get, set, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
     if (parser.rulesAndMeta.pswLenRange.max === -1) {
         parser.rulesAndMeta.pswLenRange.max = max;
     }
+}
+
+function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
+    const { parser, minLenAtom, maxLenAtom, customAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
+    const min = +get(minLenAtom).data;
+    const max = +get(maxLenAtom).data;
+
+    if (min < 1) {
+        set(errorTextAtom, 'Min password length is less than 1.');
+        return;
+    }
+
+    if (max < min) {
+        set(errorTextAtom, 'Max password length is less than min password length.');
+        return;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.min === -1) {
+        set(errorTextAtom, 'Min password length is not specified.');
+        return;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.max === -1) {
+        set(errorTextAtom, 'Max password length is not specified.');
+        return;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.min < min) {
+        set(errorTextAtom, 'Min password length is less than the minimum password length specified in the custom rule.');
+        return;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.max > max) {
+        set(errorTextAtom, 'Max password length is less than the maximum password length specified in the custom rule.');
+        return;
+    }
+
+    set(errorTextAtom, '');
 }
 
 export const updateExplanationAtom = atom(null,
