@@ -135,10 +135,9 @@ export const updateExplanationAtom = atom(null,
             //     return;
             // }
 
-            parser.sourceText = custom;
-            parser.doParse();
+            parser.doParse({custom, minTotal: min, maxTotal: max});
 
-            updateMinMaxFromUi(get, set, dlgUiAtoms); // set conditionally min and max from ui if not set in custom rule
+            //updateMinMaxFromUi(get, set, dlgUiAtoms); // set conditionally min and max from ui if not set in custom rule
 
             console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
 

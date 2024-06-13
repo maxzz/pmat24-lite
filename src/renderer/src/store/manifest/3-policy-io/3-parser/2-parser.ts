@@ -27,10 +27,20 @@ export class PolicyParser {
     rulesAndMeta: RulesAndMeta = new RulesAndMeta();
     sourceTextPos: number = 0;  // Current parsing position starting from 0, but at error time it's +1 already.
 
-    public doParse() { //TODO: do we need to pass sourceText as a parameter?
+    public doParse({ custom, minTotal, maxTotal }: { custom: string; minTotal: number; maxTotal: number; }) {
+        this.sourceText = custom;
         this.sourceTextPos = 0;
         this.rulesAndMeta = new RulesAndMeta();
         this.parse_start();
+
+        // Set conditionally minTotal and maxTotal from UI if not set by custom rule
+        if (this.rulesAndMeta.pswLenRange.min === -1) {
+            this.rulesAndMeta.pswLenRange.min = minTotal;
+        }
+
+        if (this.rulesAndMeta.pswLenRange.max === -1) {
+            this.rulesAndMeta.pswLenRange.max = maxTotal;
+        }
     }
 
     private skipWhitespace() {
@@ -96,7 +106,7 @@ export class PolicyParser {
     private expectedCharWs(expected: string): void { // Skip whitespace and check next character.
         this.skipWhitespace();
 
-        const {ch, hasChar} = this.getCharNoThrow();
+        const { ch, hasChar } = this.getCharNoThrow();
         if (!hasChar || ch !== expected) {
             throw new ParseError(`expected '${expected}'`, ParseErrorType.expChar, this.sourceTextPos, expected);
         }

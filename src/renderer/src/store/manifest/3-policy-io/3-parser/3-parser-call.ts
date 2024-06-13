@@ -8,7 +8,7 @@ export type ParseAdvPolicyResult = {
     error: ParseError;
 };
 
-export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
+function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult { // This call is not used in the js codebase
 
     const rv: ParseAdvPolicyResult = {
         rulesAndMeta: new RulesAndMeta(),
@@ -19,7 +19,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     parser.sourceText = advPolicy;
 
     try {
-        parser.doParse();
+        parser.doParse({custom: advPolicy, minTotal: -1, maxTotal: -1});
     } catch (error) {
         rv.error = error instanceof ParseError ? error : new ParseError('unknown', ParseErrorType.unexpected, 0);
         rv.error.pos = parser.sourceTextPos;
@@ -36,7 +36,7 @@ export function parse_advpolicy(advPolicy: string): ParseAdvPolicyResult {
     return rv;
 }
 
-export function parseExtPolicy2RulesSet(policy: Poli.Policy): ParseAdvPolicyResult {
+function parseExtPolicy2RulesSet(policy: Poli.Policy): ParseAdvPolicyResult {
     const patternWithMinMaxRange = `${policy.custom}<${policy.minLen}, ${policy.maxLen}>`;
     const rv = parse_advpolicy(patternWithMinMaxRange);
     return rv;
