@@ -12,6 +12,8 @@ export const doInitialAtomsSetupAtom = atom(null,
 
 export const updateMinMaxAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
+        updateMinMaxFromUi(get, set, dlgUiAtoms);
+
         const custom = get(dlgUiAtoms.customAtom);
         set(updateExplanationAtom, { dlgUiAtoms, custom });
     }
@@ -36,13 +38,15 @@ function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.
     const min = +get(minLenAtom).data;
     const max = +get(maxLenAtom).data;
 
-    if (parser.rulesAndMeta.pswLenRange.min === -1) {
-        parser.rulesAndMeta.pswLenRange.min = min;
-    }
+    parser.rulesAndMeta.pswLenRange.min = min;
+    parser.rulesAndMeta.pswLenRange.max = max;
+    // if (parser.rulesAndMeta.pswLenRange.min === -1) {
+    //     parser.rulesAndMeta.pswLenRange.min = min;
+    // }
 
-    if (parser.rulesAndMeta.pswLenRange.max === -1) {
-        parser.rulesAndMeta.pswLenRange.max = max;
-    }
+    // if (parser.rulesAndMeta.pswLenRange.max === -1) {
+    //     parser.rulesAndMeta.pswLenRange.max = max;
+    // }
 }
 
 function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
@@ -186,6 +190,8 @@ export const generateAtom = atom(null,
         }
         //TODO: check if custom rule generates lenght can be inside defined total passowd length and show error if not
 
+        //updateMinMaxFromUi(get, set, dlgUiAtoms);
+
         console.log(`generateAtom custom=${custom}`, parser);
 
         const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
@@ -199,7 +205,7 @@ export const verifyAtom = atom(null,
     (get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
         const { parser, testVerifiedAtom } = dlgUiAtoms;
 
-        updateMinMaxFromUi(get, set, dlgUiAtoms);
+        //updateMinMaxFromUi(get, set, dlgUiAtoms);
 
         console.log(`verify`, parser.rulesAndMeta);
         
