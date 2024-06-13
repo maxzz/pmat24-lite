@@ -196,6 +196,9 @@ export const generateAtom = atom(null,
 export const verifyAtom = atom(null,
     (get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
         const { parser, testVerifiedAtom } = dlgUiAtoms;
+
+        updateMinMaxFromUi(get, set, dlgUiAtoms);
+
         const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
         set(testVerifiedAtom, ok ? '1' : '0');
     }
