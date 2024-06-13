@@ -12,7 +12,7 @@ export const doInitialAtomsSetupAtom = atom(null,
 
 export const updateMinMaxAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
-        updateMinMaxFromUi(get, set, dlgUiAtoms);
+        //updateMinMaxFromUi(get, set, dlgUiAtoms);
 
         const custom = get(dlgUiAtoms.customAtom);
         set(updateExplanationAtom, { dlgUiAtoms, custom });
@@ -38,15 +38,16 @@ function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.
     const min = +get(minLenAtom).data;
     const max = +get(maxLenAtom).data;
 
-    parser.rulesAndMeta.pswLenRange.min = min;
-    parser.rulesAndMeta.pswLenRange.max = max;
-    // if (parser.rulesAndMeta.pswLenRange.min === -1) {
-    //     parser.rulesAndMeta.pswLenRange.min = min;
-    // }
+    // parser.rulesAndMeta.pswLenRange.min = min;
+    // parser.rulesAndMeta.pswLenRange.max = max;
 
-    // if (parser.rulesAndMeta.pswLenRange.max === -1) {
-    //     parser.rulesAndMeta.pswLenRange.max = max;
-    // }
+    if (parser.rulesAndMeta.pswLenRange.min === -1) {
+        parser.rulesAndMeta.pswLenRange.min = min;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.max === -1) {
+        parser.rulesAndMeta.pswLenRange.max = max;
+    }
 }
 
 function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
@@ -136,6 +137,8 @@ export const updateExplanationAtom = atom(null,
 
             parser.sourceText = custom;
             parser.doParse();
+
+            updateMinMaxFromUi(get, set, dlgUiAtoms); // set conditionally min and max from ui if not set in custom rule
 
             console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
 
