@@ -85,7 +85,7 @@ function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyU
 
 export const updateExplanationAtom = atom(null,
     (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom: string; }) => {
-        const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
+        const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
         try {
             const min = +get(minLenAtom).data;
             const max = +get(maxLenAtom).data;
@@ -158,7 +158,9 @@ export const updateExplanationAtom = atom(null,
 
             set(explanationAtom, explanation);
             set(errorTextAtom, '');
-            set(verifyAtom, { dlgUiAtoms, psw: custom, prevPsw: '' });
+
+            const testPassword = get(testPasswordAtom);
+            set(verifyAtom, { dlgUiAtoms, psw: testPassword, prevPsw: '' });
         } catch (e) {
             const msg =
                 e instanceof ParseError
