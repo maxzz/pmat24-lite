@@ -38,15 +38,15 @@ function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.
     const min = +get(minLenAtom).data;
     const max = +get(maxLenAtom).data;
 
-    // parser.rulesAndMeta.finalLen.min = min;
-    // parser.rulesAndMeta.finalLen.max = max;
+    // parser.rulesAndMeta.finalMin = min;
+    // parser.rulesAndMeta.finalMax = max;
 
-    if (parser.rulesAndMeta.finalLen.min === -1) {
-        parser.rulesAndMeta.finalLen.min = min;
+    if (parser.rulesAndMeta.targetMin === -1) {
+        parser.rulesAndMeta.targetMin = min;
     }
 
-    if (parser.rulesAndMeta.finalLen.max === -1) {
-        parser.rulesAndMeta.finalLen.max = max;
+    if (parser.rulesAndMeta.targetMax === -1) {
+        parser.rulesAndMeta.targetMax = max;
     }
 }
 
@@ -65,22 +65,22 @@ function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyU
         return;
     }
 
-    if (parser.rulesAndMeta.finalLen.min === -1) {
+    if (parser.rulesAndMeta.targetMin === -1) {
         set(errorTextAtom, 'Min password length is not specified.');
         return;
     }
 
-    if (parser.rulesAndMeta.finalLen.max === -1) {
+    if (parser.rulesAndMeta.targetMax === -1) {
         set(errorTextAtom, 'Max password length is not specified.');
         return;
     }
 
-    if (parser.rulesAndMeta.finalLen.min < min) {
+    if (parser.rulesAndMeta.targetMin < min) {
         set(errorTextAtom, 'Min password length is less than the minimum password length specified in the custom rule.');
         return;
     }
 
-    if (parser.rulesAndMeta.finalLen.max > max) {
+    if (parser.rulesAndMeta.targetMax > max) {
         set(errorTextAtom, 'Max password length is less than the maximum password length specified in the custom rule.');
         return;
     }
@@ -117,20 +117,20 @@ export const updateExplanationAtom = atom(null,
                 return;
             }
 
-            if (parser.rulesAndMeta.finalLen.min === -1) {
-                parser.rulesAndMeta.finalLen.min = min;
+            if (parser.rulesAndMeta.targetMin === -1) {
+                parser.rulesAndMeta.targetMin = min;
             }
 
-            if (parser.rulesAndMeta.finalLen.max === -1) {
-                parser.rulesAndMeta.finalLen.max = max;
+            if (parser.rulesAndMeta.targetMax === -1) {
+                parser.rulesAndMeta.targetMax = max;
             }
 
-            // if (parser.rulesAndMeta.finalLen.min === -1) {
+            // if (parser.rulesAndMeta.finalMin === -1) {
             //     set(errorTextAtom, 'Min password length is not specified.');
             //     return;
             // }
 
-            // if (parser.rulesAndMeta.finalLen.max === -1) {
+            // if (parser.rulesAndMeta.finalMax === -1) {
             //     set(errorTextAtom, 'Max password length is not specified.');
             //     return;
             // }

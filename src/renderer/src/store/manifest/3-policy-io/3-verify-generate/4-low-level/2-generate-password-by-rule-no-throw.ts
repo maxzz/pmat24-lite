@@ -144,7 +144,7 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
         pm.toGenerate.forEach(
             (chsetData, idx) => {
 
-                let maxAvbl = Math.floor((rulesAndMeta.finalLen.max - pm.pswLenGenerated)
+                let maxAvbl = Math.floor((rulesAndMeta.targetMax - pm.pswLenGenerated)
                     / (entriesCount > 0 ? entriesCount : 1));
 
                 if (chsetData.wasGenerated) {
@@ -160,8 +160,8 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
 
 
                         // We have rule entries for whom password has to be generated.
-                        if (pm.pswLenGenerated < rulesAndMeta.finalLen.min) {
-                            moreLengthToGenerate = rulesAndMeta.finalLen.min - pm.pswLenGenerated;
+                        if (pm.pswLenGenerated < rulesAndMeta.targetMin) {
+                            moreLengthToGenerate = rulesAndMeta.targetMin - pm.pswLenGenerated;
 
                             let minimumLenToSatisfyRange = Math.max(moreLengthToGenerate, chsetData.min);
                             chsetData.min = Math.min(minimumLenToSatisfyRange, chsetData.chSet.chars.length);
@@ -170,8 +170,8 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
 
                     chsetData.max = Math.max(chsetData.min, Math.min(maxAvbl, chsetData.chSet.chars.length));
 
-                    if (isLastEntry && chsetData.max > rulesAndMeta.finalLen.max - pm.pswLenGenerated) {
-                        chsetData.max = rulesAndMeta.finalLen.max - pm.pswLenGenerated;
+                    if (isLastEntry && chsetData.max > rulesAndMeta.targetMax - pm.pswLenGenerated) {
+                        chsetData.max = rulesAndMeta.targetMax - pm.pswLenGenerated;
                     }
                 }
 
