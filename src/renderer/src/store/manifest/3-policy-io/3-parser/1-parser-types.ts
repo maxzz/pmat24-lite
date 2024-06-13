@@ -14,14 +14,15 @@
  * * -1 if value is undefined by rule;
  * * -2 if value is ommited by rule.
  */
-export type Range = {                                   // array of rules is a sequence like: a{1,2}A{1,1}[0-9]{1,1}
+export type Range = {                                   // Repetition range. array of rules is a sequence like: a{1,2}A{1,1}[0-9]{1,1}
     min: number;
     max: number;
 };
 
 export class ChSet {                                    // Character set element as a simplest rule like: [a-z]{1,} with repetition.
     chars: string = '';                                 // A set of characters.
-    range: Range = { min: -1, max: -1 };                // Repetition range.
+    min: number = -1;                                   // Minimum length of the set.
+    max: number = -1;                                   // Maximum length of the set.
 };
 
 class Group {                                           // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.

@@ -379,7 +379,10 @@ export class PolicyParser {
                 this.ungetChar();
                 rv.chSet.chars = this.parse_charset();
                 rv.isGroup = false;
-                rv.chSet.range = this.parse_range();
+                //rv.chSet.range = this.parse_range();
+                const minmax: Range = this.parse_range();
+                rv.chSet.min = minmax.min;
+                rv.chSet.max = minmax.max;
 
                 if (rv.chSet.chars.length > 1024) {
                     throw new ParseError("expected less then 1024 per charset", ParseErrorType.moreThen1024, this.sourceTextPos); // Charsets can be splited into different sets and then grouped together.
@@ -392,7 +395,10 @@ export class PolicyParser {
             case 's': { // shorthand s
                 rv.chSet.chars = getShorthandChSet(ch, this.sourceTextPos);
                 rv.isGroup = false;
-                rv.chSet.range = this.parse_range();
+                //rv.chSet.range = this.parse_range();
+                const minmax: Range = this.parse_range();
+                rv.chSet.min = minmax.min;
+                rv.chSet.max = minmax.max;
                 break;
             }
             default: {

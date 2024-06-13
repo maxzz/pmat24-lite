@@ -12,8 +12,8 @@ function getBoundsRecursively(rules: Rule[], rv: GetBoundsRecursivelyResult): vo
             if (rule.isGroup) {
                 getBoundsRecursively(rule.group.rules, rv);
             } else {
-                const ruleMin = rule.chSet.range.min;
-                const ruleMax = rule.chSet.range.max;
+                const ruleMin = rule.chSet.min;
+                const ruleMax = rule.chSet.max;
 
                 // We have min and max range set -1 if the pattern has placeholders.
                 // In that case, we have to set the range to 1 only.

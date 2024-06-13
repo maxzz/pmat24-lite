@@ -16,8 +16,8 @@ export function getCustomRuleExplanation(rules: Rule[], final: string[]): void {
             */
             getCustomRuleExplanation(rule.group.rules, final);
         } else {
-            const min = rule.chSet.range.min;
-            const max = rule.chSet.range.max;
+            const min = rule.chSet.min;
+            const max = rule.chSet.max;
             // const chars = rule.chSet.chars;
             const chars = rule.chSet.chars === WSHORTHAND_A
                 ? '[A-Z]'

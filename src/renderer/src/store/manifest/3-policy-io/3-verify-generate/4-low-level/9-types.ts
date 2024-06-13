@@ -10,8 +10,8 @@ export class ChSetExtra {
 
     constructor(chSet: ChSet) {
         this.chSet = chSet;
-        this.min = chSet.range.min;
-        this.max = chSet.range.max;
+        this.min = chSet.min;
+        this.max = chSet.max;
     }
 
     generateLength(): boolean {

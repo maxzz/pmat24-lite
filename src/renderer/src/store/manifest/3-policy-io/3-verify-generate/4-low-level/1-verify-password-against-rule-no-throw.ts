@@ -28,8 +28,8 @@ function verifyPasswordAgainstRuleRecursively(pm: VerifyPasswordAgainstRuleRecur
             pm.password = newPm.password;
             continue;
         } else {
-            let min = ruleEntry.chSet.range.min;
-            let max = ruleEntry.chSet.range.max;
+            let min = ruleEntry.chSet.min;
+            let max = ruleEntry.chSet.max;
 
             if (min === max && max === -1) {
                 min = max = 1;
