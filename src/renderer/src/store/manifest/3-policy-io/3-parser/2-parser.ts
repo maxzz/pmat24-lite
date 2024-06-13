@@ -372,7 +372,10 @@ export class PolicyParser {
                 this.ungetChar();
                 rv = this.parse_group();
                 rv.isGroup = true;
-                rv.group.range = this.parse_range();
+                //rv.group.range = this.parse_range();
+                const minmax: Range = this.parse_range();
+                rv.group.min = minmax.min;
+                rv.group.max = minmax.max;
                 break;
             }
             case '[': { // charset

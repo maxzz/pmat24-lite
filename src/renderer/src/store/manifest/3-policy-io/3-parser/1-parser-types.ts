@@ -27,7 +27,8 @@ export class ChSet {                                    // Character set element
 
 class Group {                                           // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
     rules: Rule[] = [];                                 // Rules inside this group.
-    range: Range = { min: -1, max: -1 };                // Repetition range.
+    min: number = -1;                                   // Minimum length of the set.
+    max: number = -1;                                   // Maximum length of the set.
     mix: boolean = true;                                // True if permutation (rearranging) is allowed for this set.
     // TODO: nested level. 0 for the lowest level, i.e. most nested group.
     // TODO: group start in source text.
