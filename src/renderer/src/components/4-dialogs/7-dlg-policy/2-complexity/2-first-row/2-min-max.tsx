@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { PolicyDlgConv, updateMinMaxAtom } from "../../0-all";
 import { InputTooltipShell, OptionInput } from "@/ui";
 import { SymbolWarning } from "@/ui/icons";

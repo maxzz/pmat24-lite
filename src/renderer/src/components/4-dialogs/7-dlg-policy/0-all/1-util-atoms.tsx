@@ -30,6 +30,21 @@ export const updateMinMaxAtom = atom(null,
 //TODO: when isCustom assume initial values are correct
 //TODO: length may be missing from custom rule
 
+function updateMinMaxfromUi(get, set, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
+    const { parser, minLenAtom, maxLenAtom } = dlgUiAtoms;
+
+    const min = +get(minLenAtom).data;
+    const max = +get(maxLenAtom).data;
+
+    if (parser.rulesAndMeta.pswLenRange.min === -1) {
+        parser.rulesAndMeta.pswLenRange.min = min;
+    }
+
+    if (parser.rulesAndMeta.pswLenRange.max === -1) {
+        parser.rulesAndMeta.pswLenRange.max = max;
+    }
+}
+
 export const updateExplanationAtom = atom(null,
     (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom: string; }) => {
         const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
