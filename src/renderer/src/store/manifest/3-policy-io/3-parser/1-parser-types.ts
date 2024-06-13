@@ -25,7 +25,7 @@ export class ChSet {                                    // Character set element
     max: number = -1;                                   // Maximum length of the set.
 };
 
-class Group {                                           // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
+export class Group {                                           // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
     rules: Rule[] = [];                                 // Rules inside this group.
     min: number = -1;                                   // Minimum length of the set.
     max: number = -1;                                   // Maximum length of the set.
@@ -42,7 +42,6 @@ export class Rule {                                     // Element that has eith
 
 export class RulesAndMeta {
     rules: Rule[] = [];
-    //finalLen: Range = { min: -1, max: -1 };           // Final total length of password.  finalLen is set conditionally from UI if not set by custom rule (this case was used by C++ but not used in JS).
     targetMin: number = -1;                             // Targeted password length is set conditionally from UI if not set by custom rule (this case was used by C++ but not used in JS).
     targetMax: number = -1;                             // Total maximum length of password.
 

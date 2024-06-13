@@ -1,4 +1,4 @@
-import { Range, Rule, RulesAndMeta } from "./1-parser-types";
+import { ChSet, Group, Range, Rule, RulesAndMeta } from "./1-parser-types";
 import { ParseError, ParseErrorType } from "./4-parser-error";
 import { isCharNumber, isCharHexNumber } from "../3-verify-generate/9-gen-utils/9-utils-cpp";
 
@@ -187,12 +187,14 @@ export class PolicyParser {
         if (rv.max === -1) {
             rv.max = rv.min;
         }
-
+        
         return rv;
     }
 
-    private parse_range(): Range { // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
-        return this.getRangeEntryWs('{', '}');
+    private parse_range(rv: ChSet | Group): void { // Allowed notation for ranges: {2,4} or {2,2} or {2} or {2,}
+        const minmax: Range = this.getRangeEntryWs('{', '}');
+        rv.min = minmax.min;
+        rv.max = minmax.max;
     }
 
     private getCharOfCharset(): string { // single character like: a b \u1234 \U1234 \u+1234 \U+1234 \u-1234 \U-1234
@@ -372,20 +374,14 @@ export class PolicyParser {
                 this.ungetChar();
                 rv = this.parse_group();
                 rv.isGroup = true;
-                //rv.group.range = this.parse_range();
-                const minmax: Range = this.parse_range();
-                rv.group.min = minmax.min;
-                rv.group.max = minmax.max;
+                this.parse_range(rv.group);
                 break;
             }
             case '[': { // charset
                 this.ungetChar();
                 rv.chSet.chars = this.parse_charset();
                 rv.isGroup = false;
-                //rv.chSet.range = this.parse_range();
-                const minmax: Range = this.parse_range();
-                rv.chSet.min = minmax.min;
-                rv.chSet.max = minmax.max;
+                this.parse_range(rv.chSet);
 
                 if (rv.chSet.chars.length > 1024) {
                     throw new ParseError("expected less then 1024 per charset", ParseErrorType.moreThen1024, this.sourceTextPos); // Charsets can be splited into different sets and then grouped together.
@@ -398,10 +394,7 @@ export class PolicyParser {
             case 's': { // shorthand s
                 rv.chSet.chars = getShorthandChSet(ch, this.sourceTextPos);
                 rv.isGroup = false;
-                //rv.chSet.range = this.parse_range();
-                const minmax: Range = this.parse_range();
-                rv.chSet.min = minmax.min;
-                rv.chSet.max = minmax.max;
+                this.parse_range(rv.chSet);
                 break;
             }
             default: {
