@@ -1,26 +1,22 @@
-import { getRandomCryptoValues, getRandomInRange } from "./2-random-values";
-import { strFindFirstOf, isCharNumber } from "./9-utils-cpp";
 import * as Sets from "./1-char-sets";
+import { getRandomInRange } from "./2-random-values";
+import { strFindFirstOf } from "./9-utils-cpp";
+import { genPswPartByChars } from "./genPswPartByChars";
+import { randomizeCharsInString } from "./randomizeCharsInString";
 
-export function genPswPartByChars(buildFromChars: string, excludeChars: string, pswLength: number): string {
-    if (pswLength <= 0) {
-        throw new Error("inv.arg.length");
-    }
+export function genAlpha(pswLength: number): string {
+    let rv_psw = genPswPartByChars(Sets.SET_AlphaBoth, '', pswLength);
+    return rv_psw;
+}
 
-    let combinedSubsetIn = new Set(buildFromChars);
-    for (const ch of excludeChars) {
-        combinedSubsetIn.delete(ch);
-    }
+export function genNumeric(pswLength: number): string {
+    let rv_psw = genPswPartByChars(Sets.SET_Numeric, '', pswLength);
+    return rv_psw;
+}
 
-    let combinedSubset = Array.from(combinedSubsetIn).join('');
-    if (!combinedSubset) {
-        throw new Error("empty.comb.set");
-    }
-
-    const randomArr = getRandomCryptoValues(pswLength);
-
-    const newPswPart = randomArr.map((v) => combinedSubset[v % combinedSubset.length]).join('');
-    return newPswPart;
+export function genSpecial(pswLength: number): string {
+    let rv_psw = genPswPartByChars(Sets.SET_Special, '', pswLength); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
+    return rv_psw;
 }
 
 export function genAlphaNumeric(pswLength: number): string {
@@ -60,44 +56,6 @@ export function genAlphaNumeric(pswLength: number): string {
     return rv_psw;
 }
 
-export function genAlpha(pswLength: number): string {
-    let rv_psw = genPswPartByChars(Sets.SET_AlphaBoth, '', pswLength);
-    return rv_psw;
-}
-
-export function genNumeric(pswLength: number): string {
-    let rv_psw = genPswPartByChars(Sets.SET_Numeric, '', pswLength);
-    return rv_psw;
-}
-
-export function genSpecial(pswLength: number): string {
-    let rv_psw = genPswPartByChars(Sets.SET_Special, '', pswLength); // changed this from SET_AlphaNumericSpecial to SET_Special - mw 11/22/2004 6:24:10 PM
-    return rv_psw;
-}
-
-export function randomizeCharsInString(psw: string): string { // Randomize password string within its length
-    if (!psw) {
-        return '';
-    }
-
-    const randomArr = getRandomCryptoValues(psw.length);
-
-    const arr = psw.split('');
-    let i = 0;
-    arr.forEach(
-        (current, idx) => {
-            const newIdx = randomArr[i++] % psw.length;
-
-            const temp = arr[newIdx];
-            arr[newIdx] = current;
-            arr[idx] = temp;
-        }
-    );
-
-    const rv = arr.join('');
-    return rv;
-}
-
 export function genAlphaNumSpecial(pswLength: number): string {
     // 0. The goal is to generate password containing alpha, number and special.
     // Characters from each set should exist. Otherwise, atleast 1 from each set 
@@ -125,31 +83,4 @@ export function genAlphaNumSpecial(pswLength: number): string {
 
     // genPswBySet(Sets.SET_AlphaNumericSpecial, pswLength_, rv_psw);
     return rv_psw;
-}
-
-/////////////////////////////////////////////////////////////////////
-
-export function hasAdjacentDigits(psw: string): boolean {
-    // 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
-
-    let isPrevDigit = false;
-
-    for (const curCh of psw) {
-        const isCurrDigit = isCharNumber(curCh);
-
-        if (isCurrDigit && isPrevDigit) {
-            return true;
-        }
-
-        isPrevDigit = isCurrDigit;
-    }
-
-    return false;
-}
-
-export function hasDuplicateChars(psw: string): boolean {
-    // 0. To validate whether password has any duplicate characters: letters or digits or symbols
-
-    const set = new Set<string>(psw);
-    return set.size !== psw.length;
 }

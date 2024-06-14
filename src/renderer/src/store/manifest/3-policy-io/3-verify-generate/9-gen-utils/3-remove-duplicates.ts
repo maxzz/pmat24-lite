@@ -1,5 +1,5 @@
 import { strFindFirstOf } from "./9-utils-cpp";
-import { genPswPartByChars } from "./8-utils";
+import { genPswPartByChars } from "./genPswPartByChars";
 import * as Sets from "./1-char-sets";
 
 /////////////////////////////////////////////////////////////////////
