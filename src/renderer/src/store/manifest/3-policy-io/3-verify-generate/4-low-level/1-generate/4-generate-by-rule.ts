@@ -3,26 +3,27 @@ import { ChSetExtraMap } from "../9-types";
 import { genUtils } from "../../9-gen-utils";
 import { findChSetData } from "./1-find-chset-data";
 
-export function generateByRule(
-    rules: Rule[],
-    chSetExtraMap: ChSetExtraMap,
-    noDuplicates: boolean,
-    avoidConsecutiveChars: boolean,
-    excludeChars: string
-): string {
+export type GenerateByRuleParams = {
+    rules: Rule[];
+    chSetExtraMap: ChSetExtraMap;
+    noDuplicates: boolean;
+    avoidConsecutiveChars: boolean;
+    excludeChars: string;
+};
+
+export function generateByRule(params: GenerateByRuleParams): string {
     let rv_password = '';
+
+    const { rules, chSetExtraMap, noDuplicates, avoidConsecutiveChars, excludeChars } = params;
 
     rules.forEach((rule) => {
 
         if (rule.isGroup) {
 
-            let pswOutOfGroup = generateByRule(
-                rule.group.rules,
-                chSetExtraMap,
-                noDuplicates,
-                avoidConsecutiveChars,
-                excludeChars
-            );
+            let pswOutOfGroup = generateByRule({
+                ...params,
+                rules: rule.group.rules,
+            });
 
             if (rule.group.mix) {
                 pswOutOfGroup = genUtils.randomizeCharsInString(pswOutOfGroup);

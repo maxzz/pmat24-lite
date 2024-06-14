@@ -1,6 +1,6 @@
 import { ChSet, RulesAndMeta } from "../../../3-parser/1-parser-types";
 import { ChSetExtra } from "../9-types";
-import { generateByRule } from "./4-generate-by-rule";
+import { GenerateByRuleParams, generateByRule } from "./4-generate-by-rule";
 import { GeneratePswByRulesRecursivelyParams, splitToDefUndef } from "./2-split-to-def-undef";
 import { spreadFinalLength } from "./3-spread-final-length";
 
@@ -24,13 +24,14 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
             excludeChars = prevPsw;
         }
 
-        rv = generateByRule(
-            rulesAndMeta.rules,
-            pm.chSetExtraMap,
+        const generateByRuleParams: GenerateByRuleParams = {
+            rules: rulesAndMeta.rules,
+            chSetExtraMap: pm.chSetExtraMap,
             noDuplicates,
-            rulesAndMeta.noRepeat,
-            excludeChars
-        );
+            avoidConsecutiveChars: rulesAndMeta.noRepeat,
+            excludeChars,
+        }
+        rv = generateByRule(generateByRuleParams);
 
     } catch (e) {
         rv = '';
