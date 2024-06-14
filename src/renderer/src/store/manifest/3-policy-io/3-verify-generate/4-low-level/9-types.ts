@@ -1,5 +1,5 @@
 import { ChSet } from "../../3-parser/1-parser-types";
-import { genUtils } from "../9-gen-utils/8-utils";
+import { genUtils } from "../9-gen-utils";
 
 export class ChSetExtra {
     chSet: ChSet;

@@ -1,5 +1,5 @@
 import { Poli } from "pm-manifest";
-import { genUtils } from "../9-gen-utils/8-utils";
+import { genUtils } from "../9-gen-utils";
 
 // class generate_t
 export function operator_generate(policy: Poli.Policy): string {
