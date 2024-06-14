@@ -19,7 +19,7 @@ export function splitToDefUndef(rules: Rule[], pm: GeneratePswByRulesRecursively
         } else {
             const chSetExtra = new ChSetExtra(rule.chSet);
 
-            if (chSetExtra.wasLenGenerated()) {
+            if (chSetExtra.checkWasLenGenerated()) {
                 pm.generated.push(chSetExtra);
                 pm.chSetExtraMap.set(rule.chSet, chSetExtra);
                 pm.pswLenGenerated += chSetExtra.generatedLen;

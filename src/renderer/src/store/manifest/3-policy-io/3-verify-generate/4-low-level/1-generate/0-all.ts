@@ -2,7 +2,7 @@ import { ChSet, RulesAndMeta } from "../../../3-parser/1-parser-types";
 import { ChSetExtra } from "../9-types";
 import { GenerateByRuleParams, generateByRule } from "./4-generate-by-rule";
 import { GeneratePswByRulesRecursivelyParams, splitToDefUndef } from "./2-split-to-def-undef";
-import { spreadFinalLength } from "./3-spread-final-length";
+import { spreadLenForUndef } from "./3-spread-final-length";
 
 export function generatePswByRules(rulesAndMeta: RulesAndMeta, noDuplicates: boolean, prevPsw: string): string {
     try {
@@ -15,7 +15,7 @@ export function generatePswByRules(rulesAndMeta: RulesAndMeta, noDuplicates: boo
         };
         splitToDefUndef(rulesAndMeta.rules, pm);
 
-        pm.pswLenGenerated = spreadFinalLength(pm.toGenerate, pm.pswLenGenerated, rulesAndMeta.targetMin, rulesAndMeta.targetMax);
+        pm.pswLenGenerated = spreadLenForUndef(pm.toGenerate, pm.pswLenGenerated, rulesAndMeta.targetMin, rulesAndMeta.targetMax);
 
         const generateByRuleParams: GenerateByRuleParams = {
             rules: rulesAndMeta.rules,
