@@ -18,6 +18,48 @@ export namespace genUtils {
     export const setSET_AlphaNumeric = new Set(SET_AlphaNumeric);
     export const setSET_AlphaNumericSpecial = new Set(SET_AlphaNumericSpecial);
 
+    function cryptoRandomLengthInclusive(min: number, max: number): number {
+        let range = max - min + 1;
+
+        let bitsNeeded = Math.ceil(Math.log2(range));
+        if (bitsNeeded > 53) {
+            throw new Error("We cannot generate numbers larger than 53 bits.");
+        }
+        let bytesNeeded = Math.ceil(bitsNeeded / 8);
+        let mask = Math.pow(2, bitsNeeded) - 1; // 7776 -> (2^13 = 8192) -1 == 8191 or 0x00001111 11111111
+
+        let byteArray = new Uint8Array(bytesNeeded); // Create byte array and fill with N random numbers
+        crypto.getRandomValues(byteArray);
+
+        let rv = 0;
+        let pow = (bytesNeeded - 1) * 8;
+        for (let idx = 0; idx < bytesNeeded; idx++) {
+            rv += byteArray[idx] * Math.pow(2, pow);
+            pow -= 8;
+        }
+
+        rv = rv & mask; // Use & to apply the mask and reduce the number of recursive lookups
+
+        if (rv >= range) {
+            return cryptoRandomLengthInclusive(min, max); // Integer out of acceptable range
+        }
+
+        return min + rv; // Return an integer that falls within the range
+    }
+
+    function cryptoRandomLengthInclusive2(min: number, max: number): number {
+        // Create byte array and fill with 1 random number
+        var byteArray = new Uint8Array(1);
+        window.crypto.getRandomValues(byteArray);
+
+        var range = max - min + 1;
+        var max_range = 256;
+        if (byteArray[0] >= Math.floor(max_range / range) * range) {
+            return cryptoRandomLengthInclusive(min, max);
+        }
+        return min + (byteArray[0] % range);
+    }
+
     function getRandomIntInclusive(min: number, max: number): number {
         // Keep it simple so far it used to get passowd length only.
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -32,6 +74,8 @@ export namespace genUtils {
         }
 
         return getRandomIntInclusive(min, max);
+        // return cryptoRandomLengthInclusive(min, max);
+        // return cryptoRandomLengthInclusive2(min, max);
 
         /*
         // TODO: Random device is slow and expensive to create so
@@ -47,9 +91,13 @@ export namespace genUtils {
         */
     }
 
-    export function genPswPartByChars(buildFromChars: string, excludeChars: string, pswLength: number): string {
-        let rv = '';
+    function getRandomCryptoValues(length: number): number[] {
+        const buf = new Uint8Array(length);
+        crypto.getRandomValues(buf);
+        return Array.from(buf);
+    }
 
+    export function genPswPartByChars(buildFromChars: string, excludeChars: string, pswLength: number): string {
         if (pswLength <= 0) {
             throw new Error("inv.arg.length");
         }
@@ -64,18 +112,10 @@ export namespace genUtils {
             throw new Error("empty.comb.set");
         }
 
-        let buf = new Uint8Array(pswLength);
-        crypto.getRandomValues(buf);
+        const randomArr = getRandomCryptoValues(pswLength);
 
-        let resBuffer = Array.from(buf);
-
-        const newPswPart = resBuffer.map((v) => {
-            return combinedSubset[v % combinedSubset.length];
-        }).join('');
-
-        rv += newPswPart;
-
-        return rv;
+        const newPswPart = randomArr.map((v) => combinedSubset[v % combinedSubset.length]).join('');
+        return newPswPart;
     }
 
     export function genAlphaNumeric(pswLength: number): string {
@@ -84,37 +124,32 @@ export namespace genUtils {
         const alphaL: string = genPswPartByChars(SET_AlphaLower, '', pswLength);
         const alphaU: string = genPswPartByChars(SET_AlphaUpper, '', pswLength);
         const numeric: string = genPswPartByChars(SET_Numeric, '', pswLength);
+        const newSubSet = alphaL + alphaU + numeric;
 
         // Do until we have password containing all character sets to be used.
         // NOTE: If length <= 2 then we cannot ensure so we ensure: lower/upper + numeric.
-        const newSubSet = alphaL + alphaU + numeric;
-
         let doAgain = true;
         do {
             rv_psw = genPswPartByChars(newSubSet, '', pswLength);
 
             // Check whether we should iterate again to generate an acceptable mix of value.
             if (pswLength > 2) {
-                // Should have all mix: numeric, lower and upper alphabet.
-                doAgain =
+                doAgain = // Should have all mix: numeric, lower and upper alphabet.
                     strFindFirstOf(rv_psw, setSET_Numeric) === -1 ||
                     strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 ||
                     strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1;
-            } else if (pswLength == 2) {
-                // Should have atleast: numeric and lower/upper alphabet.
-                doAgain =
+            } else if (pswLength === 2) {
+                doAgain = // Should have atleast: numeric and lower/upper alphabet.
                     strFindFirstOf(rv_psw, setSET_Numeric) === -1 || (
                         strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 &&
                         strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1
                     );
             } else {
-                // Should have atleast: numeric or lower or upper alphabet.
-                doAgain =
+                doAgain = // Should have atleast: numeric or lower or upper alphabet.
                     strFindFirstOf(rv_psw, setSET_Numeric) === -1 &&
                     strFindFirstOf(rv_psw, setSET_AlphaLower) === -1 &&
                     strFindFirstOf(rv_psw, setSET_AlphaUpper) === -1;
             }
-
         } while (doAgain);
 
         return rv_psw;
@@ -140,18 +175,13 @@ export namespace genUtils {
             return '';
         }
 
-        let buf = new Uint8Array(psw.length);
-        crypto.getRandomValues(buf);
+        const randomArr = getRandomCryptoValues(psw.length);
 
-        let resBuffer = Array.from(buf);
-
-        let arr = psw.split('');
-
-        var i = 0;
-
+        const arr = psw.split('');
+        let i = 0;
         arr.forEach(
             (current, idx) => {
-                const newIdx = resBuffer[i++] % psw.length;
+                const newIdx = randomArr[i++] % psw.length;
 
                 const temp = arr[newIdx];
                 arr[newIdx] = current;
@@ -213,7 +243,7 @@ export namespace genUtils {
     }
 
     export function hasDuplicateChars(psw: string): boolean {
-        // To validate whether password has any duplicate characters: letters or digits or symbols
+        // 0. To validate whether password has any duplicate characters: letters or digits or symbols
 
         const set = new Set<string>(psw);
         return set.size !== psw.length;

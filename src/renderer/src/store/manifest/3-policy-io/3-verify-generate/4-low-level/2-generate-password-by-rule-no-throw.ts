@@ -34,19 +34,19 @@ function generatePasswordByRuleRecursively(
 ): string {
     let rv_password = '';
 
-    rules.forEach((ruleEntry) => {
+    rules.forEach((rule) => {
 
-        if (ruleEntry.isGroup) {
+        if (rule.isGroup) {
 
             let pswOutOfGroup = generatePasswordByRuleRecursively(
-                ruleEntry.group.rules,
+                rule.group.rules,
                 chSetExtraMap,
                 noDuplicates,
                 avoidConsecutiveChars,
                 excludeChars
             );
 
-            if (ruleEntry.group.mix) {
+            if (rule.group.mix) {
                 pswOutOfGroup = genUtils.randomizeCharsInString(pswOutOfGroup);
             }
 
@@ -61,7 +61,7 @@ function generatePasswordByRuleRecursively(
                     let curCh = rv_password[i];
 
                     if (prevCh === curCh) {
-                        let chSetData = findChSetData(curCh, chSetExtraMap, ruleEntry.group.rules);
+                        let chSetData = findChSetData(curCh, chSetExtraMap, rule.group.rules);
                         if (chSetData) {
                             let newExcludeChars = (i === rv_password.length - 1 ? prevCh : prevCh + rv_password[i + 1]) + excludeChars;
                             let generatedValue = genUtils.genPswPartByChars(chSetData.chSet.chars, newExcludeChars, 1);
@@ -78,7 +78,7 @@ function generatePasswordByRuleRecursively(
             }
 
         } else {
-            let chSetData = chSetExtraMap.get(ruleEntry.chSet);
+            let chSetData = chSetExtraMap.get(rule.chSet);
             if (!chSetData) {
                 throw new Error("NO.chSetData_t.1");
             }
