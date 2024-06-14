@@ -14,7 +14,7 @@ export class ChSetExtra {
         this.max = chSet.max;
     }
 
-    generateLength(): boolean {
+    wasLenGenerated(): boolean {
         if (this.wasGenerated) {
             return true;
         }

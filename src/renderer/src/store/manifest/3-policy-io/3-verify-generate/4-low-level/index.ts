@@ -1,4 +1,4 @@
-import * as customRule4 from "./1-verify-password-against-rule-no-throw";
-import * as customRule5 from "./2-generate-password-by-rule-no-throw";
+import * as l1 from "./1-generate/0-all";
+import * as l2 from "./2-verify/0-all";
 
-export const customRule = { ...customRule4, ...customRule5 };
+export const customRule = { ...l2, ...l1 };

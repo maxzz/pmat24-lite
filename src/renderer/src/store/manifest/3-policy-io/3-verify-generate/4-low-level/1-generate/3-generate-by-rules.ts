@@ -1,5 +1,5 @@
-import { Rule } from "../../3-parser/1-parser-types";
-import { ChSetExtraMap, ChSetExtra } from "./9-types";
+import { Rule } from "../../../3-parser/1-parser-types";
+import { ChSetExtraMap, ChSetExtra } from "../9-types";
 
 export type GeneratePswByRulesRecursivelyParams = {
     chSetExtraMap: ChSetExtraMap;
@@ -12,14 +12,14 @@ export type GeneratePswByRulesRecursivelyParams = {
 /**
  * Generate password (only for one's with known range: min, max) as per custom rule specified.
  */
-export function generatePswByRulesRecursively(rules: Rule[], pm: GeneratePswByRulesRecursivelyParams): void {
+export function generateByRules(rules: Rule[], pm: GeneratePswByRulesRecursivelyParams): void {
     rules.forEach((rule) => {
         if (rule.isGroup) {
-            generatePswByRulesRecursively(rule.group.rules, pm);
+            generateByRules(rule.group.rules, pm);
         } else {
             const chSetExtra = new ChSetExtra(rule.chSet);
 
-            if (chSetExtra.generateLength()) {
+            if (chSetExtra.wasLenGenerated()) {
                 pm.generated.push(chSetExtra);
                 pm.chSetExtraMap.set(rule.chSet, chSetExtra);
                 pm.pswLenGenerated += chSetExtra.generatedLen;
