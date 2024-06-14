@@ -32,7 +32,7 @@ export function spreadLenForUndefs(toGenerate: ChSetExtra[], lenAlreadyGenerated
                     }
                 }
 
-                //chSetExtra.max = Math.max(chSetExtra.min, Math.min(lenForThisUndef, chSetExtra.chSet.chars.length));
+                //tm: was chSetExtra.max = Math.max(chSetExtra.min, Math.min(lenForThisUndef, chSetExtra.chSet.chars.length)); //don't rely on chSetExtra.chSet.chars.length and use lenForThisUndef instead
                 chSetExtra.max = Math.max(chSetExtra.min, lenForThisUndef);
 
                 if (isLastEntry && chSetExtra.max > targetMax - lenAlreadyGenerated) {
