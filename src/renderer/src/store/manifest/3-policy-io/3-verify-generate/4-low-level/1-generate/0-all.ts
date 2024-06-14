@@ -4,9 +4,7 @@ import { GenerateByRuleParams, generateByRule } from "./4-generate-by-rule";
 import { GeneratePswByRulesRecursivelyParams, splitToDefUndef } from "./2-split-to-def-undef";
 import { spreadFinalLength } from "./3-spread-final-length";
 
-export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDuplicates: boolean, prevPsw: string): string {
-    let rv = '';
-
+export function generatePswByRules(rulesAndMeta: RulesAndMeta, noDuplicates: boolean, prevPsw: string): string {
     try {
         let pm: GeneratePswByRulesRecursivelyParams = {
             chSetExtraMap: new Map<ChSet, ChSetExtra>(),
@@ -19,24 +17,17 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
 
         pm.pswLenGenerated = spreadFinalLength(pm.toGenerate, pm.pswLenGenerated, rulesAndMeta.targetMin, rulesAndMeta.targetMax);
 
-        let excludeChars = '';
-        if (rulesAndMeta.noPrevPos) { // Check previous password character by character if requested
-            excludeChars = prevPsw;
-        }
-
         const generateByRuleParams: GenerateByRuleParams = {
             rules: rulesAndMeta.rules,
             chSetExtraMap: pm.chSetExtraMap,
             noDuplicates,
             avoidConsecutiveChars: rulesAndMeta.noRepeat,
-            excludeChars,
-        }
-        rv = generateByRule(generateByRuleParams);
-
+            excludeChars: rulesAndMeta.noPrevPos ? prevPsw : '', // Check previous password character by character if requested
+        };
+        const rv = generateByRule(generateByRuleParams);
+        return rv;
     } catch (e) {
-        rv = '';
-        console.log('Error in generatePasswordByRuleNoThrow: ', e);
+        console.error('generatePswByRule', e);
+        return '';
     }
-
-    return rv;
 }

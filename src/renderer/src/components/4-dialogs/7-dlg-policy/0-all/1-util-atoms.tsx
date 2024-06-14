@@ -1,7 +1,7 @@
 import { Getter, Setter, atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
 import { ParseError } from "@/store/manifest/3-policy-io";
-import { checkRulesBoundsForGenerate, generatePasswordByRuleNoThrow, getCustomRuleExplanation, verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io";
+import { checkRulesBoundsForGenerate, generatePswByRules, getCustomRuleExplanation, verifyPasswordAgainstRuleNoThrow } from "@/store/manifest/3-policy-io";
 
 export const doInitialAtomsSetupAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
@@ -196,7 +196,7 @@ export const generateAtom = atom(null,
 
         console.log(`generateAtom custom=${custom}`, parser);
 
-        const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, prevPsw);
+        const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, prevPsw);
         set(testPasswordAtom, psw);
         set(verifyAtom, { dlgUiAtoms, psw, prevPsw });
         //console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
