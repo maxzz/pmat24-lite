@@ -8,7 +8,7 @@ export function generateByRule(
     chSetExtraMap: ChSetExtraMap,
     noDuplicates: boolean,
     avoidConsecutiveChars: boolean,
-    excludeChars: string = ''
+    excludeChars: string
 ): string {
     let rv_password = '';
 
