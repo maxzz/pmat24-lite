@@ -196,7 +196,7 @@ export const generateAtom = atom(null,
 
         console.log(`generateAtom custom=${custom}`, parser);
 
-        const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.avoidConsecutiveChars, prevPsw);
+        const psw = generatePasswordByRuleNoThrow(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, prevPsw);
         set(testPasswordAtom, psw);
         set(verifyAtom, { dlgUiAtoms, psw, prevPsw });
         //console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
@@ -212,7 +212,7 @@ export const verifyAtom = atom(null,
         console.log(`verify`, parser.rulesAndMeta);
         
 
-        const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.avoidConsecutiveChars);
+        const ok = verifyPasswordAgainstRuleNoThrow(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
         set(testVerifiedAtom, ok ? '1' : '0');
     }
 );

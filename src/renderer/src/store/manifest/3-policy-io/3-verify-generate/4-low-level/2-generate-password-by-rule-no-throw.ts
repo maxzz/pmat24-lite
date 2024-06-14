@@ -183,7 +183,7 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
         );
 
         let excludeChars = '';
-        if (rulesAndMeta.checkPrevPswCharPosition) { // Check previous password character by character if requested
+        if (rulesAndMeta.noPrevPos) { // Check previous password character by character if requested
             excludeChars = prevPsw;
         }
 
@@ -191,7 +191,7 @@ export function generatePasswordByRuleNoThrow(rulesAndMeta: RulesAndMeta, noDupl
             rulesAndMeta.rules,
             pm.chSetExtraMap,
             noDuplicates,
-            rulesAndMeta.avoidConsecutiveChars,
+            rulesAndMeta.noRepeat,
             excludeChars
         );
 

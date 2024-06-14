@@ -99,7 +99,7 @@ export function verifyPasswordAgainstRuleNoThrow(rulesAndMeta: RulesAndMeta, pre
         return false;
     }
 
-    if (rulesAndMeta.checkPrevPswCharPosition && !!prevPsw) {
+    if (rulesAndMeta.noPrevPos && !!prevPsw) {
         let maxLength = Math.min(prevPsw.length, psw.length);
         for (let i = 0; i < maxLength; i++) {
             let isSameCharAtSamePosition = prevPsw[i] === psw[i];
@@ -110,7 +110,7 @@ export function verifyPasswordAgainstRuleNoThrow(rulesAndMeta: RulesAndMeta, pre
         }
     }
 
-    if (rulesAndMeta.avoidConsecutiveChars) {
+    if (rulesAndMeta.noRepeat) {
         let prevChar = '';
         for (let i = 0; i < psw.length; i++) {
             let isSameCharAsPreviousOne = prevChar === psw[i];

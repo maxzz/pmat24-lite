@@ -187,7 +187,7 @@ export class PolicyParser {
         if (rv.max === -1) {
             rv.max = rv.min;
         }
-        
+
         return rv;
     }
 
@@ -444,11 +444,11 @@ export class PolicyParser {
 
             switch (ch) {
                 case '~': { // To avoid the same character be used consecutively (global),
-                    this.rulesAndMeta.avoidConsecutiveChars = true;
+                    this.rulesAndMeta.noRepeat = true;
                     break;
                 }
                 case '&': { // To avoid the same character in the same position from its previous value (recent one only).
-                    this.rulesAndMeta.checkPrevPswCharPosition = true;
+                    this.rulesAndMeta.noPrevPos = true;
                     break;
                 }
                 case '(': // group
@@ -463,7 +463,6 @@ export class PolicyParser {
                 }
                 case '<': { // final psw length can be at the begin or at the end of input string.
                     this.ungetChar();
-                    //this.rulesAndMeta.finalLen = this.parse_finalPswLength();
                     const range: Range = this.parse_finalPswLength();
                     this.rulesAndMeta.targetMin = range.min;
                     this.rulesAndMeta.targetMax = range.max;

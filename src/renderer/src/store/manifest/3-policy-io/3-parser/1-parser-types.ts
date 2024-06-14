@@ -25,14 +25,14 @@ export class ChSet {                                    // Character set element
     max: number = -1;                                   // Maximum length of the set.
 };
 
-export class Group {                                           // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
+export class Group {                                    // Group element as a complex rule like: ([a-z]{1,}\A{3}\d{1,3}) with repetition.
     rules: Rule[] = [];                                 // Rules inside this group.
     min: number = -1;                                   // Minimum length of the set.
     max: number = -1;                                   // Maximum length of the set.
     mix: boolean = true;                                // True if permutation (rearranging) is allowed for this set.
-    // TODO: nested level. 0 for the lowest level, i.e. most nested group.
-    // TODO: group start in source text.
 };
+//TODO: nested level. 0 for the lowest level, i.e. most nested group.
+//TODO: group start in source text.
 
 export class Rule {                                     // Element that has either chsetEntry_t or groupEntry_t.
     chSet: ChSet = new ChSet();                         // Character set element.
@@ -45,6 +45,6 @@ export class RulesAndMeta {
     targetMin: number = -1;                             // Targeted password length is set conditionally from UI if not set by custom rule (this case was used by C++ but not used in JS).
     targetMax: number = -1;                             // Total maximum length of password.
 
-    avoidConsecutiveChars: boolean = false;             // Whether to disallow repetition of same character consecutively. 
-    checkPrevPswCharPosition: boolean = false;          // Avoid same character in the same position as its recent (predecessor) value.
+    noRepeat: boolean = false;                          // Whether to disallow repetition of same character consecutively. former: avoidConsecutiveChars
+    noPrevPos: boolean = false;                         // Avoid same character in the same position as its recent (predecessor) value. former: avoidSamePositionChars
 };
