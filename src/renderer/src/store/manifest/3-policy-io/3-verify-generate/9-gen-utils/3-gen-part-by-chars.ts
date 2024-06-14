@@ -1,6 +1,5 @@
 import { getRandomCryptoValues } from "./2-random-values";
 
-
 export function genPswPartByChars(buildFromChars: string, excludeChars: string, pswLength: number): string {
     if (pswLength <= 0) {
         throw new Error("inv.arg.length");

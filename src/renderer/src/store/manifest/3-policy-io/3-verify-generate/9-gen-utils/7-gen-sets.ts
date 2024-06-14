@@ -1,8 +1,8 @@
 import * as Sets from "./1-char-sets";
 import { getRandomInRange } from "./2-random-values";
 import { strFindFirstOf } from "./9-utils-cpp";
-import { genPswPartByChars } from "./genPswPartByChars";
-import { randomizeCharsInString } from "./randomizeCharsInString";
+import { genPswPartByChars } from "./3-gen-part-by-chars";
+import { randomizeCharsInString } from "./4-randomize-chars";
 
 export function genAlpha(pswLength: number): string {
     let rv_psw = genPswPartByChars(Sets.SET_AlphaBoth, '', pswLength);

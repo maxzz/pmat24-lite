@@ -1,7 +1,5 @@
 import { isCharNumber } from "./9-utils-cpp";
 
-/////////////////////////////////////////////////////////////////////
-
 export function hasAdjacentDigits(psw: string): boolean {
     // 0. To validate whether the password has any adjacentdigits. Used for verification purpose.
     let isPrevDigit = false;

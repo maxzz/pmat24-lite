@@ -1,8 +1,6 @@
 import { strFindFirstOf } from "./9-utils-cpp";
-import { genPswPartByChars } from "./genPswPartByChars";
+import { genPswPartByChars } from "./3-gen-part-by-chars";
 import * as Sets from "./1-char-sets";
-
-/////////////////////////////////////////////////////////////////////
 
 export function removeDuplicateChars(psw: string): string {
     // 0. To idenitfy and replace any duplicate character with its corresponding unused set.

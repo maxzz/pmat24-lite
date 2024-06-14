@@ -1,6 +1,5 @@
 import { getRandomCryptoValues } from "./2-random-values";
 
-
 export function randomizeCharsInString(psw: string): string {
     if (!psw) {
         return '';

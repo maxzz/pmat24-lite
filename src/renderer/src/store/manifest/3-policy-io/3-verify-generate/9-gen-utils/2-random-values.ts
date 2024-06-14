@@ -1,4 +1,33 @@
-function cryptoRandomLengthInclusive(min: number, max: number): number {
+/**
+ * Keep it simple so far it used to get passowd length only.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+ */
+function jsRandomIntInclusive(min: number, max: number): number {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+}
+
+/**
+ * https://stackoverflow.com/questions/18230217/javascript-generate-a-random-number-within-a-range-using-crypto-getrandomvalues
+ */
+function cryptoRandomLengthInclusive1(min: number, max: number): number {
+    // Create byte array and fill with 1 random number
+    var byteArray = new Uint8Array(1);
+    window.crypto.getRandomValues(byteArray);
+
+    var range = max - min + 1;
+    var max_range = 256;
+    if (byteArray[0] >= Math.floor(max_range / range) * range) {
+        return cryptoRandomLengthInclusive1(min, max);
+    }
+    return min + (byteArray[0] % range);
+}
+
+/**
+ * https://github.com/EFForg/OpenWireless/blob/master/app/js/diceware.js
+ */
+function cryptoRandomLengthInclusive2(min: number, max: number): number {
     let range = max - min + 1;
 
     let bitsNeeded = Math.ceil(Math.log2(range));
@@ -21,31 +50,10 @@ function cryptoRandomLengthInclusive(min: number, max: number): number {
     rv = rv & mask; // Use & to apply the mask and reduce the number of recursive lookups
 
     if (rv >= range) {
-        return cryptoRandomLengthInclusive(min, max); // Integer out of acceptable range
+        return cryptoRandomLengthInclusive2(min, max); // Integer out of acceptable range
     }
 
     return min + rv; // Return an integer that falls within the range
-}
-
-function cryptoRandomLengthInclusive2(min: number, max: number): number {
-    // Create byte array and fill with 1 random number
-    var byteArray = new Uint8Array(1);
-    window.crypto.getRandomValues(byteArray);
-
-    var range = max - min + 1;
-    var max_range = 256;
-    if (byteArray[0] >= Math.floor(max_range / range) * range) {
-        return cryptoRandomLengthInclusive(min, max);
-    }
-    return min + (byteArray[0] % range);
-}
-
-function getRandomIntInclusive(min: number, max: number): number {
-    // Keep it simple so far it used to get passowd length only.
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
 }
 
 export function getRandomInRange(min: number, max: number): number {
@@ -53,12 +61,12 @@ export function getRandomInRange(min: number, max: number): number {
         throw new Error("inv.r.bounds");
     }
 
-    return getRandomIntInclusive(min, max);
-    // return cryptoRandomLengthInclusive(min, max);
+    return jsRandomIntInclusive(min, max);
+    // return cryptoRandomLengthInclusive1(min, max);
     // return cryptoRandomLengthInclusive2(min, max);
-    /*
-    // TODO: Random device is slow and expensive to create so
-    // we should avoid calling multiple times.
+}
+/* c++
+    //TODO: Random device is slow and expensive to create so we should avoid calling multiple times.
     std::random_device rd;
     std::mt19937 mt(rd()); // mersenne twister engine.
 
@@ -67,8 +75,7 @@ export function getRandomInRange(min: number, max: number): number {
 
     //size_t rv = min_ + getRandom(max_ - min_);
     return rv;
-    */
-}
+*/
 
 export function getRandomCryptoValues(length: number): number[] {
     const buf = new Uint8Array(length);

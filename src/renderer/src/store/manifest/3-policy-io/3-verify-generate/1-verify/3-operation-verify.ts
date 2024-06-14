@@ -1,5 +1,5 @@
 import { Poli } from "pm-manifest";
-import { strFindFirstNotOf, genUtils, strFindFirstOf } from "../9-gen-utils";
+import { genUtils, strFindFirstNotOf, strFindFirstOf } from "../9-gen-utils";
 
 // class verify_t {
 //TODO: We need to generate explanation to user why policy verification failed. Later.
