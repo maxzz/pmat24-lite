@@ -9,7 +9,12 @@ import { ErrorInfo } from "../3-test-area/4-rule-explanation";
 function ErrorInfoTrigger() {
     return (
         <PopoverTrigger asChild>
-            <Button className={classNames(inlineButtonClasses, "p-0 text-red-500 hover:text-red-500 aspect-square")} size="sm" tabIndex={-1} title="Error">
+            <Button
+                className={classNames(inlineButtonClasses, "p-0 text-red-500 hover:text-red-500 aspect-square")}
+                size="sm"
+                tabIndex={-1}
+                title="Attention. Click to see the message"
+            >
                 <SymbolWarning className="pt-px size-5" />
             </Button>
         </PopoverTrigger>

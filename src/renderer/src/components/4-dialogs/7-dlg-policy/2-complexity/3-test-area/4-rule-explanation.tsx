@@ -1,12 +1,12 @@
-import { Fragment } from "react";
+import { Fragment, HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { PolicyDlgConv } from "../../0-all";
 import { SymbolDot } from "@/ui/icons";
 import { classNames } from "@/utils";
 
-export function ErrorInfo({ errorText }: { errorText: string; }) {
+export function ErrorInfo({ errorText, className, ...rest }: { errorText: string; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("mt-1 font-semibold text-red-500 select-text", !errorText && "invisible" )}>
+        <div className={classNames("mt-1 min-h-4 text-red-500 select-text", !errorText && "invisible", className)} {...rest}>
             {errorText}
         </div>
     );
@@ -21,7 +21,7 @@ export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
                 <div>
                     Password should consist of
                 </div>
-                
+
                 <div className="grid grid-cols-[auto,1fr]">
                     {/*
                         Explanation:
@@ -47,7 +47,7 @@ export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Poli
                 </div>
             </>)}
 
-            <ErrorInfo errorText={errorText} />
+            <ErrorInfo className="font-semibold" errorText={errorText} />
         </div>
     );
 }

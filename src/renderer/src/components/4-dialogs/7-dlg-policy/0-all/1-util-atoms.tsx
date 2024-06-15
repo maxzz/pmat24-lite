@@ -42,6 +42,13 @@ export const updateExplanationAtom = atom(null,
 
             parser.doParse({ custom, minTotal: min, maxTotal: max });
 
+            const final = [];
+            getCustomRuleExplanation(parser.rulesAndMeta.rules, final);
+            const explanation = final.join('\n');
+            set(explanationAtom, explanation);
+
+            set(verifyAtom, { dlgUiAtoms, psw: get(testPasswordAtom), prevPsw: '' });
+
             if (custom) {
                 const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
                 console.log(`bounds=${JSON.stringify(bounds)} ${custom}`);
@@ -57,13 +64,7 @@ export const updateExplanationAtom = atom(null,
                 }
             }
 
-            const final = [];
-            getCustomRuleExplanation(parser.rulesAndMeta.rules, final);
-            const explanation = final.join('\n');
-
-            set(explanationAtom, explanation);
             set(errorTextAtom, '');
-            set(verifyAtom, { dlgUiAtoms, psw: get(testPasswordAtom), prevPsw: '' });
         } catch (e) {
             set(errorTextAtom, parserErrorToString(e));
             set(testVerifiedAtom, '');
@@ -77,7 +78,7 @@ export const generateAtom = atom(null,
 
         const custom = get(customAtom);
         if (!custom) {
-            set(errorTextAtom, 'The custom rule is empty.');
+            set(errorTextAtom, 'The custom rule is empty');
             return;
         }
 
