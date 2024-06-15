@@ -25,6 +25,8 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
             pm.password = newPm.password;
             continue;
         } else {
+            let curPswLength = pm.password.length;
+
             let min = ruleEntry.chSet.min;
             let max = ruleEntry.chSet.max;
 
@@ -32,13 +34,13 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
                 min = max = 1;
             }
             if (max === -2) {
-                max = pm.password.length;
+                max = curPswLength;
             }
 
             let countCharsFound = 0;
             let i = 0;
 
-            for (; i < pm.password.length && i < max; i++) {
+            for (; i < curPswLength && i < max; i++) {
                 let pos = -1;
 
                 if (!pm.mix) {
