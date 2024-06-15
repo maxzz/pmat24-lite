@@ -12,7 +12,7 @@ export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Polic
     const generateList = useSetAtom(generateListAtom);
     const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
     const doGenerate = useSetAtom(generateAtom);
-    return (<>
+    return (<div>
         <Button
             className={localButtonClasses} variant="outline" size="sm" title="Generate test password. Ctrl+Click to generate 50 passwords."
             onClick={(e) => {
@@ -30,5 +30,5 @@ export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Polic
         </Button>
 
         <ButtonGeneratedList openAtom={openGeneratedListAtom} />
-    </>);
+    </div>);
 }
