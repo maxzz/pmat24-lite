@@ -6,7 +6,7 @@ import { classNames } from "@/utils";
 
 export function ErrorInfo({ errorText }: { errorText: string; }) {
     return (
-        <div className={classNames("mt-1 font-semibold text-red-500", !errorText && "invisible" )}>
+        <div className={classNames("mt-1 font-semibold text-red-500 select-text", !errorText && "invisible" )}>
             {errorText}
         </div>
     );
