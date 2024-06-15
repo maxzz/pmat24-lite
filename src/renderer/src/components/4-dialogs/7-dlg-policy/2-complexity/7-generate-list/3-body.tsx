@@ -1,11 +1,8 @@
 import { Fragment } from "react";
 import { useAtomValue } from "jotai";
-import { generateListAtom } from "../../0-all";
+import { GenerateListItem, generateListAtom } from "../../0-all";
 
-export function GeneratedListBody() {
-    const generateList = useAtomValue(generateListAtom);
-    console.log(generateList);
-
+export function GeneratedListBody({ generateList }: { generateList: GenerateListItem[]; }) {
     return (
         <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
             {generateList.map((item, idx) => {

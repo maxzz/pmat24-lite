@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
 import { parserErrorToString } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, generatePswByRules, getCustomRuleExplanation, verifyPassword } from "@/store/manifest/3-policy-io";
+import { appSettings } from "@/store";
 
 function checkMinMax({ min, max }: { min: number, max: number; }): string | undefined {
     if (isNaN(min)) {
@@ -129,7 +130,10 @@ export const generateListAtom = atom(
         const prevPsw = '';
         const arr: GenerateListItem[] = [];
 
-        for (let i = 0; i < 50; i++) {
+        const nToGenerate = appSettings.right.mani.nToGenerate;
+        let total = !nToGenerate ?? isNaN(nToGenerate) ? 50 : nToGenerate;
+
+        for (let i = 0; i < total; i++) {
             const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, '');
             const ok = verifyPassword(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
             arr.push({ ok, psw });

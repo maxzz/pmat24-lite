@@ -1,9 +1,11 @@
-import { PrimitiveAtom, useAtom } from "jotai";
+import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { generateListAtom } from "../../0-all";
 import { Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
 import { GeneratedListBody } from "./3-body";
 
 export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
     const [open, setOpen] = useAtom(openAtom);
+    const generateList = useAtomValue(generateListAtom);
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -15,11 +17,11 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
 
                     <div className="1my-3 text-xs">
                         <div className="mb-2 py-4 text-base text-center bg-muted rounded-t overflow-hidden">
-                            50 Generated passwords
+                            {generateList.length} Generated passwords
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
-                            <GeneratedListBody />
+                            <GeneratedListBody generateList={generateList} />
                         </ScrollArea>
                     </div>
 
