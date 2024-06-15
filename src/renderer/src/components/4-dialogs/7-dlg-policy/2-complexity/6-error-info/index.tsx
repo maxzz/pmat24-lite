@@ -1,6 +1,6 @@
 import { PolicyDlgConv } from "../../0-all";
-import { Button, Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
-import { SymbolCross, SymbolWarning } from "@/ui/icons";
+import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger } from "@/ui";
+import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
 import { useAtomValue } from "jotai";
