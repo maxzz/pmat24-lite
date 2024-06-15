@@ -6,15 +6,18 @@ export type VerifyByRulesParams = {
     password: string;
     mix: boolean;
 };
-export function verifyByRules(pm: VerifyByRulesParams): boolean {
-    // 0. To verify password if conforming to custom rule.
-    for (const ruleEntry of pm.rules) {
 
-        if (ruleEntry.isGroup) {
+/**
+ * Verify the password follows the rules.
+ */
+export function verifyByRules(pm: VerifyByRulesParams): boolean {
+    for (const rule of pm.rules) {
+
+        if (rule.isGroup) {
             const newPm: VerifyByRulesParams = {
-                rules: ruleEntry.group.rules,
+                rules: rule.group.rules,
                 password: pm.password,
-                mix: ruleEntry.group.mix
+                mix: rule.group.mix
             };
 
             let rv = verifyByRules(newPm);
@@ -27,8 +30,8 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
         } else {
             let curPswLength = pm.password.length;
 
-            let min = ruleEntry.chSet.min;
-            let max = ruleEntry.chSet.max;
+            let min = rule.chSet.min;
+            let max = rule.chSet.max;
 
             if (min === max && max === -1) {
                 min = max = 1;
@@ -38,16 +41,16 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
             }
 
             let countCharsFound = 0;
-            let i = 0;
+            let idx = 0;
 
-            for (; i < curPswLength && i < max; i++) {
+            for (; idx < curPswLength && idx < max; idx++) {
                 let pos = -1;
 
                 if (!pm.mix) {
-                    let curCh = pm.password[i];
-                    pos = ruleEntry.chSet.chars.indexOf(curCh);
+                    let curCh = pm.password[idx];
+                    pos = rule.chSet.chars.indexOf(curCh);
                 } else {
-                    pos = strFindFirstOf(pm.password, new Set(ruleEntry.chSet.chars));
+                    pos = strFindFirstOf(pm.password, new Set(rule.chSet.chars));
                     if (pos !== -1) {
                         pm.password = pm.password.substring(0, pos) + pm.password.substring(pos + 1);
                     }
@@ -65,8 +68,8 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
                 }
             }
 
-            if (!pm.mix && i > 0) {
-                pm.password = pm.password.substring(i);
+            if (!pm.mix && idx > 0) {
+                pm.password = pm.password.substring(idx);
             }
 
             // Check whether characters found for current character set is range: min, max.
@@ -74,7 +77,6 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
                 return false;
             }
         }
-
     }
 
     return true;
