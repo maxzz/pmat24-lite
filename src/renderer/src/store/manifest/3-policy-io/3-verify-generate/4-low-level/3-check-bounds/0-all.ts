@@ -4,6 +4,7 @@ type GetBoundsRecursivelyResult = {
     openRanges: ChSet[];    // undefined character set entries i.e. rule entries without any max bound value.
     totalMin: number;       // entries min total
     totalMax: number;       // entries max total
+    hasUndef: boolean;      // has rules with undefined max range
 };
 
 function getBoundsRecursively(rules: Rule[], rv: GetBoundsRecursivelyResult): void {
@@ -21,6 +22,10 @@ function getBoundsRecursively(rules: Rule[], rv: GetBoundsRecursivelyResult): vo
                     rv.totalMin++;
                     rv.totalMax++;
                     return;
+                }
+
+                if (ruleMax === -2) {
+                    rv.hasUndef = true;
                 }
 
                 if (ruleMin > 0) {
@@ -46,6 +51,7 @@ type CheckRulesBoundsForGenerateResult = GetBoundsRecursivelyResult & {
     isMaxValid: boolean;
     minAvailableChars: number;
     maxAvailableChars: number;
+    hasUndef: boolean;      // has rules with undefined max range
 };
 
 export function checkRulesBoundsForGenerate(rulesAndMeta: RulesAndMeta): CheckRulesBoundsForGenerateResult {
@@ -55,6 +61,7 @@ export function checkRulesBoundsForGenerate(rulesAndMeta: RulesAndMeta): CheckRu
         openRanges: [],
         totalMin: 0,
         totalMax: 0,
+        hasUndef: false,
     };
     getBoundsRecursively(rulesAndMeta.rules, all);
 
