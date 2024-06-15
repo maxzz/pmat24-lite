@@ -1,18 +1,30 @@
-import { useSetAtom } from "jotai";
+import { useState } from "react";
+import { atom, useSetAtom } from "jotai";
 import { PolicyDlgConv, generateAtom } from "../../0-all";
 import { Button } from "@/ui";
+import { ButtonGeneratedList } from "../7-generate-list/1-all";
 
 const localButtonClasses = "active:scale-[.97]";
 
 export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+    const openGeneratedListAtom = useState(() => atom(false))[0];
+    const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
     const doGenerate = useSetAtom(generateAtom);
-    return (
-        <Button className={localButtonClasses} variant="outline" size="sm" title="Generate test password"
-            onClick={() => {
+    return (<>
+        <Button
+            className={localButtonClasses} variant="outline" size="sm" title="Generate test password. Ctrl+Click to generate 50 passwords."
+            onClick={(e) => {
+                if (e.ctrlKey) {
+                    console.log('ctrlKey is pressed');
+                    setOpenGeneratedList(true);
+                    return;
+                }
+
                 doGenerate({ dlgUiAtoms, prevPsw: '' });
             }}
         >
             Generate
         </Button>
-    );
+        <ButtonGeneratedList openAtom={openGeneratedListAtom} />
+    </>);
 }
