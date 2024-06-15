@@ -40,6 +40,9 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
                 max = curPswLength;
             }
 
+            const chars = rule.chSet.chars;
+            const charsSet = new Set(chars);
+
             let countCharsFound = 0;
             let idx = 0;
 
@@ -48,9 +51,9 @@ export function verifyByRules(pm: VerifyByRulesParams): boolean {
 
                 if (!pm.mix) {
                     let curCh = pm.password[idx];
-                    pos = rule.chSet.chars.indexOf(curCh);
+                    pos = chars.indexOf(curCh);
                 } else {
-                    pos = strFindFirstOf(pm.password, new Set(rule.chSet.chars));
+                    pos = strFindFirstOf(pm.password, charsSet);
                     if (pos !== -1) {
                         pm.password = pm.password.substring(0, pos) + pm.password.substring(pos + 1);
                     }
