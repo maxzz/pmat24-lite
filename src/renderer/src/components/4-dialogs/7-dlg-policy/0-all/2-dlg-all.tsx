@@ -5,7 +5,7 @@ import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-a
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
 import { doClosePolicyDlgAtom } from "./1-close-atom";
-import { doInitialAtomsSetupAtom } from "./1-util-atoms";
+import { updateExplanationAtom } from "./1-util-atoms";
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -17,7 +17,7 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
     const isOpen = useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 
-    const doInitialAtomsSetup = useSetAtom(doInitialAtomsSetupAtom);
+    const doInitialAtomsSetup = useSetAtom(updateExplanationAtom);
     const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
     function doCancelClose() {

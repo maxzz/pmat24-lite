@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
-import { PolicyDlgConv, updateMinMaxAtom } from "../../0-all";
+import { PolicyDlgConv, updateExplanationAtom } from "../../0-all";
 import { InputTooltipShell, OptionInput } from "@/ui";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
@@ -14,8 +14,8 @@ function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { e
 }
 
 export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
-    const updateMinMax = useSetAtom(updateMinMaxAtom);
-    const onValueChange = () => updateMinMax({ dlgUiAtoms });
+    const updateExplanation = useSetAtom(updateExplanationAtom);
+    const onValueChange = () => updateExplanation({ dlgUiAtoms });
     return (
         <div className="text-xs space-y-1">
             <div className="">Password length</div>

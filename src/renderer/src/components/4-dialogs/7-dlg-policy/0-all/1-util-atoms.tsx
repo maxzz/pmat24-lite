@@ -1,36 +1,7 @@
-import { Getter, Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
 import { parserErrorToString } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, generatePswByRules, getCustomRuleExplanation, verifyPassword } from "@/store/manifest/3-policy-io";
-
-export const doInitialAtomsSetupAtom = atom(null,
-    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
-        const custom = get(dlgUiAtoms.customAtom);
-        set(updateExplanationAtom, { dlgUiAtoms, custom });
-    }
-);
-
-export const updateMinMaxAtom = atom(null,
-    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
-        const custom = get(dlgUiAtoms.customAtom);
-        set(updateExplanationAtom, { dlgUiAtoms, custom });
-    }
-);
-
-function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
-    const { parser, minLenAtom, maxLenAtom } = dlgUiAtoms;
-
-    const min = +get(minLenAtom).data;
-    const max = +get(maxLenAtom).data;
-
-    if (parser.rulesAndMeta.targetMin === -1) {
-        parser.rulesAndMeta.targetMin = min;
-    }
-
-    if (parser.rulesAndMeta.targetMax === -1) {
-        parser.rulesAndMeta.targetMax = max;
-    }
-}
 
 function checkMinMax({ min, max }: { min: number, max: number; }): string | undefined {
     if (isNaN(min)) {
@@ -51,10 +22,14 @@ function checkMinMax({ min, max }: { min: number, max: number; }): string | unde
 }
 
 export const updateExplanationAtom = atom(null,
-    (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom: string; }) => {
-        const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
+    (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom?: string | undefined; }) => {
+        const { customAtom, parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
         try {
             set(testVerifiedAtom, '');
+
+            if (custom === undefined) {
+                custom = get(customAtom);
+            }
 
             const range = {min: +get(minLenAtom).data, max: +get(maxLenAtom).data};
             const error = checkMinMax(range);
