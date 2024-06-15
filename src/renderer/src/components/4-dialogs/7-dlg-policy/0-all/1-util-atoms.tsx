@@ -78,6 +78,19 @@ export const updateExplanationAtom = atom(null,
     }
 );
 
+export const verifyAtom = atom(null,
+    (get, set, { dlgUiAtoms, psw, prevPsw = '' }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw?: string | undefined; prevPsw?: string; }) => {
+        const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
+
+        if (psw === undefined) {
+            psw = get(testPasswordAtom);
+        }
+
+        const ok = verifyPassword(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
+        set(testVerifiedAtom, ok ? '1' : '0');
+    }
+);
+
 export const generateAtom = atom(null,
     (get, set, { dlgUiAtoms, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; prevPsw: string; }) => {
         const { parser, customAtom, errorTextAtom, testPasswordAtom } = dlgUiAtoms;
@@ -95,15 +108,33 @@ export const generateAtom = atom(null,
     }
 );
 
-export const verifyAtom = atom(null,
-    (get, set, { dlgUiAtoms, psw, prevPsw = '' }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw?: string | undefined; prevPsw?: string; }) => {
-        const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
+export type GenerateListItem = {
+    ok: boolean;
+    psw: string;
+};
 
-        if (psw === undefined) {
-            psw = get(testPasswordAtom);
+const _generateListAtom = atom<GenerateListItem[]>([]);
+
+export const generateListAtom = atom(
+    (get) => get(_generateListAtom),
+    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
+        const { parser, customAtom, errorTextAtom, testPasswordAtom } = dlgUiAtoms;
+
+        const custom = get(customAtom);
+        if (!custom) {
+            set(_generateListAtom, []);
+            return;
         }
 
-        const ok = verifyPassword(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
-        set(testVerifiedAtom, ok ? '1' : '0');
+        const prevPsw = '';
+        const arr: GenerateListItem[] = [];
+
+        for (let i = 0; i < 50; i++) {
+            const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, '');
+            const ok = verifyPassword(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
+            arr.push({ ok, psw });
+        }
+
+        set(_generateListAtom, arr);
     }
 );

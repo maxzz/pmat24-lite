@@ -13,11 +13,11 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
             </PopoverTrigger>
 
             <PopoverPortal>
-                <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 p-0 w-auto 1w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
                     <div className="my-3 text-xs">
-                        <div className="mb-2 text-base text-center">
-                            Custom rule parts
+                        <div className="mb-2 ml-6 mr-12 text-base text-center">
+                            50 Generated passwords
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
