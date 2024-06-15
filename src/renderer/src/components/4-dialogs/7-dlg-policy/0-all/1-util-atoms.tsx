@@ -133,12 +133,12 @@ export const updateExplanationAtom = atom(null,
                 console.log(`bounds=${JSON.stringify(bounds)} ${custom}`);
 
                 if (bounds.totalMin < min) {
-                    set(errorTextAtom, `The custom rule generates less than ${min} characters.`);
+                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMin} characters, but minimum required: ${min}.`);
                     return;
                 }
 
                 if (bounds.totalMax > max) {
-                    set(errorTextAtom, `The custom rule generates more than ${max} characters.`);
+                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMax} characters, but required: ${max}.`);
                     return;
                 }
             }
