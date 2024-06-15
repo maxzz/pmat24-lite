@@ -17,7 +17,7 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
 
                     <div className="1my-3 text-xs">
                         <div className="mb-2 py-4 text-base text-center bg-muted rounded-t overflow-hidden">
-                            {generateList.length} Generated passwords
+                            {generateList.length} generated passwords
                         </div>
 
                         <ScrollArea className="h-64" fullHeight>
