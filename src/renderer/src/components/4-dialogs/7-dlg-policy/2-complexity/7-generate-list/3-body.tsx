@@ -1,6 +1,5 @@
 import { Fragment } from "react";
-import { useAtomValue } from "jotai";
-import { GenerateListItem, generateListAtom } from "../../0-all";
+import { GenerateListItem } from "../../0-all";
 
 export function GeneratedListBody({ generateList }: { generateList: GenerateListItem[]; }) {
     return (

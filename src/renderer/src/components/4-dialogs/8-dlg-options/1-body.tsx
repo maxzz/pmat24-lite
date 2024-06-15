@@ -1,10 +1,11 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { Checkbox, Label } from "@/ui";
+import { Checkbox, Input, Label } from "@/ui";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
-    const snap = useSnapshot(appSettings).files.itemsState;
+    const snapItems = useSnapshot(appSettings).files.itemsState;
+    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
     return (
         <div className="min-h-56 text-xs">
 
@@ -13,22 +14,36 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                 <D.DialogCloseButton onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
-            <div className="mt-2 px-4">
-                <Label className="block mb-4">File list options</Label>
+            <div className="my-2 px-4 grid grid-cols-1">
+                <Label className="block mb-2 font-semibold">
+                    File list options
+                </Label>
 
                 <div className="flex flex-col gap-2">
                     <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snap.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
+                        <Checkbox checked={snapItems.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
                         Show file index
                     </Label>
+
                     <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snap.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
+                        <Checkbox checked={snapItems.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
                         Show user defined name instead of domain name
                     </Label>
                 </div>
 
-            </div>
+                <div className="my-4">
+                    <Label className="block mb-2 font-semibold">
+                        Password policy options
+                    </Label>
 
+                    <Label className="text-xs font-normal flex place-items-center gap-2">
+                        Number of generated passwords
+                        <Input value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
+                    </Label>
+
+                </div>
+
+            </div>
         </div>
     );
 }
