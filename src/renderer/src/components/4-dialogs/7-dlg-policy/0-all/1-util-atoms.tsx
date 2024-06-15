@@ -1,6 +1,6 @@
 import { Getter, Setter, atom } from "jotai";
 import { PolicyDlgConv } from "./0-conv";
-import { ParseError } from "@/store/manifest/3-policy-io";
+import { parserErrorToString } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, generatePswByRules, getCustomRuleExplanation, verifyPassword } from "@/store/manifest/3-policy-io";
 
 export const doInitialAtomsSetupAtom = atom(null,
@@ -12,8 +12,6 @@ export const doInitialAtomsSetupAtom = atom(null,
 
 export const updateMinMaxAtom = atom(null,
     (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
-        //updateMinMaxFromUi(get, set, dlgUiAtoms);
-
         const custom = get(dlgUiAtoms.customAtom);
         set(updateExplanationAtom, { dlgUiAtoms, custom });
     }
@@ -25,9 +23,6 @@ function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.
     const min = +get(minLenAtom).data;
     const max = +get(maxLenAtom).data;
 
-    // parser.rulesAndMeta.finalMin = min;
-    // parser.rulesAndMeta.finalMax = max;
-
     if (parser.rulesAndMeta.targetMin === -1) {
         parser.rulesAndMeta.targetMin = min;
     }
@@ -37,113 +32,55 @@ function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.
     }
 }
 
-function checkMinMax(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
-    const { parser, minLenAtom, maxLenAtom, customAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
-    const min = +get(minLenAtom).data;
-    const max = +get(maxLenAtom).data;
+function checkMinMax({ min, max }: { min: number, max: number; }): string | undefined {
+    if (isNaN(min)) {
+        return 'Min password length is not a number';
+    }
+
+    if (isNaN(max)) {
+        return 'Max password length is not a number';
+    }
 
     if (min < 1) {
-        set(errorTextAtom, 'Min password length is less than 1.');
-        return;
+        return 'Min password length cannot be less than 1';
     }
 
     if (max < min) {
-        set(errorTextAtom, 'Max password length is less than min password length.');
-        return;
+        return 'Max password length is less than min password length';
     }
-
-    if (parser.rulesAndMeta.targetMin === -1) {
-        set(errorTextAtom, 'Min password length is not specified.');
-        return;
-    }
-
-    if (parser.rulesAndMeta.targetMax === -1) {
-        set(errorTextAtom, 'Max password length is not specified.');
-        return;
-    }
-
-    if (parser.rulesAndMeta.targetMin < min) {
-        set(errorTextAtom, 'Min password length is less than the minimum password length specified in the custom rule.');
-        return;
-    }
-
-    if (parser.rulesAndMeta.targetMax > max) {
-        set(errorTextAtom, 'Max password length is less than the maximum password length specified in the custom rule.');
-        return;
-    }
-
-    set(errorTextAtom, '');
 }
 
 export const updateExplanationAtom = atom(null,
     (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom: string; }) => {
         const { parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
         try {
-            const min = +get(minLenAtom).data;
-            const max = +get(maxLenAtom).data;
-
             set(testVerifiedAtom, '');
 
-            if (isNaN(min)) {
-                set(errorTextAtom, 'Min password length is not a number.');
+            const range = {min: +get(minLenAtom).data, max: +get(maxLenAtom).data};
+            const error = checkMinMax(range);
+            if (error) {
+                set(errorTextAtom, error);
                 return;
             }
 
-            if (isNaN(max)) {
-                set(errorTextAtom, 'Max password length is not a number.');
-                return;
-            }
+            const {min, max} = range;
 
-            if (min < 1) {
-                set(errorTextAtom, 'Min password length is less than 1.');
-                return;
-            }
-
-            if (max < min) {
-                set(errorTextAtom, 'Max password length is less than min password length.');
-                return;
-            }
-
-            if (parser.rulesAndMeta.targetMin === -1) {
-                parser.rulesAndMeta.targetMin = min;
-            }
-
-            if (parser.rulesAndMeta.targetMax === -1) {
-                parser.rulesAndMeta.targetMax = max;
-            }
-
-            // if (parser.rulesAndMeta.finalMin === -1) {
-            //     set(errorTextAtom, 'Min password length is not specified.');
-            //     return;
-            // }
-
-            // if (parser.rulesAndMeta.finalMax === -1) {
-            //     set(errorTextAtom, 'Max password length is not specified.');
-            //     return;
-            // }
-
-            parser.doParse({custom, minTotal: min, maxTotal: max});
-
-            //updateMinMaxFromUi(get, set, dlgUiAtoms); // set conditionally min and max from ui if not set in custom rule
-
-            console.log(`updateExplanation "${custom}<${min},${max}>"`, parser.rulesAndMeta);
+            parser.doParse({ custom, minTotal: min, maxTotal: max });
 
             if (custom) {
                 const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);
                 console.log(`bounds=${JSON.stringify(bounds)} ${custom}`);
 
                 if (bounds.totalMin < min) {
-                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMin} characters, but minimum required: ${min}.`);
+                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMin} characters, but minimum required is ${min}`);
                     return;
                 }
 
                 if (bounds.totalMax > max) {
-                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMax} characters, but required: ${max}.`);
+                    set(errorTextAtom, `The custom rule can generate ${bounds.totalMax} characters, but maximun required is ${max}`);
                     return;
                 }
             }
-
-            //if ()
 
             const final = [];
             getCustomRuleExplanation(parser.rulesAndMeta.rules, final);
@@ -151,19 +88,10 @@ export const updateExplanationAtom = atom(null,
 
             set(explanationAtom, explanation);
             set(errorTextAtom, '');
-
-            const testPassword = get(testPasswordAtom);
-            set(verifyAtom, { dlgUiAtoms, psw: testPassword, prevPsw: '' });
+            set(verifyAtom, { dlgUiAtoms, psw: get(testPasswordAtom), prevPsw: '' });
         } catch (e) {
-            const msg =
-                e instanceof ParseError
-                    ? `${e.what} at position ${e.pos}`
-                    : e instanceof Error
-                        ? e.message
-                        : `${e}`;
-            set(errorTextAtom, msg);
+            set(errorTextAtom, parserErrorToString(e));
             set(testVerifiedAtom, '');
-            //console.error(e);
         }
     }
 );
@@ -177,28 +105,19 @@ export const generateAtom = atom(null,
             set(errorTextAtom, 'The custom rule is empty.');
             return;
         }
+
         //TODO: check if custom rule generates lenght can be inside defined total passowd length and show error if not
-
-        //updateMinMaxFromUi(get, set, dlgUiAtoms);
-
         console.log(`generateAtom custom=${custom}`, parser);
 
         const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, prevPsw);
         set(testPasswordAtom, psw);
         set(verifyAtom, { dlgUiAtoms, psw, prevPsw });
-        //console.log(`generateAtom ok=${ok} newPsw=${newPsw}`);
     }
 );
 
 export const verifyAtom = atom(null,
     (get, set, { dlgUiAtoms, psw, prevPsw }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw: string; prevPsw: string; }) => {
         const { parser, testVerifiedAtom } = dlgUiAtoms;
-
-        //updateMinMaxFromUi(get, set, dlgUiAtoms);
-
-        console.log(`verify`, parser.rulesAndMeta);
-        
-
         const ok = verifyPassword(parser.rulesAndMeta, prevPsw, psw, parser.rulesAndMeta.noRepeat);
         set(testVerifiedAtom, ok ? '1' : '0');
     }

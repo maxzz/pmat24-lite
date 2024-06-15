@@ -33,3 +33,13 @@ export class ParseError {
         this.expected = expected;
     }
 }
+
+export function parserErrorToString(e: unknown): string {
+    const msg =
+        e instanceof ParseError
+            ? `${e.what} at position ${e.pos}`
+            : e instanceof Error
+                ? e.message
+                : `${e}`;
+    return msg;
+}
