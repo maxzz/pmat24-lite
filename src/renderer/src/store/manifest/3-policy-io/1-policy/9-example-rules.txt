@@ -1,7 +1,29 @@
-(d{1,})
-<1,2>
-19
+* done
+    (d{1,})
+    <1,2>
+    19
 
-(d{1,3}A){1,3}
-with <1,5>
-will generate length from 2 to 4 and group length is ignored
+* done
+    (d{1,3}A){1,3}
+    with <1,5>
+    will generate length from 2 to 4 and group length is ignored
+
+*
+    <8,20>
+    A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
+    Is Invalid but why?
+    RBD6*vf1
+    RBD6*vfA
+    Is valid but why?
+    RBD6*vfn
+
+* done
+    d{8,} and <8,20> generates only 8-10 characters
+
+* why
+    <8,20>
+    A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}
+    error: The custom rule generates less than 8 characters.
+
+//TODO: when isCustom assume initial values are correct
+//TODO: length may be missing from custom rule

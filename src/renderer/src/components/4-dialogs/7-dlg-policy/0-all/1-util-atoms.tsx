@@ -19,19 +19,6 @@ export const updateMinMaxAtom = atom(null,
     }
 );
 
-//<8,20>
-//A{2,5}d{1,}[!@#$%^&*._]{1,}a{2,5}<8,20>
-//Is Invalid but why?
-//RBD6*vf1
-//RBD6*vfA
-//Is valid but why?
-//RBD6*vfn
-
-//d{8,} and <8,20> generates only 8-10 characters
-
-//TODO: when isCustom assume initial values are correct
-//TODO: length may be missing from custom rule
-
 function updateMinMaxFromUi(get: Getter, set: Setter, dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms) {
     const { parser, minLenAtom, maxLenAtom } = dlgUiAtoms;
 
