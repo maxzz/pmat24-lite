@@ -3,6 +3,8 @@ import { atom, useSetAtom } from "jotai";
 import { PolicyDlgConv, generateAtom, generateListAtom } from "../../0-all";
 import { Button } from "@/ui";
 import { ButtonGeneratedList } from "../7-generate-list/1-all";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 
 const localButtonClasses = "active:scale-[.97]";
 
@@ -10,20 +12,19 @@ export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Polic
     const openGeneratedListAtom = useState(() => atom(false))[0];
     const generateList = useSetAtom(generateListAtom);
     const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
+    const nToGenerate = useSnapshot(appSettings).right.mani.nToGenerate;
     const doGenerate = useSetAtom(generateAtom);
     return (
         <div>
             <Button
-                className={localButtonClasses} variant="outline" size="sm" title="Generate test password. Ctrl+Click to generate 50 passwords."
+                className={localButtonClasses} variant="outline" size="sm" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`}
                 onClick={(e) => {
                     if (e.ctrlKey) {
-                        console.log('ctrlKey is pressed');
                         generateList({ dlgUiAtoms });
                         setOpenGeneratedList(true);
-                        return;
+                    } else {
+                        doGenerate({ dlgUiAtoms });
                     }
-
-                    doGenerate({ dlgUiAtoms, prevPsw: '' });
                 }}
             >
                 Generate
