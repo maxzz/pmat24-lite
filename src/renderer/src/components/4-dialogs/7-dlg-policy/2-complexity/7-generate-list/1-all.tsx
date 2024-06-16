@@ -49,3 +49,4 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
 
 //TODO: optional: add a button to regenerate the list
 //TODO: optional: add a button to change the number of passwords to generate
+//TODO: optional: show failed passwords first

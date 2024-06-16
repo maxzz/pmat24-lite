@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
-import { ManiAtoms } from "../3-file-mani-atoms/9-types";
+import { ManiAtoms } from "../../9-types";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {

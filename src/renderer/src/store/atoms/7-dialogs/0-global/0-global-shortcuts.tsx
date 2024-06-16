@@ -3,8 +3,7 @@ import { useKey } from "react-use";
 import { doOpenOptionsDialogAtom } from "../8-options-dialog-atoms";
 import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
 import { filterDialogOpenAtom } from "../1-filter-dialog-atoms";
-import { doSaveOneIfNotNullAtom } from "../../3-file-mani-atoms";
-import { doSaveAllAtom } from "../../4-save-reset";
+import { doSaveOneIfNotNullAtom, doSaveAllAtom } from "../../3-file-mani-atoms";
 
 export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dialog
 export const shortcutNameFilter   /**/ = "Ctrl+F";          // Filter manifest list

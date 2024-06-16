@@ -1,7 +1,6 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { doSaveAllAtom } from "@/store/atoms/4-save-reset";
-import { allFileUsChanges } from "@/store/atoms/3-file-mani-atoms";
+import { allFileUsChanges, doSaveAllAtom } from "@/store/atoms/3-file-mani-atoms";
 import { shortcutNameSaveAll } from "@/store/atoms/7-dialogs";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 
