@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
 import { ManiAtoms } from "../../9-types";
-import { rightPanelAtom } from "../../../2-right-panel";
-import { packManifestData } from "./10-pack-manifest-data";
+import { rightPanelAtom } from "@/store/atoms/2-right-panel";
+import { packManifestData } from "./1-pack-manifest-data";
 
 export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
