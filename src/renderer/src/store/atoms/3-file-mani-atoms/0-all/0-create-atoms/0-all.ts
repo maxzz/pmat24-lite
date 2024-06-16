@@ -19,8 +19,7 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
         submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
         policyAtoms: PolicyState.createUiAtoms(fileUsParams, maniAtoms),
         optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
-
-        fileUsParams: fileUsParams,
+        fileUsParams,
     };
 
     return rv;
@@ -28,12 +27,12 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
 
 export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAtoms {
     const rv: any = [];
-    const callbackAtoms = rv as ManiAtoms;
+    const maniAtoms = rv as ManiAtoms;
 
     const changesSet = proxySet<string>();
 
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login }, callbackAtoms));
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, callbackAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
+    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
     rv.push(changesSet);
 
     return rv;

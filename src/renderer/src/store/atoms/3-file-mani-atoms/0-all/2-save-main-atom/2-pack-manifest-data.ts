@@ -1,13 +1,16 @@
 import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 
-export function packManifestData(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set: Setter, newFilename?: string) {
+export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
+
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
         return;
     }
 
     console.log('saved', fileUs.fname);
+
+    fileUs.changesSet.clear();
 
     //TODO: validate
     //TODO: check if we can save from web or electron

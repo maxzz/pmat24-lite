@@ -1,7 +1,5 @@
 import { atom } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
-import { ManiAtoms } from "../../9-types";
-import { rightPanelAtom } from "@/store/atoms/2-right-panel";
 import { packManifestData } from "./2-pack-manifest-data";
 
 export const doSaveOneAtom = atom(null,
@@ -13,20 +11,7 @@ export const doSaveOneAtom = atom(null,
             return;
         }
 
-        packManifestData(fileUs, fileUsAtom, get, set, newFilename);
-
-        fileUs.changesSet.clear();
-    }
-);
-
-export const doSaveOneIfNotNullAtom = atom(null,
-    (get, set) => {
-        const fileUsAtom = get(rightPanelAtom);
-        if (!fileUsAtom) {
-            return;
-        }
-
-        set(doSaveOneAtom, fileUsAtom);
+        packManifestData(get, set, fileUs, fileUsAtom, newFilename);
     }
 );
 

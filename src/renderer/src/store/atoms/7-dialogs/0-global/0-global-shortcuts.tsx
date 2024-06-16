@@ -3,7 +3,7 @@ import { useKey } from "react-use";
 import { doOpenOptionsDialogAtom } from "../8-options-dialog-atoms";
 import { doOpenCreateDialogAtom } from "../2-create-dialog-atoms";
 import { filterDialogOpenAtom } from "../1-filter-dialog-atoms";
-import { doSaveOneIfNotNullAtom, doSaveAllAtom } from "../../3-file-mani-atoms";
+import { doSaveRightPanelFileAtom, doSaveAllAtom } from "../../3-file-mani-atoms";
 
 export const shortcutNameSettings /**/ = "Ctrl+,";          // Open settings dialog
 export const shortcutNameFilter   /**/ = "Ctrl+F";          // Filter manifest list
@@ -15,7 +15,7 @@ export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
     const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
-    const doSaveOneIfNotNull = useSetAtom(doSaveOneIfNotNullAtom);
+    const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
 
     // Ctrl+,
