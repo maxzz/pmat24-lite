@@ -4,7 +4,7 @@ import { SubmitState } from "../2-submit";
 import { PolicyState } from "../3-policy-nun";
 import { OptionsState } from "../4-options";
 
-export type CreateAtomsParams = {
+export type FileUsParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
@@ -16,7 +16,7 @@ export type FormAtoms = {
     policyAtoms: PolicyState.Atoms[];
     optionsAtoms: OptionsState.Atoms;
 
-    params: CreateAtomsParams;
+    fileUsParams: FileUsParams;
 };
 
 export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined];

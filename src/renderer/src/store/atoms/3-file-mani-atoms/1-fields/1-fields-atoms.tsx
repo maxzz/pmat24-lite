@@ -1,15 +1,15 @@
 import { FieldTyp } from '@/store/manifest';
 import { FieldConv } from './0-conv';
 import { FieldRowState } from './2-field-atoms';
-import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { FileUsParams, ManiAtoms } from "../9-types";
 
 export namespace FieldsState {
 
     export type Atoms = FieldConv.FieldAtoms;
 
-    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
+    export function createUiAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
-        const { fileUs, formIdx } = createAtomsParams;
+        const { fileUs, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
@@ -20,7 +20,7 @@ export namespace FieldsState {
             (field, idx) => {
                 const rowAtoms = FieldRowState.createUiAtoms(field,
                     ({ get, set }) => {
-                        return FieldRowState.debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, idx, get, set);
+                        return FieldRowState.debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, idx, get, set);
                     }
                 );
                 return rowAtoms;

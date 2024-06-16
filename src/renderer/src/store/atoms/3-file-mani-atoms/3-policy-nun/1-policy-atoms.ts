@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { debounce } from "@/utils";
 import { setManiChanges } from "../9-types";
-import { CreateAtomsParams, ManiAtoms } from "../9-types";
+import { FileUsParams, ManiAtoms } from "../9-types";
 import { PolicyConv } from "./0-conv";
 import { FieldTyp } from "pm-manifest";
 
@@ -9,9 +9,9 @@ export namespace PolicyState {
 
     export type Atoms = PolicyConv.PolicyAtoms;
 
-    export function createUiAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms): Atoms[] {
+    export function createUiAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms[] {
 
-        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
+        const { fileUs, fileUsAtom, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
@@ -25,7 +25,7 @@ export namespace PolicyState {
                 const initialState = PolicyConv.forAtoms(field);
                 const atoms = PolicyConv.createAtoms(initialState,
                     ({ get, set }) => {
-                        debouncedCombinedResultFromAtoms(createAtomsParams, callbackAtoms, policyIdx, get, set);
+                        debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, policyIdx, get, set);
                     }
                 );
                 return {
@@ -40,8 +40,8 @@ export namespace PolicyState {
         return rv;
     }
 
-    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, policyIdx: number, get: Getter, set: Setter) {
-        const atoms: Atoms[] = callbackAtoms[createAtomsParams.formIdx]!.policyAtoms;
+    function combineResultFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, policyIdx: number, get: Getter, set: Setter) {
+        const atoms: Atoms[] = callbackAtoms[fileUsParams.formIdx]!.policyAtoms;
         if (!atoms.length) {
             return;
         }
@@ -51,7 +51,7 @@ export namespace PolicyState {
         const changed = !PolicyConv.areTheSame(state, atoms[policyIdx].fromFile);
         atoms[policyIdx].changed = changed;
 
-        const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
+        const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx?'c':'l'}-policy-${policyIdx}`);
 
         // this is not used anymore
         console.log('changes policy:', [...changes.keys()]);

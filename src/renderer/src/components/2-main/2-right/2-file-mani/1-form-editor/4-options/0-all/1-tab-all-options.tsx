@@ -7,7 +7,7 @@ export function TabOptions({ formAtoms, formIdx }: TabSectionProps) {
     //const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
     //const isWeb = fileUs.stats.isWeb; // TODO: why this is not per form?
 
-    const metaForm = formAtoms.params.fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+    const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
     const atoms = formAtoms.optionsAtoms;
     const isWeb = !!metaForm?.mani.detection.web_ourl;

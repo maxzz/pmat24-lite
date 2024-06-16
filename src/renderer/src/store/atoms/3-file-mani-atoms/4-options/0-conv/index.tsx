@@ -2,7 +2,7 @@ import { Getter, Setter } from "jotai";
 import { AtomizeWithType, OnValueChange } from '@/util-hooks';
 import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName } from "@/ui";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
-import { CreateAtomsParams } from "../../9-types";
+import { FileUsParams } from "../../9-types";
 
 export namespace OptionsConv {
 
@@ -61,8 +61,8 @@ export namespace OptionsConv {
 
     // Atoms
 
-    export function forAtoms(createAtomsParams: CreateAtomsParams): OptionsForAtoms {
-        const { fileUs, fileUsAtom, formIdx } = createAtomsParams;
+    export function forAtoms(fileUsParams: FileUsParams): OptionsForAtoms {
+        const { fileUs, fileUsAtom, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const detection = metaForm.mani?.[formIdx]?.detection || {};

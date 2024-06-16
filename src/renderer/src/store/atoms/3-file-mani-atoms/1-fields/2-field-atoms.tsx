@@ -3,7 +3,7 @@ import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
 import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { CreateAtomsParams, ManiAtoms, setManiChanges } from "../9-types";
+import { FileUsParams, ManiAtoms, setManiChanges } from "../9-types";
 
 export namespace FieldRowState {
 
@@ -17,15 +17,15 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(createAtomsParams: CreateAtomsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+    function combineResultFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
 
-        const atoms: FieldConv.FieldAtoms = callbackAtoms[createAtomsParams.formIdx]!.fieldsAtoms[fieldIdx];
+        const atoms: FieldConv.FieldAtoms = callbackAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
 
         const state = FieldConv.fromAtoms(atoms, get, set);
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = setManiChanges(createAtomsParams, changed, `${createAtomsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
+        const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
 
         /** /
         const str1 = JSON.stringify(state.policies, null, 2);
