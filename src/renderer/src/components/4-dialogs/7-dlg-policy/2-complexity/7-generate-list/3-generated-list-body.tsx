@@ -7,22 +7,22 @@ export function GeneratedListBody({ generatedList }: { generatedList: GenerateLi
             {generatedList.map((item, idx) => {
                 const first = `${idx + 1}`.padStart(2, ' ');
                 const colorClasses = `select-none ${item.ok ? "text-green-500" : "text-red-500"}`;
-                const numberClasses = "text-[0.65rem] text-end select-none";
+                const numberClasses = "text-[0.65rem] text-end text-muted-foreground select-none";
                 return (
                     <Fragment key={idx}>
-                        <div className={colorClasses}>
-                            {item.ok ? '✔' : '❌'}
+                        <div className={colorClasses} title={titleResult}>
+                            {item.ok ? '✔' : '✖'}
                         </div>
 
-                        <div className={numberClasses}>
+                        <div className={numberClasses} title={titleIndex}>
                             {first}
                         </div>
 
-                        <div className="font-mono">
+                        <div className="font-mono" title={titleGeneratedPassword}>
                             {item.psw}
                         </div>
 
-                        <div className={numberClasses}>
+                        <div className={numberClasses} title={titlePasswordLength}>
                             {`${item.psw.length}`.padStart(2, ' ')}
                         </div>
                     </Fragment>
@@ -30,4 +30,16 @@ export function GeneratedListBody({ generatedList }: { generatedList: GenerateLi
             })}
         </div>
     );
+}
+
+const titleResult = "result of checking";
+const titleIndex = "index";
+const titleGeneratedPassword = "generated password";
+const titlePasswordLength = "password length";
+
+export function copyToClipboard(generatedList: GenerateListItem[]) {
+    const text = generatedList.map(
+        (item, idx) => `${`${idx + 1}`.padStart(3, ' ')}. ${item.ok ? '✔' : '✖'} ${item.psw}`
+    ).join('\n');
+    navigator.clipboard.writeText(text);
 }

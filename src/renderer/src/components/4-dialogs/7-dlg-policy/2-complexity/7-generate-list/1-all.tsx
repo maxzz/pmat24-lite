@@ -1,7 +1,7 @@
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
-import { GenerateListItem, generateListAtom } from "../../0-all";
+import { generateListAtom } from "../../0-all";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
-import { GeneratedListBody } from "./3-generated-list-body";
+import { GeneratedListBody, copyToClipboard } from "./3-generated-list-body";
 import { IconCopy } from "@/ui/icons";
 
 export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
@@ -22,12 +22,14 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
                         </div>
 
                         <ScrollArea className="my-2 h-64" fullHeight>
-                            {open && <GeneratedListBody generatedList={generatedList} />}
+                            {open && (
+                                <GeneratedListBody generatedList={generatedList} />
+                            )}
                         </ScrollArea>
 
                         <div className="text-base text-center bg-muted rounded-b select-none overflow-hidden">
                             <Button
-                                className="w-full border-0 rounded-t-none active:scale-90"
+                                className="w-full h-10 border-0 rounded-t-none active:scale-90"
                                 title="Copy all generated passwords to clipboard"
                                 onClick={() => copyToClipboard(generatedList)}
                             >
@@ -45,11 +47,5 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
     );
 }
 
-function copyToClipboard(generatedList: GenerateListItem[]) {
-    const text = generatedList.map(
-        (item, idx) => {
-            return `${`${idx + 1}`.padStart(3, ' ')}. ${item.ok ? '✔' : '❌'} ${item.psw}`;
-        }
-    ).join('\n');
-    navigator.clipboard.writeText(text);
-}
+//TODO: optional: add a button to regenerate the list
+//TODO: optional: add a button to change the number of passwords to generate
