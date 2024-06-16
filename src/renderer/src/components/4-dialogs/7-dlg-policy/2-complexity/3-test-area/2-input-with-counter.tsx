@@ -29,7 +29,7 @@ export function InputWithCounter({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.Pol
                         </div>
                     )}
 
-                    <div>
+                    <div className="text-muted-foreground">
                         {testPassword.length}
                     </div>
                 </div>
