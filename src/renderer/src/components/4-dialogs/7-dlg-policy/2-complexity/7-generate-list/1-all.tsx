@@ -28,6 +28,7 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
                         <div className="text-base text-center bg-muted rounded-b select-none overflow-hidden">
                             <Button
                                 className="w-full border-0 rounded-t-none active:scale-90"
+                                title="Copy all generated passwords to clipboard"
                                 onClick={() => copyToClipboard(generatedList)}
                             >
                                 <IconCopy className="size-4" />
