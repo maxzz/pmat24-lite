@@ -10,11 +10,11 @@ export namespace OptionsState {
 
     export type Atoms = OptionsConv.FormOptionsAtoms;
 
-    export function createAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms {
+    export function createAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
-                debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, updateName, get, set, nextValue);
+                debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, updateName, get, set, nextValue);
             };
         };
 
@@ -24,8 +24,8 @@ export namespace OptionsState {
         return rv;
     }
 
-    export function combineOptionsFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
-        const atoms: Atoms = callbackAtoms[fileUsParams.formIdx]!.optionsAtoms;
+    export function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
+        const atoms: Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
 
         if (nextValue.dirty) {
             const result = OptionsConv.fromAtoms(atoms, get, set) as any;

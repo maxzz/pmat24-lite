@@ -8,16 +8,16 @@ export namespace SubmitState {
 
     export type Atoms = SubmitConv.SubmitAtoms;
 
-    export function createUiAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms {
+    export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms {
 
-        const { fileUs, fileUsAtom, formIdx } = fileUsParams;
+        const { fileUs, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const isWeb = !!metaForm?.mani.detection.web_ourl;
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {
-            debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, get, set);
+            debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, get, set);
         }
 
         const rv: Atoms = {
@@ -30,8 +30,8 @@ export namespace SubmitState {
         return rv;
     }
 
-    function combineResultFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, get: Getter, set: Setter) {
-        const atoms: Atoms = callbackAtoms[fileUsParams.formIdx]!.submitAtoms;
+    function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, get: Getter, set: Setter) {
+        const atoms: Atoms = maniAtoms[fileUsParams.formIdx]!.submitAtoms;
 
         const state = SubmitConv.fromAtoms(atoms, get, set);
         const changed = !SubmitConv.areTheSame(state, atoms.fromFile);

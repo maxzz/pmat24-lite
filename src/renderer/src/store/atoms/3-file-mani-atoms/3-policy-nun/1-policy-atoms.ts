@@ -9,7 +9,7 @@ export namespace PolicyState {
 
     export type Atoms = PolicyConv.PolicyAtoms;
 
-    export function createUiAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms[] {
+    export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms[] {
 
         const { fileUs, fileUsAtom, formIdx } = fileUsParams;
 
@@ -25,7 +25,7 @@ export namespace PolicyState {
                 const initialState = PolicyConv.forAtoms(field);
                 const atoms = PolicyConv.createAtoms(initialState,
                     ({ get, set }) => {
-                        debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, policyIdx, get, set);
+                        debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, policyIdx, get, set);
                     }
                 );
                 return {
@@ -40,8 +40,8 @@ export namespace PolicyState {
         return rv;
     }
 
-    function combineResultFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, policyIdx: number, get: Getter, set: Setter) {
-        const atoms: Atoms[] = callbackAtoms[fileUsParams.formIdx]!.policyAtoms;
+    function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, policyIdx: number, get: Getter, set: Setter) {
+        const atoms: Atoms[] = maniAtoms[fileUsParams.formIdx]!.policyAtoms;
         if (!atoms.length) {
             return;
         }

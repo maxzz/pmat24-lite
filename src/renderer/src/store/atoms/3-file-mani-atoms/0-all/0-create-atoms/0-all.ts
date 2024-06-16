@@ -6,7 +6,7 @@ import { SubmitState } from "../../2-submit";
 import { PolicyState } from "../../3-policy-nun";
 import { OptionsState } from "../../4-options";
 
-function createFormAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): FormAtoms | undefined {
+function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): FormAtoms | undefined {
 
     const { fileUs, formIdx } = fileUsParams;
     const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
@@ -15,10 +15,10 @@ function createFormAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): 
     }
 
     const rv: FormAtoms = {
-        fieldsAtoms: FieldsState.createUiAtoms(fileUsParams, callbackAtoms),
-        submitAtoms: SubmitState.createUiAtoms(fileUsParams, callbackAtoms),
-        policyAtoms: PolicyState.createUiAtoms(fileUsParams, callbackAtoms),
-        optionsAtoms: OptionsState.createAtoms(fileUsParams, callbackAtoms),
+        fieldsAtoms: FieldsState.createUiAtoms(fileUsParams, maniAtoms),
+        submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
+        policyAtoms: PolicyState.createUiAtoms(fileUsParams, maniAtoms),
+        optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
 
         fileUsParams: fileUsParams,
     };

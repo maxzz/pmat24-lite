@@ -1,13 +1,13 @@
 import { FieldTyp } from '@/store/manifest';
 import { FieldConv } from './0-conv';
-import { FieldRowState } from './2-field-atoms';
+import { FieldState } from './2-field-atoms';
 import { FileUsParams, ManiAtoms } from "../9-types";
 
 export namespace FieldsState {
 
     export type Atoms = FieldConv.FieldAtoms;
 
-    export function createUiAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms): Atoms[] {
+    export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms[] {
 
         const { fileUs, formIdx } = fileUsParams;
 
@@ -18,9 +18,9 @@ export namespace FieldsState {
 
         const rv = nonButtonFields.map(
             (field, idx) => {
-                const rowAtoms = FieldRowState.createUiAtoms(field,
+                const rowAtoms = FieldState.createUiAtoms(field,
                     ({ get, set }) => {
-                        return FieldRowState.debouncedCombinedResultFromAtoms(fileUsParams, callbackAtoms, idx, get, set);
+                        return FieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
                     }
                 );
                 return rowAtoms;

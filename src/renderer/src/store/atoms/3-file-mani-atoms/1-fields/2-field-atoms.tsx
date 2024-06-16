@@ -5,7 +5,7 @@ import { FieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
 import { FileUsParams, ManiAtoms, setManiChanges } from "../9-types";
 
-export namespace FieldRowState {
+export namespace FieldState {
 
     export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
         const forAtoms = FieldConv.forAtoms(field);
@@ -17,9 +17,9 @@ export namespace FieldRowState {
         };
     }
 
-    function combineResultFromAtoms(fileUsParams: FileUsParams, callbackAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+    function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
 
-        const atoms: FieldConv.FieldAtoms = callbackAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
+        const atoms: FieldConv.FieldAtoms = maniAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
 
         const state = FieldConv.fromAtoms(atoms, get, set);
         const changed = !FieldConv.areTheSame(state, atoms.fromFile);
