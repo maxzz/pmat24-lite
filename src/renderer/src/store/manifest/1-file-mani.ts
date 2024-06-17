@@ -44,11 +44,6 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
 
     //////////////////
 
-    // export type FContext = {
-    //     type: 'pchange';
-    //     name: number;                   // "1"
-    // };
-
     export type Detection = {
         caption?: string;
         web_ourl?: string;
@@ -79,7 +74,6 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
     };
 
     export type Form = {
-        // fcontext?: FContext;
         detection: Detection;
         options: Options;
         fields: Field[];
