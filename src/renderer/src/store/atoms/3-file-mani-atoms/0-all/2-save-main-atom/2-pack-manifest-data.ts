@@ -1,5 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
+import { FieldConv } from "../../1-fields/0-conv";
 
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
 
@@ -8,9 +9,24 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         return;
     }
 
+    const loginFormAtoms = maniAtoms[0];
+    const cpassFormAtoms = maniAtoms[1];
+
+    if (loginFormAtoms) {
+
+        loginFormAtoms.fieldsAtoms.map((fieldAtoms) => {
+            const maniValues = FieldConv.fromAtoms(fieldAtoms, get, set);
+            console.log('maniValues', JSON.stringify(maniValues, null, 2));
+        });
+
+        // loginFormAtoms.submitAtoms;
+        // loginFormAtoms.policyAtoms;
+        // loginFormAtoms.optionsAtoms;
+    }
+
     console.log('saved', fileUs.fname);
 
-    fileUs.changesSet.clear();
+    // fileUs.changesSet.clear();
 
     //TODO: validate
     //TODO: check if we can save from web or electron
