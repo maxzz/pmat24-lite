@@ -42,4 +42,70 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
         ids?: string;
     };
 
+    //////////////////
+
+    // export type FContext = {
+    //     type: 'pchange';
+    //     name: number;                   // "1"
+    // };
+
+    export type Detection = {
+        caption?: string;
+        web_ourl?: string;
+        web_murl?: string;
+        web_qurl?: string;
+        web_checkurl?: '1';             // "1"
+        dlg_class?: string;
+        names_ext?: string;
+        processname?: string;
+        commandline?: string;
+    };
+
+    export type Options = {
+        choosename?: string;
+        sidekick?: string;              // "manual mode hint"
+        ownernote?: string;
+        quicklink?: string;             // QL menu name
+        auth_pl?: string;               // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
+        balooncount?: string;
+        autoprompt?: string;            // boolean
+        lockfields?: string;            // "0" | "1"
+        submittype?: string;            // "dosubmit" | "nosubmit"
+        iconkey?: string;               // Any name not necessarily unique
+        iconlocation?: string;          // Format is the same as described into feedback_drawing.h. "Q:0:0:0"
+        usequicklink?: string;          // ("1" | "usequicklink") | ("2" | "dontusequicklink")
+        recheckwindowafterfillin?: string; // boolean
+        qlwocred?: string;              // boolean. Quick reauthentication enable/disable (QL wo/ crededntials).
+    };
+
+    export type Form = {
+        // fcontext?: FContext;
+        detection: Detection;
+        options: Options;
+        fields: Field[];
+    };
+
+    export type Descriptor = {
+        id: string;                     // "{fe94ea4f-ac76-4f7d-9c74-fa14abca889b}"
+        created: string;                // "1d57495 61c6f733"
+        modified: string;               // "1d57496 87bed3e8",
+        integrity?: string;             // "OTS2.056a41167041b1ea2c529494aeb606d0e"
+        version: string;                // "2.4.3"
+    };
+
+    export namespace Customization {
+        export type Process = {
+            name: string;               // process name like 'outlook.exe'
+            type: string;               // 'skip'
+        };
+        export type Options = {
+            processes: Process[];
+        };
+    }
+
+    export type Manifest = {
+        descriptor: Descriptor;
+        options?: Customization.Options;
+        forms: Form[];
+    };
 }
