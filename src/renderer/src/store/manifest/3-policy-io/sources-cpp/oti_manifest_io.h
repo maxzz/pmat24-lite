@@ -70,7 +70,7 @@ namespace manifest_io
 					}//switch
 				}//for
 				return sr;
-			} //remove_illegal()
+			}
 
 			inline string_t restore_illegal(__in const string_t& v)
 			{
@@ -103,7 +103,7 @@ namespace manifest_io
 						sr += '^';
 				}//for
 				return sr;
-			} //restore_illegal()
+			}
 
 		} //namespace dbname
 
@@ -127,7 +127,7 @@ namespace manifest_io
 					}//switch
 				}//for
 				return sr;
-			} //remove_illegal()
+			}
 
 			inline wstring_t wremove_illegal(__in const wstring_t& v)
 			{
@@ -145,7 +145,7 @@ namespace manifest_io
 					}//switch
 				}//for
 				return sr;
-			} //wremove_illegal()
+			}
 
 			inline string_t restore_illegal(__in const string_t& v)
 			{
@@ -178,7 +178,7 @@ namespace manifest_io
 						sr += '^';
 				}//for
 				return sr;
-			} //restore_illegal()
+			}
 
 			inline wstring_t wrestore_illegal(__in const wstring_t& v)
 			{
@@ -211,7 +211,7 @@ namespace manifest_io
 						sr += '^';
 				}//for
 				return sr;
-			} //wrestore_illegal()
+			}
 
 		} //namespace path
 
@@ -248,7 +248,7 @@ namespace manifest_io
 						rv += '^';
 				}//for
 				return rv;
-			} //restore_illegal()
+			}
 
 			static inline string_t remove_illegal(__in const string_t& v_)
 			{
@@ -264,7 +264,7 @@ namespace manifest_io
 					}//switch
 				}//for
 				return rv;
-			} //remove_illegal()
+			}
 
 		} //namespace match
 
@@ -289,13 +289,12 @@ namespace manifest_io
 				}//for
 
 				return rv;
-			} //remove_illegal()
+			}
 
 			inline int xdigit2hex(__in char v_)
 			{
 				return (isdigit(v_) ? v_ - '0' : 10 + tolower(v_) - 'a') & 0x0f;
-
-			} //xdigit2hex()
+			}
 
 			inline string_t restore_illegal(__in const string_t& v_)
 			{
@@ -337,9 +336,9 @@ namespace manifest_io
 					else
 						rv += *it;
 					++it;
-				}//while
+				}
 				return rv;
-			} //restore_illegal()
+			}
 
 		} //namespace low
 
@@ -381,27 +380,27 @@ namespace manifest_io
 			{
 				bool rv = filename_.compare(0, 6, "alien|") == 0;
 				return rv;
-			} //is_alien()
+			}
 
 			inline bool is_alien(__in const wstring_t& filename_)
 			{
 				bool rv = filename_.compare(0, 6, L"alien|") == 0;
 				return rv;
-			} //is_alien()
+			}
 
 			inline string_t split_alien(__in const string_t& filename_, __in bool& rv_alien_)
 			{
 				rv_alien_ = is_alien(filename_);
 				return rv_alien_ ? filename_.substr(6) : filename_;
 
-			} //split_alien()
+			}
 
 			inline wstring_t split_alien(__in const wstring_t& filename_, __in bool& rv_alien_)
 			{
 				rv_alien_ = is_alien(filename_);
 				return rv_alien_ ? filename_.substr(6) : filename_;
 
-			} //split_alien()
+			}
 
 			inline wstring_t with_alien(__in const manifest_t& manifest_)
 			{
@@ -413,7 +412,7 @@ namespace manifest_io
 				{
 					return utf8(manifest_.memfilename);
 				}
-			} //with_alien()
+			}
 
 		} //namespace manifestfilename
 
@@ -448,8 +447,7 @@ namespace manifest_io
 					windowtitle_.variablecaption = manifest_io::textchars::match::restore_illegal(caption.substr(9));
 					windowtitle_.caption = "*" + windowtitle_.variablecaption + "*";
 				}
-
-			} //internal_unpack_afterload_detection()
+			}
 
 			inline void internal_pack_beforesave_detection(__inout windowtitle_t& windowtitle_)
 			{
@@ -486,8 +484,7 @@ namespace manifest_io
 					windowtitle_.variablecaption = manifest_io::textchars::match::remove_illegal(caption_.substr(n+1, caption_.length()-1));
 					windowtitle_.caption = "[m0]:2:1:" + windowtitle_.variablecaption;
 				}
-
-			} //internal_pack_beforesave_detection()
+			}
 
 			/////////////////////////////////////////////////////////////////
 
@@ -499,8 +496,7 @@ namespace manifest_io
 
 					internal_unpack_afterload_detection(currentform.detection.windowtitle);
 				}//for.forms
-
-			} //fix_variablecaption_afterload()
+			}
 
 			inline bool internal_fix_formname(__inout form_t& form_)
 			{
@@ -522,7 +518,7 @@ namespace manifest_io
 				}
 
 				return false;
-			} //internal_fix_formname()
+			}
 
 			inline void fix_manifest_names(__inout manifest_t& manifest_)
 			{
@@ -551,8 +547,7 @@ namespace manifest_io
 						(*it).fcontext.parent = manifest::FORMNAME::signon;
 					}
 				}
-
-			} //fix_manifest_names()
+			}
 
 			inline void fix_valuelife(__inout manifest_t& manifest_)
 			{
@@ -567,8 +562,7 @@ namespace manifest_io
 							);
 					}//for.fields
 				}//for.forms
-
-			} //fix_valuelife()
+			}
 
 			inline void fix_ourls(__inout manifest_t& manifest_)
 			{
@@ -601,8 +595,7 @@ namespace manifest_io
 						}
 					}
 				}//for.forms
-
-			} //fix_ourls()
+			}
 
 			inline void fix_murls(__inout manifest_t& manifest_)
 			{
@@ -637,8 +630,7 @@ namespace manifest_io
 						currentwebdetection.checkurl = matchdata.needmatch();
 					}
 				}//for.forms
-
-			} //fix_murls()
+			}
 
 		} //namespace legacy
 
@@ -660,8 +652,7 @@ namespace manifest_io
 				bool isinuse = IS_WEBPAGE(currentform) ? !currentform.detection.web.qurl.empty() : !currentform.detection.processname.empty();
 				currentform.options.useQuickLink = isinuse ? QUICKLINKTYPE::usequicklink : QUICKLINKTYPE::dontusequicklink;
 			}//for.forms
-
-		} //legacyQuicklink_convert_usequicklink_afterload()
+		}
 
 		/////////////////////////////////////////////////////////////////////
 
@@ -700,8 +691,7 @@ namespace manifest_io
 
 					currentfield.ids.memid.form = formfrom_;
 				}//for.fields
-
-			} //refresh_memids()
+			}
 
 			inline void refresh_memids(__inout manifest_t& manifest_)
 			{
@@ -711,8 +701,7 @@ namespace manifest_io
 
 					refresh_memids(currentform.fcontext.name, currentform.fields);
 				}//for.forms
-
-			} //refresh_memids()
+			}
 
 			inline void restore_refcounters(__inout manifest_t& manifest_) //just restore refcounters
 			{
@@ -768,8 +757,7 @@ namespace manifest_io
 						}
 					}//for.fields
 				}//for.forms
-
-			} //resync_broken_crosslinks()
+			}
 
 			inline void initialize_dbnames(__inout manifest_t& manifest_)
 			{
@@ -791,8 +779,7 @@ namespace manifest_io
 						}
 					}//for.fields
 				}//for.forms
-
-			} //initialize_dbnames()
+			}
 
 			inline void set_accids_from_memids(__inout manifest::manifest_t& manifest_) throw()
 			{
@@ -810,8 +797,7 @@ namespace manifest_io
 						currentfield.ids.accid = currentfield.ids.memid.id;
 					}//for.fields
 				}//for.forms
-
-			} //set_accids_from_memids()
+			}
 
 			// NOTE: If we don't save default display names we'll have: 1. More portable manifest, i.e. if created on Admin's PC(French),
 			// and User will run it on English OS; 2. Smaller manifest.
@@ -832,8 +818,7 @@ namespace manifest_io
 							currentfield.displayname = defaultdisplayname_;
 					}//for.fields
 				}//for.forms
-
-			} //defaultdisplaynames_set()
+			}
 
 			inline void defaultdisplaynames_clear(__inout manifest::manifest_t& manifest_, __in const string_t& defaultdisplayname_) throw()
 			{
@@ -851,8 +836,7 @@ namespace manifest_io
 							currentfield.displayname.clear();
 					}//for.fields
 				}//for.forms
-
-			} //defaultdisplaynames_clear()
+			}
 
 			inline void defaultdisplaynames_set(__inout manifest::manifest_t& manifest_, __in const wstring_t& defaultdisplayname_) throw()
 			{
@@ -860,8 +844,7 @@ namespace manifest_io
 
 				string_t wdefaultdisplayname_ = utf8(defaultdisplayname_);
 				defaultdisplaynames_set(manifest_, defaultdisplayname_);
-
-			} //defaultdisplaynames_set()
+			}
 
 			inline void defaultdisplaynames_clear(__inout manifest::manifest_t& manifest_, __in const wstring_t& defaultdisplayname_) throw()
 			{
@@ -869,8 +852,7 @@ namespace manifest_io
 
 				string_t wdefaultdisplayname_ = utf8(defaultdisplayname_);
 				defaultdisplaynames_clear(manifest_, defaultdisplayname_);
-
-			} //defaultdisplaynames_clear()
+			}
 
 			/////////////////////////////////////////////////////////////////
 
@@ -904,7 +886,7 @@ namespace manifest_io
 				}
 
 				return pfield;
-			} //internal_reffield_byindex()
+			}
 
 			inline long internal_field_rindex_bymemid(__in const manifest::fields_t& fields_, __in long memid_)
 			{
@@ -922,7 +904,7 @@ namespace manifest_io
 				}//for.fields
 
 				return rv;
-			} //internal_field_rindex_bymemid()
+			}
 
 			/////////////////////////////////////////////////////////////////
 			//namespace files
@@ -973,8 +955,7 @@ namespace manifest_io
 
 					}//for.fields
 				}//for.forms
-
-			} //files_afterload_restore_crosslinks_byindex()
+			}
 
 			inline void files_beforesave_set_crosslinks_rindex(__inout manifest_t& manifest_)
 			{
@@ -1021,8 +1002,7 @@ namespace manifest_io
 
 					}//for.fields
 				}//for.forms
-
-			} //files_beforesave_set_crosslinks_rindex()
+			}
 
 		} //namespace maintinance
 	} //namespace utilsio
@@ -1048,12 +1028,12 @@ namespace manifest_io
 				inline manifest::FIELDTYPE::type_t cast(__in const string_t& v_)
 				{
 					return map_t::instance().cast(v_);
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::FIELDTYPE::type_t v_)
 				{
 					return map_t::instance().cast(v_);
-				} //cast()
+				}
 
 			} //namespace MAP_FIELD_TYPE
 
@@ -1066,7 +1046,7 @@ namespace manifest_io
 					if (v_.empty()) rv = manifest::FORMTYPE::signon; else
 					if (v_ == "pchange") rv = manifest::FORMTYPE::pchange;
 					return rv;
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::FORMTYPE::type_t v_)
 				{
@@ -1077,7 +1057,7 @@ namespace manifest_io
 						case manifest::FORMTYPE::unknown: rv = "unknown"; break;	// We allways have to prevent this from happening, if it does then it's a bug.
 					}//switch
 					return rv;
-				} //cast()
+				}
 
 			} //namespace MAP_FORMTYPE_TYPE
 
@@ -1086,12 +1066,12 @@ namespace manifest_io
 				inline int cast(__in const string_t& v_)
 				{
 					return v_.empty() ? 0 : strings::conv_int(v_);
-				} //cast()
+				}
 
 				inline string_t cast(__in int v_)
 				{
 					return v_ == 0 ? string_t() : strings::conv_int(v_);
-				} //cast()
+				}
 
 			} //namespace MAP_NUMBER_TYPE
 
@@ -1100,12 +1080,12 @@ namespace manifest_io
 				inline manifest::formname_t cast(__in const string_t& v_)
 				{
 					return v_.empty() ? manifest::FORMNAME::signon : manifest::FORMNAME::type_t(strings::conv_int(v_));
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::formname_t v_)
 				{
 					return v_ == manifest::FORMNAME::signon ? string_t() : strings::conv_int(v_);
-				} //cast()
+				}
 
 			} //namespace MAP_FORMNAME_TYPE
 
@@ -1118,7 +1098,7 @@ namespace manifest_io
 					if (v_ == "in") rv = manifest::RDIRECTION::in; else
 					if (v_ == "out") rv = manifest::RDIRECTION::out;
 					return rv;
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::RDIRECTION::type_t v_)
 				{
@@ -1129,7 +1109,7 @@ namespace manifest_io
 						case manifest::RDIRECTION::out: rv = "out"; break;
 					}//switch
 					return rv;
-				} //cast()
+				}
 
 			} //namespace MAP_RDIRECTION_TYPE
 
@@ -1142,7 +1122,7 @@ namespace manifest_io
 					if (v_ == "dosubmit") rv = manifest::SUBMITTYPE::dosubmit; else
 					if (v_ == "nosubmit") rv = manifest::SUBMITTYPE::nosubmit;
 					return rv;
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::SUBMITTYPE::type_t v_)
 				{
@@ -1153,7 +1133,7 @@ namespace manifest_io
 						case manifest::SUBMITTYPE::nosubmit: rv = "nosubmit"; break;
 					}//switch
 					return rv;
-				} //cast()
+				}
 
 			} //namespace submittype_type
 
@@ -1166,7 +1146,7 @@ namespace manifest_io
 					if ((v_ == "1") || (v_ == "usequicklink")) rv = manifest::QUICKLINKTYPE::usequicklink; else
 					if ((v_ == "2") || (v_ == "dontusequicklink")) rv = manifest::QUICKLINKTYPE::dontusequicklink;
 					return rv;
-				} //cast()
+				}
 
 				inline string_t cast(__in const manifest::QUICKLINKTYPE::type_t v_)
 				{
@@ -1178,7 +1158,7 @@ namespace manifest_io
 						case manifest::QUICKLINKTYPE::dontusequicklink: rv = "2"; break;
 					}//switch
 					return rv;
-				} //cast()
+				}
 
 			} //namespace usequicklinktype_type
 
@@ -1206,8 +1186,7 @@ namespace manifest_io
 				out(os, "storage_id", descriptor_.storage_id);
 				out(os, "version", version_);
 			out_end(os);
-
-		} //save_descriptor()
+		}
 
 		void save_fcontext(__inout std::ostream& os, __in const manifest::fcontext_t& fcontext_)
 		{
@@ -1219,8 +1198,7 @@ namespace manifest_io
 				out(os, "name", internal_io::mapping::MAP_FORMNAME_TYPE::cast(fcontext_.name));
 				out(os, "parent", internal_io::mapping::MAP_FORMNAME_TYPE::cast(fcontext_.parent));
 			out_end(os);
-
-		} //save_fcontext()
+		}
 
 		void save_detection(__inout std::ostream& os, __in const manifest::detection_t& detection_, __in const string_t& oldnames_)
 		{
@@ -1248,8 +1226,7 @@ namespace manifest_io
 				out(os, "processname", textchars::low::remove_illegal(detection_.processname));
 				out(os, "commandline", textchars::low::remove_illegal(detection_.commandline));
 			out_end(os);
-
-		} //save_detection()
+		}
 
 		void save_options(__inout std::ostream& os, __in const manifest::options_t& options_)
 		{
@@ -1291,8 +1268,7 @@ namespace manifest_io
 				if (!options_.unknownattributes.empty())
 					os << options_.unknownattributes;
 			out_end(os);
-
-		} //save_options()
+		}
 
 		void save_field(__inout std::ostream& os, __in const manifest::field_t& field_, __in const string_t& oldPath_)
 		{
@@ -1358,8 +1334,7 @@ namespace manifest_io
 					}
 				}
 			out_end(os);
-
-		} //save_field()
+		}
 
 		void save_fields(__inout std::ostream& os, __in const manifest::fields_t& fields_)
 		{
@@ -1377,8 +1352,7 @@ namespace manifest_io
 				}//for.fields
 
 			out_end(os, "</fields>");
-
-		} //save_fields()
+		}
 
 		void save_fields_merged(__inout std::ostream& os, __in const manifest::fields_t& fldOld_, __in const manifest::fields_t& fldNew_)
 		{
@@ -1403,8 +1377,7 @@ namespace manifest_io
 				}//for.fields
 
 			out_end(os, "</fields>");
-
-		} //save_fields_merged()
+		}
 
 		void save_form(__inout std::ostream& os, __in const manifest::form_t& form_)
 		{
@@ -1419,8 +1392,7 @@ namespace manifest_io
 				save_fields(os, form_.fields);
 
 			out_end(os, "</form>");
-
-		} //save_form()
+		}
 
 		void save_form_merged(__inout std::ostream& os, __in const manifest::form_t& formOld_, __in const manifest::form_t& formNew_)
 		{
@@ -1435,8 +1407,7 @@ namespace manifest_io
 				save_fields_merged(os, formOld_.fields, formNew_.fields);
 
 			out_end(os, "</form>");
-
-		} //save_form_merged()
+		}
 
 		void save_forms(__inout std::ostream& os, __in const manifest::forms_t& forms_)
 		{
@@ -1453,8 +1424,7 @@ namespace manifest_io
 				}//for.forms
 
 			out_end(os, "</forms>");
-
-		} //save_forms()
+		}
 
 		void save_forms_merged(__inout std::ostream& os, __in const manifest::forms_t& formsOld_, __in const manifest::forms_t& formsNew_)
 		{
@@ -1472,8 +1442,7 @@ namespace manifest_io
 				}//for.forms
 
 			out_end(os, "</forms>");
-
-		} //save_forms_merged()
+		}
 
 		/////////////////////////////////////////////////////////////////
 
@@ -1484,20 +1453,17 @@ namespace manifest_io
 
 			for (int i = 0; i < level_; i++)
 				m_ident += "\t";
-
-		} //set_level()
+		}
 
 		void inc_level()
 		{
 			set_level(m_level + 1);
-
-		} //inc_level()
+		}
 
 		void dec_level()
 		{
 			set_level(m_level - 1);
-
-		} //dec_level()
+		}
 
 		void out(__inout std::ostream& os, __in const char* name_, __in const string_t& value_)
 		{
@@ -1505,7 +1471,7 @@ namespace manifest_io
 			{
 				os << m_ident << name_ << "=\"" << xml::remove_illegal(value_) << "\"\n";
 			}
-		} //out()
+		}
 
 		void out(__inout std::ostream& os, __in const char* name_, __in const bool value_)
 		{
@@ -1513,21 +1479,19 @@ namespace manifest_io
 			{
 				os << m_ident << name_ << "=\"" << value_ << "\"\n";
 			}
-		} //out()
+		}
 
 		void out_begin(__inout std::ostream& os, __in const char* name_)
 		{
 			os << m_ident << name_ << "\n";
 			inc_level();
-
-		} //out_begin()
+		}
 
 		void out_end(__inout std::ostream& os, __in const char* name_ = "/>")
 		{
 			dec_level();
 			os << m_ident << name_ << "\n";
-
-		} //out_end()
+		}
 
 		int m_level;
 		string_t m_ident;
@@ -1561,8 +1525,7 @@ namespace manifest_io
 			dec_level();
 
 			os << "</manifest>\n";
-
-		} //save()
+		}
 
 		void savemerged(__in const manifest::manifest_t mfOld_, __inout manifest::manifest_t& mfNew_, __inout std::ostream& os)
 		{
@@ -1583,8 +1546,7 @@ namespace manifest_io
 			dec_level();
 
 			os << "</manifest>\n";
-
-		} //savemerged()
+		}
 
 	}; //class internal_o_tostream_t
 
@@ -1650,8 +1612,7 @@ namespace manifest_io
 				CryptReleaseContext(hCryptProv, 0);
 
 			return rv;
-
-		} //calculate_crc()
+		}
 
 		class cleanvaryblock_t // Clean variable block, since before calculating CRC we need to clean variable part of the manifest.
 		{
@@ -1674,15 +1635,13 @@ namespace manifest_io
 				//
 				// This version is for compatibility to avoid warning.
 				mf_.descriptor.version = "2.3.5";
-
-			} //cleanvaryblock_t()
+			}
 
 			~cleanvaryblock_t()
 			{
 				// 1. Restore what we had before.
 				m_savedManifestReference.descriptor = m_descriptor;
-
-			} //~cleanvaryblock_t()
+			}
 
 		}; //class cleanvaryblock_t
 
@@ -1711,8 +1670,7 @@ namespace manifest_io
 
 			mf_.descriptor.integrity = calculate_crc(flatmanifest);
 			mf_.crcstate = manifest::crcstate::ok;
-
-		} //add_crc()
+		}
 
 		inline bool check_crc(__inout manifest::manifest_t& mf_)
 		{
@@ -1748,8 +1706,7 @@ namespace manifest_io
 			mf_.crcstate = rv_isunchanged ? manifest::crcstate::ok : manifest::crcstate::bad;
 
 			return rv_isunchanged;
-
-		} //check_crc()
+		}
 
 		inline string_t hash_manifest(__inout manifest::manifest_t& mf_)
 		{
@@ -1775,8 +1732,7 @@ namespace manifest_io
 			}
 
 			return calculate_crc(flatmanifest);
-
-		} //hash_manifest()
+		}
 
 	} //namespace integrity
 
@@ -1791,14 +1747,12 @@ namespace manifest_io
 			inline bool map_boolean(const char* value_)
 			{
 				return strings::equal(value_, "1");
-
-			} //map_boolean()
+			}
 
 			inline void unknown_value(const char* attr)
 			{
 				//TODO: implement.
-
-			} //unknown_value()
+			}
 
 			namespace maps
 			{
@@ -1810,8 +1764,7 @@ namespace manifest_io
 						{
 							unknown, id, created, modified, integrity_ext, integrity, source, size, version, storage_id,
 						};
-					}//namespace localmap
-
+					}
 					wstringsmap_begin_string(map_t, localmap::type_t, localmap::unknown)
 						wstringsmap_case("id", localmap::id)
 						wstringsmap_case("created", localmap::created)
@@ -1823,8 +1776,7 @@ namespace manifest_io
 						wstringsmap_case("version", localmap::version)
 						wstringsmap_case("storage_id", localmap::storage_id)
 					wstringsmap_end()
-
-				}//namespace MANIFEST_DESCRIPTOR
+				}
 
 				namespace FORM_FIELD
 				{
@@ -1836,8 +1788,7 @@ namespace manifest_io
 							value, choosevalue, rfielddir, rfieldform, rfieldindex,
 							askalways, onetvalue, password, submit, useit, accid//, username,
 						};
-					}//namespace localmap
-
+					}
 					wstringsmap_begin_string(map_t, localmap::type_t, localmap::unknown)
 						wstringsmap_case("type", localmap::type)
 						wstringsmap_case("displayname", localmap::displayname)
@@ -1859,8 +1810,7 @@ namespace manifest_io
 						wstringsmap_case("useit", localmap::useit)
 						wstringsmap_case("accid", localmap::accid)
 					wstringsmap_end()
-
-				}//namespace FORM_FIELD
+				}
 
 				namespace FORM_FCONTEXT
 				{
@@ -1870,15 +1820,13 @@ namespace manifest_io
 						{
 							unknown, type, name, parent,
 						};
-					}//namespace localmap
-
+					}
 					wstringsmap_begin_string(map_t, localmap::type_t, localmap::unknown)
 						wstringsmap_case("type", localmap::type)
 						wstringsmap_case("name", localmap::name)
 						wstringsmap_case("parent", localmap::parent)
 					wstringsmap_end()
-
-				}//namespace FORM_FCONTEXT
+				}
 
 				namespace FORM_DETECTION
 				{
@@ -1903,8 +1851,7 @@ namespace manifest_io
 							processname,
 							commandline,
 						};
-					}//namespace localmap
-
+					}
 					wstringsmap_begin_string(map_t, localmap::type_t, localmap::unknown)
 						wstringsmap_case("caption", localmap::caption)
 						wstringsmap_case("variablecaption", localmap::varcaption)
@@ -1922,8 +1869,7 @@ namespace manifest_io
 						wstringsmap_case("processname", localmap::processname)
 						wstringsmap_case("commandline", localmap::commandline)
 					wstringsmap_end()
-
-				}//namespace FORM_DETECTION
+				}
 
 				namespace FORM_OPTIONS
 				{
@@ -1934,8 +1880,7 @@ namespace manifest_io
 							unknown, choosename, sidekick, ownernote, qlmenuname, balooncount, autoprompt, lockfields, submittype,
 							iconkey, iconlocation, usequicklink, recheckwindowafterfillin, qlwocred,auth_pl/*, authonbrreload*/
 						};
-					}//namespace localmap
-
+					}
 					wstringsmap_begin_string(map_t, localmap::type_t, localmap::unknown)
 						wstringsmap_case("choosename", localmap::choosename)
 						wstringsmap_case("sidekick", localmap::sidekick)
@@ -1953,9 +1898,7 @@ namespace manifest_io
 						wstringsmap_case("auth_pl", localmap::auth_pl)
 						//wstringsmap_case("authonbrreload", localmap::authonbrreload)
 						wstringsmap_end()
-
-				}//namespace FORM_OPTIONS
-
+				}
 			}//namespace maps
 
 			inline void mapManifestDescriptor(__inout descriptor_t& rv_, __in const char* attr_, __in const char* value_)
@@ -1974,7 +1917,7 @@ namespace manifest_io
 					case maps::MANIFEST_DESCRIPTOR::localmap::storage_id   : rv_.storage_id = value_; break;
 					case maps::MANIFEST_DESCRIPTOR::localmap::unknown      : default: unknown_value(attr_); break;
 				}//switch
-			} //mapManifestDescriptor()
+			}
 
 			inline void mapManifestFormFContext(__inout fcontext_t& rv_, __in const char* attr_, __in const char* value_)
 			{
@@ -1986,7 +1929,7 @@ namespace manifest_io
 					case maps::FORM_FCONTEXT::localmap::parent : rv_.parent = internal_io::mapping::MAP_FORMNAME_TYPE::cast(value_); break;
 					case maps::FORM_FCONTEXT::localmap::unknown: default: unknown_value(attr_); break;
 				}//switch
-			} //mapManifestFormFContext()
+			}
 
 			inline void mapManifestFormDetection(__inout detection_t& rv_, __in const char* attr_, __in const char* value_)
 			{
@@ -2010,7 +1953,7 @@ namespace manifest_io
 					case maps::FORM_DETECTION::localmap::commandline : rv_.commandline = textchars::low::restore_illegal(value_); break;
 					case maps::FORM_DETECTION::localmap::unknown     : default: unknown_value(attr_); break;
 				}//switch
-			} //mapManifestFormDetection()
+			}
 
 			inline void mapManifestFormOptions(__inout options_t& rv_, __in const char* attr_, __in const char* value_)
 			{
@@ -2041,7 +1984,7 @@ namespace manifest_io
 						}
 						break;
 				}//switch
-			} //mapManifestFormOptions()
+			}
 
 			inline void mapManifestFormField(__inout field_t& rv_, __in const char* attr_, __in const char* value_)
 			{
@@ -2069,7 +2012,7 @@ namespace manifest_io
 					case maps::FORM_FIELD::localmap::accid      : rv_.ids.accid = strings::conv_int(value_); break;
 					case maps::FORM_FIELD::localmap::unknown    : default: unknown_value(attr_); break;
 				}//switch
-			} //mapManifestFormField()
+			}
 
 		} //namespace newio
 
@@ -2085,9 +2028,9 @@ namespace manifest_io
 
 					shell_t(manifest::manifest_t& manifest_) : m_manifest(manifest_), m_coptions(manifest_.customizationoptions)
 					{
-					} //shell_t()
+					}
 
-				}; //class shell_t
+				};
 
 				typedef shell_t myinstance_t;
 				typedef void (*on_element_t)(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_);
@@ -2100,27 +2043,27 @@ namespace manifest_io
 				inline void RULE_CUSTOPT_onnew_process(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
 					customization::user_i::parserrules::onnew_process(myinstance_.m_coptions, elementname_, attributes_);
-				} //RULE_CUSTOPT_onnew_process()
+				}
 
 				inline void RULE_CUSTOPT_ondone_process(myinstance_t& myinstance_, const char* elementname_)
 				{
 					customization::user_i::parserrules::ondone_process(myinstance_.m_coptions, elementname_);
-				} //RULE_CUSTOPT_ondone_process()
+				}
 
 				inline void RULE_CUSTOPT_onnew_class(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
 					customization::user_i::parserrules::onnew_class(myinstance_.m_coptions, elementname_, attributes_);
-				} //RULE_CUSTOPT_onnew_class()
+				}
 
 				inline void RULE_CUSTOPT_ondone_class(myinstance_t& myinstance_, const char* elementname_)
 				{
 					customization::user_i::parserrules::ondone_class(myinstance_.m_coptions, elementname_);
-				} //RULE_CUSTOPT_ondone_class()
+				}
 
 				inline void RULE_CUSTOPT_onnew_caption(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
 					customization::user_i::parserrules::onnew_caption(myinstance_.m_coptions, elementname_, attributes_);
-				} //RULE_CUSTOPT_onnew_caption()
+				}
 
 				/////////////////////////////////////////////////////////////
 				// Manifest rules
@@ -2132,15 +2075,13 @@ namespace manifest_io
 					{
 						newio::mapManifestDescriptor(myinstance_.m_manifest.descriptor, attributes_[n].name, attributes_[n].value);
 						++n;
-					}//while
-
-				} //RULE_onnew_descriptor()
+					}
+				}
 
 				inline void RULE_onnew_form(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
 					myinstance_.m_manifest.forms.push_back(manifest::form_t());
-
-				} //RULE_onnew_form()
+				}
 
 				inline void RULE_onnew_form_fcontext(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
@@ -2154,9 +2095,8 @@ namespace manifest_io
 					{
 						newio::mapManifestFormFContext(fcontext, attributes_[n].name, attributes_[n].value);
 						++n;
-					}//while
-
-				} //RULE_onnew_form_fcontext()
+					}
+				}
 
 				inline void RULE_onnew_form_detection(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
@@ -2170,9 +2110,8 @@ namespace manifest_io
 					{
 						newio::mapManifestFormDetection(detection, attributes_[n].name, attributes_[n].value);
 						++n;
-					}//while
-
-				} //RULE_onnew_form_detection()
+					}
+				}
 
 				inline void RULE_onnew_form_options(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
@@ -2186,9 +2125,8 @@ namespace manifest_io
 					{
 						newio::mapManifestFormOptions(options, attributes_[n].name, attributes_[n].value);
 						++n;
-					}//while
-
-				} //RULE_onnew_form_options()
+					}
+				}
 
 				inline void RULE_onnew_form_field(myinstance_t& myinstance_, const char* elementname_, const expat::attribute_t* attributes_)
 				{
@@ -2204,11 +2142,10 @@ namespace manifest_io
 					{
 						newio::mapManifestFormField(newfield, attributes_[n].name, attributes_[n].value);
 						++n;
-					}//while
+					}
 
 					password::policy_t::compatibility_combine_optionsToPolicy(newfield.options, newfield.policy);
-
-				} //RULE_onnew_form_field()
+				}
 
 				//-------------------------------------
 
@@ -2239,11 +2176,10 @@ namespace manifest_io
 								myrule_t& fields = form.addrule(myrule_t("fields"));
 									myrule_t& field = fields.addrule(myrule_t("field", RULE_onnew_form_field));
 						}
-
 					}//if empty
 
 					return rv;
-				} //rulesdefinition()
+				}
 
 			} //namespace parserrules
 
@@ -2254,7 +2190,7 @@ namespace manifest_io
 
 				if (!parser.load_stream(is_))
 					throw std::runtime_error("Unable to load stream");
-			} //load_stream()
+			}
 
 			inline void load_line(__in const char* line_, __in std::size_t size_, __inout parserrules::myinstance_t& myinstance_) throw(...)
 			{
@@ -2263,7 +2199,7 @@ namespace manifest_io
 
 				if (!parser.load_line(line_, size_))
 					throw std::runtime_error("Unable to load stream");
-			} //load_line()
+			}
 
 		} //namespace newparser
 
@@ -2316,8 +2252,7 @@ namespace manifest_io
 			// 5. Say we have not check CRC yet
 
 			rv_.crcstate = manifest::crcstate::undef;
-
-		} //load_manifest_nocrc_must_memory()
+		}
 
 		inline void load_manifest_nocrc_must(__in const wstring_t& name_, __out manifest::manifest_t& rv_) throw(...)
 		{
@@ -2337,8 +2272,7 @@ namespace manifest_io
 
 			rv_.alien = alien;
 			rv_.memfilename = utf8(fname);
-
-		} //load_manifest_nocrc_must()
+		}
 
 		inline void update_manifest_crc(__inout manifest::manifest_t& rv_) throw ()
 		{
@@ -2346,7 +2280,7 @@ namespace manifest_io
 			{
 				rv_.crcstate = integrity::check_crc(rv_) ? manifest::crcstate::ok : manifest::crcstate::bad;
 			}
-		} //update_manifest_crc()
+		}
 
 	} //namespace internal_i
 
@@ -2366,7 +2300,7 @@ namespace manifest_io
 			if (rv_.crcstate == manifest::crcstate::bad)
 				throw errors::fileload_error(errors::FILELOADERROR::badcrc, rv_.memfilename);
 		/**/
-	} //load_manifest_must()
+	}
 
 	inline void load_manifest_must_memory(__in const wstring_t& name_, __in const string_t& fileasstring_, __out manifest::manifest_t& rv_) throw(...)
 	{
@@ -2387,7 +2321,7 @@ namespace manifest_io
 			if (rv_.crcstate == manifest::crcstate::bad)
 				throw errors::fileload_error(errors::FILELOADERROR::badcrc, rv_.memfilename);
 		/**/
-	} //load_manifest_must_memory()
+	}
 
 	/////////////////////////////////////////////////////////////////////////
 
@@ -2400,15 +2334,13 @@ namespace manifest_io
 		saver.save(manifest_, os);
 
 		rv_manifestasstring_ = os.str();
-
-	} //savemanifesttostring()
+	}
 
 	inline void savemanifesttostring(__inout /*const */manifest::manifest_t& manifest_, __in string_t& rv_manifestasstring_) throw(...)
 	{
 		bool saveasfilecontent = false; // To save accid's.
 		savemanifesttostring(manifest_, rv_manifestasstring_, saveasfilecontent);
-
-	} //savemanifesttostring()
+	}
 
 	inline void savemanifestasfilecontent_nocrc(__inout /*const */manifest::manifest_t& manifest_, __in string_t& rv_manifestasstring_) throw(...)
 	{
@@ -2422,8 +2354,7 @@ namespace manifest_io
 		//		manifest_io::integrity::add_crc(manifest_);
 		//		saver.save(manifest_, rv_os_);
 		//	}
-
-	} //savemanifestasfilecontent_nocrc()
+	}
 
 	/////////////////////////////////////////////////////////////////////////
 
@@ -2432,8 +2363,7 @@ namespace manifest_io
 		// 0. The function alien_manifestfilename() will set up a proper filename to pass this name between components.
 
 		return utilsio::manifestfilename::with_alien(manifest_);
-
-	} //alien_manifestfilename()
+	}
 
 	inline wstring_t split_alien(__in const string_t& filename_)
 	{
@@ -2441,15 +2371,13 @@ namespace manifest_io
 
 		bool alien = false;
 		return utilsio::manifestfilename::split_alien(utf8(filename_), alien);
-
-	} //split_alien()
+	}
 
 	inline wstring_t split_alien(__in const wstring_t& filename_)
 	{
 		bool alien = false;
 		return utilsio::manifestfilename::split_alien(filename_, alien);
-
-	} //split_alien()
+	}
 
 	/////////////////////////////////////////////////////////////////////////
 
@@ -2496,7 +2424,7 @@ namespace manifest_io
 //		}
 //
 //		return rv;
-//	} //load_manifest_properly()
+//	}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -2533,7 +2461,7 @@ namespace manifest_pm20
 		}
 
 		return rv;
-	} //load_manifest_properly()
+	}
 
 	inline bool load_manifest_properly(__in const wstring_t& filename_, __in const string_t& fileasstring_, __out manifest::manifest_t& rv_manifest_) throw()
 	{
@@ -2564,6 +2492,6 @@ namespace manifest_pm20
 		}
 
 		return rv;
-	} //load_manifest_properly()
+	}
 
 } //namespace manifest_pm20
