@@ -13,7 +13,7 @@
         "fast-xml-parser": "^4.3.6",
         "jotai": "^2.8.3",
         "jotai-valtio": "^0.5.0",
-        "pm-manifest": "^1.2.11",
+        "pm-manifest": "^1.2.12",
         "pm-manifest-icons": "^1.0.3",
         "react-syntax-highlighter": "^15.5.0",
         "react-use": "^17.5.0",
@@ -41,7 +41,7 @@
         "@radix-ui/react-tooltip": "^1.0.7",
         "@react-spring/web": "^9.7.3",
         "@tailwindcss/forms": "^0.5.7",
-        "@types/node": "^20.14.2",
+        "@types/node": "^20.14.4",
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.3.1",
@@ -50,7 +50,7 @@
         "electron": "^31.0.0",
         "electron-builder": "^24.13.3",
         "electron-vite": "^2.2.0",
-        "lucide-react": "^0.394.0",
+        "lucide-react": "^0.395.0",
         "postcss": "^8.4.36",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
@@ -61,7 +61,7 @@
         "tailwind-scrollbar": "^3.1.0",
         "tailwindcss": "^3.4.4",
         "typescript": "^5.4.5",
-        "vite": "^5.2.13"
+        "vite": "^5.3.1"
     },
     "scripts": {
         "dev": "electron-vite dev",
