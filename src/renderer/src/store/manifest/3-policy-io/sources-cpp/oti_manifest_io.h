@@ -67,7 +67,7 @@ namespace manifest_io
 						case '.': sr += "^dot;"; break;
 						case ':': sr += "^2dot;"; break;
 						default: sr += chr; break;
-					}//switch
+					}
 				}//for
 				return sr;
 			}
@@ -124,7 +124,7 @@ namespace manifest_io
 						case '.': sr += "^dot;"; break;
 						case ':': sr += "^2dot;"; break;
 						default: sr += chr; break;
-					}//switch
+					}
 				}//for
 				return sr;
 			}
@@ -142,7 +142,7 @@ namespace manifest_io
 						case '.': sr += L"^dot;"; break;
 						case ':': sr += L"^2dot;"; break;
 						default: sr += chr; break;
-					}//switch
+					}
 				}//for
 				return sr;
 			}
@@ -261,7 +261,7 @@ namespace manifest_io
 						case '^': rv += "^up;"; break;
 						case ':': rv += "^2dot;"; break;
 						default: rv += chr; break;
-					}//switch
+					}
 				}//for
 				return rv;
 			}
@@ -1055,7 +1055,7 @@ namespace manifest_io
 					{
 						case manifest::FORMTYPE::pchange: rv = "pchange"; break;
 						case manifest::FORMTYPE::unknown: rv = "unknown"; break;	// We allways have to prevent this from happening, if it does then it's a bug.
-					}//switch
+					}
 					return rv;
 				}
 
@@ -1107,7 +1107,7 @@ namespace manifest_io
 					{
 						case manifest::RDIRECTION::in: rv = "in"; break;
 						case manifest::RDIRECTION::out: rv = "out"; break;
-					}//switch
+					}
 					return rv;
 				}
 
@@ -1131,7 +1131,7 @@ namespace manifest_io
 					{
 						case manifest::SUBMITTYPE::dosubmit: rv = "dosubmit"; break;
 						case manifest::SUBMITTYPE::nosubmit: rv = "nosubmit"; break;
-					}//switch
+					}
 					return rv;
 				}
 
@@ -1156,7 +1156,7 @@ namespace manifest_io
 						case manifest::QUICKLINKTYPE::undefined: rv = "0"; break;
 						case manifest::QUICKLINKTYPE::usequicklink: rv = "1"; break;
 						case manifest::QUICKLINKTYPE::dontusequicklink: rv = "2"; break;
-					}//switch
+					}
 					return rv;
 				}
 
@@ -1916,7 +1916,7 @@ namespace manifest_io
 					case maps::MANIFEST_DESCRIPTOR::localmap::version      : rv_.version = value_; break;
 					case maps::MANIFEST_DESCRIPTOR::localmap::storage_id   : rv_.storage_id = value_; break;
 					case maps::MANIFEST_DESCRIPTOR::localmap::unknown      : default: unknown_value(attr_); break;
-				}//switch
+				}
 			}
 
 			inline void mapManifestFormFContext(__inout fcontext_t& rv_, __in const char* attr_, __in const char* value_)
@@ -1928,7 +1928,7 @@ namespace manifest_io
 					case maps::FORM_FCONTEXT::localmap::name   : rv_.name = internal_io::mapping::MAP_FORMNAME_TYPE::cast(value_); break;
 					case maps::FORM_FCONTEXT::localmap::parent : rv_.parent = internal_io::mapping::MAP_FORMNAME_TYPE::cast(value_); break;
 					case maps::FORM_FCONTEXT::localmap::unknown: default: unknown_value(attr_); break;
-				}//switch
+				}
 			}
 
 			inline void mapManifestFormDetection(__inout detection_t& rv_, __in const char* attr_, __in const char* value_)
@@ -1952,7 +1952,7 @@ namespace manifest_io
 					case maps::FORM_DETECTION::localmap::processname : rv_.processname = textchars::low::restore_illegal(value_); break;
 					case maps::FORM_DETECTION::localmap::commandline : rv_.commandline = textchars::low::restore_illegal(value_); break;
 					case maps::FORM_DETECTION::localmap::unknown     : default: unknown_value(attr_); break;
-				}//switch
+				}
 			}
 
 			inline void mapManifestFormOptions(__inout options_t& rv_, __in const char* attr_, __in const char* value_)
@@ -1983,7 +1983,7 @@ namespace manifest_io
 							strings::appendname(s, rv_.unknownattributes, '\n');
 						}
 						break;
-				}//switch
+				}
 			}
 
 			inline void mapManifestFormField(__inout field_t& rv_, __in const char* attr_, __in const char* value_)
@@ -2011,7 +2011,7 @@ namespace manifest_io
 					case maps::FORM_FIELD::localmap::useit      : rv_.useit = map_boolean(value_); break;
 					case maps::FORM_FIELD::localmap::accid      : rv_.ids.accid = strings::conv_int(value_); break;
 					case maps::FORM_FIELD::localmap::unknown    : default: unknown_value(attr_); break;
-				}//switch
+				}
 			}
 
 		} //namespace newio
