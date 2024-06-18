@@ -44,12 +44,12 @@
 			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/oti_manifest_io.h",
 			"bookmarks": [
 				{
-					"line": 1315,
+					"line": 1291,
 					"column": 11,
 					"label": ""
 				},
 				{
-					"line": 2057,
+					"line": 2000,
 					"column": 5,
 					"label": ""
 				}

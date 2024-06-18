@@ -146,6 +146,7 @@ export namespace FieldConv {
             ...(from.displayname && { displayname: from.displayname }),
             type: from.type,
             dbname: from.dbname,
+            //...(maniField.pa)
             ...(maniField.path_ext && { path_ext: maniField.path_ext }),
             ...(from.askalways && { askalways: '1' }),
             ...(from.onetvalue && { onetvalue: '1' }),
@@ -179,7 +180,6 @@ export namespace FieldConv {
         out(os, "choosevalue", textchars::low::remove_illegal(field_.value.choosevalue));
 
         out(os, "rfield", internal_io::mapping::MAP_RDIRECTION_TYPE::cast(field_.rdir));
-
         out(os, "rfieldform", internal_io::mapping::MAP_FORMNAME_TYPE::cast(field_.rfield.rmemid.form));
         out(os, "rfieldindex", internal_io::mapping::MAP_NUMBER_TYPE::cast(field_.rfield.rindex));
 
