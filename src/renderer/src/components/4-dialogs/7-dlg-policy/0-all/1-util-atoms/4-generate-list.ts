@@ -25,7 +25,7 @@ export const generateListAtom = atom(
         const arr: GenerateListItem[] = [];
 
         const nToGenerate = appSettings.right.mani.nToGenerate;
-        let total = !nToGenerate ?? isNaN(nToGenerate) ? 50 : nToGenerate;
+        let total = !nToGenerate || isNaN(nToGenerate) ? 50 : nToGenerate;
 
         for (let i = 0; i < total; i++) {
             const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, '');

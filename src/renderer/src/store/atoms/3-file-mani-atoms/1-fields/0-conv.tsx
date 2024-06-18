@@ -139,18 +139,21 @@ export namespace FieldConv {
         return rv;
     }
 
-    export function forFileMani(from: ThisType): FileMani.Field {
+    export function forFileMani(from: ThisType, metaField: Meta.Field): FileMani.Field { // order is important to keep the same order as in manifest
+        const maniField = metaField.mani;
+
         const rv: FileMani.Field = {
-            ...(from.useit && { useit: '1' }),
             ...(from.displayname && { displayname: from.displayname }),
-            dbname: from.dbname,
             type: from.type,
-            ...(from.password && { password: '1' }),
+            dbname: from.dbname,
+            ...(maniField.path_ext && { path_ext: maniField.path_ext }),
             ...(from.askalways && { askalways: '1' }),
             ...(from.onetvalue && { onetvalue: '1' }),
             ...(from.policy && { policy: from.policy }),
             ...(from.policy2 && { policy2: from.policy2 }),
             ...(from.options && { options: from.options }),
+            ...(from.password && { password: '1' }),
+            ...(from.useit && { useit: '1' }),
         };
         return rv;
     }
