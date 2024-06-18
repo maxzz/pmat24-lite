@@ -139,7 +139,7 @@ export namespace FieldConv {
         return rv;
     }
 
-    export function forFileMani(from: ThisType, metaField: Meta.Field): FileMani.Field { // order is important to keep the same order as in manifest
+    export function forFileMani(from: ThisType, metaField: Meta.Field): FileMani.Field {
         const maniField = metaField.mani;
 
         const rv: FileMani.Field = {
@@ -160,3 +160,35 @@ export namespace FieldConv {
 }
 
 //TODO: we need to correlate policies with password change form
+
+/*
+// Order is important to keep the same order as in manifest. see oti_manifest_io.h::save_field()
+    out_begin(os, "<field");
+        out(os, "displayname", field_.displayname);
+        out(os, "type", internal_io::mapping::MAP_FIELD_TYPE::cast(field_.type));
+        out(os, "dbname", field_.dbname);
+        out(os, "path", oldPath_);
+        out(os, "path_ext", field_.path);
+
+        out(os, "policy", policyOld);
+        out(os, "policy2", policyExt);
+        out(os, "options", customRuleOptions);
+
+        out(os, "value", textchars::low::remove_illegal(field_.value.memvalue));
+
+        out(os, "choosevalue", textchars::low::remove_illegal(field_.value.choosevalue));
+
+        out(os, "rfield", internal_io::mapping::MAP_RDIRECTION_TYPE::cast(field_.rdir));
+
+        out(os, "rfieldform", internal_io::mapping::MAP_FORMNAME_TYPE::cast(field_.rfield.rmemid.form));
+        out(os, "rfieldindex", internal_io::mapping::MAP_NUMBER_TYPE::cast(field_.rfield.rindex));
+
+        out(os, "askalways", field_.value.askalways77);
+        out(os, "onetvalue", field_.value.onetvalue77);
+        out(os, "password", field_.password);
+        out(os, "submit", field_.controltosubmitdata);
+        out(os, "useit", field_.useit);
+
+        out(os, "accid", strings::conv_int(field_.ids.accid));
+    out_end(os);
+*/
