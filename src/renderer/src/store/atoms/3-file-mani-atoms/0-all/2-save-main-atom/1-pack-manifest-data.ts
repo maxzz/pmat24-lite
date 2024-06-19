@@ -15,13 +15,15 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
     if (loginFormAtoms) {
 
-        loginFormAtoms.fieldsAtoms.map((fieldAtoms) => {
-            const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
-            const maniValues = FieldConv.forMani(fromAtomValues);
-            const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
+        loginFormAtoms.fieldsAtoms.map(
+            (fieldAtoms) => {
+                const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
+                const maniValues = FieldConv.forMani(fromAtomValues);
+                const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
 
-            console.log('maniValues', JSON.stringify(fileValues, null, 2));
-        });
+                console.log('maniValues', JSON.stringify(fileValues, null, 2));
+            }
+        );
 
         // loginFormAtoms.submitAtoms;
         // loginFormAtoms.policyAtoms;
