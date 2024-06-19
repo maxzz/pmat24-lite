@@ -27,8 +27,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(jotai@2.8.3(@types/react@18.3.3)(react@18.3.1))(valtio@1.13.2(@types/react@18.3.3)(react@18.3.1))
       pm-manifest:
-        specifier: ^1.2.16
-        version: 1.2.16
+        specifier: ^1.2.17
+        version: 1.2.17
       pm-manifest-icons:
         specifier: ^1.0.3
         version: 1.0.3(react@18.3.1)
@@ -2102,6 +2102,10 @@ packages:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
     engines: {node: '>=14'}
 
+  foreground-child@3.2.1:
+    resolution: {integrity: sha512-PXUUyLqrR2XCWICfv6ukppP96sdFwWbNEnfEMt7jNsISjMsvaLNinAHNDYyvkyU+SZG2BTSbT5NjG+vZslfGTA==}
+    engines: {node: '>=14'}
+
   form-data@4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -2187,6 +2191,11 @@ packages:
 
   glob@10.4.1:
     resolution: {integrity: sha512-2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==}
+    engines: {node: '>=16 || 14 >=14.18'}
+    hasBin: true
+
+  glob@10.4.2:
+    resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
     engines: {node: '>=16 || 14 >=14.18'}
     hasBin: true
 
@@ -2758,6 +2767,9 @@ packages:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
 
+  package-json-from-dist@1.0.0:
+    resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
+
   parse-entities@2.0.0:
     resolution: {integrity: sha512-kkywGpCcRYhqQIchaWqZ875wzpS/bMKhz5HnN3p7wveJTkTtyAB/AlnS0f8DFSqYW1T82t6yEAkEcB+A1I3MbQ==}
 
@@ -2803,8 +2815,8 @@ packages:
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
 
-  pm-manifest@1.2.16:
-    resolution: {integrity: sha512-6hLB9uXT1Aoo/sb9w4IcPDmDuRZXUvcaJiNmWnCi3PcBwg6PUBmTStlhG1KVQUK4eVfL/sOtF0i/jORKb3ZGVQ==}
+  pm-manifest@1.2.17:
+    resolution: {integrity: sha512-D964EBeZwEi1b6wMBAcLl6P+dxUCGx91IGYr0pIXQ690DZj1q9tzevVcHQEqmz78S2PNE7ZdbDmljpXeMAgC0Q==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -5319,7 +5331,7 @@ snapshots:
 
   config-file-ts@0.2.8-rc1:
     dependencies:
-      glob: 10.4.1
+      glob: 10.4.2
       typescript: 5.4.5
 
   console-control-strings@1.1.0: {}
@@ -5717,6 +5729,11 @@ snapshots:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
 
+  foreground-child@3.2.1:
+    dependencies:
+      cross-spawn: 7.0.3
+      signal-exit: 4.1.0
+
   form-data@4.0.0:
     dependencies:
       asynckit: 0.4.0
@@ -5817,6 +5834,15 @@ snapshots:
       jackspeak: 3.4.0
       minimatch: 9.0.4
       minipass: 7.1.2
+      path-scurry: 1.11.1
+
+  glob@10.4.2:
+    dependencies:
+      foreground-child: 3.2.1
+      jackspeak: 3.4.0
+      minimatch: 9.0.4
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
 
   glob@7.2.3:
@@ -6386,6 +6412,8 @@ snapshots:
     dependencies:
       aggregate-error: 3.1.0
 
+  package-json-from-dist@1.0.0: {}
+
   parse-entities@2.0.0:
     dependencies:
       character-entities: 1.2.4
@@ -6426,7 +6454,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  pm-manifest@1.2.16:
+  pm-manifest@1.2.17:
     dependencies:
       fast-xml-parser: 4.2.7
 
