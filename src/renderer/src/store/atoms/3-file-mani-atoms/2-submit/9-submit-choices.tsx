@@ -39,7 +39,7 @@ function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): string[] {
     } else {
         let NameIdx = 0;
         rv.push(...buttonFields.map(
-            (field) => field.mani.displayname || `no name ${++NameIdx}`
+            (field) => field.mani.displayname || `No name ${++NameIdx}`
         ));
     }
 

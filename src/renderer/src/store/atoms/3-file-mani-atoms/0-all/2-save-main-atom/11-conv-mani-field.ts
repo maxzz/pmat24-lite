@@ -1,13 +1,15 @@
-import { FileMani, Meta } from "@/store/manifest";
+import { FieldTyp, FileMani, Meta } from "@/store/manifest";
 import { FieldConv } from "../../1-fields/0-conv";
 
 export function fieldForFileMani(
-    from: FieldConv.ThisType, 
-    metaField: Meta.Field, 
+    from: FieldConv.ThisType,
+    metaField: Meta.Field,
     rdir: FileMani.FieldDirection | undefined,
     isSubmit: boolean
 ): FileMani.Field {
     const maniField = metaField.mani;
+
+    const value = getValue(from.value, metaField);
 
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
     const rfieldform = rdir?.rfieldform || 0;
@@ -24,7 +26,7 @@ export function fieldForFileMani(
         ...(from.policy2 && { policy2: from.policy2 }),
         ...(from.options && { options: from.options }),
 
-        ...(from.value && { value: from.value }),
+        ...(value && { value: value }),
         ...(maniField.choosevalue && { choosevalue: maniField.choosevalue }),
 
         ...(rfield && { rfield: rfield }),
@@ -37,5 +39,17 @@ export function fieldForFileMani(
         ...(isSubmit && { submit: '1' }),
         ...(from.useit && { useit: '1' }),
     };
+    return rv;
+}
+
+function getValue(fromValue: string | undefined, metaField: Meta.Field): string | undefined {
+    const isCheckbox = metaField.ftyp === FieldTyp.check || metaField.ftyp === FieldTyp.radio;
+    const v = (fromValue || '').trim();
+    const rv =
+        isCheckbox
+            ? !!v && v !== '0'
+                ? '1'
+                : undefined
+            : v;
     return rv;
 }
