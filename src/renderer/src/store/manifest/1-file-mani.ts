@@ -26,11 +26,11 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
 
     export type FieldDirection = {
         rfield?: 'in' | 'out';
-        rfieldindex?: number;       // "2"
+        rfieldindex?: string;       // "2"
         rfieldform?: string;        // refs from login form
     };
 
-    export type Field = FieldValue & FieldPolicySome & FieldDirection & {
+    export type Field = FieldValue & FieldPolicySome & FieldDirection & Prettify<{
         type: Mani.FieldTypeStr;    // This does not exist in field catalog
 
         path_ext?: string;          // path to this control with accessiblity info if exists
@@ -40,7 +40,7 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
 
         controltosubmitdata?: '1';
         ids?: string;
-    };
+    }>;
 
     //////////////////
 

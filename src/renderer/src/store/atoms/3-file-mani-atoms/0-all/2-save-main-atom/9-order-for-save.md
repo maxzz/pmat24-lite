@@ -13,7 +13,6 @@
         out(os, "options", customRuleOptions);
 
         out(os, "value", textchars::low::remove_illegal(field_.value.memvalue));
-
         out(os, "choosevalue", textchars::low::remove_illegal(field_.value.choosevalue));
 
         out(os, "rfield", internal_io::mapping::MAP_RDIRECTION_TYPE::cast(field_.rdir));

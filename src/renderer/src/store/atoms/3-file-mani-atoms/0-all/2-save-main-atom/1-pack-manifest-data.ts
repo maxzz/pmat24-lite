@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 import { FieldConv } from "../../1-fields/0-conv";
-import { ManiConv } from "./1-conv-mani";
+import { ManiConv } from "./2-conv-mani";
 
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
 
@@ -18,7 +18,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         loginFormAtoms.fieldsAtoms.map((fieldAtoms) => {
             const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
             const maniValues = FieldConv.forMani(fromAtomValues);
-            const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField);
+            const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
 
             console.log('maniValues', JSON.stringify(fileValues, null, 2));
         });
