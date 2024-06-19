@@ -13,7 +13,7 @@
         "fast-xml-parser": "^4.3.6",
         "jotai": "^2.8.3",
         "jotai-valtio": "^0.5.0",
-        "pm-manifest": "^1.2.15",
+        "pm-manifest": "^1.2.16",
         "pm-manifest-icons": "^1.0.3",
         "react-syntax-highlighter": "^15.5.0",
         "react-use": "^17.5.0",
