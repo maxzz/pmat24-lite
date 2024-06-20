@@ -44,8 +44,6 @@ export namespace OptionsConv {
         uiPart5PasswordManagerIcon: UiPart5PasswordManagerIcon;
 
         isWeb: boolean;
-        // fileUsAtom: FileUsAtom;
-        // formIdx: FormIdx;
     };
 
     export type FormOptionsAtoms = {
@@ -56,8 +54,6 @@ export namespace OptionsConv {
         uiPart5PasswordManagerIcon: AtomizeWithType<UiPart5PasswordManagerIcon, RowInputState>;
 
         isWebAtom: PrimitiveAtom<boolean>;
-        // fileUsAtom: FileUsAtom;
-        // formIdx: FormIdx;
     };
 
     type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
@@ -65,7 +61,7 @@ export namespace OptionsConv {
     // Atoms
 
     export function forAtoms(fileUsParams: FileUsParams): OptionsForAtoms {
-        const { fileUs, fileUsAtom, formIdx } = fileUsParams;
+        const { fileUs, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const detection = metaForm.mani?.[formIdx]?.detection || {};
@@ -99,8 +95,6 @@ export namespace OptionsConv {
             },
 
             isWeb: fileUs.stats.isWeb,
-            // fileUsAtom,
-            // formIdx,
         };
 
         return rv;
@@ -137,8 +131,6 @@ export namespace OptionsConv {
             },
 
             isWebAtom: atomWithCallback(initialState.isWeb, onChange('isWeb')),
-            // fileUsAtom: initialState.fileUsAtom,
-            // formIdx: initialState.formIdx,
         };
 
         return rv;
@@ -175,27 +167,8 @@ export namespace OptionsConv {
             },
 
             isWeb: get(atoms.isWebAtom),
-            // fileUsAtom: atoms.fileUsAtom,
-            // formIdx: atoms.formIdx,
         };
 
         return rv;
     }
-
-    // Back to manifest
-
-    /** /
-    export function forMani(from: OptionsForAtoms, metaForm: Meta.Form) {
-        const rv: ThisType = {
-            useit: from.useIt,
-            displayname: from.label,
-            dbname: from.dbname,
-            ...fieldTyp2Obj(from.type),
-        };
-    
-        TransformValue.valueLife2Mani(from.valueLife, rv);
-        return rv;
-    }
-    /**/
-
 }
