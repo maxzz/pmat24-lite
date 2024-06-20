@@ -2,6 +2,7 @@ import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 import { FieldConv } from "../../1-fields/0-conv";
 import { ManiConv } from "./2-conv-mani";
+import { SubmitConv } from "../../2-submit/0-conv";
 
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
 
@@ -15,17 +16,19 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
     if (loginFormAtoms) {
 
-        loginFormAtoms.fieldsAtoms.map(
+        const submits = SubmitConv.fromAtoms(loginFormAtoms.submitAtoms, get, set);
+        console.log('submits', JSON.stringify(submits, null, 2));
+
+        const fields = loginFormAtoms.fieldsAtoms.map(
             (fieldAtoms) => {
                 const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
                 const maniValues = FieldConv.forMani(fromAtomValues);
                 const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
-
-                console.log('maniValues', JSON.stringify(fileValues, null, 2));
+                return fileValues;
             }
         );
+        // console.log('maniValues', JSON.stringify(fields, null, 2));
 
-        // loginFormAtoms.submitAtoms;
         // loginFormAtoms.policyAtoms;
         // loginFormAtoms.optionsAtoms;
     }

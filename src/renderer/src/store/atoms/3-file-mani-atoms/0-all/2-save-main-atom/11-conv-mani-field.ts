@@ -44,10 +44,10 @@ export function fieldForFileMani(
 
 function getValue(fromValue: string | undefined, metaField: Meta.Field): string | undefined {
     const isCheckbox = metaField.ftyp === FieldTyp.check || metaField.ftyp === FieldTyp.radio;
-    const v = (fromValue || '').trim();
+    const v = (fromValue || '').trim().toLowerCase();
     const rv =
         isCheckbox
-            ? !!v && v !== '0'
+            ? !!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off'
                 ? '1'
                 : undefined
             : v;
