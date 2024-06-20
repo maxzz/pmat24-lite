@@ -3,7 +3,7 @@ import { RowInputWLabel } from "../4-controls";
 
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
 
-    const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.uiPart1General;
+    const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
     
     return (<>
         <RowInputWLabel stateAtom={nameAtom} label="Managed login name" />

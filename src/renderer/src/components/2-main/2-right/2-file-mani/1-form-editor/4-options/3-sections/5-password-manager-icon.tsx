@@ -3,7 +3,7 @@ import { RowInputWLabel } from "../4-controls";
 
 export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
 
-    const { idAtom, locAtom } = atoms.uiPart5PasswordManagerIcon;
+    const { idAtom, locAtom } = atoms.p5Icon;
 
     return (<>
         <RowInputWLabel stateAtom={idAtom} label="Location ID" />

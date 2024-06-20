@@ -4,7 +4,7 @@ import { RowInputWLabel } from "../4-controls";
 
 export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 
-    const { qNameAtom, dashboardAtom } = atoms.uiPart4QL;
+    const { qNameAtom, dashboardAtom } = atoms.p4QL;
 
     return (<>
         <RowInputWLabel stateAtom={qNameAtom} label="Quick Link URL" />
@@ -16,7 +16,7 @@ export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 
 function DashboardOption({ atoms }: { atoms: OptionsState.Atoms; }) {
 
-    const { dashboardAtom, qUrlAtom } = atoms.uiPart4QL;
+    const { dashboardAtom, qUrlAtom } = atoms.p4QL;
 
     const dashboard = useAtomValue(dashboardAtom);
 

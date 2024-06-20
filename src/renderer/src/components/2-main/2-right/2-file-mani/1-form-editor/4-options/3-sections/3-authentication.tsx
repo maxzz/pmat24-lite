@@ -3,7 +3,7 @@ import { RowInputWLabel } from "../4-controls";
 
 export function Part3Authentication({ atoms }: { atoms: OptionsState.Atoms; }) {
 
-    const { aimAtom, lockAtom } = atoms.uiPart3Authentication;
+    const { aimAtom, lockAtom } = atoms.p3Auth;
 
     return (<>
         <RowInputWLabel stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
