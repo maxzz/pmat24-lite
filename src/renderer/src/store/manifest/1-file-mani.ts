@@ -87,6 +87,7 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
         usequicklink?: '1' | '2';       // ("1" | "usequicklink") | ("2" | "dontusequicklink")
         recheckwindowafterfillin?: '1'; // boolean
         qlwocred?: '1';                 // boolean. Quick reauthentication enable/disable (QL wo/ crededntials).
+        unknownattributes?: string;
     };
 
     export type Form = {

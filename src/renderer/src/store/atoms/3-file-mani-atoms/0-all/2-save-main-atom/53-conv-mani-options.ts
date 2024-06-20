@@ -48,7 +48,7 @@ function optionsForMani(options: OptionsConv.OptionsForAtoms): FileMani.Options 
         recheckwindowafterfillin: options.p2Detect.reCheck ? '1' : undefined,
         qlwocred: options.p1General.qlWoCred ? '1' : undefined,
 
-        //unknownattributes
+        unknownattributes: options.p1General.unkAttrs,
     };
     return rv;
 }
