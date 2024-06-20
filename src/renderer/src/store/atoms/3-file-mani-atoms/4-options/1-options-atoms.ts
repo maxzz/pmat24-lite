@@ -25,11 +25,10 @@ export namespace OptionsState {
     }
 
     export function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
-        const atoms: Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
+        const optionsAtoms: Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
 
         if (nextValue.dirty) {
-            const result = OptionsConv.fromAtoms(atoms, get, set) as any;
-            delete result.fileUsAtom;
+            const result = OptionsConv.fromAtoms(optionsAtoms, get, set);
             console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
         }
 
