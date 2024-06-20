@@ -42,8 +42,8 @@ export namespace OptionsConv {
         uiPart3Authentication: UiPart3Authentication;
         uiPart5PasswordManagerIcon: UiPart5PasswordManagerIcon;
 
-        fileUsAtom: FileUsAtom;
-        formIdx: FormIdx;
+        // fileUsAtom: FileUsAtom;
+        // formIdx: FormIdx;
     };
 
     export type FormOptionsAtoms = {
@@ -53,8 +53,8 @@ export namespace OptionsConv {
         uiPart3Authentication: AtomizeWithType<UiPart3Authentication, RowInputState>;
         uiPart5PasswordManagerIcon: AtomizeWithType<UiPart5PasswordManagerIcon, RowInputState>;
 
-        fileUsAtom: FileUsAtom;
-        formIdx: FormIdx;
+        // fileUsAtom: FileUsAtom;
+        // formIdx: FormIdx;
     };
 
     type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
@@ -94,8 +94,8 @@ export namespace OptionsConv {
                 loc: options.iconlocation || '',
             },
 
-            fileUsAtom,
-            formIdx,
+            // fileUsAtom,
+            // formIdx,
         };
 
         return rv;
@@ -130,17 +130,17 @@ export namespace OptionsConv {
                 locAtom: newAtomForInput(uiPart5PasswordManagerIcon.loc || '', onChange('loc')),
             },
 
-            fileUsAtom: initialState.fileUsAtom,
-            formIdx: initialState.formIdx,
+            // fileUsAtom: initialState.fileUsAtom,
+            // formIdx: initialState.formIdx,
         };
 
         return rv;
     }
 
-    export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): OptionsForAtoms {
+    export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): Omit<OptionsForAtoms, 'fileUsAtom' | 'formIdx'>{
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
-        const rv: OptionsForAtoms = {
+        const rv: Omit<OptionsForAtoms, 'fileUsAtom' | 'formIdx'> = {
             uiPart1General: {
                 name: get(uiPart1General.nameAtom).data,
                 desc: get(uiPart1General.descAtom).data,
@@ -166,8 +166,8 @@ export namespace OptionsConv {
                 loc: get(uiPart5PasswordManagerIcon.locAtom).data,
             },
 
-            fileUsAtom: atoms.fileUsAtom,
-            formIdx: atoms.formIdx,
+            // fileUsAtom: atoms.fileUsAtom,
+            // formIdx: atoms.formIdx,
         };
 
         return rv;
