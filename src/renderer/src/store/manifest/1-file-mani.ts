@@ -59,14 +59,14 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
         //dlg_detection_t
         dlg_tab?: string;
         dlg_class?: string;
-        dlg_checkexe?: boolean;         // "1" matchprocessname: Whether to perform process name match for autoamtic logons or not. Process name match is always done for manual mode logons.
+        dlg_checkexe?: '1';             // "1" matchprocessname: Whether to perform process name match for autoamtic logons or not. Process name match is always done for manual mode logons.
 
         //emu_detection_t
         emu_pattern?: string;           // screen pattern to match
 
         names?: string;                 // names is a string pool of all strings for this form. used by ots engine
         names_ext?: string;
-        monitor?: boolean;              // "1" this defines: do the live monitor of the form content for this form or don't do it
+        monitor?: '1';                  // "1" this defines: do the live monitor of the form content for this form or don't do it
 
         processname?: string;           // name of the process
         commandline?: string;           // commandline of the current process

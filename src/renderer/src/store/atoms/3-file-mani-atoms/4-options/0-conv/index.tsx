@@ -21,6 +21,13 @@ export namespace OptionsConv {
         dlg_tab: string;
         dlg_class: string;
         dlg_checkexe: boolean;
+
+        emu_pattern: string;
+
+        names: string;
+        names_ext: string;
+        processname: string;
+        commandline: string;
     };
 
     type p3Auth = {                 // Part Authentication
@@ -86,6 +93,12 @@ export namespace OptionsConv {
                 dlg_tab: detection.dlg_tab || '',
                 dlg_class: detection.dlg_class || '',
                 dlg_checkexe: detection.dlg_checkexe === '1',
+
+                emu_pattern: detection.emu_pattern || '',
+                names: detection.names || '',
+                names_ext: detection.names_ext || '',
+                processname: detection.processname || '',
+                commandline: detection.commandline || '',
             },
             p3Auth: {
                 aim: options.autoprompt === '1',
@@ -109,37 +122,43 @@ export namespace OptionsConv {
     }
 
     export function createAtoms(initialState: OptionsForAtoms, onChange: OnChangeValueWithPpdateName): FormOptionsAtoms {
-        const { p1General: uiPart1General, p2Detect: uiPart2ScreenDetection, p3Auth: uiPart3Authentication, p4QL: uiPart4QL, p5Icon: uiPart5PasswordManagerIcon } = initialState;
+        const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
 
         const rv: FormOptionsAtoms = {
             p1General: {
-                nameAtom: newAtomForInput(uiPart1General.name, onChange('name'), { validate: validateManifestName }),
-                descAtom: newAtomForInput(uiPart1General.desc, onChange('desc')),
-                hintAtom: newAtomForInput(uiPart1General.hint, onChange('hint')),
-                balloonAtom: newAtomForInput(uiPart1General.balloon, onChange('balloon')),
+                nameAtom: newAtomForInput(p1General.name, onChange('name'), { validate: validateManifestName }),
+                descAtom: newAtomForInput(p1General.desc, onChange('desc')),
+                hintAtom: newAtomForInput(p1General.hint, onChange('hint')),
+                balloonAtom: newAtomForInput(p1General.balloon, onChange('balloon')),
             },
             p2Detect: {
-                captionAtom: newAtomForInput(uiPart2ScreenDetection.caption, onChange('caption')),
-                monitorAtom: newAtomForCheck(uiPart2ScreenDetection.monitor, onChange('monitor')),
-                urlAtom: newAtomForInput(uiPart2ScreenDetection.url, onChange('url')),
+                captionAtom: newAtomForInput(p2Detect.caption, onChange('caption')),
+                monitorAtom: newAtomForCheck(p2Detect.monitor, onChange('monitor')),
+                urlAtom: newAtomForInput(p2Detect.url, onChange('url')),
 
-                dlg_tabAtom: newAtomForInput(uiPart2ScreenDetection.dlg_tab, onChange('dlg_tab')),
-                dlg_classAtom: newAtomForInput(uiPart2ScreenDetection.dlg_class, onChange('dlg_class')),
-                dlg_checkexeAtom: newAtomForCheck(uiPart2ScreenDetection.dlg_checkexe, onChange('dlg_checkexe')),
+                dlg_tabAtom: newAtomForInput(p2Detect.dlg_tab, onChange('dlg_tab')),
+                dlg_classAtom: newAtomForInput(p2Detect.dlg_class, onChange('dlg_class')),
+                dlg_checkexeAtom: newAtomForCheck(p2Detect.dlg_checkexe, onChange('dlg_checkexe')),
+
+                emu_patternAtom: newAtomForInput(p2Detect.emu_pattern, onChange('emu_pattern')),
+                namesAtom: newAtomForInput(p2Detect.names, onChange('names')),
+                names_extAtom: newAtomForInput(p2Detect.names_ext, onChange('names_ext')),
+                processnameAtom: newAtomForInput(p2Detect.processname, onChange('processname')),
+                commandlineAtom: newAtomForInput(p2Detect.commandline, onChange('commandline')),
             },
             p3Auth: {
-                aimAtom: newAtomForCheck(uiPart3Authentication.aim, onChange('aim')),
-                lockAtom: newAtomForCheck(uiPart3Authentication.lock, onChange('lock')),
+                aimAtom: newAtomForCheck(p3Auth.aim, onChange('aim')),
+                lockAtom: newAtomForCheck(p3Auth.lock, onChange('lock')),
             },
             p4QL: {
-                dashboardAtom: newAtomForCheck(uiPart4QL.dashboard, onChange('dashboard')),
-                qNameAtom: newAtomForInput(uiPart4QL.qName, onChange('name')),
-                qUrlAtom: newAtomForInput(uiPart4QL.qUrl, onChange('url')),
-                qUseAtom: newAtomForCheck(uiPart4QL.qUse, onChange('use')),
+                dashboardAtom: newAtomForCheck(p4QL.dashboard, onChange('dashboard')),
+                qNameAtom: newAtomForInput(p4QL.qName, onChange('name')),
+                qUrlAtom: newAtomForInput(p4QL.qUrl, onChange('url')),
+                qUseAtom: newAtomForCheck(p4QL.qUse, onChange('use')),
             },
             p5Icon: {
-                idAtom: newAtomForInput(uiPart5PasswordManagerIcon.id, onChange('id')),
-                locAtom: newAtomForInput(uiPart5PasswordManagerIcon.loc, onChange('loc')),
+                idAtom: newAtomForInput(p5Icon.id, onChange('id')),
+                locAtom: newAtomForInput(p5Icon.loc, onChange('loc')),
             },
 
             isWebAtom: atomWithCallback(initialState.isWeb, onChange('isWeb')),
@@ -149,37 +168,43 @@ export namespace OptionsConv {
     }
 
     export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): OptionsForAtoms{
-        const { p1General: uiPart1General, p2Detect: uiPart2ScreenDetection, p3Auth: uiPart3Authentication, p4QL: uiPart4QL, p5Icon: uiPart5PasswordManagerIcon } = atoms;
+        const { p1General: p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
 
         const rv: OptionsForAtoms = {
             p1General: {
-                name: get(uiPart1General.nameAtom).data,
-                desc: get(uiPart1General.descAtom).data,
-                hint: get(uiPart1General.hintAtom).data,
-                balloon: get(uiPart1General.balloonAtom).data,
+                name: get(p1General.nameAtom).data,
+                desc: get(p1General.descAtom).data,
+                hint: get(p1General.hintAtom).data,
+                balloon: get(p1General.balloonAtom).data,
             },
             p2Detect: {
-                caption: get(uiPart2ScreenDetection.captionAtom).data,
-                monitor: get(uiPart2ScreenDetection.monitorAtom).data === '1',
-                url: get(uiPart2ScreenDetection.urlAtom).data,
+                caption: get(p2Detect.captionAtom).data,
+                monitor: get(p2Detect.monitorAtom).data === '1',
+                url: get(p2Detect.urlAtom).data,
 
-                dlg_tab: get(uiPart2ScreenDetection.dlg_tabAtom).data,
-                dlg_class: get(uiPart2ScreenDetection.dlg_classAtom).data,
-                dlg_checkexe: get(uiPart2ScreenDetection.dlg_checkexeAtom).data === '1',
+                dlg_tab: get(p2Detect.dlg_tabAtom).data,
+                dlg_class: get(p2Detect.dlg_classAtom).data,
+                dlg_checkexe: get(p2Detect.dlg_checkexeAtom).data === '1',
+
+                emu_pattern: get(p2Detect.emu_patternAtom).data,
+                names: get(p2Detect.namesAtom).data,
+                names_ext: get(p2Detect.names_extAtom).data,
+                processname: get(p2Detect.processnameAtom).data,
+                commandline: get(p2Detect.commandlineAtom).data,
             },
             p3Auth: {
-                aim: get(uiPart3Authentication.aimAtom).data === '1',
-                lock: get(uiPart3Authentication.lockAtom).data === '1',
+                aim: get(p3Auth.aimAtom).data === '1',
+                lock: get(p3Auth.lockAtom).data === '1',
             },
             p4QL: {
-                dashboard: get(uiPart4QL.dashboardAtom).data === '1',
-                qName: get(uiPart4QL.qNameAtom).data,
-                qUrl: get(uiPart4QL.qUrlAtom).data,
-                qUse: get(uiPart4QL.qUseAtom).data === '1',
+                dashboard: get(p4QL.dashboardAtom).data === '1',
+                qName: get(p4QL.qNameAtom).data,
+                qUrl: get(p4QL.qUrlAtom).data,
+                qUse: get(p4QL.qUseAtom).data === '1',
             },
             p5Icon: {
-                id: get(uiPart5PasswordManagerIcon.idAtom).data,
-                loc: get(uiPart5PasswordManagerIcon.locAtom).data,
+                id: get(p5Icon.idAtom).data,
+                loc: get(p5Icon.locAtom).data,
             },
 
             isWeb: get(atoms.isWebAtom),
