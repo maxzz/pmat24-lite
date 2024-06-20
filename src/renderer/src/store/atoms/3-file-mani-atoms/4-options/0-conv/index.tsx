@@ -1,5 +1,5 @@
-import { Getter, Setter } from "jotai";
-import { AtomizeWithType, OnValueChange } from '@/util-hooks';
+import { Getter, PrimitiveAtom, Setter } from "jotai";
+import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
 import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName } from "@/ui";
 import { FileUsAtom, FormIdx } from '@/store/store-types';
 import { FileUsParams } from "../../9-types";
@@ -26,8 +26,9 @@ export namespace OptionsConv {
 
     type UiPart4QL = {
         dashboard: boolean; // Display on mini-dashboard
-        name: string;       // Quick Link Name
-        url: string;        // Quick Link URL
+        qName: string;      // Quick Link Name
+        qUrl: string;       // Quick Link URL
+        qUse: boolean;      // Use Quick Link
     };
 
     type UiPart5PasswordManagerIcon = {
@@ -42,6 +43,7 @@ export namespace OptionsConv {
         uiPart3Authentication: UiPart3Authentication;
         uiPart5PasswordManagerIcon: UiPart5PasswordManagerIcon;
 
+        isWeb: boolean;
         // fileUsAtom: FileUsAtom;
         // formIdx: FormIdx;
     };
@@ -53,6 +55,7 @@ export namespace OptionsConv {
         uiPart3Authentication: AtomizeWithType<UiPart3Authentication, RowInputState>;
         uiPart5PasswordManagerIcon: AtomizeWithType<UiPart5PasswordManagerIcon, RowInputState>;
 
+        isWebAtom: PrimitiveAtom<boolean>;
         // fileUsAtom: FileUsAtom;
         // formIdx: FormIdx;
     };
@@ -86,14 +89,16 @@ export namespace OptionsConv {
             },
             uiPart4QL: {
                 dashboard: true,
-                name: '',
-                url: detection.web_qurl || '',
+                qName: '',
+                qUrl: detection.web_qurl || '',
+                qUse: detection.web_checkurl === '1',
             },
             uiPart5PasswordManagerIcon: {
                 id: options.iconkey || '',
                 loc: options.iconlocation || '',
             },
 
+            isWeb: fileUs.stats.isWeb,
             // fileUsAtom,
             // formIdx,
         };
@@ -122,14 +127,16 @@ export namespace OptionsConv {
             },
             uiPart4QL: {
                 dashboardAtom: newAtomForCheck(uiPart4QL.dashboard, onChange('dashboard')),
-                nameAtom: newAtomForInput(uiPart4QL.name, onChange('name')),
-                urlAtom: newAtomForInput(uiPart4QL.url, onChange('url')),
+                qNameAtom: newAtomForInput(uiPart4QL.qName, onChange('name')),
+                qUrlAtom: newAtomForInput(uiPart4QL.qUrl, onChange('url')),
+                qUseAtom: newAtomForCheck(uiPart4QL.qUse, onChange('use')),
             },
             uiPart5PasswordManagerIcon: {
                 idAtom: newAtomForInput(uiPart5PasswordManagerIcon.id || '', onChange('id')),
                 locAtom: newAtomForInput(uiPart5PasswordManagerIcon.loc || '', onChange('loc')),
             },
 
+            isWebAtom: atomWithCallback(initialState.isWeb, onChange('isWeb')),
             // fileUsAtom: initialState.fileUsAtom,
             // formIdx: initialState.formIdx,
         };
@@ -137,10 +144,10 @@ export namespace OptionsConv {
         return rv;
     }
 
-    export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): Omit<OptionsForAtoms, 'fileUsAtom' | 'formIdx'>{
+    export function fromAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): OptionsForAtoms{
         const { uiPart1General, uiPart2ScreenDetection, uiPart3Authentication, uiPart4QL, uiPart5PasswordManagerIcon } = atoms;
 
-        const rv: Omit<OptionsForAtoms, 'fileUsAtom' | 'formIdx'> = {
+        const rv: OptionsForAtoms = {
             uiPart1General: {
                 name: get(uiPart1General.nameAtom).data,
                 desc: get(uiPart1General.descAtom).data,
@@ -158,14 +165,16 @@ export namespace OptionsConv {
             },
             uiPart4QL: {
                 dashboard: get(uiPart4QL.dashboardAtom).data === '1',
-                name: get(uiPart4QL.nameAtom).data,
-                url: get(uiPart4QL.urlAtom).data,
+                qName: get(uiPart4QL.qNameAtom).data,
+                qUrl: get(uiPart4QL.qUrlAtom).data,
+                qUse: get(uiPart4QL.qUseAtom).data === '1',
             },
             uiPart5PasswordManagerIcon: {
                 id: get(uiPart5PasswordManagerIcon.idAtom).data,
                 loc: get(uiPart5PasswordManagerIcon.locAtom).data,
             },
 
+            isWeb: get(atoms.isWebAtom),
             // fileUsAtom: atoms.fileUsAtom,
             // formIdx: atoms.formIdx,
         };
