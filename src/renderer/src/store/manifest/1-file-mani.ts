@@ -45,15 +45,31 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
     //////////////////
 
     export type Detection = {
+        //windowtitle_t
+        //matchtype?: string;           // is taken from caption as '[m0]:2:2:' | [m0]:2:1: | '[m0]:2:3:': "full" | "left" | "right" | "both"
         caption?: string;
-        web_ourl?: string;
-        web_murl?: string;
-        web_qurl?: string;
-        web_checkurl?: '1';             // "1"
+        variablecaption?: string;       // If variablecaption is not empty and different from caption field then we are using vcm (variable cation match)
+
+        //web_detection_t
+        web_ourl?: string;              // The original URL. This should not be edited
+        web_murl?: string;              // URL for matching. Admin can edit it and after that App may become not not Web any more.
+        web_qurl?: string;              // URL for quicklink
+        web_checkurl?: '1';             // "1" // The same story as murl. Somebody clean qurl if we are not using Quicklinks. But we should use this flag instead of cleaning qurl.
+
+        //dlg_detection_t
+        dlg_tab?: string;
         dlg_class?: string;
+        dlg_checkexe?: boolean;         // "1" matchprocessname: Whether to perform process name match for autoamtic logons or not. Process name match is always done for manual mode logons.
+
+        //emu_detection_t
+        emu_pattern?: string;           // screen pattern to match
+
+        names?: string;                 // names is a string pool of all strings for this form. used by ots engine
         names_ext?: string;
-        processname?: string;
-        commandline?: string;
+        monitor?: boolean;              // "1" this defines: do the live monitor of the form content for this form or don't do it
+
+        processname?: string;           // name of the process
+        commandline?: string;           // commandline of the current process
     };
 
     export type Options = {
@@ -62,15 +78,15 @@ export namespace FileMani {         // This is a file structure wo/ boolean valu
         ownernote?: string;
         quicklink?: string;             // QL menu name
         auth_pl?: string;               // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
-        balooncount?: string;
-        autoprompt?: string;            // boolean
-        lockfields?: string;            // "0" | "1"
-        submittype?: string;            // "dosubmit" | "nosubmit"
+        balooncount?: string;           // number as string
+        autoprompt?: '1';               // boolean
+        lockfields?: '1';               // "0" | "1"
+        submittype?: 'dosubmit' | `nosubmit`;
         iconkey?: string;               // Any name not necessarily unique
         iconlocation?: string;          // Format is the same as described into feedback_drawing.h. "Q:0:0:0"
-        usequicklink?: string;          // ("1" | "usequicklink") | ("2" | "dontusequicklink")
-        recheckwindowafterfillin?: string; // boolean
-        qlwocred?: string;              // boolean. Quick reauthentication enable/disable (QL wo/ crededntials).
+        usequicklink?: '1' | '2';       // ("1" | "usequicklink") | ("2" | "dontusequicklink")
+        recheckwindowafterfillin?: '1'; // boolean
+        qlwocred?: '1';                 // boolean. Quick reauthentication enable/disable (QL wo/ crededntials).
     };
 
     export type Form = {
