@@ -81,8 +81,9 @@ export namespace OptionsConv {
         const { fileUs, formIdx } = fileUsParams;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
-        const detection = metaForm.mani?.[formIdx]?.detection || {};
-        const options = metaForm.mani?.[formIdx]?.options || {};
+        const maniForm = metaForm.mani;
+        const detection = maniForm?.detection || {};
+        const options = maniForm?.options || {};
 
         const rv: OptionsForAtoms = {
             p1General: {
@@ -93,7 +94,7 @@ export namespace OptionsConv {
                 submitType: options.submittype || '',
                 qlName: options.quicklink || '',
                 qlWoCred: options.qlwocred === '1',
-                unkAttrs: options.unkAttrs || '',
+                unkAttrs: options.unknownattributes || '',
             },
             p2Detect: {
                 caption: detection.caption || '',                   //TODO: show only for Win32
@@ -102,7 +103,7 @@ export namespace OptionsConv {
 
                 dlg_tab: detection.dlg_tab || '',
                 dlg_class: detection.dlg_class || '',
-                dlg_checkexe: detection.dlg_checkexe === '1',
+                dlg_checkexe: !!detection.dlg_checkexe,
 
                 emu_pattern: detection.emu_pattern || '',
                 names: detection.names || '',
@@ -121,7 +122,7 @@ export namespace OptionsConv {
                 dashboard: true,
                 qName: '',
                 qUrl: detection.web_qurl || '',
-                qUse: detection.web_checkurl === '1',
+                qUse: !!detection.web_checkurl,
             },
             p5Icon: {
                 id: options.iconkey || '',
