@@ -6,14 +6,36 @@ import { FormIdx, OptionsGroup } from "@/store/store-types";
 
 const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
 
-export function OptionsAllGroups({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
+export function GroupHeader({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
+
+    const optionsAtoms = formAtoms.optionsAtoms;
+    const isWeb = useAtomValue(optionsAtoms.isWebAtom);
+
+    return (<>
+        <Section label="General" />
+        <Part1General atoms={optionsAtoms} />
+    </>);
+}
+
+
+export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
+
+    const { formAtoms, formIdx, optionsGroup } = props;
 
     const optionsAtoms = formAtoms.optionsAtoms;
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);
     const isLogin = formIdx === FormIdx.login;
 
+    // if (optionsGroup === OptionsGroup.header) {
+    //     return <GroupHeader {...props} />;
+    // }
+
     return (
         <div className={optionsAllGroupsClasses}>
+
+            {optionsGroup === OptionsGroup.header && (<>
+                <GroupHeader {...props} />
+            </>)}
 
             {isLogin && (<>
                 <Section label="General" />
