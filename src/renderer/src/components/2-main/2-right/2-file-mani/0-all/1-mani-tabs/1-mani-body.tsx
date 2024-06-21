@@ -8,7 +8,7 @@ import { FormEditor } from "../../1-form-editor";
 import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
 import { useEffect } from "react";
 import { FileUsAtom } from "@/store/store-types";
-import TabFormOptions from "../../2-form-options/0-all";
+import { TabFormOptions } from "../../2-form-options/0-all";
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();

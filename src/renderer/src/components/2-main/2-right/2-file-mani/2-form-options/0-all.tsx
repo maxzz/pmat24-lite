@@ -1,9 +1,9 @@
 import { useAtomValue } from "jotai";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { TabOptions } from "../1-form-editor/4-options";
-import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
-function TabOptionsGuarded({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+function FormOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
     const title = formIdx === FormIdx.login ? 'Login form options' : 'Change password form options';
     return (
         <div className="ml-1 mr-2">
@@ -16,7 +16,7 @@ function TabOptionsGuarded({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiA
     );
 }
 
-export default function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
+export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
 
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
@@ -28,15 +28,15 @@ export default function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
     if (!login && !cpass) {
         return (
             <div>
-                Not forms. It can be a manifest without forms to exclude website.
+                No forms. It can be a manifest without forms to exclude website support.
             </div>
         );
     }
 
     return (
         <div className="flex flex-col gap-1">
-            {login && <TabOptionsGuarded maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />}
-            {cpass && <TabOptionsGuarded maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />}
+            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />}
+            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />}
         </div>
     );
 }
