@@ -4,8 +4,6 @@ import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5
 import { Section } from "../4-controls";
 import { FormIdx, OptionsGroup } from "@/store/store-types";
 
-const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
-
 export function GroupHeader({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
     const optionsAtoms = formAtoms.optionsAtoms;
     return (<>
@@ -45,7 +43,7 @@ export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps
 export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
     const isHeader = props.optionsGroup === OptionsGroup.header;
     return (
-        <div className={optionsAllGroupsClasses}>
+        <>
 
             {isHeader
                 ? (<>
@@ -56,7 +54,7 @@ export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: Option
                 </>)
             }
 
-        </div>
+        </>
     );
 }
 
