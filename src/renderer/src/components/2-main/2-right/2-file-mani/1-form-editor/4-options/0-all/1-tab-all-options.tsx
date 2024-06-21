@@ -2,11 +2,11 @@ import { useAtomValue } from "jotai";
 import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { Section } from "../4-controls";
-import { FormIdx } from "@/store/store-types";
+import { FormIdx, OptionsGroup } from "@/store/store-types";
 
 const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
 
-export function OptionsAllGroups({ formAtoms, formIdx }: TabSectionProps) {
+export function OptionsAllGroups({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
 
     const optionsAtoms = formAtoms.optionsAtoms;
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);
