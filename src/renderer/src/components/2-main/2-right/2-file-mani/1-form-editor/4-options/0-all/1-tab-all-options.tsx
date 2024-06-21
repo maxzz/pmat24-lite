@@ -7,54 +7,55 @@ import { FormIdx, OptionsGroup } from "@/store/store-types";
 const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
 
 export function GroupHeader({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
-
     const optionsAtoms = formAtoms.optionsAtoms;
-    const isWeb = useAtomValue(optionsAtoms.isWebAtom);
-
     return (<>
         <Section label="General" />
         <Part1General atoms={optionsAtoms} />
     </>);
 }
 
-
-export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
-
-    const { formAtoms, formIdx, optionsGroup } = props;
+export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
 
     const optionsAtoms = formAtoms.optionsAtoms;
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);
     const isLogin = formIdx === FormIdx.login;
 
-    // if (optionsGroup === OptionsGroup.header) {
-    //     return <GroupHeader {...props} />;
-    // }
+    return (<>
+        {isLogin && (<>
+            <Section label="General" />
+            <Part1General atoms={optionsAtoms} />
+        </>)}
 
+        <Section label="Screen detection" />
+        <Part2ScreenDetection atoms={optionsAtoms} />
+
+        <Section label="Authentication" />
+        <Part3Authentication atoms={optionsAtoms} />
+
+        <Section label="Quick link" />
+        <Part4QL atoms={optionsAtoms} />
+
+        {!isWeb && (<>
+            <Section label="Password Manager Icon" />
+            <Part5PasswordManagerIcon atoms={optionsAtoms} />
+        </>)}
+    </>);
+}
+
+export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
+    const isHeader = props.optionsGroup === OptionsGroup.header;
     return (
         <div className={optionsAllGroupsClasses}>
 
-            {optionsGroup === OptionsGroup.header && (<>
-                <GroupHeader {...props} />
-            </>)}
+            {isHeader
+                ? (<>
+                    <GroupHeader {...props} />
+                </>)
+                : (<>
+                    <GroupOther {...props} />
+                </>)
+            }
 
-            {isLogin && (<>
-                <Section label="General" />
-                <Part1General atoms={optionsAtoms} />
-            </>)}
-
-            <Section label="Screen detection" />
-            <Part2ScreenDetection atoms={optionsAtoms} />
-
-            <Section label="Authentication" />
-            <Part3Authentication atoms={optionsAtoms} />
-
-            <Section label="Quick link" />
-            <Part4QL atoms={optionsAtoms} />
-
-            {!isWeb && (<>
-                <Section label="Password Manager Icon" />
-                <Part5PasswordManagerIcon atoms={optionsAtoms} />
-            </>)}
         </div>
     );
 }
