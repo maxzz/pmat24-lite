@@ -21,10 +21,10 @@ export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps
     const isLogin = formIdx === FormIdx.login;
 
     return (<>
-        {isLogin && (<>
+        {/* {isLogin && (<>
             <Section label="General" />
             <Part1General atoms={optionsAtoms} />
-        </>)}
+        </>)} */}
 
         <Section label="Screen detection" />
         <Part2ScreenDetection atoms={optionsAtoms} />

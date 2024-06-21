@@ -51,10 +51,14 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
 export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
 
     if (!fileUs.stats.domain) {
-        const manual = isManual(fileUs.meta);
-        return manual
+        const title = isManual(fileUs.meta)
             ? 'Manually defined login for a Windows application'
             : 'Login for a Windows application';
+        return (
+            <span className="shrink min-w-0 1w-min 1w-full truncate">
+                <>{title}</>
+            </span>
+        );
     }
 
     const domain = fileUs.stats.domain;

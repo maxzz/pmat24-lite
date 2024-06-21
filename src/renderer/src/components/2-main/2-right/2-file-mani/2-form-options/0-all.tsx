@@ -13,7 +13,7 @@ type FormOptionsProps = {
 function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
     const title =
         optionsGroup === OptionsGroup.header
-            ? 'Header options'
+            ? 'Manifest options'
             : optionsGroup === OptionsGroup.login
                 ? 'Login form options'
                 : 'Change password form options';

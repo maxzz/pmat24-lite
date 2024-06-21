@@ -11,7 +11,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
                 {fileUs.stats.title}
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="min-w-0 shrink w-min flex items-center gap-1.5">
                 <ManiAppIcons fileUs={fileUs} />
                 <ManiExplanation fileUs={fileUs} />
             </div>
