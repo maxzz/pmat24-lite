@@ -6,7 +6,7 @@ import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 function FormOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
     const title = formIdx === FormIdx.login ? 'Login form options' : 'Change password form options';
     return (
-        <div className="ml-1 mr-2">
+        <div className="ml-1 mr-3 mt-2 first:mt-0">
             <div className="text-sm font-semibold">
                 {title}
             </div>
