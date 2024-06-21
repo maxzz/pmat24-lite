@@ -1,25 +1,14 @@
 import { useAtomValue } from "jotai";
 import { FileUs, FormIdx } from "@/store/store-types";
 import { TabOptions } from "../1-form-editor/4-options";
-import { ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 
-function TabOptionsGuarded({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
-
-    const formAtoms = maniAtoms[formIdx];
-    if (!formAtoms) {
-        return null;
-    }
-
-    // const tabSectionProps: TabSectionProps = {
-    //     maniAtoms,
-    //     formAtoms,
-    //     formIdx,
-    // };
-
+function TabOptionsGuarded({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
+    const title = formIdx === FormIdx.login ? 'Login form options' : 'Change password form options';
     return (
         <div className="ml-1 mr-2">
             <div className="text-sm font-semibold">
-                {formIdx === FormIdx.login ? 'Login form options' : 'Change password form options'}
+                {title}
             </div>
 
             <TabOptions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
@@ -46,8 +35,8 @@ export default function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
 
     return (
         <div className="flex flex-col gap-1">
-            {login && <TabOptionsGuarded maniAtoms={maniAtoms} formIdx={FormIdx.login} />}
-            {cpass && <TabOptionsGuarded maniAtoms={maniAtoms} formIdx={FormIdx.cpass} />}
+            {login && <TabOptionsGuarded maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />}
+            {cpass && <TabOptionsGuarded maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />}
         </div>
     );
 }
