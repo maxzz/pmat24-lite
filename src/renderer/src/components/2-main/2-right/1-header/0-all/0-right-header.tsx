@@ -20,10 +20,10 @@ export function R_PanelHeader() {
     }
     
     return (
-        <div className={`${panelHeaderClasses} flex items-start justify-between`}>
+        <div className={`${panelHeaderClasses} relative`}>
             <TitleWithFileUs fileUs={fileUs} />
 
-            <div className="flex items-center gap-2">
+            <div className=" absolute right-1 top-2 flex items-center gap-2">
                 <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
 
                 <R_PanelMenu />

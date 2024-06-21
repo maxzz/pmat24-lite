@@ -20,7 +20,7 @@ underline \
 underline-offset-2 \
 ";
 
-function FollowUrl({ url, domain, title }: { url: string | undefined; domain?: string; title: string; }) {
+function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
     return (
         <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener" title={title}>
             {domain}
@@ -36,7 +36,7 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
 
             {url
                 ? (
-                    <FollowUrl url={url} domain={domain} title="Open login website" />
+                    <DomainAndOpenIcon domain={domain} url={url} title="Open the login site" />
                 )
                 : (
                     <div className={ManiNoUrlPartsClasses}>
@@ -55,8 +55,8 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
             ? 'Manually defined login for a Windows application'
             : 'Login for a Windows application';
         return (
-            <span className="shrink min-w-0 1w-min 1w-full truncate">
-                <>{title}</>
+            <span className="1shrink 1min-w-0 truncate">
+                {title}
             </span>
         );
     }
@@ -71,7 +71,7 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
             <ManiUrlParts url={loginUrl} domain={domain} />
 
             {showCpass && (
-                <FollowUrl url={cpassUrl} title="Open password change website" />
+                <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
             )}
         </div>
     );
