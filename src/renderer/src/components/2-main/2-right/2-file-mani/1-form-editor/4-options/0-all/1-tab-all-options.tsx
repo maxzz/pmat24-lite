@@ -2,6 +2,16 @@ import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Section } from "../4-controls";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 
+const tabOptionsClasses = "\
+mr-1 mb-4 \
+font-light \
+text-mani-foreground \
+grid grid-cols-[auto_minmax(0,1fr)] \
+gap-x-2 \
+gap-y-1 \
+select-none \
+";
+
 export function TabOptions({ formAtoms, formIdx }: TabSectionProps) {
 
     //const fileUs = useAtomValue(formAtoms.params.fileUsAtom);
@@ -13,7 +23,8 @@ export function TabOptions({ formAtoms, formIdx }: TabSectionProps) {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     return (
-        <div className="mr-1 mb-4 font-light text-mani-foreground select-none grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 space-y-1">
+        <div className={tabOptionsClasses}>
+
             <Section label="General" />
             <Part1General atoms={atoms} />
 

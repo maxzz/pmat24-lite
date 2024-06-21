@@ -3,8 +3,7 @@ import { SymbolInfo } from "@/ui/icons";
 const sectionClasses = "\
 col-span-2 \
 \
-mt-2 mb-1 \
-pb-1 \
+first:mt-1.5 mt-2 mb-0.5 pb-1 \
 \
 font-normal \
 text-mani-title \
