@@ -17,19 +17,16 @@ function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOption
             : optionsGroup === OptionsGroup.login
                 ? 'Login form options'
                 : 'Change password form options';
-    return (<>
-        {/* <div className="ml-1 mr-3 mt-2 first:mt-0"> */}
-            <div className="col-span-2 text-sm font-semibold">
+    return (
+        <div className="ml-1 mr-3 mt-2 first:mt-0">
+            <div className="text-sm font-semibold">
                 {title}
             </div>
 
             <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
-        {/* </div> */}
-        </>
+        </div>
     );
 }
-
-const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
 
 export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
 
@@ -50,11 +47,9 @@ export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
 
     return (
         <div className="flex flex-col gap-1">
-            <div className={optionsAllGroupsClasses}>
-                {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
-                {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
-                {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
-            </div>
+            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
+            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
+            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
         </div>
     );
 }
