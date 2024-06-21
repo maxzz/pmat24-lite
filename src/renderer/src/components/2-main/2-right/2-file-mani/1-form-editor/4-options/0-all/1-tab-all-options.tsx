@@ -13,27 +13,25 @@ export function TabOptions({ formAtoms, formIdx }: TabSectionProps) {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     return (
-        <div className="ml-4 mr-1">
-            <div className="mr-1 mb-4 font-light text-mani-foreground select-none grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 space-y-1">
-                <Section label="General" />
-                <Part1General atoms={atoms} />
+        <div className="mr-1 mb-4 font-light text-mani-foreground select-none grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 space-y-1">
+            <Section label="General" />
+            <Part1General atoms={atoms} />
 
-                <Section label="Screen detection" />
-                <Part2ScreenDetection atoms={atoms} />
+            <Section label="Screen detection" />
+            <Part2ScreenDetection atoms={atoms} />
 
-                <Section label="Authentication" />
-                <Part3Authentication atoms={atoms} />
+            <Section label="Authentication" />
+            <Part3Authentication atoms={atoms} />
 
-                <Section label="Quick link" />
-                <Part4QL atoms={atoms} />
+            <Section label="Quick link" />
+            <Part4QL atoms={atoms} />
 
-                {!isWeb && (
-                    <>
-                        <Section label="Password Manager Icon" />
-                        <Part5PasswordManagerIcon atoms={atoms} />
-                    </>
-                )}
-            </div>
+            {!isWeb && (
+                <>
+                    <Section label="Password Manager Icon" />
+                    <Part5PasswordManagerIcon atoms={atoms} />
+                </>
+            )}
         </div>
     );
 }

@@ -37,15 +37,15 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                 <div className="h-full w-full overflow-hidden" ref={ref}>
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
-                        <TabsContent value="tab0">
+                        <TabsContent value="options">
                             <TabFormOptions fileUs={fileUs} />
                         </TabsContent>
 
-                        <TabsContent value="tab1">
+                        <TabsContent value="login">
                             <FormEditor fileUs={fileUs} formIdx={0} />
                         </TabsContent>
 
-                        <TabsContent value="tab2">
+                        <TabsContent value="cpass">
                             <FormEditor fileUs={fileUs} formIdx={1} />
                         </TabsContent>
 

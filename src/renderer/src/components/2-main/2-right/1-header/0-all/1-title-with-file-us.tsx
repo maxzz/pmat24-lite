@@ -7,7 +7,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
 
-            <div className="pl-1 1text-foreground text-sm font-semibold" title="Name from manifest file">
+            <div className="pl-1 text-sm font-semibold" title="Name from manifest file">
                 {fileUs.stats.title}
             </div>
 

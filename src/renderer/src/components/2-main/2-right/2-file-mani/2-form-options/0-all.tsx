@@ -17,8 +17,8 @@ function TabOptionsGuarded({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formI
     // };
 
     return (
-        <div>
-            <div className="text-base font-semibold">
+        <div className="ml-1 mr-2">
+            <div className="text-sm font-semibold">
                 {formIdx === FormIdx.login ? 'Login form options' : 'Change password form options'}
             </div>
 
