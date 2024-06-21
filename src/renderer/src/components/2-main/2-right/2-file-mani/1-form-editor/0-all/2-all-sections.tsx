@@ -3,7 +3,7 @@ import { SubSection } from "../../9-sections-ui";
 import { TabFields } from "../1-fields";
 import { TabSubmit } from "../2-submit";
 import { TabPolicy } from "../3-policy-nun";
-import { TabOptions } from "../4-options";
+import { OptionsAllGroups } from "../4-options";
 import { ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 
 export function FormSections({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {

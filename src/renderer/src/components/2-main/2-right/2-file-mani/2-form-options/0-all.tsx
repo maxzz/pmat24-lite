@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { FileUs, FormIdx } from "@/store/store-types";
-import { TabOptions } from "../1-form-editor/4-options";
+import { OptionsAllGroups } from "../1-form-editor/4-options";
 import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 function FormOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; formIdx: FormIdx; }) {
@@ -11,7 +11,7 @@ function FormOptions({ maniAtoms, formAtoms, formIdx }: { maniAtoms: ManiAtoms; 
                 {title}
             </div>
 
-            <TabOptions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </div>
     );
 }
