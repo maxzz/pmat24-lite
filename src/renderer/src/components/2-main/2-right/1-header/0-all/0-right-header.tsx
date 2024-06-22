@@ -21,10 +21,10 @@ export function R_PanelHeader() {
 
     return (
         <div className={`${panelHeaderClasses}`}>
-            <div className="relative max-w-4xl [@media_(min-width:56rem)]:border-r border-red-500">
+            <div className="relative max-w-4xl xl:border-r border-border">
                 <TitleWithFileUs fileUs={fileUs} />
 
-                <div className=" absolute right-1.5 top-1.5 flex items-center gap-2">
+                <div className=" absolute right-0 top-0.5 flex items-center gap-2">
                     <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
 
                     <R_PanelMenu />
