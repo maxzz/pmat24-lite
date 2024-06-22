@@ -18,15 +18,18 @@ export function R_PanelHeader() {
             </div>
         );
     }
-    
+
     return (
-        <div className={`${panelHeaderClasses} relative`}>
-            <TitleWithFileUs fileUs={fileUs} />
+        <div className={`${panelHeaderClasses}`}>
+            <div className="relative max-w-4xl [@media_(min-width:56rem)]:border-r border-red-500">
+                <TitleWithFileUs fileUs={fileUs} />
 
-            <div className=" absolute right-1 top-2 flex items-center gap-2">
-                <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
+                <div className=" absolute right-1.5 top-1.5 flex items-center gap-2">
+                    <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
 
-                <R_PanelMenu />
+                    <R_PanelMenu />
+                </div>
+
             </div>
         </div>
     );
