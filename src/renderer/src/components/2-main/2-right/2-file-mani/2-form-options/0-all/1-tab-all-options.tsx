@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { SectionHeader } from "../9-controls";
 import { FormIdx, OptionsGroup } from "@/store/store-types";
@@ -61,3 +61,28 @@ export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: Option
 }
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
+
+type FormOptionsProps = {
+    maniAtoms: ManiAtoms;
+    formAtoms: FormAtoms;
+    formIdx: FormIdx;
+    optionsGroup: OptionsGroup;
+};
+
+export function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
+    const title =
+        optionsGroup === OptionsGroup.header
+            ? 'Manifest options'
+            : optionsGroup === OptionsGroup.login
+                ? 'Login form options'
+                : 'Change password form options';
+    return (
+        <div className="ml-1 mr-3 mt-2 first:mt-0">
+            <div className="text-sm font-semibold">
+                {title}
+            </div>
+
+            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
+        </div>
+    );
+}

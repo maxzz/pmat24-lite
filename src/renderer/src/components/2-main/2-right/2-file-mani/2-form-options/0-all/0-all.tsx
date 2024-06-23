@@ -1,32 +1,6 @@
 import { useAtomValue } from "jotai";
 import { FileUs, FormIdx, OptionsGroup } from "@/store/store-types";
-import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { OptionsAllGroups } from "./1-tab-all-options";
-
-type FormOptionsProps = {
-    maniAtoms: ManiAtoms;
-    formAtoms: FormAtoms;
-    formIdx: FormIdx;
-    optionsGroup: OptionsGroup;
-};
-
-function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
-    const title =
-        optionsGroup === OptionsGroup.header
-            ? 'Manifest options'
-            : optionsGroup === OptionsGroup.login
-                ? 'Login form options'
-                : 'Change password form options';
-    return (
-        <div className="ml-1 mr-3 mt-2 first:mt-0">
-            <div className="text-sm font-semibold">
-                {title}
-            </div>
-
-            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
-        </div>
-    );
-}
+import { FormOptions } from "./1-tab-all-options";
 
 export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
 
