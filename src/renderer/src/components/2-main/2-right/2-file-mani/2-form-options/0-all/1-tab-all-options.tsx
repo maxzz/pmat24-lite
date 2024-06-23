@@ -37,11 +37,6 @@ export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps
     const isLogin = formIdx === FormIdx.login;
 
     return (<>
-        {/* {isLogin && (<>
-            <Section label="General" />
-            <Part1General atoms={optionsAtoms} />
-        </>)} */}
-
         <SectionHeader label="Screen detection" />
         <Part2ScreenDetection atoms={optionsAtoms} />
 
@@ -56,40 +51,6 @@ export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps
             <Part5PasswordManagerIcon atoms={optionsAtoms} />
         </>)}
     </>);
-}
-
-function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
-    const isHeader = props.optionsGroup === OptionsGroup.header;
-    return (
-        <div className={optionsAllGroupsClasses}>
-
-            {isHeader
-                ? (<>
-                    <GroupHeader {...props} />
-                </>)
-                : (<>
-                    <GroupOther {...props} />
-                </>)
-            }
-
-        </div>
-    );
-}
-
-type FormOptionsProps = {
-    maniAtoms: ManiAtoms;
-    formAtoms: FormAtoms;
-    formIdx: FormIdx;
-    optionsGroup: OptionsGroup;
-};
-
-function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
-    return (
-        <>
-            <SectionTitle optionsGroup={optionsGroup} />
-            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
-        </>
-    );
 }
 
 export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
@@ -110,10 +71,6 @@ export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
                     <GroupHeader maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.header} />
                 </>)}
             </div>
-
-            {/* {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
-            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
-            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />} */}
         </div>
     );
 }
