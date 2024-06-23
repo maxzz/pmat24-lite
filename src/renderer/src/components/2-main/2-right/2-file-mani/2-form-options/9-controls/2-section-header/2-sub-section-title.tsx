@@ -8,9 +8,7 @@ first:mt-1.5 mt-2 mb-0.5 pb-1 \
 font-normal \
 text-mani-title \
 border-mani-title \
-border-b \
-flex items-center gap-1 justify-between \
-";
+border-b";
 // border-b-[length:0.2px]
 // text-[#32ffdaa0] \
 // border-[#32ffda40] \
