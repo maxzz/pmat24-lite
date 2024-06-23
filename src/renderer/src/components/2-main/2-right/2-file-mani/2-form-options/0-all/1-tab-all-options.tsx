@@ -69,7 +69,7 @@ type FormOptionsProps = {
     optionsGroup: OptionsGroup;
 };
 
-export function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
+function SectionTitle({ optionsGroup }: { optionsGroup: OptionsGroup }) {
     const title =
         optionsGroup === OptionsGroup.header
             ? 'Manifest options'
@@ -77,20 +77,25 @@ export function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: For
                 ? 'Login form options'
                 : 'Change password form options';
     return (
-        <div className="ml-1 mr-3 mt-2 first:mt-0">
-            <div className="text-sm font-semibold">
-                {title}
-            </div>
-
-            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
+        <div className="mt-2 first:mt-0 text-sm font-semibold">
+            {title}
         </div>
+    );
+}
+
+function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
+    return (
+        <>
+            <SectionTitle optionsGroup={optionsGroup} />
+            <OptionsAllGroups maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} optionsGroup={optionsGroup} />
+        </>
     );
 }
 
 export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
     return (
-        <div className="flex flex-col gap-1">
+        <div className="ml-1 mr-3 flex flex-col gap-1">
             {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
             {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
             {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
