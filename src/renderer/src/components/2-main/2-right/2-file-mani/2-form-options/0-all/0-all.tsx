@@ -14,14 +14,12 @@ export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
     if (!login && !cpass) {
         return (
             <div>
-                No forms. It can be a manifest without forms to exclude website support.
+                No forms. It can be a manifest to exclude website support (It has to be no fields not forms).
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col gap-1">
-            <OptionsContent maniAtoms={maniAtoms} />
-        </div>
+        <OptionsContent maniAtoms={maniAtoms} />
     );
 }

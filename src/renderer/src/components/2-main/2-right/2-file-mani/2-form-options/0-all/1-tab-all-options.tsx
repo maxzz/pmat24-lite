@@ -89,10 +89,11 @@ export function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: For
 
 export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
-    return (<>
-        {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
-        {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
-        {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
-    </>
+    return (
+        <div className="flex flex-col gap-1">
+            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
+            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
+            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
+        </div>
     );
 }
