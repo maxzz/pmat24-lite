@@ -6,12 +6,6 @@ export const enum FormIdx {
 
 }
 
-export const enum OptionsGroup {
-    login = 0,
-    cpass,
-    header,
-}
-
 export type FileUsFormData = {
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;

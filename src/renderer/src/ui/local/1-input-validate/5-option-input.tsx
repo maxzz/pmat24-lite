@@ -7,7 +7,7 @@ import { inputRingClasses } from "@/ui";
 const optionInputClasses = "\
 px-2 py-1 h-7 w-full \
 \
-text-mani-foreground bg-mani-background \
+text-mani-foreground font-normal bg-mani-background \
 \
 border-mani-border-muted border \
 \

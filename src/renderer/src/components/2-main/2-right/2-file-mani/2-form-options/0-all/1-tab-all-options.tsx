@@ -1,12 +1,12 @@
 import { useAtomValue } from "jotai";
 import { ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
-import { FormIdx, OptionsGroup } from "@/store/store-types";
+import { FormIdx } from "@/store/store-types";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { SectionHeader } from "../9-controls";
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-function GroupHeader({ formAtoms }: TabSectionProps) {
+function GroupGeneral({ formAtoms }: TabSectionProps) {
     const optionsAtoms = formAtoms.optionsAtoms;
     return (<>
         <SectionHeader label="General" />
@@ -58,16 +58,10 @@ function GroupCpass({ formAtoms }: TabSectionProps) {
     </>);
 }
 
-function SectionTitle({ optionsGroup }: { optionsGroup: OptionsGroup; }) {
-    const title =
-        optionsGroup === OptionsGroup.header
-            ? 'Manifest options'
-            : optionsGroup === OptionsGroup.login
-                ? 'Login form options'
-                : 'Change password form options';
+function SectionTitle({ label }: { label: string; }) {
     return (
         <div className="mt-2 first:mt-0 text-sm font-semibold">
-            {title}
+            {label}
         </div>
     );
 }
@@ -79,15 +73,15 @@ export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     return (
         <div className={optionsAllGroupsClasses}>
             {login && (<>
-                <SectionTitle optionsGroup={OptionsGroup.header} />
-                <GroupHeader maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
+                <SectionTitle label="Manifest options" />
+                <GroupGeneral maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
 
-                <SectionTitle optionsGroup={OptionsGroup.login} />
+                <SectionTitle label="Login form options" />
                 <GroupLogin maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
             </>)}
 
             {cpass && (<>
-                <SectionTitle optionsGroup={OptionsGroup.header} />
+                <SectionTitle label="Change password form options" />
                 <GroupCpass maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />
             </>)}
         </div>
