@@ -89,15 +89,6 @@ export function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: For
 
 export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
-
-    if (!login && !cpass) {
-        return (
-            <div>
-                No forms. It can be a manifest without forms to exclude website support.
-            </div>
-        );
-    }
-
     return (<>
         {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
         {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}

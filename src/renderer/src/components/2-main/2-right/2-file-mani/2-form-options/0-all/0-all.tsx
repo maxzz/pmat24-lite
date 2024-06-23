@@ -9,6 +9,16 @@ export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
         return null;
     }
 
+    const [login, cpass] = maniAtoms;
+
+    if (!login && !cpass) {
+        return (
+            <div>
+                No forms. It can be a manifest without forms to exclude website support.
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-1">
             <OptionsContent maniAtoms={maniAtoms} />
