@@ -96,19 +96,20 @@ export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
     return (
         <div className="ml-1 mr-3 flex flex-col gap-1">
-            {login && (<>
-                <SectionTitle optionsGroup={OptionsGroup.header} />
-                <GroupHeader maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />
+            <div className={optionsAllGroupsClasses}>
+                {login && (<>
+                    <SectionTitle optionsGroup={OptionsGroup.header} />
+                    <GroupHeader maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />
 
-                <SectionTitle optionsGroup={OptionsGroup.login} />
-                <GroupOther maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />
-            </>)}
+                    <SectionTitle optionsGroup={OptionsGroup.login} />
+                    <GroupOther maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />
+                </>)}
 
-            {cpass && (<>
-                <SectionTitle optionsGroup={OptionsGroup.header} />
-                <GroupHeader maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.header} />
-            </>
-            )}
+                {cpass && (<>
+                    <SectionTitle optionsGroup={OptionsGroup.header} />
+                    <GroupHeader maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.header} />
+                </>)}
+            </div>
 
             {/* {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
             {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
