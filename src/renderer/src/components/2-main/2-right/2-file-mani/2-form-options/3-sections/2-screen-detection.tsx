@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
-import { RowInputWLabel } from "../4-controls";
+import { RowInputWLabel } from "../9-controls";
 
 export function Part2ScreenDetection({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { urlAtom, captionAtom, monitorAtom } = atoms.p2Detect;

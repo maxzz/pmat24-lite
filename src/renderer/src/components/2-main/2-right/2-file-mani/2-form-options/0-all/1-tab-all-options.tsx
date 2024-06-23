@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
-import { Section } from "../4-controls";
+import { Section } from "../9-controls";
 import { FormIdx, OptionsGroup } from "@/store/store-types";
 
 const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
