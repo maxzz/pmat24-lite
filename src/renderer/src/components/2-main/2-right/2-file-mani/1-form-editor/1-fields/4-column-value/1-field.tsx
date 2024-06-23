@@ -3,7 +3,7 @@ import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
 import { ValueDropdown } from "./2-value-dropdown";
-import { isKeyToClearDefault } from "../../6-shared-ui";
+import { isKeyToClearDefault } from "../../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 

@@ -3,7 +3,7 @@ import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jo
 import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Mani } from "@/store/manifest";
 import { CatalogDropdown } from "./2-catalog-dropdown";
-import { isKeyToClearDefault } from "../../6-shared-ui";
+import { isKeyToClearDefault } from "../../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
