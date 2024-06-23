@@ -1,1 +1,1 @@
-export * from "./1-tab-all-options";
+export * from "./0-all";
