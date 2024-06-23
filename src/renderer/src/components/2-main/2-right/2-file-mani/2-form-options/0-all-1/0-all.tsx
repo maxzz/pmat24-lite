@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { FileUs, FormIdx, OptionsGroup } from "@/store/store-types";
-import { OptionsAllGroups } from "../1-form-editor/4-options";
+import { OptionsAllGroups } from "../0-all/1-tab-all-options";
 import { FormAtoms, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 type FormOptionsProps = {

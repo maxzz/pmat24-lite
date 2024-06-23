@@ -1,1 +1,0 @@
-export * from "./0-all/1-tab-all-options";
