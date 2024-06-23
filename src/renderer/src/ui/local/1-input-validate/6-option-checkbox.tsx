@@ -33,14 +33,16 @@ export function OptionCheckbox({ stateAtom, className, onValueChange, ...rest }:
         });
         onValueChange?.();
     }
-
+//place-self-center justify-self-end
     return (
-        <input
-            className={classNames("place-self-center size-4 dark-checkbox", className)}
-            type="checkbox"
-            checked={state.data === '1'}
-            onChange={onChange}
-            onBlur={onBlur}
-            {...rest} />
+        <div className="grid w-min">
+            <input
+                className={classNames("place-self-center justify-self-end size-4 dark-checkbox", className)}
+                type="checkbox"
+                checked={state.data === '1'}
+                onChange={onChange}
+                onBlur={onBlur}
+                {...rest} />
+        </div>
     );
 }
