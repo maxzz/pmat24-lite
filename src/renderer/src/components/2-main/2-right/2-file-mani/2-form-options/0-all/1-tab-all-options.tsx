@@ -4,6 +4,22 @@ import { Part1General, Part2ScreenDetection, Part3Authentication, Part4QL, Part5
 import { SectionHeader } from "../9-controls";
 import { FormIdx, OptionsGroup } from "@/store/store-types";
 
+function SectionTitle({ optionsGroup }: { optionsGroup: OptionsGroup; }) {
+    const title =
+        optionsGroup === OptionsGroup.header
+            ? 'Manifest options'
+            : optionsGroup === OptionsGroup.login
+                ? 'Login form options'
+                : 'Change password form options';
+    return (
+        <div className="mt-2 first:mt-0 text-sm font-semibold">
+            {title}
+        </div>
+    );
+}
+
+//TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
+
 const optionsAllGroupsClasses = "grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
 
 export function GroupHeader({ formAtoms, formIdx, optionsGroup }: TabSectionProps & { optionsGroup: OptionsGroup; }) {
@@ -42,7 +58,7 @@ export function GroupOther({ formAtoms, formIdx, optionsGroup }: TabSectionProps
     </>);
 }
 
-export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
+function OptionsAllGroups(props: TabSectionProps & { optionsGroup: OptionsGroup; }) {
     const isHeader = props.optionsGroup === OptionsGroup.header;
     return (
         <div className={optionsAllGroupsClasses}>
@@ -60,28 +76,12 @@ export function OptionsAllGroups(props: TabSectionProps & { optionsGroup: Option
     );
 }
 
-//TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
-
 type FormOptionsProps = {
     maniAtoms: ManiAtoms;
     formAtoms: FormAtoms;
     formIdx: FormIdx;
     optionsGroup: OptionsGroup;
 };
-
-function SectionTitle({ optionsGroup }: { optionsGroup: OptionsGroup }) {
-    const title =
-        optionsGroup === OptionsGroup.header
-            ? 'Manifest options'
-            : optionsGroup === OptionsGroup.login
-                ? 'Login form options'
-                : 'Change password form options';
-    return (
-        <div className="mt-2 first:mt-0 text-sm font-semibold">
-            {title}
-        </div>
-    );
-}
 
 function FormOptions({ maniAtoms, formAtoms, formIdx, optionsGroup }: FormOptionsProps) {
     return (
@@ -96,9 +96,24 @@ export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
     return (
         <div className="ml-1 mr-3 flex flex-col gap-1">
-            {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
+            {login && (<>
+                <SectionTitle optionsGroup={OptionsGroup.header} />
+                <GroupHeader maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />
+
+                <SectionTitle optionsGroup={OptionsGroup.login} />
+                <GroupOther maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />
+            </>)}
+
+            {cpass && (<>
+                <SectionTitle optionsGroup={OptionsGroup.header} />
+                <GroupHeader maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.header} />
+            </>
+            )}
+
+            {/* {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.header} />}
             {login && <FormOptions maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} optionsGroup={OptionsGroup.login} />}
-            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />}
+            {cpass && <FormOptions maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} optionsGroup={OptionsGroup.cpass} />} */}
         </div>
     );
 }
+
