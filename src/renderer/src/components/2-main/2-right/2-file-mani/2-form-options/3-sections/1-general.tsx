@@ -12,7 +12,7 @@ export function Part1General0({ atoms }: { atoms: OptionsState.Atoms; }) {
     </>);
 }
 
-export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid gap-x-2 gap-y-1";
+export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid 1gap-x-2 1gap-y-px";
 
 export function Part1General1({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
