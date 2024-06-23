@@ -15,7 +15,7 @@ flex items-center gap-1 justify-between \
 // text-[#32ffdaa0] \
 // border-[#32ffda40] \
 
-export function Section({ label }: { label: string; }) {
+export function SectionHeader({ label }: { label: string; }) {
     return (
         <div className={sectionClasses}>
             {label}
