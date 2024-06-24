@@ -49,11 +49,13 @@ export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
     const [open, setOpen] = useAtom(openAtom);
 
     return (<>
-        <RowInputWLabel stateAtom={nameAtom} label="Managed login name" />
+        <div className="col-span-2 grid grid-cols-subgrid flex items-center justify-between">
+            <RowInputWLabel stateAtom={nameAtom} label="Managed login name" />
 
-        <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
-            <IconSliders className="size-4 text-muted-foreground" />
-        </Button>
+            <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
+                <IconSliders className="size-4 text-muted-foreground" />
+            </Button>
+        </div>
 
         <UiAccordion open={open}>
             <RowInputWLabel stateAtom={descAtom} label="Description" />
