@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 import { SymbolWarning } from "@/ui/icons";
 
-export function RowTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
+export function TooltipTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
     return (<>
         {error && (
             <SymbolWarning
