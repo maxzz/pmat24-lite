@@ -16,4 +16,5 @@ export const doSaveOneAtom = atom(null,
 );
 
 //TODO: submit editor
-//TODO: policy editor as part of fields editor
+//TODO: policy editor as part of fields editor - done
+//TODO: add validation
