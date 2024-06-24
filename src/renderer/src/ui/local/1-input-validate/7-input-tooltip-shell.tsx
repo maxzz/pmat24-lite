@@ -15,7 +15,7 @@ export function InputTooltipShell({ stateAtom, children, Trigger }: InputBodyPro
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
 
-                <div className="relative">
+                <div className="relative w-full">
                     {children}
 
                     <TooltipTrigger asChild>
