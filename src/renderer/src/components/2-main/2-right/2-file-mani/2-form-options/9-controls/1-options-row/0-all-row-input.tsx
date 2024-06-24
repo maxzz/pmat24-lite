@@ -14,6 +14,22 @@ export function RowLabel({ label, children }: { label: string; children: ReactNo
     );
 }
 
+type TooltipWrapProps = InputHTMLAttributes<HTMLInputElement> & {
+    stateAtom: RowInputStateAtom;
+    asCheckbox?: boolean;
+};
+
+function TooltipWrap({ stateAtom, asCheckbox, ...rest }: TooltipWrapProps) {
+    return (
+        <InputTooltipShell stateAtom={stateAtom} Trigger={RowTrigger}>
+            {asCheckbox
+                ? <OptionCheckbox stateAtom={stateAtom} {...rest} />
+                : <OptionInput stateAtom={stateAtom} {...rest} />
+            }
+        </InputTooltipShell>
+    );
+}
+
 type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
     stateAtom: RowInputStateAtom;
@@ -23,12 +39,7 @@ type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
 export function RowInputWLabel({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
     return (
         <RowLabel label={label}>
-            <InputTooltipShell stateAtom={stateAtom} Trigger={RowTrigger}>
-                {asCheckbox
-                    ? <OptionCheckbox stateAtom={stateAtom} {...rest} />
-                    : <OptionInput stateAtom={stateAtom} {...rest} />
-                }
-            </InputTooltipShell>
+            <TooltipWrap stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
         </RowLabel>
     );
 }
@@ -37,14 +48,7 @@ export function RowInputAndButtonWLabel({ label, stateAtom, asCheckbox, button, 
     return (
         <RowLabel label={label}>
             <div className="w-full flex items-center justify-between gap-1">
-
-                <InputTooltipShell stateAtom={stateAtom} Trigger={RowTrigger}>
-                    {asCheckbox
-                        ? <OptionCheckbox stateAtom={stateAtom} {...rest} />
-                        : <OptionInput className="flex-1" stateAtom={stateAtom} {...rest} />
-                    }
-                </InputTooltipShell>
-
+                <TooltipWrap stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
                 {button}
             </div>
         </RowLabel>
