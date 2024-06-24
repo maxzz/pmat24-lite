@@ -15,7 +15,7 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
         height: open ? height : 0,
         ena: disableHiddenChildren(open, refElm),
         config: firstRun.current ? { duration: 0 } : { mass: 0.2, tension: 492, clamp: true },
-        onRest: () => firstRun.current && (firstRun.current = false),
+        onRest: () => firstRun.current = false,
     });
 
     return (

@@ -1,11 +1,11 @@
-import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
-import { RowInputAndButtonWLabel, RowInputWLabel } from "../9-controls";
-import { UiAccordion } from "../9-controls/ui-accordion";
-import { Button } from "@/ui";
 import { useState } from "react";
 import { atom, useAtom } from "jotai";
+import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { Button } from "@/ui";
 import { IconSliders } from "@/ui/icons";
+import { RowInputAndButtonWLabel, RowInputWLabel, UiAccordion } from "../9-controls";
 
+/*
 export function Part1General0({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
     return (<>
@@ -15,8 +15,6 @@ export function Part1General0({ atoms }: { atoms: OptionsState.Atoms; }) {
         <RowInputWLabel stateAtom={balloonAtom} label="Show balloon" />
     </>);
 }
-
-export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid 1gap-x-2 1gap-y-px";
 
 export function Part1General1({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
@@ -41,6 +39,9 @@ export function Part1General2({ atoms }: { atoms: OptionsState.Atoms; }) {
         </UiAccordion>
     );
 }
+*/
+
+export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid 1gap-x-2 1gap-y-px";
 
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
