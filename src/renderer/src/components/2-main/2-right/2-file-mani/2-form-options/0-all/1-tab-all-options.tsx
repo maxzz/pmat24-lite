@@ -68,12 +68,12 @@ export function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
                 <SectionTitle label="Manifest options" />
                 <GroupGeneral maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
 
-                <SectionTitle label="Login form options" />
+                <SectionTitle label="Login options" />
                 <GroupLogin maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
             </>)}
 
             {cpass && (<>
-                <SectionTitle label="Change password form options" />
+                <SectionTitle label="Password change options" />
                 <GroupCpass maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />
             </>)}
         </div>

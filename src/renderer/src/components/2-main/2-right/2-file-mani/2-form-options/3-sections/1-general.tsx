@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { atom, useAtom } from "jotai";
+import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
 import { Button } from "@/ui";
 import { IconSliders } from "@/ui/icons";
@@ -41,20 +41,23 @@ export function Part1General2({ atoms }: { atoms: OptionsState.Atoms; }) {
 }
 */
 
+function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
+    const setOpen = useSetAtom(openAtom);
+    return (
+        <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
+            <IconSliders className="size-4 text-muted-foreground" />
+        </Button>
+    );
+}
+
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
 
     const openAtom = useState(() => atom(false))[0];
-    const [open, setOpen] = useAtom(openAtom);
+    const open = useAtomValue(openAtom);
 
     return (<>
-        <RowInputAndButtonWLabel stateAtom={nameAtom} label="Managed login name"
-            button={
-                <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
-                    <IconSliders className="size-4 text-muted-foreground" />
-                </Button>
-            }
-        />
+        <RowInputAndButtonWLabel stateAtom={nameAtom} label="Managed login name" button={<SlidersButton openAtom={openAtom} />} />
 
         <UiAccordion open={open}>
             <RowInputWLabel stateAtom={descAtom} label="Description" />
