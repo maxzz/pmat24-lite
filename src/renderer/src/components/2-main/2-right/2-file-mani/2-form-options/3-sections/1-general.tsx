@@ -4,6 +4,7 @@ import { UiAccordion } from "../9-controls/ui-accordion";
 import { Button } from "@/ui";
 import { useState } from "react";
 import { atom, useAtom } from "jotai";
+import { IconSliders } from "@/ui/icons";
 
 export function Part1General0({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
@@ -51,7 +52,7 @@ export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
         <RowInputWLabel stateAtom={nameAtom} label="Managed login name" />
 
         <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
-            More...
+            <IconSliders className="size-4 text-muted-foreground" />
         </Button>
 
         <UiAccordion open={open}>
