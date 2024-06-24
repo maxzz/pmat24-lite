@@ -41,8 +41,6 @@ export function Part1General2({ atoms }: { atoms: OptionsState.Atoms; }) {
 }
 */
 
-export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid 1gap-x-2 1gap-y-px";
-
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { nameAtom, descAtom, hintAtom, balloonAtom } = atoms.p1General;
 

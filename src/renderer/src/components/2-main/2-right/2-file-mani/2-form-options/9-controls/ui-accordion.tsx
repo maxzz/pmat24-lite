@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { a, useSpring } from '@react-spring/web';
 import { useMeasure } from 'react-use';
 import { classNames, disableHiddenChildren } from '@/utils';
-import { SubSubGridClasses } from '../3-sections/1-general';
+import { SubSubGridClasses } from './1-options-row';
 
 export function UiAccordion({ open, children }: { open: boolean, children: ReactNode; }) {
     const [refMeasure, { top, height }] = useMeasure<HTMLDivElement>();
