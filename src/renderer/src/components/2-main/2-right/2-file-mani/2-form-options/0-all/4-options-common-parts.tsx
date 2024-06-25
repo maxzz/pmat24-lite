@@ -26,11 +26,14 @@ export function OptionsQuicklink({ formAtoms }: TabSectionProps) {
 
 export function OptionsIcon({ formAtoms }: TabSectionProps) {
     const optionsAtoms = formAtoms.optionsAtoms;
+
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);
+    if (isWeb) {
+        return null;
+    }
+
     return (<>
-        {!isWeb && (<>
-            <SubSectionTitle label="Password Manager Icon" />
-            <Part5PasswordManagerIcon atoms={optionsAtoms} />
-        </>)}
+        <SubSectionTitle label="Password Manager Icon" />
+        <Part5PasswordManagerIcon atoms={optionsAtoms} />
     </>);
 }
