@@ -1,15 +1,12 @@
-import { OptionsState, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputAndButtonWLabel, RowInputWLabel, SlidersButton, SubSectionTitle, SubSectionTitle0, UiAccordion } from "../9-controls";
-import { atom, useAtomValue } from "jotai";
 import { useState } from "react";
+import { PrimitiveAtom, atom, useAtomValue } from "jotai";
+import { OptionsState, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { RowInputAndButtonWLabel, SlidersButton, SubSectionTitle0, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 
-export function Part1GeneralTrigger({ atoms }: { atoms: OptionsState.Atoms; }) {
+function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; openAtom: PrimitiveAtom<boolean>; }) {
     const { nameAtom } = atoms.p1General;
-
-    const openAtom = useState(() => atom(false))[0];
     const open = useAtomValue(openAtom);
-
     return (<>
         <RowInputAndButtonWLabel
             label="Managed login name"
@@ -25,8 +22,9 @@ export function Part1GeneralTrigger({ atoms }: { atoms: OptionsState.Atoms; }) {
 
 export function GroupGeneral({ formAtoms }: TabSectionProps) {
     const optionsAtoms = formAtoms.optionsAtoms;
+    const openAtom = useState(() => atom(false))[0];
     return (<>
         <SubSectionTitle0 label="General" />
-        <Part1GeneralTrigger atoms={optionsAtoms} />
+        <Part1GeneralTrigger atoms={optionsAtoms} openAtom={openAtom} />
     </>);
 }

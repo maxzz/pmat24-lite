@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { atom, useAtomValue } from "jotai";
+import { PrimitiveAtom, atom, useAtomValue } from "jotai";
 import { SymbolInfo } from "@/ui/icons";
 import { SlidersButton } from "../3-sliders-button";
 
@@ -41,9 +41,7 @@ flex items-end justify-between\
 \
 ";
 
-export function SubSectionTitle({ label }: { label: string; }) {
-    const openAtom = useState(() => atom(false))[0];
-    const open = useAtomValue(openAtom);
+export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: PrimitiveAtom<boolean>; }) {
     return (
         <div className={sectionClasses}>
             {label}
