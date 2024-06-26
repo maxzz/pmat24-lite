@@ -39,7 +39,7 @@ function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
 const sectionClasses = "\
 col-span-2 \
 \
-1first:mt-1.5 mt-2 mb-2 1pb-1 \
+1first:mt-1.5 mt-1 1mb-2 1pb-1 \
 \
 text-sm \
 font-normal \
@@ -48,8 +48,8 @@ font-normal \
 1border-mani-title \
 border-border \
 1border-t \
-border-b \
-flex items-center justify-between\
+1border-b \
+flex items-center justify-between \
 \
 \
 ";
@@ -58,6 +58,7 @@ export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: 
     return (
         <div className={sectionClasses}>
             {label}
+            <div className="flex-1 mx-2 h-0.5 bg-muted-foreground opacity-15 dark:opacity-25"></div>
             <SlidersButton openAtom={openAtom} />
         </div>
     );
