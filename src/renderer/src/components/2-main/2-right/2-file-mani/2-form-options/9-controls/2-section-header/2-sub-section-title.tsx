@@ -27,23 +27,6 @@ export function SubSectionTitle0({ label }: { label: string; }) {
 
 //TODO: show info icon on section with focus
 
-const sectionClasses = "\
-col-span-2 \
-\
-1first:mt-1.5 mt-2 mb-2 1pb-1 \
-\
-font-normal \
-text-mani-title \
-bg-muted \
-1border-mani-title \
-border-border \
-1border-t \
-border-b \
-flex items-center justify-between\
-\
-\
-";
-
 function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
     const setOpen = useSetAtom(openAtom);
     return (
@@ -52,6 +35,24 @@ function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
         </Button>
     );
 }
+
+const sectionClasses = "\
+col-span-2 \
+\
+1first:mt-1.5 mt-2 mb-2 1pb-1 \
+\
+text-sm \
+font-normal \
+1text-mani-title \
+1bg-muted \
+1border-mani-title \
+border-border \
+1border-t \
+border-b \
+flex items-center justify-between\
+\
+\
+";
 
 export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: PrimitiveAtom<boolean>; }) {
     return (
