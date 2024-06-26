@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { PrimitiveAtom, atom, useAtomValue } from "jotai";
-import { SymbolInfo } from "@/ui/icons";
-import { SlidersButton } from "../3-sliders-button";
+import { PrimitiveAtom, useSetAtom } from "jotai";
+import { IconSliders, SymbolChevronDown } from "@/ui/icons";
+import { Button } from "@/ui";
+// import { SlidersButton } from "../3-sliders-button";
 
 const sectionClasses0 = "\
 col-span-2 \
@@ -30,16 +30,28 @@ export function SubSectionTitle0({ label }: { label: string; }) {
 const sectionClasses = "\
 col-span-2 \
 \
-first:mt-1.5 mt-2 mb-0.5 pb-1 \
+1first:mt-1.5 mt-2 mb-2 1pb-1 \
 \
 font-normal \
 text-mani-title \
-border-mani-title \
+bg-muted \
+1border-mani-title \
+border-border \
+1border-t \
 border-b \
-flex items-end justify-between\
+flex items-center justify-between\
 \
 \
 ";
+
+function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
+    const setOpen = useSetAtom(openAtom);
+    return (
+        <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
+            <SymbolChevronDown className="size-4 text-muted-foreground" />
+        </Button>
+    );
+}
 
 export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: PrimitiveAtom<boolean>; }) {
     return (
