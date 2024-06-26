@@ -108,8 +108,8 @@ export namespace OptionsConv {
                 emu_pattern: detection.emu_pattern || '',
                 names: detection.names || '',
                 names_ext: detection.names_ext || '',
-                processname: detection.processname || '',
-                commandline: detection.commandline || '',
+                processname: decodeURIComponent(detection.processname || ''),
+                commandline: decodeURIComponent(detection.commandline || ''),
 
                 reCheck: options.recheckwindowafterfillin === '1',
             },
@@ -214,8 +214,8 @@ export namespace OptionsConv {
                 emu_pattern: get(p2Detect.emu_patternAtom).data,
                 names: get(p2Detect.namesAtom).data,
                 names_ext: get(p2Detect.names_extAtom).data,
-                processname: get(p2Detect.processnameAtom).data,
-                commandline: get(p2Detect.commandlineAtom).data,
+                processname: encodeURIComponent(get(p2Detect.processnameAtom).data),
+                commandline: encodeURIComponent(get(p2Detect.commandlineAtom).data),
 
                 reCheck: get(p2Detect.reCheckAtom).data === '1',
             },
