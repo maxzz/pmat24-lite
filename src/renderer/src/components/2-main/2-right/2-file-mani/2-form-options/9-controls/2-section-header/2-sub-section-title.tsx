@@ -1,7 +1,6 @@
 import { PrimitiveAtom, useSetAtom } from "jotai";
 import { IconSliders, SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
-import { classNames } from "@/utils";
 // import { SlidersButton } from "../3-sliders-button";
 
 const sectionClasses0 = "\
@@ -38,7 +37,6 @@ function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
 }
 
 const sectionClasses = "\
-relative \
 col-span-2 \
 \
 1first:mt-1.5 mt-2 mb-2 1pb-1 \
@@ -59,11 +57,8 @@ flex items-center justify-between\
 export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: PrimitiveAtom<boolean>; }) {
     return (
         <div className={sectionClasses}>
-            <div className="absolute left-0 top-1/2 w-full h-px bg-red-500"></div>
-            <div className={classNames("absolute left-0 top-0 w-full", sectionClasses)}>
-                {label}
-                <SlidersButton openAtom={openAtom} />
-            </div>
+            {label}
+            <SlidersButton openAtom={openAtom} />
         </div>
     );
 }
