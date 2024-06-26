@@ -27,7 +27,7 @@ export function SubSectionTitle0({ label }: { label: string; }) {
 
 //TODO: show info icon on section with focus
 
-function SlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
+function SubSlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
     const setOpen = useSetAtom(openAtom);
     return (
         <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
@@ -59,7 +59,7 @@ export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: 
         <div className={sectionClasses}>
             {label}
             <div className="flex-1 mx-2 h-0.5 bg-muted-foreground opacity-15 dark:opacity-25"></div>
-            <SlidersButton openAtom={openAtom} />
+            <SubSlidersButton openAtom={openAtom} />
         </div>
     );
 }
