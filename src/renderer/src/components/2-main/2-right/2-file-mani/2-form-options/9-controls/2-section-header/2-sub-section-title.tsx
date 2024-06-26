@@ -1,6 +1,7 @@
-import { PrimitiveAtom, useSetAtom } from "jotai";
-import { IconSliders, SymbolChevronDown } from "@/ui/icons";
+import { PrimitiveAtom, useAtom } from "jotai";
+import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
+import { classNames } from "@/utils";
 // import { SlidersButton } from "../3-sliders-button";
 
 const sectionClasses0 = "\
@@ -28,10 +29,10 @@ export function SubSectionTitle0({ label }: { label: string; }) {
 //TODO: show info icon on section with focus
 
 function SubSlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
-    const setOpen = useSetAtom(openAtom);
+    const [open, setOpen] = useAtom(openAtom);
     return (
         <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
-            <SymbolChevronDown className="size-4 text-muted-foreground" />
+            <SymbolChevronDown className={classNames("size-4 text-muted-foreground", open && "rotate-180 transition-transform")} />
         </Button>
     );
 }
