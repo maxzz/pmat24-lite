@@ -41,7 +41,7 @@ col-span-2 \
 \
 1first:mt-1.5 mt-1 1mb-2 1pb-1 \
 \
-text-sm \
+1text-sm \
 font-normal \
 1text-mani-title \
 1bg-muted \
