@@ -9,7 +9,7 @@ import { GroupCpass } from "./3-options-cpass";
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-1 select-none";
+const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 1gap-y-1 select-none";
 
 function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
@@ -19,12 +19,12 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
                 <SectionTitle label="Manifest options" />
                 <GroupGeneral maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
 
-                <SectionTitle label="Login options" />
+                <SectionTitle label="Login form options" />
                 <GroupLogin maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
             </>)}
 
             {cpass && (<>
-                <SectionTitle label="Password change options" />
+                <SectionTitle label="Password change form options" />
                 <GroupCpass maniAtoms={maniAtoms} formAtoms={cpass} formIdx={FormIdx.cpass} />
             </>)}
         </div>

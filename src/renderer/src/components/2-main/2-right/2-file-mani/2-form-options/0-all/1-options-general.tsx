@@ -24,7 +24,7 @@ export function GroupGeneral({ formAtoms }: TabSectionProps) {
     const optionsAtoms = formAtoms.optionsAtoms;
     const openAtom = useState(() => atom(false))[0];
     return (<>
-        <SubSectionTitle0 label="General" />
+        {/* <SubSectionTitle0 label="General" /> */}
         <Part1GeneralTrigger atoms={optionsAtoms} openAtom={openAtom} />
     </>);
 }
