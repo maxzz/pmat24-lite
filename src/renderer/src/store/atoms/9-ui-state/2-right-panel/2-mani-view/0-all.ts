@@ -1,10 +1,11 @@
 import { FormOpenSections, defaultFormOpenSections } from "./2-mani-open-sections";
-import { ManiEditorState, defaultManiEditorState } from "./3-editor-tab";
+import { FormOpenOptions, defaultFormOpenOptions } from "./3-mani-open-options";
+import { ManiEditorState, defaultManiEditorState } from "./4-editor-tab";
 
 export type MainViewSettings = {
     mani: ManiEditorState & {
         openGeneral: boolean;
-        openInOptions: FormOpenSections;
+        openInOptions: FormOpenOptions;
         openInForms: FormOpenSections;
     };
 };
@@ -13,7 +14,7 @@ export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
         openGeneral: false,
-        openInOptions: defaultFormOpenSections,
+        openInOptions: defaultFormOpenOptions,
         openInForms: defaultFormOpenSections,
     },
 };

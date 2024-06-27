@@ -57,16 +57,11 @@ flex items-center justify-between \
 \
 ";
 
-function toggelOpen(values: string[], value: string): string[] {
-    if (values.includes(value)) {
-        return values.filter(v => v !== value);
-    }
-    return [...values, value];
-}
-
 export function SubSectionTitle({ label, openAtom, formIdx, name }: { label: string; openAtom: PrimitiveAtom<boolean>; formIdx: FormIdx; name: string; }) {
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
-    const setToggle = () => appSettings.right.mani.openInOptions[formIdx] = toggelOpen(appSettings.right.mani.openInOptions[formIdx], name);
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+    const setToggle = () => {
+        appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
+    };
     return (
         <div className={sectionClasses}>
             {label}

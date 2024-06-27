@@ -12,7 +12,7 @@ export function OptionsDetection({ formAtoms }: TabSectionProps) {
     
     const name = "detection";
     const formIdx = formAtoms.optionsAtoms.formIdx;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
         <SubSectionTitle label="Screen detection" openAtom={openAtom} formIdx={formIdx} name={name} />
@@ -29,7 +29,7 @@ export function OptionsAuth({ formAtoms }: TabSectionProps) {
     
     const name = "auth";
     const formIdx = formAtoms.optionsAtoms.formIdx;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
         <SubSectionTitle label="Authentication" openAtom={openAtom} formIdx={formIdx} name={name} />
@@ -46,7 +46,7 @@ export function OptionsQuicklink({ formAtoms }: TabSectionProps) {
 
     const name = "ql";
     const formIdx = formAtoms.optionsAtoms.formIdx;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
     
     return (<>
         <SubSectionTitle label="Quick link" openAtom={openAtom}  formIdx={formIdx} name={name} />
@@ -65,7 +65,7 @@ export function OptionsIcon({ formAtoms }: TabSectionProps) {
 
     const name = "icon";
     const formIdx = formAtoms.optionsAtoms.formIdx;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);
     if (isWeb) {
