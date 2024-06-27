@@ -80,7 +80,7 @@ export function UiAccordion1({ open, children }: { open: boolean, children: Reac
                 firstRun.current = false;
             },
         };
-        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, {rv});
+        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, { rv });
         return rv;
     }, [open]);
 
@@ -126,16 +126,22 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
                 firstRun.current = false;
             },
         };
-        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, {rv});
+        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, { rv });
         return rv;
     }, [open]);
 
+    let styles2: any = styles;
     if (firstRun.current) {
-        return null;
+        const { height, ...rest } = styles;
+        styles2 = rest;
     }
 
     return (
-        <a.div style={{ ...styles, ...(!firstRun.current && open && { height: height }) }} className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}>
+        <a.div
+            className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}
+            // style={{ ...styles, ...(!firstRun.current && open && { height: height }) }}
+            style={{ ...styles2}}
+        >
             <div ref={(el) => { el && (setElm(el), refMeasure(el)); }} className={SubSubGridClasses}>
                 {console.log(`                    %cchildren firstRun=${firstRun.current} open=${open} height=${height}`, 'background-color: black; color: dimgrey') as unknown as null}
                 {children}
