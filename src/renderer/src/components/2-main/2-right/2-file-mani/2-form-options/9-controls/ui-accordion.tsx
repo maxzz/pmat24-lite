@@ -9,18 +9,30 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
     const [refElm, setElm] = useState<HTMLDivElement>();
 
     const firstRun = useRef(true);
-    useEffect(() => { firstRun.current = false; }, []);
+
+    console.log('UiAccordion render', open, height);
+    useEffect(() => {
+        if (!height) return;
+        
+        console.log('UiAccordion firstRun', firstRun.current);
+
+        height && (firstRun.current = false);
+    }, [height]);
 
     const animation = useSpring({
         height: open ? height : 0,
         ena: disableHiddenChildren(open, refElm),
         config: firstRun.current ? { duration: 0 } : { mass: 0.2, tension: 492, clamp: true },
-        onRest: () => firstRun.current = false,
+        onRest: () => {
+            console.log('UiAccordion onRest', open, height);
+            firstRun.current = false;
+        },
     });
 
     return (
         <a.div style={animation} className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}>
             <div ref={(el) => { el && (setElm(el), refMeasure(el)); }} className={SubSubGridClasses}>
+                {console.log('-------------------children', open, height) as unknown as null}
                 {children}
             </div>
         </a.div>
