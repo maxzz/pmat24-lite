@@ -22,12 +22,9 @@ export function SubSection({ value, label, children }: { value: string; label: R
 
 export function FormSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
     const value = useSnapshot(appSettings).right.mani.openInForms[formIdx];
+    const onValueChange = (v: string[]) => appSettings.right.mani.openInForms[formIdx] = v;
     return (
-        <Accordion
-            value={value as string[]}
-            onValueChange={(v) => appSettings.right.mani.openInForms[formIdx] = v}
-            type="multiple"
-        >
+        <Accordion value={value as string[]} onValueChange={onValueChange} type="multiple">
             {children}
         </Accordion>
     );
