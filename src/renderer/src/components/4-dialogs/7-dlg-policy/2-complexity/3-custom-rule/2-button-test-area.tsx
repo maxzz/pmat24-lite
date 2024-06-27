@@ -8,12 +8,12 @@ export const inlineButtonClasses = "h-6 bg-background active:scale-[.97] cursor-
 
 export function ButtonTestArea() {
     const open = appSettings.right.mani;
-    const testAreaOpen = useSnapshot(open).testAreaOpen;
+    const testAreaOpen = useSnapshot(open).openTestArea;
     return (
         <Button
             className={classNames(inlineButtonClasses, "px-2 space-x-0.5")}
             size="sm"
-            onClick={() => open.testAreaOpen = !open.testAreaOpen}
+            onClick={() => open.openTestArea = !open.openTestArea}
         >
             <span>Test area</span>
             <SymbolChevronDown className={classNames("size-3 transition-all", testAreaOpen && "rotate-180")} />

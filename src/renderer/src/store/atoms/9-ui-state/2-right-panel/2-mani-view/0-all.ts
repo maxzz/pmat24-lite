@@ -3,13 +3,17 @@ import { ManiEditorState, defaultManiEditorState } from "./3-editor-tab";
 
 export type MainViewSettings = {
     mani: ManiEditorState & {
-        sections: FormOpenSections;
+        openGeneral: boolean;
+        openInOptions: FormOpenSections;
+        openInForms: FormOpenSections;
     };
 };
 
 export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
-        sections: defaultFormOpenSections,
+        openGeneral: false,
+        openInOptions: defaultFormOpenSections,
+        openInForms: defaultFormOpenSections,
     },
 };
