@@ -66,7 +66,7 @@ function toggelOpen(values: string[], value: string): string[] {
 
 export function SubSectionTitle({ label, openAtom, formIdx, name }: { label: string; openAtom: PrimitiveAtom<boolean>; formIdx: FormIdx; name: string; }) {
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
-    const setToggle = () => appSettings.right.mani.openInOptions[0] = toggelOpen(appSettings.right.mani.openInOptions[formIdx], name);
+    const setToggle = () => appSettings.right.mani.openInOptions[formIdx] = toggelOpen(appSettings.right.mani.openInOptions[formIdx], name);
     return (
         <div className={sectionClasses}>
             {label}

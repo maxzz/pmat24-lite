@@ -3,9 +3,9 @@ import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./
 
 export function GroupCpass(props: TabSectionProps) {
     return (<>
-        {/* <OptionsDetection {...props} />
+        <OptionsDetection {...props} />
         <OptionsAuth {...props} />
         <OptionsQuicklink {...props} />
-        <OptionsIcon {...props} /> */}
+        <OptionsIcon {...props} />
     </>);
 }

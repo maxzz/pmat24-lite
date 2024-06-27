@@ -4,8 +4,8 @@ import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./
 export function GroupLogin(props: TabSectionProps) {
     return (<>
         <OptionsDetection {...props} />
-        {/* <OptionsAuth {...props} />
+        <OptionsAuth {...props} />
         <OptionsQuicklink {...props} />
-        <OptionsIcon {...props} /> */}
+        <OptionsIcon {...props} />
     </>);
 }
