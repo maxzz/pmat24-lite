@@ -2,6 +2,9 @@ import { PrimitiveAtom, useAtom } from "jotai";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
+import { FormIdx } from "@/store/store-types";
 // import { SlidersButton } from "../3-sliders-button";
 
 const sectionClasses0 = "\
@@ -28,10 +31,9 @@ export function SubSectionTitle0({ label }: { label: string; }) {
 
 //TODO: show info icon on section with focus
 
-function SubSlidersButton({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
-    const [open, setOpen] = useAtom(openAtom);
+function SubSlidersButton({ open, setToggle }: { open: boolean; setToggle: () => void; }) {
     return (
-        <Button className="mr-0.5 col-start-2 place-self-end" onClick={() => setOpen(v => !v)}>
+        <Button className="mr-0.5 col-start-2 place-self-end" onClick={setToggle}>
             <SymbolChevronDown className={classNames("size-4 text-muted-foreground", open && "rotate-180 transition-transform")} />
         </Button>
     );
@@ -55,12 +57,22 @@ flex items-center justify-between \
 \
 ";
 
-export function SubSectionTitle({ label, openAtom }: { label: string; openAtom: PrimitiveAtom<boolean>; }) {
+function toggelOpen(values: string[], value: string): string[] {
+    if (values.includes(value)) {
+        return values.filter(v => v !== value);
+    }
+    return [...values, value];
+}
+
+export function SubSectionTitle({ label, openAtom, formIdx, name }: { label: string; openAtom: PrimitiveAtom<boolean>; formIdx: FormIdx; name: string; }) {
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx].includes(name);
+    const setToggle = () => appSettings.right.mani.openInOptions[0] = toggelOpen(appSettings.right.mani.openInOptions[formIdx], name);
     return (
         <div className={sectionClasses}>
             {label}
             <div className="flex-1 mx-2 h-0.5 bg-muted-foreground opacity-15 dark:opacity-25"></div>
-            <SubSlidersButton openAtom={openAtom} />
+
+            <SubSlidersButton open={open} setToggle={setToggle} />
         </div>
     );
 }
