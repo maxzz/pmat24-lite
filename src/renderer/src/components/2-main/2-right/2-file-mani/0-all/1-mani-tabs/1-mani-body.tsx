@@ -38,7 +38,8 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                         <TabsContent value="options" tabIndex={-1}>
-                            <TabFormOptions fileUs={fileUs} key={fileUsAtom.toString()} />
+                            {/* <TabFormOptions fileUs={fileUs} key={fileUsAtom.toString()} /> */}
+                            <TabFormOptions fileUs={fileUs} />
                         </TabsContent>
 
                         <TabsContent value="login" tabIndex={-1}>
