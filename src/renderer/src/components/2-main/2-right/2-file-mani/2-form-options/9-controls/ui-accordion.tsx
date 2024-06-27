@@ -99,10 +99,8 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
 
     const firstRun = useRef(true);
 
-    //console.log(`                    %crender   firstRun=${firstRun.current} open=${open} height=${height}`, 'background-color: black; color: dimgrey');
-
     useEffect(() => {
-        if (!height) return;
+        // if (!height) return;
 
         console.log('%cuseEffect                   ', 'background-color: darkgreen; color: lime', `firstRun=${firstRun.current} open=${open} height=${height}`);
 
@@ -110,9 +108,9 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
     }, [height]);
 
     useLayoutEffect(() => {
-        if (!refElm) return;
+        // if (!refElm) return;
 
-        console.log('%cuseLayoutEffect             ', "background-color: darkgreen; color: tan", `firstRun=${firstRun.current} open=${open} height=${height}`);
+        console.log('%cuseLayoutEffect             ', "background-color: darkgreen; color: tan", `firstRun=${firstRun.current} open=${open} height=${height}`, { refElm });
 
     }, [open, height, refElm]);
 
@@ -126,21 +124,37 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
                 firstRun.current = false;
             },
         };
-        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, { rv });
+
+        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, { rv, refElm });
         return rv;
-    }, [open]);
+    }, [open, height]);
 
     let styles2: any = styles;
     if (firstRun.current) {
         const { height, ...rest } = styles;
         styles2 = rest;
+
+        //styles.height.set(height);
     }
+
+    useEffect(
+        () => {
+            if (firstRun.current) {
+                styles.height.set(height);
+                console.log('%cuseEffect 2                 ', 'background-color: darkgreen; color: blue', `firstRun=${firstRun.current} open=${open} height=${height}`);
+            }
+        }, [height]
+    );
+
+
+    console.log(`                    %crender   firstRun=${firstRun.current} open=${open} height=${height}`, 'background-color: black; color: dimgrey', { refElm });
 
     return (
         <a.div
             className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}
             // style={{ ...styles, ...(!firstRun.current && open && { height: height }) }}
-            style={{ ...styles2}}
+            // style={{ ...styles2}}
+            style={styles}
         >
             <div ref={(el) => { el && (setElm(el), refMeasure(el)); }} className={SubSubGridClasses}>
                 {console.log(`                    %cchildren firstRun=${firstRun.current} open=${open} height=${height}`, 'background-color: black; color: dimgrey') as unknown as null}
