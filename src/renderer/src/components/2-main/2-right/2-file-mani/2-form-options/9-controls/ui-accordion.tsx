@@ -71,9 +71,7 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
     }, [open, height, refElm]);
 
     const [styles, api] = useSpring(() => {
-        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`);
-
-        return {
+        const rv = {
             height: open ? height : 0,
             ena: disableHiddenChildren(open, refElm),
             config: firstRun.current ? { duration: 0 } : { mass: 0.2, tension: 492, clamp: true },
@@ -82,10 +80,12 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
                 firstRun.current = false;
             },
         };
-    }, [open, height]);
+        console.log('%cuseSpring                   ', "background-color: darkgreen; color: white", `firstRun=${firstRun.current} open=${open} height=${height}`, {rv});
+        return rv;
+    }, [open]);
 
     return (
-        <a.div style={styles} className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}>
+        <a.div style={{ ...styles, ...(!firstRun.current && open && { height: height }) }} className={classNames("overflow-y-hidden smallscroll", SubSubGridClasses)}>
             <div ref={(el) => { el && (setElm(el), refMeasure(el)); }} className={SubSubGridClasses}>
                 {console.log(`                    %cchildren firstRun=${firstRun.current} open=${open} height=${height}`, 'background-color: black; color: dimgrey') as unknown as null}
                 {children}
