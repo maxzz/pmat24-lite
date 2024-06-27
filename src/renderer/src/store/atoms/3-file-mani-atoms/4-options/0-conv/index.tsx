@@ -1,6 +1,7 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
 import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
 import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName } from "@/ui";
+import { FormIdx } from "@/store/store-types";
 import { FileUsParams } from "../../9-types";
 
 export namespace OptionsConv {
@@ -32,7 +33,7 @@ export namespace OptionsConv {
         processname: string;
         commandline: string;
 
-        reCheck: boolean;           // re-check windowa fter fillin
+        reCheck: boolean;           // re-check windowa after fillin
     };
 
     type p3Auth = {                 // Part Authentication
@@ -61,6 +62,7 @@ export namespace OptionsConv {
         p5Icon: p5Icon;
 
         isWeb: boolean;
+        formIdx: FormIdx;
     };
 
     export type FormOptionsAtoms = {
@@ -71,6 +73,7 @@ export namespace OptionsConv {
         p5Icon: AtomizeWithType<p5Icon, RowInputState>;
 
         isWebAtom: PrimitiveAtom<boolean>;
+        formIdx: FormIdx;
     };
 
     type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
@@ -130,6 +133,7 @@ export namespace OptionsConv {
             },
 
             isWeb: fileUs.stats.isWeb,
+            formIdx,
         };
 
         return rv;
@@ -183,6 +187,7 @@ export namespace OptionsConv {
             },
 
             isWebAtom: atomWithCallback(initialState.isWeb, onChange('isWeb')),
+            formIdx: initialState.formIdx,
         };
 
         return rv;
@@ -236,6 +241,7 @@ export namespace OptionsConv {
             },
 
             isWeb: get(atoms.isWebAtom),
+            formIdx: atoms.formIdx,
         };
 
         return rv;
