@@ -246,4 +246,19 @@ export namespace OptionsConv {
 
         return rv;
     }
+
+    export function verifyAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): string[] {
+        const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
+        const toValidate = { ...p1General, ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon };
+
+        const rv: string[] = Object.entries(toValidate).map(
+            ([key, atom]): string | undefined => {
+                const atomValue = get(atom);
+                const error = atomValue.validate?.(atomValue.data);
+                return error;
+            }
+        ).filter(Boolean);
+
+        return rv;
+    }
 }
