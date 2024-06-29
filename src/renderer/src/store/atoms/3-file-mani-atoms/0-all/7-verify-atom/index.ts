@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { ManiAtoms } from "../../9-types";
+import { OptionsConv } from "../../4-options";
 
-export const verifyErrorAtom = atom('');
+export const verifyOptionsErrorAtom = atom('');
 
 export const verifyOptionsAtom = atom(null,
     (get, set, { maniAtoms }: { maniAtoms: ManiAtoms; }) => {
@@ -12,14 +13,21 @@ export const verifyOptionsAtom = atom(null,
         }
 
         if (login) {
-            const loginOptions = login.optionsAtoms;
-            if (loginOptions) {
-                const error = '';
-                set(verifyErrorAtom, error);
+            const errors = OptionsConv.verifyAtoms(login.optionsAtoms, get, set);
+            if (errors.length) {
+                const error = errors[0];
+                set(verifyOptionsErrorAtom, error);
             }
         }
 
-        set(verifyErrorAtom, '');
+        if (cpass) {
+            const errors = OptionsConv.verifyAtoms(cpass.optionsAtoms, get, set);
+            if (errors.length) {
+                const error = errors[0];
+                set(verifyOptionsErrorAtom, error);
+            }
+        }
 
+        set(verifyOptionsErrorAtom, '');
     }
 );
