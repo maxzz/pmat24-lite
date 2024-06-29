@@ -247,7 +247,7 @@ export namespace OptionsConv {
         return rv;
     }
 
-    export function verifyAtoms(atoms: FormOptionsAtoms, get: Getter, set: Setter): string[] {
+    export function verifyAtoms(atoms: FormOptionsAtoms, formIdx: FormIdx, get: Getter, set: Setter): string[] {
         const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
         const toValidate = { ...p1General, ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon };
 
