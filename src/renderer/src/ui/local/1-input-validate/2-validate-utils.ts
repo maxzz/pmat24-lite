@@ -6,8 +6,16 @@ export function validateManifestName(value: string): string {
     return !!value ? '' : 'The manifest name cannot be empty.';
 }
 
+export function validateNumber(value: string): string {
+    const num = +value;
+    if (isNaN(num)) {
+        return 'Value must be a number.';
+    }
+    return '';
+}
+
 export function validateMinLen(value: string): string {
-    const num = parseInt(value, 10);
+    const num = +value;
     if (isNaN(num)) {
         return 'Value must be a number.';
     }
@@ -15,7 +23,7 @@ export function validateMinLen(value: string): string {
 }
 
 export function validateMaxLen(value: string): string {
-    const num = parseInt(value, 10);
+    const num = +value;
     if (isNaN(num)) {
         return 'Value must be a number.';
     }
