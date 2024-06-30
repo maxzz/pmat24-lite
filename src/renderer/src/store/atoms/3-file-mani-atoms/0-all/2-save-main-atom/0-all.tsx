@@ -20,7 +20,10 @@ export const doSaveOneAtom = atom(null,
 
         const errors = set(verifyOptionsAtom, { maniAtoms });
         if (errors) {
-            toast.error(errors.join("\n"));
+            const messages = errors.map((err, idx) => {
+                return <div key={idx}>{err}</div>;
+            });
+            toast.error(<div className="flex flex-col">{messages}</div>);
             return;
         }
 
@@ -29,7 +32,7 @@ export const doSaveOneAtom = atom(null,
         console.log('saved', fileUs.fname);
 
         // fileUs.changesSet.clear();
-    
+
         //TODO: validate
         //TODO: check if we can save from web or electron
         //TODO: collect all data from all atoms
@@ -42,7 +45,7 @@ export const doSaveOneAtom = atom(null,
         //     loginFormAtoms.policyAtoms;
         //     loginFormAtoms.optionsAtoms;
         // }
-    
+
     }
 );
 
