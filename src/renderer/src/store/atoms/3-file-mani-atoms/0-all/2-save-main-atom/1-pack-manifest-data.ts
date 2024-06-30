@@ -35,21 +35,4 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         const formOptionsDetection = detectionAndOptionsForMani(options);
         console.log('options', JSON.stringify(formOptionsDetection, null, 2));
     }
-
-    console.log('saved', fileUs.fname);
-
-    // fileUs.changesSet.clear();
-
-    //TODO: validate
-    //TODO: check if we can save from web or electron
-    //TODO: collect all data from all atoms
-    //TODO: each file may have no filename
-    // const loginFormAtoms = maniAtoms[0];
-    // const cpassFormAtoms = maniAtoms[1];
-    // if (loginFormAtoms) {
-    //     loginFormAtoms.fieldsAtoms;
-    //     loginFormAtoms.submitAtoms;
-    //     loginFormAtoms.policyAtoms;
-    //     loginFormAtoms.optionsAtoms;
-    // }
 }
