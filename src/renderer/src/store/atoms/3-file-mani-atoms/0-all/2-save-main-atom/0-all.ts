@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "./1-pack-manifest-data";
+import { verifyOptionsAtom } from "../7-verify-atom";
+import { toast } from "sonner";
 
 export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
@@ -8,6 +10,17 @@ export const doSaveOneAtom = atom(null,
 
         const changed = !!fileUs.changesSet.size;
         if (!changed) {
+            return;
+        }
+
+        const maniAtoms = get(fileUs.maniAtomsAtom);
+        if (!maniAtoms) {
+            return;
+        }
+
+        const errors = set(verifyOptionsAtom, { maniAtoms });
+        if (errors) {
+            toast.error(errors.join("\n"));
             return;
         }
 
