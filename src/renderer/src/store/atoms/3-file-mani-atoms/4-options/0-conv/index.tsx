@@ -1,6 +1,6 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
 import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
-import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName } from "@/ui";
+import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName, validateNumber } from "@/ui";
 import { FormIdx } from "@/store/store-types";
 import { FileUsParams } from "../../9-types";
 
@@ -147,7 +147,7 @@ export namespace OptionsConv {
                 nameAtom: newAtomForInput(p1General.name, onChange('name'), { validate: validateManifestName }),
                 descAtom: newAtomForInput(p1General.desc, onChange('desc')),
                 hintAtom: newAtomForInput(p1General.hint, onChange('hint')),
-                balloonAtom: newAtomForInput(p1General.balloon, onChange('balloon')),
+                balloonAtom: newAtomForInput(p1General.balloon, onChange('balloon'), { validate: validateNumber }),
                 submitTypeAtom: newAtomForInput(p1General.submitType, onChange('submitType')),
                 qlNameAtom: newAtomForInput(p1General.qlName, onChange('qlName')),
                 qlWoCredAtom: newAtomForCheck(p1General.qlWoCred, onChange('qlWoCred')),
