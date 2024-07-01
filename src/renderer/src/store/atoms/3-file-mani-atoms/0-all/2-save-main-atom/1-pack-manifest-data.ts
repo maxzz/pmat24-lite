@@ -35,10 +35,13 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
         let detectionAndOptions = detectionAndOptionsForMani(detectionAndOptionsRow);
 
-        detectionAndOptions = Object.fromEntries(
-            Object.entries(detectionAndOptions)
-                .filter(([key, value]) => !!value)
-        );
+        // detectionAndOptions = Object.fromEntries(
+        //     Object.entries(detectionAndOptions)
+        //         .filter(([key, value]) => !!value)
+        // );
+
+        detectionAndOptions.detection = filterEmptyValues(detectionAndOptions.detection || {});
+        detectionAndOptions.options = filterEmptyValues(detectionAndOptions.options || {});
 
         const optionStr = JSON
             .stringify(detectionAndOptions, null, 2)
@@ -46,4 +49,11 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         console.log('options', optionStr);
 
     }
+}
+
+function filterEmptyValues(obj: Record<string, any>) {
+    return Object.fromEntries(
+        Object.entries(obj)
+            .filter(([key, value]) => !!value)
+    );
 }
