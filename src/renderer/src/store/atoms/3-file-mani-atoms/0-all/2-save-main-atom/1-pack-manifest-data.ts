@@ -6,6 +6,13 @@ import { SubmitConv } from "../../2-submit/0-conv";
 import { OptionsConv } from "../../4-options";
 import { detectionAndOptionsForMani } from "./53-conv-mani-options";
 
+function filterEmptyValues(obj: Record<string, any>) {
+    return Object.fromEntries(
+        Object.entries(obj)
+            .filter(([key, value]) => !!value)
+    );
+}
+
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
 
     const maniAtoms = get(fileUs.maniAtomsAtom);
@@ -17,8 +24,12 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
     if (loginFormAtoms) {
 
+        // 1. Submits
+
         const submits = SubmitConv.fromAtoms(loginFormAtoms.submitAtoms, get, set);
         console.log('submits', JSON.stringify(submits, null, 2));
+
+        // 2. Fields
 
         const fields = loginFormAtoms.fieldsAtoms.map(
             (fieldAtoms) => {
@@ -32,14 +43,11 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         );
         // console.log('maniValues', JSON.stringify(fields, null, 2));
 
+        // 3. Options
+
         const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
+
         let detectionAndOptions = detectionAndOptionsForMani(detectionAndOptionsRow);
-
-        // detectionAndOptions = Object.fromEntries(
-        //     Object.entries(detectionAndOptions)
-        //         .filter(([key, value]) => !!value)
-        // );
-
         detectionAndOptions.detection = filterEmptyValues(detectionAndOptions.detection || {});
         detectionAndOptions.options = filterEmptyValues(detectionAndOptions.options || {});
 
@@ -48,12 +56,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
             .replace(/"names_ext":\s".*",/, '"names_ext": "...",');
         console.log('options', optionStr);
 
-    }
-}
+        // 4. The rest
 
-function filterEmptyValues(obj: Record<string, any>) {
-    return Object.fromEntries(
-        Object.entries(obj)
-            .filter(([key, value]) => !!value)
-    );
+    }
 }
