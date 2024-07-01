@@ -3,6 +3,7 @@ import { FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "./1-pack-manifest-data";
 import { verifyOptionsAtom } from "../7-verify-atom";
 import { toast } from "sonner";
+import { appSettings } from "@/store/app-settings";
 
 export const doSaveOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
@@ -20,6 +21,7 @@ export const doSaveOneAtom = atom(null,
 
         const errors = set(verifyOptionsAtom, { maniAtoms });
         if (errors) {
+            appSettings.right.mani.activeTab = 'options';
             const messages = errors.map((err, idx) => {
                 return <div key={idx}>{err}</div>;
             });
