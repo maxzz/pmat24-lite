@@ -4,13 +4,13 @@ import { FieldConv } from "../../1-fields/0-conv";
 import { ManiConv } from "./2-conv-mani";
 import { SubmitConv } from "../../2-submit/0-conv";
 import { OptionsConv } from "../../4-options";
-import { detectionAndOptionsForMani } from "./53-conv-mani-options";
+import { DAOForMani, detectionAndOptionsForMani } from "./53-conv-mani-options";
 
-function filterEmptyValues(obj: Record<string, any>) {
-    return Object.fromEntries(
-        Object.entries(obj)
-            .filter(([key, value]) => !!value)
-    );
+function filterEmptyValues<T extends Record<string, any>>(obj: T): T | undefined {
+    const entries = Object
+        .entries(obj)
+        .filter(([key, value]) => !!value);
+    return entries.length ? Object.fromEntries(entries) as T : undefined;
 }
 
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
@@ -47,9 +47,15 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
         const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
 
-        let detectionAndOptions = detectionAndOptionsForMani(detectionAndOptionsRow);
-        detectionAndOptions.detection = filterEmptyValues(detectionAndOptions.detection || {});
-        detectionAndOptions.options = filterEmptyValues(detectionAndOptions.options || {});
+        const { detection, options } = detectionAndOptionsForMani(detectionAndOptionsRow);
+
+        const detectionFiltered = filterEmptyValues(detection);
+        const optionsFiltered = filterEmptyValues(options);
+
+        const detectionAndOptions: Partial<DAOForMani> = {
+            ...(detectionFiltered && { detection: detectionFiltered }),
+            ...(optionsFiltered && { options: optionsFiltered }),
+        };
 
         const optionStr = JSON
             .stringify(detectionAndOptions, null, 2)

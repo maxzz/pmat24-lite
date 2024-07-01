@@ -54,8 +54,8 @@ function optionsForMani(options: OptionsConv.OptionsForAtoms): FileMani.Options 
 }
 
 export type DAOForMani = { // Detection And Options ForMani
-    detection?: FileMani.Detection;
-    options?: FileMani.Options;
+    detection: FileMani.Detection;
+    options: FileMani.Options;
 };
 
 export function detectionAndOptionsForMani(options: OptionsConv.OptionsForAtoms): DAOForMani {
