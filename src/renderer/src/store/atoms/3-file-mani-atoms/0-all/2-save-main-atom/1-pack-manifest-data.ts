@@ -13,8 +13,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         return;
     }
 
-    const loginFormAtoms = maniAtoms[0];
-    const cpassFormAtoms = maniAtoms[1];
+    const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
     if (loginFormAtoms) {
 
@@ -23,6 +22,8 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
         const fields = loginFormAtoms.fieldsAtoms.map(
             (fieldAtoms) => {
+                const metaField = fieldAtoms.metaField;
+
                 const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
                 const maniValues = FieldConv.forMani(fromAtomValues);
                 const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
@@ -31,21 +32,16 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
         );
         // console.log('maniValues', JSON.stringify(fields, null, 2));
 
-        const options = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
-        const formOptionsDetection = detectionAndOptionsForMani(options);
+        const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
+        let detectionAndOptions = detectionAndOptionsForMani(detectionAndOptionsRow);
 
-        // console.log('options', JSON.stringify(formOptionsDetection, null, 2));
-
-        // console.log('options', JSON.stringify(
-        //     Object.fromEntries(
-        //         Object.entries(formOptionsDetection).map(
-        //             ([key, value]) => (key === 'names_ext' ? [key, '...'] : [key, value])
-        //         )
-        //     ), null, 2)
-        // );
+        detectionAndOptions = Object.fromEntries(
+            Object.entries(detectionAndOptions)
+                .filter(([key, value]) => !!value)
+        );
 
         const optionStr = JSON
-            .stringify(formOptionsDetection, null, 2)
+            .stringify(detectionAndOptions, null, 2)
             .replace(/"names_ext":\s".*",/, '"names_ext": "...",');
         console.log('options', optionStr);
 
