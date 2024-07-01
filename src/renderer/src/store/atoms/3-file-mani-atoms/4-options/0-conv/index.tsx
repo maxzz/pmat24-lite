@@ -247,17 +247,13 @@ export namespace OptionsConv {
         return rv;
     }
 
-    // export type ErrorInTab = {
-    //     error: string;
-    //     tab: number;
-    // };
-
     export function verifyAtoms(atoms: FormOptionsAtoms, formIdx: FormIdx, get: Getter, set: Setter): string[] {
         const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
 
-        const toValidate = formIdx === FormIdx.login
-            ? { ...p1General, ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon }
-            : { ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon };
+        const toValidate =
+            formIdx === FormIdx.login
+                ? { ...p1General, ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon }
+                : { ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon };
 
         const rv: string[] = Object.entries(toValidate).map(
             ([key, atom]): string | undefined => {
