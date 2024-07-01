@@ -19,7 +19,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
     if (loginFormAtoms) {
 
         const submits = SubmitConv.fromAtoms(loginFormAtoms.submitAtoms, get, set);
-        //console.log('submits', JSON.stringify(submits, null, 2));
+        console.log('submits', JSON.stringify(submits, null, 2));
 
         const fields = loginFormAtoms.fieldsAtoms.map(
             (fieldAtoms) => {
@@ -33,6 +33,21 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
         const options = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
         const formOptionsDetection = detectionAndOptionsForMani(options);
-        console.log('options', JSON.stringify(formOptionsDetection, null, 2));
+
+        // console.log('options', JSON.stringify(formOptionsDetection, null, 2));
+
+        // console.log('options', JSON.stringify(
+        //     Object.fromEntries(
+        //         Object.entries(formOptionsDetection).map(
+        //             ([key, value]) => (key === 'names_ext' ? [key, '...'] : [key, value])
+        //         )
+        //     ), null, 2)
+        // );
+
+        const optionStr = JSON
+            .stringify(formOptionsDetection, null, 2)
+            .replace(/"names_ext":\s".*",/, '"names_ext": "...",');
+        console.log('options', optionStr);
+
     }
 }
