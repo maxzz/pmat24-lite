@@ -12,11 +12,15 @@ export namespace SubmitConv {
         isDoSubmitUndefined: boolean;   // doSubmit was initially undefined
     };
 
-    export type SubmitAtoms = Prettify<Atomize<SubmitForAtoms> & {
-        isWeb: boolean;                 // is web form
-        fromFile: SubmitForAtoms;       // original state to compare with
-        changed: boolean;               // state from atoms is different from original state
-    }>;
+    export type SubmitAtoms = Prettify<
+        & Atomize<SubmitForAtoms>
+        & {
+            isWeb: boolean;                 // is web form
+            metaForm: Meta.Form;            // meta form from manifest
+            fromFile: SubmitForAtoms;       // original state to compare with
+            changed: boolean;               // state from atoms is different from original state
+        }
+    >;
 
     // Atoms
 
@@ -46,11 +50,12 @@ export namespace SubmitConv {
     }
 
     export function fromAtoms(atoms: SubmitAtoms, get: Getter, set: Setter): SubmitForAtoms {
+        const { buttonNamesAtom, selectedAtom, doSubmitAtom, isDoSubmitUndefinedAtom } = atoms;
         const rv = {
-            buttonNames: get(atoms.buttonNamesAtom),
-            selected: get(atoms.selectedAtom),
-            doSubmit: get(atoms.doSubmitAtom),
-            isDoSubmitUndefined: get(atoms.isDoSubmitUndefinedAtom),
+            buttonNames: get(buttonNamesAtom),
+            selected: get(selectedAtom),
+            doSubmit: get(doSubmitAtom),
+            isDoSubmitUndefined: get(isDoSubmitUndefinedAtom),
         };
         return rv;
     }

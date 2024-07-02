@@ -23,6 +23,7 @@ export namespace SubmitState {
         const rv: Atoms = {
             ...(SubmitConv.createAtoms(forAtoms, onChange)),
             isWeb,
+            metaForm,
             fromFile: forAtoms,
             changed: false,
         };

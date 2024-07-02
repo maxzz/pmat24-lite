@@ -14,11 +14,14 @@ export namespace FieldConv {
         policies: Mani.FieldPolicy;
     };
 
-    export type FieldAtoms = Prettify<Atomize<FieldForAtoms> & {
-        metaField: Meta.Field;          // all fields from original to combine with fields from atoms to create new field
-        fromFile: FieldForAtoms;        // original state to compare with
-        changed: boolean;               // state from atoms is different from original state
-    }>;
+    export type FieldAtoms = Prettify<
+        & Atomize<FieldForAtoms>
+        & {
+            metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field
+            fromFile: FieldForAtoms;    // original state to compare with
+            changed: boolean;           // state from atoms is different from original state
+        }
+    >;
 
     /**
      * Fields that are used in this editor
