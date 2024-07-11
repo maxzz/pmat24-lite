@@ -1,4 +1,4 @@
-import { FieldTyp } from '@/store/manifest';
+import { FieldTyp, Meta } from '@/store/manifest';
 import { FieldConv } from './0-conv';
 import { FieldState } from './2-field-atoms';
 import { FileUsParams, ManiAtoms } from "../9-types";
@@ -16,17 +16,16 @@ export namespace FieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        const rv = nonButtonFields.map(
-            (field, idx) => {
-                const rowAtoms = FieldState.createUiAtoms(field,
-                    ({ get, set }) => {
-                        return FieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
-                    }
-                );
-                return rowAtoms;
-            }
-        ) || [];
+        function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
+            const rowAtoms = FieldState.createUiAtoms(field,
+                ({ get, set }) => {
+                    return FieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
+                }
+            );
+            return rowAtoms;
+        }
 
+        const rv = nonButtonFields.map(mapMetaFieldToFieldAtoms) || [];
         return rv;
     }
 
