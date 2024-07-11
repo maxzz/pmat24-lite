@@ -8,6 +8,9 @@ export type FileUsParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
+
+    isWeb?: boolean;               // If it's form for website
+    isManual?: boolean;            // If it's a manual mode form
 };
 
 export type FormAtoms = {
@@ -15,9 +18,6 @@ export type FormAtoms = {
     submitAtoms: SubmitState.Atoms;
     policyAtoms: PolicyState.Atoms[];
     optionsAtoms: OptionsState.Atoms;
-
-    isWeb: boolean;                     // If it's form for website
-    isManual: boolean;                  // If it's a manual mode form
 
     fileUsParams: FileUsParams;
 };
