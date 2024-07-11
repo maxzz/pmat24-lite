@@ -14,11 +14,16 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
         return;
     }
 
+    const isWeb = !!metaForm.disp.domain;
+    const isManual = metaForm.disp.isScript;
+
     const rv: FormAtoms = {
         fieldsAtoms: FieldsState.createUiAtoms(fileUsParams, maniAtoms),
         submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
         policyAtoms: PolicyState.createUiAtoms(fileUsParams, maniAtoms),
         optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
+        isWeb,
+        isManual,
         fileUsParams,
     };
 

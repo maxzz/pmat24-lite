@@ -16,6 +16,9 @@ export type FormAtoms = {
     policyAtoms: PolicyState.Atoms[];
     optionsAtoms: OptionsState.Atoms;
 
+    isWeb: boolean;                     // If it's form for website
+    isManual: boolean;                  // If it's a manual mode form
+
     fileUsParams: FileUsParams;
 };
 
