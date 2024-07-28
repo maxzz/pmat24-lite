@@ -18,8 +18,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       fast-xml-parser:
-        specifier: ^4.3.6
-        version: 4.4.0
+        specifier: ^4.4.1
+        version: 4.4.1
       jotai:
         specifier: ^2.9.1
         version: 2.9.1(@types/react@18.3.3)(react@18.3.1)
@@ -1855,6 +1855,10 @@ packages:
 
   fast-xml-parser@4.4.0:
     resolution: {integrity: sha512-kLY3jFlwIYwBNDojclKsNAC12sfD6NwW74QB2CoNGPvtVxjliYehVunB3HYyNi+n4Tt1dAcgwYvmKF/Z18flqg==}
+    hasBin: true
+
+  fast-xml-parser@4.4.1:
+    resolution: {integrity: sha512-xkjOecfnKGkSsOwtZ5Pz7Us/T6mrbPQrq0nh+aCO5V9nk5NLWmasAHumTKjiPJPWANe+kAZ84Jc8ooJkzZ88Sw==}
     hasBin: true
 
   fastest-stable-stringify@2.0.2:
@@ -5230,6 +5234,10 @@ snapshots:
   fast-shallow-equal@1.0.0: {}
 
   fast-xml-parser@4.4.0:
+    dependencies:
+      strnum: 1.0.5
+
+  fast-xml-parser@4.4.1:
     dependencies:
       strnum: 1.0.5
 
