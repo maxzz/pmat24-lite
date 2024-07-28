@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.1
-        version: 3.0.1(electron@31.2.1)
+        version: 3.0.1(electron@31.3.0)
       '@electron-toolkit/utils':
         specifier: ^3.0.0
-        version: 3.0.0(electron@31.2.1)
+        version: 3.0.0(electron@31.3.0)
       electron-updater:
         specifier: ^6.2.1
         version: 6.2.1
@@ -124,8 +124,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       electron:
-        specifier: ^31.2.1
-        version: 31.2.1
+        specifier: ^31.3.0
+        version: 31.3.0
       electron-builder:
         specifier: ^24.13.3
         version: 24.13.3(electron-builder-squirrel-windows@25.0.0-alpha.10(dmg-builder@24.13.3))
@@ -1773,8 +1773,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@31.2.1:
-    resolution: {integrity: sha512-g3CLKjl4yuXt6VWm/KpgEjYYhFiCl19RgUn8lOC8zV/56ZXAS3+mqV4wWzicE/7vSYXs6GRO7vkYRwrwhX3Gaw==}
+  electron@31.3.0:
+    resolution: {integrity: sha512-3LMRMmK4UK0A+jYSLGLYdfhc20TgY2v5jD3iGmhRZlDYj0gn7xBj/waRjlNalysZ0D2rgPvoes0wHuf5e/Bguw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -3470,17 +3470,17 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  '@electron-toolkit/preload@3.0.1(electron@31.2.1)':
+  '@electron-toolkit/preload@3.0.1(electron@31.3.0)':
     dependencies:
-      electron: 31.2.1
+      electron: 31.3.0
 
   '@electron-toolkit/tsconfig@1.0.1(@types/node@20.14.12)':
     dependencies:
       '@types/node': 20.14.12
 
-  '@electron-toolkit/utils@3.0.0(electron@31.2.1)':
+  '@electron-toolkit/utils@3.0.0(electron@31.3.0)':
     dependencies:
-      electron: 31.2.1
+      electron: 31.3.0
 
   '@electron/asar@3.2.10':
     dependencies:
@@ -3490,7 +3490,7 @@ snapshots:
 
   '@electron/get@2.0.3':
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
       env-paths: 2.2.1
       fs-extra: 8.1.0
       got: 11.8.6
@@ -5131,7 +5131,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@31.2.1:
+  electron@31.3.0:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 20.14.12
@@ -5208,7 +5208,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -6444,7 +6444,7 @@ snapshots:
 
   sumchecker@3.0.1:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
