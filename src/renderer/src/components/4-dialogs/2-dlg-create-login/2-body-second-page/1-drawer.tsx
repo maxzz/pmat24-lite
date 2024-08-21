@@ -1,7 +1,7 @@
-import { Button } from "@ui/shadcn/button";
-import * as D from "@ui/shadcn/drawer";
-import { SymbolDot } from "@/ui/icons";
 import { useAtom } from "jotai";
+import * as D from "@ui/shadcn/drawer";
+import { Button } from "@ui/shadcn/button";
+import { SymbolDot } from "@/ui/icons";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 
@@ -26,7 +26,11 @@ export function ManiDrawer() {
                 </Button>
             </D.DrawerTrigger> */}
 
-            <D.DrawerContent className="mt-0 py-4 w-full h-full max-w-3xl rounded outline-none" withoutOverlay>
+            <D.DrawerContent
+                className="mt-0 py-4 w-full h-full max-w-3xl rounded outline-none"
+                withoutOverlay
+                hiddenTitle="Page 2"
+            >
                 <div className="h-full grid place-content-center">
                     <DrawerItems />
                 </div>

@@ -16,12 +16,15 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
     useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
-    
+
     return (
         <div className="min-h-56 text-xs">
 
             <D.DialogHeader className="relative text-base font-bold flex items-center">
-                <div className="py-4">New manifest</div>
+                <D.DialogTitle asChild>
+                    <div className="py-4">New manifest</div>
+                </D.DialogTitle>
+
                 <D.DialogCloseButton onClick={() => setIsOpen(false)} tabIndex={-1} />
             </D.DialogHeader>
 
@@ -33,7 +36,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
 
-                    <Button className="font-normal" variant="outline" size="xs" onClick={()=> setToastId(toast('Updated'))} tabIndex={-1}>
+                    <Button className="font-normal" variant="outline" size="xs" onClick={() => setToastId(toast('Updated'))} tabIndex={-1}>
                         <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>
