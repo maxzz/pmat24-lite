@@ -3,7 +3,6 @@ import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
 import { FileUsParams, FormAtoms, ManiAtoms } from "../../9-types";
 import { FieldsState } from "../../1-fields/1-fields-atoms";
 import { SubmitState } from "../../2-submit";
-import { PolicyState } from "../../3-policy-nun";
 import { OptionsState } from "../../4-options";
 
 function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): FormAtoms | undefined {
@@ -20,7 +19,6 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
     const rv: FormAtoms = {
         fieldsAtoms: FieldsState.createUiAtoms(fileUsParams, maniAtoms),
         submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
-        policyAtoms: PolicyState.createUiAtoms(fileUsParams, maniAtoms),
         optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
         fileUsParams,
     };
