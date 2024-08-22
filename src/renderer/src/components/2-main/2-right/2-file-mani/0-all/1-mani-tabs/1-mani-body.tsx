@@ -19,7 +19,12 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const activeTab = useSnapshot(appSettings).right.mani.activeTab;
 
     useEffect(() => {
-        !maniAtoms && setManiAtoms(createManiAtoms(fileUs, fileUsAtom));
+        // console.log('ManiBodyGuarded useEffect1', maniAtoms, 'fileUs = ', fileUs, 'atom = ', fileUsAtom.toString());
+        if (!maniAtoms) {
+            // console.log('ManiBodyGuarded useEffect2', maniAtoms, 'fileUs = ', fileUs, 'atom = ', fileUsAtom.toString());
+            // setManiAtoms(createManiAtoms(fileUs, fileUsAtom));
+            setManiAtoms((prev) => prev || createManiAtoms(fileUs, fileUsAtom));
+        }
     }, [fileUs, fileUsAtom, maniAtoms]);
 
     if (!maniAtoms) { // atoms not ready yet but will be on the next render
