@@ -1,7 +1,6 @@
 import { FormIdx } from "@/store/store-types";
 import { SubSection } from "../../9-sections-ui";
-import { TabFields } from "../1-fields";
-import { TabSubmit } from "../2-submit";
+import { TabFields, TabSubmit } from "../1-normal";
 // import { TabPolicy } from "../3-policy-nun";
 import { ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 
