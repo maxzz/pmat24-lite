@@ -1,9 +1,19 @@
 import { FormIdx } from "@/store/store-types";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 
-export function NoForm({ formType }: { formType: FormIdx; }) {
+export function NoFormTabContent({ formType }: { formType: FormIdx; }) {
+
     const isCpass = formType === FormIdx.cpass;
-    const label = isCpass ? <div><span className="text-foreground">No</span> password change form</div> : "No login form";
+    const label = !isCpass
+        ? "No login form"
+        : (
+            <div>
+                <span className="text-foreground">
+                    No
+                </span>
+                password change form
+            </div>
+        );
 
     return (
         <div className="h-full flex items-center justify-center">

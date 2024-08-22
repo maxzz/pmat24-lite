@@ -1,13 +1,13 @@
+import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, rightPanelAtom } from "@/store";
+import { FileUsAtom } from "@/store/store-types";
+import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
 import { TabFormEditorGuard } from "../../1-form-editor";
-import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
-import { useEffect } from "react";
-import { FileUsAtom } from "@/store/store-types";
 import { TabFormOptions } from "../../2-form-options/0-all/0-all";
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
