@@ -5,6 +5,7 @@ export function ManiTabsList({ hasCpass, hasChanges }: { hasCpass: boolean; hasC
         hasCpass
             ? "Password change"
             : <div><span className="text-foreground">No</span> password change</div>;
+
     return (
         <div className="flex items-center justify-between">
             <TabsList>

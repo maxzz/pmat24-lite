@@ -1,4 +1,4 @@
-import { FieldTyp, Meta } from '@/store/manifest';
+import { FieldTyp, Meta, parseForEditor } from '@/store/manifest';
 import { FieldConv } from './0-conv';
 import { FieldState } from './2-field-atoms';
 import { FileUsParams, ManiAtoms } from "../9-types";
@@ -15,6 +15,12 @@ export namespace FieldsState {
 
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
+
+        if (fileUsParams.isManual) {
+            const manualFields = parseForEditor(fields);
+            console.log('manualFields', manualFields);
+        }
+
 
         function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
             const rowAtoms = FieldState.createUiAtoms(field,

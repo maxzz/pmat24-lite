@@ -56,6 +56,5 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; 
             metaField={metaField}
             onClick={enableRow}
         />
-
     </>);
 }

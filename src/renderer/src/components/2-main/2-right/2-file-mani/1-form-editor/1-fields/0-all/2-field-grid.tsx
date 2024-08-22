@@ -1,17 +1,10 @@
 import { FormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { FieldRow } from "./3-field-row";
-import { TableHeader, gridClasses } from "./4-table-header";
+import { TableHeader, fieldsGridClasses } from "./4-table-header";
 
 export function FieldsGrid({ formAtoms }: { formAtoms: FormAtoms; }) {
-
-    if (!formAtoms.fieldsAtoms.length) {
-        return (
-            <div>no fields</div>
-        );
-    }
-
     return (
-        <div className={gridClasses}>
+        <div className={fieldsGridClasses}>
             <TableHeader />
 
             {formAtoms.fieldsAtoms.map(

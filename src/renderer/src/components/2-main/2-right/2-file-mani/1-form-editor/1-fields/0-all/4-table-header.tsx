@@ -1,4 +1,4 @@
-export const gridClasses = "\
+export const fieldsGridClasses = "\
 p-2 \
 grid grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)] items-center gap-[3px] \
 text-foreground \
