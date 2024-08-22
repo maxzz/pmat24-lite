@@ -1,5 +1,4 @@
-import { FormIdx } from "@/store/store-types";
-import { FormAtoms, FormContextProps, ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { FormSectionsAccordion, SubSection } from "../../9-sections-ui";
 import { TabFields, TabSubmit } from "../1-normal";
 
