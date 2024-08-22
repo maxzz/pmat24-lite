@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
-import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { SubSectionTitle, UiAccordion } from "../9-controls";
 import { appSettings } from "@/store";
 import { useSnapshot } from "valtio";
 
-export function OptionsDetection({ formAtoms }: TabSectionProps) {
+export function OptionsDetection({ formAtoms }: FormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
     
@@ -23,7 +23,7 @@ export function OptionsDetection({ formAtoms }: TabSectionProps) {
     </>);
 }
 
-export function OptionsAuth({ formAtoms }: TabSectionProps) {
+export function OptionsAuth({ formAtoms }: FormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
     
@@ -40,7 +40,7 @@ export function OptionsAuth({ formAtoms }: TabSectionProps) {
     </>);
 }
 
-export function OptionsQuicklink({ formAtoms }: TabSectionProps) {
+export function OptionsQuicklink({ formAtoms }: FormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
 
@@ -57,7 +57,7 @@ export function OptionsQuicklink({ formAtoms }: TabSectionProps) {
     </>);
 }
 
-export function OptionsIcon({ formAtoms }: TabSectionProps) {
+export function OptionsIcon({ formAtoms }: FormContextProps) {
     const optionsAtoms = formAtoms.optionsAtoms;
 
     const openAtom = useState(() => atom(false))[0];

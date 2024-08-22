@@ -5,7 +5,7 @@ import { rightPanelContentAtom } from "@/store";
 import { ScrollArea, Tabs } from "@/ui";
 import { classNames } from "@/utils";
 import { ManiTabsList } from "./3-mani-tabs-list";
-import { FormEditor } from "../../1-form-editor";
+import { TabFormEditorGuard } from "../../1-form-editor";
 
 export function ManiBodyWoContextNun() {
     const { ref, width, height } = useResizeObserver();
@@ -28,11 +28,11 @@ export function ManiBodyWoContextNun() {
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                         <div className={classNames(selectedTab !== "switch1" && "hidden")}>
-                            <FormEditor fileUs={fileUs} formIdx={0} />
+                            <TabFormEditorGuard fileUs={fileUs} formIdx={0} />
                         </div>
 
                         <div className={classNames(selectedTab !== "switch2" && "hidden")}>
-                            <FormEditor fileUs={fileUs} formIdx={1} />
+                            <TabFormEditorGuard fileUs={fileUs} formIdx={1} />
                         </div>
 
                     </ScrollArea>

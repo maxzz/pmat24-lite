@@ -25,7 +25,7 @@ export type FormAtoms = {
 export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined];
 //
 
-export type TabSectionProps = {
+export type FormContextProps = {
     maniAtoms: ManiAtoms;
     formAtoms: FormAtoms;
     formIdx: FormIdx;

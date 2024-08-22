@@ -4,7 +4,7 @@ import { appSettings, rightPanelAtom } from "@/store";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { ManiTabsList } from "./3-mani-tabs-list";
-import { FormEditor } from "../../1-form-editor";
+import { TabFormEditorGuard } from "../../1-form-editor";
 import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
 import { useEffect } from "react";
 import { FileUsAtom } from "@/store/store-types";
@@ -40,11 +40,11 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                         </TabsContent>
 
                         <TabsContent value="login" tabIndex={-1}>
-                            <FormEditor fileUs={fileUs} formIdx={0} />
+                            <TabFormEditorGuard fileUs={fileUs} formIdx={0} />
                         </TabsContent>
 
                         <TabsContent value="cpass" tabIndex={-1}>
-                            <FormEditor fileUs={fileUs} formIdx={1} />
+                            <TabFormEditorGuard fileUs={fileUs} formIdx={1} />
                         </TabsContent>
 
                     </ScrollArea>

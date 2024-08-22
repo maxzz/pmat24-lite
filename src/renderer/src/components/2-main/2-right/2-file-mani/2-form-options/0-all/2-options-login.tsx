@@ -1,7 +1,7 @@
-import { TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";
 
-export function GroupLogin(props: TabSectionProps) {
+export function GroupLogin(props: FormContextProps) {
     return (<>
         <OptionsDetection {...props} />
         <OptionsAuth {...props} />

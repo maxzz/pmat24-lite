@@ -1,10 +1,9 @@
 import { FileUs, FormIdx } from "@/store/store-types";
-import { FormSectionsAccordion } from "../../9-sections-ui";
 import { FormSections } from "./2-all-sections";
 import { NoForm } from "./3-no-form-tab-content";
 import { useAtomValue } from "jotai";
 
-export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
 
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
@@ -16,13 +15,14 @@ export function FormEditor({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormI
         return <NoForm formType={formIdx} />;
     }
 
+    const formAtoms = maniAtoms[formIdx];
+    if (!formAtoms) {
+        return null;
+    }
+
     return (
         <div className="mr-1 h-full flex flex-col">
-
-            <FormSectionsAccordion formIdx={formIdx}>
-                <FormSections maniAtoms={maniAtoms} formIdx={formIdx} />
-            </FormSectionsAccordion>
-            
+            <FormSections maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </div>
     );
 }

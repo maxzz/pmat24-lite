@@ -1,5 +1,5 @@
 import { Meta } from "@/store/manifest";
-import { FormAtoms, ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { FormAtoms, ManiAtoms, FormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 import { useAtom, useAtomValue } from "jotai";
 
@@ -18,7 +18,7 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     );
 }
 
-export function TabSubmitOld({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
+export function TabSubmitOld({ maniAtoms, formAtoms, formIdx }: FormContextProps) {
     const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="px-1">

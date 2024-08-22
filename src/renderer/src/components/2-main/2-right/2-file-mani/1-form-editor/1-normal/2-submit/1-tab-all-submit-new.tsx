@@ -1,6 +1,6 @@
 import { useAtomValue, useAtom } from "jotai";
 import { Meta } from "pm-manifest";
-import { ManiAtoms, FormAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
+import { ManiAtoms, FormAtoms, FormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import {
     Select,
     SelectContent,
@@ -33,7 +33,7 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     );
 }
 
-export function TabSubmit({ maniAtoms, formAtoms, formIdx }: TabSectionProps) {
+export function TabSubmit({ maniAtoms, formAtoms, formIdx }: FormContextProps) {
     const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="p-1">
