@@ -1,7 +1,6 @@
 import { FormIdx } from "@/store/store-types";
 import { SubSection } from "../../9-sections-ui";
 import { TabFields, TabSubmit } from "../1-normal";
-// import { TabPolicy } from "../3-policy-nun";
 import { ManiAtoms, TabSectionProps } from "@/store/atoms/3-file-mani-atoms";
 
 export function FormSections({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
@@ -25,13 +24,5 @@ export function FormSections({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; for
         <SubSection value="submit" label="Form submit options">
             <TabSubmit maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </SubSection>
-
-        {/* <SubSection value="policy" label="Password policy (obsolete)">
-            <TabPolicy maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
-        </SubSection> */}
-
-        {/* <SubSection value="options" label="Form options">
-            <TabOptions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
-        </SubSection> */}
     </>);
 }
