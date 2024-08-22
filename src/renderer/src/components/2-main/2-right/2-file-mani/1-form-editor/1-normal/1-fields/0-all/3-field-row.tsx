@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { FieldsState } from "@/store/atoms/3-file-mani-atoms";
+import { NormalFieldsState } from "@/store/atoms/3-file-mani-atoms";
 import { CatalogItem } from "@/store/manifest";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
@@ -8,7 +8,7 @@ import { Column4_Value } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 
-export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: FieldsState.Atoms; }) {
+export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: NormalFieldsState.Atoms; }) {
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = fieldRowAtoms;
     const maniField = metaField.mani;
 

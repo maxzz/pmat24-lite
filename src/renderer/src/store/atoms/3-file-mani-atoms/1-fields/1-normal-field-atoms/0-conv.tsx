@@ -3,7 +3,7 @@ import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
 import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
 import { FileMani } from "@/store/manifest/1-file-mani";
 
-export namespace FieldConv {
+export namespace NormalFieldConv {
 
     export type FieldForAtoms = {
         useIt: boolean;

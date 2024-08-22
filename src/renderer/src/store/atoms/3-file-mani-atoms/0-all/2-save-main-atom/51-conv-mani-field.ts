@@ -1,8 +1,8 @@
 import { FieldTyp, FileMani, Meta } from "@/store/manifest";
-import { FieldConv } from "../../1-fields/0-conv";
+import { NormalFieldConv } from "../../1-fields/1-normal-field-atoms/0-conv";
 
 export function fieldForFileMani(
-    from: FieldConv.ThisType,
+    from: NormalFieldConv.ThisType,
     metaField: Meta.Field,
     rdir: FileMani.FieldDirection | undefined,
     isSubmit: boolean

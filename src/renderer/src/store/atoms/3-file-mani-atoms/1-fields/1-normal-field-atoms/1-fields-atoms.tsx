@@ -1,11 +1,11 @@
 import { FieldTyp, Meta, parseForEditor } from '@/store/manifest';
-import { FieldConv } from './0-conv';
-import { FieldState } from './2-field-atoms';
-import { FileUsParams, ManiAtoms } from "../9-types";
+import { NormalFieldConv } from './0-conv';
+import { NormalFieldState } from './2-field-atoms';
+import { FileUsParams, ManiAtoms } from "../../9-types";
 
-export namespace FieldsState {
+export namespace NormalFieldsState {
 
-    export type Atoms = FieldConv.FieldAtoms;
+    export type Atoms = NormalFieldConv.FieldAtoms;
 
     export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms[] {
 
@@ -23,9 +23,9 @@ export namespace FieldsState {
 
 
         function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
-            const rowAtoms = FieldState.createUiAtoms(field,
+            const rowAtoms = NormalFieldState.createUiAtoms(field,
                 ({ get, set }) => {
-                    return FieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
+                    return NormalFieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
                 }
             );
             return rowAtoms;

@@ -1,16 +1,16 @@
 import { Getter, Setter } from 'jotai';
 import { Meta } from '@/store/manifest';
 import { debounce } from '@/utils';
-import { FieldConv } from './0-conv';
+import { NormalFieldConv } from './0-conv';
 import { OnValueChangeAny } from '@/util-hooks';
-import { FileUsParams, ManiAtoms, setManiChanges } from "../9-types";
+import { FileUsParams, ManiAtoms, setManiChanges } from "../../9-types";
 
-export namespace FieldState {
+export namespace NormalFieldState {
 
-    export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldConv.FieldAtoms {
-        const forAtoms = FieldConv.forAtoms(field);
+    export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalFieldConv.FieldAtoms {
+        const forAtoms = NormalFieldConv.forAtoms(field);
         return {
-            ...FieldConv.createAtoms(forAtoms, onChange),
+            ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
             changed: false,
@@ -19,10 +19,10 @@ export namespace FieldState {
 
     function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
 
-        const atoms: FieldConv.FieldAtoms = maniAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
+        const atoms: NormalFieldConv.FieldAtoms = maniAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
 
-        const state = FieldConv.fromAtoms(atoms, get, set);
-        const changed = !FieldConv.areTheSame(state, atoms.fromFile);
+        const state = NormalFieldConv.fromAtoms(atoms, get, set);
+        const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
         const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx?'c':'l'}-f-${fieldIdx}`);

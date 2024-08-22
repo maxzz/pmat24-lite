@@ -1,6 +1,6 @@
 import { Getter, Setter } from "jotai";
 import { FileUs, FileUsAtom } from "@/store/store-types";
-import { FieldConv } from "../../1-fields/0-conv";
+import { NormalFieldConv } from "../../1-fields/1-normal-field-atoms/0-conv";
 import { ManiConv } from "./2-conv-mani";
 import { SubmitConv } from "../../2-submit/0-conv";
 import { OptionsConv } from "../../4-options";
@@ -35,8 +35,8 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
             (fieldAtoms) => {
                 const metaField = fieldAtoms.metaField;
 
-                const fromAtomValues = FieldConv.fromAtoms(fieldAtoms, get, set);
-                const maniValues = FieldConv.forMani(fromAtomValues);
+                const fromAtomValues = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
+                const maniValues = NormalFieldConv.forMani(fromAtomValues);
                 const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
                 return fileValues;
             }
