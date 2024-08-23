@@ -26,7 +26,7 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
 
     const dlgUiAtoms = useMemo(() => {
         return createUiAtoms(policies, ({ get, set }) => debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set));
-    }, [policies]);
+    }, [policies.policy, policies.policy2, policies.options]);
 
     useEffect(() => {
         doInitialAtomsSetup({ dlgUiAtoms });
