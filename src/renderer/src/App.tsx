@@ -6,7 +6,10 @@ import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
 import { AppGlobalDialogs, AppGlobalShortcuts } from "./store/atoms/7-dialogs";
-// import { SpySvgSymbols } from "./util-hooks";
+
+import { SpyTestAllIcons } from "./util-hooks/spy-test-all-icons";
+import { SpyTestAllSvgSymbols } from "./util-hooks";
+import { SpyAllIcons } from "./util-hooks/spy-all-icons";
 
 export function App(): JSX.Element {
     return (<>
@@ -15,13 +18,16 @@ export function App(): JSX.Element {
         <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden">
             <SectionHeader />
             <SectionMain />
+            {/* <SpyTestAllIcons /> */}
+            
             <SectionFooter />
         </div>
 
         <AppGlobalShortcuts />
         <AppGlobalDialogs />
         <Toaster />
-        {/* <SpySvgSymbols /> */}
+        {/* <SpyTestAllSvgSymbols /> */}
+        <SpyAllIcons />
 
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
         

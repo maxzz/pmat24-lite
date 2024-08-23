@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function SpySvgSymbols({ fontID = 'svgfont' }: { fontID?: string; }) {
+export function SpyTestAllSvgSymbols({ fontID = 'svgfont' }: { fontID?: string; }) {
 
     const [ids, setIds] = useState<string[]>([]);
 

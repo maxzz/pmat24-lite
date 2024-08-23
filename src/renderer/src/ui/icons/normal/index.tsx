@@ -16,3 +16,8 @@ export * from "./22-filter";
 export * from "./23-close";
 export * from "./24-refresh";
 export * from "./25-sliders";
+
+export * from "./editor-manual-fields";
+export * from "./editor-swap-popup";
+
+
