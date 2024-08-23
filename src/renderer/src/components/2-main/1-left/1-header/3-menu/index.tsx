@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
-import { IconMenuHamburger } from "@/ui/icons";
+import { IconMenuHamburger5 } from "@/ui/icons";
 import { MenuItem_FilterFiles } from "./1-filter-files";
 import { MenuItem_ClearFiles } from "./2-clear-files";
 
@@ -12,7 +12,7 @@ export function L_PanelMenu() {
             <DropdownMenuTrigger asChild>
 
                 <Button variant="ghost">
-                    <IconMenuHamburger className="size-4 fill-current" />
+                    <IconMenuHamburger5 className="size-4 fill-current" />
                 </Button>
             </DropdownMenuTrigger>
 

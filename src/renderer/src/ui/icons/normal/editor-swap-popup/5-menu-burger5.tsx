@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import { classNames } from '@/utils';
 
-export function IconMenu({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
+export function IconMenuHamburger5({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-none stroke-current stroke-[1.5]", className)} viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}

@@ -5,7 +5,7 @@ export * from './2-key-fill-nun';
 export * from './3-pos';
 export * from './4-field';
 export * from './5-code';
-// export * from './6-target';
+export * from './6-target';
 export * from './6-target-fill-nun';
 export * from './7-color-picker-fill';
 export * from './7-color-picker';

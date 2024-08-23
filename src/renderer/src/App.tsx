@@ -11,7 +11,7 @@ import { SpyAllIcons } from "./util-hooks/spy-all-icons";
 export function App(): JSX.Element {
     return (<>
         <UISymbolDefs />
-        <SpyAllIcons includeSvgSymbols />
+        {/* <SpyAllIcons includeSvgSymbols /> */}
 
         <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden">
             <SectionHeader />
