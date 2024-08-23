@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { classNames } from '@/utils';
+import { HTMLAttributes, useEffect, useState } from 'react';
 
-export function SpyTestAllSvgSymbols({ fontID = 'svgfont' }: { fontID?: string; }) {
+export function SpyTestAllSvgSymbols({ fontID = 'svgfont', className, ...rest  }: { fontID?: string; } & HTMLAttributes<HTMLDivElement>) {
 
     const [ids, setIds] = useState<string[]>([]);
 
@@ -17,7 +18,7 @@ export function SpyTestAllSvgSymbols({ fontID = 'svgfont' }: { fontID?: string; 
     }
 
     return (
-        <div className="mx-auto mt-4 py-4 w-[80vw] grid grid-cols-[repeat(auto-fill,minmax(0,64px))] gap-2">
+        <div className={classNames("grid grid-cols-[repeat(auto-fill,minmax(0,64px))] gap-2", className)} {...rest}>
             {ids.map(
                 (id, idx) => (
                     <div key={idx}>

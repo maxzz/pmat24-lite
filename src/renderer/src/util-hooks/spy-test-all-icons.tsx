@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
+import { classNames } from '@/utils';
 
 type AllIcons = Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>;
 
-export function SpyTestAllIcons({ allIcons }: { allIcons: AllIcons; }) {
+export function SpyTestAllIcons({ allIcons, className, ...rest }: { allIcons: AllIcons; } & HTMLAttributes<HTMLDivElement>) {
     const [printIcons, setPrintIcons] = useState(false);
     useEffect(
         () => {
-                setPrintIcons((v) => {
-                    if (!v) {
-                        printIconsLocation(allIcons);
-                    }
+            setPrintIcons((v) => {
+                if (!v) {
+                    printIconsLocation(allIcons);
                     return !v;
-                });
-        }, [printIcons]
+                }
+                return v;
+            });
+        }, [printIcons, allIcons]
     );
 
     return (
-        <div className="px-4 flex flex-wrap gap-2">
+        <div className={classNames("flex flex-wrap gap-2", className)} {...rest}>
             {Object.entries(allIcons).map(
                 ([name, Icon]) => (
                     <div className="flex flex-col items-center" key={name}>
