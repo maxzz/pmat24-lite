@@ -1,2 +1,2 @@
 export * from "./9-types";
-export * from "./0-all";
+export * as OptionsConv from "./0-all";
