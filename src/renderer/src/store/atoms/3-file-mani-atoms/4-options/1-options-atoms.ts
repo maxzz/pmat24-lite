@@ -1,14 +1,14 @@
-import { Getter, Setter } from "jotai";
-import { OnValueChange } from "@/util-hooks";
+import { type Getter, type Setter } from "jotai";
+import { type OnValueChange } from "@/util-hooks";
+import { type FileUsParams, type ManiAtoms } from "../9-types";
+import { type ManiOptions, OptionsConv } from "./0-conv";
+import { type RowInputState } from "@/ui";
 import { debounce } from "@/utils";
 import { setManiChanges } from "../9-types";
-import { FileUsParams, ManiAtoms } from "../9-types";
-import { OptionsConv } from "./0-conv";
-import { RowInputState } from "@/ui";
 
 export namespace OptionsState {
 
-    export type Atoms = OptionsConv.FormOptionsAtoms;
+    export type Atoms = ManiOptions.FormOptionsAtoms;
 
     export function createAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms {
 

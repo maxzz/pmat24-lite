@@ -1,7 +1,7 @@
 import { FileMani } from "@/store/manifest";
-import { OptionsConv } from "../../4-options";
+import { type ManiOptions } from "../../4-options";
 
-function detectionForMani(options: OptionsConv.OptionsForAtoms): FileMani.Detection {
+function detectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
     const rv: FileMani.Detection = {
         caption: options.p2Detect.caption,
         variablecaption: options.p2Detect.caption,
@@ -24,7 +24,7 @@ function detectionForMani(options: OptionsConv.OptionsForAtoms): FileMani.Detect
     return rv;
 }
 
-function optionsForMani(options: OptionsConv.OptionsForAtoms): FileMani.Options {
+function optionsForMani(options: ManiOptions.OptionsForAtoms): FileMani.Options {
 
     const submitType = options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'dosubmit'
         ? options.p1General.submitType
@@ -58,7 +58,7 @@ export type DAOForMani = { // Detection And Options ForMani
     options: FileMani.Options;
 };
 
-export function detectionAndOptionsForMani(options: OptionsConv.OptionsForAtoms): DAOForMani {
+export function detectionAndOptionsForMani(options: ManiOptions.OptionsForAtoms): DAOForMani {
     const rv: DAOForMani = {
         detection: detectionForMani(options),
         options: optionsForMani(options),
