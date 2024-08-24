@@ -1,5 +1,5 @@
 import { DropdownMenuItem } from "@/ui/shadcn";
-import { notImplYet } from "@/ui/not-impl-yet";
+import { notImplYet } from "@/ui/local-ui/3-not-impl-yet";
 
 export function MenuItem_More() {
     return (

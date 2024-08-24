@@ -1,4 +1,4 @@
-import { BusyIndicator } from "@/ui/busy-indicator";
+import { BusyIndicator } from "@/ui/local-ui";
 
 export function SectionFooter() {
     return (
