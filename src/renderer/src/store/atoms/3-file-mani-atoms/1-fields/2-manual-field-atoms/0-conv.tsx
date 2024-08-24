@@ -1,17 +1,26 @@
 import { Getter, Setter } from "jotai";
 import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
+import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, FieldTyp, Mani, Meta, ScriptChunkEditorData, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str, parseForEditor } from "pm-manifest";
 import { FileMani } from "@/store/manifest/1-file-mani";
+import { NormalFieldConv } from "../1-normal-field-atoms/0-conv";
 
 export namespace ManualFieldConv {
 
+    export type ActionKbdForAtoms = Omit<EditorDataForKbd, 'type'>;
+    export type ActionFldForAtoms = Omit<EditorDataForFld, 'type'>;
+    export type ActionPosForAtoms = Omit<EditorDataForPos, 'type'>;
+    export type ActionDlyForAtoms = Omit<EditorDataForDly, 'type'>;
+
+    export type ItemKbdForAtoms = {
+        field: NormalFieldConv.FieldForAtoms;
+    };
+
+    export type ItemFldForAtoms = {
+        field: NormalFieldConv.FieldForAtoms;
+    };
+
     export type FieldForAtoms = {
-        useIt: boolean;
-        label: string;
-        type: FieldTyp;
-        valueLife: ValueLife;           // this includes value and valueAs
-        dbname: string;                 //TODO: field guid from manifest or field catalog; fieldCat was a dbname duplicate
-        policies: Mani.FieldPolicy;
+        scr: ScriptChunkEditorData;
     };
 
     export type FieldAtoms = Prettify<
@@ -23,21 +32,8 @@ export namespace ManualFieldConv {
         }
     >;
 
-    /**
-     * Fields that are used in this editor
-     */
-    export type ThisType = Pick<Mani.Field,
-        | 'useit'
-        | 'displayname'
-        | 'type'
-        | 'dbname'
-        | 'value' // | 'choosevalue' - so far cannot be changed
-        | 'password'
-        | 'askalways'
-        | 'onetvalue'
-        | 'policy'
-        | 'policy2'
-        | 'options'
-    >;
-
+    export function forAtoms(fields: Meta.Field[]): ScriptChunkEditorData[] {
+        const chunks = parseForEditor(fields);
+        return chunks;
+    }
 }
