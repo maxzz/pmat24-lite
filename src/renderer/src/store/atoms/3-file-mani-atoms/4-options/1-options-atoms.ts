@@ -23,22 +23,22 @@ export namespace OptionsState {
 
         return rv;
     }
+}
 
-    export function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
-        const optionsAtoms: Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
+const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
 
-        if (nextValue.dirty) {
-            const result = OptionsConv.fromAtoms(optionsAtoms, get, set);
-            console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
-        }
+function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
+    const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
 
-        const changes = setManiChanges(fileUsParams, nextValue.dirty, `${fileUsParams.formIdx ? 'c' : 'l'}-o-${updateName}`);
-        console.log('changes options:', [...changes.keys()]);
-
-        // console.log('------------------', updateName);
-        // console.log('         initValue', JSON.stringify(nextValue.initialData));
-        // console.log('         nextValue', JSON.stringify(nextValue));
+    if (nextValue.dirty) {
+        const result = OptionsConv.fromAtoms(optionsAtoms, get, set);
+        console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
     }
 
-    export const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
+    const changes = setManiChanges(fileUsParams, nextValue.dirty, `${fileUsParams.formIdx ? 'c' : 'l'}-o-${updateName}`);
+    console.log('changes options:', [...changes.keys()]);
+
+    // console.log('------------------', updateName);
+    // console.log('         initValue', JSON.stringify(nextValue.initialData));
+    // console.log('         nextValue', JSON.stringify(nextValue));
 }

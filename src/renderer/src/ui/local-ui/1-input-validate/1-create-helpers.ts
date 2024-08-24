@@ -2,6 +2,8 @@ import { PrimitiveAtom } from "jotai";
 import { OnValueChange, atomWithCallback } from "@/util-hooks";
 import { RowInputState } from "./9-types";
 
+export type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
+
 export function initForInput(value: string, more?: Partial<RowInputState>): RowInputState {
     const state: RowInputState = {
         type: 'string',
@@ -16,7 +18,8 @@ export function initForInput(value: string, more?: Partial<RowInputState>): RowI
     return rv;
 }
 
-export function newAtomForInput(value: string, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+export function newAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+    value = value.toString();
     const state: RowInputState = {
         type: 'string',
         data: value,

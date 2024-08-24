@@ -1,6 +1,6 @@
 import { Getter, PrimitiveAtom, Setter } from "jotai";
-import { AtomizeWithType, OnValueChange, atomWithCallback } from '@/util-hooks';
-import { RowInputState, newAtomForCheck, newAtomForInput, validateManifestName, validateNumber } from "@/ui";
+import { AtomizeWithType, atomWithCallback } from '@/util-hooks';
+import { OnChangeValueWithPpdateName, RowInputState, newAtomForCheck, newAtomForInput, validateManifestName, validateNumber } from "@/ui";
 import { FormIdx } from "@/store/store-types";
 import { FileUsParams } from "../../9-types";
 
@@ -75,8 +75,6 @@ export namespace OptionsConv {
         isWebAtom: PrimitiveAtom<boolean>;
         formIdx: FormIdx;
     };
-
-    type OnChangeValueWithPpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
     // Atoms
 
