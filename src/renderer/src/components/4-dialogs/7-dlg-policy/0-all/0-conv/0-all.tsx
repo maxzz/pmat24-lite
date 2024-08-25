@@ -4,42 +4,13 @@ import { type Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
 import { type RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
 import { type PolicyParser } from "@/store/manifest/3-policy-io";
+import { PolicyDlgTypes } from "./9-types";
 
 export namespace PolicyDlgConv {
 
-    export type ForAtoms = {
-        enabled: boolean;               // Enable password policy
-
-        constrainSet: string;           // ConstrainSet; predefined rule
-        constrainSet0: string;          // ui helper field: last ConstrainSet in case if custom is selected
-        isCustom: boolean;              // ui helper field: is custom rule selected but custom field can be empty
-        custom: string;                 // customRule
-
-        minLen: RowInputState;          // min password length
-        maxLen: RowInputState;          // max password length
-
-        explanation: string;            // explanation of policy
-        errorText: string;              // error text for custom rule
-
-        testPassword: string;           // text to verify policy generation or for generated password
-        testVerified: '0' | '1' | '';   // result of testPassword verification: 0 - failed, 1 - ok, '' - not tested
-
-        constrainPsw: string;           // ConstrainsPsw
-        useAs: string;                  // UseAs; by user / by system
-        fakeOptions: string;            // Fake options from manifest but not used, so we just preserve it
-    };
-
-    export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
-        original: Mani.FieldPolicy;     // original state to allow on/off checkbox
-        fromFile: ForAtoms;             // original state to compare with
-        changed: boolean;               // state from atoms is different from original state
-        parser: PolicyParser;           // parser for policy
-    }>;
-
-
     // Inital policy
 
-    const initialForAtoms: ForAtoms = {
+    const initialForAtoms: PolicyDlgTypes.ForAtoms = {
         enabled: false,
         constrainSet: `${Poli.ConstrainSet.withspecial}`,
         constrainSet0: `${Poli.ConstrainSet.withspecial}`,
@@ -60,14 +31,14 @@ export namespace PolicyDlgConv {
 
     export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
 
-    export function forAtoms(policies: Mani.FieldPolicy): ForAtoms {
+    export function forAtoms(policies: Mani.FieldPolicy): PolicyDlgTypes.ForAtoms {
         const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
         const hasPolicy = policy.useAs !== Poli.UseAs.none;
         const isCustom = policy.custom !== '';
 
         if (hasPolicy) {
-            const rv: ForAtoms = {
+            const rv: PolicyDlgTypes.ForAtoms = {
                 ...initialForAtoms,
                 enabled: hasPolicy,
                 constrainSet: isCustom ? `${chSetRuleNames.length - 1}` : `${policy.constrainSet}`,
@@ -86,9 +57,9 @@ export namespace PolicyDlgConv {
         return initialForAtoms;
     }
 
-    export function createAtoms(initialState: ForAtoms, onChange: OnValueChangeAny): Atomize<ForAtoms> {
+    export function createAtoms(initialState: PolicyDlgTypes.ForAtoms, onChange: OnValueChangeAny): Atomize<PolicyDlgTypes.ForAtoms> {
         const { enabled, constrainSet, custom, minLen, maxLen, explanation, testPassword, testVerified, constrainPsw, useAs } = initialState;
-        const rv: Atomize<ForAtoms> = {
+        const rv: Atomize<PolicyDlgTypes.ForAtoms> = {
             enabledAtom: atomWithCallback(enabled, onChange),
             constrainSetAtom: atomWithCallback(constrainSet, onChange),
             constrainSet0Atom: atomWithCallback(constrainSet, onChange),
@@ -107,7 +78,7 @@ export namespace PolicyDlgConv {
         return rv;
     }
 
-    export function valuesToAtoms(values: ForAtoms, atoms: PolicyUiAtoms, get: Getter, set: Setter): void {
+    export function valuesToAtoms(values: PolicyDlgTypes.ForAtoms, atoms: PolicyDlgTypes.PolicyUiAtoms, get: Getter, set: Setter): void {
         set(atoms.enabledAtom, values.enabled);
         set(atoms.constrainSetAtom, values.constrainSet);
         set(atoms.constrainSet0Atom, values.constrainSet0);
@@ -124,8 +95,8 @@ export namespace PolicyDlgConv {
         set(atoms.fakeOptionsAtom, values.fakeOptions);
     }
 
-    export function fromAtoms(atoms: PolicyUiAtoms, get: Getter, set: Setter): ForAtoms {
-        const rv: ForAtoms = {
+    export function fromAtoms(atoms: PolicyDlgTypes.PolicyUiAtoms, get: Getter, set: Setter): PolicyDlgTypes.ForAtoms {
+        const rv: PolicyDlgTypes.ForAtoms = {
             enabled: get(atoms.enabledAtom),
             constrainSet: get(atoms.constrainSetAtom),
             constrainSet0: get(atoms.constrainSet0Atom),
@@ -146,7 +117,7 @@ export namespace PolicyDlgConv {
 
     // Comparison
 
-    export function areTheSame(from: ForAtoms, to: ForAtoms): boolean {
+    export function areTheSame(from: PolicyDlgTypes.ForAtoms, to: PolicyDlgTypes.ForAtoms): boolean {
         const rv = (
             from.enabled === to.enabled &&
             from.constrainSet === to.constrainSet &&
@@ -162,7 +133,7 @@ export namespace PolicyDlgConv {
 
     // Back to manifest
 
-    export function forMani(from: ForAtoms): Mani.FieldPolicy {
+    export function forMani(from: PolicyDlgTypes.ForAtoms): Mani.FieldPolicy {
 
         const useAs = !from.enabled
             ? Poli.UseAs.none

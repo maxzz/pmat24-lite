@@ -1,9 +1,9 @@
-import { PolicyDlgConv } from "../../0-all";
+import { useAtomValue } from "jotai";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger } from "@/ui";
+import { type PolicyDlgTypes } from "../../0-all";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
-import { useAtomValue } from "jotai";
 import { ErrorInfo } from "../3-test-area/4-rule-explanation";
 
 function ErrorInfoTrigger() {
@@ -21,7 +21,7 @@ function ErrorInfoTrigger() {
     );
 }
 
-export function ButtonErrorInfo({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function ButtonErrorInfo({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
     return (
         <Popover>

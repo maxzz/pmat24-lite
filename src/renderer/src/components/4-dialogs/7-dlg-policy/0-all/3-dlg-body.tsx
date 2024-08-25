@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { PolicyDlgConv } from "./0-conv";
+import { type PolicyDlgTypes } from "./0-conv";
 import { Button } from "@/ui";
 import { Check } from "../9-constrols";
 import { DialogHeader } from "../1-header";
@@ -9,7 +9,7 @@ import { SectionGenerationBy } from "../4-generate-by";
 import { classNames } from "@/utils";
 
 type PolicyEditorBodyProps = {
-    dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms;
     doCloseWithOk: (ok: boolean) => void;
 };
 

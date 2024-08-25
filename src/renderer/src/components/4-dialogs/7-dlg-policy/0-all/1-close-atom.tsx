@@ -1,11 +1,11 @@
 import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
 import { Mani } from "pm-manifest";
-import { PolicyDlgConv } from "./0-conv";
+import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { toast } from "sonner";
 import { updateExplanationAtom } from "./1-util-atoms";
 
 type DoSetResultPoliciesAtomProps = {
-    dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms;
+    dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms;
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     openAtom: PrimitiveAtom<boolean>;
     toastIdAtom: PrimitiveAtom<string | number | undefined>;
@@ -19,7 +19,7 @@ function resetOnCancelClose(get: Getter, set: Setter, { dlgUiAtoms, policiesAtom
     set(policiesAtom, dlgUiAtoms.original);
 
     // Reset to original values local atoms
-    const values: PolicyDlgConv.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
+    const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
     values.errorText = '';
     PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
 

@@ -1,11 +1,11 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv, verifyAtom } from "../../0-all";
+import { type PolicyDlgTypes, verifyAtom } from "../../0-all";
 import { Input } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
-export function InputWithCounter({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function InputWithCounter({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     const [testPassword, setTestPassword] = useAtom(dlgUiAtoms.testPasswordAtom);
     const testVerified = useAtomValue(dlgUiAtoms.testVerifiedAtom);
     const doVerify = useSetAtom(verifyAtom);

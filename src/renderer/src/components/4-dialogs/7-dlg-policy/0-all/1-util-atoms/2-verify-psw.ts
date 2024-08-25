@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { PolicyDlgConv } from "../0-conv";
+import { type PolicyDlgTypes } from "../0-conv";
 import { verifyPassword } from "@/store/manifest/3-policy-io";
 
 export const verifyAtom = atom(null,
-    (get, set, { dlgUiAtoms, psw, prevPsw = '' }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; psw?: string | undefined; prevPsw?: string; }) => {
+    (get, set, { dlgUiAtoms, psw, prevPsw = '' }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; psw?: string | undefined; prevPsw?: string; }) => {
         const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiAtoms;
 
         if (psw === undefined) {

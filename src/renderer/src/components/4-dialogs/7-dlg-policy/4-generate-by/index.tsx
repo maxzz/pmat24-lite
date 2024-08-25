@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import { Poli } from "@/store/manifest";
-import { PolicyDlgConv } from "../0-all";
+import { type PolicyDlgTypes } from "../0-all";
 import { Radio } from "../9-constrols";
 
-export function SectionGenerationBy({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function SectionGenerationBy({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     const [useAs, setUseUs] = useAtom(dlgUiAtoms.useAsAtom);
     return (
         <div className="mt-2 grid space-y-2">

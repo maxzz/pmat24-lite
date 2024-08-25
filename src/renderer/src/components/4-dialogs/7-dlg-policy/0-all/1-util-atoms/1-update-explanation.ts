@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { PolicyDlgConv } from "../0-conv";
+import { type PolicyDlgTypes } from "../0-conv";
 import { parserErrorToString } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, getCustomRuleExplanation } from "@/store/manifest/3-policy-io";
 import { verifyAtom } from ".";
@@ -34,7 +34,7 @@ function checkBoundsRange({ min, max, totalMin, totalMax }: { min: number; max: 
 }
 
 export const updateExplanationAtom = atom(null,
-    (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; custom?: string | undefined; }) => {
+    (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; custom?: string | undefined; }) => {
         const { customAtom, parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
         try {
             set(testVerifiedAtom, '');

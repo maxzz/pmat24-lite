@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { PolicyDlgConv } from "../0-conv";
+import { type PolicyDlgTypes } from "../0-conv";
 import { generatePswByRules, verifyPassword } from "@/store/manifest/3-policy-io";
 import { appSettings } from "@/store";
 
@@ -12,7 +12,7 @@ const _generateListAtom = atom<GenerateListItem[]>([]);
 
 export const generateListAtom = atom(
     (get) => get(_generateListAtom),
-    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) => {
+    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) => {
         const { parser, customAtom } = dlgUiAtoms;
 
         const custom = get(customAtom);

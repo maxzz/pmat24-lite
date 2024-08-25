@@ -1,9 +1,9 @@
-import { PolicyDlgConv } from "../../0-all";
+import { type PolicyDlgTypes } from "../../0-all";
 import { RuleExplanation } from "./4-rule-explanation";
 import { InputWithCounter } from "./2-input-with-counter";
 import { ButtonGenerate } from "./3-button-generate";
 
-export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     return (
         <div className="relative mt-4 px-4 pt-3 pb-1 border-border border rounded flex flex-col">
 

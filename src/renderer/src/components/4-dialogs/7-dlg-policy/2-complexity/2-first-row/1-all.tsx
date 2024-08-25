@@ -1,10 +1,10 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { PolicyDlgConv } from "../../0-all";
+import { useAtom, useSetAtom } from "jotai";
+import { PolicyDlgConv, type PolicyDlgTypes } from "../../0-all";
 import { Dropdown } from "../../9-constrols";
 import { Label } from "@/ui";
 import { MinMaxInputs } from "./2-min-max";
 
-function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
 
     const setIsCustom = useSetAtom(dlgUiAtoms.isCustomAtom);
     const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
@@ -31,7 +31,7 @@ function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }
     );
 }
 
-export function FirstRowSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function FirstRowSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     return (
         <div className="flex items-center justify-between gap-4">
             <RuleSelect dlgUiAtoms={dlgUiAtoms} />

@@ -1,6 +1,6 @@
 import { Fragment, HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { PolicyDlgConv } from "../../0-all";
+import { type PolicyDlgTypes } from "../../0-all";
 import { SymbolDot } from "@/ui/icons";
 import { classNames } from "@/utils";
 
@@ -12,7 +12,7 @@ export function ErrorInfo({ errorText, className, ...rest }: { errorText: string
     );
 }
 
-export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     const explanation = useAtomValue(dlgUiAtoms.explanationAtom);
     const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
     return (

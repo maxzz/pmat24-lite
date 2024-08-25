@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
-import { PolicyDlgConv, generateAtom, generateListAtom } from "../../0-all";
+import { type PolicyDlgTypes, generateAtom, generateListAtom } from "../../0-all";
 import { Button } from "@/ui";
 import { ButtonGeneratedList } from "../7-generate-list/1-all";
 import { useSnapshot } from "valtio";
@@ -8,7 +8,7 @@ import { appSettings } from "@/store";
 
 const localButtonClasses = "active:scale-[.97]";
 
-export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgConv.PolicyUiAtoms; }) {
+export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
     const openGeneratedListAtom = useState(() => atom(false))[0];
     const generateList = useSetAtom(generateListAtom);
     const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
