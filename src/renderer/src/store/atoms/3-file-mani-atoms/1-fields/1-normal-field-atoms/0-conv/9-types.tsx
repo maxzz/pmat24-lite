@@ -3,7 +3,7 @@ import { FieldTyp, type Mani, type Meta, type ValueLife } from "pm-manifest";
 
 export namespace NormalField {
 
-    export type FieldForAtoms = {
+    export type ForAtoms = {
         useIt: boolean;
         label: string;
         type: FieldTyp;
@@ -13,10 +13,10 @@ export namespace NormalField {
     };
 
     export type FieldAtoms = Prettify<
-        & Atomize<FieldForAtoms>
+        & Atomize<ForAtoms>
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field
-            fromFile: FieldForAtoms;    // original state to compare with
+            fromFile: ForAtoms;    // original state to compare with
             changed: boolean;           // state from atoms is different from original state
         }
     >;

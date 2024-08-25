@@ -3,7 +3,8 @@ import { type NormalField } from "./9-types";
 
 // Back to manifest
 
-export function forMani(from: NormalField.FieldForAtoms): NormalField.ThisType {
+export function forMani(from: NormalField.ForAtoms): NormalField.ThisType {
+
     const rv: NormalField.ThisType = {
         useit: from.useIt,
         displayname: from.label,
@@ -15,5 +16,6 @@ export function forMani(from: NormalField.FieldForAtoms): NormalField.ThisType {
     };
 
     TransformValue.valueLife2Mani(from.valueLife, rv);
+
     return rv;
 }

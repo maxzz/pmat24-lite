@@ -21,7 +21,7 @@ function theSamePolicyStrings(from: Mani.FieldPolicy, to: Mani.FieldPolicy): boo
     return rv;
 }
 
-export function areTheSame(from: NormalField.FieldForAtoms, to: NormalField.FieldForAtoms): boolean {
+export function areTheSame(from: NormalField.ForAtoms, to: NormalField.ForAtoms): boolean {
     const rv = (
         from.useIt === to.useIt &&
         from.label === to.label &&

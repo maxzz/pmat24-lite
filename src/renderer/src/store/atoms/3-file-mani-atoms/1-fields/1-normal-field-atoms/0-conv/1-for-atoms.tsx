@@ -1,8 +1,8 @@
 import { type Mani, type Meta, TransformValue, fieldTyp4Str } from "pm-manifest";
 import { type NormalField } from "./9-types";
 
-export function forAtoms(field: Meta.Field): NormalField.FieldForAtoms {
-    const maniField = field.mani;
+export function forAtoms(metaField: Meta.Field): NormalField.ForAtoms {
+    const maniField = metaField.mani;
     const { useit, displayname } = maniField;
 
     const valueLife = TransformValue.valueLife4Mani(maniField);
@@ -16,7 +16,7 @@ export function forAtoms(field: Meta.Field): NormalField.FieldForAtoms {
         options: maniField.options || '',
     };
 
-    const rv: NormalField.FieldForAtoms = {
+    const rv: NormalField.ForAtoms = {
         useIt: !!useit,
         label: displayname || '',
         type: fieldTyp4Str(maniField),
