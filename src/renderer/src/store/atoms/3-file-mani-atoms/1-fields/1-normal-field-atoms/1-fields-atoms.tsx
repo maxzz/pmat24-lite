@@ -1,11 +1,11 @@
 import { FieldTyp, Meta, parseForEditor } from '@/store/manifest';
-import { NormalFieldConv } from './0-conv';
+import { type NormalField } from './0-conv';
 import { NormalFieldState } from './2-field-atoms';
 import { FileUsParams, ManiAtoms } from "../../9-types";
 
 export namespace NormalFieldsState {
 
-    export type Atoms = NormalFieldConv.FieldAtoms;
+    export type Atoms = NormalField.FieldAtoms;
 
     export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms[] {
 

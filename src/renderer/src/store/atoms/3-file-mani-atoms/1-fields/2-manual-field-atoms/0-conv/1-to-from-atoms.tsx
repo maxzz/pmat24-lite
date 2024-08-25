@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { Atomize } from "@/util-hooks";
 import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, Meta, ScriptChunkEditorData, parseForEditor } from "pm-manifest";
-import { NormalFieldConv } from "../../1-normal-field-atoms/0-conv";
+import { NormalFieldConv, type NormalField } from "../../1-normal-field-atoms/0-conv";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 import { ManualField } from "./9-types";
 import { ManiConv } from "../../../0-all/2-save-main-atom/2-conv-mani";
@@ -37,9 +37,9 @@ export function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: 
             return rv;
         }
         case "fld": {
-            const fieldforAtoms: NormalFieldConv.FieldForAtoms = NormalFieldConv.forAtoms(chunk.field);
-            const fld: Atomize<NormalFieldConv.FieldForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${idx}`));
-            const embFld: NormalFieldConv.FieldAtoms = {
+            const fieldforAtoms: NormalField.FieldForAtoms = NormalFieldConv.forAtoms(chunk.field);
+            const fld: Atomize<NormalField.FieldForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${idx}`));
+            const embFld: NormalField.FieldAtoms = {
                 ...fld,
                 metaField: chunk.field,
                 fromFile: fieldforAtoms,
@@ -96,7 +96,7 @@ export function fromAtom(scriptItem: ManualField.ScriptTypesAtoms, get: Getter, 
             return rv;
         }
         case "fld": {
-            // const fromAtomValues: NormalFieldConv.FieldForAtoms = NormalFieldConv.fromAtoms(atom.field, get, set);
+            // const fromAtomValues: NormalField.FieldForAtoms = NormalFieldConv.fromAtoms(atom.field, get, set);
             // const maniValues = NormalFieldConv.forMani(fromAtomValues);
             // const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
 

@@ -1,6 +1,6 @@
 import { AtomizeWithType } from "@/util-hooks";
 import { EditorDataForKbd, EditorDataForPos, EditorDataForDly, EditorDataForFld, ScriptChunkEditorData, Meta } from "pm-manifest";
-import { NormalFieldConv } from "../../1-normal-field-atoms/0-conv";
+import { NormalField } from "../../1-normal-field-atoms/0-conv";
 import { RowInputState } from "@/ui";
 
 export namespace ManualField {
@@ -28,7 +28,7 @@ export namespace ManualField {
 
     export type FldForAtoms = {
         type: 'fld';
-        field: NormalFieldConv.FieldAtoms;
+        field: NormalField.FieldAtoms;
     };
 
     export type ScriptTypesAtoms = KbdForAtoms | PosForAtoms | DlyForAtoms | FldForAtoms;
