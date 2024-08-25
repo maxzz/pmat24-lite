@@ -1,12 +1,11 @@
 import { type Getter, type Setter } from "jotai";
-import { setManiChanges } from "../9-types";
-import { type FileUsParams, type ManiAtoms } from "../9-types";
+import { setManiChanges, type FileUsParams, type ManiAtoms } from "../9-types";
+import { SubmitConv, type SubmitConvTypes } from "./0-conv";
 import { debounce } from "@/utils";
-import { SubmitConv } from "./0-conv";
 
 export namespace SubmitState {
 
-    export type Atoms = SubmitConv.SubmitAtoms;
+    export type Atoms = SubmitConvTypes.SubmitAtoms;
 
     export function createUiAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Atoms {
 
