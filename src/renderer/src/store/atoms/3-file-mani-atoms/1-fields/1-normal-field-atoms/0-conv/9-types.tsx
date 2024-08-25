@@ -1,7 +1,5 @@
-import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { FieldTyp, Mani, Meta, TransformValue, ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
-import { FileMani } from "@/store/manifest/1-file-mani";
+import { type Atomize } from "@/util-hooks";
+import { FieldTyp, type Mani, type Meta, type ValueLife } from "pm-manifest";
 
 export namespace NormalField {
 
@@ -39,4 +37,4 @@ export namespace NormalField {
         | 'policy2'
         | 'options'
     >;
-    }
+}

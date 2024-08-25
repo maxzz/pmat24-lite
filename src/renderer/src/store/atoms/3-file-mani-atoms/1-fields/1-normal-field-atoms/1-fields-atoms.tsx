@@ -1,7 +1,7 @@
-import { FieldTyp, Meta, parseForEditor } from '@/store/manifest';
+import { FieldTyp, type Meta, parseForEditor } from '@/store/manifest';
 import { type NormalField } from './0-conv';
+import { type FileUsParams, type ManiAtoms } from "../../9-types";
 import { NormalFieldState } from './2-field-atoms';
-import { FileUsParams, ManiAtoms } from "../../9-types";
 
 export namespace NormalFieldsState {
 

@@ -1,6 +1,4 @@
-import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { type Mani, type Meta, TransformValue, type ValueLife, fieldTyp2Obj, fieldTyp4Str } from "pm-manifest";
+import { type Mani, type ValueLife } from "pm-manifest";
 import { type NormalField } from "./9-types";
 
 // Comparison

@@ -1,6 +1,6 @@
-import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Meta } from "pm-manifest";
+import { type Getter, type Setter } from "jotai";
+import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/util-hooks';
+import { type Meta } from "pm-manifest";
 import { getSubmitChoices } from "../9-submit-choices";
 
 export namespace SubmitConv {

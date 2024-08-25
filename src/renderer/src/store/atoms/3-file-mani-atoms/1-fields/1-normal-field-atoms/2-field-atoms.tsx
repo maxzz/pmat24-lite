@@ -1,9 +1,8 @@
-import { Getter, Setter } from 'jotai';
+import { type Getter, type Setter } from 'jotai';
 import { type Meta } from '@/store/manifest';
 import { type NormalField, NormalFieldConv } from './0-conv';
 import { type OnValueChangeAny } from '@/util-hooks';
 import { type FileUsParams, type ManiAtoms, setManiChanges } from "../../9-types";
-import { areTheSame } from './0-conv/2-comparison';
 import { debounce } from '@/utils';
 
 export namespace NormalFieldState {
@@ -23,7 +22,7 @@ export namespace NormalFieldState {
         const atoms: NormalField.FieldAtoms = maniAtoms[fileUsParams.formIdx]!.fieldsAtoms[fieldIdx];
 
         const state = NormalFieldConv.fromAtoms(atoms, get, set);
-        const changed = !areTheSame(state, atoms.fromFile);
+        const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
         const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx?'c':'l'}-f-${fieldIdx}`);

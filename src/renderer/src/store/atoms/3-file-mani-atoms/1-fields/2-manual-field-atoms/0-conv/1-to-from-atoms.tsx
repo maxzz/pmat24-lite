@@ -1,9 +1,9 @@
-import { Getter, Setter } from "jotai";
-import { Atomize } from "@/util-hooks";
+import { type Getter, type Setter } from "jotai";
+import { type Atomize } from "@/util-hooks";
 import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, Meta, ScriptChunkEditorData, parseForEditor } from "pm-manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-field-atoms/0-conv";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
-import { ManualField } from "./9-types";
+import { type ManualField } from "./9-types";
 import { ManiConv } from "../../../0-all/2-save-main-atom/2-conv-mani";
 
 export function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChangeValueWithPpdateName) {

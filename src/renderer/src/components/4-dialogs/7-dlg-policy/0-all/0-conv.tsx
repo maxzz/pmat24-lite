@@ -1,9 +1,9 @@
-import { Getter, Setter } from "jotai";
-import { Atomize, OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { Mani, Poli, namesConstrainSet } from "pm-manifest";
+import { type Getter, type Setter } from "jotai";
+import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/util-hooks';
+import { type Mani, Poli, namesConstrainSet } from "pm-manifest";
 import { policyFromStrings, policyToStrings } from "@/store/manifest";
-import { RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
-import { PolicyParser } from "@/store/manifest/3-policy-io";
+import { type RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
+import { type PolicyParser } from "@/store/manifest/3-policy-io";
 
 export namespace PolicyDlgConv {
 
@@ -36,7 +36,7 @@ export namespace PolicyDlgConv {
         parser: PolicyParser;           // parser for policy
     }>;
 
-    
+
     // Inital policy
 
     const initialForAtoms: ForAtoms = {

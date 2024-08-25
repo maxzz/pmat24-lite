@@ -3,8 +3,8 @@ import { type OnValueChange } from "@/util-hooks";
 import { type FileUsParams, type ManiAtoms } from "../9-types";
 import { type ManiOptions, OptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
-import { debounce } from "@/utils";
 import { setManiChanges } from "../9-types";
+import { debounce } from "@/utils";
 
 export namespace OptionsState {
 

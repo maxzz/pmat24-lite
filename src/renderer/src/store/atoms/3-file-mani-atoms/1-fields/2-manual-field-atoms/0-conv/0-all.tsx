@@ -1,4 +1,4 @@
-import { Getter, Setter } from "jotai";
+import { type Getter, type Setter } from "jotai";
 import { Meta, ScriptChunkEditorData, parseForEditor } from "pm-manifest";
 import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
 import { ManualField } from "./9-types";
