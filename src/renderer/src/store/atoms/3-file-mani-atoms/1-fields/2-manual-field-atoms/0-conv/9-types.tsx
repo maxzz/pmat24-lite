@@ -5,36 +5,31 @@ import { RowInputState } from "@/ui";
 
 export namespace ManualField {
 
-    type ActionKbdForAtoms = Omit<EditorDataForKbd, 'type'>;
-    type ActionPosForAtoms = Omit<EditorDataForPos, 'type'>;
-    type ActionDlyForAtoms = Omit<EditorDataForDly, 'type'>;
-    type ActionFldForAtoms = Omit<EditorDataForFld, 'type'>;
-
-    type FieldForAtoms = {
-        scr: ScriptChunkEditorData;
-    };
-
-    export type KbdForAtoms = AtomizeWithType<ActionKbdForAtoms, RowInputState> & {
+    export type KbdForAtoms = Prettify<AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {
         type: 'kbd';
-    };
+    }>;
 
-    export type PosForAtoms = Prettify<AtomizeWithType<ActionPosForAtoms, RowInputState> & {
+    export type PosForAtoms = Prettify<AtomizeWithType<Omit<EditorDataForPos, 'type'>, RowInputState> & {
         type: 'pos';
     }>;
 
-    export type DlyForAtoms = AtomizeWithType<ActionDlyForAtoms, RowInputState> & {
+    export type DlyForAtoms = Prettify<AtomizeWithType<Omit<EditorDataForDly, 'type'>, RowInputState> & {
         type: 'dly';
-    };
+    }>;
 
     export type FldForAtoms = {
         type: 'fld';
         field: NormalField.FieldAtoms;
     };
 
-    export type ScriptTypesAtoms = KbdForAtoms | PosForAtoms | DlyForAtoms | FldForAtoms;
+    export type ForAtoms = KbdForAtoms | PosForAtoms | DlyForAtoms | FldForAtoms;
+
+    type FieldForAtoms = {
+        scr: ScriptChunkEditorData;
+    };
 
     type ScriptAtoms = Prettify<
-        & ScriptTypesAtoms
+        & ForAtoms
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field
             fromFile: FieldForAtoms;    // original state to compare with

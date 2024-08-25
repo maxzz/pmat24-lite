@@ -53,7 +53,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
     }
 }
 
-export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualField.ScriptTypesAtoms[] {
+export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualField.ForAtoms[] {
     const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, idx, onChange));
     return scriptAtoms;
 }
