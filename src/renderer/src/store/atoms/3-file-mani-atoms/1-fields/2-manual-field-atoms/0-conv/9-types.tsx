@@ -5,12 +5,12 @@ import { RowInputState } from "@/ui";
 
 export namespace ManualField {
 
-    export type ActionKbdForAtoms = Omit<EditorDataForKbd, 'type'>;
-    export type ActionPosForAtoms = Omit<EditorDataForPos, 'type'>;
-    export type ActionDlyForAtoms = Omit<EditorDataForDly, 'type'>;
-    export type ActionFldForAtoms = Omit<EditorDataForFld, 'type'>;
+    type ActionKbdForAtoms = Omit<EditorDataForKbd, 'type'>;
+    type ActionPosForAtoms = Omit<EditorDataForPos, 'type'>;
+    type ActionDlyForAtoms = Omit<EditorDataForDly, 'type'>;
+    type ActionFldForAtoms = Omit<EditorDataForFld, 'type'>;
 
-    export type FieldForAtoms = {
+    type FieldForAtoms = {
         scr: ScriptChunkEditorData;
     };
 
@@ -33,7 +33,7 @@ export namespace ManualField {
 
     export type ScriptTypesAtoms = KbdForAtoms | PosForAtoms | DlyForAtoms | FldForAtoms;
 
-    export type ScriptAtoms = Prettify<
+    type ScriptAtoms = Prettify<
         & ScriptTypesAtoms
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field

@@ -8,16 +8,6 @@ import { ManiConv } from "../../../0-all/2-save-main-atom/2-conv-mani";
 
 export function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChangeValueWithPpdateName) {
     switch (chunk.type) {
-        case "pos": {
-            const rv: ManualField.PosForAtoms = {
-                type: 'pos',
-                xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
-                yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
-                unitsAtom: newAtomForCheck(chunk.units, onChange('man-pos-units')),
-                resAtom: newAtomForInput(chunk.res, onChange('man-pos-res'), { validate: validateNumber }),
-            };
-            return rv;
-        }
         case "kbd": {
             const rv: ManualField.KbdForAtoms = {
                 type: 'kbd',
@@ -26,6 +16,16 @@ export function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: 
                 shiftAtom: newAtomForInput(chunk.shift, onChange('man-kbd-shift')),
                 ctrlAtom: newAtomForInput(chunk.ctrl, onChange('man-kbd-ctrl')),
                 altAtom: newAtomForInput(chunk.alt, onChange('man-kbd-alt')),
+            };
+            return rv;
+        }
+        case "pos": {
+            const rv: ManualField.PosForAtoms = {
+                type: 'pos',
+                xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
+                yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
+                unitsAtom: newAtomForCheck(chunk.units, onChange('man-pos-units')),
+                resAtom: newAtomForInput(chunk.res, onChange('man-pos-res'), { validate: validateNumber }),
             };
             return rv;
         }
@@ -57,20 +57,6 @@ export function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: 
 
 export function fromAtom(scriptItem: ManualField.ScriptTypesAtoms, get: Getter, set: Setter): ScriptChunkEditorData {
     switch (scriptItem.type) {
-        case "pos": {
-            const x = get(scriptItem.xAtom);
-            const y = get(scriptItem.yAtom);
-            const units = get(scriptItem.unitsAtom);
-            const res = get(scriptItem.resAtom);
-            const rv: EditorDataForPos = {
-                type: 'pos',
-                x: +x.data,
-                y: +y.data,
-                units: !!units.data,
-                res: +res.data,
-            };
-            return rv;
-        }
         case "kbd": {
             const char = get(scriptItem.charAtom);
             const repeat = get(scriptItem.repeatAtom);
@@ -84,6 +70,20 @@ export function fromAtom(scriptItem: ManualField.ScriptTypesAtoms, get: Getter, 
                 shift: +shift.data,
                 ctrl: +ctrl.data,
                 alt: +alt.data,
+            };
+            return rv;
+        }
+        case "pos": {
+            const x = get(scriptItem.xAtom);
+            const y = get(scriptItem.yAtom);
+            const units = get(scriptItem.unitsAtom);
+            const res = get(scriptItem.resAtom);
+            const rv: EditorDataForPos = {
+                type: 'pos',
+                x: +x.data,
+                y: +y.data,
+                units: !!units.data,
+                res: +res.data,
             };
             return rv;
         }

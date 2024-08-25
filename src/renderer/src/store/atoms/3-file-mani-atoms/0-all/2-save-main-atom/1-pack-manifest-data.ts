@@ -1,10 +1,10 @@
-import { Getter, Setter } from "jotai";
-import { FileUs, FileUsAtom } from "@/store/store-types";
+import { type Getter, type Setter } from "jotai";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { NormalFieldConv } from "../../1-fields/1-normal-field-atoms/0-conv";
 import { ManiConv } from "./2-conv-mani";
 import { SubmitConv } from "../../2-submit/0-conv";
 import { OptionsConv } from "../../4-options";
-import { DAOForMani, detectionAndOptionsForMani } from "./53-conv-mani-options";
+import { type DAOForMani, detectionAndOptionsForMani } from "./53-conv-mani-options";
 
 function filterEmptyValues<T extends Record<string, any>>(obj: T): T | undefined {
     const entries = Object

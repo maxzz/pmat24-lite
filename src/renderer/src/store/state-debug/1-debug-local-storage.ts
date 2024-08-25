@@ -1,7 +1,7 @@
 import { proxy, subscribe } from 'valtio';
 import { sendNapiOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
-import { DebugMonitorState, initialDebugMonitorState } from './state-debug-monitor';
+import { DebugMonitorState, initialDebugMonitorState } from './3-state-debug-monitor';
 
 const STORAGE_UI_KEY = 'electron-window-monitor-old:ui';
 const STORAGE_UI_VER = 'v1';
