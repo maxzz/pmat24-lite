@@ -37,3 +37,5 @@ export namespace ManualField {
         }
     >;
 }
+
+//TODO: Array of atoms for each script chunk

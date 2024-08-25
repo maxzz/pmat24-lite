@@ -35,7 +35,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             return rv;
         }
         case "fld": {
-            const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field);
+            const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
             const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${idx}`));
             const embFld: NormalField.FieldAtoms = {
                 ...fld,

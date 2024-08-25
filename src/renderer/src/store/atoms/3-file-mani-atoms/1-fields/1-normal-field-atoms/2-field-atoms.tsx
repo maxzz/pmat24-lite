@@ -8,7 +8,7 @@ import { debounce } from '@/utils';
 export namespace NormalFieldState {
 
     export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.FieldAtoms {
-        const forAtoms = NormalFieldConv.forAtoms(field);
+        const forAtoms = NormalFieldConv.forAtoms(field.mani);
         return {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
