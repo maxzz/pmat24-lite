@@ -1,6 +1,6 @@
 import { useAtomValue, useAtom } from "jotai";
 import { Meta } from "pm-manifest";
-import { ManiAtoms, FormAtoms, FormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { ManiAtoms, FormAtoms, FormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import {
     Select,
     SelectContent,
@@ -9,10 +9,10 @@ import {
     SelectValue
 } from "@/ui/shadcn/select";
 
-function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
+function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
 
-    const buttonNames = useAtomValue(formAtoms.normal.submitAtoms.buttonNamesAtom);
-    const [selected, setSelected] = useAtom(formAtoms.normal.submitAtoms.selectedAtom);
+    const buttonNames = useAtomValue(formAtoms.submitAtoms.buttonNamesAtom);
+    const [selected, setSelected] = useAtom(formAtoms.submitAtoms.selectedAtom);
 
     return (
         <Select value={selected.toString()} onValueChange={(value) => { console.log(value); setSelected(+value); }}>
@@ -33,11 +33,14 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     );
 }
 
-export function TabSubmit({ maniAtoms, formAtoms, formIdx }: FormContextProps) {
-    const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
+export function TabSubmit({ formAtoms }: FormContextProps) {
+    //const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
+    if (!formAtoms.normal) {
+        return null;
+    }
     return (
         <div className="p-1">
-            <ManiSection2_Submit maniAtoms={maniAtoms} formAtoms={formAtoms} metaForm={metaForm} />
+            <ManiSection2_Submit formAtoms={formAtoms.normal} />
         </div>
     );
 }

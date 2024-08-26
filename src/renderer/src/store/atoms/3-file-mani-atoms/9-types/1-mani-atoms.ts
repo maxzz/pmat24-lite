@@ -21,7 +21,7 @@ export type ManualFormAtoms = {
 };
 
 export type FormAtoms = {
-    normal: NormalFormAtoms;            // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+    normal?: NormalFormAtoms;            // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
     manual: ManualFormAtoms;            // If form is not manual then it'll dummy empty []
 
     optionsAtoms: OptionsState.Atoms;

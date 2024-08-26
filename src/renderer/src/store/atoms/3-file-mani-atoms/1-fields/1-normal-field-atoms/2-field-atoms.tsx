@@ -18,8 +18,12 @@ export namespace NormalFieldState {
     }
 
     function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+        const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
+        if (!nomalFormAtoms) {
+            return;
+        }
 
-        const atoms: NormalField.FieldAtoms = maniAtoms[fileUsParams.formIdx]!.normal.fieldsAtoms[fieldIdx];
+        const atoms: NormalField.FieldAtoms = nomalFormAtoms.fieldsAtoms[fieldIdx];
 
         const state = NormalFieldConv.fromAtoms(atoms, get, set);
         const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);

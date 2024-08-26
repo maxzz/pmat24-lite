@@ -31,7 +31,12 @@ export namespace SubmitState {
     }
 
     function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, get: Getter, set: Setter) {
-        const atoms: Atoms = maniAtoms[fileUsParams.formIdx]!.normal.submitAtoms;
+        const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
+        if (!nomalFormAtoms) {
+            return;
+        }
+
+        const atoms: Atoms = nomalFormAtoms.submitAtoms;
 
         const state = SubmitConv.fromAtoms(atoms, get, set);
         const changed = !SubmitConv.areTheSame(state, atoms.fromFile);

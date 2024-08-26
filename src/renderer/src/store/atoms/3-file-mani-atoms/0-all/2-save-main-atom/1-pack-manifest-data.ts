@@ -24,24 +24,26 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
     if (loginFormAtoms) {
 
-        // 1. Submits
+        if (loginFormAtoms.normal) {
+            // 1. Submits
 
-        const submits = SubmitConv.fromAtoms(loginFormAtoms.normal.submitAtoms, get, set);
-        console.log('submits', JSON.stringify(submits, null, 2));
+            const submits = SubmitConv.fromAtoms(loginFormAtoms.normal.submitAtoms, get, set);
+            console.log('submits', JSON.stringify(submits, null, 2));
 
-        // 2. Fields
+            // 2. Fields
 
-        const fields = loginFormAtoms.normal.fieldsAtoms.map(
-            (fieldAtoms) => {
-                const metaField = fieldAtoms.metaField;
+            const fields = loginFormAtoms.normal.fieldsAtoms.map(
+                (fieldAtoms) => {
+                    const metaField = fieldAtoms.metaField;
 
-                const fromAtomValues = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
-                const maniValues = NormalFieldConv.forMani(fromAtomValues);
-                const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
-                return fileValues;
-            }
-        );
-        // console.log('maniValues', JSON.stringify(fields, null, 2));
+                    const fromAtomValues = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
+                    const maniValues = NormalFieldConv.forMani(fromAtomValues);
+                    const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
+                    return fileValues;
+                }
+            );
+            // console.log('maniValues', JSON.stringify(fields, null, 2));
+        }
 
         // 3. Options
 
