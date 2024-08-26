@@ -1,6 +1,6 @@
-import { HTMLAttributes, useState } from 'react';
-import { PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
-import { Mani, Meta } from 'pm-manifest';
+import { type HTMLAttributes, useState } from 'react';
+import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
+import { type Mani, type Meta } from 'pm-manifest';
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
 import { PolicyEditorDlg } from '@/components/4-dialogs';
 import { Button } from '@/ui';

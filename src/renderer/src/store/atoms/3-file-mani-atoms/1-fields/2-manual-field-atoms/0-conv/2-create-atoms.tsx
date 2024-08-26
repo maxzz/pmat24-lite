@@ -11,6 +11,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             const rv: ManualField.KbdForAtoms = {
                 type: 'kbd',
                 uid5,
+                original: chunk,
                 charAtom: newAtomForInput(chunk.char, onChange('man-kbd-key')),
                 repeatAtom: newAtomForInput(chunk.repeat, onChange('man-kbd-repeat'), { validate: validateNumber }),
                 shiftAtom: newAtomForInput(chunk.shift, onChange('man-kbd-shift')),
@@ -23,6 +24,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             const rv: ManualField.PosForAtoms = {
                 type: 'pos',
                 uid5,
+                original: chunk,
                 xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
                 yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
                 unitsAtom: newAtomForCheck(chunk.units, onChange('man-pos-units')),
@@ -34,6 +36,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             const rv: ManualField.DlyForAtoms = {
                 type: 'dly',
                 uid5,
+                original: chunk,
                 nAtom: newAtomForInput(chunk.n, onChange('man-dly-dly'), { validate: validateNumber }),
             };
             return rv;
@@ -51,6 +54,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             const rv: ManualField.FldForAtoms = {
                 type: 'fld',
                 uid5,
+                original: chunk,
                 field: embFld,
             };
             return rv;
