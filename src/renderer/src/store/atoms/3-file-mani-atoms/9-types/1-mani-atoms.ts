@@ -8,15 +8,22 @@ export type FileUsParams = {
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
 
-    isWeb?: boolean;               // If it's form for website
-    isManual?: boolean;            // If it's a manual mode form
+    isWeb?: boolean;                    // If it's form for website
+    isManual?: boolean;                 // If it's a manual mode form
+};
+
+export type NormalFormAtoms = {
+    fieldsAtoms: NormalFieldsState.Atoms[];
+    submitAtoms: SubmitState.Atoms;
+};
+
+export type ManualFormAtoms = {
 };
 
 export type FormAtoms = {
-    normal: {
-        fieldsAtoms: NormalFieldsState.Atoms[];
-        submitAtoms: SubmitState.Atoms;
-    },
+    normal: NormalFormAtoms;            // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+    manual: ManualFormAtoms;            // If form is not manual then it'll dummy empty []
+
     optionsAtoms: OptionsState.Atoms;
 
     fileUsParams: FileUsParams;

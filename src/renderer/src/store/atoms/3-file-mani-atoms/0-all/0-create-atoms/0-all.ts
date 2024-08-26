@@ -21,6 +21,9 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
             fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
             submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
         },
+        manual: {
+            
+        },
         optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
         fileUsParams,
     };
