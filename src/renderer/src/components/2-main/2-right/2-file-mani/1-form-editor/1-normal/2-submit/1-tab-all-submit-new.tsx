@@ -11,8 +11,8 @@ import {
 
 function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: ManiAtoms; formAtoms: FormAtoms; metaForm: Meta.Form; }) {
 
-    const buttonNames = useAtomValue(formAtoms.submitAtoms.buttonNamesAtom);
-    const [selected, setSelected] = useAtom(formAtoms.submitAtoms.selectedAtom);
+    const buttonNames = useAtomValue(formAtoms.normal.submitAtoms.buttonNamesAtom);
+    const [selected, setSelected] = useAtom(formAtoms.normal.submitAtoms.selectedAtom);
 
     return (
         <Select value={selected.toString()} onValueChange={(value) => { console.log(value); setSelected(+value); }}>

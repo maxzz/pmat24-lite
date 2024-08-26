@@ -7,7 +7,7 @@ export function FieldsGrid({ formAtoms }: { formAtoms: FormAtoms; }) {
         <div className={fieldsGridClasses}>
             <TableHeader />
 
-            {formAtoms.fieldsAtoms.map(
+            {formAtoms.normal.fieldsAtoms.map(
                 (fieldRowAtoms, idx) => (
                     <FieldRow fieldRowAtoms={fieldRowAtoms} key={idx} />
                 ))

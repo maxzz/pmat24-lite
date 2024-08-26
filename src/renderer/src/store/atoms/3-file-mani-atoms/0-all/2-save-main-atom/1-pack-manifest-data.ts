@@ -26,12 +26,12 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
         // 1. Submits
 
-        const submits = SubmitConv.fromAtoms(loginFormAtoms.submitAtoms, get, set);
+        const submits = SubmitConv.fromAtoms(loginFormAtoms.normal.submitAtoms, get, set);
         console.log('submits', JSON.stringify(submits, null, 2));
 
         // 2. Fields
 
-        const fields = loginFormAtoms.fieldsAtoms.map(
+        const fields = loginFormAtoms.normal.fieldsAtoms.map(
             (fieldAtoms) => {
                 const metaField = fieldAtoms.metaField;
 

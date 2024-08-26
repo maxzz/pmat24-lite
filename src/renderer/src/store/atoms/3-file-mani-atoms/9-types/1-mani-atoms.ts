@@ -13,8 +13,10 @@ export type FileUsParams = {
 };
 
 export type FormAtoms = {
-    fieldsAtoms: NormalFieldsState.Atoms[];
-    submitAtoms: SubmitState.Atoms;
+    normal: {
+        fieldsAtoms: NormalFieldsState.Atoms[];
+        submitAtoms: SubmitState.Atoms;
+    },
     optionsAtoms: OptionsState.Atoms;
 
     fileUsParams: FileUsParams;

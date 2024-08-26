@@ -17,8 +17,10 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
     fileUsParams.isManual = metaForm.disp.isScript;
 
     const rv: FormAtoms = {
-        fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
-        submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
+        normal: {
+            fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
+            submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
+        },
         optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
         fileUsParams,
     };
