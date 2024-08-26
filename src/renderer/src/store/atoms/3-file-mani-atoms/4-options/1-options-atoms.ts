@@ -28,7 +28,7 @@ export namespace OptionsState {
 const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
 
 function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
-    const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsParams.formIdx]!.optionsAtoms;
+    const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsParams.formIdx]!.options;
 
     if (nextValue.dirty) {
         const result = OptionsConv.fromAtoms(optionsAtoms, get, set);

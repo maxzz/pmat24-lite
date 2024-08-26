@@ -21,7 +21,7 @@ function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; o
 }
 
 export function GroupGeneral({ formAtoms }: FormContextProps) {
-    const { optionsAtoms } = formAtoms;
+    const { options: optionsAtoms } = formAtoms;
     const { formIdx } = optionsAtoms;
 
     const openAtom = useState(() => atom(false))[0];

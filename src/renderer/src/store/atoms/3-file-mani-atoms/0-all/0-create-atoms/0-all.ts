@@ -1,6 +1,6 @@
 import { proxySet } from "valtio/utils";
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
-import { type FileUsParams, type FormAtoms, type ManiAtoms } from "../../9-types";
+import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type FormAtoms, type ManiAtoms } from "../../9-types";
 import { NormalFieldsState } from "../../1-fields/1-normal-field-atoms";
 import { SubmitState } from "../../2-submit";
 import { OptionsState } from "../../4-options";
@@ -16,15 +16,17 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
     fileUsParams.isWeb = !!metaForm.disp.domain;
     fileUsParams.isManual = metaForm.disp.isScript;
 
+    const normalFormAtoms: NormalFormAtoms = {
+        fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
+        submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
+    };
+
+    const manualFormAtoms: ManualFormAtoms | undefined = undefined;
+
     const rv: FormAtoms = {
-        normal: {
-            fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
-            submitAtoms: SubmitState.createUiAtoms(fileUsParams, maniAtoms),
-        },
-        manual: {
-            
-        },
-        optionsAtoms: OptionsState.createAtoms(fileUsParams, maniAtoms),
+        normal: normalFormAtoms,
+        manual: manualFormAtoms,
+        options: OptionsState.createAtoms(fileUsParams, maniAtoms),
         fileUsParams,
     };
 

@@ -47,7 +47,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
         // 3. Options
 
-        const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.optionsAtoms, get, set);
+        const detectionAndOptionsRow = OptionsConv.fromAtoms(loginFormAtoms.options, get, set);
 
         const { detection, options } = detectionAndOptionsForMani(detectionAndOptionsRow);
 

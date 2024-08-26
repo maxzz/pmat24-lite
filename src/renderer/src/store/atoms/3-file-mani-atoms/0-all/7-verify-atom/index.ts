@@ -14,14 +14,14 @@ export const verifyOptionsAtom = atom(null,
         const rv: string[] = []; 
 
         if (login) {
-            const errors = OptionsConv.verifyAtoms(login.optionsAtoms, FormIdx.login, get, set);
+            const errors = OptionsConv.verifyAtoms(login.options, FormIdx.login, get, set);
             if (errors.length) {
                 rv.push(...errors);
             }
         }
 
         if (cpass) {
-            const errors = OptionsConv.verifyAtoms(cpass.optionsAtoms, FormIdx.cpass, get, set);
+            const errors = OptionsConv.verifyAtoms(cpass.options, FormIdx.cpass, get, set);
             if (errors.length) {
                 rv.push(...errors);
             }
