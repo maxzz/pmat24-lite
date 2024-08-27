@@ -1,5 +1,5 @@
 import { FieldTyp, FileMani, Meta } from "@/store/manifest";
-import { NormalField } from "../../1-fields/1-normal-field-atoms/0-conv";
+import { NormalField } from "../../1-normal-fields/1-fields/0-conv";
 
 export function fieldForFileMani(
     from: NormalField.ThisType,

@@ -1,6 +1,6 @@
 import { type Meta } from "pm-manifest";
-import { getSubmitChoices } from "../9-submit-choices";
 import { type SubmitConvTypes } from "./9-types";
+import { getSubmitChoices } from "../9-submit-choices";
 
 export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     const { buttonNames, initialSelected } = getSubmitChoices(metaForm);

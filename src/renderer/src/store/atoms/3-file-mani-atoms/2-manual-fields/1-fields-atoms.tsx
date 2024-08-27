@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
-import { type FileUsParams, type ManiAtoms } from "../../9-types";
-import { type ManualField, ManualFieldConv } from "./0-conv";
+import { type FileUsParams, type ManiAtoms } from "../9-types";
+import { type ManualField, ManualFieldConv } from "../2-manual-fields/0-conv";
 
 export namespace ManualFieldsState {
 

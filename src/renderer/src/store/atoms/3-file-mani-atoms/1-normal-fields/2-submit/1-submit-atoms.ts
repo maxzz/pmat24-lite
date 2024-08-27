@@ -1,5 +1,5 @@
 import { type Getter, type Setter } from "jotai";
-import { setManiChanges, type FileUsParams, type ManiAtoms } from "../9-types";
+import { setManiChanges, type FileUsParams, type ManiAtoms } from "../../9-types";
 import { SubmitConv, type SubmitConvTypes } from "./0-conv";
 import { debounce } from "@/utils";
 

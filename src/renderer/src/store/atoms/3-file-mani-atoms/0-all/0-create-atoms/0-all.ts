@@ -1,8 +1,7 @@
 import { proxySet } from "valtio/utils";
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
 import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
-import { NormalFieldsState } from "../../1-fields/1-normal-field-atoms";
-import { SubmitState } from "../../2-submit";
+import { NormalFieldsState, SubmitState } from "../../1-normal-fields";
 import { OptionsState } from "../../4-options";
 
 function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {

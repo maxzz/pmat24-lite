@@ -1,6 +1,5 @@
-import { FileUs, FileUsAtom, FormIdx } from "@/store/store-types";
-import { NormalFieldsState } from "../1-fields";
-import { SubmitState } from "../2-submit";
+import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
+import { type SubmitState, type NormalFieldsState } from "../1-normal-fields";
 import { OptionsState } from "../4-options";
 
 export type FileUsParams = {
