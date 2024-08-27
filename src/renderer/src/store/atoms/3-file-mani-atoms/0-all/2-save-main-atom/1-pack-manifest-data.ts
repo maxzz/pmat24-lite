@@ -1,7 +1,6 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { NormalFieldConv } from "../../1-normal-fields/1-fields/0-conv";
-import { SubmitConv } from "../../1-normal-fields/2-submit/0-conv";
+import { NormalFieldConv, SubmitConv } from "../../1-normal-fields";
 import { ManiConv } from "./2-conv-mani";
 import { OptionsConv } from "../../4-options";
 import { type DAOForMani, detectionAndOptionsForMani } from "./53-conv-mani-options";

@@ -1,8 +1,8 @@
+import { PrimitiveAtom } from "jotai";
 import { AtomizeWithType } from "@/util-hooks";
 import { EditorDataForKbd, EditorDataForPos, EditorDataForDly, EditorDataForFld, ScriptChunkEditorData, Meta, ChunkKey } from "pm-manifest";
-import { NormalField } from "../../1-normal-fields/1-fields/0-conv";
+import { NormalField } from "../../1-normal-fields";
 import { RowInputState } from "@/ui";
-import { PrimitiveAtom } from "jotai";
 
 export namespace ManualField {
 
