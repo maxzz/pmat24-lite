@@ -20,19 +20,54 @@ export type NormalFormAtoms = {
 export type ManualFormAtoms = {
 };
 
-export type FormAtoms = {
-    normal?: NormalFormAtoms;           // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-    manual?: ManualFormAtoms;           // If form is not manual then it'll dummy empty []
-    options: OptionsState.Atoms;
+//
 
+export type AnyFormOptionsAtoms = {
+    options: OptionsState.Atoms;
     fileUsParams: FileUsParams;
 };
 
-export type ManiAtoms = readonly [login: FormAtoms | undefined, cpass: FormAtoms | undefined];
+export type AnyFormAtoms = Prettify<
+    & {
+        normal?: NormalFormAtoms;           // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+        manual?: ManualFormAtoms;           // If form is not manual then it'll dummy empty []
+    }
+    & AnyFormOptionsAtoms
+>;
+
+export type NFormAtoms = Prettify<
+    & {
+        normal: NormalFormAtoms;            // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+    }
+    & AnyFormOptionsAtoms
+>;
+
+export type MFormAtoms = Prettify<
+    & {
+        manual: ManualFormAtoms;            // If form is not manual then it'll dummy empty []
+    }
+    & AnyFormOptionsAtoms
+>;
+
 //
 
-export type FormContextProps = {
+export type ManiAtoms = readonly [login: AnyFormAtoms | undefined, cpass: AnyFormAtoms | undefined];
+//
+
+export type OFormContextProps = {           // To access form options
     maniAtoms: ManiAtoms;
-    formAtoms: FormAtoms;
     formIdx: FormIdx;
+    formAtoms: AnyFormOptionsAtoms;
+};
+
+export type NFormContextProps = {
+    maniAtoms: ManiAtoms;
+    formIdx: FormIdx;
+    formAtoms: NFormAtoms;
+};
+
+export type MFormContextProps = {
+    maniAtoms: ManiAtoms;
+    formIdx: FormIdx;
+    formAtoms: MFormAtoms;
 };

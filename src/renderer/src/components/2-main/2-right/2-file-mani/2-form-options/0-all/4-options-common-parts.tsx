@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
-import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { SubSectionTitle, UiAccordion } from "../9-controls";
 import { appSettings } from "@/store";
 import { useSnapshot } from "valtio";
 
-export function OptionsDetection({ formAtoms }: FormContextProps) {
+export function OptionsDetection({ formAtoms }: OFormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
     
@@ -23,7 +23,7 @@ export function OptionsDetection({ formAtoms }: FormContextProps) {
     </>);
 }
 
-export function OptionsAuth({ formAtoms }: FormContextProps) {
+export function OptionsAuth({ formAtoms }: OFormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
     
@@ -40,7 +40,7 @@ export function OptionsAuth({ formAtoms }: FormContextProps) {
     </>);
 }
 
-export function OptionsQuicklink({ formAtoms }: FormContextProps) {
+export function OptionsQuicklink({ formAtoms }: OFormContextProps) {
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
 
@@ -57,7 +57,7 @@ export function OptionsQuicklink({ formAtoms }: FormContextProps) {
     </>);
 }
 
-export function OptionsIcon({ formAtoms }: FormContextProps) {
+export function OptionsIcon({ formAtoms }: OFormContextProps) {
     const optionsAtoms = formAtoms.options;
 
     const openAtom = useState(() => atom(false))[0];

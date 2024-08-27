@@ -1,6 +1,5 @@
 import { useAtomValue, useAtom } from "jotai";
-import { Meta } from "pm-manifest";
-import { ManiAtoms, FormAtoms, FormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { NFormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import {
     Select,
     SelectContent,
@@ -33,7 +32,7 @@ function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
     );
 }
 
-export function TabSubmit({ formAtoms }: FormContextProps) {
+export function TabSubmit({ formAtoms }: NFormContextProps) {
     //const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     if (!formAtoms.normal) {
         return null;

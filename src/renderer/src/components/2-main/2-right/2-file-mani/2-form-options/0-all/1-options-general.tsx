@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PrimitiveAtom, atom, useAtomValue } from "jotai";
-import { OptionsState, FormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputAndButtonWLabel, SlidersButton, SubSectionTitle0, UiAccordion } from "../9-controls";
+import { OptionsState, OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { RowInputAndButtonWLabel, SlidersButton, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 
 function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; openAtom: PrimitiveAtom<boolean>; }) {
@@ -20,7 +20,7 @@ function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; o
     </>);
 }
 
-export function GroupGeneral({ formAtoms }: FormContextProps) {
+export function GroupGeneral({ formAtoms }: OFormContextProps) {
     const { options: optionsAtoms } = formAtoms;
     const { formIdx } = optionsAtoms;
 

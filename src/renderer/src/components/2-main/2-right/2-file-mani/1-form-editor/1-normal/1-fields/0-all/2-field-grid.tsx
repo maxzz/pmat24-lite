@@ -1,8 +1,8 @@
-import { FormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { AnyFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { FieldRow } from "./3-field-row";
 import { TableHeader, fieldsGridClasses } from "./4-table-header";
 
-export function FieldsGrid({ formAtoms }: { formAtoms: FormAtoms; }) {
+export function FieldsGrid({ formAtoms }: { formAtoms: AnyFormAtoms; }) {
     return (
         <div className={fieldsGridClasses}>
             <TableHeader />

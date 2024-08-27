@@ -1,5 +1,5 @@
 import { Meta } from "@/store/manifest";
-import { FormAtoms, ManiAtoms, FormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { ManiAtoms, NFormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group";
 import { useAtom, useAtomValue } from "jotai";
 
@@ -18,7 +18,7 @@ function ManiSection2_Submit({ maniAtoms, formAtoms, metaForm }: { maniAtoms: Ma
     );
 }
 
-export function TabSubmitOld({ maniAtoms, formAtoms, formIdx }: FormContextProps) {
+export function TabSubmitOld({ maniAtoms, formAtoms, formIdx }: NFormContextProps) {
     if (!formAtoms.normal) {
         return null;
     }

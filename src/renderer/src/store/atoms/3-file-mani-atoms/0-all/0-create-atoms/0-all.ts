@@ -1,11 +1,11 @@
 import { proxySet } from "valtio/utils";
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
-import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type FormAtoms, type ManiAtoms } from "../../9-types";
+import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
 import { NormalFieldsState } from "../../1-fields/1-normal-field-atoms";
 import { SubmitState } from "../../2-submit";
 import { OptionsState } from "../../4-options";
 
-function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): FormAtoms | undefined {
+function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
 
     const { fileUs, formIdx } = fileUsParams;
     const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
@@ -23,7 +23,7 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): Form
 
     const manualFormAtoms: ManualFormAtoms | undefined = undefined;
 
-    const rv: FormAtoms = {
+    const rv: AnyFormAtoms = {
         normal: normalFormAtoms,
         manual: manualFormAtoms,
         options: OptionsState.createAtoms(fileUsParams, maniAtoms),

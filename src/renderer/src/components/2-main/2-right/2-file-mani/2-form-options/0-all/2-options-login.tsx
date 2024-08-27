@@ -1,7 +1,7 @@
-import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";
 
-export function GroupLogin(props: FormContextProps) {
+export function GroupLogin(props: OFormContextProps) {
     return (<>
         <OptionsDetection {...props} />
         <OptionsAuth {...props} />

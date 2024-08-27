@@ -1,8 +1,8 @@
 import { FieldsGrid } from "./2-field-grid";
 import { NoFileds } from "./5-no-fileds";
-import { FormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 
-export function TabFields({ formAtoms, formIdx }: FormContextProps) {
+export function TabFields({ formAtoms, formIdx }: NFormContextProps) {
 
     if (!formAtoms.normal?.fieldsAtoms.length) {
         return (
