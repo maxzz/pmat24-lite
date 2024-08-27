@@ -12,6 +12,8 @@ export type FileUsParams = {
     isManual?: boolean;                 // If it's a manual mode form
 };
 
+//
+
 export type NormalFormAtoms = {
     fieldsAtoms: NormalFieldsState.Atoms[];
     submitAtoms: SubmitState.Atoms;
@@ -37,14 +39,14 @@ export type AnyFormAtoms = Prettify<
 
 export type NFormAtoms = Prettify<
     & {
-        normal: NormalFormAtoms;            // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+        normal: NormalFormAtoms;
     }
     & AnyFormOptionsAtoms
 >;
 
 export type MFormAtoms = Prettify<
     & {
-        manual: ManualFormAtoms;            // If form is not manual then it'll dummy empty []
+        manual: ManualFormAtoms;
     }
     & AnyFormOptionsAtoms
 >;
@@ -60,13 +62,13 @@ export type OFormContextProps = {           // To access form options
     formAtoms: AnyFormOptionsAtoms;
 };
 
-export type NFormContextProps = {
+export type NFormContextProps = {           // To access normal form fields and submit
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     formAtoms: NFormAtoms;
 };
 
-export type MFormContextProps = {
+export type MFormContextProps = {           // To access manual form fields
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     formAtoms: MFormAtoms;

@@ -4,7 +4,7 @@ import { NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 
 export function TabFields({ formAtoms, formIdx }: NFormContextProps) {
 
-    if (!formAtoms.normal?.fieldsAtoms.length) {
+    if (!formAtoms.normal.fieldsAtoms.length) {
         return (
             <NoFileds formType={formIdx} />
         );
