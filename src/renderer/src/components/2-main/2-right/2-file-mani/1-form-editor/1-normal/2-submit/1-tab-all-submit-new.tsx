@@ -1,5 +1,5 @@
 import { useAtomValue, useAtom } from "jotai";
-import { NFormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { type NFormContextProps, type NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
@@ -23,7 +23,7 @@ function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
                     ))}
                 </SelectGroup>
             </SelectContent>
-            
+
         </Select>
     );
 }

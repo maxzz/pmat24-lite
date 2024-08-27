@@ -1,7 +1,7 @@
-import { Meta } from "@/store/manifest";
-import { NFormContextProps, NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { RadioGroup } from "./2-radio-group";
 import { useAtom, useAtomValue } from "jotai";
+import { type Meta } from "@/store/manifest";
+import { type NFormContextProps, type NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { RadioGroup } from "./2-radio-group";
 
 function ManiSection2_Submit({ formAtoms, metaForm }: { formAtoms: NormalFormAtoms; metaForm: Meta.Form; }) {
 

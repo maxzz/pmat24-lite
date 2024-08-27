@@ -1,4 +1,4 @@
-import { MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 
 export function ManualFields({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     return (<>
