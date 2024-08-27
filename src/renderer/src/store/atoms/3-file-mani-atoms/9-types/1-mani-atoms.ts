@@ -1,5 +1,6 @@
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
-import { type SubmitState, type NormalFieldsState } from "../1-normal-fields";
+import { type NormalSubmitState, type NormalFieldsState } from "../1-normal-fields";
+import { ManualFieldState } from "../2-manual-fields";
 import { OptionsState } from "../4-options";
 
 export type FileUsParams = {
@@ -15,10 +16,11 @@ export type FileUsParams = {
 
 export type NormalFormAtoms = {
     fieldsAtoms: NormalFieldsState.Atoms[];
-    submitAtoms: SubmitState.Atoms;
+    submitAtoms: NormalSubmitState.Atoms;
 };
 
 export type ManualFormAtoms = {
+    chunks: ManualFieldState.ScriptAtoms;
 };
 
 //

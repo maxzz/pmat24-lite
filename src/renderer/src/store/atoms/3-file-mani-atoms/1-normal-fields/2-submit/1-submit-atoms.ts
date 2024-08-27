@@ -3,7 +3,7 @@ import { setManiChanges, type FileUsParams, type ManiAtoms } from "../../9-types
 import { SubmitConv, type SubmitConvTypes } from "./0-conv";
 import { debounce } from "@/utils";
 
-export namespace SubmitState {
+export namespace NormalSubmitState {
 
     export type Atoms = SubmitConvTypes.SubmitAtoms;
 

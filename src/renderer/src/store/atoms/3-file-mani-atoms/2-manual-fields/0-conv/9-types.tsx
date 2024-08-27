@@ -4,7 +4,7 @@ import { EditorDataForKbd, EditorDataForPos, EditorDataForDly, EditorDataForFld,
 import { NormalField } from "../../1-normal-fields";
 import { RowInputState } from "@/ui";
 
-export namespace ManualField {
+export namespace ManualFieldState {
 
     type ExtraForAtoms = {
         type: ChunkKey;
@@ -60,7 +60,9 @@ export namespace ManualField {
     //     }
     // >;
     
-    export type ScriptAtoms = PrimitiveAtom<ForAtoms[]>;
+    export type ScriptAtoms = {
+        chunks: PrimitiveAtom<ForAtoms[]>;
+    };
 
 }
 

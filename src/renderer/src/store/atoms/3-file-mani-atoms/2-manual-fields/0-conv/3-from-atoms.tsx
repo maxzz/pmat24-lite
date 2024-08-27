@@ -1,8 +1,8 @@
 import { type Getter, type Setter } from "jotai";
 import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, ScriptChunkEditorData } from "pm-manifest";
-import { type ManualField } from "./9-types";
+import { type ManualFieldState } from "./9-types";
 
-function fromAtom(scriptItem: ManualField.ForAtoms, get: Getter, set: Setter): ScriptChunkEditorData {
+function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter, set: Setter): ScriptChunkEditorData {
     switch (scriptItem.type) {
         case "kbd": {
             const char = get(scriptItem.charAtom);
@@ -57,7 +57,7 @@ function fromAtom(scriptItem: ManualField.ForAtoms, get: Getter, set: Setter): S
     }
 }
 
-export function fromAtoms(scriptItems: ManualField.ForAtoms[], get: Getter, set: Setter): ScriptChunkEditorData[] {
+export function fromAtoms(scriptItems: ManualFieldState.ForAtoms[], get: Getter, set: Setter): ScriptChunkEditorData[] {
     const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, get, set));
     return chunks;
 }

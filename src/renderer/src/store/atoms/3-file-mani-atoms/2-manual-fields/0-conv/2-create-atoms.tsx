@@ -2,13 +2,13 @@ import { type Atomize } from "@/util-hooks";
 import { ScriptChunkEditorData, uuid } from "pm-manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
-import { type ManualField } from "./9-types";
+import { type ManualFieldState } from "./9-types";
 
 function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChangeValueWithPpdateName) {
     const uid5 = uuid.asRelativeNumber();
     switch (chunk.type) {
         case "kbd": {
-            const rv: ManualField.KbdForAtoms = {
+            const rv: ManualFieldState.KbdForAtoms = {
                 type: 'kbd',
                 uid5,
                 original: chunk,
@@ -21,7 +21,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             return rv;
         }
         case "pos": {
-            const rv: ManualField.PosForAtoms = {
+            const rv: ManualFieldState.PosForAtoms = {
                 type: 'pos',
                 uid5,
                 original: chunk,
@@ -33,7 +33,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
             return rv;
         }
         case "dly": {
-            const rv: ManualField.DlyForAtoms = {
+            const rv: ManualFieldState.DlyForAtoms = {
                 type: 'dly',
                 uid5,
                 original: chunk,
@@ -51,7 +51,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
                 changed: false,
             };
 
-            const rv: ManualField.FldForAtoms = {
+            const rv: ManualFieldState.FldForAtoms = {
                 type: 'fld',
                 uid5,
                 original: chunk,
@@ -62,7 +62,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
     }
 }
 
-export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualField.ForAtoms[] {
+export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms[] {
     const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, idx, onChange));
     return scriptAtoms;
 }
