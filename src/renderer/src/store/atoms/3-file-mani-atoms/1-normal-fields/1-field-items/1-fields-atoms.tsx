@@ -1,4 +1,4 @@
-import { FieldTyp, type Meta, parseForEditor } from '@/store/manifest';
+import { FieldTyp, type Meta } from '@/store/manifest';
 import { type NormalField } from './0-conv';
 import { type FileUsParams, type ManiAtoms } from "../../9-types";
 import { NormalFieldState } from './2-field-atoms';
@@ -16,34 +16,17 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        if (fileUsParams.isManual) {
-            const manualFields = parseForEditor(fields);
-            console.log('manualFields', manualFields);
-        }
-
-
         function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
-            const rowAtoms = NormalFieldState.createUiAtoms(field,
-                ({ get, set }) => {
-                    return NormalFieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
-                }
-            );
+
+            function onChange({ get, set }) {
+                return NormalFieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
+            }
+
+            const rowAtoms = NormalFieldState.createUiAtoms(field, onChange);
             return rowAtoms;
         }
 
         const rv = nonButtonFields.map(mapMetaFieldToFieldAtoms) || [];
         return rv;
     }
-
-    // function combineResultFromAtoms(atoms: Atoms[], get: Getter, set: Setter) {
-    //     atoms.forEach((atom) => {
-    //         FieldRowState.debouncedCombinedResultFromAtoms(atom, get, set);
-    //     });
-
-    //     //TODO: there cannot be a return value, so each atom must do its own thing
-
-    //     //console.log('TableRow atoms', JSON.stringify(result));
-    // }
-
-    // export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
 }

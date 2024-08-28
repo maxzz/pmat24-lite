@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atomWithCallback } from "@/util-hooks";
 import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
 import { type FileUsParams, type ManiAtoms } from "../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-manual-fields/0-conv";
@@ -15,20 +15,27 @@ export namespace ManualFieldsState {
 
         const chunks = ManualFieldConv.forAtoms(fields);
 
-        const onChange: OnChangeValueWithPpdateName = (updateName: string) => {
+        const onChangeItem: OnChangeValueWithPpdateName = (updateName: string) => {
             return (value: any) => {
                 console.log('onChange', updateName, value);
             };
         };
 
-        const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChange);
+        function onChangeOrder({ get, set }) {
+            return (value: any) => {
+                console.log('onChange', value);
+            };
+        }
+
+        const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
+
+        const chunksAtom = atomWithCallback(forAtoms, onChangeOrder);
 
         const rv: ManualFieldState.ScriptAtoms = {
-            chunks: atom(forAtoms),
+            chunks: chunksAtom,
             initialChunks: chunksToString(forAtoms),
         };
 
         return rv;
     }
-
 }

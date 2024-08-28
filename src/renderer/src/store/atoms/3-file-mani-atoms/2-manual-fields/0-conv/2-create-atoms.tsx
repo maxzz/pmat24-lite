@@ -4,7 +4,7 @@ import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 import { type ManualFieldState } from "./9-types";
 
-function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChangeValueWithPpdateName) {
+function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpdateName) {
     const uid5 = uuid.asRelativeNumber();
     switch (chunk.type) {
         case "kbd": {
@@ -43,7 +43,7 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
         }
         case "fld": {
             const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
-            const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${idx}`));
+            const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${uid5}`));
             const embFld: NormalField.FieldAtoms = {
                 ...fld,
                 metaField: chunk.field,
@@ -63,6 +63,6 @@ function createAtom(chunk: ScriptChunkEditorData, idx: number, onChange: OnChang
 }
 
 export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms[] {
-    const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, idx, onChange));
+    const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, onChange));
     return scriptAtoms;
 }
