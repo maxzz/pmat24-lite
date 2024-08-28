@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
 import { type FileUsParams, type ManiAtoms } from "../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-manual-fields/0-conv";
+import { chunksToString } from "./0-conv/4-comparison";
 
 export namespace ManualFieldsState {
 
@@ -20,10 +21,11 @@ export namespace ManualFieldsState {
             };
         };
 
-        const forAtoms = ManualFieldConv.createAtoms(chunks, onChange);
+        const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChange);
 
         const rv: ManualFieldState.ScriptAtoms = {
             chunks: atom(forAtoms),
+            initialChunks: chunksToString(forAtoms),
         };
 
         return rv;

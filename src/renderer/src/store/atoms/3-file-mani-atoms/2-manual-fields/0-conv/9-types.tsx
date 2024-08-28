@@ -62,6 +62,7 @@ export namespace ManualFieldState {
     
     export type ScriptAtoms = {
         chunks: PrimitiveAtom<ForAtoms[]>;
+        initialChunks: string;              // initial chunks to compare with
     };
 
 }
