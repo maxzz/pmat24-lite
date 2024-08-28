@@ -19,7 +19,7 @@ export namespace NormalFieldsState {
         function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
 
             function onChange({ get, set }) {
-                return NormalFieldState.debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, idx, get, set);
+                return NormalFieldState.debouncedOnChange(idx, { fileUsParams, maniAtoms, get, set });
             }
 
             const rowAtoms = NormalFieldState.createUiAtoms(field, onChange);

@@ -17,7 +17,14 @@ export namespace NormalFieldState {
         };
     }
 
-    function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, fieldIdx: number, get: Getter, set: Setter) {
+    type onChangeProps = {
+        fileUsParams: FileUsParams;
+        maniAtoms: ManiAtoms;
+        get: Getter;
+        set: Setter;
+    };
+
+    function onChange(fieldIdx: number, { fileUsParams, maniAtoms, get, set }: onChangeProps) {
         const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
         if (!nomalFormAtoms) {
             return;
@@ -29,7 +36,7 @@ export namespace NormalFieldState {
         const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx?'c':'l'}-f-${fieldIdx}`);
+        const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
         /** /
         const str1 = JSON.stringify(state.policies, null, 2);
@@ -39,5 +46,5 @@ export namespace NormalFieldState {
         /**/
     }
 
-    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+    export const debouncedOnChange = debounce(onChange);
 }
