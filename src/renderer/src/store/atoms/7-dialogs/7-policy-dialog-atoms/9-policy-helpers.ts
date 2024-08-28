@@ -1,4 +1,4 @@
-import { FieldTyp, Meta } from "pm-manifest";
+import { FieldTyp, Meta } from "@/store/manifest";
 
 export enum PolicyAction {
     add,     // 'Add',

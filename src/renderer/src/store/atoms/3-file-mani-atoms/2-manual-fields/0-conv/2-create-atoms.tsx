@@ -1,5 +1,5 @@
 import { type Atomize } from "@/util-hooks";
-import { ScriptChunkEditorData, uuid } from "pm-manifest";
+import { ScriptChunkEditorData, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 import { type ManualFieldState } from "./9-types";

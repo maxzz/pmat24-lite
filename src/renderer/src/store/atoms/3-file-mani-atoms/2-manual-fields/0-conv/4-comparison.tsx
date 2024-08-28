@@ -1,4 +1,4 @@
-import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos } from "pm-manifest";
+import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos } from "@/store/manifest";
 import { ManualFieldState } from "./9-types";
 
 export function chunksToString(chunks: ManualFieldState.ForAtoms[]): string {

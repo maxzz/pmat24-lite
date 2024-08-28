@@ -1,10 +1,10 @@
-import { type HTMLAttributes, useState } from 'react';
-import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from 'jotai';
-import { type Mani, type Meta } from 'pm-manifest';
-import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from '@/store/atoms/3-file-mani-atoms';
-import { PolicyEditorDlg } from '@/components/4-dialogs';
-import { Button } from '@/ui';
-import { classNames } from '@/utils';
+import { type HTMLAttributes, useState } from "react";
+import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
+import { type Mani, type Meta } from "@/store/manifest";
+import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from "@/store/atoms/3-file-mani-atoms";
+import { PolicyEditorDlg } from "@/components/4-dialogs";
+import { Button } from "@/ui";
+import { classNames } from "@/utils";
 
 const Column6_PolicyClasses = "\
 px-2 py-3 h-7 text-[.65rem] \

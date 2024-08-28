@@ -1,6 +1,6 @@
 import { type Getter, type Setter } from "jotai";
 import { type OnValueChangeAny } from "@/util-hooks";
-import { type Mani } from "pm-manifest";
+import { type Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { PolicyParser } from "@/store/manifest/3-policy-io";
 import { debounce } from "@/utils";

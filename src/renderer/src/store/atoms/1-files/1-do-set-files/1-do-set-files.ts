@@ -1,13 +1,13 @@
-import { atom } from 'jotai';
-import { filesAtom } from '../0-files-atom';
-import { FileUs } from '@/store/store-types';
-import { FileContent } from '@shared/ipc-types';
-import { isEmpty, isManual } from 'pm-manifest';
-import { delay } from '@/store/store-utils';
-import { deliveredToFileUs } from './2-delivered-to-file-us';
-import { rightPanelAtom } from '../../2-right-panel';
-import { busyIndicator, totalManis } from '../../9-ui-state';
-import { toast } from 'sonner';
+import { atom } from "jotai";
+import { filesAtom } from "../0-files-atom";
+import { FileUs } from "@/store/store-types";
+import { FileContent } from "@shared/ipc-types";
+import { isEmpty, isManual } from "@/store/manifest";
+import { delay } from "@/store/store-utils";
+import { deliveredToFileUs } from "./2-delivered-to-file-us";
+import { rightPanelAtom } from "../../2-right-panel";
+import { busyIndicator, totalManis } from "../../9-ui-state";
+import { toast } from "sonner";
 
 /**
  * File content is populated from web or electron environment:

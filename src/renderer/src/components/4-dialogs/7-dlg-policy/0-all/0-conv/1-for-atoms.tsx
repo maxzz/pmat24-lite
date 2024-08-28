@@ -1,10 +1,7 @@
-import { type Getter, type Setter } from "jotai";
-import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { type Mani, Poli, namesConstrainSet } from "pm-manifest";
-import { policyFromStrings, policyToStrings } from "@/store/manifest";
-import { type RowInputState, initForInput, validateMaxLen, validateMinLen } from "@/ui";
-import { type PolicyParser } from "@/store/manifest/3-policy-io";
-import { PolicyDlgTypes } from "./9-types";
+import { type Mani, Poli, namesConstrainSet } from "@/store/manifest";
+import { type PolicyDlgTypes } from "./9-types";
+import { policyFromStrings } from "@/store/manifest";
+import { initForInput, validateMaxLen, validateMinLen } from "@/ui";
 
 // Inital policy
 

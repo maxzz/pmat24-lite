@@ -1,5 +1,5 @@
 import { type Atomize } from "@/util-hooks";
-import { FieldTyp, type Mani, type Meta, type ValueLife } from "pm-manifest";
+import { FieldTyp, type Mani, type Meta, type ValueLife } from "@/store/manifest";
 
 export namespace NormalField {
 

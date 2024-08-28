@@ -1,4 +1,4 @@
-import { Poli } from "pm-manifest";
+import { Poli } from "@/store/manifest";
 import { genUtils, strFindFirstNotOf, strFindFirstOf } from "../9-gen-utils";
 
 // class verify_t {

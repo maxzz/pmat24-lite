@@ -1,4 +1,4 @@
-import { Poli } from "pm-manifest";
+import { Poli } from "@/store/manifest";
 
 export function isValidPolicy(policy: Poli.Policy): boolean {
     return (

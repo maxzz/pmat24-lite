@@ -1,5 +1,5 @@
 import { FileUs } from "@/store/store-types";
-import { isAnyWhy } from "pm-manifest";
+import { isAnyWhy } from "@/store/manifest";
 import { TreenIconType } from "@ui/shadcn/tree";
 import { TreeItemTooltip } from "./4-tooltip-all";
 import { TooltipBody } from "./5-tooltip-body";

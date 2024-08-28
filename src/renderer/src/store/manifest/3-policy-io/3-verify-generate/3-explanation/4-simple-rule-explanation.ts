@@ -1,4 +1,4 @@
-import { Poli } from "pm-manifest";
+import { Poli } from "@/store/manifest";
 import { stringsPolicy, stringsPolicy3 } from "./9-strings";
 import { genUtils } from "../9-gen-utils";
 

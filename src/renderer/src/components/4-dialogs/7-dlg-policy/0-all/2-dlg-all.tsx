@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { Mani } from "pm-manifest";
+import { Mani } from "@/store/manifest";
 import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";

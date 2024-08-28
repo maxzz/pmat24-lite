@@ -1,5 +1,5 @@
 import { type Getter, type Setter } from "jotai";
-import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, ScriptChunkEditorData } from "pm-manifest";
+import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type ScriptChunkEditorData } from "@/store/manifest";
 import { type ManualFieldState } from "./9-types";
 
 function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter, set: Setter): ScriptChunkEditorData {

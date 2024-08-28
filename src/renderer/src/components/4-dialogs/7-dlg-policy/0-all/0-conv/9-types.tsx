@@ -1,5 +1,5 @@
 import { type Atomize } from '@/util-hooks';
-import { type Mani } from "pm-manifest";
+import { type Mani } from "@/store/manifest";
 import { type RowInputState } from "@/ui";
 import { type PolicyParser } from "@/store/manifest/3-policy-io";
 

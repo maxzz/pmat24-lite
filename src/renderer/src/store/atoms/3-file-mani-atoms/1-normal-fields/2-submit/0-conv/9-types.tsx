@@ -1,5 +1,5 @@
 import { type Atomize } from '@/util-hooks';
-import { type Meta } from "pm-manifest";
+import { type Meta } from "@/store/manifest";
 
 export namespace SubmitConvTypes {
 

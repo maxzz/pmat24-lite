@@ -1,4 +1,4 @@
-import { Poli } from "pm-manifest";
+import { Poli } from "@/store/manifest";
 import { str_charset, str_constrains } from "./4-casting";
 import { POLICY_SEPARATOR } from "./nun/0-defs";
 

@@ -1,6 +1,5 @@
 import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { FieldPath, MPath, MSAA_ROLE, Meta, splitPool } from "pm-manifest";
-import { uuid } from "pm-manifest/src/utils";
+import { FieldPath, MPath, MSAA_ROLE, Meta, splitPool, uuid } from "@/store/manifest";
 
 export type RoleStateNames = {
     role: string;

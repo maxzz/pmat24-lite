@@ -1,4 +1,4 @@
-import { type Mani, type ValueLife } from "pm-manifest";
+import { type Mani, type ValueLife } from "@/store/manifest";
 import { type NormalField } from "./9-types";
 
 // Comparison

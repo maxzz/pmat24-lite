@@ -1,4 +1,4 @@
-import { Mani } from "pm-manifest";
+import { type Mani } from "@/store/manifest";
 
 export namespace FileMani {         // This is a file structure wo/ boolean values
 

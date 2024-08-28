@@ -1,4 +1,4 @@
-import { type Mani, type Meta, TransformValue, fieldTyp4Str } from "pm-manifest";
+import { type Mani, type Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
 import { type NormalField } from "./9-types";
 
 export function forAtoms(maniField: Mani.Field): NormalField.ForAtoms {

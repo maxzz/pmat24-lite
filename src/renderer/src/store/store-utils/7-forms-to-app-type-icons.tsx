@@ -1,6 +1,6 @@
 import { FileUs } from "../store-types";
 import { TreenIconType } from "@/ui/shadcn/tree";
-import { isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from "pm-manifest";
+import { isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 

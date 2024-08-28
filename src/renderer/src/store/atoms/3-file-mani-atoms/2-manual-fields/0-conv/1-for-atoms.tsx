@@ -1,4 +1,4 @@
-import { type Meta, type ScriptChunkEditorData, parseForEditor } from "pm-manifest";
+import { type Meta, type ScriptChunkEditorData, parseForEditor } from "@/store/manifest";
 
 export function forAtoms(metaFields: Meta.Field[]): ScriptChunkEditorData[] {
     const chunks = parseForEditor(metaFields);

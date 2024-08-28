@@ -1,4 +1,4 @@
-import { type Meta } from "pm-manifest";
+import { type Meta } from "@/store/manifest";
 import { type SubmitConvTypes } from "./9-types";
 import { getSubmitChoices } from "../9-submit-choices";
 

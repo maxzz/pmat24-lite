@@ -1,5 +1,4 @@
-import { type Mani, Poli } from "pm-manifest";
-import { policyToStrings } from "@/store/manifest";
+import { type Mani, Poli, policyToStrings } from "@/store/manifest";
 import { type PolicyDlgTypes } from "./9-types";
 
 // Back to manifest

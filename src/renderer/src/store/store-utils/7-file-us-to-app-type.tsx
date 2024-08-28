@@ -1,4 +1,4 @@
-import { isAnyWhy, isManual } from "pm-manifest";
+import { isAnyWhy, isManual } from "@/store/manifest";
 import { FileUs } from "../store-types";
 import { AppIconType } from "./8-app-type-to-icon";
 

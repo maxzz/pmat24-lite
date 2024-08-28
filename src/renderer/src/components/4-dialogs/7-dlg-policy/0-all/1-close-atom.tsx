@@ -1,5 +1,5 @@
 import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
-import { Mani } from "pm-manifest";
+import { Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { toast } from "sonner";
 import { updateExplanationAtom } from "./1-util-atoms";

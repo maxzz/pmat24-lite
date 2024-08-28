@@ -1,4 +1,4 @@
-import { Poli } from "pm-manifest";
+import { Poli } from "@/store/manifest";
 import { parseExtPolicy2RulesSet } from "../../3-parser";
 import { RulesAndMeta } from "../../3-parser/1-parser-types";
 import { getCustomRuleExplanation } from "./3-custom-rule-explanation";
