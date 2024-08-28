@@ -19,9 +19,7 @@ export type NormalFormAtoms = {
     submitAtoms: NormalSubmitState.Atoms;
 };
 
-export type ManualFormAtoms = {
-    chunks: ManualFieldState.ScriptAtoms;
-};
+export type ManualFormAtoms = ManualFieldState.ScriptAtoms;
 
 //
 

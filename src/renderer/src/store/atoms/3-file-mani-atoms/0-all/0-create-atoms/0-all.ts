@@ -3,6 +3,7 @@ import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
 import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
 import { NormalFieldsState, NormalSubmitState } from "../../1-normal-fields";
 import { OptionsState } from "../../4-options";
+import { ManualFieldsState } from "../../2-manual-fields";
 
 function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
 
@@ -19,7 +20,7 @@ function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): AnyF
     let manualFormAtoms: ManualFormAtoms | undefined;
 
     if (fileUsParams.isManual) {
-        //manualFormAtoms: ManualFormAtoms | undefined = undefined;
+        manualFormAtoms = ManualFieldsState.createUiAtoms(fileUsParams, maniAtoms);
     } else {
         normalFormAtoms = {
             fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
