@@ -1,4 +1,4 @@
-export function keyToIndex(selectedIdx: number, totalItems: number, key: string): number | undefined {
+export function kbdToIndex(selectedIdx: number, totalItems: number, key: string): number | undefined {
     if (!totalItems) {
         return;
     }
