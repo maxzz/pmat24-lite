@@ -41,3 +41,13 @@ export namespace ManualFieldsState {
         return rv;
     }
 }
+
+// ./6-do-create-item.ts
+// TODO: make doCreateItemAtom.onChange real
+
+// ./a-create-script-item.ts
+// pidx: 0, //TODO: initiate with correct value
+// ridx: 0, //TODO: initiate with correct value
+
+// ./1-fields-atoms.tsx
+//TOOD: onChangeItem and onChangeOrder
