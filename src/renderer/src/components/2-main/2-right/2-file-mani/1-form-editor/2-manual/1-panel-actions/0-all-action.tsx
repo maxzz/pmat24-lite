@@ -7,7 +7,7 @@ import { PanelActionsTitle } from "./1-panel-title";
 import { classNames } from "@/utils";
 
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
-import { editorFrameClasses } from "../shared-styles";
+import { editorFrameClasses } from "../8-shared-styles";
 
 export function ManualPanelActions({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     // const cb = useInitSelectedIdx();

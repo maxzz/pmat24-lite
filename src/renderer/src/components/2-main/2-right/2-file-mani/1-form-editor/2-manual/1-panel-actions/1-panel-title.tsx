@@ -1,4 +1,4 @@
-import { panelEditorTitleClasses } from "../shared-styles";
+import { panelEditorTitleClasses } from "../8-shared-styles";
 import { classNames } from "@/utils";
 import { MenuAddButton } from "./1-panel-title-menu";
 

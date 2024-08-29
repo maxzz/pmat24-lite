@@ -1,6 +1,6 @@
 import { type ChunkKey } from "@/store/manifest";
 import { getRowIconAndText } from "../../1-panel-actions/6-get-row-icon-and-text";
-import { panelEditorTitleClasses } from "../../shared-styles";
+import { panelEditorTitleClasses } from "../../8-shared-styles";
 
 export function PanelPropsTitle({ type }: { type?: ChunkKey | undefined; }) {
     const { name, icon } = getRowIconAndText(type);

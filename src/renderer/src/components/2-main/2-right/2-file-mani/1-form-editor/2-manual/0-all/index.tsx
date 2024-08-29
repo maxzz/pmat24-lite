@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
-import { ManualPanelProps } from "../2-panel-props/0-all";
+import { ManualPanelProps } from "../2-panel-props";
 
 export function ManualFields({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     const items = useAtomValue(formAtoms.manual.chunksAtom);
