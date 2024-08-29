@@ -8,4 +8,5 @@ export * from "./theme-apply";
 export * from './merge-options';
 export * from "./merge-refs";
 export * from "./uuid";
+export * from "./valtio-array";
 export * from './x-sub-error';
