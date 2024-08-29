@@ -1,16 +1,19 @@
+import { atom } from "jotai";
 import { type Atomize } from "@/util-hooks";
-import { ScriptChunkEditorData, uuid } from "@/store/manifest";
+import { type ManualFieldState } from "../9-types";
+import { type ScriptChunkEditorData, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
-import { type ManualFieldState } from "../9-types";
 
-function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpdateName) {
+export function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
+    const selectedAtom = atom(false);
     switch (chunk.type) {
         case "kbd": {
             const rv: ManualFieldState.KbdForAtoms = {
                 type: 'kbd',
                 uid5,
+                selectedAtom,
                 original: chunk,
                 charAtom: newAtomForInput(chunk.char, onChange('man-kbd-key')),
                 repeatAtom: newAtomForInput(chunk.repeat, onChange('man-kbd-repeat'), { validate: validateNumber }),
@@ -24,6 +27,7 @@ function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpd
             const rv: ManualFieldState.PosForAtoms = {
                 type: 'pos',
                 uid5,
+                selectedAtom,
                 original: chunk,
                 xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
                 yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
@@ -36,6 +40,7 @@ function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpd
             const rv: ManualFieldState.DlyForAtoms = {
                 type: 'dly',
                 uid5,
+                selectedAtom,
                 original: chunk,
                 nAtom: newAtomForInput(chunk.n, onChange('man-dly-dly'), { validate: validateNumber }),
             };
@@ -54,6 +59,7 @@ function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpd
             const rv: ManualFieldState.FldForAtoms = {
                 type: 'fld',
                 uid5,
+                selectedAtom,
                 original: chunk,
                 field: embFld,
             };

@@ -1,15 +1,25 @@
 import { atom } from "jotai";
-import { createScriptItem } from "../../1-script-list-ops";
-import type { ScriptItemKey } from "../../9-script-items-types";
-import { gScriptState } from "../2-script-state";
-import { selectedIdxAtom } from "./1-selected-item";
+import { ManualEditorState } from "../../../9-types";
+import { ChunkKey } from "@/store/manifest";
+import { OnValueChangeParams } from "@/util-hooks";
+import { createScriptItem } from "./a-create-script-item";
 
 export const doCreateItemAtom = atom(
     null,
-    (get, set, type: ScriptItemKey) => {
-        const newItem = createScriptItem(type);
+    (get, set, ctx: ManualEditorState.ScriptAtoms, type: ChunkKey) => {
 
-        gScriptState.scriptItems.push(newItem);
-        set(selectedIdxAtom, gScriptState.scriptItems.length - 1);
+        const onChange = (updateName: string) => {
+            return ({ get, set, nextValue }: OnValueChangeParams<any>) => {
+                console.log('TODO: doCreateItemAtom.onChange', updateName);
+            }
+        }
+
+        const newItem = createScriptItem(type, onChange);
+
+        let chuncks = get(ctx.chunksAtom);
+        chuncks.push(newItem);
+        set(ctx.chunksAtom, chuncks);
+
+        set(ctx.selectedIdxStoreAtom, chuncks.length - 1);
     }
 );

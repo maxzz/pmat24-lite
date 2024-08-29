@@ -1,15 +1,19 @@
 import { atom } from "jotai";
-import { gScriptState } from "../2-script-state";
-import { doSelectItemAtom } from "./2-do-select-item-atom";
 import { swap } from "@/utils";
+import { ManualEditorState } from "../../../9-types";
+import { doSelectItemAtom } from "./2-do-select-item";
 
 export const doSwapItemsAtom = atom(
     null,
-    (get, set, idxCurrent: number, idxNew: number) => {
-        if (idxNew < 0 || idxNew >= gScriptState.scriptItems.length) {
+    (get, set, ctx: ManualEditorState.ScriptAtoms, idxCurrent: number, idxNew: number) => {
+        const chuncks = get(ctx.chunksAtom);
+        if (idxNew < 0 || idxNew >= chuncks.length) {
             return;
         }
-        swap(gScriptState.scriptItems, idxCurrent, idxNew);
-        set(doSelectItemAtom, idxNew, true);
+
+        swap(chuncks, idxCurrent, idxNew);
+        set(ctx.chunksAtom, chuncks);
+
+        set(doSelectItemAtom, ctx, idxNew, true);
     }
 );

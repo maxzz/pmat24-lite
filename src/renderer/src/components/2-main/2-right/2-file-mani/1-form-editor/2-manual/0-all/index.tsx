@@ -4,7 +4,7 @@ import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props/0-all";
 
 export function ManualFields({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
-    const items = useAtomValue(formAtoms.manual.chunks);
+    const items = useAtomValue(formAtoms.manual.chunksAtom);
     return (<>
         <div className="grid grid-cols-2">
             <ManualPanelActions maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />

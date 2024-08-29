@@ -1,3 +1,4 @@
+import { atom } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
 import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
 import { type FileUsParams, type ManiAtoms } from "../9-types";
@@ -32,8 +33,9 @@ export namespace ManualFieldsState {
         const chunksAtom = atomWithCallback(forAtoms, onChangeOrder);
 
         const rv: ManualEditorState.ScriptAtoms = {
-            chunks: chunksAtom,
+            chunksAtom: chunksAtom,
             initialChunks: chunksToString(forAtoms),
+            selectedIdxStoreAtom: atom(0),
         };
 
         return rv;

@@ -30,8 +30,9 @@ export namespace ManualEditorState {
     // >;
 
     export type ScriptAtoms = {
-        chunks: PrimitiveAtom<ManualFieldState.ForAtoms[]>;
+        chunksAtom: PrimitiveAtom<ManualFieldState.ForAtoms[]>;
         initialChunks: string;              // initial chunks as concatenated string of uuids to compare with
+        selectedIdxStoreAtom: PrimitiveAtom<number>;
     };
 }
 

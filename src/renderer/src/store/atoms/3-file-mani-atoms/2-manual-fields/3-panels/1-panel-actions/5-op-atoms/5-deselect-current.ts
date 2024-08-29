@@ -1,10 +1,10 @@
 import type { Getter, Setter } from "jotai";
-import { gScriptState } from "../2-script-state";
-import { _selectedIdxStoreAtom } from "./0-selected-idx-store-atom";
+import { ManualEditorState } from "../../../9-types";
 
-export function deselectCurrent(get: Getter, set: Setter) {
-    const currentIdx = get(_selectedIdxStoreAtom).selectedIdx;
+export function deselectCurrent(ctx: ManualEditorState.ScriptAtoms, get: Getter, set: Setter) {
+    const currentIdx = get(ctx.selectedIdxStoreAtom);
+    const chunks = get(ctx.chunksAtom);
 
-    const current = gScriptState.scriptItems[currentIdx]?.unsaved.selectedAtom;
+    const current = chunks[currentIdx]?.selectedAtom;
     current && set(current, false);
 }

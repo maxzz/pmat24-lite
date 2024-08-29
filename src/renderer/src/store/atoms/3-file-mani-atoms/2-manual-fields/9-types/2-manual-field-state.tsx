@@ -1,3 +1,4 @@
+import { PrimitiveAtom } from "jotai";
 import { AtomizeWithType } from "@/util-hooks";
 import { EditorDataForKbd, EditorDataForPos, EditorDataForDly, EditorDataForFld, ChunkKey } from "@/store/manifest";
 import { NormalField } from "../../1-normal-fields";
@@ -7,7 +8,8 @@ export namespace ManualFieldState {
 
     type ExtraForAtoms = {
         type: ChunkKey;
-        uid5: number;       // unique id for each row
+        uid5: number;                           // unique id for each row
+        selectedAtom: PrimitiveAtom<boolean>;   // is atom selected now
     };
 
     export type KbdForAtoms = Prettify<ExtraForAtoms & AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {

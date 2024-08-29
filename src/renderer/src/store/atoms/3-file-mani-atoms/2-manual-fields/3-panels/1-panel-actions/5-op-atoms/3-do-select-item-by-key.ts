@@ -1,14 +1,14 @@
 import { atom } from "jotai";
-import { gScriptState } from "../2-script-state";
-import { _selectedIdxStoreAtom } from "./0-selected-idx-store-atom";
-import { keyToIndex } from "../../1-script-list-ops";
+import { ManualEditorState } from "../../../9-types";
+import { keyToIndex } from "./b-key-to-index";
 import { selectedIdxAtom } from "./1-selected-item";
 
 export const doSelectByKeyAtom = atom(
     null,
-    (get, set, keyName: string) => {
-        const idx = get(_selectedIdxStoreAtom).selectedIdx;
-        const newIdx = keyToIndex(idx, gScriptState.scriptItems.length, keyName);
-        newIdx !== undefined && set(selectedIdxAtom, newIdx);
+    (get, set, ctx: ManualEditorState.ScriptAtoms, keyName: string) => {
+        const idx = get(ctx.selectedIdxStoreAtom);
+        const chunks = get(ctx.chunksAtom);
+        const newIdx = keyToIndex(idx, chunks.length, keyName);
+        newIdx !== undefined && set(selectedIdxAtom, ctx, newIdx);
     }
 );
