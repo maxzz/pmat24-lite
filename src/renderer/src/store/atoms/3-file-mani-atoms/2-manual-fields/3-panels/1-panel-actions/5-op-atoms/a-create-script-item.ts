@@ -76,3 +76,10 @@ export function createScriptItem(type: ChunkKey, onChange: OnChangeValueWithPpda
     const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType(type), onChange);
     return rv;
 }
+
+// ./6-do-create-item.ts
+// TODO: make doCreateItemAtom.onChange real
+
+// ./a-create-script-item.ts
+// pidx: 0, //TODO: initiate with correct value
+// ridx: 0, //TODO: initiate with correct value
