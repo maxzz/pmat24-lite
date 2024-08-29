@@ -1,5 +1,5 @@
 import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos } from "@/store/manifest";
-import { ManualFieldState } from "./9-types";
+import { ManualFieldState } from "../9-types";
 
 export function chunksToString(chunks: ManualFieldState.ForAtoms[]): string {
     return chunks.map((chunk) => chunk.uid5).join("");
