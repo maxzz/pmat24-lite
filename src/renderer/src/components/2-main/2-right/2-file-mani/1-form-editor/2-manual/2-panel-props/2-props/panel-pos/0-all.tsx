@@ -1,37 +1,45 @@
 import { HTMLAttributes, useEffect } from "react";
 import { subscribe, useSnapshot } from "valtio";
-import { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { SrcriptItemPos, buildState } from "@/store";
-import { propsBoxClasses, InputField } from "../../ui";
+import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { buildState } from "./8-pos-build-state";
+import { propsBoxClasses } from "../../8-ui";
 import { InputXY } from "./2-input-xy";
+import { useSetAtom } from "jotai";
 
-function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
-    let n = parseInt(e.target.value);
-    if (Number.isNaN(n)) {
-        n = defValue;
-    }
-    return n;
-}
+// function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
+//     let n = parseInt(e.target.value);
+//     if (Number.isNaN(n)) {
+//         n = defValue;
+//     }
+//     return n;
+// }
 
-export function PropsEditorPos({ item, ...rest }: { item: SrcriptItemPos; } & HTMLAttributes<HTMLElement>) {
-    const snap = useSnapshot(item);
+export function PropsEditorPos({ item, ...rest }: { item: ManualFieldState.PosForAtoms; } & HTMLAttributes<HTMLElement>) {
+    const setPosValueX = useSetAtom(item.xAtom);
+    const setPosValueY = useSetAtom(item.yAtom);
 
     useEffect(() => {
-        const unsubscribe = subscribe(buildState.getPosProgress, () => {
-            console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
-            //TODO: use debounce
+        const unsubscribe = subscribe(buildState.getPosProgress,
+            () => {
+                console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
+                //TODO: use debounce
 
-            item.x = buildState.getPosProgress.point?.x || 0;
-            item.y = buildState.getPosProgress.point?.y || 0;
-        });
+                setPosValueX((prev) => ({ ...prev, x: buildState.getPosProgress.point?.x || 0 }));
+                setPosValueY((prev) => ({ ...prev, y: buildState.getPosProgress.point?.y || 0 }));
+            }
+        );
         return unsubscribe;
     }, []);
 
     return (
         <div className={propsBoxClasses} {...rest}>
             <div className="flex items-center space-x-2">
-                <InputField className="w-12" label="x" horizontal={true} value={`${snap.x}`} onChange={(e) => item.x = eventNumber(e)} />
-                <InputField className="w-12" label="y" horizontal={true} value={`${snap.y}`} onChange={(e) => item.y = eventNumber(e)} />
+                <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
+                <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" />
+
+                {/* <InputField className="w-12" label="x" horizontal={true} value={`${snap.x}`} onChange={(e) => item.x = eventNumber(e)} />
+                <InputField className="w-12" label="y" horizontal={true} value={`${snap.y}`} onChange={(e) => item.y = eventNumber(e)} /> */}
             </div>
 
             <InputXY item={item} />

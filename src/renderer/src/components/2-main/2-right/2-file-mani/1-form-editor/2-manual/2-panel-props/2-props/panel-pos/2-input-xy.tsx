@@ -1,8 +1,6 @@
-//import { useSnapshot } from "valtio";
-import { type SrcriptItemPos, buildState } from "@/store";
-import { IconColorPicker, IconColorPickerChrome, IconLibra, IconTarget } from "@/components/ui/icons";
+import { IconColorPicker, IconColorPickerChrome } from "@/ui/icons";
 import { PositionIcon } from "./1-target-pos";
-//import { IconSearch } from "@/components/ui/icons/normal/icon31-search";
+import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 
 // export function TargetPositionDisplay() {
 //     const { getPosProgress } = useSnapshot(buildState);
@@ -19,7 +17,7 @@ import { PositionIcon } from "./1-target-pos";
 //     );
 // }
 
-export function InputXY({ item }: { item: SrcriptItemPos; }) {
+export function InputXY({ item }: { item: ManualFieldState.PosForAtoms }) {
     return (
         <div className="!mt-6 space-y-2">
             <div className="">
@@ -46,6 +44,5 @@ export function InputXY({ item }: { item: SrcriptItemPos; }) {
             </div>
 
         </div>
-
     );
 }
