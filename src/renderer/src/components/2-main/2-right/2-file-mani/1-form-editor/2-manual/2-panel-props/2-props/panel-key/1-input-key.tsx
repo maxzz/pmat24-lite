@@ -1,5 +1,6 @@
 import { useSnapshot } from "valtio";
-import { SrcriptItemKey } from "@/store";
+import { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { ChunkKey } from "@/store/manifest";
 import { actionKeys } from "@/store/manifest";
 import { InputSelect } from "../../ui";
 

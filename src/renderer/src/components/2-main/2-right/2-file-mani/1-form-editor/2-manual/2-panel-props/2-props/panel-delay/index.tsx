@@ -1,17 +1,17 @@
 import { HTMLAttributes } from "react";
-import { useSnapshot } from "valtio";
-import { SrcriptItemDly } from "@/store";
-import { propsBoxClasses, InputField } from "../../ui";
+import { useAtom } from "jotai";
+import { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { InputField, propsBoxClasses } from "../../8-ui";
 
-export function InputDelay({ item }: { item: SrcriptItemDly; }) {
-    const snap = useSnapshot(item, { sync: true });
+export function InputDelay({ item }: { item: ManualFieldState.DlyForAtoms; }) {
+    const [n, setN] = useAtom(item.nAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         let n = +e.target.value;
         if (Number.isNaN(n)) {
             n = 1;
         }
-        item.n = n;
+        setN(n);
     }
 
     return (
@@ -19,7 +19,7 @@ export function InputDelay({ item }: { item: SrcriptItemDly; }) {
             <InputField
                 className="w-12" horizontal
                 label="Delay"
-                value={`${snap.n}`}
+                value={`${n}`}
                 onChange={onChange}
             />
 
@@ -30,7 +30,7 @@ export function InputDelay({ item }: { item: SrcriptItemDly; }) {
     );
 }
 
-export function PropsEditorDly({ item, ...rest }: { item: SrcriptItemDly; } & HTMLAttributes<HTMLElement>) {
+export function PropsEditorDly({ item, ...rest }: { item: ManualFieldState.DlyForAtoms; } & HTMLAttributes<HTMLElement>) {
     return (
         <div className={propsBoxClasses} {...rest}>
             <InputDelay item={item} />

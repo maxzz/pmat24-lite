@@ -16,11 +16,13 @@ function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
 
             <SelectContent align="start">
                 <SelectGroup>
-                    {buttonNames.map((name, idx) => (
-                        <SelectItem className="text-xs" value={idx.toString()} indicatorFirst key={idx}>
-                            {name}
-                        </SelectItem>
-                    ))}
+                    {buttonNames.map(
+                        (name, idx) => (
+                            <SelectItem className="text-xs" value={idx.toString()} indicatorFirst key={idx}>
+                                {name}
+                            </SelectItem>
+                        ))
+                    }
                 </SelectGroup>
             </SelectContent>
 

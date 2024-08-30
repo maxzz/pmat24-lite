@@ -1,5 +1,6 @@
 import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
+import { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { SrcriptItemFld } from "@/store";
 import { propsBoxClasses, InputField } from "../../ui";
 
