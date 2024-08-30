@@ -1,9 +1,10 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { useSnapshot } from "valtio";
-import { SrcriptItemKey, SrcriptItemModifiers } from "@/store";
+import { PrimitiveAtom, useAtom } from "jotai";
+import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type RowInputState } from "@/ui";
 import { modifierKeys } from "@/store/manifest";
+import { InputSelectUi } from "../../8-ui";
 import { classNames } from "@/utils";
-import { InputSelectUi } from "../../ui";
 
 type FrameProps = HTMLAttributes<HTMLDivElement> & {
     label: string;
@@ -22,8 +23,8 @@ export function Frame({ label, children, className, ...rest }: FrameProps) {
     );
 }
 
-function Modifier({ label, name, item }: { label: string; name: SrcriptItemModifiers; item: SrcriptItemKey; }) {
-    const snap = useSnapshot(item);
+function Modifier({ label, itemAtom }: { label: string; itemAtom: PrimitiveAtom<RowInputState>; }) {
+    const [modifier, setModifier] = useAtom(itemAtom);
     return (
         <div className={classNames("flex-1 max-w-36 flex @[190px]:flex-col @[190px]:gap-y-0.5 items-center gap-x-2")}>
             <div className="self-start @[190px]:pl-2 min-w-12 text-xs @[190px]:text-[0.65rem] font-light">
@@ -32,21 +33,21 @@ function Modifier({ label, name, item }: { label: string; name: SrcriptItemModif
 
             <InputSelectUi
                 items={modifierKeys}
-                value={`${snap[name]}`}
-                onValueChange={(value) => item[name] = +value}
+                value={modifier.data}
+                onValueChange={(value) => setModifier((prev) => ({ ...prev, data: value }))}
             />
         </div>
     );
 }
 
-export function InputModifiers({ item }: { item: SrcriptItemKey; }) {
+export function InputModifiers({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     return (
         <Frame className="@container -ml-2" label="Key modifiers">
             <div className="my-2 flex flex-col @[190px]:flex-row gap-1">
 
-                <Modifier label="Shift" name="shift" item={item} />
-                <Modifier label="Control" name="ctrl" item={item} />
-                <Modifier label="Alt" name="alt" item={item} />
+                <Modifier label="Shift" itemAtom={item.shiftAtom} />
+                <Modifier label="Control" itemAtom={item.ctrlAtom} />
+                <Modifier label="Alt" itemAtom={item.altAtom} />
 
             </div>
         </Frame>

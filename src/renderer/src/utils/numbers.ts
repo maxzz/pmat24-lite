@@ -10,6 +10,10 @@ export function plural(n: number): string {
     return n === 1 ? '' : 's';
 }
 
+export function pluralWord(n: number, word: string) {
+    return `${word}${n === 1 ? '' : 's'}`;
+}
+
 export function randomInclusive(min: number, max: number): number { //The maximum is inclusive and the minimum is inclusive
     min = Math.ceil(min);
     max = Math.floor(max);

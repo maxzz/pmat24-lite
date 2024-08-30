@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useSnapshot } from "valtio";
-import { buildState, PointXY } from "@/store";
+import { buildState, PointXY } from "./8-pos-build-state";
 import { classNames } from "@/utils";
-import { IconTarget } from "@/components/ui/icons";
+// import { IconTarget } from "@/components/ui/icons";
 
 export function PositionIcon() {
     const [iconVisible, setIconVisible] = useState(true);

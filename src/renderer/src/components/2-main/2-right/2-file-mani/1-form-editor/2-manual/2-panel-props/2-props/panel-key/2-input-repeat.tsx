@@ -1,22 +1,23 @@
-import { useSnapshot } from "valtio";
-import { SrcriptItemKey } from "@/store";
-import { InputField } from "../../ui";
-import { plural } from "@/utils";
+import { useAtomValue } from "jotai";
+import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { pluralWord } from "@/utils";
 
-export function InputRepeat({ item }: { item: SrcriptItemKey; }) {
-    const snap = useSnapshot(item, { sync: true });
+const toNumber = (string: string) => {
+    let n = parseInt(string);
+    if (Number.isNaN(n)) {
+        n = 1;
+    }
+    return n;
+}
+
+export function InputRepeat({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+    const repeat = useAtomValue(item.repeatAtom);
     return (
         <div className="flex items-end space-x-1">
-            <InputField className="w-10" labelClasses="min-w-[9ch]" label="Repeat" horizontal
-                value={`${snap.repeat}`}
-                onChange={(e) => {
-                    let n = parseInt(e.target.value);
-                    if (Number.isNaN(n)) {
-                        n = 1;
-                    }
-                    item.repeat = n;
-                }} />
-            <div className="pb-1">{`${plural(item.repeat, 'time')}`}</div>
+            <RowInputWLabel stateAtom={item.repeatAtom} label="Repeat" />
+
+            <div className="pb-1">{`${pluralWord(toNumber(repeat.data), 'time')}`}</div>
         </div>
     );
 }

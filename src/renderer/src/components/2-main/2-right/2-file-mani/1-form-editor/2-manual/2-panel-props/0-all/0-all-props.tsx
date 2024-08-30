@@ -4,22 +4,7 @@ import { classNames } from "@/utils";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { editorFrameClasses } from "../../8-shared-styles";
 import { ChunkKey } from "@/store/manifest";
-
-// export function ManualPanelProps({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
-//     const items = useAtomValue(formAtoms.manual.chunksAtom);
-//     return (<>
-//         <div className="">
-//             {items.map(
-//                 (item, idx) => (
-//                     <div key={idx}>
-//                         {item.type}
-//                     </div>
-//                 ))
-//             }
-//         </div>
-//     </>);
-// }
-
+import { getPropsEditor } from "./2-get-panel";
 
 // import { gScriptState, selectedIdxAtom } from "@/store";
 // import { getPropsEditor } from "../props";
@@ -37,6 +22,8 @@ function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
         return <PanelPropsTitle />;
     }
 
+    const propsEditor = getPropsEditor({ scriptItem: selectedItem });
+
     // const { scriptItems: scriptItemsSnap } = useSnapshot(gScriptState);
     // const selectedRef = useAtomValue(selectedIdxAtom);
 
@@ -51,7 +38,7 @@ function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     return (<>
         <PanelPropsTitle type={selectedItem.type} />
         {/* <PanelPropsTitle type={scriptItemSnap.type} /> */}
-        {/* {propsEditor} */}
+        {propsEditor}
     </>);
 }
 

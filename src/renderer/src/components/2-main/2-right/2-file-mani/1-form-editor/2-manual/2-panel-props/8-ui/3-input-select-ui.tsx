@@ -109,7 +109,7 @@ type InputSelectUiProps = StringValueChangeProps & {
 //     );
 // }
 
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { ModifierDisplayText } from "@/store/manifest";
 
 export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProps) {
