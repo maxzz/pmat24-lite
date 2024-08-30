@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-
 import { PanelActionsTitle } from "./1-panel-title";
-//import { PanelActionsList } from "./2-panel-items";
+import { PanelActionsList } from "./2-panel-items";
 import { classNames } from "@/utils";
 
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
@@ -18,8 +17,8 @@ export function ManualPanelActions({ maniAtoms, formAtoms, formIdx }: MFormConte
         <div className={classNames("h-full min-h-[20rem] flex flex-col space-y-1 select-none", editorFrameClasses/*, focusWithinClasses*/)}>
             <PanelActionsTitle />
 
-            {/* <PanelActionsList /> */}
-            <div className="">
+            <PanelActionsList maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+            {/* <div className="">
                 {items.map(
                     (item, idx) => (
                         <div key={idx}>
@@ -27,7 +26,7 @@ export function ManualPanelActions({ maniAtoms, formAtoms, formIdx }: MFormConte
                         </div>
                     ))
                 }
-            </div>
+            </div> */}
         </div>
     );
 }
