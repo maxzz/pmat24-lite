@@ -1,20 +1,18 @@
-import { useSnapshot } from "valtio";
+import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
-import { ChunkKey } from "@/store/manifest";
+import { InputSelect } from "../../8-ui";
 import { actionKeys } from "@/store/manifest";
-import { InputSelect } from "../../ui";
 
-export function InputKey({ item }: { item: ManualFieldState.DlyForAtoms; }) {
-    const snap = useSnapshot(item);
+export function InputKey({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+    const [value, setValue] = useAtom(item.charAtom);
     return (
         <InputSelect
             items={actionKeys}
             label="Key"
             labelClasses="min-w-[9ch]"
             horizontal
-            value={snap.char}
-            onValueChange={(value) => item.char = value}
+            value={value.data}
+            onValueChange={(value) => setValue((prev) => ({ ...prev, data: value }))}
             title="Key for this action" />
     );
 }

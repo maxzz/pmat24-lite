@@ -1,5 +1,5 @@
 import { HTMLAttributes, useEffect } from "react";
-import { subscribe, useSnapshot } from "valtio";
+import { subscribe } from "valtio";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { buildState } from "./8-pos-build-state";
@@ -25,8 +25,8 @@ export function PropsEditorPos({ item, ...rest }: { item: ManualFieldState.PosFo
                 console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
                 //TODO: use debounce
 
-                setPosValueX((prev) => ({ ...prev, x: buildState.getPosProgress.point?.x || 0 }));
-                setPosValueY((prev) => ({ ...prev, y: buildState.getPosProgress.point?.y || 0 }));
+                setPosValueX((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.x || 0}` }));
+                setPosValueY((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.y || 0}` }));
             }
         );
         return unsubscribe;
