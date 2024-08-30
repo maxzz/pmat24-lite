@@ -1,8 +1,9 @@
 import { useAtomValue } from "jotai";
-import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { doSelectIdxAtom, type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { classNames } from "@/utils";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { editorFrameClasses } from "../../8-shared-styles";
+import { ChunkKey } from "@/store/manifest";
 
 // export function ManualPanelProps({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
 //     const items = useAtomValue(formAtoms.manual.chunksAtom);
@@ -27,7 +28,13 @@ import { editorFrameClasses } from "../../8-shared-styles";
 // import { PanelPropsTitle } from "./1-panel-props-title";
 
 
-function ItemPropsEditor() {
+function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
+    const ctx = formAtoms.manual;
+    const selectedAtom = useAtomValue(doSelectIdxAtom);
+    const chunks = useAtomValue(ctx.chunksAtom);
+
+
+
     // const { scriptItems: scriptItemsSnap } = useSnapshot(gScriptState);
 
     // const selectedRef = useAtomValue(selectedIdxAtom);
@@ -41,6 +48,7 @@ function ItemPropsEditor() {
     // const propsEditor = getPropsEditor({ scriptItem, scriptItemSnap });
 
     return (<>
+        <PanelPropsTitle type={"kbd"} />
         {/* <PanelPropsTitle type={scriptItemSnap.type} /> */}
         {/* {propsEditor} */}
     </>);
@@ -55,7 +63,7 @@ select-none";
 export function ManualPanelProps({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     return (
         <div className={classNames(PanelPropsClasses, editorFrameClasses/*, focusWithinClasses*/)}>
-            <ItemPropsEditor />
+            <ItemPropsEditor maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
         </div>
     );
 }
