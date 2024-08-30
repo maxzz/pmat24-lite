@@ -21,8 +21,6 @@ import { ChunkKey } from "@/store/manifest";
 // }
 
 
-// import { useSnapshot } from "valtio";
-// import { editorFrameClasses } from "@/components/ui/shared-styles";
 // import { gScriptState, selectedIdxAtom } from "@/store";
 // import { getPropsEditor } from "../props";
 // import { PanelPropsTitle } from "./1-panel-props-title";
@@ -30,13 +28,16 @@ import { ChunkKey } from "@/store/manifest";
 
 function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     const ctx = formAtoms.manual;
-    const selectedAtom = useAtomValue(doSelectIdxAtom);
+    const doSelectAtom = useAtomValue(doSelectIdxAtom);
     const chunks = useAtomValue(ctx.chunksAtom);
 
-
+    const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);
+    const selectedItem = chunks[selectedRef];
+    if (!selectedItem) {
+        return <PanelPropsTitle />;
+    }
 
     // const { scriptItems: scriptItemsSnap } = useSnapshot(gScriptState);
-
     // const selectedRef = useAtomValue(selectedIdxAtom);
 
     // const scriptItemSnap = scriptItemsSnap[selectedRef];
@@ -48,7 +49,7 @@ function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     // const propsEditor = getPropsEditor({ scriptItem, scriptItemSnap });
 
     return (<>
-        <PanelPropsTitle type={"kbd"} />
+        <PanelPropsTitle type={selectedItem.type} />
         {/* <PanelPropsTitle type={scriptItemSnap.type} /> */}
         {/* {propsEditor} */}
     </>);
