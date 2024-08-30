@@ -1,8 +1,8 @@
 import { type Getter, type Setter } from "jotai";
-import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type ScriptChunkEditorData } from "@/store/manifest";
+import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
 
-function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter, set: Setter): ScriptChunkEditorData {
+export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): EditorDataForOne {
     switch (scriptItem.type) {
         case "kbd": {
             const char = get(scriptItem.charAtom);
@@ -57,7 +57,7 @@ function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter, set: Sette
     }
 }
 
-export function fromAtoms(scriptItems: ManualFieldState.ForAtoms[], get: Getter, set: Setter): ScriptChunkEditorData[] {
-    const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, get, set));
+export function fromAtoms(scriptItems: ManualFieldState.ForAtoms[], get: Getter): EditorDataForOne[] {
+    const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, get));
     return chunks;
 }

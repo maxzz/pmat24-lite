@@ -1,6 +1,6 @@
-import { type Meta, type ScriptChunkEditorData, parseForEditor } from "@/store/manifest";
+import { type Meta, type EditorDataForOne, parseForEditor } from "@/store/manifest";
 
-export function forAtoms(metaFields: Meta.Field[]): ScriptChunkEditorData[] {
+export function forAtoms(metaFields: Meta.Field[]): EditorDataForOne[] {
     const chunks = parseForEditor(metaFields);
     return chunks;
 }

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, FieldTyp, Mani, Meta, ScriptChunkEditorData, uuid, ValueAs } from "@/store/manifest";
+import { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, FieldTyp, Mani, Meta, EditorDataForOne, uuid, ValueAs } from "@/store/manifest";
 import { ManualFieldState } from "../../../9-types";
 import { ManualFieldConv } from "../../../0-conv";
 import { OnChangeValueWithPpdateName } from "@/ui";
@@ -28,7 +28,7 @@ function createMetaField(): Meta.Field {
     return rv;
 }
 
-function createScriptItemByType(type: ChunkKey): ScriptChunkEditorData {
+function createScriptItemByType(type: ChunkKey): EditorDataForOne {
     switch (type) {
         case "fld": {
             const newItem: EditorDataForFld = {

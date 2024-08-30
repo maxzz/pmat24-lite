@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { SrcriptItemFld, SrcriptItemPos, SrcriptItemDly, SrcriptItemKey, ScriptItem } from "@/store";
+// import { SrcriptItemFld, SrcriptItemPos, SrcriptItemDly, SrcriptItemKey, ScriptItem } from "@/store";
 import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
 import { pluralWord } from "@/utils";
 

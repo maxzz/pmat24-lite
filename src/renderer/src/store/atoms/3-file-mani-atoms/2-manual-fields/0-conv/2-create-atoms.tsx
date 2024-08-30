@@ -1,11 +1,11 @@
 import { atom } from "jotai";
 import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
-import { type ScriptChunkEditorData, uuid } from "@/store/manifest";
+import { type EditorDataForOne, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 
-export function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms {
+export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
     switch (chunk.type) {
@@ -68,7 +68,7 @@ export function createAtom(chunk: ScriptChunkEditorData, onChange: OnChangeValue
     }
 }
 
-export function createAtoms(initialState: ScriptChunkEditorData[], onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms[] {
+export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms[] {
     const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, onChange));
     return scriptAtoms;
 }
