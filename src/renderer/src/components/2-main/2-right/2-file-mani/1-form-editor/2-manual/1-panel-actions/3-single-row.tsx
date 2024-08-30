@@ -5,6 +5,7 @@ import { MenuState, RowMenuButton } from "./4-row-popup-menu";
 import { rowColumnDetails } from "./5-get-row-icon-and-details";
 import { rowClasses, rowSelectedClasses } from "../8-shared-styles";
 import { classNames } from "@/utils";
+import { EditorDataForOne } from "@/store/manifest";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     ctx: ManualEditorState.ScriptAtoms;
@@ -18,11 +19,9 @@ const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-conten
 export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
-    //const chunkData = useAtomValue(ctx.chunksAtom);
-    useAtomValue(editorDataForAtom, chunk);
-
+    const chunkData: EditorDataForOne = useAtomValue(editorDataForAtom)(chunk);
     
-    const { icon, name, details } = rowColumnDetails(chunk);
+    const { icon, name, details } = rowColumnDetails(chunkData);
     return (
         <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses)} {...rest}>
             {icon}
