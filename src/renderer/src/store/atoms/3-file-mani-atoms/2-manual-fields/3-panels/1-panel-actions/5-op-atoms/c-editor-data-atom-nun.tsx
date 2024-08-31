@@ -8,3 +8,9 @@ export const editorDataForAtom = atom(
         return rv;
     }
 );
+
+// This is good for single access, but not for the access from multiple components
+/*
+    const isSelected = useAtomValue(chunk.selectedAtom);
+    const chunkData: EditorDataForOne = useAtomValue(editorDataForAtom)(chunk);
+*/

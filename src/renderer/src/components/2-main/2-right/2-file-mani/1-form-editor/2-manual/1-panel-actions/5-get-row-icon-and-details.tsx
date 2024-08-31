@@ -2,8 +2,9 @@ import { ReactNode } from "react";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 // import { SrcriptItemFld, SrcriptItemPos, SrcriptItemDly, SrcriptItemKey, ScriptItem } from "@/store";
 import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
-import { pluralWord } from "@/utils";
+import { pluralWord, toNumberWDefault1 } from "@/utils";
 import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/manifest";
+import { useAtomValue } from "jotai";
 
 const detailKeyClasses = "\
 px-1 py-px min-w-[1.5rem] text-[.55rem] leading-4 text-center \
@@ -28,6 +29,48 @@ const detailsKey = (item: EditorDataForKbd) => (
         </div>
     </div>
 );
+
+function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
+    return (
+        <div>
+            TODO
+        </div>
+    );
+}
+
+function DetailsDly({ item }: { item: ManualFieldState.DlyForAtoms; }) {
+    const n = useAtomValue(item.nAtom).data;
+    return (
+        <div>
+            {n}
+        </div>
+    );
+}
+
+function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
+    const x = useAtomValue(item.xAtom).data;
+    const y = useAtomValue(item.yAtom).data;
+    return (
+        <div>
+            x: {x}, y: {y}
+        </div>
+    );
+}
+
+function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+    const char = useAtomValue(item.charAtom).data;
+    const repeat = toNumberWDefault1(useAtomValue(item.repeatAtom).data);
+    return (
+        <div className="flex items-center space-x-1">
+            <div className={detailKeyClasses}>
+                {char}
+            </div>
+            <div>
+                {repeat} {pluralWord(repeat, 'time')}
+            </div>
+        </div>
+    );
+}
 
 export function rowColumnDetails(item: EditorDataForOne): { name: string; icon: ReactNode; details: ReactNode; } {
     switch (item.type) {

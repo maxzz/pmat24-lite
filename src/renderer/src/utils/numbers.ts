@@ -6,6 +6,14 @@ export function clamp(value: number, min: number, max: number): number {
     return Math.min(Math.max(value, min), max);
 }
 
+export const toNumberWDefault1 = (string: string) => { //mostly for plural and pluralWord
+    let n = parseInt(string);
+    if (Number.isNaN(n)) {
+        n = 1;
+    }
+    return n;
+}
+
 export function plural(n: number): string {
     return n === 1 ? '' : 's';
 }
