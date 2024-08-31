@@ -1,12 +1,17 @@
+import { HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { classNames } from "@/utils";
 import { PanelPropsTitle } from "./1-panel-props-title";
+import { ScriptItemPropsEditor } from "../2-props";
 import { editorFrameClasses, focusWithinClasses } from "../../8-shared-styles";
-import { getPropsEditor } from "./2-get-panel";
-import { HTMLAttributes } from "react";
+import { classNames } from "@/utils";
 
-function ItemPropsEditor({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
+const PanelPropsClasses = "\
+grid grid-rows-[auto,1fr] gap-2 \
+overflow-hidden \
+select-none";
+
+export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
     const ctx = ctxForm.formAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
@@ -16,23 +21,12 @@ function ItemPropsEditor({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
         return <PanelPropsTitle />;
     }
 
-    const propsEditor = getPropsEditor({ scriptItem: selectedItem });
-
-    return (<>
-        <PanelPropsTitle type={selectedItem.type} />
-        {propsEditor}
-    </>);
-}
-
-const PanelPropsClasses = "\
-grid grid-rows-[auto,1fr] gap-2 \
-overflow-hidden \
-select-none";
-
-export function ManualPanelProps({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(PanelPropsClasses, editorFrameClasses, focusWithinClasses, className)} {...rest}>
-            <ItemPropsEditor ctx={ctx} />
+
+            <PanelPropsTitle type={selectedItem.type} />
+            <ScriptItemPropsEditor item={selectedItem} />
+            
         </div>
     );
 }
