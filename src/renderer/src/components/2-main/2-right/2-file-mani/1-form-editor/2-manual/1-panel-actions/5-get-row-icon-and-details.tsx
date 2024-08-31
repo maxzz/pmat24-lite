@@ -59,15 +59,28 @@ function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     );
 }
 
-export function rowColumnDetails(item: ManualFieldState.ForAtoms): { name: ReactNode; icon: ReactNode; details: ReactNode; } {
+export function rowColumnDetails(item: ManualFieldState.ForAtoms): { name: ReactNode; icon: ReactNode; } {
     switch (item.type) {
-        case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsKbd({item}) };
-        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsFld({item}) };
-        case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsDly({item}) };
-        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: DetailsPos({item}) };
+        case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ };
+        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ };
+        case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ };
+        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ };
         default: {
             const really: never = item;
-            return { icon: null, name: '', details: '' };
+            return { icon: null, name: '', };
+        }
+    }
+}
+
+export function RowColumnDetails({ item }: { item: ManualFieldState.ForAtoms; }) {
+    switch (item.type) {
+        case 'kbd': return <DetailsKbd item={item} />;
+        case 'fld': return <DetailsFld item={item} />;
+        case 'dly': return <DetailsDly item={item} />;
+        case 'pos': return <DetailsPos item={item} />;
+        default: {
+            const really: never = item;
+            return null;
         }
     }
 }

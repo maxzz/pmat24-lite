@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type ManualEditorState, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./4-row-popup-menu";
-import { rowColumnDetails } from "./5-get-row-icon-and-details";
+import { RowColumnDetails, rowColumnDetails } from "./5-get-row-icon-and-details";
 import { rowClasses, rowSelectedClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
@@ -18,7 +18,7 @@ const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-conten
 export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
-    const { icon, name, details } = rowColumnDetails(chunk);
+    const { icon, name } = rowColumnDetails(chunk);
 
     return (
         <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses)} {...rest}>
@@ -29,7 +29,7 @@ export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProp
             </div>
 
             <div className="px-4 text-[.65rem] font-light">
-                {details}
+                <RowColumnDetails item={chunk} />
             </div>
 
             <RowMenuButton menuState={menuState} />
