@@ -10,17 +10,32 @@ px-1 py-px min-w-[1.5rem] text-[.55rem] leading-4 text-center \
 \
 bg-gradient-to-b from-primary-200/70 to-primary-300/20 dark:from-primary-700/70 dark:to-primary-600 \
 \
-border-primary-400 dark:border-primary-800 \
+border-primary-300 dark:border-primary-500 \
 \
 border rounded-sm \
 shadow-sm dark:shadow-inner dark:shadow-primary-300/20";
+
+function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+    const char = useAtomValue(item.charAtom).data;
+    const repeat = toNumberWDefault1(useAtomValue(item.repeatAtom).data);
+    return (
+        <div className="flex items-center  justify-between space-x-1">
+            <div>
+                {repeat} {pluralWord(repeat, 'time')}
+            </div>
+            <div className={detailKeyClasses}>
+                {char}
+            </div>
+        </div>
+    );
+}
 
 function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
     const name = useAtomValue(item.field.labelAtom) || 'Field';
     const type = useAtomValue(item.field.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
     return (
         <div>
-            {name} {type}
+            {name} {'<'}{type}{'>'}
         </div>
     );
 }
@@ -29,7 +44,7 @@ function DetailsDly({ item }: { item: ManualFieldState.DlyForAtoms; }) {
     const n = useAtomValue(item.nAtom).data;
     return (
         <div>
-            {n}
+            {n} ms
         </div>
     );
 }
@@ -44,27 +59,12 @@ function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     );
 }
 
-function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
-    const char = useAtomValue(item.charAtom).data;
-    const repeat = toNumberWDefault1(useAtomValue(item.repeatAtom).data);
-    return (
-        <div className="flex items-center space-x-1">
-            <div className={detailKeyClasses}>
-                {char}
-            </div>
-            <div>
-                {repeat} {pluralWord(repeat, 'time')}
-            </div>
-        </div>
-    );
-}
-
 export function rowColumnDetails(item: ManualFieldState.ForAtoms): { name: ReactNode; icon: ReactNode; details: ReactNode; } {
     switch (item.type) {
-        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsFld({item}) };
         case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsKbd({item}) };
-        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: DetailsPos({item}) };
+        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsFld({item}) };
         case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsDly({item}) };
+        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: DetailsPos({item}) };
         default: {
             const really: never = item;
             return { icon: null, name: '', details: '' };

@@ -13,7 +13,7 @@ export function App(): JSX.Element {
         <UISymbolDefs />
         {/* <SpyAllIcons includeSvgSymbols /> */}
 
-        <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden">
+        <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden debug-screens">
             <SectionHeader />
             <SectionMain />
             <SectionFooter />

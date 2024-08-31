@@ -6,27 +6,19 @@ import { PanelActionsList } from "./2-panel-items";
 import { classNames } from "@/utils";
 
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
-import { editorFrameClasses } from "../8-shared-styles";
+import { editorFrameClasses, focusWithinClasses } from "../8-shared-styles";
 
 export function ManualPanelActions({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
     // const cb = useInitSelectedIdx();
     // useEffect(() => { cb(); }, []);
 
     const items = useAtomValue(formAtoms.manual.chunksAtom);
+    
     return (
-        <div className={classNames("h-full min-h-[20rem] flex flex-col space-y-1 select-none", editorFrameClasses/*, focusWithinClasses*/)}>
+        <div className={classNames("h-full min-h-[20rem] flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses)}>
             <PanelActionsTitle />
 
             <PanelActionsList maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
-            {/* <div className="">
-                {items.map(
-                    (item, idx) => (
-                        <div key={idx}>
-                            {item.type}
-                        </div>
-                    ))
-                }
-            </div> */}
         </div>
     );
 }
