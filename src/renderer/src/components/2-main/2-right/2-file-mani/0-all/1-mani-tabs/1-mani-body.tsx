@@ -32,7 +32,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div className="flex-1 min-h-0 mt-1 p-2 pr-0 max-w-4xl rounded border-muted-foreground/20 border">
-                <div className="h-full w-full overflow-hidden" ref={ref}>
+                <div className="@container/tab-content h-full w-full overflow-hidden" ref={ref}>
                     <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                         <TabsContent value="options" tabIndex={-1}>

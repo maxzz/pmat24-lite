@@ -1,24 +1,23 @@
-import { useEffect } from "react";
+import { HTMLAttributes, useEffect } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelActionsTitle } from "./1-panel-title";
 import { PanelActionsList } from "./2-panel-items";
 import { classNames } from "@/utils";
-
-import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
+//import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
 import { editorFrameClasses, focusWithinClasses } from "../8-shared-styles";
 
-export function ManualPanelActions({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
+export function ManualPanelActions({ ctx, className, ...rest }: {ctx: MFormContextProps} & HTMLAttributes<HTMLDivElement>) {
     // const cb = useInitSelectedIdx();
     // useEffect(() => { cb(); }, []);
 
-    const items = useAtomValue(formAtoms.manual.chunksAtom);
+    const items = useAtomValue(ctx.formAtoms.manual.chunksAtom);
     
     return (
-        <div className={classNames("h-full min-h-[20rem] flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses)}>
+        <div className={classNames("flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses, className)} {...rest}>
             <PanelActionsTitle />
 
-            <PanelActionsList maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+            <PanelActionsList ctx={ctx} />
         </div>
     );
 }

@@ -6,8 +6,8 @@ import { rowParentActiveClasses } from "../8-shared-styles";
 import { classNames } from "@/utils";
 // import { ScrollList } from "./scroll-list";
 
-export function PanelActionsList({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
-    const ctx = formAtoms.manual;
+export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
+    const ctx = ctxForm.formAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectByKey = useSetAtom(doSelectByKbdAtom);

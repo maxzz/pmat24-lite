@@ -1,19 +1,13 @@
 import { useAtomValue } from "jotai";
-import { doSelectIdxAtom, type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { classNames } from "@/utils";
 import { PanelPropsTitle } from "./1-panel-props-title";
-import { editorFrameClasses } from "../../8-shared-styles";
-import { ChunkKey } from "@/store/manifest";
+import { editorFrameClasses, focusWithinClasses } from "../../8-shared-styles";
 import { getPropsEditor } from "./2-get-panel";
+import { HTMLAttributes } from "react";
 
-// import { gScriptState, selectedIdxAtom } from "@/store";
-// import { getPropsEditor } from "../props";
-// import { PanelPropsTitle } from "./1-panel-props-title";
-
-
-function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
-    const ctx = formAtoms.manual;
-    const doSelectAtom = useAtomValue(doSelectIdxAtom);
+function ItemPropsEditor({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
+    const ctx = ctxForm.formAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);
@@ -24,34 +18,21 @@ function ItemPropsEditor({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
 
     const propsEditor = getPropsEditor({ scriptItem: selectedItem });
 
-    // const { scriptItems: scriptItemsSnap } = useSnapshot(gScriptState);
-    // const selectedRef = useAtomValue(selectedIdxAtom);
-
-    // const scriptItemSnap = scriptItemsSnap[selectedRef];
-    // if (!scriptItemSnap) {
-    //     return <PanelPropsTitle />;
-    // }
-
-    // const scriptItem = gScriptState.scriptItems[selectedRef];
-    // const propsEditor = getPropsEditor({ scriptItem, scriptItemSnap });
-
     return (<>
         <PanelPropsTitle type={selectedItem.type} />
-        {/* <PanelPropsTitle type={scriptItemSnap.type} /> */}
         {propsEditor}
     </>);
 }
 
 const PanelPropsClasses = "\
-min-h-80 text-xs \
 grid grid-rows-[auto,1fr] gap-2 \
 overflow-hidden \
 select-none";
 
-export function ManualPanelProps({ maniAtoms, formAtoms, formIdx }: MFormContextProps) {
+export function ManualPanelProps({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames(PanelPropsClasses, editorFrameClasses/*, focusWithinClasses*/)}>
-            <ItemPropsEditor maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+        <div className={classNames(PanelPropsClasses, editorFrameClasses, focusWithinClasses, className)} {...rest}>
+            <ItemPropsEditor ctx={ctx} />
         </div>
     );
 }

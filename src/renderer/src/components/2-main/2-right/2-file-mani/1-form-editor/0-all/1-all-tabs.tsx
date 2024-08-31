@@ -3,7 +3,7 @@ import { NormalFormTabContent } from "./2-all-normal-tab-content";
 import { NoFormTabContent } from "./8-no-form-tab-content";
 import { useAtomValue } from "jotai";
 import { ManualFormTabContent } from "./3-all-manual-tab-content";
-import { MFormAtoms, NFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { MFormAtoms, MFormContextProps, NFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
 
@@ -25,8 +25,9 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
     if (formAtoms.manual) {
         const isMamual = metaForm.disp.isScript;
         if (isMamual) {
+            const ctx: MFormContextProps = { maniAtoms, formAtoms: formAtoms as MFormAtoms, formIdx };
             return (
-                <ManualFormTabContent maniAtoms={maniAtoms} formAtoms={formAtoms as MFormAtoms} formIdx={formIdx} />
+                <ManualFormTabContent ctx={ctx} />
             );
         }
     }
