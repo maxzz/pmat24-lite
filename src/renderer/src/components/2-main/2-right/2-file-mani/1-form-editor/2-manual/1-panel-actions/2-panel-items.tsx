@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemAtom, doSwapItemsAtom, MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { SingleRow } from "./3-single-row";
 import { MenuState } from "./4-row-popup-menu";
-import { rowParentActiveClasses } from "../8-shared-styles";
+import { rowParentActiveClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
 // import { ScrollList } from "./scroll-list";
 

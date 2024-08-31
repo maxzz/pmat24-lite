@@ -1,7 +1,6 @@
 import { HTMLAttributes } from "react";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
-import { propsBoxClasses } from "../../8-ui";
 
 export function InputDelay({ item }: { item: ManualFieldState.DlyForAtoms; }) {
     return (
@@ -16,9 +15,7 @@ export function InputDelay({ item }: { item: ManualFieldState.DlyForAtoms; }) {
 }
 
 export function PropsEditorDly({ item, ...rest }: { item: ManualFieldState.DlyForAtoms; } & HTMLAttributes<HTMLElement>) {
-    return (
-        <div className={propsBoxClasses} {...rest}>
-            <InputDelay item={item} />
-        </div>
-    );
+    return (<>
+        <InputDelay item={item} />
+    </>);
 }

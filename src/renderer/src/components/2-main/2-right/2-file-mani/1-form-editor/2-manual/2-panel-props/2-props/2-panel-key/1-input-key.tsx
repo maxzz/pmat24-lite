@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { InputSelect } from "../../8-ui";
+import { InputSelect } from "../../8-manual-props-ui";
 import { actionKeys } from "@/store/manifest";
 
 export function InputKey({ item }: { item: ManualFieldState.KbdForAtoms; }) {

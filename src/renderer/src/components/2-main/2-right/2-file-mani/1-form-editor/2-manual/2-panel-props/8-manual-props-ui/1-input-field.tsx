@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import { focusClasses } from "../../8-shared-styles";
+import { focusClasses } from "../../8-manual-shared-styles";
 
 const inputTextClasses = "\
 px-2 py-1 \

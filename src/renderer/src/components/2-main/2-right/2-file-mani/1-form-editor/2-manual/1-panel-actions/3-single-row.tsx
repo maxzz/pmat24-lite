@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { type ManualEditorState, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./4-row-popup-menu";
 import { rowColumnDetails } from "./5-get-row-icon-and-details";
-import { rowClasses, rowSelectedClasses } from "../8-shared-styles";
+import { rowClasses, rowSelectedClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {

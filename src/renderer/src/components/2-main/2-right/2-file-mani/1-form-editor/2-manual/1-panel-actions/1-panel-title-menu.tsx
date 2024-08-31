@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 //import { ScriptItemKey, createItemAtom } from "@/store";
 import * as Menu from "@radix-ui/react-dropdown-menu";
-import { focusClasses, menuContentClasses, menuItemClasses } from "../8-shared-styles";
+import { focusClasses, menuContentClasses, menuItemClasses } from "../8-manual-shared-styles";
 import { IconAdd } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { type ChunkKey } from "@/store/manifest";

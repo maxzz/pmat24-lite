@@ -3,8 +3,9 @@ import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditor } from "../2-props";
-import { editorFrameClasses, focusWithinClasses } from "../../8-shared-styles";
+import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
+import { propsBoxClasses } from "../8-manual-props-ui";
 
 const PanelPropsClasses = "\
 grid grid-rows-[auto,1fr] gap-2 \
@@ -25,8 +26,11 @@ export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MF
         <div className={classNames(PanelPropsClasses, editorFrameClasses, focusWithinClasses, className)} {...rest}>
 
             <PanelPropsTitle type={selectedItem.type} />
-            <ScriptItemPropsEditor item={selectedItem} />
-            
+
+            <div className={propsBoxClasses} {...rest}>
+                <ScriptItemPropsEditor item={selectedItem} />
+            </div>
+
         </div>
     );
 }
