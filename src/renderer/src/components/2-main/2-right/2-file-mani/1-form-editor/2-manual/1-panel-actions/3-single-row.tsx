@@ -19,9 +19,7 @@ const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-conten
 export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
-    const chunkData: EditorDataForOne = useAtomValue(editorDataForAtom)(chunk);
-    
-    const { icon, name, details } = rowColumnDetails(chunkData);
+    const { icon, name, details } = rowColumnDetails(chunk);
     return (
         <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses)} {...rest}>
             {icon}
@@ -38,3 +36,26 @@ export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProp
         </div>
     );
 }
+
+// export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps) {
+
+//     const isSelected = useAtomValue(chunk.selectedAtom);
+//     const chunkData: EditorDataForOne = useAtomValue(editorDataForAtom)(chunk);
+    
+//     const { icon, name, details } = rowColumnDetails(chunkData);
+//     return (
+//         <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses)} {...rest}>
+//             {icon}
+
+//             <div className="pl-3 pr-2 text-xs">
+//                 {name}
+//             </div>
+
+//             <div className="px-4 text-[.65rem] font-light">
+//                 {details}
+//             </div>
+
+//             <RowMenuButton menuState={menuState} />
+//         </div>
+//     );
+// }

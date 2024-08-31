@@ -72,15 +72,28 @@ function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     );
 }
 
-export function rowColumnDetails(item: EditorDataForOne): { name: string; icon: ReactNode; details: ReactNode; } {
+export function rowColumnDetails(item: ManualFieldState.ForAtoms): { name: ReactNode; icon: ReactNode; details: ReactNode; } {
     switch (item.type) {
-        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: detailsFld(item) };
-        case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ details: detailsKey(item) };
-        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: detailsPos(item) };
-        case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ details: detailsDly(item) };
+        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsFld({item}) };
+        case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsKbd({item}) };
+        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: DetailsPos({item}) };
+        case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ details: DetailsDly({item}) };
         default: {
             const really: never = item;
             return { icon: null, name: '', details: '' };
         }
     }
 }
+
+// export function rowColumnDetails(item: EditorDataForOne): { name: string; icon: ReactNode; details: ReactNode; } {
+//     switch (item.type) {
+//         case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ details: detailsFld(item) };
+//         case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ details: detailsKey(item) };
+//         case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ details: detailsPos(item) };
+//         case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ details: detailsDly(item) };
+//         default: {
+//             const really: never = item;
+//             return { icon: null, name: '', details: '' };
+//         }
+//     }
+// }
