@@ -1,8 +1,8 @@
 import { type Getter, type Setter } from 'jotai';
 import { type Meta } from '@/store/manifest';
-import { type NormalField, NormalFieldConv } from './0-conv';
+import { type NormalField, NormalFieldConv } from '../0-conv';
 import { type OnValueChangeAny } from '@/util-hooks';
-import { type FileUsParams, type ManiAtoms, setManiChanges } from "../../9-types";
+import { type FileUsParams, type ManiAtoms, setManiChanges } from "../../../9-types";
 import { debounce } from '@/utils';
 
 export namespace NormalFieldState {

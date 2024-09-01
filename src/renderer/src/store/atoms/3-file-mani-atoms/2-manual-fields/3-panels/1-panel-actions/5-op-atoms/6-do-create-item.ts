@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { ManualEditorState } from "../../../9-types";
 import { ChunkKey } from "@/store/manifest";
-import { createScriptItem } from "./a-create-script-item";
+import { createScriptItem } from "../../../2-create-new-field";
 
 export const doCreateItemAtom = atom(
     null,

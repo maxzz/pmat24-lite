@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
-import { type FileUsParams, type ManiAtoms } from "../9-types";
-import { type ManualFieldState, type ManualEditorState, ManualFieldConv } from "../2-manual-fields/0-conv";
-import { chunksToCompareString } from "./0-conv/4-comparison";
+import { type FileUsParams, type ManiAtoms } from "../../9-types";
+import { type ManualFieldState, type ManualEditorState, ManualFieldConv } from "../0-conv";
+import { chunksToCompareString } from "../0-conv/4-comparison";
 
 export namespace ManualFieldsState {
 

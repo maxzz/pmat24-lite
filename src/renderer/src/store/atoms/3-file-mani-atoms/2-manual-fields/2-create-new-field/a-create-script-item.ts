@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, FieldTyp, Mani, Meta, EditorDataForOne, uuid, ValueAs } from "@/store/manifest";
-import { ManualFieldState } from "../../../9-types";
-import { ManualFieldConv } from "../../../0-conv";
+import { ManualFieldState } from "../9-types";
+import { ManualFieldConv } from "../0-conv";
 import { OnChangeValueWithUpdateName } from "@/ui";
 
 function createForManualManiField(): Mani.Field {
