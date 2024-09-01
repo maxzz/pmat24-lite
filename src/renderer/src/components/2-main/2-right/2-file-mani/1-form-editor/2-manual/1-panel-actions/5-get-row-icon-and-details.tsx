@@ -3,17 +3,17 @@ import { useAtomValue } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
 import { pluralWord, toNumberWDefault1 } from "@/utils";
-import { FieldTyp } from "@/store/manifest";
+import { ChunkKey, FieldTyp } from "@/store/manifest";
 
 const detailKeyClasses = "\
 px-1 py-px min-w-[1.5rem] text-[.55rem] leading-4 text-center \
 \
-bg-gradient-to-b from-primary-200/70 to-primary-300/20 dark:from-primary-700/70 dark:to-primary-600 \
+bg-gradient-to-b from-primary-50/50 to-primary-100/50 dark:from-primary-800/50 dark:to-primary-700/50 \
 \
 border-primary-300 dark:border-primary-500 \
 \
 border rounded-sm \
-shadow-sm dark:shadow-inner dark:shadow-primary-300/20";
+shadow-sm dark:shadow-inner dark:shadow-primary-400/20";
 
 function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     const char = useAtomValue(item.charAtom).data;
@@ -34,8 +34,11 @@ function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
     const name = useAtomValue(item.field.labelAtom) || 'Field';
     const type = useAtomValue(item.field.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
     return (
-        <div>
-            {name} {'<'}{type}{'>'}
+        <div className="flex items-center justify-between">
+            {name}
+            <span className={detailKeyClasses}>
+                {type}
+            </span>
         </div>
     );
 }
@@ -59,21 +62,8 @@ function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     );
 }
 
-export function rowColumnDetails(item: ManualFieldState.ForAtoms): { name: ReactNode; icon: ReactNode; } {
-    switch (item.type) {
-        case 'kbd': return { name: "Keystroke" /**/, icon: <IconKey className="ml-2 opacity-50 size-4" />,      /**/ };
-        case 'fld': return { name: "Field"     /**/, icon: <IconFld className="ml-2 opacity-50 size-4" />,      /**/ };
-        case 'dly': return { name: "Delay"     /**/, icon: <IconDly className="ml-2 opacity-50 size-4" />,      /**/ };
-        case 'pos': return { name: "Position"  /**/, icon: <IconPos className="ml-2 opacity-50 size-4 mt-1" />, /**/ };
-        default: {
-            const really: never = item;
-            return { icon: null, name: '', };
-        }
-    }
-}
-
-export function rowColumnName(item: ManualFieldState.ForAtoms): string {
-    switch (item.type) {
+export function rowColumnName(type: ChunkKey): string {
+    switch (type) {
         case 'kbd': return "Keystroke";
         case 'fld': return "Field";
         case 'dly': return "Delay";
@@ -84,14 +74,14 @@ export function rowColumnName(item: ManualFieldState.ForAtoms): string {
     }
 }
 
-export function RowColumnIcon({ item }: { item: ManualFieldState.ForAtoms; }) {
-    switch (item.type) {
+export function RowColumnIcon({ type }: { type: ChunkKey; }) {
+    switch (type) {
         case 'kbd': return <IconKey className="ml-2 opacity-50 size-4" />;
         case 'fld': return <IconFld className="ml-2 opacity-50 size-4" />;
         case 'dly': return <IconDly className="ml-2 opacity-50 size-4" />;
         case 'pos': return <IconPos className="ml-2 opacity-50 size-4 mt-1" />;
         default: {
-            const really: never = item;
+            const really: never = type;
             return null;
         }
     }
