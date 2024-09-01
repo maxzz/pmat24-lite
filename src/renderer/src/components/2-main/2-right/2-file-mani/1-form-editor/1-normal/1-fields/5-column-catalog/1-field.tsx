@@ -25,7 +25,8 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
     fieldCatAtom: PA<string>;
     onSelectCatItem: (item: CatalogItem | undefined) => void;
-    maniField: Mani.Field;
+    maniIsPassword: boolean | undefined;
+    maniDbName: string;
 };
 
 const CATALOG_Not = "Not from catalog";
@@ -33,9 +34,9 @@ const CATALOG_More = "More fields ...";
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
     
-    const { useItAtom, onSelectCatItem, fieldCatAtom, maniField, className, ...rest } = props;
+    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, ...rest } = props;
 
-    const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniField.password, maniField.dbname);
+    const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniIsPassword, maniDbName);
 
     const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname), '-', CATALOG_More];
     let catalogItemIdx = (catalogItem ? catalogItemsByType.findIndex((item) => item === catalogItem) : -1) + 1; // +1 to skip CATALOG_Not

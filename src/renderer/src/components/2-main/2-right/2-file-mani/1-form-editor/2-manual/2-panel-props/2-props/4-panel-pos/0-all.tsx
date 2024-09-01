@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { HTMLAttributes, useEffect } from "react";
 import { subscribe } from "valtio";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
@@ -14,7 +14,7 @@ import { InputXY } from "./2-input-xy";
 //     return n;
 // }
 
-export function PropsEditorPos({ item, ...rest }: { item: ManualFieldState.PosForAtoms; } & HTMLAttributes<HTMLElement>) {
+export function PropsEditorPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     const setPosValueX = useSetAtom(item.xAtom);
     const setPosValueY = useSetAtom(item.yAtom);
 

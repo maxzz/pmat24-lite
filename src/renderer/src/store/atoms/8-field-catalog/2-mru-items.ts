@@ -39,13 +39,18 @@ function buildMruWItem(mru: CatalogItem[], item: CatalogItem | undefined): Catal
 }
 
 export const getMruFldCatForItemAtom = atom(
-    (get) => (isPsw: boolean | undefined, dbname: string | undefined) => {
-        const catalogItem = get(fldCatItemAtom)(dbname);
-        let catalogItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
-        catalogItemsByType = buildMruWItem(catalogItemsByType, catalogItem);
-        return {
-            catalogItemsByType,
-            catalogItem,
-        };
+    (get) => {
+        function fn(isPsw: boolean | undefined, dbname: string | undefined) {
+            const catalogItem = get(fldCatItemAtom)(dbname);
+            
+            let catalogItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
+            catalogItemsByType = buildMruWItem(catalogItemsByType, catalogItem);
+
+            return {
+                catalogItemsByType,
+                catalogItem,
+            };
+        }
+        return fn;
     }
 );

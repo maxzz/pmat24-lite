@@ -23,23 +23,18 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
     }
 
     if (formAtoms.manual) {
-        const isMamual = metaForm.disp.isScript;
-        if (isMamual) {
-            const ctx: MFormContextProps = { maniAtoms, formAtoms: formAtoms as MFormAtoms, formIdx };
-            return (
-                <ManualFormTabContent ctx={ctx} />
-            );
-        }
+        const ctx: MFormContextProps = { maniAtoms, formAtoms: formAtoms as MFormAtoms, formIdx };
+        return (
+            <ManualFormTabContent ctx={ctx} />
+        );
     }
 
-    if(!formAtoms.normal) {
-        return null;
+    if (formAtoms.normal) {
+        const ctx: NFormContextProps = { maniAtoms, formAtoms: formAtoms as NFormAtoms, formIdx };
+        return (
+            <div className="mr-1 h-full flex flex-col">
+                <NormalFormTabContent ctx={ctx} />
+            </div>
+        );
     }
-
-    const ctx: NFormContextProps = { maniAtoms, formAtoms: formAtoms as NFormAtoms, formIdx };
-    return (
-        <div className="mr-1 h-full flex flex-col">
-            <NormalFormTabContent ctx={ctx} />
-        </div>
-    );
 }

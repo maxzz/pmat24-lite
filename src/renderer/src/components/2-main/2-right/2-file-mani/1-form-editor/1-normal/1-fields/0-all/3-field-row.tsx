@@ -46,7 +46,8 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: NormalFieldsState.A
             useItAtom={useItAtom}
             fieldCatAtom={dbnameAtom}
             onSelectCatItem={onSelectCatItem}
-            maniField={maniField}
+            maniIsPassword={maniField.password}
+            maniDbName={maniField.dbname}
             onClick={enableRow}
         />
 
