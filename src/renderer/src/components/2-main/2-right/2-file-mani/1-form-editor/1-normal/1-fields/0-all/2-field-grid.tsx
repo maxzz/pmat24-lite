@@ -1,13 +1,13 @@
-import { AnyFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { FieldRow } from "./3-field-row";
 import { TableHeader, fieldsGridClasses } from "./4-table-header";
 
-export function FieldsGrid({ formAtoms }: { formAtoms: AnyFormAtoms; }) {
+export function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
     return (
         <div className={fieldsGridClasses}>
             <TableHeader />
 
-            {formAtoms.normal?.fieldsAtoms.map(
+            {ctx.formAtoms.normal.fieldsAtoms.map(
                 (fieldRowAtoms, idx) => (
                     <FieldRow fieldRowAtoms={fieldRowAtoms} key={idx} />
                 ))

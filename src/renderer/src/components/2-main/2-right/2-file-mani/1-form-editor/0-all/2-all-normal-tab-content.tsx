@@ -2,16 +2,16 @@ import { type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { FormSectionsAccordion, SubSection } from "./9-sections-ui";
 import { TabFields, TabSubmit } from "../1-normal";
 
-export function NormalFormTabContent({ maniAtoms, formAtoms, formIdx }: NFormContextProps) {
+export function NormalFormTabContent({ ctx }: { ctx: NFormContextProps; }) {
     return (<>
-        <FormSectionsAccordion formIdx={formIdx}>
+        <FormSectionsAccordion formIdx={ctx.formIdx}>
 
             <SubSection value="fields" label="Form fields">
-                <TabFields maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+                <TabFields ctx={ctx} />
             </SubSection>
 
             <SubSection value="submit" label="Form submit options">
-                <TabSubmit maniAtoms={maniAtoms} formAtoms={formAtoms} formIdx={formIdx} />
+                <TabSubmit ctx={ctx} />
             </SubSection>
 
         </FormSectionsAccordion>

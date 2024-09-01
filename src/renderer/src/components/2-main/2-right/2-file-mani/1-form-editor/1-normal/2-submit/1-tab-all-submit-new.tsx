@@ -2,10 +2,10 @@ import { useAtomValue, useAtom } from "jotai";
 import { type NFormContextProps, type NormalFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
-function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
+function ManiSection2_Submit({ ctx }: { ctx: NFormContextProps; }) {
 
-    const buttonNames = useAtomValue(formAtoms.submitAtoms.buttonNamesAtom);
-    const [selected, setSelected] = useAtom(formAtoms.submitAtoms.selectedAtom);
+    const buttonNames = useAtomValue(ctx.formAtoms.normal.submitAtoms.buttonNamesAtom);
+    const [selected, setSelected] = useAtom(ctx.formAtoms.normal.submitAtoms.selectedAtom);
 
     return (
         <Select value={selected.toString()} onValueChange={(value) => { console.log(value); setSelected(+value); }}>
@@ -30,11 +30,11 @@ function ManiSection2_Submit({ formAtoms }: { formAtoms: NormalFormAtoms; }) {
     );
 }
 
-export function TabSubmit({ formAtoms }: NFormContextProps) {
+export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
     //const metaForm = formAtoms.fileUsParams.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="p-1">
-            <ManiSection2_Submit formAtoms={formAtoms.normal} />
+            <ManiSection2_Submit ctx={ctx} />
         </div>
     );
 }

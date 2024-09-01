@@ -1,9 +1,9 @@
-import { FileUs, FormIdx } from "@/store/store-types";
+import { type FileUs, type FormIdx } from "@/store/store-types";
+import { type MFormAtoms, type MFormContextProps, type NFormAtoms, type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { NormalFormTabContent } from "./2-all-normal-tab-content";
 import { NoFormTabContent } from "./8-no-form-tab-content";
 import { useAtomValue } from "jotai";
 import { ManualFormTabContent } from "./3-all-manual-tab-content";
-import { MFormAtoms, MFormContextProps, NFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 
 export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
 
@@ -36,9 +36,10 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
         return null;
     }
 
+    const ctx: NFormContextProps = { maniAtoms, formAtoms: formAtoms as NFormAtoms, formIdx };
     return (
         <div className="mr-1 h-full flex flex-col">
-            <NormalFormTabContent maniAtoms={maniAtoms} formAtoms={formAtoms as NFormAtoms} formIdx={formIdx} />
+            <NormalFormTabContent ctx={ctx} />
         </div>
     );
 }
