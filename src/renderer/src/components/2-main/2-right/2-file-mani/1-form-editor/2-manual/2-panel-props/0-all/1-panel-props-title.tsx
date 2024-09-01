@@ -1,29 +1,37 @@
 import { type ChunkKey } from "@/store/manifest";
-import { getRowIconAndText } from "../../1-panel-actions/6-get-row-icon-and-text";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
+import { RowColumnIcon, rowColumnName } from "../../1-panel-actions/1-row-parts";
 
-export function PanelPropsTitle({ type }: { type?: ChunkKey | undefined; }) {
+export function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
+    const dispName = rowColumnName(type);
 
-    const { name, icon } = getRowIconAndText(type);
-    const ending = name
+    const ending = dispName
         ? 'properties'
         : 'No action selected';
 
+    return (<>
+        <div>
+            {dispName}
+            <span className="text-xs font-light">
+                {' '}{ending}
+            </span>
+        </div>
+
+        <div className="opacity-50">
+            <RowColumnIcon type={type} />
+        </div>
+
+    </>);
+}
+
+export function PanelPropsTitle({ type }: { type?: ChunkKey | undefined; }) {
+    if (!type) {
+        return null;
+    }
     return (
         <div className="-mx-1 -mt-1">
             <div className={panelEditorTitleClasses}>
-
-                <div>
-                    {name}{' '}
-                    <span className="text-xs font-light">
-                        {ending}
-                    </span>
-                </div>
-
-                <div className="opacity-50">
-                    {icon}
-                </div>
-
+                <PanelPropsTitleBody type={type} />
             </div>
         </div>
     );

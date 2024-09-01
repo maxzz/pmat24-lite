@@ -5,20 +5,20 @@ import { focusClasses, menuContentClasses, menuItemClasses } from "../8-manual-s
 import { IconAdd } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { type ChunkKey } from "@/store/manifest";
-import { getRowIconAndText } from "./6-get-row-icon-and-text";
+import { RowColumnIcon, rowColumnName } from "./1-row-parts";
 
 function MenuRow({ type }: { type: ChunkKey; }) {
     // const createItem = useSetAtom(createItemAtom);
-    const { icon, name } = getRowIconAndText(type);
+    const dispName = rowColumnName(type);
     return (
         <Menu.Item
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
             // onClick={() => createItem(type)}
         >
-            {icon}
+            <RowColumnIcon type={type} />
 
             <div>
-                {name}
+                {dispName}
             </div>
         </Menu.Item>
     );
