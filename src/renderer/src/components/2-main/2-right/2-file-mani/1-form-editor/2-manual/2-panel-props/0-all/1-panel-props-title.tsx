@@ -1,6 +1,7 @@
 import { type ChunkKey } from "@/store/manifest";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
-import { RowColumnIcon, rowColumnName } from "../../1-panel-actions/1-row-parts";
+import { chunkIconClasses, RowColumnIcon, rowColumnName } from "../../1-panel-actions/1-row-parts";
+import { classNames } from "@/utils";
 
 export function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
     const dispName = rowColumnName(type);
@@ -18,7 +19,7 @@ export function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
         </div>
 
         <div className="opacity-50">
-            <RowColumnIcon type={type} />
+            <RowColumnIcon type={type} className={classNames(chunkIconClasses, "!opacity-100")} />
         </div>
 
     </>);

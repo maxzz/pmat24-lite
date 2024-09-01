@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type ManualEditorState, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./4-row-popup-menu";
-import { RowColumnDetails, RowColumnIcon, rowColumnName } from "./1-row-parts";
+import { chunkIconClasses, RowColumnDetails, RowColumnIcon, rowColumnName } from "./1-row-parts";
 import { rowClasses, rowSelectedClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
 

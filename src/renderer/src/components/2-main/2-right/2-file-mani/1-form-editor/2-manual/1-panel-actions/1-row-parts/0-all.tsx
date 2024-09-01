@@ -1,3 +1,4 @@
+import { SVGProps } from "react";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type ChunkKey } from "@/store/manifest";
 import { DetailsKbd } from "./1-details-key";
@@ -19,12 +20,14 @@ export function rowColumnName(type: ChunkKey): string {
     }
 }
 
-export function RowColumnIcon({ type }: { type: ChunkKey; }) {
+export const chunkIconClasses = "ml-2 opacity-50 size-4";
+
+export function RowColumnIcon({ type, className = chunkIconClasses }: { type: ChunkKey; } & SVGProps<SVGSVGElement>) {
     switch (type) {
-        case 'kbd': return <IconKey className="ml-2 opacity-50 size-4" />;
-        case 'fld': return <IconFld className="ml-2 opacity-50 size-4" />;
-        case 'dly': return <IconDly className="ml-2 opacity-50 size-4" />;
-        case 'pos': return <IconPos className="ml-2 opacity-50 size-4 mt-1" />;
+        case 'kbd': return <IconKey className={className} />;
+        case 'fld': return <IconFld className={className} />;
+        case 'dly': return <IconDly className={className} />;
+        case 'pos': return <IconPos className={className} />;
         default: {
             const really: never = type;
             return null;
