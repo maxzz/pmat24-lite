@@ -1,7 +1,8 @@
 import type { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { useAtomValue } from "jotai";
 import { FieldTyp } from "pm-manifest";
-import { detailKeyClasses } from "./1-details-key";
+import { detailKbdClasses } from "./1-details-key";
+import { classNames } from "@/utils";
 
 function FieldName({ item }: { item: ManualFieldState.FldForAtoms; }) {
     const name = useAtomValue(item.field.labelAtom) || 'Field';
@@ -18,7 +19,7 @@ export function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
         <div className="hidden @[300px]/actions:flex items-center justify-between">
             <FieldName item={item} />
 
-            <span className={detailKeyClasses}>
+            <span className={classNames(detailKbdClasses, "font-normal")}>
                 {type}
             </span>
         </div>

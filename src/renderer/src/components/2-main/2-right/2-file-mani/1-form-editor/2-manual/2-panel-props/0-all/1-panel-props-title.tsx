@@ -25,13 +25,12 @@ export function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
 }
 
 export function PanelPropsTitle({ type }: { type?: ChunkKey | undefined; }) {
-    if (!type) {
-        return null;
-    }
     return (
         <div className="-mx-1 -mt-1">
             <div className={panelEditorTitleClasses}>
-                <PanelPropsTitleBody type={type} />
+                {type && (
+                    <PanelPropsTitleBody type={type} />
+                )}
             </div>
         </div>
     );
