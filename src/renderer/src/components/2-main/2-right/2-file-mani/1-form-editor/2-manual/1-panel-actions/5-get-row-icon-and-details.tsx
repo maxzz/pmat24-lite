@@ -19,7 +19,7 @@ function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     const char = useAtomValue(item.charAtom).data;
     const repeat = toNumberWDefault1(useAtomValue(item.repeatAtom).data);
     return (
-        <div className="flex items-center  justify-between space-x-1">
+        <div className="hidden @[300px]/actions:flex items-center justify-between space-x-1">
             <div>
                 {repeat} {pluralWord(repeat, 'time')}
             </div>
@@ -34,7 +34,7 @@ function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
     const name = useAtomValue(item.field.labelAtom) || 'Field';
     const type = useAtomValue(item.field.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
     return (
-        <div className="flex items-center justify-between">
+        <div className="hidden @[300px]/actions:flex items-center justify-between">
             {name}
             <span className={detailKeyClasses}>
                 {type}
@@ -46,7 +46,7 @@ function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
 function DetailsDly({ item }: { item: ManualFieldState.DlyForAtoms; }) {
     const n = useAtomValue(item.nAtom).data;
     return (
-        <div>
+        <div className="hidden @[300px]/actions:block">
             {n} ms
         </div>
     );
@@ -56,7 +56,7 @@ function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     const x = useAtomValue(item.xAtom).data;
     const y = useAtomValue(item.yAtom).data;
     return (
-        <div>
+        <div className="hidden @[300px]/actions:block">
             x: {x}, y: {y}
         </div>
     );
