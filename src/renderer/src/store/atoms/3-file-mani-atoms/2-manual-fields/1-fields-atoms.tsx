@@ -1,9 +1,8 @@
 import { atom } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
-import { OnChangeValueWithPpdateName } from "@/ui/local-ui/1-input-validate";
 import { type FileUsParams, type ManiAtoms } from "../9-types";
 import { type ManualFieldState, type ManualEditorState, ManualFieldConv } from "../2-manual-fields/0-conv";
-import { chunksToString } from "./0-conv/4-comparison";
+import { chunksToCompareString } from "./0-conv/4-comparison";
 
 export namespace ManualFieldsState {
 
@@ -16,16 +15,24 @@ export namespace ManualFieldsState {
 
         const chunks = ManualFieldConv.forAtoms(fields);
 
-        const onChangeItem: OnChangeValueWithPpdateName = (updateName: string) => {
-            return (value: any) => {
+        function onChangeItem(updateName: string) {
+            function fn(value: any) {
                 console.log('onChange', updateName, value);
-            };
-        };
+            }
+            return fn;
+        }
+
+        // const onChange = (updateName: string) => {
+        //     return ({ get, set, nextValue }: OnValueChangeParams<any>) => {
+        //         console.log('TODO: doCreateItemAtom.onChange', updateName);
+        //     }
+        // }
 
         function onChangeOrder({ get, set }) {
-            return (value: any) => {
+            function fn(value: any) {
                 console.log('onChange', value);
-            };
+            }
+            return fn;
         }
 
         const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
@@ -34,8 +41,10 @@ export namespace ManualFieldsState {
 
         const rv: ManualEditorState.ScriptAtoms = {
             chunksAtom: chunksAtom,
-            initialChunks: chunksToString(forAtoms),
+            initialChunks: chunksToCompareString(forAtoms),
             selectedIdxStoreAtom: atom(0),
+            onChangeItem,
+            onChangeOrder,
         };
 
         return rv;

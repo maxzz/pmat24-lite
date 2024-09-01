@@ -1,8 +1,8 @@
 import { atomWithCallback } from '@/util-hooks';
-import { type OnChangeValueWithPpdateName, newAtomForCheck, newAtomForInput, validateManifestName, validateNumber } from "@/ui";
+import { type OnChangeValueWithUpdateName, newAtomForCheck, newAtomForInput, validateManifestName, validateNumber } from "@/ui";
 import { type ManiOptions } from "./9-types";
 
-export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange: OnChangeValueWithPpdateName): ManiOptions.FormOptionsAtoms {
+export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange: OnChangeValueWithUpdateName): ManiOptions.FormOptionsAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
 
     const rv: ManiOptions.FormOptionsAtoms = {

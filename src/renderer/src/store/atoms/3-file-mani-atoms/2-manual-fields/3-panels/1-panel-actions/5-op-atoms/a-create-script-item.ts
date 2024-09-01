@@ -2,9 +2,9 @@ import { atom } from "jotai";
 import { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, FieldTyp, Mani, Meta, EditorDataForOne, uuid, ValueAs } from "@/store/manifest";
 import { ManualFieldState } from "../../../9-types";
 import { ManualFieldConv } from "../../../0-conv";
-import { OnChangeValueWithPpdateName } from "@/ui";
+import { OnChangeValueWithUpdateName } from "@/ui";
 
-function createManiField(): Mani.Field {
+function createForManualManiField(): Mani.Field {
     const rv: Mani.Field = {
         type: "edit",
         displayname: '',
@@ -13,16 +13,16 @@ function createManiField(): Mani.Field {
     return rv;
 }
 
-function createMetaField(): Meta.Field {
+function createForManualMetaField(): Meta.Field {
     const rv: Meta.Field = {
-        mani: createManiField(),
+        mani: createForManualManiField(),
         ftyp: FieldTyp.text,
         life: {
             valueAs: ValueAs.askReuse,
         },
         path: {},
-        pidx: 0, //TODO: initiate with correct value
-        ridx: 0, //TODO: initiate with correct value
+        pidx: 0, // index is irrelevant for manual fields for now
+        ridx: 0, // index is irrelevant for manual fields for now
         uuid: uuid.asRelativeNumber(),
     };
     return rv;
@@ -33,7 +33,7 @@ function createScriptItemByType(type: ChunkKey): EditorDataForOne {
         case "fld": {
             const newItem: EditorDataForFld = {
                 type: 'fld',
-                field: createMetaField(),
+                field: createForManualMetaField(),
             };
             return newItem;
         }
@@ -72,13 +72,13 @@ function createScriptItemByType(type: ChunkKey): EditorDataForOne {
     }
 }
 
-export function createScriptItem(type: ChunkKey, onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms {
+export function createScriptItem(type: ChunkKey, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType(type), onChange);
     return rv;
 }
 
 // ./6-do-create-item.ts
-// TODO: make doCreateItemAtom.onChange real
+// TODO: make doCreateItemAtom.onChange real - done
 
 // ./a-create-script-item.ts
 // pidx: 0, //TODO: initiate with correct value

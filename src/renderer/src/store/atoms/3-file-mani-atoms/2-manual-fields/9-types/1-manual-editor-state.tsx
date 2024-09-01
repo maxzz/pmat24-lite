@@ -1,5 +1,7 @@
-import { PrimitiveAtom } from "jotai";
-import { ManualFieldState } from "./2-manual-field-state";
+import { type PrimitiveAtom } from "jotai";
+import { type OnValueChangeAny } from "@/util-hooks";
+import { type OnChangeValueWithUpdateName } from "@/ui/local-ui/1-input-validate";
+import { type ManualFieldState } from "./2-manual-field-state";
 
 export namespace ManualEditorState {
     
@@ -33,6 +35,8 @@ export namespace ManualEditorState {
         chunksAtom: PrimitiveAtom<ManualFieldState.ForAtoms[]>;
         initialChunks: string;              // initial chunks as concatenated string of uuids to compare with
         selectedIdxStoreAtom: PrimitiveAtom<number>;
+        onChangeItem: OnChangeValueWithUpdateName;
+        onChangeOrder: OnValueChangeAny;
     };
 }
 

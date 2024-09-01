@@ -3,9 +3,9 @@ import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { newAtomForCheck, newAtomForInput, OnChangeValueWithPpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
+import { newAtomForCheck, newAtomForInput, OnChangeValueWithUpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 
-export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms {
+export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
     switch (chunk.type) {
@@ -68,7 +68,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithP
     }
 }
 
-export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithPpdateName): ManualFieldState.ForAtoms[] {
+export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms[] {
     const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, onChange));
     return scriptAtoms;
 }
