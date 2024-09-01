@@ -18,3 +18,5 @@ export function getRowIconAndText(type: ChunkKey | undefined): { icon: ReactNode
         }
     }
 }
+
+//TODO: use 1-row-parts instead of this file
