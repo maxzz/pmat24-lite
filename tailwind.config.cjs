@@ -23,6 +23,7 @@ export default {
         require('./tailwind/tailwind-plugin-shadcn-feedback.mts'),
         require('./tailwind/tailwind-plugin-shadcn-mani'),
         require("./tailwind/tailwind-plugin-overflow-overlay"),
+        require("@tailwindcss/container-queries"),
         require("tailwind-scrollbar"),
         require('@tailwindcss/forms')({ strategy: 'class' }),
     ],
