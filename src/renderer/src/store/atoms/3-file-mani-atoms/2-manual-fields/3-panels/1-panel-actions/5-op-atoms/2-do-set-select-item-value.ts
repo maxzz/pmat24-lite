@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { ManualEditorState } from "../../../9-types";
 import { deselectCurrent } from "./5-deselect-current";
 
-export const doSetSelectItemAtom = atom(
+export const doSetSelectItemValueAtom = atom(
     null,
     (get, set, ctx: ManualEditorState.ScriptAtoms, idx: number, value: boolean | ((v: boolean) => boolean)) => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);

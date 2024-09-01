@@ -1,5 +1,5 @@
 export * from "./1-do-select-idx";
-export * from "./2-do-set-select-item";
+export * from "./2-do-set-select-item-value";
 export * from "./3-do-select-item-by-kbd";
 export * from "./4-use-init-selected-idx";
 export * from "./5-deselect-current";

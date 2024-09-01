@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { swap, swapImmutable } from "@/utils";
 import { ManualEditorState } from "../../../9-types";
-import { doSetSelectItemAtom } from "./2-do-set-select-item";
+import { doSetSelectItemValueAtom } from "./2-do-set-select-item-value";
 
 export const doSwapItemsAtom = atom(
     null,
@@ -14,6 +14,6 @@ export const doSwapItemsAtom = atom(
         const newChunks = swapImmutable(chuncks, idxCurrent, idxNew);
         set(ctx.chunksAtom, newChunks);
 
-        set(doSetSelectItemAtom, ctx, idxNew, true);
+        set(doSetSelectItemValueAtom, ctx, idxNew, true);
     }
 );

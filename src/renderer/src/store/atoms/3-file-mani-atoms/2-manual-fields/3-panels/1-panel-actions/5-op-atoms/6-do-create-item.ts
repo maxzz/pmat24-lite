@@ -1,7 +1,8 @@
 import { atom } from "jotai";
-import { ManualEditorState } from "../../../9-types";
 import { ChunkKey } from "@/store/manifest";
+import { ManualEditorState } from "../../../9-types";
 import { createScriptItem } from "../../../2-create-new-chunk";
+import { doSelectIdxAtom } from "./1-do-select-idx";
 
 export const doCreateItemAtom = atom(
     null,
@@ -9,11 +10,12 @@ export const doCreateItemAtom = atom(
 
         const newItem = createScriptItem(type, ctx.onChangeItem);
 
-        let chuncks = get(ctx.chunksAtom);
-        chuncks.push(newItem);
-        set(ctx.chunksAtom, chuncks);
+        let chunks = get(ctx.chunksAtom);
+        const newChunks = [...chunks];
+        newChunks.push(newItem);
+        set(ctx.chunksAtom, newChunks);
 
-        set(ctx.selectedIdxStoreAtom, chuncks.length - 1);
+        set(doSelectIdxAtom, ctx, newChunks.length - 1);
     }
 );
 
