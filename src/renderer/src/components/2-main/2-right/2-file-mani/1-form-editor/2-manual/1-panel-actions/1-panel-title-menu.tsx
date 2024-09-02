@@ -7,13 +7,13 @@ import { focusClasses, menuContentClasses, menuItemClasses } from "../8-manual-s
 import { IconAdd } from "@/ui/icons";
 import { classNames } from "@/utils";
 
-function MenuRow({ ctx, type }: { ctx: MFormContextProps; type: ChunkKey; }) {
+function MenuRow({ ctx, type, password }: { ctx: MFormContextProps; type: ChunkKey; password?: boolean; }) {
     const doCreateItem = useSetAtom(doCreateItemAtom);
     const dispName = rowColumnName(type);
     return (
         <Menu.Item
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
-            onClick={() => doCreateItem(ctx.formAtoms.manual, type)}
+            onClick={() => doCreateItem(ctx.formAtoms.manual, type, !!password)}
         >
             <RowColumnIcon type={type} />
 

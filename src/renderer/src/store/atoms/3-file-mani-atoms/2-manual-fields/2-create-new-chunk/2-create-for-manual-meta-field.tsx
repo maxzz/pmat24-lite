@@ -1,9 +1,9 @@
 import { FieldTyp, type Meta, uuid, ValueAs } from "@/store/manifest";
 import { createForManualManiField } from "./1-create-for-manual-mani-field";
 
-export function createForManualMetaField(): Meta.Field {
+export function createForManualMetaField(password: boolean): Meta.Field {
     const rv: Meta.Field = {
-        mani: createForManualManiField(),
+        mani: createForManualManiField(password),
         ftyp: FieldTyp.text,
         life: {
             valueAs: ValueAs.askReuse,

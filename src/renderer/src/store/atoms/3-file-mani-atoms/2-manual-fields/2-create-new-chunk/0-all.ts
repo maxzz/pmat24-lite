@@ -4,12 +4,12 @@ import type { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, Ed
 import { ManualFieldConv } from "../0-conv";
 import { createForManualMetaField } from "./2-create-for-manual-meta-field";
 
-function createScriptItemByType(type: ChunkKey): EditorDataForOne {
+function createScriptItemByType({ type, password }: { type: ChunkKey; password: boolean; }): EditorDataForOne {
     switch (type) {
         case "fld": {
             const newItem: EditorDataForFld = {
                 type: 'fld',
-                field: createForManualMetaField(),
+                field: createForManualMetaField(password),
             };
             return newItem;
         }
@@ -48,8 +48,8 @@ function createScriptItemByType(type: ChunkKey): EditorDataForOne {
     }
 }
 
-export function createScriptItem(type: ChunkKey, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
-    const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType(type), onChange);
+export function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
+    const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType({type, password}), onChange);
     return rv;
 }
 

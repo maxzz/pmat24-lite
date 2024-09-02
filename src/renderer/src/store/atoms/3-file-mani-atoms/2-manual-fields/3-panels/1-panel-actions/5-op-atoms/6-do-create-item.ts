@@ -6,9 +6,9 @@ import { doSelectIdxAtom } from "./1-do-select-idx";
 
 export const doCreateItemAtom = atom(
     null,
-    (get, set, ctx: ManualEditorState.ScriptAtoms, type: ChunkKey) => {
+    (get, set, ctx: ManualEditorState.ScriptAtoms, type: ChunkKey, password: boolean) => {
 
-        const newItem = createScriptItem(type, ctx.onChangeItem);
+        const newItem = createScriptItem(type, password, ctx.onChangeItem);
 
         let chunks = get(ctx.chunksAtom);
         const newChunks = [...chunks];
