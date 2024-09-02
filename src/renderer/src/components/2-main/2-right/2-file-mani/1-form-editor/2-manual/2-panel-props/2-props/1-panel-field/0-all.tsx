@@ -2,15 +2,15 @@ import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { Column3_Label } from "../../../../1-normal/1-fields/3-column-label";
 import { Column4_Value } from "../../../../1-normal/1-fields/4-column-value";
 import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog";
-import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { CatalogItem } from "@/store/manifest";
 import { InputLabel } from "../../8-manual-props-ui/1-input-label";
 import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
+import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
 // import { SrcriptItemFld } from "@/store";
 
 export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, labelAtom, typeAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = item.field;
+    const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.field;
 
     /*TODO:*/ function enableRow() { }
     /*TODO:*/ function onSelectCatItem(item: CatalogItem | undefined) { }
@@ -57,15 +57,6 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
             />
         </InputLabel>
 
-        {/* If psw */}
-        <InputLabel label="Policy">
-            <Column6_Policy
-                useItAtom={useItAtom}
-                policiesAtom={policiesAtom}
-                metaField={metaField}
-                onClick={enableRow}
-            />
-        </InputLabel>
-
+        <ManualFieldPolicy item={item} />
     </>);
 }
