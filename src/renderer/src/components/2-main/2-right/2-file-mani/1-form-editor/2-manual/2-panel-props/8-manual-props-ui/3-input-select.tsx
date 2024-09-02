@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import { ModifierDisplayText } from "@/store/manifest";
-import { InputSelectUi, StringValueChangeProps } from "./3-input-select-ui";
+import { InputSelectUi, StringValueChangeProps } from "./4-input-select-ui";
 import { classNames } from "@/utils";
 
 type InputSelectProps = InputHTMLAttributes<HTMLInputElement> & StringValueChangeProps & {
