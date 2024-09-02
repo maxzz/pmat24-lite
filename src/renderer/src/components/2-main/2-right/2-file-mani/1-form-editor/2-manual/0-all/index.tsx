@@ -12,4 +12,5 @@ export function ManualFields({ ctx }: {ctx: MFormContextProps}) {
         </div>
     </>);
 }
-//@sm/tab-content:grid-rows-2
+
+//TODO: check focus-within when added new item from the empty list
