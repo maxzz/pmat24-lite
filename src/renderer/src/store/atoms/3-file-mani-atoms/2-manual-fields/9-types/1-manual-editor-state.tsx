@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type OnValueChangeAny } from "@/util-hooks";
-import { type OnChangeValueWithUpdateName } from "@/ui/local-ui/1-input-validate";
+import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type ManualFieldState } from "./2-manual-field-state";
 
 export namespace ManualEditorState {

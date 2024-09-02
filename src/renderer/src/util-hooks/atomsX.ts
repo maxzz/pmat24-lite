@@ -1,10 +1,10 @@
 import { atom, Getter, PrimitiveAtom, SetStateAction, Setter, WritableAtom } from 'jotai';
 
-// version: 04.03.24, 05.07.24
+// version: 04.03.24, 05.07.24, 09.02.24
 
 export type OnValueChangeParams<Value = any> = { get: Getter; set: Setter; nextValue: Value; };
 export type OnValueChange<Value> = ({ get, set, nextValue }: OnValueChangeParams<Value>) => void;
-export type OnValueChangeAny = ({ get, set }: { get: Getter; set: Setter; }) => void;
+export type OnValueChangeAny = ({ get, set, nextValue }: { get: Getter; set: Setter; nextValue: any; }) => void;
 
 export function atomWithCallback<Value>(initialValue: Value, onValueChange: OnValueChange<Value>): WritableAtom<Value, [update: SetStateAction<Value>], void> {
     const baseAtom = atom(initialValue);

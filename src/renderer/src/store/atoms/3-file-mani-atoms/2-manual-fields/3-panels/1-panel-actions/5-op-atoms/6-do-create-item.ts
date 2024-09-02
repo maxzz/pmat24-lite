@@ -8,7 +8,7 @@ export const doCreateItemAtom = atom(
     null,
     (get, set, ctx: ManualEditorState.ScriptAtoms, type: ChunkKey, password: boolean) => {
 
-        const newItem = createScriptItem(type, password, ctx.onChangeItem);
+        const newItem = createScriptItem(type, password, ctx.onChangeItem); // `man-fld-${uid5}`
 
         let chunks = get(ctx.chunksAtom);
         const newChunks = [...chunks];
