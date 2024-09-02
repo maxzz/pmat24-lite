@@ -5,6 +5,7 @@ import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog"
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { CatalogItem } from "@/store/manifest";
 import { InputLabel } from "../../8-manual-props-ui/1-input-label";
+import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
 // import { SrcriptItemFld } from "@/store";
 
 export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
@@ -24,14 +25,8 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
             <InputField label="Reference" />
             <InputField label="Value" /> */}
 
-
         <InputLabel label="Type">
-            <Column3_Label
-                useItAtom={useItAtom}
-                // valueAtom={typeAtom}
-                valueAtom={labelAtom}
-                onClick={enableRow}
-            />
+            <ManualFieldType item={item} />
         </InputLabel>
 
         <InputLabel label="Label">
