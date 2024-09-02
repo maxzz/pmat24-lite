@@ -8,9 +8,6 @@ export type FileUsCtx = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     formIdx: FormIdx;
-
-    isWeb?: boolean;                    // If it's form for website
-    isManual?: boolean;                 // If it's a manual mode form
 };
 
 //

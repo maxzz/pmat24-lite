@@ -13,13 +13,12 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
         return;
     }
 
-    fileUsCtx.isWeb = !!metaForm.disp.domain;
-    fileUsCtx.isManual = metaForm.disp.isScript;
+    const isManual = metaForm.disp.isScript;
 
     let normalFormAtoms: NormalFormAtoms | undefined;
     let manualFormAtoms: ManualFormAtoms | undefined;
 
-    if (fileUsCtx.isManual) {
+    if (isManual) {
         manualFormAtoms = ManualFieldsState.createUiAtoms(fileUsCtx, maniAtoms);
     } else {
         normalFormAtoms = {

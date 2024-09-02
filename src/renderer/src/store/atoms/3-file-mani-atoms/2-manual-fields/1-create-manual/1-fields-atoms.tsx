@@ -16,25 +16,22 @@ export namespace ManualFieldsState {
 
         const chunks = ManualFieldConv.forAtoms(fields);
 
-        function onChangeWithScope(ctx: ManualEditorState.ScriptAtoms, get: Getter, set: Setter) {
-            console.log('on Change w/ scope', ctx, get, set);
-        }
-
         function onChangeItem(updateName: string) {
-            return function onChangeWName({ get, set }) {
-                onChangeWithScope(rv, get, set);
+            function onChangeWName({ get, set }) {
+                onChangeWithScope(ctx, updateName, get, set);
             };
+            return onChangeWName;
         }
 
         function onChangeOrder({ get, set }) {
-            console.log('onChange', rv);
+            onChangeWithScope(ctx, 'form', get, set);
         }
 
         const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
 
         const chunksAtom = atomWithCallback(forAtoms, onChangeOrder);
 
-        const rv: ManualEditorState.ScriptAtoms = {
+        const ctx: ManualEditorState.ScriptAtoms = {
             chunksAtom: chunksAtom,
             initialChunks: chunksToCompareString(forAtoms),
             selectedIdxStoreAtom: atom(0),
@@ -42,6 +39,15 @@ export namespace ManualFieldsState {
             onChangeOrder,
         };
 
-        return rv;
+        return ctx;
     }
+}
+
+function onChangeWithScope(ctx: ManualEditorState.ScriptAtoms, updateName: string, get: Getter, set: Setter) {
+    if (updateName === 'form') {
+        console.log(`on Change w/ scope form "${updateName}"`, ctx, get, set);
+        return;
+    }
+        
+    console.log(`on Change w/ scope item "${updateName}"`, ctx, get, set);
 }
