@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani } from "@/store/manifest";
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
+import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
 import { doClosePolicyDlgAtom } from "./1-close-atom";
@@ -24,9 +24,14 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
         doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false });
     }
 
-    const dlgUiAtoms = useMemo(() => {
-        return createUiAtoms(policies, ({ get, set }) => debouncedCombinedResultFromAtoms(dlgUiAtoms, get, set));
-    }, [policies.policy, policies.policy2, policies.options]);
+    const dlgUiAtoms = useMemo(
+        () => {
+            function onChange({ get, set }) {
+                onChangeWithScopeDebounced(dlgUiAtoms, get, set);
+            }
+            return createUiAtoms(policies, onChange);
+        }, [policies.policy, policies.policy2, policies.options]
+    );
 
     useEffect(() => {
         doInitialAtomsSetup({ dlgUiAtoms });

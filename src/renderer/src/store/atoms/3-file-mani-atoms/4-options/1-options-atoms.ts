@@ -14,7 +14,7 @@ export namespace OptionsState {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
-                debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, updateName, get, set, nextValue);
+                onChangeWithScopeDebounced(fileUsParams, maniAtoms, updateName, get, set, nextValue);
             };
         };
 
@@ -25,9 +25,7 @@ export namespace OptionsState {
     }
 }
 
-const debouncedCombinedResultFromAtoms = debounce(combineOptionsFromAtoms);
-
-function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
+function onChangeWithScope(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
     const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsParams.formIdx]!.options;
 
     if (nextValue.dirty) {
@@ -42,3 +40,5 @@ function combineOptionsFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtom
     // console.log('         initValue', JSON.stringify(nextValue.initialData));
     // console.log('         nextValue', JSON.stringify(nextValue));
 }
+
+const onChangeWithScopeDebounced = debounce(onChangeWithScope);

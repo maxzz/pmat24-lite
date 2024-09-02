@@ -16,7 +16,7 @@ export namespace NormalSubmitState {
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {
-            debouncedCombinedResultFromAtoms(fileUsParams, maniAtoms, get, set);
+            onChangeWithScopeDebounced(fileUsParams, maniAtoms, get, set);
         }
 
         const rv: Atoms = {
@@ -30,7 +30,7 @@ export namespace NormalSubmitState {
         return rv;
     }
 
-    function combineResultFromAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, get: Getter, set: Setter) {
+    function onChangeWithScope(fileUsParams: FileUsParams, maniAtoms: ManiAtoms, get: Getter, set: Setter) {
         const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
         if (!nomalFormAtoms) {
             return;
@@ -47,5 +47,5 @@ export namespace NormalSubmitState {
         console.log('changes submit:', [...changes.keys()]);
     }
 
-    export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+    const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 }

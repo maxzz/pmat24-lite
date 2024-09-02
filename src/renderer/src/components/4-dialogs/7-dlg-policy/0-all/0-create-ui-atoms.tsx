@@ -21,10 +21,10 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
     return rv;
 }
 
-function combineResultFromAtoms(dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms, get: Getter, set: Setter) {
+function onChangeWithScope(dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms, get: Getter, set: Setter) {
     const dlgUi = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
     const changed = !PolicyDlgConv.areTheSame(dlgUi, dlgUiAtoms.fromFile);
     dlgUiAtoms.changed = changed;
 }
 
-export const debouncedCombinedResultFromAtoms = debounce(combineResultFromAtoms);
+export const onChangeWithScopeDebounced = debounce(onChangeWithScope);

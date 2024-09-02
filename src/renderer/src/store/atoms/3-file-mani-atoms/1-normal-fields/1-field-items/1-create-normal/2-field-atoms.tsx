@@ -24,7 +24,7 @@ export namespace NormalFieldState {
         set: Setter;
     };
 
-    function onChange(fieldIdx: number, { fileUsParams, maniAtoms, get, set }: onChangeProps) {
+    function onChangeWithScope(fieldIdx: number, { fileUsParams, maniAtoms, get, set }: onChangeProps) {
         const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
         if (!nomalFormAtoms) {
             return;
@@ -46,5 +46,5 @@ export namespace NormalFieldState {
         /**/
     }
 
-    export const debouncedOnChange = debounce(onChange);
+    export const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 }

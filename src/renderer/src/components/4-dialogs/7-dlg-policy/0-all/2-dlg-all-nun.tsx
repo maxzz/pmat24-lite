@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Mani } from "@/store/manifest";
-import { createUiAtoms, debouncedCombinedResultFromAtoms } from "./0-create-ui-atoms";
+import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { Button, Dialog, DialogContent, DialogTrigger } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
 
@@ -15,7 +15,7 @@ export function PolicyEditorDlg_Nun({ field }: { field: Mani.Field; }) {
                 options: field.options || '',
             },
             ({ get, set }) => {
-                debouncedCombinedResultFromAtoms(atoms, get, set);
+                onChangeWithScopeDebounced(atoms, get, set);
             })
     )[0];
 

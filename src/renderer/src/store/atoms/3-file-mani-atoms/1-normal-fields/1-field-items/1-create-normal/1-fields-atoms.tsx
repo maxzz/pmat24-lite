@@ -1,3 +1,4 @@
+import { type Getter, type Setter } from 'jotai';
 import { FieldTyp, type Meta } from '@/store/manifest';
 import { type NormalField } from '../0-conv';
 import { type FileUsParams, type ManiAtoms } from "../../../9-types";
@@ -18,8 +19,8 @@ export namespace NormalFieldsState {
 
         function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
 
-            function onChange({ get, set }) {
-                return NormalFieldState.debouncedOnChange(idx, { fileUsParams, maniAtoms, get, set });
+            function onChange({ get, set }: { get: Getter, set: Setter }) {
+                NormalFieldState.onChangeWithScopeDebounced(idx, { fileUsParams, maniAtoms, get, set });
             }
 
             const rowAtoms = NormalFieldState.createUiAtoms(field, onChange);
