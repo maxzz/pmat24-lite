@@ -8,7 +8,7 @@ export function ManualFields({ ctx }: {ctx: MFormContextProps}) {
     return (<>
         <div className="pr-2 min-w-60 grid grid-cols-1 @[600px]:grid-cols-2 gap-1">
             <ManualPanelActions className="@container/actions h-full min-h-[20rem]" ctx={ctx} />
-            <ManualPanelProps className="@container/props min-h-80 text-xs" ctx={ctx} />
+            <ManualPanelProps className="@container/props min-h-[340px] text-xs" ctx={ctx} />
         </div>
     </>);
 }

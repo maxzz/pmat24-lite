@@ -6,22 +6,19 @@ import { FieldTyp } from "pm-manifest";
 
 export function ManualFieldPolicy({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, labelAtom, typeAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = item.field;
+    const { useItAtom, typeAtom, policiesAtom, metaField } = item.field;
 
     const isPassword = useAtomValue(typeAtom) === FieldTyp.psw;
     if (!isPassword) {
         return null;
     }
 
-    /*TODO:*/ function enableRow() { }
-
     return (
-        <InputLabel label="Policy">
+        <InputLabel label="Policy" horizontal>
             <Column6_Policy
                 useItAtom={useItAtom}
                 policiesAtom={policiesAtom}
                 metaField={metaField}
-                onClick={enableRow}
             />
         </InputLabel>
     );

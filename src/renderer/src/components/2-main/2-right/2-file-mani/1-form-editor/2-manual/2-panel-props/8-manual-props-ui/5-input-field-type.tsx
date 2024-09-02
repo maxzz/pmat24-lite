@@ -5,14 +5,12 @@ import { InputLabel } from "./1-input-label";
 export function ManualFieldType({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
     const { useItAtom, labelAtom, typeAtom } = item.field;
-    /*TODO:*/ function enableRow() { }
 
     return (
         <Column3_Label
             useItAtom={useItAtom}
             // valueAtom={typeAtom}
             valueAtom={labelAtom}
-            onClick={enableRow}
         />
     );
 }

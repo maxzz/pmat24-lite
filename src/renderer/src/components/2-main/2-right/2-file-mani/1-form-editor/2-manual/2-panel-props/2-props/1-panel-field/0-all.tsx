@@ -12,7 +12,6 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
 
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.field;
 
-    /*TODO:*/ function enableRow() { }
     /*TODO:*/ function onSelectCatItem(item: CatalogItem | undefined) { }
     /*TODO:*/ const maniIsPassword = false;
     /*TODO:*/ const maniDbName = "123";
@@ -33,7 +32,6 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
             <Column3_Label
                 useItAtom={useItAtom}
                 valueAtom={labelAtom}
-                onClick={enableRow}
             />
         </InputLabel>
 
@@ -42,7 +40,6 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
                 useItAtom={useItAtom}
                 valueLifeAtom={valueLifeAtom}
                 choosevalue={""}
-                onClick={enableRow}
             />
         </InputLabel>
 
@@ -53,7 +50,6 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }
                 onSelectCatItem={onSelectCatItem}
                 maniIsPassword={maniIsPassword}
                 maniDbName={maniDbName}
-                onClick={enableRow}
             />
         </InputLabel>
 
