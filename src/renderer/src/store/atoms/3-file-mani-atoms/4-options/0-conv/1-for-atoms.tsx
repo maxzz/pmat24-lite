@@ -1,8 +1,8 @@
-import { type FileUsParams } from "../../9-types";
+import { type FileUsCtx } from "../../9-types";
 import { type ManiOptions } from "./9-types";
 
-export function forAtoms(fileUsParams: FileUsParams): ManiOptions.OptionsForAtoms {
-    const { fileUs, formIdx } = fileUsParams;
+export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
+    const { fileUs, formIdx } = fileUsCtx;
 
     const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
     const maniForm = metaForm.mani;

@@ -1,8 +1,7 @@
-import { type Getter, type Setter } from 'jotai';
 import { type Meta } from '@/store/manifest';
 import { type NormalField, NormalFieldConv } from '../0-conv';
 import { type OnValueChangeAny } from '@/util-hooks';
-import { type FileUsParams, type ManiAtoms, setManiChanges } from "../../../9-types";
+import { type OnChangeProps, setManiChanges } from "../../../9-types";
 import { debounce } from '@/utils';
 
 export namespace NormalFieldState {
@@ -17,15 +16,8 @@ export namespace NormalFieldState {
         };
     }
 
-    type onChangeProps = {
-        fileUsParams: FileUsParams;
-        maniAtoms: ManiAtoms;
-        get: Getter;
-        set: Setter;
-    };
-
-    function onChangeWithScope(fieldIdx: number, { fileUsParams, maniAtoms, get, set }: onChangeProps) {
-        const nomalFormAtoms = maniAtoms[fileUsParams.formIdx]!.normal;
+    function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+        const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
         if (!nomalFormAtoms) {
             return;
         }
@@ -36,7 +28,7 @@ export namespace NormalFieldState {
         const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);
         atoms.changed = changed;
 
-        const changes = setManiChanges(fileUsParams, changed, `${fileUsParams.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
+        const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
         /** /
         const str1 = JSON.stringify(state.policies, null, 2);

@@ -1,38 +1,38 @@
 import { proxySet } from "valtio/utils";
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
-import { type ManualFormAtoms, type NormalFormAtoms, type FileUsParams, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
+import { type ManualFormAtoms, type NormalFormAtoms, type FileUsCtx, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
 import { NormalFieldsState, NormalSubmitState } from "../../1-normal-fields";
 import { OptionsState } from "../../4-options";
 import { ManualFieldsState } from "../../2-manual-fields";
 
-function createFormAtoms(fileUsParams: FileUsParams, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
+function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
 
-    const { fileUs, formIdx } = fileUsParams;
+    const { fileUs, formIdx } = fileUsCtx;
     const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
     if (!metaForm) {
         return;
     }
 
-    fileUsParams.isWeb = !!metaForm.disp.domain;
-    fileUsParams.isManual = metaForm.disp.isScript;
+    fileUsCtx.isWeb = !!metaForm.disp.domain;
+    fileUsCtx.isManual = metaForm.disp.isScript;
 
     let normalFormAtoms: NormalFormAtoms | undefined;
     let manualFormAtoms: ManualFormAtoms | undefined;
 
-    if (fileUsParams.isManual) {
-        manualFormAtoms = ManualFieldsState.createUiAtoms(fileUsParams, maniAtoms);
+    if (fileUsCtx.isManual) {
+        manualFormAtoms = ManualFieldsState.createUiAtoms(fileUsCtx, maniAtoms);
     } else {
         normalFormAtoms = {
-            fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsParams, maniAtoms),
-            submitAtoms: NormalSubmitState.createUiAtoms(fileUsParams, maniAtoms),
+            fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsCtx, maniAtoms),
+            submitAtoms: NormalSubmitState.createUiAtoms(fileUsCtx, maniAtoms),
         };
     }
 
     const rv: AnyFormAtoms = {
         normal: normalFormAtoms,
         manual: manualFormAtoms,
-        options: OptionsState.createAtoms(fileUsParams, maniAtoms),
-        fileUsParams,
+        options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
+        fileUsCtx: fileUsCtx,
     };
 
     return rv;

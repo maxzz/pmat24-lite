@@ -1,13 +1,13 @@
 import { proxySet } from "valtio/utils";
-import { FileUsParams } from "./1-mani-atoms";
+import { FileUsCtx } from "./1-mani-atoms";
 
 export type ChangesSet = Set<string>;
 
 // fileUs changes
 
-export function setManiChanges(fileUsParams: FileUsParams, changed: boolean, changeName: string): ChangesSet {
+export function setManiChanges(fileUsCtx: FileUsCtx, changed: boolean, changeName: string): ChangesSet {
     
-    const fileUs = fileUsParams.fileUs;
+    const fileUs = fileUsCtx.fileUs;
     
     const changes = fileUs.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
