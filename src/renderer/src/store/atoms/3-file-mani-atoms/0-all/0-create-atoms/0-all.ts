@@ -15,21 +15,21 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
 
     const isManual = metaForm.disp.isScript;
 
-    let normalFormAtoms: NFormCtx | undefined;
-    let manualFormAtoms: MFormCtx | undefined;
+    let normal: NFormCtx | undefined;
+    let manual: MFormCtx | undefined;
 
     if (isManual) {
-        manualFormAtoms = ManualFieldsState.createUiAtoms(fileUsCtx, maniAtoms);
+        manual = ManualFieldsState.createUiAtoms(fileUsCtx, maniAtoms);
     } else {
-        normalFormAtoms = {
+        normal = {
             fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsCtx, maniAtoms),
             submitAtoms: NormalSubmitState.createUiAtoms(fileUsCtx, maniAtoms),
         };
     }
 
     const rv: AnyFormAtoms = {
-        normal: normalFormAtoms,
-        manual: manualFormAtoms,
+        normal,
+        manual,
         options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
         fileUsCtx: fileUsCtx,
     };
