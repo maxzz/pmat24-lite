@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import type { Getter, Setter } from "jotai";
 import { useAtomCallback } from "jotai/utils";
-import { type ManualFormAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { doSetSelectItemValueAtom } from "./2-do-set-select-item-value";
 
-export function useInitSelectedIdx(ctx: ManualFormAtoms) {
+export function useInitSelectedIdx(ctx: MFormCtx) {
     const cb = useAtomCallback(
         useCallback(
             (get: Getter, set: Setter) => {

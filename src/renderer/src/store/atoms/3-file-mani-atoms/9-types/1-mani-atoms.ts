@@ -12,12 +12,12 @@ export type FileUsCtx = {
 
 //
 
-export type NormalFormAtoms = {
+export type NFormCtx = {
     fieldsAtoms: NormalFieldsState.Atoms[];
     submitAtoms: NormalSubmitState.Atoms;
 };
 
-export type ManualFormAtoms = ManualEditorState.ScriptAtoms;
+export type MFormCtx = ManualEditorState.ScriptAtoms;
 
 //
 
@@ -28,14 +28,14 @@ type FormOptionsAndFileUsCtxAtoms = {
 
 export type AnyFormAtoms = Prettify<
     & {
-        normal?: NormalFormAtoms;           // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-        manual?: ManualFormAtoms;           // If form is not manual then it'll dummy empty []
+        normal?: NFormCtx;                  // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+        manual?: MFormCtx;                  // If form is not manual then it'll dummy empty []
     }
     & FormOptionsAndFileUsCtxAtoms
 >;
 
-export type NFormAtoms = Prettify<{ normal: NormalFormAtoms; } & FormOptionsAndFileUsCtxAtoms>;
-export type MFormAtoms = Prettify<{ manual: ManualFormAtoms; } & FormOptionsAndFileUsCtxAtoms>;
+export type NFormAtoms = Prettify<{ normal: NFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
+export type MFormAtoms = Prettify<{ manual: MFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
 
 //
 
