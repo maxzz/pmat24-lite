@@ -36,11 +36,8 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
     const rv: any = [];
     const maniAtoms = rv as ManiAtoms;
 
-    const changesSet = proxySet<string>();
-
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
-    rv.push(changesSet);
 
     return rv;
 }

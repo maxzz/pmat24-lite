@@ -1,4 +1,4 @@
-export * from "./0-create-atoms";
+export * from "./0-create-mani-ctx-atoms";
 export * from "./1-create-mani-atom";
 export * from "./2-save-main-atom";
 export * from "./3-save-right-panel-atom";
