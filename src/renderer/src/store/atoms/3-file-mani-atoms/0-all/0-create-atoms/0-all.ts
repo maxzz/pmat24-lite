@@ -23,7 +23,7 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
     } else {
         normal = {
             fieldsAtoms: NormalFieldsState.createFieldsCtx(fileUsCtx, maniAtoms),
-            submitAtoms: NormalSubmitState.createUiAtoms(fileUsCtx, maniAtoms),
+            submitAtoms: NormalSubmitState.createSubmitCtx(fileUsCtx, maniAtoms),
         };
     }
 

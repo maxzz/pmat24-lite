@@ -6,7 +6,7 @@ export namespace NormalSubmitState {
 
     export type Atoms = SubmitConvTypes.SubmitAtoms;
 
-    export function createUiAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
+    export function createSubmitCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
 
         const { fileUs, formIdx } = fileUsCtx;
 
