@@ -21,9 +21,9 @@ export type ManualFormAtoms = ManualEditorState.ScriptAtoms;
 
 //
 
-export type AnyFormOptionsAtoms = {
-    options: OptionsState.Atoms;
+type FormOptionsAndFileUsCtxAtoms = {
     fileUsCtx: FileUsCtx;
+    options: OptionsState.Atoms;
 };
 
 export type AnyFormAtoms = Prettify<
@@ -31,22 +31,11 @@ export type AnyFormAtoms = Prettify<
         normal?: NormalFormAtoms;           // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
         manual?: ManualFormAtoms;           // If form is not manual then it'll dummy empty []
     }
-    & AnyFormOptionsAtoms
+    & FormOptionsAndFileUsCtxAtoms
 >;
 
-export type NFormAtoms = Prettify<
-    & {
-        normal: NormalFormAtoms;
-    }
-    & AnyFormOptionsAtoms
->;
-
-export type MFormAtoms = Prettify<
-    & {
-        manual: ManualFormAtoms;
-    }
-    & AnyFormOptionsAtoms
->;
+export type NFormAtoms = Prettify<{ normal: NormalFormAtoms; } & FormOptionsAndFileUsCtxAtoms>;
+export type MFormAtoms = Prettify<{ manual: ManualFormAtoms; } & FormOptionsAndFileUsCtxAtoms>;
 
 //
 
@@ -54,22 +43,22 @@ export type ManiAtoms = readonly [login: AnyFormAtoms | undefined, cpass: AnyFor
 
 //
 
-export type OFormContextProps = {           // To access form options
-    maniAtoms: ManiAtoms;
-    formIdx: FormIdx;
-    formAtoms: AnyFormOptionsAtoms;
-};
-
 export type NFormContextProps = {           // To access normal form fields and submit
     maniAtoms: ManiAtoms;
-    formIdx: FormIdx;
     formAtoms: NFormAtoms;
+    formIdx: FormIdx;
 };
 
 export type MFormContextProps = {           // To access manual form fields
     maniAtoms: ManiAtoms;
-    formIdx: FormIdx;
     formAtoms: MFormAtoms;
+    formIdx: FormIdx;
+};
+
+export type OFormContextProps = {           // To access form options
+    maniAtoms: ManiAtoms;
+    formAtoms: FormOptionsAndFileUsCtxAtoms;
+    formIdx: FormIdx;
 };
 
 //

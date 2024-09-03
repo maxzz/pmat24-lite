@@ -1,10 +1,10 @@
 import { atom } from "jotai";
-import { ManualEditorState } from "../../../9-types";
+import { type ManualFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { deselectCurrent } from "./5-deselect-current";
 
 export const doSetSelectItemValueAtom = atom(
     null,
-    (get, set, ctx: ManualEditorState.ScriptAtoms, idx: number, value: boolean | ((v: boolean) => boolean)) => {
+    (get, set, ctx: ManualFormAtoms, idx: number, value: boolean | ((v: boolean) => boolean)) => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
             deselectCurrent(ctx, get, set);

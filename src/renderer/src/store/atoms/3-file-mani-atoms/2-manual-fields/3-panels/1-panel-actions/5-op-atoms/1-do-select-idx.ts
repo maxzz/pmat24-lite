@@ -1,10 +1,10 @@
 import { atom } from "jotai";
-import { ManualEditorState } from "../../../9-types";
+import { type ManualFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { deselectCurrent } from "./5-deselect-current";
 
 export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: ManualEditorState.ScriptAtoms, idx: number) => {
+    (get, set, ctx: ManualFormAtoms, idx: number) => {
         deselectCurrent(ctx, get, set);
 
         const chunks = get(ctx.chunksAtom);

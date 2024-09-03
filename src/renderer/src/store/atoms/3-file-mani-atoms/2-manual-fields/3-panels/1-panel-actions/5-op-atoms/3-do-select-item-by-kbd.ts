@@ -1,11 +1,11 @@
 import { atom } from "jotai";
-import { ManualEditorState } from "../../../9-types";
+import { type ManualFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { kbdToIndex } from "./b-kbd-to-index";
 import { doSelectIdxAtom } from "./1-do-select-idx";
 
 export const doSelectByKbdAtom = atom(
     null,
-    (get, set, ctx: ManualEditorState.ScriptAtoms, keyName: string) => {
+    (get, set, ctx: ManualFormAtoms, keyName: string) => {
         const idx = get(ctx.selectedIdxStoreAtom);
         const chunks = get(ctx.chunksAtom);
 

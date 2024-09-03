@@ -1,11 +1,11 @@
 import { atom } from "jotai";
-import { swap, swapImmutable } from "@/utils";
-import { ManualEditorState } from "../../../9-types";
+import { type ManualFormAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { doSetSelectItemValueAtom } from "./2-do-set-select-item-value";
+import { swapImmutable } from "@/utils";
 
 export const doSwapItemsAtom = atom(
     null,
-    (get, set, ctx: ManualEditorState.ScriptAtoms, idxCurrent: number, idxNew: number) => {
+    (get, set, ctx: ManualFormAtoms, idxCurrent: number, idxNew: number) => {
         const chuncks = get(ctx.chunksAtom);
         if (idxNew < 0 || idxNew >= chuncks.length) {
             return;
