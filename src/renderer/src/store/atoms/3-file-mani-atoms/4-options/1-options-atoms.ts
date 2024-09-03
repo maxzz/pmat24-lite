@@ -1,6 +1,5 @@
-import { type Getter, type Setter } from "jotai";
 import { type OnValueChange } from "@/util-hooks";
-import { type FileUsCtx, type ManiAtoms } from "../9-types";
+import { type OnChangeProps, type FileUsCtx, type ManiAtoms } from "../9-types";
 import { type ManiOptions, OptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
 import { setManiChanges } from "../9-types";
@@ -14,7 +13,7 @@ export namespace OptionsState {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
-                onChangeWithScopeDebounced(fileUsCtx, maniAtoms, updateName, get, set, nextValue);
+                onChangeWithScopeDebounced(updateName, nextValue, {fileUsCtx, maniAtoms, get, set});
             };
         };
 
@@ -25,7 +24,7 @@ export namespace OptionsState {
     }
 }
 
-function onChangeWithScope(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms, updateName: string, get: Getter, set: Setter, nextValue: RowInputState) {
+function onChangeWithScope(updateName: string, nextValue: RowInputState, {fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
     const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsCtx.formIdx]!.options;
 
     if (nextValue.dirty) {
