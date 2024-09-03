@@ -1,24 +1,27 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import useResizeObserver from "use-resize-observer";
+import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { appSettings, rightPanelAtom } from "@/store";
 import { FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/atoms/3-file-mani-atoms/0-all";
-import useResizeObserver from "use-resize-observer";
-import { ScrollArea, Tabs, TabsContent } from "@/ui";
-import { ManiTabsList } from "./2-mani-tabs-list";
 import { TabFormEditorGuard } from "../../1-form-editor";
 import { TabFormOptions } from "../../2-form-options/0-all/0-all";
+import { ManiTabsList } from "./2-mani-tabs-list";
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
+    const activeTab = useSnapshot(appSettings).right.mani.activeTab;
 
     const fileUs = useAtomValue(fileUsAtom);
     const [maniAtoms, setManiAtoms] = useAtom(fileUs.maniAtomsAtom);
 
-    const activeTab = useSnapshot(appSettings).right.mani.activeTab;
-
-    useEffect(() => { !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms(fileUs, fileUsAtom)); }, [maniAtoms, fileUs, fileUsAtom]);
+    useEffect(
+        () => {
+            !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms(fileUs, fileUsAtom));
+        }, [maniAtoms, fileUs, fileUsAtom]
+    );
 
     if (!maniAtoms) { // maniAtoms not ready yet but will be on the next render
         return null;

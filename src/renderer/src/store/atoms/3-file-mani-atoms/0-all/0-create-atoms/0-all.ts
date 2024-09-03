@@ -1,11 +1,11 @@
 import { proxySet } from "valtio/utils";
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
 import { type MFormCtx, type NFormCtx, type FileUsCtx, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
-import { NormalFieldsState, NormalSubmitState } from "../../1-normal-fields";
-import { OptionsState } from "../../4-options";
+import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
+import { OptionsState } from "../../4-options";
 
-function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
+function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
 
     const { fileUs, formIdx } = fileUsCtx;
     const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
@@ -13,18 +13,13 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
         return;
     }
 
-    const isManual = metaForm.disp.isScript;
-
     let normal: NFormCtx | undefined;
     let manual: MFormCtx | undefined;
 
-    if (isManual) {
+    if (metaForm.disp.isScript) {
         manual = ManualFieldsState.createFormCtx(fileUsCtx, maniAtoms);
     } else {
-        normal = {
-            fieldsAtoms: NormalFieldsState.createFieldsCtx(fileUsCtx, maniAtoms),
-            submitAtoms: NormalSubmitState.createSubmitCtx(fileUsCtx, maniAtoms),
-        };
+        normal = NormalModeState.createNormalCtx(fileUsCtx, maniAtoms);
     }
 
     const rv: AnyFormAtoms = {
@@ -43,8 +38,8 @@ export function createManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom): ManiAto
 
     const changesSet = proxySet<string>();
 
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
-    rv.push(createFormAtoms({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
+    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
+    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
     rv.push(changesSet);
 
     return rv;
