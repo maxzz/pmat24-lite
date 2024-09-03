@@ -19,7 +19,7 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
     let manual: MFormCtx | undefined;
 
     if (isManual) {
-        manual = ManualFieldsState.createUiAtoms(fileUsCtx, maniAtoms);
+        manual = ManualFieldsState.createFormCtx(fileUsCtx, maniAtoms);
     } else {
         normal = {
             fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsCtx, maniAtoms),

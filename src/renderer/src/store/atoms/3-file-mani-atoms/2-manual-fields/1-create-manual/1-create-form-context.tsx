@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
 import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
@@ -6,7 +6,7 @@ import { chunksToCompareString } from "../0-conv/4-comparison";
 
 export namespace ManualFieldsState {
 
-    export function createUiAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCtx {
+    export function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCtx {
         const { fileUs, formIdx } = fileUsCtx;
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
