@@ -1,6 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
-import { type MFormCtx, type FileUsCtx, type ManiAtoms } from "../../9-types";
+import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { chunksToCompareString } from "../0-conv/4-comparison";
 
@@ -17,13 +17,13 @@ export namespace ManualFieldsState {
 
         function onChangeItem(updateName: string) {
             function onChangeWName({ get, set }) {
-                onChangeWithScope(ctx, updateName, get, set);
+                onChangeWithScope(ctx, updateName, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
         function onChangeOrder({ get, set }) {
-            onChangeWithScope(ctx, 'form', get, set);
+            onChangeWithScope(ctx, 'form', { fileUsCtx, maniAtoms, get, set });
         }
 
         const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
@@ -42,11 +42,11 @@ export namespace ManualFieldsState {
     }
 }
 
-function onChangeWithScope(ctx: MFormCtx, updateName: string, get: Getter, set: Setter) {
+function onChangeWithScope(ctx: MFormCtx, updateName: string, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     if (updateName === 'form') {
         console.log(`on Change w/ scope form "${updateName}"`, ctx, get, set);
         return;
     }
-        
+
     console.log(`on Change w/ scope item "${updateName}"`, ctx, get, set);
 }
