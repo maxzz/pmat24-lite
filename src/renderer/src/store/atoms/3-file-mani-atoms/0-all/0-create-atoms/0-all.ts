@@ -22,7 +22,7 @@ function createFormAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAto
         manual = ManualFieldsState.createFormCtx(fileUsCtx, maniAtoms);
     } else {
         normal = {
-            fieldsAtoms: NormalFieldsState.createUiAtoms(fileUsCtx, maniAtoms),
+            fieldsAtoms: NormalFieldsState.createFieldsCtx(fileUsCtx, maniAtoms),
             submitAtoms: NormalSubmitState.createUiAtoms(fileUsCtx, maniAtoms),
         };
     }

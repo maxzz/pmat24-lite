@@ -8,7 +8,7 @@ export namespace NormalFieldsState {
 
     export type Atoms = NormalField.FieldAtoms;
 
-    export function createUiAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms[] {
+    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
