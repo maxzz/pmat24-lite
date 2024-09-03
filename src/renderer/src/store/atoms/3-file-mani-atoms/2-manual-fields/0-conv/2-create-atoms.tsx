@@ -49,11 +49,10 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
         case "fld": {
             const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
             // const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${uid5}`));
-            function onChangeNormalField(): OnValueChangeAny {
-                console.log('TODO: NormalFieldConv.createAtoms',);
-                return onChange(`man-fld-${uid5}`);
-            }
-            const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onChangeNormalField());
+            // function onChangeNormalField(): OnValueChangeAny {
+            //     return onChange(`man-fld-${uid5}`);
+            // }
+            const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onChange(`man-fld-${uid5}`));
             const embFld: NormalField.FieldAtoms = {
                 ...fld,
                 metaField: chunk.field,

@@ -1,8 +1,9 @@
-import { atom } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { atomWithCallback } from "@/util-hooks";
-import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps } from "../../9-types";
+import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { chunksToCompareString } from "../0-conv/4-comparison";
+import { debounce } from "@/utils";
 
 export namespace ManualFieldsState {
 
@@ -16,14 +17,14 @@ export namespace ManualFieldsState {
         const chunks = ManualFieldConv.forAtoms(fields);
 
         function onChangeItem(updateName: string) {
-            function onChangeWName({ get, set }) {
-                onChangeWithScope(ctx, updateName, { fileUsCtx, maniAtoms, get, set });
+            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.ForAtoms }) {
+                onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
-        function onChangeOrder({ get, set }) {
-            onChangeWithScope(ctx, 'form', { fileUsCtx, maniAtoms, get, set });
+        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.ForAtoms[] }) {
+            onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
         const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
@@ -42,11 +43,25 @@ export namespace ManualFieldsState {
     }
 }
 
-function onChangeWithScope(ctx: MFormCtx, updateName: string, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
-    if (updateName === 'form') {
-        console.log(`on Change w/ scope form "${updateName}"`, ctx, get, set);
+function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualFieldState.ForAtoms | ManualFieldState.ForAtoms[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+    const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
+    if (!manualFormAtoms) {
         return;
     }
 
-    console.log(`on Change w/ scope item "${updateName}"`, ctx, get, set);
+    if (Array.isArray(nextValue)) {
+        const chunks = get(manualFormAtoms.chunksAtom);
+        const newChunksStr = chunksToCompareString(chunks);
+
+        const changed = newChunksStr !== manualFormAtoms.initialChunks;
+
+        setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+
+        console.log(`on Change w/ scope form "${updateName}"`, { ctx, get, set, nextValue });
+        return;
+    }
+
+    console.log(`on Change w/ scope item "${updateName}"`, { ctx, get, set, nextValue });
 }
+
+const onChangeWithScopeDebounced = debounce(onChangeWithScope);
