@@ -1,5 +1,4 @@
-import { type Getter, type Setter } from "jotai";
-import { setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
+import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
 import { SubmitConv, type SubmitConvTypes } from "./0-conv";
 import { debounce } from "@/utils";
 
@@ -16,7 +15,7 @@ export namespace NormalSubmitState {
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {
-            onChangeWithScopeDebounced(fileUsCtx, maniAtoms, get, set);
+            onChangeWithScopeDebounced({fileUsCtx, maniAtoms, get, set});
         }
 
         const rv: Atoms = {
@@ -30,7 +29,7 @@ export namespace NormalSubmitState {
         return rv;
     }
 
-    function onChangeWithScope(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms, get: Getter, set: Setter) {
+    function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
         const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
         if (!nomalFormAtoms) {
             return;
