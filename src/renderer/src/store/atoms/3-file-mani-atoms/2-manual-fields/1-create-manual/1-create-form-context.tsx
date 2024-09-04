@@ -58,7 +58,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
 
         setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
 
-        console.log(`on Change w/ scope form "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
+        console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
         return;
     }
 
@@ -72,7 +72,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
 
         setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
 
-        console.log(`on Change w/ scope item "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
+        console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
         return;
     } else {
         const fromUi = ManualFieldConv.fromAtom(nextValue, get);
@@ -80,7 +80,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
 
         setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
 
-        console.log(`on Change w/ scope item "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
+        console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
         return;
     }
 }

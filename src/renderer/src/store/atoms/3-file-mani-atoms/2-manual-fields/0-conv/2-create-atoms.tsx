@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { OnValueChangeAny, type Atomize } from "@/util-hooks";
+import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { newAtomForCheck, newAtomForInput, OnChangeValueWithUpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
+import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
@@ -11,9 +11,8 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     switch (chunk.type) {
         case "kbd": {
             function onScopedChange(name: string) {
-                return ({ get, set, nextValue }) => {
-                    const fn = onChange(name);
-                    fn({ get, set, nextValue: rv });
+                return ({ get, set, nextValue }): void => {
+                    onChange(name)({ get, set, nextValue: rv });
                 };
             };
 
@@ -33,9 +32,8 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
         }
         case "pos": {
             function onScopedChange(name: string) {
-                return ({ get, set, nextValue }) => {
-                    const fn = onChange(name);
-                    fn({ get, set, nextValue: rv });
+                return ({ get, set, nextValue }): void => {
+                    onChange(name)({ get, set, nextValue: rv });
                 };
             };
 
@@ -54,9 +52,8 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
         }
         case "dly": {
             function onScopedChange(name: string) {
-                return ({ get, set, nextValue }) => {
-                    const fn = onChange(name);
-                    fn({ get, set, nextValue: rv });
+                return ({ get, set, nextValue }): void => {
+                    onChange(name)({ get, set, nextValue: rv });
                 };
             };
 
@@ -72,9 +69,8 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
         }
         case "fld": {
             function onScopedChange(name: string) {
-                return ({ get, set, nextValue }) => {
-                    const fn = onChange(name);
-                    fn({ get, set, nextValue: rv });
+                return ({ get, set, nextValue }): void => {
+                    onChange(name)({ get, set, nextValue: rv });
                 };
             };
 
