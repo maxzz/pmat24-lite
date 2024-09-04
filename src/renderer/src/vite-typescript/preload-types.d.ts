@@ -10,6 +10,7 @@ type TmApi = {
     callMain: (data: any) => void;
     invokeMain: <TData, TResult>(data: TData) => Promise<TResult>;
     setCbCallFromMain: (callback: (event: /*IpcRendererEvent*/any, data: any) => void) => void;
+    getPathForFile: (file: File) => string;
 }
 
 declare var tmApi: TmApi;

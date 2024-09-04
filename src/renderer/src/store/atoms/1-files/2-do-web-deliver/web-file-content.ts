@@ -2,7 +2,6 @@ import { FileContent } from "@shared/ipc-types";
 import { extensionWoDot } from "../../../../utils/os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../../utils/uuid";
-import { webUtils } from 'electron';
 
 type DropItem = {
     fname: string;                  // basename as filename w/ extension but wo/ path
@@ -151,7 +150,7 @@ export function electronGetPathes(files: File[]): string[] {
     const filenames = [...files]
         .map(
             (file) => {
-                return webUtils.getPathForFile(file);
+                return tmApi.getPathForFile(file);
             }
         )
         .filter(Boolean);

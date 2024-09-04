@@ -1,4 +1,4 @@
-import { IpcRendererEvent, contextBridge, ipcRenderer } from 'electron';
+import { IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
 // Custom APIs for renderer
@@ -17,6 +17,10 @@ const api: TmApi = {
         const channel: PreloadChannelNames = 'send-to-renderer';
         ipcRenderer.removeAllListeners(channel);
         ipcRenderer.on(channel, callback);
+    },
+
+    getPathForFile(file: File): string {
+        return webUtils.getPathForFile(file);
     },
 };
 
