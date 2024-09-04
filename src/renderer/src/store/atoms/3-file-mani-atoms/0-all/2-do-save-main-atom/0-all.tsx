@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "./1-pack-manifest-data";
-import { verifyOptionsAtom } from "../7-verify-atom";
+import { doVerifyOptionsAtom } from "../7-do-verify-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
 
@@ -19,7 +19,7 @@ export const doSaveOneAtom = atom(null,
             return;
         }
 
-        const errors = set(verifyOptionsAtom, { maniAtoms });
+        const errors = set(doVerifyOptionsAtom, { maniAtoms });
         if (errors) {
             appSettings.right.mani.activeTab = 'options';
             const messages = errors.map((err, idx) => {

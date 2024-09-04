@@ -3,7 +3,7 @@ import { ManiAtoms } from "../../9-types";
 import { OptionsConv } from "../../4-options";
 import { FormIdx } from "@/store/store-types";
 
-export const verifyOptionsAtom = atom(null,
+export const doVerifyOptionsAtom = atom(null,
     (get, set, { maniAtoms }: { maniAtoms: ManiAtoms; }): string[] | undefined => {
         
         const [login, cpass] = maniAtoms;
