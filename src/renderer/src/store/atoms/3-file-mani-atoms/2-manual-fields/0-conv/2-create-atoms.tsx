@@ -10,17 +10,33 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     const selectedAtom = atom(false);
     switch (chunk.type) {
         case "kbd": {
+            // function onChange3(scope: ManualFieldState.KbdForAtoms) {
+            //     return function onChange2(name: string) {
+            //         return ({ get, set, nextValue }) => {
+            //             const fn = onChange(name);
+            //             fn({ get, set, nextValue: scope });
+            //         };
+            //     };
+            // }
+
+            function onChange2(name: string) {
+                return ({ get, set, nextValue }) => {
+                    const fn = onChange(name);
+                    fn({ get, set, nextValue: rv });
+                };
+            };
+
             const rv: ManualFieldState.KbdForAtoms = {
                 type: 'kbd',
                 uid5,
                 selectedAtom,
                 original: chunk,
 
-                charAtom: newAtomForInput(chunk.char, onChange('man-kbd-key')),
-                repeatAtom: newAtomForInput(chunk.repeat, onChange('man-kbd-repeat'), { validate: validateNumber }),
-                shiftAtom: newAtomForInput(chunk.shift, onChange('man-kbd-shift')),
-                ctrlAtom: newAtomForInput(chunk.ctrl, onChange('man-kbd-ctrl')),
-                altAtom: newAtomForInput(chunk.alt, onChange('man-kbd-alt')),
+                charAtom: newAtomForInput(chunk.char, onChange2('man-kbd-key')),
+                repeatAtom: newAtomForInput(chunk.repeat, onChange2('man-kbd-repeat'), { validate: validateNumber }),
+                shiftAtom: newAtomForInput(chunk.shift, onChange2('man-kbd-shift')),
+                ctrlAtom: newAtomForInput(chunk.ctrl, onChange2('man-kbd-ctrl')),
+                altAtom: newAtomForInput(chunk.alt, onChange2('man-kbd-alt')),
             };
             return rv;
         }
@@ -64,7 +80,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 original: chunk,
-                
+
                 field: embFld,
             };
             return rv;
