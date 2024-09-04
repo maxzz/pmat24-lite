@@ -139,3 +139,20 @@ export function electronGetPathes(files: File[]): string[] {
     const filenames = [...files].map((file) => (file as File & { path: string; }).path).filter(Boolean);
     return filenames;
 }
+
+//TODO: 09.04.24. 
+//      Inside electronGetPathes() files son't have 'path' and 'webkitRelativePath; properties anymore.
+//      Drop files and folder does not work for native version.
+
+	//G: 'electron drag and drop file path'
+		//https://www.electronjs.org/docs/latest/tutorial/native-file-drag-drop
+		//https://stackoverflow.com/questions/68104292/how-to-drop-a-file-from-explorer-and-get-its-full-path-to-electronjs-app ! 'How to drop a file from explorer and get it's full path to electronjs app'
+			//https://www.electronjs.org/docs/latest/api/web-utils !!!! 'webUtils.getPathForFile(file)'
+			/*
+				// Before
+				const oldPath = document.querySelector('input').files[0].path
+
+				// After
+				const { webUtils } = require('electron')
+				const newPath = webUtils.getPathForFile(document.querySelector('input').files[0])
+			*/
