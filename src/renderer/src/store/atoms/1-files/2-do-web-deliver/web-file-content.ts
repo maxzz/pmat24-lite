@@ -2,6 +2,7 @@ import { FileContent } from "@shared/ipc-types";
 import { extensionWoDot } from "../../../../utils/os-utils";
 import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../../utils/uuid";
+import { webUtils } from 'electron';
 
 type DropItem = {
     fname: string;                  // basename as filename w/ extension but wo/ path
@@ -135,24 +136,41 @@ export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[
 
 // electron filenames
 
+// export function electronGetPathes(files: File[]): string[] {
+//     const filenames = [...files]
+//         .map(
+//             (file) => {
+//                 return (file as File & { path: string; }).path;
+//             }
+//         )
+//         .filter(Boolean);
+//     return filenames;
+// }
+
 export function electronGetPathes(files: File[]): string[] {
-    const filenames = [...files].map((file) => (file as File & { path: string; }).path).filter(Boolean);
+    const filenames = [...files]
+        .map(
+            (file) => {
+                return webUtils.getPathForFile(file);
+            }
+        )
+        .filter(Boolean);
     return filenames;
 }
 
-//TODO: 09.04.24. 
+//TODO: 09.04.24.
 //      Inside electronGetPathes() files son't have 'path' and 'webkitRelativePath; properties anymore.
 //      Drop files and folder does not work for native version.
 
-	//G: 'electron drag and drop file path'
-		//https://www.electronjs.org/docs/latest/tutorial/native-file-drag-drop
-		//https://stackoverflow.com/questions/68104292/how-to-drop-a-file-from-explorer-and-get-its-full-path-to-electronjs-app ! 'How to drop a file from explorer and get it's full path to electronjs app'
-			//https://www.electronjs.org/docs/latest/api/web-utils !!!! 'webUtils.getPathForFile(file)'
-			/*
-				// Before
-				const oldPath = document.querySelector('input').files[0].path
+//G: 'electron drag and drop file path'
+//https://www.electronjs.org/docs/latest/tutorial/native-file-drag-drop
+//https://stackoverflow.com/questions/68104292/how-to-drop-a-file-from-explorer-and-get-its-full-path-to-electronjs-app ! 'How to drop a file from explorer and get it's full path to electronjs app'
+//https://www.electronjs.org/docs/latest/api/web-utils !!!! 'webUtils.getPathForFile(file)'
+/*
+    // Before
+    const oldPath = document.querySelector('input').files[0].path
 
-				// After
-				const { webUtils } = require('electron')
-				const newPath = webUtils.getPathForFile(document.querySelector('input').files[0])
-			*/
+    // After
+    const { webUtils } = require('electron')
+    const newPath = webUtils.getPathForFile(document.querySelector('input').files[0])
+*/
