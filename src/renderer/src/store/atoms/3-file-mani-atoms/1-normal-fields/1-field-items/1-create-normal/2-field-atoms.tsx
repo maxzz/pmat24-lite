@@ -24,8 +24,8 @@ export namespace NormalFieldState {
 
         const atoms: NormalField.FieldAtoms = nomalFormAtoms.fieldsAtoms[fieldIdx];
 
-        const state = NormalFieldConv.fromAtoms(atoms, get, set);
-        const changed = !NormalFieldConv.areTheSame(state, atoms.fromFile);
+        const fromUi = NormalFieldConv.fromAtoms(atoms, get, set);
+        const changed = !NormalFieldConv.areTheSame(fromUi, atoms.fromFile);
         atoms.changed = changed;
 
         const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);

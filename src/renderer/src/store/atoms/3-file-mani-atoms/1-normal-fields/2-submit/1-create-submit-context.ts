@@ -37,8 +37,8 @@ export namespace NormalSubmitState {
 
         const atoms: Atoms = nomalFormAtoms.submitAtoms;
 
-        const state = SubmitConv.fromAtoms(atoms, get, set);
-        const changed = !SubmitConv.areTheSame(state, atoms.fromFile);
+        const fromUi = SubmitConv.fromAtoms(atoms, get, set);
+        const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
         atoms.changed = changed;
 
         const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);

@@ -1,5 +1,8 @@
-import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos } from "@/store/manifest";
+import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/manifest";
 import { ManualFieldState } from "../9-types";
+import { NormalFieldConv } from "../../1-normal-fields";
+
+//
 
 export function chunksToCompareString(chunks: ManualFieldState.ForAtoms[]): string {
     return chunks.map((chunk) => chunk.uid5).join('');
@@ -9,6 +12,8 @@ export function areTheSameOrder(chunks: ManualFieldState.ForAtoms[], initialChun
     const rv = chunksToCompareString(chunks) === initialChunks;
     return rv;
 }
+
+//
 
 export function areTheSameKbd(from: EditorDataForKbd, to: EditorDataForKbd): boolean {
     const rv = (
@@ -38,4 +43,22 @@ export function areTheSamePos(from: EditorDataForPos, to: EditorDataForPos): boo
     return rv;
 }
 
-//TODO: export function areTheSameFld(from: EditorDataForFld, to: EditorDataForFld): boolean {
+//
+
+export function areTheSame(from: EditorDataForOne, to: EditorDataForOne): boolean {
+    switch (from.type) {
+        case 'kbd': {
+            return areTheSameKbd(from, to as EditorDataForKbd);
+        }
+        case 'dly': {
+            return areTheSameDly(from, to as EditorDataForDly);
+        }
+        case 'pos': {
+            return areTheSamePos(from, to as EditorDataForPos);
+        }
+        case 'fld': {
+            //return NormalFieldConv.areTheSame(from.field.mani, (to as EditorDataForFld).field.mani);
+            return false;
+        }
+    }
+}

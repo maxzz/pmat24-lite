@@ -1,8 +1,9 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { atomWithCallback } from "@/util-hooks";
 import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
-import { chunksToCompareString } from "../0-conv/4-comparison";
+import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
+import { NormalFieldConv } from "../../1-normal-fields";
+import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
 
 export namespace ManualFieldsState {
@@ -57,11 +58,31 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
 
         setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
 
-        console.log(`on Change w/ scope form "${updateName}"`, { ctx, get, set, nextValue });
+        console.log(`on Change w/ scope form "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
         return;
     }
 
-    console.log(`on Change w/ scope item "${updateName}"`, { ctx, get, set, nextValue });
+    // const atoms: NormalField.FieldAtoms = nomalFormAtoms.fieldsAtoms[fieldIdx];
+
+    if (nextValue.type === 'fld') {
+        const fromFile = nextValue.field.fromFile;
+        const fromUi = NormalFieldConv.fromAtoms(nextValue.field, get, set);
+
+        const changed = !NormalFieldConv.areTheSame(fromUi, fromFile);
+
+        setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+
+        console.log(`on Change w/ scope item "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
+        return;
+    } else {
+        const fromUi = ManualFieldConv.fromAtom(nextValue, get);
+        const changed = !areTheSame(fromUi, nextValue.original);
+
+        setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+
+        console.log(`on Change w/ scope item "${updateName}"`, { chg: fileUsCtx.fileUs.changesSet, ctx, get, set, nextValue });
+        return;
+    }
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);

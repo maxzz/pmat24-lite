@@ -28,8 +28,8 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, {fileUs
     const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsCtx.formIdx]!.options;
 
     if (nextValue.dirty) {
-        const result = OptionsConv.fromAtoms(optionsAtoms, get, set);
-        console.log('PolicyEditor atoms', JSON.stringify(result, null, 4));
+        const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
+        console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
     }
 
     const changes = setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);

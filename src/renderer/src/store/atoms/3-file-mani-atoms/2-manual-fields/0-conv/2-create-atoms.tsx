@@ -15,6 +15,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 original: chunk,
+
                 charAtom: newAtomForInput(chunk.char, onChange('man-kbd-key')),
                 repeatAtom: newAtomForInput(chunk.repeat, onChange('man-kbd-repeat'), { validate: validateNumber }),
                 shiftAtom: newAtomForInput(chunk.shift, onChange('man-kbd-shift')),
@@ -29,6 +30,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 original: chunk,
+
                 xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
                 yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
                 unitsAtom: newAtomForCheck(chunk.units, onChange('man-pos-units')),
@@ -42,19 +44,16 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 original: chunk,
+
                 nAtom: newAtomForInput(chunk.n, onChange('man-dly-dly'), { validate: validateNumber }),
             };
             return rv;
         }
         case "fld": {
             const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
-            // const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, () => onChange(`man-fld-${uid5}`));
-            // function onChangeNormalField(): OnValueChangeAny {
-            //     return onChange(`man-fld-${uid5}`);
-            // }
-            const fld: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onChange(`man-fld-${uid5}`));
+            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onChange(`man-fld-${uid5}`));
             const embFld: NormalField.FieldAtoms = {
-                ...fld,
+                ...fldAtoms,
                 metaField: chunk.field,
                 fromFile: fieldforAtoms,
                 changed: false,
@@ -65,6 +64,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 original: chunk,
+                
                 field: embFld,
             };
             return rv;
