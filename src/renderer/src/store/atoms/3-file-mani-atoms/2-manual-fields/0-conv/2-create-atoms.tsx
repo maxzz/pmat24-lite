@@ -12,7 +12,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
         case "kbd": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
-                    onChange(name)({ get, set, nextValue: rv });
+                    onChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
                 };
             };
 
@@ -22,18 +22,18 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 original: chunk,
 
-                charAtom: newAtomForInput(chunk.char, onScopedChange('man-kbd-key')),
-                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('man-kbd-repeat'), { validate: validateNumber }),
-                shiftAtom: newAtomForInput(chunk.shift, onScopedChange('man-kbd-shift')),
-                ctrlAtom: newAtomForInput(chunk.ctrl, onScopedChange('man-kbd-ctrl')),
-                altAtom: newAtomForInput(chunk.alt, onScopedChange('man-kbd-alt')),
+                charAtom: newAtomForInput(chunk.char, onScopedChange('kbd-key')),
+                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumber }),
+                shiftAtom: newAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
+                ctrlAtom: newAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
+                altAtom: newAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
             };
             return rv;
         }
         case "pos": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
-                    onChange(name)({ get, set, nextValue: rv });
+                    onChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
                 };
             };
 
@@ -43,17 +43,17 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 original: chunk,
 
-                xAtom: newAtomForInput(chunk.x, onScopedChange('man-pos-x'), { validate: validateNumber }),
-                yAtom: newAtomForInput(chunk.y, onScopedChange('man-pos-y'), { validate: validateNumber }),
-                unitsAtom: newAtomForCheck(chunk.units, onScopedChange('man-pos-units')),
-                resAtom: newAtomForInput(chunk.res, onScopedChange('man-pos-res'), { validate: validateNumber }),
+                xAtom: newAtomForInput(chunk.x, onScopedChange('pos-x'), { validate: validateNumber }),
+                yAtom: newAtomForInput(chunk.y, onScopedChange('pos-y'), { validate: validateNumber }),
+                unitsAtom: newAtomForCheck(chunk.units, onScopedChange('pos-units')),
+                resAtom: newAtomForInput(chunk.res, onScopedChange('pos-res'), { validate: validateNumber }),
             };
             return rv;
         }
         case "dly": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
-                    onChange(name)({ get, set, nextValue: rv });
+                    onChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
                 };
             };
 
@@ -63,19 +63,19 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 original: chunk,
 
-                nAtom: newAtomForInput(chunk.n, onScopedChange('man-dly-dly'), { validate: validateNumber }),
+                nAtom: newAtomForInput(chunk.n, onScopedChange('dly-dly'), { validate: validateNumber }),
             };
             return rv;
         }
         case "fld": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
-                    onChange(name)({ get, set, nextValue: rv });
+                    onChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
                 };
             };
 
             const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
-            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onScopedChange(`man-fld-${uid5}`));
+            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onScopedChange(`fld`));
             const embFld: NormalField.FieldAtoms = {
                 ...fldAtoms,
                 metaField: chunk.field,
