@@ -53,36 +53,23 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
     if (Array.isArray(nextValue)) {
         const chunks = get(manualFormAtoms.chunksAtom);
         const newChunksStr = chunksToCompareString(chunks);
-
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
         setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-
-        console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
         return;
     }
 
-    // const atoms: NormalField.FieldAtoms = nomalFormAtoms.fieldsAtoms[fieldIdx];
+    let changed: boolean | undefined;
 
     if (nextValue.type === 'fld') {
-        const fromFile = nextValue.field.fromFile;
         const fromUi = NormalFieldConv.fromAtoms(nextValue.field, get, set);
-
-        const changed = !NormalFieldConv.areTheSame(fromUi, fromFile);
-
-        setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-
-        console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
-        return;
+        changed = !NormalFieldConv.areTheSame(fromUi, nextValue.field.fromFile);
     } else {
         const fromUi = ManualFieldConv.fromAtom(nextValue, get);
-        const changed = !areTheSame(fromUi, nextValue.original);
-
-        setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-
-        console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
-        return;
+        changed = !areTheSame(fromUi, nextValue.original);
     }
+
+    setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
