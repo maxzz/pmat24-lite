@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { filesAtom } from "../../../1-files";
-import { doSaveOneAtom } from "../2-save-main-atom";
+import { doSaveOneAtom } from "../2-do-save-main-atom";
 
 export const doSaveAllAtom = atom(null,
     (get, set) => {
