@@ -10,16 +10,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     const selectedAtom = atom(false);
     switch (chunk.type) {
         case "kbd": {
-            // function onChange3(scope: ManualFieldState.KbdForAtoms) {
-            //     return function onChange2(name: string) {
-            //         return ({ get, set, nextValue }) => {
-            //             const fn = onChange(name);
-            //             fn({ get, set, nextValue: scope });
-            //         };
-            //     };
-            // }
-
-            function onChange2(name: string) {
+            function onScopedChange(name: string) {
                 return ({ get, set, nextValue }) => {
                     const fn = onChange(name);
                     fn({ get, set, nextValue: rv });
@@ -32,42 +23,63 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 original: chunk,
 
-                charAtom: newAtomForInput(chunk.char, onChange2('man-kbd-key')),
-                repeatAtom: newAtomForInput(chunk.repeat, onChange2('man-kbd-repeat'), { validate: validateNumber }),
-                shiftAtom: newAtomForInput(chunk.shift, onChange2('man-kbd-shift')),
-                ctrlAtom: newAtomForInput(chunk.ctrl, onChange2('man-kbd-ctrl')),
-                altAtom: newAtomForInput(chunk.alt, onChange2('man-kbd-alt')),
+                charAtom: newAtomForInput(chunk.char, onScopedChange('man-kbd-key')),
+                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('man-kbd-repeat'), { validate: validateNumber }),
+                shiftAtom: newAtomForInput(chunk.shift, onScopedChange('man-kbd-shift')),
+                ctrlAtom: newAtomForInput(chunk.ctrl, onScopedChange('man-kbd-ctrl')),
+                altAtom: newAtomForInput(chunk.alt, onScopedChange('man-kbd-alt')),
             };
             return rv;
         }
         case "pos": {
+            function onScopedChange(name: string) {
+                return ({ get, set, nextValue }) => {
+                    const fn = onChange(name);
+                    fn({ get, set, nextValue: rv });
+                };
+            };
+
             const rv: ManualFieldState.PosForAtoms = {
                 type: 'pos',
                 uid5,
                 selectedAtom,
                 original: chunk,
 
-                xAtom: newAtomForInput(chunk.x, onChange('man-pos-x'), { validate: validateNumber }),
-                yAtom: newAtomForInput(chunk.y, onChange('man-pos-y'), { validate: validateNumber }),
-                unitsAtom: newAtomForCheck(chunk.units, onChange('man-pos-units')),
-                resAtom: newAtomForInput(chunk.res, onChange('man-pos-res'), { validate: validateNumber }),
+                xAtom: newAtomForInput(chunk.x, onScopedChange('man-pos-x'), { validate: validateNumber }),
+                yAtom: newAtomForInput(chunk.y, onScopedChange('man-pos-y'), { validate: validateNumber }),
+                unitsAtom: newAtomForCheck(chunk.units, onScopedChange('man-pos-units')),
+                resAtom: newAtomForInput(chunk.res, onScopedChange('man-pos-res'), { validate: validateNumber }),
             };
             return rv;
         }
         case "dly": {
+            function onScopedChange(name: string) {
+                return ({ get, set, nextValue }) => {
+                    const fn = onChange(name);
+                    fn({ get, set, nextValue: rv });
+                };
+            };
+
             const rv: ManualFieldState.DlyForAtoms = {
                 type: 'dly',
                 uid5,
                 selectedAtom,
                 original: chunk,
 
-                nAtom: newAtomForInput(chunk.n, onChange('man-dly-dly'), { validate: validateNumber }),
+                nAtom: newAtomForInput(chunk.n, onScopedChange('man-dly-dly'), { validate: validateNumber }),
             };
             return rv;
         }
         case "fld": {
+            function onScopedChange(name: string) {
+                return ({ get, set, nextValue }) => {
+                    const fn = onChange(name);
+                    fn({ get, set, nextValue: rv });
+                };
+            };
+
             const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
-            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onChange(`man-fld-${uid5}`));
+            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onScopedChange(`man-fld-${uid5}`));
             const embFld: NormalField.FieldAtoms = {
                 ...fldAtoms,
                 metaField: chunk.field,
