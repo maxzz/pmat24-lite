@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
-import { packManifestData } from "./1-pack-manifest-data";
-import { doVerifyOptionsAtom } from "../7-do-verify-atom";
+import { packManifestData } from "../0-conv/1-pack-manifest-data";
+import { doVerifyOptionsAtom } from "../../7-do-verify-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
 
