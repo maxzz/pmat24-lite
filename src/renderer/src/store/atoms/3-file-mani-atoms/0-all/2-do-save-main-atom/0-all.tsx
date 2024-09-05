@@ -5,7 +5,8 @@ import { doVerifyOptionsAtom } from "../7-do-verify-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
 
-export const doSaveOneAtom = atom(null,
+export const doSaveOneAtom = atom(
+    null,
     (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
