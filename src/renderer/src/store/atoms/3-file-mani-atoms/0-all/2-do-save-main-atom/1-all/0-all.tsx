@@ -1,9 +1,26 @@
-import { atom } from "jotai";
+import { atom, Getter, Setter } from "jotai";
 import { FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "../0-conv/1-pack-manifest-data";
 import { doVerifyOptionsAtom } from "../../7-do-verify-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
+import { ManiAtoms } from "../../../9-types";
+
+function stopIfOptionErrors(get: Getter, set: Setter, maniAtoms: ManiAtoms): boolean | undefined {
+    const errors = set(doVerifyOptionsAtom, { maniAtoms });
+    if (errors) {
+        appSettings.right.mani.activeTab = 'options';
+
+        const messages = errors.map(
+            (err, idx) => {
+                return <div key={idx}>{err.msg}</div>;
+            }
+        );
+
+        toast.error(<div className="flex flex-col">{messages}</div>);
+        return true;
+    }
+}
 
 export const doSaveOneAtom = atom(
     null,
@@ -20,17 +37,7 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        const errors = set(doVerifyOptionsAtom, { maniAtoms });
-        if (errors) {
-            appSettings.right.mani.activeTab = 'options';
-
-            const messages = errors.map(
-                (err, idx) => {
-                    return <div key={idx}>{err.msg}</div>;
-                }
-            );
-
-            toast.error(<div className="flex flex-col">{messages}</div>);
+        if (stopIfOptionErrors(get, set, maniAtoms)) {
             return;
         }
 
