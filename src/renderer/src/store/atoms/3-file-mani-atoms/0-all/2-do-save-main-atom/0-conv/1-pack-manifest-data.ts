@@ -37,7 +37,7 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
 
                     const fromAtomValues = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
                     const maniValues = NormalFieldConv.forMani(fromAtomValues);
-                    const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
+                    const fileValues = ManiConv.fieldForFileMani(maniValues, metaField.mani, metaField.ftyp, undefined, false);
                     return fileValues;
                 }
             );

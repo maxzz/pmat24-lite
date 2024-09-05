@@ -1,15 +1,14 @@
-import { FieldTyp, type FileMani, type Meta } from "@/store/manifest";
+import { FieldTyp, type Mani, type FileMani, type Meta } from "@/store/manifest";
 import { type NormalField } from "../../../1-normal-fields";
 
 export function fieldForFileMani(
     from: NormalField.ThisType,
-    metaField: Meta.Field,
+    maniField: Mani.Field,
+    ftyp: FieldTyp,
     rdir: FileMani.FieldDirection | undefined,
     isSubmit: boolean
 ): FileMani.Field {
-    const maniField = metaField.mani;
-
-    const value = getValue(from.value, metaField);
+    const value = getFieldStringValue(from.value, ftyp);
 
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
     const rfieldform = rdir?.rfieldform || 0;
@@ -42,9 +41,12 @@ export function fieldForFileMani(
     return rv;
 }
 
-function getValue(fromValue: string | undefined, metaField: Meta.Field): string | undefined {
-    const isCheckbox = metaField.ftyp === FieldTyp.check || metaField.ftyp === FieldTyp.radio;
+function getFieldStringValue(fromValue: string | undefined, ftyp: FieldTyp): string | undefined {
+
+    const isCheckbox = ftyp === FieldTyp.check || ftyp === FieldTyp.radio;
+
     const v = (fromValue || '').trim().toLowerCase();
+
     const rv =
         isCheckbox
             ? !!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off'
