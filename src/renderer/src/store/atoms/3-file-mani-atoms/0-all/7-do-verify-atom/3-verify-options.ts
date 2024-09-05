@@ -1,17 +1,17 @@
 import { atom } from "jotai";
-import { ManiAtoms } from "../../9-types";
+import { type ManiAtoms, type VerifyError } from "../../9-types";
 import { OptionsConv } from "../../4-options";
 import { FormIdx } from "@/store/store-types";
 
 export const doVerifyOptionsAtom = atom(null,
-    (get, set, { maniAtoms }: { maniAtoms: ManiAtoms; }): string[] | undefined => {
+    (get, set, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined => {
         
         const [login, cpass] = maniAtoms;
         if (!login && !cpass) {
             return;
         }
 
-        const rv: string[] = []; 
+        const rv: VerifyError[] = []; 
 
         if (login) {
             const errors = OptionsConv.verifyAtoms(login.options, FormIdx.login, get, set);

@@ -22,9 +22,13 @@ export const doSaveOneAtom = atom(null,
         const errors = set(doVerifyOptionsAtom, { maniAtoms });
         if (errors) {
             appSettings.right.mani.activeTab = 'options';
-            const messages = errors.map((err, idx) => {
-                return <div key={idx}>{err}</div>;
-            });
+
+            const messages = errors.map(
+                (err, idx) => {
+                    return <div key={idx}>{err.msg}</div>;
+                }
+            );
+
             toast.error(<div className="flex flex-col">{messages}</div>);
             return;
         }
