@@ -1,6 +1,7 @@
-import { type Getter, type Setter } from "jotai";
+import { type Getter } from "jotai";
 import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
+import { NormalField, NormalFieldConv } from "../../1-normal-fields";
 
 export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): EditorDataForOne {
     switch (scriptItem.type) {
@@ -43,14 +44,12 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
             return rv;
         }
         case "fld": {
-            // const fromAtomValues: NormalField.FieldForAtoms = NormalFieldConv.fromAtoms(atom.field, get, set);
-            // const maniValues = NormalFieldConv.forMani(fromAtomValues);
-            // const fileValues = ManiConv.fieldForFileMani(maniValues, fieldAtoms.metaField, undefined, false);
-
-            //TODO: this is not correct, need to get the field values from the atom
+            const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(scriptItem.field, get);
+            const editorValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
             const rv: EditorDataForFld = {
                 type: 'fld',
                 field: scriptItem.field.metaField,
+                editField: editorValues,
             };
             return rv;
         }
