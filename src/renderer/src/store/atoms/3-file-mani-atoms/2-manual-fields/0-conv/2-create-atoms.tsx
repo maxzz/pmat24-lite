@@ -74,12 +74,12 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
-            const fieldforAtoms: NormalField.ForAtoms = fieldForEditor(chunk.field.mani);
-            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onScopedChange(`fld`));
+            const fieldForAtoms: NormalField.ForAtoms = fieldForEditor(chunk.field.mani);
+            const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldForAtoms, onScopedChange(`fld`));
             const embFld: NormalField.FieldAtoms = {
                 ...fldAtoms,
                 metaField: chunk.field,
-                fromFile: fieldforAtoms,
+                fromFile: fieldForAtoms,
                 changed: false,
             };
 

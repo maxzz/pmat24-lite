@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type RowInputState } from "@/ui";
+import { type MFormCtx, type VerifyError } from "../../9-types";
 import { FormIdx } from "@/store/store-types";
-import { MFormCtx, VerifyError } from "../../9-types";
 import { getAllValidateAtoms } from "./6-verify-state-access";
 
 export function getFormVerifyErrors(atoms: MFormCtx, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {

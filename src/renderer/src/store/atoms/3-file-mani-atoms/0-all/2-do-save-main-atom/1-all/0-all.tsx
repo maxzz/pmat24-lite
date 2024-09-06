@@ -1,26 +1,9 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { type ManiAtoms } from "../../../9-types";
 import { packManifestData } from "../0-conv/1-pack-manifest-data";
-import { doVerifyOptionsAtom } from "../../7-do-verify-atom";
-import { toast } from "sonner";
-import { appSettings } from "@/store/app-settings";
-
-function stopIfOptionErrors(get: Getter, set: Setter, maniAtoms: ManiAtoms): boolean | undefined {
-    const errors = set(doVerifyOptionsAtom, { maniAtoms });
-    if (errors) {
-        appSettings.right.mani.activeTab = 'options';
-
-        const messages = errors.map(
-            (err, idx) => {
-                return <div key={idx}>{err.msg}</div>;
-            }
-        );
-
-        toast.error(<div className="flex flex-col">{messages}</div>);
-        return true;
-    }
-}
+import { stopIfNormalErrors } from "./1-stop-if-errors-normal";
+import { stopIfManualErrors } from "./2-stop-if-errors-manual";
+import { stopIfOptionErrors } from "./3-stop-if-errors-options";
 
 export const doSaveOneAtom = atom(
     null,
@@ -37,9 +20,37 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        if (stopIfOptionErrors(get, set, maniAtoms)) {
-            return;
+        //
+
+        const [login, cpass] = maniAtoms;
+
+        if (login?.normal) {
+            if (stopIfNormalErrors(maniAtoms, get, set)) {
+                return;
+            }
         }
+
+        if (cpass?.normal) {
+            if (stopIfNormalErrors(maniAtoms, get, set)) {
+                return;
+            }
+        }
+
+        //
+
+        if (login?.manual) {
+            if (stopIfManualErrors(maniAtoms, get, set)) {
+                return;
+            }
+        }
+
+        if (cpass?.manual) {
+            if (stopIfManualErrors(maniAtoms, get, set)) {
+                return;
+            }
+        }
+
+        //
 
         packManifestData(get, set, fileUs, fileUsAtom, newFilename);
 
