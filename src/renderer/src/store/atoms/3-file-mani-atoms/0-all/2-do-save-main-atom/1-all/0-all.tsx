@@ -1,10 +1,10 @@
-import { atom, Getter, Setter } from "jotai";
-import { FileUsAtom } from "@/store/store-types";
+import { atom, type Getter, type Setter } from "jotai";
+import { type FileUsAtom } from "@/store/store-types";
+import { type ManiAtoms } from "../../../9-types";
 import { packManifestData } from "../0-conv/1-pack-manifest-data";
 import { doVerifyOptionsAtom } from "../../7-do-verify-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
-import { ManiAtoms } from "../../../9-types";
 
 function stopIfOptionErrors(get: Getter, set: Setter, maniAtoms: ManiAtoms): boolean | undefined {
     const errors = set(doVerifyOptionsAtom, { maniAtoms });
