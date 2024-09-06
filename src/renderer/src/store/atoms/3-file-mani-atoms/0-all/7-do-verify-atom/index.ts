@@ -1,3 +1,3 @@
-export * from "./1-verify-normal";
-export * from "./2-verify-manual";
-export * from "./3-verify-options";
+export * from "./1-do-verify-normal-atom";
+export * from "./2-do-verify-manual-atom";
+export * from "./3-do-verify-options-atom";
