@@ -1,5 +1,6 @@
 import type { Getter } from "jotai";
 import type { ManualFieldState } from "../9-types";
+import { RowInputState, RowInputStateAtom, RowInputStateAtoms } from "@/ui";
 
 export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, get: Getter) {
     const rv = {
@@ -27,4 +28,36 @@ export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, ge
         n: get(atoms.nAtom),
     };
     return rv;
+}
+
+function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputState[] {
+    const rv: RowInputState[] = [];
+
+    switch (scriptItem.type) {
+        case "kbd": {
+            const { char, repeat, shift, ctrl, alt } = getKbdAtomsRowInputState(scriptItem, get);
+            rv.push(char, repeat, shift, ctrl, alt);
+            break;
+        }
+        case "pos": {
+            const { x, y, units, res } = getPosAtomsRowInputState(scriptItem, get);
+            rv.push(x, y, units, res);
+            break;
+        }
+        case "dly": {
+            const { n } = getDlyAtomsRowInputState(scriptItem, get);
+            rv.push(n);
+            break;
+        }
+        case "fld": {
+            break;
+        }
+    }
+
+    return rv;
+}
+
+export function getAllValidateAtoms(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputState[] {
+    const rv = chunks.map((chunk) => getValidateAtoms(chunk, get));
+    return rv.flat();
 }

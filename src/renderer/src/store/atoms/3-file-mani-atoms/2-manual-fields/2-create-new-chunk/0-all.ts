@@ -1,15 +1,18 @@
 import { type ManualFieldState } from "../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import type { ChunkKey, EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, EditorDataForOne } from "@/store/manifest";
+import { type ChunkKey, type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, fieldForEditor } from "@/store/manifest";
 import { ManualFieldConv } from "../0-conv";
 import { createForManualMetaField } from "./2-create-for-manual-meta-field";
 
 function createScriptItemByType({ type, password }: { type: ChunkKey; password: boolean; }): EditorDataForOne {
     switch (type) {
         case "fld": {
+            const field = createForManualMetaField(password);
+            const editField = fieldForEditor(field.mani);
             const newItem: EditorDataForFld = {
                 type: 'fld',
-                field: createForManualMetaField(password),
+                field,
+                editField,
             };
             return newItem;
         }
@@ -52,13 +55,3 @@ export function createScriptItem(type: ChunkKey, password: boolean, onChange: On
     const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType({type, password}), onChange);
     return rv;
 }
-
-// ./6-do-create-item.ts
-// TODO: make doCreateItemAtom.onChange real - done
-
-// ./a-create-script-item.ts
-// pidx: 0, //TODO: initiate with correct value - done
-// ridx: 0, //TODO: initiate with correct value - done
-
-// ./1-fields-atoms.tsx
-//TOOD: onChangeItem and onChangeOrder - done

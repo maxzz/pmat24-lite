@@ -1,4 +1,4 @@
-import { type Meta } from '@/store/manifest';
+import { fieldForEditor, type Meta } from '@/store/manifest';
 import { type NormalField, NormalFieldConv } from '../0-conv';
 import { type OnValueChangeAny } from '@/util-hooks';
 import { type OnChangeProps, setManiChanges } from "../../../9-types";
@@ -7,7 +7,7 @@ import { debounce } from '@/utils';
 export namespace NormalFieldState {
 
     export function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.FieldAtoms {
-        const forAtoms = NormalFieldConv.forAtoms(field.mani);
+        const forAtoms = fieldForEditor(field.mani);
         return {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,

@@ -11,3 +11,4 @@ export type RowInputState = {
 };
 
 export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
+export type RowInputStateAtoms = Record<string, RowInputStateAtom>;

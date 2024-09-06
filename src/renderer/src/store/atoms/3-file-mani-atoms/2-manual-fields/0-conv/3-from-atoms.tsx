@@ -39,11 +39,12 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
         }
         case "fld": {
             const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(scriptItem.field, get);
-            const editorValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
+            // const editorValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
             const rv: EditorDataForFld = {
                 type: 'fld',
                 field: scriptItem.field.metaField,
-                editField: editorValues,
+                // editField: editorValues,
+                editField: fromAtomValues,
             };
             return rv;
         }

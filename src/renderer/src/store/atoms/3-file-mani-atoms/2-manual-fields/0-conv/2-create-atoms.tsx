@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
-import { type EditorDataForOne, uuid } from "@/store/manifest";
+import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
 
@@ -74,7 +74,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
-            const fieldforAtoms: NormalField.ForAtoms = NormalFieldConv.forAtoms(chunk.field.mani);
+            const fieldforAtoms: NormalField.ForAtoms = fieldForEditor(chunk.field.mani);
             const fldAtoms: Atomize<NormalField.ForAtoms> = NormalFieldConv.createAtoms(fieldforAtoms, onScopedChange(`fld`));
             const embFld: NormalField.FieldAtoms = {
                 ...fldAtoms,
