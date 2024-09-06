@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type NormalField } from "./9-types";
 
-export function fromAtoms(atoms: NormalField.FieldAtoms, get: Getter, set: Setter): NormalField.ForAtoms {
+export function fromAtoms(atoms: NormalField.FieldAtoms, get: Getter, set?: Setter): NormalField.ForAtoms {
 
     const rv: NormalField.ForAtoms = {
         useIt: get(atoms.useItAtom),
