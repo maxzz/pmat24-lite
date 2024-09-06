@@ -1,6 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { NormalFieldConv, SubmitConv } from "../../../1-normal-fields";
+import { type FileMani } from "@/store/manifest";
+import { type NormalField, type NormalFieldsState, NormalFieldConv, SubmitConv } from "../../../1-normal-fields";
 import { ManiConv } from "./2-conv-mani";
 import { OptionsConv } from "../../../4-options";
 import { type DAOForMani, detectionAndOptionsForMani } from "./53-conv-mani-options";
@@ -32,12 +33,18 @@ export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileU
             // 2. Fields
 
             const fields = loginFormAtoms.normal.fieldsAtoms.map(
-                (fieldAtoms) => {
+                (fieldAtoms: NormalFieldsState.Atoms) => {
                     const metaField = fieldAtoms.metaField;
 
-                    const fromAtomValues = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
-                    const maniValues = NormalFieldConv.forMani(fromAtomValues);
-                    const fileValues = ManiConv.fieldForFileMani(maniValues, metaField.mani, metaField.ftyp, undefined, false);
+                    const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
+                    const maniValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
+                    const fileValues: FileMani.Field = ManiConv.fieldForFileMani({
+                        from: maniValues,
+                        maniField: metaField.mani,
+                        ftyp: metaField.ftyp,
+                        rdir: undefined,
+                        isSubmit: false,
+                    });
                     return fileValues;
                 }
             );

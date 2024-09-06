@@ -1,13 +1,15 @@
 import { FieldTyp, type Mani, type FileMani, type Meta } from "@/store/manifest";
 import { type NormalField } from "../../../1-normal-fields";
 
-export function fieldForFileMani(
-    from: NormalField.ThisType,
-    maniField: Mani.Field,
-    ftyp: FieldTyp,
-    rdir: FileMani.FieldDirection | undefined,
-    isSubmit: boolean
-): FileMani.Field {
+type FieldForFileManiProps = {
+    from: NormalField.ThisType;
+    maniField: Mani.Field;
+    ftyp: FieldTyp;
+    rdir: FileMani.FieldDirection | undefined;
+    isSubmit: boolean;
+};
+
+export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): FileMani.Field {
     const value = getFieldStringValue(from.value, ftyp);
 
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
