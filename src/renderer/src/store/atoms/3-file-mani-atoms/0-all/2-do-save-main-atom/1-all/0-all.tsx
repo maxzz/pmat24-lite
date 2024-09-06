@@ -22,6 +22,12 @@ export const doSaveOneAtom = atom(
 
         //
 
+        if (stopIfOptionErrors(maniAtoms, get, set)) {
+            return;
+        }
+
+        //
+
         const [login, cpass] = maniAtoms;
 
         if (login?.normal) {

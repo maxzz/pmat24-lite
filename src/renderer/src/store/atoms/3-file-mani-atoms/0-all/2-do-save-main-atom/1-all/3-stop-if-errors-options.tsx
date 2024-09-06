@@ -19,3 +19,5 @@ export function stopIfOptionErrors(maniAtoms: ManiAtoms, get: Getter, set: Sette
         return true;
     }
 }
+
+//TODO: validation: activate row (balloon)

@@ -19,3 +19,6 @@ export function stopIfManualErrors(maniAtoms: ManiAtoms, get: Getter, set: Sette
         return true;
     }
 }
+
+//TODO: validation: activate row
+////TODO: validation: activate initial row
