@@ -20,7 +20,7 @@ export function getVerifyErrors(atoms: ManiOptions.FormOptionsAtoms, formIdx: Fo
                 const rv: VerifyError | undefined =
                     error
                         ? {
-                            msg: error,
+                            error: error,
                             tab: 'options',
                         }
                         : undefined;

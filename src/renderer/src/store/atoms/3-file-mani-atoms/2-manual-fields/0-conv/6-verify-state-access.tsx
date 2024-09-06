@@ -3,6 +3,8 @@ import { type ManualFieldState } from "../9-types";
 import { type RowInputState } from "@/ui";
 import { type EditorDataForDly, type EditorDataForKbd, type EditorDataForPos } from "@/store/manifest";
 
+export type RowInputStateUuid = RowInputState & { uuid: number; };
+
 type EditorValues<T> = {
     [key in keyof T]: RowInputState;
 };
@@ -35,27 +37,32 @@ export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, ge
     return rv;
 }
 
-function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputState[] {
+function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
+    const rv: RowInputState[] = [];
     switch (scriptItem.type) {
         case "kbd": {
             const { char, repeat, shift, ctrl, alt } = getKbdAtomsRowInputState(scriptItem, get);
-            return [char, repeat, shift, ctrl, alt];
+            rv.push(char, repeat, shift, ctrl, alt);
+            break;
         }
         case "pos": {
             const { x, y, units, res } = getPosAtomsRowInputState(scriptItem, get);
-            return [x, y, units, res];
+            rv.push(x, y, units, res);
+            break;
         }
         case "dly": {
             const { n } = getDlyAtomsRowInputState(scriptItem, get);
-            return [n];
+            rv.push(n);
+            break;
         }
         case "fld": {
-            return [];
+            break;
         }
     }
+    return rv.map((item) => ({ ...item, uuid: scriptItem.uid5 }));
 }
 
-export function getAllValidateAtoms(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputState[] {
+export function getAllValidateAtoms(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputStateUuid[] {
     const rv = chunks.map((chunk) => getValidateAtoms(chunk, get));
     return rv.flat();
 }

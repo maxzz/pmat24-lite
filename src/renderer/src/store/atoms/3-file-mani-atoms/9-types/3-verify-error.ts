@@ -1,5 +1,5 @@
 export type VerifyError = {
-    msg: string;                            // error message
+    error: string;                          // error message
     tab: 'options' | 'login' | 'cpass';     // tab where error is
-    actionUuid?: string;                    // script action uuid where error is
+    actionUuid?: string | number;           // script action uuid where error is
 };

@@ -11,7 +11,7 @@ export function stopIfOptionErrors(maniAtoms: ManiAtoms, get: Getter, set: Sette
 
         const messages = errors.map(
             (err, idx) => {
-                return <div key={idx}>{err.msg}</div>;
+                return <div key={idx}>{err.error}</div>;
             }
         );
 
