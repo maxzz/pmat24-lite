@@ -1,7 +1,7 @@
-import type { Getter } from "jotai";
-import type { ManualFieldState } from "../9-types";
-import { RowInputState, RowInputStateAtom, RowInputStateAtoms } from "@/ui";
-import { EditorDataForDly, EditorDataForKbd, EditorDataForPos } from "@/store/manifest";
+import { type Getter } from "jotai";
+import { type ManualFieldState } from "../9-types";
+import { type RowInputState } from "@/ui";
+import { type EditorDataForDly, type EditorDataForKbd, type EditorDataForPos } from "@/store/manifest";
 
 type EditorValues<T> = {
     [key in keyof T]: RowInputState;
@@ -36,30 +36,23 @@ export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, ge
 }
 
 function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputState[] {
-    const rv: RowInputState[] = [];
-
     switch (scriptItem.type) {
         case "kbd": {
             const { char, repeat, shift, ctrl, alt } = getKbdAtomsRowInputState(scriptItem, get);
-            rv.push(char, repeat, shift, ctrl, alt);
-            break;
+            return [char, repeat, shift, ctrl, alt];
         }
         case "pos": {
             const { x, y, units, res } = getPosAtomsRowInputState(scriptItem, get);
-            rv.push(x, y, units, res);
-            break;
+            return [x, y, units, res];
         }
         case "dly": {
             const { n } = getDlyAtomsRowInputState(scriptItem, get);
-            rv.push(n);
-            break;
+            return [n];
         }
         case "fld": {
-            break;
+            return [];
         }
     }
-
-    return rv;
 }
 
 export function getAllValidateAtoms(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputState[] {
