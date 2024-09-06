@@ -1,8 +1,13 @@
 import type { Getter } from "jotai";
 import type { ManualFieldState } from "../9-types";
 import { RowInputState, RowInputStateAtom, RowInputStateAtoms } from "@/ui";
+import { EditorDataForDly, EditorDataForKbd, EditorDataForPos } from "@/store/manifest";
 
-export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, get: Getter) {
+type EditorValues<T> = {
+    [key in keyof T]: RowInputState;
+};
+
+export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
     const rv = {
         char: get(atoms.charAtom),
         repeat: get(atoms.repeatAtom),
@@ -13,7 +18,7 @@ export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, ge
     return rv;
 }
 
-export function getPosAtomsRowInputState(atoms: ManualFieldState.PosForAtoms, get: Getter) {
+export function getPosAtomsRowInputState(atoms: ManualFieldState.PosForAtoms, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
     const rv = {
         x: get(atoms.xAtom),
         y: get(atoms.yAtom),
@@ -23,7 +28,7 @@ export function getPosAtomsRowInputState(atoms: ManualFieldState.PosForAtoms, ge
     return rv;
 }
 
-export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, get: Getter) {
+export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
     const rv = {
         n: get(atoms.nAtom),
     };
