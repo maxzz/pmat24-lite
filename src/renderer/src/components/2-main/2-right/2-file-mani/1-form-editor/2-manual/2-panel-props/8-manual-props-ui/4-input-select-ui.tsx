@@ -110,18 +110,22 @@ type InputSelectUiProps = StringValueChangeProps & {
 // }
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-import * as S from "@radix-ui/react-select";
 import { type ModifierDisplayText } from "@/store/manifest";
+
+const popupColorClasses = "\
+h-6 \
+bg-primary-100 dark:bg-primary-900 \
+text-primary-900 dark:text-primary-300";
 
 export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className="px-2 py-1 w-max text-xs gap-1">
-                <SelectValue placeholder={"Don't submit"} />
+            <SelectTrigger className="px-2 w-max h-7 text-xs gap-1">
+                <SelectValue placeholder="Select key" />
             </SelectTrigger>
 
-            <SelectContent align="start">
+            <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
                 {items.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';

@@ -34,11 +34,7 @@ flex items-center justify-between";
 
 const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
     ({ className, children, ...rest }, ref) => (
-        <Prim.Trigger
-            ref={ref}
-            className={cn(selectTriggerClasses, className)}
-            {...rest}
-        >
+        <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
             {children}
             <Prim.Icon asChild>
                 <CaretSortIcon className="h-4 w-4 opacity-50" />
@@ -48,7 +44,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
 );
 SelectTrigger.displayName = Prim.Trigger.displayName;
 
-const SelectScrollButtonClasses = "flex cursor-default items-center justify-center py-1";
+const SelectScrollButtonClasses = "py-1 cursor-default flex items-center justify-center";
 
 const SelectScrollUpButton = forwardRef<ElementRef<typeof Prim.ScrollUpButton>, ComponentPropsWithoutRef<typeof Prim.ScrollUpButton>>(
     ({ className, ...rest }, ref) => (
@@ -100,8 +96,12 @@ w-full \
 min-w-[var(--radix-select-trigger-width)] \
 h-[var(--radix-select-trigger-height)]";
 
-const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
-    ({ className, children, position = "popper", ...rest }, ref) => (
+type SelectContentProps = ComponentPropsWithoutRef<typeof Prim.Content> & {
+    buttonClasses?: string; // up/down button classes
+};
+
+const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, SelectContentProps>(
+    ({ className, children, position = "popper", buttonClasses, ...rest }, ref) => (
         <Prim.Portal>
             <Prim.Content
                 ref={ref}
@@ -109,13 +109,13 @@ const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentProps
                 position={position}
                 {...rest}
             >
-                <SelectScrollUpButton />
+                <SelectScrollUpButton className={buttonClasses} />
 
                 <Prim.Viewport className={cn("p-1", position === "popper" && selectContentViewportPopperClasses)}>
                     {children}
                 </Prim.Viewport>
 
-                <SelectScrollDownButton />
+                <SelectScrollDownButton className={buttonClasses} />
             </Prim.Content>
         </Prim.Portal>
     )
