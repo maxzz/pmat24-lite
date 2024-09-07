@@ -20,9 +20,10 @@ export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProp
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);
     const dispText = rowColumnName(chunk.type);
+    const title = hasError ? "This row has errors" : undefined;
 
     return (
-        <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "bg-red-500")} {...rest}>
+        <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>
             <RowColumnIcon type={chunk.type} />
 
             <div className="pl-3 pr-2 text-xs">
