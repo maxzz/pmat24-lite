@@ -18,10 +18,11 @@ const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-conten
 export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
+    const hasError = useAtomValue(chunk.hasErrorAtom);
     const dispText = rowColumnName(chunk.type);
 
     return (
-        <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses)} {...rest}>
+        <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "bg-red-500")} {...rest}>
             <RowColumnIcon type={chunk.type} />
 
             <div className="pl-3 pr-2 text-xs">

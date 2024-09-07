@@ -5,6 +5,7 @@ import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
+import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {
 
@@ -68,6 +69,8 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
     } else {
         const fromUi = ManualFieldConv.fromAtom(nextValue, get);
         changed = !areTheSame(fromUi, nextValue.original);
+
+        set(nextValue.hasErrorAtom, isChunkInvalid(nextValue, get, set));
     }
 
     setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);

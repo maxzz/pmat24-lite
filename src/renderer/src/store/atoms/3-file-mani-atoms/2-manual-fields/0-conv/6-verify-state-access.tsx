@@ -37,7 +37,7 @@ export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, ge
     return rv;
 }
 
-function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
+export function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
     const rv: RowInputState[] = [];
     switch (scriptItem.type) {
         case "kbd": {
