@@ -58,6 +58,7 @@ data-[side=top]:slide-in-from-bottom-2 \
 data-[side=right]:slide-in-from-left-2 \
 data-[side=bottom]:slide-in-from-top-2 \
 data-[side=left]:slide-in-from-right-2 \
+\
 overflow-hidden \
 border rounded-md shadow-md";
 
@@ -69,8 +70,8 @@ data-[side=left]:-translate-x-1";
 
 const selectContentViewportPopperClasses = "\
 w-full \
-h-[var(--radix-select-trigger-height)] \
-min-w-[var(--radix-select-trigger-width)]";
+min-w-[var(--radix-select-trigger-width)] \
+h-[var(--radix-select-trigger-height)]";
 
 const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
     ({ className, children, position = "popper", ...rest }, ref) => (
