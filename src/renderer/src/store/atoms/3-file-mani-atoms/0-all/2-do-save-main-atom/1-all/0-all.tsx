@@ -1,46 +1,8 @@
 import { atom, Getter, Setter } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "../0-conv/1-pack-manifest-data";
-import { stopIfManualErrors, stopIfNormalErrors, stopIfOptionErrors } from "../../7-do-verify-atom";
-import { ManiAtoms } from "../../../9-types";
-
-function stopIfAnyErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    // Options
-
-    if (stopIfOptionErrors(maniAtoms, get, set)) {
-        return true;
-    }
-
-    // Normal mode
-
-    const [login, cpass] = maniAtoms;
-
-    if (login?.normal) {
-        if (stopIfNormalErrors(maniAtoms, get, set)) {
-            return true;
-        }
-    }
-
-    if (cpass?.normal) {
-        if (stopIfNormalErrors(maniAtoms, get, set)) {
-            return true;
-        }
-    }
-
-    // Manual mode
-
-    if (login?.manual) {
-        if (stopIfManualErrors(maniAtoms, get, set)) {
-            return true;
-        }
-    }
-
-    if (cpass?.manual) {
-        if (stopIfManualErrors(maniAtoms, get, set)) {
-            return true;
-        }
-    }
-}
+import { stopIfAnyErrors } from "../../7-do-verify-atom";
+import { type ManiAtoms } from "../../../9-types";
 
 export const doSaveOneAtom = atom(
     null,
