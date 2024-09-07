@@ -11,7 +11,7 @@ type FrameProps = HTMLAttributes<HTMLDivElement> & {
     children: ReactNode;
 };
 
-export function Frame({ label, children, className, ...rest }: FrameProps) {
+export function GroupFrame({ label, children, className, ...rest }: FrameProps) {
     return (
         <div className={classNames("relative p-2 border-primary-400 dark:border-primary-700 border rounded", className)} {...rest}>
             <div className="absolute left-1 -top-2.5 px-1 bg-primary-100 dark:bg-primary-800">
@@ -23,8 +23,8 @@ export function Frame({ label, children, className, ...rest }: FrameProps) {
     );
 }
 
-function Modifier({ label, itemAtom }: { label: string; itemAtom: PrimitiveAtom<RowInputState>; }) {
-    const [modifier, setModifier] = useAtom(itemAtom);
+function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<RowInputState>; }) {
+    const [modifier, setModifier] = useAtom(valueAtom);
     return (
         <div className={classNames("flex-1 max-w-36 flex @[190px]:flex-col @[190px]:gap-y-0.5 items-center gap-x-2")}>
             <div className="self-start @[190px]:pl-2 min-w-12 text-xs @[190px]:text-[0.65rem] font-light">
@@ -42,14 +42,14 @@ function Modifier({ label, itemAtom }: { label: string; itemAtom: PrimitiveAtom<
 
 export function InputModifiers({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     return (
-        <Frame className="@container -ml-2" label="Key modifiers">
+        <GroupFrame className="@container -ml-2" label="Key modifiers">
             <div className="my-2 flex flex-col @[190px]:flex-row gap-1">
 
-                <Modifier label="Shift" itemAtom={item.shiftAtom} />
-                <Modifier label="Control" itemAtom={item.ctrlAtom} />
-                <Modifier label="Alt" itemAtom={item.altAtom} />
+                <Modifier label="Shift" valueAtom={item.shiftAtom} />
+                <Modifier label="Control" valueAtom={item.ctrlAtom} />
+                <Modifier label="Alt" valueAtom={item.altAtom} />
 
             </div>
-        </Frame>
+        </GroupFrame>
     );
 }

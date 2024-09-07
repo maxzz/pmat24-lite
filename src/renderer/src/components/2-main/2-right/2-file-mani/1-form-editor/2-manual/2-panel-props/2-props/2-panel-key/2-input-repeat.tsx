@@ -1,15 +1,23 @@
-import { useAtomValue } from "jotai";
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { type PrimitiveAtom, useAtomValue } from "jotai";
+import { type RowInputState } from "@/ui";
+import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { pluralWord, toNumberWDefault1 } from "@/utils";
 
-export function InputRepeat({ item }: { item: ManualFieldState.KbdForAtoms; }) {
-    const repeat = useAtomValue(item.repeatAtom);
+export function InputRepeat({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
+    const repeat = useAtomValue(valueAtom);
     return (
-        <div className="flex items-end space-x-1">
-            <RowInputWLabel stateAtom={item.repeatAtom} label="Repeat" />
+        <label className="flex flex-col gap-1">
+            <span>
+                Repeat
+            </span>
 
-            <div className="pb-1">{`${pluralWord(toNumberWDefault1(repeat.data), 'time')}`}</div>
-        </div>
+            <div className="max-w-24 flex items-center gap-1" title="Number of times to repeat this key">
+                <InputWTooltip stateAtom={valueAtom} asCheckbox={false} />
+
+                <span className="pt-0.5">
+                    {`${pluralWord(toNumberWDefault1(repeat.data), 'time')}`}
+                </span>
+            </div>
+        </label>
     );
 }

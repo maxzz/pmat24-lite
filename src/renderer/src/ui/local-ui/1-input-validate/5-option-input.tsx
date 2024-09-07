@@ -60,6 +60,7 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
             onBlur={onBlur}
             {...turnOffAutoComplete}
             {...rest}
+            // type="number" min={0} max={99999} step={1}
         />
     );
 }

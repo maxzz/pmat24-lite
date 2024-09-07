@@ -1,10 +1,10 @@
-import { useAtom } from "jotai";
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type PrimitiveAtom, useAtom } from "jotai";
+import { type RowInputState } from "@/ui";
 import { InputSelect } from "../../8-manual-props-ui";
 import { actionKeys } from "@/store/manifest";
 
-export function InputKey({ item }: { item: ManualFieldState.KbdForAtoms; }) {
-    const [value, setValue] = useAtom(item.charAtom);
+export function InputKey({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
+    const [value, setValue] = useAtom(valueAtom);
     return (
         <InputSelect
             items={actionKeys}
