@@ -27,7 +27,7 @@ function MenuRow({ ctx, type, password }: { ctx: MFormContextProps; type: ChunkK
 const buttonClasses = "\
 w-7 h-6 \
 hover:bg-primary-200 dark:hover:bg-primary-700 \
-border-primary-500/50 \
+border-muted-foreground/20 \
 border rounded outline-none \
 shadow-sm dark:shadow-primary-900 \
 grid place-items-center";
