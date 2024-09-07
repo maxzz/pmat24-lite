@@ -8,6 +8,7 @@ import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, val
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
+    const hasErrorAtom = atom(false);
     switch (chunk.type) {
         case "kbd": {
             function onScopedChange(name: string) {
@@ -20,6 +21,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'kbd',
                 uid5,
                 selectedAtom,
+                hasErrorAtom,
                 original: chunk,
 
                 charAtom: newAtomForInput(chunk.char, onScopedChange('kbd-key')),
@@ -41,6 +43,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'pos',
                 uid5,
                 selectedAtom,
+                hasErrorAtom,
                 original: chunk,
 
                 xAtom: newAtomForInput(chunk.x, onScopedChange('pos-x'), { validate: validateNumber }),
@@ -61,6 +64,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'dly',
                 uid5,
                 selectedAtom,
+                hasErrorAtom,
                 original: chunk,
 
                 nAtom: newAtomForInput(chunk.n, onScopedChange('dly-dly'), { validate: validateNumber }),
@@ -87,6 +91,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'fld',
                 uid5,
                 selectedAtom,
+                hasErrorAtom,
                 original: chunk,
 
                 field: embFld,

@@ -10,6 +10,7 @@ export namespace ManualFieldState {
         type: ChunkKey;
         uid5: number;                           // unique id for each row
         selectedAtom: PrimitiveAtom<boolean>;   // is atom selected now
+        hasErrorAtom: PrimitiveAtom<boolean>;   // is atom has error
     };
 
     export type KbdForAtoms = Prettify<ExtraForAtoms & AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {
