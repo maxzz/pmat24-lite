@@ -3,7 +3,7 @@ import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, validateNumber } from "@/ui/local-ui/1-input-validate";
+import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
@@ -25,7 +25,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 original: chunk,
 
                 charAtom: newAtomForInput(chunk.char, onScopedChange('kbd-key')),
-                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumber }),
+                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999) }),
                 shiftAtom: newAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
                 ctrlAtom: newAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
                 altAtom: newAtomForInput(chunk.alt, onScopedChange('kbd-alt')),

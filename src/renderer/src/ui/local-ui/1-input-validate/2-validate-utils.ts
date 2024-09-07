@@ -14,6 +14,16 @@ export function validateNumber(value: string): string {
     return '';
 }
 
+export function validateNumberMinMax(min: number, max: number): (value: string) => string {
+    return (value: string) => {
+        const num = +value;
+        if (isNaN(num)) {
+            return 'Value must be a number.';
+        }
+        return num < min || num > max ? `Value must be between ${min} and ${max}.` : '';
+    };
+}
+
 export function validateMinLen(value: string): string {
     const num = +value;
     if (isNaN(num)) {
