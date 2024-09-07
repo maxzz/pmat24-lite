@@ -1,13 +1,13 @@
 import { type Getter, type Setter } from "jotai";
-import { type ManiAtoms } from "../../../9-types";
-import { doVerifyOptionsAtom } from "../../7-do-verify-atom";
+import { type ManiAtoms } from "../../9-types";
+import { doVerifyManualFormAtom } from ".";
 import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
 
-export function stopIfOptionErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const errors = set(doVerifyOptionsAtom, { maniAtoms });
+export function stopIfManualErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors = set(doVerifyManualFormAtom, { maniAtoms });
     if (errors) {
-        appSettings.right.mani.activeTab = 'options';
+        appSettings.right.mani.activeTab = errors[0].tab;
 
         const messages = errors.map(
             (err, idx) => {
@@ -20,4 +20,5 @@ export function stopIfOptionErrors(maniAtoms: ManiAtoms, get: Getter, set: Sette
     }
 }
 
-//TODO: validation: activate row (balloon)
+//TODO: validation: activate row
+////TODO: validation: activate initial row

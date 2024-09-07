@@ -1,9 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "../0-conv/1-pack-manifest-data";
-import { stopIfNormalErrors } from "./1-stop-if-errors-normal";
-import { stopIfManualErrors } from "./2-stop-if-errors-manual";
-import { stopIfOptionErrors } from "./3-stop-if-errors-options";
+import { stopIfManualErrors, stopIfNormalErrors, stopIfOptionErrors } from "../../7-do-verify-atom";
 
 export const doSaveOneAtom = atom(
     null,
