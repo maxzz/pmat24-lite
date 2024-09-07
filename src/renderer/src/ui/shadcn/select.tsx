@@ -1,7 +1,7 @@
-//"use client"; // rollup does not like this
+//"use client";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-select";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CaretSortIcon, CheckIcon, ChevronDownIcon, ChevronUpIcon, } from "@radix-ui/react-icons";
 import { cn } from "@/utils";
 
 const Select = Prim.Root;
@@ -27,11 +27,18 @@ disabled:opacity-50 \
 \
 border rounded-md shadow-sm \
 \
+whitespace-nowrap \
+[&>span]:line-clamp-1 \
+\
 flex items-center justify-between";
 
 const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
-    ({ className, children, ...rest }, ref) => (
-        <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
+    ({ className, children, ...props }, ref) => (
+        <Prim.Trigger
+            ref={ref}
+            className={cn(selectTriggerClasses, className)}
+            {...props}
+        >
             {children}
             <Prim.Icon asChild>
                 <CaretSortIcon className="h-4 w-4 opacity-50" />
@@ -41,8 +48,34 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
 );
 SelectTrigger.displayName = Prim.Trigger.displayName;
 
+const SelectScrollUpButton = forwardRef<ElementRef<typeof Prim.ScrollUpButton>, ComponentPropsWithoutRef<typeof Prim.ScrollUpButton>>(
+    ({ className, ...props }, ref) => (
+        <Prim.ScrollUpButton
+            ref={ref}
+            className={cn("flex cursor-default items-center justify-center py-1", className)}
+            {...props}
+        >
+            <ChevronUpIcon />
+        </Prim.ScrollUpButton>
+    )
+);
+SelectScrollUpButton.displayName = Prim.ScrollUpButton.displayName;
+
+const SelectScrollDownButton = forwardRef<ElementRef<typeof Prim.ScrollDownButton>, ComponentPropsWithoutRef<typeof Prim.ScrollDownButton>>(
+    ({ className, ...props }, ref) => (
+        <Prim.ScrollDownButton
+            ref={ref}
+            className={cn("flex cursor-default items-center justify-center py-1", className)}
+            {...props}
+        >
+            <ChevronDownIcon />
+        </Prim.ScrollDownButton>
+    )
+);
+SelectScrollDownButton.displayName = Prim.ScrollDownButton.displayName;
+
 const selectContentClasses = "\
-z-50 relative min-w-[8rem] \
+z-50 relative min-w-[8rem] max-h-96 \
 \
 text-popover-foreground bg-popover \
 \
@@ -74,62 +107,26 @@ min-w-[var(--radix-select-trigger-width)] \
 h-[var(--radix-select-trigger-height)]";
 
 const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
-    ({ className, children, position = "popper", ...rest }, ref) => (
+    ({ className, children, position = "popper", ...props }, ref) => (
         <Prim.Portal>
             <Prim.Content
                 ref={ref}
                 className={cn(selectContentClasses, position === "popper" && selectContentPopperClasses, className)}
                 position={position}
-                {...rest}
+                {...props}
             >
+                <SelectScrollUpButton />
+
                 <Prim.Viewport className={cn("p-1", position === "popper" && selectContentViewportPopperClasses)}>
                     {children}
                 </Prim.Viewport>
+
+                <SelectScrollDownButton />
             </Prim.Content>
         </Prim.Portal>
     )
 );
 SelectContent.displayName = Prim.Content.displayName;
-
-//
-
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-
-const popupColorClasses = "\
-bg-primary-100 dark:bg-primary-900 \
-text-primary-900 dark:text-primary-300";
-
-const scrollButtonClasses = `h-6 ${popupColorClasses} flex items-center justify-center`;
-
-export const SelectContentWBtns = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
-    ({ className, children, position = "popper", ...rest }, ref) => (
-        <Prim.Portal>
-            <Prim.Content
-                ref={ref}
-                className={cn(selectContentClasses, position === "popper" && selectContentPopperClasses, className)}
-                //position={position}
-                {...rest}
-            >
-
-                <Prim.ScrollUpButton className={scrollButtonClasses}>
-                    <ChevronUpIcon className="size-3" />
-                </Prim.ScrollUpButton>
-
-                <Prim.Viewport className={cn("p-1", position === "popper" && selectContentViewportPopperClasses)}>
-                    {children}
-                </Prim.Viewport>
-
-                <Prim.ScrollDownButton className={scrollButtonClasses}>
-                    <ChevronDownIcon className="size-3" />
-                </Prim.ScrollDownButton>
-
-            </Prim.Content>
-        </Prim.Portal>
-    )
-);
-SelectContentWBtns.displayName = Prim.Content.displayName;
-
-//
 
 const SelectLabel = forwardRef<ElementRef<typeof Prim.Label>, ComponentPropsWithoutRef<typeof Prim.Label>>(
     ({ className, ...props }, ref) => (
@@ -143,7 +140,7 @@ const SelectLabel = forwardRef<ElementRef<typeof Prim.Label>, ComponentPropsWith
 SelectLabel.displayName = Prim.Label.displayName;
 
 const selectItemClasses = "\
-relative py-1.5 w-full text-sm \
+relative py-1.5 pl-2 pr-8 w-full text-sm \
 \
 focus:text-accent-foreground \
 focus:bg-accent \
@@ -166,14 +163,18 @@ type SelectItemProps = ComponentPropsWithoutRef<typeof Prim.Item> & {
 };
 
 const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
-    ({ className, children, indicatorFirst, ...rest }, ref) => {
+    ({ className, children, indicatorFirst, ...props }, ref) => {
         const itemClasses = indicatorFirst ? selectItemLeftClasses : selectItemRightClasses;
         const indiClasses = indicatorFirst ? selectIndiLeftClasses : selectIndiRightClasses;
         return (
-            <Prim.Item ref={ref} className={cn(selectItemClasses, itemClasses, className)} {...rest} >
-                <span className={cn("absolute size-3.5 flex items-center justify-center", indiClasses)}>
+            <Prim.Item
+                ref={ref}
+                className={cn(selectItemClasses, itemClasses, className)}
+                {...props}
+            >
+                <span className={cn("absolute right-2 flex h-3.5 w-3.5 items-center justify-center", indiClasses)}>
                     <Prim.ItemIndicator>
-                        <CheckIcon className="size-4" />
+                        <CheckIcon className="h-4 w-4" />
                     </Prim.ItemIndicator>
                 </span>
                 <Prim.ItemText>{children}</Prim.ItemText>
@@ -184,8 +185,12 @@ const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
 SelectItem.displayName = Prim.Item.displayName;
 
 const SelectSeparator = forwardRef<ElementRef<typeof Prim.Separator>, ComponentPropsWithoutRef<typeof Prim.Separator>>(
-    ({ className, ...rest }, ref) => (
-        <Prim.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...rest} />
+    ({ className, ...props }, ref) => (
+        <Prim.Separator
+            ref={ref}
+            className={cn("-mx-1 my-1 h-px bg-muted", className)}
+            {...props}
+        />
     )
 );
 SelectSeparator.displayName = Prim.Separator.displayName;
@@ -199,4 +204,6 @@ export {
     SelectLabel,
     SelectItem,
     SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton,
 };
