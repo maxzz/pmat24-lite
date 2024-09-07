@@ -33,11 +33,11 @@ whitespace-nowrap \
 flex items-center justify-between";
 
 const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
-    ({ className, children, ...props }, ref) => (
+    ({ className, children, ...rest }, ref) => (
         <Prim.Trigger
             ref={ref}
             className={cn(selectTriggerClasses, className)}
-            {...props}
+            {...rest}
         >
             {children}
             <Prim.Icon asChild>
@@ -48,13 +48,11 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
 );
 SelectTrigger.displayName = Prim.Trigger.displayName;
 
+const SelectScrollButtonClasses = "flex cursor-default items-center justify-center py-1";
+
 const SelectScrollUpButton = forwardRef<ElementRef<typeof Prim.ScrollUpButton>, ComponentPropsWithoutRef<typeof Prim.ScrollUpButton>>(
-    ({ className, ...props }, ref) => (
-        <Prim.ScrollUpButton
-            ref={ref}
-            className={cn("flex cursor-default items-center justify-center py-1", className)}
-            {...props}
-        >
+    ({ className, ...rest }, ref) => (
+        <Prim.ScrollUpButton ref={ref} className={cn(SelectScrollButtonClasses, className)} {...rest}>
             <ChevronUpIcon />
         </Prim.ScrollUpButton>
     )
@@ -62,12 +60,8 @@ const SelectScrollUpButton = forwardRef<ElementRef<typeof Prim.ScrollUpButton>, 
 SelectScrollUpButton.displayName = Prim.ScrollUpButton.displayName;
 
 const SelectScrollDownButton = forwardRef<ElementRef<typeof Prim.ScrollDownButton>, ComponentPropsWithoutRef<typeof Prim.ScrollDownButton>>(
-    ({ className, ...props }, ref) => (
-        <Prim.ScrollDownButton
-            ref={ref}
-            className={cn("flex cursor-default items-center justify-center py-1", className)}
-            {...props}
-        >
+    ({ className, ...rest }, ref) => (
+        <Prim.ScrollDownButton ref={ref} className={cn(SelectScrollButtonClasses, className)} {...rest}>
             <ChevronDownIcon />
         </Prim.ScrollDownButton>
     )
@@ -107,13 +101,13 @@ min-w-[var(--radix-select-trigger-width)] \
 h-[var(--radix-select-trigger-height)]";
 
 const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
-    ({ className, children, position = "popper", ...props }, ref) => (
+    ({ className, children, position = "popper", ...rest }, ref) => (
         <Prim.Portal>
             <Prim.Content
                 ref={ref}
                 className={cn(selectContentClasses, position === "popper" && selectContentPopperClasses, className)}
                 position={position}
-                {...props}
+                {...rest}
             >
                 <SelectScrollUpButton />
 
@@ -129,11 +123,11 @@ const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentProps
 SelectContent.displayName = Prim.Content.displayName;
 
 const SelectLabel = forwardRef<ElementRef<typeof Prim.Label>, ComponentPropsWithoutRef<typeof Prim.Label>>(
-    ({ className, ...props }, ref) => (
+    ({ className, ...rest }, ref) => (
         <Prim.Label
             ref={ref}
             className={cn("px-2 py-1.5 text-sm font-semibold", className)}
-            {...props}
+            {...rest}
         />
     )
 );
@@ -163,14 +157,14 @@ type SelectItemProps = ComponentPropsWithoutRef<typeof Prim.Item> & {
 };
 
 const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
-    ({ className, children, indicatorFirst, ...props }, ref) => {
+    ({ className, children, indicatorFirst, ...rest }, ref) => {
         const itemClasses = indicatorFirst ? selectItemLeftClasses : selectItemRightClasses;
         const indiClasses = indicatorFirst ? selectIndiLeftClasses : selectIndiRightClasses;
         return (
             <Prim.Item
                 ref={ref}
                 className={cn(selectItemClasses, itemClasses, className)}
-                {...props}
+                {...rest}
             >
                 <span className={cn("absolute right-2 flex h-3.5 w-3.5 items-center justify-center", indiClasses)}>
                     <Prim.ItemIndicator>
@@ -185,11 +179,11 @@ const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
 SelectItem.displayName = Prim.Item.displayName;
 
 const SelectSeparator = forwardRef<ElementRef<typeof Prim.Separator>, ComponentPropsWithoutRef<typeof Prim.Separator>>(
-    ({ className, ...props }, ref) => (
+    ({ className, ...rest }, ref) => (
         <Prim.Separator
             ref={ref}
             className={cn("-mx-1 my-1 h-px bg-muted", className)}
-            {...props}
+            {...rest}
         />
     )
 );
