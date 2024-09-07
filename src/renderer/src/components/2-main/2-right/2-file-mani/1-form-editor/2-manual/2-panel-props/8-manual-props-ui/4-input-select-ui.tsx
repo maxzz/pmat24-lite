@@ -109,7 +109,8 @@ type InputSelectUiProps = StringValueChangeProps & {
 //     );
 // }
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
+import { Select, SelectContent, SelectContentWBtns, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
+import * as S from "@radix-ui/react-select";
 import { type ModifierDisplayText } from "@/store/manifest";
 
 export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProps) {
@@ -120,7 +121,7 @@ export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProp
                 <SelectValue placeholder={"Don't submit"} />
             </SelectTrigger>
 
-            <SelectContent align="start">
+            <SelectContentWBtns align="start">
                 {items.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';
@@ -133,7 +134,7 @@ export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProp
                         );
                     })
                 }
-            </SelectContent>
+            </SelectContentWBtns>
 
         </Select>
     );

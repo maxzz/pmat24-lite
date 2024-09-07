@@ -90,6 +90,46 @@ const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentProps
 );
 SelectContent.displayName = Prim.Content.displayName;
 
+//
+
+import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+
+const popupColorClasses = "\
+bg-primary-100 dark:bg-primary-900 \
+text-primary-900 dark:text-primary-300";
+
+const scrollButtonClasses = `h-6 ${popupColorClasses} flex items-center justify-center`;
+
+export const SelectContentWBtns = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
+    ({ className, children, position = "popper", ...rest }, ref) => (
+        <Prim.Portal>
+            <Prim.Content
+                ref={ref}
+                className={cn(selectContentClasses, position === "popper" && selectContentPopperClasses, className)}
+                //position={position}
+                {...rest}
+            >
+
+                <Prim.ScrollUpButton className={scrollButtonClasses}>
+                    <ChevronUpIcon className="size-3" />
+                </Prim.ScrollUpButton>
+
+                <Prim.Viewport className={cn("p-1", position === "popper" && selectContentViewportPopperClasses)}>
+                    {children}
+                </Prim.Viewport>
+
+                <Prim.ScrollDownButton className={scrollButtonClasses}>
+                    <ChevronDownIcon className="size-3" />
+                </Prim.ScrollDownButton>
+
+            </Prim.Content>
+        </Prim.Portal>
+    )
+);
+SelectContentWBtns.displayName = Prim.Content.displayName;
+
+//
+
 const SelectLabel = forwardRef<ElementRef<typeof Prim.Label>, ComponentPropsWithoutRef<typeof Prim.Label>>(
     ({ className, ...props }, ref) => (
         <Prim.Label
