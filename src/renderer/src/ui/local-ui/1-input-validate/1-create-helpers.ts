@@ -4,7 +4,7 @@ import { RowInputState } from "./9-types";
 
 export type OnChangeValueWithUpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
-export function initForInput(value: string, more?: Partial<RowInputState>): RowInputState {
+export function initStateForInput(value: string, more?: Partial<RowInputState>): RowInputState {
     const state: RowInputState = {
         type: 'string',
         data: value,
@@ -18,7 +18,7 @@ export function initForInput(value: string, more?: Partial<RowInputState>): RowI
     return rv;
 }
 
-export function newAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
     value = value.toString();
     const state: RowInputState = {
         type: 'string',
@@ -33,6 +33,6 @@ export function newAtomForInput(value: string | number, onChange: OnValueChange<
     return rv;
 }
 
-export function newAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
-    return newAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
+export function createAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
+    return createAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
 }

@@ -23,29 +23,33 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setState((prev) => {
-            const value = e.target.value;
-            const newState: RowInputState = {
-                ...prev,
-                data: value,
-                error: prev.validate?.(value),
-                dirty: prev.initialData !== value,
-            };
-            return newState;
-        });
+        setState(
+            (prev) => {
+                const value = e.target.value;
+                const rv: RowInputState = {
+                    ...prev,
+                    data: value,
+                    error: prev.validate?.(value),
+                    dirty: prev.initialData !== value,
+                };
+                return rv;
+            }
+        );
         onValueChange?.();
     }
 
     function onBlur() {
-        setState((prev) => {
-            const newState: RowInputState = {
-                ...prev,
-                touched: true,
-                error: prev.validate?.(prev.data),
-                dirty: prev.initialData !== prev.data,
-            };
-            return newState;
-        });
+        setState(
+            (prev) => {
+                const rv: RowInputState = {
+                    ...prev,
+                    touched: true,
+                    error: prev.validate?.(prev.data),
+                    dirty: prev.initialData !== prev.data,
+                };
+                return rv;
+            }
+        );
     }
 
     return (
@@ -55,6 +59,7 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
             onChange={onChange}
             onBlur={onBlur}
             {...turnOffAutoComplete}
-            {...rest} />
+            {...rest}
+        />
     );
 }

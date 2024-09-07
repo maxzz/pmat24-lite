@@ -13,24 +13,28 @@ export function OptionCheckbox({ stateAtom, className, onValueChange, ...rest }:
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.checked ? '1' : '';
-        setState((prev) => {
-            return {
-                ...prev,
-                data: value,
-                dirty: state.initialData !== value,
-            };
-        });
+        setState(
+            (prev) => {
+                return {
+                    ...prev,
+                    data: value,
+                    dirty: state.initialData !== value,
+                };
+            }
+        );
         onValueChange?.();
     }
 
     function onBlur() {
-        setState((prev) => {
-            return {
-                ...prev,
-                touched: true,
-                dirty: state.initialData !== prev.data,
-            };
-        });
+        setState(
+            (prev) => {
+                return {
+                    ...prev,
+                    touched: true,
+                    dirty: state.initialData !== prev.data,
+                };
+            }
+        );
         onValueChange?.();
     }
 
@@ -41,6 +45,7 @@ export function OptionCheckbox({ stateAtom, className, onValueChange, ...rest }:
             checked={state.data === '1'}
             onChange={onChange}
             onBlur={onBlur}
-            {...rest} />
+            {...rest}
+        />
     );
 }

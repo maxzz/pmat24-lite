@@ -3,7 +3,7 @@ import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { newAtomForCheck, newAtomForInput, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
+import { createAtomForCheck, createAtomForInput, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
@@ -24,11 +24,11 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 hasErrorAtom,
                 original: chunk,
 
-                charAtom: newAtomForInput(chunk.char, onScopedChange('kbd-key')),
-                repeatAtom: newAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999) }),
-                shiftAtom: newAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
-                ctrlAtom: newAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
-                altAtom: newAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
+                charAtom: createAtomForInput(chunk.char, onScopedChange('kbd-key')),
+                repeatAtom: createAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999) }),
+                shiftAtom: createAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
+                ctrlAtom: createAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
+                altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
             };
             return rv;
         }
@@ -46,10 +46,10 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 hasErrorAtom,
                 original: chunk,
 
-                xAtom: newAtomForInput(chunk.x, onScopedChange('pos-x'), { validate: validateNumber }),
-                yAtom: newAtomForInput(chunk.y, onScopedChange('pos-y'), { validate: validateNumber }),
-                unitsAtom: newAtomForCheck(chunk.units, onScopedChange('pos-units')),
-                resAtom: newAtomForInput(chunk.res, onScopedChange('pos-res'), { validate: validateNumber }),
+                xAtom: createAtomForInput(chunk.x, onScopedChange('pos-x'), { validate: validateNumber }),
+                yAtom: createAtomForInput(chunk.y, onScopedChange('pos-y'), { validate: validateNumber }),
+                unitsAtom: createAtomForCheck(chunk.units, onScopedChange('pos-units')),
+                resAtom: createAtomForInput(chunk.res, onScopedChange('pos-res'), { validate: validateNumber }),
             };
             return rv;
         }
@@ -67,7 +67,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 hasErrorAtom,
                 original: chunk,
 
-                nAtom: newAtomForInput(chunk.n, onScopedChange('dly-dly'), { validate: validateNumber }),
+                nAtom: createAtomForInput(chunk.n, onScopedChange('dly-dly'), { validate: validateNumber }),
             };
             return rv;
         }
