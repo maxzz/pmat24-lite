@@ -1,9 +1,7 @@
-import { type Getter } from "jotai";
+import { type PrimitiveAtom, type Getter } from "jotai";
 import { type ManualFieldState } from "../9-types";
 import { type RowInputState } from "@/ui";
 import { type EditorDataForDly, type EditorDataForKbd, type EditorDataForPos } from "@/store/manifest";
-
-export type RowInputStateUuid = RowInputState & { uuid: number; };
 
 type EditorValues<T> = {
     [key in keyof T]: RowInputState;
@@ -37,6 +35,8 @@ export function getDlyChunkValues(atoms: ManualFieldState.DlyForAtoms, get: Gett
     return rv;
 }
 
+export type RowInputStateUuid = RowInputState & { uuid: number; chunk: ManualFieldState.ForAtoms; };
+
 export function getChunkValuesForValidate(chunk: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
     const rv: RowInputState[] = [];
     switch (chunk.type) {
@@ -59,7 +59,7 @@ export function getChunkValuesForValidate(chunk: ManualFieldState.ForAtoms, get:
             break;
         }
     }
-    return rv.map((item) => ({ ...item, uuid: chunk.uid5 }));
+    return rv.map((item) => ({ ...item, uuid: chunk.uid5, chunk }));
 }
 
 export function getAllAtomValuesForValidate(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputStateUuid[] {

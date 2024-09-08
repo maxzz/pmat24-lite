@@ -18,6 +18,8 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
                 const atomValue: RowInputStateUuid = item;
                 const actionUuid = atomValue.uuid;
                 const error = atomValue.validate?.(atomValue.data);
+                
+                set(item.chunk.hasErrorAtom, !!error); // This is needed for initial and on save validation
 
                 const rv: VerifyError | undefined = error ? { error, tab, actionUuid } : undefined;
                 return rv;
