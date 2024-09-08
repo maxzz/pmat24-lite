@@ -9,7 +9,7 @@ type EditorValues<T> = {
     [key in keyof T]: RowInputState;
 };
 
-export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
+export function getKbdChunkValues(atoms: ManualFieldState.KbdForAtoms, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
     const rv = {
         char: get(atoms.charAtom),
         repeat: get(atoms.repeatAtom),
@@ -20,7 +20,7 @@ export function getKbdAtomsRowInputState(atoms: ManualFieldState.KbdForAtoms, ge
     return rv;
 }
 
-export function getPosAtomsRowInputState(atoms: ManualFieldState.PosForAtoms, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
+export function getPosChunkValues(atoms: ManualFieldState.PosForAtoms, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
     const rv = {
         x: get(atoms.xAtom),
         y: get(atoms.yAtom),
@@ -30,28 +30,28 @@ export function getPosAtomsRowInputState(atoms: ManualFieldState.PosForAtoms, ge
     return rv;
 }
 
-export function getDlyAtomsRowInputState(atoms: ManualFieldState.DlyForAtoms, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
+export function getDlyChunkValues(atoms: ManualFieldState.DlyForAtoms, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
     const rv = {
         n: get(atoms.nAtom),
     };
     return rv;
 }
 
-export function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
+export function getChunkValuesForValidate(chunk: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
     const rv: RowInputState[] = [];
-    switch (scriptItem.type) {
+    switch (chunk.type) {
         case "kbd": {
-            const { char, repeat, shift, ctrl, alt } = getKbdAtomsRowInputState(scriptItem, get);
+            const { char, repeat, shift, ctrl, alt } = getKbdChunkValues(chunk, get);
             rv.push(char, repeat, shift, ctrl, alt);
             break;
         }
         case "pos": {
-            const { x, y, units, res } = getPosAtomsRowInputState(scriptItem, get);
+            const { x, y, units, res } = getPosChunkValues(chunk, get);
             rv.push(x, y, units, res);
             break;
         }
         case "dly": {
-            const { n } = getDlyAtomsRowInputState(scriptItem, get);
+            const { n } = getDlyChunkValues(chunk, get);
             rv.push(n);
             break;
         }
@@ -59,10 +59,10 @@ export function getValidateAtoms(scriptItem: ManualFieldState.ForAtoms, get: Get
             break;
         }
     }
-    return rv.map((item) => ({ ...item, uuid: scriptItem.uid5 }));
+    return rv.map((item) => ({ ...item, uuid: chunk.uid5 }));
 }
 
-export function getAllValidateAtoms(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputStateUuid[] {
-    const rv = chunks.map((chunk) => getValidateAtoms(chunk, get));
+export function getAllAtomValuesForValidate(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputStateUuid[] {
+    const rv = chunks.map((chunk) => getChunkValuesForValidate(chunk, get));
     return rv.flat();
 }
