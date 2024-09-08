@@ -23,14 +23,8 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
 
                 if (error) {
                     const chunkNum = involvedChunkNumbers.get(atomValue.chunk.hasErrorAtom);
-                    if (chunkNum === undefined) {
-                        involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, 1);
-                    } else {
-                        involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, chunkNum + 1);
-                    }
+                    involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
                 }
-
-                // console.log(`error: '${error}'`, `tab='${tab}' actionUuid=${actionUuid}`);
 
                 const rv: VerifyError | undefined = error ? { error, tab, actionUuid } : undefined;
                 return rv;
@@ -38,9 +32,8 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
         ).filter(Boolean);
 
     involvedChunkNumbers.forEach(
-        (num, atom) => {
-            set(atom, true);
-            console.log(`num: '${num}'`, `tab='${tab}' atom=${atom}`);
+        (num, errorAtom) => {
+            set(errorAtom, true);
         }
     );
 
@@ -59,5 +52,3 @@ export function isChunkInvalid(chunk: ManualFieldState.ForAtoms, get: Getter, se
 
     return err;
 }
-
-//function setInitialValidationState

@@ -3,12 +3,11 @@ import { atomWithCallback, type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { createAtomForCheck, createAtomForInput, dataForAtom, type OnChangeValueWithUpdateName, RowInputState, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
+import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, RowInputState, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
-    const hasErrorAtom = atom(false);
     const validateOptions = { validate: validateNumber, options: { initialValidate: true } };
 
     switch (chunk.type) {
@@ -19,7 +18,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
-            const repeatData = dataForAtom(chunk.repeat, { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, });
+            const repeatData = dataForStateAtom(chunk.repeat, { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, });
 
             const chunkData = {
                 charAtom: createAtomForInput(chunk.char, onScopedChange('kbd-key')),
@@ -27,9 +26,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 shiftAtom: createAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
                 ctrlAtom: createAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
                 altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
-            }
-
-            //const hasErrorAtom = atom(false);
+            };
 
             const rv: ManualFieldState.KbdForAtoms = {
                 type: 'kbd',
@@ -37,7 +34,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 hasErrorAtom: atom(!!repeatData.error),
                 original: chunk,
-                ...chunkData
+                ...chunkData,
             };
             return rv;
         }
@@ -48,17 +45,24 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
+            const xData = dataForStateAtom(chunk.x, validateOptions);
+            const yData = dataForStateAtom(chunk.y, validateOptions);
+            const resData = dataForStateAtom(chunk.res, validateOptions);
+
+            const chunkData = {
+                xAtom: atomWithCallback(xData, onScopedChange('pos-x')),
+                yAtom: atomWithCallback(yData, onScopedChange('pos-y')),
+                unitsAtom: createAtomForCheck(chunk.units, onScopedChange('pos-units')),
+                resAtom: atomWithCallback(resData, onScopedChange('pos-res')),
+            };
+
             const rv: ManualFieldState.PosForAtoms = {
                 type: 'pos',
                 uid5,
                 selectedAtom,
-                hasErrorAtom,
+                hasErrorAtom: atom(!!xData.error || !!yData.error || !!resData.error),
                 original: chunk,
-
-                xAtom: createAtomForInput(chunk.x, onScopedChange('pos-x'), validateOptions),
-                yAtom: createAtomForInput(chunk.y, onScopedChange('pos-y'), validateOptions),
-                unitsAtom: createAtomForCheck(chunk.units, onScopedChange('pos-units')),
-                resAtom: createAtomForInput(chunk.res, onScopedChange('pos-res'), validateOptions),
+                ...chunkData,
             };
             return rv;
         }
@@ -69,14 +73,19 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
+            const nData = dataForStateAtom(chunk.n, validateOptions);
+
+            const chunkData = {
+                nAtom: atomWithCallback(nData, onScopedChange('dly-dly')),
+            };
+
             const rv: ManualFieldState.DlyForAtoms = {
                 type: 'dly',
                 uid5,
                 selectedAtom,
-                hasErrorAtom,
+                hasErrorAtom: atom(!!nData.error),
                 original: chunk,
-
-                nAtom: createAtomForInput(chunk.n, onScopedChange('dly-dly'), validateOptions),
+                ...chunkData,
             };
             return rv;
         }
@@ -100,7 +109,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'fld',
                 uid5,
                 selectedAtom,
-                hasErrorAtom,
+                hasErrorAtom: atom(false),
                 original: chunk,
 
                 field: embFld,

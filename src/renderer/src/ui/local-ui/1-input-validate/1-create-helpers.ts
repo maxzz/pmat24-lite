@@ -1,6 +1,6 @@
-import { PrimitiveAtom } from "jotai";
-import { OnValueChange, atomWithCallback } from "@/util-hooks";
-import { RowInputState } from "./9-types";
+import { type PrimitiveAtom } from "jotai";
+import { type OnValueChange, atomWithCallback } from "@/util-hooks";
+import { type RowInputState } from "./9-types";
 
 export type OnChangeValueWithUpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
@@ -18,7 +18,7 @@ export function initStateForInput(value: string, more?: Partial<RowInputState>):
     return rv;
 }
 
-export function dataForAtom(value: string | number, more?: Partial<RowInputState>): RowInputState {
+export function dataForStateAtom(value: string | number, more?: Partial<RowInputState>): RowInputState {
     value = value.toString();
 
     const { options, ...rest } = more || {};
@@ -47,7 +47,7 @@ export function dataForAtom(value: string | number, more?: Partial<RowInputState
 }
 
 export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
-    const initialData = dataForAtom(value, more);
+    const initialData = dataForStateAtom(value, more);
     const rv = atomWithCallback(initialData, onChange);
     return rv;
 }
