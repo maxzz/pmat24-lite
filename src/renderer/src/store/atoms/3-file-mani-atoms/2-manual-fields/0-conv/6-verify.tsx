@@ -21,6 +21,8 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
                 
                 set(item.chunk.hasErrorAtom, !!error); // This is needed for initial and on save validation
 
+                console.log(`error: '${error}'`, `tab='${tab}' actionUuid=${actionUuid}`);
+
                 const rv: VerifyError | undefined = error ? { error, tab, actionUuid } : undefined;
                 return rv;
             }
