@@ -14,13 +14,14 @@ export function validateNumber(value: string): string {
     return '';
 }
 
-export function validateNumberMinMax(min: number, max: number): (value: string) => string {
+export function validateNumberMinMax(min: number, max: number, name?: string): (value: string) => string {
+    name = name || 'Value';
     return (value: string) => {
         const num = +value;
         if (isNaN(num)) {
-            return 'Value must be a number.';
+            return `${name} must be a number.`;
         }
-        return num < min || num > max ? `Value must be between ${min} and ${max}.` : '';
+        return num < min || num > max ? `${name} must be between ${min} and ${max}.` : '';
     };
 }
 

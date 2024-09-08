@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./4-row-popup-menu";
@@ -21,9 +21,6 @@ export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProp
     const hasError = useAtomValue(chunk.hasErrorAtom);
     const dispText = rowColumnName(chunk.type);
     const title = hasError ? "This row has errors" : undefined;
-
-    // console.log('SingleRow', { hasError, chunk, dispText, title });
-    
 
     return (
         <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>

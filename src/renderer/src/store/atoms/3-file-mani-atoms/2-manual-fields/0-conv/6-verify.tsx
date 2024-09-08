@@ -59,3 +59,5 @@ export function isChunkInvalid(chunk: ManualFieldState.ForAtoms, get: Getter, se
 
     return err;
 }
+
+//function setInitialValidationState
