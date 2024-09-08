@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useSetAtom } from "jotai";
+import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { subscribe } from "valtio";
+import { type RowInputState } from "@/ui";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { InputWTooltip, RowInputWLabel } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { buildState } from "./8-pos-build-state";
-import { InputXY } from "./2-input-xy";
+//import { InputXY } from "./2-input-xy";
 
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
 //     let n = parseInt(e.target.value);
@@ -13,6 +14,25 @@ import { InputXY } from "./2-input-xy";
 //     }
 //     return n;
 // }
+
+export function InputPos({ valueAtom, label }: { valueAtom: PrimitiveAtom<RowInputState>; label: string; }) {
+    const repeat = useAtomValue(valueAtom);
+    return (
+        <label className="flex flex-col gap-1">
+            <span>
+                {label}
+            </span>
+
+            <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
+                <InputWTooltip stateAtom={valueAtom} asCheckbox={false} />
+
+                <span className="pt-0.5">
+                    px
+                </span>
+            </div>
+        </label>
+    );
+}
 
 export function PropsEditorPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
     const setPosValueX = useSetAtom(item.xAtom);
@@ -33,14 +53,18 @@ export function PropsEditorPos({ item }: { item: ManualFieldState.PosForAtoms; }
 
     return (<>
         <div className="flex items-center space-x-2">
-            <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
-            <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" />
+            <InputPos valueAtom={item.xAtom} label="X" />
+            <InputPos valueAtom={item.yAtom} label="Y" />
+
+            {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
+                <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}
 
             {/* <InputField className="w-12" label="x" horizontal={true} value={`${snap.x}`} onChange={(e) => item.x = eventNumber(e)} />
                 <InputField className="w-12" label="y" horizontal={true} value={`${snap.y}`} onChange={(e) => item.y = eventNumber(e)} /> */}
         </div>
 
-        <InputXY item={item} />
+        {/* Maybe later: */}
+        {/* <InputXY item={item} /> */}
     </>);
 }
 
