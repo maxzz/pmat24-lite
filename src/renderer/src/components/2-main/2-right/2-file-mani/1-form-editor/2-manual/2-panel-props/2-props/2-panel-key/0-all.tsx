@@ -6,7 +6,7 @@ import { InputModifiers } from "./3-input-modifiers";
 export function PropsEditorKey({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     return (<>
         <InputKey valueAtom={item.charAtom} />
-        <InputRepeat valueAtom={item.repeatAtom} />
         <InputModifiers item={item} />
+        <InputRepeat valueAtom={item.repeatAtom} />
     </>);
 }
