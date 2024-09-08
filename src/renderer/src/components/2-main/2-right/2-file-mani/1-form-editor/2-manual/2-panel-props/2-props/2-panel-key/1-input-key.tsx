@@ -8,9 +8,8 @@ export function InputKey({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState
     return (
         <InputSelect
             items={actionKeys}
-            label="Key"
+            label="Key to press"
             labelClasses="min-w-[9ch]"
-            horizontal
             value={value.data}
             onValueChange={(value) => setValue((prev) => ({ ...prev, data: value }))}
             title="Key for this action" />

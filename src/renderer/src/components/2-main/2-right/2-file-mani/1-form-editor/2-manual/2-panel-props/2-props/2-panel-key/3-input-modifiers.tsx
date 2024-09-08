@@ -13,8 +13,8 @@ type FrameProps = HTMLAttributes<HTMLDivElement> & {
 
 export function GroupFrame({ label, children, className, ...rest }: FrameProps) {
     return (
-        <div className={classNames("relative p-2 border-primary-400 dark:border-primary-700 border rounded", className)} {...rest}>
-            <div className="absolute left-1 -top-2.5 px-1 bg-primary-100 dark:bg-primary-800">
+        <div className={classNames("relative px-2 py-4 border-border border-dotted border rounded", className)} {...rest}>
+            <div className="absolute left-2 -top-3 px-1 py-1 font-light bg-muted/20 border-border border-dotted border rounded">
                 {label}
             </div>
 
@@ -26,24 +26,26 @@ export function GroupFrame({ label, children, className, ...rest }: FrameProps) 
 function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<RowInputState>; }) {
     const [modifier, setModifier] = useAtom(valueAtom);
     return (
-        <div className={classNames("flex-1 max-w-36 flex @[190px]:flex-col @[190px]:gap-y-0.5 items-center gap-x-2")}>
-            <div className="self-start @[190px]:pl-2 min-w-12 text-xs @[190px]:text-[0.65rem] font-light">
+        <div className={classNames("flex-1 max-w-36 flex @[190px]/modifier:flex-col @[190px]/modifier:gap-y-0.5 items-center gap-x-2")}>
+            <div className="self-start @[190px]/modifier:pl-2 min-w-12 text-xs @[190px]/modifier:text-[0.65rem] font-light">
                 {label}
             </div>
 
-            <InputSelectUi
-                items={modifierKeys}
-                value={modifier.data}
-                onValueChange={(value) => setModifier((prev) => ({ ...prev, data: value }))}
-            />
+            <div className="self-start">
+                <InputSelectUi
+                    items={modifierKeys}
+                    value={modifier.data}
+                    onValueChange={(value) => setModifier((prev) => ({ ...prev, data: value }))}
+                />
+            </div>
         </div>
     );
 }
 
 export function InputModifiers({ item }: { item: ManualFieldState.KbdForAtoms; }) {
     return (
-        <GroupFrame className="@container -ml-2" label="Key modifiers">
-            <div className="my-2 flex flex-col @[190px]:flex-row gap-1">
+        <GroupFrame className="@container/modifier mt-4 -ml-2 max-w-64" label="Key modifiers">
+            <div className="my-2 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
 
                 <Modifier label="Shift" valueAtom={item.shiftAtom} />
                 <Modifier label="Control" valueAtom={item.ctrlAtom} />

@@ -121,7 +121,7 @@ export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProp
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className="px-2 w-max h-7 text-xs gap-1">
+            <SelectTrigger className="px-2 py-1 w-max h-7 text-xs gap-1">
                 <SelectValue placeholder="Select key" />
             </SelectTrigger>
 

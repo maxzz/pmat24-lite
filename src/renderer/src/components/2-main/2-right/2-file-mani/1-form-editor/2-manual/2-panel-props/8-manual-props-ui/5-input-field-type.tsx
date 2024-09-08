@@ -1,16 +1,22 @@
+import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { Column3_Label } from "../../../1-normal/1-fields/3-column-label";
-import { InputLabel } from "./1-input-label";
+import { InputSelectUi } from "./4-input-select-ui";
+import { FieldTyp, ModifierDisplayText } from "@/store/manifest";
+
+const inputTypes: ModifierDisplayText[] = [
+    ["Text", `${FieldTyp.edit}`], 
+    ["Passowrd", `${FieldTyp.psw}`],
+];
 
 export function ManualFieldType({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, labelAtom, typeAtom } = item.field;
+    const [type, setType] = useAtom(item.field.typeAtom);
 
     return (
-        <Column3_Label
-            useItAtom={useItAtom}
-            // valueAtom={typeAtom}
-            valueAtom={labelAtom}
+        <InputSelectUi
+            items={inputTypes}
+            value={`${type}`}
+            onValueChange={(value) => setType(+value as FieldTyp)}
         />
     );
 }
