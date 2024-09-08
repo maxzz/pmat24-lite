@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/app-settings";
 
 export function stopIfManualErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    
     const errors = set(doVerifyManualFormAtom, { maniAtoms });
     if (errors) {
         appSettings.right.mani.activeTab = errors[0].tab;

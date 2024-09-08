@@ -6,15 +6,15 @@ import { EngineControl } from "@shared/ipc-types";
 type FieldValidKeys = Exclude<keyof typeof FieldTyp, 'und'>;
 
 export const fieldIcons: Record<FieldValidKeys, FC> = {
-    edit: SymbolFieldEdt,
-    psw: SymbolFieldPsw,
-    check: SymbolFieldChk,
-    radio: SymbolFieldChk,
-    list: SymbolFieldLst,
-    combo: SymbolFieldLst,
-    text: SymbolFieldTxt,
-    button: SymbolFieldBtn,
-    listbx: SymbolFieldLst,
+    edit:   /**/ SymbolFieldEdt,
+    psw:    /**/ SymbolFieldPsw,
+    check:  /**/ SymbolFieldChk,
+    radio:  /**/ SymbolFieldChk,
+    list:   /**/ SymbolFieldLst,
+    combo:  /**/ SymbolFieldLst,
+    text:   /**/ SymbolFieldTxt,
+    button: /**/ SymbolFieldBtn,
+    listbx: /**/ SymbolFieldLst,
 };
 
 export type FieldPartsToSelectIcon = Pick<Mani.Field, 'type' | 'password' | 'choosevalue'>;
@@ -29,15 +29,15 @@ export function FieldTypeIconComponent({ field, className, title }: { field: Fie
 }
 
 export const fieldTitle: Record<FieldValidKeys, string> = {
-    edit: 'edit',
-    psw: 'psw',
-    check: 'checkbox',
-    radio: 'radio button',
-    list: 'listbox',
-    combo: 'combobox',
-    text: 'text',
-    button: 'button',
-    listbx: 'listbox',
+    edit:   /**/ 'edit',
+    psw:    /**/ 'psw',
+    check:  /**/ 'checkbox',
+    radio:  /**/ 'radio button',
+    list:   /**/ 'listbox',
+    combo:  /**/ 'combobox',
+    text:   /**/ 'text',
+    button: /**/ 'button',
+    listbx: /**/ 'listbox',
 };
 
 export function fieldTypeTitle(field: FieldPartsToSelectIcon) {

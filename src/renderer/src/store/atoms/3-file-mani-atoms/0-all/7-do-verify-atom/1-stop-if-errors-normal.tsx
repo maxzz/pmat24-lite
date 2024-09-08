@@ -1,6 +1,30 @@
 import { type Getter, type Setter } from "jotai";
-import { type ManiAtoms } from "../../9-types";
+import { type VerifyError, type ManiAtoms } from "../../9-types";
+import { doVerifyNormalFormAtom } from "./4-do-verify-normal-atom";
+import { toast } from "sonner";
+import { appSettings } from "@/store/app-settings";
 
 export function stopIfNormalErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    return;
+
+    const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
+
+    const [login, cpass] = maniAtoms;
+
+    if (!login) {
+        errors.push({ error: 'Login form is missing', tab: 'options' });
+    }
+
+    if (errors.length) {
+        appSettings.right.mani.activeTab = errors[0].tab;
+        
+        const messages = errors.map(
+            (err, idx) => {
+                return <div key={idx}>{err.error}</div>;
+            }
+        );
+
+        toast.error(<div className="flex flex-col">{messages}</div>);
+        return true;
+    }
+
 }
