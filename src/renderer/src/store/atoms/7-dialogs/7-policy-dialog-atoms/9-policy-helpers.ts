@@ -6,11 +6,11 @@ export enum PolicyAction {
     na,      // 'n/a',
 }
 
-export function getPolicyExplanation(policy: string | undefined, policy2: string | undefined, metaField: Meta.Field): PolicyAction {
+export function getPolicyExplanation(policy: string | undefined, policy2: string | undefined, ftyp: FieldTyp): PolicyAction {
   
     if (!policy && !policy2) {
 
-        if (metaField.ftyp === FieldTyp.psw) {
+        if (ftyp === FieldTyp.psw) {
             return PolicyAction.add;
         }
 

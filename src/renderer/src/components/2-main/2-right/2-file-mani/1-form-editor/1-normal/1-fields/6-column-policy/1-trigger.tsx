@@ -1,6 +1,6 @@
 import { type HTMLAttributes, useState } from "react";
 import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
-import { type Mani, type Meta } from "@/store/manifest";
+import { type FieldTyp, type Mani } from "@/store/manifest";
 import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from "@/store/atoms/3-file-mani-atoms";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 import { Button } from "@/ui";
@@ -24,19 +24,20 @@ flex items-center justify-center gap-0.5";
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
+    typeAtom: PrimitiveAtom<FieldTyp>;
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
-    metaField: Meta.Field;
 };
 
-export function Column6_Policy({ useItAtom, policiesAtom, metaField, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
+export function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const openDlgAtom = useState(() => atom(false))[0];
     const setDlgOpen = useSetAtom(openDlgAtom);
 
     const useIt = useAtomValue(useItAtom);
+    const ftyp = useAtomValue(typeAtom);
     const policies = useAtomValue(policiesAtom);
 
-    const action = getPolicyExplanation(policies.policy, policies.policy2, metaField);
+    const action = getPolicyExplanation(policies.policy, policies.policy2, ftyp);
 
     if (action === PolicyAction.na) {
         return <div className="text-center" />;

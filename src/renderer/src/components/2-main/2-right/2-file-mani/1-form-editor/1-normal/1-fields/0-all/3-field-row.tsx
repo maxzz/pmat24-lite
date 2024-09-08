@@ -9,7 +9,7 @@ import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 
 export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: NormalFieldsState.Atoms; }) {
-    const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = fieldRowAtoms;
+    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = fieldRowAtoms;
     const maniField = metaField.mani;
 
     const setUseIt = useSetAtom(useItAtom);
@@ -53,8 +53,8 @@ export function FieldRow({ fieldRowAtoms }: { fieldRowAtoms: NormalFieldsState.A
 
         <Column6_Policy
             useItAtom={useItAtom}
+            typeAtom={typeAtom}
             policiesAtom={policiesAtom}
-            metaField={metaField}
             onClick={enableRow}
         />
     </>);

@@ -6,7 +6,7 @@ import { FieldTyp } from "pm-manifest";
 
 export function ManualFieldPolicy({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, typeAtom, policiesAtom, metaField } = item.field;
+    const { useItAtom, typeAtom, policiesAtom } = item.field;
 
     const isPassword = useAtomValue(typeAtom) === FieldTyp.psw;
     if (!isPassword) {
@@ -14,11 +14,11 @@ export function ManualFieldPolicy({ item }: { item: ManualFieldState.FldForAtoms
     }
 
     return (
-        <InputLabel label="Policy" horizontal>
+        <InputLabel label="Policy">
             <Column6_Policy
                 useItAtom={useItAtom}
+                typeAtom={typeAtom}
                 policiesAtom={policiesAtom}
-                metaField={metaField}
             />
         </InputLabel>
     );
