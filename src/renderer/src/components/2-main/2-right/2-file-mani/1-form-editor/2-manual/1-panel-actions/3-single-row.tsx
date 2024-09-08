@@ -22,7 +22,7 @@ export function SingleRow({ ctx, chunk, menuState, idx, ...rest }: SingleRowProp
     const dispText = rowColumnName(chunk.type);
     const title = hasError ? "This row has errors" : undefined;
 
-    console.log('SingleRow', { hasError, chunk, dispText, title });
+    // console.log('SingleRow', { hasError, chunk, dispText, title });
     
 
     return (

@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from "jotai";
+import { type PrimitiveAtom, type Getter, type Setter } from "jotai";
 import { type MFormCtx, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
 import { FormIdx } from "@/store/store-types";
@@ -12,21 +12,37 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
 
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
 
+    const involvedChunkNumbers = new Map<PrimitiveAtom<boolean>, number>();
+
     const rv: VerifyError[] = toValidate
         .map(
             (item) => {
                 const atomValue: RowInputStateUuid = item;
                 const actionUuid = atomValue.uuid;
                 const error = atomValue.validate?.(atomValue.data);
-                
-                set(item.chunk.hasErrorAtom, !!error); // This is needed for initial and on save validation
 
-                console.log(`error: '${error}'`, `tab='${tab}' actionUuid=${actionUuid}`);
+                if (error) {
+                    const chunkNum = involvedChunkNumbers.get(atomValue.chunk.hasErrorAtom);
+                    if (chunkNum === undefined) {
+                        involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, 1);
+                    } else {
+                        involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, chunkNum + 1);
+                    }
+                }
+
+                // console.log(`error: '${error}'`, `tab='${tab}' actionUuid=${actionUuid}`);
 
                 const rv: VerifyError | undefined = error ? { error, tab, actionUuid } : undefined;
                 return rv;
             }
         ).filter(Boolean);
+
+    involvedChunkNumbers.forEach(
+        (num, atom) => {
+            set(atom, true);
+            console.log(`num: '${num}'`, `tab='${tab}' atom=${atom}`);
+        }
+    );
 
     return rv;
 }
