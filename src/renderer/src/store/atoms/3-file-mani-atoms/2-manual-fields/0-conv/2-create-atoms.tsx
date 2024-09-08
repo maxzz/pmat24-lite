@@ -3,7 +3,7 @@ import { type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
-import { createAtomForCheck, createAtomForInput, type OnChangeValueWithUpdateName, RowInputState, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
+import { createAtomForCheck, createAtomForInput, dataForAtom, type OnChangeValueWithUpdateName, RowInputState, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
     const uid5 = uuid.asRelativeNumber();
@@ -19,18 +19,25 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
+            const repeatData = dataForAtom(chunk.repeat, { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, });
+
+            const chunkData = {
+                charAtom: createAtomForInput(chunk.char, onScopedChange('kbd-key')),
+                repeatAtom: createAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, }),
+                shiftAtom: createAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
+                ctrlAtom: createAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
+                altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
+            }
+
+            //const hasErrorAtom = atom(false);
+
             const rv: ManualFieldState.KbdForAtoms = {
                 type: 'kbd',
                 uid5,
                 selectedAtom,
                 hasErrorAtom,
                 original: chunk,
-
-                charAtom: createAtomForInput(chunk.char, onScopedChange('kbd-key')),
-                repeatAtom: createAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, }),
-                shiftAtom: createAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
-                ctrlAtom: createAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
-                altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
+                ...chunkData
             };
             return rv;
         }

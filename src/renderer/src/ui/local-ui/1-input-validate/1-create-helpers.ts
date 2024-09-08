@@ -18,9 +18,9 @@ export function initStateForInput(value: string, more?: Partial<RowInputState>):
     return rv;
 }
 
-export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+export function dataForAtom(value: string | number, more?: Partial<RowInputState>): RowInputState {
     value = value.toString();
-    
+
     const { options, ...rest } = more || {};
 
     if (options?.initialValidate) {
@@ -40,7 +40,15 @@ export function createAtomForInput(value: string | number, onChange: OnValueChan
         touched: undefined,
         validate: undefined,
     };
-    const rv = atomWithCallback(more ? { ...state, ...rest } : state, onChange);
+
+    const initialData = more ? { ...state, ...rest } : state;
+
+    return initialData;
+}
+
+export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+    const initialData = dataForAtom(value, more);
+    const rv = atomWithCallback(initialData, onChange);
     return rv;
 }
 
