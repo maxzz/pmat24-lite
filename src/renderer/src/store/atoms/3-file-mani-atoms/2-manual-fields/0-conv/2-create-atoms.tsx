@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type Atomize } from "@/util-hooks";
+import { atomWithCallback, type Atomize } from "@/util-hooks";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, fieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
@@ -23,7 +23,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
 
             const chunkData = {
                 charAtom: createAtomForInput(chunk.char, onScopedChange('kbd-key')),
-                repeatAtom: createAtomForInput(chunk.repeat, onScopedChange('kbd-repeat'), { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, }),
+                repeatAtom: atomWithCallback(repeatData, onScopedChange('kbd-repeat')),
                 shiftAtom: createAtomForInput(chunk.shift, onScopedChange('kbd-shift')),
                 ctrlAtom: createAtomForInput(chunk.ctrl, onScopedChange('kbd-ctrl')),
                 altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
@@ -35,7 +35,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 type: 'kbd',
                 uid5,
                 selectedAtom,
-                hasErrorAtom,
+                hasErrorAtom: atom(!!repeatData.error),
                 original: chunk,
                 ...chunkData
             };
