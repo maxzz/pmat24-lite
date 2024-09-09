@@ -27,13 +27,12 @@ export namespace OptionsState {
 function onChangeWithScope(updateName: string, nextValue: RowInputState, {fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
     const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsCtx.formIdx]!.options;
 
-    if (nextValue.dirty) {
-        const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
-        console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
-    }
+    // if (nextValue.dirty) {
+    //     const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
+    //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
+    // }
 
-    const changes = setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
-    console.log('changes options:', [...changes.keys()]);
+    setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 
     // console.log('------------------', updateName);
     // console.log('         initValue', JSON.stringify(nextValue.initialData));
