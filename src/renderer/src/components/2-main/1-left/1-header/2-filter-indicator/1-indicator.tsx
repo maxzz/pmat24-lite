@@ -9,12 +9,12 @@ export function CurrentFilter() {
         return null;
     }
     return (
-        <div className="px-2 border-border border rounded flex items-center gap-0.5">
-            <span>Filter:</span>
-            <span>{text}</span>
-            <Button className="h-6" variant="ghost" onClick={() => setText('')}>
+        <Button className="h-6" variant="ghost" onClick={() => setText('')}>
+            <div className="px-2 border-border border rounded flex items-center gap-0.5">
+                <span>Filter:</span>
+                <span>{text}</span>
                 <IconClose className="size-3" />
-            </Button>
-        </div>
+            </div>
+        </Button >
     );
 }
