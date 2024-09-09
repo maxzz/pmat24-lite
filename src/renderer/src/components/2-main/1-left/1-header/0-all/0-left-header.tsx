@@ -1,11 +1,11 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { classNames } from "@/utils";
-import { SymbolFire } from "@/ui/icons";
 import { allFileUsChanges } from "@/store/atoms/3-file-mani-atoms";
+import { SymbolFire } from "@/ui/icons";
+import { classNames } from "@/utils";
 import { FilterFilesDialog } from "@/components/4-dialogs";
-import { CurrentFilter } from "../2-filter-indicator";
 import { L_PanelMenu } from "../3-menu";
+import { CurrentFilter } from "./1-filter-indicator";
 
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
@@ -22,11 +22,9 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 )}
             </div>
 
-            <div className="flex items-center">
-                <div className="flex-1 flex items-center gap-1">
-                    <CurrentFilter />
-                    <FilterFilesDialog />
-                </div>
+            <div className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center">
+                <CurrentFilter />
+                <FilterFilesDialog />
 
                 <L_PanelMenu />
             </div>
