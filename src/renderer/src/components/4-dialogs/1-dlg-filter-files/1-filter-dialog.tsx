@@ -13,7 +13,7 @@ export function FilterFilesDialog() {
         </Button>
 
         <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-            <D.DialogContent className="px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose>
+            <D.DialogContent className="px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose hiddenTitle="Files filter">
 
                 <DialogFilterBody setIsOpen={setIsOpen} />
 

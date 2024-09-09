@@ -13,19 +13,23 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
     const hasChanges = !!useSnapshot(allFileUsChanges).size;
 
     return (
-        <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center gap-2", className)} {...rest}>
-            
+        <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center justify-between", className)} {...rest}>
+
             <div className="pl-2.5 flex items-center gap-2">
                 Files
-                {hasChanges && <SymbolFire className="mr-0.5 size-3 text-orange-600" colorize />}
-            </div>
-           
-            <div className="flex-1 flex items-center gap-1">
-                <FilterFilesDialog />
-                <CurrentFilter />
+                {hasChanges && (
+                    <SymbolFire className="mr-0.5 size-3 text-orange-600" colorize />
+                )}
             </div>
 
-            <L_PanelMenu />
+            <div className="flex items-center">
+                <div className="flex-1 flex items-center gap-1">
+                    <CurrentFilter />
+                    <FilterFilesDialog />
+                </div>
+
+                <L_PanelMenu />
+            </div>
         </div>
     );
 }
