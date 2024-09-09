@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { searchFilterData } from "@/store";
 import { IconClose } from "@/ui/icons";
 import { Button } from "@/ui";
@@ -8,13 +8,11 @@ export function CurrentFilter() {
     if (!text) {
         return null;
     }
-    return (
-        <Button className="h-6" variant="ghost" onClick={() => setText('')}>
-            <div className="px-2 border-border border rounded flex items-center gap-0.5">
-                <span>Filter:</span>
-                <span>{text}</span>
-                <IconClose className="size-3" />
-            </div>
+    return (<>
+        Filter:
+        <Button className="flex-1 h-6 max-w-[20%] truncate" variant="outline" onClick={() => setText('')}>
+            {text}
+            <IconClose className="ml-1 size-3" />
         </Button >
-    );
+    </>);
 }

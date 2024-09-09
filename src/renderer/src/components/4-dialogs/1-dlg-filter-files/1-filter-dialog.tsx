@@ -8,7 +8,7 @@ import { DialogFilterBody } from "./2-body";
 export function FilterFilesDialog() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (<>
-        <Button className="" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
+        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
             <IconFilter className="p-px size-4" />
         </Button>
 
