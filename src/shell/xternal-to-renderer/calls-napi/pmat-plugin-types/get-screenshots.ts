@@ -15,10 +15,10 @@ export type TLWindowsScreenshot = {
 
 // 1. Get number of Top Level Window (TLWindows)
 
-export type GetNumberOfTLWindowsParams = {   // i.e. empty object like this '{}'
+export type GetNumberOfTLWindowsParams = { // i.e. empty object like this '{}'
 };
 
-export type GetNumberOfTLWindowsResult = TLWindowsScreenshot[];
+export type GetNumberOfTLWindowsResult = { totalVisible: number; };
 
 export interface getNumberOfTLWindows {
     (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
@@ -28,8 +28,7 @@ export interface getNumberOfTLWindows {
 
 export type GetAllTLWindowScreenshotsParams = {
     format: TLWindowsImageFormat;
-    width: number;
-    //height: number; //TBD: do we need height? It depends on who will scale the image, the plugin or the renderer
+    width: number;                      // max screenshot width, height - auto
 };
 
 export type GetAllTLWindowScreenshotsResult = TLWindowsScreenshot[];
@@ -43,6 +42,7 @@ export interface getAllTLWindowScreenshots {
 export type GetTLWindowScreenshotParams = {
     hwnd: string;                       // as it was aquired from GetNumberOfTLWindowsResult
     format: TLWindowsImageFormat;
+    width: number;                      // max screenshot width, height - auto
 };
 
 export type GetTLWindowScreenshotResult = TLWindowsScreenshot;
