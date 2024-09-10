@@ -1,4 +1,4 @@
-import { Base64String, PluginDataCallback } from ".";
+import { type Base64String, type PluginDataCallback } from "./9-types";
 
 // Common types
 

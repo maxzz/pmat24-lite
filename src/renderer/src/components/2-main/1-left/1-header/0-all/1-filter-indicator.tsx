@@ -20,3 +20,5 @@ export function CurrentFilter() {
 
 //TODO: maybe go to the second row if not enough space
 //TODO: maybe add frame but it will make button impression
+
+//TODO: mark modified files with yellow not red or orange

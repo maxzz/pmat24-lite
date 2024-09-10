@@ -1,4 +1,4 @@
-import { PluginDataCallback } from ".";
+import { type PluginDataCallback } from "./9-types";
 
 // Get Target Window
 

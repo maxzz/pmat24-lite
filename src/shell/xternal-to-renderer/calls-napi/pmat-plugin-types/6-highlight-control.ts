@@ -1,11 +1,6 @@
-// Highlight desktop app window control
+import { type TargetClientRect } from "./9-types";
 
-export type TargetClientRect = {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-};
+// Highlight desktop app window control
 
 export type WindowControlHighlighterParams = {
     hwnd: string;

@@ -1,4 +1,4 @@
-import { PluginDataCallback, TargetClientRect } from ".";
+import { type PluginDataCallback, type TargetClientRect } from "./9-types";
 
 // Drag And Drop icon to a window (for programmatic mouse click to a control in manual mode)
 
