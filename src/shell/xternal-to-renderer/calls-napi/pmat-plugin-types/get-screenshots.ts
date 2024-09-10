@@ -29,24 +29,11 @@ export interface getNumberOfTLWindows {
 export type GetAllTLWindowScreenshotsParams = {
     format: TLWindowsImageFormat;
     width: number;                      // max screenshot width, height - auto
+    hwnd?: string;                      // optional, if provided, only this hwnd will be returned
 };
 
 export type GetAllTLWindowScreenshotsResult = TLWindowsScreenshot[];
 
 export interface getAllTLWindowScreenshots {
     (GetAllTLWindowScreenshotsParams: string, cb: PluginDataCallback): void;
-}
-
-// 3. Get Top Level Window screenshot
-
-export type GetTLWindowScreenshotParams = {
-    hwnd: string;                       // as it was aquired from GetNumberOfTLWindowsResult
-    format: TLWindowsImageFormat;
-    width: number;                      // max screenshot width, height - auto
-};
-
-export type GetTLWindowScreenshotResult = TLWindowsScreenshot;
-
-export interface getTLWindowScreenshot {
-    (GetTLWindowScreenshotParams: string, cb: PluginDataCallback): void;
 }
