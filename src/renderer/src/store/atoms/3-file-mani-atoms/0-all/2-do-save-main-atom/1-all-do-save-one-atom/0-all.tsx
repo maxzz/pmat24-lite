@@ -3,6 +3,7 @@ import { type FileUsAtom } from "@/store/store-types";
 import { packManifestData } from "./1-pack-manifest";
 import { stopIfAnyErrors } from "../../7-do-verify-atom";
 import { type ManiAtoms } from "../../../9-types";
+import { Mani } from "@/store/manifest";
 
 export const doSaveOneAtom = atom(
     null,
@@ -27,7 +28,9 @@ export const doSaveOneAtom = atom(
 
         //
 
-        packManifestData({ fileUs, fileUsAtom, maniAtoms, get, set });
+        const rvManifest: Partial<Mani.Manifest> = {};
+
+        packManifestData({ fileUs, fileUsAtom, maniAtoms, rvManifest, get, set });
 
         //TODO: newFilename
 
