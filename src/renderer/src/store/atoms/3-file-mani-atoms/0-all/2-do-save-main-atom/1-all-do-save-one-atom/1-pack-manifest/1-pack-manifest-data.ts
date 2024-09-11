@@ -7,7 +7,15 @@ import { OptionsConv } from "../../../../4-options";
 import { type DAOForMani, detectionAndOptionsForMani } from "../../0-conv/3-options/53-conv-mani-options";
 import { filterEmptyValues } from "./7-filter-empty-values";
 
-export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
+type PackManifestDataParams = {
+    fileUs: FileUs;
+    fileUsAtom: FileUsAtom;
+    newFilename?: string;
+    get: Getter;
+    set: Setter;
+};
+
+export function packManifestData({ get, set, fileUs, fileUsAtom, newFilename }: PackManifestDataParams) {
 
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (!maniAtoms) {

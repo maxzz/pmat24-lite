@@ -1,6 +1,6 @@
 import { atom, Getter, Setter } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { packManifestData } from "./0-all-pack-manifest-data";
+import { packManifestData } from "./1-pack-manifest";
 import { stopIfAnyErrors } from "../../7-do-verify-atom";
 import { type ManiAtoms } from "../../../9-types";
 
@@ -27,7 +27,7 @@ export const doSaveOneAtom = atom(
 
         //
 
-        packManifestData(get, set, fileUs, fileUsAtom, newFilename);
+        packManifestData({ fileUs, fileUsAtom, newFilename, get, set });
 
         console.log('saved', fileUs.fname);
 
