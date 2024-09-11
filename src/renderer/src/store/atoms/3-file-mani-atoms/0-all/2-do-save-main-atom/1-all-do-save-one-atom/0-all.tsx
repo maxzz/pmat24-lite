@@ -1,6 +1,6 @@
 import { atom, Getter, Setter } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { packManifestData } from "../0-conv/1-pack-manifest-data";
+import { packManifestData } from "../0-conv/0-all-pack-manifest-data";
 import { stopIfAnyErrors } from "../../7-do-verify-atom";
 import { type ManiAtoms } from "../../../9-types";
 

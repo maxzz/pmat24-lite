@@ -1,17 +1,11 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FileMani } from "@/store/manifest";
-import { type NormalField, type NormalFieldsState, NormalFieldConv, SubmitConv } from "../../../1-normal-fields";
-import { ManiConv } from "./1-normal/2-conv-mani";
-import { OptionsConv } from "../../../4-options";
-import { type DAOForMani, detectionAndOptionsForMani } from "./3-options/53-conv-mani-options";
-
-function filterEmptyValues<T extends Record<string, any>>(obj: T): T | undefined {
-    const entries = Object
-        .entries(obj)
-        .filter(([key, value]) => !!value);
-    return entries.length ? Object.fromEntries(entries) as T : undefined;
-}
+import { type NormalField, type NormalFieldsState, NormalFieldConv, SubmitConv } from "../../../../1-normal-fields";
+import { ManiConv } from "../1-normal/2-conv-mani";
+import { OptionsConv } from "../../../../4-options";
+import { type DAOForMani, detectionAndOptionsForMani } from "../3-options/53-conv-mani-options";
+import { filterEmptyValues } from "./7-filter-empty-values";
 
 export function packManifestData(get: Getter, set: Setter, fileUs: FileUs, fileUsAtom: FileUsAtom, newFilename?: string) {
 
