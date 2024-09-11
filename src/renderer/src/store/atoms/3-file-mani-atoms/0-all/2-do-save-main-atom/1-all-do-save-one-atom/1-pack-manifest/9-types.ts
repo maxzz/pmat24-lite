@@ -6,7 +6,6 @@ export type PackManifestDataParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     maniAtoms: ManiAtoms;
-    newFilename?: string;
     get: Getter;
     set: Setter;
 };

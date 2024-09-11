@@ -7,7 +7,7 @@ import { filterEmptyValues } from "./7-filter-empty-values";
 import { PackManifestDataParams } from "./9-types";
 
 export function packManifestData(params: PackManifestDataParams) {
-    const { fileUs, fileUsAtom, maniAtoms, newFilename, get, set } = params;
+    const { fileUs, fileUsAtom, maniAtoms, get, set } = params;
 
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 

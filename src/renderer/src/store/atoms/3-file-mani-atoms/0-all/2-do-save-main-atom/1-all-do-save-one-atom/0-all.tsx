@@ -27,7 +27,9 @@ export const doSaveOneAtom = atom(
 
         //
 
-        packManifestData({ fileUs, fileUsAtom, maniAtoms, newFilename, get, set });
+        packManifestData({ fileUs, fileUsAtom, maniAtoms, get, set });
+
+        //TODO: newFilename
 
         console.log('saved', fileUs.fname);
 
