@@ -1,4 +1,4 @@
-import { type PackManifestDataParams, packManualFields, packNormalFields, packOptions } from "../2-pack";
+import { type PackManifestDataParams, packManualFields, packNormalFieldsAndsubmit, packOptions } from "../2-pack";
 
 export function packManifest(packParams: PackManifestDataParams) {
     
@@ -7,7 +7,7 @@ export function packManifest(packParams: PackManifestDataParams) {
 
     if (loginFormAtoms) {
         if (loginFormAtoms.normal) {
-            packNormalFields(loginFormAtoms.normal, packParams);
+            packNormalFieldsAndsubmit(loginFormAtoms.normal, packParams);
         }
         if (loginFormAtoms.manual) {
             packManualFields(loginFormAtoms.manual, packParams);
@@ -17,7 +17,7 @@ export function packManifest(packParams: PackManifestDataParams) {
 
     if (cpassFormAtoms) {
         if (cpassFormAtoms.normal) {
-            packNormalFields(cpassFormAtoms.normal, packParams);
+            packNormalFieldsAndsubmit(cpassFormAtoms.normal, packParams);
         }
         if (cpassFormAtoms.manual) {
             packManualFields(cpassFormAtoms.manual, packParams);
