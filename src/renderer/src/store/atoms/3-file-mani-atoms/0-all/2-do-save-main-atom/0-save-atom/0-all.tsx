@@ -14,20 +14,16 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        //
-
         const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms) {
-            return;
-        }
-
-        if (stopIfAnyErrors(maniAtoms, get, set)) {
+        if (!maniAtoms || stopIfAnyErrors(maniAtoms, get, set)) {
             return;
         }
 
         //
 
-        const rvManifest: Partial<Mani.Manifest> = {};
+        const rvManifest: Partial<Mani.Manifest> = {
+            forms: [],
+        };
 
         packManifest({ fileUs, fileUsAtom, maniAtoms, rvManifest, get, set });
 

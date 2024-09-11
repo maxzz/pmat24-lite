@@ -1,16 +1,11 @@
 import { type FileMani } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
-import { type NormalField, type NormalFieldsState, NormalFieldConv, SubmitConv } from "../../../../1-normal-fields";
+import { type NormalField, type NormalFieldsState, NormalFieldConv } from "../../../../1-normal-fields";
 import { fieldForFileMani } from "./7-conv-mani-field";
 
 export function packNormalFields(formCtx: NFormCtx, packParams: PackManifestDataParams) {
     const { rvManifest, get, set } = packParams;
-
-    // 1. Submits
-
-    const submits = SubmitConv.fromAtoms(formCtx.submitAtoms, get, set);
-    console.log('submits', JSON.stringify(submits, null, 2));
 
     // 2. Fields
 
