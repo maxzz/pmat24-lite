@@ -1,5 +1,5 @@
 import { FieldTyp, type Mani, type FileMani, type Meta } from "@/store/manifest";
-import { type NormalField } from "../../../1-normal-fields";
+import { type NormalField } from "../../../../1-normal-fields";
 
 type FieldForFileManiProps = {
     from: NormalField.ThisType;
