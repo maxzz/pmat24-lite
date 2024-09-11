@@ -22,4 +22,6 @@ export function stopIfManualErrors(maniAtoms: ManiAtoms, get: Getter, set: Sette
 }
 
 //TODO: validation: activate row
-////TODO: validation: activate initial row
+//TODO: validation: activate initial row
+
+//TODO: check if we have at least one field

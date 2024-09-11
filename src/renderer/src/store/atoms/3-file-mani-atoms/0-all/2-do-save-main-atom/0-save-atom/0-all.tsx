@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { packManifestData } from "./1-pack-manifest";
+import { packManifestData } from "./1-pack-manifest-data";
 import { stopIfAnyErrors } from "../1-stop-if-errors";
 import { Mani } from "@/store/manifest";
 

@@ -1,7 +1,7 @@
 import { type ManiOptions, OptionsConv } from "../../../../4-options";
 import { type PackManifestDataParams } from "../9-types";
 import { type DAOForMani, detectionAndOptionsForMani } from "./7-conv-options";
-import { filterEmptyValues } from "../../1-all-do-save-one-atom/1-pack-manifest/7-filter-empty-values";
+import { filterEmptyValues } from "../../0-save-atom/7-filter-empty-values";
 
 export function packOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
     const { rvManifest, get, set } = packParams;

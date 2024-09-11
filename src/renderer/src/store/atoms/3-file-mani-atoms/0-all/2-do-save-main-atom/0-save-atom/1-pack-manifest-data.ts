@@ -1,5 +1,4 @@
-import { type PackManifestDataParams } from "../../0-pack/9-types";
-import { packManualFields, packNormalFields, packOptions } from "../../0-pack";
+import { type PackManifestDataParams, packManualFields, packNormalFields, packOptions } from "../2-pack";
 
 export function packManifestData(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
