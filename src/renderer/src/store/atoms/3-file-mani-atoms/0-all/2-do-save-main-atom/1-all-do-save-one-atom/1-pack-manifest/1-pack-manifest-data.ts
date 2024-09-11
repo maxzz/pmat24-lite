@@ -7,7 +7,7 @@ import { filterEmptyValues } from "./7-filter-empty-values";
 import { PackManifestDataParams } from "./9-types";
 import { NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
 
-export function getNormalFields(formCtx: NFormCtx, packParams: PackManifestDataParams) {
+export function packNormalFields(formCtx: NFormCtx, packParams: PackManifestDataParams) {
     const { rvManifest, get, set } = packParams;
 
     // 1. Submits
@@ -36,7 +36,7 @@ export function getNormalFields(formCtx: NFormCtx, packParams: PackManifestDataP
     // console.log('maniValues', JSON.stringify(fields, null, 2));
 }
 
-export function getOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
+export function packOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
     const { rvManifest, get, set } = packParams;
 
     const detectionAndOptionsRow = OptionsConv.fromAtoms(optionsP, get, set);
@@ -58,21 +58,23 @@ export function getOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: P
 }
 
 export function packManifestData(packParams: PackManifestDataParams) {
-    const { fileUs, fileUsAtom, maniAtoms, rvManifest, get, set } = packParams;
+    const { maniAtoms } = packParams;
 
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
     if (loginFormAtoms) {
-
         if (loginFormAtoms.normal) {
-            getNormalFields(loginFormAtoms.normal, packParams);
+            packNormalFields(loginFormAtoms.normal, packParams);
         }
-
-        // 3. Options
-
-        getOptions(loginFormAtoms.options, packParams);
-
-        // 4. The rest
-
+        packOptions(loginFormAtoms.options, packParams);
     }
+
+    if (cpassFormAtoms) {
+        if (cpassFormAtoms.normal) {
+            packNormalFields(cpassFormAtoms.normal, packParams);
+        }
+        packOptions(cpassFormAtoms.options, packParams);
+    }
+
+    // 4. The rest
 }
