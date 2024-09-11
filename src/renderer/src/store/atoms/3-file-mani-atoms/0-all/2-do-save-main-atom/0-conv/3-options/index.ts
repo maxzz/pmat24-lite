@@ -1,4 +1,4 @@
-import { FileMani } from "@/store/manifest";
+import { type FileMani } from "@/store/manifest";
 import { type ManiOptions } from "../../../../4-options";
 
 function detectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
