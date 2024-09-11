@@ -1,5 +1,5 @@
-import { addon } from ".";
-import { WindowControlHighlighterParams, WindowControlHighlighter, TargetClientRect } from "./pmat-plugin-types";
+import { addon } from "./0-addon";
+import { type WindowControlHighlighterParams, type WindowControlHighlighter, type TargetClientRect } from "./pmat-plugin-types";
 
 let gWindowControlHighlighter: WindowControlHighlighter | null = null;
 

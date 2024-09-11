@@ -1,6 +1,6 @@
-import { addon } from ".";
-import { WindowIconGetterParams, IconFormatType, WindowIconGetter, WindowIconGetterResult } from "./pmat-plugin-types";
-import fs from 'fs';
+import fs from "fs";
+import { addon } from "./0-addon";
+import { type WindowIconGetterParams, type IconFormatType, type WindowIconGetter, type WindowIconGetterResult } from "./pmat-plugin-types";
 
 let gWindowIconGetter: WindowIconGetter | null = null;
 
