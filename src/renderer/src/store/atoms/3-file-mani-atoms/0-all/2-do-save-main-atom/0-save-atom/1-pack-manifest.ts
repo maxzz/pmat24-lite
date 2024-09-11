@@ -1,8 +1,8 @@
 import { type PackManifestDataParams, packManualFields, packNormalFields, packOptions } from "../2-pack";
 
-export function packManifestData(packParams: PackManifestDataParams) {
+export function packManifest(packParams: PackManifestDataParams) {
+    
     const { maniAtoms } = packParams;
-
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
     if (loginFormAtoms) {
@@ -24,6 +24,4 @@ export function packManifestData(packParams: PackManifestDataParams) {
         }
         packOptions(cpassFormAtoms.options, packParams);
     }
-
-    // 4. The rest
 }

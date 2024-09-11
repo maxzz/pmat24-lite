@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { packManifestData } from "./1-pack-manifest-data";
+import { type Mani } from "@/store/manifest";
 import { stopIfAnyErrors } from "../1-stop-if-errors";
-import { Mani } from "@/store/manifest";
+import { packManifest } from "./1-pack-manifest";
 
 export const doSaveOneAtom = atom(
     null,
@@ -29,8 +29,9 @@ export const doSaveOneAtom = atom(
 
         const rvManifest: Partial<Mani.Manifest> = {};
 
-        packManifestData({ fileUs, fileUsAtom, maniAtoms, rvManifest, get, set });
+        packManifest({ fileUs, fileUsAtom, maniAtoms, rvManifest, get, set });
 
+        //TODO: The rest: the links between forms, etc.
         //TODO: newFilename
 
         console.log('saved', fileUs.fname);

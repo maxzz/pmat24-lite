@@ -6,11 +6,15 @@ import { getAllAtomValuesForValidate, getChunkValuesForValidate, type RowInputSt
 
 export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
 
+    const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
+
     const chunks = get(ctx.chunksAtom);
 
-    const toValidate: RowInputStateUuid[] = getAllAtomValuesForValidate(chunks, get);
+    if (!hasFieldChunk(chunks)) {
+        return [{ error: 'The action list must contain at least one "Field" action.', tab }]; //TODO: it's better to dissmis this error when the user adds a field
+    }
 
-    const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
+    const toValidate: RowInputStateUuid[] = getAllAtomValuesForValidate(chunks, get);
 
     const involvedChunkNumbers = new Map<PrimitiveAtom<boolean>, number>();
 
@@ -40,6 +44,16 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
     return rv;
 }
 
+function hasFieldChunk(chunks: ManualFieldState.ForAtoms[]): boolean {
+    const rv = chunks.some(
+        (chunk) => {
+            return chunk.type === 'fld';
+        }
+    );
+    return rv;
+}
+
+//TODO: this was for initial validation, but not need anymore
 export function isChunkInvalid(chunk: ManualFieldState.ForAtoms, get: Getter, set: Setter): boolean {
     const toValidate: RowInputStateUuid[] = getChunkValuesForValidate(chunk, get);
 
