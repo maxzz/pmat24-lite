@@ -9,7 +9,7 @@ export function packNormalFields(formCtx: NFormCtx, packParams: PackManifestData
 
     // 2. Fields
 
-    const fields = formCtx.fieldsAtoms.map(
+    const fields: FileMani.Field[] = formCtx.fieldsAtoms.map(
         (fieldAtoms: NormalFieldsState.Atoms) => {
             const metaField = fieldAtoms.metaField;
 
@@ -25,5 +25,6 @@ export function packNormalFields(formCtx: NFormCtx, packParams: PackManifestData
             return fileValues;
         }
     );
+    
     // console.log('maniValues', JSON.stringify(fields, null, 2));
 }

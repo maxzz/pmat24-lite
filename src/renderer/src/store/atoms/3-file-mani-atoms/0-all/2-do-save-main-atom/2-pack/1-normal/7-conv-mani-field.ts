@@ -2,8 +2,8 @@ import { FieldTyp, type Mani, type FileMani, type Meta } from "@/store/manifest"
 import { type NormalField } from "../../../../1-normal-fields";
 
 type FieldForFileManiProps = {
-    from: NormalField.ThisType;
-    maniField: Mani.Field;
+    from: NormalField.ThisType; // from editor
+    maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
     rdir: FileMani.FieldDirection | undefined;
     isSubmit: boolean;
