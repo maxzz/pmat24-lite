@@ -1,6 +1,6 @@
 import { type Getter, type Setter } from 'jotai';
 import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
-import { type NormalFieldsState } from '../1-normal-fields/0-all-normal-ctx/1-create-fields-context';
+import { type NormalField } from '../1-normal-fields';
 import { type NormalSubmitState } from '../1-normal-fields/0-all-normal-ctx/2-create-submit-context';
 import { type ManualEditorState } from "../2-manual-fields";
 import { type OptionsState } from "../4-options";
@@ -14,7 +14,7 @@ export type FileUsCtx = {
 //
 
 export type NFormCtx = {
-    fieldsAtoms: NormalFieldsState.Atoms[];
+    fieldsAtoms: NormalField.FieldAtoms[];
     submitAtoms: NormalSubmitState.Atoms;
 };
 

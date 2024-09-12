@@ -7,9 +7,7 @@ import { debounce } from '@/utils';
 
 export namespace NormalFieldsState {
 
-    export type Atoms = NormalField.FieldAtoms;
-
-    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms[] {
+    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.FieldAtoms[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
@@ -18,7 +16,7 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): Atoms {
+        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.FieldAtoms {
             
             function onChange({ get, set }: { get: Getter, set: Setter }) {
                 onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
