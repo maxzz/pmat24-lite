@@ -5,7 +5,7 @@ export namespace NormalField {
 
     type ForAtoms = EditorField.ForAtoms;
 
-    export type FieldAtoms = Prettify<
+    export type RowAtoms = Prettify<
         & Atomize<ForAtoms>
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field

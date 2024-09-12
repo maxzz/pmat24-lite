@@ -7,7 +7,7 @@ import { debounce } from '@/utils';
 
 export namespace NormalFieldsState {
 
-    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.FieldAtoms[] {
+    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowAtoms[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
@@ -16,7 +16,7 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.FieldAtoms {
+        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.RowAtoms {
             
             function onChange({ get, set }: { get: Getter, set: Setter }) {
                 onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
@@ -37,11 +37,11 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
         return;
     }
 
-    const atoms: NormalField.FieldAtoms = nomalFormAtoms.fieldsAtoms[fieldIdx];
+    const rowAtoms: NormalField.RowAtoms = nomalFormAtoms.rowsAtoms[fieldIdx];
 
-    const fromUi = NormalFieldConv.fromAtoms(atoms, get, set);
-    const changed = !NormalFieldConv.areTheSame(fromUi, atoms.fromFile);
-    atoms.changed = changed;
+    const fromUi = NormalFieldConv.fromAtoms(rowAtoms, get, set);
+    const changed = !NormalFieldConv.areTheSame(fromUi, rowAtoms.fromFile);
+    rowAtoms.changed = changed;
 
     const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
@@ -55,7 +55,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 
-function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.FieldAtoms {
+function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowAtoms {
     const forAtoms = fieldForEditor(field.mani);
     return {
         ...NormalFieldConv.createAtoms(forAtoms, onChange),

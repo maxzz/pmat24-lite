@@ -30,7 +30,7 @@ export namespace ManualFieldState {
 
     export type FldForAtoms = Prettify<ExtraForAtoms & {
         type: 'fld';
-        field: NormalField.FieldAtoms;
+        rowAtoms: NormalField.RowAtoms;
         original: EditorDataForFld;
     }>;
 

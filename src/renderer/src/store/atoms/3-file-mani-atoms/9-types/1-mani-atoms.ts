@@ -14,7 +14,7 @@ export type FileUsCtx = {
 //
 
 export type NFormCtx = {
-    fieldsAtoms: NormalField.FieldAtoms[];
+    rowsAtoms: NormalField.RowAtoms[];
     submitAtoms: NormalSubmitState.Atoms;
 };
 

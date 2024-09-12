@@ -64,8 +64,8 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
     let changed: boolean | undefined;
 
     if (nextValue.type === 'fld') {
-        const fromUi = NormalFieldConv.fromAtoms(nextValue.field, get, set);
-        changed = !NormalFieldConv.areTheSame(fromUi, nextValue.field.fromFile);
+        const fromUi = NormalFieldConv.fromAtoms(nextValue.rowAtoms, get, set);
+        changed = !NormalFieldConv.areTheSame(fromUi, nextValue.rowAtoms.fromFile);
     } else {
         const fromUi = ManualFieldConv.fromAtom(nextValue, get);
         changed = !areTheSame(fromUi, nextValue.original);

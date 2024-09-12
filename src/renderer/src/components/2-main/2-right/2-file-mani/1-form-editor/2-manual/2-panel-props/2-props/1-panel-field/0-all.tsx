@@ -10,7 +10,7 @@ import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
 
 export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.field;
+    const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.rowAtoms;
 
     /*TODO:*/ function onSelectCatItem(item: CatalogItem | undefined) { }
     /*TODO:*/ const maniIsPassword = false;

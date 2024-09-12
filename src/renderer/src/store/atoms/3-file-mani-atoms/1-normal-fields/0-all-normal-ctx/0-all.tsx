@@ -5,7 +5,7 @@ import { NormalSubmitState } from "./2-create-submit-context";
 export namespace NormalModeState {
     export function createNormalCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NFormCtx {
         return {
-            fieldsAtoms: NormalFieldsState.createFieldsCtx(fileUsCtx, maniAtoms),
+            rowsAtoms: NormalFieldsState.createFieldsCtx(fileUsCtx, maniAtoms),
             submitAtoms: NormalSubmitState.createSubmitCtx(fileUsCtx, maniAtoms),
         };
     }

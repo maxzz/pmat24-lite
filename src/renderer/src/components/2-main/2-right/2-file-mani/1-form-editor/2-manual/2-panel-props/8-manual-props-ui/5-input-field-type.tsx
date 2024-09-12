@@ -10,7 +10,7 @@ const inputTypes: ModifierDisplayText[] = [
 
 export function ManualFieldType({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const [type, setType] = useAtom(item.field.typeAtom);
+    const [type, setType] = useAtom(item.rowAtoms.typeAtom);
 
     return (
         <InputSelectUi

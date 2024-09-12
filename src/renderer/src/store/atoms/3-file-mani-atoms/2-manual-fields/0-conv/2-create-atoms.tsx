@@ -98,7 +98,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
 
             const fieldForAtoms: EditorField.ForAtoms = fieldForEditor(chunk.field.mani);
             const fldAtoms: Atomize<EditorField.ForAtoms> = NormalFieldConv.createAtoms(fieldForAtoms, onScopedChange(`fld`));
-            const embFld: NormalField.FieldAtoms = {
+            const rowAtoms: NormalField.RowAtoms = {
                 ...fldAtoms,
                 metaField: chunk.field,
                 fromFile: fieldForAtoms,
@@ -112,7 +112,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 hasErrorAtom: atom(false),
                 original: chunk,
 
-                field: embFld,
+                rowAtoms: rowAtoms,
             };
             return rv;
         }

@@ -5,7 +5,7 @@ import { detailKbdClasses } from "./1-details-key";
 import { classNames } from "@/utils";
 
 function FieldName({ item }: { item: ManualFieldState.FldForAtoms; }) {
-    const name = useAtomValue(item.field.labelAtom) || 'Field';
+    const name = useAtomValue(item.rowAtoms.labelAtom) || 'Field';
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
             {name}
@@ -14,7 +14,7 @@ function FieldName({ item }: { item: ManualFieldState.FldForAtoms; }) {
 }
 
 export function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
-    const type = useAtomValue(item.field.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
+    const type = useAtomValue(item.rowAtoms.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
             <FieldName item={item} />
