@@ -1,39 +1,59 @@
 import { type Base64String, type PluginDataCallback } from "./9-types";
 
-// Common types
+// Common types for Tlw (Top Level Window)
 
-export type TLWindowsImageFormat = 'png' | 'jpeg';
+export type TlwImageFormat = 'png' | 'jpeg';
 
-export type TLWindowsScreenshot = {
+export type TlwData = {
+    type: 'data';
     hwnd: string;                       // "000000000014103E", // hwnd should be string because int64 and js number types are different
     caption: string;                    // "ipc-invoke.ts - electron-window-monitor - Visual Studio Code",
     data: Base64String;                 // image data in base64 format
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
-    format: TLWindowsImageFormat;       // "png" or "jpeg"
+    format: TlwImageFormat;             // "png" or "jpeg"
 };
 
-// 1. Get number of Top Level Window (TLWindows)
-
-export type GetNumberOfTLWindowsParams = { // i.e. empty object like this '{}'
+export type TlwError = {
+    type: 'error';
+    hwnd: string;
+    errorCode: TlwErrorCode;
 };
 
-export type GetNumberOfTLWindowsResult = { totalVisible: number; };
+export type TlwErrorCode =              // not negative values, to avoid c++ to js conversion issues (long, short, etc)
+    | 2                                 // 2 - hwnd not found. This mostly happens when the window is closed.
+    | 1;                                // 1 - unknown error. This will mostly be silently ignored.
 
-export interface getNumberOfTLWindows {
+export type TlwScreenshot = TlwData | TlwError; // Discriminated union of "data" or "error"
+
+// 1. Get a list of top-level windows
+
+export type GetTlWindowsParams = {      // i.e. empty object like this '{}'
+};
+
+export type TlwClassname = {
+    hwnd: string;
+    classname: string;                  // like "Chrome_WidgetWin_1"; that will allow us sort out windows and show browser windows first
+};
+
+export type GetTlWindowsResult = {
+    windows: TlwClassname[];
+};
+
+export interface getTlWindows {
     (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
 }
 
-// 2. Get all Top Level Window screenshots
+// 2. Get top-level window screenshots
 
-export type GetAllTLWindowScreenshotsParams = {
-    format: TLWindowsImageFormat;
+export type GetTlwScreenshotsParams = {
+    format: TlwImageFormat;
     width: number;                      // max screenshot width, height - auto
-    hwnd?: string;                      // optional, if provided, only this hwnd will be returned
+    hwnd?: string[];                    // optional, if provided, only for these hwnds information will be returned
 };
 
-export type GetAllTLWindowScreenshotsResult = TLWindowsScreenshot[];
+export type GetTlwScreenshotsResult = TlwScreenshot[];
 
-export interface getAllTLWindowScreenshots {
-    (GetAllTLWindowScreenshotsParams: string, cb: PluginDataCallback): void;
+export interface getTlwScreenshots {
+    (GetTLWScreenshotsParams: string, cb: PluginDataCallback): void;
 }
