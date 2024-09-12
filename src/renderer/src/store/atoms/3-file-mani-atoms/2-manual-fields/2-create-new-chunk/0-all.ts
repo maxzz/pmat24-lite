@@ -1,6 +1,6 @@
 import { type ManualFieldState } from "../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import { type ChunkKey, type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, fieldForEditor } from "@/store/manifest";
+import { type ChunkKey, type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, convFieldForEditor } from "@/store/manifest";
 import { ManualFieldConv } from "../0-conv";
 import { createForManualMetaField } from "./2-create-for-manual-meta-field";
 
@@ -8,7 +8,7 @@ function createScriptItemByType({ type, password }: { type: ChunkKey; password: 
     switch (type) {
         case "fld": {
             const field = createForManualMetaField(password);
-            const editField = fieldForEditor(field.mani);
+            const editField = convFieldForEditor(field.mani);
             const newItem: EditorDataForFld = {
                 type: 'fld',
                 field,

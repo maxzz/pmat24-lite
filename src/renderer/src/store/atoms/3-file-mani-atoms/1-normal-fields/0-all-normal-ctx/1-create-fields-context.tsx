@@ -1,5 +1,5 @@
 import { type Getter, type Setter } from 'jotai';
-import { fieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
+import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
 import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
 import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
 import { type OnValueChangeAny } from '@/util-hooks';
@@ -16,6 +16,9 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
+        const rv = nonButtonFields.map(mapMetaFieldToFieldRowAtoms) || [];
+        return rv;
+
         function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.RowAtoms {
             
             function onChange({ get, set }: { get: Getter, set: Setter }) {
@@ -25,9 +28,16 @@ export namespace NormalFieldsState {
             const rowAtoms = createUiRowAtoms(field, onChange);
             return rowAtoms;
         }
+    }
 
-        const rv = nonButtonFields.map(mapMetaFieldToFieldRowAtoms) || [];
-        return rv;
+    function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowAtoms {
+        const forAtoms = convFieldForEditor(field.mani);
+        return {
+            ...NormalFieldConv.createAtoms(forAtoms, onChange),
+            metaField: field,
+            fromFile: forAtoms,
+            changed: false,
+        };
     }
 }
 
@@ -54,13 +64,3 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
-
-function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowAtoms {
-    const forAtoms = fieldForEditor(field.mani);
-    return {
-        ...NormalFieldConv.createAtoms(forAtoms, onChange),
-        metaField: field,
-        fromFile: forAtoms,
-        changed: false,
-    };
-}
