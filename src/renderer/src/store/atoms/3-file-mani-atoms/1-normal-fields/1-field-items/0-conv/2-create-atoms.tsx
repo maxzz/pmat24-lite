@@ -1,10 +1,10 @@
 import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/util-hooks";
-import { type NormalField } from "./9-types";
+import { EditorField } from "@/store/manifest";
 
-export function createAtoms(initialState: NormalField.ForAtoms, onChange: OnValueChangeAny): Atomize<NormalField.ForAtoms> {
+export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValueChangeAny): Atomize<EditorField.ForAtoms> {
     const { useIt, label, type, dbname, valueLife, policies } = initialState;
 
-    const rv: Atomize<NormalField.ForAtoms> = {
+    const rv: Atomize<EditorField.ForAtoms> = {
         useItAtom: atomWithCallback(useIt, onChange),
         labelAtom: atomWithCallback(label, onChange),
         typeAtom: atomWithCallback(type, onChange),

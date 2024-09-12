@@ -1,7 +1,7 @@
 import { type Getter } from "jotai";
-import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne } from "@/store/manifest";
+import type { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, EditorDataForOne, EditorField } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
-import { NormalField, NormalFieldConv } from "../../1-normal-fields";
+import { NormalFieldConv } from "../../1-normal-fields";
 import { getKbdChunkValues, getPosChunkValues, getDlyChunkValues } from "./6-verify-state-access";
 
 export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): EditorDataForOne {
@@ -38,7 +38,7 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
             return rv;
         }
         case "fld": {
-            const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(scriptItem.field, get);
+            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(scriptItem.field, get);
             // const editorValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
             const rv: EditorDataForFld = {
                 type: 'fld',

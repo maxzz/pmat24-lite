@@ -1,4 +1,4 @@
-import { type Meta } from "@/store/manifest";
+import { type EditorField, type Meta } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
 import { type NormalField, NormalFieldConv } from "../../../../1-normal-fields";
@@ -16,7 +16,7 @@ export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifest
         (fieldAtoms: NormalFieldsState.Atoms) => {
             const metaField = fieldAtoms.metaField;
 
-            const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
+            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
             const maniValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
 
             const rv: EditorFieldAndMeta = {

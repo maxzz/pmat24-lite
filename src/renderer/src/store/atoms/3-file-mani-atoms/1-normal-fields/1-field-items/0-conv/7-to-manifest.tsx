@@ -1,9 +1,9 @@
-import { TransformValue, fieldTyp2Obj } from "@/store/manifest";
+import { type EditorField, TransformValue, fieldTyp2Obj } from "@/store/manifest";
 import { type NormalField } from "./9-types";
 
 // Back to manifest
 
-export function forMani(from: NormalField.ForAtoms): NormalField.ThisType {
+export function forMani(from: EditorField.ForAtoms): NormalField.ThisType {
 
     const rv: NormalField.ThisType = {
         useit: from.useIt,

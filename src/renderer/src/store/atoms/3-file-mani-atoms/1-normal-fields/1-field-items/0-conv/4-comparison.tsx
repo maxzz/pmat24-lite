@@ -1,4 +1,4 @@
-import { type Mani, type ValueLife } from "@/store/manifest";
+import { type EditorField, type Mani, type ValueLife } from "@/store/manifest";
 import { type NormalField } from "./9-types";
 
 // Comparison
@@ -21,7 +21,7 @@ function theSamePolicyStrings(from: Mani.FieldPolicy, to: Mani.FieldPolicy): boo
     return rv;
 }
 
-export function areTheSame(from: NormalField.ForAtoms, to: NormalField.ForAtoms): boolean {
+export function areTheSame(from: EditorField.ForAtoms, to: EditorField.ForAtoms): boolean {
     const rv = (
         from.useIt === to.useIt &&
         from.label === to.label &&

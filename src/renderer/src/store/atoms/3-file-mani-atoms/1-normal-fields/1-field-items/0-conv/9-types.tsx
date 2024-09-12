@@ -3,13 +3,13 @@ import { type EditorField, type Meta } from "@/store/manifest";
 
 export namespace NormalField {
 
-    export type ForAtoms = EditorField.ForAtoms;
+    type ForAtoms = EditorField.ForAtoms;
 
     export type FieldAtoms = Prettify<
         & Atomize<ForAtoms>
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field
-            fromFile: ForAtoms;    // original state to compare with
+            fromFile: ForAtoms;         // original state to compare with
             changed: boolean;           // state from atoms is different from original state
         }
     >;

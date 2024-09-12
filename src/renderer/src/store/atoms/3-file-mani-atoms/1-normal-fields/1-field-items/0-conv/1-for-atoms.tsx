@@ -1,7 +1,6 @@
-// import { type Mani, type Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
-// import { type NormalField } from "./9-types";
+// import { type NormalField, type Mani, type Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
 
-// export function forAtoms(maniField: Mani.Field): NormalField.ForAtoms {
+// export function forAtoms(maniField: Mani.Field): EditorField.ForAtoms {
 //     const { useit, displayname } = maniField;
 
 //     const valueLife = TransformValue.valueLife4Mani(maniField);
@@ -15,7 +14,7 @@
 //         options: maniField.options || '',
 //     };
 
-//     const rv: NormalField.ForAtoms = {
+//     const rv: EditorField.ForAtoms = {
 //         useIt: !!useit,
 //         label: displayname || '',
 //         type: fieldTyp4Str(maniField),
