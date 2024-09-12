@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
-import { NormalFieldsState } from "@/store/atoms/3-file-mani-atoms";
-import { CatalogItem } from "@/store/manifest";
+import { type NormalFieldsState } from "@/store/atoms/3-file-mani-atoms/1-normal-fields/0-all-normal-ctx/1-create-fields-context";
+import { type CatalogItem } from "@/store/manifest";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
 import { Column3_Label } from "../3-column-label";

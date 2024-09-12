@@ -1,5 +1,5 @@
 import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
-import { SubmitConv, type SubmitConvTypes } from "./0-conv";
+import { SubmitConv, type SubmitConvTypes } from "../2-submit/0-conv";
 import { debounce } from "@/utils";
 
 export namespace NormalSubmitState {

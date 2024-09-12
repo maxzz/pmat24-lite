@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from 'jotai';
 import { fieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
-import { NormalFieldConv, type NormalField } from '../0-conv';
-import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../../9-types";
+import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
+import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
 import { type OnValueChangeAny } from '@/util-hooks';
 import { debounce } from '@/utils';
 
@@ -18,16 +18,17 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        function mapMetaFieldToFieldAtoms(field: Meta.Field, idx: number): Atoms {
+        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): Atoms {
+            
             function onChange({ get, set }: { get: Getter, set: Setter }) {
                 onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
             }
 
-            const rowAtoms = createUiAtoms(field, onChange);
+            const rowAtoms = createUiRowAtoms(field, onChange);
             return rowAtoms;
         }
 
-        const rv = nonButtonFields.map(mapMetaFieldToFieldAtoms) || [];
+        const rv = nonButtonFields.map(mapMetaFieldToFieldRowAtoms) || [];
         return rv;
     }
 }
@@ -56,7 +57,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 
-function createUiAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.FieldAtoms {
+function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.FieldAtoms {
     const forAtoms = fieldForEditor(field.mani);
     return {
         ...NormalFieldConv.createAtoms(forAtoms, onChange),
