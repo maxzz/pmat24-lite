@@ -1,17 +1,15 @@
-import { type Base64String, type PluginDataCallback } from "./9-types";
+import { type Base64String, type PluginDataCallback, type ImageFormatType } from "./9-types";
 
 // Get Icon
 
-export type IconFormatType = 'png' | 'jpeg' | 'bmp';
-
 export type WindowIconGetterParams = {
     hwnd: string;
-    iconFormat: IconFormatType;
+    iconFormat: ImageFormatType;
 };
 
 export type WindowIconGetterResult = {
     data: Base64String;
-    type: IconFormatType;
+    type: ImageFormatType;
 };
 
 /**

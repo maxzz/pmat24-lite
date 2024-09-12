@@ -1,8 +1,6 @@
-import { type Base64String, type PluginDataCallback } from "./9-types";
+import { type Base64String, type PluginDataCallback, type ImageFormatType } from "./9-types";
 
 // Common types for Tlw (Top Level Window)
-
-export type TlwImageFormat = 'png' | 'jpeg';
 
 export type TlwData = {
     type: 'data';
@@ -11,7 +9,7 @@ export type TlwData = {
     data: Base64String;                 // image data in base64 format
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
-    format: TlwImageFormat;             // "png" or "jpeg"
+    format: ImageFormatType;            // "png" or "jpg"
 };
 
 export type TlwError = {
@@ -47,7 +45,7 @@ export interface getTlWindows {
 // 2. Get top-level window screenshots
 
 export type GetTlwScreenshotsParams = {
-    format: TlwImageFormat;
+    imageFormat: ImageFormatType;
     width: number;                      // max screenshot width, height - auto
     hwnd?: string[];                    // optional, if provided, only for these hwnds information will be returned
 };
