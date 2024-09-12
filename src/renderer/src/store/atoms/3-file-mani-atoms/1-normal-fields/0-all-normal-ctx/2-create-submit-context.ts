@@ -28,23 +28,23 @@ export namespace NormalSubmitState {
 
         return rv;
     }
+}
 
-    function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
-        const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
-        if (!nomalFormAtoms) {
-            return;
-        }
-
-        const atoms: Atoms = nomalFormAtoms.submitAtoms;
-
-        const fromUi = SubmitConv.fromAtoms(atoms, get, set);
-        const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
-        atoms.changed = changed;
-
-        const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
-
-        console.log('changes submit:', [...changes.keys()]);
+function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
+    const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
+    if (!nomalFormAtoms) {
+        return;
     }
 
-    const onChangeWithScopeDebounced = debounce(onChangeWithScope);
+    const atoms: NormalSubmitState.Atoms = nomalFormAtoms.submitAtoms;
+
+    const fromUi = SubmitConv.fromAtoms(atoms, get, set);
+    const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
+    atoms.changed = changed;
+
+    const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
+
+    console.log('changes submit:', [...changes.keys()]);
 }
+
+const onChangeWithScopeDebounced = debounce(onChangeWithScope);
