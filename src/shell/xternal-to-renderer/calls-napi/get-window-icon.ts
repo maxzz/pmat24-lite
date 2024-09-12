@@ -1,10 +1,10 @@
 import fs from "fs";
 import { addon } from "./0-addon";
-import { type WindowIconGetterParams, type IconFormatType, type WindowIconGetter, type WindowIconGetterResult } from "./pmat-plugin-types";
+import { type WindowIconGetterParams, type ImageFormatType, type WindowIconGetter, type WindowIconGetterResult } from "./pmat-plugin-types";
 
 let gWindowIconGetter: WindowIconGetter | null = null;
 
-export async function getWindowIcon(hwnd: string, iconFormat: IconFormatType = 'png'): Promise<string> {
+export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 'png'): Promise<string> {
     if (!gWindowIconGetter) {
         gWindowIconGetter = new addon.WindowIconGetter();
     }
