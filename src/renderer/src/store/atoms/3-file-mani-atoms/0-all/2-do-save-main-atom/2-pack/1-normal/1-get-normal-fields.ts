@@ -1,11 +1,15 @@
+import { type Meta } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
 import { type NormalField, type NormalFieldsState, NormalFieldConv } from "../../../../1-normal-fields";
 
-export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifestDataParams): NormalField.ThisType[] {
-    const { rvManifest, get, set } = packParams;
+export type EditorFieldAndMeta = {
+    editField: NormalField.ThisType;
+    metaField: Meta.Field;
+};
 
-    // 2. Fields
+export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifestDataParams): EditorFieldAndMeta[] {
+    const { get, set } = packParams;
 
     const rv = formCtx.fieldsAtoms.map(
         (fieldAtoms: NormalFieldsState.Atoms) => {
@@ -14,7 +18,11 @@ export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifest
             const fromAtomValues: NormalField.ForAtoms = NormalFieldConv.fromAtoms(fieldAtoms, get, set);
             const maniValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
 
-            return maniValues;
+            const rv: EditorFieldAndMeta = {
+                editField: maniValues,
+                metaField: metaField,
+            };
+            return rv;
         }
     );
 
