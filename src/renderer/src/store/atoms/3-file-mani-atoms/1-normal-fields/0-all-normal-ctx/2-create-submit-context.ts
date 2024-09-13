@@ -12,6 +12,7 @@ export namespace NormalSubmitState {
 
         const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const isWeb = !!metaForm?.mani.detection.web_ourl;
+        
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {

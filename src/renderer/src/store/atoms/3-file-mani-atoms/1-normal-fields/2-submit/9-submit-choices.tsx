@@ -1,4 +1,5 @@
-import { FieldTyp, Meta, SUBMIT } from "@/store/manifest";
+import { FieldTyp, type Meta, SUBMIT } from "@/store/manifest";
+import { type SubmitConvTypes } from "./0-conv/9-types";
 
 export function getSubmitChoices(metaForm: Meta.Form) {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
@@ -29,17 +30,40 @@ function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
     ) || [];
 }
 
-function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): string[] {
+function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvTypes.ButtonNameItem[] {
     const noSubmitOption = !isWeb && !buttonFields.length;
 
-    const rv = noSubmitOption ? ['There is no control to submit'] : ['Do not submit'];
+    const rv: SubmitConvTypes.ButtonNameItem[] =
+        noSubmitOption
+            ? [
+                {
+                    name: 'There is no control to submit',
+                    metaField: null,
+                }
+            ]
+            : [{
+                name: 'Do not submit',
+                metaField: null,
+            }];
 
     if (isWeb) {
-        rv.push('Submit form data after filling out fields');
+        rv.push({
+            name: 'Submit form data after filling out fields',
+            metaField: null,
+        });
     } else {
         let NameIdx = 0;
         rv.push(...buttonFields.map(
-            (field) => field.mani.displayname || `No name ${++NameIdx}`
+            (field) => {
+                return {
+                    name: field.mani.displayname,
+                    metaField: field,
+                }
+                    || {
+                    name: `No name ${++NameIdx}`,
+                    metaField: field,
+                };
+            }
         ));
     }
 
@@ -48,7 +72,7 @@ function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): string[] {
 
 function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): number {
     let rv = -1;
-    
+
     buttonFields.forEach(
         (field, idx) => field.mani.useit && (rv = idx)
     );

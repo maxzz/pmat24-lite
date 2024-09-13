@@ -3,8 +3,13 @@ import { type Meta } from "@/store/manifest";
 
 export namespace SubmitConvTypes {
 
+    export type ButtonNameItem = {
+        name: string;
+        metaField: Meta.Field | null;
+    };
+
     export type SubmitForAtoms = {
-        buttonNames: string[];
+        buttonNames: ButtonNameItem[];
         selected: number;
         doSubmit: boolean;
         isDoSubmitUndefined: boolean;   // doSubmit was initially undefined
