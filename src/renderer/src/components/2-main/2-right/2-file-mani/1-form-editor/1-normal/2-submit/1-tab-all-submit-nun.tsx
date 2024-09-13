@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { type Meta } from "@/store/manifest";
 import { type NFormContextProps, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { RadioGroup } from "./2-radio-group";
+import { RadioGroup } from "./2-radio-group-for-nun";
 
 function ManiSection2_Submit({ formAtoms, metaForm }: { formAtoms: NFormCtx; metaForm: Meta.Form; }) {
 
