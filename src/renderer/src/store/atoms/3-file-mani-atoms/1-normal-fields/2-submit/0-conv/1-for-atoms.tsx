@@ -4,7 +4,7 @@ import { getSubmitChoices } from "../9-submit-choices";
 
 export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     
-    const { buttonNameItems: buttonNameItems, initialSelected } = getSubmitChoices(metaForm);
+    const { buttonNameItems, initialSelected } = getSubmitChoices(metaForm);
 
     const doSubmit = metaForm.mani.options?.submittype === 'dosubmit';
     const isDoSubmitUndefined = typeof metaForm.mani.options?.submittype === 'undefined';

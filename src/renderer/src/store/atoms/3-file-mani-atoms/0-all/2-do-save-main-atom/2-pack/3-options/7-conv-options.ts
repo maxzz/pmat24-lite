@@ -1,7 +1,7 @@
 import { type FileMani } from "@/store/manifest";
 import { type ManiOptions } from "../../../../4-options";
 
-function detectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
+function formDetectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
     const rv: FileMani.Detection = {
         caption: options.p2Detect.caption,
         variablecaption: options.p2Detect.caption,
@@ -24,10 +24,10 @@ function detectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detect
     return rv;
 }
 
-function optionsForMani(options: ManiOptions.OptionsForAtoms): FileMani.Options {
+function formOptionsForMani(options: ManiOptions.OptionsForAtoms): FileMani.Options {
 
     const submitType =
-        options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'dosubmit'
+        options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'nosubmit'
             ? options.p1General.submitType
             : undefined;
 
@@ -51,6 +51,7 @@ function optionsForMani(options: ManiOptions.OptionsForAtoms): FileMani.Options 
 
         unknownattributes: options.p1General.unkAttrs,
     };
+
     return rv;
 }
 
@@ -59,10 +60,10 @@ export type DAOForMani = { // Detection And Options ForMani
     options: FileMani.Options;
 };
 
-export function detectionAndOptionsForMani(options: ManiOptions.OptionsForAtoms): DAOForMani {
+export function formDAOForMani(options: ManiOptions.OptionsForAtoms): DAOForMani {
     const rv: DAOForMani = {
-        detection: detectionForMani(options),
-        options: optionsForMani(options),
+        detection: formDetectionForMani(options),
+        options: formOptionsForMani(options),
     };
     return rv;
 }

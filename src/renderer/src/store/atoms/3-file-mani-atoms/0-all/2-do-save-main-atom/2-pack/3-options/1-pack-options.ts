@@ -1,14 +1,14 @@
 import { type ManiOptions, OptionsConv } from "../../../../4-options";
 import { type PackManifestDataParams } from "../9-types";
-import { type DAOForMani, detectionAndOptionsForMani } from "./7-conv-options";
+import { type DAOForMani, formDAOForMani } from "./7-conv-options";
 import { filterEmptyValues } from "../../0-save-atom/7-filter-empty-values";
 
-export function packOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
+export function packFormOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
     const { rvManifest, get, set } = packParams;
 
     const detectionAndOptionsRow = OptionsConv.fromAtoms(optionsP, get, set);
 
-    const { detection, options } = detectionAndOptionsForMani(detectionAndOptionsRow);
+    const { detection, options } = formDAOForMani(detectionAndOptionsRow);
 
     const detectionFiltered = filterEmptyValues(detection);
     const optionsFiltered = filterEmptyValues(options);

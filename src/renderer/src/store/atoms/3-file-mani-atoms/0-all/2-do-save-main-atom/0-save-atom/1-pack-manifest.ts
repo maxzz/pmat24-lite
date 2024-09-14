@@ -1,5 +1,5 @@
 import { AnyFormAtoms } from "../../../9-types";
-import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packOptions } from "../2-pack";
+import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../2-pack";
 
 export function packManifest(packParams: PackManifestDataParams) {
     
@@ -12,7 +12,7 @@ export function packManifest(packParams: PackManifestDataParams) {
 
 function packForm(form: AnyFormAtoms | undefined, packParams: PackManifestDataParams) {
     if (form) {
-        packOptions(form.options, packParams); // This should be before packNormalFieldsAndSubmit or create nessary options inside packNormalFieldsAndSubmit
+        packFormOptions(form.options, packParams); // This should be before packNormalFieldsAndSubmit or create nessary options inside packNormalFieldsAndSubmit
 
         if (form.normal) {
             packNormalFieldsAndSubmit(form.normal, packParams);
