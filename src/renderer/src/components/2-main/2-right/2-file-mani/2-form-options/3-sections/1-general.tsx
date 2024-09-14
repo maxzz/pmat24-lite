@@ -1,4 +1,4 @@
-import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { type OptionsState } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputWLabel } from "../9-controls";
 
 export function Part1General({ atoms }: { atoms: OptionsState.Atoms; }) {

@@ -1,6 +1,5 @@
 import { type PackManifestDataParams } from "../9-types";
-import { type NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
-import { type SubmitConvTypes } from "@/store/atoms/3-file-mani-atoms/1-normal-fields";
+import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { packNormalFields } from "./1-pack-normal-fields";
 import { packNormalSubmit } from "./5-pack-normal-submit";
 import { getNormalFieldValues } from "./2-get-normal-fields";

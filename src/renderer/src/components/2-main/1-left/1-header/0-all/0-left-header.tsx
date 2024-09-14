@@ -1,11 +1,11 @@
 import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { allFileUsChanges } from "@/store/atoms/3-file-mani-atoms";
-import { SymbolFire } from "@/ui/icons";
-import { classNames } from "@/utils";
 import { FilterFilesDialog } from "@/components/4-dialogs";
 import { L_PanelMenu } from "../3-menu";
 import { CurrentFilter } from "./1-filter-indicator";
+import { SymbolFire } from "@/ui/icons";
+import { classNames } from "@/utils";
 
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
