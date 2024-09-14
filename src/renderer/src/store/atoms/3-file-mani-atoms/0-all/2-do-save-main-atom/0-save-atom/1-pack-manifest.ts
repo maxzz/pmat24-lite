@@ -6,28 +6,11 @@ export function packManifest(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
-    if (loginFormAtoms) {
-        if (loginFormAtoms.normal) {
-            packNormalFieldsAndSubmit(loginFormAtoms.normal, packParams);
-        }
-        if (loginFormAtoms.manual) {
-            packManualFields(loginFormAtoms.manual, packParams);
-        }
-        packOptions(loginFormAtoms.options, packParams);
-    }
-
-    if (cpassFormAtoms) {
-        if (cpassFormAtoms.normal) {
-            packNormalFieldsAndSubmit(cpassFormAtoms.normal, packParams);
-        }
-        if (cpassFormAtoms.manual) {
-            packManualFields(cpassFormAtoms.manual, packParams);
-        }
-        packOptions(cpassFormAtoms.options, packParams);
-    }
+    packForm(loginFormAtoms, packParams);
+    packForm(cpassFormAtoms, packParams);
 }
 
-function packForm(form: AnyFormAtoms, packParams: PackManifestDataParams) {
+function packForm(form: AnyFormAtoms | undefined, packParams: PackManifestDataParams) {
     if (form) {
         if (form.normal) {
             packNormalFieldsAndSubmit(form.normal, packParams);
