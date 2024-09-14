@@ -8,10 +8,13 @@ export function packNormalSubmit(formCtx: NFormCtx, packParams: PackManifestData
     // 1. Submits
 
     const submits = SubmitConv.fromAtoms(formCtx.submitAtoms, get, set);
-    console.log('submits', JSON.stringify(submits.buttonNames.map(
-        (submit) => ({
-            name: submit.name,
-            uuid: submit.metaField?.uuid,
-        })
-    ), null, 2));
+
+    // console.log('submits', JSON.stringify(submits.buttonNames.map(
+    //     (submit) => ({
+    //         name: submit.name,
+    //         uuid: submit.metaField?.uuid,
+    //     })
+    // ), null, 2));
+
+    console.log('submits', JSON.stringify(submits, null, 2));
 }

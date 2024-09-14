@@ -1,4 +1,4 @@
-import { FieldTyp, type Mani, type FileMani, type Meta } from "@/store/manifest";
+import { FieldTyp, type Mani, type FileMani } from "@/store/manifest";
 import { type NormalField } from "../../../../1-normal-fields";
 
 type FieldForFileManiProps = {
@@ -40,6 +40,7 @@ export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: Fiel
         ...(isSubmit && { submit: '1' }),
         ...(from.useit && { useit: '1' }),
     };
+
     return rv;
 }
 
@@ -51,9 +52,8 @@ function getFieldStringValue(fromValue: string | undefined, ftyp: FieldTyp): str
 
     const rv =
         isCheckbox
-            ? !!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off'
-                ? '1'
-                : undefined
+            ? (!!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off') ? '1' : undefined
             : v;
+
     return rv;
 }
