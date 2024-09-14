@@ -33,18 +33,10 @@ function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
 function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvTypes.ButtonNameItem[] {
     const noSubmitOption = !isWeb && !buttonFields.length;
 
-    const rv: SubmitConvTypes.ButtonNameItem[] =
-        noSubmitOption
-            ? [
-                {
-                    name: 'There is no control to submit',
-                    metaField: null,
-                }
-            ]
-            : [{
-                name: 'Do not submit',
-                metaField: null,
-            }];
+    const rv: SubmitConvTypes.ButtonNameItem[] = [{
+        name: noSubmitOption ? 'There is no control to submit' : 'Do not submit',
+        metaField: null,
+    }];
 
     if (isWeb) {
         rv.push({
@@ -54,19 +46,10 @@ function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvT
     } else {
         let NameIdx = 0;
         rv.push(...buttonFields.map(
-            (field) => {
-                return (
-                    field.mani.displayname
-                        ? {
-                            name: field.mani.displayname,
-                            metaField: field,
-                        }
-                        : {
-                            name: `No name ${++NameIdx}`,
-                            metaField: field,
-                        }
-                );
-            }
+            (field) => ({
+                name: field.mani.displayname || `No name ${++NameIdx}`,
+                metaField: field,
+            })
         ));
     }
 
