@@ -55,14 +55,17 @@ function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvT
         let NameIdx = 0;
         rv.push(...buttonFields.map(
             (field) => {
-                return {
-                    name: field.mani.displayname,
-                    metaField: field,
-                }
-                    || {
-                    name: `No name ${++NameIdx}`,
-                    metaField: field,
-                };
+                return (
+                    field.mani.displayname
+                        ? {
+                            name: field.mani.displayname,
+                            metaField: field,
+                        }
+                        : {
+                            name: `No name ${++NameIdx}`,
+                            metaField: field,
+                        }
+                );
             }
         ));
     }

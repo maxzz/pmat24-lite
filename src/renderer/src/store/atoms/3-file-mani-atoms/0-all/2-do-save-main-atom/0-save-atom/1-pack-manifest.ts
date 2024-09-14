@@ -12,12 +12,14 @@ export function packManifest(packParams: PackManifestDataParams) {
 
 function packForm(form: AnyFormAtoms | undefined, packParams: PackManifestDataParams) {
     if (form) {
+        packOptions(form.options, packParams); // This should be before packNormalFieldsAndSubmit or create nessary options inside packNormalFieldsAndSubmit
+
         if (form.normal) {
             packNormalFieldsAndSubmit(form.normal, packParams);
         }
+
         if (form.manual) {
             packManualFields(form.manual, packParams);
         }
-        packOptions(form.options, packParams);
     }
 }

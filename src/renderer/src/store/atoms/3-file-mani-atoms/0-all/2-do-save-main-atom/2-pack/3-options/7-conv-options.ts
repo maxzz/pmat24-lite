@@ -26,9 +26,10 @@ function detectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detect
 
 function optionsForMani(options: ManiOptions.OptionsForAtoms): FileMani.Options {
 
-    const submitType = options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'dosubmit'
-        ? options.p1General.submitType
-        : undefined;
+    const submitType =
+        options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'dosubmit'
+            ? options.p1General.submitType
+            : undefined;
 
     const rv: FileMani.Options = {
         choosename: options.p1General.name,
