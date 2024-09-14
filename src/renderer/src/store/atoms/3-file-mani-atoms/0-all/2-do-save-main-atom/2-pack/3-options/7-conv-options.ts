@@ -7,8 +7,8 @@ function formDetectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.De
         variablecaption: options.p2Detect.caption,
 
         web_ourl: options.p2Detect.ourl,
-        web_murl: options.p2Detect.ourl,
-        web_qurl: options.p4QL.qUrl,
+        web_murl: options.p2Detect.murl === options.p2Detect.ourl ? undefined : options.p2Detect.murl,
+        web_qurl: options.p4QL.qUrl === options.p2Detect.ourl ? undefined : options.p4QL.qUrl,
         web_checkurl: options.p4QL.qUse ? '1' : undefined,
 
         dlg_class: options.p2Detect.dlg_class,
