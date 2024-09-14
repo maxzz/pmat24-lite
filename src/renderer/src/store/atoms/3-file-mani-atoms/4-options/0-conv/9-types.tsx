@@ -17,7 +17,8 @@ export namespace ManiOptions {
     };
 
     type p2Detect = {               // Part Screen Detection
-        url: string;                // URL
+        ourl: string;               // original URL
+        murl: string;               // match URL
         caption: string;            // Windows Caption
         monitor: boolean;           // Monitor screen changes
 

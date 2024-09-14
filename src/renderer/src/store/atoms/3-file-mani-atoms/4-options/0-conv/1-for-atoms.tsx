@@ -23,7 +23,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
         p2Detect: {
             caption: detection.caption || '',                   //TODO: show only for Win32
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
-            url: detection.web_ourl || '',
+            ourl: detection.web_ourl || '',
+            murl: detection.web_murl || '',
 
             dlg_tab: detection.dlg_tab || '',
             dlg_class: detection.dlg_class || '',

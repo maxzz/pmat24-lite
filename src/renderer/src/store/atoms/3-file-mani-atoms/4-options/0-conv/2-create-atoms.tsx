@@ -19,7 +19,8 @@ export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange:
         p2Detect: {
             captionAtom: createAtomForInput(p2Detect.caption, onChange('caption')),
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
-            urlAtom: createAtomForInput(p2Detect.url, onChange('url')),
+            ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
+            murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
 
             dlg_tabAtom: createAtomForInput(p2Detect.dlg_tab, onChange('dlg_tab')),
             dlg_classAtom: createAtomForInput(p2Detect.dlg_class, onChange('dlg_class')),

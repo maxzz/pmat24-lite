@@ -18,7 +18,8 @@ export function fromAtoms(atoms: ManiOptions.FormOptionsAtoms, get: Getter, set:
         p2Detect: {
             caption: get(p2Detect.captionAtom).data,
             monitor: get(p2Detect.monitorAtom).data === '1',
-            url: get(p2Detect.urlAtom).data,
+            ourl: get(p2Detect.ourlAtom).data,
+            murl: get(p2Detect.murlAtom).data,
 
             dlg_tab: get(p2Detect.dlg_tabAtom).data,
             dlg_class: get(p2Detect.dlg_classAtom).data,

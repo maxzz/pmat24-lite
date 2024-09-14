@@ -3,12 +3,13 @@ import { type OptionsState } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputWLabel } from "../9-controls";
 
 export function Part2ScreenDetection({ atoms }: { atoms: OptionsState.Atoms; }) {
-    const { urlAtom, captionAtom, monitorAtom, dlg_tabAtom, dlg_classAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom } = atoms.p2Detect;
+    const { ourlAtom, murlAtom, captionAtom, monitorAtom, dlg_tabAtom, dlg_classAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom } = atoms.p2Detect;
     const isWeb = useAtomValue(atoms.isWebAtom);
     return (
         isWeb
             ? (<>
-                <RowInputWLabel stateAtom={urlAtom} label="URL" />
+                <RowInputWLabel stateAtom={ourlAtom} label="Original URL" />
+                <RowInputWLabel stateAtom={murlAtom} label="Match URL" />
             </>)
             : (<>
                 <RowInputWLabel stateAtom={captionAtom} label="Windows Caption" />
