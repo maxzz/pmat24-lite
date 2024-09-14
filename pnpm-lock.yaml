@@ -22,7 +22,7 @@ importers:
         version: 2.9.3(@types/react@18.3.5)(react@18.3.1)
       jotai-valtio:
         specifier: ^0.5.0
-        version: 0.5.0(jotai@2.9.3(@types/react@18.3.5)(react@18.3.1))(valtio@1.13.2(@types/react@18.3.5)(react@18.3.1))
+        version: 0.5.0(jotai@2.9.3(@types/react@18.3.5)(react@18.3.1))(valtio@2.0.0(@types/react@18.3.5)(react@18.3.1))
       pm-manifest:
         specifier: ^1.2.32
         version: 1.2.32
@@ -39,8 +39,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       valtio:
-        specifier: ^1.13.2
-        version: 1.13.2(@types/react@18.3.5)(react@18.3.1)
+        specifier: ^2.0.0
+        version: 2.0.0(@types/react@18.3.5)(react@18.3.1)
       vaul:
         specifier: ^0.9.1
         version: 0.9.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1650,11 +1650,6 @@ packages:
   delegates@1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
 
-  derive-valtio@0.1.0:
-    resolution: {integrity: sha512-OCg2UsLbXK7GmmpzMXhYkdO64vhJ1ROUUGaTFyHjVwEdMEcTTRj7W1TxLbSBxdY8QLBPCcp66MTyaSy0RpO17A==}
-    peerDependencies:
-      valtio: '*'
-
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
@@ -2621,8 +2616,8 @@ packages:
   property-information@5.6.0:
     resolution: {integrity: sha512-YUHSPk+A30YPv+0Qf8i9Mbfe/C0hdPXk1s1jPVToV8pk8BQtpw10ct89Eo7OWkutrwqvT0eicAxlOg3dOAu8JA==}
 
-  proxy-compare@2.6.0:
-    resolution: {integrity: sha512-8xuCeM3l8yqdmbPoYeLbrAXCBWu19XEYc5/F28f5qOaoAIMyfmBUkl5axiK+x9olUvRlcekvnm98AP9RDngOIw==}
+  proxy-compare@3.0.0:
+    resolution: {integrity: sha512-y44MCkgtZUCT9tZGuE278fB7PWVf7fRYy0vbRXAts2o5F0EfC4fIQrvQQGBJo1WJbFcVLXzApOscyJuZqHQc1w==}
 
   pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}
@@ -3116,11 +3111,6 @@ packages:
       '@types/react':
         optional: true
 
-  use-sync-external-store@1.2.0:
-    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
   utf8-byte-length@1.0.5:
     resolution: {integrity: sha512-Xn0w3MtiQ6zoz2vFyUVruaCL53O/DwUvkEeOvj+uulMm0BkUGYWmBYVyElqZaSLhY6ZD0ulfU3aBra2aVT4xfA==}
 
@@ -3131,12 +3121,12 @@ packages:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
     hasBin: true
 
-  valtio@1.13.2:
-    resolution: {integrity: sha512-Qik0o+DSy741TmkqmRfjq+0xpZBXi/Y6+fXZLn0xNF1z/waFMbE3rkivv5Zcf9RrMUp6zswf2J7sbh2KBlba5A==}
+  valtio@2.0.0:
+    resolution: {integrity: sha512-SzUU5UUK/vBRfHWXihwkJE55YNj8zhOkzxPOexcz0xIIT6Oux5VLynCmzyME2bYuEWcktW2NTaaLbpUydEsHiw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
-      '@types/react': '>=16.8'
-      react: '>=16.8'
+      '@types/react': '>=18.0.0'
+      react: '>=18.0.0'
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -4839,10 +4829,6 @@ snapshots:
 
   delegates@1.0.0: {}
 
-  derive-valtio@0.1.0(valtio@1.13.2(@types/react@18.3.5)(react@18.3.1)):
-    dependencies:
-      valtio: 1.13.2(@types/react@18.3.5)(react@18.3.1)
-
   detect-libc@2.0.3: {}
 
   detect-node-es@1.1.0: {}
@@ -5423,10 +5409,10 @@ snapshots:
 
   jiti@1.21.6: {}
 
-  jotai-valtio@0.5.0(jotai@2.9.3(@types/react@18.3.5)(react@18.3.1))(valtio@1.13.2(@types/react@18.3.5)(react@18.3.1)):
+  jotai-valtio@0.5.0(jotai@2.9.3(@types/react@18.3.5)(react@18.3.1))(valtio@2.0.0(@types/react@18.3.5)(react@18.3.1)):
     dependencies:
       jotai: 2.9.3(@types/react@18.3.5)(react@18.3.1)
-      valtio: 1.13.2(@types/react@18.3.5)(react@18.3.1)
+      valtio: 2.0.0(@types/react@18.3.5)(react@18.3.1)
 
   jotai@2.9.3(@types/react@18.3.5)(react@18.3.1):
     optionalDependencies:
@@ -5870,7 +5856,7 @@ snapshots:
     dependencies:
       xtend: 4.0.2
 
-  proxy-compare@2.6.0: {}
+  proxy-compare@3.0.0: {}
 
   pump@3.0.0:
     dependencies:
@@ -6414,21 +6400,15 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.5
 
-  use-sync-external-store@1.2.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   utf8-byte-length@1.0.5: {}
 
   util-deprecate@1.0.2: {}
 
   uuid@10.0.0: {}
 
-  valtio@1.13.2(@types/react@18.3.5)(react@18.3.1):
+  valtio@2.0.0(@types/react@18.3.5)(react@18.3.1):
     dependencies:
-      derive-valtio: 0.1.0(valtio@1.13.2(@types/react@18.3.5)(react@18.3.1))
-      proxy-compare: 2.6.0
-      use-sync-external-store: 1.2.0(react@18.3.1)
+      proxy-compare: 3.0.0
     optionalDependencies:
       '@types/react': 18.3.5
       react: 18.3.1
