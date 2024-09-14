@@ -1,8 +1,8 @@
 import { type PackManifestDataParams } from "../9-types";
 import { type NFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
-import { SubmitConv } from "../../../../1-normal-fields";
+import { SubmitConv, type SubmitConvTypes } from "../../../../1-normal-fields";
 
-export function packNormalSubmit(formCtx: NFormCtx, packParams: PackManifestDataParams) {
+export function packNormalSubmit(formCtx: NFormCtx, packParams: PackManifestDataParams): SubmitConvTypes.SubmitForAtoms {
     const { rvManifest, get, set } = packParams;
 
     // 1. Submits
@@ -17,4 +17,6 @@ export function packNormalSubmit(formCtx: NFormCtx, packParams: PackManifestData
     // ), null, 2));
 
     console.log('submits', JSON.stringify(submits, null, 2));
+
+    return submits;
 }
