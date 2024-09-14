@@ -5,7 +5,7 @@ export function getSubmitChoices(metaForm: Meta.Form) {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
-    const buttonNames = getButtonNames(buttonFields, isWeb);
+    const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
 
     const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
     const heuristicSubmit = isHeuristicSubmit(metaForm);
@@ -19,7 +19,7 @@ export function getSubmitChoices(metaForm: Meta.Form) {
     ) + 1;
 
     return {
-        buttonNames,
+        buttonNameItems,
         initialSelected,
     };
 }
@@ -30,7 +30,7 @@ function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
     ) || [];
 }
 
-function getButtonNames(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvTypes.ButtonNameItem[] {
+function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvTypes.ButtonNameItem[] {
     const noSubmitOption = !isWeb && !buttonFields.length;
 
     const rv: SubmitConvTypes.ButtonNameItem[] = [{

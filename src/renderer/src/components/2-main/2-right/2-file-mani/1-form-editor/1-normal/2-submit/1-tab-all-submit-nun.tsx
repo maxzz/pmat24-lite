@@ -5,8 +5,8 @@ import { RadioGroup } from "./2-radio-group-for-nun";
 
 function ManiSection2_Submit({ formAtoms, metaForm }: { formAtoms: NFormCtx; metaForm: Meta.Form; }) {
 
-    const buttonNames = useAtomValue(formAtoms.submitAtoms.buttonNamesAtom);
-    const buttonNameStrings = buttonNames.map(({ name }) => name);
+    const buttonNameItems = useAtomValue(formAtoms.submitAtoms.buttonNameItemsAtom);
+    const buttonNameStrings = buttonNameItems.map(({ name }) => name);
     const [selected, setSelected] = useAtom(formAtoms.submitAtoms.selectedAtom);
 
     return (

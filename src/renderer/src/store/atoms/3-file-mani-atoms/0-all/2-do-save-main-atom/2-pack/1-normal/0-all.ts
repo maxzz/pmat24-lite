@@ -15,7 +15,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, packParams: PackMan
 
     const selected = submits.selected;
 
-    const updatedSubmitFields = submits.buttonNames.map((submit) => {
+    const updatedSubmitFields = submits.buttonNameItems.map((submit) => {
         return {
             name: submit.name,
             field: submit.metaField?.mani && duplicateManiField(submit.metaField?.mani),

@@ -9,7 +9,7 @@ export namespace SubmitConvTypes {
     };
 
     export type SubmitForAtoms = {
-        buttonNames: ButtonNameItem[];
+        buttonNameItems: ButtonNameItem[];
         selected: number;
         doSubmit: boolean;
         isDoSubmitUndefined: boolean;   // doSubmit was initially undefined

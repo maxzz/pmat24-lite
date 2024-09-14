@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 
 function ManiSection2_Submit({ ctx }: { ctx: NFormContextProps; }) {
 
-    const buttonNames = useAtomValue(ctx.formAtoms.normal.submitAtoms.buttonNamesAtom);
+    const buttonNameItems = useAtomValue(ctx.formAtoms.normal.submitAtoms.buttonNameItemsAtom);
     const [selected, setSelected] = useAtom(ctx.formAtoms.normal.submitAtoms.selectedAtom);
 
     return (
@@ -16,7 +16,7 @@ function ManiSection2_Submit({ ctx }: { ctx: NFormContextProps; }) {
 
             <SelectContent align="start">
                 <SelectGroup>
-                    {buttonNames.map(
+                    {buttonNameItems.map(
                         ({ name }, idx) => (
                             <SelectItem className="text-xs" value={idx.toString()} indicatorFirst key={idx}>
                                 {name}
