@@ -18,7 +18,7 @@
         "react-use": "^17.5.1",
         "use-resize-observer": "^9.1.0",
         "valtio": "^2.0.0",
-        "vaul": "^0.9.1"
+        "vaul": "^0.9.3"
     },
     "devDependencies": {
         "@electron-toolkit/tsconfig": "^1.0.1",
