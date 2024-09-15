@@ -1,9 +1,8 @@
 import { FormIdx } from "@/store/store-types";
-import { AnyFormAtoms } from "../../../9-types";
+import { type AnyFormAtoms } from "../../../9-types";
 import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../2-pack";
 
 export function packManifest(packParams: PackManifestDataParams) {
-    
     const { maniAtoms } = packParams;
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
@@ -14,10 +13,15 @@ export function packManifest(packParams: PackManifestDataParams) {
 function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {
     if (form) {
         const { newMani } = packParams;
-        
-        newMani.forms = newMani.forms || [];
 
-        packFormOptions(form.options, formIdx, packParams); // This should be before packNormalFieldsAndSubmit or create nessary options inside packNormalFieldsAndSubmit
+        const { detection, options } = packFormOptions(form.options, packParams);
+
+        newMani.forms = newMani.forms || [];
+        newMani.forms[formIdx] = {
+            detection,
+            options,
+            fields: [],
+        };
 
         if (form.normal) {
             packNormalFieldsAndSubmit(form.normal, packParams);
