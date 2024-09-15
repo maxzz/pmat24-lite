@@ -10,6 +10,8 @@ const labelClasses = "text-xs font-normal flex place-items-center gap-2";
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
     const snapItems = useSnapshot(appSettings).files.itemsState;
+    const snapUiGeneral = useSnapshot(appSettings).appUi.uiGeneralState;
+    
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
     return (
@@ -22,7 +24,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
             <div className="px-4 py-4 grid grid-cols-1 gap-4">
 
-                <div className="">
+                <div>
                     <Label className={labelBoldClasses}>
                         File list options
                     </Label>
@@ -47,9 +49,22 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                     </div>
                 </div>
 
-                <div className="">
+                <div>
                     <Label className={labelBoldClasses}>
-                        Password policy options
+                        UI settings
+                    </Label>
+
+                    <div className="py-1 flex flex-col gap-2">
+                        <Label className={labelClasses}>
+                            <Checkbox checked={snapUiGeneral.showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showStatusbar = !!v} />
+                            Show status bar
+                        </Label>
+                    </div>
+                </div>
+
+                <div>
+                    <Label className={labelBoldClasses}>
+                        Dialog Password Policy settings
                     </Label>
 
                     <Label className={labelClasses}>
