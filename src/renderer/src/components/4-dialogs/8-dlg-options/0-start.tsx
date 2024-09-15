@@ -10,7 +10,7 @@ export function OptionsFilesDialog() {
     }
     return (<>
         <D.Dialog open={optionsDialogOpen} onOpenChange={() => doOpenOptionsDialog(false)}>
-            <D.DialogContent className="p-0 !w-2/3 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose>
+            <D.DialogContent className="p-0 !w-2/3 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose hiddenTitle="Options">
 
                 <DialogOptionsBody setIsOpen={doOpenOptionsDialog} />
 

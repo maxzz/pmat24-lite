@@ -26,6 +26,11 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                     </Label>
 
                     <Label className="text-xs font-normal flex place-items-center gap-2">
+                        <Checkbox checked={snapItems.showIeMarker} onCheckedChange={v => appSettings.files.itemsState.showIeMarker = !!v} />
+                        Show IE warning icon
+                    </Label>
+
+                    <Label className="text-xs font-normal flex place-items-center gap-2">
                         <Checkbox checked={snapItems.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
                         Show user defined name instead of domain name
                     </Label>

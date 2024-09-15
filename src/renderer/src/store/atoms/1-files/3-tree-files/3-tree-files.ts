@@ -22,27 +22,26 @@ export const treeFilesAtom = atom( // files to show in the tree
         }
 
         const fileListOptions = get(fileListOptionsAtom);
+        const showIeWranIcon = fileListOptions.itemsState.showIeMarker;
 
-        const filesTree: TreeFileItem[] = files
-            .map(
-                (fileUsAtom) => {
-                    const fileUs = get(fileUsAtom);
+        const filesTree: TreeFileItem[] = files.map(
+            (fileUsAtom) => {
+                const fileUs = get(fileUsAtom);
 
-                    if (fileUs.fcat || !fileUs.mani) {
-                        return;
-                    }
-
-                    const rv: TreeFileItem = {
-                        id: fileUs.id,
-                        name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),
-                        icon: appTypeToIcon(fileUsToAppType(fileUs)),
-                        fcnt: fileUsAtom,
-                    };
-
-                    return rv;
+                if (fileUs.fcat || !fileUs.mani) {
+                    return;
                 }
-            )
-            .filter(Boolean);
+
+                const rv: TreeFileItem = {
+                    id: fileUs.id,
+                    name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),
+                    icon: appTypeToIcon(fileUsToAppType(fileUs, showIeWranIcon)),
+                    fcnt: fileUsAtom,
+                };
+
+                return rv;
+            }
+        ).filter(Boolean);
 
         return filesTree;
     }

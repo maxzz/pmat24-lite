@@ -1,8 +1,11 @@
+import { appSettings } from "@/store";
 import { FileUs } from "@/store/store-types";
 import { formToAppTypeIcons } from "@/store/store-utils";
+import { useSnapshot } from "valtio";
 
 export function ManiAppIcons({ fileUs }: { fileUs: FileUs; }) {
-    const Icons = formToAppTypeIcons(fileUs);
+    const showIeWranIcon = useSnapshot(appSettings).files.itemsState.showIeMarker;
+    const Icons = formToAppTypeIcons(fileUs, showIeWranIcon);
     return (
         <div className="flex items-center gap-1">
             {Icons.map(
