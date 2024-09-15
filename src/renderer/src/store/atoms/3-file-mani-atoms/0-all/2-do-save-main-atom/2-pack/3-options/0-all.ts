@@ -4,7 +4,7 @@ import { formDetectionForMani } from "./7-conv-form-detection";
 import { formOptionsForMani } from "./7-conv-form-options";
 
 export function packFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
-    const { newMani, get, set } = packParams;
+    const { get, set } = packParams;
 
     const detectionAndOptionsRow = OptionsConv.fromAtoms(optionsAtoms, get, set);
 
