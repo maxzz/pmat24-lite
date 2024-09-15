@@ -9,7 +9,7 @@ export function SvgSymbolAppWebIe() { // ie outline w/ stroke
     );
 }
 
-export function SymbolAppWebIE({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolAppWebIe({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-none stroke-current stroke-[.8]", className)} {...rest}>
             {title && <title>{title}</title>}

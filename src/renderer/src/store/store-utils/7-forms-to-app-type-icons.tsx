@@ -4,16 +4,14 @@ import { isAnyIe6, isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from
 import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
-export function formToAppType(fileUs: FileUs): IconTypeWithWarning {
-
-    const hasBailOut = isAnyWhy(fileUs.meta);
-    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta));
-
-    return {
-        appIcon,
-        warning: hasBailOut,
-    };
-}
+// function formToAppType(fileUs: FileUs): IconTypeWithWarning {
+//     const hasBailOut = isAnyWhy(fileUs.meta);
+//     const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta));
+//     return {
+//         appIcon,
+//         warning: hasBailOut,
+//     };
+// }
 
 export function formToAppTypeIcons(fileUs: FileUs): TreenIconType[] {
     if (fileUs.fcat) {

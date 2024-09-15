@@ -11,7 +11,7 @@ export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean)
     const icon =
         isWeb
             ? isIe
-                ? AppIconType.web // AppIconType.ie6 // OK: but commented out ie6 for now. there are too many of them and we don't have a nice icon for them
+                ? AppIconType.ie6 // AppIconType.ie6 // OK: but commented out ie6 for now. there are too many of them and we don't have a nice icon for them
                 : AppIconType.web
             : isManual
                 ? AppIconType.man

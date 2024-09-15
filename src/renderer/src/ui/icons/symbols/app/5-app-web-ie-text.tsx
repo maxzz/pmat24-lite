@@ -10,7 +10,7 @@ export function SvgSymbolAppWebIeText() { // ie text
     );
 }
 
-export function SymbolAppWebIEText({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+export function SymbolAppWebIeText({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-none stroke-current stroke-[.8]", className)} {...rest}>
             {title && <title>{title}</title>}

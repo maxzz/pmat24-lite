@@ -1,9 +1,9 @@
 import { TreenIconType } from "@/ui/shadcn/tree";
 import { IconTypeWithWarning } from "./7-file-us-to-app-type";
-import { SymbolAppWebChrome, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
+import { SymbolAppWebChrome, SymbolAppWebIeDot, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { SymbolAppWebIE } from "@/ui/icons/symbols/app/4-app-web-ie";
-import { SymbolAppWebIEText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
+// import { SymbolAppWebIe } from "@/ui/icons/symbols/app/4-app-web-ie";
+// import { SymbolAppWebIeText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 
 export const enum AppIconType {
     web,    // web chrome
@@ -22,7 +22,7 @@ const components: IconsTable = {
     [AppIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
     [AppIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
     [AppIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [AppIconType.ie6]: { Icon: SymbolAppWebIEText, /**/ normalClasses: normalClasses, warningClasses: "" },
+    [AppIconType.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses: normalClasses, warningClasses: "" },
     [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
