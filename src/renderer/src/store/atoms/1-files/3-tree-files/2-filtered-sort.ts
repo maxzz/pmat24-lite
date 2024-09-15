@@ -1,5 +1,5 @@
-import { Getter } from 'jotai';
-import { FileUsAtom, Order, SortBy } from "@/store/store-types";
+import { type Getter } from 'jotai';
+import { type FileUsAtom, Order, SortBy } from "@/store/store-types";
 
 export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtom[], get: Getter) {
 

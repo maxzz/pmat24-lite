@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { FileUsAtom } from "@/store/store-types";
+import { type FileUsAtom } from "@/store/store-types";
+import { filteredAtom } from "./1-filtered-files";
 import { fileListOptionsAtom } from "@/store/app-settings";
 import { appTypeToIcon, fileUsToAppType, getFileListDisplayName } from "@/store/store-utils";
-import { DataItemCore, DataItemNavigation } from "@/ui/shadcn/tree";
-import { filteredAtom } from "./1-filtered-files";
+import { type DataItemCore, type DataItemNavigation } from "@/ui/shadcn/tree";
 
 export type TreeFcntItem = {
     fcnt: FileUsAtom;

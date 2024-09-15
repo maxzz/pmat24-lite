@@ -3,6 +3,7 @@ import { UISize } from "@/store/store-types";
 export type FileListItemsState = {
     itemSize: UISize;       // UI files list items size
     showIndex: boolean;     // Show index in the list
+    showFname: boolean;     // Show file name only
     showChosen: boolean;    // Show domain in the list over the chosen name from manifest
     showIeMarker: boolean;  // Show IE marker for web manifests
 };
@@ -10,6 +11,7 @@ export type FileListItemsState = {
 export const defaultFileListItemsState: FileListItemsState = {
     itemSize: UISize.normal,
     showIndex: false,
+    showFname: false,
     showChosen: false,
     showIeMarker: false,
 };
