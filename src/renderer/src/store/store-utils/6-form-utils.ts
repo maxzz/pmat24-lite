@@ -12,14 +12,14 @@ export function formIdxName(formIdx: FormIdx) {
     return rv;
 }
 
-export function formCaption({ domain, url, isFCat, isCustomization }: FileUsStats): string {
+export function formCaption({ loginFormDomain, loginFormUrl, isFCat, isCustomization }: FileUsStats): string {
     const rv =
-        url
-            ? domain || ''
+        loginFormUrl
+            ? loginFormDomain || ''
             : isFCat
                 ? 'FIELD CATALOG'
                 : isCustomization
                     ? 'CUSTOMIZATION'
-                    : domain || 'WINDOWS APPLICATION';
+                    : loginFormDomain || 'WINDOWS APPLICATION';
     return rv;
 }

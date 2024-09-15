@@ -50,7 +50,7 @@ export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange:
             locAtom: createAtomForInput(p5Icon.loc, onChange('loc')),
         },
 
-        isWebAtom: atomWithCallback(initialState.isWeb, onChange('isWeb')),
+        isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
         formIdx: initialState.formIdx,
     };
 

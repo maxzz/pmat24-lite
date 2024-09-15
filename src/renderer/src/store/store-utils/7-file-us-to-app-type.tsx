@@ -27,7 +27,7 @@ export function fileUsToAppType(fileUs: FileUs): IconTypeWithWarning {
     //     return { icon: AppIconType.ie6, hasBailOut };
     // }
 
-    const appIcon = getAppIconType(fileUs.stats.isWeb, isManual(fileUs.meta));
+    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isManual(fileUs.meta));
             
     return {
         appIcon,

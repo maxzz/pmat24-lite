@@ -50,10 +50,11 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
 
 export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
 
-    if (!fileUs.stats.domain) {
-        const title = isManual(fileUs.meta)
-            ? 'Manually defined login for a Windows application'
-            : 'Login for a Windows application';
+    if (!fileUs.stats.loginFormDomain) {
+        const title =
+            isManual(fileUs.meta)
+                ? 'Manually defined login for a Windows application'
+                : 'Login for a Windows application';
         return (
             <span className="1shrink 1min-w-0 truncate">
                 {title}
@@ -61,8 +62,8 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const domain = fileUs.stats.domain;
-    const loginUrl = fileUs.stats.url || domain; // open domain in browser if url is not defined
+    const domain = fileUs.stats.loginFormDomain;
+    const loginUrl = fileUs.stats.loginFormUrl || domain; // open domain in browser if url is not defined
     const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
     const showCpass = cpassUrl && cpassUrl !== loginUrl;
 

@@ -49,7 +49,7 @@ export function fromAtoms(atoms: ManiOptions.FormOptionsAtoms, get: Getter, set:
             loc: get(p5Icon.locAtom).data,
         },
 
-        isWeb: get(atoms.isWebAtom),
+        isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
     };
 

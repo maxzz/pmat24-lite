@@ -34,7 +34,7 @@ export const treeFilesAtom = atom( // files to show in the tree
 
                     const rv: TreeFileItem = {
                         id: fileUs.id,
-                        name: getFileListDisplayName(fileUs, fileListOptions.itemsState),
+                        name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),
                         icon: appTypeToIcon(fileUsToAppType(fileUs)),
                         fcnt: fileUsAtom,
                     };

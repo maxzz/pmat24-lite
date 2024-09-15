@@ -6,8 +6,9 @@ export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
 
     const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
     const maniForm = metaForm.mani;
-    const detection = maniForm?.detection || {};
     const options = maniForm?.options || {};
+    const detection = maniForm?.detection || {};
+    const isFormWeb = !!detection.web_ourl;
 
     const rv: ManiOptions.OptionsForAtoms = {
         p1General: {
@@ -54,7 +55,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
             loc: options.iconlocation || '',
         },
 
-        isWeb: fileUs.stats.isWeb,
+        isFormWeb,
         formIdx,
     };
 

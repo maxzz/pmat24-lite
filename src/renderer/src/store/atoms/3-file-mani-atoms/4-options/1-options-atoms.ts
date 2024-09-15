@@ -31,6 +31,10 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, {fileUs
     //     const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
     //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
     // }
+    
+    if (updateName === 'name') {
+        set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, nextValue.data);
+    }
 
     setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 

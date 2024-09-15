@@ -61,7 +61,7 @@ export namespace ManiOptions {
         p4QL: p4QL;
         p5Icon: p5Icon;
 
-        isWeb: boolean;
+        isFormWeb: boolean;
         formIdx: FormIdx;
     };
 
