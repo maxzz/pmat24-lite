@@ -14,5 +14,3 @@ export function getFileListDisplayName(fileUs: FileUs, options: FileListItemsSta
 
     return name || fileUs.fname;
 }
-
-//TODO: show file name for win apps; choosen name; domain;
