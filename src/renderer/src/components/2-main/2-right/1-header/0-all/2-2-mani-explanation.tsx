@@ -2,23 +2,43 @@ import { FileUs } from "@/store/store-types";
 import { isManual } from "@/store/manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
+export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
+
+    const domain = fileUs.stats.loginFormDomain;
+    if (!domain) {
+        const title =
+            isManual(fileUs.meta)
+                ? 'Manually defined login for a Windows application'
+                : 'Login for a Windows application';
+        return (
+            <span className="1shrink 1min-w-0 truncate">
+                {title}
+            </span>
+        );
+    }
+
+    const loginUrl = fileUs.meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
+    const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
+    const showCpass = cpassUrl && cpassUrl !== loginUrl;
+
+    return (
+        <div className="flex items-center">
+            <ManiUrlParts url={loginUrl} domain={domain} />
+
+            {showCpass && (
+                <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
+            )}
+        </div>
+    );
+}
+
 const ManiUrlPartsClasses = "\
 text-foreground \
 hover:text-foreground \
 hover:opacity-100 \
 opacity-70 \
 underline underline-offset-2 \
-flex items-center gap-1 \
-";
-
-const ManiNoUrlPartsClasses = "\
-text-foreground \
-opacity-70 \
-hover:opacity-100 \
-hover:text-foreground \
-underline \
-underline-offset-2 \
-";
+flex items-center gap-1";
 
 function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
     return (
@@ -28,6 +48,14 @@ function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: strin
         </a>
     );
 }
+
+const ManiNoUrlPartsClasses = "\
+text-foreground \
+opacity-70 \
+hover:opacity-100 \
+hover:text-foreground \
+underline \
+underline-offset-2";
 
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
     return (
@@ -44,36 +72,6 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
                     </div>
                 )
             }
-        </div>
-    );
-}
-
-export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
-
-    if (!fileUs.stats.loginFormDomain) {
-        const title =
-            isManual(fileUs.meta)
-                ? 'Manually defined login for a Windows application'
-                : 'Login for a Windows application';
-        return (
-            <span className="1shrink 1min-w-0 truncate">
-                {title}
-            </span>
-        );
-    }
-
-    const domain = fileUs.stats.loginFormDomain;
-    const loginUrl = fileUs.stats.loginFormUrl || domain; // open domain in browser if url is not defined
-    const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
-    const showCpass = cpassUrl && cpassUrl !== loginUrl;
-
-    return (
-        <div className="flex items-center">
-            <ManiUrlParts url={loginUrl} domain={domain} />
-
-            {showCpass && (
-                <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
-            )}
         </div>
     );
 }

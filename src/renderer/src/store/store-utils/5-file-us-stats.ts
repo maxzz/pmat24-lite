@@ -14,7 +14,6 @@ export function fileUsStats(fileUs: FileUs): FileUsStats {
         isLoginFormChrome: isLoginFormWeb && !fileUs.meta?.[0]?.disp.isIe,
         isFCat: !!fileUs.fcat,
         isCustomization: !fileUs.meta?.length && !!fileUs.mani?.options,
-        loginFormUrl: loginForm?.detection.web_ourl,
         loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
         isSubFolder: isSubFolder,
         subFolder: fileUs.fpath || '', // subFolder: hasSubFolders ? stripFirstFolder(fileUs.fpath) : fileUs.fpath || '',

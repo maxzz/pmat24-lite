@@ -16,7 +16,6 @@ export type FileUsStats = {
     isFCat: boolean;                                // is file field catalog
     isCustomization: boolean;                       // is file customization; !fileUs.meta?.length && !!fileUs.mani?.options
 
-    loginFormUrl?: string;                          // loginForm?.detection.web_ourl
     loginFormChooseNameAtom: PrimitiveAtom<string>; // loginForm?.options.choosename
 
     isSubFolder?: boolean;                          // Now it's a simple check to see if the path is in front of the filename.
