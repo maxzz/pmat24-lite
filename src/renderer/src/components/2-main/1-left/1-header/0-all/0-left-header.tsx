@@ -17,9 +17,13 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
             <div className="pl-2.5 flex items-center gap-2">
                 Files
                 {!!changed &&
-                    (<div className="px-1 border-orange-200 border rounded flex items-center gap-1">
-                        <SymbolFire className="mr-0.5 size-3 text-orange-600 opacity-50" colorize />
-                        <span className="text-[0.65rem] text-orange-600 font-light">{changed} unsaved</span>
+                    (<div className="px-1.5 py-0.5 text-orange-800 bg-orange-400 border-border border rounded flex items-center">
+
+                        <SymbolFire className="mr-0.5 size-3 text-orange-800 opacity-70" colorize />
+                        <span className="text-[0.65rem]">
+                            {changed} unsaved
+                        </span>
+                        
                     </div>)
                 }
             </div>
