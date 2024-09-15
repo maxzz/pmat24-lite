@@ -7,7 +7,7 @@ export type PackManifestDataParams = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     maniAtoms: ManiAtoms;
-    rvManifest: Partial<Mani.Manifest>;
+    newMani: Partial<Mani.Manifest>; // New manifest being created
     get: Getter;
     set: Setter;
 };

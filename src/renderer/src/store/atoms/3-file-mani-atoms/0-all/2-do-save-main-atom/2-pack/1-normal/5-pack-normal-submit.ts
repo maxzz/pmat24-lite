@@ -3,7 +3,7 @@ import { type PackManifestDataParams } from "../9-types";
 import { SubmitConv, type SubmitConvTypes } from "../../../../1-normal-fields";
 
 export function packNormalSubmit(formCtx: NFormCtx, packParams: PackManifestDataParams): SubmitConvTypes.SubmitForAtoms {
-    const { rvManifest, get, set } = packParams;
+    const { newMani, get, set } = packParams;
 
     // 1. Submits
 

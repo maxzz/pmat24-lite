@@ -4,7 +4,7 @@ import { type DAOForMani, formDAOForMani } from "./7-conv-options";
 import { filterEmptyValues } from "../../0-save-atom/7-filter-empty-values";
 
 export function packFormOptions(optionsP: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
-    const { rvManifest, get, set } = packParams;
+    const { newMani, get, set } = packParams;
 
     const detectionAndOptionsRow = OptionsConv.fromAtoms(optionsP, get, set);
 

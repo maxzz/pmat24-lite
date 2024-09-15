@@ -25,7 +25,7 @@ export const doSaveOneAtom = atom(
             forms: [],
         };
 
-        packManifest({ fileUs, fileUsAtom, maniAtoms, rvManifest, get, set });
+        packManifest({ fileUs, fileUsAtom, maniAtoms, newMani: rvManifest, get, set });
 
         //TODO: The rest: the links between forms, etc.
         //TODO: newFilename
