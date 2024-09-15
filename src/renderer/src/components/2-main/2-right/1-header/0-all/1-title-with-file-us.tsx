@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { FileUs } from "@/store/store-types";
 import { ManiAppIcons } from "./2-1-mani-icons";
-import { ManiExplanation } from "./2-2-mani-explanation";
+import { ManiAppTitleExplanation } from "./2-2-mani-explanation";
 import { ManiFilenameParts } from "./2-3-filename-parts";
 
 export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
@@ -15,7 +15,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
 
             <div className="flex items-center gap-1.5">
                 <ManiAppIcons fileUs={fileUs} />
-                <ManiExplanation fileUs={fileUs} />
+                <ManiAppTitleExplanation fileUs={fileUs} />
             </div>
 
             <ManiFilenameParts fname={fileUs.fname} />

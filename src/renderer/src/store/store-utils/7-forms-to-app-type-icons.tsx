@@ -1,18 +1,13 @@
-import { FileUs } from "../store-types";
-import { TreenIconType } from "@/ui/shadcn/tree";
-import { isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
-import { IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
+import { type FileUs } from "../store-types";
+import { type TreenIconType } from "@/ui/shadcn/tree";
+import { isAnyIe6, isAnyWhy, isManual, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
+import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
 export function formToAppType(fileUs: FileUs): IconTypeWithWarning {
 
     const hasBailOut = isAnyWhy(fileUs.meta);
-
-    // if (isAnyIe6(fcnt)) { // OK: but commented out ie6 for now. there are too many of them
-    //     return { icon: AppIconType.ie6, hasBailOut };
-    // }
-
-    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isManual(fileUs.meta));
+    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta));
 
     return {
         appIcon,
@@ -35,10 +30,11 @@ export function formToAppTypeIcons(fileUs: FileUs): TreenIconType[] {
         }
 
         const hasBailOut = isWhyForm(form);
-        const hasWeb = isWebForm(form);
-        const hasManual = isManualForm(form);
+        const isWeb = isWebForm(form);
+        const isManual = isManualForm(form);
+        const isIe = isAnyIe6(fileUs.meta) 
 
-        const icon = getAppIconType(hasWeb, hasManual);
+        const icon = getAppIconType(isWeb, isIe, isManual);
 
         const rv: IconTypeWithWarning = {
             appIcon: icon,

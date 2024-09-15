@@ -2,7 +2,7 @@ import { FileUs } from "@/store/store-types";
 import { isManual } from "@/store/manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
-export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
+export function ManiAppTitleExplanation({ fileUs }: { fileUs: FileUs; }) {
 
     const domain = fileUs.stats.loginFormDomain;
     if (!domain) {
@@ -34,23 +34,6 @@ export function ManiExplanation({ fileUs }: { fileUs: FileUs; }) {
 
 const ManiUrlPartsClasses = "\
 text-foreground \
-hover:text-foreground \
-hover:opacity-100 \
-opacity-70 \
-underline underline-offset-2 \
-flex items-center gap-1";
-
-function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
-    return (
-        <a href={url} className={ManiUrlPartsClasses} target="_blank" rel="noreferrer noopener" title={title}>
-            {domain}
-            <SymbolOpenLink className="pt-0.5 size-3" />
-        </a>
-    );
-}
-
-const ManiNoUrlPartsClasses = "\
-text-foreground \
 opacity-70 \
 hover:opacity-100 \
 hover:text-foreground \
@@ -67,11 +50,28 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
                     <DomainAndOpenIcon domain={domain} url={url} title="Open the login site" />
                 )
                 : (
-                    <div className={ManiNoUrlPartsClasses}>
+                    <div className={ManiUrlPartsClasses}>
                         {domain}
                     </div>
                 )
             }
         </div>
+    );
+}
+
+const DomainAndOpenIconClasses = "\
+text-foreground \
+hover:text-foreground \
+hover:opacity-100 \
+opacity-70 \
+underline underline-offset-2 \
+flex items-center gap-1";
+
+function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
+    return (
+        <a href={url} className={DomainAndOpenIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
+            {domain}
+            <SymbolOpenLink className="pt-0.5 size-3" />
+        </a>
     );
 }
