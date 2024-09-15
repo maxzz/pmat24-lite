@@ -15,8 +15,12 @@ export function OptionsFilesDialog() {
 
     return (<>
         <D.Dialog open={optionsDialogOpen} onOpenChange={() => doOpenOptionsDialog(false)}>
-            <D.DialogContent className={contentClasses} noClose hiddenTitle="Options" overlayClasses={overlayClasses}>
-
+            <D.DialogContent
+                className={contentClasses}
+                noClose
+                hiddenTitle="Options"
+                overlayClasses={overlayClasses}
+            >
                 <DialogOptionsBody setIsOpen={doOpenOptionsDialog} />
 
             </D.DialogContent>

@@ -5,6 +5,8 @@ import * as D from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
 import { DialogFilterBody } from "./2-body";
 
+const overlayClasses = "backdrop-blur-[1px] bg-background/30";
+
 export function FilterFilesDialog() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (<>
@@ -13,8 +15,12 @@ export function FilterFilesDialog() {
         </Button>
 
         <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-            <D.DialogContent className="px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]" noClose hiddenTitle="Files filter">
-
+            <D.DialogContent
+                className="px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]"
+                noClose
+                hiddenTitle="Files filter"
+                overlayClasses={overlayClasses}
+            >
                 <DialogFilterBody setIsOpen={setIsOpen} />
 
             </D.DialogContent>

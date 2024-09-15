@@ -1,23 +1,8 @@
-import { useAtomValue, useSetAtom } from "jotai";
-import { treeFilesAtom } from "@/store";
+import { useSetAtom } from "jotai";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-
-function LoadedCounter() {
-    const treeFiles = useAtomValue(treeFilesAtom);
-    if (!treeFiles?.length) {
-        return null;
-    }
-    return (
-        <div className="text-[.65rem] text-muted-foreground">
-            loaded{' '}
-            <span className="text-text/60">{treeFiles.length}</span>
-            {` file${treeFiles.length > 1 ? 's' : ''}`}
-        </div>
-    );
-}
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -35,8 +20,6 @@ export function SectionHeader() {
                 <Button variant="outline" className="text-[.65rem]" onClick={() => doOpenDrawer(true)}>
                     Create
                 </Button>
-
-                <LoadedCounter />
             </div>
 
             <ThemeSwitch />
