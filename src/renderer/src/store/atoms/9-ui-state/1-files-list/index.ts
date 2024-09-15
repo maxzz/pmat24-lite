@@ -3,9 +3,9 @@ import { FilesSortOrder, defaultFilesSortOrder } from "./2-files-sort-order";
 import { FileListItemsState, defaultFileListItemsState } from "./3-ui-file-items";
 
 export type FileListSettings = {
-    shownManis: ShownManis;
-    sortOrder: FilesSortOrder;
-    itemsState: FileListItemsState;
+    shownManis: ShownManis;             // Currently shown manifests filter options
+    sortOrder: FilesSortOrder;          // Files sort by and order options
+    itemsState: FileListItemsState;     // Files list item render options
 };
 
 export const defaultFileListSettings: FileListSettings = {

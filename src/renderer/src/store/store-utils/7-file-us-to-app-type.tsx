@@ -7,11 +7,13 @@ export type IconTypeWithWarning = {
     warning?: boolean;
 };
 
-export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean): AppIconType {
+export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean, showIeWranIcon: boolean): AppIconType {
     const icon =
         isWeb
             ? isIe
-                ? AppIconType.ie6 // AppIconType.ie6 // OK: but commented out ie6 for now. there are too many of them and we don't have a nice icon for them
+                ? showIeWranIcon
+                    ? AppIconType.ie6
+                    : AppIconType.web // AppIconType.ie6 // OK: but commented out ie6 for now. there are too many of them and we don't have a nice icon for them
                 : AppIconType.web
             : isManual
                 ? AppIconType.man
@@ -19,13 +21,13 @@ export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean)
     return icon;
 }
 
-export function fileUsToAppType(fileUs: FileUs): IconTypeWithWarning {
+export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
     if (fileUs.fcat) {
         return { appIcon: AppIconType.cat, warning: false };
     }
 
     const hasBailOut = isAnyWhy(fileUs.meta);
-    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta));
+    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta), showIeWranIcon);
 
     return {
         appIcon,
