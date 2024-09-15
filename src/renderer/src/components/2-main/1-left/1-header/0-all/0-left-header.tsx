@@ -10,16 +10,18 @@ import { classNames } from "@/utils";
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
 export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const hasChanges = !!useSnapshot(allFileUsChanges).size;
-
+    const changed = useSnapshot(allFileUsChanges).size;
     return (
         <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center justify-between", className)} {...rest}>
 
             <div className="pl-2.5 flex items-center gap-2">
                 Files
-                {hasChanges && (
-                    <SymbolFire className="mr-0.5 size-3 text-orange-600" colorize />
-                )}
+                {!!changed &&
+                    (<div className="px-1 border-orange-200 border rounded flex items-center gap-1">
+                        <SymbolFire className="mr-0.5 size-3 text-orange-600 opacity-50" colorize />
+                        <span className="text-[0.65rem] text-orange-600 font-light">{changed} unsaved</span>
+                    </div>)
+                }
             </div>
 
             <div className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center">
