@@ -2,6 +2,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, Checkbox, Input, Label } from "@/ui";
+import { classNames } from "@/utils";
 
 const labelBoldClasses = "block mb-2 font-semibold";
 const labelClasses = "text-xs font-normal flex place-items-center gap-2";
@@ -12,10 +13,10 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
     return (
-        <div className="min-h-56 text-xs">
+        <div className="min-h-56 text-xs select-none">
 
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
-                <div className="py-4">PMAT Settings</div>
+                <div className="py-4">PMAT Options</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-4 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
@@ -28,19 +29,19 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className="py-1 flex flex-col gap-2">
                         <Label className={labelClasses}>
-                            <Checkbox checked={snapItems.showFname} onCheckedChange={v => appSettings.files.itemsState.showFname = !!v} />
+                            <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => appSettings.files.itemsState.showFname = !!v} />
                             Show always file name
                         </Label>
-                        <Label className={labelClasses}>
-                            <Checkbox checked={snapItems.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
+                        <Label className={classNames(labelClasses, snapItems.showFname && "opacity-10 pointer-events-none")}>
+                            <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => appSettings.files.itemsState.showChosen = !!v} />
                             Show user defined name instead of domain name
                         </Label>
                         <Label className={labelClasses}>
-                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={v => appSettings.files.itemsState.showIeMarker = !!v} />
+                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => appSettings.files.itemsState.showIeMarker = !!v} />
                             Show IE warning icon
                         </Label>
                         <Label className={labelClasses}>
-                            <Checkbox checked={snapItems.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
+                            <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => appSettings.files.itemsState.showIndex = !!v} />
                             Show file index
                         </Label>
                     </div>
