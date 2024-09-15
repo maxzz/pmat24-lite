@@ -1,7 +1,10 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { Checkbox, Input, Label } from "@/ui";
+import { Button, Checkbox, Input, Label } from "@/ui";
+
+const labelBoldClasses = "block mb-2 font-semibold";
+const labelClasses = "text-xs font-normal flex place-items-center gap-2";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
@@ -11,50 +14,54 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
     return (
         <div className="min-h-56 text-xs">
 
-            <D.DialogHeader className="relative text-base font-bold flex items-center">
-                <div className="py-4">Settings</div>
-                <D.DialogCloseButton onClick={() => setIsOpen(false)} />
+            <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
+                <div className="py-4">PMAT Settings</div>
+                <D.DialogCloseButton className="right-1 -top-0.5 p-4 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
-            <div className="my-2 px-4 grid grid-cols-1">
-                <Label className="block mb-2 font-semibold">
-                    File list options
-                </Label>
+            <div className="px-4 py-4 grid grid-cols-1 gap-4">
 
-                <div className="flex flex-col gap-2">
-                    <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snapItems.showFname} onCheckedChange={v => appSettings.files.itemsState.showFname = !!v} />
-                        Show always file name
+                <div className="">
+                    <Label className={labelBoldClasses}>
+                        File list options
                     </Label>
 
-                    <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snapItems.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
-                        Show user defined name instead of domain name
-                    </Label>
-
-                    <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snapItems.showIeMarker} onCheckedChange={v => appSettings.files.itemsState.showIeMarker = !!v} />
-                        Show IE warning icon
-                    </Label>
-
-                    <Label className="text-xs font-normal flex place-items-center gap-2">
-                        <Checkbox checked={snapItems.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
-                        Show file index
-                    </Label>
+                    <div className="py-1 flex flex-col gap-2">
+                        <Label className={labelClasses}>
+                            <Checkbox checked={snapItems.showFname} onCheckedChange={v => appSettings.files.itemsState.showFname = !!v} />
+                            Show always file name
+                        </Label>
+                        <Label className={labelClasses}>
+                            <Checkbox checked={snapItems.showChosen} onCheckedChange={v => appSettings.files.itemsState.showChosen = !!v} />
+                            Show user defined name instead of domain name
+                        </Label>
+                        <Label className={labelClasses}>
+                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={v => appSettings.files.itemsState.showIeMarker = !!v} />
+                            Show IE warning icon
+                        </Label>
+                        <Label className={labelClasses}>
+                            <Checkbox checked={snapItems.showIndex} onCheckedChange={v => appSettings.files.itemsState.showIndex = !!v} />
+                            Show file index
+                        </Label>
+                    </div>
                 </div>
 
-                <div className="my-4">
-                    <Label className="block mb-2 font-semibold">
+                <div className="">
+                    <Label className={labelBoldClasses}>
                         Password policy options
                     </Label>
 
-                    <Label className="text-xs font-normal flex place-items-center gap-2">
+                    <Label className={labelClasses}>
                         Number of generated passwords
-                        <Input value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
+                        <Input className="h-7 max-w-12" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
                     </Label>
-
                 </div>
+            </div>
 
+            <div className="py-4 boreder-border border-t text-center">
+                <Button variant="default" size={"sm"} onClick={() => setIsOpen(false)}>
+                    Close
+                </Button>
             </div>
         </div>
     );
