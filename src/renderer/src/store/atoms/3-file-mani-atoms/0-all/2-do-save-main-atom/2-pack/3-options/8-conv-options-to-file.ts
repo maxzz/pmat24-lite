@@ -1,7 +1,7 @@
 import { type FileMani } from "@/store/manifest";
 import { type ManiOptions } from "../../../../4-options";
-import { formDetectionForMani } from "./7-conv-form-detection";
-import { formOptionsForMani } from "./7-conv-form-options";
+import { formDetectionForMani } from "./8-conv-form-detection-to-file";
+import { formOptionsForMani } from "./8-conv-form-options-to-file";
 
 export type DAOForMani = { // Detection And Options ForMani
     detection: FileMani.Detection;
