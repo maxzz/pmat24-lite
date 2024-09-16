@@ -1,18 +1,18 @@
-import { type FileMani } from "@/store/manifest";
+import { Mani } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type EditorFieldAndMeta } from "./2-get-normal-fields";
 import { fieldForFileMani } from "./7-conv-mani-field";
 
-export function packNormalFields(editorFields: EditorFieldAndMeta[], packParams: PackManifestDataParams): FileMani.Field[] {
+export function packNormalFields(editorFields: EditorFieldAndMeta[], packParams: PackManifestDataParams): Mani.Field[] {
     const { newMani, get, set } = packParams;
 
     // 2. Fields
 
-    const fields: FileMani.Field[] = editorFields.map(
+    const fields: Mani.Field[] = editorFields.map(
         (editorField: EditorFieldAndMeta) => {
             const metaField = editorField.metaField;
 
-            const fileValues: FileMani.Field = fieldForFileMani({
+            const fileValues: Mani.Field = fieldForFileMani({
                 from: editorField.editField,
                 maniField: metaField.mani,
                 ftyp: metaField.ftyp,
