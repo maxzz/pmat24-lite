@@ -10,11 +10,9 @@ type FieldForFileManiProps = {
 };
 
 export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): Mani.Field {
-    //const value = getFieldStringValue(from.value, ftyp);
-
-    const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
-    const rfieldform = rdir?.rfieldform || 0;
-    const rfieldindex = rdir?.rfieldindex || 0;
+    const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : undefined;
+    const rfieldform = rdir?.rfieldform;
+    const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;
 
     const { 
         useit,
@@ -44,6 +42,10 @@ export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: Fiel
         policy2,
         options,
 
+        rfield,
+        rfieldform,
+        rfieldindex,
+    
         // ...(from.displayname && { displayname: from.displayname }),
         // type: from.type,
         // dbname: from.dbname,
