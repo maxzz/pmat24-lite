@@ -14,61 +14,19 @@ export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: Fiel
     const rfieldform = rdir?.rfieldform;
     const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;
 
-    const { 
-        useit,
-        displayname,
-        type,
-        dbname,
-        value,
-        password,
-        askalways,
-        onetvalue,
-        policy,
-        policy2,
-        options,
-     } = from;
-
     const rv: Mani.Field = {
         ...maniField,
-        useit,
-        displayname,
-        type,
-        dbname,
-        value: getFieldStringValue(value, ftyp),
-        password,
-        askalways,
-        onetvalue,
-        policy, //TODO: we need to correlate policies with password change form
-        policy2,
-        options,
+        ...from,
+
+        submit: isSubmit,
 
         rfield,
         rfieldform,
         rfieldindex,
-    
-        // ...(from.displayname && { displayname: from.displayname }),
-        // type: from.type,
-        // dbname: from.dbname,
-        // ...(maniField.path && { path: maniField.path }),
-        // ...(maniField.path_ext && { path_ext: maniField.path_ext }),
-
-        // ...(from.policy && { policy: from.policy }), //TODO: we need to correlate policies with password change form
-        // ...(from.policy2 && { policy2: from.policy2 }),
-        // ...(from.options && { options: from.options }),
-
-        // ...(value && { value: value }),
-        // ...(maniField.choosevalue && { choosevalue: maniField.choosevalue }),
-
-        // ...(rfield && { rfield: rfield }),
-        // ...(rfieldform && { rfieldform: `${rfieldform}` }),
-        // ...(rfieldindex && { rfieldindex: `${rfieldindex}` }),
-
-        // ...(from.askalways && { askalways: '1' }),
-        // ...(from.onetvalue && { onetvalue: '1' }),
-        // ...(from.password && { password: from.password }),
-        // ...(isSubmit && { submit: '1' }),
-        // ...(from.useit && { useit: '1' }),
     };
+
+    rv.value = getFieldStringValue(from.value, ftyp);
+    //TODO: we need to correlate policies with password change form
 
     return rv;
 }
