@@ -27,10 +27,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }
     );
 
-    const { fileUs: { stats: { isLoginFormWeb, isCpassFormWeb } } } = packParams;
-    const isWeb = formIdx === FormIdx.login ? isLoginFormWeb : isCpassFormWeb;
-
-    //const isWeb = !!metaForm?.mani.detection.web_ourl;
+    const isWeb = formCtx.submitAtoms.isWeb
 
     const submits: SubmitConvTypes.SubmitForAtoms = packNormalSubmit(formCtx, packParams);
 
