@@ -17,5 +17,5 @@ export namespace NormalField {
     /**
      * Fields that are used in this editor
      */
-    export type ThisType = EditorField.Type;
+    export type ThisType = EditorField.Types;
 }

@@ -9,36 +9,63 @@ type FieldForFileManiProps = {
     isSubmit: boolean;
 };
 
-export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): FileMani.Field {
-    const value = getFieldStringValue(from.value, ftyp);
+export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): Mani.Field {
+    //const value = getFieldStringValue(from.value, ftyp);
 
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
     const rfieldform = rdir?.rfieldform || 0;
     const rfieldindex = rdir?.rfieldindex || 0;
 
-    const rv: FileMani.Field = {
-        ...(from.displayname && { displayname: from.displayname }),
-        type: from.type,
-        dbname: from.dbname,
-        ...(maniField.path && { path: maniField.path }),
-        ...(maniField.path_ext && { path_ext: maniField.path_ext }),
+    const { 
+        useit,
+        displayname,
+        type,
+        dbname,
+        value,
+        password,
+        askalways,
+        onetvalue,
+        policy,
+        policy2,
+        options,
+     } = from;
 
-        ...(from.policy && { policy: from.policy }), //TODO: we need to correlate policies with password change form
-        ...(from.policy2 && { policy2: from.policy2 }),
-        ...(from.options && { options: from.options }),
+    const rv: Mani.Field = {
+        ...maniField,
+        useit,
+        displayname,
+        type,
+        dbname,
+        value: getFieldStringValue(value, ftyp),
+        password,
+        askalways,
+        onetvalue,
+        policy, //TODO: we need to correlate policies with password change form
+        policy2,
+        options,
 
-        ...(value && { value: value }),
-        ...(maniField.choosevalue && { choosevalue: maniField.choosevalue }),
+        // ...(from.displayname && { displayname: from.displayname }),
+        // type: from.type,
+        // dbname: from.dbname,
+        // ...(maniField.path && { path: maniField.path }),
+        // ...(maniField.path_ext && { path_ext: maniField.path_ext }),
 
-        ...(rfield && { rfield: rfield }),
-        ...(rfieldform && { rfieldform: `${rfieldform}` }),
-        ...(rfieldindex && { rfieldindex: `${rfieldindex}` }),
+        // ...(from.policy && { policy: from.policy }), //TODO: we need to correlate policies with password change form
+        // ...(from.policy2 && { policy2: from.policy2 }),
+        // ...(from.options && { options: from.options }),
 
-        ...(from.askalways && { askalways: '1' }),
-        ...(from.onetvalue && { onetvalue: '1' }),
-        ...(from.password && { password: '1' }),
-        ...(isSubmit && { submit: '1' }),
-        ...(from.useit && { useit: '1' }),
+        // ...(value && { value: value }),
+        // ...(maniField.choosevalue && { choosevalue: maniField.choosevalue }),
+
+        // ...(rfield && { rfield: rfield }),
+        // ...(rfieldform && { rfieldform: `${rfieldform}` }),
+        // ...(rfieldindex && { rfieldindex: `${rfieldindex}` }),
+
+        // ...(from.askalways && { askalways: '1' }),
+        // ...(from.onetvalue && { onetvalue: '1' }),
+        // ...(from.password && { password: from.password }),
+        // ...(isSubmit && { submit: '1' }),
+        // ...(from.useit && { useit: '1' }),
     };
 
     return rv;
