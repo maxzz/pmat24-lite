@@ -11,7 +11,8 @@ export type FileUsState = {
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain
 
-    isLoginFormWeb: boolean;                        // is web apploication
+    isCpassFormWeb: boolean;                        // is cpass web form; ourl maybe changed but should not become empty
+    isLoginFormWeb: boolean;                        // is login web form; ourl maybe changed but should not become empty
     isLoginFormChrome: boolean;                     // is web apploication and not IE; isWeb && !fileUs.meta?.[0]?.disp.isIe
     isFCat: boolean;                                // is file field catalog
     isCustomization: boolean;                       // is file customization; !fileUs.meta?.length && !!fileUs.mani?.options

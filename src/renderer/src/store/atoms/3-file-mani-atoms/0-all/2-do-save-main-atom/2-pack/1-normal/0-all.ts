@@ -1,4 +1,4 @@
-import { type Mani, type FormIdx } from "@/store/manifest";
+import { type Mani, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type EditorFieldAndMeta } from "./2-get-normal-fields";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
@@ -26,6 +26,9 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             return newField;
         }
     );
+
+    const { fileUs: { stats: { isLoginFormWeb, isCpassFormWeb } } } = packParams;
+    const isWeb = formIdx === FormIdx.login ? isLoginFormWeb : isCpassFormWeb;
 
     //const isWeb = !!metaForm?.mani.detection.web_ourl;
 
