@@ -1,6 +1,6 @@
 import { type Meta } from "@/store/manifest";
 import { type SubmitConvTypes } from "./9-types";
-import { getSubmitChoices } from "../9-submit-choices";
+import { getSubmitChoices } from "../9-get-submit-choices";
 
 export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     

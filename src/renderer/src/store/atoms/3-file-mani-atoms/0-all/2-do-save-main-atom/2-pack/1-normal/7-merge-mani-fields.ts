@@ -1,7 +1,7 @@
 import { FieldTyp, type Mani, type FileMani } from "@/store/manifest";
 import { type NormalField } from "../../../../1-normal-fields";
 
-type FieldForFileManiProps = {
+type MergeManiFieldsProps = {
     from: NormalField.ThisType; // from editor
     maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
@@ -9,7 +9,7 @@ type FieldForFileManiProps = {
     isSubmit: boolean;
 };
 
-export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): Mani.Field {
+export function mergeManiFields({ from, maniField, ftyp, rdir, isSubmit }: MergeManiFieldsProps): Mani.Field {
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : undefined;
     const rfieldform = rdir?.rfieldform;
     const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;

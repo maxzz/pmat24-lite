@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 
 export type FormOpenSections = {
     [FormIdx.login]: string[],

@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 
 export function NoFormTabContent({ formType }: { formType: FormIdx; }) {

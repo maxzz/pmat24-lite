@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { FileUs } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { FormIdx } from "@/store/store-types";
 import { SectionTitle } from "../9-controls";
 import { GroupGeneral } from "./1-options-general";
 import { GroupLogin } from "./2-options-login";

@@ -1,4 +1,5 @@
-import { type FileUs, type FormIdx } from "@/store/store-types";
+import { type FormIdx } from "@/store/manifest";
+import { type FileUs } from "@/store/store-types";
 import { type MFormAtoms, type MFormContextProps, type NFormAtoms, type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { NormalFormTabContent } from "./2-all-normal-tab-content";
 import { NoFormTabContent } from "./8-no-form-tab-content";

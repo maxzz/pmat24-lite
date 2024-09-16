@@ -1,10 +1,5 @@
-import { FileUsAtom } from "./0-file-us-type";
-
-export const enum FormIdx {
-    login = 0,// 0 - login (even if login does not exist)
-    cpass
-
-}
+import { type FormIdx } from "../manifest";
+import { type FileUsAtom } from "./0-file-us-type";
 
 export type FileUsFormData = {
     fileUsAtom: FileUsAtom;

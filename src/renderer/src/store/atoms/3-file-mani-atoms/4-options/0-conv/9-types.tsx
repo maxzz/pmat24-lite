@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
 import { type AtomizeWithType } from '@/util-hooks';
 import { type RowInputState } from "@/ui";
-import { type FormIdx } from "@/store/store-types";
+import { type FormIdx } from "@/store/manifest";
 
 export namespace ManiOptions {
 

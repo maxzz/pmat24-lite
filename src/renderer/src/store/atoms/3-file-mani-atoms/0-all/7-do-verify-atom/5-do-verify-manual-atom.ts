@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type ManiAtoms, type VerifyError } from "../../9-types";
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 import { ManualFieldConv } from "../../2-manual-fields";
 
 export const doVerifyManualFormAtom = atom(null,

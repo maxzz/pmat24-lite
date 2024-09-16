@@ -4,7 +4,7 @@ import { Button } from "@/ui";
 import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 // import { SlidersButton } from "../3-sliders-button";
 
 const sectionClasses0 = "\

@@ -1,8 +1,8 @@
+import { FormIdx } from "@/store/manifest";
 import { panelEditorTitleClasses } from "../8-manual-shared-styles";
 import { MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { MenuAddButton } from "./1-panel-title-menu";
 import { classNames } from "@/utils";
-import { FormIdx } from "@/store/store-types";
 
 export function PanelActionsTitle({ ctx }: { ctx: MFormContextProps; }) {
     const title = ctx.formIdx === FormIdx.login ? "Login actions" : "Password change actions"; // 'Fill in actions'

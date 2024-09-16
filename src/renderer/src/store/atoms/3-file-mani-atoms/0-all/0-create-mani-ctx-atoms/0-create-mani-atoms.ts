@@ -1,4 +1,5 @@
-import { type FileUs, type FileUsAtom, FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCtx, type NFormCtx, type FileUsCtx, type AnyFormAtoms, type ManiAtoms } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";

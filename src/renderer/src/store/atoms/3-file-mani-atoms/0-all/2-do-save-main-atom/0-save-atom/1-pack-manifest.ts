@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 import { type AnyFormAtoms } from "../../../9-types";
 import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../2-pack";
 
@@ -24,11 +24,11 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
         };
 
         if (form.normal) {
-            packNormalFieldsAndSubmit(form.normal, packParams);
+            packNormalFieldsAndSubmit(form.normal, formIdx, packParams);
         }
 
         if (form.manual) {
-            packManualFields(form.manual, packParams);
+            packManualFields(form.manual, formIdx, packParams);
         }
     }
 }

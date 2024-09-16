@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/store-types";
+import { FormIdx } from "@/store/manifest";
 
 export type FormOpenOptions = {
     [FormIdx.login]: Record<string, boolean>,
