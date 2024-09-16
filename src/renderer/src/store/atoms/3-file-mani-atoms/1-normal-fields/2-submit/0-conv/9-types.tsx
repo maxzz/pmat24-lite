@@ -21,7 +21,6 @@ export namespace SubmitConvTypes {
             isWeb: boolean;                 // is web form
             metaForm: Meta.Form;            // meta form from manifest
             fromFile: SubmitForAtoms;       // original state to compare with
-            changed: boolean;               // state from atoms is different from original state
         }
     >;
 }

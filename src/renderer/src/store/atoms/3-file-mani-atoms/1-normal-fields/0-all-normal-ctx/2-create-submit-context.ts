@@ -1,5 +1,5 @@
-import { type OnChangeProps, setManiChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
-import { SubmitConv, type SubmitConvTypes } from "../2-submit/0-conv";
+import { type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
+import { type SubmitConvTypes, SubmitConv } from "../2-submit/0-conv";
 import { debounce } from "@/utils";
 
 export namespace NormalSubmitState {
@@ -8,23 +8,19 @@ export namespace NormalSubmitState {
 
     export function createSubmitCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
 
-        const { fileUs, formIdx } = fileUsCtx;
-
-        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
-        const isWeb = !!metaForm?.mani.detection.web_ourl;
-        
-        const forAtoms = SubmitConv.forAtoms(metaForm)
-
         const onChange = ({ get, set }) => {
             onChangeWithScopeDebounced({fileUsCtx, maniAtoms, get, set});
         }
 
+        const { fileUs, formIdx } = fileUsCtx;
+        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const forAtoms = SubmitConv.forAtoms(metaForm)
+
         const rv: Atoms = {
-            ...(SubmitConv.createAtoms(forAtoms, onChange)),
-            isWeb,
+            ...SubmitConv.createAtoms(forAtoms, onChange),
+            isWeb: !!metaForm?.mani.detection.web_ourl,
             metaForm,
             fromFile: forAtoms,
-            changed: false,
         };
 
         return rv;
@@ -38,14 +34,10 @@ function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
     }
 
     const atoms: NormalSubmitState.Atoms = nomalFormAtoms.submitAtoms;
-
     const fromUi = SubmitConv.fromAtoms(atoms, get, set);
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
-    atoms.changed = changed;
 
-    const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
-
-    console.log('changes submit:', [...changes.keys()]);
+    setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);

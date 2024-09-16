@@ -1,6 +1,6 @@
 import { type FileMani } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type EditorFieldAndMeta } from "./2-get-normal-fields";
+import { type EditorFieldAndMeta } from "./1-get-normal-field-values";
 import { fieldForFileMani } from "./nun-7-conv-mani-field copy";
 
 export function packNormalFields(editorFields: EditorFieldAndMeta[], packParams: PackManifestDataParams): FileMani.Field[] {

@@ -10,7 +10,6 @@ export namespace NormalField {
         & {
             metaField: Meta.Field;      // all fields from original to combine with fields from atoms to create new field
             fromFile: ForAtoms;         // original state to compare with
-            changed: boolean;           // state from atoms is different from original state
         }
     >;
 

@@ -36,7 +36,6 @@ export namespace NormalFieldsState {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
-            changed: false,
         };
     }
 }
@@ -51,13 +50,11 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
 
     const fromUi = NormalFieldConv.fromAtoms(rowAtoms, get, set);
     const changed = !NormalFieldConv.areTheSame(fromUi, rowAtoms.fromFile);
-    rowAtoms.changed = changed;
-
     const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
     /** /
-    const str1 = JSON.stringify(state.policies, null, 2);
-    const str2 = JSON.stringify(atoms.fromFile.policies, null, 2);
+    const str1 = JSON.stringify(fromUi.policies, null, 2);
+    const str2 = JSON.stringify(rowAtoms.fromFile.policies, null, 2);
     const str3 = changes.size ? `\nstate ${str1}\nfile ${str2}` : '';
     console.log(`%cCombineField: [${[...changes.keys()]}]%c${str3}`, 'background-color: navy; color: bisque', 'background-color: #282828; color: white');
     /**/

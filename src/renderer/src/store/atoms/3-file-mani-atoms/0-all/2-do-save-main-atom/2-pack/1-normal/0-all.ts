@@ -1,13 +1,15 @@
 import { type Mani, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type EditorFieldAndMeta } from "./2-get-normal-fields";
+import { type EditorFieldAndMeta } from "./1-get-normal-field-values";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { packNormalSubmit } from "./5-pack-normal-submit";
-import { getNormalFieldValues } from "./2-get-normal-fields";
+import { getNormalSubmitValues } from "./2-get-normal-submit-values";
+import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeManiFields } from "./7-merge-mani-fields";
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
+
+    // 1. Fields
 
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
@@ -27,11 +29,17 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }
     );
 
-    const isWeb = formCtx.submitAtoms.isWeb
+    // 2. Submits
 
-    const submits: SubmitConvTypes.SubmitForAtoms = packNormalSubmit(formCtx, packParams);
+    const submits: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     const selected = submits.selected;
+
+    const isWeb = formCtx.submitAtoms.isWeb;
+    if (isWeb) {
+
+    } else {
+    }
 
     const newSubmitFields = submits.buttonNameItems.map(
         (submit) => {
