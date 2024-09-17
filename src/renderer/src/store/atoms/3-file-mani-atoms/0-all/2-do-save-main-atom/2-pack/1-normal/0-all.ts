@@ -1,4 +1,4 @@
-import { type Mani, FormIdx } from "@/store/manifest";
+import { type Mani, type Meta, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type EditorFieldAndMeta } from "./1-get-normal-field-values";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
@@ -8,7 +8,10 @@ import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeManiFields } from "./7-merge-mani-fields";
 
 type ByUuid = {
-    [uuid: string]: Mani.Field;
+    [uuid: string]: {
+        meta: Meta.Field,
+        newMani: Mani.Field,
+    }
 };
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
@@ -17,7 +20,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
 
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
-    const newRowFieldsByUuid: ByUuid = editAndMeta.reduce(
+    const newRowFieldsByUuid: ByUuid = editAndMeta.reduce<ByUuid>(
         (acc, editorField) => {
             const metaField = editorField.metaField;
 
@@ -29,7 +32,11 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
                 isSubmit: false,
             });
 
-            acc[metaField.uuid] = newField;
+            acc[metaField.uuid] = {
+                meta: metaField,
+                newMani: newField,
+            };
+
             return acc;
         }, {}
     );
@@ -55,10 +62,13 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }
     );
 
-    const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce(
+    const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce<ByUuid>(
         (acc, field) => {
             if (field.metaField) {
-                acc[field.metaField.uuid] = duplicateManiField(field.metaField.mani);
+                acc[field.metaField.uuid] = {
+                    meta: field.metaField,
+                    newMani: duplicateManiField(field.metaField.mani),
+                };
             }
             return acc;
         }, {}
