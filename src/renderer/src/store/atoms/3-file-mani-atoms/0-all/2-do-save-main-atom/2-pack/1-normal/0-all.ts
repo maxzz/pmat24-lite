@@ -11,7 +11,6 @@ type ByUuid = {
     [uuid: string]: Mani.Field;
 };
 
-
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
 
     // 1. Fields
@@ -34,22 +33,6 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             return acc;
         }, {}
     );
-
-    // const newRowFieldsByUuid: ByUuid[] = editAndMeta.map(
-    //     (editorField: EditorFieldAndMeta) => {
-    //         const metaField = editorField.metaField;
-
-    //         const newField: Mani.Field = mergeManiFields({
-    //             from: editorField.editField,
-    //             maniField: metaField.mani,
-    //             ftyp: metaField.ftyp,
-    //             rdir: undefined,
-    //             isSubmit: false,
-    //         });
-
-    //         return { [metaField.uuid]: newField };
-    //     }
-    // );
 
     // 2. Submits
 
@@ -87,5 +70,12 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
     };
+
+    // const newFields = Object.entries(rv).sort(
+    //     ([uuid1, field1], [uuid2, field2]) => field1.p)
+
+    //     // ([uuid1, field1], [uuid2, field2]) => uuid1.localeCompare(uuid2))
+    //     //.map(([_, field]) => field
+    // );
 
 }
