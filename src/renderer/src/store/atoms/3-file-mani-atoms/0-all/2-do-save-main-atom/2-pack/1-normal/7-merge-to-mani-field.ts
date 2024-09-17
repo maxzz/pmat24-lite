@@ -9,7 +9,7 @@ type MergeManiFieldsProps = {
     isSubmit: boolean;
 };
 
-export function mergeManiFields({ from, maniField, ftyp, rdir, isSubmit }: MergeManiFieldsProps): Mani.Field {
+export function mergeToManiField({ from, maniField, ftyp, rdir, isSubmit }: MergeManiFieldsProps): Mani.Field {
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : undefined;
     const rfieldform = rdir?.rfieldform;
     const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;

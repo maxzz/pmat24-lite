@@ -1,22 +1,17 @@
-import { type Mani, type Meta, FormIdx } from "@/store/manifest";
+import { type Mani, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type EditorFieldAndMeta } from "./1-get-normal-field-values";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type ByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
-import { mergeManiFields } from "./7-merge-mani-fields";
+import { mergeToManiField } from "./7-merge-to-mani-field";
 
-type ByUuid = {
-    [uuid: string]: {
-        meta: Meta.Field,
-        newMani: Mani.Field | undefined,
-    };
-};
-
-export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
-
-    const metaForm = packParams.fileUs.meta?.[formIdx]!; // we are guarded here by context
+function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
+    const metaForm = packParams.fileUs.meta?.[formIdx]; // we are guarded here by context, but still they come...
+    if (!metaForm) {
+        return {};
+    }
 
     const allByUuid: ByUuid = metaForm.fields.reduce<ByUuid>(
         (acc, metaField) => {
@@ -28,15 +23,17 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }, {}
     );
 
-    // 1. Fields
+    return allByUuid;
+}
 
+function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
     const newRowFieldsByUuid: ByUuid = editAndMeta.reduce<ByUuid>(
         (acc, editorField) => {
             const metaField = editorField.metaField;
 
-            const newField: Mani.Field = mergeManiFields({
+            const newField: Mani.Field = mergeToManiField({
                 from: editorField.editField,
                 maniField: metaField.mani,
                 ftyp: metaField.ftyp,
@@ -53,8 +50,10 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }, {}
     );
 
-    // 2. Submits
+    return newRowFieldsByUuid;
+}
 
+function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
     const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     const selected = submitsValues.selected;
@@ -86,6 +85,15 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         }, {}
     );
 
+    return newSubmitsByUuid;
+}
+
+export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
+
+    const allByUuid = getAllByUiid(packParams, formIdx);
+    const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
+    const newSubmitsByUuid = getSubmitsByUuid(formCtx, packParams);
+
     // 3. Merge
 
     const rv: ByUuid = {
@@ -98,7 +106,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         .forEach(
             ([uuid, field]) => {
                 if (!field.newMani) {
-                    field.newMani = field.meta.mani;
+                    field.newMani = field.meta.mani; // if field is not changed in any editor, keep the old one
                 }
             }
         );
