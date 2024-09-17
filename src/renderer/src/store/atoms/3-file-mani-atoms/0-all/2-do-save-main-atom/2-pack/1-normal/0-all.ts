@@ -88,7 +88,12 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
     return newSubmitsByUuid;
 }
 
-export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
+type PackNormalFieldsAndSubmitResult = {
+    newFields: Mani.Field[];
+    submittype: string | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
+};
+
+export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
 
     const allByUuid = getAllByUiid(packParams, formIdx);
     const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
@@ -111,10 +116,19 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             }
         );
 
-    const newFields =
+    const newSortedFields =
         Object.entries(rv)
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    console.log('newFields', JSON.stringify(newFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
+    const submittype: string | undefined = undefined;
+
+    console.log('newFields', JSON.stringify(newSortedFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
+
+    const newFields = newSortedFields.map((field) => field.newMani!);
+    
+    return {
+        newFields,
+        submittype,
+    };
 }

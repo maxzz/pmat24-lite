@@ -24,7 +24,7 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
         };
 
         if (form.normal) {
-            packNormalFieldsAndSubmit(form.normal, formIdx, packParams);
+            const { newFields, submittype } = packNormalFieldsAndSubmit(form.normal, formIdx, packParams);
         }
 
         if (form.manual) {
