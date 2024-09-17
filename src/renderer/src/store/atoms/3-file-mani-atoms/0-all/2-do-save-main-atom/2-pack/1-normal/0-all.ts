@@ -11,7 +11,7 @@ type ByUuid = {
     [uuid: string]: {
         meta: Meta.Field,
         newMani: Mani.Field,
-    }
+    };
 };
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
@@ -81,11 +81,10 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         ...newSubmitsByUuid,
     };
 
-    // const newFields = Object.entries(rv).sort(
-    //     ([uuid1, field1], [uuid2, field2]) => field1.p)
+    const newFields =
+        Object.entries(rv)
+            .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
+            .map(([_, field]) => field);
 
-    //     // ([uuid1, field1], [uuid2, field2]) => uuid1.localeCompare(uuid2))
-    //     //.map(([_, field]) => field
-    // );
-
+    console.log('newFields', JSON.stringify(newFields.map( (field) => ({ name: field.newMani.displayname, uuid: field.meta.uuid, }) ), null, 2));
 }
