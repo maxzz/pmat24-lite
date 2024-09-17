@@ -7,14 +7,19 @@ import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeManiFields } from "./7-merge-mani-fields";
 
+type ByUuid = {
+    [uuid: string]: Mani.Field;
+};
+
+
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
 
     // 1. Fields
 
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
-    const newRowFields: Mani.Field[] = editAndMeta.map(
-        (editorField: EditorFieldAndMeta) => {
+    const newRowFieldsByUuid: ByUuid = editAndMeta.reduce(
+        (acc, editorField) => {
             const metaField = editorField.metaField;
 
             const newField: Mani.Field = mergeManiFields({
@@ -25,23 +30,40 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
                 isSubmit: false,
             });
 
-            return newField;
-        }
+            acc[metaField.uuid] = newField;
+            return acc;
+        }, {}
     );
+
+    // const newRowFieldsByUuid: ByUuid[] = editAndMeta.map(
+    //     (editorField: EditorFieldAndMeta) => {
+    //         const metaField = editorField.metaField;
+
+    //         const newField: Mani.Field = mergeManiFields({
+    //             from: editorField.editField,
+    //             maniField: metaField.mani,
+    //             ftyp: metaField.ftyp,
+    //             rdir: undefined,
+    //             isSubmit: false,
+    //         });
+
+    //         return { [metaField.uuid]: newField };
+    //     }
+    // );
 
     // 2. Submits
 
-    const submits: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
+    const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
-    const selected = submits.selected;
+    const selected = submitsValues.selected;
 
-    const isWeb = formCtx.submitAtoms.isWeb;
-    if (isWeb) {
+    if (formCtx.submitAtoms.isWeb) {
 
     } else {
+
     }
 
-    const newSubmitFields = submits.buttonNameItems.map(
+    const newSubmitFields = submitsValues.buttonNameItems.map(
         (submit) => {
             return {
                 name: submit.name,
@@ -49,5 +71,21 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             };
         }
     );
+
+    const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce(
+        (acc, field) => {
+            if (field.metaField) {
+                acc[field.metaField.uuid] = duplicateManiField(field.metaField.mani);
+            }
+            return acc;
+        }, {}
+    );
+
+    // 3. Merge
+
+    const rv: ByUuid = {
+        ...newRowFieldsByUuid,
+        ...newSubmitsByUuid,
+    };
 
 }
