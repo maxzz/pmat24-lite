@@ -10,22 +10,12 @@ import { classNames } from "@/utils";
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
 export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const changed = useSnapshot(allFileUsChanges).size;
     return (
         <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center justify-between", className)} {...rest}>
 
             <div className="pl-2.5 flex items-center gap-2">
                 Files
-                {!!changed &&
-                    (<div className="px-1.5 py-0.5 text-orange-800 bg-orange-400 border-border border rounded flex items-center">
-
-                        <SymbolFire className="mr-0.5 size-3 text-orange-800 opacity-70" colorize />
-                        <span className="text-[0.65rem]">
-                            {changed} unsaved
-                        </span>
-                        
-                    </div>)
-                }
+                <ChangeIndicator />
             </div>
 
             <div className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center">
@@ -34,6 +24,24 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
                 <L_PanelMenu />
             </div>
+        </div>
+    );
+}
+
+function ChangeIndicator() {
+    const changed = useSnapshot(allFileUsChanges).size;
+    if (!changed) {
+        return null;
+    }
+
+    return (
+        <div className="px-1.5 py-0.5 text-orange-800 bg-orange-400 border-border border rounded flex items-center">
+
+            <SymbolFire className="mr-0.5 size-3 text-orange-800 opacity-70" colorize />
+            <span className="text-[0.65rem]">
+                {changed} unsaved
+            </span>
+
         </div>
     );
 }
