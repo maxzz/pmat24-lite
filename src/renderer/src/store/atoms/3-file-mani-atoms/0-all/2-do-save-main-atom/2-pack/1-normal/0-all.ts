@@ -10,11 +10,23 @@ import { mergeManiFields } from "./7-merge-mani-fields";
 type ByUuid = {
     [uuid: string]: {
         meta: Meta.Field,
-        newMani: Mani.Field,
+        newMani: Mani.Field | undefined,
     };
 };
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams) {
+
+    const metaForm = packParams.fileUs.meta?.[formIdx]!; // we are guarded here by context
+
+    const allByUuid: ByUuid = metaForm.fields.reduce<ByUuid>(
+        (acc, metaField) => {
+            acc[metaField.uuid] = {
+                meta: metaField,
+                newMani: undefined,
+            };
+            return acc;
+        }, {}
+    );
 
     // 1. Fields
 
@@ -77,14 +89,24 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     // 3. Merge
 
     const rv: ByUuid = {
+        ...allByUuid,
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
     };
+
+    Object.entries(rv)
+        .forEach(
+            ([uuid, field]) => {
+                if (!field.newMani) {
+                    field.newMani = field.meta.mani;
+                }
+            }
+        );
 
     const newFields =
         Object.entries(rv)
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    console.log('newFields', JSON.stringify(newFields.map( (field) => ({ name: field.newMani.displayname, uuid: field.meta.uuid, }) ), null, 2));
+    console.log('newFields', JSON.stringify(newFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
 }
