@@ -6,9 +6,14 @@ import { Mani } from "pm-manifest";
  * Note: We don't care about chgpolopts (FieldPolicyOptions) because it's not used in the editor
  * and initially should not exist at all.
  */
-export function duplicateManiField(field: Mani.Field): Mani.Field {
+export function duplicateManiField({ field, useIt }: { field: Mani.Field; useIt?: boolean; }): Mani.Field {
     const rv = {
         ...field
     };
+
+    if (useIt !== undefined) {
+        rv.useit = useIt;
+    }
+    
     return rv;
 }

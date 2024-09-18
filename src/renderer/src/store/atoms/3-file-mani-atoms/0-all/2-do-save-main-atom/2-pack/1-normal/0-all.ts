@@ -56,34 +56,36 @@ function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams):
 function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
     const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
-    const selected = submitsValues.selected;
+    let selected = submitsValues.selected;
 
     if (formCtx.submitAtoms.isWeb) {
-
+        selected = -1;
     } else {
 
     }
 
-    const newSubmitFields = submitsValues.buttonNameItems.map(
-        (submit) => {
-            return {
-                name: submit.name,
-                field: submit.metaField?.mani && duplicateManiField(submit.metaField?.mani),
-            };
-        }
-    );
+    // const newSubmitFields = submitsValues.buttonNameItems.map(
+    //     (submit) => {
+    //         return {
+    //             name: submit.name,
+    //             field: submit.metaField?.mani && duplicateManiField(submit.metaField?.mani),
+    //         };
+    //     }
+    // );
 
     const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce<ByUuid>(
-        (acc, field) => {
-            if (field.metaField) {
+        (acc, field, idx) => {
+            if (field.metaField) { // this will skip the first 'Do no submit' item
                 acc[field.metaField.uuid] = {
                     meta: field.metaField,
-                    newMani: duplicateManiField(field.metaField.mani),
+                    newMani: duplicateManiField({ field: field.metaField.mani, useIt: idx === selected }),
                 };
             }
             return acc;
         }, {}
     );
+
+    console.log('new-submits', JSON.stringify(Object.values(newSubmitsByUuid).map( (item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, }) ), null, 2));
 
     return newSubmitsByUuid;
 }
@@ -123,7 +125,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
 
     const submittype: string | undefined = undefined;
 
-    console.log('newFields', JSON.stringify(newSortedFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
+    //console.log('newFields', JSON.stringify(newSortedFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
 
     const newFields = newSortedFields.map((field) => field.newMani!);
     
