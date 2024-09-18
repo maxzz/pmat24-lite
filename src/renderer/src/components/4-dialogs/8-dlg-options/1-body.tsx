@@ -10,7 +10,7 @@ const labelClasses = "text-xs font-normal flex place-items-center gap-2";
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
     const snapItems = useSnapshot(appSettings).files.itemsState;
-    const { showStatusbar, showOptOnRight, showWelcome } = useSnapshot(appSettings).appUi.uiGeneralState;
+    const { showStatusbar, showOptOnRight, showWelcome } = useSnapshot(appSettings.appUi.uiGeneralState);
 
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 

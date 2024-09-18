@@ -5,9 +5,9 @@ import { useSnapshot } from "valtio";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
-    const showWelcome = useSnapshot(appSettings.appUi).uiGeneralState.showWelcome;
+    const showWelcome = useSnapshot(appSettings.appUi.uiGeneralState).showWelcome;
 
-    if (!files.length || !showWelcome) {
+    if (!files.length && !showWelcome) {
         return null;
     }
 
@@ -20,3 +20,8 @@ export function WelcomePage() {
         </div>
     );
 }
+
+//TODO: add checkbox to hide welcome page next time
+//TODO: more explanation about how start working with the app
+//TODO: add menu to access the Welcome page
+//TODO: add recent files list
