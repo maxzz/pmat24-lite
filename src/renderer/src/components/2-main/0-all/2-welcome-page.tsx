@@ -1,11 +1,13 @@
-import { filesAtom } from "@/store";
+import { appSettings, filesAtom } from "@/store";
 import { Button } from "@/ui";
 import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
+    const showWelcome = useSnapshot(appSettings.appUi).uiGeneralState.showWelcome;
 
-    if (!files.length) {
+    if (!files.length || !showWelcome) {
         return null;
     }
 
