@@ -7,7 +7,7 @@ export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneralState).showWelcome;
 
-    if (!files.length && !showWelcome) {
+    if (!!files.length || !showWelcome) {
         return null;
     }
 
