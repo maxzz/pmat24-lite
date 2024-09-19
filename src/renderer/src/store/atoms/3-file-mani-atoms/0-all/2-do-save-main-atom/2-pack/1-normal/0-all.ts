@@ -124,9 +124,9 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             }
             const m = field.newMani;
             return {
-                uuid: field.meta.uuid,
                 type: m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`,
                 useIt: m.useit ? 'true' : '    ',
+                uuid: `${field.meta.uuid}`,
                 name: `${m.displayname || '???no name'}`
             };
         }
