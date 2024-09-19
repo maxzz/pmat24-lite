@@ -1,4 +1,4 @@
-import { type Mani, FormIdx } from "@/store/manifest";
+import { type Mani, type Meta, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type ByUuid } from "./9-types";
@@ -133,19 +133,23 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     // );
     // lines.forEach((item) => console.log(item));
 
-    const allColors: string[] = [];
-    const allItems: string[] = [];
+    printFields(newSortedFields);
 
-    function addColor(name: string, value: string, color: string) {
-        allItems.push(`%c${name}%c${value}`);
-        allColors.push('color: gray');
-        allColors.push(color);
-    }
+    // const allColors: string[] = [];
+    // const allItems: string[] = [];
 
-    addColor('type', 'useIt', 'color: red');
-    addColor('type2', 'useIt', 'color: red');
+    // function addColor(name: string, value: string, color: string) {
+    //     allItems.push(`%c${name}%c${value}`);
+    //     allColors.push('color: gray');
+    //     allColors.push(color);
+    // }
 
-    console.log(allItems.join(''), ...allColors);
+    // addColor('type', 'useIt', 'color: red');
+    // addColor('type2', 'useIt', 'color: red');
+
+    // console.log(allItems.join(''), ...allColors);
+
+
 
     // const items = ['color: red', 'color: blue'];
     // console.log('%ca%ca', ...items);
@@ -156,4 +160,32 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         newFields,
         submittype: doFormSubmit,
     };
+}
+
+function printFields(fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+    const allColors: string[] = [];
+    const allItems: string[] = [];
+
+    function addColor(name: string, value: string, color: string) {
+        allItems.push(`%c${name}%c${value}`);
+        allColors.push('color: gray');
+        allColors.push(color);
+    }
+
+    fields.forEach(
+        (field) => {
+            if (!field.newMani) {
+                return;
+            }
+            const m = field.newMani;
+
+            addColor('type', m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`, 'color: blue');
+            addColor('useIt', m.useit ? 'true' : '    ', 'color: blue');
+            addColor('uuid', `${field.meta.uuid}`, 'color: blue');
+            addColor('name', `${m.displayname || '???no name'}`, 'color: blue');
+            allItems.push('\n');
+        }
+    );
+
+    console.log(allItems.join(''), ...allColors);
 }
