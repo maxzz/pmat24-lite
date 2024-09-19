@@ -8,7 +8,7 @@ function ManiSection2_Submit({ ctx }: { ctx: NFormContextProps; }) {
     const [selected, setSelected] = useAtom(ctx.formAtoms.normal.submitAtoms.selectedAtom);
 
     return (
-        <Select value={selected.toString()} onValueChange={(value) => { console.log(value); setSelected(+value); }}>
+        <Select value={selected.toString()} onValueChange={(value) => setSelected(+value) }>
 
             <SelectTrigger className="px-2 py-1 w-max text-xs gap-1">
                 <SelectValue placeholder={"Don't submit"} />

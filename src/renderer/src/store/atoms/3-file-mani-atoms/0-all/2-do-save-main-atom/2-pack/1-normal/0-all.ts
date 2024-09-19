@@ -53,25 +53,16 @@ function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams):
     return newRowFieldsByUuid;
 }
 
-function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
+function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { byUuid: ByUuid; doFormSubmit: string | undefined; } {
     const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
+    let doFormSubmit: string | undefined;
 
     if (formCtx.submitAtoms.isWeb) {
         selected = -1;
-    } else {
-
+        doFormSubmit = !selected ? 'dosubmit' : 'nosubmit';
     }
-
-    // const newSubmitFields = submitsValues.buttonNameItems.map(
-    //     (submit) => {
-    //         return {
-    //             name: submit.name,
-    //             field: submit.metaField?.mani && duplicateManiField(submit.metaField?.mani),
-    //         };
-    //     }
-    // );
 
     const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce<ByUuid>(
         (acc, field, idx) => {
@@ -85,9 +76,12 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
         }, {}
     );
 
-    console.log('new-submits', JSON.stringify(Object.values(newSubmitsByUuid).map( (item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, }) ), null, 2));
+    console.log(`new-submits doFormSubmit=${doFormSubmit}`, JSON.stringify(Object.values(newSubmitsByUuid).map((item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, })), null, 2));
 
-    return newSubmitsByUuid;
+    return {
+        byUuid: newSubmitsByUuid,
+        doFormSubmit,
+    };
 }
 
 type PackNormalFieldsAndSubmitResult = {
@@ -99,7 +93,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
 
     const allByUuid = getAllByUiid(packParams, formIdx);
     const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
-    const newSubmitsByUuid = getSubmitsByUuid(formCtx, packParams);
+    const { byUuid: newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
     // 3. Merge
 
@@ -123,14 +117,82 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    const submittype: string | undefined = undefined;
+    const lines = newSortedFields.map(
+        (field) => {
+            if (!field.newMani) {
+                return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
+            }
+            const m = field.newMani;
+            return {
+                uuid: field.meta.uuid,
+                type: `${m.type.padEnd(6, ' ')}`,
+                useIt: `${('' + m.useit).padEnd(9, ' ')}`,
+                name: `${m.displayname || '???no name'}`
+            };
+        }
+        // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
+    );
+    lines.forEach((item) => console.log(item));
 
-    //console.log('newFields', JSON.stringify(newSortedFields.map((field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })), null, 2));
+    // console.log('newFields', ...lines.map((item) => {
+    //     const rv = { name: item };
+    //     console.log('\n');
+    //     return rv;
+    // })
+    // );
+
+    // console.log('newFields', newSortedFields.map(
+    //     (field) => {
+    //         if (!field.newMani) {
+    //             return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
+    //         }
+    //         const m = field.newMani;
+    //         return {
+    //             uuid: field.meta.uuid,
+    //             type: `${m.type.padEnd(6, ' ')}`,
+    //             useIt: `${('' + m.useit).padEnd(9, ' ')}`,
+    //             name: `${m.displayname || '???no name'}`
+    //         };
+    //     }
+    //     // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
+    // ));
+
+    // console.log('newFields', JSON.stringify(newSortedFields.map(
+    //     (field) => {
+    //         if (!field.newMani) {
+    //             return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
+    //         }
+    //         const m = field.newMani;
+    //         return `uuid: ${field.meta.uuid} type: ${m.type.padEnd(6, ' ')} useIt: ${(''+m.useit).padEnd(9, ' ')} name: ${m.displayname || '???no name'}`;
+    //     }
+    //     // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
+    // ), null, 2));
+
+    // console.table(newSortedFields.map(
+    //     (field) => ({ uuid: field.meta.uuid, type: field.newMani?.type, useIt: field.newMani?.useit, name: field.newMani?.displayname || '???no name', })
+    // ));
+
+    // console.table(newSortedFields.filter((pair => pair.newMani)).map(
+    //     (field) => {
+    //         const m = field.newMani;
+    //         if (!m) {
+    //             return undefined;
+    //         }
+    //         return {
+    //             uuid: field.meta.uuid,
+    //             type: m.type, 
+    //             useIt: m.useit, 
+    //             name: m.displayname || '???no name',
+    //             password: m.password,
+    //             value: m.value,
+    //         };
+    //     }
+    // ));
 
     const newFields = newSortedFields.map((field) => field.newMani!);
-    
+
     return {
         newFields,
-        submittype,
+        submittype: doFormSubmit,
     };
 }
