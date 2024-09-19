@@ -1,4 +1,4 @@
-import { type Mani, type Meta, FormIdx } from "@/store/manifest";
+import { type Mani, FormIdx } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type ByUuid } from "./9-types";
@@ -6,6 +6,7 @@ import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
+import { printFields } from "./8-print-fields";
 
 function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
     const metaForm = packParams.fileUs.meta?.[formIdx]; // we are guarded here by context, but still they come...
@@ -125,34 +126,4 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         newFields,
         submittype: doFormSubmit,
     };
-}
-
-function printFields(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
-    const colors: string[] = [];
-    const items: string[] = [];
-
-    function addItem({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
-        items.push(`%c${name}%c${value}`);
-        colors.push(colorName || 'color: gray');
-        colors.push(colorValue || 'color: #d58e00');
-    }
-
-    fields.forEach(
-        (field, idx) => {
-            if (!field.newMani) {
-                return;
-            }
-            const m = field.newMani;
-
-            items.push('   ');
-            addItem({ name: ' type: ', value: `${m.type.padEnd(6, ' ')}`, colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
-            addItem({ name: ' useIt: ', value: m.useit ? 'true' : '    ', colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
-            addItem({ name: ' uuid: ', value: `${field.meta.uuid}`, colorValue: 'color: #ababab; font-size: 0.5rem' });
-            addItem({ name: ' name: ', value: `${m.displayname || '???no name'}`, colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
-            addItem({ name: '', value: '', colorValue: 'color: black' }); // the last dummy item to fix font-size
-            idx !== fields.length - 1 && items.push('\n');
-        }
-    );
-
-    console.log(`${label}\n${items.join('')}`, ...colors);
 }
