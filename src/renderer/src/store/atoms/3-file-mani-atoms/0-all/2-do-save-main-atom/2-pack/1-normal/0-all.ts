@@ -117,22 +117,24 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    const lines = newSortedFields.map(
-        (field) => {
-            if (!field.newMani) {
-                return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
-            }
-            const m = field.newMani;
-            return {
-                type: m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`,
-                useIt: m.useit ? 'true' : '    ',
-                uuid: `${field.meta.uuid}`,
-                name: `${m.displayname || '???no name'}`
-            };
-        }
-        // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
-    );
-    lines.forEach((item) => console.log(item));
+    // const lines = newSortedFields.map(
+    //     (field) => {
+    //         if (!field.newMani) {
+    //             return `no mani`;
+    //         }
+    //         const m = field.newMani;
+    //         return {
+    //             type: m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`,
+    //             useIt: m.useit ? 'true' : '    ',
+    //             uuid: `${field.meta.uuid}`,
+    //             name: `${m.displayname || '???no name'}`
+    //         };
+    //     }
+    // );
+    // lines.forEach((item) => console.log(item));
+
+    const items = ['color: red', 'color: blue'];
+    console.log('%ca%ca', ...items);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
