@@ -40,7 +40,7 @@ function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitC
 
     if (isWeb) {
         rv.push({
-            name: 'Submit form data after filling out fields',
+            name: 'Submit',
             metaField: null,
         });
     } else {
