@@ -3,8 +3,9 @@ import { rightPanelAtom, rightPanelContentAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
 import { TitleNoFile } from "./9-title-no-file";
 import { TitleWithFileUs } from "./1-title-with-file-us";
-import { R_PanelMenu } from "../2-menu";
 import { SaveResetButtons } from "./5-save-reset-buttons";
+import { ButtonQuickXml } from "./3-btn-quick-xml";
+import { R_PanelMenu } from "../2-menu";
 
 export function R_PanelHeader() {
 
@@ -27,6 +28,7 @@ export function R_PanelHeader() {
                 <div className=" absolute right-0 top-0.5 flex items-center gap-2">
                     <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
 
+                    <ButtonQuickXml />
                     <R_PanelMenu />
                 </div>
 

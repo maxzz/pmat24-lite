@@ -26,7 +26,7 @@ export function getSubmitChoices(metaForm: Meta.Form) {
 
 function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
     return metaForm.fields?.filter(
-        (field) => field.ftyp === FieldTyp.button || field.mani.submit
+        (field) => field.ftyp === FieldTyp.button || field.mani.submit // we collect IE <a> so they are marked as submit
     ) || [];
 }
 
