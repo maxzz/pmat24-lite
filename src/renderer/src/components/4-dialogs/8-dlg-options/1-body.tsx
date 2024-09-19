@@ -10,7 +10,7 @@ const labelClasses = "text-xs font-normal flex place-items-center gap-2";
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
     const snapItems = useSnapshot(appSettings).files.itemsState;
-    const { showStatusbar, showOptOnRight, showWelcome } = useSnapshot(appSettings.appUi.uiGeneralState);
+    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneralState);
 
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
@@ -65,6 +65,13 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                         <Label className={labelClasses}>
                             <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showOptOnRight = !!v} />
                             Show manifest form option labels on the right side
+                        </Label>
+                    </div>
+
+                    <div className="py-1 flex flex-col gap-2">
+                        <Label className={labelClasses}>
+                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showQuickXml = !!v} />
+                            Show quick access button to XML manifest content
                         </Label>
                     </div>
 
