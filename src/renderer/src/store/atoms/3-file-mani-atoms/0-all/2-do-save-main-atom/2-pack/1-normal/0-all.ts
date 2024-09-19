@@ -77,8 +77,6 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
         }, {}
     );
 
-    console.log(`new-submits doFormSubmit=${doFormSubmit}`, JSON.stringify(Object.values(newSubmitsByUuid).map((item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, })), null, 2));
-
     return {
         byUuid: newSubmitsByUuid,
         doFormSubmit,
@@ -118,7 +116,8 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    printFields('newSortedFields', newSortedFields);
+    Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, })), null, 2));
+    printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 

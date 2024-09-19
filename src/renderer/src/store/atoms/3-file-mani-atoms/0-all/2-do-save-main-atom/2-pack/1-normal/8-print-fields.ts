@@ -4,7 +4,7 @@ export function printFields(label: string, fields: { meta: Meta.Field; newMani: 
     const colors: string[] = [];
     const items: string[] = [];
 
-    function addItem({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+    function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
         items.push(`%c${name}%c${value}`);
         colors.push(colorName || 'color: gray');
         colors.push(colorValue || 'color: #d58e00');
@@ -18,11 +18,11 @@ export function printFields(label: string, fields: { meta: Meta.Field; newMani: 
             const m = field.newMani;
 
             items.push('   ');
-            addItem({ name: ' type: ', value: `${m.type.padEnd(6, ' ')}`, colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
-            addItem({ name: ' useIt: ', value: m.useit ? 'true' : '    ', colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
-            addItem({ name: ' uuid: ', value: `${field.meta.uuid}`, colorValue: 'color: #ababab; font-size: 0.5rem' });
-            addItem({ name: ' name: ', value: `${m.displayname || '???no name'}`, colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
-            addItem({ name: '', value: '', colorValue: 'color: black' }); // the last dummy item to fix font-size
+            add({ name: ' type: ',  /**/ value: `${m.type.padEnd(6, ' ')}`,         /**/ colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
+            add({ name: ' useIt: ', /**/ value: m.useit ? 'true' : '    ',          /**/ colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
+            add({ name: ' uuid: ',  /**/ value: `${field.meta.uuid}`,               /**/ colorValue: 'color: #ababab; font-size: 0.5rem' });
+            add({ name: ' name: ',  /**/ value: `${m.displayname || '???no name'}`, /**/ colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
+            add({ name: '',         /**/ value: '',                                 /**/ colorValue: 'color: black' }); // the last dummy item to fix font-size
             idx !== fields.length - 1 && items.push('\n');
         }
     );
