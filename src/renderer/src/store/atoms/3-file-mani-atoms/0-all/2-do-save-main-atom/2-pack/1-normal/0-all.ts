@@ -133,8 +133,22 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     // );
     // lines.forEach((item) => console.log(item));
 
-    const items = ['color: red', 'color: blue'];
-    console.log('%ca%ca', ...items);
+    const allColors: string[] = [];
+    const allItems: string[] = [];
+
+    function addColor(name: string, value: string, color: string) {
+        allItems.push(`%c${name}%c${value}`);
+        allColors.push('color: gray');
+        allColors.push(color);
+    }
+
+    addColor('type', 'useIt', 'color: red');
+    addColor('type2', 'useIt', 'color: red');
+
+    console.log(allItems.join(''), ...allColors);
+
+    // const items = ['color: red', 'color: blue'];
+    // console.log('%ca%ca', ...items);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
