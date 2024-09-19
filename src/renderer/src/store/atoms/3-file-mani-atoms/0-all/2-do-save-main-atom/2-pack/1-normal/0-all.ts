@@ -134,61 +134,6 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     );
     lines.forEach((item) => console.log(item));
 
-    // console.log('newFields', ...lines.map((item) => {
-    //     const rv = { name: item };
-    //     console.log('\n');
-    //     return rv;
-    // })
-    // );
-
-    // console.log('newFields', newSortedFields.map(
-    //     (field) => {
-    //         if (!field.newMani) {
-    //             return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
-    //         }
-    //         const m = field.newMani;
-    //         return {
-    //             uuid: field.meta.uuid,
-    //             type: `${m.type.padEnd(6, ' ')}`,
-    //             useIt: `${('' + m.useit).padEnd(9, ' ')}`,
-    //             name: `${m.displayname || '???no name'}`
-    //         };
-    //     }
-    //     // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
-    // ));
-
-    // console.log('newFields', JSON.stringify(newSortedFields.map(
-    //     (field) => {
-    //         if (!field.newMani) {
-    //             return `no mani --- uuid: ${field.meta.uuid} name: ${field.meta.mani.displayname || '???no name'}`;
-    //         }
-    //         const m = field.newMani;
-    //         return `uuid: ${field.meta.uuid} type: ${m.type.padEnd(6, ' ')} useIt: ${(''+m.useit).padEnd(9, ' ')} name: ${m.displayname || '???no name'}`;
-    //     }
-    //     // (field) => ({ name: field.newMani?.displayname || '???no name', uuid: field.meta.uuid, })
-    // ), null, 2));
-
-    // console.table(newSortedFields.map(
-    //     (field) => ({ uuid: field.meta.uuid, type: field.newMani?.type, useIt: field.newMani?.useit, name: field.newMani?.displayname || '???no name', })
-    // ));
-
-    // console.table(newSortedFields.filter((pair => pair.newMani)).map(
-    //     (field) => {
-    //         const m = field.newMani;
-    //         if (!m) {
-    //             return undefined;
-    //         }
-    //         return {
-    //             uuid: field.meta.uuid,
-    //             type: m.type, 
-    //             useIt: m.useit, 
-    //             name: m.displayname || '???no name',
-    //             password: m.password,
-    //             value: m.value,
-    //         };
-    //     }
-    // ));
-
     const newFields = newSortedFields.map((field) => field.newMani!);
 
     return {
