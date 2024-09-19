@@ -117,42 +117,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
             .map(([_, field]) => field);
 
-    // const lines = newSortedFields.map(
-    //     (field) => {
-    //         if (!field.newMani) {
-    //             return `no mani`;
-    //         }
-    //         const m = field.newMani;
-    //         return {
-    //             type: m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`,
-    //             useIt: m.useit ? 'true' : '    ',
-    //             uuid: `${field.meta.uuid}`,
-    //             name: `${m.displayname || '???no name'}`
-    //         };
-    //     }
-    // );
-    // lines.forEach((item) => console.log(item));
-
-    printFields(newSortedFields);
-
-    // const allColors: string[] = [];
-    // const allItems: string[] = [];
-
-    // function addColor(name: string, value: string, color: string) {
-    //     allItems.push(`%c${name}%c${value}`);
-    //     allColors.push('color: gray');
-    //     allColors.push(color);
-    // }
-
-    // addColor('type', 'useIt', 'color: red');
-    // addColor('type2', 'useIt', 'color: red');
-
-    // console.log(allItems.join(''), ...allColors);
-
-
-
-    // const items = ['color: red', 'color: blue'];
-    // console.log('%ca%ca', ...items);
+    printFields('newSortedFields', newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
@@ -162,30 +127,32 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     };
 }
 
-function printFields(fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
-    const allColors: string[] = [];
-    const allItems: string[] = [];
+function printFields(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+    const colors: string[] = [];
+    const items: string[] = [];
 
-    function addColor(name: string, value: string, color: string) {
-        allItems.push(`%c${name}%c${value}`);
-        allColors.push('color: gray');
-        allColors.push(color);
+    function addItem({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+        items.push(`%c${name}%c${value}`);
+        colors.push(colorName || 'color: gray');
+        colors.push(colorValue || 'color: #d58e00');
     }
 
     fields.forEach(
-        (field) => {
+        (field, idx) => {
             if (!field.newMani) {
                 return;
             }
             const m = field.newMani;
 
-            addColor('type', m.type === 'button' ? '   btn' : `${m.type.padEnd(6, ' ')}`, 'color: blue');
-            addColor('useIt', m.useit ? 'true' : '    ', 'color: blue');
-            addColor('uuid', `${field.meta.uuid}`, 'color: blue');
-            addColor('name', `${m.displayname || '???no name'}`, 'color: blue');
-            allItems.push('\n');
+            items.push('   ');
+            addItem({ name: ' type: ', value: `${m.type.padEnd(6, ' ')}`, colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
+            addItem({ name: ' useIt: ', value: m.useit ? 'true' : '    ', colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
+            addItem({ name: ' uuid: ', value: `${field.meta.uuid}`, colorValue: 'color: #ababab; font-size: 0.5rem' });
+            addItem({ name: ' name: ', value: `${m.displayname || '???no name'}`, colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
+            addItem({ name: '', value: '', colorValue: 'color: black' }); // the last dummy item to fix font-size
+            idx !== fields.length - 1 && items.push('\n');
         }
     );
 
-    console.log(allItems.join(''), ...allColors);
+    console.log(`${label}\n${items.join('')}`, ...colors);
 }
