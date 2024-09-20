@@ -6,21 +6,22 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
 
     const buttonFields = getButtonFields(metaForm);
     const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
-    
+
     const submittype = metaForm.mani.options?.submittype;
     const isSubmitTypeUndefined = !submittype;
-    const doSubmit = submittype === SUBMIT.dosumbit// || getUseItButtonIdx(buttonFields) !== -1;
-    const heuristicSubmit = submittype === SUBMIT.dosumbit;
+    const doSubmit = submittype === SUBMIT.dosumbit || getUseItButtonIdx(buttonFields) !== -1;
 
-    const selectedButtonIdx = getSelectedButtonIdx(buttonFields);
+    const selectedButtonIdx = getSelectedUseitButtonIdx(buttonFields);
 
-    const initialSelected = (
-        heuristicSubmit || selectedButtonIdx !== -1
-            ? isWeb
-                ? 0
+    const initialSelected = 1 + (
+        !doSubmit && selectedButtonIdx === -1
+            ? -1
+            : isWeb
+                ? doSubmit
+                    ? 0
+                    : -1
                 : selectedButtonIdx
-            : -1
-    ) + 1;
+    );
 
     const rv: SubmitConvTypes.SubmitForAtoms = {
         buttonNameItems,
@@ -30,12 +31,6 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     };
 
     return rv;
-}
-
-function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
-    return metaForm.fields?.filter(
-        (field) => field.ftyp === FieldTyp.button || field.mani.submit // we collect IE <a> so they are marked as submit
-    ) || [];
 }
 
 function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitConvTypes.ButtonNameItem[] {
@@ -64,19 +59,16 @@ function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitC
     return rv;
 }
 
-function getSelectedButtonIdx(buttonFields: Meta.Field[]): number {
-    let rv = -1;
-
-    buttonFields.forEach(
-        (field, idx) => field.mani.useit && (rv = idx)
-    );
-
-    return rv;
+function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
+    return metaForm.fields?.filter(
+        (field) => field.ftyp === FieldTyp.button || field.mani.submit // we collect IE <a> so they are marked as submit
+    ) || [];
 }
 
-// function isHeuristicSubmit(metaForm: Meta.Form): boolean {
-//     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
-// }
+function getSelectedUseitButtonIdx(buttonFields: Meta.Field[]): number {
+    let rv = buttonFields.findIndex((field) => field.mani.useit);
+    return rv;
+}
 
 function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
     let rv = buttonFields.findIndex((field) => (field.mani.type === 'button' || field.mani.submit) && field.mani.useit);
