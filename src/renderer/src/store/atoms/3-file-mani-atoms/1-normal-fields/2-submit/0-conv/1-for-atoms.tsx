@@ -7,11 +7,12 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     const buttonFields = getButtonFields(metaForm);
     const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
     
-    const doSubmit = metaForm.mani.options?.submittype === 'dosubmit';
-    const isSubmitTypeUndefined = typeof metaForm.mani.options?.submittype === 'undefined';
+    const submittype = metaForm.mani.options?.submittype;
+    const isSubmitTypeUndefined = !submittype;
+    const doSubmit = submittype === SUBMIT.dosumbit// || getUseItButtonIdx(buttonFields) !== -1;
+    const heuristicSubmit = submittype === SUBMIT.dosumbit;
 
-    const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
-    const heuristicSubmit = isHeuristicSubmit(metaForm);
+    const selectedButtonIdx = getSelectedButtonIdx(buttonFields);
 
     const initialSelected = (
         heuristicSubmit || selectedButtonIdx !== -1
@@ -63,7 +64,7 @@ function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitC
     return rv;
 }
 
-function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): number {
+function getSelectedButtonIdx(buttonFields: Meta.Field[]): number {
     let rv = -1;
 
     buttonFields.forEach(
@@ -73,9 +74,9 @@ function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): numbe
     return rv;
 }
 
-function isHeuristicSubmit(metaForm: Meta.Form): boolean {
-    return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
-}
+// function isHeuristicSubmit(metaForm: Meta.Form): boolean {
+//     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
+// }
 
 function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
     let rv = buttonFields.findIndex((field) => (field.mani.type === 'button' || field.mani.submit) && field.mani.useit);
