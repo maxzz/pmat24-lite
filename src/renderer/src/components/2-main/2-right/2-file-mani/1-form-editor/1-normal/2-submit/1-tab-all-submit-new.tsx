@@ -30,24 +30,29 @@ function ManiSection2_Submit({ ctx }: { ctx: NFormContextProps; }) {
     );
 }
 
-export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
-
-    //const metaForm = formAtoms.fileUsCtx.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
-    const isWeb = ctx.formAtoms.normal.submitAtoms.isWeb;
+function BodyWin32({ ctx }: { ctx: NFormContextProps; }) {
     const selected = useAtomValue(ctx.formAtoms.normal.submitAtoms.selectedAtom) !== 0;
+    return (<>
+        After filling in the fields, 
+        {selected ? " the" : ""}
+        <ManiSection2_Submit ctx={ctx} /> 
+        {selected ? " button will be used to submit the form data." : " the form data."}
+    </>);
+}
 
+export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
+    const isWeb = ctx.formAtoms.normal.submitAtoms.isWeb;
     return (
         <div className="p-1 flex items-center gap-1">
             {isWeb
                 ? (<>
-                    After filling in the fields, <ManiSection2_Submit ctx={ctx} /> the form data.
-                </>) 
-                : (<>
                     After filling in the fields, 
-                    {selected ? " the" : ""}
-                    <ManiSection2_Submit ctx={ctx} /> 
-                    {selected ? " button will be used to submit the form data." : " the form data."}
-                </>)
+                    <ManiSection2_Submit ctx={ctx} />
+                    the form data.
+                </>) 
+                : (
+                    <BodyWin32 ctx={ctx} />
+                )
             }
         </div>
     );
