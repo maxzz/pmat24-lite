@@ -5,6 +5,7 @@ type GetSubmitChoicesResult = {
     buttonNameItems: SubmitConvTypes.ButtonNameItem[];
     initialSelected: number;
     doSubmit: boolean;
+    isSubmitTypeUndefined: boolean;
 };
 
 export function getSubmitChoices(metaForm: Meta.Form): GetSubmitChoicesResult {
@@ -12,7 +13,9 @@ export function getSubmitChoices(metaForm: Meta.Form): GetSubmitChoicesResult {
 
     const buttonFields = getButtonFields(metaForm);
     const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
+    
     const doSubmit = metaForm.mani.options?.submittype === 'dosubmit';
+    const isSubmitTypeUndefined = typeof metaForm.mani.options?.submittype === 'undefined';
 
     const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
     const heuristicSubmit = isHeuristicSubmit(metaForm);
@@ -29,6 +32,7 @@ export function getSubmitChoices(metaForm: Meta.Form): GetSubmitChoicesResult {
         buttonNameItems,
         initialSelected,
         doSubmit,
+        isSubmitTypeUndefined,
     };
 }
 
