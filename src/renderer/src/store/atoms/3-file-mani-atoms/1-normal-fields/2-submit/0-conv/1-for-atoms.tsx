@@ -13,7 +13,7 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
         buttonNameItems,
         selected: initialSelected,
         doSubmit,
-        isDoSubmitUndefined,
+        isSubmitTypeUndefined: isDoSubmitUndefined,
     };
     
     return rv;

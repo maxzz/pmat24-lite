@@ -43,3 +43,5 @@ export const doVerifyNormalFormAtom = atom(null,
         return rv.length ? rv : undefined;
     }
 );
+
+//TODO: We can remove the button elements if the form is intended for websites. Buttons were added for old IE submit method.

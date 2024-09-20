@@ -4,7 +4,7 @@ export function areTheSame(from: SubmitConvTypes.SubmitForAtoms, to: SubmitConvT
     const rv = (
         from.selected === to.selected &&
         from.doSubmit === to.doSubmit &&
-        from.isDoSubmitUndefined === to.isDoSubmitUndefined
+        from.isSubmitTypeUndefined === to.isSubmitTypeUndefined
     );
     return rv;
 }

@@ -12,7 +12,7 @@ export namespace SubmitConvTypes {
         buttonNameItems: ButtonNameItem[];
         selected: number;
         doSubmit: boolean;
-        isDoSubmitUndefined: boolean;   // doSubmit was initially undefined
+        isSubmitTypeUndefined: boolean;     // doSubmit was initially undefined
     };
 
     export type SubmitAtoms = Prettify<

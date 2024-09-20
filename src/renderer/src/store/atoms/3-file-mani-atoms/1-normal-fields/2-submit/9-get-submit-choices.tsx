@@ -34,13 +34,13 @@ function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitC
     const noSubmitOption = !isWeb && !buttonFields.length;
 
     const rv: SubmitConvTypes.ButtonNameItem[] = [{
-        name: noSubmitOption ? 'There is no control to submit' : 'Do not submit',
+        name: noSubmitOption ? "There is no control to submit" : "Don't submit",
         metaField: null,
     }];
 
     if (isWeb) {
         rv.push({
-            name: 'Submit',
+            name: "Submit",
             metaField: null,
         });
     } else {
