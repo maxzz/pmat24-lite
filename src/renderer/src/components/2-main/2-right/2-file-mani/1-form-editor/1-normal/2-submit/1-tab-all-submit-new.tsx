@@ -34,16 +34,29 @@ export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
 
     //const metaForm = formAtoms.fileUsCtx.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     const isWeb = ctx.formAtoms.normal.submitAtoms.isWeb;
+    const selected = useAtomValue(ctx.formAtoms.normal.submitAtoms.selectedAtom) !== 0;
 
     return (
         <div className="p-1 flex items-center gap-1">
             {isWeb
                 ? (<>
                     After filling in the fields, <ManiSection2_Submit ctx={ctx} /> the form data.
-                </>) : (<>
-                    After filling in the fields click on the <ManiSection2_Submit ctx={ctx} /> button to submit the form data.
+                </>) 
+                : (<>
+                    After filling in the fields, 
+                    {selected ? " the" : ""}
+                    <ManiSection2_Submit ctx={ctx} /> 
+                    {selected ? " button will be used to submit the form data." : " the form data."}
                 </>)
             }
         </div>
     );
 }
+
+// After filling in the fields click on the <ManiSection2_Submit ctx={ctx} /> button to submit the form data.
+                    
+// After filling in the fields, "YY" button will be used to submit the form data.
+// After filling in the fields, the "YY" button will be used to submit the form data.
+
+// After filling in the fields, Don't submit the form data.
+// After filling in the fields, do not submit the form data.
