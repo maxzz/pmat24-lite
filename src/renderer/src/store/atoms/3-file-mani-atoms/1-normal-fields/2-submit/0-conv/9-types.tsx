@@ -12,7 +12,7 @@ export namespace SubmitConvTypes {
         buttonNameItems: ButtonNameItem[];
         selected: number;                   // index of selected button
         doSubmit: boolean;
-        isSubmitTypeUndefined: boolean;     // doSubmit was initially undefined
+        isSubmitTypeUndefined: boolean;     // Mani form options submittype was initially undefined
     };
 
     export type SubmitAtoms = Prettify<

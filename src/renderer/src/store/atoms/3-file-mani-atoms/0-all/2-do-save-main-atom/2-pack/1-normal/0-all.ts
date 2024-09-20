@@ -54,13 +54,13 @@ function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams):
     return newRowFieldsByUuid;
 }
 
-function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { byUuid: ByUuid; doFormSubmit: string | undefined; } {
+function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: ByUuid; doFormSubmit: SUBMIT | undefined; } {
     const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
     let doFormSubmit: SUBMIT | undefined;
 
-    if (formCtx.submitAtoms.isWeb) {
+    if (formCtx.submitAtoms.isWeb) { //NOTE: for web forms we don't clean up useIt for submit and buttons. They are ignore by browser extension.
         selected = -1;
         doFormSubmit = !!selected ? SUBMIT.dosumbit : SUBMIT.nosumbit;
     }
@@ -78,23 +78,21 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
     );
 
     return {
-        byUuid: newSubmitsByUuid,
+        newSubmitsByUuid,
         doFormSubmit,
     };
 }
 
 type PackNormalFieldsAndSubmitResult = {
     newFields: Mani.Field[];
-    submittype: string | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
+    submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
 };
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
 
     const allByUuid = getAllByUiid(packParams, formIdx);
     const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
-    const { byUuid: newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
-
-    // 3. Merge
+    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
     const rv: ByUuid = {
         ...allByUuid,
@@ -114,9 +112,9 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     const newSortedFields =
         Object.entries(rv)
             .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
-            .map(([_, field]) => field);
+            .map(([uuid, field]) => field);
 
-    Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => ({ name: item.newMani?.displayname, useIt: item.newMani?.useit, })), null, 2));
+    //Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
     printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);

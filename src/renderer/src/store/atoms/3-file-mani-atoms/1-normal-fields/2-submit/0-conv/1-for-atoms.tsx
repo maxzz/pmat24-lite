@@ -5,22 +5,22 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
+    const useItButtonIdx = getUseItButtonIdx(buttonFields);
     const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
 
     const submittype = metaForm.mani.options?.submittype;
     const isSubmitTypeUndefined = !submittype;
-    const doSubmit = submittype === SUBMIT.dosumbit || getUseItButtonIdx(buttonFields) !== -1;
-
-    const selectedButtonIdx = getSelectedUseitButtonIdx(buttonFields);
+    const doSubmit = submittype === SUBMIT.dosumbit || useItButtonIdx !== -1;
+    
 
     const initialSelected = 1 + (
-        !doSubmit && selectedButtonIdx === -1
+        !doSubmit && useItButtonIdx === -1
             ? -1
             : isWeb
                 ? doSubmit
                     ? 0
                     : -1
-                : selectedButtonIdx
+                : useItButtonIdx
     );
 
     const rv: SubmitConvTypes.SubmitForAtoms = {
@@ -30,6 +30,17 @@ export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
         isSubmitTypeUndefined,
     };
 
+    return rv;
+}
+
+function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
+    return metaForm.fields?.filter(
+        (field) => field.ftyp === FieldTyp.button || field.mani.submit // IE <a> tags were marked as 'submit=1'
+    ) || [];
+}
+
+function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
+    let rv = buttonFields.findIndex((field) => field.mani.useit);
     return rv;
 }
 
@@ -56,21 +67,5 @@ function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitC
         ));
     }
 
-    return rv;
-}
-
-function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
-    return metaForm.fields?.filter(
-        (field) => field.ftyp === FieldTyp.button || field.mani.submit // we collect IE <a> so they are marked as submit
-    ) || [];
-}
-
-function getSelectedUseitButtonIdx(buttonFields: Meta.Field[]): number {
-    let rv = buttonFields.findIndex((field) => field.mani.useit);
-    return rv;
-}
-
-function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
-    let rv = buttonFields.findIndex((field) => (field.mani.type === 'button' || field.mani.submit) && field.mani.useit);
     return rv;
 }
