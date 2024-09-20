@@ -1,11 +1,18 @@
 import { FieldTyp, type Meta, SUBMIT } from "@/store/manifest";
 import { type SubmitConvTypes } from "./0-conv/9-types";
 
-export function getSubmitChoices(metaForm: Meta.Form) {
+type GetSubmitChoicesResult = {
+    buttonNameItems: SubmitConvTypes.ButtonNameItem[];
+    initialSelected: number;
+    doSubmit: boolean;
+};
+
+export function getSubmitChoices(metaForm: Meta.Form): GetSubmitChoicesResult {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
     const buttonNameItems = getButtonNameItems(buttonFields, isWeb);
+    const doSubmit = metaForm.mani.options?.submittype === 'dosubmit';
 
     const selectedButtonIdx = getSelectedButtonIdx(isWeb, buttonFields);
     const heuristicSubmit = isHeuristicSubmit(metaForm);
@@ -21,6 +28,7 @@ export function getSubmitChoices(metaForm: Meta.Form) {
     return {
         buttonNameItems,
         initialSelected,
+        doSubmit,
     };
 }
 

@@ -1,4 +1,4 @@
-import { type Mani, FormIdx } from "@/store/manifest";
+import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitConvTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type ByUuid } from "./9-types";
@@ -58,16 +58,16 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
     const submitsValues: SubmitConvTypes.SubmitForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
-    let doFormSubmit: string | undefined;
+    let doFormSubmit: SUBMIT | undefined;
 
     if (formCtx.submitAtoms.isWeb) {
         selected = -1;
-        doFormSubmit = !selected ? 'dosubmit' : 'nosubmit';
+        doFormSubmit = !!selected ? SUBMIT.dosumbit : SUBMIT.nosumbit;
     }
 
     const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce<ByUuid>(
         (acc, field, idx) => {
-            if (field.metaField) { // this will skip the first 'Do no submit' item
+            if (field.metaField) { // metaField is empty for 'Do not submit' and 'Submit' buttons
                 acc[field.metaField.uuid] = {
                     meta: field.metaField,
                     newMani: duplicateManiField({ field: field.metaField.mani, useIt: idx === selected }),
