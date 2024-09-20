@@ -69,3 +69,8 @@ function getSelectedButtonIdx(isWeb: boolean, buttonFields: Meta.Field[]): numbe
 function isHeuristicSubmit(metaForm: Meta.Form): boolean {
     return metaForm?.mani?.options?.submittype === SUBMIT.dosumbit;
 }
+
+function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
+    let rv = buttonFields.findIndex((field) => (field.mani.type === 'button' || field.mani.submit) && field.mani.useit);
+    return rv;
+}

@@ -10,7 +10,7 @@ export namespace SubmitConvTypes {
 
     export type SubmitForAtoms = {
         buttonNameItems: ButtonNameItem[];
-        selected: number;
+        selected: number;                   // index of selected button
         doSubmit: boolean;
         isSubmitTypeUndefined: boolean;     // doSubmit was initially undefined
     };
