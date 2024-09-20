@@ -2,12 +2,6 @@ import { FieldTyp, SUBMIT, type Meta } from "@/store/manifest";
 import { type SubmitConvTypes } from "./9-types";
 
 export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
-    
-    const rv: SubmitConvTypes.SubmitForAtoms = getSubmitChoices(metaForm);
-    return rv;
-}
-
-function getSubmitChoices(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
