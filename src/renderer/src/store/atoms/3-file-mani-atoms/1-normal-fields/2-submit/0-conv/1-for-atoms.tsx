@@ -3,19 +3,11 @@ import { type SubmitConvTypes } from "./9-types";
 
 export function forAtoms(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     
-    const { buttonNameItems, selected, doSubmit, isSubmitTypeUndefined } = getSubmitChoices(metaForm);
-
-    const rv: SubmitConvTypes.SubmitForAtoms = {
-        buttonNameItems,
-        selected,
-        doSubmit,
-        isSubmitTypeUndefined,
-    };
-    
+    const rv: SubmitConvTypes.SubmitForAtoms = getSubmitChoices(metaForm);
     return rv;
 }
 
-export function getSubmitChoices(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
+function getSubmitChoices(metaForm: Meta.Form): SubmitConvTypes.SubmitForAtoms {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
@@ -35,12 +27,14 @@ export function getSubmitChoices(metaForm: Meta.Form): SubmitConvTypes.SubmitFor
             : -1
     ) + 1;
 
-    return {
+    const rv: SubmitConvTypes.SubmitForAtoms = {
         buttonNameItems,
         selected: initialSelected,
         doSubmit,
         isSubmitTypeUndefined,
     };
+
+    return rv;
 }
 
 function getButtonFields(metaForm: Meta.Form): Meta.Field[] {
