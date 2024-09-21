@@ -4,12 +4,12 @@ import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelActionsTitle } from "./1-panel-title";
 import { PanelActionsList } from "./2-panel-items";
 import { classNames } from "@/utils";
-//import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
+import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
 import { editorFrameClasses, focusWithinClasses } from "../8-manual-shared-styles";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    // const cb = useInitSelectedIdx();
-    // useEffect(() => { cb(); }, []);
+    const cb = useInitSelectedIdx(ctx.formAtoms.manual);
+    useEffect(() => { cb(); }, []);
 
     const items = useAtomValue(ctx.formAtoms.manual.chunksAtom);
 
