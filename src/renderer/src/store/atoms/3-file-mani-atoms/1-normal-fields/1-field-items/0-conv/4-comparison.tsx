@@ -1,5 +1,4 @@
 import { type EditorField, type Mani, type ValueLife } from "@/store/manifest";
-import { type NormalField } from "./9-types";
 
 // Comparison
 
