@@ -4,7 +4,7 @@ import { SingleRow } from "./3-single-row";
 import { MenuState } from "./4-row-popup-menu";
 import { rowParentActiveClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
     const ctx = ctxForm.formAtoms.manual;

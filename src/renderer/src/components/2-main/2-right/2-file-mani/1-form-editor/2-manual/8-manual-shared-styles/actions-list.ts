@@ -2,7 +2,7 @@ export const rowParentActiveClasses = "[--parent-active:0px] focus-within:[--par
 
 export const rowClasses = "\
 leading-6 \
-hover:bg-primary-400/30 dark:hover:bg-primary-600/30";
+hover:bg-primary-200/30 dark:hover:bg-primary-800/40";
 
 export const rowSelectedClasses = "\
 text-primary-800 dark:text-primary-200 \
