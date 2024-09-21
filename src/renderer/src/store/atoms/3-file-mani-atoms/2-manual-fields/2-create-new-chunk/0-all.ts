@@ -19,7 +19,7 @@ function createScriptItemByType({ type, password }: { type: ChunkKey; password: 
         case "kbd": {
             const newItem: EditorDataForKbd = {
                 type: 'kbd',
-                char: 'Tab',
+                char: 'tab',
                 repeat: 1,
                 shift: 0,
                 ctrl: 0,

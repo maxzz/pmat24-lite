@@ -39,5 +39,3 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
         console.log('newForm', JSON.stringify(newForm, null, 2));
     }
 }
-
-//TODO: add new action keystroke has empty key value
