@@ -4,6 +4,7 @@ import { SingleRow } from "./3-single-row";
 import { MenuState } from "./4-row-popup-menu";
 import { rowParentActiveClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
+import { motion } from "framer-motion";
 
 export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
     const ctx = ctxForm.formAtoms.manual;
@@ -31,6 +32,9 @@ export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
 
                     return (
                         <SingleRow
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            transition={{ type:"spring", bounce: .5, duration: 1 }}
                             ctx={ctx}
                             chunk={chunk}
                             menuState={menuState}
@@ -41,7 +45,7 @@ export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
                     );
                 })
             }
-            
+
         </div>
     </>);
 }
