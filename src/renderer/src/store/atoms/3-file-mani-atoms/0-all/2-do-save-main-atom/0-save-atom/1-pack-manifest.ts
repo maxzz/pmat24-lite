@@ -23,12 +23,21 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
             fields: [],
         };
 
+        const newForm = newMani.forms[formIdx];
+
         if (form.normal) {
             const { newFields, submittype } = packNormalFieldsAndSubmit(form.normal, formIdx, packParams);
+            newForm.fields = newFields;
+            newForm.options.submittype = submittype;
         }
 
         if (form.manual) {
-            packManualFields(form.manual, formIdx, packParams);
+            const fields = packManualFields(form.manual, formIdx, packParams);
+            newForm.fields = fields;
         }
+
+        console.log('newForm', JSON.stringify(newForm, null, 2));
     }
 }
+
+//TODO: add new action keystroke has empty key value

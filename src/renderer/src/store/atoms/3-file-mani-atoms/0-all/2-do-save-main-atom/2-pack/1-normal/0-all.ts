@@ -31,11 +31,10 @@ function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams):
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
     const newRowFieldsByUuid: ByUuid = editAndMeta.reduce<ByUuid>(
-        (acc, editorField) => {
-            const metaField = editorField.metaField;
+        (acc, { metaField, editField }) => {
 
             const newField: Mani.Field = mergeToManiField({
-                from: editorField.editField,
+                from: editField,
                 maniField: metaField.mani,
                 ftyp: metaField.ftyp,
                 rdir: undefined,
