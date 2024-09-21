@@ -3,8 +3,8 @@ import { type PackManifestDataParams } from "../9-types";
 import { type NormalField, NormalFieldConv, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 
 export type EditorFieldAndMeta = {
-    editField: NormalField.ThisType;
     metaField: Meta.Field;
+    editField: EditorField.Members;
 };
 
 export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifestDataParams): EditorFieldAndMeta[] {
@@ -15,11 +15,11 @@ export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifest
             const metaField = rowAtoms.metaField;
 
             const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowAtoms, get, set);
-            const maniValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
+            const maniValues: EditorField.Members = NormalFieldConv.forMani(fromAtomValues);
 
             const rv: EditorFieldAndMeta = {
-                editField: maniValues,
                 metaField: metaField,
+                editField: maniValues,
             };
             return rv;
         }

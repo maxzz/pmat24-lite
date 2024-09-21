@@ -1,8 +1,8 @@
-import { FieldTyp, type Mani, type FileMani } from "@/store/manifest";
+import { FieldTyp, type Mani, type FileMani, type EditorField } from "@/store/manifest";
 import { type NormalField } from "../../../../1-normal-fields";
 
 type MergeManiFieldsProps = {
-    from: NormalField.ThisType; // from editor
+    from: EditorField.Members;  // from editor
     maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
     rdir: FileMani.FieldDirection | undefined;

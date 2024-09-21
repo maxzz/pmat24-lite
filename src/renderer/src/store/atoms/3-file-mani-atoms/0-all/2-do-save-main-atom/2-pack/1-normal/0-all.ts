@@ -115,7 +115,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
             .map(([uuid, field]) => field);
 
     //Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
-    printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+    //printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 

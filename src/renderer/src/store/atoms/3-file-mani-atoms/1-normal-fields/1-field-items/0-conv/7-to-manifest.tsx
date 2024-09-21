@@ -3,9 +3,9 @@ import { type NormalField } from "./9-types";
 
 // Back to manifest
 
-export function forMani(from: EditorField.ForAtoms): NormalField.ThisType {
+export function forMani(from: EditorField.ForAtoms): EditorField.Members {
 
-    const rv: NormalField.ThisType = {
+    const rv: EditorField.Members = {
         useit: from.useIt,
         displayname: from.label,
         dbname: from.dbname,
