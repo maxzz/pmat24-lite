@@ -4,7 +4,6 @@ import { SingleRow } from "./3-single-row";
 import { MenuState } from "./4-row-popup-menu";
 import { rowParentActiveClasses } from "../8-manual-shared-styles";
 import { classNames } from "@/utils";
-// import { ScrollList } from "./scroll-list";
 
 export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
     const ctx = ctxForm.formAtoms.manual;
@@ -16,10 +15,8 @@ export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
     const swapItems = useSetAtom(doSwapItemsAtom);
 
     return (<>
-        {/* <ScrollList> */}
         <div className={classNames("min-h-10 outline-none", rowParentActiveClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
 
-            {/* <ScrollList> */}
             {chunks.map(
                 (chunk, idx) => {
                     const lastItemIdx = chunks.length - 1;
@@ -44,9 +41,7 @@ export function PanelActionsList({ ctx: ctxForm }: {ctx: MFormContextProps}) {
                     );
                 })
             }
-            {/* </ScrollList> */}
+            
         </div>
-
-        {/* </ScrollList> */}
     </>);
 }
