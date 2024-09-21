@@ -231,8 +231,9 @@ const Leaf = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & LeafFol
         return (
             <div
                 ref={ref}
-                className={cn(leafBaseClasses, className, selected && leafSelectedClasses)}
+                className={cn(leafBaseClasses, selected && leafSelectedClasses, className)}
                 data-tree-id={item.id}
+                {...(selected && { 'data-tree-item-selected': '' })}
                 {...rest}
             >
                 <IconTextRender item={item} Icon={Icon} hideFolderIcon={false} iconClasses={leafIconClasses} />
@@ -247,8 +248,9 @@ const Folder = forwardRef<HTMLButtonElement, HTMLAttributes<HTMLButtonElement> &
         const { selected } = useSnapshot(item.state);
         return (
             <FolderTrigger
-                className={cn(treeItemBaseClasses, selected && treeItemSelectedClasses)}
+                className={cn(treeItemBaseClasses, selected && treeItemSelectedClasses, className)}
                 data-tree-folder-trigger={TypeTreeFolderTrigger}
+                {...(selected && { 'data-tree-item-selected': '' })}
                 arrowFirst={arrowFirst}
                 ref={ref}
                 {...rest}
