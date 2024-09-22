@@ -3,7 +3,7 @@ import { type MFormCtx } from "../../9-types";
 import { type ResetManifestCtx } from "./9-types";
 
 export function resetManualFields(formCtx: MFormCtx, formIdx: FormIdx, ctx: ResetManifestCtx) {
-    // const { newMani, get, set } = restParams;
+    const { get, set } = ctx;
 
     // const { fields, submittype } = formCtx;
 

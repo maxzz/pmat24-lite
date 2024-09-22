@@ -2,7 +2,7 @@ import { type ResetManifestCtx } from "./9-types";
 import { type ManiOptions } from "../../4-options";
 
 export function resetFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, ctx: ResetManifestCtx) {
-    // const { newMani, get, set } = restParams;
+    const { get, set } = ctx;
 
     // const { fields, submittype } = formCtx;
 

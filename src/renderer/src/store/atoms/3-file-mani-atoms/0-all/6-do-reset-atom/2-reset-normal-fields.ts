@@ -1,21 +1,20 @@
-import { type FormIdx } from "@/store/manifest";
+import { type EditorField, type FormIdx } from "@/store/manifest";
 import { type NFormCtx } from "../../9-types";
 import { type ResetManifestCtx } from "./9-types";
+import { NormalFieldConv, SubmitConv, type SubmitFieldTypes } from "../../1-normal-fields";
 
 export function resetNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, ctx: ResetManifestCtx) {
-    // const { newMani, get, set } = restParams;
+    const { get, set } = ctx;
 
-    // const { fields, submittype } = formCtx;
+    const { rowCtxs, submitCtx } = formCtx;
 
-    // const newFields = fields.map((field) => {
-    //     return {
-    //         ...field,
-    //         value: field.default,
-    //     };
-    // });
+    rowCtxs.forEach(
+        (rowCtx) => {
+            const values: EditorField.ForAtoms = rowCtx.fromFile;
+            NormalFieldConv.valuesToAtoms(values, rowCtx, get, set);
+        }
+    );
 
-    // return {
-    //     newFields,
-    //     submittype,
-    // };
+    const values: SubmitFieldTypes.ForAtoms = submitCtx.fromFile;
+    SubmitConv.valuesToAtoms(values, submitCtx, get, set);
 }
