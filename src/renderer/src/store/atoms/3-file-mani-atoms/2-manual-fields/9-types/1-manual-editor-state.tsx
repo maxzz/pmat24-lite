@@ -2,6 +2,7 @@ import { type PrimitiveAtom } from "jotai";
 import { type OnValueChangeAny } from "@/util-hooks";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type ManualFieldState } from "./2-manual-field-state";
+import { type EditorDataForOne } from "@/store/manifest";
 
 export namespace ManualEditorTypes {
     
@@ -11,6 +12,7 @@ export namespace ManualEditorTypes {
         selectedIdxStoreAtom: PrimitiveAtom<number>;
         onChangeItem: OnChangeValueWithUpdateName;
         onChangeOrder: OnValueChangeAny;
+        fromFile: EditorDataForOne[]
     };
 }
 

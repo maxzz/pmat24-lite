@@ -15,6 +15,6 @@ export function resetNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, 
         }
     );
 
-    const values: SubmitFieldTypes.ForAtoms = submitCtx.fromFile;
-    SubmitConv.valuesToAtoms(values, submitCtx, get, set);
+    const submitValues: SubmitFieldTypes.ForAtoms = submitCtx.fromFile;
+    SubmitConv.valuesToAtoms(submitValues, submitCtx, get, set);
 }

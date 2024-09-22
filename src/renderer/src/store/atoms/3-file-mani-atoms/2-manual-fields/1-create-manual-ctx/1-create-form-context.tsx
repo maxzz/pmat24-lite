@@ -1,11 +1,11 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
+import { parseForEditor } from "@/store/manifest";
 import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
-import { parseForEditor } from "@/store/manifest";
 import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {
@@ -20,29 +20,34 @@ export namespace ManualFieldsState {
         const editorData = parseForEditor(fields);
 
         function onChangeItem(updateName: string) {
-            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx }) {
+            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
                 onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
-        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[] }) {
+        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[]; }) {
             onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
         const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(editorData, onChangeItem);
 
-        const chunksAtom = atomWithCallback(chunks, onChangeOrder);
-
         const ctx: MFormCtx = {
-            chunksAtom: chunksAtom,
+            chunksAtom: atomWithCallback(chunks, onChangeOrder),
             initialChunks: chunksToCompareString(chunks),
             selectedIdxStoreAtom: atom(0),
             onChangeItem,
             onChangeOrder,
+            fromFile: editorData,
         };
-
         return ctx;
+    }
+
+    export function resetChunks(ctx: MFormCtx, get: Getter, set: Setter) {
+        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(ctx.fromFile, ctx.onChangeItem);
+        const initialChunks = chunksToCompareString(chunks);
+        set(ctx.chunksAtom, chunks);
+        ctx.initialChunks = initialChunks;
     }
 }
 
