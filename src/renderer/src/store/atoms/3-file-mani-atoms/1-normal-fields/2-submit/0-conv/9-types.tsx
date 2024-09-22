@@ -1,7 +1,7 @@
 import { type Atomize } from '@/util-hooks';
 import { type Meta } from "@/store/manifest";
 
-export namespace SubmitFields {
+export namespace SubmitFieldTypes {
 
     export type ButtonNameItem = {
         name: string;
@@ -17,7 +17,7 @@ export namespace SubmitFields {
 
     export type ForAtomsAtomized = Atomize<ForAtoms>;
 
-    export type SubmitAtoms = Prettify<
+    export type Ctx = Prettify<
         ForAtomsAtomized & {
             isWeb: boolean;                 // is web form
             metaForm: Meta.Form;            // meta form from manifest

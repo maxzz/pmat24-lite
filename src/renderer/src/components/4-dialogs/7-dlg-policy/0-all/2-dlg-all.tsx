@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from "react";
 import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type Mani } from "@/store/manifest";
-import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
+import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { PolicyEditorBody } from "./3-dlg-body";
 import { doClosePolicyDlgAtom } from "./1-close-atom";
 import { updateExplanationAtom } from "./1-util-atoms";
@@ -21,13 +21,13 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
     const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
     function closeWithOk(byOkButton: boolean) {
-        doClosePolicyDlg({ dlgUiCtx: dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
+        doClosePolicyDlg({ dlgUiCtx, policiesAtom, openAtom, toastIdAtom, byOkButton });
     }
 
-    const dlgUiAtoms = useMemo(
+    const dlgUiCtx = useMemo(
         () => {
             function onChange({ get, set }) {
-                onChangeWithScopeDebounced(dlgUiAtoms, get, set);
+                onChangeWithScopeDebounced(dlgUiCtx, get, set);
             }
             return createUiAtoms(policies, onChange);
         }, [policies.policy, policies.policy2, policies.options]
@@ -35,8 +35,8 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
 
     useEffect(
         () => {
-            doUpdateExplanation({ dlgUiCtx: dlgUiAtoms });
-        }, [dlgUiAtoms]
+            doUpdateExplanation({ dlgUiCtx });
+        }, [dlgUiCtx]
     );
 
     return (
@@ -49,7 +49,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
                 withScroll
                 noClose
             >
-                <PolicyEditorBody dlgUiCtx={dlgUiAtoms} doCloseWithOk={closeWithOk} />
+                <PolicyEditorBody dlgUiCtx={dlgUiCtx} doCloseWithOk={closeWithOk} />
                 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>

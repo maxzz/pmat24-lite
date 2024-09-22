@@ -1,7 +1,7 @@
 import { FieldTyp, SUBMIT, type Meta } from "@/store/manifest";
-import { type SubmitFields } from "./9-types";
+import { type SubmitFieldTypes } from "./9-types";
 
-export function forAtoms(metaForm: Meta.Form): SubmitFields.ForAtoms {
+export function forAtoms(metaForm: Meta.Form): SubmitFieldTypes.ForAtoms {
     const isWeb = !!metaForm?.mani.detection.web_ourl;
 
     const buttonFields = getButtonFields(metaForm);
@@ -23,7 +23,7 @@ export function forAtoms(metaForm: Meta.Form): SubmitFields.ForAtoms {
                 : useItButtonIdx
     );
 
-    const rv: SubmitFields.ForAtoms = {
+    const rv: SubmitFieldTypes.ForAtoms = {
         buttonNameItems,
         selected: initialSelected,
         doSubmit,
@@ -44,10 +44,10 @@ function getUseItButtonIdx(buttonFields: Meta.Field[]): number {
     return rv;
 }
 
-function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitFields.ButtonNameItem[] {
+function getButtonNameItems(buttonFields: Meta.Field[], isWeb: boolean): SubmitFieldTypes.ButtonNameItem[] {
     const noSubmitOption = !isWeb && !buttonFields.length;
 
-    const rv: SubmitFields.ButtonNameItem[] = [{
+    const rv: SubmitFieldTypes.ButtonNameItem[] = [{
         name: noSubmitOption ? "There is no control to submit" : "Don't submit",
         metaField: null,
     }];

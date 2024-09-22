@@ -1,6 +1,6 @@
 import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type SubmitFields, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type SubmitFieldTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type ByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
@@ -54,7 +54,7 @@ function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams):
 }
 
 function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: ByUuid; doFormSubmit: SUBMIT | undefined; } {
-    const submitsValues: SubmitFields.ForAtoms = getNormalSubmitValues(formCtx, packParams);
+    const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
     let doFormSubmit: SUBMIT | undefined;

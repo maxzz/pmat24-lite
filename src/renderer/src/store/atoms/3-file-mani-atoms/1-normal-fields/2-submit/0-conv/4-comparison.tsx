@@ -1,6 +1,6 @@
-import { type SubmitFields } from "./9-types";
+import { type SubmitFieldTypes } from "./9-types";
 
-export function areTheSame(from: SubmitFields.ForAtoms, to: SubmitFields.ForAtoms): boolean {
+export function areTheSame(from: SubmitFieldTypes.ForAtoms, to: SubmitFieldTypes.ForAtoms): boolean {
     const rv = (
         from.selected === to.selected &&
         from.doSubmit === to.doSubmit &&
