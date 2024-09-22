@@ -33,10 +33,12 @@ export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) 
 
                         return (
                             <SingleRow
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
+                                // Not yet, AnimatePresence not working when switching between files
+                                
+                                // initial={{ opacity: 0, height: 0 }}
+                                // animate={{ opacity: 1, height: "auto" }}
+                                // exit={{ opacity: 0, height: 0 }}
+                                // transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
 
                                 ctx={ctx}
                                 chunk={chunk}

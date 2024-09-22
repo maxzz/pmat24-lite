@@ -16,3 +16,7 @@ export function ManualFields({ ctx }: {ctx: MFormContextProps}) {
 }
 
 //TODO: check focus-within when added new item from the empty list
+
+//TODO: remove frame; leave only line inbetween
+//TODO: scroll panels independently
+//TDOO: header is not part of the scroll
