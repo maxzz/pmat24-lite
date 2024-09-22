@@ -3,7 +3,7 @@ import { type Mani } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type Getter, type Setter } from "jotai";
 
-export type ResetManifestDataParams = {
+export type ResetManifestCtx = {
     fileUs: FileUs;
     fileUsAtom: FileUsAtom;
     maniAtoms: ManiAtoms;
