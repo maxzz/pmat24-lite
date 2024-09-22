@@ -10,7 +10,8 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
     const dlgUiAtoms = PolicyDlgConv.createAtoms(forAtoms, onChange);
     const parser = new PolicyParser();
 
-    console.log('%cDlg. useMemo to Policy.createUiAtoms', 'color: #f0f', { policies });
+    //console.log('%cDlg. useMemo to Policy.createUiAtoms', 'color: #f0f', { policies });
+    
     const rv: PolicyDlgTypes.PolicyUiAtoms = {
         ...dlgUiAtoms,
         original: policies,

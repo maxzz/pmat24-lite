@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { Mani } from "@/store/manifest";
+import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
+import { type Mani } from "@/store/manifest";
 import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { PolicyEditorBody } from "./3-dlg-body";
@@ -17,17 +17,15 @@ export function PolicyEditorDlgGuarded({ openAtom, toastIdAtom, policiesAtom }: 
     const isOpen = useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 
-    const doInitialAtomsSetup = useSetAtom(updateExplanationAtom);
+    const doUpdateExplanation = useSetAtom(updateExplanationAtom);
     const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
-    function doCancelClose() {
-        doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: false });
+    function closeWithOk(byOkButton: boolean) {
+        doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
     }
 
     const dlgUiAtoms = useMemo(
         () => {
-            console.log('%cDlg. useMemo to PolicyEditorDlg', 'color: #ffa200', { policies });
-            
             function onChange({ get, set }) {
                 onChangeWithScopeDebounced(dlgUiAtoms, get, set);
             }
@@ -35,12 +33,14 @@ export function PolicyEditorDlgGuarded({ openAtom, toastIdAtom, policiesAtom }: 
         }, [policies.policy, policies.policy2, policies.options]
     );
 
-    useEffect(() => {
-        doInitialAtomsSetup({ dlgUiAtoms });
-    }, [dlgUiAtoms]);
+    useEffect(
+        () => {
+            doUpdateExplanation({ dlgUiAtoms });
+        }, [dlgUiAtoms]
+    );
 
     return (
-        <Dialog open={isOpen} onOpenChange={doCancelClose} modal>
+        <Dialog open={isOpen} onOpenChange={() => closeWithOk(false)} modal>
 
             <DialogContent
                 className="px-6 py-4 max-w-[500px] text-xs select-none"
@@ -49,11 +49,8 @@ export function PolicyEditorDlgGuarded({ openAtom, toastIdAtom, policiesAtom }: 
                 withScroll
                 noClose
             >
-                <PolicyEditorBody
-                    dlgUiAtoms={dlgUiAtoms}
-                    doCloseWithOk={(ok) => doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton: ok })}
-                />
-
+                <PolicyEditorBody dlgUiAtoms={dlgUiAtoms} doCloseWithOk={closeWithOk} />
+                
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>
 
@@ -66,5 +63,8 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
     if (!isOpen) {
         return null;
     }
-    return <PolicyEditorDlgGuarded openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />;
+
+    return (
+        <PolicyEditorDlgGuarded openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />
+    );
 }
