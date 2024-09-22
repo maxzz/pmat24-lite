@@ -13,7 +13,7 @@ type PolicyEditorNewDlgProps = {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
 };
 
-export function PolicyEditorDlgGuarded({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
+function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const isOpen = useAtomValue(openAtom);
     const policies = useAtomValue(policiesAtom);
 
@@ -65,6 +65,6 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
     }
 
     return (
-        <PolicyEditorDlgGuarded openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />
+        <PolicyEditorDlgIsOpen openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />
     );
 }

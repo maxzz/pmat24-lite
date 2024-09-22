@@ -27,11 +27,14 @@ export namespace PolicyDlgTypes {
         fakeOptions: string;            // Fake options from manifest but not used, so we just preserve it
     };
 
-    export type PolicyUiAtoms = Prettify<Atomize<ForAtoms> & {
-        original: Mani.FieldPolicy;     // original state to allow on/off checkbox
-        fromFile: ForAtoms;             // original state to compare with
-        changed: boolean;               // state from atoms is different from original state
-        parser: PolicyParser;           // parser for policy
-    }>;
+    export type ForAtomsAtomized = Atomize<ForAtoms>;
 
+    export type PolicyUiAtoms = Prettify<
+        ForAtomsAtomized & {
+            original: Mani.FieldPolicy;     // original state to allow on/off checkbox
+            fromFile: ForAtoms;             // original state to compare with
+            changed: boolean;               // state from atoms is different from original state
+            parser: PolicyParser;           // parser for policy
+        }
+    >;
 }
