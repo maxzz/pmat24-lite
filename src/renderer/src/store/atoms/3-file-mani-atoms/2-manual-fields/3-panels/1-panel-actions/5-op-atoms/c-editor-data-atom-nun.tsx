@@ -3,8 +3,8 @@ import { ManualFieldState } from "../../../9-types";
 import { ManualFieldConv } from "../../../0-conv";
 
 const editorDataForAtom = atom(
-    (get) => (item: ManualFieldState.ForAtoms) => {
-        const rv = ManualFieldConv.fromAtom(item, get);
+    (get) => (ctx: ManualFieldState.Ctx) => {
+        const rv = ManualFieldConv.fromAtom(ctx, get);
         return rv;
     }
 );

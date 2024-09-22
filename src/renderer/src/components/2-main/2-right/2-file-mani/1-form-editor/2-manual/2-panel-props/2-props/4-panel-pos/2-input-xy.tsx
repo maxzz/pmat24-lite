@@ -17,7 +17,7 @@ import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 //     );
 // }
 
-export function InputXY({ item }: { item: ManualFieldState.PosForAtoms }) {
+export function InputXY({ item }: { item: ManualFieldState.CtxPos }) {
     return (
         <div className="!mt-6 space-y-2">
             <div className="">

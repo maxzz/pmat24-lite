@@ -8,15 +8,15 @@ import { classNames } from "@/utils";
 import { motion } from "framer-motion";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
-    ctx: MFormCtx;
-    chunk: ManualFieldState.ForAtoms;
+    formCtx: MFormCtx;
+    chunk: ManualFieldState.Ctx;
     menuState: MenuState;
     idx: number;
 };
 
 const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-content] items-center";
 
-export function SingleRowWRef({ ctx, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
+function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);
@@ -33,7 +33,7 @@ export function SingleRowWRef({ ctx, chunk, menuState, idx, ...rest }: SingleRow
                 </div>
 
                 <div className="px-4 text-[.65rem] font-light">
-                    <RowColumnDetails item={chunk} />
+                    <RowColumnDetails ctx={chunk} />
                 </div>
 
                 <RowMenuButton menuState={menuState} />

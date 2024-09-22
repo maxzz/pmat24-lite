@@ -34,7 +34,7 @@ export function InputPos({ valueAtom, label }: { valueAtom: PrimitiveAtom<RowInp
     );
 }
 
-export function PropsEditorPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
+export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
     const setPosValueX = useSetAtom(item.xAtom);
     const setPosValueY = useSetAtom(item.yAtom);
 

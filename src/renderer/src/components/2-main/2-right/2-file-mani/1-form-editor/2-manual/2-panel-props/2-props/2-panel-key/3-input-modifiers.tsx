@@ -42,7 +42,7 @@ function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAto
     );
 }
 
-export function InputModifiers({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
     return (
         <GroupFrame className="@container/modifier mt-4 -ml-2 max-w-64" label="Key modifiers">
             <div className="my-2 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">

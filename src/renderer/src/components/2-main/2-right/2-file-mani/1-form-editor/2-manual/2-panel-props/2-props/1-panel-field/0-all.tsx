@@ -8,7 +8,7 @@ import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
 import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
 // import { SrcriptItemFld } from "@/store";
 
-export function PropsEditorFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
+export function PropsEditorFld({ item }: { item: ManualFieldState.CtxFld; }) {
 
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.rowCtx;
 

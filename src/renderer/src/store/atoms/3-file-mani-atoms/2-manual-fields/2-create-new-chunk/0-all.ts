@@ -51,7 +51,8 @@ function createScriptItemByType({ type, password }: { type: ChunkKey; password: 
     }
 }
 
-export function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
-    const rv: ManualFieldState.ForAtoms = ManualFieldConv.createAtom(createScriptItemByType({type, password}), onChange);
+export function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
+    const newItem = createScriptItemByType({type, password});
+    const rv = ManualFieldConv.createAtom(newItem, onChange);
     return rv;
 }

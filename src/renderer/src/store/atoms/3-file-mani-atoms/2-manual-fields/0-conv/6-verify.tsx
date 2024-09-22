@@ -44,7 +44,7 @@ export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter
     return rv;
 }
 
-function hasFieldChunk(chunks: ManualFieldState.ForAtoms[]): boolean {
+function hasFieldChunk(chunks: ManualFieldState.Ctx[]): boolean {
     const rv = chunks.some(
         (chunk) => {
             return chunk.type === 'fld';
@@ -54,7 +54,7 @@ function hasFieldChunk(chunks: ManualFieldState.ForAtoms[]): boolean {
 }
 
 //TODO: this was for initial validation, but not need anymore
-export function isChunkInvalid(chunk: ManualFieldState.ForAtoms, get: Getter, set: Setter): boolean {
+export function isChunkInvalid(chunk: ManualFieldState.Ctx, get: Getter, set: Setter): boolean {
     const toValidate: RowInputStateUuid[] = getChunkValuesForValidate(chunk, get);
 
     const err = toValidate.some(

@@ -1,7 +1,7 @@
 import type { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { useAtomValue } from "jotai";
 
-export function DetailsPos({ item }: { item: ManualFieldState.PosForAtoms; }) {
+export function DetailsPos({ item }: { item: ManualFieldState.CtxPos; }) {
     const x = useAtomValue(item.xAtom).data;
     const y = useAtomValue(item.yAtom).data;
     return (

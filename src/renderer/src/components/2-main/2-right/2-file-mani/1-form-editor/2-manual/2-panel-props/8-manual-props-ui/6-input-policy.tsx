@@ -4,7 +4,7 @@ import { Column6_Policy } from "../../../1-normal/1-fields/6-column-policy";
 import { useAtomValue } from "jotai";
 import { FieldTyp } from "pm-manifest";
 
-export function ManualFieldPolicy({ item }: { item: ManualFieldState.FldForAtoms; }) {
+export function ManualFieldPolicy({ item }: { item: ManualFieldState.CtxFld; }) {
 
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
 

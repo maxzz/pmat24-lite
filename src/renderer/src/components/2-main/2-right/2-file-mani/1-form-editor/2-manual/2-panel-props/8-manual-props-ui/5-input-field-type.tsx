@@ -8,7 +8,7 @@ const inputTypes: ModifierDisplayText[] = [
     ["Passowrd", `${FieldTyp.psw}`],
 ];
 
-export function ManualFieldType({ item }: { item: ManualFieldState.FldForAtoms; }) {
+export function ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
 
     const [type, setType] = useAtom(item.rowCtx.typeAtom);
 

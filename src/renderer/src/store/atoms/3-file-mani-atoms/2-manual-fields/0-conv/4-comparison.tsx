@@ -4,11 +4,11 @@ import { NormalFieldConv } from "../../1-normal-fields";
 
 //
 
-export function chunksToCompareString(chunks: ManualFieldState.ForAtoms[]): string {
+export function chunksToCompareString(chunks: ManualFieldState.Ctx[]): string {
     return chunks.map((chunk) => chunk.uid5).join('');
 }
 
-export function areTheSameOrder(chunks: ManualFieldState.ForAtoms[], initialChunks: string): boolean {
+export function areTheSameOrder(chunks: ManualFieldState.Ctx[], initialChunks: string): boolean {
     const rv = chunksToCompareString(chunks) === initialChunks;
     return rv;
 }

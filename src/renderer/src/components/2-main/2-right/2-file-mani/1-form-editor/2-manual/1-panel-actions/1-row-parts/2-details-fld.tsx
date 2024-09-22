@@ -4,7 +4,7 @@ import { FieldTyp } from "pm-manifest";
 import { detailKbdClasses } from "./1-details-key";
 import { classNames } from "@/utils";
 
-function FieldName({ item }: { item: ManualFieldState.FldForAtoms; }) {
+function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
     const name = useAtomValue(item.rowCtx.labelAtom) || 'Field';
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
@@ -13,7 +13,7 @@ function FieldName({ item }: { item: ManualFieldState.FldForAtoms; }) {
     );
 }
 
-export function DetailsFld({ item }: { item: ManualFieldState.FldForAtoms; }) {
+export function DetailsFld({ item }: { item: ManualFieldState.CtxFld; }) {
     const type = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">

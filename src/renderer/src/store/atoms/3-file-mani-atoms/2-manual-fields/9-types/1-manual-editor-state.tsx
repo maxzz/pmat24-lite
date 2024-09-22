@@ -3,10 +3,10 @@ import { type OnValueChangeAny } from "@/util-hooks";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type ManualFieldState } from "./2-manual-field-state";
 
-export namespace ManualEditorState {
+export namespace ManualEditorTypes {
     
     export type Ctx = {
-        chunksAtom: PrimitiveAtom<ManualFieldState.ForAtoms[]>;
+        chunksAtom: PrimitiveAtom<ManualFieldState.Ctx[]>;
         initialChunks: string;              // initial chunks as concatenated string of uuids to compare with
         selectedIdxStoreAtom: PrimitiveAtom<number>;
         onChangeItem: OnChangeValueWithUpdateName;

@@ -13,26 +13,26 @@ export namespace ManualFieldState {
         hasErrorAtom: PrimitiveAtom<boolean>;   // is atom has error
     };
 
-    export type KbdForAtoms = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {
+    export type CtxKbd = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {
         type: 'kbd';
         original: EditorDataForKbd;
     }>;
 
-    export type PosForAtoms = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForPos, 'type'>, RowInputState> & {
+    export type CtxPos = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForPos, 'type'>, RowInputState> & {
         type: 'pos';
         original: EditorDataForPos;
     }>;
 
-    export type DlyForAtoms = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForDly, 'type'>, RowInputState> & {
+    export type CtxDly = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForDly, 'type'>, RowInputState> & {
         type: 'dly';
         original: EditorDataForDly;
     }>;
 
-    export type FldForAtoms = Prettify<CtxExtra & {
+    export type CtxFld = Prettify<CtxExtra & {
         type: 'fld';
         rowCtx: NormalField.RowCtx;
         original: EditorDataForFld;
     }>;
 
-    export type ForAtoms = KbdForAtoms | PosForAtoms | DlyForAtoms | FldForAtoms;
+    export type Ctx = CtxKbd | CtxPos | CtxDly | CtxFld;
 }

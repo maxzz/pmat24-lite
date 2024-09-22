@@ -21,7 +21,7 @@ export function InputDelay({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputSta
     );
 }
 
-export function PropsEditorDly({ item }: { item: ManualFieldState.DlyForAtoms; }) {
+export function PropsEditorDly({ item }: { item: ManualFieldState.CtxDly; }) {
     return (<>
         <InputDelay valueAtom={item.nAtom} />
     </>);

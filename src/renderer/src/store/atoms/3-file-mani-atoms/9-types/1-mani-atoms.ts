@@ -2,7 +2,7 @@ import { type Getter, type Setter } from 'jotai';
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FormIdx } from '@/store/manifest';
 import { type SubmitFieldTypes, type NormalField } from '../1-normal-fields';
-import { type ManualEditorState } from "../2-manual-fields";
+import { type ManualEditorTypes } from "../2-manual-fields";
 import { type OptionsState } from "../4-options";
 
 export type FileUsCtx = {
@@ -18,7 +18,7 @@ export type NFormCtx = {
     submitCtx: SubmitFieldTypes.Ctx;
 };
 
-export type MFormCtx = ManualEditorState.Ctx;
+export type MFormCtx = ManualEditorTypes.Ctx;
 
 //
 

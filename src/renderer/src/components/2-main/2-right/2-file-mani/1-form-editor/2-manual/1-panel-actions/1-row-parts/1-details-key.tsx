@@ -17,7 +17,7 @@ const containerClasses = "hidden @[300px]/actions:flex items-center justify-betw
 // Use sub-grid to align the key name to the left or not. It's okay for now.
 // const containerClasses2 = "hidden @[300px]/actions:grid grid-cols-[1fr,auto] place-items-center justify-items-start space-x-1";
 
-export function DetailsKbd({ item }: { item: ManualFieldState.KbdForAtoms; }) {
+export function DetailsKbd({ item }: { item: ManualFieldState.CtxKbd; }) {
 
     const char = useAtomValue(item.charAtom).data;
     const repeat = toNumberWDefault1(useAtomValue(item.repeatAtom).data);

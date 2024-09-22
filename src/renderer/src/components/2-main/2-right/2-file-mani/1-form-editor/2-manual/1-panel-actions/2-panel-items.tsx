@@ -40,7 +40,7 @@ export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) 
                                 // exit={{ opacity: 0, height: 0 }}
                                 // transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
 
-                                ctx={ctx}
+                                formCtx={ctx}
                                 chunk={chunk}
                                 menuState={menuState}
                                 idx={idx}

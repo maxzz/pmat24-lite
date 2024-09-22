@@ -5,7 +5,7 @@ import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } fro
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
-export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms {
+export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
     const validateOptions = { validate: validateNumber, options: { initialValidate: true } };
@@ -28,7 +28,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 altAtom: createAtomForInput(chunk.alt, onScopedChange('kbd-alt')),
             };
 
-            const rv: ManualFieldState.KbdForAtoms = {
+            const rv: ManualFieldState.CtxKbd = {
                 type: 'kbd',
                 uid5,
                 selectedAtom,
@@ -56,7 +56,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 resAtom: atomWithCallback(resData, onScopedChange('pos-res')),
             };
 
-            const rv: ManualFieldState.PosForAtoms = {
+            const rv: ManualFieldState.CtxPos = {
                 type: 'pos',
                 uid5,
                 selectedAtom,
@@ -79,7 +79,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 nAtom: atomWithCallback(nData, onScopedChange('dly-dly')),
             };
 
-            const rv: ManualFieldState.DlyForAtoms = {
+            const rv: ManualFieldState.CtxDly = {
                 type: 'dly',
                 uid5,
                 selectedAtom,
@@ -104,7 +104,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 fromFile: fieldForAtoms,
             };
 
-            const rv: ManualFieldState.FldForAtoms = {
+            const rv: ManualFieldState.CtxFld = {
                 type: 'fld',
                 uid5,
                 selectedAtom,
@@ -117,7 +117,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     }
 }
 
-export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.ForAtoms[] {
-    const scriptAtoms = initialState.map((chunk, idx) => createAtom(chunk, onChange));
-    return scriptAtoms;
+export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
+    const ctxs = initialState.map((chunk, idx) => createAtom(chunk, onChange));
+    return ctxs;
 }

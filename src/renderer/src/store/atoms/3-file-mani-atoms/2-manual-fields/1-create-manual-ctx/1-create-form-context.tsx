@@ -5,6 +5,7 @@ import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { atomWithCallback } from "@/util-hooks";
 import { debounce } from "@/utils";
+import { parseForEditor } from "@/store/manifest";
 import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {
@@ -16,26 +17,26 @@ export namespace ManualFieldsState {
 
         const fields = metaForm.fields || [];
 
-        const chunks = ManualFieldConv.forAtoms(fields);
+        const editorData = parseForEditor(fields);
 
         function onChangeItem(updateName: string) {
-            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.ForAtoms }) {
+            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx }) {
                 onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
-        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.ForAtoms[] }) {
+        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[] }) {
             onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
-        const forAtoms: ManualFieldState.ForAtoms[] = ManualFieldConv.createAtoms(chunks, onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(editorData, onChangeItem);
 
-        const chunksAtom = atomWithCallback(forAtoms, onChangeOrder);
+        const chunksAtom = atomWithCallback(chunks, onChangeOrder);
 
         const ctx: MFormCtx = {
             chunksAtom: chunksAtom,
-            initialChunks: chunksToCompareString(forAtoms),
+            initialChunks: chunksToCompareString(chunks),
             selectedIdxStoreAtom: atom(0),
             onChangeItem,
             onChangeOrder,
@@ -45,7 +46,7 @@ export namespace ManualFieldsState {
     }
 }
 
-function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualFieldState.ForAtoms | ManualFieldState.ForAtoms[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
     if (!manualFormAtoms) {
         return;

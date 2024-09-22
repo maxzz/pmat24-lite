@@ -4,10 +4,10 @@ import { type ManualFieldState } from "../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { getKbdChunkValues, getPosChunkValues, getDlyChunkValues } from "./6-verify-state-access";
 
-export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): EditorDataForOne {
-    switch (scriptItem.type) {
+export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, get: Getter): EditorDataForOne {
+    switch (scriptItemCtx.type) {
         case "kbd": {
-            const { char, repeat, shift, ctrl, alt } = getKbdChunkValues(scriptItem, get);
+            const { char, repeat, shift, ctrl, alt } = getKbdChunkValues(scriptItemCtx, get);
             const rv: EditorDataForKbd = {
                 type: 'kbd',
                 char: char.data,
@@ -19,7 +19,7 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
             return rv;
         }
         case "pos": {
-            const { x, y, units, res } = getPosChunkValues(scriptItem, get);
+            const { x, y, units, res } = getPosChunkValues(scriptItemCtx, get);
             const rv: EditorDataForPos = {
                 type: 'pos',
                 x: +x.data,
@@ -30,7 +30,7 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
             return rv;
         }
         case "dly": {
-            const { n } = getDlyChunkValues(scriptItem, get);
+            const { n } = getDlyChunkValues(scriptItemCtx, get);
             const rv: EditorDataForDly = {
                 type: 'dly',
                 n: +n.data,
@@ -38,12 +38,10 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
             return rv;
         }
         case "fld": {
-            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(scriptItem.rowCtx, get);
-            // const editorValues: NormalField.ThisType = NormalFieldConv.forMani(fromAtomValues);
+            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(scriptItemCtx.rowCtx, get);
             const rv: EditorDataForFld = {
                 type: 'fld',
-                field: scriptItem.rowCtx.metaField,
-                // editField: editorValues,
+                field: scriptItemCtx.rowCtx.metaField,
                 editField: fromAtomValues,
             };
             return rv;
@@ -51,7 +49,7 @@ export function fromAtom(scriptItem: ManualFieldState.ForAtoms, get: Getter): Ed
     }
 }
 
-export function fromAtoms(scriptItems: ManualFieldState.ForAtoms[], get: Getter): EditorDataForOne[] {
+export function fromAtoms(scriptItems: ManualFieldState.Ctx[], get: Getter): EditorDataForOne[] {
     const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, get));
     return chunks;
 }

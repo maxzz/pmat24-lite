@@ -7,7 +7,7 @@ type EditorValues<T> = {
     [key in keyof T]: RowInputState;
 };
 
-export function getKbdChunkValues(atoms: ManualFieldState.KbdForAtoms, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
+export function getKbdChunkValues(atoms: ManualFieldState.CtxKbd, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
     const rv = {
         char: get(atoms.charAtom),
         repeat: get(atoms.repeatAtom),
@@ -18,7 +18,7 @@ export function getKbdChunkValues(atoms: ManualFieldState.KbdForAtoms, get: Gett
     return rv;
 }
 
-export function getPosChunkValues(atoms: ManualFieldState.PosForAtoms, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
+export function getPosChunkValues(atoms: ManualFieldState.CtxPos, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
     const rv = {
         x: get(atoms.xAtom),
         y: get(atoms.yAtom),
@@ -28,16 +28,16 @@ export function getPosChunkValues(atoms: ManualFieldState.PosForAtoms, get: Gett
     return rv;
 }
 
-export function getDlyChunkValues(atoms: ManualFieldState.DlyForAtoms, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
+export function getDlyChunkValues(atoms: ManualFieldState.CtxDly, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
     const rv = {
         n: get(atoms.nAtom),
     };
     return rv;
 }
 
-export type RowInputStateUuid = RowInputState & { uuid: number; chunk: ManualFieldState.ForAtoms; };
+export type RowInputStateUuid = RowInputState & { uuid: number; chunk: ManualFieldState.Ctx; };
 
-export function getChunkValuesForValidate(chunk: ManualFieldState.ForAtoms, get: Getter): RowInputStateUuid[] {
+export function getChunkValuesForValidate(chunk: ManualFieldState.Ctx, get: Getter): RowInputStateUuid[] {
     const rv: RowInputState[] = [];
     switch (chunk.type) {
         case "kbd": {
@@ -62,7 +62,7 @@ export function getChunkValuesForValidate(chunk: ManualFieldState.ForAtoms, get:
     return rv.map((item) => ({ ...item, uuid: chunk.uid5, chunk }));
 }
 
-export function getAllAtomValuesForValidate(chunks: ManualFieldState.ForAtoms[], get: Getter): RowInputStateUuid[] {
+export function getAllAtomValuesForValidate(chunks: ManualFieldState.Ctx[], get: Getter): RowInputStateUuid[] {
     const rv = chunks.map((chunk) => getChunkValuesForValidate(chunk, get));
     return rv.flat();
 }

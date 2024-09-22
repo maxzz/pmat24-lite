@@ -35,14 +35,14 @@ export function RowColumnIcon({ type, className = chunkIconClasses }: { type: Ch
     }
 }
 
-export function RowColumnDetails({ item }: { item: ManualFieldState.ForAtoms; }) {
-    switch (item.type) {
-        case 'kbd': return <DetailsKbd item={item} />;
-        case 'fld': return <DetailsFld item={item} />;
-        case 'dly': return <DetailsDly item={item} />;
-        case 'pos': return <DetailsPos item={item} />;
+export function RowColumnDetails({ ctx }: { ctx: ManualFieldState.Ctx; }) {
+    switch (ctx.type) {
+        case 'kbd': return <DetailsKbd item={ctx} />;
+        case 'fld': return <DetailsFld item={ctx} />;
+        case 'dly': return <DetailsDly item={ctx} />;
+        case 'pos': return <DetailsPos item={ctx} />;
         default: {
-            const really: never = item;
+            const really: never = ctx;
             return null;
         }
     }
