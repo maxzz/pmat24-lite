@@ -15,9 +15,10 @@ export namespace SubmitConvTypes {
         isSubmitTypeUndefined: boolean;     // Mani form options submittype was initially undefined
     };
 
+    export type SubmitForAtomsAtomized = Atomize<SubmitForAtoms>;
+
     export type SubmitAtoms = Prettify<
-        & Atomize<SubmitForAtoms>
-        & {
+        SubmitForAtomsAtomized & {
             isWeb: boolean;                 // is web form
             metaForm: Meta.Form;            // meta form from manifest
             fromFile: SubmitForAtoms;       // original state to compare with
