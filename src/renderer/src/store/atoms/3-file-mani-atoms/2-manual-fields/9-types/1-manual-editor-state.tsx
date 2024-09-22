@@ -7,7 +7,7 @@ export namespace ManualEditorTypes {
     
     export type Ctx = {
         chunksAtom: PrimitiveAtom<ManualFieldState.Ctx[]>;
-        initialChunks: string;              // initial chunks as concatenated string of uuids to compare with
+        initialChunks: string;                              // initial chunks as concatenated string of uuids to compare with
         selectedIdxStoreAtom: PrimitiveAtom<number>;
         onChangeItem: OnChangeValueWithUpdateName;
         onChangeOrder: OnValueChangeAny;

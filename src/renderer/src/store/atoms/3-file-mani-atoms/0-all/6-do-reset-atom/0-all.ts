@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { FileUs, FileUsAtom } from "@/store/store-types";
-import { ManiAtoms } from "../../9-types";
+import { type FileUsAtom } from "@/store/store-types";
+import { resetManifest } from "./1-reset-manifest";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
@@ -16,21 +16,9 @@ export const doResetOneAtom = atom(null,
             return;
         }
 
+        resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
+
         console.log('reset', fileUs.fname);
-
-        //TODO: collect all data from all atoms
-
-        // const loginFormAtoms = maniAtoms[0];
-        // const cpassFormAtoms = maniAtoms[1];
-
-        // if (loginFormAtoms) {
-        //     loginFormAtoms.fieldsAtoms;
-        //     loginFormAtoms.submitAtoms;
-        //     loginFormAtoms.policyAtoms;
-        //     loginFormAtoms.optionsAtoms;
-        // }
-
-        // Done
 
         fileUs.changesSet.clear();
     }
