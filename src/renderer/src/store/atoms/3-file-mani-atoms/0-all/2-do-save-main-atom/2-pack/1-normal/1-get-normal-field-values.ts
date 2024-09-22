@@ -11,10 +11,10 @@ export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifest
     const { get, set } = packParams;
 
     const rv = formCtx.rowsAtoms.map(
-        (rowAtoms: NormalField.RowAtoms) => {
-            const metaField = rowAtoms.metaField;
+        (rowCtx: NormalField.RowCtx) => {
+            const metaField = rowCtx.metaField;
 
-            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowAtoms, get, set);
+            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowCtx, get, set);
             const maniValues: EditorField.Members = NormalFieldConv.forMani(fromAtomValues);
 
             const rv: EditorFieldAndMeta = {

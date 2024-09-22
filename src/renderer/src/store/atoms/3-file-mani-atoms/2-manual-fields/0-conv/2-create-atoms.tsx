@@ -98,7 +98,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
 
             const fieldForAtoms: EditorField.ForAtoms = convFieldForEditor(chunk.field.mani);
             const fldAtoms: Atomize<EditorField.ForAtoms> = NormalFieldConv.createAtoms(fieldForAtoms, onScopedChange(`fld`));
-            const rowAtoms: NormalField.RowAtoms = {
+            const rowCtx: NormalField.RowCtx = {
                 ...fldAtoms,
                 metaField: chunk.field,
                 fromFile: fieldForAtoms,
@@ -110,8 +110,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 selectedAtom,
                 hasErrorAtom: atom(false),
                 original: chunk,
-
-                rowAtoms: rowAtoms,
+                rowCtx,
             };
             return rv;
         }

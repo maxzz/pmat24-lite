@@ -3,7 +3,7 @@ import { type EditorField, type Meta } from "@/store/manifest";
 
 export namespace NormalField {
 
-    export type RowAtoms = Prettify<
+    export type RowCtx = Prettify<
         Atomize<EditorField.ForAtoms>
         & {
             metaField: Meta.Field;              // all fields from original to combine with fields from atoms to create new field

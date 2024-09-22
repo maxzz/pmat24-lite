@@ -7,7 +7,7 @@ import { debounce } from '@/utils';
 
 export namespace NormalFieldsState {
 
-    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowAtoms[] {
+    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
@@ -19,9 +19,9 @@ export namespace NormalFieldsState {
         const rv = nonButtonFields.map(mapMetaFieldToFieldRowAtoms) || [];
         return rv;
 
-        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.RowAtoms {
-            
-            function onChange({ get, set }: { get: Getter, set: Setter }) {
+        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.RowCtx {
+
+            function onChange({ get, set }: { get: Getter, set: Setter; }) {
                 onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
             }
 
@@ -30,13 +30,14 @@ export namespace NormalFieldsState {
         }
     }
 
-    function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowAtoms {
+    function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowCtx {
         const forAtoms = convFieldForEditor(field.mani);
-        return {
+        const rv: NormalField.RowCtx = {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
         };
+        return rv;
     }
 }
 
@@ -46,10 +47,10 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
         return;
     }
 
-    const rowAtoms: NormalField.RowAtoms = nomalFormAtoms.rowsAtoms[fieldIdx];
+    const rowCtx: NormalField.RowCtx = nomalFormAtoms.rowsAtoms[fieldIdx];
 
-    const fromUi = NormalFieldConv.fromAtoms(rowAtoms, get, set);
-    const changed = !NormalFieldConv.areTheSame(fromUi, rowAtoms.fromFile);
+    const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
+    const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);
     const changes = setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
     /** /

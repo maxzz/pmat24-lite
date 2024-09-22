@@ -6,7 +6,7 @@ import { FieldTyp } from "pm-manifest";
 
 export function ManualFieldPolicy({ item }: { item: ManualFieldState.FldForAtoms; }) {
 
-    const { useItAtom, typeAtom, policiesAtom } = item.rowAtoms;
+    const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
 
     const isPassword = useAtomValue(typeAtom) === FieldTyp.psw;
     if (!isPassword) {

@@ -8,8 +8,8 @@ import { Column4_Value } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 
-export function FieldRow({ rowAtoms }: { rowAtoms: NormalField.RowAtoms; }) {
-    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = rowAtoms;
+export function FieldRow({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
+    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
 
     const setUseIt = useSetAtom(useItAtom);
