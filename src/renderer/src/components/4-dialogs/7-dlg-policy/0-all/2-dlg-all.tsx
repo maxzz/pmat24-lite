@@ -26,6 +26,8 @@ export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyE
 
     const dlgUiAtoms = useMemo(
         () => {
+            console.log('%cDlg. useMemo to PolicyEditorDlg', 'color: #ffa200', { policies });
+            
             function onChange({ get, set }) {
                 onChangeWithScopeDebounced(dlgUiAtoms, get, set);
             }
