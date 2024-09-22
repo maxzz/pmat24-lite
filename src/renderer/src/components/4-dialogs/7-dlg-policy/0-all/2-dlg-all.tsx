@@ -21,7 +21,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
     const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
     function closeWithOk(byOkButton: boolean) {
-        doClosePolicyDlg({ dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
+        doClosePolicyDlg({ dlgUiCtx: dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton });
     }
 
     const dlgUiAtoms = useMemo(
@@ -35,7 +35,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
 
     useEffect(
         () => {
-            doUpdateExplanation({ dlgUiAtoms });
+            doUpdateExplanation({ dlgUiCtx: dlgUiAtoms });
         }, [dlgUiAtoms]
     );
 
@@ -49,7 +49,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
                 withScroll
                 noClose
             >
-                <PolicyEditorBody dlgUiAtoms={dlgUiAtoms} doCloseWithOk={closeWithOk} />
+                <PolicyEditorBody dlgUiCtx={dlgUiAtoms} doCloseWithOk={closeWithOk} />
                 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>

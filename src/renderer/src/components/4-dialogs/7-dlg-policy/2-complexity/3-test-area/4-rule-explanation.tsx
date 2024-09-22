@@ -12,9 +12,9 @@ export function ErrorInfo({ errorText, className, ...rest }: { errorText: string
     );
 }
 
-export function RuleExplanation({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
-    const explanation = useAtomValue(dlgUiAtoms.explanationAtom);
-    const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
+export function RuleExplanation({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+    const explanation = useAtomValue(dlgUiCtx.explanationAtom);
+    const errorText = useAtomValue(dlgUiCtx.errorTextAtom);
     return (
         <div className="mt-2">
             {explanation && (<>

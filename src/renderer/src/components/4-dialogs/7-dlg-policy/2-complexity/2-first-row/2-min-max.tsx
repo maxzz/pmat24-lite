@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
 import { type PolicyDlgTypes, updateExplanationAtom } from "../../0-all";
 import { InputTooltipShell, OptionInput } from "@/ui";
@@ -13,9 +13,9 @@ function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { e
     </>);
 }
 
-export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const updateExplanation = useSetAtom(updateExplanationAtom);
-    const onValueChange = () => updateExplanation({ dlgUiAtoms });
+    const onValueChange = () => updateExplanation({ dlgUiCtx: dlgUiCtx });
     return (
         <div className="text-xs space-y-1">
             <div className="">Password length</div>
@@ -25,10 +25,10 @@ export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.Policy
                     min
                 </div>
 
-                <InputTooltipShell stateAtom={dlgUiAtoms.minLenAtom} Trigger={MinMaxTrigger}>
+                <InputTooltipShell stateAtom={dlgUiCtx.minLenAtom} Trigger={MinMaxTrigger}>
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
-                        stateAtom={dlgUiAtoms.minLenAtom}
+                        stateAtom={dlgUiCtx.minLenAtom}
                         onValueChange={onValueChange}
                     />
                 </InputTooltipShell>
@@ -37,10 +37,10 @@ export function MinMaxInputs({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.Policy
                     max
                 </div>
 
-                <InputTooltipShell stateAtom={dlgUiAtoms.maxLenAtom} Trigger={MinMaxTrigger}>
+                <InputTooltipShell stateAtom={dlgUiCtx.maxLenAtom} Trigger={MinMaxTrigger}>
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
-                        stateAtom={dlgUiAtoms.maxLenAtom}
+                        stateAtom={dlgUiCtx.maxLenAtom}
                         onValueChange={onValueChange}
                     />
                 </InputTooltipShell>

@@ -9,13 +9,13 @@ import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 import { ButtonErrorInfo } from "../6-error-info";
 
-function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
-    const [custom, setCustom] = useAtom(dlgUiAtoms.customAtom);
+    const [custom, setCustom] = useAtom(dlgUiCtx.customAtom);
     const updateExplanation = useSetAtom(updateExplanationAtom);
 
     function onChange(value: string) {
-        updateExplanation({ dlgUiAtoms, custom: value });
+        updateExplanation({ dlgUiCtx: dlgUiCtx, custom: value });
         setCustom(value);
     }
 
@@ -29,8 +29,8 @@ function CustomRuleInput({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAt
     );
 }
 
-export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
-    const isCustom = useAtomValue(dlgUiAtoms.isCustomAtom);
+export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+    const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
     return (
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
@@ -40,11 +40,11 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.P
                     </div>
 
                     <div className={classNames("relative h-8 flex items-center justify-between space-x-2")}>
-                        <CustomRuleInput dlgUiAtoms={dlgUiAtoms} />
+                        <CustomRuleInput dlgUiCtx={dlgUiCtx} />
 
                         <div className="absolute right-1 flex items-center gap-1">
-                            <ButtonErrorInfo dlgUiAtoms={dlgUiAtoms} />
-                            <ButtonMenuAdd dlgUiAtoms={dlgUiAtoms} />
+                            <ButtonErrorInfo dlgUiCtx={dlgUiCtx} />
+                            <ButtonMenuAdd dlgUiCtx={dlgUiCtx} />
                             <ButtonRulesHelp />
                             <ButtonTestArea />
                         </div>
@@ -54,7 +54,7 @@ export function CustomRuleSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.P
 
             {isCustom && (
                 <AccordionSingle>
-                    <TestAreaBody dlgUiAtoms={dlgUiAtoms} />
+                    <TestAreaBody dlgUiCtx={dlgUiCtx} />
                 </AccordionSingle>
             )}
         </div>

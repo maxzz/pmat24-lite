@@ -29,7 +29,7 @@ export namespace PolicyDlgTypes {
 
     export type ForAtomsAtomized = Atomize<ForAtoms>;
 
-    export type PolicyUiAtoms = Prettify<
+    export type PolicyUiCtx = Prettify<
         ForAtomsAtomized & {
             original: Mani.FieldPolicy;     // original state to allow on/off checkbox
             fromFile: ForAtoms;             // original state to compare with

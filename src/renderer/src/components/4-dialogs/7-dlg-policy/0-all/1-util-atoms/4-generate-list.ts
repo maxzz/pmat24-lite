@@ -12,8 +12,8 @@ const _generateListAtom = atom<GenerateListItem[]>([]);
 
 export const generateListAtom = atom(
     (get) => get(_generateListAtom),
-    (get, set, { dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) => {
-        const { parser, customAtom } = dlgUiAtoms;
+    (get, set, { dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) => {
+        const { parser, customAtom } = dlgUiCtx;
 
         const custom = get(customAtom);
         if (!custom) {

@@ -27,16 +27,16 @@ function MenuItem({ label, ...rest }: { label: string; } & DropdownMenuItemProps
     );
 }
 
-export function ButtonMenuAdd({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+export function ButtonMenuAdd({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
-    const setCustom = useSetAtom(dlgUiAtoms.customAtom);
+    const setCustom = useSetAtom(dlgUiCtx.customAtom);
     const updateExplanation = useSetAtom(updateExplanationAtom);
 
     function applyRule(idx: number) {
         setCustom((prev) => {
             const item = menuItems[idx];
             const custom = item.action ? `${prev}${item.action}` : `(${prev})`;
-            updateExplanation({ dlgUiAtoms, custom });
+            updateExplanation({ dlgUiCtx: dlgUiCtx, custom });
             return custom;
         });
     }

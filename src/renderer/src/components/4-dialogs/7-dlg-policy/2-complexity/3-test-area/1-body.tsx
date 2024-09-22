@@ -3,7 +3,7 @@ import { RuleExplanation } from "./4-rule-explanation";
 import { InputWithCounter } from "./2-input-with-counter";
 import { ButtonGenerate } from "./3-button-generate";
 
-export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
         <div className="relative mt-4 px-4 pt-3 pb-1 border-border border rounded flex flex-col">
 
@@ -13,11 +13,11 @@ export function TestAreaBody({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.Policy
 
             <div className="mt-4">Test password</div>
             <div className="h-8 flex items-center space-x-2">
-                <InputWithCounter dlgUiAtoms={dlgUiAtoms} />
-                <ButtonGenerate dlgUiAtoms={dlgUiAtoms} />
+                <InputWithCounter dlgUiCtx={dlgUiCtx} />
+                <ButtonGenerate dlgUiCtx={dlgUiCtx} />
             </div>
 
-            <RuleExplanation dlgUiAtoms={dlgUiAtoms} />
+            <RuleExplanation dlgUiCtx={dlgUiCtx} />
         </div>
     );
 }

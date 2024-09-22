@@ -1,27 +1,27 @@
 import { type Atomize } from '@/util-hooks';
 import { type Meta } from "@/store/manifest";
 
-export namespace SubmitConvTypes {
+export namespace SubmitFields {
 
     export type ButtonNameItem = {
         name: string;
         metaField: Meta.Field | null;
     };
 
-    export type SubmitForAtoms = {
+    export type ForAtoms = {
         buttonNameItems: ButtonNameItem[];
         selected: number;                   // index of selected button
         doSubmit: boolean;
         isSubmitTypeUndefined: boolean;     // Mani form options submittype was initially undefined
     };
 
-    export type SubmitForAtomsAtomized = Atomize<SubmitForAtoms>;
+    export type ForAtomsAtomized = Atomize<ForAtoms>;
 
     export type SubmitAtoms = Prettify<
-        SubmitForAtomsAtomized & {
+        ForAtomsAtomized & {
             isWeb: boolean;                 // is web form
             metaForm: Meta.Form;            // meta form from manifest
-            fromFile: SubmitForAtoms;       // original state to compare with
+            fromFile: ForAtoms;             // original state to compare with
         }
     >;
 }

@@ -6,8 +6,8 @@ import { verifyAtom } from "./2-verify-psw";
 import { checkBoundsRange, checkMinMax } from "./8-check-fns";
 
 export const updateExplanationAtom = atom(null,
-    (get, set, { dlgUiAtoms, custom }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; custom?: string | undefined; }) => {
-        const { customAtom, parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiAtoms;
+    (get, set, { dlgUiCtx, custom }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; custom?: string | undefined; }) => {
+        const { customAtom, parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiCtx;
         try {
             set(testVerifiedAtom, '');
 
@@ -31,7 +31,7 @@ export const updateExplanationAtom = atom(null,
             const explanation = final.join('\n');
             set(explanationAtom, explanation);
 
-            set(verifyAtom, { dlgUiAtoms });
+            set(verifyAtom, { dlgUiCtx: dlgUiCtx });
 
             if (custom) {
                 const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);

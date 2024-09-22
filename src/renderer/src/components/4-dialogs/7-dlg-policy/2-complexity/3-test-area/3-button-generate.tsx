@@ -8,7 +8,7 @@ import { appSettings } from "@/store";
 
 const localButtonClasses = "active:scale-[.97]";
 
-export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const openGeneratedListAtom = useState(() => atom(false))[0];
     const generateList = useSetAtom(generateListAtom);
     const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
@@ -20,10 +20,10 @@ export function ButtonGenerate({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.Poli
                 className={localButtonClasses} variant="outline" size="sm" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`}
                 onClick={(e) => {
                     if (e.ctrlKey) {
-                        generateList({ dlgUiAtoms });
+                        generateList({ dlgUiCtx: dlgUiCtx });
                         setOpenGeneratedList(true);
                     } else {
-                        doGenerate({ dlgUiAtoms });
+                        doGenerate({ dlgUiCtx: dlgUiCtx });
                     }
                 }}
             >

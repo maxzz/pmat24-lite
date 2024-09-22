@@ -4,8 +4,8 @@ import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { toast } from "sonner";
 import { updateExplanationAtom } from "./1-util-atoms";
 
-type DoSetResultPoliciesAtomProps = {
-    dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms;
+type DoClosePolicyDlgAtomCtx = {
+    dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
     openAtom: PrimitiveAtom<boolean>;
     toastIdAtom: PrimitiveAtom<string | number | undefined>;
@@ -13,10 +13,10 @@ type DoSetResultPoliciesAtomProps = {
 };
 
 export const doClosePolicyDlgAtom = atom(null,
-    (get: Getter, set: Setter, ctx: DoSetResultPoliciesAtomProps) => {
-        const { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton } = ctx;
+    (get: Getter, set: Setter, ctx: DoClosePolicyDlgAtomCtx) => {
+        const { dlgUiCtx, policiesAtom, openAtom, toastIdAtom, byOkButton } = ctx;
 
-        if (!dlgUiAtoms.changed) {
+        if (!dlgUiCtx.changed) {
             set(openAtom, false);
             return;
         }
@@ -27,13 +27,13 @@ export const doClosePolicyDlgAtom = atom(null,
             return;
         }
 
-        const state = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+        const state = PolicyDlgConv.fromAtoms(dlgUiCtx, get, set);
 
         const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
             const msg = 'Custom rule is empty';
             const toastId = toast.error(msg);
-            set(dlgUiAtoms.errorTextAtom, msg);
+            set(dlgUiCtx.errorTextAtom, msg);
             set(toastIdAtom, toastId);
             return;
         }
@@ -55,26 +55,26 @@ export const doClosePolicyDlgAtom = atom(null,
         /**/
         const str1 = JSON.stringify(state, null, 2);
         const str2 = JSON.stringify(policyStrings, null, 2);
-        const str3 = dlgUiAtoms.changed ? `\nstate ${str1}\nfile ${str2}` : '';
-        console.log(`%cDlg. changed=${dlgUiAtoms.changed}%c${str3}`, 'background-color: purple; color: bisque', 'background-color: #282828; color: white');
+        const str3 = dlgUiCtx.changed ? `\nstate ${str1}\nfile ${str2}` : '';
+        console.log(`%cDlg. changed=${dlgUiCtx.changed}%c${str3}`, 'background-color: purple; color: bisque', 'background-color: #282828; color: white');
         /**/
 
         set(openAtom, false);
     }
 );
 
-function resetOnCancelClose({ dlgUiAtoms, policiesAtom, toastIdAtom }: DoSetResultPoliciesAtomProps, get: Getter, set: Setter) {
+function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePolicyDlgAtomCtx, get: Getter, set: Setter) {
     const toastId = get(toastIdAtom);
     toastId && toast.dismiss(toastId);
 
-    set(policiesAtom, dlgUiAtoms.original);
+    set(policiesAtom, dlgUiCtx.original);
 
     // Reset to original values local atoms
-    const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
+    const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiCtx.original);
     values.errorText = '';
-    PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
+    PolicyDlgConv.valuesToAtoms(values, dlgUiCtx, get, set);
 
-    set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom });
+    set(updateExplanationAtom, { dlgUiCtx: dlgUiCtx, custom: values.custom });
 
-    dlgUiAtoms.changed = false;
+    dlgUiCtx.changed = false;
 }

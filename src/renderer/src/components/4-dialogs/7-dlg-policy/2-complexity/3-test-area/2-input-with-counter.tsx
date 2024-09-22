@@ -5,15 +5,15 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 
 const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
 
-export function InputWithCounter({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
-    const [testPassword, setTestPassword] = useAtom(dlgUiAtoms.testPasswordAtom);
-    const testVerified = useAtomValue(dlgUiAtoms.testVerifiedAtom);
+export function InputWithCounter({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+    const [testPassword, setTestPassword] = useAtom(dlgUiCtx.testPasswordAtom);
+    const testVerified = useAtomValue(dlgUiCtx.testVerifiedAtom);
     const doVerify = useSetAtom(verifyAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setTestPassword(value);
-        doVerify({ dlgUiAtoms });
+        doVerify({ dlgUiCtx: dlgUiCtx });
     }
 
     return (

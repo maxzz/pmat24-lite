@@ -4,11 +4,11 @@ import { Dropdown } from "../../9-constrols";
 import { Label } from "@/ui";
 import { MinMaxInputs } from "./2-min-max";
 
-function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
-    const setIsCustom = useSetAtom(dlgUiAtoms.isCustomAtom);
-    const [selected, setSelected] = useAtom(dlgUiAtoms.constrainSetAtom);
-    const setSelected2 = useSetAtom(dlgUiAtoms.constrainSet0Atom);
+    const setIsCustom = useSetAtom(dlgUiCtx.isCustomAtom);
+    const [selected, setSelected] = useAtom(dlgUiCtx.constrainSetAtom);
+    const setSelected2 = useSetAtom(dlgUiCtx.constrainSet0Atom);
 
     function onValueChange(value: string) {
         const isCustom = +value === PolicyDlgConv.chSetRuleNames.length - 1;
@@ -31,11 +31,13 @@ function RuleSelect({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; 
     );
 }
 
-export function FirstRowSection({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
+export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
         <div className="flex items-center justify-between gap-4">
-            <RuleSelect dlgUiAtoms={dlgUiAtoms} />
-            <MinMaxInputs dlgUiAtoms={dlgUiAtoms} />
+
+            <RuleSelect dlgUiCtx={dlgUiCtx} />
+            <MinMaxInputs dlgUiCtx={dlgUiCtx} />
+
         </div>
     );
 }

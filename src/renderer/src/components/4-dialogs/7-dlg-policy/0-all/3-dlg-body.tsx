@@ -9,14 +9,14 @@ import { SectionGenerationBy } from "../4-generate-by";
 import { classNames } from "@/utils";
 
 type PolicyEditorBodyProps = {
-    dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms;
+    dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
     doCloseWithOk: (ok: boolean) => void;
 };
 
 const sectionClasses = "text-sm font-bold border-gray-500 border-b";
 
-export function PolicyEditorBody({ dlgUiAtoms, doCloseWithOk }: PolicyEditorBodyProps) {
-    const [enabled, setEnabled] = useAtom(dlgUiAtoms.enabledAtom);
+export function PolicyEditorBody({ dlgUiCtx, doCloseWithOk }: PolicyEditorBodyProps) {
+    const [enabled, setEnabled] = useAtom(dlgUiCtx.enabledAtom);
     return (<>
         <DialogHeader
             header="Password Policy Editor"
@@ -34,7 +34,7 @@ export function PolicyEditorBody({ dlgUiAtoms, doCloseWithOk }: PolicyEditorBody
                 <h2 className={sectionClasses}>
                     Password complexity
                 </h2>
-                <SectionRuleTypes dlgUiAtoms={dlgUiAtoms} />
+                <SectionRuleTypes dlgUiCtx={dlgUiCtx} />
             </div>
 
             {/* History */}
@@ -42,7 +42,7 @@ export function PolicyEditorBody({ dlgUiAtoms, doCloseWithOk }: PolicyEditorBody
                 <h2 className={sectionClasses}>
                     Password history restrictions
                 </h2>
-                <SectionHistory dlgUiAtoms={dlgUiAtoms} />
+                <SectionHistory dlgUiCtx={dlgUiCtx} />
             </div>
 
             {/* Generation */}
@@ -50,7 +50,7 @@ export function PolicyEditorBody({ dlgUiAtoms, doCloseWithOk }: PolicyEditorBody
                 <h2 className={sectionClasses}>
                     Password generation
                 </h2>
-                <SectionGenerationBy dlgUiAtoms={dlgUiAtoms} />
+                <SectionGenerationBy dlgUiCtx={dlgUiCtx} />
             </div>
         </div>
 

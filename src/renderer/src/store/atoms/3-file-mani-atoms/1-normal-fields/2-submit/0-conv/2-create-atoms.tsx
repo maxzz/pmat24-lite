@@ -1,10 +1,10 @@
 import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/util-hooks';
-import { type SubmitConvTypes } from "./9-types";
+import { type SubmitFields } from "./9-types";
 
-export function createAtoms(initialState: SubmitConvTypes.SubmitForAtoms, onChange: OnValueChangeAny): Atomize<SubmitConvTypes.SubmitForAtoms> {
+export function createAtoms(initialState: SubmitFields.ForAtoms, onChange: OnValueChangeAny): Atomize<SubmitFields.ForAtoms> {
     const { buttonNameItems, selected, doSubmit, isSubmitTypeUndefined } = initialState;
 
-    const rv: Atomize<SubmitConvTypes.SubmitForAtoms> = {
+    const rv: Atomize<SubmitFields.ForAtoms> = {
         buttonNameItemsAtom: atomWithCallback(buttonNameItems, onChange),
         selectedAtom: atomWithCallback(selected, onChange),
         doSubmitAtom: atomWithCallback(doSubmit, onChange),

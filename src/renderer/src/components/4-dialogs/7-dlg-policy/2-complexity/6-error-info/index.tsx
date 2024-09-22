@@ -21,8 +21,8 @@ function ErrorInfoTrigger() {
     );
 }
 
-export function ButtonErrorInfo({ dlgUiAtoms }: { dlgUiAtoms: PolicyDlgTypes.PolicyUiAtoms; }) {
-    const errorText = useAtomValue(dlgUiAtoms.errorTextAtom);
+export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+    const errorText = useAtomValue(dlgUiCtx.errorTextAtom);
     return (
         <Popover>
             {errorText && (

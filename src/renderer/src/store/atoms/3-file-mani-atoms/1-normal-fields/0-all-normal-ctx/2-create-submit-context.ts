@@ -1,10 +1,10 @@
 import { type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
-import { type SubmitConvTypes, SubmitConv } from "../2-submit/0-conv";
+import { SubmitConv, type SubmitFields } from "../2-submit/0-conv";
 import { debounce } from "@/utils";
 
 export namespace NormalSubmitState {
 
-    export type Atoms = SubmitConvTypes.SubmitAtoms;
+    export type Atoms = SubmitFields.SubmitAtoms;
 
     export function createSubmitCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
 
