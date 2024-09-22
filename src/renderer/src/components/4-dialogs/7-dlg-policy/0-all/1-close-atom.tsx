@@ -12,25 +12,9 @@ type DoSetResultPoliciesAtomProps = {
     byOkButton: boolean;
 };
 
-function resetOnCancelClose(get: Getter, set: Setter, { dlgUiAtoms, policiesAtom, toastIdAtom }: DoSetResultPoliciesAtomProps) {
-    const toastId = get(toastIdAtom);
-    toastId && toast.dismiss(toastId);
-
-    set(policiesAtom, dlgUiAtoms.original);
-
-    // Reset to original values local atoms
-    const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
-    values.errorText = '';
-    PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
-
-    set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom });
-
-    dlgUiAtoms.changed = false;
-}
-
 export const doClosePolicyDlgAtom = atom(null,
-    (get: Getter, set: Setter, props: DoSetResultPoliciesAtomProps) => {
-        const { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton } = props;
+    (get: Getter, set: Setter, ctx: DoSetResultPoliciesAtomProps) => {
+        const { dlgUiAtoms, policiesAtom, openAtom, toastIdAtom, byOkButton } = ctx;
 
         if (!dlgUiAtoms.changed) {
             set(openAtom, false);
@@ -38,7 +22,7 @@ export const doClosePolicyDlgAtom = atom(null,
         }
 
         if (!byOkButton) {
-            resetOnCancelClose(get, set, props);
+            resetOnCancelClose(ctx, get, set);
             set(openAtom, false);
             return;
         }
@@ -78,3 +62,19 @@ export const doClosePolicyDlgAtom = atom(null,
         set(openAtom, false);
     }
 );
+
+function resetOnCancelClose({ dlgUiAtoms, policiesAtom, toastIdAtom }: DoSetResultPoliciesAtomProps, get: Getter, set: Setter) {
+    const toastId = get(toastIdAtom);
+    toastId && toast.dismiss(toastId);
+
+    set(policiesAtom, dlgUiAtoms.original);
+
+    // Reset to original values local atoms
+    const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiAtoms.original);
+    values.errorText = '';
+    PolicyDlgConv.valuesToAtoms(values, dlgUiAtoms, get, set);
+
+    set(updateExplanationAtom, { dlgUiAtoms, custom: values.custom });
+
+    dlgUiAtoms.changed = false;
+}
