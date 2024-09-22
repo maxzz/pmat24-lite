@@ -7,7 +7,7 @@ export function getNormalSubmitValues(formCtx: NFormCtx, packParams: PackManifes
 
     // 1. Submits
 
-    const submits = SubmitConv.fromAtoms(formCtx.submitAtoms, get, set);
+    const submits = SubmitConv.fromAtoms(formCtx.submitCtx, get, set);
 
     //console.log('submits', JSON.stringify(submits.buttonNameItems.map( (submit) => ({ name: submit.name, uuid: submit.metaField?.uuid, }) ), null, 2));
 

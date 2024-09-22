@@ -10,7 +10,7 @@ export type EditorFieldAndMeta = {
 export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifestDataParams): EditorFieldAndMeta[] {
     const { get, set } = packParams;
 
-    const rv = formCtx.rowsAtoms.map(
+    const rv = formCtx.rowCtxs.map(
         (rowCtx: NormalField.RowCtx) => {
             const metaField = rowCtx.metaField;
 

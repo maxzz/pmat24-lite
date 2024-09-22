@@ -59,7 +59,7 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
     let selected = submitsValues.selected;
     let doFormSubmit: SUBMIT | undefined;
 
-    if (formCtx.submitAtoms.isWeb) { //NOTE: for web forms we don't clean up useIt for submit and buttons. They are ignore by browser extension.
+    if (formCtx.submitCtx.isWeb) { //NOTE: for web forms we don't clean up useIt for submit and buttons. They are ignore by browser extension.
         selected = -1;
         doFormSubmit = !!selected ? SUBMIT.dosumbit : SUBMIT.nosumbit;
     }

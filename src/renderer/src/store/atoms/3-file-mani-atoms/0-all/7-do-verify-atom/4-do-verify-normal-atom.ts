@@ -10,7 +10,7 @@ export const doVerifyNormalFormAtom = atom(null,
 
         if (login?.normal) {
             let totalUseIt = 0;
-            login.normal.rowsAtoms.forEach(
+            login.normal.rowCtxs.forEach(
                 (fieldAtoms, idx) => {
                     const useIt = get(fieldAtoms.useItAtom);
                     if (useIt) {
@@ -26,7 +26,7 @@ export const doVerifyNormalFormAtom = atom(null,
 
         if (cpass?.normal) {
             let totalUseIt = 0;
-            cpass.normal.rowsAtoms.forEach(
+            cpass.normal.rowCtxs.forEach(
                 (fieldAtoms, idx) => {
                     const useIt = get(fieldAtoms.useItAtom);
                     if (useIt) {

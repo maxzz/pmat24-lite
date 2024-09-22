@@ -14,11 +14,11 @@ export type FileUsCtx = {
 //
 
 export type NFormCtx = {
-    rowsAtoms: NormalField.RowCtx[];
-    submitAtoms: SubmitFieldTypes.Ctx;
+    rowCtxs: NormalField.RowCtx[];
+    submitCtx: SubmitFieldTypes.Ctx;
 };
 
-export type MFormCtx = ManualEditorState.ScriptAtoms;
+export type MFormCtx = ManualEditorState.Ctx;
 
 //
 

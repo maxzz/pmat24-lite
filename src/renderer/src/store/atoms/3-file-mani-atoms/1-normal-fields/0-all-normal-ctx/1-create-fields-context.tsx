@@ -47,7 +47,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
         return;
     }
 
-    const rowCtx: NormalField.RowCtx = nomalFormAtoms.rowsAtoms[fieldIdx];
+    const rowCtx: NormalField.RowCtx = nomalFormAtoms.rowCtxs[fieldIdx];
 
     const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);

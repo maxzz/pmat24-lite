@@ -31,7 +31,7 @@ function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
         return;
     }
 
-    const atoms: SubmitFieldTypes.Ctx = nomalFormAtoms.submitAtoms;
+    const atoms: SubmitFieldTypes.Ctx = nomalFormAtoms.submitCtx;
     const fromUi = SubmitConv.fromAtoms(atoms, get, set);
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
 

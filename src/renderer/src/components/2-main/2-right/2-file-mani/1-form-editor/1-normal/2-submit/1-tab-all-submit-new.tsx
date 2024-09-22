@@ -4,8 +4,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 function SubmitSelector({ ctx }: { ctx: NFormContextProps; }) {
 
-    const buttonNameItems = useAtomValue(ctx.formAtoms.normal.submitAtoms.buttonNameItemsAtom);
-    const [selected, setSelected] = useAtom(ctx.formAtoms.normal.submitAtoms.selectedAtom);
+    const buttonNameItems = useAtomValue(ctx.formAtoms.normal.submitCtx.buttonNameItemsAtom);
+    const [selected, setSelected] = useAtom(ctx.formAtoms.normal.submitCtx.selectedAtom);
 
     return (
         <Select value={selected.toString()} onValueChange={(value) => setSelected(+value)}>
@@ -29,7 +29,7 @@ function SubmitSelector({ ctx }: { ctx: NFormContextProps; }) {
 }
 
 function BodyWin32({ ctx }: { ctx: NFormContextProps; }) {
-    const selected = useAtomValue(ctx.formAtoms.normal.submitAtoms.selectedAtom) !== 0;
+    const selected = useAtomValue(ctx.formAtoms.normal.submitCtx.selectedAtom) !== 0;
     return (<>
         After filling in the form fields,
         {selected ? " the" : ""}
@@ -39,7 +39,7 @@ function BodyWin32({ ctx }: { ctx: NFormContextProps; }) {
 }
 
 export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
-    const isWeb = ctx.formAtoms.normal.submitAtoms.isWeb;
+    const isWeb = ctx.formAtoms.normal.submitCtx.isWeb;
     return (
         <div className="p-1 flex items-center gap-1">
             {isWeb
