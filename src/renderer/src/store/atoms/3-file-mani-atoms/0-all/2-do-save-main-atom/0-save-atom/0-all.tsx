@@ -19,7 +19,7 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        //
+        // Now validation done
 
         const rvManifest: Partial<Mani.Manifest> = {
             forms: [],
@@ -33,23 +33,22 @@ export const doSaveOneAtom = atom(
         console.log('saved', fileUs.fname);
 
         // fileUs.changesSet.clear();
-
-        //TODO: validate
-        //TODO: check if we can save from web or electron
-        //TODO: collect all data from all atoms
-        //TODO: each file may have no filename
-        // const loginFormAtoms = maniAtoms[0];
-        // const cpassFormAtoms = maniAtoms[1];
-        // if (loginFormAtoms) {
-        //     loginFormAtoms.fieldsAtoms;
-        //     loginFormAtoms.submitAtoms;
-        //     loginFormAtoms.policyAtoms;
-        //     loginFormAtoms.optionsAtoms;
-        // }
-
     }
 );
 
-//TODO: submit editor
+//TODO: validate - done
+//TODO: check if we can save from web or electron
+//TODO: collect all data from all atoms - done
+//TODO: each file may have no filename
+
+//TODO: add validation - done
+//TODO: submit editor - done
 //TODO: policy editor as part of fields editor - done
-//TODO: add validation
+
+
+
+//TODO: update values from file after successful save
+//TODO: update values from file after successful save
+//TODO: update values from file after successful save
+//TODO: update values from file after successful save
+//TODO: update values from file after successful save
