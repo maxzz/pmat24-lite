@@ -12,6 +12,6 @@ export function resetFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, for
         formIdx,
     };
 
-    const a = OptionsConv.forAtoms(fileUsCtx);
-
+    const values = OptionsConv.forAtoms(fileUsCtx);
+    OptionsConv.valuesToAtoms(values, optionsAtoms, get, set);
 }

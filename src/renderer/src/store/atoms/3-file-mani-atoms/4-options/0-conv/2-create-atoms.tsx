@@ -1,8 +1,7 @@
+import { type Getter, type Setter } from 'jotai';
 import { atomWithCallback } from '@/util-hooks';
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, validateManifestName, validateNumber } from "@/ui";
 import { type ManiOptions } from "./9-types";
-import { Getter, Setter } from 'jotai';
-import { a } from '@react-spring/web';
 
 export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange: OnChangeValueWithUpdateName): ManiOptions.FormOptionsAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
@@ -59,10 +58,6 @@ export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange:
     return rv;
 }
 
-function boo(value: boolean): string {
-    return value ? '1' : '';
-}
-
 export function valuesToAtoms(values: ManiOptions.OptionsForAtoms, atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter) {
     set(atoms.p1General.nameAtom, (v) => ({ ...v, data: values.p1General.name }));
     set(atoms.p1General.descAtom, (v) => ({ ...v, data: values.p1General.desc }));
@@ -101,4 +96,8 @@ export function valuesToAtoms(values: ManiOptions.OptionsForAtoms, atoms: ManiOp
 
     set(atoms.p5Icon.idAtom, (v) => ({ ...v, data: values.p5Icon.id }));
     set(atoms.p5Icon.locAtom, (v) => ({ ...v, data: values.p5Icon.loc }));
+}
+
+function boo(value: boolean): string {
+    return value ? '1' : '';
 }
