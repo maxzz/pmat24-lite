@@ -7,6 +7,9 @@ export function packManifest(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
+    packDescriptor(packParams);
+    return;
+
     packForm(loginFormAtoms, FormIdx.login, packParams);
     packForm(cpassFormAtoms, FormIdx.cpass, packParams);
 }
@@ -14,8 +17,6 @@ export function packManifest(packParams: PackManifestDataParams) {
 function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {
     if (form) {
         const { newMani } = packParams;
-
-        packDescriptor(packParams);
 
         const { detection, options } = packFormOptions(form.options, packParams);
 
