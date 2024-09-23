@@ -1,20 +1,17 @@
 import { type ResetManifestCtx } from "./9-types";
-import { type ManiOptions } from "../../4-options";
+import { type ManiOptions, OptionsConv } from "../../4-options";
+import { FileUsCtx } from "../../9-types";
+import { FormIdx } from "@/store/manifest";
 
-export function resetFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, ctx: ResetManifestCtx) {
+export function resetFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, formIdx: FormIdx, ctx: ResetManifestCtx) {
     const { get, set } = ctx;
 
-    // const { fields, submittype } = formCtx;
+    const fileUsCtx: FileUsCtx = {
+        fileUs: ctx.fileUs,
+        fileUsAtom: ctx.fileUsAtom,
+        formIdx,
+    };
 
-    // const newFields = fields.map((field) => {
-    //     return {
-    //         ...field,
-    //         value: field.default,
-    //     };
-    // });
+    const a = OptionsConv.forAtoms(fileUsCtx);
 
-    // return {
-    //     newFields,
-    //     submittype,
-    // };
 }

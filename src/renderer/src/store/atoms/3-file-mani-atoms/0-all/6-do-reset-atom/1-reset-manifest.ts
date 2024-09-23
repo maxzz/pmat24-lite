@@ -15,7 +15,7 @@ export function resetManifest(ctx: ResetManifestCtx) {
 
 function resetForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, ctx: ResetManifestCtx) {
     if (form) {
-        resetFormOptions(form.options, ctx);
+        resetFormOptions(form.options, formIdx, ctx);
 
         if (form.normal) {
             resetNormalFieldsAndSubmit(form.normal, formIdx, ctx);
