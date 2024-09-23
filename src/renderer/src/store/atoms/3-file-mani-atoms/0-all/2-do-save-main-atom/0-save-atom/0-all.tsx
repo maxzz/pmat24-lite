@@ -21,17 +21,19 @@ export const doSaveOneAtom = atom(
 
         // Now validation done
 
-        const rvManifest: Partial<Mani.Manifest> = {
+        const newMani: Partial<Mani.Manifest> = {
             forms: [],
         };
 
-        packManifest({ fileUs, fileUsAtom, maniAtoms, newMani: rvManifest, get, set });
+        packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
         //TODO: The rest: the links between forms, etc.
         
         //TODO: newFilename
         //TODO: each file may have no filename
 
+        console.log('saving', JSON.stringify(newMani, null, 2));
+        
         console.log('saved', fileUs.fname);
 
         // Do this only after successful save:
