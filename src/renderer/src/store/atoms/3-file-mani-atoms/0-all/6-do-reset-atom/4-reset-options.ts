@@ -14,4 +14,8 @@ export function resetFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, for
 
     const values = OptionsConv.forAtoms(fileUsCtx);
     OptionsConv.valuesToAtoms(values, optionsAtoms, get, set);
+
+    if (formIdx === FormIdx.login) {
+        set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, values.p1General.name);
+    }
 }

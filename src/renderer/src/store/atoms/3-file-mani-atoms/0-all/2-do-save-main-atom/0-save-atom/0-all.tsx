@@ -28,27 +28,28 @@ export const doSaveOneAtom = atom(
         packManifest({ fileUs, fileUsAtom, maniAtoms, newMani: rvManifest, get, set });
 
         //TODO: The rest: the links between forms, etc.
+        
         //TODO: newFilename
+        //TODO: each file may have no filename
 
         console.log('saved', fileUs.fname);
 
+        // Do this only after successful save:
         // fileUs.changesSet.clear();
+
+        //TODO: check if we can save from web or electron
+
+        //TODO: update values from file after successful save
+        //TODO: update values from file after successful save
+        //TODO: update values from file after successful save
+        //TODO: update values from file after successful save
+        //TODO: update values from file after successful save
     }
 );
 
 //TODO: validate - done
-//TODO: check if we can save from web or electron
 //TODO: collect all data from all atoms - done
-//TODO: each file may have no filename
 
 //TODO: add validation - done
 //TODO: submit editor - done
 //TODO: policy editor as part of fields editor - done
-
-
-
-//TODO: update values from file after successful save
-//TODO: update values from file after successful save
-//TODO: update values from file after successful save
-//TODO: update values from file after successful save
-//TODO: update values from file after successful save
