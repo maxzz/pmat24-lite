@@ -20,6 +20,7 @@ export namespace ManiOptions {
         ourl: string;               // original URL
         murl: string;               // match URL
         caption: string;            // Windows Caption
+        variablecaption: string;    // Variable Caption
         monitor: boolean;           // Monitor screen changes
 
         dlg_tab: string;

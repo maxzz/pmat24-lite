@@ -4,7 +4,7 @@ import { type ManiOptions } from "../../../../4-options";
 export function formDetectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
     const rv: FileMani.Detection = {
         caption: options.p2Detect.caption,
-        variablecaption: options.p2Detect.caption,
+        variablecaption: options.p2Detect.variablecaption,
 
         web_ourl: options.p2Detect.ourl,
         web_murl: options.p2Detect.murl === options.p2Detect.ourl ? undefined : options.p2Detect.murl,
