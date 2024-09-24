@@ -1,4 +1,4 @@
-import { SUBMIT, type FileMani, type Mani } from "@/store/manifest";
+import { FormIdx, SUBMIT, type FileMani, type Mani } from "@/store/manifest";
 import { filterEmptyValues } from "./7-filter-empty-values";
 
 //TODO: order is wrong
@@ -14,8 +14,9 @@ export function toManiFileFormat(newMani: Partial<Mani.Manifest>): FileMani.Mani
     return rv;
 }
 
-function convertForm(form: Mani.Form): FileMani.Form {
+function convertForm(form: Mani.Form, idx: number): FileMani.Form {
     let rv: FileMani.Form = {
+        fcontext: idx === FormIdx.cpass ? { type: 'pchange', name: '1', } : undefined,
         detection: convertFormDetection(form.detection),
         options: convertFormOptions(form.options),
         fields: form.fields.map(convertField),
@@ -39,6 +40,9 @@ function convertFormOptions(options: Mani.Options): FileMani.Options {
         ...(options.submittype && { submittype: options.submittype as 'dosubmit' | `nosubmit` }),
         ...(options.autoprompt && { autoprompt: '1' }),
     };
+    if (rv.balooncount === '3') {
+        delete rv.balooncount;
+    }
     return filterEmptyValues(rv)!;
 }
 
