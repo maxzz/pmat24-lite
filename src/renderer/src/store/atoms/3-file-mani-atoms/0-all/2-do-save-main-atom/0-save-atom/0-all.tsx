@@ -4,6 +4,7 @@ import { type Mani } from "@/store/manifest";
 import { stopIfAnyErrors } from "../1-stop-if-errors";
 import { packManifest } from "./1-pack-manifest";
 import { printTestManifest } from "./8-print-test-manifest";
+import { toManiFileFormat } from "./3-to-mani-file-format";
 
 export const doSaveOneAtom = atom(
     null,
@@ -28,13 +29,16 @@ export const doSaveOneAtom = atom(
 
         packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
+        const fileMani = toManiFileFormat(newMani);
+
+        printTestManifest(fileMani);
+        // printTestManifest(newMani);
+
         //TODO: The rest: the links between forms, etc.
         
         //TODO: newFilename
         //TODO: each file may have no filename
 
-        printTestManifest(newMani);
-        
         console.log('saved', fileUs.fname);
 
         // Do this only after successful save:
