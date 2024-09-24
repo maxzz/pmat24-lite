@@ -32,7 +32,7 @@ export const doSaveOneAtom = atom(
         //TODO: newFilename
         //TODO: each file may have no filename
 
-        console.log('saving', JSON.stringify(newMani, null, 2));
+        console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(newMani, null, 2));
         
         console.log('saved', fileUs.fname);
 

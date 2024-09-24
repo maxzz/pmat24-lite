@@ -8,7 +8,7 @@ export function packManifest(packParams: PackManifestDataParams) {
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
     packDescriptor(packParams);
-    
+
     packForm(loginFormAtoms, FormIdx.login, packParams);
     packForm(cpassFormAtoms, FormIdx.cpass, packParams);
 }
@@ -39,6 +39,6 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
             newForm.fields = fields;
         }
 
-        console.log('newForm', JSON.stringify(newForm, null, 2));
+        //console.log('newForm', JSON.stringify(newForm, null, 2));
     }
 }
