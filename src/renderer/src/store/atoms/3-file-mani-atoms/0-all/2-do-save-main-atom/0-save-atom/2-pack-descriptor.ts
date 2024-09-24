@@ -16,11 +16,6 @@ export function packDescriptor(packParams: PackManifestDataParams) {
     descriptor.version = '2.4.5';
 
     newMani.descriptor = descriptor;
-}
 
-// function makeGuid(): string {
-//     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-//         const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-//         return v.toString(16);
-//     });
-// }
+    fileUs.mani?.options && (newMani.options = fileUs.mani.options);
+}

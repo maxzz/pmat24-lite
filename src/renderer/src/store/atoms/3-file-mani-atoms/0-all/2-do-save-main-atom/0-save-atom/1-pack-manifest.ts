@@ -8,8 +8,7 @@ export function packManifest(packParams: PackManifestDataParams) {
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
     packDescriptor(packParams);
-    return;
-
+    
     packForm(loginFormAtoms, FormIdx.login, packParams);
     packForm(cpassFormAtoms, FormIdx.cpass, packParams);
 }
