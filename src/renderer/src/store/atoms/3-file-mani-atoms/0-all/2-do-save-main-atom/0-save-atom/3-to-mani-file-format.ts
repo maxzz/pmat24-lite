@@ -1,34 +1,17 @@
 import { SUBMIT, type FileMani, type Mani } from "@/store/manifest";
 import { filterEmptyValues } from "./7-filter-empty-values";
 
+//TODO: order is wrong
+
 export function toManiFileFormat(newMani: Partial<Mani.Manifest>): FileMani.Manifest {
 
-    const fileMani: FileMani.Manifest = {
+    const rv: FileMani.Manifest = {
         descriptor: newMani.descriptor!,
         options: newMani.options,
-        forms:
-            newMani.forms?.
-                map(
-                    (form) => {
-                        const newForm: FileMani.Form = {
-                            detection: convertDetection(form.detection),
-                            options: convertOptions(form.options),
-                            fields: form.fields.map(
-                                (field) => {
-                                    const newField: FileMani.Field = {
-                                        ...field as FileMani.Field,
-                                    };
-                                    return newField;
-                                }
-                            ),
-                        };
-                        return newForm;
-                    }
-                )
-                .filter(Boolean),
+        forms: newMani.forms?.map(convForm).filter(Boolean),
     };
 
-    return fileMani;
+    return rv;
 }
 
 function convertDetection(detection: Mani.Detection): FileMani.Detection {
@@ -48,5 +31,18 @@ function convertOptions(options: Mani.Options): FileMani.Options {
     return filterEmptyValues(rv)!;
 }
 
-// on idx 12 submittype is wrong
-//TODO: order is wrong
+function convForm(form: Mani.Form): FileMani.Form {
+    const newForm: FileMani.Form = {
+        detection: convertDetection(form.detection),
+        options: convertOptions(form.options),
+        fields: form.fields.map(
+            (field) => {
+                const newField: FileMani.Field = {
+                    ...field as FileMani.Field,
+                };
+                return newField;
+            }
+        ),
+    };
+    return newForm;
+}

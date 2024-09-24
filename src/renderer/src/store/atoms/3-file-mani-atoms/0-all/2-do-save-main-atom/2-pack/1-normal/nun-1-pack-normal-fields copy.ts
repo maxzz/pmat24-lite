@@ -4,7 +4,6 @@ import { type EditorFieldAndMeta } from "./1-get-normal-field-values";
 import { fieldForFileMani } from "./nun-7-conv-mani-field copy";
 
 export function packNormalFields(editorFields: EditorFieldAndMeta[], packParams: PackManifestDataParams): FileMani.Field[] {
-    const { newMani, get, set } = packParams;
 
     // 2. Fields
 

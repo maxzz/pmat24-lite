@@ -9,6 +9,7 @@ type FieldForFileManiProps = {
 };
 
 export function fieldForFileMani({ from, maniField, ftyp, rdir, isSubmit }: FieldForFileManiProps): FileMani.Field {
+    
     const value = getFieldStringValue(from.value, ftyp);
 
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : '';
