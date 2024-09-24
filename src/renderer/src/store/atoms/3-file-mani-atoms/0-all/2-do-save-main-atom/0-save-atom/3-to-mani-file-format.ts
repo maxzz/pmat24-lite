@@ -8,21 +8,32 @@ export function toManiFileFormat(newMani: Partial<Mani.Manifest>): FileMani.Mani
     const rv: FileMani.Manifest = {
         descriptor: newMani.descriptor!,
         options: newMani.options,
-        forms: newMani.forms?.map(convForm).filter(Boolean),
+        forms: newMani.forms?.map(convertForm).filter(Boolean),
     };
 
     return rv;
 }
 
-function convertDetection(detection: Mani.Detection): FileMani.Detection {
-    const rv: FileMani.Detection = {
+function convertForm(form: Mani.Form): FileMani.Form {
+    let rv: FileMani.Form = {
+        detection: convertFormDetection(form.detection),
+        options: convertFormOptions(form.options),
+        fields: form.fields.map(convertField),
+    };
+    rv = filterEmptyValues(rv)!;
+    return rv;
+}
+
+function convertFormDetection(detection: Mani.Detection): FileMani.Detection {
+    let rv: FileMani.Detection = {
         ...detection as FileMani.Detection,
         ...(detection.web_checkurl && { web_checkurl: '1' }),
     };
+    rv = filterEmptyValues(rv)!;
     return rv;
 }
 
-function convertOptions(options: Mani.Options): FileMani.Options {
+function convertFormOptions(options: Mani.Options): FileMani.Options {
     const rv: FileMani.Options = {
         ...options as FileMani.Options,
         ...(options.submittype && { submittype: options.submittype as 'dosubmit' | `nosubmit` }),
@@ -31,18 +42,10 @@ function convertOptions(options: Mani.Options): FileMani.Options {
     return filterEmptyValues(rv)!;
 }
 
-function convForm(form: Mani.Form): FileMani.Form {
-    const newForm: FileMani.Form = {
-        detection: convertDetection(form.detection),
-        options: convertOptions(form.options),
-        fields: form.fields.map(
-            (field) => {
-                const newField: FileMani.Field = {
-                    ...field as FileMani.Field,
-                };
-                return newField;
-            }
-        ),
+function convertField(field: Mani.Field): FileMani.Field {
+    let rv: FileMani.Field = {
+        ...field as FileMani.Field,
     };
-    return newForm;
+    rv = filterEmptyValues(rv)!;
+    return rv;
 }
