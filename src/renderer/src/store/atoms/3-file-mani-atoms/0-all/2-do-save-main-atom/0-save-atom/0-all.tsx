@@ -3,6 +3,7 @@ import { type FileUsAtom } from "@/store/store-types";
 import { type Mani } from "@/store/manifest";
 import { stopIfAnyErrors } from "../1-stop-if-errors";
 import { packManifest } from "./1-pack-manifest";
+import { printTestManifest } from "./8-print-test-manifest";
 
 export const doSaveOneAtom = atom(
     null,
@@ -32,7 +33,7 @@ export const doSaveOneAtom = atom(
         //TODO: newFilename
         //TODO: each file may have no filename
 
-        console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(newMani, null, 2));
+        printTestManifest(newMani);
         
         console.log('saved', fileUs.fname);
 
