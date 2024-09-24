@@ -40,11 +40,12 @@ function convertDetection(detection: Mani.Detection): FileMani.Detection {
 }
 
 function convertOptions(options: Mani.Options): FileMani.Options {
-    //filterEmptyValues
     const rv: FileMani.Options = {
         ...options as FileMani.Options,
         ...(options.submittype && { submittype: options.submittype as 'dosubmit' | `nosubmit` }),
         ...(options.autoprompt && { autoprompt: '1' }),
     };
-    return rv;
+    return filterEmptyValues(rv)!;
 }
+
+// on idx 12 submittype is wrong
