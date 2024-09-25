@@ -49,7 +49,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
             dashboard: true,
             qName: '',
             qUrl: detection.web_qurl || '',
-            qUse: !!detection.web_checkurl,
+            qUse: !options.usequicklink || options.usequicklink === '1', // to exclude '2' as unuse quicklink value
         },
         p5Icon: {
             id: options.iconkey || '',
