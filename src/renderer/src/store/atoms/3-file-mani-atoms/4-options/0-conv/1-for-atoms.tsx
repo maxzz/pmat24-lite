@@ -27,7 +27,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
             ourl: detection.web_ourl || '',
             murl: detection.web_murl || '',
-            web_checkurl: !!detection.web_checkurl,
+            webCheckUrl: !!detection.web_checkurl,
 
             dlg_tab: detection.dlg_tab || '',
             dlg_class: detection.dlg_class || '',
@@ -47,7 +47,6 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             auth_pl: options.auth_pl || '',
         },
         p4QL: {
-            dashboard: true,
             qName: '',
             qUrl: detection.web_qurl || '',
             qUse: !options.usequicklink || options.usequicklink === '1', // to exclude '2' as unuse quicklink value

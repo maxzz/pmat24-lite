@@ -19,7 +19,7 @@ export namespace FormOptionsState {
     type p2Detect = {               // Part Screen Detection
         ourl: string;               // original URL
         murl: string;               // match URL
-        web_checkurl: boolean;      // not used by editor; only for detection section creation; in file '1'
+        webCheckUrl: boolean;       // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
         caption: string;            // Windows Caption
         variablecaption: string;    // Variable Caption
         monitor: boolean;           // Monitor screen changes
@@ -45,10 +45,9 @@ export namespace FormOptionsState {
     };
 
     type p4QL = {                   // Part Quick Links
-        dashboard: boolean;         // Display on mini-dashboard
         qName: string;              // Quick Link Name
         qUrl: string;               // Quick Link URL
-        qUse: boolean;              // Use Quick Link
+        qUse: boolean;              // Use Quick Link, i.e display on mini-dashboard
     };
 
     type p5Icon = {                 // Part Password Manager Icon

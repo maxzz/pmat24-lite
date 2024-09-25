@@ -21,7 +21,7 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
             monitor: get(p2Detect.monitorAtom).data === '1',
             ourl: get(p2Detect.ourlAtom).data,
             murl: get(p2Detect.murlAtom).data,
-            web_checkurl: get(p2Detect.web_checkurlAtom).data === '1',
+            webCheckUrl: get(p2Detect.webCheckUrlAtom).data === '1',
 
             dlg_tab: get(p2Detect.dlg_tabAtom).data,
             dlg_class: get(p2Detect.dlg_classAtom).data,
@@ -41,7 +41,6 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
             auth_pl: get(p3Auth.auth_plAtom).data,
         },
         p4QL: {
-            dashboard: get(p4QL.dashboardAtom).data === '1',
             qName: get(p4QL.qNameAtom).data,
             qUrl: get(p4QL.qUrlAtom).data,
             qUse: get(p4QL.qUseAtom).data === '1',

@@ -23,7 +23,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
-            web_checkurlAtom: createAtomForCheck(p2Detect.web_checkurl, onChange('web_checkurl')),
+            webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
             dlg_tabAtom: createAtomForInput(p2Detect.dlg_tab, onChange('dlg_tab')),
             dlg_classAtom: createAtomForInput(p2Detect.dlg_class, onChange('dlg_class')),
@@ -43,7 +43,6 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             auth_plAtom: createAtomForInput(p3Auth.auth_pl, onChange('auth_pl')),
         },
         p4QL: {
-            dashboardAtom: createAtomForCheck(p4QL.dashboard, onChange('dashboard')),
             qNameAtom: createAtomForInput(p4QL.qName, onChange('name')),
             qUrlAtom: createAtomForInput(p4QL.qUrl, onChange('url')),
             qUseAtom: createAtomForCheck(p4QL.qUse, onChange('use')),
@@ -91,7 +90,6 @@ export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOpti
     set(atoms.p3Auth.lockAtom, (v) => ({ ...v, data: boo(values.p3Auth.lock) }));
     set(atoms.p3Auth.auth_plAtom, (v) => ({ ...v, data: values.p3Auth.auth_pl }));
 
-    set(atoms.p4QL.dashboardAtom, (v) => ({ ...v, data: boo(values.p4QL.dashboard) }));
     set(atoms.p4QL.qNameAtom, (v) => ({ ...v, data: values.p4QL.qName }));
     set(atoms.p4QL.qUrlAtom, (v) => ({ ...v, data: values.p4QL.qUrl }));
     set(atoms.p4QL.qUseAtom, (v) => ({ ...v, data: boo(values.p4QL.qUse) }));
