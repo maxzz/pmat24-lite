@@ -24,7 +24,7 @@ function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
         web_ourl: detect.ourl,
         web_murl: detect.murl === detect.ourl ? undefined : detect.murl,
         web_qurl: values.p4QL.qUrl === detect.ourl ? undefined : values.p4QL.qUrl,
-        web_checkurl: values.p4QL.qUse,
+        web_checkurl: detect.webCheckUrl,
 
         dlg_class: detect.dlg_class,
         dlg_tab: detect.dlg_tab,
