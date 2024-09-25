@@ -7,10 +7,10 @@ export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
     const { qNameAtom, qUseAtom } = atoms.p4QL;
 
     return (<>
-        <RowInputWLabel stateAtom={qNameAtom} label="Quick Link Name" />
-
-        <RowInputWLabel stateAtom={qUseAtom} label="Display on mini-dashboard" asCheckbox />
         <DashboardOption atoms={atoms} />
+        <RowInputWLabel stateAtom={qUseAtom} label="Show on mini-dashboard" asCheckbox />
+        <RowInputWLabel stateAtom={qNameAtom} label="Name displayed on the mini-dashboard" />
+
     </>);
 }
 
