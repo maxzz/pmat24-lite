@@ -1,12 +1,12 @@
 import { type Getter, type Setter } from 'jotai';
 import { atomWithCallback } from '@/util-hooks';
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, validateManifestName, validateNumber } from "@/ui";
-import { type ManiOptions } from "./9-types";
+import { type FormOptionsState } from "./9-types";
 
-export function createAtoms(initialState: ManiOptions.ForAtoms, onChange: OnChangeValueWithUpdateName): ManiOptions.FormOptionsAtoms {
+export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
 
-    const rv: ManiOptions.FormOptionsAtoms = {
+    const rv: FormOptionsState.AllAtoms = {
         p1General: {
             nameAtom: createAtomForInput(p1General.name, onChange('name'), { validate: validateManifestName }),
             descAtom: createAtomForInput(p1General.desc, onChange('desc')),
@@ -59,7 +59,7 @@ export function createAtoms(initialState: ManiOptions.ForAtoms, onChange: OnChan
     return rv;
 }
 
-export function valuesToAtoms(values: ManiOptions.ForAtoms, atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter) {
+export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOptionsState.AllAtoms, get: Getter, set: Setter) {
     set(atoms.p1General.nameAtom, (v) => ({ ...v, data: values.p1General.name }));
     set(atoms.p1General.descAtom, (v) => ({ ...v, data: values.p1General.desc }));
     set(atoms.p1General.hintAtom, (v) => ({ ...v, data: values.p1General.hint }));

@@ -1,7 +1,7 @@
 import { type Mani } from "@/store/manifest";
-import { type ManiOptions } from "../../../../4-options";
+import { type FormOptionsState } from "../../../../4-options";
 
-export function formDetectionForMani(options: ManiOptions.ForAtoms): Mani.Detection {
+export function formDetectionForMani(options: FormOptionsState.ForAtoms): Mani.Detection {
     const rv: Mani.Detection = {
         caption: options.p2Detect.caption,
         variablecaption: options.p2Detect.variablecaption,

@@ -3,7 +3,7 @@ import { type AtomizeWithType } from '@/util-hooks';
 import { type RowInputState } from "@/ui";
 import { type FormIdx } from "@/store/manifest";
 
-export namespace ManiOptions {
+export namespace FormOptionsState {
 
     type p1General = {              // Part General
         name: string;               // login name
@@ -66,7 +66,7 @@ export namespace ManiOptions {
         formIdx: FormIdx;
     };
 
-    export type FormOptionsAtoms = {
+    export type AllAtoms = {
         p1General: AtomizeWithType<p1General, RowInputState>;
         p2Detect: AtomizeWithType<p2Detect, RowInputState>;
         p3Auth: AtomizeWithType<p3Auth, RowInputState>;

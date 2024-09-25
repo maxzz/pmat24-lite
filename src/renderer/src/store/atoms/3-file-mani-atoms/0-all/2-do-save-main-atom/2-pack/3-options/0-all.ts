@@ -1,9 +1,9 @@
-import { type ManiOptions, OptionsConv } from "../../../../4-options";
+import { type FormOptionsState, OptionsConv } from "../../../../4-options";
 import { type PackManifestDataParams } from "../9-types";
 import { formDetectionForMani } from "./7-conv-form-detection";
 import { formOptionsForMani } from "./7-conv-form-options";
 
-export function packFormOptions(optionsAtoms: ManiOptions.FormOptionsAtoms, packParams: PackManifestDataParams) {
+export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, packParams: PackManifestDataParams) {
     const { get, set } = packParams;
 
     const detectionAndOptionsRow = OptionsConv.fromAtoms(optionsAtoms, get, set);

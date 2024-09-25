@@ -1,13 +1,13 @@
 import { type OnValueChange } from "@/util-hooks";
 import { type OnChangeProps, type FileUsCtx, type ManiAtoms } from "../9-types";
-import { type ManiOptions, OptionsConv } from "./0-conv";
+import { type FormOptionsState, OptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
 import { setManiChanges } from "../9-types";
 import { debounce } from "@/utils";
 
 export namespace OptionsState {
 
-    export type Atoms = ManiOptions.FormOptionsAtoms;
+    export type Atoms = FormOptionsState.AllAtoms;
 
     export function createAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
 

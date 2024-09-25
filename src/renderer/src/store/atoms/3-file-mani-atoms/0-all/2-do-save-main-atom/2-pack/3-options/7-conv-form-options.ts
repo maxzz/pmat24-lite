@@ -1,7 +1,7 @@
 import { type Mani } from "@/store/manifest";
-import { type ManiOptions } from "../../../../4-options";
+import { type FormOptionsState } from "../../../../4-options";
 
-export function formOptionsForMani(options: ManiOptions.ForAtoms): Mani.Options {
+export function formOptionsForMani(options: FormOptionsState.ForAtoms): Mani.Options {
 
     const submitType =
         options.p1General.submitType === 'dosubmit' || options.p1General.submitType === 'nosubmit'
