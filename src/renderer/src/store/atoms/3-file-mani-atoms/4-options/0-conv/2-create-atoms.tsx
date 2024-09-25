@@ -3,7 +3,7 @@ import { atomWithCallback } from '@/util-hooks';
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, validateManifestName, validateNumber } from "@/ui";
 import { type ManiOptions } from "./9-types";
 
-export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange: OnChangeValueWithUpdateName): ManiOptions.FormOptionsAtoms {
+export function createAtoms(initialState: ManiOptions.ForAtoms, onChange: OnChangeValueWithUpdateName): ManiOptions.FormOptionsAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
 
     const rv: ManiOptions.FormOptionsAtoms = {
@@ -59,7 +59,7 @@ export function createAtoms(initialState: ManiOptions.OptionsForAtoms, onChange:
     return rv;
 }
 
-export function valuesToAtoms(values: ManiOptions.OptionsForAtoms, atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter) {
+export function valuesToAtoms(values: ManiOptions.ForAtoms, atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter) {
     set(atoms.p1General.nameAtom, (v) => ({ ...v, data: values.p1General.name }));
     set(atoms.p1General.descAtom, (v) => ({ ...v, data: values.p1General.desc }));
     set(atoms.p1General.hintAtom, (v) => ({ ...v, data: values.p1General.hint }));

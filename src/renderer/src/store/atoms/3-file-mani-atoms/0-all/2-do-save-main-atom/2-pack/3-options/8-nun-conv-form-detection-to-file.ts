@@ -1,7 +1,7 @@
 import { type FileMani } from "@/store/manifest";
 import { type ManiOptions } from "../../../../4-options";
 
-export function formDetectionForMani(options: ManiOptions.OptionsForAtoms): FileMani.Detection {
+export function formDetectionForMani(options: ManiOptions.ForAtoms): FileMani.Detection {
     const rv: FileMani.Detection = {
         caption: options.p2Detect.caption,
         variablecaption: options.p2Detect.variablecaption,

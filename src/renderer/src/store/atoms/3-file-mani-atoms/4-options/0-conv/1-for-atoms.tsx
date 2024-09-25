@@ -1,7 +1,7 @@
 import { type FileUsCtx } from "../../9-types";
 import { type ManiOptions } from "./9-types";
 
-export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
+export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.ForAtoms {
     const { fileUs, formIdx } = fileUsCtx;
 
     const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
@@ -10,7 +10,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): ManiOptions.OptionsForAtoms {
     const detection = maniForm?.detection || {};
     const isFormWeb = !!detection.web_ourl;
 
-    const rv: ManiOptions.OptionsForAtoms = {
+    const rv: ManiOptions.ForAtoms = {
         p1General: {
             name: options.choosename || '',
             desc: options.sidekick || '',

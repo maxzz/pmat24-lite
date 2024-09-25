@@ -1,10 +1,10 @@
 import { type Getter, type Setter } from "jotai";
 import { type ManiOptions } from "./9-types";
 
-export function fromAtoms(atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter): ManiOptions.OptionsForAtoms {
+export function fromAtoms(atoms: ManiOptions.FormOptionsAtoms, get: Getter, set: Setter): ManiOptions.ForAtoms {
     const { p1General: p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
 
-    const rv: ManiOptions.OptionsForAtoms = {
+    const rv: ManiOptions.ForAtoms = {
         p1General: {
             name: get(p1General.nameAtom).data,
             desc: get(p1General.descAtom).data,

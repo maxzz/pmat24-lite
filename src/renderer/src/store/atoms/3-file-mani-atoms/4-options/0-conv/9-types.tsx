@@ -55,7 +55,7 @@ export namespace ManiOptions {
         loc: string;                // Location
     };
 
-    export type OptionsForAtoms = {
+    export type ForAtoms = {
         p1General: p1General;
         p2Detect: p2Detect;
         p3Auth: p3Auth;

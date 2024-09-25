@@ -8,7 +8,7 @@ export type DAOForMani = { // Detection And Options ForMani
     options: FileMani.Options;
 };
 
-export function formDAOForMani(options: ManiOptions.OptionsForAtoms): DAOForMani {
+export function formDAOForMani(options: ManiOptions.ForAtoms): DAOForMani {
     const rv: DAOForMani = {
         detection: formDetectionForMani(options),
         options: formOptionsForMani(options),
