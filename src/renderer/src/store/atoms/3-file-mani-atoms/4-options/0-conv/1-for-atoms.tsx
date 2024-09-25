@@ -6,6 +6,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 
     const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
     const maniForm = metaForm.mani;
+
     const options = maniForm?.options || {};
     const detection = maniForm?.detection || {};
     const isFormWeb = !!detection.web_ourl;
@@ -47,7 +48,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             auth_pl: options.auth_pl || '',
         },
         p4QL: {
-            qName: '',
+            qName: options.quicklink || '',
             qUrl: detection.web_qurl || '',
             qUse: !options.usequicklink || options.usequicklink === '1', // to exclude '2' as unuse quicklink value
         },
