@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { type Mani } from "@/store/manifest";
+import { convertToXml, type Mani } from "@/store/manifest";
 import { stopIfAnyErrors } from "../1-stop-if-errors";
 import { packManifest } from "./1-pack-manifest";
 import { printTestManifest } from "./8-print-test-manifest";
@@ -31,7 +31,11 @@ export const doSaveOneAtom = atom(
 
         const fileMani = toManiFileFormat(newMani);
 
-        printTestManifest(fileMani);
+        const {xml, error} = convertToXml(fileMani)
+
+        console.log('xml', xml);
+        
+        // printTestManifest(fileMani);
         // printTestManifest(newMani);
 
         //TODO: The rest: the links between forms, etc.
