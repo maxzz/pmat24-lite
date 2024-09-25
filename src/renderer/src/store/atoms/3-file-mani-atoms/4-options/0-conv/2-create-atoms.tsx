@@ -23,6 +23,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
+            web_checkurlAtom: createAtomForCheck(p2Detect.web_checkurl, onChange('web_checkurl')),
 
             dlg_tabAtom: createAtomForInput(p2Detect.dlg_tab, onChange('dlg_tab')),
             dlg_classAtom: createAtomForInput(p2Detect.dlg_class, onChange('dlg_class')),
