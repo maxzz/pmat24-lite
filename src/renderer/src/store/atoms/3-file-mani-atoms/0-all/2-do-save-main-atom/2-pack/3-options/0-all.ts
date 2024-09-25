@@ -67,6 +67,5 @@ function optionsForMani(values: FormOptionsState.ForAtoms): Mani.Options {
 
         unknownattributes: general.unkAttrs,
     };
-
     return rv;
 }
