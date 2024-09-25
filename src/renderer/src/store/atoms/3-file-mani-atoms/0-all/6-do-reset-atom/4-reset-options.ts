@@ -1,5 +1,5 @@
 import { type ResetManifestCtx } from "./9-types";
-import { type FormOptionsState, OptionsConv } from "../../4-options";
+import { type FormOptionsState, FormOptionsConv } from "../../4-options";
 import { FileUsCtx } from "../../9-types";
 import { FormIdx } from "@/store/manifest";
 
@@ -12,8 +12,8 @@ export function resetFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formId
         formIdx,
     };
 
-    const values = OptionsConv.forAtoms(fileUsCtx);
-    OptionsConv.valuesToAtoms(values, optionsAtoms, get, set);
+    const values = FormOptionsConv.forAtoms(fileUsCtx);
+    FormOptionsConv.valuesToAtoms(values, optionsAtoms, get, set);
 
     if (formIdx === FormIdx.login) {
         set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, values.p1General.name);

@@ -1,6 +1,6 @@
 import { type OnValueChange } from "@/util-hooks";
 import { type OnChangeProps, type FileUsCtx, type ManiAtoms } from "../9-types";
-import { type FormOptionsState, OptionsConv } from "./0-conv";
+import { type FormOptionsState, FormOptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
 import { setManiChanges } from "../9-types";
 import { debounce } from "@/utils";
@@ -17,8 +17,8 @@ export namespace OptionsState {
             };
         };
 
-        const state = OptionsConv.forAtoms(fileUsCtx);
-        const rv = OptionsConv.createAtoms(state, onChange);
+        const state = FormOptionsConv.forAtoms(fileUsCtx);
+        const rv = FormOptionsConv.createAtoms(state, onChange);
 
         return rv;
     }
