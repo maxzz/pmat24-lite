@@ -29,3 +29,5 @@ export function App(): JSX.Element {
         <OnAppMount />
     </>);
 }
+
+//TODO: add version request from main and DpAgent
