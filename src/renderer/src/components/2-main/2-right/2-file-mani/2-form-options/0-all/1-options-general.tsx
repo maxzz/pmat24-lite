@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PrimitiveAtom, atom, useAtomValue } from "jotai";
 import { OptionsState, OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputAndButtonWLabel, SlidersButton, UiAccordion } from "../9-controls";
+import { RowInputAndButtonWLabel, ButtonSliders, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 
 function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; openAtom: PrimitiveAtom<boolean>; }) {
@@ -11,7 +11,7 @@ function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; o
         <RowInputAndButtonWLabel
             label="Managed login name"
             stateAtom={nameAtom}
-            button={<SlidersButton openAtom={openAtom} />}
+            button={<ButtonSliders openAtom={openAtom} />}
         />
 
         <UiAccordion open={open}>
