@@ -22,7 +22,7 @@ export function SectionHeader() {
                     Create
                 </Button>
 
-                <IconExPolFace className="w-4 h-4" />
+                <IconExPolFace className="size-5" />
             </div>
 
             <ThemeSwitch />
