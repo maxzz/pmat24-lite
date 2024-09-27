@@ -3,7 +3,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-import { IconExPolFace } from "@/ui/icons/normal/extended-policy";
+import { IconExPol02Fido, IconExPolFace } from "@/ui/icons/normal/extended-policy";
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -23,6 +23,7 @@ export function SectionHeader() {
                 </Button>
 
                 <IconExPolFace className="size-5" />
+                <IconExPol02Fido className="size-5" />
             </div>
 
             <ThemeSwitch />
