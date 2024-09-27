@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
-export function IconExPolFace({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
+export function IconExPol01Face({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-current stroke-none", className)} viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
