@@ -6,3 +6,4 @@ export * from "./5-otp";
 export * from "./6-pin";
 export * from "./7-contactless";
 export * from "./8-smartcard";
+export * from "./9-fingerprint";

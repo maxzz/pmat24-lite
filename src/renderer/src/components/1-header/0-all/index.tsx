@@ -3,7 +3,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-import { IconExPol02Fido, IconExPol01Face, IconExPol03Bluetooth, IconExPol04Proxy, IconExPol05Otp, IconExPol06Pin, IconExPol07Contactless, IconExPol08Smartcard } from "@/ui/icons/normal/extended-policy";
+import { IconExPol02Fido, IconExPol01Face, IconExPol03Bluetooth, IconExPol04Proxy, IconExPol05Otp, IconExPol06Pin, IconExPol07Contactless, IconExPol08Smartcard, IconExPol09Fingerprint } from "@/ui/icons/normal/extended-policy";
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -30,6 +30,7 @@ export function SectionHeader() {
                 <IconExPol06Pin className="size-5" />
                 <IconExPol07Contactless className="size-5" />
                 <IconExPol08Smartcard className="size-5" />
+                <IconExPol09Fingerprint className="size-5" />
             </div>
 
             <ThemeSwitch />
