@@ -3,6 +3,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
+import { IconExPolFace } from "@/ui/icons/normal/extended-policy";
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -20,6 +21,8 @@ export function SectionHeader() {
                 <Button variant="outline" className="text-[.65rem]" onClick={() => doOpenDrawer(true)}>
                     Create
                 </Button>
+
+                <IconExPolFace className="w-4 h-4" />
             </div>
 
             <ThemeSwitch />
