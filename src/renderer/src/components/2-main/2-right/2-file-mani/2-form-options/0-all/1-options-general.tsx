@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { PrimitiveAtom, atom, useAtomValue } from "jotai";
 import { OptionsState, OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputAndButtonWLabel, ButtonSliders, UiAccordion } from "../9-controls";
+import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 
 function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; openAtom: PrimitiveAtom<boolean>; }) {
     const { nameAtom } = atoms.p1General;
     const open = useAtomValue(openAtom);
     return (<>
-        <RowInputAndButtonWLabel
+        <RowInputAndButtonWTitle
             label="Managed login name"
             stateAtom={nameAtom}
             button={<ButtonSliders openAtom={openAtom} />}

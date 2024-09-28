@@ -1,12 +1,12 @@
 import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
-import { RowInputWLabel } from "../9-controls";
+import { RowInputWTitle } from "../9-controls";
 
 export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
 
     const { idAtom, locAtom } = atoms.p5Icon;
 
     return (<>
-        <RowInputWLabel stateAtom={idAtom} label="Location ID" />
-        <RowInputWLabel stateAtom={locAtom} label="Location" />
+        <RowInputWTitle stateAtom={idAtom} label="Location ID" />
+        <RowInputWTitle stateAtom={locAtom} label="Location" />
     </>);
 }

@@ -22,7 +22,7 @@ type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
     asCheckbox?: boolean;
 };
 
-export function RowInputWLabel({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
+export function RowInputWTitle({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
     return (
         <TitleWChildren label={label}>
             <InputWTooltip stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
@@ -34,7 +34,7 @@ type RowInputAndButtonWLabelProps = RowInputWLabelProps & {
     button: ReactNode;
 };
 
-export function RowInputAndButtonWLabel({ label, stateAtom, asCheckbox, button, ...rest }: RowInputAndButtonWLabelProps) {
+export function RowInputAndButtonWTitle({ label, stateAtom, asCheckbox, button, ...rest }: RowInputAndButtonWLabelProps) {
     return (
         <TitleWChildren label={label}>
             <div className="w-full flex items-center justify-between gap-1">

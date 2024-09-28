@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { type OptionsState } from "@/store/atoms/3-file-mani-atoms";
-import { RowInputWLabel } from "../9-controls";
+import { RowInputWTitle } from "../9-controls";
 
 export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 
@@ -8,8 +8,8 @@ export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 
     return (<>
         <DashboardOption atoms={atoms} />
-        <RowInputWLabel stateAtom={qUseAtom} label="Show on mini-dashboard" asCheckbox />
-        <RowInputWLabel stateAtom={qNameAtom} label="Name displayed on the mini-dashboard" />
+        <RowInputWTitle stateAtom={qUseAtom} label="Show on mini-dashboard" asCheckbox />
+        <RowInputWTitle stateAtom={qNameAtom} label="Name displayed on the mini-dashboard" />
 
     </>);
 }
@@ -22,7 +22,7 @@ function DashboardOption({ atoms }: { atoms: OptionsState.Atoms; }) {
 
     return (<>
         {dashboard && (<>
-            <RowInputWLabel stateAtom={qUrlAtom} label="Quick Link URL" />
+            <RowInputWTitle stateAtom={qUrlAtom} label="Quick Link URL" />
         </>)}
     </>);
 }
