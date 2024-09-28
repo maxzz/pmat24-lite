@@ -50,18 +50,19 @@
 
 type TokenType = {
     displayName: string;
-    value: number;
+    value: string;
+    icon: string;
 };
 
 const tokens: TokenType[] = [
-    { displayName: 'Password', value: 0x0001 },
-    { displayName: 'Fingerprints', value: 0x0002 },
-    { displayName: 'PKI smart card', value: 0x0004 },
-    { displayName: 'Contactless writable card', value: 0x0020 },
-    { displayName: 'PIN', value: 0x0080 },
-    { displayName: 'One-Time Password', value: 0x0800 },
-    { displayName: 'Proximity ID card', value: 0x0100 },
-    { displayName: 'FIDO Key', value: 0x8000 },
-    { displayName: 'Bluetooth', value: 0x0200 },
-    { displayName: 'Face', value: 0x0010 },
+    { displayName: 'Password',                  /**/  value: '0x0001', icon: 'password.ico', },
+    { displayName: 'Fingerprints',              /**/  value: '0x0002', icon: 'fingerprint.ico', },
+    { displayName: 'PKI smart card',            /**/  value: '0x0004', icon: 'smartcard.ico', },
+    { displayName: 'Contactless writable card', /**/  value: '0x0020', icon: 'contactless.ico', },
+    { displayName: 'PIN',                       /**/  value: '0x0080', icon: 'pin.ico', },
+    { displayName: 'One-Time Password',         /**/  value: '0x0800', icon: 'otp.ico', },
+    { displayName: 'Proximity ID card',         /**/  value: '0x0100', icon: 'prox.ico', },
+    { displayName: 'FIDO Key',                  /**/  value: '0x8000', icon: 'fido.ico', },
+    { displayName: 'Bluetooth',                 /**/  value: '0x0200', icon: 'bluetooth.ico', },
+    { displayName: 'Face',                      /**/  value: '0x0010', icon: 'face.ico', },
 ];
