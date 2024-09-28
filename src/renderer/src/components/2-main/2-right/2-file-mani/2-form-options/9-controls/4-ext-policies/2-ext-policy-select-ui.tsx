@@ -22,7 +22,7 @@ export function ExtPolicySelectUi({ items, value, onValueChange }: ExtPolicySele
         <Select value={value} onValueChange={onValueChange}>
 
             <SelectTrigger className="px-2 py-1 w-max h-7 text-xs gap-1">
-                <SelectValue placeholder="Select key" />
+                <SelectValue placeholder="No additional credential" />
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">

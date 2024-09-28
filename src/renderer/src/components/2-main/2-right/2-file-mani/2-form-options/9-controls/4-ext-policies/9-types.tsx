@@ -34,9 +34,9 @@ export type ExtPolTokenType = {
 export type ExtPolTokenIcons = Record<ExtPolTokenKey, (props: HTMLAttributes<SVGSVGElement | HTMLElement>) => JSX.Element>;
 
 export const extPolicyTokens: ExtPolTokenType[] = [ // This defines the order of the tokens in the UI
-    { displayName: 'No additional credential',  /**/ value: '0x0001', icon: 'none', },
+    { displayName: 'No additional credential',  /**/ value: '0x0000', icon: 'none', },
     { displayName: 'Password',                  /**/ value: '0x0001', icon: 'password', },
-    { displayName: 'Fingerprints',              /**/ value: '0x0002', icon: 'fingerprint', },
+    { displayName: 'Fingerprint',               /**/ value: '0x0002', icon: 'fingerprint', },
     { displayName: 'PKI smart card',            /**/ value: '0x0004', icon: 'smartcard', },
     { displayName: 'Contactless writable card', /**/ value: '0x0020', icon: 'contactless', },
     { displayName: 'PIN',                       /**/ value: '0x0080', icon: 'pin', },
