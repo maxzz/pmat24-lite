@@ -13,10 +13,10 @@ type ExtPolicySelectProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 const items: SelectNameValueItem[] = extPolicyTokens.map((token, idx) => {
     const Icon = extPolicyIcons[token.icon];
     return [
-        (<>
-            <Icon key={idx} className="size-6" />
+        (<div className="flex items-center">
+            <Icon key={idx} className="mr-2 size-6" />
             {token.displayName}
-        </>),
+        </div>),
         token.value,
     ];
 });
@@ -25,10 +25,10 @@ const items: SelectNameValueItem[] = extPolicyTokens.map((token, idx) => {
 
 export function ExtPolicySelect({ ...rest }: ExtPolicySelectProps) {
     const [value, onValueChange] = useState<string>("");
-    return (
-        <LabelWChildren label="Extended authentication policy">
+    return (<>
+        {/* <LabelWChildren label="Extended authentication policy"> */}
 
             <ExtPolicySelectUi items={items} value={value} onValueChange={onValueChange}  {...rest} />
-        </LabelWChildren>
-    );
+        {/* </LabelWChildren> */}
+        </>);
 }
