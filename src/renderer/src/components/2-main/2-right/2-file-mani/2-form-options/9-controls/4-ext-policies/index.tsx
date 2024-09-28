@@ -48,21 +48,37 @@
 // IDI_ICON_PROXIMITY    ICON   "Res\\PROX.ico"
 // IDI_ICON_SMARTCARD    ICON   "Res\\Smartcard.ico"
 
+import { IconExPol01Face, IconExPol02Fido, IconExPol03Bluetooth, IconExPol04Proxy, IconExPol05Otp, IconExPol06Pin, IconExPol07Contactless, IconExPol08Smartcard, IconExPol09Fingerprint, IconExPol10Password } from "@/ui/icons/normal/extended-policy";
+import { HTMLAttributes } from "react";
+
 type TokenType = {
     displayName: string;
     value: string;
     icon: string;
 };
 
-const tokens: TokenType[] = [
-    { displayName: 'Password',                  /**/  value: '0x0001', icon: 'password.ico', },
-    { displayName: 'Fingerprints',              /**/  value: '0x0002', icon: 'fingerprint.ico', },
-    { displayName: 'PKI smart card',            /**/  value: '0x0004', icon: 'smartcard.ico', },
-    { displayName: 'Contactless writable card', /**/  value: '0x0020', icon: 'contactless.ico', },
-    { displayName: 'PIN',                       /**/  value: '0x0080', icon: 'pin.ico', },
-    { displayName: 'One-Time Password',         /**/  value: '0x0800', icon: 'otp.ico', },
-    { displayName: 'Proximity ID card',         /**/  value: '0x0100', icon: 'prox.ico', },
-    { displayName: 'FIDO Key',                  /**/  value: '0x8000', icon: 'fido.ico', },
-    { displayName: 'Bluetooth',                 /**/  value: '0x0200', icon: 'bluetooth.ico', },
-    { displayName: 'Face',                      /**/  value: '0x0010', icon: 'face.ico', },
+const tokens: TokenType[] = [ // This defines the order of the tokens in the UI
+    { displayName: 'Password',                  /**/ value: '0x0001', icon: 'password', },
+    { displayName: 'Fingerprints',              /**/ value: '0x0002', icon: 'fingerprint', },
+    { displayName: 'PKI smart card',            /**/ value: '0x0004', icon: 'smartcard', },
+    { displayName: 'Contactless writable card', /**/ value: '0x0020', icon: 'contactless', },
+    { displayName: 'PIN',                       /**/ value: '0x0080', icon: 'pin', },
+    { displayName: 'One-Time Password',         /**/ value: '0x0800', icon: 'otp', },
+    { displayName: 'Proximity ID card',         /**/ value: '0x0100', icon: 'prox', },
+    { displayName: 'FIDO Key',                  /**/ value: '0x8000', icon: 'fido', },
+    { displayName: 'Bluetooth',                 /**/ value: '0x0200', icon: 'bluetooth', },
+    { displayName: 'Face',                      /**/ value: '0x0010', icon: 'face', },
 ];
+
+const tokenIcons = {
+    password:       /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol10Password     /**/ {...props} />,
+    fingerprint:    /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol09Fingerprint  /**/ {...props} />,
+    smartcard:      /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol08Smartcard    /**/ {...props} />,
+    contactless:    /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol07Contactless  /**/ {...props} />,
+    pin:            /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol06Pin          /**/ {...props} />,
+    otp:            /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol05Otp          /**/ {...props} />,
+    prox:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol04Proxy        /**/ {...props} />,
+    fido:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol02Fido         /**/ {...props} />,
+    bluetooth:      /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol03Bluetooth    /**/ {...props} />,
+    face:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol01Face         /**/ {...props} />,
+};
