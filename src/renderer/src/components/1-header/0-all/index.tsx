@@ -4,6 +4,7 @@ import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { extPolicyIcons, extPolicyTokens } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls/4-ext-policies";
+import { ExtPolicySelect } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls/4-ext-policies/1-input-select";
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -28,6 +29,8 @@ export function SectionHeader() {
                         return <Icon key={idx} className="size-6" />;
                     }
                 )}
+
+                <ExtPolicySelect />
 
             </div>
 
