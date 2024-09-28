@@ -46,6 +46,17 @@ export function dataForStateAtom(value: string | number, more?: Partial<RowInput
     return initialData;
 }
 
+export function resetRowInputState(state: RowInputState, value: string): RowInputState {
+    const rv = {
+        ...state,
+        data: value,
+        dirty: false,
+        error: undefined,
+        touched: undefined,
+    };
+    return rv;
+}
+
 export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
     const initialData = dataForStateAtom(value, more);
     const rv = atomWithCallback(initialData, onChange);
