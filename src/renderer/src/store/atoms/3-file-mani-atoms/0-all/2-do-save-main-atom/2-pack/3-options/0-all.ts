@@ -47,13 +47,15 @@ function optionsForMani(values: FormOptionsState.ForAtoms): Mani.Options {
             ? general.submitType
             : undefined;
 
+    const authPolicy = p3Auth.auth_pl === '0' ? undefined : parseInt(p3Auth.auth_pl, 16).toString(16);
+
     const rv: Mani.Options = {
         choosename: general.name,
         sidekick: general.desc,
         ownernote: general.hint,
         quicklink: general.qlName,
 
-        auth_pl: p3Auth.auth_pl,
+        auth_pl: authPolicy,
         balooncount: general.balloon,
         autoprompt: p3Auth.aim ? '1' : undefined,
         lockfields: p3Auth.lock ? '1' : undefined,
