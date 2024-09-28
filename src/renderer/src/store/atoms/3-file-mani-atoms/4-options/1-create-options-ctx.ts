@@ -13,7 +13,7 @@ export namespace OptionsState {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
-                onChangeWithScopeDebounced(updateName, nextValue, {fileUsCtx, maniAtoms, get, set});
+                onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
         };
 
@@ -24,23 +24,21 @@ export namespace OptionsState {
     }
 }
 
-function onChangeWithScope(updateName: string, nextValue: RowInputState, {fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
+function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsCtx.formIdx]!.options;
 
     // if (nextValue.dirty) {
     //     const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
     //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
     // }
-    
+
     if (updateName === 'name') {
         set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, nextValue.data);
     }
 
     setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 
-    // console.log('------------------', updateName);
-    // console.log('         initValue', JSON.stringify(nextValue.initialData));
-    // console.log('         nextValue', JSON.stringify(nextValue));
+    //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
