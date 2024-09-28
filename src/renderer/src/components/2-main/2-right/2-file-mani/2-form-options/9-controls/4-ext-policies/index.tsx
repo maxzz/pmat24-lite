@@ -12,13 +12,27 @@ import {
     IconExPol10Password
 } from "@/ui/icons/normal/extended-policy";
 
-type TokenType = {
+export type ExtPolTokenKey =
+    | 'password'
+    | 'fingerprint'
+    | 'smartcard'
+    | 'contactless'
+    | 'pin'
+    | 'otp'
+    | 'prox'
+    | 'fido'
+    | 'bluetooth'
+    | 'face';
+
+export type ExtPolTokenType = {
     displayName: string;
     value: string;
-    icon: string;
+    icon: ExtPolTokenKey;
 };
 
-const tokens: TokenType[] = [ // This defines the order of the tokens in the UI
+export type ExtPolTokenIcons = Record<ExtPolTokenKey, (props: HTMLAttributes<SVGSVGElement>) => JSX.Element>;
+
+export const extPolicyTokens: ExtPolTokenType[] = [ // This defines the order of the tokens in the UI
     { displayName: 'Password',                  /**/ value: '0x0001', icon: 'password', },
     { displayName: 'Fingerprints',              /**/ value: '0x0002', icon: 'fingerprint', },
     { displayName: 'PKI smart card',            /**/ value: '0x0004', icon: 'smartcard', },
@@ -31,7 +45,7 @@ const tokens: TokenType[] = [ // This defines the order of the tokens in the UI
     { displayName: 'Face',                      /**/ value: '0x0010', icon: 'face', },
 ];
 
-const tokenIcons = {
+export const extPolicyIcons: ExtPolTokenIcons = {
     password:       /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol10Password     /**/ {...props} />,
     fingerprint:    /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol09Fingerprint  /**/ {...props} />,
     smartcard:      /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol08Smartcard    /**/ {...props} />,
