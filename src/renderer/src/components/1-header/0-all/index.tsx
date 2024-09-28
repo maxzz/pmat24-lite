@@ -23,14 +23,14 @@ export function SectionHeader() {
                     Create
                 </Button>
 
-                {extPolicyTokens.map(
+                {/* {extPolicyTokens.map(
                     (token, idx) => {
                         const Icon = token.icon && extPolicyIcons[token.icon];
                         return (Icon && <Icon key={idx} className="size-6" />);
                     }
-                )}
+                )} */}
 
-                <ExtPolicySelect />
+                {/* <ExtPolicySelect /> */}
 
             </div>
 

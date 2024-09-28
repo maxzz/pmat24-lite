@@ -4,15 +4,15 @@ import { InputWTooltip } from "./2-input-w-tooltip";
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";
 
-export function LabelWChildren({ label, children }: { label: string; children: ReactNode; }) {
+export function TitleWChildren({ label, children }: { label: string; children: ReactNode; }) {
     return (
-        <Label className={"col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center"}>
+        <div className={"col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center"}>
             <div className="font-light text-end">
                 {label}
             </div>
 
             {children}
-        </Label>
+        </div>
     );
 }
 
@@ -24,9 +24,9 @@ type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function RowInputWLabel({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
     return (
-        <LabelWChildren label={label}>
+        <TitleWChildren label={label}>
             <InputWTooltip stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
-        </LabelWChildren>
+        </TitleWChildren>
     );
 }
 
@@ -36,11 +36,11 @@ type RowInputAndButtonWLabelProps = RowInputWLabelProps & {
 
 export function RowInputAndButtonWLabel({ label, stateAtom, asCheckbox, button, ...rest }: RowInputAndButtonWLabelProps) {
     return (
-        <LabelWChildren label={label}>
+        <TitleWChildren label={label}>
             <div className="w-full flex items-center justify-between gap-1">
                 <InputWTooltip stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
                 {button}
             </div>
-        </LabelWChildren>
+        </TitleWChildren>
     );
 }
