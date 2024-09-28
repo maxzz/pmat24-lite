@@ -11,6 +11,5 @@ export function Part3Authentication({ atoms }: { atoms: OptionsState.Atoms; }) {
         <RowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
 
         <ExtPolicySelect stateAtom={auth_plAtom} />
-        <RowInputWTitle stateAtom={auth_plAtom} label="Extended Authentication policy" />
     </>);
 }

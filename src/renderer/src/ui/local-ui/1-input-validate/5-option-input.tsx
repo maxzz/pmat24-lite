@@ -14,7 +14,7 @@ border-mani-border-muted border \
 rounded-sm \
 outline-none";
 
-type OptionInputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type OptionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     stateAtom: RowInputStateAtom;
     onValueChange?: () => void;
 };
@@ -54,7 +54,7 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
 
     return (
         <input
-            className={classNames(optionInputClasses, inputRingClasses /*, vakue.error && "ring-1 ring-red-500/70"*/, className)}
+            className={classNames(optionInputClasses, inputRingClasses /*, value.error && "ring-1 ring-red-500/70"*/, className)}
             value={state.data}
             onChange={onChange}
             onBlur={onBlur}

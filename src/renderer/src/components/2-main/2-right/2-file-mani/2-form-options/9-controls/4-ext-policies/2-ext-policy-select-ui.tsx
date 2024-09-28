@@ -10,22 +10,23 @@ export type StringValueChangeProps = {
 
 type ExtPolicySelectUiProps = StringValueChangeProps & {
     items: SelectNameValueItem[];
+    defaultLabel?: string;
 };
 
-const popupColorClasses = "\
+const popupContentClasses = "\
 h-6 \
-bg-primary-100 dark:bg-primary-900 \
-text-primary-900 dark:text-primary-300";
+text-primary-900 dark:text-primary-300 \
+bg-primary-100 dark:bg-primary-900";
 
-export function ExtPolicySelectUi({ items, value, onValueChange }: ExtPolicySelectUiProps) {
+export function ExtPolicySelectUi({ items, defaultLabel, value, onValueChange }: ExtPolicySelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
             <SelectTrigger className="px-2 py-1 w-max h-7 text-xs gap-1">
-                <SelectValue placeholder="No additional credential" />
+                <SelectValue placeholder={defaultLabel} />
             </SelectTrigger>
 
-            <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
+            <SelectContent align="start" buttonClasses={popupContentClasses} position="item-aligned">
                 {items.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';

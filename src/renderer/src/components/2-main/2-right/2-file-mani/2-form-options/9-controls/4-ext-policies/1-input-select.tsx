@@ -1,33 +1,39 @@
-import { useState, type InputHTMLAttributes } from "react";
+import { useAtom } from "jotai";
+import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
 import { TitleWChildren } from "../1-options-row";
-import { ExtPolicySelectUi, type SelectNameValueItem, type StringValueChangeProps } from "./2-ext-policy-select-ui";
-import { classNames } from "@/utils";
+import { ExtPolicySelectUi, type SelectNameValueItem } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
-import { RowInputStateAtom } from "@/ui/local-ui/1-input-validate";
 
-type ExtPolicySelectProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> &
-// StringValueChangeProps & 
-{
-    // items: SelectNameValueItem[];
-    stateAtom: RowInputStateAtom;
-};
+const tokenReactNodes: SelectNameValueItem[] = extPolicyTokens.map(
+    (token, idx) => {
+        const Icon = token.icon && extPolicyIcons[token.icon];
+        return [
+            (
+                <div className="flex items-center">
+                    {Icon && <Icon key={idx} className="mr-1 size-6" />}
+                    {token.displayName}
+                </div>
+            ),
+            token.value,
+        ];
+    }
+);
 
-const items: SelectNameValueItem[] = extPolicyTokens.map((token, idx) => {
-    const Icon = token.icon && extPolicyIcons[token.icon];
-    return [
-        (<div className="flex items-center">
-            {Icon && <Icon key={idx} className="mr-2 size-6" />}
-            {token.displayName}
-        </div>),
-        token.value,
-    ];
-});
+export function ExtPolicySelect({ stateAtom, onValueChange, ...rest }: OptionInputProps) {
+    const [state, setState] = useAtom(stateAtom);
 
-export function ExtPolicySelect({ ...rest }: ExtPolicySelectProps) {
-    const [value, onValueChange] = useState<string>("");
-    return (<>
+    function onChange(newValue: string) {
+        setState((prev) => ({ ...prev, data: newValue === '0' ? '' : newValue, }));
+        onValueChange?.();
+    }
+
+    return (
         <TitleWChildren label="Extended authentication policy">
-            <ExtPolicySelectUi items={items} value={value} onValueChange={onValueChange}  {...rest} />
+            <ExtPolicySelectUi
+                items={tokenReactNodes}
+                value={state.data || '0'}
+                onValueChange={onChange} {...rest}
+            />
         </TitleWChildren>
-        </>);
+    );
 }

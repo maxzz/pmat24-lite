@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, ReactNode } from "react";
-import { Label, RowInputStateAtom } from "@/ui";
+import { RowInputStateAtom } from "@/ui";
 import { InputWTooltip } from "./2-input-w-tooltip";
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";
