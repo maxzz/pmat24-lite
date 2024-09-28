@@ -11,17 +11,15 @@ type ExtPolicySelectProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 };
 
 const items: SelectNameValueItem[] = extPolicyTokens.map((token, idx) => {
-    const Icon = extPolicyIcons[token.icon];
+    const Icon = token.icon && extPolicyIcons[token.icon];
     return [
         (<div className="flex items-center">
-            <Icon key={idx} className="mr-2 size-6" />
+            {Icon && <Icon key={idx} className="mr-2 size-6" />}
             {token.displayName}
         </div>),
         token.value,
     ];
 });
-
-
 
 export function ExtPolicySelect({ ...rest }: ExtPolicySelectProps) {
     const [value, onValueChange] = useState<string>("");

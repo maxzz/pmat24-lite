@@ -25,8 +25,8 @@ export function SectionHeader() {
 
                 {extPolicyTokens.map(
                     (token, idx) => {
-                        const Icon = extPolicyIcons[token.icon];
-                        return <Icon key={idx} className="size-6" />;
+                        const Icon = token.icon && extPolicyIcons[token.icon];
+                        return (Icon && <Icon key={idx} className="size-6" />);
                     }
                 )}
 
