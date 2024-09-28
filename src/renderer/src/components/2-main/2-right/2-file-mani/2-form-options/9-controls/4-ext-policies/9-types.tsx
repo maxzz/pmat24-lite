@@ -33,17 +33,17 @@ export type ExtPolTokenType = {
 export type ExtPolTokenIcons = Record<ExtPolTokenKey, (props: HTMLAttributes<SVGSVGElement | HTMLElement>) => JSX.Element>;
 
 export const extPolicyTokens: ExtPolTokenType[] = [ // This defines the order of the tokens in the UI
-    { displayName: 'No additional credential',  /**/ value: '0', },
-    { displayName: 'Password',                  /**/ value: '0x0001', icon: 'password', },
-    { displayName: 'Fingerprint',               /**/ value: '0x0002', icon: 'fingerprint', },
-    { displayName: 'PKI smart card',            /**/ value: '0x0004', icon: 'smartcard', },
-    { displayName: 'Contactless writable card', /**/ value: '0x0020', icon: 'contactless', },
-    { displayName: 'PIN',                       /**/ value: '0x0080', icon: 'pin', },
-    { displayName: 'One-Time Password',         /**/ value: '0x0800', icon: 'otp', },
-    { displayName: 'Proximity ID card',         /**/ value: '0x0100', icon: 'prox', },
-    { displayName: 'FIDO Key',                  /**/ value: '0x8000', icon: 'fido', },
-    { displayName: 'Bluetooth',                 /**/ value: '0x0200', icon: 'bluetooth', },
-    { displayName: 'Face',                      /**/ value: '0x0010', icon: 'face', },
+    { displayName: 'No additional credential',  /**/ value: /**/    '0', },
+    { displayName: 'Password',                  /**/ value: /**/    '1', icon: 'password', },
+    { displayName: 'Fingerprint',               /**/ value: /**/    '2', icon: 'fingerprint', },
+    { displayName: 'PKI smart card',            /**/ value: /**/    '4', icon: 'smartcard', },
+    { displayName: 'Contactless writable card', /**/ value: /**/   '20', icon: 'contactless', },
+    { displayName: 'PIN',                       /**/ value: /**/   '80', icon: 'pin', },
+    { displayName: 'One-Time Password',         /**/ value: /**/  '800', icon: 'otp', },
+    { displayName: 'Proximity ID card',         /**/ value: /**/  '100', icon: 'prox', },
+    { displayName: 'FIDO Key',                  /**/ value: /**/ '8000', icon: 'fido', },
+    { displayName: 'Bluetooth',                 /**/ value: /**/  '200', icon: 'bluetooth', },
+    { displayName: 'Face',                      /**/ value: /**/   '10', icon: 'face', },
 ];
 
 export const extPolicyIcons: ExtPolTokenIcons = {

@@ -47,7 +47,7 @@ function optionsForMani(values: FormOptionsState.ForAtoms): Mani.Options {
             ? general.submitType
             : undefined;
 
-    const authPolicy = p3Auth.auth_pl === '0' ? undefined : parseInt(p3Auth.auth_pl, 16).toString(16);
+    const authPolicy = p3Auth.auth_pl === '0' ? undefined : p3Auth.auth_pl;
 
     const rv: Mani.Options = {
         choosename: general.name,
