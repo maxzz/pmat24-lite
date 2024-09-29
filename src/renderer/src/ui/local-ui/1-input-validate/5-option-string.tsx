@@ -13,7 +13,7 @@ border-mani-border-muted border \
 rounded-sm \
 outline-none";
 
-export function OptionInput({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
+export function OptionString({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
