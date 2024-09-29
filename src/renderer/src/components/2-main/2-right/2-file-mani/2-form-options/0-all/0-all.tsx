@@ -15,22 +15,20 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const loginCtx: OFormContextProps | undefined = login && { maniAtoms, formAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
     const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, formAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
 
-    return (
-        <div className={optionsAllGroupsClasses}>
-            {login && loginCtx && (<>
-                <SectionTitle label="Manifest options" />
-                <GroupGeneral ctx={loginCtx} />
+    return (<>
+        {login && loginCtx && (<>
+            <SectionTitle label="Manifest options" />
+            <GroupGeneral ctx={loginCtx} />
 
-                <SectionTitle label="Login form options" />
-                <GroupLogin ctx={loginCtx} />
-            </>)}
+            <SectionTitle label="Login form options" />
+            <GroupLogin ctx={loginCtx} />
+        </>)}
 
-            {cpass && cpassCtx && (<>
-                <SectionTitle label="Password change form options" />
-                <GroupCpass ctx={cpassCtx} />
-            </>)}
-        </div>
-    );
+        {cpass && cpassCtx && (<>
+            <SectionTitle label="Password change form options" />
+            <GroupCpass ctx={cpassCtx} />
+        </>)}
+    </>);
 }
 
 export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
@@ -49,6 +47,8 @@ export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
     }
 
     return (
-        <OptionsContent maniAtoms={maniAtoms} />
+        <div className={optionsAllGroupsClasses}>
+            <OptionsContent maniAtoms={maniAtoms} />
+        </div>
     );
 }
