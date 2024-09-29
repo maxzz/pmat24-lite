@@ -4,8 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 function SubmitSelector({ ctx }: { ctx: NFormContextProps; }) {
 
-    const buttonNameItems = useAtomValue(ctx.nAllAtoms.normal.submitCtx.buttonNameItemsAtom);
-    const [selected, setSelected] = useAtom(ctx.nAllAtoms.normal.submitCtx.selectedAtom);
+    const { buttonNameItemsAtom, selectedAtom } = ctx.nAllAtoms.normal.submitCtx;
+    const buttonNameItems = useAtomValue(buttonNameItemsAtom);
+    const [selected, setSelected] = useAtom(selectedAtom);
 
     return (
         <Select value={selected.toString()} onValueChange={(value) => setSelected(+value)}>
@@ -28,7 +29,7 @@ function SubmitSelector({ ctx }: { ctx: NFormContextProps; }) {
     );
 }
 
-function BodyWin32({ ctx }: { ctx: NFormContextProps; }) {
+function SubmitBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
     const selected = useAtomValue(ctx.nAllAtoms.normal.submitCtx.selectedAtom) !== 0;
     return (<>
         After filling in the form fields,
@@ -49,7 +50,7 @@ export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
                     the form data.
                 </>)
                 : (
-                    <BodyWin32 ctx={ctx} />
+                    <SubmitBodyForWin32 ctx={ctx} />
                 )
             }
         </div>
