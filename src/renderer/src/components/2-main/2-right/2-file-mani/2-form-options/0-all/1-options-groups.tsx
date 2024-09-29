@@ -31,11 +31,11 @@ export function GroupLogin({ ctx }: { ctx: OFormContextProps; }) {
     </>);
 }
 
-export function GroupCpass(props: OFormContextProps) {
+export function GroupCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
-        <OptionsDetection {...props} />
-        <OptionsAuth {...props} />
-        <OptionsQuicklink {...props} />
-        <OptionsIcon {...props} />
+        <OptionsDetection {...ctx} />
+        <OptionsAuth {...ctx} />
+        <OptionsQuicklink {...ctx} />
+        <OptionsIcon {...ctx} />
     </>);
 }
