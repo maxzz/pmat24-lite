@@ -3,9 +3,9 @@ import { FileUs } from "@/store/store-types";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
-import { GroupGeneral } from "./1-options-general";
-import { GroupLogin } from "./2-options-login";
-import { GroupCpass } from "./3-options-cpass";
+import { GroupGeneral } from "./1-group-general";
+import { GroupLogin } from "./2-group-login";
+import { GroupCpass } from "./3-group-cpass";
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
