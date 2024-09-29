@@ -24,8 +24,12 @@ export function ExtPolicySelect({ stateAtom, onValueChange, ...rest }: OptionInp
 
     function onChange(newValue: string) {
         const value = newValue === '0' ? '' : newValue;
-        setState((prev) => ({ ...prev, data: value, dirty: prev.initialData !== value, }));
-        onValueChange?.();
+        setState((prev) => {
+            const rv = { ...prev, data: value, dirty: prev.initialData !== value, };
+            onValueChange?.(rv.data);
+            return rv;
+        });
+        
     }
 
     return (

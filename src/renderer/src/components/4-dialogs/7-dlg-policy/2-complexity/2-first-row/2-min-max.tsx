@@ -14,8 +14,8 @@ function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { e
 }
 
 export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
-    const updateExplanation = useSetAtom(updateExplanationAtom);
-    const onValueChange = () => updateExplanation({ dlgUiCtx: dlgUiCtx });
+    const doUpdateExplanation = useSetAtom(updateExplanationAtom);
+    const updateExplanation = () => doUpdateExplanation({ dlgUiCtx });
     return (
         <div className="text-xs space-y-1">
             <div className="">Password length</div>
@@ -29,7 +29,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.minLenAtom}
-                        onValueChange={onValueChange}
+                        onValueChange={updateExplanation}
                     />
                 </InputTooltipShell>
 
@@ -41,7 +41,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.maxLenAtom}
-                        onValueChange={onValueChange}
+                        onValueChange={updateExplanation}
                     />
                 </InputTooltipShell>
             </div>

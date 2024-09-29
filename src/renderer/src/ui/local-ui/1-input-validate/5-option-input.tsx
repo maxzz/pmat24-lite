@@ -16,7 +16,7 @@ outline-none";
 
 export type OptionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     stateAtom: RowInputStateAtom;
-    onValueChange?: () => void;
+    onValueChange?: (newValue: string) => void;
 };
 
 export function OptionInput({ stateAtom, className, onValueChange, ...rest }: OptionInputProps) {
@@ -32,10 +32,10 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
                     error: prev.validate?.(value),
                     dirty: prev.initialData !== value,
                 };
+                onValueChange?.(rv.data);
                 return rv;
             }
         );
-        onValueChange?.();
     }
 
     function onBlur() {
