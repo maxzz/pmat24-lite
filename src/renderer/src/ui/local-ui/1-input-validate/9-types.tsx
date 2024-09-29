@@ -1,8 +1,9 @@
-import { PrimitiveAtom } from 'jotai';
+import { type InputHTMLAttributes } from 'react';
+import { type PrimitiveAtom } from 'jotai';
 
 export type RowInputStateOptions = {
     initialValidate: boolean;               // Validate value on init and set touched if value is invalid
-}
+};
 
 export type RowInputState = {
     type: 'string' | 'number' | 'boolean';
@@ -22,3 +23,14 @@ export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
 export type RowInputStateAtoms = Record<string, RowInputStateAtom>;
 
 export type OnValueStateChange = (state: RowInputState) => void; // value and value vilidation information
+
+export type OptionInputProps =
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
+        stateAtom: RowInputStateAtom;
+        onValueStateChange?: OnValueStateChange;
+    };
+
+export type OptionInputWTypeProps =
+    OptionInputProps & {
+        asCheckbox?: boolean;
+    };

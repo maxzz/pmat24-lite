@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { type OptionInputProps } from "./5-option-input";
+import { type OptionInputProps } from "./9-types";
 import { classNames } from "@/utils";
 
 export function OptionCheckbox({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {

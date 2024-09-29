@@ -1,6 +1,5 @@
-import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { type OnValueStateChange, type RowInputState, type RowInputStateAtom } from "./9-types";
+import { type OptionInputProps, type RowInputState } from "./9-types";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
@@ -13,11 +12,6 @@ border-mani-border-muted border \
 \
 rounded-sm \
 outline-none";
-
-export type OptionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
-    stateAtom: RowInputStateAtom;
-    onValueStateChange?: OnValueStateChange;
-};
 
 export function OptionInput({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
