@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 import { AnimatePresence } from "framer-motion";
 
 export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
-    const ctx = ctxForm.mFormAtoms.manual;
+    const ctx = ctxForm.mAllAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectByKey = useSetAtom(doSelectByKbdAtom);

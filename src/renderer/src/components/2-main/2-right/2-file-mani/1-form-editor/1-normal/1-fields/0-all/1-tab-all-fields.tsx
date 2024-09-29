@@ -4,7 +4,7 @@ import { NoFileds } from "./5-no-fileds";
 
 export function TabFields({ ctx }: { ctx: NFormContextProps; }) {
 
-    if (!ctx.nFormAtoms.normal.rowCtxs.length) {
+    if (!ctx.nAllAtoms.normal.rowCtxs.length) {
         return (
             <NoFileds formType={ctx.formIdx} />
         );

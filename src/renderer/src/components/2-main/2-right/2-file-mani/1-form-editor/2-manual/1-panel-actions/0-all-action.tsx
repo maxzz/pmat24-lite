@@ -8,10 +8,10 @@ import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
 import { editorFrameClasses, focusWithinClasses } from "../8-manual-shared-styles";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    const cb = useInitSelectedIdx(ctx.mFormAtoms.manual);
+    const cb = useInitSelectedIdx(ctx.mAllAtoms.manual);
     useEffect(() => { cb(); }, []);
 
-    const items = useAtomValue(ctx.mFormAtoms.manual.chunksAtom);
+    const items = useAtomValue(ctx.mAllAtoms.manual.chunksAtom);
 
     return (
         <div className={classNames("flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses, className)} {...rest}>

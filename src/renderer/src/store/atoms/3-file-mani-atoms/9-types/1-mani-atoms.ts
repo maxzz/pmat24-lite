@@ -46,19 +46,19 @@ export type ManiAtoms = readonly [login: AnyFormAtoms | undefined, cpass: AnyFor
 
 export type NFormContextProps = {           // To access normal form fields and submit
     maniAtoms: ManiAtoms;
-    nFormAtoms: NFormAtoms;
+    nAllAtoms: NFormAtoms;
     formIdx: FormIdx;
 };
 
 export type MFormContextProps = {           // To access manual form fields
     maniAtoms: ManiAtoms;
-    mFormAtoms: MFormAtoms;
+    mAllAtoms: MFormAtoms;
     formIdx: FormIdx;
 };
 
 export type OFormContextProps = {           // To access form options
     maniAtoms: ManiAtoms;
-    oFormAtoms: FormOptionsAndFileUsCtxAtoms;
+    oAllAtoms: FormOptionsAndFileUsCtxAtoms;
     formIdx: FormIdx;
 };
 

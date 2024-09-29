@@ -4,7 +4,7 @@ import { RowInputWTitle } from "../9-controls";
 
 export function Part2ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
-    const atoms = ctx.oFormAtoms.options;
+    const atoms = ctx.oAllAtoms.options;
     const isWeb = useAtomValue(atoms.isWebAtom);
 
     const {

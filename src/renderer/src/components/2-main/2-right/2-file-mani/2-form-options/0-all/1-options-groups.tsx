@@ -8,7 +8,7 @@ import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./
 export function GroupGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];
     const open = useAtomValue(openAtom);
-    const { nameAtom } = ctx.oFormAtoms.options.p1General;
+    const { nameAtom } = ctx.oAllAtoms.options.p1General;
     return (<>
         <RowInputAndButtonWTitle
             label="Managed login name"

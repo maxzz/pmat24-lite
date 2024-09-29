@@ -13,7 +13,7 @@ overflow-hidden \
 select-none";
 
 export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    const ctx = ctxForm.mFormAtoms.manual;
+    const ctx = ctxForm.mAllAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);

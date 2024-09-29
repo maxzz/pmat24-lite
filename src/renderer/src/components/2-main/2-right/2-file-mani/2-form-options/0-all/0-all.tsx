@@ -10,8 +10,8 @@ import { GroupCpass, GroupGeneral, GroupLogin } from "./1-options-groups";
 function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 
     const [login, cpass] = maniAtoms;
-    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, oFormAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-    const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, oFormAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
+    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
+    const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
 
     return (<>
         {login && loginCtx && (<>
