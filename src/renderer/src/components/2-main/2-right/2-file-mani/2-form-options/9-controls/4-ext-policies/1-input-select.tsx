@@ -19,17 +19,16 @@ const tokenReactNodes: SelectNameValueItem[] = extPolicyTokens.map(
     }
 );
 
-export function ExtPolicySelect({ stateAtom, onValueChange, ...rest }: OptionInputProps) {
+export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(newValue: string) {
         const value = newValue === '0' ? '' : newValue;
         setState((prev) => {
             const rv = { ...prev, data: value, dirty: prev.initialData !== value, };
-            onValueChange?.(rv.data);
+            onValueChange?.(rv);
             return rv;
         });
-        
     }
 
     return (

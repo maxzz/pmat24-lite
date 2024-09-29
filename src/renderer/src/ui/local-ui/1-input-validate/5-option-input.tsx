@@ -16,10 +16,10 @@ outline-none";
 
 export type OptionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     stateAtom: RowInputStateAtom;
-    onValueChange?: (newValue: string) => void;
+    onValueStateChange?: (state: RowInputState) => void;
 };
 
-export function OptionInput({ stateAtom, className, onValueChange, ...rest }: OptionInputProps) {
+export function OptionInput({ stateAtom, className, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,7 +32,7 @@ export function OptionInput({ stateAtom, className, onValueChange, ...rest }: Op
                     error: prev.validate?.(value),
                     dirty: prev.initialData !== value,
                 };
-                onValueChange?.(rv.data);
+                onValueChange?.(rv);
                 return rv;
             }
         );

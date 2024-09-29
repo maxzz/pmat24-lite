@@ -29,7 +29,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.minLenAtom}
-                        onValueChange={updateExplanation}
+                        onValueStateChange={updateExplanation}
                     />
                 </InputTooltipShell>
 
@@ -41,7 +41,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                     <OptionInput
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.maxLenAtom}
-                        onValueChange={updateExplanation}
+                        onValueStateChange={updateExplanation}
                     />
                 </InputTooltipShell>
             </div>
