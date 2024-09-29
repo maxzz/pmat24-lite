@@ -11,7 +11,7 @@ export function OptionsDetection(ctx: OFormContextProps) {
     // const open = useAtomValue(openAtom);
     
     const name = "detection";
-    const formIdx = ctx.formAtoms.options.formIdx;
+    const formIdx = ctx.oFormAtoms.options.formIdx;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
@@ -28,7 +28,7 @@ export function OptionsAuth(ctx: OFormContextProps) {
     // const open = useAtomValue(openAtom);
     
     const name = "auth";
-    const formIdx = ctx.formAtoms.options.formIdx;
+    const formIdx = ctx.oFormAtoms.options.formIdx;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
@@ -45,26 +45,26 @@ export function OptionsQuicklink(ctx: OFormContextProps) {
     // const open = useAtomValue(openAtom);
 
     const name = "ql";
-    const formIdx = ctx.formAtoms.options.formIdx;
+    const formIdx = ctx.oFormAtoms.options.formIdx;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
     
     return (<>
         <SubSectionTitle label="Quick link" openAtom={openAtom}  formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part4QL atoms={ctx.formAtoms.options} />
+            <Part4QL atoms={ctx.oFormAtoms.options} />
         </UiAccordion>
     </>);
 }
 
 export function OptionsIcon(ctx: OFormContextProps) {
-    const optionsAtoms = ctx.formAtoms.options;
+    const optionsAtoms = ctx.oFormAtoms.options;
 
     const openAtom = useState(() => atom(false))[0];
     // const open = useAtomValue(openAtom);
 
     const name = "icon";
-    const formIdx = ctx.formAtoms.options.formIdx;
+    const formIdx = ctx.oFormAtoms.options.formIdx;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     const isWeb = useAtomValue(optionsAtoms.isWebAtom);

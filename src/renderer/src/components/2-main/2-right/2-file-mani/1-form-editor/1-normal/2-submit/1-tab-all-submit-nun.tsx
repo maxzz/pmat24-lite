@@ -3,11 +3,11 @@ import { type Meta } from "@/store/manifest";
 import { type NFormContextProps, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
 import { RadioGroup } from "./2-radio-group-for-nun";
 
-function ManiSection2_Submit({ formAtoms, metaForm }: { formAtoms: NFormCtx; metaForm: Meta.Form; }) {
+function ManiSection2_Submit({ nFormCtx, metaForm }: { nFormCtx: NFormCtx; metaForm: Meta.Form; }) {
 
-    const buttonNameItems = useAtomValue(formAtoms.submitCtx.buttonNameItemsAtom);
+    const buttonNameItems = useAtomValue(nFormCtx.submitCtx.buttonNameItemsAtom);
     const buttonNameStrings = buttonNameItems.map(({ name }) => name);
-    const [selected, setSelected] = useAtom(formAtoms.submitCtx.selectedAtom);
+    const [selected, setSelected] = useAtom(nFormCtx.submitCtx.selectedAtom);
 
     return (
         <RadioGroup
@@ -19,11 +19,11 @@ function ManiSection2_Submit({ formAtoms, metaForm }: { formAtoms: NFormCtx; met
     );
 }
 
-export function TabSubmitOld({ formAtoms, formIdx }: NFormContextProps) {
-    const metaForm = formAtoms.fileUsCtx.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
+export function TabSubmitOld({ nFormAtoms, formIdx }: NFormContextProps) {
+    const metaForm = nFormAtoms.fileUsCtx.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="px-1">
-            <ManiSection2_Submit formAtoms={formAtoms.normal} metaForm={metaForm} />
+            <ManiSection2_Submit nFormCtx={nFormAtoms.normal} metaForm={metaForm} />
         </div>
     );
 }

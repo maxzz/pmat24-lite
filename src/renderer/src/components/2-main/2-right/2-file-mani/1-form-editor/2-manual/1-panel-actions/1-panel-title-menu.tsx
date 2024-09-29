@@ -13,7 +13,7 @@ function MenuRow({ ctx, type, password }: { ctx: MFormContextProps; type: ChunkK
     return (
         <Menu.Item
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
-            onClick={() => doCreateItem(ctx.formAtoms.manual, type, !!password)}
+            onClick={() => doCreateItem(ctx.mFormAtoms.manual, type, !!password)}
         >
             <RowColumnIcon type={type} />
 

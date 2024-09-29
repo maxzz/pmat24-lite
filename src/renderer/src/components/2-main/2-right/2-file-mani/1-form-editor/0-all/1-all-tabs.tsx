@@ -24,14 +24,14 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
     }
 
     if (formAtoms.manual) {
-        const ctx: MFormContextProps = { maniAtoms, formAtoms: formAtoms as MFormAtoms, formIdx };
+        const ctx: MFormContextProps = { maniAtoms, mFormAtoms: formAtoms as MFormAtoms, formIdx };
         return (
             <ManualFormTabContent ctx={ctx} />
         );
     }
 
     if (formAtoms.normal) {
-        const ctx: NFormContextProps = { maniAtoms, formAtoms: formAtoms as NFormAtoms, formIdx };
+        const ctx: NFormContextProps = { maniAtoms, nFormAtoms: formAtoms as NFormAtoms, formIdx };
         return (
             <div className="mr-1 h-full flex flex-col">
                 <NormalFormTabContent ctx={ctx} />

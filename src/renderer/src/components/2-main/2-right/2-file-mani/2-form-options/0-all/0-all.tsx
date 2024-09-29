@@ -7,13 +7,11 @@ import { GroupCpass, GroupGeneral, GroupLogin } from "./1-options-groups";
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
-const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
-
 function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 
     const [login, cpass] = maniAtoms;
-    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, formAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-    const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, formAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
+    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, oFormAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
+    const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, oFormAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
 
     return (<>
         {login && loginCtx && (<>
@@ -30,6 +28,8 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
         </>)}
     </>);
 }
+
+const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
 
 export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
