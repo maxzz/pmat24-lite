@@ -20,3 +20,5 @@ export type RowInputState = {
 
 export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
 export type RowInputStateAtoms = Record<string, RowInputStateAtom>;
+
+export type OnValueStateChange = (state: RowInputState) => void; // value and value vilidation information

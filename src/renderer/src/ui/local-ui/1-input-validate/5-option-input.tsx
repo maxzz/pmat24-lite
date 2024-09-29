@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { useAtom } from "jotai";
+import { type OnValueStateChange, type RowInputState, type RowInputStateAtom } from "./9-types";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { RowInputState, RowInputStateAtom } from "./9-types";
 import { inputRingClasses } from "@/ui";
 
 const optionInputClasses = "\
@@ -16,10 +16,10 @@ outline-none";
 
 export type OptionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     stateAtom: RowInputStateAtom;
-    onValueStateChange?: (state: RowInputState) => void;
+    onValueStateChange?: OnValueStateChange;
 };
 
-export function OptionInput({ stateAtom, className, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
+export function OptionInput({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,7 +32,7 @@ export function OptionInput({ stateAtom, className, onValueStateChange: onValueC
                     error: prev.validate?.(value),
                     dirty: prev.initialData !== value,
                 };
-                onValueChange?.(rv);
+                onValueStateChange?.(rv);
                 return rv;
             }
         );
