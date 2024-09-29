@@ -3,6 +3,7 @@ import { PrimitiveAtom, atom, useAtomValue } from "jotai";
 import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
+import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";
 
 function Part1GeneralTrigger({ ctx, openAtom }: { ctx: OFormContextProps; openAtom: PrimitiveAtom<boolean>; }) {
     const { nameAtom } = ctx.formAtoms.options.p1General;
@@ -26,5 +27,23 @@ export function GroupGeneral({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         {/* <SubSectionTitle0 label="General" /> */}
         <Part1GeneralTrigger ctx={ctx} openAtom={openAtom} />
+    </>);
+}
+
+export function GroupLogin(props: OFormContextProps) {
+    return (<>
+        <OptionsDetection {...props} />
+        <OptionsAuth {...props} />
+        <OptionsQuicklink {...props} />
+        <OptionsIcon {...props} />
+    </>);
+}
+
+export function GroupCpass(props: OFormContextProps) {
+    return (<>
+        <OptionsDetection {...props} />
+        <OptionsAuth {...props} />
+        <OptionsQuicklink {...props} />
+        <OptionsIcon {...props} />
     </>);
 }
