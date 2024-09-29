@@ -38,7 +38,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 
-    //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
+    console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);

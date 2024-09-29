@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, ReactNode } from "react";
-import { RowInputStateAtom } from "@/ui";
+import { type ReactNode } from "react";
+import { type OptionInputWTypeProps } from "@/ui";
 import { InputWTooltip } from "./2-input-w-tooltip";
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";
@@ -16,10 +16,8 @@ export function TitleWChildren({ label, children }: { label: string; children: R
     );
 }
 
-type RowInputWLabelProps = InputHTMLAttributes<HTMLInputElement> & {
+type RowInputWLabelProps = OptionInputWTypeProps & {
     label: string;
-    stateAtom: RowInputStateAtom;
-    asCheckbox?: boolean;
 };
 
 export function RowInputWTitle({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {

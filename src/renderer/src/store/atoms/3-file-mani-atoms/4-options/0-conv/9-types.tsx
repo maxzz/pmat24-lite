@@ -47,7 +47,7 @@ export namespace FormOptionsState {
     type p4QL = {                   // Part Quick Links
         qName: string;              // Quick Link Name
         qUrl: string;               // Quick Link URL
-        qUse: boolean;              // Use Quick Link, i.e display on mini-dashboard
+        qUse: boolean;              // Use Quick Link, i.e display on mini-dashboard; now totally depends on 'qName' emptyness
     };
 
     type p5Icon = {                 // Part Password Manager Icon

@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from 'jotai';
 import { atomWithCallback } from '@/util-hooks';
-import { type OnChangeValueWithUpdateName, type RowInputState, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNumber } from "@/ui";
 import { type FormOptionsState } from "./9-types";
+import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNumber } from "@/ui";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
@@ -13,7 +13,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             hintAtom: createAtomForInput(p1General.hint, onChange('hint')),
             balloonAtom: createAtomForInput(p1General.balloon, onChange('balloon'), { validate: validateNumber }),
             submitTypeAtom: createAtomForInput(p1General.submitType, onChange('submitType')),
-            qlNameAtom: createAtomForInput(p1General.qlName, onChange('qlName')),
+            qlNameAtom: createAtomForInput(p1General.qlName, onChange('qlName')), //TODO: looks like a duplicate of p4QL.qNameAtom
             qlWoCredAtom: createAtomForCheck(p1General.qlWoCred, onChange('qlWoCred')),
             unkAttrsAtom: createAtomForInput(p1General.unkAttrs, onChange('unkAttrs')),
         },
@@ -43,9 +43,9 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             auth_plAtom: createAtomForInput(p3Auth.auth_pl, onChange('auth_pl')),
         },
         p4QL: {
-            qNameAtom: createAtomForInput(p4QL.qName, onChange('name')),
-            qUrlAtom: createAtomForInput(p4QL.qUrl, onChange('url')),
-            qUseAtom: createAtomForCheck(p4QL.qUse, onChange('use')),
+            qNameAtom: createAtomForInput(p4QL.qName, onChange('qname')), //TODO: looks like a duplicate of p1General.qlNameAtom
+            qUrlAtom: createAtomForInput(p4QL.qUrl, onChange('qurl')),
+            qUseAtom: createAtomForCheck(p4QL.qUse, onChange('quse')),
         },
         p5Icon: {
             idAtom: createAtomForInput(p5Icon.id, onChange('id')),
