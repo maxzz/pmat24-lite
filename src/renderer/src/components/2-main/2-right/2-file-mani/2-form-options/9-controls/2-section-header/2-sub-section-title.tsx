@@ -93,14 +93,17 @@ border-border \
 flex items-center gap-1 \
 ";
 
-export function SubSectionTitle({ label, openAtom, formIdx, name }: { label: string; openAtom: PrimitiveAtom<boolean>; formIdx: FormIdx; name: string; }) {
+export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
+
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
-    const setToggle = () => {
+    
+    function toggleOpen() {
         appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
-    };
+    }
+
     return (
         <div className="col-span-1 w-full">
-            <Button className={classNames("w-full mr-0.5", sectionClasses)} onClick={setToggle}>
+            <Button className={classNames("w-full mr-0.5", sectionClasses)} onClick={toggleOpen}>
 
                 <div className="w-full text-start">
                     {label}

@@ -1,21 +1,17 @@
-import { useState } from "react";
-import { atom, useAtomValue } from "jotai";
-import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
-import { SubSectionTitle, UiAccordion } from "../9-controls";
-import { appSettings } from "@/store";
+import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
+import { type OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
+import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
 export function OptionsDetection(ctx: OFormContextProps) {
-    const openAtom = useState(() => atom(false))[0];
-    // const open = useAtomValue(openAtom);
-    
     const name = "detection";
-    const formIdx = ctx.oAllAtoms.options.formIdx;
+    const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
-        <SubSectionTitle label="Screen detection" openAtom={openAtom} formIdx={formIdx} name={name} />
+        <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
             <Part2ScreenDetection ctx={ctx} />
@@ -24,15 +20,12 @@ export function OptionsDetection(ctx: OFormContextProps) {
 }
 
 export function OptionsAuth(ctx: OFormContextProps) {
-    const openAtom = useState(() => atom(false))[0];
-    // const open = useAtomValue(openAtom);
-    
     const name = "auth";
-    const formIdx = ctx.oAllAtoms.options.formIdx;
+    const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     return (<>
-        <SubSectionTitle label="Authentication" openAtom={openAtom} formIdx={formIdx} name={name} />
+        <OptionsSubSectionTitle label="Authentication" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
             <Part3Authentication ctx={ctx} />
@@ -41,15 +34,12 @@ export function OptionsAuth(ctx: OFormContextProps) {
 }
 
 export function OptionsQuicklink(ctx: OFormContextProps) {
-    const openAtom = useState(() => atom(false))[0];
-    // const open = useAtomValue(openAtom);
-
     const name = "ql";
-    const formIdx = ctx.oAllAtoms.options.formIdx;
+    const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
-    
+
     return (<>
-        <SubSectionTitle label="Quick link" openAtom={openAtom}  formIdx={formIdx} name={name} />
+        <OptionsSubSectionTitle label="Quick link" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
             <Part4QL atoms={ctx.oAllAtoms.options} />
@@ -58,25 +48,20 @@ export function OptionsQuicklink(ctx: OFormContextProps) {
 }
 
 export function OptionsIcon(ctx: OFormContextProps) {
-    const optionsAtoms = ctx.oAllAtoms.options;
-
-    const openAtom = useState(() => atom(false))[0];
-    // const open = useAtomValue(openAtom);
-
     const name = "icon";
-    const formIdx = ctx.oAllAtoms.options.formIdx;
+    const { formIdx, isWebAtom } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
-    const isWeb = useAtomValue(optionsAtoms.isWebAtom);
+    const isWeb = useAtomValue(isWebAtom);
     if (isWeb) {
         return null;
     }
 
     return (<>
-        <SubSectionTitle label="Password Manager Icon" openAtom={openAtom} formIdx={formIdx} name={name} />
+        <OptionsSubSectionTitle label="Password Manager Icon" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part5PasswordManagerIcon atoms={optionsAtoms} />
+            <Part5PasswordManagerIcon atoms={ctx.oAllAtoms.options} />
         </UiAccordion>
     </>);
 }
