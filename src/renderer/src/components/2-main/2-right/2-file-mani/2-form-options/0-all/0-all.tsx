@@ -20,7 +20,7 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
                 <GroupGeneral ctx={loginCtx} />
 
                 <SectionTitle label="Login form options" />
-                <GroupLogin maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
+                <GroupLogin ctx={loginCtx} />
             </>)}
 
             {cpass && (<>
