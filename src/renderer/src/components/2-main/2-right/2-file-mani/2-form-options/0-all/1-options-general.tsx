@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { PrimitiveAtom, atom, useAtomValue } from "jotai";
-import { OptionsState, OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 
-function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; openAtom: PrimitiveAtom<boolean>; }) {
-    const { nameAtom } = atoms.p1General;
+function Part1GeneralTrigger({ ctx, openAtom }: { ctx: OFormContextProps; openAtom: PrimitiveAtom<boolean>; }) {
+    const { nameAtom } = ctx.formAtoms.options.p1General;
     const open = useAtomValue(openAtom);
     return (<>
         <RowInputAndButtonWTitle
@@ -15,18 +15,16 @@ function Part1GeneralTrigger({ atoms, openAtom }: { atoms: OptionsState.Atoms; o
         />
 
         <UiAccordion open={open}>
-            <Part1General atoms={atoms} />
+            <Part1General ctx={ctx} />
         </UiAccordion>
     </>);
 }
 
-export function GroupGeneral({ formAtoms }: OFormContextProps) {
-    const { options: optionsAtoms } = formAtoms;
-    const { formIdx } = optionsAtoms;
+export function GroupGeneral({ ctx }: { ctx: OFormContextProps; }) {
 
     const openAtom = useState(() => atom(false))[0];
     return (<>
         {/* <SubSectionTitle0 label="General" /> */}
-        <Part1GeneralTrigger atoms={optionsAtoms} openAtom={openAtom} />
+        <Part1GeneralTrigger ctx={ctx} openAtom={openAtom} />
     </>);
 }

@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { FileUs } from "@/store/store-types";
 import { FormIdx } from "@/store/manifest";
-import { ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { type ManiAtoms, type OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
 import { GroupGeneral } from "./1-options-general";
 import { GroupLogin } from "./2-options-login";
@@ -13,11 +13,13 @@ const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] g
 
 function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const [login, cpass] = maniAtoms;
+
+    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, formAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
     return (
         <div className={optionsAllGroupsClasses}>
-            {login && (<>
+            {login && loginCtx && (<>
                 <SectionTitle label="Manifest options" />
-                <GroupGeneral maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />
+                <GroupGeneral ctx={loginCtx} />
 
                 <SectionTitle label="Login form options" />
                 <GroupLogin maniAtoms={maniAtoms} formAtoms={login} formIdx={FormIdx.login} />

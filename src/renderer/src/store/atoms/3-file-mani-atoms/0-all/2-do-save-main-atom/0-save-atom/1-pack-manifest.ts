@@ -17,7 +17,7 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
     if (form) {
         const { newMani } = packParams;
 
-        const { detection, options } = packFormOptions(form.options, packParams);
+        const { detection, options } = packFormOptions(form.options, formIdx, packParams);
 
         newMani.forms = newMani.forms || [];
         newMani.forms[formIdx] = {
