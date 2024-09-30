@@ -20,10 +20,10 @@ type RowInputWLabelProps = OptionInputWTypeProps & {
     label: string;
 };
 
-export function RowInputWTitle({ label, stateAtom, asCheckbox, ...rest }: RowInputWLabelProps) {
+export function RowInputWTitle({ label, ...rest }: RowInputWLabelProps) {
     return (
         <TitleWChildren label={label}>
-            <InputWTooltip stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
+            <InputWTooltip {...rest} />
         </TitleWChildren>
     );
 }
@@ -32,11 +32,11 @@ type RowInputAndButtonWLabelProps = RowInputWLabelProps & {
     button: ReactNode;
 };
 
-export function RowInputAndButtonWTitle({ label, stateAtom, asCheckbox, button, ...rest }: RowInputAndButtonWLabelProps) {
+export function RowInputAndButtonWTitle({ label, button, ...rest }: RowInputAndButtonWLabelProps) {
     return (
         <TitleWChildren label={label}>
             <div className="w-full flex items-center justify-between gap-1">
-                <InputWTooltip stateAtom={stateAtom} asCheckbox={asCheckbox} {...rest} />
+                <InputWTooltip {...rest} />
                 {button}
             </div>
         </TitleWChildren>

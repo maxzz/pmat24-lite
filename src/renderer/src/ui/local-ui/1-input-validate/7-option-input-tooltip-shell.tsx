@@ -1,21 +1,23 @@
 import { type FC, type ReactNode, useState } from "react";
 import { useAtomValue } from "jotai";
 import { type RowInputStateAtom, Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
+import { classNames } from "@/utils";
 
 type InputBodyProps = {
     stateAtom: RowInputStateAtom;
     children: ReactNode;
     Trigger: FC<{ error: string | undefined; }>;
+    containerClasses?: string;
 };
 
-export function OptionInputTooltipShell({ stateAtom, children, Trigger }: InputBodyProps) {
+export function OptionInputTooltipShell({ stateAtom, children, containerClasses, Trigger }: InputBodyProps) {
     const state = useAtomValue(stateAtom);
     const [openTooltip, setOpenTooltip] = useState(false);
     return (
         <TooltipProvider>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
 
-                <div className="relative w-full">
+                <div className={classNames("relative w-full", containerClasses)}>
                     {children}
 
                     <TooltipTrigger asChild>

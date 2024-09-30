@@ -6,6 +6,6 @@ export function Part1General({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <RowInputWTitle stateAtom={descAtom} label="Description" />
         <RowInputWTitle stateAtom={hintAtom} label="User hint" />
-        <RowInputWTitle stateAtom={balloonAtom} label="Show balloon" />
+        <RowInputWTitle stateAtom={balloonAtom} label="First login notification counter" containerClasses="!w-16" />
     </>);
 }

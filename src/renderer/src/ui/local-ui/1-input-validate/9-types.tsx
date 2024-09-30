@@ -33,4 +33,5 @@ export type OptionInputProps =
 export type OptionInputWTypeProps =
     OptionInputProps & {
         asCheckbox?: boolean;
+        containerClasses?: string;
     };
