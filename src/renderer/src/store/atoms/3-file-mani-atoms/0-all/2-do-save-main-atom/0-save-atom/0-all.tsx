@@ -60,7 +60,7 @@ export const doSaveOneAtom = atom(
 
 //TODO: validate - done
 //TODO: collect all data from all atoms - done
-
-//TODO: add validation - done
 //TODO: submit editor - done
 //TODO: policy editor as part of fields editor - done
+
+//Update number input to show shorter lines
