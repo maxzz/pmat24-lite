@@ -5,6 +5,7 @@ import { stopIfAnyErrors } from "../1-stop-if-errors";
 import { packManifest } from "./1-pack-manifest";
 import { printTestManifest } from "./8-print-test-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
+import { saveContentToFile } from "./4-save-content";
 
 export const doSaveOneAtom = atom(
     null,
@@ -34,6 +35,11 @@ export const doSaveOneAtom = atom(
         const {xml, error} = convertToXml(fileMani)
 
         console.log('xml', xml);
+
+        if (error || !xml) {
+            console.error('Error converting to xml', error);
+            return;
+        }
         
         // printTestManifest(fileMani);
         // printTestManifest(newMani);
@@ -42,6 +48,8 @@ export const doSaveOneAtom = atom(
         
         //TODO: newFilename
         //TODO: each file may have no filename
+
+        saveContentToFile(fileUs, xml, newFilename || fileUs.fname);
 
         console.log('saved', fileUs.fname);
 
