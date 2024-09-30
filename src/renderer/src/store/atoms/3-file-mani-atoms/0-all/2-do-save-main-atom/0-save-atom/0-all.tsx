@@ -9,7 +9,7 @@ import { saveContentToFile } from "./4-save-content";
 
 export const doSaveOneAtom = atom(
     null,
-    (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
+    async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
         const changed = !!fileUs.changesSet.size;
@@ -49,7 +49,11 @@ export const doSaveOneAtom = atom(
         //TODO: newFilename
         //TODO: each file may have no filename
 
-        saveContentToFile(fileUs, xml, newFilename || fileUs.fname);
+        const saved = await saveContentToFile(fileUs, xml, newFilename || fileUs.fname);
+        if (!saved) {
+            //TODO: update member fileUs.contentToSave
+            return;
+        }
 
         console.log('saved', fileUs.fname);
 
