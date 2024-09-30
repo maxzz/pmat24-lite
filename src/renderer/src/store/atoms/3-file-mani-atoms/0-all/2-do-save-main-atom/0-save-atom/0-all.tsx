@@ -44,10 +44,8 @@ export const doSaveOneAtom = atom(
         // printTestManifest(fileMani);
         // printTestManifest(newMani);
 
-        //TODO: The rest: the links between forms, etc.
-        
         //TODO: newFilename
-        //TODO: each file may have no filename
+        //TODO: each file may have no filename or name may already be taken by another file
 
         const saved = await saveContentToFile(fileUs, xml, newFilename || fileUs.fname);
         if (!saved) {
@@ -75,4 +73,6 @@ export const doSaveOneAtom = atom(
 //TODO: submit editor - done
 //TODO: policy editor as part of fields editor - done
 
-//Update number input to show shorter lines
+//TODO: The rest: the links between forms, etc.
+
+//TODO: Update number input to show shorter lines
