@@ -109,10 +109,10 @@ function unsupportedMsg(unsupported: FileUs[]) {
             </span>
             {multiple
                 ? (<>
-                    {unsupported.map((file) => <span className="block" key={file.id}>"{' '}{file.fname}"</span>)}
+                    {unsupported.map((file) => <span className="block" key={file.id}>"{file.fname}"</span>)}
                 </>)
                 : (<>
-                    {unsupported.map((file) => <span className="" key={file.id}>"{' '}{file.fname}"</span>)}
+                    {unsupported.map((file) => <span className="" key={file.id}>{' '}"{file.fname}"</span>)}
                 </>)}
 
         </div>
