@@ -96,12 +96,29 @@ export const doSetDeliveredFilesAtom = atom(
 );
 
 function unsupportedMsg(unsupported: FileUs[]) {
-    //console.warn('Unsupported files:', unsupported);
+    console.warn('Unsupported files:', unsupported);
 
     const multiple = unsupported.length > 1;
-    const msg = `There ${multiple ? 'are' : 'is'} ${unsupported.length} unsupported file${multiple ? 's' : ''}.`;
+    const verb = multiple ? 'are' : 'is';
+    const noun = multiple ? 'files' : 'file';
 
-    toast.warning(msg, {
+    const msg2 = (
+        <div className="text-foreground">
+            <span className="font-semibold">
+                There {verb} {unsupported.length} unsupported {noun}:
+            </span>
+            {multiple
+                ? (<>
+                    {unsupported.map((file) => <span className="block" key={file.id}>"{' '}{file.fname}"</span>)}
+                </>)
+                : (<>
+                    {unsupported.map((file) => <span className="" key={file.id}>"{' '}{file.fname}"</span>)}
+                </>)}
+
+        </div>
+    );
+
+    toast.warning(msg2, {
         // action: {
         //     label: 'Details',
         //     onClick: () => {
