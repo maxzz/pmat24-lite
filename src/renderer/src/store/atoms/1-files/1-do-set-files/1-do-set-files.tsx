@@ -96,35 +96,27 @@ export const doSetDeliveredFilesAtom = atom(
 );
 
 function unsupportedMsg(unsupported: FileUs[]) {
-    console.warn('Unsupported files:', unsupported);
+    //console.warn('Unsupported files:', unsupported);
 
     const multiple = unsupported.length > 1;
     const verb = multiple ? 'are' : 'is';
     const noun = multiple ? 'files' : 'file';
+    const space = multiple ? '' : ' ';
 
-    const msg2 = (
-        <div className="text-foreground">
+    const msg = (
+        <div className="max-h-[50vh] text-foreground dark:text-background overflow-auto smallscroll">
             <span className="font-semibold">
-                There {verb} {unsupported.length} unsupported {noun}:
+                {`There ${verb} ${unsupported.length} unsupported ${noun}:`}
             </span>
-            {multiple
-                ? (<>
-                    {unsupported.map((file) => <span className="block" key={file.id}>"{file.fname}"</span>)}
-                </>)
-                : (<>
-                    {unsupported.map((file) => <span className="" key={file.id}>{' '}"{file.fname}"</span>)}
-                </>)}
 
+            {unsupported.map(
+                (file) => <span className={multiple ? "block" : undefined} key={file.id}>{`${space}"${file.fname}"`}</span>
+            )}
         </div>
     );
 
-    toast.warning(msg2, {
-        // action: {
-        //     label: 'Details',
-        //     onClick: () => {
-        //         console.log('Unsupported files:', unsupported);
-        //     },
-        // }
+    toast.warning(msg, {
         // TODO: add details popup dialog
+        // action: { label: 'Details', onClick: () => { console.log('Unsupported files:', unsupported); }, }
     });
 }
