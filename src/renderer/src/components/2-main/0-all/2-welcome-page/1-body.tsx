@@ -3,6 +3,7 @@ import { useSnapshot } from "valtio";
 import { appSettings, filesAtom } from "@/store";
 import { Checkbox, Label } from "@/ui";
 import { OpenFileButton } from "./2-button-open-files";
+import { DontShowNext } from "./3-dont-show-next";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
@@ -19,15 +20,7 @@ export function WelcomePage() {
             </div>
 
             <OpenFileButton />
-
-            <Label className="absolute left-0 bottom-0 p-4 flex items-center gap-1">
-                <Checkbox
-                    className="size-4"
-                    checked={showWelcome}
-                    onClick={() => appSettings.appUi.uiGeneralState.showWelcome = false}
-                />
-                Don't show this page next time
-            </Label>
+            <DontShowNext className="absolute left-0 bottom-0 p-4" />
         </div>
     );
 }
