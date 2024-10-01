@@ -4,7 +4,7 @@ import { useSetAtom } from "jotai";
 import { useState } from "react";
 
 export function OpenFileButton() {
-    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
+    const [dlgOpen, setDlgOpen] = useState<boolean>(false);
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
 
     const onFiles = (files: File[]) => {
@@ -18,7 +18,7 @@ export function OpenFileButton() {
             <InputFileAsDlg
                 accept=".dpm,.dpn"
                 openFolder={false}
-                onClick={() => setFileDlgOpen(true)}
+                onClick={() => setDlgOpen(true)}
                 onChange={(event) => {
                     event.target.files && onFiles([...event.target.files]);
                 }}
