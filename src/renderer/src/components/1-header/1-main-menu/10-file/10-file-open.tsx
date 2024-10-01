@@ -13,7 +13,7 @@ type DropdownMenuItemWithInputFileAsDlgProps = {
 
 const openFoldersId = 'open-folders';
 
-function DropdownMenuItem_Files({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItem_FromRenderer_Files({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
     const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
     return (
         <DropdownMenuItem asChild
@@ -40,7 +40,7 @@ function DropdownMenuItem_Files({ setMenuOpen, onFiles, children, openFolder }: 
     );
 }
 
-function DropdownMenuItem_Folder({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItem_FromRenderer_Folder({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
     const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
     return (
         <DropdownMenuItem asChild
@@ -63,28 +63,24 @@ export function MenuItems_FileOpen({ setMenuOpen }: { setMenuOpen: (v: boolean) 
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
     return (<>
         {hasMain()
-            ? (
-                <>
-                    <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                        Open Files...
-                    </DropdownMenuItem>
+            ? (<>
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
+                    Open Folder...
+                </DropdownMenuItem>
 
-                    <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
-                        Open Folder...
-                    </DropdownMenuItem>
-                </>
-            )
-            : (
-                <>
-                    <DropdownMenuItem_Files setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
-                        Open Files...
-                    </DropdownMenuItem_Files>
-                    
-                    <DropdownMenuItem_Folder setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
-                        Open Folder...
-                    </DropdownMenuItem_Folder>
-                </>
-            )
+                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
+                    Open Files...
+                </DropdownMenuItem>
+            </>)
+            : (<>
+                <DropdownMenuItem_FromRenderer_Folder setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
+                    Open Folder...
+                </DropdownMenuItem_FromRenderer_Folder>
+
+                <DropdownMenuItem_FromRenderer_Files setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
+                    Open Files...
+                </DropdownMenuItem_FromRenderer_Files>
+            </>)
         }
     </>);
 }

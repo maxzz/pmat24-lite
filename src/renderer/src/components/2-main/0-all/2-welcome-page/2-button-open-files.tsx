@@ -14,7 +14,7 @@ export function OpenFileButton() {
     return (
         <Button className="mt-4">
             Open a file
-            
+
             <InputFileAsDlg
                 accept=".dpm,.dpn"
                 openFolder={false}
@@ -26,3 +26,5 @@ export function OpenFileButton() {
         </Button>
     );
 }
+
+//TODO: fix 1. welcome is shown; 2. load files; 3. clear files; 4. welcome is shown as split screen
