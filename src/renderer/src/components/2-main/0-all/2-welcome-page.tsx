@@ -17,10 +17,16 @@ export function WelcomePage() {
                 Welcome to the app!
             </div>
 
-            <Button className="mt-4">Open a file</Button>
+            <Button className="mt-4">
+                Open a file
+            </Button>
 
             <Label className="absolute left-0 bottom-0 p-4 flex items-center gap-1">
-                <Checkbox className="size-4" />
+                <Checkbox
+                    className="size-4"
+                    checked={showWelcome}
+                    onClick={() => appSettings.appUi.uiGeneralState.showWelcome = !appSettings.appUi.uiGeneralState.showWelcome}
+                />
                 Don't show this page next time
             </Label>
         </div>
