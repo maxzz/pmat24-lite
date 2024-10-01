@@ -1,27 +1,24 @@
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromDialogAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { hasMain, sendToMain } from "@/xternal-to-main";
 
-type DropdownMenuItemWithInputFileAsDlgProps = {
+type DropdownMenuItemOpenProps = {
     setMenuOpen: (v: boolean) => void;
-    onFiles: (files: File[]) => void;
     children: ReactNode;
 };
 
-function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
 
     function onFocus() {
-        if (dlgOpen) {
-            setMenuOpen(false);
-        }
+        dlgOpen && setMenuOpen(false);
         setDlgOpen(false);
     }
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && onFiles([...event.target.files]);
+        event.target.files && doSetFilesFromDialog([...event.target.files]);
         setMenuOpen(false);
     }
 
@@ -42,13 +39,11 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children }:
 
 const openFoldersId = 'open-folders';
 
-function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
 
     function onFocus() {
-        if (dlgOpen) {
-            setMenuOpen(false);
-        }
+        dlgOpen && setMenuOpen(false);
         setDlgOpen(false);
     }
 
@@ -66,10 +61,10 @@ function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: Dropdow
  * and can be target for DropdownMenuItem_Folder_FromRenderer label.
  */
 export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doDialogFiles = useSetAtom(doSetFilesFromDialogAtom);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && doDialogFiles([...event.target.files]); // Checking the length will prevent false drags and, as a result, clearing the file list.
+        event.target.files && doSetFilesFromDialog([...event.target.files]); // Checking the length will prevent false drags and, as a result, clearing the file list.
         setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again
@@ -83,15 +78,12 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
 }
 
 export function MenuItems_FileOpen_FromRenderer({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
-
     return (<>
-        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={doSetFilesFromDialog}>
+        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen}>
             Open Files...
         </DropdownMenuItem_Files_FromRenderer>
 
-        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen} onFiles={doSetFilesFromDialog}>
+        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen}>
             Open Folder...
         </DropdownMenuItem_Folder_FromRenderer>
     </>);

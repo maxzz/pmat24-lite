@@ -12,17 +12,18 @@ export function OpenFileButton() {
     };
 
     return (
-        <Button className="mt-4">
-            Open a file
-
-            <InputFileAsDlg
-                accept=".dpm,.dpn"
-                openFolder={false}
-                onClick={() => setDlgOpen(true)}
-                onChange={(event) => {
-                    event.target.files && onFiles([...event.target.files]);
-                }}
-            />
+        <Button className="mt-4" asChild>
+            <label>
+                Open a file
+                <InputFileAsDlg
+                    accept=".dpm,.dpn"
+                    openFolder={false}
+                    onClick={() => setDlgOpen(true)}
+                    onChange={(event) => {
+                        event.target.files && onFiles([...event.target.files]);
+                    }}
+                />
+            </label>
         </Button>
     );
 }
