@@ -6,7 +6,6 @@ import { packManifest } from "./1-pack-manifest";
 import { printTestManifest } from "./8-print-test-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
 import { saveContentToFile } from "./4-save-content";
-import { ManiAtoms } from "../../../9-types";
 
 function createXml(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     const fileUs = get(fileUsAtom);
@@ -26,7 +25,7 @@ function createXml(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | u
 
     const fileMani = toManiFileFormat(newMani);
 
-    const {xml, error} = convertToXml(fileMani)
+    const { xml, error } = convertToXml(fileMani);
 
     console.log('xml', xml);
 
@@ -34,6 +33,9 @@ function createXml(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | u
         console.error('Error converting to xml', error);
         return;
     }
+
+    // printTestManifest(fileMani);
+    // printTestManifest(newMani);
 
     return xml;
 }
@@ -48,32 +50,10 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms || stopIfAnyErrors(maniAtoms, get, set)) {
+        const xml = createXml(fileUsAtom, get, set);
+        if (!xml) {
             return;
         }
-
-        // Now validation done
-
-        const newMani: Partial<Mani.Manifest> = {
-            forms: [],
-        };
-
-        packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
-
-        const fileMani = toManiFileFormat(newMani);
-
-        const {xml, error} = convertToXml(fileMani)
-
-        console.log('xml', xml);
-
-        if (error || !xml) {
-            console.error('Error converting to xml', error);
-            return;
-        }
-        
-        // printTestManifest(fileMani);
-        // printTestManifest(newMani);
 
         //TODO: newFilename
         //TODO: each file may have no filename or name may already be taken by another file
