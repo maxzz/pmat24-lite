@@ -2,7 +2,7 @@ import { DropdownMenuItem } from "@/ui";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 import { MenuItems_FileOpen_FromRenderer } from "./1-from-renderer";
 
-export function MenuItems_FileOpen({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_OpenFiles({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     if (!hasMain()) {
         return (
             <MenuItems_FileOpen_FromRenderer setMenuOpen={setMenuOpen} />

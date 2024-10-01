@@ -15,7 +15,7 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
-import { MenuItems_Persistent, MenuItems_FileOpen, MenuItem_FileExit, MenuItem_CreateMani, MenuItem_SaveCurrent, MenuItem_SaveCurrentAs } from "../10-file";
+import { MenuItems_Persistent, MenuItems_OpenFiles, MenuItem_FileExit, MenuItem_CreateMani, MenuItem_SaveCurrent, MenuItem_SaveCurrentAs } from "../10-file";
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
@@ -35,7 +35,7 @@ export function MainDropdownMenu() {
 
             <DropdownMenuContent className="min-w-40 text-xs" align="start">
 
-                <MenuItems_FileOpen setMenuOpen={setOpen} />
+                <MenuItems_OpenFiles setMenuOpen={setOpen} />
                 <DropdownMenuSeparator />
 
                 <MenuItem_CreateMani />
