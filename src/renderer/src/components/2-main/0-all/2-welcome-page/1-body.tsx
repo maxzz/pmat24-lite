@@ -1,8 +1,8 @@
-import { appSettings, doSetFilesFromDialogAtom, filesAtom } from "@/store";
-import { Button, Checkbox, InputFileAsDlg, Label } from "@/ui";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useState } from "react";
+import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import { appSettings, filesAtom } from "@/store";
+import { Checkbox, Label } from "@/ui";
+import { OpenFileButton } from "./2-button-open-files";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
@@ -36,26 +36,3 @@ export function WelcomePage() {
 //TODO: more explanation about how start working with the app
 //TODO: add menu to access the Welcome page
 //TODO: add recent files list
-
-function OpenFileButton() {
-    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
-
-    const onFiles = (files: File[]) => {
-        doSetFilesFromDialog(files);
-    };
-
-    return (
-        <Button className="mt-4">
-            Open a file
-            <InputFileAsDlg
-                accept=".dpm,.dpn"
-                openFolder={false}
-                onClick={() => setFileDlgOpen(true)}
-                onChange={(event) => {
-                    event.target.files && onFiles([...event.target.files]);
-                }}
-            />
-        </Button>
-    );
-}
