@@ -12,7 +12,7 @@ type DropdownMenuItemWithInputFileAsDlgProps = {
 };
 
 function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
-    const [dlgOpen, setDlgOpen] = useState<boolean>(false);
+    const [dlgOpen, setDlgOpen] = useState(false);
 
     function onFocus() {
         if (dlgOpen) {
@@ -44,7 +44,7 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children, o
 const openFoldersId = 'open-folders';
 
 function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: DropdownMenuItemWithInputFileAsDlgProps) {
-    const [dlgOpen, setDlgOpen] = useState<boolean>(false);
+    const [dlgOpen, setDlgOpen] = useState(false);
 
     function onFocus() {
         if (dlgOpen) {
@@ -70,7 +70,7 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
     const doDialogFiles = useSetAtom(doSetFilesFromDialogAtom);
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && doDialogFiles([...event.target.files]);
+        event.target.files && doDialogFiles([...event.target.files]); // Checking the length will prevent falsy drag-n-drops
         setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again
