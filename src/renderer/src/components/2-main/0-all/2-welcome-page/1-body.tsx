@@ -54,7 +54,8 @@ function OpenFileButton() {
                 onClick={() => setFileDlgOpen(true)}
                 onChange={(event) => {
                     event.target.files && onFiles([...event.target.files]);
-                }} />
+                }}
+            />
         </Button>
     );
 }
