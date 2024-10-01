@@ -1,1 +1,1 @@
-export * from "./1-section-main";
+export * from "./1-working-area";
