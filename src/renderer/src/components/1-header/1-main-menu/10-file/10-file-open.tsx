@@ -85,27 +85,27 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
 
 export function MenuItems_FileOpen({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+
+    if (hasMain()) {
+        return (<>
+            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
+                Open Files...
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
+                Open Folder...
+            </DropdownMenuItem>
+
+        </>);
+    }
+
     return (<>
-        {hasMain()
-            ? (<>
-                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                    Open Files...
-                </DropdownMenuItem>
+        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
+            Open Files...
+        </DropdownMenuItem_Files_FromRenderer>
 
-                <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
-                    Open Folder...
-                </DropdownMenuItem>
-
-            </>)
-            : (<>
-                <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
-                    Open Files...
-                </DropdownMenuItem_Files_FromRenderer>
-
-                <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
-                    Open Folder...
-                </DropdownMenuItem_Folder_FromRenderer>
-            </>)
-        }
+        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
+            Open Folder...
+        </DropdownMenuItem_Folder_FromRenderer>
     </>);
 }
