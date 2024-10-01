@@ -8,13 +8,6 @@ export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneralState).showWelcome;
 
-    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
-
-    const onFiles = (files: File[]) => {
-        doSetFilesFromDialog(files);
-    };
-
     if (!!files.length || !showWelcome) {
         return null;
     }
@@ -25,17 +18,7 @@ export function WelcomePage() {
                 Welcome to the app!
             </div>
 
-            <Button className="mt-4">
-                Open a file
-                <InputFileAsDlg
-                    accept=".dpm,.dpn"
-                    openFolder={false}
-                    onClick={() => setFileDlgOpen(true)}
-                    onChange={(event) => {
-                        event.target.files && onFiles([...event.target.files]);
-                    }} />
-                
-            </Button>
+            <OpenFileButton />
 
             <Label className="absolute left-0 bottom-0 p-4 flex items-center gap-1">
                 <Checkbox
@@ -53,3 +36,25 @@ export function WelcomePage() {
 //TODO: more explanation about how start working with the app
 //TODO: add menu to access the Welcome page
 //TODO: add recent files list
+
+function OpenFileButton() {
+    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+
+    const onFiles = (files: File[]) => {
+        doSetFilesFromDialog(files);
+    };
+
+    return (
+        <Button className="mt-4">
+            Open a file
+            <InputFileAsDlg
+                accept=".dpm,.dpn"
+                openFolder={false}
+                onClick={() => setFileDlgOpen(true)}
+                onChange={(event) => {
+                    event.target.files && onFiles([...event.target.files]);
+                }} />
+        </Button>
+    );
+}
