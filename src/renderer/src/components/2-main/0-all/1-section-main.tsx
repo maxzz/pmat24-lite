@@ -1,5 +1,5 @@
-import { ResizableABPanels } from './3-middle';
-import { WelcomePage } from './2-welcome-page';
+import { ResizableABPanels } from './1-middle';
+import { WelcomePage } from './2-welcome-page/2-welcome-page';
 
 export function SectionMain() {
     return (
