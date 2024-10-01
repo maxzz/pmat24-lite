@@ -1,5 +1,5 @@
 import { appSettings, filesAtom } from "@/store";
-import { Button } from "@/ui";
+import { Button, Checkbox, Label } from "@/ui";
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 
@@ -19,9 +19,10 @@ export function WelcomePage() {
 
             <Button className="mt-4">Open a file</Button>
 
-            <div className="absolute left-0 bottom-0 p-4">
+            <Label className="absolute left-0 bottom-0 p-4 flex items-center gap-1">
+                <Checkbox className="size-4" />
                 Don't show this page next time
-            </div>
+            </Label>
         </div>
     );
 }
