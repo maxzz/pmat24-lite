@@ -83,21 +83,9 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
     );
 }
 
-export function MenuItems_FileOpen({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_FileOpen_FromRenderer({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+    
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
-
-    if (hasMain()) {
-        return (<>
-            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
-                Open Files...
-            </DropdownMenuItem>
-
-            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
-                Open Folder...
-            </DropdownMenuItem>
-
-        </>);
-    }
 
     return (<>
         <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
