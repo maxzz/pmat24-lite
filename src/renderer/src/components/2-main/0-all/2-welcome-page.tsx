@@ -1,11 +1,19 @@
-import { appSettings, filesAtom } from "@/store";
-import { Button, Checkbox, Label } from "@/ui";
-import { useAtomValue } from "jotai";
+import { appSettings, doSetFilesFromDialogAtom, filesAtom } from "@/store";
+import { Button, Checkbox, InputFileAsDlg, Label } from "@/ui";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useState } from "react";
 import { useSnapshot } from "valtio";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneralState).showWelcome;
+
+    const [fileDlgOpen, setFileDlgOpen] = useState<boolean>(false);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+
+    const onFiles = (files: File[]) => {
+        doSetFilesFromDialog(files);
+    };
 
     if (!!files.length || !showWelcome) {
         return null;
@@ -19,13 +27,21 @@ export function WelcomePage() {
 
             <Button className="mt-4">
                 Open a file
+                <InputFileAsDlg
+                    accept=".dpm,.dpn"
+                    openFolder={false}
+                    onClick={() => setFileDlgOpen(true)}
+                    onChange={(event) => {
+                        event.target.files && onFiles([...event.target.files]);
+                    }} />
+                
             </Button>
 
             <Label className="absolute left-0 bottom-0 p-4 flex items-center gap-1">
                 <Checkbox
                     className="size-4"
                     checked={showWelcome}
-                    onClick={() => appSettings.appUi.uiGeneralState.showWelcome = !appSettings.appUi.uiGeneralState.showWelcome}
+                    onClick={() => appSettings.appUi.uiGeneralState.showWelcome = false}
                 />
                 Don't show this page next time
             </Label>
