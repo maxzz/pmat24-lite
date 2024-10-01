@@ -8,10 +8,9 @@ type DropdownMenuItemWithInputFileAsDlgProps = {
     setMenuOpen: (v: boolean) => void;
     onFiles: (files: File[]) => void;
     children: ReactNode;
-    openFolder?: boolean;
 };
 
-function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children, openFolder }: DropdownMenuItemWithInputFileAsDlgProps) {
+function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children }: DropdownMenuItemWithInputFileAsDlgProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
 
     function onFocus() {
@@ -33,7 +32,7 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, onFiles, children, o
                     accept=".dpm,.dpn"
                     onClick={() => setDlgOpen(true)}
                     onChange={onChange}
-                    openFolder={openFolder}
+                    openFolder={false}
                 />
                 {children}
             </label>
@@ -70,7 +69,7 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
     const doDialogFiles = useSetAtom(doSetFilesFromDialogAtom);
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && doDialogFiles([...event.target.files]); // Checking the length will prevent falsy drag-n-drops
+        event.target.files && doDialogFiles([...event.target.files]); // Checking the length will prevent false drags and, as a result, clearing the file list.
         setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again
@@ -88,11 +87,11 @@ export function MenuItems_FileOpen_FromRenderer({ setMenuOpen }: { setMenuOpen: 
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
 
     return (<>
-        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)}>
+        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen} onFiles={doSetFilesFromDialog}>
             Open Files...
         </DropdownMenuItem_Files_FromRenderer>
 
-        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen} onFiles={(files) => doSetFilesFromDialog(files)} openFolder={true}>
+        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen} onFiles={doSetFilesFromDialog}>
             Open Folder...
         </DropdownMenuItem_Folder_FromRenderer>
     </>);
