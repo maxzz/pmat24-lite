@@ -25,7 +25,7 @@ export default async function getDroppedFiles(
   // Get all files from all subdirs. Works (at least) in Chrome, Mozilla, and Safari
   const logDropError = options?.logDropError ?? Function.prototype
   try {
-    const accumulator = []
+    const accumulator: File[] = []
     for await (const file of webkitGetAsEntryApi(dataTransfer, logDropError)) {
       accumulator.push(file as File)
     }
