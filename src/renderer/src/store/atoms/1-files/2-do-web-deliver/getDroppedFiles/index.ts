@@ -1,5 +1,5 @@
-import webkitGetAsEntryApi from './utils/webkitGetAsEntryApi'
-import fallbackApi from './utils/fallbackApi'
+import webkitGetAsEntryApi from './utils/webkitGetAsEntryApi';
+import fallbackApi from './utils/fallbackApi';
 
 /**
  * Returns a promise that resolves to the array of dropped files (if a folder is
@@ -16,22 +16,20 @@ import fallbackApi from './utils/fallbackApi'
  *
  * @returns {Promise} - Array<File>
  */
-export default async function getDroppedFiles(
-  dataTransfer: DataTransfer,
-  options?: {
-    logDropError?: any
-  },
-): Promise<File[]> {
-  // Get all files from all subdirs. Works (at least) in Chrome, Mozilla, and Safari
-  const logDropError = options?.logDropError ?? Function.prototype
-  try {
-    const accumulator: File[] = []
-    for await (const file of webkitGetAsEntryApi(dataTransfer, logDropError)) {
-      accumulator.push(file as File)
+export default async function getDroppedFiles(dataTransfer: DataTransfer, options?: { logDropError?: any; },): Promise<File[]> {
+    try {
+        // Get all files from all subdirs. Works (at least) in Chrome, Mozilla, and Safari
+        const logDropError = options?.logDropError ?? Function.prototype;
+
+        const accumulator: File[] = [];
+        for await (const file of webkitGetAsEntryApi(dataTransfer, logDropError)) {
+            accumulator.push(file as File);
+        }
+        return accumulator;
+    } catch {
+        // Otherwise just return all first-order files
+        return fallbackApi(dataTransfer);
     }
-    return accumulator
-    // Otherwise just return all first-order files
-  } catch {
-    return fallbackApi(dataTransfer)
-  }
 }
+
+export { getAsFileSystemHandleFromEntry } from './utils/webkitGetAsEntryApi';

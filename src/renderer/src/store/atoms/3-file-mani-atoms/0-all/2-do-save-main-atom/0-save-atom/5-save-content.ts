@@ -1,3 +1,4 @@
+import { getAsFileSystemHandleFromEntry } from "@/store/atoms/1-files/2-do-web-deliver/getDroppedFiles";
 import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
 
@@ -14,7 +15,7 @@ import { fileSave } from "browser-fs-access";
 // }
 
 function getFilenameAndExt(filename: string): [string, string] {
-    const parts = filename.split('.');
+    const parts = filename.split('.'); // not good if dot is the folder name and last part is the file name wo/ dot.
     const ext = parts.pop() || '';
     const name = parts.join('.');
     return [name, ext];
@@ -30,9 +31,28 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
     const [name, ext] = getFilenameAndExt(filename);
     const newFilename = `${name}.test.${ext}`;
 
-    const fileSystemHandle = await fileSave(blob, {fileName: newFilename});
+    try {
+        //const existingHandle: FileSystemFileHandle | null = fileUs.entry || null;
 
-    console.log('fileSystemHandle', fileSystemHandle);
+        const logDropError = (error) => {
+            console.error('getAsFileSystemHandleFromEntry', error);
+        };
+        const handle = getAsFileSystemHandleFromEntry(fileUs.entry, logDropError ) as FileSystemFileHandle | null | undefined;
+
+        const fileSystemHandle = await fileSave(blob,
+            {
+                fileName: newFilename,
+            },
+            handle,
+
+        );
+
+        console.log('fileSystemHandle', fileSystemHandle);
+    } catch (error) {
+        console.error('saveContentToFile', error);
+        return false;
+    }
+
 
     return saved;
 }
