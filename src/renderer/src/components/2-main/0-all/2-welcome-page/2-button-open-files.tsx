@@ -14,7 +14,7 @@ export function OpenFileButton() {
     return (
         <Button className="mt-4" asChild>
             <label>
-                Open a file
+                Open a files
                 <InputFileAsDlg
                     accept=".dpm,.dpn"
                     openFolder={false}

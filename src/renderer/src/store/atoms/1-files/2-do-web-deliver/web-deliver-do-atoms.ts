@@ -6,6 +6,8 @@ import { electronGetPathes, webLoadAfterDataTransferContent, webLoadAfterDialogO
 
 // handle files drop for web and electron environments
 
+export type DoSetFilesFromDropAtom = typeof doSetFilesFromDropAtom;
+
 export const doSetFilesFromDropAtom = atom(
     null,
     async (get, set, dataTransfer: DataTransfer) => {
@@ -30,7 +32,6 @@ export const doSetFilesFromDropAtom = atom(
         }
     }
 );
-export type DoSetFilesFromDropAtom = typeof doSetFilesFromDropAtom;
 
 export const doSetFilesFromDialogAtom = atom(
     null,
