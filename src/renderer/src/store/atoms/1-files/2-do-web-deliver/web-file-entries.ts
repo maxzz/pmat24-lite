@@ -59,13 +59,14 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
                 rv.push(item as EntryHandle);
             } else if (item.entry.isDirectory) {
                 const dir = item.entry as FileSystemDirectoryEntry;
-                queue.push(...await readAllDirectoryEntries((dir).createReader()));
+                //queue.push(...await readAllDirectoryEntries((dir).createReader()));
             }
         }
     }
 
     return rv;
 }
+
 /*
 MDN: https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryHandle
 async function* getFilesRecursively(entry) {
@@ -86,9 +87,10 @@ for await (const fileHandle of getFilesRecursively(directoryHandle)) {
     console.log(fileHandle);
 }
 */
+
 export type IFile = File & { relativePath?: string[] | null; };
 
-export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle) {
+export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle): Promise<IFile[]> {
 
     async function* getFilesRecursively(entry: FileSystemDirectoryHandle | FileSystemFileHandle) {
         if (entry.kind === 'file') {
