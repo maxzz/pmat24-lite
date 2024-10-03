@@ -88,7 +88,10 @@ for await (const fileHandle of getFilesRecursively(directoryHandle)) {
 */
 export type IFile = File & { relativePath?: string[] | null; };
 
-export const getFilesFromDir = async (directoryHandle: FileSystemDirectoryHandle) => {
+type FileSystemDirectoryHandlePlus = FileSystemDirectoryHandle & {};
+
+export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle) {
+
     async function* getFilesRecursively(entry: FileSystemDirectoryHandle | FileSystemFileHandle) {
         if (entry.kind === 'file') {
             const file: IFile = await entry.getFile();
@@ -97,7 +100,7 @@ export const getFilesFromDir = async (directoryHandle: FileSystemDirectoryHandle
                 yield file;
             }
         } else if (entry.kind === 'directory') {
-            for await (const handle of entry.values()) {
+            for await (const handle of (entry as any).values()) {
                 yield* getFilesRecursively(handle);
             }
         }
@@ -108,4 +111,4 @@ export const getFilesFromDir = async (directoryHandle: FileSystemDirectoryHandle
         files.push(fileHandle);
     }
     return files;
-};
+}

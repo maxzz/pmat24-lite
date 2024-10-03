@@ -17,6 +17,7 @@
         "src/shell/xternal-to-renderer/calls-napi/**/*.ts",
     ],
     "compilerOptions": {
+        "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "composite": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
