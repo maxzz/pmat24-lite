@@ -66,7 +66,8 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
 
     return rv;
 }
-
+/*
+MDN: https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryHandle
 async function* getFilesRecursively(entry) {
     if (entry.kind === "file") {
         const file = await entry.getFile();
@@ -84,3 +85,27 @@ async function* getFilesRecursively(entry) {
 for await (const fileHandle of getFilesRecursively(directoryHandle)) {
     console.log(fileHandle);
 }
+*/
+export type IFile = File & { relativePath?: string[] | null; };
+
+export const getFilesFromDir = async (directoryHandle: FileSystemDirectoryHandle) => {
+    async function* getFilesRecursively(entry: FileSystemDirectoryHandle | FileSystemFileHandle) {
+        if (entry.kind === 'file') {
+            const file: IFile = await entry.getFile();
+            if (file !== null) {
+                file.relativePath = await directoryHandle.resolve(entry);
+                yield file;
+            }
+        } else if (entry.kind === 'directory') {
+            for await (const handle of entry.values()) {
+                yield* getFilesRecursively(handle);
+            }
+        }
+    }
+
+    let files: IFile[] = [];
+    for await (const fileHandle of getFilesRecursively(directoryHandle)) {
+        files.push(fileHandle);
+    }
+    return files;
+};
