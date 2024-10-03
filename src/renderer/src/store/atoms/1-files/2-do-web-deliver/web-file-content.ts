@@ -8,6 +8,7 @@ type DropItem = {
     fpath: string;                  // file full (in this case relative the root of drop) path and filename
     fileHandle: File;               // web: File object from async entry.file() call
     entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
+    handle: FileSystemFileHandle | null; // FileSystemFileHandle from drag and drop transfer items
     notOur?: boolean;               // load of file content was blocked by allowedExt list.
 };
 
@@ -85,12 +86,13 @@ export async function webLoadAfterDataTransferContent(dataTransferItemList: Data
         let rv: DropItem[] = [];
         try {
             rv = await Promise.all(entries.map(
-                async (entry) => {
+                async (item) => {
                     return {
-                        fname: entry.name,
-                        fpath: entry.fullPath,
-                        fileHandle: await fileEntryToFile(entry),
-                        entry,
+                        fname: item.entry.name,
+                        fpath: item.entry.fullPath,
+                        fileHandle: await fileEntryToFile(item.entry),
+                        entry: item.entry,
+                        handle: item.handle,
                         notOur: false,
                     };
                 })
