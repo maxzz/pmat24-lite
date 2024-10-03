@@ -124,6 +124,7 @@ export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[
                         fpath: file.webkitRelativePath,
                         fileHandle: file,
                         entry: undefined,
+                        handle: null,
                         notOur: false,
                     };
                 }
