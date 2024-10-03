@@ -16,39 +16,53 @@ async function readEntriesPromise(directoryReader: FileSystemDirectoryReader): P
 }
 
 async function readAllDirectoryEntries(directoryReader: FileSystemDirectoryReader): Promise<FileSystemEntry[]> {
-    const entries: FileSystemEntry[] = [];
+    const rv: FileSystemEntry[] = [];
     let readEntries = await readEntriesPromise(directoryReader);
 
     while (readEntries.length > 0) {
-        entries.push(...readEntries);
+        rv.push(...readEntries);
         readEntries = await readEntriesPromise(directoryReader);
     }
 
-    return entries;
+    return rv;
 }
 
-export async function getAllFileEntries(dataTransferItemList: DataTransferItemList): Promise<FileSystemFileEntry[]> {
-    const fileEntries: FileSystemFileEntry[] = [];
-    const queue: FileSystemEntry[] = [];
+export type EntryHandle = {
+    entry: FileSystemFileEntry;
+    handle: FileSystemFileHandle | null;
+};
+
+type EntryHandleAny = {
+    entry: FileSystemEntry;
+    handle: FileSystemFileHandle | null;
+};
+
+export async function getAllFileEntries(dataTransferItemList: DataTransferItemList): Promise<EntryHandle[]> {
+    const rv: EntryHandle[] = [];
+    const queue: EntryHandleAny[] = [];
 
     for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
-        const item = dataTransferItemList[i];
+        const item: DataTransferItem = dataTransferItemList[i];
+
         const entry = item.webkitGetAsEntry();
+        const handle = (item as any).getAsFileSystemHandle ? await (item as any).getAsFileSystemHandle() : null;
+
         entry
-            ? queue.push(entry)
+            ? queue.push({ entry, handle })
             : console.error('no entry for item', item);
     }
 
     while (queue.length > 0) {
-        const entry = queue.shift();
-        if (entry) {
-            if (entry.isFile) {
-                fileEntries.push(entry as FileSystemFileEntry);
-            } else if (entry.isDirectory) {
-                queue.push(...await readAllDirectoryEntries((entry as FileSystemDirectoryEntry).createReader()));
+        const item = queue.shift();
+        if (item) {
+            if (item.entry.isFile) {
+                rv.push(item as EntryHandle);
+            } else if (item.entry.isDirectory) {
+                const dir = item.entry as FileSystemDirectoryEntry;
+                queue.push(...await readAllDirectoryEntries((dir).createReader()));
             }
         }
     }
 
-    return fileEntries;
+    return rv;
 }
