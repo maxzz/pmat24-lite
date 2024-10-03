@@ -1,4 +1,3 @@
-import { getAsFileSystemHandleFromEntry } from "@/store/atoms/1-files/2-do-web-deliver/getDroppedFiles";
 import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
 
@@ -37,13 +36,11 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
         const logDropError = (error) => {
             console.error('getAsFileSystemHandleFromEntry', error);
         };
-        const handle = getAsFileSystemHandleFromEntry(fileUs.entry, logDropError ) as FileSystemFileHandle | null | undefined;
 
         const fileSystemHandle = await fileSave(blob,
             {
                 fileName: newFilename,
             },
-            handle,
 
         );
 
