@@ -46,6 +46,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
 
         const entry = item.webkitGetAsEntry();
         const handle = (item as any).getAsFileSystemHandle ? await (item as any).getAsFileSystemHandle() : null;
+        // const handle = null;
 
         entry
             ? queue.push({ entry, handle })
@@ -54,12 +55,14 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
 
     while (queue.length > 0) {
         const item = queue.shift();
+        console.log('item', item);
         if (item) {
             if (item.entry.isFile) {
                 rv.push(item as EntryHandle);
             } else if (item.entry.isDirectory) {
                 const dir = item.entry as FileSystemDirectoryEntry;
-                //queue.push(...await readAllDirectoryEntries((dir).createReader()));
+                const entries = [...await readAllDirectoryEntries(dir.createReader())].map((entry) => ({ entry, handle: null }));
+                queue.push(...entries);
             }
         }
     }
@@ -88,7 +91,9 @@ for await (const fileHandle of getFilesRecursively(directoryHandle)) {
 }
 */
 
-export type IFile = File & { relativePath?: string[] | null; };
+export type IFile = File & {
+    relativePath?: string[] | null;
+};
 
 export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle): Promise<IFile[]> {
 
