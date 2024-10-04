@@ -3,6 +3,8 @@
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/composables/useUpload.ts
 // https://github.com/react-dropzone/file-selector/blob/master/src/file-selector.ts
 
+import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./handles/flat-drop-files";
+
 export async function fileEntryToFile(entry: FileSystemFileEntry): Promise<File> {
     return new Promise<File>((resolve, reject): void => {
         entry.file(resolve, reject);
@@ -40,6 +42,9 @@ type EntryHandleAny = {
 export async function getAllFileEntries(dataTransferItemList: DataTransferItemList): Promise<EntryHandle[]> {
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
+
+    const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(dataTransferItemList);
+    console.log('resw/ handles', res);
 
     const dataTransferItemArr = [...dataTransferItemList];
 
