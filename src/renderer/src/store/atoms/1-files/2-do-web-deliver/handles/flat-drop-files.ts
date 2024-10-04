@@ -1,6 +1,10 @@
 /**
  * Derived from 'flat-drop-files'
  * https://github.com/placemark/flat-drop-files/blob/main/index.ts
+ * Changes:
+ *      1. FileWithHandleAndPath is exported
+ *      2. ingnore link can be done outside of the getFilesFromDataTransferItems() function
+ *      3. load files content should be conditioned on the file extension
  */
 export interface FileWithHandleAndPath extends File {
   handle?: FileSystemFileHandle;
