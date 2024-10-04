@@ -11,6 +11,7 @@ export type FileContent = {
     failed?: boolean;                   // if failed the cnt member has error text
     notOur?: boolean;                   // load of file content was blocked by allowedExt list.
 
+    modernHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
     legacyEntry?: FileSystemFileEntry;  // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     file?: File;                        // web: File object from async entry.file() call
     fromMain?: boolean;                 // electron: true if loaded from electron main process, and has full absolute path; can be stored in the main process
