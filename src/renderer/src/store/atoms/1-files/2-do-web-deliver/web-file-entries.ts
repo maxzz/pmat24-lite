@@ -43,14 +43,34 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
 
-    const res: FileWithHandleAndPath[][] = await getFilesFromDataTransferItems(dataTransferItemList);
-    console.log('resw/ handles', res);
+    // const res: FileWithHandleAndPath[][] = await getFilesFromDataTransferItems(dataTransferItemList);
+    // console.log('resw/ handles', res);
 
+    /**/
+    const fileHandlesPromises = [...dataTransferItemList]
+        .filter((item) => item.kind === 'file')
+        .map((item) => item.getAsFileSystemHandle());
+
+    console.log('fileHandlesPromises', fileHandlesPromises); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
+
+    for await (const handle of fileHandlesPromises) {
+        // console.log('handle', handle);
+        if (handle?.kind === 'directory') {
+            console.log(`11 Directory: ${handle.name}`);
+        } else {
+            console.log(`22 File: ${handle?.name}`);
+        }
+    }
+    /**/
+
+    /**/
     const dataTransferItemArr = [...dataTransferItemList];
+    console.log('dataTransferItemArr', dataTransferItemArr); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
+    /**/
 
     for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
         const item: DataTransferItem = dataTransferItemList[i];
-        
+
         const entry = item.webkitGetAsEntry();
         // const entry = null;
         const handle = await item.getAsFileSystemHandle();
@@ -129,7 +149,7 @@ export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle
     return rv;
 }
 
-//TODO: 
+//TODO:
 //https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
-    //https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
-        //https://github.com/jakearchibald/idb-keyval
+//https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+//https://github.com/jakearchibald/idb-keyval
