@@ -92,7 +92,7 @@ export async function webLoadAfterDataTransferContent(dataTransferItemList: Data
                         fpath: item.legacyEntry.fullPath,
                         fileHandle: await fileEntryToFile(item.legacyEntry),
                         entry: item.legacyEntry,
-                        handle: item.handle,
+                        handle: item.modernHandle,
                         notOur: false,
                     };
                 })
