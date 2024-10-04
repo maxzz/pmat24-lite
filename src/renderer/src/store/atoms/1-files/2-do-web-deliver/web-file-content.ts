@@ -42,7 +42,7 @@ async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent
                 size: item.fileHandle.size,
                 raw: '',
 
-                entry: item.legacyEntry,
+                legacyEntry: item.legacyEntry,
                 file: item.fileHandle,
 
                 notOur: item.notOur,

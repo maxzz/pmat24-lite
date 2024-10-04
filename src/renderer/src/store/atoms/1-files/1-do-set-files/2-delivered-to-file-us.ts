@@ -20,7 +20,7 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
         raw: deliveredFile.raw,
 
         file: deliveredFile.file,
-        entry: deliveredFile.entry,
+        legacyEntry: deliveredFile.legacyEntry,
         state: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
