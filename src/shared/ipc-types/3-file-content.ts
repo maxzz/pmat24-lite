@@ -11,6 +11,7 @@ export type FileContent = {
     failed?: boolean;                   // if failed the cnt member has error text
     notOur?: boolean;                   // load of file content was blocked by allowedExt list.
 
+    parentHandle?: FileSystemDirectoryHandle; // web: FileSystemDirectoryHandle from drag and drop transfer items
     modernHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
     legacyEntry?: FileSystemFileEntry;  // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     file?: File;                        // web: File object from async entry.file() call
