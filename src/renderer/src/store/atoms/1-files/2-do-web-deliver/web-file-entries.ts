@@ -34,7 +34,7 @@ export type EntryHandle = {
 
 type EntryHandleAny = {
     legacyEntry: FileSystemEntry;
-    modernHandle: FileSystemFileHandle | null;
+    modernHandle: FileSystemHandle | null;
 };
 
 export async function getAllFileEntries(dataTransferItemList: DataTransferItemList): Promise<EntryHandle[]> {
@@ -45,10 +45,12 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
 
     for (let i = 0, length = dataTransferItemArr.length; i < length; i++) {
         const item: DataTransferItem = dataTransferItemArr[i];
-
-        const entry = item.webkitGetAsEntry();
-        // const handle = (item as any).getAsFileSystemHandle ? await (item as any).getAsFileSystemHandle() : null;
-        const handle = null;
+        
+        // const entry = item.webkitGetAsEntry();
+        const entry = null;
+        const handle = await item.getAsFileSystemHandle();
+        // const handle = null;
+        console.log('item', item, 'handle', handle);
 
         entry
             ? queue.push({ legacyEntry: entry, modernHandle: handle })
@@ -123,5 +125,6 @@ export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle
 }
 
 //TODO: 
-//https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
-    //https://github.com/jakearchibald/idb-keyval
+//https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
+    //https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+        //https://github.com/jakearchibald/idb-keyval
