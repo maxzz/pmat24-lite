@@ -47,8 +47,8 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
         const item: DataTransferItem = dataTransferItemArr[i];
 
         const entry = item.webkitGetAsEntry();
-        const handle = (item as any).getAsFileSystemHandle ? await (item as any).getAsFileSystemHandle() : null;
-        // const handle = null;
+        // const handle = (item as any).getAsFileSystemHandle ? await (item as any).getAsFileSystemHandle() : null;
+        const handle = null;
 
         entry
             ? queue.push({ legacyEntry: entry, modernHandle: handle })
