@@ -33,43 +33,43 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
 
     addParseData(newFileUs);
     return newFileUs;
+}
 
-    function pathWoFilename(path: string | undefined): string {
-        const rv = (path as string || '')
-            .replace(/^\//, '')
-            .split(/[\\\/]/);
-        rv.pop(); // remove filename as the last item
-        return rv.join('/');
-    }
+function pathWoFilename(path: string | undefined): string {
+    const rv = (path as string || '')
+        .replace(/^\//, '')
+        .split(/[\\\/]/);
+    rv.pop(); // remove filename as the last item
+    return rv.join('/');
+}
 
-    function addParseData(newFileUs: FileUs) {
-        let mani: Mani.Manifest | undefined;
-        let fcat: CatalogFile.Root | undefined;
-        let meta: Meta.Form[] | undefined;
-        try {
-            const res = parseXMLFile(newFileUs.raw || '');
-            mani = res.mani;
-            fcat = res.fcat;
-            meta = buildManiMetaForms(mani);
+function addParseData(newFileUs: FileUs) {
+    let mani: Mani.Manifest | undefined;
+    let fcat: CatalogFile.Root | undefined;
+    let meta: Meta.Form[] | undefined;
+    try {
+        const res = parseXMLFile(newFileUs.raw || '');
+        mani = res.mani;
+        fcat = res.fcat;
+        meta = buildManiMetaForms(mani);
 
-            if (fcat) {
-                /**
-                 * TODO: later. one per root folder including A, B, C subfolders
-                 *
-                const { items } = buildCatalogMeta(fcat); //TODO: we need to load multiple catalog files
-                set(fldCatItemsAtom, items);
-                */
-            }
-
-            newFileUs.mani = mani;
-            newFileUs.fcat = fcat;
-            newFileUs.meta = meta;
-            newFileUs.stats = fileUsStats(newFileUs);
-        } catch (error) {
-            const msg = `tm parse error: ${error}\n${newFileUs.fname}\n${newFileUs.raw}`;
-            newFileUs.raw = msg;
-            newFileUs.failed = true;
-            console.error(msg);
+        if (fcat) {
+            /**
+             * TODO: later. one per root folder including A, B, C subfolders
+             *
+            const { items } = buildCatalogMeta(fcat); //TODO: we need to load multiple catalog files
+            set(fldCatItemsAtom, items);
+            */
         }
+
+        newFileUs.mani = mani;
+        newFileUs.fcat = fcat;
+        newFileUs.meta = meta;
+        newFileUs.stats = fileUsStats(newFileUs);
+    } catch (error) {
+        const msg = `tm parse error: ${error}\n${newFileUs.fname}\n${newFileUs.raw}`;
+        newFileUs.raw = msg;
+        newFileUs.failed = true;
+        console.error(msg);
     }
 }
