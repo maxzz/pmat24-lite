@@ -42,6 +42,10 @@ const ignoreList = [
 
 export const junkRegex = new RegExp(ignoreList.join("|"));
 
+type LoadFilter = (filename: string) => boolean; // filename wo/ path; returns true if the file content should be loaded
+const defaultLoadFilter: LoadFilter = (filename: string) => true; // load all files 
+let currentLoadFilter: LoadFilter = defaultLoadFilter; // we can make scopeed or member on getFilesFromEntry(), but so far its OK.
+
 /**
  * There are a bunch of similar-looking things here.
  *
@@ -147,8 +151,8 @@ async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string
          * for a directory, call readDir, which will call dirReadEntries all
          * over again.
          */
-        const getFilesPromises = entries.map((entry) =>
-            getFilesFromEntry(entry, undefined, path)
+        const getFilesPromises = entries.map(
+            (entry) => getFilesFromEntry(entry, undefined, path)
         );
 
         return Promise.all(getFilesPromises).then((nested) => nested.flat());
@@ -179,15 +183,19 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string): Promise<F
  */
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
     if (isFile(entry)) {
-        return readFile(entry, item, path).then((file) => [file]);
+        if (currentLoadFilter(entry.name)) {
+            return readFile(entry, item, path).then((file) => [file]);
+        }
     }
-    if (isDirectory(entry)) {
+    else if (isDirectory(entry)) {
         return readDir(entry, path);
     }
     return Promise.resolve([]);
 }
 
-export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList): Promise<FileWithHandleAndPath[]> {
+export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
+    currentLoadFilter = loadFilter || defaultLoadFilter;
+
     const inputs: [FileSystemEntry, DataTransferItem][] = [];
 
     /**
