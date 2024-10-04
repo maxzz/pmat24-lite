@@ -4,12 +4,12 @@ import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
 import { uuid } from "../../../../utils/uuid";
 
 type DropItem = {
-    fname: string;                  // basename as filename w/ extension but wo/ path
-    fpath: string;                  // file full (in this case relative the root of drop) path and filename
-    fileHandle: File;               // web: File object from async entry.file() call
-    entry?: FileSystemFileEntry;    // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
-    handle: FileSystemFileHandle | null; // FileSystemFileHandle from drag and drop transfer items
-    notOur?: boolean;               // load of file content was blocked by allowedExt list.
+    fname: string;                          // basename as filename w/ extension but wo/ path
+    fpath: string;                          // file full (in this case relative the root of drop) path and filename
+    fileHandle: File;                       // web: File object from async entry.file() call
+    legacyEntry?: FileSystemFileEntry;      // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
+    handle: FileSystemFileHandle | null;    // FileSystemFileHandle from drag and drop transfer items
+    notOur?: boolean;                       // load of file content was blocked by allowedExt list.
 };
 
 function textFileReader(file: File): Promise<string> {
@@ -42,7 +42,7 @@ async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent
                 size: item.fileHandle.size,
                 raw: '',
 
-                entry: item.entry,
+                entry: item.legacyEntry,
                 file: item.fileHandle,
 
                 notOur: item.notOur,
