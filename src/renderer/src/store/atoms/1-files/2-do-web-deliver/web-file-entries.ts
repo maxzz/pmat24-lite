@@ -28,12 +28,12 @@ async function readAllDirectoryEntries(directoryReader: FileSystemDirectoryReade
 }
 
 export type EntryHandle = {
-    entry: FileSystemFileEntry;
+    legacyEntry: FileSystemFileEntry;
     handle: FileSystemFileHandle | null;
 };
 
 type EntryHandleAny = {
-    entry: FileSystemEntry;
+    legacyEntry: FileSystemEntry;
     handle: FileSystemFileHandle | null;
 };
 
@@ -51,7 +51,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
         // const handle = null;
 
         entry
-            ? queue.push({ entry, handle })
+            ? queue.push({ legacyEntry: entry, handle })
             : console.error('no entry for item', item);
     }
 
@@ -59,11 +59,11 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
         const item = queue.shift();
         console.log('item', item);
         if (item) {
-            if (item.entry.isFile) {
+            if (item.legacyEntry.isFile) {
                 rv.push(item as EntryHandle);
-            } else if (item.entry.isDirectory) {
-                const dir = item.entry as FileSystemDirectoryEntry;
-                const entries = [...await readAllDirectoryEntries(dir.createReader())].map((entry) => ({ entry, handle: null }));
+            } else if (item.legacyEntry.isDirectory) {
+                const dir = item.legacyEntry as FileSystemDirectoryEntry;
+                const entries = [...await readAllDirectoryEntries(dir.createReader())].map((entry) => ({ legacyEntry: entry, handle: null }));
                 queue.push(...entries);
             }
         }

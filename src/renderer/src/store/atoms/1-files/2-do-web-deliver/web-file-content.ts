@@ -88,10 +88,10 @@ export async function webLoadAfterDataTransferContent(dataTransferItemList: Data
             rv = await Promise.all(entries.map(
                 async (item) => {
                     return {
-                        fname: item.entry.name,
-                        fpath: item.entry.fullPath,
-                        fileHandle: await fileEntryToFile(item.entry),
-                        entry: item.entry,
+                        fname: item.legacyEntry.name,
+                        fpath: item.legacyEntry.fullPath,
+                        fileHandle: await fileEntryToFile(item.legacyEntry),
+                        entry: item.legacyEntry,
                         handle: item.handle,
                         notOur: false,
                     };
