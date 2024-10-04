@@ -121,3 +121,7 @@ export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle
 
     return rv;
 }
+
+//TODO: 
+//https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+    //https://github.com/jakearchibald/idb-keyval
