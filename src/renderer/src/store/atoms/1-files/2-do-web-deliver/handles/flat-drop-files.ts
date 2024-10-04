@@ -193,7 +193,7 @@ function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | unde
     return Promise.resolve([]);
 }
 
-export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
+export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[][]> {
     currentLoadFilter = loadFilter || defaultLoadFilter;
 
     const inputs: [FileSystemEntry, DataTransferItem][] = [];
@@ -224,6 +224,7 @@ export function getFilesFromDataTransferItems(dataTransferItems: DataTransferIte
         inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
     ).then((nested) => {
         // return nested.flat().filter((file) => !junkRegex.test(file.name));
-        return nested.flat();
+        // return nested.flat();
+        return nested;
     });
 }

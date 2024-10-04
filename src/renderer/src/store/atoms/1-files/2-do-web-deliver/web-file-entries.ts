@@ -43,7 +43,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
 
-    const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(dataTransferItemList);
+    const res: FileWithHandleAndPath[][] = await getFilesFromDataTransferItems(dataTransferItemList);
     console.log('resw/ handles', res);
 
     const dataTransferItemArr = [...dataTransferItemList];
