@@ -43,14 +43,14 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
 
     const dataTransferItemArr = [...dataTransferItemList];
 
-    for (let i = 0, length = dataTransferItemArr.length; i < length; i++) {
-        const item: DataTransferItem = dataTransferItemArr[i];
+    for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
+        const item: DataTransferItem = dataTransferItemList[i];
         
-        // const entry = item.webkitGetAsEntry();
-        const entry = null;
+        const entry = item.webkitGetAsEntry();
+        // const entry = null;
         const handle = await item.getAsFileSystemHandle();
         // const handle = null;
-        console.log('item', item, 'handle', handle);
+        console.log('item', item, 'entry', entry, 'handle', handle);
 
         entry
             ? queue.push({ legacyEntry: entry, modernHandle: handle })
