@@ -8,7 +8,7 @@ import { fileUsStats } from '@/store/store-utils';
 import { ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 
 export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
-    const newFileUs: FileUs = {
+    const rv: FileUs = {
         id: uuid.asRelativeNumber(),
         idx: deliveredFile.idx,
 
@@ -31,8 +31,8 @@ export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
         changesSet: proxySet<string>(),
     };
 
-    addParseData(newFileUs);
-    return newFileUs;
+    parseAndAddParseData(rv);
+    return rv;
 }
 
 function pathWoFilename(path: string | undefined): string {
@@ -43,7 +43,7 @@ function pathWoFilename(path: string | undefined): string {
     return rv.join('/');
 }
 
-function addParseData(newFileUs: FileUs) {
+function parseAndAddParseData(newFileUs: FileUs) {
     let mani: Mani.Manifest | undefined;
     let fcat: CatalogFile.Root | undefined;
     let meta: Meta.Form[] | undefined;
