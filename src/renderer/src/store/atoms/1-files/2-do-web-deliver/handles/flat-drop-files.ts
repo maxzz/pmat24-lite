@@ -40,7 +40,7 @@ const ignoreList = [
     "@eaDir$", // Synology Diskstation "hidden" folder where the server stores thumbnails
 ];
 
-const junkRegex = new RegExp(ignoreList.join("|"));
+export const junkRegex = new RegExp(ignoreList.join("|"));
 
 /**
  * There are a bunch of similar-looking things here.
@@ -215,6 +215,7 @@ export function getFilesFromDataTransferItems(dataTransferItems: DataTransferIte
     return Promise.all(
         inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
     ).then((nested) => {
-        return nested.flat().filter((file) => !junkRegex.test(file.name));
+        // return nested.flat().filter((file) => !junkRegex.test(file.name));
+        return nested.flat();
     });
 }
