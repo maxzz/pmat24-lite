@@ -167,9 +167,11 @@ async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string
  *
  * @param folder folder to traverse
  */
-export async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[string[], FileSystemFileHandle], void, unknown> {
+export async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[string[], FileSystemFileHandle | FileSystemDirectoryHandle], void, unknown> {
     for await (const [key, entry] of folder.entries()) {
         if (entry.kind === 'directory') {
+            yield [[folder.name], entry];
+
             for await (const [path, file] of getEntriesRecursively(entry)) {
                 yield [[folder.name, ...path], file];
             }
@@ -190,9 +192,9 @@ export async function collectAllHandles(dataTransferItems: DataTransferItemList)
                 for await (const subEntry of getEntriesRecursively(handle as FileSystemDirectoryHandle)) {
                     console.log(`sub "${subEntry[0].join('/')}"`, subEntry[1]);
                 } 
-                console.log(`Directory: "${handle.name}"`);
+                console.log(`Directory: %o`, handle);
             } else {
-                console.log(`File: "${handle.name}"`);
+                console.log(`File: %o`, handle);
             }
         }
     }
