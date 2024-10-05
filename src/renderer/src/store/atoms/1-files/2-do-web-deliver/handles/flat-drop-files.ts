@@ -162,45 +162,6 @@ async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string
 }
 
 /**
- * Traverses through a directory and yields files and folders (in undefined order)
- * https://github.com/umstek/listen/blob/main/src/util/fileSystem.ts
- *
- * @param folder folder to traverse
- */
-export async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[string[], FileSystemFileHandle | FileSystemDirectoryHandle], void, unknown> {
-    for await (const [key, entry] of folder.entries()) {
-        if (entry.kind === 'directory') {
-            yield [[folder.name], entry];
-
-            for await (const [path, file] of getEntriesRecursively(entry)) {
-                yield [[folder.name, ...path], file];
-            }
-        } else {
-            yield [[folder.name], entry];
-        }
-    }
-}
-
-export async function collectAllHandles(dataTransferItems: DataTransferItemList) {
-    const fileHandlesPromises: Promise<FileSystemHandle | null>[] = [...dataTransferItems]
-        .filter((item) => item.kind === 'file')
-        .map((item) => item.getAsFileSystemHandle());
-
-    for await (const handle of fileHandlesPromises) {
-        if (handle) {
-            if (handle.kind === 'directory') {
-                for await (const subEntry of getEntriesRecursively(handle as FileSystemDirectoryHandle)) {
-                    console.log(`sub "${subEntry[0].join('/')}"`, subEntry[1]);
-                } 
-                console.log(`Directory: %o`, handle);
-            } else {
-                console.log(`File: %o`, handle);
-            }
-        }
-    }
-}
-
-/**
  * This method is odd because
  *
  * - The .readEntries method only returns batches of 100,
@@ -218,10 +179,10 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
             (entry as any).handle = handle;
             console.log('dir handle', handle);
 
-            const entries = getEntriesRecursively(handle);
-            for await (const [key, value] of entries) {
-                console.log('children all', { key, value });
-            }
+            // const entries = getEntriesRecursively(handle);
+            // for await (const [key, value] of entries) {
+            //     console.log('children all', { key, value });
+            // }
 
             for await (const [key, value] of handle.entries()) {
                 console.log('children', { key, value }); // <- children { key: '{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm', value: FileSystemFileHandle }

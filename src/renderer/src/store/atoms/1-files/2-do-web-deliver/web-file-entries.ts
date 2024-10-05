@@ -1,9 +1,10 @@
+import { collectAllHandles } from "./handles/drop-w-handles";
+import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./handles/flat-drop-files";
+
 // Adapted from: https://stackoverflow.com/a/53058574
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/utils/directoryReader.ts
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/composables/useUpload.ts
 // https://github.com/react-dropzone/file-selector/blob/master/src/file-selector.ts
-
-import { collectAllHandles, FileWithHandleAndPath, getFilesFromDataTransferItems } from "./handles/flat-drop-files";
 
 export async function fileEntryToFile(entry: FileSystemFileEntry): Promise<File> {
     return new Promise<File>((resolve, reject): void => {
