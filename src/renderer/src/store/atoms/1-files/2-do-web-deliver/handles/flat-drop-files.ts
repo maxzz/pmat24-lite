@@ -167,11 +167,24 @@ async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string
  * - The .readEntries method only returns batches of 100,
  *   and signals when it's done because it returns a batch of 0.
  */
-async function readDir(entry: FileSystemDirectoryEntry, path: string): Promise<FileWithHandleAndPath[]> {
+async function readDir(entry: FileSystemDirectoryEntry, path: string, item: DataTransferItem |undefined): Promise<FileWithHandleAndPath[]> {
     const dirReader = entry.createReader();
     const newPath = path + entry.name + "/";
     let files: FileWithHandleAndPath[] = [];
     let newFiles: FileWithHandleAndPath[];
+
+    if (item) {
+        const handle = await getHandle(item) as FileSystemDirectoryHandle | null;
+        if (handle) {
+            (entry as any).handle = handle;
+            console.log('dir handle', handle);
+
+            for await (const [key, value] of handle.entries()) {
+                console.log('children', { key, value });
+            }
+        }
+    }
+
     do {
         newFiles = await dirReadEntries(dirReader, newPath);
         files = files.concat(newFiles);
@@ -191,7 +204,7 @@ function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | unde
         }
     }
     else if (isDirectory(entry)) {
-        return readDir(entry, path);
+        return readDir(entry, path, item);
     }
     return Promise.resolve([]);
 }
