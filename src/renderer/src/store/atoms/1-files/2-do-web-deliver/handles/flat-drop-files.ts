@@ -123,7 +123,7 @@ function getReadEntries(dirReader: FileSystemDirectoryReader): Promise<FileSyste
 function getHandle(item: DataTransferItem | undefined): Promise<FileSystemFileHandle | null> {
     // Currently only Chromium browsers support getAsFileSystemHandle.
     if (!item || !item.getAsFileSystemHandle) {
-        console.log('no item or no getAsFileSystemHandle', item);
+        //console.log('no item or no getAsFileSystemHandle', item);
         return Promise.resolve(null);
     }
     return item.getAsFileSystemHandle().catch((e) => {
@@ -186,6 +186,7 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string): Promise<F
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
     if (isFile(entry)) {
         if (currentLoadFilter(entry.name)) {
+            //console.log('load file', entry.name, item);
             return readFile(entry, item, path).then((file) => [file]);
         }
     }
@@ -211,8 +212,12 @@ export function getFilesFromDataTransferItems(dataTransferItems: DataTransferIte
         // Chrome, Edge, and Firefox.
         // https://caniuse.com/mdn-api_datatransferitem_webkitgetasentry
         const entry = item.webkitGetAsEntry();
-        if (entry) inputs.push([entry, item]);
+        if (entry) {
+            //console.log('input', entry, item);
+            inputs.push([entry, item]);
+        }
     }
+    //console.log('inputs', inputs.map(([entry, item]) => ({ entry, item })));
 
     /**
      * Danger zone here. It's tempting to refactor this to a loop
