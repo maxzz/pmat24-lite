@@ -43,10 +43,12 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
 
-    // const res: FileWithHandleAndPath[][] = await getFilesFromDataTransferItems(dataTransferItemList);
-    // console.log('resw/ handles', res);
-
+    /*1*/
+    const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(dataTransferItemList);
+    console.log('resw/ handles', res);
     /**/
+
+    /*2* /
     const fileHandlesPromises = [...dataTransferItemList]
         .filter((item) => item.kind === 'file')
         .map((item) => item.getAsFileSystemHandle());
@@ -63,11 +65,12 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     }
     /**/
 
-    /**/
+    /*3* /
     const dataTransferItemArr = [...dataTransferItemList];
     console.log('dataTransferItemArr', dataTransferItemArr); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
     /**/
 
+    /*4* /
     for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
         const item: DataTransferItem = dataTransferItemList[i];
 
@@ -95,6 +98,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
             }
         }
     }
+    /**/
 
     return rv;
 }

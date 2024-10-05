@@ -6,6 +6,7 @@
  *      2. ingnore link can be done outside of the getFilesFromDataTransferItems() function
  *      3. load files content should be conditioned on the file extension
  */
+
 export interface FileWithHandleAndPath extends File {
     handle?: FileSystemFileHandle;
     path: string;
@@ -122,6 +123,7 @@ function getReadEntries(dirReader: FileSystemDirectoryReader): Promise<FileSyste
 function getHandle(item: DataTransferItem | undefined): Promise<FileSystemFileHandle | null> {
     // Currently only Chromium browsers support getAsFileSystemHandle.
     if (!item || !item.getAsFileSystemHandle) {
+        console.log('no item or no getAsFileSystemHandle', item);
         return Promise.resolve(null);
     }
     return item.getAsFileSystemHandle().catch((e) => {
@@ -193,7 +195,7 @@ function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | unde
     return Promise.resolve([]);
 }
 
-export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[][]> {
+export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
     currentLoadFilter = loadFilter || defaultLoadFilter;
 
     const inputs: [FileSystemEntry, DataTransferItem][] = [];
@@ -223,8 +225,6 @@ export function getFilesFromDataTransferItems(dataTransferItems: DataTransferIte
     return Promise.all(
         inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
     ).then((nested) => {
-        // return nested.flat().filter((file) => !junkRegex.test(file.name));
-        // return nested.flat();
-        return nested;
+        return nested.flat(); // return nested.flat().filter((file) => !junkRegex.test(file.name));
     });
 }
