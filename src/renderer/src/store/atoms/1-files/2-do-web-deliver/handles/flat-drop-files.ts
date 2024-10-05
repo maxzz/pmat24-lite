@@ -179,6 +179,25 @@ export async function* getEntriesRecursively(folder: FileSystemDirectoryHandle):
     }
 }
 
+export async function collectAllHandles(dataTransferItems: DataTransferItemList) {
+    const fileHandlesPromises: Promise<FileSystemHandle | null>[] = [...dataTransferItems]
+        .filter((item) => item.kind === 'file')
+        .map((item) => item.getAsFileSystemHandle());
+
+    for await (const handle of fileHandlesPromises) {
+        if (handle) {
+            if (handle.kind === 'directory') {
+                for await (const subEntry of getEntriesRecursively(handle as FileSystemDirectoryHandle)) {
+                    console.log(`sub "${subEntry[0].join('/')}"`, subEntry[1]);
+                } 
+                console.log(`Directory: "${handle.name}"`);
+            } else {
+                console.log(`File: "${handle.name}"`);
+            }
+        }
+    }
+}
+
 /**
  * This method is odd because
  *
