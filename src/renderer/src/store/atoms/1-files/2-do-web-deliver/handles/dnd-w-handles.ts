@@ -18,21 +18,28 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncG
     }
 }
 
-export async function collectAllHandles(dataTransferItems: DataTransferItemList) {
+export async function collectDNDHandles(dataTransferItems: DataTransferItemList) {
     const fileHandlesPromises: Promise<FileSystemHandle | null>[] = [...dataTransferItems]
         .filter((item) => item.kind === 'file')
         .map((item) => item.getAsFileSystemHandle());
+
+    const rv: [path: string[], handle: FileSystemFileHandle | FileSystemDirectoryHandle][] = [];
 
     for await (const handle of fileHandlesPromises) {
         if (handle) {
             if (handle.kind === 'directory') {
                 for await (const subEntry of getEntriesRecursively(handle as FileSystemDirectoryHandle)) {
-                    console.log(`sub "${subEntry[0].join('/')}"`, subEntry[1]);
+                    rv.push(subEntry);
                 } 
-                console.log(`Directory: %o`, handle);
             } else {
-                console.log(`File: %o`, handle);
+                rv.push([[], handle as FileSystemFileHandle]);
             }
         }
     }
+
+    for (const [path, handle] of rv) {
+        console.log(`path: "${path.join('/')}", handle: %o`, handle);
+    }
+
+    return rv;
 }

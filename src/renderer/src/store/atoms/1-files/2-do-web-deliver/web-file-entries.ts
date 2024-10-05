@@ -1,4 +1,4 @@
-import { collectAllHandles } from "./handles/drop-w-handles";
+import { collectDNDHandles } from "./handles/dnd-w-handles";
 import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./handles/flat-drop-files";
 
 // Adapted from: https://stackoverflow.com/a/53058574
@@ -45,7 +45,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const queue: EntryHandleAny[] = [];
 
     /*5*/
-    await collectAllHandles(dataTransferItemList);
+    await collectDNDHandles(dataTransferItemList);
     /**/
 
     /*1* /
