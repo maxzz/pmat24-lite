@@ -162,12 +162,30 @@ async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string
 }
 
 /**
+ * Traverses through a directory and yields files and folders (in undefined order)
+ * https://github.com/umstek/listen/blob/main/src/util/fileSystem.ts
+ *
+ * @param folder folder to traverse
+ */
+export async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[string[], FileSystemFileHandle], void, unknown> {
+    for await (const [key, entry] of folder.entries()) {
+        if (entry.kind === 'directory') {
+            for await (const [path, file] of getEntriesRecursively(entry)) {
+                yield [[folder.name, ...path], file];
+            }
+        } else {
+            yield [[folder.name], entry];
+        }
+    }
+}
+
+/**
  * This method is odd because
  *
  * - The .readEntries method only returns batches of 100,
  *   and signals when it's done because it returns a batch of 0.
  */
-async function readDir(entry: FileSystemDirectoryEntry, path: string, item: DataTransferItem |undefined): Promise<FileWithHandleAndPath[]> {
+async function readDir(entry: FileSystemDirectoryEntry, path: string, item: DataTransferItem | undefined): Promise<FileWithHandleAndPath[]> {
     const dirReader = entry.createReader();
     const newPath = path + entry.name + "/";
     let files: FileWithHandleAndPath[] = [];
@@ -179,8 +197,13 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
             (entry as any).handle = handle;
             console.log('dir handle', handle);
 
+            const entries = getEntriesRecursively(handle);
+            for await (const [key, value] of entries) {
+                console.log('children all', { key, value });
+            }
+
             for await (const [key, value] of handle.entries()) {
-                console.log('children', { key, value });
+                console.log('children', { key, value }); // <- children { key: '{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm', value: FileSystemFileHandle }
             }
         }
     }
