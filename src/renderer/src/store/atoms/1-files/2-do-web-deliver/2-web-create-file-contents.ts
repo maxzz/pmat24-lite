@@ -34,7 +34,7 @@ async function createFileContents(dropItems: DropItem[]): Promise<FileContent[]>
 
         try {
             const newItem: FileContent = {
-                id: uuid.asRelativeNumber(),
+                unid: uuid.asRelativeNumber(),
                 idx,
                 fname: item.fname,
                 fpath: item.fpath,
@@ -42,8 +42,10 @@ async function createFileContents(dropItems: DropItem[]): Promise<FileContent[]>
                 size: item.fileHandle.size,
                 raw: '',
 
+                webFsItem: null,
+
                 legacyEntry: item.legacyEntry,
-                file: item.fileHandle,
+                webFile: item.fileHandle,
 
                 notOur: item.notOur,
                 failed: false,

@@ -2,7 +2,7 @@ import { basename, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { FileContent } from '@shared/ipc-types';
 
-type MainFileContent = Omit<FileContent, 'id' | 'entry' | 'file'>;
+type MainFileContent = Omit<FileContent, 'unid' | 'entry' | 'webFile'>;
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(
@@ -16,6 +16,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                 fmodi: 0,
                 size: 0,
                 raw: '',
+                webFsItem: null,
                 fromMain: true,
                 failed: false,
             };
@@ -51,16 +52,19 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): Fi
 
     allowedExt && rv.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
+    // read files content
     rv.forEach(
-        (file, idx) => {
-            file.idx = idx;
-            if (!file.failed && !file.notOur) {
-                try {
-                    file.raw = readFileSync(file.fpath!).toString();
-                } catch (error) {
-                    file.raw = error instanceof Error ? error.message : JSON.stringify(error);
-                    file.failed = true;
-                }
+        (fileContent, idx) => {
+            fileContent.idx = idx;
+            if (fileContent.failed || fileContent.notOur) {
+                return;
+            }
+
+            try {
+                fileContent.raw = readFileSync(fileContent.fpath!).toString();
+            } catch (error) {
+                fileContent.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                fileContent.failed = true;
             }
         }
     );

@@ -4,7 +4,7 @@ import { FileUs } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay } from "@/store/store-utils";
-import { deliveredToFileUs } from "./2-delivered-to-file-us";
+import { deliveredFileContentToFileUs } from "./2-delivered-to-file-us";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
@@ -41,9 +41,9 @@ import { toast } from "sonner";
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    async (get, set, deliveredContent: FileContent[]) => {
+    async (get, set, deliveredFileContents: FileContent[]) => {
 
-        if (deliveredContent.length > 100) {    // Allow fast cleaning, no files, no delay
+        if (deliveredFileContents.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
@@ -56,11 +56,11 @@ export const doSetDeliveredFilesAtom = atom(
         const unsupported: FileUs[] = [];
 
         const fileUsItems =
-            deliveredContent
+            deliveredFileContents
                 .filter((file) => file.size)
                 .map(
-                    (deliveredFile) => {
-                        const newFileUs = deliveredToFileUs(deliveredFile);
+                    (deliveredFileContent: FileContent) => {
+                        const newFileUs = deliveredFileContentToFileUs(deliveredFileContent);
 
                         if (isEmpty(newFileUs.meta)) {
                             totalManis.empty++;
@@ -110,7 +110,7 @@ function unsupportedMsg(unsupported: FileUs[]) {
             </span>
 
             {unsupported.map(
-                (file) => <span className={multiple ? "block" : undefined} key={file.id}>{`${space}"${file.fname}"`}</span>
+                (file) => <span className={multiple ? "block" : undefined} key={file.unid}>{`${space}"${file.fname}"`}</span>
             )}
         </div>
     );

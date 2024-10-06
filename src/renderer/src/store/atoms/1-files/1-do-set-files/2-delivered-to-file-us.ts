@@ -7,20 +7,23 @@ import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/sto
 import { fileUsStats } from '@/store/store-utils';
 import { ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 
-export function deliveredToFileUs(deliveredFile: FileContent): FileUs {
+export function deliveredFileContentToFileUs(fileContent: FileContent): FileUs {
     const rv: FileUs = {
-        id: uuid.asRelativeNumber(),
-        idx: deliveredFile.idx,
+        unid: uuid.asRelativeNumber(),
+        idx: fileContent.idx,
 
-        fname: deliveredFile.fname,
-        fpath: pathWoFilename(deliveredFile.fpath),
-        fmodi: deliveredFile.fmodi,
-        size: deliveredFile.size,
+        fname: fileContent.fname,
+        fpath: pathWoFilename(fileContent.fpath),
+        fmodi: fileContent.fmodi,
+        size: fileContent.size,
 
-        raw: deliveredFile.raw,
+        raw: fileContent.raw,
 
-        file: deliveredFile.file,
-        legacyEntry: deliveredFile.legacyEntry,
+        webFsItem: fileContent.webFsItem,
+
+        webFile: fileContent.webFile,
+        legacyEntry: fileContent.legacyEntry,
+
         state: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),

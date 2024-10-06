@@ -14,7 +14,7 @@ export function setManiChanges(fileUsCtx: FileUsCtx, changed: boolean, changeNam
 
     //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
 
-    allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.id}`);
+    allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.unid}`);
 
     return changes;
 }
