@@ -89,14 +89,15 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
         try {
             rv = await Promise.all(entries.map(
                 async (item) => {
-                    return {
+                    const rv: DropItem = {
                         fname: item.legacyEntry.name,
                         fpath: item.legacyEntry.fullPath,
                         fileWeb: await fileEntryToFile(item.legacyEntry),
-                        entry: item.legacyEntry,
+                        legacyEntry: item.legacyEntry,
                         handle: item.modernHandle,
                         notOur: false,
                     };
+                    return rv;
                 })
             );
         } catch (error) {
@@ -121,14 +122,15 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
         try {
             rv = await Promise.all(files.map(
                 async (file) => {
-                    return {
+                    const rv: DropItem = {
                         fname: file.name,
                         fpath: file.webkitRelativePath,
                         fileWeb: file,
-                        entry: undefined,
+                        legacyEntry: undefined,
                         handle: null,
                         notOur: false,
                     };
+                    return rv;
                 }
             ));
         } catch (error) {
