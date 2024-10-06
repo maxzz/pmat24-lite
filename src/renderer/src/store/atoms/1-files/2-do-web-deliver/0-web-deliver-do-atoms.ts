@@ -21,9 +21,9 @@ export const doSetFilesFromDropAtom = atom(
             }
             filesCnt = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
         } else {
-            const hasFiles = !![...dataTransfer.items].filter((item) => item.kind === 'file').length; // avoid drop of non-files
-            if (hasFiles) {
-                filesCnt = await webLoadAfterDataTransferContent(dataTransfer.items, pmAllowedToOpenExt);
+            const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
+            if (fileDataTransferItems.length) { // avoid drop-and-drop drop without files
+                filesCnt = await webLoadAfterDataTransferContent(fileDataTransferItems, pmAllowedToOpenExt);
             }
         }
 

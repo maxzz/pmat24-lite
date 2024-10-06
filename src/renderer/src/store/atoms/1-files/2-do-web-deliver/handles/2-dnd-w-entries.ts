@@ -213,18 +213,18 @@ function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | unde
     return Promise.resolve([]);
 }
 
-export function getFilesFromDataTransferItems(dataTransferItems: DataTransferItemList, loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
+export function getFilesFromDataTransferItems(files: DataTransferItem[], loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
     currentLoadFilter = loadFilter || defaultLoadFilter;
 
     const inputs: [FileSystemEntry, DataTransferItem][] = [];
 
     /**
      * It is ESSENTIAL that we do not do any async work in
-     * this loop, because if we do the dataTransferItems list
+     * this loop, because if we do the files(DataTransferItemsList) list
      * will disappear. So collect all the items and entries,
      * and then do all the async.
      */
-    for (const item of dataTransferItems) {
+    for (const item of files) {
         // Despite the name, webkitGetAsEntry is in Safari,
         // Chrome, Edge, and Firefox.
         // https://caniuse.com/mdn-api_datatransferitem_webkitgetasentry

@@ -74,15 +74,15 @@ function isOurExt(filename: string | undefined, allowedExt: string[]): boolean |
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function webLoadAfterDataTransferContent(dataTransferItemList: DataTransferItemList, allowedExt?: string[]): Promise<FileContent[]> {
-    let items: DropItem[] = await webGetFilesTransferItems(dataTransferItemList);
+export async function webLoadAfterDataTransferContent(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
+    let items: DropItem[] = await webGetFilesTransferItems(fileDataTransferItems);
 
     allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
     return mapToFileContentItems(items);
 
-    async function webGetFilesTransferItems(dataTransferItemList: DataTransferItemList): Promise<DropItem[]> {
-        const entries = await getAllFileEntries(dataTransferItemList);
+    async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
+        const entries = await getAllFileEntries(fileDataTransferItems);
         let rv: DropItem[] = [];
         try {
             rv = await Promise.all(entries.map(
@@ -98,7 +98,7 @@ export async function webLoadAfterDataTransferContent(dataTransferItemList: Data
                 })
             );
         } catch (error) {
-            console.error('cannot read from DataTransferItemList', dataTransferItemList);
+            console.error('cannot read from DataTransferItemList', fileDataTransferItems);
         }
         return rv;
     }
