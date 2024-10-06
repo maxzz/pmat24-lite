@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
-import { doSetFilesFromDialogAtom } from "@/store";
+import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
 
 type DropdownMenuItemOpenProps = {
@@ -10,7 +10,7 @@ type DropdownMenuItemOpenProps = {
 
 function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onFocus() {
         dlgOpen && setMenuOpen(false);
@@ -61,7 +61,7 @@ function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: Dropdow
  * and can be target for DropdownMenuItem_Folder_FromRenderer label.
  */
 export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
         event.target.files && doSetFilesFromDialog([...event.target.files]); // Checking the length will prevent false drags and, as a result, clearing the file list.

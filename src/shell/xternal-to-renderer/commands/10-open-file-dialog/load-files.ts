@@ -5,37 +5,39 @@ import { FileContent } from '@shared/ipc-types';
 type MainFileContent = Omit<FileContent, 'id' | 'entry' | 'file'>;
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
-    (filenames || []).forEach((filename) => {
-        filename = normalize(filename);
+    (filenames || []).forEach(
+        (filename) => {
+            filename = normalize(filename);
 
-        const newItem: MainFileContent = {
-            idx: 0,
-            fname: basename(filename),
-            fpath: filename,
-            fmodi: 0,
-            size: 0,
-            raw: '',
-            fromMain: true,
-            failed: false,
-        };
+            const newItem: MainFileContent = {
+                idx: 0,
+                fname: basename(filename),
+                fpath: filename,
+                fmodi: 0,
+                size: 0,
+                raw: '',
+                fromMain: true,
+                failed: false,
+            };
 
-        try {
-            const st = statSync(filename);
+            try {
+                const st = statSync(filename);
 
-            if (st.isFile()) {
-                newItem.fmodi = st.mtimeMs;
-                newItem.size = st.size;
+                if (st.isFile()) {
+                    newItem.fmodi = st.mtimeMs;
+                    newItem.size = st.size;
+                    rv.push(newItem);
+                } else if (st.isDirectory()) {
+                    const entries = readdirSync(filename).map((entry) => join(filename, entry));
+                    collectNamesRecursively(entries, rv);
+                }
+            } catch (error) {
+                newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                newItem.failed = true;
                 rv.push(newItem);
-            } else if (st.isDirectory()) {
-                const entries = readdirSync(filename).map((entry) => join(filename, entry));
-                collectNamesRecursively(entries, rv);
             }
-        } catch (error) {
-            newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
-            newItem.failed = true;
-            rv.push(newItem);
         }
-    });
+    );
 }
 
 function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
@@ -44,12 +46,12 @@ function isOurExt(filename: string | undefined, allowedExt: string[]): boolean |
 }
 
 export function loadFilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
-    let files: MainFileContent[] = [];
-    collectNamesRecursively(filenames, files);
+    let rv: MainFileContent[] = [];
+    collectNamesRecursively(filenames, rv);
 
-    allowedExt && files.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
+    allowedExt && rv.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
-    files.forEach(
+    rv.forEach(
         (file, idx) => {
             file.idx = idx;
             if (!file.failed && !file.notOur) {
@@ -63,5 +65,5 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): Fi
         }
     );
 
-    return files as Required<FileContent>[];
+    return rv as FileContent[];
 }

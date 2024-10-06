@@ -33,7 +33,7 @@ export const doSetFilesFromDropAtom = atom(
     }
 );
 
-export const doSetFilesFromDialogAtom = atom(
+export const doSetFilesFromLegacyDialogAtom = atom(
     null,
     async (get, set, files: File[] | null) => {
         if (!files) {
@@ -45,3 +45,5 @@ export const doSetFilesFromDialogAtom = atom(
         }
     }
 );
+
+//TODO: doSetFilesFromModernDialogAtom = atom(

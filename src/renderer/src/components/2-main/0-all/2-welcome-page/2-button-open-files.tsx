@@ -1,11 +1,11 @@
-import { doSetFilesFromDialogAtom } from "@/store";
+import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
 import { useSetAtom } from "jotai";
 import { useState } from "react";
 
 export function OpenFileButton() {
     const [dlgOpen, setDlgOpen] = useState<boolean>(false);
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromDialogAtom);
+    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     const onFiles = (files: File[]) => {
         doSetFilesFromDialog(files);
