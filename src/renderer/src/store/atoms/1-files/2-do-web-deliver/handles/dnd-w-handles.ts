@@ -53,16 +53,3 @@ export async function collectDndHandles(files: DataTransferItem[]): Promise<[pat
 
     return rv;
 }
-
-export function collectDndItems(dataTransferItems: DataTransferItemList) {
-    const files = [...dataTransferItems].filter((item) => item.kind === 'file');
-
-    const FirefoxEntries = files.some((item) => !item.getAsFileSystemHandle);
-    if (FirefoxEntries) {
-        console.log('Firefox entries detected');
-        return [];
-    }
-
-    const rv = collectDndHandles(files);
-    return rv;
-}

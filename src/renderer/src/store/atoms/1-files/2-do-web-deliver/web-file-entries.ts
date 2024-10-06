@@ -1,4 +1,4 @@
-import { collectDndItems, isFsFileHandle } from "./handles/dnd-w-handles";
+import { collectDndHandles, isFsFileHandle } from "./handles/dnd-w-handles";
 
 // Adapted from: https://stackoverflow.com/a/53058574
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/utils/directoryReader.ts
@@ -29,6 +29,19 @@ async function readAllDirectoryEntries(directoryReader: FileSystemDirectoryReade
     return rv;
 }
 
+export function collectDndItems(dataTransferItems: DataTransferItemList) {
+    const files = [...dataTransferItems].filter((item) => item.kind === 'file');
+
+    const FirefoxEntries = files.some((item) => !item.getAsFileSystemHandle);
+    if (FirefoxEntries) {
+        console.log('Firefox entries detected');
+        return [];
+    }
+
+    const rv = collectDndHandles(files);
+    return rv;
+}
+
 export type EntryHandle = {
     legacyEntry: FileSystemFileEntry;
     modernHandle: FileSystemFileHandle | null;
@@ -43,7 +56,7 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
 
-    /*5*/
+    /*5* /
     const handles = await collectDndItems(dataTransferItemList);
 
     for (const [path, handle] of handles) {
@@ -79,14 +92,14 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     console.log('dataTransferItemArr', dataTransferItemArr); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
     /**/
 
-    /*4* /
+    /*4*/
     for (let i = 0, length = dataTransferItemList.length; i < length; i++) {
         const item: DataTransferItem = dataTransferItemList[i];
 
         const entry = item.webkitGetAsEntry();
         // const entry = null;
-        const handle = await item.getAsFileSystemHandle();
-        // const handle = null;
+        //const handle = await item.getAsFileSystemHandle();
+        const handle = null;
         console.log('item', item, 'entry', entry, 'handle', handle);
 
         entry
