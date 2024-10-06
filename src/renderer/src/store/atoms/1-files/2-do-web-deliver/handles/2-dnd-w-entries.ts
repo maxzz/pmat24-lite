@@ -198,8 +198,7 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
 }
 
 /**
- * Really nothing here but a method that routes
- * to readFile or readDir.
+ * Really nothing here but a method that routes to readFile or readDir.
  */
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
     if (isFile(entry)) {
