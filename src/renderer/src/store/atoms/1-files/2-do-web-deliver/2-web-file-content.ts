@@ -1,6 +1,6 @@
 import { FileContent } from "@shared/ipc-types";
 import { extensionWoDot } from "../../../../utils/os-utils";
-import { fileEntryToFile, getAllFileEntries } from "./web-file-entries";
+import { fileEntryToFile, getAllFileEntries } from "./8-web-file-entries";
 import { uuid } from "../../../../utils/uuid";
 
 type DropItem = {
