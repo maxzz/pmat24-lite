@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "..";
-import { electronGetPathes, webLoadAfterDataTransferContent, webLoadAfterDialogOpen } from "./2-web-file-content";
+import { electronGetPaths, webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./2-web-create-file-contents";
 
 // handle files drop for web and electron environments
 
@@ -15,7 +15,7 @@ export const doSetFilesFromDropAtom = atom(
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];
-            const filenames = electronGetPathes(dropFiles);
+            const filenames = electronGetPaths(dropFiles);
             if (!filenames.length) {
                 return;
             }
@@ -23,7 +23,7 @@ export const doSetFilesFromDropAtom = atom(
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) { // avoid drop-and-drop drop without files
-                filesCnt = await webLoadAfterDataTransferContent(fileDataTransferItems, pmAllowedToOpenExt);
+                filesCnt = await webAfterDndCreateFileContents(fileDataTransferItems, pmAllowedToOpenExt);
             }
         }
 
@@ -39,7 +39,7 @@ export const doSetFilesFromDialogAtom = atom(
         if (!files) {
             return;
         }
-        let filesCnt: FileContent[] = await webLoadAfterDialogOpen(files, pmAllowedToOpenExt);
+        let filesCnt: FileContent[] = await webAfterDlgOpenCreateFileContents(files, pmAllowedToOpenExt);
         if (filesCnt) {
             set(doSetDeliveredFilesAtom, filesCnt);
         }

@@ -23,7 +23,7 @@ function textFileReader(file: File): Promise<string> {
     });
 }
 
-async function mapToFileContentItems(dropItems: DropItem[]): Promise<FileContent[]> {
+async function createFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
 
     for (const [idx, item] of dropItems.entries()) {
@@ -74,12 +74,12 @@ function isOurExt(filename: string | undefined, allowedExt: string[]): boolean |
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function webLoadAfterDataTransferContent(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
+export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(fileDataTransferItems);
 
     allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
-    return mapToFileContentItems(items);
+    return createFileContents(items);
 
     async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
         const entries = await getAllFileEntries(fileDataTransferItems);
@@ -107,12 +107,12 @@ export async function webLoadAfterDataTransferContent(fileDataTransferItems: Dat
 /**
  * Create FileContent items from open file/directory web dialog
  */
-export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
+export async function webAfterDlgOpenCreateFileContents(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await mapToDropItems(files);
 
     allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
-    return mapToFileContentItems(items);
+    return createFileContents(items);
 
     async function mapToDropItems(files: File[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
@@ -139,7 +139,7 @@ export async function webLoadAfterDialogOpen(files: File[], allowedExt?: string[
 /**
  * electron filenames
  */
-export function electronGetPathes(files: File[]): string[] {
+export function electronGetPaths(files: File[]): string[] {
     const filenames = [...files]
         .map(
             (file) => {
