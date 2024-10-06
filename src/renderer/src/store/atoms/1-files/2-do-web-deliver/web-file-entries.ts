@@ -1,4 +1,4 @@
-import { collectDndHandles, isFsFileHandle } from "./handles/dnd-w-handles";
+import { collectDndHandles, isFsFileHandle } from "./handles";
 
 // Adapted from: https://stackoverflow.com/a/53058574
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/utils/directoryReader.ts
@@ -97,8 +97,6 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
         const item: DataTransferItem = dataTransferItemList[i];
 
         const entry = item.webkitGetAsEntry();
-        // const entry = null;
-        //const handle = await item.getAsFileSystemHandle();
         const handle = null;
         console.log('item', item, 'entry', entry, 'handle', handle);
 
