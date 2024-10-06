@@ -1,8 +1,8 @@
 import { basename, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { FileContent } from '@shared/ipc-types';
+import { type FileContent } from '@shared/ipc-types';
 
-type MainFileContent = Omit<FileContent, 'unid' | 'entry' | 'webFile'>;
+type MainFileContent = Omit<FileContent, 'unid'>;
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(
@@ -16,9 +16,9 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                 fmodi: 0,
                 size: 0,
                 raw: '',
-                webFsItem: null,
                 fromMain: true,
                 failed: false,
+                webFsItem: null,
             };
 
             try {

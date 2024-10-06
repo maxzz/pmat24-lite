@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog } from "electron";
+import { type BrowserWindow, dialog } from "electron";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
 import { mainToRenderer } from "../../main-to-renderer";
 import { loadFilesContent } from "./load-files";
@@ -13,6 +13,7 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
             title: what.openDirs ? 'Open Folder' : 'Open Files',
             properties: [what.openDirs ? 'openDirectory' : 'openFile', 'multiSelections'],
         });
+        
         if (canceled) {
             return;
         }
