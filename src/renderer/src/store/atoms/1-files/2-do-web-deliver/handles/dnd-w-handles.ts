@@ -31,10 +31,9 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncG
     }
 }
 
-export async function collectDNDHandles(dataTransferItems: DataTransferItemList) {
-    const fileHandlesPromises = [...dataTransferItems]
-        .filter((item) => item.kind === 'file')
-        .map((item) => item.getAsFileSystemHandle() as Promise<FsHandle | null>);
+export async function collectDndHandles(files: DataTransferItem[]): Promise<[path: string[], handle: FsHandle][]> {
+
+    const fileHandlesPromises = files.map((item) => item.getAsFileSystemHandle() as Promise<FsHandle | null>);
 
     const rv: [path: string[], handle: FsHandle][] = [];
 
@@ -52,9 +51,18 @@ export async function collectDNDHandles(dataTransferItems: DataTransferItemList)
         }
     }
 
-    for (const [path, handle] of rv) {
-        console.log(`%cpath: "${path.join('/')}"%c, handle: %o`, `color: ${isFsFileHandle(handle) ? 'olive': 'fuchsia'}`, 'color: tan', handle);
+    return rv;
+}
+
+export function collectDndItems(dataTransferItems: DataTransferItemList) {
+    const files = [...dataTransferItems].filter((item) => item.kind === 'file');
+
+    const FirefoxEntries = files.some((item) => !item.getAsFileSystemHandle);
+    if (FirefoxEntries) {
+        console.log('Firefox entries detected');
+        return [];
     }
 
+    const rv = collectDndHandles(files);
     return rv;
 }

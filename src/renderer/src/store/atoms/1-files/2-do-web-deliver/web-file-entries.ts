@@ -1,5 +1,4 @@
-import { collectDNDHandles } from "./handles/dnd-w-handles";
-import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./handles/flat-drop-files";
+import { collectDndItems, isFsFileHandle } from "./handles/dnd-w-handles";
 
 // Adapted from: https://stackoverflow.com/a/53058574
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/utils/directoryReader.ts
@@ -45,7 +44,12 @@ export async function getAllFileEntries(dataTransferItemList: DataTransferItemLi
     const queue: EntryHandleAny[] = [];
 
     /*5*/
-    await collectDNDHandles(dataTransferItemList);
+    const handles = await collectDndItems(dataTransferItemList);
+
+    for (const [path, handle] of handles) {
+        console.log(`%cpath: "${path.join('/')}"%o`, `color: ${isFsFileHandle(handle) ? 'tan': 'fuchsia'}`, handle);
+    }
+
     /**/
 
     /*1* /
