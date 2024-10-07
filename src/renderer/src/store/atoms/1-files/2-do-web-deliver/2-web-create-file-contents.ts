@@ -23,7 +23,7 @@ function textFileReader(file: File): Promise<string> {
     });
 }
 
-async function createFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
+async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
 
     for (const [idx, item] of dropItems.entries()) {
@@ -81,7 +81,8 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
 
     allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
-    return createFileContents(items);
+    const rv = loadFilesAndCreateFileContents(items);
+    return rv;
 
     async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
         const entries = await getAllFileEntries(fileDataTransferItems);
@@ -115,7 +116,8 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
 
     allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
 
-    return createFileContents(items);
+    const rv = loadFilesAndCreateFileContents(items);
+    return rv;
 
     async function mapToDropItems(files: File[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
