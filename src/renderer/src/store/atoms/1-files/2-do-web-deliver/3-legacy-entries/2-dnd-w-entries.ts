@@ -80,11 +80,26 @@ let currentLoadFilter: LoadFilter = defaultLoadFilter; // we can make scopeed or
  */
 
 /**
+ * Really nothing here but a method that routes to readFile or readDir.
+ */
+function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
+    if (isEntryFile(entry)) {
+        if (currentLoadFilter(entry.name)) {
+            return getFileAccess(entry, item, path).then((file) => [file]);
+        }
+    }
+    else if (isEntryDirectory(entry)) {
+        return readDir(entry, path, item);
+    }
+    return Promise.resolve([]);
+}
+
+/**
  * Promise adapters ----------------------------------------------------------
  */
 
 function getHandle(item: DataTransferItem | undefined): Promise<FsHandle | null> {
-    if (!item || !item.getAsFileSystemHandle) { // Currently only Chromium browsers support getAsFileSystemHandle.
+    if (!item?.getAsFileSystemHandle) { // Currently only Chromium browsers support getAsFileSystemHandle.
         return Promise.resolve(null);
     }
     const rv = item.getAsFileSystemHandle().catch((e) => { console.error(e); return null; }) as Promise<FsHandle | null>;
@@ -157,25 +172,32 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
     return files;
 }
 
-/**
- * Really nothing here but a method that routes to readFile or readDir.
- */
-function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
-    if (isEntryFile(entry)) {
-        if (currentLoadFilter(entry.name)) {
-            return getFileAccess(entry, item, path).then((file) => [file]);
+async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGenerator<[string, FileWithHandleAndPath], void, unknown> {
+    let entries: FileSystemEntry[] = [];
+
+    const dirReader = folder.createReader();
+    let entriesPart: FileSystemEntry[];
+    do {
+        entriesPart = await getReadEntriesPromisify(dirReader);
+        entries = entries.concat(entriesPart);
+    } while (entriesPart.length > 0);
+
+    for (const entry of entries) {
+        if (isEntryFile(entry)) {
+            yield [folder.name, await getFileAccess(entry as FileSystemFileEntry, undefined, folder.name)];
+        }
+        else if (isEntryDirectory(entry)) {
+            const dir = entry as FileSystemDirectoryEntry;
+
+            for await (const [key, value] of getEntriesRecursively(dir)) {
+                yield [folder.name + '/' + key, value];
+            }
         }
     }
-    else if (isEntryDirectory(entry)) {
-        return readDir(entry, path, item);
-    }
-    return Promise.resolve([]);
 }
 
-export function getFilesFromDataTransferItems(files: DataTransferItem[], loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
+export async function getFilesFromDataTransferItems(files: DataTransferItem[], loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
     currentLoadFilter = loadFilter || defaultLoadFilter;
-
-    // const inputs: [FileSystemEntry, DataTransferItem][] = [];
 
     /**
      * It is ESSENTIAL that we do not do any async work in
@@ -183,16 +205,7 @@ export function getFilesFromDataTransferItems(files: DataTransferItem[], loadFil
      * will disappear. So collect all the items and entries,
      * and then do all the async.
      */
-    // for (const item of files) {
-    //     const entry = item.webkitGetAsEntry(); // Despite the name, webkitGetAsEntry is in Safari, Chrome, Edge, and Firefox.
-    //     if (entry) {
-    //         inputs.push([entry, item]);
-    //     }
-    // }
-    const inputs = files.map(
-        (item) => [item.webkitGetAsEntry(), item] as [FileSystemEntry, DataTransferItem]
-    ).filter((item) => !!item[0]);
-    console.log('inputs', inputs);
+    const inputs = files.map((item) => [item.webkitGetAsEntry(), item] as [FileSystemEntry, DataTransferItem]).filter((item) => !!item[0]);
 
     /**
      * Danger zone here. It's tempting to refactor this to a loop
@@ -202,9 +215,28 @@ export function getFilesFromDataTransferItems(files: DataTransferItem[], loadFil
      * in multiple ticks, you'll lose the ability to get a file
      * handle after getting the first one.
      */
-    return Promise.all(
-        inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
-    ).then((nested) => {
-        return nested.flat(); // return nested.flat().filter((file) => !junkRegex.test(file.name));
-    });
+    const rv: FileWithHandleAndPath[] = [];
+    for await (const [entry, dtItem] of inputs) {
+        if (isEntryFile(entry)) {
+            if (currentLoadFilter(entry.name)) {
+                rv.push(await getFileAccess(entry as FileSystemFileEntry, dtItem, ''));
+            }
+        }
+        else if (isEntryDirectory(entry)) {
+            for await (const subEntry of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
+                rv.push(subEntry[1]);
+            }
+        }
+    }
+    return rv;
+
+    // for await (const [path, file] of getEntriesRecursively(inputs[0][0] as FileSystemDirectoryEntry)) {
+    //     console.log(`%cpath: "${path}"%o`, `color: ${file ? 'tan' : 'fuchsia'}`, file);
+    // }
+
+    // return Promise.all(
+    //     inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
+    // ).then((nested) => {
+    //     return nested.flat(); // return nested.flat().filter((file) => !junkRegex.test(file.name));
+    // });
 }

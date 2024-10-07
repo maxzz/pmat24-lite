@@ -14,8 +14,6 @@ export function isFsDirectoryHandle(handle: FileSystemHandle | FsHandle): handle
  * Entry type helpers --------------------------------------------------------------
  */
 
-export type FsEntry = FileSystemFileEntry | FileSystemDirectoryEntry;
-
 /**
  * Doing some type narrowing here. Maybe if the spec had a .kind
  * property that worked as a discriminated union in TypeScript,
