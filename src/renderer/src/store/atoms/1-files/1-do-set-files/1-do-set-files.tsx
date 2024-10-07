@@ -4,7 +4,7 @@ import { FileUs } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay } from "@/store/store-utils";
-import { deliveredFileContentToFileUs } from "./2-delivered-to-file-us";
+import { createFileUsFromFileContent } from "./2-create-to-file-us";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
@@ -60,7 +60,7 @@ export const doSetDeliveredFilesAtom = atom(
                 .filter((file) => file.size)
                 .map(
                     (deliveredFileContent: FileContent) => {
-                        const newFileUs = deliveredFileContentToFileUs(deliveredFileContent);
+                        const newFileUs = createFileUsFromFileContent(deliveredFileContent);
 
                         if (isEmpty(newFileUs.meta)) {
                             totalManis.empty++;

@@ -7,7 +7,7 @@ import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/sto
 import { fileUsStats } from '@/store/store-utils';
 import { ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 
-export function deliveredFileContentToFileUs(fileContent: FileContent): FileUs {
+export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     const rv: FileUs = {
         unid: uuid.asRelativeNumber(),
         idx: fileContent.idx,
