@@ -1,7 +1,6 @@
-export type FsHandle =
-    | { kind: 'file'; } & FileSystemFileHandle
-    | { kind: 'directory'; } & FileSystemDirectoryHandle;
+export type FsHandle =FileSystemFileHandle | FileSystemDirectoryHandle;
 
+/*
 export function isFsFileHandle(handle: FileSystemHandle | FsHandle): handle is FileSystemFileHandle {
     return handle.kind === 'file';
 }
@@ -9,3 +8,4 @@ export function isFsFileHandle(handle: FileSystemHandle | FsHandle): handle is F
 export function isFsDirectoryHandle(handle: FileSystemHandle | FsHandle): handle is FileSystemDirectoryHandle {
     return handle.kind === 'directory';
 }
+*/

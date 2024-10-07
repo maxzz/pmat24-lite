@@ -28,7 +28,7 @@ export async function getFilesFromDir(directoryHandle: FileSystemDirectoryHandle
     async function* getFilesRecursively(entry: FileSystemDirectoryHandle | FileSystemFileHandle) {
         if (entry.kind === 'file') {
             const file: IFile = await entry.getFile();
-            if (file !== null) {
+            if (file) {
                 file.relativePath = await directoryHandle.resolve(entry);
                 yield file;
             }

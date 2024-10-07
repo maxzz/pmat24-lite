@@ -1,2 +1,2 @@
-export * from "./1-web-file-entries";
+export * from "./1-collect-dnd-entries";
 export * from "./8-promisify-entry-utils";
