@@ -2,7 +2,8 @@ import { atom } from "jotai";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "..";
-import { electronGetPaths, webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./2-web-create-file-contents";
+import { webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./1-create-web-file-contents";
+import { electronGetPaths } from "./8-electron-get-paths";
 
 // handle files drop for web and electron environments
 

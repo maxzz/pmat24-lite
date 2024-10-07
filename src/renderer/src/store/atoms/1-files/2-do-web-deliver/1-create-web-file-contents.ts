@@ -1,5 +1,5 @@
 import { type FileContent } from "@shared/ipc-types";
-import { fileEntryToFile, getAllFileEntries } from "./1-web-file-entries";
+import { fileEntryToFile, getAllFileEntries } from "./2-web-file-entries";
 import { isAllowedExt, uuid } from "@/utils";
 
 type DropItem = {
@@ -138,18 +138,4 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
         }
         return rv;
     }
-}
-
-/**
- * electron filenames
- */
-export function electronGetPaths(files: File[]): string[] {
-    const filenames = [...files]
-        .map(
-            (file) => {
-                return tmApi.getPathForFile(file);
-            }
-        )
-        .filter(Boolean);
-    return filenames;
 }
