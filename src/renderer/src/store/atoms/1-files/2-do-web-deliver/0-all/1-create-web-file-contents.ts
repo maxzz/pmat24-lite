@@ -1,5 +1,5 @@
 import { type FileContent } from "@shared/ipc-types";
-import { fileEntryToFile, getAllFileEntries } from "../3-legacy-entries";
+import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
 import { textFileReader } from "./8-text-file-reader";
 import { isAllowedExt, uuid } from "@/utils";
 
@@ -77,7 +77,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
                     const rv: DropItem = {
                         fname: item.legacyEntry.name,
                         fpath: item.legacyEntry.fullPath,
-                        fileWeb: await fileEntryToFile(item.legacyEntry),
+                        fileWeb: await fileEntryToFilePromisify(item.legacyEntry),
                         legacyEntry: item.legacyEntry,
                         handle: item.modernHandle,
                         notOur: false,

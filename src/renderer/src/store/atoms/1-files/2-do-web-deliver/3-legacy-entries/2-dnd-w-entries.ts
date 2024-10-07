@@ -7,8 +7,10 @@
  *      3. load files content should be conditioned on the file extension
  */
 
+import { getFilePromisify, getReadEntriesPromisify, isEntryDirectory, isEntryFile } from "./8-promisify-entry-utils";
+
 export interface FileWithHandleAndPath extends File {
-    handle?: FileSystemFileHandle;
+    handle?: FileSystemFileHandle | null;
     path: string;
 }
 
@@ -75,90 +77,45 @@ let currentLoadFilter: LoadFilter = defaultLoadFilter; // we can make scopeed or
  */
 
 /**
- * Type helpers --------------------------------------------------------------
- */
-
-/**
- * Doing some type narrowing here. Maybe if the spec had a .kind
- * property that worked as a discriminated union in TypeScript,
- * we could just use an if/else, but here we need to use an explicit
- * assertion to differentiate between file and directory entries.
- */
-function isFile(input: FileSystemEntry): input is FileSystemFileEntry {
-    return input.isFile;
-}
-
-function isDirectory(input: FileSystemEntry): input is FileSystemDirectoryEntry {
-    return input.isDirectory;
-}
-
-/**
  * Promise adapters ----------------------------------------------------------
  */
 
-/**
- * This API should just return a Promise. This method
- * just wraps it and returns a promise.
- * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileEntry/file
- */
-function getFile(entry: FileSystemFileEntry): Promise<File> {
-    return new Promise((resolve, reject) => {
-        entry.file(resolve, reject);
-    });
-}
-
-/**
- * Same as above. readEntries() has the same dual-callback
- * scheme as .file()
- */
-function getReadEntries(dirReader: FileSystemDirectoryReader): Promise<FileSystemEntry[]> {
-    return new Promise((resolve, reject) => {
-        // Edge does not support readEntries, so this
-        // will reject the promise.
-        // https://caniuse.com/mdn-api_filesystemdirectoryreader_readentries
-        dirReader.readEntries(resolve, reject);
-    });
-}
-
 function getHandle(item: DataTransferItem | undefined): Promise<FileSystemFileHandle | null> {
-    // Currently only Chromium browsers support getAsFileSystemHandle.
-    if (!item || !item.getAsFileSystemHandle) {
-        //console.log('no item or no getAsFileSystemHandle', item);
+    if (!item || !item.getAsFileSystemHandle) { // Currently only Chromium browsers support getAsFileSystemHandle.
         return Promise.resolve(null);
     }
-    return item.getAsFileSystemHandle().catch((e) => {
-        console.error(e);
-        return null;
-    }) as Promise<FileSystemFileHandle | null>;
+    const rv = item.getAsFileSystemHandle().catch((e) => { console.error(e); return null; }) as Promise<FileSystemFileHandle | null>;
+    return rv;
 }
 
 function readFile(entry: FileSystemFileEntry, item: DataTransferItem | undefined, path: string): Promise<FileWithHandleAndPath> {
-    return Promise.all([getFile(entry), getHandle(item)]).then(
+    return Promise.all([
+        getFilePromisify(entry),
+        getHandle(item)
+    ]).then(
         ([file, handle]) => {
-            if (handle) {
-                (file as any).handle = handle;
-            }
-
-            (file as any).path = path + file.name;
-
+            (file as FileWithHandleAndPath).handle = handle;
+            (file as FileWithHandleAndPath).path = path + file.name;
             return file as FileWithHandleAndPath;
         }
     );
 }
 
 async function dirReadEntries(dirReader: FileSystemDirectoryReader, path: string): Promise<FileWithHandleAndPath[]> {
-    return getReadEntries(dirReader).then((entries) => {
-        /**
-         * Recursion here! getFilesFromEntry will,
-         * for a directory, call readDir, which will call dirReadEntries all
-         * over again.
-         */
-        const getFilesPromises = entries.map(
-            (entry) => getFilesFromEntry(entry, undefined, path)
-        );
+    return getReadEntriesPromisify(dirReader).then(
+        (entries) => {
+            /**
+             * Recursion here! getFilesFromEntry will,
+             * for a directory, call readDir, which will call dirReadEntries all
+             * over again.
+             */
+            const getFilesPromises = entries.map(
+                (entry) => getFilesFromEntry(entry, undefined, path)
+            );
 
-        return Promise.all(getFilesPromises).then((nested) => nested.flat());
-    });
+            return Promise.all(getFilesPromises).then((nested) => nested.flat());
+        }
+    );
 }
 
 /**
@@ -201,13 +158,13 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
  * Really nothing here but a method that routes to readFile or readDir.
  */
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
-    if (isFile(entry)) {
+    if (isEntryFile(entry)) {
         if (currentLoadFilter(entry.name)) {
             //console.log('load file', entry.name, item);
             return readFile(entry, item, path).then((file) => [file]);
         }
     }
-    else if (isDirectory(entry)) {
+    else if (isEntryDirectory(entry)) {
         return readDir(entry, path, item);
     }
     return Promise.resolve([]);
