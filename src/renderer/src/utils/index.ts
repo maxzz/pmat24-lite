@@ -2,6 +2,7 @@ export * from "./classnames";
 export * from "./debounce";
 export * from "./disable-hidden-children";
 export * from "./numbers";
+export * from "./os-utils";
 export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
 export * from "./theme-apply";

@@ -41,7 +41,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     );
 }
 
-function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
+function isAllowedExt(filename: string | undefined, allowedExt: string[]): boolean | undefined { // the same as in renderer
     const ext = extname(filename || '').replace('.', '').toLowerCase();
     return allowedExt.includes(ext);
 }
@@ -50,7 +50,7 @@ export function loadFilesContent(filenames: string[], allowedExt?: string[]): Fi
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);
 
-    allowedExt && rv.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
+    allowedExt && rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
     // read files content
     rv.forEach(

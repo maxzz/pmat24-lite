@@ -1,7 +1,6 @@
-import { FileContent } from "@shared/ipc-types";
-import { extensionWoDot } from "../../../../utils/os-utils";
+import { type FileContent } from "@shared/ipc-types";
 import { fileEntryToFile, getAllFileEntries } from "./1-web-file-entries";
-import { uuid } from "../../../../utils/uuid";
+import { isAllowedExt, uuid } from "@/utils";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -13,14 +12,18 @@ type DropItem = {
 };
 
 function textFileReader(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        const aborted = () => reject(`File (${file.name}) reading was aborted`);
-        reader.onabort = aborted;
-        reader.onerror = aborted;
-        reader.onload = () => resolve(reader.result?.toString() || '');
-        reader.readAsText(file);
-    });
+    return new Promise(
+        (resolve, reject) => {
+            const onAbort = () => reject(`File (${file.name}) reading was aborted`);
+            const onLoaded = () => resolve(reader.result?.toString() || '');
+
+            const reader = new FileReader();
+            reader.onabort = onAbort;
+            reader.onerror = onAbort;
+            reader.onload = onLoaded;
+            reader.readAsText(file);
+        }
+    );
 }
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
@@ -68,18 +71,13 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
     return res;
 }
 
-function isOurExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
-    const ext = extensionWoDot(filename || '').replace('.', '').toLowerCase();
-    return allowedExt.includes(ext);
-}
-
 /**
  * Create FileContent items from web drag and drop operation
  */
 export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await webGetFilesTransferItems(fileDataTransferItems);
 
-    allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
+    allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
     const rv = loadFilesAndCreateFileContents(items);
     return rv;
@@ -114,7 +112,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
 export async function webAfterDlgOpenCreateFileContents(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
     let items: DropItem[] = await mapToDropItems(files);
 
-    allowedExt && items.forEach((item) => item.notOur = !isOurExt(item.fname, allowedExt));
+    allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
     const rv = loadFilesAndCreateFileContents(items);
     return rv;

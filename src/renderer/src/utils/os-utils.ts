@@ -18,3 +18,8 @@ export function returnFileSize(number: number): string {
 export function extensionWoDot(filename: string): string {
     return /(?:\.([^./\\]+))?$/.exec(filename)?.[1] || '';  // a.b -> b; a.b/c -> ''
 }
+
+export function isAllowedExt(filename: string | undefined, allowedExt: string[]): boolean | undefined {
+    const ext = extensionWoDot(filename || '').replace('.', '').toLowerCase();
+    return allowedExt.includes(ext);
+}
