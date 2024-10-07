@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
-import { doSetDeliveredFilesAtom } from "..";
+import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./1-create-web-file-contents";
 import { electronGetPaths } from "./8-electron-get-paths";
 
