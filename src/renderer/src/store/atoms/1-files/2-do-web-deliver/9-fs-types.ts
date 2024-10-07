@@ -1,4 +1,4 @@
-export type FsHandle =FileSystemFileHandle | FileSystemDirectoryHandle;
+export type FsHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
 
 /*
 export function isFsFileHandle(handle: FileSystemHandle | FsHandle): handle is FileSystemFileHandle {

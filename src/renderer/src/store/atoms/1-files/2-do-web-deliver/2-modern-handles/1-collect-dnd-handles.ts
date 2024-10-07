@@ -1,4 +1,4 @@
-import { type FsHandle } from "./9-fs-types";
+import { type FsHandle } from "../9-fs-types";
 
 /**
  * Traverses through a directory and yields files and folders (in undefined order)

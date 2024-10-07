@@ -1,3 +1,4 @@
+import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./2-dnd-w-entries";
 import { readAllDirectoryEntries } from "./3-old-read-entries";
 
 export type EntryHandle = {
@@ -10,6 +11,12 @@ type EntryHandleAny = {
     modernHandle: FileSystemHandle | null;
 };
 
+function printFileHandles(handles: FileWithHandleAndPath[]) {
+    for (const file of handles) {
+        console.log(`%cpath: "${file.path}"%o`, `color: ${file.handle?.kind === 'directory' ? 'fuchsia' : 'tan'}`, { file, handle: file.handle });
+    }
+}
+
 export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<EntryHandle[]> {
     /*5* /
     const handles = await collectDndItems(dataTransferItemList);
@@ -20,9 +27,11 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
 
     /**/
 
-    /*1* /
-    const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(dataTransferItemList);
-    console.log('resw/ handles', res);
+    /*1*/
+    const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(fileDataTransferItems);
+    // console.log('resw/ handles', res);
+    printFileHandles(res);
+    return [];
     /**/
 
     /*2* /
@@ -47,7 +56,7 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
     console.log('dataTransferItemArr', dataTransferItemArr); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
     /**/
 
-    /*4*/
+    /*4* /
     const rv: EntryHandle[] = [];
     const queue: EntryHandleAny[] = [];
 
@@ -78,7 +87,7 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
             }
         }
     }
-    /**/
 
     return rv;
+    /**/
 }

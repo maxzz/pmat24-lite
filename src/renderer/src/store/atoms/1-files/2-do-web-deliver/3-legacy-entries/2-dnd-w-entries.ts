@@ -1,3 +1,6 @@
+import { type FsHandle } from "../9-fs-types";
+import { getFilePromisify, getReadEntriesPromisify, isEntryDirectory, isEntryFile } from "./8-promisify-entry-utils";
+
 /**
  * Derived from 'flat-drop-files'
  * https://github.com/placemark/flat-drop-files/blob/main/index.ts
@@ -7,10 +10,8 @@
  *      3. load files content should be conditioned on the file extension
  */
 
-import { getFilePromisify, getReadEntriesPromisify, isEntryDirectory, isEntryFile } from "./8-promisify-entry-utils";
-
 export interface FileWithHandleAndPath extends File {
-    handle?: FileSystemFileHandle | null;
+    handle?: FsHandle | null;
     path: string;
 }
 
@@ -18,6 +19,7 @@ export interface FileWithHandleAndPath extends File {
  * Derived from 'junk'
  * https://github.com/sindresorhus/junk
  */
+/** /
 const ignoreList = [
     // # All
     "^npm-debug\\.log$", // Error log for npm
@@ -44,6 +46,7 @@ const ignoreList = [
 ];
 
 export const junkRegex = new RegExp(ignoreList.join("|"));
+/**/
 
 type LoadFilter = (filename: string) => boolean; // filename wo/ path; returns true if the file content should be loaded
 const defaultLoadFilter: LoadFilter = (filename: string) => true; // load all files 
@@ -80,15 +83,15 @@ let currentLoadFilter: LoadFilter = defaultLoadFilter; // we can make scopeed or
  * Promise adapters ----------------------------------------------------------
  */
 
-function getHandle(item: DataTransferItem | undefined): Promise<FileSystemFileHandle | null> {
+function getHandle(item: DataTransferItem | undefined): Promise<FsHandle | null> {
     if (!item || !item.getAsFileSystemHandle) { // Currently only Chromium browsers support getAsFileSystemHandle.
         return Promise.resolve(null);
     }
-    const rv = item.getAsFileSystemHandle().catch((e) => { console.error(e); return null; }) as Promise<FileSystemFileHandle | null>;
+    const rv = item.getAsFileSystemHandle().catch((e) => { console.error(e); return null; }) as Promise<FsHandle | null>;
     return rv;
 }
 
-function readFile(entry: FileSystemFileEntry, item: DataTransferItem | undefined, path: string): Promise<FileWithHandleAndPath> {
+function getFileAccess(entry: FileSystemFileEntry, item: DataTransferItem | undefined, path: string): Promise<FileWithHandleAndPath> {
     return Promise.all([
         getFilePromisify(entry),
         getHandle(item)
@@ -160,8 +163,7 @@ async function readDir(entry: FileSystemDirectoryEntry, path: string, item: Data
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
     if (isEntryFile(entry)) {
         if (currentLoadFilter(entry.name)) {
-            //console.log('load file', entry.name, item);
-            return readFile(entry, item, path).then((file) => [file]);
+            return getFileAccess(entry, item, path).then((file) => [file]);
         }
     }
     else if (isEntryDirectory(entry)) {
