@@ -1,5 +1,5 @@
 import { type FileContent } from "@shared/ipc-types";
-import { fileEntryToFile, getAllFileEntries } from "../2-web-file-entries";
+import { fileEntryToFile, getAllFileEntries } from "../3-legacy-entries/2-web-file-entries";
 import { isAllowedExt, uuid } from "@/utils";
 
 type DropItem = {
