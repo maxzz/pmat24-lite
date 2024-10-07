@@ -4,6 +4,7 @@ import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./1-create-web-file-contents";
 import { electronGetPaths } from "./8-electron-get-paths";
+import { directoryOpen, fileOpen, FileWithDirectoryAndFileHandle, FileWithHandle } from "browser-fs-access";
 
 // handle files drop for web and electron environments
 
@@ -47,4 +48,12 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
-//TODO: doSetFilesFromModernDialogAtom = atom(
+export const doSetFilesFromModernDialogAtom = atom(
+    null,
+    async (get, set, files: FileWithHandle[] | FileWithDirectoryAndFileHandle[] | null) => {
+        //TODO:
+        fileOpen;
+        //or
+        directoryOpen;
+    }
+);

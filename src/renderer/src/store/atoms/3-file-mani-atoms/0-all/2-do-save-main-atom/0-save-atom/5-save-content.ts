@@ -1,27 +1,8 @@
 import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
-
-// function replaceExt(filename: string, newExt: string): string {
-//     return filename.replace(/\.[^/.]+$/, newExt); // replace last extension; ("name.ext", ".com") -> 'name.com'; ("name", ".com") -> 'name'
-// }
-
-// function fileExt(filename: string): string {
-//     return filename.split('.').pop() || '';
-// }
-
-// function removeExt(filename: string): string {
-//     return filename.replace(/\.[^/.]+$/, ''); // replace last extension; ("name.ext") -> 'name'; ("name") -> 'name'
-// }
-
-function getFilenameAndExt(filename: string): [string, string] {
-    const parts = filename.split('.'); // not good if dot is the folder name and last part is the file name wo/ dot.
-    const ext = parts.pop() || '';
-    const name = parts.join('.');
-    return [name, ext];
-}
+import { getFilenameAndExt } from "@/utils";
 
 export async function saveContentToFile(fileUs: FileUs, content: string, filename: string): Promise<boolean> {
-    //TODO: add member fileUs.contentToSave
     const saved = false;
     console.log('saved', fileUs);
 
@@ -53,3 +34,5 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
 
     return saved;
 }
+
+//TODO: add member fileUs.contentToSave
