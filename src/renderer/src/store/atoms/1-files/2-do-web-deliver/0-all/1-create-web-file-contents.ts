@@ -1,6 +1,6 @@
 import { type FileContent } from "@shared/ipc-types";
 import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
-import { textFileReader } from "./8-text-file-reader";
+import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, uuid } from "@/utils";
 
 type DropItem = {
@@ -41,7 +41,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
             };
 
             try {
-                newItem.raw = item.notOur ? '' : await textFileReader(item.fileWeb);
+                newItem.raw = item.notOur ? '' : await textFileReaderPromisify(item.fileWeb);
                 item.notOur && (newItem.failed = true);
             } catch (error) {
                 newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);

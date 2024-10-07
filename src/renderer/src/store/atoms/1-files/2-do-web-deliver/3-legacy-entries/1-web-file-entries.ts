@@ -1,23 +1,4 @@
-import { collectDndHandles, isFsFileHandle } from "../2-modern-handles";
 import { readAllDirectoryEntries } from "./3-old-read-entries";
-
-export async function collectDndItems(dataTransferItems: DataTransferItemList) {
-    const files = [...dataTransferItems].filter((item) => item.kind === 'file');
-
-    const FirefoxEntries = files.some((item) => !item.getAsFileSystemHandle);
-    if (FirefoxEntries) {
-        console.log('Firefox entries detected');
-        return [];
-    }
-
-    const handles = await collectDndHandles(files);
-
-    for (const [path, handle] of handles) {
-        console.log(`%cpath: "${path.join('/')}"%o`, `color: ${isFsFileHandle(handle) ? 'tan' : 'fuchsia'}`, handle);
-    }
-
-    return handles;
-}
 
 export type EntryHandle = {
     legacyEntry: FileSystemFileEntry;
@@ -30,9 +11,6 @@ type EntryHandleAny = {
 };
 
 export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<EntryHandle[]> {
-    const rv: EntryHandle[] = [];
-    const queue: EntryHandleAny[] = [];
-
     /*5* /
     const handles = await collectDndItems(dataTransferItemList);
 
@@ -70,6 +48,9 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
     /**/
 
     /*4*/
+    const rv: EntryHandle[] = [];
+    const queue: EntryHandleAny[] = [];
+
     for (let i = 0, length = fileDataTransferItems.length; i < length; i++) {
         const item: DataTransferItem = fileDataTransferItems[i];
 

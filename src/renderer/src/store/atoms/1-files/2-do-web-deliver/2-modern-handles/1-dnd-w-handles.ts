@@ -21,11 +21,12 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncG
     }
 }
 
-export async function collectDndHandles(files: DataTransferItem[]): Promise<[path: string[], handle: FsHandle][]> {
+export type DndHandle = [path: string[], handle: FsHandle];
+
+export async function collectDndHandles(files: DataTransferItem[]): Promise<DndHandle[]> {
+    const rv: DndHandle[] = [];
 
     const fileHandlesPromises = files.map((item) => item.getAsFileSystemHandle() as Promise<FsHandle | null>);
-
-    const rv: [path: string[], handle: FsHandle][] = [];
 
     for await (const handle of fileHandlesPromises) {
         if (handle) {
@@ -34,7 +35,7 @@ export async function collectDndHandles(files: DataTransferItem[]): Promise<[pat
             } else {
                 rv.push([[handle.name], handle]);
                 
-                for await (const subEntry of getEntriesRecursively(handle as FileSystemDirectoryHandle)) {
+                for await (const subEntry of getEntriesRecursively(handle)) {
                     rv.push(subEntry);
                 }
             }

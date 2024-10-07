@@ -1,4 +1,4 @@
-export function textFileReader(file: File): Promise<string> {
+export function textFileReaderPromisify(file: File): Promise<string> {
     return new Promise(
         (resolve, reject) => {
             const onAbort = () => reject(`File (${file.name}) reading was aborted`);
