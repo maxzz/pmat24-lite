@@ -1,4 +1,4 @@
-import { collectDndHandles, isFsFileHandle } from "../2-handles";
+import { collectDndHandles, isFsFileHandle } from "../2-modern-handles";
 
 // Adapted from: https://stackoverflow.com/a/53058574
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/utils/directoryReader.ts
