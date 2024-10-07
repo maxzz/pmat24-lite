@@ -1,5 +1,6 @@
 import { type FileContent } from "@shared/ipc-types";
 import { fileEntryToFile, getAllFileEntries } from "../3-legacy-entries";
+import { textFileReader } from "./8-text-file-reader";
 import { isAllowedExt, uuid } from "@/utils";
 
 type DropItem = {
@@ -10,21 +11,6 @@ type DropItem = {
     handle: FileSystemFileHandle | null;    // FileSystemFileHandle from drag and drop transfer items
     notOur?: boolean;                       // load of file content was blocked by allowedExt list.
 };
-
-function textFileReader(file: File): Promise<string> {
-    return new Promise(
-        (resolve, reject) => {
-            const onAbort = () => reject(`File (${file.name}) reading was aborted`);
-            const onLoaded = () => resolve(reader.result?.toString() || '');
-
-            const reader = new FileReader();
-            reader.onabort = onAbort;
-            reader.onerror = onAbort;
-            reader.onload = onLoaded;
-            reader.readAsText(file);
-        }
-    );
-}
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
