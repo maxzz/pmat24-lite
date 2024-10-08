@@ -1,4 +1,5 @@
 import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./2-dnd-w-entries";
+import { getFilesFromDataTransferItems2 } from "./2-dnd-w-entries-2";
 import { getAllFileSystemEntries, readAllDirectoryEntries } from "./8-nun-old-read-entries";
 
 export type EntryHandle = {
@@ -26,7 +27,7 @@ function printFileSystemEntries(handles: FileSystemEntry[]) {
 
 function printEntryFiles(handles: FileWithHandleAndPath[]) {
     for (const file of handles) {
-        console.log(`%cpath: "${file.name}"%o`, `color: tan`, { file });
+        console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
 
@@ -48,6 +49,7 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
 
     /*7*/
     const rv: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(fileDataTransferItems);
+    // const rv: FileWithHandleAndPath[] = await getFilesFromDataTransferItems2(fileDataTransferItems);
     printEntryFiles(rv);
     return rv;
     /**/
