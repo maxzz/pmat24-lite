@@ -75,11 +75,11 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
             rv = await Promise.all(entries.map(
                 async (item) => {
                     const rv: DropItem = {
-                        fname: item.legacyEntry.name,
-                        fpath: item.legacyEntry.fullPath,
-                        fileWeb: await fileEntryToFilePromisify(item.legacyEntry),
-                        legacyEntry: item.legacyEntry,
-                        handle: item.modernHandle,
+                        fname: item.name,
+                        fpath: item.fullPath,
+                        fileWeb: await fileEntryToFilePromisify(item as FileSystemFileEntry),
+                        legacyEntry: item as FileSystemFileEntry,
+                        handle: null,
                         notOur: false,
                     };
                     return rv;

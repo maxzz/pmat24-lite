@@ -1,5 +1,5 @@
 import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./2-dnd-w-entries";
-import { readAllDirectoryEntries } from "./3-old-read-entries";
+import { getAllFileSystemEntries, readAllDirectoryEntries } from "./3-nun-old-read-entries";
 
 export type EntryHandle = {
     legacyEntry: FileSystemFileEntry;
@@ -17,7 +17,13 @@ function printFileHandles(handles: FileWithHandleAndPath[]) {
     }
 }
 
-export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<EntryHandle[]> {
+function printFileSystemEntries(handles: FileSystemEntry[]) {
+    for (const file of handles) {
+        console.log(`%cpath: "${file.name}"%o`, `color: ${file.isDirectory ? 'fuchsia' : 'tan'}`, { file });
+    }
+}
+
+export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<FileSystemEntry[]> {
     /*5* /
     const handles = await collectDndItems(dataTransferItemList);
 
@@ -27,7 +33,7 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
 
     /**/
 
-    /*1*/
+    /*1* /
     const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(fileDataTransferItems);
     // console.log('resw/ handles', res);
     printFileHandles(res);
@@ -57,38 +63,9 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
     console.log('dataTransferItemArr', dataTransferItemArr); // empty (if call getFilesFromDataTransferItems()) but https://developer.chrome.com/docs/capabilities/web-apis/file-system-access#drag-and-drop-integration OK
     /**/
 
-    /*4* /
-    const rv: EntryHandle[] = [];
-    const queue: EntryHandleAny[] = [];
-
-    for (let i = 0, length = fileDataTransferItems.length; i < length; i++) {
-        const item: DataTransferItem = fileDataTransferItems[i];
-
-        const entry = item.webkitGetAsEntry();
-        const handle = null;
-        // console.log('item', item, 'entry', entry, 'handle', handle);
-
-        entry
-            ? queue.push({ legacyEntry: entry, modernHandle: handle })
-            : console.error('no entry for item', item);
-    }
-
-    while (queue.length > 0) {
-        const item = queue.shift();
-        // console.log('item', item);
-        if (item) {
-            if (item.legacyEntry.isFile) {
-                rv.push(item as EntryHandle);
-            } else if (item.legacyEntry.isDirectory) {
-                const dir = item.legacyEntry as FileSystemDirectoryEntry;
-                const entries = [...await readAllDirectoryEntries(dir.createReader())].map(
-                    (entry) => ({ legacyEntry: entry, modernHandle: null })
-                );
-                queue.push(...entries);
-            }
-        }
-    }
-
+    /*4*/
+    const rv: FileSystemEntry[] = await getAllFileSystemEntries(fileDataTransferItems);
+    printFileSystemEntries(rv);
     return rv;
     /**/
 }
