@@ -7,7 +7,8 @@ export interface FileWithHandleAndPath extends File {
 
 async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithHandleAndPath> {
     const file = await getFilePromisify(entry) as FileWithHandleAndPath;
-    file.path = path + file.name;
+    // file.path = path + file.name;
+    file.path = path;
     return file;
 }
 
@@ -47,6 +48,7 @@ export async function getFilesFromDataTransferItems(dtFileItems: DataTransferIte
         }
         else if (isEntryDirectory(entry)) {
             for await (const [path, file] of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
+                console.log(`path "${path}" file`, file);
                 file.path = path;
                 rv.push(file);
             }
