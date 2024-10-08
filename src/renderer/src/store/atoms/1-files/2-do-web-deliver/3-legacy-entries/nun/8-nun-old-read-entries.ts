@@ -1,4 +1,4 @@
-import { getReadEntriesPromisify } from "./8-promisify-entry-utils";
+import { getReadEntriesPromisify } from "../8-promisify-entry-utils";
 
 export async function readAllDirectoryEntries(directoryReader: FileSystemDirectoryReader): Promise<FileSystemEntry[]> {
     const rv: FileSystemEntry[] = [];

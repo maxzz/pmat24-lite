@@ -1,15 +1,56 @@
-import { isEntryDirectory, isEntryFile, type FsHandle } from "../9-fs-types";
-import { getFilePromisify, getReadEntriesPromisify } from "./8-promisify-entry-utils";
+import { isEntryDirectory, isEntryFile, type FsHandle } from "../../9-fs-types";
+import { getFilePromisify, getReadEntriesPromisify } from "../8-promisify-entry-utils";
 
 /**
  * Derived from 'flat-drop-files'
  * https://github.com/placemark/flat-drop-files/blob/main/index.ts
+ * Changes:
+ *      1. FileWithHandleAndPath is exported
+ *      2. ingnore link can be done outside of the getFilesFromDataTransferItems() function
+ *      3. load files content should be conditioned on the file extension
  */
 
 export interface FileWithHandleAndPath extends File {
     handle?: FsHandle | null;
     path: string;
 }
+
+/**
+ * Derived from 'junk'
+ * https://github.com/sindresorhus/junk
+ */
+/** /
+const ignoreList = [
+    // # All
+    "^npm-debug\\.log$", // Error log for npm
+    "^\\..*\\.swp$", // Swap file for vim state
+
+    // # macOS
+    "^\\.DS_Store$", // Stores custom folder attributes
+    "^\\.AppleDouble$", // Stores additional file resources
+    "^\\.LSOverride$", // Contains the absolute path to the app to be used
+    "^Icon\\r$", // Custom Finder icon: http://superuser.com/questions/298785/icon-file-on-os-x-desktop
+    "^\\._.*", // Thumbnail
+    "^\\.Spotlight-V100(?:$|\\/)", // Directory that might appear on external disk
+    "\\.Trashes", // File that might appear on external disk
+    "^__MACOSX$", // Resource fork
+
+    // # Linux
+    "~$", // Backup file
+
+    // # Windows
+    "^Thumbs\\.db$", // Image file cache
+    "^ehthumbs\\.db$", // Folder config file
+    "^Desktop\\.ini$", // Stores custom folder attributes
+    "@eaDir$", // Synology Diskstation "hidden" folder where the server stores thumbnails
+];
+
+export const junkRegex = new RegExp(ignoreList.join("|"));
+/**/
+
+type LoadFilter = (filename: string) => boolean; // filename wo/ path; returns true if the file content should be loaded
+const defaultLoadFilter: LoadFilter = (filename: string) => true; // load all files 
+let currentLoadFilter: LoadFilter = defaultLoadFilter; // we can make scopeed or member on getFilesFromEntry(), but so far its OK.
 
 /**
  * There are a bunch of similar-looking things here.
@@ -43,7 +84,9 @@ export interface FileWithHandleAndPath extends File {
  */
 function getFilesFromEntry(entry: FileSystemEntry, item: DataTransferItem | undefined, path = ""): Promise<FileWithHandleAndPath[]> {
     if (isEntryFile(entry)) {
-        return getFileAccess(entry, item, path).then((file) => [file]);
+        if (currentLoadFilter(entry.name)) {
+            return getFileAccess(entry, item, path).then((file) => [file]);
+        }
     }
     else if (isEntryDirectory(entry)) {
         return readDir(entry, path, item);
@@ -153,7 +196,8 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGe
     }
 }
 
-export async function getFilesFromDataTransferItems2(files: DataTransferItem[]): Promise<FileWithHandleAndPath[]> {
+export async function getFilesFromDataTransferItems(files: DataTransferItem[], loadFilter?: LoadFilter): Promise<FileWithHandleAndPath[]> {
+    currentLoadFilter = loadFilter || defaultLoadFilter;
 
     /**
      * It is ESSENTIAL that we do not do any async work in
@@ -171,14 +215,28 @@ export async function getFilesFromDataTransferItems2(files: DataTransferItem[]):
      * in multiple ticks, you'll lose the ability to get a file
      * handle after getting the first one.
      */
-
-    for await (const [path, file] of getEntriesRecursively(inputs[0][0] as FileSystemDirectoryEntry)) {
-        console.log(`%cpath: "${path}"%o`, `color: ${file ? 'tan' : 'fuchsia'}`, file);
+    const rv: FileWithHandleAndPath[] = [];
+    for await (const [entry, dtItem] of inputs) {
+        if (isEntryFile(entry)) {
+            if (currentLoadFilter(entry.name)) {
+                rv.push(await getFileAccess(entry as FileSystemFileEntry, dtItem, ''));
+            }
+        }
+        else if (isEntryDirectory(entry)) {
+            for await (const subEntry of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
+                rv.push(subEntry[1]);
+            }
+        }
     }
+    return rv;
 
-    return Promise.all(
-        inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
-    ).then((nested) => {
-        return nested.flat(); // return nested.flat().filter((file) => !junkRegex.test(file.name));
-    });
+    // for await (const [path, file] of getEntriesRecursively(inputs[0][0] as FileSystemDirectoryEntry)) {
+    //     console.log(`%cpath: "${path}"%o`, `color: ${file ? 'tan' : 'fuchsia'}`, file);
+    // }
+
+    // return Promise.all(
+    //     inputs.map(([entry, item]) => getFilesFromEntry(entry, item))
+    // ).then((nested) => {
+    //     return nested.flat(); // return nested.flat().filter((file) => !junkRegex.test(file.name));
+    // });
 }

@@ -1,5 +1,5 @@
-import { isEntryDirectory, isEntryFile, type FsHandle } from "../9-fs-types";
-import { getFilePromisify, getReadEntriesPromisify } from "./8-promisify-entry-utils";
+import { isEntryDirectory, isEntryFile, type FsHandle } from "../../9-fs-types";
+import { getFilePromisify, getReadEntriesPromisify } from "../8-promisify-entry-utils";
 
 export interface FileWithHandleAndPath extends File {
     handle?: FsHandle | null;

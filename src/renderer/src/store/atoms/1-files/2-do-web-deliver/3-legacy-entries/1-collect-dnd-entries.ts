@@ -1,6 +1,6 @@
 import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "./2-dnd-w-entries";
-import { getFilesFromDataTransferItems2 } from "./2-dnd-w-entries-2";
-import { getAllFileSystemEntries, readAllDirectoryEntries } from "./8-nun-old-read-entries";
+//import { getFilesFromDataTransferItems2 } from "./2-dnd-w-entries-2";
+//import { getAllFileSystemEntries, readAllDirectoryEntries } from "./8-nun-old-read-entries";
 
 export type EntryHandle = {
     legacyEntry: FileSystemFileEntry;
