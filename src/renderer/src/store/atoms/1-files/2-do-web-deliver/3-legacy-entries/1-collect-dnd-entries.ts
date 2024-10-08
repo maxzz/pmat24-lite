@@ -2,13 +2,12 @@ import { isEntryDirectory, isEntryFile, type FsHandle } from "../9-fs-types";
 import { getFilePromisify, getReadEntriesPromisify } from "./8-promisify-entries";
 
 export interface FileWithHandleAndPath extends File {
-    path: string;
+    path: string; // item path wo/ filename
 }
 
 async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithHandleAndPath> {
     const file = await getFilePromisify(entry) as FileWithHandleAndPath;
-    file.path = path + '/' + file.name;
-    // file.path = path;
+    file.path = path;
     return file;
 }
 
@@ -48,7 +47,7 @@ export async function getFilesFromDataTransferItems(dtFileItems: DataTransferIte
         }
         else if (isEntryDirectory(entry)) {
             for await (const [path, file] of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
-                file.path = path + '/' + file.name;
+                file.path = path;
                 rv.push(file);
             }
         }

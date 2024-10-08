@@ -42,6 +42,7 @@ import { toast } from "sonner";
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredFileContents: FileContent[]) => {
+        printDelivered(deliveredFileContents);
 
         if (deliveredFileContents.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
@@ -94,6 +95,10 @@ export const doSetDeliveredFilesAtom = atom(
         busyIndicator.msg = '';
     }
 );
+
+function printDelivered(deliveredFileContents: FileContent[]) {
+    console.log('Delivered files:', deliveredFileContents);
+}
 
 function unsupportedMsg(unsupported: FileUs[]) {
     //console.warn('Unsupported files:', unsupported);

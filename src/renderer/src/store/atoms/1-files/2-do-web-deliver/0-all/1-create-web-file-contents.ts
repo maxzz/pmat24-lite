@@ -64,6 +64,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
  * Create FileContent items from web drag and drop operation
  */
 export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
+
     let items: DropItem[] = await webGetFilesTransferItems(fileDataTransferItems);
 
     allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
@@ -73,22 +74,16 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
 
     async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
 
-        const dndItems = await collectDndItems(fileDataTransferItems);
+        const dndItems = (await collectDndItems(fileDataTransferItems)).filter((item) => item.file);
 
         let rv: DropItem[] = [];
         try {
             rv = dndItems.map(
                 (item) => {
-                    if (!item.file) {
-                        if (item.handle && item.handle.kind !== 'directory') {
-                            console.error('Empty entry or file', item);
-                        }
-                        return null;
-                    }
                     const rv: DropItem = {
-                        fname: item.file?.name || '',
-                        fpath: item.path,
-                        fileWeb: item.file,
+                        fname: item.file!.name,
+                        fpath: item.path + '/' + item.file!.name, // to have full path as file.webkitRelativePath does
+                        fileWeb: item.file!,
                         handle: item.handle as FileSystemFileHandle,
                         notOur: false,
 
@@ -108,6 +103,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
  * Create FileContent items from open file/directory web dialog
  */
 export async function webAfterDlgOpenCreateFileContents(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
+
     let items: DropItem[] = await mapToDropItems(files);
 
     allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
@@ -120,6 +116,7 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
         try {
             rv = await Promise.all(files.map(
                 async (file) => {
+                    console.log('file.webkitRelativePath', file.webkitRelativePath);
                     const rv: DropItem = {
                         fname: file.name,
                         fpath: file.webkitRelativePath,
