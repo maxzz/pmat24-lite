@@ -31,7 +31,7 @@ export type FileContent = {
     idx: number;                        // index in the loaded list wo/ counting on filters, i.e. absolute index
     
     fname: string;                      // basename as filename w/ extension but wo/ path
-    fpath: string;                      // file full path and filename
+    fpath: string;                      // file full path: for win32 and filename; for web wo/ filename 
     fmodi: number;                      // file.lastModified
     size: number;                       // file size
     raw: string;                        // file content as it was loaded or error message

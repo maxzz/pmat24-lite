@@ -10,6 +10,9 @@ export function returnFileSize(number: number): string {
     }
 }
 
+// -----------------------------
+// extensions
+
 // function fileExt(filename: string): string {
 //     const ss = filename.split('.');
 //     return ss.length > 1 ? ss[ss.length - 1] : '';          // a.b -> b; a.b/c -> 'b/c'
@@ -43,6 +46,9 @@ export function getFilenameAndExt(filename: string): [string, string] {
     return [name, ext];
 }
 
+// -----------------------------
+// web delivered files
+
 /**
  * Returns path from WebFileSysItem.path without the filename
  * @param path 
@@ -55,3 +61,23 @@ export function pathWithoutFilename(path: string | undefined): string {
     rv.pop(); // remove filename as the last item
     return rv.join('/');
 }
+
+// -----------------------------
+// slashes back and forward
+
+export function toUnix(fileName: string): string {
+    const double = /\/\//;
+    let res: string = fileName.replace(/\\/g, '/');
+    while (res.match(double)) {
+        res = res.replace(double, '/');
+    }
+    return res;
+}
+
+export function toWindows(fileName: string): string {
+    let res: string = fileName.replace(/\//g, '/');
+    res = res.replace(/\//g, '\\');
+    return res;
+}
+
+// -----------------------------
