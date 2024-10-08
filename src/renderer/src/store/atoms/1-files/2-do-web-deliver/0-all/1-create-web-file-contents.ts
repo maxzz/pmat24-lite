@@ -1,5 +1,5 @@
 import { type WebFsItem, type FileContent } from "@shared/ipc-types";
-import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
+//import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, uuid } from "@/utils";
 import { collectDndItems } from "./2-collect-dnd-items";
@@ -20,7 +20,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
     for (const [idx, item] of dropItems.entries()) {
         if (!item.fileWeb) {
-            console.error('Empty entry or file', item);
+            console.log('Empty entry or file', item);
             continue;
         }
 
@@ -80,14 +80,15 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
             rv = dndItems.map(
                 (item) => {
                     if (!item.file) {
-                        console.error('Empty entry or file', item);
+                        if (item.handle && item.handle.kind !== 'directory') {
+                            console.error('Empty entry or file', item);
+                        }
                         return null;
                     }
                     const rv: DropItem = {
                         fname: item.file?.name || '',
                         fpath: item.path,
                         fileWeb: item.file,
-                        //legacyEntry: ,
                         handle: item.handle as FileSystemFileHandle,
                         notOur: false,
 
@@ -99,30 +100,6 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
         } catch (error) {
             console.error('cannot read from DataTransferItemList', fileDataTransferItems);
         }
-
-
-        // const entries = await getAllFileEntries(fileDataTransferItems);
-        // let rv: DropItem[] = [];
-        // try {
-        //     rv = await Promise.all(entries.map(
-        //         async (file) => {
-        //             const rv: DropItem = {
-        //                 fname: file.name,
-        //                 fpath: file.fullPath,
-        //                 fileWeb: await fileEntryToFilePromisify(file as FileSystemFileEntry),
-        //                 legacyEntry: file as FileSystemFileEntry,
-        //                 handle: null,
-        //                 notOur: false,
-
-        //                 webFsItem: null,
-        //             };
-        //             return rv;
-        //         })
-        //     );
-        // } catch (error) {
-        //     console.error('cannot read from DataTransferItemList', fileDataTransferItems);
-        // }
-
         return rv;
     }
 }

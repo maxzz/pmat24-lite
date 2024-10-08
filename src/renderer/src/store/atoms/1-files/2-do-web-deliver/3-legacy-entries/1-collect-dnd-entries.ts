@@ -24,7 +24,14 @@ function printFileSystemEntries(handles: FileSystemEntry[]) {
     }
 }
 
-export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<FileSystemEntry[]> {
+function printEntryFiles(handles: FileWithHandleAndPath[]) {
+    for (const file of handles) {
+        console.log(`%cpath: "${file.name}"%o`, `color: tan`, { file });
+    }
+}
+
+// export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<FileSystemEntry[]> {
+export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[]): Promise<FileWithHandleAndPath[]> {
     /*5* /
     const handles = await collectDndItems(dataTransferItemList);
 
@@ -33,9 +40,15 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
     }
     /**/
 
-    /*4*/
+    /*4* /
     const rv: FileSystemEntry[] = await getAllFileSystemEntries(fileDataTransferItems);
     printFileSystemEntries(rv);
+    return rv;
+    /**/
+
+    /*7*/
+    const rv: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(fileDataTransferItems);
+    printEntryFiles(rv);
     return rv;
     /**/
 }

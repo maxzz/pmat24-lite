@@ -12,10 +12,10 @@ async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<
 }
 
 async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGenerator<[string, FileWithHandleAndPath], void, unknown> {
-    let entries: FileSystemEntry[] = [];
 
-    const dirReader = folder.createReader(); // The .readEntries returns batches of 100 entries and returns a 0 length when complete.
+    let entries: FileSystemEntry[] = [];
     let entriesPart: FileSystemEntry[];
+    const dirReader = folder.createReader(); // The .readEntries returns batches of 100 entries and returns a 0 length when complete.
     do {
         entriesPart = await getReadEntriesPromisify(dirReader);
         entries = entries.concat(entriesPart);
@@ -46,8 +46,9 @@ export async function getFilesFromDataTransferItems(dtFileItems: DataTransferIte
             rv.push(await getFileAccess(entry as FileSystemFileEntry, ''));
         }
         else if (isEntryDirectory(entry)) {
-            for await (const subEntry of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
-                rv.push(subEntry[1]);
+            for await (const [path, file] of getEntriesRecursively(entry as FileSystemDirectoryEntry)) {
+                file.path = path;
+                rv.push(file);
             }
         }
     }
