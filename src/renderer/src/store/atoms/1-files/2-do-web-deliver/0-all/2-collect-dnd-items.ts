@@ -1,7 +1,7 @@
 import { WebFsItem } from "@shared/ipc-types";
 import { collectDndHandles, type DndHandle } from "../2-modern-handles";
-import { getAllFileEntries } from "../3-legacy-entries";
-import { FileWithHandleAndPath } from "../3-legacy-entries/2-dnd-w-entries";
+import { FileWithHandleAndPath, getFilesFromDataTransferItems } from "../3-legacy-entries";
+
 
 /**
  * @param dataTransferItems - already filtered for files (i.e. `item.kind === 'file'`)
@@ -12,7 +12,7 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
     // if (isFirefoxEntries) {
         console.log('Firefox entries detected');
 
-        const files: FileWithHandleAndPath[] = await getAllFileEntries(dataTransferItems);
+        const files: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(dataTransferItems);
 
         const rv: WebFsItem[] = files.map(
             (file) => new WebFsItem({
@@ -44,5 +44,11 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
 function printHandles(handles: DndHandle[]) {
     for (const [path, handle] of handles) {
         console.log(`%cpath: "${path.join('/')}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, handle);
+    }
+}
+
+function printEntryFiles(handles: FileWithHandleAndPath[]) {
+    for (const file of handles) {
+        console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
