@@ -1,7 +1,8 @@
-import { type FileContent } from "@shared/ipc-types";
+import { type WebFsItem, type FileContent } from "@shared/ipc-types";
 import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, uuid } from "@/utils";
+import { collectDndItems } from "./2-collect-dnd-items";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -10,6 +11,8 @@ type DropItem = {
     legacyEntry?: FileSystemFileEntry;      // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     handle: FileSystemFileHandle | null;    // FileSystemFileHandle from drag and drop transfer items
     notOur?: boolean;                       // load of file content was blocked by allowedExt list.
+
+    webFsItem: WebFsItem | null;            // web: for files loaded without electron
 };
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
@@ -69,25 +72,57 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
     return rv;
 
     async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
-        const entries = await getAllFileEntries(fileDataTransferItems);
+
+        const dndItems = await collectDndItems(fileDataTransferItems);
+
         let rv: DropItem[] = [];
         try {
-            rv = await Promise.all(entries.map(
-                async (item) => {
+            rv = dndItems.map(
+                (item) => {
+                    if (!item.file) {
+                        console.error('Empty entry or file', item);
+                        return null;
+                    }
                     const rv: DropItem = {
-                        fname: item.name,
-                        fpath: item.fullPath,
-                        fileWeb: await fileEntryToFilePromisify(item as FileSystemFileEntry),
-                        legacyEntry: item as FileSystemFileEntry,
-                        handle: null,
+                        fname: item.file?.name || '',
+                        fpath: item.path,
+                        fileWeb: item.file,
+                        //legacyEntry: ,
+                        handle: item.handle as FileSystemFileHandle,
                         notOur: false,
+
+                        webFsItem: item,
                     };
                     return rv;
-                })
-            );
+                }
+            ).filter((item) => !!item);
         } catch (error) {
             console.error('cannot read from DataTransferItemList', fileDataTransferItems);
         }
+
+
+        // const entries = await getAllFileEntries(fileDataTransferItems);
+        // let rv: DropItem[] = [];
+        // try {
+        //     rv = await Promise.all(entries.map(
+        //         async (file) => {
+        //             const rv: DropItem = {
+        //                 fname: file.name,
+        //                 fpath: file.fullPath,
+        //                 fileWeb: await fileEntryToFilePromisify(file as FileSystemFileEntry),
+        //                 legacyEntry: file as FileSystemFileEntry,
+        //                 handle: null,
+        //                 notOur: false,
+
+        //                 webFsItem: null,
+        //             };
+        //             return rv;
+        //         })
+        //     );
+        // } catch (error) {
+        //     console.error('cannot read from DataTransferItemList', fileDataTransferItems);
+        // }
+
         return rv;
     }
 }
@@ -115,6 +150,8 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
                         legacyEntry: undefined,
                         handle: null,
                         notOur: false,
+
+                        webFsItem: null,
                     };
                     return rv;
                 }

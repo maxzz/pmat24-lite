@@ -35,13 +35,13 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGe
     }
 }
 
-export async function getFilesFromDataTransferItems(files: DataTransferItem[]): Promise<FileWithHandleAndPath[]> {
+export async function getFilesFromDataTransferItems(dtFileItems: DataTransferItem[]): Promise<FileWithHandleAndPath[]> {
 
-    const inputs = files.map((item) => [item.webkitGetAsEntry(), item] as [FileSystemEntry, DataTransferItem]).filter((item) => !!item[0]);
+    const inputs = dtFileItems.map((dtItem) => dtItem.webkitGetAsEntry()).filter(Boolean);
 
     const rv: FileWithHandleAndPath[] = [];
 
-    for await (const [entry, dtItem] of inputs) {
+    for await (const entry of inputs) {
         if (isEntryFile(entry)) {
             rv.push(await getFileAccess(entry as FileSystemFileEntry, ''));
         }

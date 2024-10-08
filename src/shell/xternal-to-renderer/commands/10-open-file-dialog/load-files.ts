@@ -46,7 +46,7 @@ function isAllowedExt(filename: string | undefined, allowedExt: string[]): boole
     return allowedExt.includes(ext);
 }
 
-export function loadFilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
+export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);
 

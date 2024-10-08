@@ -13,7 +13,7 @@ export type DoSetFilesFromDropAtom = typeof doSetFilesFromDropAtom;
 export const doSetFilesFromDropAtom = atom(
     null,
     async (get, set, dataTransfer: DataTransfer) => {
-        let filesCnt: FileContent[] | undefined;
+        let fileContents: FileContent[] | undefined;
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];
@@ -21,16 +21,16 @@ export const doSetFilesFromDropAtom = atom(
             if (!filenames.length) {
                 return;
             }
-            filesCnt = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
+            fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) { // avoid drop-and-drop drop without files
-                filesCnt = await webAfterDndCreateFileContents(fileDataTransferItems, pmAllowedToOpenExt);
+                fileContents = await webAfterDndCreateFileContents(fileDataTransferItems, pmAllowedToOpenExt);
             }
         }
 
-        if (filesCnt) {
-            set(doSetDeliveredFilesAtom, filesCnt);
+        if (fileContents) {
+            set(doSetDeliveredFilesAtom, fileContents);
         }
     }
 );

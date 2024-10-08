@@ -5,6 +5,7 @@ type WebFsItemParams = {
     handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;
     entry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;
     file?: File | null;
+    path?: string;
 };
 
 export class WebFsItem {
@@ -12,12 +13,14 @@ export class WebFsItem {
     handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
     entry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
     file: File | null = null;
+    path: string;
     
-    constructor({ parent, handle, entry, file }: WebFsItemParams) {
+    constructor({ parent, handle, entry, file, path }: WebFsItemParams) {
         this.parent = parent || null;
         this.handle = handle || null;
         this.entry = entry || null;
         this.file = file || null;
+        this.path = path || '';
     }
 };
 

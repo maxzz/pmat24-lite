@@ -205,7 +205,7 @@ export async function getFilesFromDataTransferItems(files: DataTransferItem[], l
      * will disappear. So collect all the items and entries,
      * and then do all the async.
      */
-    const inputs = files.map((item) => [item.webkitGetAsEntry(), item] as [FileSystemEntry, DataTransferItem]).filter((item) => !!item[0]);
+    const inputs = files.map((dtItem) => [dtItem.webkitGetAsEntry(), dtItem] as [FileSystemEntry, DataTransferItem]).filter((item) => !!item[0]);
 
     /**
      * Danger zone here. It's tempting to refactor this to a loop

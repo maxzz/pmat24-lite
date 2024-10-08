@@ -1,5 +1,5 @@
 import { R2MInvoke } from "@shared/ipc-types";
-import { loadFilesContent } from "./commands/10-open-file-dialog/load-files";
+import { loadWin32FilesContent } from "./commands/10-open-file-dialog/load-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./calls-napi";
 
 export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Promise<any> {
@@ -8,7 +8,7 @@ export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Prom
         // load
         
         case 'r2mi:load-files': {
-            return loadFilesContent(data.filenames, data.allowedExt);
+            return loadWin32FilesContent(data.filenames, data.allowedExt);
         }
         // case 'r2mi:load-files2': {
         //     return loadFilesContent(data.filenames);
