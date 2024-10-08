@@ -31,6 +31,7 @@ export async function getAllFileEntries(fileDataTransferItems: DataTransferItem[
     const res: FileWithHandleAndPath[] = await getFilesFromDataTransferItems(fileDataTransferItems);
     // console.log('resw/ handles', res);
     printFileHandles(res);
+    //return res.map((file) => ({ legacyEntry: file.handle, modernHandle: file.handle }));
     return [];
     /**/
 
