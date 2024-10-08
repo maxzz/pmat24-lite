@@ -42,3 +42,16 @@ export function getFilenameAndExt(filename: string): [string, string] {
     const name = parts.join('.');
     return [name, ext];
 }
+
+/**
+ * Returns path from WebFileSysItem.path without the filename
+ * @param path 
+ * @returns 
+ */
+export function pathWithoutFilename(path: string | undefined): string {
+    const rv = (path || '')
+        .replace(/^\//, '')
+        .split(/[\\\/]/);
+    rv.pop(); // remove filename as the last item
+    return rv.join('/');
+}

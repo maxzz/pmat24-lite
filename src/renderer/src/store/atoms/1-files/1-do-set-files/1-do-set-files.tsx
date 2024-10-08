@@ -4,7 +4,7 @@ import { FileUs } from "@/store/store-types";
 import { FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay } from "@/store/store-utils";
-import { createFileUsFromFileContent } from "./2-create-to-file-us";
+import { createFileUsFromFileContent } from "./2-create-fileus";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
@@ -97,7 +97,13 @@ export const doSetDeliveredFilesAtom = atom(
 );
 
 function printDelivered(deliveredFileContents: FileContent[]) {
-    console.log('Delivered files:', deliveredFileContents);
+    console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
+
+    deliveredFileContents.forEach(
+        (file) => {
+            console.log(`Delivered: %cfpath: "${file.fpath}" %cfname: ${file.fname}`, 'color: tan', 'color: gray', { file });
+        }
+    );
 }
 
 function unsupportedMsg(unsupported: FileUs[]) {

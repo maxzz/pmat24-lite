@@ -47,14 +47,14 @@ function isAllowedExt(filename: string | undefined, allowedExt: string[]): boole
 }
 
 export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
+    
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);
 
     allowedExt && rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
-    // read files content
     rv.forEach(
-        (fileContent, idx) => {
+        (fileContent, idx) => { // read file content
             fileContent.idx = idx;
             if (fileContent.failed || fileContent.notOur) {
                 return;

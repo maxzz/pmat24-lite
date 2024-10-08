@@ -1,7 +1,6 @@
 import { type WebFsItem, type FileContent } from "@shared/ipc-types";
-//import { fileEntryToFilePromisify, getAllFileEntries } from "../3-legacy-entries";
 import { textFileReaderPromisify } from "./8-text-file-reader";
-import { isAllowedExt, uuid } from "@/utils";
+import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectDndItems } from "./2-collect-dnd-items";
 
 type DropItem = {
@@ -82,7 +81,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
                 (item) => {
                     const rv: DropItem = {
                         fname: item.file!.name,
-                        fpath: item.path + '/' + item.file!.name, // to have full path as file.webkitRelativePath does
+                        fpath: item.path,
                         fileWeb: item.file!,
                         handle: item.handle as FileSystemFileHandle,
                         notOur: false,
@@ -119,7 +118,7 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
                     console.log('file.webkitRelativePath', file.webkitRelativePath);
                     const rv: DropItem = {
                         fname: file.name,
-                        fpath: file.webkitRelativePath,
+                        fpath: pathWithoutFilename(file.webkitRelativePath),
                         fileWeb: file,
                         legacyEntry: undefined,
                         handle: null,

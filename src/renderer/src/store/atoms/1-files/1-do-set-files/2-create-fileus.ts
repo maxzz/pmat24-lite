@@ -1,11 +1,11 @@
 import { atom } from 'jotai';
 import { proxySet } from 'valtio/utils';
-import { FileUs, FileUsStats } from "@/store/store-types";
-import { uuid } from '@/utils';
-import { FileContent } from '@shared/ipc-types';
-import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
+import { type FileUs, type FileUsStats } from "@/store/store-types";
+import { type FileContent } from '@shared/ipc-types';
+import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
+import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats } from '@/store/store-utils';
-import { ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
+import { pathWithoutFilename, uuid } from '@/utils';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     const rv: FileUs = {
@@ -13,7 +13,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         idx: fileContent.idx,
 
         fname: fileContent.fname,
-        fpath: pathWoFilename(fileContent.fpath),
+        fpath: pathWithoutFilename(fileContent.fpath),
         fmodi: fileContent.fmodi,
         size: fileContent.size,
 
@@ -36,14 +36,6 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
 
     parseAndAddParseData(rv);
     return rv;
-}
-
-function pathWoFilename(path: string | undefined): string {
-    const rv = (path as string || '')
-        .replace(/^\//, '')
-        .split(/[\\\/]/);
-    rv.pop(); // remove filename as the last item
-    return rv.join('/');
 }
 
 function parseAndAddParseData(newFileUs: FileUs) {
