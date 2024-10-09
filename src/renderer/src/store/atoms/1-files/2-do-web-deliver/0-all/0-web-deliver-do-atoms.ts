@@ -51,13 +51,28 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openFiles }: { openFiles: boolean; }) => {
-        if (openFiles) {
-            const rvFile = await fileOpen();
-            console.log('fileOpen', rvFile);
-        } else {
-            const rvDir = await directoryOpen();
-            console.log('directoryOpen', rvDir);
+        try {
+            let files = openFiles ? await fileOpen({ multiple: true }) : await directoryOpen();
+            if (files) {
+                if (!Array.isArray(files)) {
+                    files = [files];
+                }
+                let filesCnt: FileContent[] = await webAfterDlgOpenCreateFileContents(files as File[]);
+                if (filesCnt) {
+                    set(doSetDeliveredFilesAtom, filesCnt);
+                }
+            }
+        } catch (error) {
+            console.error('doSetFilesFromModernDialogAtom', error);
         }
+
+        // if (openFiles) {
+        //     const rvFile = await fileOpen();
+        //     console.log('fileOpen', rvFile);
+        // } else {
+        //     const rvDir = await directoryOpen();
+        //     console.log('directoryOpen', rvDir);
+        // }
     }
 );
 
