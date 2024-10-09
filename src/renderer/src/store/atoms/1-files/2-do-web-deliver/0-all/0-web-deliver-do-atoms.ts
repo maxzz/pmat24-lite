@@ -63,7 +63,6 @@ export const doSetFilesFromModernDialogAtom = atom(
                 }
             }
         } catch (error) {
-            console.error('doSetFilesFromModernDialogAtom', error);
         }
 
         // if (openFiles) {

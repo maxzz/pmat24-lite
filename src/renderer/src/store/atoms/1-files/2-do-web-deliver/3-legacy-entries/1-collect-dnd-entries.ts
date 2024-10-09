@@ -1,17 +1,17 @@
 import { isEntryDirectory, isEntryFile, type FsHandle } from "../9-fs-types";
 import { getFilePromisify, getReadEntriesPromisify } from "./8-promisify-entries";
 
-export interface FileWithHandleAndPath extends File {
+export interface FileWithPath extends File {
     path: string; // item path wo/ filename
 }
 
-async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithHandleAndPath> {
-    const file = await getFilePromisify(entry) as FileWithHandleAndPath;
+async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithPath> {
+    const file = await getFilePromisify(entry) as FileWithPath;
     file.path = path;
     return file;
 }
 
-async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGenerator<[string, FileWithHandleAndPath], void, unknown> {
+async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGenerator<[string, FileWithPath], void, unknown> {
 
     let entries: FileSystemEntry[] = [];
     let entriesPart: FileSystemEntry[];
@@ -35,11 +35,11 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGe
     }
 }
 
-export async function getFilesFromDataTransferItems(dtFileItems: DataTransferItem[]): Promise<FileWithHandleAndPath[]> {
+export async function getFilesFromDataTransferItems(dtFileItems: DataTransferItem[]): Promise<FileWithPath[]> {
 
     const inputs = dtFileItems.map((dtItem) => dtItem.webkitGetAsEntry()).filter(Boolean);
 
-    const rv: FileWithHandleAndPath[] = [];
+    const rv: FileWithPath[] = [];
 
     for await (const entry of inputs) {
         if (isEntryFile(entry)) {
