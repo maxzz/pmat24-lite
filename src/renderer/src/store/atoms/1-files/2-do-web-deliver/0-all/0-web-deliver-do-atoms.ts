@@ -25,7 +25,7 @@ export const doSetFilesFromDropAtom = atom(
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) { // avoid drop-and-drop drop without files
-                fileContents = await webAfterDndCreateFileContents(fileDataTransferItems, pmAllowedToOpenExt);
+                fileContents = await webAfterDndCreateFileContents(fileDataTransferItems);
             }
         }
 
@@ -41,7 +41,7 @@ export const doSetFilesFromLegacyDialogAtom = atom(
         if (!files) {
             return;
         }
-        let filesCnt: FileContent[] = await webAfterDlgOpenCreateFileContents(files, pmAllowedToOpenExt);
+        let filesCnt: FileContent[] = await webAfterDlgOpenCreateFileContents(files);
         if (filesCnt) {
             set(doSetDeliveredFilesAtom, filesCnt);
         }

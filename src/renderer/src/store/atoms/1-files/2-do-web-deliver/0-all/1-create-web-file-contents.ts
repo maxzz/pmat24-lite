@@ -14,6 +14,8 @@ type DropItem = {
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
 
+    dropItems.forEach((item) => item.notOur = !isAllowedExt(item.fname, pmAllowedToOpenExt));
+
     for (const [idx, item] of dropItems.entries()) {
         if (!item.fileWeb) {
             console.log('Empty entry or file', item);
@@ -58,17 +60,13 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
+export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
-
-    allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
-
     const rv = loadFilesAndCreateFileContents(items);
     return rv;
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
-
         const dndItems = (await collectDndItems(fileDataTransferItems)).filter((item) => item.file);
 
         let rv: DropItem[] = [];
@@ -95,12 +93,9 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
 /**
  * Create FileContent items from open file/directory web dialog
  */
-export async function webAfterDlgOpenCreateFileContents(files: File[], allowedExt?: string[]): Promise<FileContent[]> {
+export async function webAfterDlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(files);
-
-    allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
-
     const rv = loadFilesAndCreateFileContents(items);
     return rv;
 
