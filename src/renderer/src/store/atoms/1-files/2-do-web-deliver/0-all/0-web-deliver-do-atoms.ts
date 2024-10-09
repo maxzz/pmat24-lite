@@ -50,11 +50,18 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
-    async (get, set, files: FileWithHandle[] | FileWithDirectoryAndFileHandle[] | null) => {
+    async (get, set,
+        // files: FileWithHandle[] | FileWithDirectoryAndFileHandle[] | null
+    ) => {
         //TODO:
-        fileOpen;
+        // fileOpen;
         //or
-        directoryOpen;
+        // directoryOpen;
+
+        const rv = await directoryOpen();
+
+
+        console.log('doSetFilesFromModernDialogAtom', rv);
     }
 );
 
