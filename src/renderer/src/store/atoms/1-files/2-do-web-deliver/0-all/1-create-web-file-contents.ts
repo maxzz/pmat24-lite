@@ -37,7 +37,6 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
                 webFsItem: null,
 
-                legacyEntry: item.legacyEntry,
                 webFile: item.fileWeb,
 
                 notOur: item.notOur,

@@ -5,7 +5,7 @@ import { type FileContent } from '@shared/ipc-types';
 import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
 import { fileUsStats } from '@/store/store-utils';
-import { pathWithoutFilename, uuid } from '@/utils';
+import { uuid } from '@/utils';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
@@ -24,7 +24,6 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         webFsItem: fileContent.webFsItem,
 
         webFile: fileContent.webFile,
-        legacyEntry: fileContent.legacyEntry,
 
         state: {
             isGroupAtom: atom<boolean>(false),

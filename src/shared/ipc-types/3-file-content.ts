@@ -44,7 +44,6 @@ export type FileContent = {
 
     parentHandle?: FileSystemDirectoryHandle; // web: FileSystemDirectoryHandle from drag and drop transfer items
     existingHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
-    legacyEntry?: FileSystemFileEntry;  // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     webFile?: File;                     // web: File object from async entry.file() call
 };
 
