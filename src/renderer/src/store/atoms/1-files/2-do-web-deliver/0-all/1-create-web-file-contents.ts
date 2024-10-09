@@ -1,4 +1,4 @@
-import { type WebFsItem, type FileContent } from "@shared/ipc-types";
+import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectDndItems } from "./2-collect-dnd-items";
@@ -7,13 +7,8 @@ type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
     fpath: string;                          // file path without filename
     fileWeb: File;                          // web: File object from async entry.file() call
-
-    legacyEntry?: FileSystemFileEntry;      // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
-    handle: FileSystemFileHandle | null;    // FileSystemFileHandle from drag and drop transfer items
-
-    notOur?: boolean;                       // load of file content was blocked by allowedExt list.
-
     webFsItem: WebFsItem | null;            // web: for files loaded without electron
+    notOur: boolean;                        // load of file content was blocked by allowedExt list.
 };
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
@@ -35,7 +30,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
                 size: item.fileWeb.size,
                 raw: '',
 
-                webFsItem: null,
+                webFsItem: item.webFsItem,
 
                 webFile: item.fileWeb,
 
@@ -65,14 +60,14 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
  */
 export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[], allowedExt?: string[]): Promise<FileContent[]> {
 
-    let items: DropItem[] = await webGetFilesTransferItems(fileDataTransferItems);
+    let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
 
     allowedExt && items.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
     const rv = loadFilesAndCreateFileContents(items);
     return rv;
 
-    async function webGetFilesTransferItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
+    async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
 
         const dndItems = (await collectDndItems(fileDataTransferItems)).filter((item) => item.file);
 
@@ -84,10 +79,8 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
                         fname: item.file!.name,
                         fpath: pathWithoutFilename(item.path),
                         fileWeb: item.file!,
-                        handle: item.handle as FileSystemFileHandle,
-                        notOur: false,
-
                         webFsItem: item,
+                        notOur: false,
                     };
                     return rv;
                 }
@@ -116,16 +109,12 @@ export async function webAfterDlgOpenCreateFileContents(files: File[], allowedEx
         try {
             rv = await Promise.all(files.map(
                 async (file) => {
-                    console.log('file.webkitRelativePath', file.webkitRelativePath);
                     const rv: DropItem = {
                         fname: file.name,
-                        fpath: pathWithoutFilename(file.webkitRelativePath),
+                        fpath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
                         fileWeb: file,
-                        legacyEntry: undefined,
-                        handle: null,
-                        notOur: false,
-
                         webFsItem: null,
+                        notOur: false,
                     };
                     return rv;
                 }
