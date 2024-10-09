@@ -61,7 +61,8 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
             }
 
             try {
-                fileContent.raw = readFileSync(fileContent.fpath!).toString();
+                const fullName = join(fileContent.fpath!, fileContent.fname);
+                fileContent.raw = readFileSync(fullName).toString();
             } catch (error) {
                 fileContent.raw = error instanceof Error ? error.message : JSON.stringify(error);
                 fileContent.failed = true;
