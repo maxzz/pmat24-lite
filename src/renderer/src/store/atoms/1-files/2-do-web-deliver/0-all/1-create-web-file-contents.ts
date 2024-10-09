@@ -42,7 +42,6 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
             try {
                 newItem.raw = item.notOur ? '' : await textFileReaderPromisify(item.fileWeb);
-                item.notOur && (newItem.failed = true);
             } catch (error) {
                 newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
                 newItem.failed = true;

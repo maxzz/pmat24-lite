@@ -76,7 +76,7 @@ export const doSetDeliveredFilesAtom = atom(
                 )
                 .filter(
                     (fileUs) => {
-                        const notUs = fileUs.failed || (!fileUs.mani && !fileUs.fcat);
+                        const notUs = fileUs.failed || fileUs.notOur || (!fileUs.mani && !fileUs.fcat);
                         if (notUs) {
                             fileUs.failed && console.error(fileUs.raw);
                             unsupported.push(fileUs);

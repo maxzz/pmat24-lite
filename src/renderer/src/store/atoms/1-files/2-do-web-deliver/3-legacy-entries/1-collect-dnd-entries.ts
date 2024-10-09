@@ -1,10 +1,5 @@
-///// <reference no-default-lib="true"/>
-///// <reference lib="dom" />
-
-import { isEntryDirectory, isEntryFile, type FsHandle } from "../9-fs-types";
+import { isEntryDirectory, isEntryFile } from "../9-fs-types";
 import { getFilePromisify, getReadEntriesPromisify } from "./8-promisify-entries";
-
-// type WFile = globalThis.File;
 
 export interface FileWithPath extends File {
     path: string; // item path wo/ filename
