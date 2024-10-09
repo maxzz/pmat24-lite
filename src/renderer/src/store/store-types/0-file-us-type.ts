@@ -18,8 +18,8 @@ export type FileUsStats = {
 
     loginFormChooseNameAtom: PrimitiveAtom<string>; // loginForm?.options.choosename
 
-    isSubFolder?: boolean;                          // Now it's a simple check to see if the path is in front of the filename.
-    subFolder?: string;                             // This is now the full path available from the browser, i.e. not a subfolder.
+    isSubFolder?: boolean;                          //TODO: This is not really needed // Now it's a simple check to see if the path is in front of the filename.
+    subFolder?: string;                             //TODO: This is not really needed // This is now the full path available from the browser, i.e. not a subfolder.
 
     dateCreated?: string;                           // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.created)
     dateModified?: string;                          // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)

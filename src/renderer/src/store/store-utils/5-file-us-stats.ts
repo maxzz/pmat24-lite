@@ -6,7 +6,7 @@ export function fileUsStats(fileUs: FileUs): FileUsStats {
     const loginForm = fileUs.mani?.forms[0];
     const loginFormDomain = fileUs.meta?.[0]?.disp.domain;
     const isLoginFormWeb = !!loginFormDomain;
-    const isSubFolder = !!fileUs.fpath; // fpath is empty for single items //const hasSubFolders = !!fileUs.fpath?.match(/\//);
+    const isSubFolder = !!fileUs.fpath && !fileUs.fromMain; // fpath is empty for single items //const hasSubFolders = !!fileUs.fpath?.match(/\//);
 
     const rv: FileUsStats = {
         loginFormDomain,

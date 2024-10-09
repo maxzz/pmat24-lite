@@ -8,13 +8,14 @@ import { fileUsStats } from '@/store/store-utils';
 import { pathWithoutFilename, uuid } from '@/utils';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
-    console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
+    // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
+
     const rv: FileUs = {
         unid: uuid.asRelativeNumber(),
         idx: fileContent.idx,
 
         fname: fileContent.fname,
-        fpath: pathWithoutFilename(fileContent.fpath),
+        fpath: fileContent.fpath,
         fmodi: fileContent.fmodi,
         size: fileContent.size,
 

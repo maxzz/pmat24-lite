@@ -1,4 +1,4 @@
-import { basename, extname, join, normalize } from 'node:path';
+import { basename, dirname, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { type FileContent } from '@shared/ipc-types';
 
@@ -12,7 +12,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
             const newItem: MainFileContent = {
                 idx: 0,
                 fname: basename(filename),
-                fpath: filename,
+                fpath: dirname(filename),
                 fmodi: 0,
                 size: 0,
                 raw: '',

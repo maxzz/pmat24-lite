@@ -5,10 +5,12 @@ import { collectDndItems } from "./2-collect-dnd-items";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
-    fpath: string;                          // file full (in this case relative the root of drop) path and filename
+    fpath: string;                          // file path without filename
     fileWeb: File;                          // web: File object from async entry.file() call
+
     legacyEntry?: FileSystemFileEntry;      // web: FileSystemEntry from DataTransfer will exist only when loaded from the web drag and drop.
     handle: FileSystemFileHandle | null;    // FileSystemFileHandle from drag and drop transfer items
+
     notOur?: boolean;                       // load of file content was blocked by allowedExt list.
 
     webFsItem: WebFsItem | null;            // web: for files loaded without electron
@@ -81,7 +83,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
                 (item) => {
                     const rv: DropItem = {
                         fname: item.file!.name,
-                        fpath: item.path,
+                        fpath: pathWithoutFilename(item.path),
                         fileWeb: item.file!,
                         handle: item.handle as FileSystemFileHandle,
                         notOur: false,
