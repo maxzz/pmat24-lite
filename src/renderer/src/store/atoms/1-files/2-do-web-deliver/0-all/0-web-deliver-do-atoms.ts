@@ -50,18 +50,14 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
-    async (get, set,
-        // files: FileWithHandle[] | FileWithDirectoryAndFileHandle[] | null
-    ) => {
-        //TODO:
-        // fileOpen;
-        //or
-        // directoryOpen;
-
-        const rv = await directoryOpen();
-
-
-        console.log('doSetFilesFromModernDialogAtom', rv);
+    async (get, set, { openFiles }: { openFiles: boolean; }) => {
+        if (openFiles) {
+            const rvFile = await fileOpen();
+            console.log('fileOpen', rvFile);
+        } else {
+            const rvDir = await directoryOpen();
+            console.log('directoryOpen', rvDir);
+        }
     }
 );
 
