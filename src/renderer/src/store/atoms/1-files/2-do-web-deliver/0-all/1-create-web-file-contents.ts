@@ -119,3 +119,34 @@ export async function webAfterDlgOpenCreateFileContents(files: File[]): Promise<
         return rv;
     }
 }
+
+/**
+ * Create FileContent items from open file/directory web dialog
+ */
+export async function webAfterWinn32DlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
+
+    let items: DropItem[] = await mapToDropItems(files);
+    const rv = loadFilesAndCreateFileContents(items);
+    return rv;
+
+    async function mapToDropItems(files: File[]): Promise<DropItem[]> {
+        let rv: DropItem[] = [];
+        try {
+            rv = await Promise.all(files.map(
+                async (file) => {
+                    const rv: DropItem = {
+                        fname: file.name,
+                        fpath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
+                        fileWeb: file,
+                        webFsItem: null,
+                        notOur: false,
+                    };
+                    return rv;
+                }
+            ));
+        } catch (error) {
+            console.error('cannot read from File[]', files);
+        }
+        return rv;
+    }
+}

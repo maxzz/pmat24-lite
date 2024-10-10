@@ -42,7 +42,7 @@ import { toast } from "sonner";
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredFileContents: FileContent[]) => {
-        //printDelivered(deliveredFileContents);
+        printDelivered(deliveredFileContents);
 
         if (deliveredFileContents.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
@@ -100,8 +100,8 @@ function printDelivered(deliveredFileContents: FileContent[]) {
     console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
 
     deliveredFileContents.forEach(
-        (file) => {
-            console.log(`Delivered: %cfpath: "${file.fpath}" %cfname: ${file.fname}`, 'color: tan', 'color: gray', { file });
+        (fc) => {
+            console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fc });
         }
     );
 }
