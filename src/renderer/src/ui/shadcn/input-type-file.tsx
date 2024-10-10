@@ -1,28 +1,11 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 
 type InputFileAsDlgProps = InputHTMLAttributes<HTMLInputElement> & {
     openAsFolder?: boolean;   // folder mode: open folder
     multiple?: boolean;     // files mode only: open multiple files
 };
 
-// export function InputFileAsDlg({ openAsFolder, multiple = true, ...rest }: InputFileAsDlgProps) {
-
-//     const options = {
-//         ...(openAsFolder && { webkitdirectory: '' }),
-//     };
-
-//     return (
-//         <input
-//             className="hidden"
-//             type="file"
-//             multiple={multiple}
-//             {...options}
-//             {...rest}
-//         />
-//     );
-// }
-
-export function InputFileAsDlg({ openAsFolder, multiple = true, ...rest }: InputFileAsDlgProps) {
+export const InputFileAsDlg = forwardRef<HTMLInputElement, InputFileAsDlgProps>(({ openAsFolder, multiple = true, ...rest }, ref) => {
 
     const options = {
         ...(openAsFolder && { webkitdirectory: '' }),
@@ -30,6 +13,7 @@ export function InputFileAsDlg({ openAsFolder, multiple = true, ...rest }: Input
 
     return (
         <input
+            ref={ref}
             className="hidden"
             type="file"
             multiple={multiple}
@@ -37,4 +21,4 @@ export function InputFileAsDlg({ openAsFolder, multiple = true, ...rest }: Input
             {...rest}
         />
     );
-}
+});

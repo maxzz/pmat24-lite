@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
@@ -32,23 +32,26 @@ export function OpenFileButton() {
     const [dlgOpen, setDlgOpen] = useState<boolean>(false);
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
+    const ref = useRef<HTMLInputElement>(null);
+
     const onFiles = (files: File[]) => {
         doSetFilesFromDialog(files);
     };
 
     return (
-        <Button className="mt-4" asChild>
-            <label>
+        <Button className="mt-4" asChild onClick={() => ref.current?.click()}>
+            <div className="">
                 Open a files
 
                 <InputFileAsDlg
+                    ref={ref}
                     accept=".dpm,.dpn"
                     openAsFolder={false}
                     onChange={(event) => {
                         event.target.files && onFiles([...event.target.files]);
                     }}
                 />
-            </label>
+            </div>
         </Button>
     );
 }
