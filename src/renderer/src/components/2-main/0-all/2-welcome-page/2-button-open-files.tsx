@@ -29,7 +29,7 @@ export function OpenFolderButton() {
 
     return (
         <Button className="mt-4" onClick={() => ref.current?.click()}>
-            Open a files
+            Open a folder
 
             <InputFileAsDlg
                 ref={ref}

@@ -1,8 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, filesAtom } from "@/store";
-import { Checkbox, Label } from "@/ui";
-import { OpenFileButton } from "./2-button-open-files";
+import { OpenFileButton, OpenFolderButton } from "./2-button-open-files";
 import { DontShowNext } from "./3-dont-show-next";
 
 export function WelcomePage() {
@@ -20,6 +19,7 @@ export function WelcomePage() {
             </div>
 
             <OpenFileButton />
+            <OpenFolderButton />
             <DontShowNext className="absolute left-0 bottom-0 p-4" />
         </div>
     );
