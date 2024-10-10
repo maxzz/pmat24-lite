@@ -37,9 +37,11 @@ export const doSetFilesFromDropAtom = atom(
 export const doSetFilesFromLegacyDialogAtom = atom(
     null,
     async (get, set, files: File[] | null) => {
+        console.log('doSetFilesFromLegacyDialogAtom 0', files);
         if (!files) {
             return;
         }
+        console.log('doSetFilesFromLegacyDialogAtom', files);
         let fileContents: FileContent[] = await webAfterDlgOpenCreateFileContents(files);
         if (fileContents) {
             set(doSetDeliveredFilesAtom, fileContents);
