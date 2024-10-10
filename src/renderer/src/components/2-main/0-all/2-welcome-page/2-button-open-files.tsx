@@ -3,6 +3,31 @@ import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
 
+// export function OpenFileButton() {
+//     const [dlgOpen, setDlgOpen] = useState<boolean>(false);
+//     const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+
+//     const onFiles = (files: File[]) => {
+//         doSetFilesFromDialog(files);
+//     };
+
+//     return (
+//         <Button className="mt-4" asChild>
+//             <label>
+//                 Open a files
+//                 <InputFileAsDlg
+//                     accept=".dpm,.dpn"
+//                     openFolder={false}
+//                     onClick={() => setDlgOpen(true)}
+//                     onChange={(event) => {
+//                         event.target.files && onFiles([...event.target.files]);
+//                     }}
+//                 />
+//             </label>
+//         </Button>
+//     );
+// }
+
 export function OpenFileButton() {
     const [dlgOpen, setDlgOpen] = useState<boolean>(false);
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
@@ -15,10 +40,10 @@ export function OpenFileButton() {
         <Button className="mt-4" asChild>
             <label>
                 Open a files
+
                 <InputFileAsDlg
                     accept=".dpm,.dpn"
-                    openFolder={false}
-                    onClick={() => setDlgOpen(true)}
+                    openAsFolder={false}
                     onChange={(event) => {
                         event.target.files && onFiles([...event.target.files]);
                     }}

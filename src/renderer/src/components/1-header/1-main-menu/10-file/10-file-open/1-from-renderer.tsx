@@ -29,7 +29,7 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: Dropdown
                     accept=".dpm,.dpn"
                     onClick={() => setDlgOpen(true)}
                     onChange={onChange}
-                    openFolder={false}
+                    openAsFolder={false}
                 />
                 {children}
             </label>
@@ -73,7 +73,7 @@ export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean
     }
 
     return (
-        <InputFileAsDlg id={openFoldersId} openFolder={true} onChange={onChange} />
+        <InputFileAsDlg id={openFoldersId} openAsFolder={true} onChange={onChange} />
     );
 }
 
