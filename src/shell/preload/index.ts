@@ -20,7 +20,12 @@ const api: TmApi = {
     },
 
     getPathForFile(file: File): string {
-        return webUtils.getPathForFile(file);
+        try {
+            return webUtils.getPathForFile(file);
+        } catch (error) {
+            console.error(error); // no a file case
+        }
+        return '';
     },
 };
 
