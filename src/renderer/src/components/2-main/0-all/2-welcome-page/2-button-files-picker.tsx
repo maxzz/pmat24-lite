@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
 
-export function FilesPickerButton({ openAsFolder }: { openAsFolder?: boolean; }) {
+export function ButtonFilesPicker({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     const ref = useRef<HTMLInputElement>(null);

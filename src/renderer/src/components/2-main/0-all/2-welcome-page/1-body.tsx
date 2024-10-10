@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, filesAtom } from "@/store";
-import { FilesPickerButton } from "./2-button-open-files";
+import { ButtonFilesPicker } from "./2-button-files-picker";
 import { DontShowNext } from "./3-dont-show-next";
 
 export function WelcomePage() {
@@ -18,9 +18,9 @@ export function WelcomePage() {
                 Welcome to the app!
             </div>
 
-            <FilesPickerButton />
-            <FilesPickerButton openAsFolder />
-            
+            <ButtonFilesPicker />
+            <ButtonFilesPicker openAsFolder />
+
             <DontShowNext className="absolute left-0 bottom-0 p-4" />
         </div>
     );
