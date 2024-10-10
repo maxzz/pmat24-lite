@@ -16,9 +16,7 @@ export function OpenFileButton() {
                 ref={ref}
                 accept=".dpm,.dpn"
                 openAsFolder={false}
-                onChange={(event) => {
-                    event.target.files && doSetFilesFromDialog([...event.target.files]);
-                }}
+                onChange={(event) => doSetFilesFromDialog(event.target.files)}
             />
         </Button>
     );

@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type ChangeEvent, type ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
@@ -17,8 +17,8 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: Dropdown
         setDlgOpen(false);
     }
 
-    function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && doSetFilesFromDialog([...event.target.files]);
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        doSetFilesFromDialog(event.target.files);
         setMenuOpen(false);
     }
 
@@ -63,8 +63,8 @@ function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: Dropdow
 export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
     const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
-    function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-        event.target.files && doSetFilesFromDialog([...event.target.files]); // Checking the length will prevent false drags and, as a result, clearing the file list.
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        doSetFilesFromDialog(event.target.files);
         setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again

@@ -36,8 +36,9 @@ export const doSetFilesFromDropAtom = atom(
 
 export const doSetFilesFromLegacyDialogAtom = atom(
     null,
-    async (get, set, files: File[] | null) => {
-        if (!files?.length) {
+    async (get, set, fileList: FileList | null) => {
+        const files = fileList ? [...fileList] : [];
+        if (!files.length) {
             return;
         }
 
