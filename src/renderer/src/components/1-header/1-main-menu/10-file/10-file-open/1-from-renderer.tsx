@@ -10,7 +10,7 @@ type DropdownMenuItemOpenProps = {
 
 function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onFocus() {
         dlgOpen && setMenuOpen(false);
@@ -18,7 +18,7 @@ function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: Dropdown
     }
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
-        doSetFilesFromDialog(event.target.files);
+        doSetFilesFromLegacyDialog(event.target.files);
         setMenuOpen(false);
     }
 
@@ -61,10 +61,10 @@ function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: Dropdow
  * and can be target for DropdownMenuItem_Folder_FromRenderer label.
  */
 export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
-        doSetFilesFromDialog(event.target.files);
+        doSetFilesFromLegacyDialog(event.target.files);
         setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again

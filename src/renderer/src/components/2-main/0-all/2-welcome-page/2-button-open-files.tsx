@@ -4,7 +4,7 @@ import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
 
 export function OpenFileButton() {
-    const doSetFilesFromDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -16,7 +16,26 @@ export function OpenFileButton() {
                 ref={ref}
                 accept=".dpm,.dpn"
                 openAsFolder={false}
-                onChange={(event) => doSetFilesFromDialog(event.target.files)}
+                onChange={(event) => doSetFilesFromLegacyDialog(event.target.files)}
+            />
+        </Button>
+    );
+}
+
+export function OpenFolderButton() {
+    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+
+    const ref = useRef<HTMLInputElement>(null);
+
+    return (
+        <Button className="mt-4" onClick={() => ref.current?.click()}>
+            Open a files
+
+            <InputFileAsDlg
+                ref={ref}
+                accept=".dpm,.dpn"
+                openAsFolder={true}
+                onChange={(event) => doSetFilesFromLegacyDialog(event.target.files)}
             />
         </Button>
     );
