@@ -42,6 +42,16 @@ export const doSetFilesFromLegacyDialogAtom = atom(
             return;
         }
 
+        if (hasMain()) {
+            const filenames = electronGetPaths(files);
+            console.log('doSetFilesFromLegacyDialogAtom electron', filenames);
+            // if (filenames.length) {
+            //     const fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
+            //     set(doSetDeliveredFilesAtom, fileContents);
+            // }
+            // return;
+        }
+
         let fileContents: FileContent[] = await webAfterDlgOpenCreateFileContents(files);
         if (fileContents) {
             set(doSetDeliveredFilesAtom, fileContents);
