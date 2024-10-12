@@ -15,7 +15,7 @@ import {
 } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
 import { Button } from "@/ui/shadcn";
-import { MenuItems_Persistent, MenuItems_OpenFiles, MenuItem_FileExit, MenuItem_CreateMani, MenuItem_SaveCurrent, MenuItem_SaveCurrentAs } from "../10-file";
+import { MenuItems_OpenFiles, MenuItem_FileExit, MenuItem_CreateMani, MenuItem_SaveCurrent, MenuItem_SaveCurrentAs } from "../10-file";
 import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
@@ -31,7 +31,7 @@ export function MainDropdownMenu() {
             <DropdownMenuTrigger asChild>
                 <Button className="px-1" variant="outline" size="xs">
                     <IconMenuHamburger5 className="size-5" />
-                    <MenuItems_Persistent />
+                    {/* <MenuItems_Persistent /> */}
                 </Button>
             </DropdownMenuTrigger>
 

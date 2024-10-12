@@ -11,13 +11,53 @@ export const IdOpenFolders = 'tm-dlg-open-folders';
  * and can be target for DropdownMenuItem_Folder_FromRenderer label.
  */
 
-export function MenuItems_Persistent_Files() {
-    const setMenuOpen = useSetAtom(maniMenuOpenAtom);
+// export function MenuItems_Persistent_Files() {
+//     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
+//     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+
+//     function onChange(event: ChangeEvent<HTMLInputElement>) {
+//         doSetFilesFromLegacyDialog(event.target.files);
+//         setMenuOpen(false);
+
+//         // clear the input value to allow the same folder to be opened again
+//         const input = document.getElementById(IdOpenFolders) as HTMLInputElement;
+//         input && (input.value = '');
+//     }
+
+//     return (
+//         <InputFileAsDlg
+//             id={IdOpenFiles}
+//             // ref={ref}
+//             accept=".dpm,.dpn"
+//             onChange={onChange}
+//             openAsFolder={false}
+//         />
+//     );
+// }
+
+// export function MenuItems_Persistent_Folder() {
+//     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
+//     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+
+//     function onChange(event: ChangeEvent<HTMLInputElement>) {
+//         doSetFilesFromLegacyDialog(event.target.files);
+//         setMenuOpen(false);
+
+//         // clear the input value to allow the same folder to be opened again
+//         const input = document.getElementById(IdOpenFolders) as HTMLInputElement;
+//         input && (input.value = '');
+//     }
+
+//     return (
+//         <InputFileAsDlg id={IdOpenFolders} openAsFolder={true} onChange={onChange} />
+//     );
+// }
+
+export function OpenFilesPersistentInput({ openFolder }: { openFolder: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         doSetFilesFromLegacyDialog(event.target.files);
-        setMenuOpen(false);
 
         // clear the input value to allow the same folder to be opened again
         const input = document.getElementById(IdOpenFolders) as HTMLInputElement;
@@ -26,29 +66,10 @@ export function MenuItems_Persistent_Files() {
 
     return (
         <InputFileAsDlg
-            id={IdOpenFiles}
-            // ref={ref}
+            id={openFolder ? IdOpenFolders: IdOpenFiles}
             accept=".dpm,.dpn"
             onChange={onChange}
-            openAsFolder={false}
+            openAsFolder={openFolder}
         />
-    );
-}
-
-export function MenuItems_Persistent_Folder() {
-    const setMenuOpen = useSetAtom(maniMenuOpenAtom);
-    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
-
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        doSetFilesFromLegacyDialog(event.target.files);
-        setMenuOpen(false);
-
-        // clear the input value to allow the same folder to be opened again
-        const input = document.getElementById(IdOpenFolders) as HTMLInputElement;
-        input && (input.value = '');
-    }
-
-    return (
-        <InputFileAsDlg id={IdOpenFolders} openAsFolder={true} onChange={onChange} />
     );
 }
