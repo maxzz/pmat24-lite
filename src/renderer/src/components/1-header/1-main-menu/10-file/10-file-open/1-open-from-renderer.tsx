@@ -7,9 +7,10 @@ export const IdOpenFiles = 'tm-dlg-open-files';
 export const IdOpenFolders = 'tm-dlg-open-folders';
 
 export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
+    const id = openAsFolder ? IdOpenFolders: IdOpenFiles;
 
     function onClickToOpen() {
-        document.getElementById(openAsFolder ? IdOpenFolders: IdOpenFiles)?.click();
+        document.getElementById(id)?.click();
     }
 
     return (
