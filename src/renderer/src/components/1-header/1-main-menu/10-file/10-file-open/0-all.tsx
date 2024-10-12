@@ -1,7 +1,6 @@
 import { DropdownMenuItem } from "@/ui";
 import { hasMain, sendToMain } from "@/xternal-to-main";
-import { DropdownMenuItem_Files_FromRenderer } from "./2-from-renderer-files";
-import { DropdownMenuItem_Folder_FromRenderer } from "./3-from-renderer-folders";
+import { DropdownMenuItem_Open_FromRenderer } from "./1-open-from-renderer";
 
 export function MenuItems_OpenFiles() {
     if (hasMain()) {
@@ -17,7 +16,7 @@ export function MenuItems_OpenFiles() {
     }
 
     return (<>
-        <DropdownMenuItem_Files_FromRenderer openFolder={false} />
-        <DropdownMenuItem_Folder_FromRenderer openFolder={true} />
+        <DropdownMenuItem_Open_FromRenderer openFolder={false} />
+        <DropdownMenuItem_Open_FromRenderer openFolder={true} />
     </>);
 }

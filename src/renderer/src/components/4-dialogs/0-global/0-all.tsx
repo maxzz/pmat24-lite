@@ -4,7 +4,7 @@ import { DropItDoc, Toaster } from "@/ui";
 import { ManiCreateDialogs } from "../2-dlg-create-login";
 import { OptionsFilesDialog } from "../8-dlg-options";
 import { AppGlobalShortcuts } from "./1-global-shortcuts";
-import { MenuItems_Persistent_Files } from "@/components/1-header/1-main-menu/10-file/10-file-open/4-menu-items_persistent";
+import { MenuItems_Persistent_Files } from "@/components/1-header/1-main-menu/10-file/10-file-open/2-open-persistent-items";
 
 export function AppGlobals() {
     return (<>
