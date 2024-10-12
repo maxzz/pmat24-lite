@@ -31,3 +31,4 @@ export function App(): JSX.Element {
 }
 
 //TODO: add version request from main and DpAgent
+//TODO: beforeunload handler to save changed files
