@@ -17,11 +17,11 @@ export function MenuItems_OpenFiles({ setMenuOpen }: { setMenuOpen: (v: boolean)
     }
 
     return (<>
-        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen}>
+        <DropdownMenuItem_Files_FromRenderer>
             Open Files...
         </DropdownMenuItem_Files_FromRenderer>
 
-        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen}>
+        <DropdownMenuItem_Folder_FromRenderer>
             Open Folder...
         </DropdownMenuItem_Folder_FromRenderer>
     </>);

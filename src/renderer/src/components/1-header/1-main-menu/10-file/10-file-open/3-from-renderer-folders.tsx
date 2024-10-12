@@ -6,7 +6,7 @@ import { type DropdownMenuItemOpenProps } from "./9-types";
 
 const openFoldersId = 'open-folders';
 
-export function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen: _, children }: DropdownMenuItemOpenProps) {
+export function DropdownMenuItem_Folder_FromRenderer({ children }: DropdownMenuItemOpenProps) {
     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const [dlgOpen, setDlgOpen] = useState(false);
 
