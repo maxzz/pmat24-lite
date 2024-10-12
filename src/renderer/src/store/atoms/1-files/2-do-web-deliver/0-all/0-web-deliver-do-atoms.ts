@@ -61,12 +61,12 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
-    async (get, set, { openFiles }: { openFiles: boolean; }) => {
+    async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             let files: FileWithHandle[] | FileSystemDirectoryHandle[] =
-                openFiles
-                    ? await fileOpen({ multiple: true })
-                    : await directoryOpen({ recursive: true, mode: 'readwrite' });
+                openAsFolder
+                    ? await directoryOpen({ recursive: true, mode: 'readwrite' })
+                    : await fileOpen({ multiple: true });
 
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);

@@ -1,25 +1,45 @@
 import type { ChangeEvent } from "react";
 import { useSetAtom } from "jotai";
+import { hasMain } from "@/xternal-to-main";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { doSetFilesFromLegacyDialogAtom } from "@/store";
+import { doSetFilesFromLegacyDialogAtom, doSetFilesFromModernDialogAtom, isFsSupported } from "@/store";
 
 export const IdOpenFiles = 'tm-dlg-open-files';
 export const IdOpenFolders = 'tm-dlg-open-folders';
 
-export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
-    const id = openAsFolder ? IdOpenFolders: IdOpenFiles;
+type doSetFilesFromModernDialogFn = ({ openAsFolder }: { openAsFolder: boolean; }) => void;
 
-    function onClickToOpen() {
-        document.getElementById(id)?.click();
-    }
+export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
+    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
+
+    // const isFirefoxWoFs = !isFsSupported(window);
+    // const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
+
+    // function onClickToOpen() {
+    //     if (hasMain() || isFirefoxWoFs) {
+    //         document.getElementById(id)?.click();
+    //     } else {
+    //         doSetFilesFromModernDialog({ openAsFolder: !!openAsFolder });
+    //     }
+    // }
 
     return (
         <DropdownMenuItem asChild>
-            <div onClick={onClickToOpen}>
+            <div onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)}>
                 {openAsFolder ? 'Open Folder...' : 'Open Files...'}
             </div>
         </DropdownMenuItem>
     );
+}
+
+export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernDialogFn, openAsFolder?: boolean) {
+    const isFirefoxWoFs = !isFsSupported(window);
+    const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
+    if (hasMain() || isFirefoxWoFs) {
+        document.getElementById(id)?.click();
+    } else {
+        openModernDialog({ openAsFolder: !!openAsFolder });
+    }
 }
 
 /**
@@ -27,7 +47,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
  */
 export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
-    const id = openAsFolder ? IdOpenFolders: IdOpenFiles;
+    const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         doSetFilesFromLegacyDialog(event.target.files);
@@ -38,11 +58,6 @@ export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder?: bool
     }
 
     return (
-        <InputFileAsDlg
-            id={id}
-            openAsFolder={openAsFolder}
-            onChange={onChange}
-            accept=".dpm,.dpn"
-        />
+        <InputFileAsDlg id={id} openAsFolder={openAsFolder} onChange={onChange} accept=".dpm,.dpn" />
     );
 }
