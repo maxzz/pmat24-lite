@@ -63,9 +63,10 @@ export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openFiles }: { openFiles: boolean; }) => {
         try {
-            let files = openFiles
-                ? await fileOpen({ multiple: true })
-                : await directoryOpen({ recursive: true, mode: 'readwrite' });
+            let files: FileWithHandle[] | FileSystemDirectoryHandle[] =
+                openFiles
+                    ? await fileOpen({ multiple: true })
+                    : await directoryOpen({ recursive: true, mode: 'readwrite' });
 
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);
