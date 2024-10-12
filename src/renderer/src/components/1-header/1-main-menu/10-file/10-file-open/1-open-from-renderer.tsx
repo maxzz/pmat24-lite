@@ -11,18 +11,6 @@ type doSetFilesFromModernDialogFn = ({ openAsFolder }: { openAsFolder: boolean; 
 
 export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
-
-    // const isFirefoxWoFs = !isFsSupported(window);
-    // const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
-
-    // function onClickToOpen() {
-    //     if (hasMain() || isFirefoxWoFs) {
-    //         document.getElementById(id)?.click();
-    //     } else {
-    //         doSetFilesFromModernDialog({ openAsFolder: !!openAsFolder });
-    //     }
-    // }
-
     return (
         <DropdownMenuItem asChild>
             <div onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)}>
@@ -35,6 +23,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
 export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernDialogFn, openAsFolder?: boolean) {
     const isFirefoxWoFs = !isFsSupported(window);
     const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
+    
     if (hasMain() || isFirefoxWoFs) {
         document.getElementById(id)?.click();
     } else {
@@ -43,7 +32,7 @@ export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernD
 }
 
 /**
- * This component now is global to handle open files event even when UI is not rendered anymore.
+ * This component is now global and handles file open events even if the UI is no longer displayed.
  */
 export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
