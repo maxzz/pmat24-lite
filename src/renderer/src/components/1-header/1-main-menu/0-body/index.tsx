@@ -37,7 +37,7 @@ export function MainDropdownMenu() {
 
             <DropdownMenuContent className="min-w-40 text-xs" align="start">
 
-                <MenuItems_OpenFiles setMenuOpen={setMenuOpen} />
+                <MenuItems_OpenFiles />
                 <DropdownMenuSeparator />
 
                 <MenuItem_CreateMani />

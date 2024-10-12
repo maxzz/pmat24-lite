@@ -3,7 +3,7 @@ import { hasMain, sendToMain } from "@/xternal-to-main";
 import { DropdownMenuItem_Files_FromRenderer } from "./2-from-renderer-files";
 import { DropdownMenuItem_Folder_FromRenderer } from "./3-from-renderer-folders";
 
-export function MenuItems_OpenFiles({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_OpenFiles() {
     if (hasMain()) {
         return (<>
             <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
@@ -17,12 +17,7 @@ export function MenuItems_OpenFiles({ setMenuOpen }: { setMenuOpen: (v: boolean)
     }
 
     return (<>
-        <DropdownMenuItem_Files_FromRenderer>
-            Open Files...
-        </DropdownMenuItem_Files_FromRenderer>
-
-        <DropdownMenuItem_Folder_FromRenderer>
-            Open Folder...
-        </DropdownMenuItem_Folder_FromRenderer>
+        <DropdownMenuItem_Files_FromRenderer openFolder={false} />
+        <DropdownMenuItem_Folder_FromRenderer openFolder={true} />
     </>);
 }

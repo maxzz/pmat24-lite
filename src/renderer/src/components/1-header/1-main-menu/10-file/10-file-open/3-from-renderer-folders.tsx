@@ -4,7 +4,7 @@ import { maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
 import { IdOpenFolders } from "./4-menu-items_persistent";
 
-export function DropdownMenuItem_Folder_FromRenderer({ children }: { children: ReactNode; }) {
+export function DropdownMenuItem_Folder_FromRenderer({ openFolder }: { openFolder: boolean; }) {
     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const [dlgOpen, setDlgOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export function DropdownMenuItem_Folder_FromRenderer({ children }: { children: R
             onFocus={onFocus}
         >
             <label htmlFor={IdOpenFolders} onClick={onClickToOpen}>
-                {children}
+                {openFolder ? 'Open Folder...' : 'Open Files...'}
             </label>
         </DropdownMenuItem>
     );
