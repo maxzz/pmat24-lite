@@ -6,7 +6,7 @@ import { DialogOptionsBody } from "./1-body";
 const contentClasses = "p-0 !w-1/2 max-w-xl data-[state=open]:[animation-duration:200ms]";
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
-export function OptionsFilesDialog() {
+export function AppOptionsDialog() {
 
     const [optionsDialogOpen, doOpenOptionsDialog] = useAtom(doOpenOptionsDialogAtom);
     if (!optionsDialogOpen) {
@@ -22,7 +22,7 @@ export function OptionsFilesDialog() {
                 overlayClasses={overlayClasses}
             >
                 <DialogOptionsBody setIsOpen={doOpenOptionsDialog} />
-
+                
             </D.DialogContent>
         </D.Dialog>
     </>);

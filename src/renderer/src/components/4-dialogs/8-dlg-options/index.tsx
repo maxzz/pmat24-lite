@@ -1,1 +1,1 @@
-export * from "./0-start";
+export * from "./0-all";
