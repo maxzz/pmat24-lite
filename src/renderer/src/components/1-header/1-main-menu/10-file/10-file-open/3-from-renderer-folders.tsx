@@ -1,12 +1,13 @@
 import { type ChangeEvent, useState } from "react";
 import { useSetAtom } from "jotai";
-import { doSetFilesFromLegacyDialogAtom } from "@/store";
+import { doSetFilesFromLegacyDialogAtom, maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
 import { type DropdownMenuItemOpenProps } from "./9-types";
 
 const openFoldersId = 'open-folders';
 
-export function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
+export function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen: _, children }: DropdownMenuItemOpenProps) {
+    const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const [dlgOpen, setDlgOpen] = useState(false);
 
     function onClickToOpen() {
@@ -35,7 +36,8 @@ export function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: 
  * This component is used in the main menu to open files and folders from trigger that exists always 
  * and can be target for DropdownMenuItem_Folder_FromRenderer label.
  */
-export function MenuItems_Persistent({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
+export function MenuItems_Persistent() {
+    const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {

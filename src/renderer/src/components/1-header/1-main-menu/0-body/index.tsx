@@ -31,7 +31,7 @@ export function MainDropdownMenu() {
             <DropdownMenuTrigger asChild>
                 <Button className="px-1" variant="outline" size="xs">
                     <IconMenuHamburger5 className="size-5" />
-                    <MenuItems_Persistent setMenuOpen={setMenuOpen} />
+                    <MenuItems_Persistent />
                 </Button>
             </DropdownMenuTrigger>
 
