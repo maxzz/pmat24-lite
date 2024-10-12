@@ -10,32 +10,35 @@ export function DropdownMenuItem_Files_FromRenderer({ setMenuOpen, children }: D
 
     const ref = useRef<HTMLInputElement>(null);
 
+    function onClickToOpen() {
+        setDlgOpen(true);
+        ref.current?.click();
+    }
+
     function onFocus() {
         dlgOpen && setMenuOpen(false);
         setDlgOpen(false);
     }
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
-        doSetFilesFromLegacyDialog(event.target.files);
         setMenuOpen(false);
+        doSetFilesFromLegacyDialog(event.target.files);
     }
 
     return (
-        <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()} onFocus={onFocus}>
-            <div className="" onClick={() => {
-                setDlgOpen(true);
-                ref.current?.click();
-            }}>
-                {/* <label> */}
+        <DropdownMenuItem
+            asChild
+            onSelect={(e) => e.preventDefault()}
+            onFocus={onFocus}
+        >
+            <div className="" onClick={onClickToOpen}>
                 <InputFileAsDlg
                     ref={ref}
                     accept=".dpm,.dpn"
-                    //onClick={() => setDlgOpen(true)}
                     onChange={onChange}
                     openAsFolder={false}
                 />
                 {children}
-                {/* </label> */}
             </div>
         </DropdownMenuItem>
     );
