@@ -2,8 +2,7 @@ import { type ChangeEvent, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { DropdownMenuItemOpenProps } from "./9-types";
-import { DropdownMenuItem_Files_FromRenderer } from "./2-from-renderer-files";
+import { type DropdownMenuItemOpenProps } from "./9-types";
 
 const openFoldersId = 'open-folders';
 
