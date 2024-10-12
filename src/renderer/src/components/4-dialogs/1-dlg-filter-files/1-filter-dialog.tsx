@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
-import { filterDialogOpenAtom, shortcutNameFilter } from "@/store/atoms/7-dialogs";
+import { filterDialogOpenAtom } from "@/store/atoms/7-dialogs";
+import { shortcutNameFilter } from "../0-global/2-global-shortcuts";
 import { Button } from "@/ui/shadcn";
 import * as D from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";

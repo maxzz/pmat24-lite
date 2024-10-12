@@ -1,5 +1,6 @@
 import { useSetAtom } from "jotai";
-import { doOpenOptionsDialogAtom, shortcutNameSettings } from "@/store/atoms/7-dialogs";
+import { doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
+import { shortcutNameSettings } from "@/components/4-dialogs/0-global";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 
 export function MenuItem_Settings() {

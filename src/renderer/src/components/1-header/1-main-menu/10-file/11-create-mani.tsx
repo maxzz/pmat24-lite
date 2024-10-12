@@ -1,5 +1,6 @@
 import { useSetAtom } from "jotai";
-import { doOpenCreateDialogAtom, shortcutNameCreate } from "@/store/atoms/7-dialogs";
+import { doOpenCreateDialogAtom } from "@/store/atoms/7-dialogs";
+import { shortcutNameCreate } from "@/components/4-dialogs/0-global";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 
 export function MenuItem_CreateMani() {

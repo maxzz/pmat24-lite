@@ -5,7 +5,7 @@ import { doSetFilesFromDropAtom } from "./store";
 import { OnAppMount, WorldToReactListener } from "./xternal-to-main";
 import { DropItDoc, Toaster } from "./ui";
 import { UISymbolDefs } from "@ui/icons";
-import { AppGlobalDialogs, AppGlobalShortcuts } from "./store/atoms/7-dialogs";
+import { AppGloabals } from "./components/4-dialogs";
 import { SpyAllIcons } from "./util-hooks";
 
 export function App(): JSX.Element {
@@ -19,8 +19,7 @@ export function App(): JSX.Element {
             <SectionFooter />
         </div>
 
-        <AppGlobalShortcuts />
-        <AppGlobalDialogs />
+        <AppGloabals />
         <Toaster />
 
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
