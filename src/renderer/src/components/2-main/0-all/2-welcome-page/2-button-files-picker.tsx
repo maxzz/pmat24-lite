@@ -4,15 +4,15 @@ import { doSetFilesFromModernDialogAtom } from "@/store";
 import { onClickToOpenFilesDialog } from "@/components/1-header/1-main-menu/10-file";
 
 type ButtonFilesPickerProps = {
-    className?: string;
     openAsFolder?: boolean;
+    className?: string;
 };
 
 export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerProps) {
     const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
     return (
         <Button onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)} {...rest}>
-            {openAsFolder ? "Open Folder..." : "Open Files..."}
+            {openAsFolder ? 'Open Folder...' : 'Open Files... (temp for debuggins)'}
         </Button>
     );
 }

@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
@@ -14,7 +14,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
     return (
         <DropdownMenuItem asChild>
             <div onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)}>
-                {openAsFolder ? 'Open Folder...' : 'Open Files...'}
+                {openAsFolder ? 'Open Folder...' : 'Open Files... (temp for debuggins only)'}
             </div>
         </DropdownMenuItem>
     );
@@ -23,7 +23,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
 export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernDialogFn, openAsFolder?: boolean) {
     const isFirefoxWoFs = !isFsSupported(window);
     const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
-    
+
     if (hasMain() || isFirefoxWoFs) {
         document.getElementById(id)?.click();
     } else {
