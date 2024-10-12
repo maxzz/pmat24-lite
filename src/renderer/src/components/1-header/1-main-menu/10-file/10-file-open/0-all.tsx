@@ -4,25 +4,25 @@ import { DropdownMenuItem_Files_FromRenderer } from "./2-from-renderer-files";
 import { DropdownMenuItem_Folder_FromRenderer } from "./3-from-renderer-folders";
 
 export function MenuItems_OpenFiles({ setMenuOpen }: { setMenuOpen: (v: boolean) => void; }) {
-    if (!hasMain()) {
+    if (hasMain()) {
         return (<>
-            <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen}>
+            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
                 Open Files...
-            </DropdownMenuItem_Files_FromRenderer>
-    
-            <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen}>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
                 Open Folder...
-            </DropdownMenuItem_Folder_FromRenderer>
+            </DropdownMenuItem>
         </>);
     }
 
     return (<>
-        <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
+        <DropdownMenuItem_Files_FromRenderer setMenuOpen={setMenuOpen}>
             Open Files...
-        </DropdownMenuItem>
+        </DropdownMenuItem_Files_FromRenderer>
 
-        <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog", openDirs: true })}>
+        <DropdownMenuItem_Folder_FromRenderer setMenuOpen={setMenuOpen}>
             Open Folder...
-        </DropdownMenuItem>
+        </DropdownMenuItem_Folder_FromRenderer>
     </>);
 }
