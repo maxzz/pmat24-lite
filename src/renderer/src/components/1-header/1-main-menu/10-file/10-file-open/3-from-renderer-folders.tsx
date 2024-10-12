@@ -9,14 +9,22 @@ const openFoldersId = 'open-folders';
 export function DropdownMenuItem_Folder_FromRenderer({ setMenuOpen, children }: DropdownMenuItemOpenProps) {
     const [dlgOpen, setDlgOpen] = useState(false);
 
+    function onClickToOpen() {
+        setDlgOpen(true);
+    }
+
     function onFocus() {
         dlgOpen && setMenuOpen(false);
         setDlgOpen(false);
     }
 
     return (
-        <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()} onFocus={onFocus}>
-            <label htmlFor={openFoldersId} onClick={() => setDlgOpen(true)}>
+        <DropdownMenuItem
+            asChild
+            onSelect={(e) => e.preventDefault()}
+            onFocus={onFocus}
+        >
+            <label htmlFor={openFoldersId} onClick={onClickToOpen}>
                 {children}
             </label>
         </DropdownMenuItem>
