@@ -1,7 +1,7 @@
-import { type ChangeEvent, type ReactNode, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom, maniMenuOpenAtom } from "@/store";
-import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
+import { DropdownMenuItem } from "@/ui";
 import { IdOpenFiles } from "./4-menu-items_persistent";
 
 export function DropdownMenuItem_Files_FromRenderer({ openFolder }: { openFolder: boolean; }) {

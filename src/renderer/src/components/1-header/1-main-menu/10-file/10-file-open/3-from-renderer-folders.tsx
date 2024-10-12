@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
 import { useSetAtom } from "jotai";
 import { maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
@@ -10,22 +10,28 @@ export function DropdownMenuItem_Folder_FromRenderer({ openFolder }: { openFolde
 
     function onClickToOpen() {
         setDlgOpen(true);
+        const input = document.getElementById(IdOpenFolders);
+        input && input.click();
     }
 
-    function onFocus() {
-        dlgOpen && setMenuOpen(false);
-        setDlgOpen(false);
-    }
+    // function onFocus() {
+    //     dlgOpen && setMenuOpen(false);
+    //     setDlgOpen(false);
+    // }
 
     return (
         <DropdownMenuItem
             asChild
-            onSelect={(e) => e.preventDefault()}
-            onFocus={onFocus}
+            // onSelect={(e) => e.preventDefault()}
+            // onFocus={onFocus}
         >
-            <label htmlFor={IdOpenFolders} onClick={onClickToOpen}>
+            <div onClick={onClickToOpen}>
                 {openFolder ? 'Open Folder...' : 'Open Files...'}
-            </label>
+            </div>
+
+            {/* <label htmlFor={IdOpenFolders} onClick={onClickToOpen}>
+                {openFolder ? 'Open Folder...' : 'Open Files...'}
+            </label> */}
         </DropdownMenuItem>
     );
 }
