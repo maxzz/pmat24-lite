@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
 import { DropdownMenuItemOpenProps } from "./9-types";
-import { DropdownMenuItem_Files_FromRenderer } from "./2-files";
+import { DropdownMenuItem_Files_FromRenderer } from "./2-from-renderer-files";
 
 const openFoldersId = 'open-folders';
 
