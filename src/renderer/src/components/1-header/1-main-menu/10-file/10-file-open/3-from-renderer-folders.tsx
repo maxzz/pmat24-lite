@@ -1,12 +1,11 @@
-import { type ChangeEvent, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
-import { doSetFilesFromLegacyDialogAtom, maniMenuOpenAtom } from "@/store";
-import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { type DropdownMenuItemOpenProps } from "./9-types";
+import { maniMenuOpenAtom } from "@/store";
+import { DropdownMenuItem } from "@/ui";
 
-const openFoldersId = 'open-folders';
+export const openFoldersId = 'tm-open-folders';
 
-export function DropdownMenuItem_Folder_FromRenderer({ children }: DropdownMenuItemOpenProps) {
+export function DropdownMenuItem_Folder_FromRenderer({ children }: { children: ReactNode; }) {
     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const [dlgOpen, setDlgOpen] = useState(false);
 
@@ -32,24 +31,4 @@ export function DropdownMenuItem_Folder_FromRenderer({ children }: DropdownMenuI
     );
 }
 
-/**
- * This component is used in the main menu to open files and folders from trigger that exists always 
- * and can be target for DropdownMenuItem_Folder_FromRenderer label.
- */
-export function MenuItems_Persistent() {
-    const setMenuOpen = useSetAtom(maniMenuOpenAtom);
-    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
 
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        doSetFilesFromLegacyDialog(event.target.files);
-        setMenuOpen(false);
-
-        // clear the input value to allow the same folder to be opened again
-        const input = document.getElementById(openFoldersId) as HTMLInputElement;
-        input && (input.value = '');
-    }
-
-    return (
-        <InputFileAsDlg id={openFoldersId} openAsFolder={true} onChange={onChange} />
-    );
-}

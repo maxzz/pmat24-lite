@@ -1,10 +1,9 @@
-import { type ChangeEvent, useRef, useState } from "react";
+import { type ChangeEvent, type ReactNode, useRef, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom, maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { type DropdownMenuItemOpenProps } from "./9-types";
 
-export function DropdownMenuItem_Files_FromRenderer({ children }: DropdownMenuItemOpenProps) {
+export function DropdownMenuItem_Files_FromRenderer({ children }: { children: ReactNode; }) {
     const [dlgOpen, setDlgOpen] = useState(false);
     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
