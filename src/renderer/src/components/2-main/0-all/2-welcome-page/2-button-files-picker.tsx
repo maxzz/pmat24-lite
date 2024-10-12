@@ -1,15 +1,26 @@
 import { useRef } from "react";
 import { useSetAtom } from "jotai";
-import { doSetFilesFromLegacyDialogAtom } from "@/store";
+import { doSetFilesFromLegacyDialogAtom, doSetFilesFromModernDialogAtom, isFsSupported } from "@/store";
 import { Button, InputFileAsDlg } from "@/ui";
+import { hasMain } from "@/xternal-to-main";
 
 export function ButtonFilesPicker({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
+    const isFirefoxWoFs = !isFsSupported(window);
 
     const ref = useRef<HTMLInputElement>(null);
 
+    function onClick() {
+        if (hasMain() || isFirefoxWoFs) {
+            ref.current?.click();
+        } else {
+            doSetFilesFromModernDialog({ openFiles: !openAsFolder });
+        }
+    }
+
     return (
-        <Button className="mt-4" onClick={() => ref.current?.click()}>
+        <Button className="mt-4" onClick={onClick}>
             {openAsFolder ? "Open Folder..." : "Open Files..."}
 
             <InputFileAsDlg

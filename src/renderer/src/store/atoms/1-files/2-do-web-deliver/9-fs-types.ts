@@ -27,3 +27,10 @@ export function isEntryFile(input: FileSystemEntry): input is FileSystemFileEntr
 export function isEntryDirectory(input: FileSystemEntry): input is FileSystemDirectoryEntry {
     return input.isDirectory;
 }
+
+/**
+ * Firefox does not support FileSystemHandles
+ */
+export function isFsSupported(obj: any & Window): boolean {
+    return typeof obj?.showDirectoryPicker === 'function';
+}
