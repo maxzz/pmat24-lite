@@ -10,7 +10,7 @@ export function ButtonFilesPicker({ openAsFolder }: { openAsFolder?: boolean; })
 
     return (
         <Button className="mt-4" onClick={() => ref.current?.click()}>
-            {openAsFolder ? "Open a folder" : "Open files"}
+            {openAsFolder ? "Open Folder..." : "Open Files..."}
 
             <InputFileAsDlg
                 ref={ref}
