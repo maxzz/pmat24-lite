@@ -22,20 +22,20 @@ import { MenuItem_More } from "../22-more";
 import { MenuItem_SaveAll } from "../10-file";
 
 export function MainDropdownMenu() {
-    const [open, setOpen] = useState<boolean>(false);
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
-        <DropdownMenu open={open} onOpenChange={setOpen} modal={true}>
+        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
 
             <DropdownMenuTrigger asChild>
                 <Button className="px-1" variant="outline" size="xs">
                     <IconMenuHamburger5 className="size-5" />
-                    <MenuItems_Persistent setMenuOpen={setOpen} />
+                    <MenuItems_Persistent setMenuOpen={setMenuOpen} />
                 </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="min-w-40 text-xs" align="start">
 
-                <MenuItems_OpenFiles setMenuOpen={setOpen} />
+                <MenuItems_OpenFiles setMenuOpen={setMenuOpen} />
                 <DropdownMenuSeparator />
 
                 <MenuItem_CreateMani />
