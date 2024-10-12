@@ -2,6 +2,7 @@ import { type ChangeEvent, type ReactNode, useRef, useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetFilesFromLegacyDialogAtom, maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
+import { IdOpenFiles } from "./4-menu-items_persistent";
 
 export function DropdownMenuItem_Files_FromRenderer({ children }: { children: ReactNode; }) {
     const [dlgOpen, setDlgOpen] = useState(false);
@@ -12,7 +13,9 @@ export function DropdownMenuItem_Files_FromRenderer({ children }: { children: Re
 
     function onClickToOpen() {
         setDlgOpen(true);
-        ref.current?.click();
+        //ref.current?.click();
+        const input = document.getElementById(IdOpenFiles);
+        input && input.click();
     }
 
     function onFocus() {
@@ -32,12 +35,12 @@ export function DropdownMenuItem_Files_FromRenderer({ children }: { children: Re
             onFocus={onFocus}
         >
             <div className="" onClick={onClickToOpen}>
-                <InputFileAsDlg
+                {/* <InputFileAsDlg
                     ref={ref}
                     accept=".dpm,.dpn"
                     onChange={onChange}
                     openAsFolder={false}
-                />
+                /> */}
                 {children}
             </div>
         </DropdownMenuItem>

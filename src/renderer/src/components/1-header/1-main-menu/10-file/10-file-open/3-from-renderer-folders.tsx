@@ -2,8 +2,7 @@ import { type ReactNode, useState } from "react";
 import { useSetAtom } from "jotai";
 import { maniMenuOpenAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
-
-export const openFoldersId = 'tm-open-folders';
+import { IdOpenFolders } from "./4-menu-items_persistent";
 
 export function DropdownMenuItem_Folder_FromRenderer({ children }: { children: ReactNode; }) {
     const setMenuOpen = useSetAtom(maniMenuOpenAtom);
@@ -24,7 +23,7 @@ export function DropdownMenuItem_Folder_FromRenderer({ children }: { children: R
             onSelect={(e) => e.preventDefault()}
             onFocus={onFocus}
         >
-            <label htmlFor={openFoldersId} onClick={onClickToOpen}>
+            <label htmlFor={IdOpenFolders} onClick={onClickToOpen}>
                 {children}
             </label>
         </DropdownMenuItem>
