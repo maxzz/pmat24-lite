@@ -20,9 +20,11 @@ import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
 import { MenuItem_Settings } from "../20-settings";
 import { MenuItem_More } from "../22-more";
 import { MenuItem_SaveAll } from "../10-file";
+import { useAtom } from "jotai";
+import { maniMenuOpenAtom } from "@/store";
 
 export function MainDropdownMenu() {
-    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [menuOpen, setMenuOpen] = useAtom(maniMenuOpenAtom);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
 
