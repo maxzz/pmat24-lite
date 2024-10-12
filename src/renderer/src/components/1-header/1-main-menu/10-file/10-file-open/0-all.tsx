@@ -16,7 +16,7 @@ export function MenuItems_OpenFiles() {
     }
 
     return (<>
-        <DropdownMenuItem_Open_FromRenderer openAsFolder={false} />
-        <DropdownMenuItem_Open_FromRenderer openAsFolder={true} />
+        <DropdownMenuItem_Open_FromRenderer />
+        <DropdownMenuItem_Open_FromRenderer openAsFolder />
     </>);
 }

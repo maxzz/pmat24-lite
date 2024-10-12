@@ -6,7 +6,7 @@ import { doSetFilesFromLegacyDialogAtom } from "@/store";
 export const IdOpenFiles = 'tm-dlg-open-files';
 export const IdOpenFolders = 'tm-dlg-open-folders';
 
-export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder: boolean; }) {
+export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
 
     function onClickToOpen() {
         document.getElementById(openAsFolder ? IdOpenFolders: IdOpenFiles)?.click();
@@ -24,7 +24,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
 /**
  * This component now is global to handle open files event even when UI is not rendered anymore.
  */
-export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder: boolean; }) {
+export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder?: boolean; }) {
     const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
     const id = openAsFolder ? IdOpenFolders: IdOpenFiles;
 

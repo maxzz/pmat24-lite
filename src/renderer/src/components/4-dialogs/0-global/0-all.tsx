@@ -16,8 +16,8 @@ export function AppGlobals() {
         <AppGlobalShortcuts />
 
         {/* Open legacy dialogs hidden inputs */}
-        <OpenFilesPersistentInput openAsFolder={false} />
-        <OpenFilesPersistentInput openAsFolder={true} />
+        <OpenFilesPersistentInput />
+        <OpenFilesPersistentInput openAsFolder />
 
         {/* Rest */}
         <Toaster />

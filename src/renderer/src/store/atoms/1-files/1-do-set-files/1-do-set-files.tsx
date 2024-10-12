@@ -101,7 +101,7 @@ function printDelivered(deliveredFileContents: FileContent[]) {
 
     deliveredFileContents.forEach(
         (fc) => {
-            console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fc });
+            console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fileContent: fc });
         }
     );
 }
