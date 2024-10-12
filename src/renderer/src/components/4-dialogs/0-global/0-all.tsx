@@ -1,9 +1,14 @@
-import { AppGlobalDialogs } from "./1-global-dialogs";
-import { AppGlobalShortcuts } from "./2-global-shortcuts";
+import { ManiCreateDialogs } from "../2-dlg-create-login";
+import { OptionsFilesDialog } from "../8-dlg-options";
+import { AppGlobalShortcuts } from "./1-global-shortcuts";
 
 export function AppGloabals() {
     return (<>
-        <AppGlobalDialogs />
+        {/* Global dialogs */}
+        <ManiCreateDialogs />
+        <OptionsFilesDialog />
+
+        {/* Global shortcuts */}
         <AppGlobalShortcuts />
     </>);
 }
