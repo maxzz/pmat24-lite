@@ -3,27 +3,52 @@ import { useSnapshot } from "valtio";
 import { appSettings, filesAtom } from "@/store";
 import { ButtonFilesPicker } from "./2-button-files-picker";
 import { DontShowNext } from "./3-dont-show-next";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+
+const titleStyle = {
+    color: 'black',
+    WebkitTextFillColor: 'transparent',
+    WebkitTextStroke: '0.1px hsl(var(--border))',
+    WebkitFontSmoothing: 'antialiased',
+};
+
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
-    if (!!files.length || !showWelcome) {
-        return null;
-    }
+    const showWelcomePage = showWelcome && !files.length;
+
+    // if (!showWelcomePage) {
+    //     return null;
+    // }
 
     return (
-        <div className="absolute inset-0 bg-red-500 1bg-muted-background flex flex-col items-center justify-center z-[1000]">
-            <div className="text-2xl">
-                Welcome to the app!
-            </div>
+        <MotionConfig transition={{ type: "spring", duration: .7 }}>
+            <AnimatePresence>
+                {showWelcomePage && (
+                    <motion.div
+                        className="absolute inset-0 bg-muted z-[21]"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                    >
+                        <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
+                            <div className="text-2xl font-extrabold" style={titleStyle}>
+                                {/* Password Manager Admin Tool */}
+                                Welcome to the Password Manager Admin Tool
+                            </div>
 
-            {allowHandleFiles && <ButtonFilesPicker />}
-            <ButtonFilesPicker openAsFolder />
+                            {allowHandleFiles && <ButtonFilesPicker />}
+                            <ButtonFilesPicker openAsFolder />
 
-            <DontShowNext className="absolute left-0 bottom-0 p-4" />
-        </div>
+                            <DontShowNext className="absolute left-0 bottom-0 p-4" />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </MotionConfig >
     );
 }
 
