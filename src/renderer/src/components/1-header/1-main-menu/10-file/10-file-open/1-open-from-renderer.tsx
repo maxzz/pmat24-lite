@@ -4,8 +4,8 @@ import { hasMain } from "@/xternal-to-main";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
 import { doSetFilesFromLegacyDialogAtom, doSetFilesFromModernDialogAtom, isFsSupported } from "@/store";
 
-export const IdOpenFiles = 'tm-dlg-open-files';
-export const IdOpenFolders = 'tm-dlg-open-folders';
+const IdOpenFiles = 'tm-dlg-open-files';
+const IdOpenFolders = 'tm-dlg-open-folders';
 
 type doSetFilesFromModernDialogFn = ({ openAsFolder }: { openAsFolder: boolean; }) => void;
 
@@ -21,10 +21,9 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
 }
 
 export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernDialogFn, openAsFolder?: boolean) {
-    const isFirefoxWoFs = !isFsSupported(window);
-    const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
-
-    if (hasMain() || isFirefoxWoFs) {
+    const doLegacy = hasMain() || !isFsSupported(window); // hasMain() to get full path from electron. isFsSupported() i.e not Firefox
+    if (doLegacy) {
+        const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
         document.getElementById(id)?.click();
     } else {
         openModernDialog({ openAsFolder: !!openAsFolder });
