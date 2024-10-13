@@ -11,7 +11,8 @@ const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
     const snapItems = useSnapshot(appSettings).files.itemsState;
-    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneralState);
+    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
+    const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
@@ -57,28 +58,28 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showStatusbar = !!v} />
+                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showStatusbar = !!v} />
                             Show status bar
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showOptOnRight = !!v} />
+                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showOptOnRight = !!v} />
                             Show manifest form option labels on the right side
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showQuickXml = !!v} />
+                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showQuickXml = !!v} />
                             Show quick access button to XML manifest content
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showWelcome = !!v} />
+                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showWelcome = !!v} />
                             Show Welcome screen on start
                         </Label>
                     </div>
@@ -102,8 +103,8 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneralState.showWelcome = !!v} />
-                            Show Welcome screen on start
+                            <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
+                            Allow opening of individual files
                         </Label>
                     </div>
                 </div>

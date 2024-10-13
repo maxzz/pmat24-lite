@@ -1,6 +1,4 @@
-import { UISize } from "@/store/store-types";
-
-export type UiGeneralState = {
+export type UiGeneralState = {  // General UI settings
     showStatusbar: boolean;     // Show status bar of the main window
     showOptOnRight: boolean;    // Show option labels on the right side of the manifest editor
     showWelcome: boolean;       // Show welcome screen

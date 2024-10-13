@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 export function ButtonQuickXml() {
 
     const { activeView } = useSnapshot(appSettings).right;
-    const { showQuickXml } = useSnapshot(appSettings.appUi.uiGeneralState);
+    const { showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
 
     if (!showQuickXml) {
         return null;

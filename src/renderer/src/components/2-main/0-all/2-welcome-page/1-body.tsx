@@ -6,7 +6,7 @@ import { DontShowNext } from "./3-dont-show-next";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
-    const showWelcome = useSnapshot(appSettings.appUi.uiGeneralState).showWelcome;
+    const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
 
     if (!!files.length || !showWelcome) {
         return null;
