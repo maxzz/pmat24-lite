@@ -1,18 +1,5 @@
 import { useState } from "react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-} from "@/ui/shadcn/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import {
     MenuItems_OpenFiles,
     MenuItem_FileExit,
@@ -22,8 +9,7 @@ import {
     MenuItem_SaveAll
 } from "../10-file";
 import { MenuItem_Settings } from "../20-settings";
-import { MenuItem_GetSaw, MenuItem_GetTestDirs } from "../21-debug";
-import { MenuItem_More } from "../22-more";
+//import { PreferencesSubMenu } from "./2-preferences-sub-munu";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
 
@@ -51,33 +37,8 @@ export function MainDropdownMenu() {
                 <MenuItem_SaveAll />
                 <DropdownMenuSeparator />
 
-                <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                        Preferences
-                    </DropdownMenuSubTrigger>
-
-                    <DropdownMenuPortal>
-                        <DropdownMenuSubContent className="text-xs">
-                            <MenuItem_Settings />
-                            <DropdownMenuSeparator />
-
-                            <DropdownMenuSub>
-                                <DropdownMenuSubTrigger>
-                                    Debug
-                                </DropdownMenuSubTrigger>
-
-                                <DropdownMenuPortal>
-                                    <DropdownMenuSubContent className="text-xs">
-                                        <MenuItem_GetSaw />
-                                        <MenuItem_GetTestDirs />
-                                    </DropdownMenuSubContent>
-                                </DropdownMenuPortal>
-                            </DropdownMenuSub>
-
-                            <MenuItem_More />
-                        </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                </DropdownMenuSub>
+                <MenuItem_Settings />
+                {/* <PreferencesSubMenu /> */}
 
                 <MenuItem_FileExit />
             </DropdownMenuContent>
