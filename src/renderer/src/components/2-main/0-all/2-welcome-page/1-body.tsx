@@ -14,7 +14,7 @@ export function WelcomePage() {
     }
 
     return (
-        <div className="relative h-full bg-muted-background flex flex-col items-center justify-center">
+        <div className="absolute inset-0 bg-red-500 1bg-muted-background flex flex-col items-center justify-center z-[1000]">
             <div className="text-2xl">
                 Welcome to the app!
             </div>
