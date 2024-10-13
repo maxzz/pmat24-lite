@@ -1,8 +1,11 @@
-import { DropdownMenuItem } from "@/ui";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 import { hasMain, sendToMain } from "@/xternal-to-main";
+import { DropdownMenuItem } from "@/ui";
 import { DropdownMenuItem_Open_FromRenderer } from "./1-open-from-renderer";
 
 export function MenuItems_OpenFiles() {
+    const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
     if (hasMain()) {
         return (<>
             <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:file:load-manifests-dialog" })}>
@@ -16,7 +19,7 @@ export function MenuItems_OpenFiles() {
     }
 
     return (<>
-        <DropdownMenuItem_Open_FromRenderer />
+        {allowHandleFiles && <DropdownMenuItem_Open_FromRenderer />}
         <DropdownMenuItem_Open_FromRenderer openAsFolder />
     </>);
 }

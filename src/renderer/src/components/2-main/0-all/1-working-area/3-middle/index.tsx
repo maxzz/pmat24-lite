@@ -1,10 +1,12 @@
 import { useRef } from "react";
+import { useSnapshot } from "valtio";
 import { ResizableHandle, ResizableHandleToys, ResizablePanel, ResizablePanelGroup, togglePanels, toysArrowClasses, toysMiddleClasses, } from "@ui/shadcn/resizable";
 import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels";
 import { appSettings } from "@/store";
 import { PanelA } from "../../../1-left";
 import { PanelB } from "../../../2-right";
 import { IconChevronLeft } from "@/ui/icons";
+import { classNames } from "@/utils";
 
 const panelsStorage: PanelGroupStorage = {
     getItem(name: string): string {
@@ -18,8 +20,9 @@ const panelsStorage: PanelGroupStorage = {
 export function ResizableABPanels() {
     const refA = useRef<ImperativePanelHandle>(null);
     const refB = useRef<ImperativePanelHandle>(null);
+    const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
     return (
-        <ResizablePanelGroup direction="horizontal" className="w-full _max-w-md" autoSaveId="main" storage={panelsStorage}>
+        <ResizablePanelGroup direction="horizontal" className={classNames("w-full _max-w-md", showWelcome && "hidden" )} autoSaveId="main" storage={panelsStorage}>
 
             <ResizablePanel ref={refA} collapsible defaultSize={25}>
                 <PanelA />

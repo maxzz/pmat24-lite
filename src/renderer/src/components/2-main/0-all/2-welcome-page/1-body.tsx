@@ -7,6 +7,7 @@ import { DontShowNext } from "./3-dont-show-next";
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
+    const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
     if (!!files.length || !showWelcome) {
         return null;
@@ -18,7 +19,7 @@ export function WelcomePage() {
                 Welcome to the app!
             </div>
 
-            <ButtonFilesPicker />
+            {allowHandleFiles && <ButtonFilesPicker />}
             <ButtonFilesPicker openAsFolder />
 
             <DontShowNext className="absolute left-0 bottom-0 p-4" />
