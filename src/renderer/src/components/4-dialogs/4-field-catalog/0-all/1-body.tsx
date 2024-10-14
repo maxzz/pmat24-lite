@@ -8,7 +8,7 @@ export function DialogFieldCatalogBody({ setIsOpen }: { setIsOpen: (v: boolean) 
         <div className="min-h-56 text-xs select-none">
 
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
-                <div className="py-4">PMAT Options</div>
+                <div className="py-4">Field Catalog (TODO: for folder?)</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-4 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
