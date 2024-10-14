@@ -3,8 +3,9 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-import { TestPolicyIcons } from "./8-test-policy-icons";
 import { TestOpenFiles } from "./8-test-open-files";
+import { TestOpenFieldCatalog } from "./8-test-open-field-catalog";
+// import { TestPolicyIcons } from "./8-test-policy-icons";
 
 export function SectionHeader() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
@@ -24,6 +25,7 @@ export function SectionHeader() {
                 </Button>
 
                 <TestOpenFiles />
+                <TestOpenFieldCatalog />
 
                 {/* <TestPolicyIcons /> */}
             </div>
