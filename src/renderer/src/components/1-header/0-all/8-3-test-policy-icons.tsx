@@ -8,6 +8,5 @@ export function TestPolicyIcons() {
                 return (Icon && <Icon key={idx} className="size-6" />);
             }
         )}
-
     </>);
 }

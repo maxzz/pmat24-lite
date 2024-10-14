@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
-import { doOpenFieldCatalogDialogAtom, doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
+import { doOpenFieldCatalogDialogAtom } from "@/store/atoms/7-dialogs";
 import * as D from "@/ui/shadcn/dialog";
+import { DialogFieldCatalogBody } from "./1-body";
 
 const contentClasses = "p-0 !w-1/2 max-w-xl data-[state=open]:[animation-duration:200ms]";
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
@@ -20,7 +21,7 @@ export function FieldCatalogDialog() {
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
             >
-                <div className="">123</div>
+                <DialogFieldCatalogBody setIsOpen={doOpenFieldCatalogDialog} />
                 
             </D.DialogContent>
         </D.Dialog>

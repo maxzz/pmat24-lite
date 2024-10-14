@@ -3,8 +3,8 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { MainDropdownMenu } from "../1-main-menu";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-import { TestOpenFiles } from "./8-test-open-files";
-import { TestOpenFieldCatalog } from "./8-test-open-field-catalog";
+import { TestOpenFiles } from "./8-1-test-open-files";
+import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
 // import { TestPolicyIcons } from "./8-test-policy-icons";
 
 export function SectionHeader() {
