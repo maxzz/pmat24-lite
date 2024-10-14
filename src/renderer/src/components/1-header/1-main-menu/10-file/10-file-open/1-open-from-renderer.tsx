@@ -14,7 +14,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
     return (
         <DropdownMenuItem asChild>
             <div onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)}>
-                {openAsFolder ? 'Open Folder...' : 'Open Files... (temp for debuggins only)'}
+                {openAsFolder ? 'Open Folder...' : 'Open Files... (advanced)'}
             </div>
         </DropdownMenuItem>
     );

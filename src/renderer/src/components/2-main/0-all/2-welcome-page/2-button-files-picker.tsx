@@ -12,7 +12,7 @@ export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerPr
     const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
     return (
         <Button onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)} {...rest}>
-            {openAsFolder ? 'Open Folder...' : 'Open Files... (temp for debuggins)'}
+            {openAsFolder ? 'Open Folder...' : 'Open Files... (advanced)'}
         </Button>
     );
 }

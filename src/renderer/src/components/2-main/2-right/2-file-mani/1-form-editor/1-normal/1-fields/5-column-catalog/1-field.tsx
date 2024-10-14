@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { FldCatOutData, getMruFldCatForItemAtom, openFldCatDialogAtom, creteOutBoxAtom } from "@/store";
+import { FldCatOutData, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
 import { CatalogItem, Mani } from "@/store/manifest";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
@@ -47,7 +47,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const useIt = useAtomValue(useItAtom);
 
-    const openFldCatDialog = useSetAtom(openFldCatDialogAtom);
+    const doOpenFldCatDialog = useSetAtom(doOpenFldCatDialogAtom);
 
     const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FldCatOutData>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
@@ -77,7 +77,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onSetDropdownIndex(idx: number) {
         if (idx === dropdownItems.length - 1) {
-            openFldCatDialog({ dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom });
+            doOpenFldCatDialog({ dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom });
             return;
         }
         setInputTextText(dropdownItems[idx]);

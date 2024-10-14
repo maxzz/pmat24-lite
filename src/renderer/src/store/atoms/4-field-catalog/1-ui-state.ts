@@ -10,7 +10,7 @@ export type FldCatInData = {
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
-export const openFldCatDialogAtom = atom(
+export const doOpenFldCatDialogAtom = atom(
     null,
     (get, set, inData?: FldCatInData) => {
         set(fldCatTriggerAtom, inData ? inData : {});
@@ -23,7 +23,7 @@ export type FldCatOutData = {
     fldCatItem: CatalogItem | null; // selected item
 };
 
-export const closeFldCatDialogAtom = atom(
+export const doCloseFldCatDialogAtom = atom(
     null,
     (get, set, outData: FldCatOutData) => {
         const inData = get(fldCatTriggerAtom);
