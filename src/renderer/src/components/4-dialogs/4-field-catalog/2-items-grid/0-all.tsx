@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { CatalogItem } from "@/store/manifest";
 import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
-import { Scroller } from "@ui/scroller";
+//import { Scroller } from "@ui/scroller";
 import { TableHeader } from "./1-header";
 import { FldCatItem } from "./3-field-item";
 
@@ -40,7 +40,7 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
     }
 
     return (
-        <Scroller className="pt-2 text-xs overflow-auto">
+        // <Scroller className="pt-2 text-xs overflow-auto">
             <div className="grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)] text-primary-400">
                 <TableHeader />
 
@@ -56,6 +56,6 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
                     )
                 )}
             </div>
-        </Scroller>
+        // </Scroller>
     );
 }

@@ -1,19 +1,20 @@
 import { ButtonHTMLAttributes } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
+import { Button } from "@/ui/shadcn";
 import { CatalogItem } from "@/store/manifest";
-import { closeFldCatDialogAtom } from "@/store";
-import { BottomButton } from "@/components/2-main/2-right/2-file-manifest/3-tab-policy/dlg-policy-editor/3-sections";
+import { doCloseFldCatDialogAtom } from "@/store";
+
 
 type SelectButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
 };
 
 export function SelectButton({ selectedItemAtom, ...rest }: SelectButtonProps) {
-    const closeFldCatDialog = useSetAtom(closeFldCatDialogAtom);
+    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const selectedItem = useAtomValue(selectedItemAtom);
     return (
-        <BottomButton disabled={!selectedItem} onClick={() => closeFldCatDialog({ fldCatItem: selectedItem })} {...rest}>
+        <Button disabled={!selectedItem} onClick={() => closeFldCatDialog({ fldCatItem: selectedItem })} {...rest}>
             Select
-        </BottomButton>
+        </Button>
     );
 }

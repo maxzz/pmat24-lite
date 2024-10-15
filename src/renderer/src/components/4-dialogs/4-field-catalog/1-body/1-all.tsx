@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { CatalogItem } from "@/store/manifest";
-import { closeFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
-import { DialogHeader } from "@/components/2-main/2-right/2-file-manifest/3-tab-policy/dlg-policy-editor/3-sections";
+import { doCloseFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
 import { Header } from "./2-header";
 import { MiddleBody } from "./3-middle-body";
 import { BottomButtons } from "./5-bottom-buttons";
@@ -19,7 +18,7 @@ border rounded shadow \
 flex flex-col space-y-4";
 
 export function FldCatDlgBody() {
-    const closeFldCatDialog = useSetAtom(closeFldCatDialogAtom);
+    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
 
     const inData = useAtomValue(fldCatTriggerAtom);
     const needSelect = !!inData?.outBoxAtom;
@@ -29,13 +28,11 @@ export function FldCatDlgBody() {
 
     return (
         <div className={classNames(gridFrameClasses, "w-[540px]")}>
-            {/* <DialogHeader header="Field Catalog" /> */}
-            {/* <DialogHeader header={<SubTitle />} /> */}
-            <DialogHeader header={<Header />} />
+            {/* <DialogHeader header={<Header />} /> */}
 
             <MiddleBody selectedItemAtom={selectedItemAtom} closeDlg={closeFldCatDialog} />
 
-            <BottomButtons selectedItemAtom={selectedItemAtom} needSelect={needSelect} />
+            <BottomButtons selectedItemAtom={selectedItemAtom} showSelectBtn={needSelect} />
         </div>
     );
 }

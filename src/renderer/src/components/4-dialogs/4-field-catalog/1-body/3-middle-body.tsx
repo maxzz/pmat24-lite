@@ -1,6 +1,6 @@
 import { PrimitiveAtom } from "jotai";
 import { CatalogItem } from "@/store/manifest";
-import { FldCatOutData } from "@/store";
+import { FldCatOutData } from "@/store/atoms/7-dialogs";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { SelectedItemBody } from "./4-selected-item-body";
 
