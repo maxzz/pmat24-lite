@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const doOpenFieldCatalogDialogAtom = atom(false);
+//export const doOpenFieldCatalogDialogAtom = atom(false);

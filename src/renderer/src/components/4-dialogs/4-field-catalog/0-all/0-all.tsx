@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { doOpenFieldCatalogDialogAtom } from "@/store/atoms/7-dialogs";
+import { doOpenFldCatDialogAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 
@@ -8,20 +8,20 @@ const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
 
-    const [openFieldCatalogDialog, doOpenFieldCatalogDialog] = useAtom(doOpenFieldCatalogDialogAtom);
+    const [openFieldCatalogDialog, doOpenFieldCatalogDialog] = useAtom(doOpenFldCatDialogAtom);
     if (!openFieldCatalogDialog) {
         return null;
     }
 
     return (<>
-        <D.Dialog open={openFieldCatalogDialog} onOpenChange={() => doOpenFieldCatalogDialog(false)}>
+        <D.Dialog open={openFieldCatalogDialog} onOpenChange={() => doOpenFieldCatalogDialog()}>
             <D.DialogContent
                 className={contentClasses}
                 noClose
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
             >
-                <DialogFieldCatalogBody setIsOpen={doOpenFieldCatalogDialog} />
+                <DialogFieldCatalogBody />
                 
             </D.DialogContent>
         </D.Dialog>

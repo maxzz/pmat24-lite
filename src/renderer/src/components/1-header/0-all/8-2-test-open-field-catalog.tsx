@@ -1,11 +1,11 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpenFieldCatalogDialogAtom } from "@/store/atoms/7-dialogs";
+import { doOpenFldCatDialogAtom } from "@/store";
 
 export function TestOpenFieldCatalog() {
-    const doOpenFieldCatalogDialog = useSetAtom(doOpenFieldCatalogDialogAtom);
+    const doOpenFieldCatalogDialog = useSetAtom(doOpenFldCatDialogAtom);
     return (
-        <Button className="text-[.65rem]" onClick={() => doOpenFieldCatalogDialog(true)}>
+        <Button className="text-[.65rem]" onClick={() => doOpenFieldCatalogDialog()}>
             Field Catalog...
         </Button>
     );
