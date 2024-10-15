@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { doOpenFldCatDialogAtom } from "@/store";
+import { doOpenFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 
@@ -8,13 +8,13 @@ const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
 
-    const [openFieldCatalogDialog, doOpenFieldCatalogDialog] = useAtom(doOpenFldCatDialogAtom);
-    if (!openFieldCatalogDialog) {
+    const [fldCatTrigger, doFldCatTrigger] = useAtom(fldCatTriggerAtom);
+    if (!fldCatTrigger) {
         return null;
     }
 
     return (<>
-        <D.Dialog open={openFieldCatalogDialog} onOpenChange={() => doOpenFieldCatalogDialog()}>
+        <D.Dialog open={!!fldCatTrigger} onOpenChange={() => doFldCatTrigger(null)}>
             <D.DialogContent
                 className={contentClasses}
                 noClose
