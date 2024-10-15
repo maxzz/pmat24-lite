@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { doOpenFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
+import { fldCatTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 

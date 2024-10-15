@@ -10,6 +10,13 @@ export const doOpenFldCatDialogAtom = atom(
     }
 );
 
+export const doCancelFldCatDialogAtom = atom(
+    null,
+    (get, set) => {
+        set(fldCatTriggerAtom, null);
+    }
+);
+
 export const doCloseFldCatDialogAtom = atom(
     null,
     (get, set, outData: FldCatOutData) => {
