@@ -1,9 +1,9 @@
-import { PrimitiveAtom, useSetAtom } from "jotai";
+import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { CatalogItem } from "@/store/manifest";
-import { doCancelFldCatDialogAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom } from "@/store";
 import { Button } from "@/ui/shadcn";
-import { SelectButton } from "./6-select-button";
 import { inputFocusClasses } from "./4-selected-item-body";
+import { ButtonHTMLAttributes } from "react";
 
 type BottomButtonsProps = {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
@@ -22,5 +22,19 @@ export function BottomButtons({ selectedItemAtom, showSelectBtn }: BottomButtons
                 {showSelectBtn ? 'Cancel' : 'Close'}
             </Button>
         </div>
+    );
+}
+
+type SelectButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+    selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
+};
+
+function SelectButton({ selectedItemAtom, ...rest }: SelectButtonProps) {
+    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
+    const selectedItem = useAtomValue(selectedItemAtom);
+    return (
+        <Button disabled={!selectedItem} onClick={() => closeFldCatDialog({ fldCatItem: selectedItem })} {...rest}>
+            Select
+        </Button>
     );
 }
