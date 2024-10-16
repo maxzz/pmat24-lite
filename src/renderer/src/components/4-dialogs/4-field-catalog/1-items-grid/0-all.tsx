@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { CatalogItem } from "@/store/manifest";
+import { type HTMLAttributes, useEffect, useRef, useState } from "react";
+import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { type CatalogItem } from "@/store/manifest";
 import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
 //import { Scroller } from "@ui/scroller";
 import { TableHeader } from "./1-header";
 import { FldCatItem } from "./3-field-item";
+import { classNames } from "@/utils";
 
-type FldCatItemsGridProps = {
+type FldCatItemsGridProps =  HTMLAttributes<HTMLDivElement> & {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
-    onDoubleClick: (item: CatalogItem) => void;
+    onItemDoubleClick: (item: CatalogItem) => void;
 };
 
-export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItemsGridProps) {
+export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, className, ...rest }: FldCatItemsGridProps) {
     const fldCatItems = useAtomValue(fldCatItemsAtom);
     const setSelectedItem = useSetAtom(selectedItemAtom);
 
@@ -20,7 +21,7 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
     const prevSelectedIdx = useRef(selectedIdx);
 
     const inData = useAtomValue(fldCatTriggerAtom);
-    const needSelect = !!inData?.outBoxAtom;
+    const showSelectBtn = !!inData?.outBoxAtom;
 
     useEffect(
         () => {
@@ -31,18 +32,18 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
         }, [selectedIdx]
     );
 
-    function itemClick(idx: number) {
+    function onClick(idx: number) {
         setSelectedIdx((currentIdx) => currentIdx === idx ? -1 : idx);
     }
 
-    function itemDoubleClick() {
+    function onDoubleClick() {
         setSelectedIdx(prevSelectedIdx.current);
-        needSelect && onDoubleClick(fldCatItems[prevSelectedIdx.current]);
+        showSelectBtn && onItemDoubleClick(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (
         // <Scroller className="pt-2 text-xs overflow-auto">
-        <div className="grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]">
+        <div className={classNames("grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]", className)} {...rest}>
             <TableHeader />
 
             {fldCatItems.map(
@@ -51,8 +52,8 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
                         item={item}
                         idx={idx}
                         selectedIdx={selectedIdx}
-                        itemClick={itemClick}
-                        itemDoubleClick={itemDoubleClick} key={idx}
+                        itemClick={onClick}
+                        itemDoubleClick={onDoubleClick} key={idx}
                     />
                 )
             )}
