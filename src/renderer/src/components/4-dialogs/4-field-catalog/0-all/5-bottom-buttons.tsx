@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type SelectedItemAtom } from "@/store";
 import { Button } from "@/ui/shadcn";
-import { inputFocusClasses } from "../2-selected-item-props/0-all";
+import { inputFocusClasses } from "../2-selected-item-props/8-input";
 
 type BottomButtonsProps = {
     selectedItemAtom: SelectedItemAtom;

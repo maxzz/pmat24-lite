@@ -1,17 +1,11 @@
-import { type InputHTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { classNames, turnOffAutoComplete } from "@/utils";
+import { turnOffAutoComplete } from "@/utils";
 import { type SelectedItemAtom } from "@/store";
+import { Input } from "./8-input";
 
 const inputHeight28Classes = 'px-2 py-1.5 text-xs'; // h-7
 const inputHeight32Classes = 'px-2 py-1.5 text-sm'; // h-8
-export const inputFocusClasses = "focus:outline-none focus:ring-1 focus:ring-primary-400  focus:ring-offset-1 focus:ring-offset-primary-800";
-
-function Input({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
-    return (
-        <input className={classNames("px-2 py-1.5 w-full text-primary-300 bg-primary-700 rounded", inputFocusClasses, className)} {...rest} />
-    );
-}
 
 export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
     const selectedItem = useAtomValue(selectedItemAtom);
