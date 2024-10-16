@@ -9,9 +9,6 @@ import { BottomButtons } from "./3-bottom-buttons";
 export function DialogFieldCatalogBody() {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
 
-    const inData = useAtomValue(fldCatTriggerAtom);
-    const needSelect = !!inData?.outBoxAtom;
-
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
     const selectedItem = useAtomValue(selectedItemAtom);
 
@@ -19,7 +16,7 @@ export function DialogFieldCatalogBody() {
         <div className="min-h-56 text-xs select-none">
 
             <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
-                Field Catalog (TODO: for folder?)
+                Field Catalog
 
                 <D.DialogCloseButton
                     className="right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
@@ -31,8 +28,10 @@ export function DialogFieldCatalogBody() {
             <div className="px-4 py-3">
                 <MiddleBody selectedItemAtom={selectedItemAtom} />
 
-                <BottomButtons selectedItemAtom={selectedItemAtom} showSelectBtn={needSelect} />
+                <BottomButtons selectedItemAtom={selectedItemAtom} />
             </div>
         </div>
     );
 }
+
+//TODO: show folder of the field catalog

@@ -1,6 +1,6 @@
 import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
-import { doCloseFldCatDialogAtom, fldCatItemsAtom } from "@/store";
+import { doCloseFldCatDialogAtom, fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
 import { FldCatItemsGrid } from "../1-items-grid";
 import { SelectedItemBody } from "../2-selected-item-props/0-all";
 import { Button } from "@/ui";
@@ -41,6 +41,10 @@ const dlgHeaderClasses = 'my-1 text-xs font-thin';
 export function MiddleBody({ selectedItemAtom }: MiddleBodyProps) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const totalItems = useAtomValue(fldCatItemsAtom).length;
+
+    const inData = useAtomValue(fldCatTriggerAtom);
+    const needSelect = !!inData?.outBoxAtom;
+
 
     return (<>
         <TitleItems />
