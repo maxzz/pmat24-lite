@@ -11,31 +11,15 @@ import { SelectedItemBody } from "../2-selected-item-props";
 
 const subSectionClasses = 'text-sm text-foreground bg-background border-border border-b';
 
-function TitleItems() {
-    return (
-        <div className={classNames(subSectionClasses, "mb-1 flex items-center justify-between")}>
-            <div>
-                Field catlog items
-            </div>
-
-            <Button className="mb-1 aspect-square" variant="outline" size="xs">
-                +
-            </Button>
-        </div>
-    );
-}
-
 export function DialogFieldCatalogBody() {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
     const totalItems = useAtomValue(fldCatItemsAtom).length;
-
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
-    const selectedItem = useAtomValue(selectedItemAtom);
 
     return (
-        <div className="min-h-56 text-xs select-none">
+        <>
 
             <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
                 Field Catalog
@@ -48,7 +32,16 @@ export function DialogFieldCatalogBody() {
             </D.DialogHeader>
 
             <div className="px-4 py-3">
-                <TitleItems />
+                <div className={classNames(subSectionClasses, "mb-1 flex items-center justify-between")}>
+                    <div>
+                        Field catlog items
+                    </div>
+
+                    <Button className="mb-1 aspect-square" variant="outline" size="xs">
+                        +
+                    </Button>
+                </div>
+
                 <div className="h-[50vh] min-h-[120px]">
                     <FldCatItemsGrid
                         selectedItemAtom={selectedItemAtom}
@@ -65,12 +58,12 @@ export function DialogFieldCatalogBody() {
                     {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
                 </div>
 
-
-                <BottomButtons selectedItemAtom={selectedItemAtom} />
+                <div className="pt-4 flex items-center justify-end gap-x-2">
+                    <BottomButtons selectedItemAtom={selectedItemAtom} />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
 //TODO: show folder of the field catalog
-
