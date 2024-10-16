@@ -21,15 +21,11 @@ export function PropInput({ className, ...rest }: InputHTMLAttributes<HTMLInputE
     );
 }
 
-const textareaClasses = "\
-text-xs \
-";
-
 export function PropTextarea({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
     return (
         <TextareaAutoGrow
             className="w-full text-xs min-h-0"
-            containerPaddingFont={textareaClasses}
+            containerPaddingFont="text-xs"
             {...turnOffAutoComplete}
             rows={1}
         />

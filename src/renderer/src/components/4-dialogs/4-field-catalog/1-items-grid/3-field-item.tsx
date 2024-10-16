@@ -1,7 +1,18 @@
 import { CatalogItem } from "@/store/manifest";
-import { rowClasses, col1Classes, col2Classes, col3Classes, col4Classes } from "./1-header";
+import { rowClasses, col1Classes, col2Classes, col3Classes } from "./1-header";
 import { FieldIcon } from "./4-field-icon";
 import { classNames } from "@/utils";
+
+const itemNormalClasses = "hover:text-primary-200";
+
+const itemSelectedClasses = "\
+text-primary-200 \
+bg-primary-600 \
+rounded-sm \
+hover:text-primary-100 \
+hover:bg-primay-400 \
+transition-colors \
+";
 
 type FldCatItemProps = {
     item: CatalogItem;
@@ -10,9 +21,6 @@ type FldCatItemProps = {
     itemClick: (idx: number) => void;
     itemDoubleClick: () => void;
 };
-
-const itemNormalClasses = "hover:text-primary-200";
-const itemSelectedClasses = "text-primary-200 bg-primary-600 rounded-sm hover:text-primary-100 hover:bg-primay-400 transition-colors";
 
 export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
     return (
@@ -34,9 +42,9 @@ export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick 
                 {item.displayname}
             </div>
 
-            <div className={col4Classes}>
+            {/* <div className={col4Classes}>
                 {item.dbname}
-            </div>
+            </div> */}
         </div>
     );
 }
