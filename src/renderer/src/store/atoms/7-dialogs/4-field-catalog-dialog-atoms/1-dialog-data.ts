@@ -1,5 +1,6 @@
-import { atom } from "jotai";
-import { FldCatInData, FldCatOutData } from "./9-types";
+import { atom, type PrimitiveAtom } from "jotai";
+import { type FldCatInData, type FldCatOutData } from "./9-types";
+import { type CatalogItem } from "@/store/manifest";
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
@@ -36,3 +37,7 @@ export const doCloseFldCatDialogAtom = atom(
 export function creteOutBoxAtom<T>() {
     return atom<T | null>(null);
 }
+
+// Selected item atom
+
+export type SelectedItemAtom = PrimitiveAtom<CatalogItem | null>;
