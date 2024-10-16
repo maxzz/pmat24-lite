@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { turnOffAutoComplete } from "@/utils";
 import { type SelectedItemAtom } from "@/store";
-import { PropInput } from "./8-input";
+import { PropInput, PropTextarea } from "./8-inputs";
 
 const inputHeight28Classes = 'px-2 py-1.5 text-xs'; // h-7
 const inputHeight32Classes = 'px-2 py-1.5 text-sm'; // h-8
+
+const itemClasses = "flex flex-col items-start";
 
 export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
     const selectedItem = useAtomValue(selectedItemAtom);
@@ -29,10 +30,8 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
         }, [selectedItem]
     );
 
-    const itemClasses = "flex flex-col items-start";
-
     return (
-        <div className="mt-2 text-xs grid grid-cols-[min-content_auto_10rem] gap-x-2">
+        <div className="mt-2 text-xs grid grid-cols-1">
 
             <div className={itemClasses}>
                 <div>Type</div>
@@ -49,14 +48,9 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
                 <PropInput value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
             </div>
 
-            <div className={`mt-2 col-span-full ${itemClasses}`}>
+            <div className={itemClasses}>
                 <div>Description</div>
-                <textarea
-                    className="p-1 w-full min-h-[3rem] text-[.65rem] leading-3 bg-primary-700 rounded" rows={3}
-                    value={ownernote}
-                    onChange={(e) => { setOwnernote(e.target.value); }}
-                    {...turnOffAutoComplete}
-                />
+                <PropTextarea value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
             </div>
         </div>
     ); //max-w-[340px]

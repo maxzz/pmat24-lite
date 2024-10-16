@@ -1,6 +1,6 @@
 import { type InputHTMLAttributes } from "react";
+import { Input, TextareaAutoGrow } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { Input } from "@/ui/shadcn";
 
 export const inputFocusClasses = "\
 focus:outline-none \
@@ -21,12 +21,17 @@ export function PropInput({ className, ...rest }: InputHTMLAttributes<HTMLInputE
     );
 }
 
+const textareaClasses = "\
+text-xs \
+";
+
 export function PropTextarea({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
     return (
-        <textarea
-            className="p-1 w-full min-h-[3rem] text-[.65rem] leading-3 bg-primary-700 rounded"
-            rows={3}
+        <TextareaAutoGrow
+            className="w-full text-xs min-h-0"
+            containerPaddingFont={textareaClasses}
             {...turnOffAutoComplete}
+            rows={1}
         />
     );
 }
