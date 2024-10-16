@@ -1,8 +1,8 @@
 import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
 import { doCloseFldCatDialogAtom, fldCatItemsAtom } from "@/store";
-import { FldCatItemsGrid } from "../2-items-grid";
-import { SelectedItemBody } from "../1-body/4-selected-item-body";
+import { FldCatItemsGrid } from "../1-items-grid";
+import { SelectedItemBody } from "../2-selected-item-props/0-all";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
 

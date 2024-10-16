@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useEffect, useState } from "react";
+import { type InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { type SelectedItemAtom } from "@/store";
