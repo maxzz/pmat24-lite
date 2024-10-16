@@ -449,60 +449,60 @@ const fileNames: XmlName[] = [
     //     dispname: "PayNow UN",
     //     dbname: "{df46e1cd-2212-4f3f-b3fb-5c8fb3ac4de8}",
     // },
-    // {
-    //     dispname: "PayNow PW",
-    //     dbname: "{5e37ad13-3356-4e0c-a3c5-d93930cd1cb9}",
-    //     password: "1",
-    // },
-    // {
-    //     dispname: "EAD UW",
-    //     dbname: "{65baf96d-8ad5-4eec-93d4-1f2e7a6eef4b}",
-    // },
-    // {
-    //     dispname: "EAD PW",
-    //     dbname: "{5161ae7c-6c70-4b19-ac81-7220b06782ec}",
-    //     password: "1",
-    // },
-    // {
-    //     dispname: "Encompass Instance ID",
-    //     dbname: "{d09f8905-3729-42b6-98a4-1078eec84486}",
-    // },
-    // {
-    //     dispname: "Insight/ACH Tracker UN",
-    //     dbname: "{630f68ee-bbd8-4301-b059-413db627e02e}",
-    // },
-    // {
-    //     dispname: "Insight/ACH Tracker PW",
-    //     dbname: "{0117a9ac-90f9-4401-994e-754d9c02c848}",
-    //     password: "1",
-    // },
-    // {
-    //     dispname: "3d Secure Org Name",
-    //     dbname: "{31cbcbea-ebae-4ef9-89f8-e5ff9b7b5049}",
-    // },
-    // {
-    //     dispname: "FIS IDology UN",
-    //     dbname: "{3fb2fad8-b455-4b8c-baff-092d26ba9c48}",
-    // },
-    // {
-    //     dispname: "FIS IDology PW",
-    //     dbname: "{57b20e54-b5cd-4b59-9c90-12bc112c6c45}",
-    //     password: "1",
-    // },
-    // {
-    //     dispname: "SailPoint University PW",
-    //     dbname: "{7a75b516-a46d-42ec-b861-09f97a2dd466}",
-    //     password: "1",
-    // },
-    // {
-    //     dispname: "DataVerify UN",
-    //     dbname: "{0e0b3e82-01fd-43ee-992a-7d7a1269c31b}",
-    // },
-    // {
-    //     dispname: "DataVerify PW",
-    //     dbname: "{c019f206-e1cd-4581-bb86-c7847e2ced89}",
-    //     password: "1",
-    // },
+    {
+        dispname: "PayNow PW",
+        dbname: "{5e37ad13-3356-4e0c-a3c5-d93930cd1cb9}",
+        password: "1",
+    },
+    {
+        dispname: "EAD UW",
+        dbname: "{65baf96d-8ad5-4eec-93d4-1f2e7a6eef4b}",
+    },
+    {
+        dispname: "EAD PW",
+        dbname: "{5161ae7c-6c70-4b19-ac81-7220b06782ec}",
+        password: "1",
+    },
+    {
+        dispname: "Encompass Instance ID",
+        dbname: "{d09f8905-3729-42b6-98a4-1078eec84486}",
+    },
+    {
+        dispname: "Insight/ACH Tracker UN",
+        dbname: "{630f68ee-bbd8-4301-b059-413db627e02e}",
+    },
+    {
+        dispname: "Insight/ACH Tracker PW",
+        dbname: "{0117a9ac-90f9-4401-994e-754d9c02c848}",
+        password: "1",
+    },
+    {
+        dispname: "3d Secure Org Name",
+        dbname: "{31cbcbea-ebae-4ef9-89f8-e5ff9b7b5049}",
+    },
+    {
+        dispname: "FIS IDology UN",
+        dbname: "{3fb2fad8-b455-4b8c-baff-092d26ba9c48}",
+    },
+    {
+        dispname: "FIS IDology PW",
+        dbname: "{57b20e54-b5cd-4b59-9c90-12bc112c6c45}",
+        password: "1",
+    },
+    {
+        dispname: "SailPoint University PW",
+        dbname: "{7a75b516-a46d-42ec-b861-09f97a2dd466}",
+        password: "1",
+    },
+    {
+        dispname: "DataVerify UN",
+        dbname: "{0e0b3e82-01fd-43ee-992a-7d7a1269c31b}",
+    },
+    {
+        dispname: "DataVerify PW",
+        dbname: "{c019f206-e1cd-4581-bb86-c7847e2ced89}",
+        password: "1",
+    },
 ];
 
 export const catalogTestNames: CatalogFile.ItemInFile[] = (

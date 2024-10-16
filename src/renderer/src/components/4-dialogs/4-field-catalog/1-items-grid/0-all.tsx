@@ -6,8 +6,9 @@ import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
 import { TableHeader } from "./1-header";
 import { FldCatItem } from "./3-field-item";
 import { classNames } from "@/utils";
+import { ScrollArea } from "@/ui/shadcn";
 
-type FldCatItemsGridProps =  HTMLAttributes<HTMLDivElement> & {
+type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
     onItemDoubleClick: (item: CatalogItem) => void;
 };
@@ -42,22 +43,22 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, className
     }
 
     return (
-        // <Scroller className="pt-2 text-xs overflow-auto">
-        <div className={classNames("grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]", className)} {...rest}>
-            <TableHeader />
+        <div className={classNames("grid 1grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]", className)} {...rest}>
+            {/* <TableHeader /> */}
 
-            {fldCatItems.map(
-                (item, idx) => (
-                    <FldCatItem
-                        item={item}
-                        idx={idx}
-                        selectedIdx={selectedIdx}
-                        itemClick={onClick}
-                        itemDoubleClick={onDoubleClick} key={idx}
-                    />
-                )
-            )}
+            <ScrollArea className="h-full max-h-32">
+                {fldCatItems.map(
+                    (item, idx) => (
+                        <FldCatItem
+                            item={item}
+                            idx={idx}
+                            selectedIdx={selectedIdx}
+                            itemClick={onClick}
+                            itemDoubleClick={onDoubleClick} key={idx}
+                        />
+                    )
+                )}
+            </ScrollArea>
         </div>
-        // </Scroller>
     );
 }

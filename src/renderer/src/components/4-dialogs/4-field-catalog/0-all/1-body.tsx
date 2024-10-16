@@ -4,8 +4,6 @@ import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, typ
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./3-bottom-buttons";
-import { Button } from "@/ui/shadcn";
-import { classNames } from "@/utils";
 import { FldCatItemsGrid } from "../1-items-grid";
 import { SelectedItemBody } from "../2-selected-item-props";
 import { FieldCatalogToolbar } from "./2-toolbar";
@@ -31,16 +29,6 @@ export function DialogFieldCatalogBody() {
         </D.DialogHeader>
 
         <div className="px-4 py-3">
-            <div className={classNames(subSectionClasses, "mb-1 flex items-center justify-between")}>
-                <div>
-                    Field catlog items
-                </div>
-
-                <Button className="mb-1 aspect-square" variant="outline" size="xs">
-                    +
-                </Button>
-            </div>
-
             <FieldCatalogToolbar />
 
             <FldCatItemsGrid
