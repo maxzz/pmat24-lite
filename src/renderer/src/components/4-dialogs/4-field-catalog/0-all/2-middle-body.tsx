@@ -2,7 +2,7 @@ import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
 import { doCloseFldCatDialogAtom, fldCatItemsAtom } from "@/store";
 import { FldCatItemsGrid } from "../2-items-grid";
-import { SelectedItemBody } from "./4-selected-item-body";
+import { SelectedItemBody } from "../1-body/4-selected-item-body";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
 
@@ -21,6 +21,8 @@ function TitleItems() {
         </div>
     );
 }
+
+
 
 function TitleProps() {
     return (

@@ -3,7 +3,8 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, fldCatTriggerAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
-import { BottomButtons, MiddleBody } from "../1-body";
+import { MiddleBody } from "./2-middle-body";
+import { BottomButtons } from "./5-bottom-buttons";
 
 export function DialogFieldCatalogBody() {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
