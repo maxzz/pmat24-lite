@@ -36,26 +36,27 @@ export function FldCatItemsGrid({ selectedItemAtom, onDoubleClick }: FldCatItems
     }
 
     function itemDoubleClick() {
-        setSelectedIdx(prevSelectedIdx.current); needSelect && onDoubleClick(fldCatItems[prevSelectedIdx.current]);
+        setSelectedIdx(prevSelectedIdx.current);
+        needSelect && onDoubleClick(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (
         // <Scroller className="pt-2 text-xs overflow-auto">
-            <div className="grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)] text-primary-400">
-                <TableHeader />
+        <div className="grid grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]">
+            <TableHeader />
 
-                {fldCatItems.map(
-                    (item, idx) => (
-                        <FldCatItem
-                            item={item}
-                            idx={idx}
-                            selectedIdx={selectedIdx}
-                            itemClick={itemClick}
-                            itemDoubleClick={itemDoubleClick} key={idx}
-                        />
-                    )
-                )}
-            </div>
+            {fldCatItems.map(
+                (item, idx) => (
+                    <FldCatItem
+                        item={item}
+                        idx={idx}
+                        selectedIdx={selectedIdx}
+                        itemClick={itemClick}
+                        itemDoubleClick={itemDoubleClick} key={idx}
+                    />
+                )
+            )}
+        </div>
         // </Scroller>
     );
 }
