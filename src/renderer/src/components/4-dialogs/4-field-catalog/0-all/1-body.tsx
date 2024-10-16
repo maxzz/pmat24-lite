@@ -3,8 +3,7 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
-import { Button } from "@/ui";
-import { MiddleBody } from "../1-body/2-middle-body";
+import { BottomButtons, MiddleBody } from "../1-body";
 
 export function DialogFieldCatalogBody() {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
@@ -30,12 +29,8 @@ export function DialogFieldCatalogBody() {
 
             <div className="px-4 py-3">
                 <MiddleBody selectedItemAtom={selectedItemAtom} />
-            </div>
 
-            <div className="py-3 boreder-border border-t text-center">
-                <Button variant="default" size={"sm"} onClick={doCancelFldCatDialog}>
-                    Close
-                </Button>
+                <BottomButtons selectedItemAtom={selectedItemAtom} showSelectBtn={needSelect} />
             </div>
         </div>
     );
