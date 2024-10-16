@@ -18,7 +18,6 @@ border rounded shadow \
 flex flex-col space-y-4";
 
 export function FldCatDlgBody() {
-    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
 
     const inData = useAtomValue(fldCatTriggerAtom);
     const needSelect = !!inData?.outBoxAtom;
@@ -30,7 +29,7 @@ export function FldCatDlgBody() {
         <div className={classNames(gridFrameClasses, "w-[540px]")}>
             {/* <DialogHeader header={<Header />} /> */}
 
-            <MiddleBody selectedItemAtom={selectedItemAtom} closeDlg={closeFldCatDialog} />
+            <MiddleBody selectedItemAtom={selectedItemAtom} />
 
             <BottomButtons selectedItemAtom={selectedItemAtom} showSelectBtn={needSelect} />
         </div>

@@ -12,3 +12,5 @@ export function Header() {
         </div>
     );
 }
+
+//TODO: show statistics at the bottom of the dialog
