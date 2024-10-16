@@ -8,6 +8,7 @@ import { Button } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { FldCatItemsGrid } from "../1-items-grid";
 import { SelectedItemBody } from "../2-selected-item-props";
+import { FieldCatalogToolbar } from "./2-toolbar";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
@@ -39,6 +40,8 @@ export function DialogFieldCatalogBody() {
                     +
                 </Button>
             </div>
+
+            <FieldCatalogToolbar />
 
             <FldCatItemsGrid
                 className="min-h-32"
