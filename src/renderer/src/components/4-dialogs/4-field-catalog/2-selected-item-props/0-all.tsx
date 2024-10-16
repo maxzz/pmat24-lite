@@ -36,17 +36,17 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
 
             <div className={itemClasses}>
                 <div>Type</div>
-                <PropInput className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} {...turnOffAutoComplete} />
+                <PropInput className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} />
             </div>
 
             <div className={itemClasses}>
                 <div>Name</div>
-                <PropInput value={localName} onChange={(e) => setLocalName(e.target.value)} {...turnOffAutoComplete} />
+                <PropInput value={localName} onChange={(e) => setLocalName(e.target.value)} />
             </div>
 
             <div className={itemClasses}>
                 <div>Value</div>
-                <PropInput value={localValue} onChange={(e) => setLocalValue(e.target.value)} {...turnOffAutoComplete} />
+                <PropInput value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
             </div>
 
             <div className={`mt-2 col-span-full ${itemClasses}`}>

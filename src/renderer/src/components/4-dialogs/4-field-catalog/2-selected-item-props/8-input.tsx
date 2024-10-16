@@ -1,5 +1,5 @@
 import { type InputHTMLAttributes } from "react";
-import { classNames } from "@/utils";
+import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui/shadcn";
 
 export const inputFocusClasses = "\
@@ -15,6 +15,7 @@ export function PropInput({ className, ...rest }: InputHTMLAttributes<HTMLInputE
     return (
         <Input
             className={classNames("", inputFocusClasses, className)}
+            {...turnOffAutoComplete}
             {...rest}
         />
     );
