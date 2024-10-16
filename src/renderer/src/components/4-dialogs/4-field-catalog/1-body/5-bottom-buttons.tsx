@@ -24,11 +24,7 @@ export function BottomButtons({ selectedItemAtom, showSelectBtn }: BottomButtons
     );
 }
 
-type SelectButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-    selectedItemAtom: SelectedItemAtom;
-};
-
-function SelectButton({ selectedItemAtom, ...rest }: SelectButtonProps) {
+function SelectButton({ selectedItemAtom, ...rest }: {selectedItemAtom: SelectedItemAtom}) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const selectedItem = useAtomValue(selectedItemAtom);
     return (

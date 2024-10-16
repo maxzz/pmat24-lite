@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
+import { doCancelFldCatDialogAtom, fldCatTriggerAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons, MiddleBody } from "../1-body";
@@ -11,7 +11,7 @@ export function DialogFieldCatalogBody() {
     const inData = useAtomValue(fldCatTriggerAtom);
     const needSelect = !!inData?.outBoxAtom;
 
-    const selectedItemAtom = useState(() => atom<CatalogItem | null>(null))[0];
+    const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
     const selectedItem = useAtomValue(selectedItemAtom);
 
     return (

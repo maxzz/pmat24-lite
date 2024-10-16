@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useEffect, useState } from "react";
-import { PrimitiveAtom, atom, useAtom, useAtomValue } from "jotai";
-import { CatalogItem } from "@/store/manifest";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { type SelectedItemAtom } from "@/store";
 
 const inputHeight28Classes = 'px-2 py-1.5 text-xs'; // h-7
 const inputHeight32Classes = 'px-2 py-1.5 text-sm'; // h-8
@@ -13,7 +13,7 @@ function Input({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
     );
 }
 
-export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: PrimitiveAtom<CatalogItem | null>; }) {
+export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
     const selectedItem = useAtomValue(selectedItemAtom);
 
     const nameAtom = useState(() => atom(selectedItem?.displayname || ''))[0];
