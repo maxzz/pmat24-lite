@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue } from "jotai";
 import { CatalogItem } from "@/store/manifest";
-import { doCloseFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
-import { Header } from "./2-header";
+import { fldCatTriggerAtom } from "@/store";
 import { MiddleBody } from "./3-middle-body";
 import { BottomButtons } from "./5-bottom-buttons";
 import { classNames } from "@/utils";

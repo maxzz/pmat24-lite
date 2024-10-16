@@ -1,6 +1,6 @@
-import { type PrimitiveAtom, useSetAtom } from "jotai";
+import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
-import { doCloseFldCatDialogAtom } from "@/store";
+import { doCloseFldCatDialogAtom, fldCatItemsAtom } from "@/store";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { SelectedItemBody } from "./4-selected-item-body";
 import { Button } from "@/ui";
@@ -34,8 +34,12 @@ type MiddleBodyProps = {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
 };
 
+const dlgHeaderClasses = 'my-1 text-xs font-thin';
+
 export function MiddleBody({ selectedItemAtom }: MiddleBodyProps) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
+    const totalItems = useAtomValue(fldCatItemsAtom).length;
+
     return (<>
         <SubTitleA />
         <div className="h-[50vh] min-h-[120px]">
@@ -47,5 +51,9 @@ export function MiddleBody({ selectedItemAtom }: MiddleBodyProps) {
 
         <SubTitleB />
         <SelectedItemBody selectedItemAtom={selectedItemAtom} />
+
+        <div className={dlgHeaderClasses}>
+            {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
+        </div>
     </>);
 }
