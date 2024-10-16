@@ -20,3 +20,13 @@ export function PropInput({ className, ...rest }: InputHTMLAttributes<HTMLInputE
         />
     );
 }
+
+export function PropTextarea({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
+    return (
+        <textarea
+            className="p-1 w-full min-h-[3rem] text-[.65rem] leading-3 bg-primary-700 rounded"
+            rows={3}
+            {...turnOffAutoComplete}
+        />
+    );
+}
