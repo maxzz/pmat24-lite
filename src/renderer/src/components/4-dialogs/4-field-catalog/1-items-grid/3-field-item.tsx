@@ -6,11 +6,9 @@ import { classNames } from "@/utils";
 const itemNormalClasses = "hover:text-primary-200";
 
 const itemSelectedClasses = "\
-text-primary-200 \
-bg-primary-600 \
+text-primary-200 bg-primary-600 \
+hover:text-primary-100 hover:bg-primay-400 \
 rounded-sm \
-hover:text-primary-100 \
-hover:bg-primay-400 \
 transition-colors \
 ";
 

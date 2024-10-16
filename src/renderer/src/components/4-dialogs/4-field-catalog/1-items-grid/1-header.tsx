@@ -1,4 +1,4 @@
-export const rowClasses = "px-2 py-px col-start-2 flex items-center space-x-2";
+export const rowClasses = "1px-2 py-px col-start-2 flex items-center space-x-2";
 
 export const col1Classes = "w-[4ch] text-right";
 export const col2Classes = "w-[1.5rem] flex items-center justify-center gap-x-2 leading-[18px]";

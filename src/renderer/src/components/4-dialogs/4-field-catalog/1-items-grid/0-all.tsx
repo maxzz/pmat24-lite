@@ -2,7 +2,6 @@ import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
 import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
-//import { Scroller } from "@ui/scroller";
 import { TableHeader } from "./1-header";
 import { FldCatItem } from "./3-field-item";
 import { classNames } from "@/utils";

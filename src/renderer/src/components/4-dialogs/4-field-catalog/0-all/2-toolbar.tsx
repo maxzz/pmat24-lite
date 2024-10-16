@@ -7,19 +7,24 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
         <div className={classNames("flex items-center justify-end gap-1", className)}>
 
             <Button className={inputFocusClasses}>
-                Add
+                Filter
             </Button>
 
             <Button className={inputFocusClasses}>
-                Close
+                Sort by
             </Button>
 
             <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs">
                 +
             </Button>
             
+            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs">
+                {'>>'}
+            </Button>
+
         </div>
     );
 }
 
 //TODO: add sorting and filtering
+//TODO: add expand/collapse properties

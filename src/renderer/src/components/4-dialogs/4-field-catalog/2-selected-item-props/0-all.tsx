@@ -6,15 +6,16 @@ import { PropInput, PropTextarea } from "./8-inputs";
 const inputHeight28Classes = 'px-2 py-1.5 text-xs'; // h-7
 const inputHeight32Classes = 'px-2 py-1.5 text-sm'; // h-8
 
-const itemClasses = "flex flex-col items-start";
+const itemClasses = "flex flex-col";
 
 export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
+
     const selectedItem = useAtomValue(selectedItemAtom);
 
-    const nameAtom = useState(() => atom(selectedItem?.displayname || ''))[0];
-    const valueAtom = useState(() => atom(selectedItem?.value || ''))[0];
-    const typeAtom = useState(() => atom(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt'))[0];
-    const ownernoteAtom = useState(() => atom(selectedItem?.ownernote || ''))[0];
+    const nameAtom      /**/ = useState(() => atom(selectedItem?.displayname || ''))[0];
+    const valueAtom     /**/ = useState(() => atom(selectedItem?.value || ''))[0];
+    const typeAtom      /**/ = useState(() => atom(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt'))[0];
+    const ownernoteAtom /**/ = useState(() => atom(selectedItem?.ownernote || ''))[0];
 
     const [localName, setLocalName] = useAtom(nameAtom);
     const [localValue, setLocalValue] = useAtom(valueAtom);
@@ -55,3 +56,5 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
         </div>
     ); //max-w-[340px]
 }
+
+//TODO: add validation
