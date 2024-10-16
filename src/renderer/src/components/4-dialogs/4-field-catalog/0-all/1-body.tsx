@@ -4,7 +4,7 @@ import { doCancelFldCatDialogAtom, fldCatTriggerAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
-import { MiddleBody } from "../1-body/3-middle-body";
+import { MiddleBody } from "../1-body/2-middle-body";
 
 export function DialogFieldCatalogBody() {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);

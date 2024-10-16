@@ -2,7 +2,7 @@ import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
 import { CatalogItem } from "@/store/manifest";
 import { fldCatTriggerAtom } from "@/store";
-import { MiddleBody } from "./3-middle-body";
+import { MiddleBody } from "./2-middle-body";
 import { BottomButtons } from "./5-bottom-buttons";
 import { classNames } from "@/utils";
 
@@ -26,8 +26,6 @@ export function FldCatDlgBody() {
 
     return (
         <div className={classNames(gridFrameClasses, "w-[540px]")}>
-            {/* <DialogHeader header={<Header />} /> */}
-
             <MiddleBody selectedItemAtom={selectedItemAtom} />
 
             <BottomButtons selectedItemAtom={selectedItemAtom} showSelectBtn={needSelect} />

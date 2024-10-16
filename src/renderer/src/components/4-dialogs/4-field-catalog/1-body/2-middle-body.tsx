@@ -8,7 +8,7 @@ import { classNames } from "@/utils";
 
 const subSectionClasses = 'text-sm text-foreground bg-background border-border border-b';
 
-function SubTitleA() {
+function TitleItems() {
     return (
         <div className={classNames(subSectionClasses, "mb-1 flex items-center justify-between")}>
             <div>
@@ -22,7 +22,7 @@ function SubTitleA() {
     );
 }
 
-function SubTitleB() {
+function TitleProps() {
     return (
         <div className={subSectionClasses}>
             Selected item
@@ -41,7 +41,7 @@ export function MiddleBody({ selectedItemAtom }: MiddleBodyProps) {
     const totalItems = useAtomValue(fldCatItemsAtom).length;
 
     return (<>
-        <SubTitleA />
+        <TitleItems />
         <div className="h-[50vh] min-h-[120px]">
             <FldCatItemsGrid
                 selectedItemAtom={selectedItemAtom}
@@ -49,7 +49,7 @@ export function MiddleBody({ selectedItemAtom }: MiddleBodyProps) {
             />
         </div>
 
-        <SubTitleB />
+        <TitleProps />
         <SelectedItemBody selectedItemAtom={selectedItemAtom} />
 
         <div className={dlgHeaderClasses}>
