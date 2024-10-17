@@ -1,7 +1,8 @@
 import { CatalogItem } from "@/store/manifest";
 import { rowClasses, col1Classes, col2Classes, col3Classes } from "./1-header";
-import { FieldIcon } from "./4-field-icon";
+// import { FieldIcon } from "./4-field-icon";
 import { classNames } from "@/utils";
+import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 
 const itemNormalClasses = "hover:text-primary-200";
 
@@ -30,15 +31,17 @@ export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick 
             onDoubleClick={itemDoubleClick}
             key={item.uuid}
         >
-            <div className={classNames(col1Classes, "col-start-1")}>
+            <div className={classNames("col-start-1")}>
                 {idx + 1}
             </div>
 
-            <div className={classNames(col2Classes, "col-start-2")}>
+            {/* <div className={classNames("col-start-2")}>
                 {FieldIcon(item.password, "size-4 opacity-50")}
-            </div>
+            </div> */}
 
-            <div className={classNames(col3Classes, "col-start-3 whitespace-nowrap")}>
+            <FieldIcon className="size-4 opacity-50" isPsw={item.password} />
+
+            <div className={classNames("col-start-3 whitespace-nowrap")}>
                 {item.displayname}
             </div>
 
@@ -47,4 +50,13 @@ export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick 
             </div> */}
         </div>
     );
+}
+
+export function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className: string; }) {
+    const type = isPsw ? 'psw' : 'edit';
+    const Icon =
+        fieldIcons[type]?.({ className, title: `Field type: ${type}`, })
+        ||
+        <div className="text-red-500">NaN</div>;
+    return Icon;
 }
