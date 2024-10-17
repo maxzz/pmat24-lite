@@ -6,6 +6,8 @@ import { CatalogItem } from "@/store/manifest";
  */
 export type FldCatInData = {
     dbid?: string | undefined;      // dbid of the field catalog item to initially select
+    showTxt: boolean;               // show text fields only
+    showPsw: boolean;               // show password fields only
     outBoxAtom?: PrimitiveAtom<FldCatOutData | null>; // selected item output atom
 };
 

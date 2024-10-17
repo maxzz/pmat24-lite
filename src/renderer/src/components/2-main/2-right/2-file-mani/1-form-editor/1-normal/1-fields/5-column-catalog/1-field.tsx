@@ -77,7 +77,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onSetDropdownIndex(idx: number) {
         if (idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom });
+            doOpenFldCatDialog({ dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword });
             return;
         }
         setInputTextText(dropdownItems[idx]);

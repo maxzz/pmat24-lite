@@ -7,7 +7,7 @@ export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 export const doOpenFldCatDialogAtom = atom(
     null,
     (get, set, inData?: FldCatInData) => {
-        set(fldCatTriggerAtom, inData ? inData : {});
+        set(fldCatTriggerAtom, inData ? inData : {showTxt: true, showPsw: true});
     }
 );
 
