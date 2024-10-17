@@ -1,6 +1,4 @@
 import { CatalogItem } from "@/store/manifest";
-import { rowClasses, col1Classes, col2Classes, col3Classes } from "./1-header";
-// import { FieldIcon } from "./4-field-icon";
 import { classNames } from "@/utils";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 
@@ -35,24 +33,16 @@ export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick 
                 {idx + 1}
             </div>
 
-            {/* <div className={classNames("col-start-2")}>
-                {FieldIcon(item.password, "size-4 opacity-50")}
-            </div> */}
-
-            <FieldIcon className="size-4 opacity-50" isPsw={item.password} />
+            <FieldIcon className="col-start-2 size-4 opacity-50" isPsw={item.password} />
 
             <div className={classNames("col-start-3 whitespace-nowrap")}>
                 {item.displayname}
             </div>
-
-            {/* <div className={col4Classes}>
-                {item.dbname}
-            </div> */}
         </div>
     );
 }
 
-export function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className: string; }) {
+function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className: string; }) {
     const type = isPsw ? 'psw' : 'edit';
     const Icon =
         fieldIcons[type]?.({ className, title: `Field type: ${type}`, })

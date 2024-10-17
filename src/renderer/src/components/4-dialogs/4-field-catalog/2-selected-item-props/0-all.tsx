@@ -60,3 +60,5 @@ export function SelectedItemBody({ selectedItemAtom, className, ...rest }: { sel
 
 //TODO: scroll to newly created item
 //TODO: scroll the initial item if provided
+
+//TODO: show item's dbid
