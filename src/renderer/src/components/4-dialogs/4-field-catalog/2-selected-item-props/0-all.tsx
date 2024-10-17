@@ -32,7 +32,7 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
     );
 
     return (
-        <div className="mt-2 text-xs grid grid-cols-1">
+        <div className="mt-2 text-xs bg-blue-300 grid grid-cols-1">
 
             <div className={itemClasses}>
                 <div>Type</div>

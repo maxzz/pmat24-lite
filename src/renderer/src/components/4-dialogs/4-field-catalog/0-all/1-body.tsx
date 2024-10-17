@@ -28,18 +28,18 @@ export function DialogFieldCatalogBody() {
             />
         </D.DialogHeader>
 
-        <div className="px-4 py-3">
+        <div className="px-2 pb-3">
             <FieldCatalogToolbar />
 
             <FldCatItemsGrid
-                className="min-h-32"
+                className="min-h-32 bg-red-500/30"
                 selectedItemAtom={selectedItemAtom}
                 onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
             />
 
-            <div className={subSectionClasses}>
+            {/* <div className={subSectionClasses}>
                 Selected item
-            </div>
+            </div> */}
             <SelectedItemBody selectedItemAtom={selectedItemAtom} />
 
             <div className="my-1 text-xs font-thin">
