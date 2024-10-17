@@ -42,7 +42,7 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, className
     }
 
     return (
-        <div className={classNames("grid 1grid-cols-[minmax(0,1fr)_max-content_minmax(0,1fr)]", className)} {...rest}>
+        <div className={classNames("grid grid-cols-[auto_auto_minmax(0,1fr)]", className)} {...rest}>
             {/* <TableHeader /> */}
 
             <ScrollArea className="h-full max-h-32">

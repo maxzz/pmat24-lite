@@ -20,23 +20,25 @@ type FldCatItemProps = {
     itemDoubleClick: () => void;
 };
 
+const row2Classes = "col-span-full grid grid-cols-subgrid";
+
 export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
     return (
         <div
-            className={classNames(rowClasses, "cursor-default select-none", selectedIdx === idx ? itemSelectedClasses : itemNormalClasses)}
+            className={classNames(row2Classes, selectedIdx === idx ? itemSelectedClasses : itemNormalClasses)}
             onClick={() => itemClick(idx)}
             onDoubleClick={itemDoubleClick}
             key={item.uuid}
         >
-            <div className={col1Classes}>
+            <div className={classNames(col1Classes, "col-start-1")}>
                 {idx + 1}
             </div>
 
-            <div className={col2Classes}>
+            <div className={classNames(col2Classes, "col-start-2")}>
                 {FieldIcon(item.password, "size-4 opacity-50")}
             </div>
 
-            <div className={`${col3Classes} whitespace-nowrap`}>
+            <div className={classNames(col3Classes, "col-start-3 whitespace-nowrap")}>
                 {item.displayname}
             </div>
 
