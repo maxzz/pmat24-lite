@@ -28,25 +28,24 @@ export function DialogFieldCatalogBody() {
             />
         </D.DialogHeader>
 
-        <div className="px-2 pb-3">
-            <FieldCatalogToolbar />
+        <div className="px-3 pb-3">
+            <FieldCatalogToolbar className="pt-2 1bg-red-500/10" />
 
-            <FldCatItemsGrid
-                className="min-h-32 bg-red-500/30"
-                selectedItemAtom={selectedItemAtom}
-                onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
-            />
+            <div className="mt-2 border-border border rounded grid grid-cols-[1fr_auto] gap-2">
+                <FldCatItemsGrid
+                    className="min-h-32 1bg-red-500/30"
+                    selectedItemAtom={selectedItemAtom}
+                    onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
+                />
 
-            {/* <div className={subSectionClasses}>
-                Selected item
-            </div> */}
-            <SelectedItemBody selectedItemAtom={selectedItemAtom} />
+                <SelectedItemBody className="1bg-blue-300 px-2 border-border border-l" selectedItemAtom={selectedItemAtom} />
+            </div>
 
             <div className="my-1 text-xs font-thin">
                 {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
                 <BottomButtons selectedItemAtom={selectedItemAtom} />
             </div>
         </div>

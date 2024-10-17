@@ -5,7 +5,7 @@ import { classNames } from "@/utils";
 
 export function FieldCatalogToolbar({ className }: { className?: string; }) {
     return (
-        <div className={classNames("bg-red-500/10 flex items-center justify-end gap-1", className)}>
+        <div className={classNames("flex items-center justify-end gap-1", className)}>
 
             <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" title="Add new item">
                 +

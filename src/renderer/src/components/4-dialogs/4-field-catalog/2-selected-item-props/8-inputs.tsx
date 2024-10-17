@@ -1,6 +1,8 @@
 import { type InputHTMLAttributes } from "react";
-import { Input, TextareaAutoGrow } from "@/ui/shadcn";
+import { Input, Label, TextareaAutoGrow } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
+
+const itemClasses = "text-xs flex flex-col";
 
 export const inputFocusClasses = "\
 focus:outline-none \
@@ -11,23 +13,29 @@ focus:ring-primary-400 \
 focus:ring-offset-primary-800 \
 ";
 
-export function PropInput({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
+export function PropInput({ label, className, ...rest }: { label: string; } & InputHTMLAttributes<HTMLInputElement>) {
     return (
-        <Input
-            className={classNames("", inputFocusClasses, className)}
-            {...turnOffAutoComplete}
-            {...rest}
-        />
+        <Label className={itemClasses}>
+            {label}
+            <Input
+                className={classNames("h-7", inputFocusClasses, className)}
+                {...turnOffAutoComplete}
+                {...rest}
+            />
+        </Label>
     );
 }
 
-export function PropTextarea({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
+export function PropTextarea({ label, className, ...rest }: { label: string; } & InputHTMLAttributes<HTMLInputElement>) {
     return (
-        <TextareaAutoGrow
-            className="w-full text-xs min-h-0"
-            containerPaddingFont="text-xs"
-            {...turnOffAutoComplete}
-            rows={1}
-        />
+        <Label className={itemClasses}>
+            {label}
+            <TextareaAutoGrow
+                className="w-full text-xs min-h-0"
+                containerPaddingFont="text-xs"
+                {...turnOffAutoComplete}
+                rows={1}
+            />
+        </Label >
     );
 }
