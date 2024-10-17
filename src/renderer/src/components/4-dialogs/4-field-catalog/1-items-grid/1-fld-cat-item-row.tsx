@@ -1,6 +1,6 @@
-import { CatalogItem } from "@/store/manifest";
-import { classNames } from "@/utils";
+import { type CatalogItem } from "@/store/manifest";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
+import { classNames } from "@/utils";
 
 const itemNormalClasses = "hover:text-primary-200";
 
@@ -21,7 +21,7 @@ type FldCatItemProps = {
 
 const row2Classes = "col-span-full grid grid-cols-subgrid";
 
-export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
+export function FldCatItemRow({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
     return (
         <div
             className={classNames(row2Classes, selectedIdx === idx ? itemSelectedClasses : itemNormalClasses)}
@@ -29,13 +29,13 @@ export function FldCatItem({ item, idx, selectedIdx, itemClick, itemDoubleClick 
             onDoubleClick={itemDoubleClick}
             key={item.uuid}
         >
-            <div className={classNames("col-start-1")}>
+            <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
                 {idx + 1}
             </div>
 
-            <FieldIcon className="col-start-2 size-4 opacity-50" isPsw={item.password} />
+            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.password} />
 
-            <div className={classNames("col-start-3 whitespace-nowrap")}>
+            <div className={classNames("col-start-3 truncate")}>
                 {item.displayname}
             </div>
         </div>

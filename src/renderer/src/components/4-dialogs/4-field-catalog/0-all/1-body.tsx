@@ -29,19 +29,21 @@ export function DialogFieldCatalogBody() {
         </D.DialogHeader>
 
         <div className="px-3 pb-3">
-            <FieldCatalogToolbar className="pt-2 bg-red-300/10" />
+            <FieldCatalogToolbar className="py-1 bg-red-300/10" />
 
-            <div className="mt-2 border-border border rounded grid grid-cols-[1fr_auto] gap-1">
+            <div className="bg-green-300/10 border-border border rounded grid grid-cols-[1fr_auto]">
                 <FldCatItemsGrid
-                    className="min-h-32 bg-red-200/10"
                     selectedItemAtom={selectedItemAtom}
                     onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
                 />
 
-                <SelectedItemBody className="bg-blue-300/10 px-2 py-2 border-border border-l" selectedItemAtom={selectedItemAtom} />
+                <SelectedItemBody
+                    className="bg-blue-300/10 px-2 py-2 border-border border-l"
+                    selectedItemAtom={selectedItemAtom}
+                />
             </div>
 
-            <div className="my-1 text-xs font-thin">
+            <div className="font-thin">
                 {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
             </div>
 

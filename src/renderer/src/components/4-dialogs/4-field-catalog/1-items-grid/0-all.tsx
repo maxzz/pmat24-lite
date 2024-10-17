@@ -2,7 +2,7 @@ import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
 import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
-import { FldCatItem } from "./3-field-item";
+import { FldCatItemRow } from "./1-fld-cat-item-row";
 import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
 
@@ -41,22 +41,21 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }
     }
 
     return (
-        <div {...rest}>
-            <ScrollArea className="h-full max-h-32">
-                <div className={classNames("grid grid-cols-[auto_auto_minmax(0,1fr)]")}>
-                    {fldCatItems.map(
-                        (item, idx) => (
-                            <FldCatItem
-                                item={item}
-                                idx={idx}
-                                selectedIdx={selectedIdx}
-                                itemClick={onClick}
-                                itemDoubleClick={onDoubleClick} key={idx}
-                            />
-                        )
-                    )}
-                </div>
-            </ScrollArea>
-        </div>
+        <ScrollArea className="h-full max-h-32">
+            {/* <div className={classNames("grid grid-cols-[auto_auto_minmax(0,1fr)]")}> */}
+            <div className={classNames("grid grid-cols-[auto_auto_220px]")}>
+                {fldCatItems.map(
+                    (item, idx) => (
+                        <FldCatItemRow
+                            item={item}
+                            idx={idx}
+                            selectedIdx={selectedIdx}
+                            itemClick={onClick}
+                            itemDoubleClick={onDoubleClick} key={idx}
+                        />
+                    )
+                )}
+            </div>
+        </ScrollArea>
     );
 }
