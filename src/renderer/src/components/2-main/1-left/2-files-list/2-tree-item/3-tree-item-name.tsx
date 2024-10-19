@@ -10,14 +10,13 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     const hasChanges = !!changes.size;
     const title = hasChanges ? "This file has changes" : undefined;
 
-    return (
-        <div className={classNames("flex-grow truncate flex items-center", hasChanges && "text-orange-500 1font-semibold")} title={title}>
+    return (<>
+        {hasChanges && (
+            <SymbolFire className="flex-none mr-0.5 size-3" colorize />
+        )}
 
-            {hasChanges && (
-                <SymbolFire className="mr-0.5 size-3" colorize />
-            )}
-
+        <div className={classNames("truncate", hasChanges && "text-orange-500 1font-semibold")} title={title}>
             {item.name}
         </div>
-    );
+    </>);
 }
