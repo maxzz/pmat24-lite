@@ -27,11 +27,19 @@ const hFullClasses = "[&_[data-radix-scroll-area-viewport]>div]:h-full";
 
 const ScrollArea = forwardRef<ElementRef<typeof Prim.Root>, ScrollAreaProps>(
     ({ className, children, horizontal, fixedWidth, fullHeight, ...rest }, ref) => (
-        <Prim.Root ref={ref} className={cn("relative overflow-hidden", fixedWidth && fixedWidthClasses, fullHeight && hFullClasses, className)} {...rest}>
+        <Prim.Root ref={ref} className={cn("relative overflow-hidden []", fixedWidth && fixedWidthClasses, fullHeight && hFullClasses, className)} {...rest}>
 
-            <Prim.Viewport className="h-full w-full rounded-[inherit]">
-                {children}
+            <Prim.Viewport className="h-full w-full rounded-[inherit] [&>div]:1!min-w-0 [&_[data-radix-scroll-area-content]]:!min-w-0">
+                {/* <div className="qq [&>div>div]:!min-w-0"> */}
+                    {children}
+                {/* </div> */}
             </Prim.Viewport>
+
+            {/* <Prim.Viewport className="h-full w-full rounded-[inherit]" asChild>
+                <div className="qq [&>div]:!min-w-0">
+                    {children}
+                </div>
+            </Prim.Viewport> */}
 
             <ScrollBar />
             {horizontal && <ScrollBar orientation="horizontal" />}
