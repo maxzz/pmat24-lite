@@ -47,6 +47,8 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
     & TreeIconOptions
 >;
 
+export const treeActiveClasses = "[--parent-active:0px] focus-within:[--parent-active:1px]"; // so children can be styled when parent is active
+
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
     (props, ref) => {
         const { data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem, arrowFirst, hideFolderIcon, selectAsTrigger, scrollAreaProps, className, ...rest } = props;
@@ -115,7 +117,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
         return (
             <div
                 ref={(elm) => { refRootCb(elm); refRoot.current = elm; }}
-                className={className}
+                className={classNames(treeActiveClasses, className)}
                 tabIndex={0}
                 onKeyDown={(e) => {
                     const nextId = getNextId(refRoot.current!, e, treeState.selectedId);
