@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, showPropsAtom, type SelectedItemAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
-import { FldCatItemsGrid } from "../2-items-grid";
-import { SelectedItemBody } from "../3-selected-item-props";
 import { FieldCatalogToolbar } from "../1-toolbar";
+import { FldCatItemsGrid } from "../2-items-grid";
+import { RightPanelGuard } from "../3-selected-item-props";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
@@ -16,8 +16,6 @@ export function DialogFieldCatalogBody() {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
     const totalItems = useAtomValue(fldCatItemsAtom).length;
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
-
-    const showProps = useAtomValue(showPropsAtom);
 
     return (<div>
         <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
@@ -39,12 +37,10 @@ export function DialogFieldCatalogBody() {
                     onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
                 />
 
-                {showProps && (
-                    <SelectedItemBody
-                        className="1bg-blue-300/10 px-2 py-2 border-border border-l"
-                        selectedItemAtom={selectedItemAtom}
-                    />
-                )}
+                <RightPanelGuard
+                    className="1bg-blue-300/10 px-2 py-2 border-border border-l"
+                    selectedItemAtom={selectedItemAtom}
+                />
             </div>
 
             <div className="font-thin">
