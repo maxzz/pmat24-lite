@@ -1,17 +1,21 @@
+import { showPropsAtom } from "@/store";
 import { IconMenuHamburger5, SymbolChevronRight, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn";
 import { classNames } from "@/utils";
+import { useSetAtom } from "jotai";
 
 export function FieldCatalogToolbar({ className }: { className?: string; }) {
+    const doShowProps = useSetAtom(showPropsAtom);
+
     return (
         <div className={classNames("flex items-center justify-end gap-1", className)}>
 
             <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
                 +
             </Button>
-            
-            <Button className={inputFocusClasses} tabIndex={-1} title="Show item details">
+
+            <Button className={inputFocusClasses} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
                 <SymbolDoubleDown className="size-3 -rotate-90" />
             </Button>
 

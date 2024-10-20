@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, showPropsAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
@@ -17,6 +17,8 @@ export function DialogFieldCatalogBody() {
     const totalItems = useAtomValue(fldCatItemsAtom).length;
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
 
+    const showProps = useAtomValue(showPropsAtom);
+
     return (<div>
         <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
             Field Catalog
@@ -32,17 +34,17 @@ export function DialogFieldCatalogBody() {
             <FieldCatalogToolbar className="py-1 1bg-red-300/10" />
 
             <div className="1bg-green-300/20 border-border border rounded grid grid-cols-[1fr_auto]">
-                {/* <FldCatItemsGrid
+                <FldCatItemsGrid
                     selectedItemAtom={selectedItemAtom}
                     onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
-                /> */}
-
-                123
-
-                <SelectedItemBody
-                    className="1bg-blue-300/10 px-2 py-2 border-border border-l"
-                    selectedItemAtom={selectedItemAtom}
                 />
+
+                {showProps && (
+                    <SelectedItemBody
+                        className="1bg-blue-300/10 px-2 py-2 border-border border-l"
+                        selectedItemAtom={selectedItemAtom}
+                    />
+                )}
             </div>
 
             <div className="font-thin">
