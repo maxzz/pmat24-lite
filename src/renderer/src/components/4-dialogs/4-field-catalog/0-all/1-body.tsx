@@ -17,25 +17,27 @@ export function DialogFieldCatalogBody() {
     const totalItems = useAtomValue(fldCatItemsAtom).length;
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
 
-    return (<>
+    return (<div>
         <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
             Field Catalog
 
             <D.DialogCloseButton
-                className="right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
                 onClick={doCancelFldCatDialog}
                 tabIndex={-1}
             />
         </D.DialogHeader>
 
-        <div className="px-3 pb-3">
-            <FieldCatalogToolbar className="py-1 bg-red-300/10" />
+        <div className="px-3 pb-3 1h-full 1flex 1flex-col 1min-h-0 1h-32">
+            <FieldCatalogToolbar className="py-1 1bg-red-300/10" />
 
-            <div className="bg-green-300/10 border-border border rounded grid grid-cols-[1fr_auto]">
-                <FldCatItemsGrid
+            <div className="bg-green-300/20 border-border border rounded grid grid-cols-[1fr_auto]">
+                {/* <FldCatItemsGrid
                     selectedItemAtom={selectedItemAtom}
                     onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
-                />
+                /> */}
+
+                123
 
                 <SelectedItemBody
                     className="bg-blue-300/10 px-2 py-2 border-border border-l"
@@ -51,7 +53,7 @@ export function DialogFieldCatalogBody() {
                 <BottomButtons selectedItemAtom={selectedItemAtom} />
             </div>
         </div>
-    </>);
+    </div>);
 }
 
 //TODO: show folder of the field catalog

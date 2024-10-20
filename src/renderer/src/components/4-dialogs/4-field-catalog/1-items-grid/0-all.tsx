@@ -5,6 +5,7 @@ import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
 import { FldCatItemRow } from "./1-fld-cat-item-row";
 import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
+import useResizeObserver from "use-resize-observer";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
@@ -40,22 +41,28 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }
         showSelectBtn && onItemDoubleClick(fldCatItems[prevSelectedIdx.current]);
     }
 
+    const refRoot = useRef<HTMLDivElement | null>(null);
+    const { ref: refRootCb, width, height } = useResizeObserver();
+
+    console.log('FldCatItemsGrid render', width, height);
+
     return (
-        <ScrollArea className="h-full max-h-32">
-            {/* <div className={classNames("grid grid-cols-[auto_auto_minmax(0,1fr)]")}> */}
-            <div className={classNames("grid grid-cols-[auto_auto_220px]")}>
-                {fldCatItems.map(
-                    (item, idx) => (
-                        <FldCatItemRow
-                            item={item}
-                            idx={idx}
-                            selectedIdx={selectedIdx}
-                            itemClick={onClick}
-                            itemDoubleClick={onDoubleClick} key={idx}
-                        />
-                    )
-                )}
-            </div>
-        </ScrollArea>
+        <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`w-full h-full flex flex-col outline-none`}>
+            <ScrollArea style={{ width, height }} className="1h-full 1max-h-32">
+                <div className={classNames("grid grid-cols-[auto_auto_220px]")} tabIndex={0}>
+                    {fldCatItems.map(
+                        (item, idx) => (
+                            <FldCatItemRow
+                                item={item}
+                                idx={idx}
+                                selectedIdx={selectedIdx}
+                                itemClick={onClick}
+                                itemDoubleClick={onDoubleClick} key={idx}
+                            />
+                        )
+                    )}
+                </div>
+            </ScrollArea>
+        </div>
     );
 }

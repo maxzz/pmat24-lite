@@ -33,7 +33,7 @@ export function SelectedItemBody({ selectedItemAtom, className, ...rest }: { sel
     );
 
     return (
-        <div className={classNames("text-xs grid grid-cols-1", className)} {...rest}>
+        <div className={classNames("text-xs flex flex-col", className)} {...rest}>
 
             <div className={itemClasses}>
                 <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} />

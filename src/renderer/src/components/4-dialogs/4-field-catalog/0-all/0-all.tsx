@@ -3,7 +3,7 @@ import { fldCatTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 
-const contentClasses = "p-0 !w-fit max-w-xl text-xs gap-0 select-none data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-fit min-w-56 max-w-xl min-h-64 text-xs gap-0 select-none data-[state=open]:[animation-duration:200ms]";
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
