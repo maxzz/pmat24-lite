@@ -3,10 +3,10 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
-import { BottomButtons } from "./3-bottom-buttons";
-import { FldCatItemsGrid } from "../1-items-grid";
-import { SelectedItemBody } from "../2-selected-item-props";
-import { FieldCatalogToolbar } from "./2-toolbar";
+import { BottomButtons } from "./2-bottom-buttons";
+import { FldCatItemsGrid } from "../2-items-grid";
+import { SelectedItemBody } from "../3-selected-item-props";
+import { FieldCatalogToolbar } from "../1-toolbar";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
