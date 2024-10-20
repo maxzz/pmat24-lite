@@ -1,18 +1,24 @@
-import { type SelectedItemAtom, showPropsAtom } from "@/store";
 import { useAtomValue } from "jotai";
-import { HTMLAttributes } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { type SelectedItemAtom, showPropsAtom } from "@/store";
 import { SelectedItemBody } from "./1-body";
-import { AnimatePresence } from "framer-motion";
 import { classNames } from "@/utils";
 
-export function RightPanelGuard({selectedItemAtom, className, ...rest}: { selectedItemAtom: SelectedItemAtom; } & HTMLAttributes<HTMLDivElement>) {
+export function RightPanelGuard({ selectedItemAtom, className }: { selectedItemAtom: SelectedItemAtom; className?: string; }) {
     const showProps = useAtomValue(showPropsAtom);
     return (<>
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
             {showProps && (
-                <div className={classNames("text-xs flex flex-col", className)} {...rest}>
+                <motion.div
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+
+                    className={classNames("text-xs flex flex-col", className)}
+                >
                     <SelectedItemBody selectedItemAtom={selectedItemAtom} />
-                </div>
+                </motion.div>
             )}
         </AnimatePresence>
     </>);
