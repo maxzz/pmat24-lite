@@ -2,15 +2,6 @@ import { type CatalogItem } from "@/store/manifest";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
 
-const itemNormalClasses = "hover:text-primary-200";
-
-const itemSelectedClasses = "\
-text-primary-200 bg-primary-600 \
-hover:text-primary-100 hover:bg-primay-400 \
-rounded-sm \
-transition-colors \
-";
-
 type FldCatItemProps = {
     item: CatalogItem;
     idx: number;
@@ -19,12 +10,23 @@ type FldCatItemProps = {
     itemDoubleClick: () => void;
 };
 
-const row2Classes = "col-span-full grid grid-cols-subgrid";
+const rowClasses = "\
+px-2 py-1 \
+text-foreground bg-background \
+hover:text-accent-foreground hover:bg-muted \
+col-span-full grid grid-cols-subgrid items-center \
+";
+
+const rowSelectedClasses = "\
+hover:text-foreground \
+rounded \
+transition-colors \
+";
 
 export function FldCatItemRow({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
     return (
         <div
-            className={classNames(row2Classes, selectedIdx === idx ? itemSelectedClasses : itemNormalClasses)}
+            className={classNames(rowClasses, selectedIdx === idx && rowSelectedClasses)}
             onClick={() => itemClick(idx)}
             onDoubleClick={itemDoubleClick}
             key={item.uuid}

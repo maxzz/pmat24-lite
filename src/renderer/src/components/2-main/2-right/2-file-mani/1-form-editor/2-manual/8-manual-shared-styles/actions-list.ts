@@ -1,4 +1,4 @@
-export const rowParentActiveClasses = "[--parent-active:0px] focus-within:[--parent-active:1px]";
+export const rowParentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
 export const rowClasses = "\
 leading-6 \
@@ -11,7 +11,7 @@ bg-primary-400/20 dark:bg-primary-400/20 \
 hover:!bg-primary-400/30 \
 \
 outline-primary-400 \
+[outline-width:calc(var(--parent-active)_*_1px)] \
+outline rounded-[3px] \
 \
-[outline-width:var(--parent-active)] \
-\
-outline rounded-[3px] cursor-default";
+cursor-default";
