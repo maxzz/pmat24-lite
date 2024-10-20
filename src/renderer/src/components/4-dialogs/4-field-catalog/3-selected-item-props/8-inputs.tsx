@@ -1,5 +1,5 @@
 import { type InputHTMLAttributes } from "react";
-import { Input, Label, TextareaAutoGrow } from "@/ui/shadcn";
+import { fixTextareaResizeClasses, Input, Label, Textarea, TextareaAutoGrow } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
@@ -23,7 +23,7 @@ export function PropInput({ label, className, ...rest }: { label: string; } & In
         <Label className={itemClasses}>
             {label}
             <Input
-                className={classNames("h-7", inputFocusClasses, inputRingClasses, className)}
+                className={classNames("h-7 text-xs", inputFocusClasses, inputRingClasses, className)}
                 {...turnOffAutoComplete}
                 {...rest}
             />
@@ -35,10 +35,11 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
     return (
         <Label className={itemClasses}>
             {label}
-            <TextareaAutoGrow
-                className={classNames("w-full text-xs min-h-0", inputFocusClasses)}
-                containerPaddingFont="text-xs"
-                rows={1}
+            {/* <TextareaAutoGrow */}
+            <Textarea
+                className={classNames("min-h-36 text-xs", fixTextareaResizeClasses, inputFocusClasses)}
+                // containerPaddingFont="text-xs"
+                // rows={1}
                 {...turnOffAutoComplete}
                 {...rest}
             />
