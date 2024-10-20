@@ -1,12 +1,11 @@
-import { HTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { type SelectedItemAtom } from "@/store";
 import { PropInput, PropTextarea } from "./8-inputs";
-import { classNames } from "@/utils";
 
 const itemClasses = "flex flex-col";
 
-export function SelectedItemBody({ selectedItemAtom, className, ...rest }: { selectedItemAtom: SelectedItemAtom; } & HTMLAttributes<HTMLDivElement>) {
+export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
 
     const selectedItem = useAtomValue(selectedItemAtom);
 
@@ -29,26 +28,23 @@ export function SelectedItemBody({ selectedItemAtom, className, ...rest }: { sel
         }, [selectedItem]
     );
 
-    return (
-        <div className={classNames("text-xs flex flex-col", className)} {...rest}>
-
-            <div className={itemClasses}>
-                <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} />
-            </div>
-
-            <div className={itemClasses}>
-                <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
-            </div>
-
-            <div className={itemClasses}>
-                <PropInput label={"Value"} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
-            </div>
-
-            <div className={itemClasses}>
-                <PropTextarea label="Description" value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
-            </div>
+    return (<>
+        <div className={itemClasses}>
+            <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} />
         </div>
-    );
+
+        <div className={itemClasses}>
+            <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
+        </div>
+
+        <div className={itemClasses}>
+            <PropInput label={"Value"} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
+        </div>
+
+        <div className={itemClasses}>
+            <PropTextarea label="Description" value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
+        </div>
+    </>);
 }
 
 //TODO: don't allow to change type if item; type defined from the Add menu

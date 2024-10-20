@@ -1,1 +1,1 @@
-export * from "./1-right-panel-guard";
+export * from "./0-all-guard";
