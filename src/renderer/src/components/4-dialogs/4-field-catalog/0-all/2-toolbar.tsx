@@ -7,15 +7,15 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
     return (
         <div className={classNames("flex items-center justify-end gap-1", className)}>
 
-            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" title="Add new item">
+            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
                 +
             </Button>
             
-            <Button className={inputFocusClasses} title="Show item details">
+            <Button className={inputFocusClasses} tabIndex={-1} title="Show item details">
                 <SymbolDoubleDown className="size-3 -rotate-90" />
             </Button>
 
-            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs">
+            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
                 <IconMenuHamburger5 className="size-3" />
             </Button>
 

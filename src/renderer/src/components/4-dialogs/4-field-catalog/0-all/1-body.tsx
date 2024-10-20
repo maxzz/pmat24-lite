@@ -31,7 +31,7 @@ export function DialogFieldCatalogBody() {
         <div className="px-3 pb-3 1h-full 1flex 1flex-col 1min-h-0 1h-32">
             <FieldCatalogToolbar className="py-1 1bg-red-300/10" />
 
-            <div className="bg-green-300/20 border-border border rounded grid grid-cols-[1fr_auto]">
+            <div className="1bg-green-300/20 border-border border rounded grid grid-cols-[1fr_auto]">
                 {/* <FldCatItemsGrid
                     selectedItemAtom={selectedItemAtom}
                     onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
@@ -40,7 +40,7 @@ export function DialogFieldCatalogBody() {
                 123
 
                 <SelectedItemBody
-                    className="bg-blue-300/10 px-2 py-2 border-border border-l"
+                    className="1bg-blue-300/10 px-2 py-2 border-border border-l"
                     selectedItemAtom={selectedItemAtom}
                 />
             </div>

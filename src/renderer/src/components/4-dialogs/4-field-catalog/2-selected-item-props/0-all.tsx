@@ -4,9 +4,6 @@ import { type SelectedItemAtom } from "@/store";
 import { PropInput, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
-const inputHeight28Classes = 'px-2 py-1.5 text-xs'; // h-7
-const inputHeight32Classes = 'px-2 py-1.5 text-sm'; // h-8
-
 const itemClasses = "flex flex-col";
 
 export function SelectedItemBody({ selectedItemAtom, className, ...rest }: { selectedItemAtom: SelectedItemAtom; } & HTMLAttributes<HTMLDivElement>) {
