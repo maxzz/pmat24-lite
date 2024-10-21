@@ -1,25 +1,27 @@
+import { useAtom } from "jotai";
 import { showPropsAtom } from "@/store";
-import { IconMenuHamburger5, SymbolChevronRight, SymbolDoubleDown } from "@/ui/icons";
-import { inputFocusClasses } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn";
+import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
+import { inputFocusClasses } from "@/ui/local-ui";
 import { classNames } from "@/utils";
-import { useSetAtom } from "jotai";
+
+const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
 export function FieldCatalogToolbar({ className }: { className?: string; }) {
-    const doShowProps = useSetAtom(showPropsAtom);
+    const [showProps, doShowProps] = useAtom(showPropsAtom);
 
     return (
         <div className={classNames("flex items-center justify-end gap-1", className)}>
 
-            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
+            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
                 +
             </Button>
 
-            <Button className={inputFocusClasses} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
-                <SymbolDoubleDown className="size-3 -rotate-90" />
+            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
+                <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'}`} />
             </Button>
 
-            <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
+            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
                 <IconMenuHamburger5 className="size-3" />
             </Button>
 
