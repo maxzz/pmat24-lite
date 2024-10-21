@@ -5,6 +5,7 @@ import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
 import { classNames } from "@/utils";
 import { FC_PanelMenu } from "./1-fc-menu";
+import { AddItem_PanelMenu } from "./2-add-item-menu";
 
 const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
@@ -14,9 +15,10 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
     return (
         <div className={classNames("flex items-center justify-end gap-1", className)}>
 
-            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
+            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
                 +
-            </Button>
+            </Button> */}
+            <AddItem_PanelMenu />
 
             <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
                 <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'}`} />
