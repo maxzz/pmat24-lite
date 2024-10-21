@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/ui/shadcn";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
-import { MenuItem_More } from "@/components/1-header/1-main-menu/22-more";
 
 export function AddItem_PanelMenu() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -19,11 +18,10 @@ export function AddItem_PanelMenu() {
                 <DropdownMenuItem>
                     Add Text Field
                 </DropdownMenuItem>
+                
                 <DropdownMenuItem>
-                    Add Text Field
+                    Add Password Field
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <MenuItem_More />
 
             </DropdownMenuContent>
         </DropdownMenu>

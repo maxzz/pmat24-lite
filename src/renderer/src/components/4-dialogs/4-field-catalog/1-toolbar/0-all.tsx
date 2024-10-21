@@ -20,7 +20,8 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
             </Button> */}
             <AddItem_PanelMenu />
 
-            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
+            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}> */}
+            <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
                 <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'}`} />
             </Button>
 
