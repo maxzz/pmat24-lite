@@ -47,7 +47,7 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }
     console.log('FldCatItemsGrid render', width, height);
 
     return (
-        <div className="flex-none relative w-full h-full min-h-80">
+        <div className="flex-shrink-0 1self-stretch 1justify-self-stretch  relative w-full 1h-full min-h-full 1min-h-80">
             <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`absolute inset-0 flex flex-col outline-none`}>
                 <ScrollArea style={{ width, height }} className="1h-full 1max-h-32">
                     <div className={classNames("grid grid-cols-[auto_auto_220px]")} tabIndex={0}>
