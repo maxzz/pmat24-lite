@@ -39,7 +39,7 @@ export function DialogFieldCatalogBody() {
                 />
 
                 <RightPanelGuard
-                    className="1bg-blue-300/10 px-2 py-2 border-border border-l"
+                    className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
                     selectedItemAtom={selectedItemAtom}
                 />
             </div>

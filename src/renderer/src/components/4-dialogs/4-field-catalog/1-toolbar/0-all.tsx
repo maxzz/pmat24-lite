@@ -22,7 +22,7 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
 
             {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}> */}
             <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
-                <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'}`} />
+                <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'} transition-transform duration-200`} />
             </Button>
 
             {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
