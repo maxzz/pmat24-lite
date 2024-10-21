@@ -30,11 +30,12 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
 
     return (<>
         <div className={itemClasses}>
-            <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} />
+            <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
         </div>
 
-        <div className={itemClasses}>
-            <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
+        <div className="py-2">
+            {/* <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} /> */}
+            Field type: {localType === 'txt' ? 'Text' : 'Password'}
         </div>
 
         <div className={itemClasses}>
