@@ -4,6 +4,7 @@ import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
 import { classNames } from "@/utils";
+import { FC_PanelMenu } from "./1-fc-menu";
 
 const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
@@ -21,9 +22,11 @@ export function FieldCatalogToolbar({ className }: { className?: string; }) {
                 <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'}`} />
             </Button>
 
-            <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
+            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
                 <IconMenuHamburger5 className="size-3" />
-            </Button>
+            </Button> */}
+
+            <FC_PanelMenu />
 
         </div>
     );
