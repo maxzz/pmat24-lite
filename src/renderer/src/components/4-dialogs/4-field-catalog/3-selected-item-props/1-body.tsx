@@ -24,7 +24,8 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
             setLocalName(selectedItem?.displayname || '');
             setLocalValue(selectedItem?.value || '');
             setLocalType(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt');
-            setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {}));
+            //setOwnernote(selectedItem?.ownernote || '');
+            setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
         }, [selectedItem]
     );
 
@@ -34,7 +35,6 @@ export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: Selec
         </div>
 
         <div className="py-2">
-            {/* <PropInput label={"Type"} className="w-[3rem]" value={localType} onChange={(e) => setLocalType(e.target.value)} /> */}
             Field type: {localType === 'txt' ? 'Text' : 'Password'}
         </div>
 

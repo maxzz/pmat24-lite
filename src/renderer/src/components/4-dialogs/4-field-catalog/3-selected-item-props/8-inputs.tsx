@@ -3,7 +3,7 @@ import { fixTextareaResizeClasses, Input, Label, Textarea, TextareaAutoGrow } fr
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
-const itemClasses = "text-xs flex flex-col";
+const itemClasses = "text-xs font-normal flex flex-col";
 
 export const inputFocusClasses = "\
 \

@@ -15,7 +15,7 @@ export function RightPanelGuard({ selectedItemAtom, className }: { selectedItemA
                     exit={{ opacity: 0, width: 0 }}
                     transition={{ duration: 0.2 }}
 
-                    className={classNames("w-[200px] text-xs flex flex-col", className)}
+                    className={classNames("min-w-40 text-xs bg-mani-background border-border border rounded-e shadow flex flex-col overflow-hidden", className)}
                 >
                     {/* <motion.div layout> */}
                         <SelectedItemBody selectedItemAtom={selectedItemAtom} />
