@@ -18,12 +18,16 @@ focus:ring-offset-mani-background \
 focus:ring-mani-ring-activated \
 ";
 
+const inputFocusClasses2 = "";
+const fixTextareaResizeClasses2 = "";
+const inputRingClasses2 = "";
+
 export function PropInput({ label, className, ...rest }: { label: string; } & InputHTMLAttributes<HTMLInputElement>) {
     return (
         <Label className={itemClasses}>
             {label}
             <Input
-                className={classNames("h-7 text-xs", inputFocusClasses, inputRingClasses, className)}
+                className={classNames("h-7 text-xs", inputFocusClasses2, inputRingClasses2, className)}
                 {...turnOffAutoComplete}
                 {...rest}
             />
@@ -37,7 +41,7 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
             {label}
             {/* <TextareaAutoGrow */}
             <Textarea
-                className={classNames("min-h-36 text-xs", fixTextareaResizeClasses, inputFocusClasses)}
+                className={classNames("min-h-[162px] text-xs", fixTextareaResizeClasses2, inputFocusClasses2)}
                 // containerPaddingFont="text-xs"
                 // rows={1}
                 {...turnOffAutoComplete}
