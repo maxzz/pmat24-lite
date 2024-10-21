@@ -27,7 +27,7 @@ export function PropInput({ label, className, ...rest }: { label: string; } & In
         <Label className={itemClasses}>
             {label}
             <Input
-                className={classNames("h-7 text-xs", inputFocusClasses2, inputRingClasses2, className)}
+                className={classNames("h-7 text-xs", inputFocusClasses2, inputRingClasses, className)}
                 {...turnOffAutoComplete}
                 {...rest}
             />
@@ -41,7 +41,7 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
             {label}
             {/* <TextareaAutoGrow */}
             <Textarea
-                className={classNames("min-h-[162px] text-xs", fixTextareaResizeClasses2, inputFocusClasses2)}
+                className={classNames("min-h-[162px] text-xs", fixTextareaResizeClasses2, inputFocusClasses)}
                 // containerPaddingFont="text-xs"
                 // rows={1}
                 {...turnOffAutoComplete}
