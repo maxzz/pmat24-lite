@@ -47,22 +47,24 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }
     console.log('FldCatItemsGrid render', width, height);
 
     return (
-        <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`w-full h-full flex flex-col outline-none`}>
-            <ScrollArea style={{ width, height }} className="1h-full 1max-h-32">
-                <div className={classNames("grid grid-cols-[auto_auto_220px]")} tabIndex={0}>
-                    {fldCatItems.map(
-                        (item, idx) => (
-                            <FldCatItemRow
-                                item={item}
-                                idx={idx}
-                                selectedIdx={selectedIdx}
-                                itemClick={onClick}
-                                itemDoubleClick={onDoubleClick} key={idx}
-                            />
-                        )
-                    )}
-                </div>
-            </ScrollArea>
+        <div className="relative w-full h-full">
+            <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`absolute inset-0 flex flex-col outline-none`}>
+                <ScrollArea style={{ width, height }} className="1h-full 1max-h-32">
+                    <div className={classNames("grid grid-cols-[auto_auto_220px]")} tabIndex={0}>
+                        {fldCatItems.map(
+                            (item, idx) => (
+                                <FldCatItemRow
+                                    item={item}
+                                    idx={idx}
+                                    selectedIdx={selectedIdx}
+                                    itemClick={onClick}
+                                    itemDoubleClick={onDoubleClick} key={idx}
+                                />
+                            )
+                        )}
+                    </div>
+                </ScrollArea>
+            </div>
         </div>
     );
 }
