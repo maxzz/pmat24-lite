@@ -1,4 +1,4 @@
-import { type CatalogFile, type Mani } from '@/store/manifest';
+import { catalogItemInFileToFieldValue, type CatalogFile } from '@/store/manifest';
 import { type FceItem, type FceRoot } from '../../4-field-catalogs';
 import { uuid } from '@/utils';
 
@@ -20,12 +20,4 @@ export function fieldCatToFceRoot(fcat: CatalogFile.Root): FceRoot {
         ),
     };
     return rv;
-}
-
-function catalogItemInFileToFieldValue(catalogName: CatalogFile.ItemInFile): Mani.FieldValue {
-    const { dispname, ...rest } = catalogName;
-    return {
-        displayname: dispname,
-        ...rest,
-    };
 }

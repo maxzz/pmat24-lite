@@ -2,6 +2,8 @@ import { type PrimitiveAtom, type WritableAtom } from "jotai";
 import { type CatalogFile, type Mani, type Meta } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { type ChangesSet, type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
+import { type FceRoot } from "../atoms/4-field-catalogs";
+
 
 export type FileUsState = {
     isGroupAtom: PrimitiveAtom<boolean>;            // this fileUs selected for bulk group operation
@@ -26,9 +28,10 @@ export type FileUsStats = {
 };
 
 export type FileUs = FileContent & {
-    mani?: Mani.Manifest;                           // json raw manifest
-    meta?: Meta.Form[];                             // meta data on manifest
-    fcat?: CatalogFile.Root;                        // field catalog
+    mani?: Mani.Manifest;                           // for manifest raw json
+    meta?: Meta.Form[];                             // for manifest file parsed content and meta forms
+    fcat?: CatalogFile.Root;                        // for field catalog file parsed content
+    fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
 
     state: FileUsState;                             // local state atoms: is currnet; is selected
     stats: FileUsStats;                             // quick access statistics
