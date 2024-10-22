@@ -13,7 +13,7 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
         return null;
     }
 
-    const metaForm = fileUs.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
+    const metaForm = fileUs.parsedSrc.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
     if (!metaForm) {
         return <NoFormTabContent formType={formIdx} />;
     }

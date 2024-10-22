@@ -22,12 +22,12 @@ export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean,
 }
 
 export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
-    if (fileUs.fcat) {
+    if (fileUs.parsedSrc.fcat) {
         return { appIcon: AppIconType.cat, warning: false };
     }
 
-    const hasBailOut = isAnyWhy(fileUs.meta);
-    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.meta), isManual(fileUs.meta), showIeWranIcon);
+    const hasBailOut = isAnyWhy(fileUs.parsedSrc.meta);
+    const appIcon = getAppIconType(fileUs.stats.isLoginFormWeb, isAnyIe6(fileUs.parsedSrc.meta), isManual(fileUs.parsedSrc.meta), showIeWranIcon);
 
     return {
         appIcon,

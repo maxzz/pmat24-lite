@@ -48,15 +48,15 @@ export function useFileUsByFilter(fileUs: FileUs, regex: RegExp): boolean {
     let useItNow = !!fileUs.fname.match(regex);
 
     if (!useItNow) {
-        useItNow = !!fileUs.mani?.forms?.[0]?.options?.choosename?.match(regex);
+        useItNow = !!fileUs.parsedSrc.mani?.forms?.[0]?.options?.choosename?.match(regex);
     }
 
     if (!useItNow) {
-        useItNow = !!fileUs.meta?.[0]?.mani.detection?.web_ourl?.match(regex);
+        useItNow = !!fileUs.parsedSrc.meta?.[0]?.mani.detection?.web_ourl?.match(regex);
     }
 
     if (!useItNow) {
-        useItNow = !!fileUs.meta?.[1]?.mani.detection?.web_ourl?.match(regex);
+        useItNow = !!fileUs.parsedSrc.meta?.[1]?.mani.detection?.web_ourl?.match(regex);
     }
 
     return useItNow;

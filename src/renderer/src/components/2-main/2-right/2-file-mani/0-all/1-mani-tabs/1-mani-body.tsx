@@ -27,7 +27,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
         return null;
     }
 
-    const hasCpass = fileUs.meta?.length === 2;
+    const hasCpass = fileUs.parsedSrc.meta?.length === 2;
     const hasChanges = false;
 
     return (

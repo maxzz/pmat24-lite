@@ -12,7 +12,7 @@ type FileIconAttentionProps = {
 };
 
 export function TreeItemIconWithAttention({ IconToRender, name, fileUs, iconClasses }: FileIconAttentionProps) {
-    const hasBailOut = isAnyWhy(fileUs.meta);
+    const hasBailOut = isAnyWhy(fileUs.parsedSrc.meta);
     const fileIndex = fileUs.idx + 1;
 
     const Body = (<>

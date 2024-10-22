@@ -7,7 +7,7 @@ export function ManiAppTitleExplanation({ fileUs }: { fileUs: FileUs; }) {
     const domain = fileUs.stats.loginFormDomain;
     if (!domain) {
         const title =
-            isManual(fileUs.meta)
+            isManual(fileUs.parsedSrc.meta)
                 ? 'Manually defined login for a Windows application'
                 : 'Login for a Windows application';
         return (
@@ -17,8 +17,8 @@ export function ManiAppTitleExplanation({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginUrl = fileUs.meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
-    const cpassUrl = fileUs.meta?.[1]?.mani?.detection?.web_ourl;
+    const loginUrl = fileUs.parsedSrc.meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
+    const cpassUrl = fileUs.parsedSrc.meta?.[1]?.mani?.detection?.web_ourl;
     const showCpass = cpassUrl && cpassUrl !== loginUrl;
 
     return (

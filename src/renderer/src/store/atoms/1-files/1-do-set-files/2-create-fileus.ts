@@ -30,7 +30,9 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
             isCurrentAtom: atom<boolean>(false),
         },
         stats: {} as FileUsStats, // the real one will be assigned after parsing content
-        
+
+        parsedSrc: {},
+
         maniAtomsAtom: atom<ManiAtoms | null>(null),
         changesSet: proxySet<string>(),
     };
@@ -39,7 +41,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     return rv;
 }
 
-function parseAndAddParseData(newFileUs: FileUs) {
+function parseAndAddParseData(newFileUs: FileUs): void {
     let mani: Mani.Manifest | undefined;
     let fcat: CatalogFile.Root | undefined;
     let meta: Meta.Form[] | undefined;
@@ -58,9 +60,11 @@ function parseAndAddParseData(newFileUs: FileUs) {
             */
         }
 
-        newFileUs.mani = mani;
-        newFileUs.fcat = fcat;
-        newFileUs.meta = meta;
+        newFileUs.parsedSrc = {
+            mani,
+            fcat,
+            meta,
+        };
         newFileUs.stats = fileUsStats(newFileUs);
     } catch (error) {
         const msg = `tm parse error: ${error}\n${newFileUs.fname}\n${newFileUs.raw}`;

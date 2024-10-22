@@ -9,7 +9,7 @@ import { mergeToManiField } from "./7-merge-to-mani-field";
 import { printFields } from "./8-print-fields";
 
 function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
-    const metaForm = packParams.fileUs.meta?.[formIdx]; // we are guarded here by context, but still they come...
+    const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
         return {};
     }

@@ -20,7 +20,7 @@ function ManiSection2_Submit({ nFormCtx, metaForm }: { nFormCtx: NFormCtx; metaF
 }
 
 export function TabSubmitOld({ nAllAtoms, formIdx }: NFormContextProps) {
-    const metaForm = nAllAtoms.fileUsCtx.fileUs.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
+    const metaForm = nAllAtoms.fileUsCtx.fileUs.parsedSrc.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="px-1">
             <ManiSection2_Submit nFormCtx={nAllAtoms.normal} metaForm={metaForm} />

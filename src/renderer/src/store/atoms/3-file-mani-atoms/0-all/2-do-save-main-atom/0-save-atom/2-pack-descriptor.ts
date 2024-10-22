@@ -6,7 +6,7 @@ export function packDescriptor(packParams: PackManifestDataParams) {
 
     const { fileUs } = packParams;
 
-    let descriptor = fileUs.mani?.descriptor;
+    let descriptor = fileUs.parsedSrc.mani?.descriptor;
 
     descriptor = descriptor
         ? { ...descriptor, }
@@ -17,5 +17,5 @@ export function packDescriptor(packParams: PackManifestDataParams) {
 
     newMani.descriptor = descriptor;
 
-    fileUs.mani?.options && (newMani.options = fileUs.mani.options);
+    fileUs.parsedSrc.mani?.options && (newMani.options = fileUs.parsedSrc.mani.options);
 }

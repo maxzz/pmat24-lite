@@ -11,7 +11,7 @@ export namespace NormalFieldsState {
 
         const { fileUs, formIdx } = fileUsCtx;
 
-        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);

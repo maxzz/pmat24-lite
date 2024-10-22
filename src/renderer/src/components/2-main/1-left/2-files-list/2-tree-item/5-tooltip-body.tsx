@@ -16,7 +16,7 @@ function ProblemsList({ bailOut }: { bailOut: string[]; }) {
 }
 
 export function TooltipBody({ fileUs, fileIndex }: { fileUs: FileUs; fileIndex: number; }) {
-    const bailOuts = [fileUs.meta?.[0]?.disp.bailOut, fileUs.meta?.[1]?.disp.bailOut];
+    const bailOuts = [fileUs.parsedSrc.meta?.[0]?.disp.bailOut, fileUs.parsedSrc.meta?.[1]?.disp.bailOut];
     return (<div className="px-3 py-1.5">
 
         <div className="mb-2 pt-1 pb-1 border-border border-b border-dotted">There are problems in the file with index {fileIndex}, check why:</div>

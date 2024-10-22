@@ -63,9 +63,9 @@ export const doSetDeliveredFilesAtom = atom(
                     (deliveredFileContent: FileContent) => {
                         const newFileUs = createFileUsFromFileContent(deliveredFileContent);
 
-                        if (isEmpty(newFileUs.meta)) {
+                        if (isEmpty(newFileUs.parsedSrc.meta)) {
                             totalManis.empty++;
-                        } else if (isManual(newFileUs.meta)) {
+                        } else if (isManual(newFileUs.parsedSrc.meta)) {
                             totalManis.manual++;
                         } else {
                             totalManis.normal++;
@@ -76,7 +76,7 @@ export const doSetDeliveredFilesAtom = atom(
                 )
                 .filter(
                     (fileUs) => {
-                        const notUs = fileUs.failed || fileUs.notOur || (!fileUs.mani && !fileUs.fcat);
+                        const notUs = fileUs.failed || fileUs.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
                         if (notUs) {
                             fileUs.failed && console.error(fileUs.raw);
                             unsupported.push(fileUs);

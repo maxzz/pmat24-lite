@@ -4,7 +4,7 @@ import { type FormOptionsState } from "./9-types";
 export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const { fileUs, formIdx } = fileUsCtx;
 
-    const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+    const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
     const maniForm = metaForm.mani;
 
     const options = maniForm?.options || {};

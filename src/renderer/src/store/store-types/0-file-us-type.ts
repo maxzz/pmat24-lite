@@ -26,10 +26,19 @@ export type FileUsStats = {
     dateModified?: string;                          // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)
 };
 
-export type FileUs = FileContent & {
+export type ParsedSrc = {
     mani?: Mani.Manifest;                           // for manifest raw json
     meta?: Meta.Form[];                             // for manifest file parsed content and meta forms
     fcat?: CatalogFile.Root;                        // for field catalog file parsed content
+};
+
+export type FileUs = FileContent & {
+    parsedSrc: ParsedSrc;                           // parsed content from the file
+
+    // mani?: Mani.Manifest;                           // for manifest raw json
+    // meta?: Meta.Form[];                             // for manifest file parsed content and meta forms
+    // fcat?: CatalogFile.Root;                        // for field catalog file parsed content
+
     fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
 
     state: FileUsState;                             // local state atoms: is currnet; is selected

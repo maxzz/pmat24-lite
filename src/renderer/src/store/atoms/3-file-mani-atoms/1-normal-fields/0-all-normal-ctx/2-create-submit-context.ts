@@ -7,7 +7,7 @@ export namespace NormalSubmitState {
     export function createSubmitCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): SubmitFieldTypes.Ctx {
 
         const { fileUs, formIdx } = fileUsCtx;
-        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
         const forAtoms = SubmitConv.forAtoms(metaForm)
 
         const onChange = ({ get, set }) => {

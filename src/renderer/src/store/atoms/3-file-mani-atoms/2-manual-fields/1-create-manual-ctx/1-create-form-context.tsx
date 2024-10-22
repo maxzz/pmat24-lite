@@ -13,7 +13,7 @@ export namespace ManualFieldsState {
     export function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCtx {
         const { fileUs, formIdx } = fileUsCtx;
 
-        const metaForm = fileUs.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
 
         const fields = metaForm.fields || [];
 

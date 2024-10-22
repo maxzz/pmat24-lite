@@ -28,7 +28,7 @@ export const treeFilesAtom = atom( // files to show in the tree
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
 
-                if (fileUs.fcat || !fileUs.mani) {
+                if (fileUs.parsedSrc.fcat || !fileUs.parsedSrc.mani) {
                     return;
                 }
 

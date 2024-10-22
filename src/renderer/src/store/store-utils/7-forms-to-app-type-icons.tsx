@@ -5,15 +5,15 @@ import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-typ
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconType[] {
-    if (fileUs.fcat) {
+    if (fileUs.parsedSrc.fcat) {
         return [appTypeToIcon({ appIcon: AppIconType.cat, warning: false })];
     }
 
-    if (!fileUs.meta) {
+    if (!fileUs.parsedSrc.meta) {
         return [];
     }
 
-    const forms = fileUs.meta.map(
+    const forms = fileUs.parsedSrc.meta.map(
         (form) => {
             if (!form) {
                 return;
@@ -22,7 +22,7 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
             const hasBailOut = isWhyForm(form);
             const isWeb = isWebForm(form);
             const isManual = isManualForm(form);
-            const isIe = isAnyIe6(fileUs.meta);
+            const isIe = isAnyIe6(fileUs.parsedSrc.meta);
 
             const icon = getAppIconType(isWeb, isIe, isManual, showIeWranIcon);
 
