@@ -10,7 +10,7 @@ import { uuid } from '@/utils';
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
 
-    const rv: FileUs = {
+    const fileCnt: FileContent = {
         unid: uuid.asRelativeNumber(),
         idx: fileContent.idx,
 
@@ -22,17 +22,20 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         raw: fileContent.raw,
 
         webFsItem: fileContent.webFsItem,
-
         webFile: fileContent.webFile,
 
-        parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content
+        changesSet: proxySet<string>(),
+    };
+
+    const rv: FileUs = {
+        fileCnt,
+        parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content in parseAndAddParseData()
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-
         maniAtomsAtom: atom<ManiAtoms | null>(null),
-        changesSet: proxySet<string>(),
+        fceRoot: undefined,
     };
 
     parseAndAddParseData(rv);
@@ -44,7 +47,7 @@ function parseAndAddParseData(newFileUs: FileUs): void {
     let fcat: CatalogFile.Root | undefined;
     let meta: Meta.Form[] | undefined;
     try {
-        const res = parseXMLFile(newFileUs.raw || '');
+        const res = parseXMLFile(newFileUs.fileCnt.raw || '');
         mani = res.mani;
         fcat = res.fcat;
         meta = buildManiMetaForms(mani);
@@ -65,9 +68,9 @@ function parseAndAddParseData(newFileUs: FileUs): void {
             stats: fileUsStats(newFileUs),
         };
     } catch (error) {
-        const msg = `tm parse error: ${error}\n${newFileUs.fname}\n${newFileUs.raw}`;
-        newFileUs.raw = msg;
-        newFileUs.failed = true;
+        const msg = `tm parse error: ${error}\n${newFileUs.fileCnt.fname}\n${newFileUs.fileCnt.raw}`;
+        newFileUs.fileCnt.raw = msg;
+        newFileUs.fileCnt.failed = true;
         console.error(msg);
     }
 }

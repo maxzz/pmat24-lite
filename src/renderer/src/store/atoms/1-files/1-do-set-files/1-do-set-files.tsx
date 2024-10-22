@@ -76,9 +76,9 @@ export const doSetDeliveredFilesAtom = atom(
                 )
                 .filter(
                     (fileUs) => {
-                        const notUs = fileUs.failed || fileUs.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
+                        const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
                         if (notUs) {
-                            fileUs.failed && console.error(fileUs.raw);
+                            fileUs.fileCnt.failed && console.error(fileUs.fileCnt.raw);
                             unsupported.push(fileUs);
                         }
                         return !notUs;
@@ -121,7 +121,7 @@ function unsupportedMsg(unsupported: FileUs[]) {
             </span>
 
             {unsupported.map(
-                (file) => <span className={multiple ? "block" : undefined} key={file.unid}>{`${space}"${file.fname}"`}</span>
+                (file) => <span className={multiple ? "block" : undefined} key={file.fileCnt.unid}>{`${space}"${file.fileCnt.fname}"`}</span>
             )}
         </div>
     );

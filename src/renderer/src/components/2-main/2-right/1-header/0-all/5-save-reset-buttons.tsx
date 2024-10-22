@@ -10,7 +10,7 @@ export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileU
     const doSaveOne = useSetAtom(doSaveOneAtom);
     const doReset = useSetAtom(doResetOneAtom);
 
-    const hasChanges = !!useSnapshot(fileUs.changesSet).size;
+    const hasChanges = !!useSnapshot(fileUs.fileCnt.changesSet).size;
     if (!hasChanges) {
         return null;
     }

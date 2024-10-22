@@ -10,7 +10,7 @@ function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelContentAtom);
     const { activeView } = useSnapshot(appSettings).right;
 
-    const staticText = !fileUs ? 'No file selected' : !fileUs.raw ? 'Not supported format' : undefined;
+    const staticText = !fileUs ? 'No file selected' : !fileUs.fileCnt.raw ? 'Not supported format' : undefined;
     if (staticText) {
         return (
             <div className="h-full text-muted-foreground flex items-center justify-center">
@@ -24,7 +24,7 @@ function ContentForSelected() {
             ? (
                 <ManiBody />
             ) : (
-                <Body_Xml text={fileUs?.raw || ''} />
+                <Body_Xml text={fileUs?.fileCnt.raw || ''} />
             )
         }
     </>);

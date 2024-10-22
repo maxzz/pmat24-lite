@@ -9,7 +9,7 @@ export const doSaveAllAtom = atom(null,
         files.forEach((fileUsAtom) => {
             const fileUs = get(fileUsAtom);
 
-            const changed = !!fileUs.changesSet.size;
+            const changed = !!fileUs.fileCnt.changesSet.size;
             if (!changed) {
                 return;
             }

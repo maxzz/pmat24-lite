@@ -6,7 +6,7 @@ export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
 
-        const changed = !!fileUs.changesSet.size;
+        const changed = !!fileUs.fileCnt.changesSet.size;
         if (!changed) {
             return;
         }
@@ -18,8 +18,8 @@ export const doResetOneAtom = atom(null,
 
         resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
 
-        console.log('reset', fileUs.fname);
+        console.log('reset', fileUs.fileCnt.fname);
 
-        fileUs.changesSet.clear();
+        fileUs.fileCnt.changesSet.clear();
     }
 );

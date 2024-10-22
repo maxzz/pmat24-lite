@@ -6,7 +6,7 @@ import { SymbolFire } from "@/ui/icons";
 
 export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileItemWState; }) {
 
-    const changes = useSnapshot(fileUs.changesSet);
+    const changes = useSnapshot(fileUs.fileCnt.changesSet);
     const hasChanges = !!changes.size;
     const title = hasChanges ? "This file has changes" : undefined;
 

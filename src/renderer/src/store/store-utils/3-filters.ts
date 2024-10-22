@@ -45,7 +45,7 @@ export function createRegexByFilter(s?: string, casesensitive?: boolean): Filter
 // Filter
 
 export function useFileUsByFilter(fileUs: FileUs, regex: RegExp): boolean {
-    let useItNow = !!fileUs.fname.match(regex);
+    let useItNow = !!fileUs.fileCnt.fname.match(regex);
 
     if (!useItNow) {
         useItNow = !!fileUs.parsedSrc.mani?.forms?.[0]?.options?.choosename?.match(regex);

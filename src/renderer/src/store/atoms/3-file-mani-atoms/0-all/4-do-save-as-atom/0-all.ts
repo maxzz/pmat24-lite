@@ -10,7 +10,7 @@ export const doSaveOneAsAtom = atom(null,
 
         const fileUs = get(fileUsAtom);
 
-        const changed = !!fileUs.changesSet.size;
+        const changed = !!fileUs.fileCnt.changesSet.size;
         if (!changed) {
             return;
         }
@@ -22,7 +22,7 @@ export const doSaveOneAsAtom = atom(null,
 
         set(doSaveOneAtom, fileUsAtom, newFilename);
 
-        console.log('saved as', fileUs.fname);
+        console.log('saved as', fileUs.fileCnt.fname);
     }
 );
 

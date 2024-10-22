@@ -16,8 +16,8 @@ export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtom[], g
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
 
-        const a = fileUsA.idx;
-        const b = fileUsB.idx;
+        const a = fileUsA.fileCnt.idx;
+        const b = fileUsB.fileCnt.idx;
         return a < b ? 1 : a > b ? -1 : 0;
     }
 

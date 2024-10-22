@@ -8,7 +8,7 @@ export const doSaveOneAtom = atom(
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
-        const changed = !!fileUs.changesSet.size;
+        const changed = !!fileUs.fileCnt.changesSet.size;
         if (!changed) {
             return;
         }
@@ -21,13 +21,13 @@ export const doSaveOneAtom = atom(
         //TODO: newFilename
         //TODO: each file may have no filename or name may already be taken by another file
 
-        const saved = await saveContentToFile(fileUs, xml, newFilename || fileUs.fname);
+        const saved = await saveContentToFile(fileUs, xml, newFilename || fileUs.fileCnt.fname);
         if (!saved) {
             //TODO: update member fileUs.contentToSave
             return;
         }
 
-        console.log('saved', fileUs.fname);
+        console.log('saved', fileUs.fileCnt.fname);
 
         // Do this only after successful save:
         // fileUs.changesSet.clear();

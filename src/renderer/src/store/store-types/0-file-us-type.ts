@@ -33,13 +33,14 @@ export type ParsedSrc = {
     stats: FileUsStats;                             // quick access statistics
 };
 
-export type FileUs = FileContent & {
+export type FileUs = {
+    fileCnt: FileContent;                           // file content
     parsedSrc: ParsedSrc;                           // parsed content from the file
     uiState: FileUsUiState;                         // local state atoms: is currnet; is selected
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
 
-    fceRoot?: FceRoot;                              // reference to field catalog editor items from the fce roots storage for this file folder
+    fceRoot: FceRoot | undefined;                   // reference to field catalog editor items from the fce roots storage for this file folder
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

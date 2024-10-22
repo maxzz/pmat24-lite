@@ -18,7 +18,7 @@ export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
                 <ManiAppTitleExplanation fileUs={fileUs} />
             </div>
 
-            <ManiFilenameParts fname={fileUs.fname} />
+            <ManiFilenameParts fname={fileUs.fileCnt.fname} />
         </div>
     );
 }

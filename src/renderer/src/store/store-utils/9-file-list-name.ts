@@ -7,10 +7,10 @@ export function getFileListDisplayName(fileUs: FileUs, options: FileListItemsSta
 
     const name =
         showFname
-            ? fileUs.fname
+            ? fileUs.fileCnt.fname
             : showChosen
                 ? get(fileUs.parsedSrc.stats.loginFormChooseNameAtom)
                 : fileUs.parsedSrc.stats.loginFormDomain;
 
-    return name || fileUs.fname;
+    return name || fileUs.fileCnt.fname;
 }
