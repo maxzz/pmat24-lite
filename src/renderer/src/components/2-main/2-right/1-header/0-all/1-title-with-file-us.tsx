@@ -5,7 +5,7 @@ import { ManiAppTitleExplanation } from "./2-2-mani-explanation";
 import { ManiFilenameParts } from "./2-3-filename-parts";
 
 export function TitleWithFileUs({ fileUs }: { fileUs: FileUs; }) {
-    const chooseName = useAtomValue(fileUs.stats.loginFormChooseNameAtom)
+    const chooseName = useAtomValue(fileUs.parsedSrc.stats.loginFormChooseNameAtom)
     return (
         <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
 

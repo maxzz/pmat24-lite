@@ -33,7 +33,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
     // }
 
     if (updateName === 'name') {
-        set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, nextValue.data);
+        set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, nextValue.data);
     }
 
     setManiChanges(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);

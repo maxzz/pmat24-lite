@@ -16,6 +16,6 @@ export function resetFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formId
     FormOptionsConv.valuesToAtoms(values, optionsAtoms, get, set);
 
     if (formIdx === FormIdx.login) {
-        set(fileUsCtx.fileUs.stats.loginFormChooseNameAtom, values.p1General.name);
+        set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, values.p1General.name);
     }
 }

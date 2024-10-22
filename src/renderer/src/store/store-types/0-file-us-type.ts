@@ -30,17 +30,16 @@ export type ParsedSrc = {
     mani: Mani.Manifest | undefined;                // for manifest raw json
     meta: Meta.Form[] | undefined;                  // for manifest file parsed content and meta forms
     fcat: CatalogFile.Root | undefined;             // for field catalog file parsed content
+    stats: FileUsStats;                             // quick access statistics
 };
 
 export type FileUs = FileContent & {
     parsedSrc: ParsedSrc;                           // parsed content from the file
-
-    stats: FileUsStats;                             // quick access statistics
     state: FileUsState;                             // local state atoms: is currnet; is selected
 
-    fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
-
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
+
+    fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

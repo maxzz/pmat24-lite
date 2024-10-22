@@ -4,7 +4,7 @@ import { SymbolOpenLink } from "@/ui/icons";
 
 export function ManiAppTitleExplanation({ fileUs }: { fileUs: FileUs; }) {
 
-    const domain = fileUs.stats.loginFormDomain;
+    const domain = fileUs.parsedSrc.stats.loginFormDomain;
     if (!domain) {
         const title =
             isManual(fileUs.parsedSrc.meta)

@@ -9,8 +9,8 @@ export function getFileListDisplayName(fileUs: FileUs, options: FileListItemsSta
         showFname
             ? fileUs.fname
             : showChosen
-                ? get(fileUs.stats.loginFormChooseNameAtom)
-                : fileUs.stats.loginFormDomain;
+                ? get(fileUs.parsedSrc.stats.loginFormChooseNameAtom)
+                : fileUs.parsedSrc.stats.loginFormDomain;
 
     return name || fileUs.fname;
 }

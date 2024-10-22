@@ -26,7 +26,6 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         webFile: fileContent.webFile,
 
         parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content
-        stats: {} as FileUsStats, // the real one will be assigned after parsing content
         state: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
@@ -63,8 +62,8 @@ function parseAndAddParseData(newFileUs: FileUs): void {
             mani,
             fcat,
             meta,
+            stats: fileUsStats(newFileUs),
         };
-        newFileUs.stats = fileUsStats(newFileUs);
     } catch (error) {
         const msg = `tm parse error: ${error}\n${newFileUs.fname}\n${newFileUs.raw}`;
         newFileUs.raw = msg;
