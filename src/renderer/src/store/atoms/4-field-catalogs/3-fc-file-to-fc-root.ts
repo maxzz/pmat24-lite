@@ -1,6 +1,6 @@
 import { proxy } from 'valtio';
 import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile } from '@/store/manifest';
-import { type FceItem, type FceRoot } from '.';
+import { type FceItem, type FceRoot } from './9-types';
 import { uuid } from '@/utils';
 
 export function fieldCatToFceRoot(fcat: CatalogFile.Root): FceRoot {

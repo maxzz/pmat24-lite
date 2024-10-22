@@ -1,3 +1,5 @@
+import { type ChangesSet } from "@/store/atoms/3-file-mani-atoms";
+
 // WebFsItem exists only for item loaded without electron
 
 type WebFsItemParams = {
@@ -45,6 +47,8 @@ export type FileContent = {
     parentHandle?: FileSystemDirectoryHandle; // web: FileSystemDirectoryHandle from drag and drop transfer items
     existingHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
     webFile?: File;                     // web: File object from async entry.file() call
+
+    changesSet: ChangesSet;             // mani editor changes set; created when file selected at top level
 };
 
 export const pmAllowedToOpenExt = ['dpm', 'dpn'];

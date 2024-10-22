@@ -1,3 +1,4 @@
+import { proxySet } from "valtio/utils";
 import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
@@ -38,6 +39,8 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
                 notOur: item.notOur,
                 failed: false,
+
+                changesSet: proxySet<string>(),
             };
 
             try {

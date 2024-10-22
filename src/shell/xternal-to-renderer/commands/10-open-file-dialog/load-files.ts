@@ -2,7 +2,7 @@ import { basename, dirname, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { type FileContent } from '@shared/ipc-types';
 
-type MainFileContent = Omit<FileContent, 'unid'>;
+type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>;
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(
