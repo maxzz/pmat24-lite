@@ -1,5 +1,6 @@
-import { catalogItemInFileToFieldValue, type CatalogFile } from '@/store/manifest';
-import { type FceItem, type FceRoot } from '../../4-field-catalogs';
+import { proxy } from 'valtio';
+import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile } from '@/store/manifest';
+import { type FceItem, type FceRoot } from '.';
 import { uuid } from '@/utils';
 
 export function fieldCatToFceRoot(fcat: CatalogFile.Root): FceRoot {
@@ -13,9 +14,9 @@ export function fieldCatToFceRoot(fcat: CatalogFile.Root): FceRoot {
                     index: idx,
                     uuid: now,
                     mru: now,
-                    editor: {
+                    editor: proxy<CatalogItemEdit['editor']>({
                         selected: false,
-                    },
+                    }),
                 };
                 return rv;
             }
