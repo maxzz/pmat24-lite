@@ -4,11 +4,6 @@ import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
 import { type FceRoot } from "../atoms/4-field-catalogs";
 
-export type FileUsState = {
-    isGroupAtom: PrimitiveAtom<boolean>;            // this fileUs selected for bulk group operation
-    isCurrentAtom: PrimitiveAtom<boolean>;          // this fileUs is current and shown in the right panel
-};
-
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain
 
@@ -26,23 +21,24 @@ export type FileUsStats = {
     dateModified?: string;                          // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)
 };
 
+export type FileUsState = {
+    isGroupAtom: PrimitiveAtom<boolean>;            // this fileUs selected for bulk group operation
+    isCurrentAtom: PrimitiveAtom<boolean>;          // this fileUs is current and shown in the right panel
+};
+
 export type ParsedSrc = {
-    mani?: Mani.Manifest;                           // for manifest raw json
-    meta?: Meta.Form[];                             // for manifest file parsed content and meta forms
-    fcat?: CatalogFile.Root;                        // for field catalog file parsed content
+    mani: Mani.Manifest | undefined;                // for manifest raw json
+    meta: Meta.Form[] | undefined;                  // for manifest file parsed content and meta forms
+    fcat: CatalogFile.Root | undefined;             // for field catalog file parsed content
 };
 
 export type FileUs = FileContent & {
     parsedSrc: ParsedSrc;                           // parsed content from the file
 
-    // mani?: Mani.Manifest;                           // for manifest raw json
-    // meta?: Meta.Form[];                             // for manifest file parsed content and meta forms
-    // fcat?: CatalogFile.Root;                        // for field catalog file parsed content
+    stats: FileUsStats;                             // quick access statistics
+    state: FileUsState;                             // local state atoms: is currnet; is selected
 
     fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
-
-    state: FileUsState;                             // local state atoms: is currnet; is selected
-    stats: FileUsStats;                             // quick access statistics
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
 };

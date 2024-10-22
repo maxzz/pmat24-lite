@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { proxySet } from 'valtio/utils';
-import { type FileUs, type FileUsStats } from "@/store/store-types";
+import { type ParsedSrc, type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from '@shared/ipc-types';
 import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
@@ -25,13 +25,12 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
 
         webFile: fileContent.webFile,
 
+        parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content
+        stats: {} as FileUsStats, // the real one will be assigned after parsing content
         state: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        stats: {} as FileUsStats, // the real one will be assigned after parsing content
-
-        parsedSrc: {},
 
         maniAtomsAtom: atom<ManiAtoms | null>(null),
         changesSet: proxySet<string>(),
