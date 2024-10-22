@@ -26,7 +26,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         webFile: fileContent.webFile,
 
         parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content
-        state: {
+        uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },

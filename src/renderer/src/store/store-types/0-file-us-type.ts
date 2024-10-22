@@ -21,7 +21,7 @@ export type FileUsStats = {
     dateModified?: string;                          // TimeUtils.dpTimeToShow(fileUs.mani?.descriptor?.modified)
 };
 
-export type FileUsState = {
+export type FileUsUiState = {
     isGroupAtom: PrimitiveAtom<boolean>;            // this fileUs selected for bulk group operation
     isCurrentAtom: PrimitiveAtom<boolean>;          // this fileUs is current and shown in the right panel
 };
@@ -35,11 +35,11 @@ export type ParsedSrc = {
 
 export type FileUs = FileContent & {
     parsedSrc: ParsedSrc;                           // parsed content from the file
-    state: FileUsState;                             // local state atoms: is currnet; is selected
+    uiState: FileUsUiState;                         // local state atoms: is currnet; is selected
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
 
-    fcer?: FceRoot;                                 // reference to field catalog editor items from the fce roots storage for this file folder
+    fceRoot?: FceRoot;                              // reference to field catalog editor items from the fce roots storage for this file folder
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;
