@@ -13,7 +13,9 @@ export function fieldCatToFceRoot(fcat: CatalogFile.Root): FceRoot {
                     index: idx,
                     uuid: now,
                     mru: now,
-                    selected: false,
+                    editor: {
+                        selected: false,
+                    },
                 };
                 return rv;
             }
