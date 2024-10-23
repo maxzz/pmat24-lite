@@ -56,7 +56,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         const unsupported: FileUs[] = [];
 
-        const fileUsItems =
+        const fileUsItems: FileUs[] =
             deliveredFileContents
                 .filter((file) => file.size)
                 .map(

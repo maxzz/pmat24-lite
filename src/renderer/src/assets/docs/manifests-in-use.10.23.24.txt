@@ -1,0 +1,198 @@
+* 10.23.24
+
+//C:\y\c\dp\pm\Components\PMAT\DpoSetA\include\DPProfPath.h
+
+	inline wstring_t getOTSWorkgroupManifestDir(locationtype::type_t v_loctype_) {
+		// Root folder for Workgroup manifests. 
+		// It has 3 sub-folders: "InUse", "NotInUse" and "NotInUseButTest".
+		// 
+		// NOTE: Internal naming convention:
+		// Folder Name: "A" => "InUse" (i.e. cache for client machines).
+		// Folder Name: "B" => "NotInUse" (i.e. manifests not to be used by client machines),
+		// Folder Name: "C" => "NotInUseTest" (i.e. manifests for testing but not deployed yet).
+		// 
+		wstring_t rv = details::GetDir(true);
+		switch (v_loctype_) {
+			case locationtype::user: { rv += L"dp_wkg_deploy\\"; } break;
+			case locationtype::admin: { rv += L"dp_wkg_admin\\"; } break;
+			default: rv.clear();
+		}
+		return rv;
+	}
+	
+	inline wstring_t getOTS_InUse_Dir(locationtype::type_t v_loctype_)	{		return getOTSWorkgroupManifestDir(v_loctype_) + L"A\\";	} // Workgroup manifests (InUse folder).
+	inline wstring_t getOTS_NotInUse_Dir(locationtype::type_t v_loctype_)	{		return getOTSWorkgroupManifestDir(v_loctype_) + L"B\\";	} // Workgroup manifests (NotInUse folder).
+	inline wstring_t getOTS_NotInUseTest_Dir(locationtype::type_t v_loctype_)	{		return getOTSWorkgroupManifestDir(v_loctype_) + L"C\\";	} // Workgroup manifests (NotInUseTest folder).
+
+	inline wstring_t getVIPWhitelistDir()
+	{
+		wstring_t rv; details::get_commondatafolder(rv); if (rv.empty()) { return rv; } rv += L"DigitalPersona\\VIPWhitelist\\"; return rv;
+	}
+
+//C:\y\c\dp\pm\Components\PMAT\DpoTrain\include\wiz_context_references.h
+
+	inline void loadfiledcatalogfile(const wstring_t& folder_, storagecatalog::storagecatalog_t& rv_) {
+		rv_.fcitems.clear();
+		wstring_t fcfilename = folder_ + L"field_catalog.dpn";
+		rv_.fcitems.clear();
+		if (wfindfile_t::fileexists(fcfilename)) storagecatalog_i::load_storagecatalog_must(fcfilename, rv_);
+	}
+
+//C:\y\c\dp\pm\Components\PMAT\DpoTrainMgr\OTSAdminTools.cpp
+
+	void COTSAdminTools::searchlogonsForPolicy()
+	{
+		// Clear prev results.
+		m_lvRes.DeleteAllItems();
+
+		{
+			m_searchcount = 0;
+			m_progress.SetPos(0);
+			windows[IDC_STATIC_STATUSTEXT].wtext = rstring(IDS_SEARCHINPROGRESS);
+		}
+
+		// Initialize Search thread params
+		// 2.a. Storage path
+		if (m_search_param.storages.empty())
+		{
+			//m_search_param.storages.clear();
+			// Include: "Not in use but Test" folder as a search folder path.
+			{
+				storages::storage_t localstg;
+				localstg.local = true;
+				localstg.name = L"local C";
+				localstg.path = otssettings::get_string(settings::wkgotsadmin_notinusetestdir);
+				m_search_param.storages.push_back(localstg);
+			}
+
+			// Include: "Not InUse" folder as a search folder path.
+			{
+				storages::storage_t localstg;
+				localstg.local = true;
+				localstg.name = L"local B";
+				localstg.path = otssettings::get_string(settings::wkgotsadmin_notinusedir);
+				m_search_param.storages.push_back(localstg);
+			}
+
+			// Include: "InUse" folder as a search folder path.
+			{
+				storages::storage_t localstg;
+				localstg.local = true;
+				localstg.name = L"local A";
+				localstg.path = otssettings::get_string(settings::wkgotsadmin_inusedir);
+				m_search_param.storages.push_back(localstg);
+			}
+		}
+
+		// 2.b. Query parameters 
+		{
+
+			m_search_param.searchdata.authpolicypresent = L"auth_pl";
+		}
+
+		// Create search thread and execute it.
+		//create_search_thread();
+		//if (m_pSearchThread)
+		//{
+		//	m_pSearchThread->Run(&m_search_param, m_hWnd); // start thread
+		//}
+
+		if (m_threadSearchLogonsForAddlPolicy.Run(&m_search_param, m_hWnd))
+		{
+			update_threadstate_ui();
+		}
+	}
+
+	manifestupdate::type_t COTSAdminTools::_context_menu(CListViewCtrl& lv_)
+				// A. Get field catalog file from the root folder and
+				// copy it to the respective cache folder: "A" or "C".
+				//  i)  It moves only 1 direction i.e. "root" to "A" or "C".
+				//  ii) It is always overwritten if existing in "A" or "C".
+
+
+	bool COTSAdminTools::serialize_listview(LPCTSTR pcszFile, CListViewCtrl& lst, LPCTSTR pcszHeader) <- text += L"<TABLE BORDER=\"1\">\r\n";
+	
+	LRESULT COTSAdminTools::OnListDoubleclick(int idCtrl_, LPNMHDR pnmh, BOOL& bHandled)
+		// A. Get field catalog file from the root folder and
+		// copy it to the respective cache folder: "A" or "C".
+		//  i)  It moves only 1 direction i.e. "root" to "A" or "C".
+		//  ii) It is always overwritten if existing in "A" or "C".
+		
+//C:\y\c\dp\pm\Components\Agent\DpoSet\OTSLocations.cpp
+	// Pro Workgroup Manager
+
+	// Root folder for Workgroup manifests.
+	// It has 3 sub-folders: "InUse", "NotInUse" and "NotInUseButTest".
+	// Internal naming convention:
+	//		Folder Name: "A" => "InUse" (i.e. cache for client machines).
+	//		Folder Name: "B" => "NotInUse" (i.e. manifests not to be used by client machines),
+	//		Folder Name: "C" => "NotInUseTest" (i.e. manifests for testing but not deployed yet).
+
+	#define WKG_USER_ROOT L"dp_wkg_deploy\\"
+	#define WKG_ADMI_ROOT L"dp_wkg_admin\\"
+
+	#define WKG_ADMI_INUSE L"A\\"
+	#define WKG_ADMI_NOTINUSE L"B\\"
+	#define WKG_ADMI_NOTINUSETEST L"C\\"
+	
+//C:\y\c\dp\pm\Components\Include\oti_manifest_filenames.h
+
+				// 4. Add Workgroup OTS folders: Admin/User.
+				{
+					wstrings_t names;
+
+					// 4.A. Collect all workgroup folder paths.
+
+					if (dir_isvalid_otsadmincache)
+					{
+						// Admin OTS cache dir(s).
+						names.push_back(otisettings::get_string(settings::wkgotsadmin_notinusetestdir)); // "NotInUseTest".
+						names.push_back(otisettings::get_string(settings::wkgotsadmin_inusedir)); // "InUse".
+					}
+					else
+					{
+						// User OTS cache dir(s).
+						names.push_back(otisettings::get_string(settings::workgroupots_notinusetestdir)); // "NotInUseTest".
+						names.push_back(otisettings::get_string(settings::workgroupots_inusedir)); // "InUse".
+					}
+
+					// 4.B. Add collected folder paths.
+
+					for (wstrings_t::iterator it = names.begin(); it != names.end(); ++it)
+					{
+						storagepath_t newstoragepath;
+
+						newstoragepath.m_sFpath = fnames::backslashes(fnames::ensure_dirname(*it));
+						newstoragepath.m_bIslocaldrive = true;
+						newstoragepath.m_bIsAlien = true;
+						newstoragepath.m_bIsAccessible = true;
+
+						// If the drive letter in the folder path represents neither a local nor a remote drive, the folder is ignored.
+
+						if (newstoragepath.is_validpath())
+						{
+							std::pair<storagepaths_t::iterator, bool> res = v.insert(newstoragepath);
+
+							if (!res.second)
+							{
+								atltrace::error(wformat(L"duplicated path '%s'", newstoragepath.m_sFpath));
+							}
+						}
+						else
+						{
+							atltrace::error(wformat(L"path is invalid '%s'", newstoragepath.m_sFpath));
+						}
+					}//for
+
+				} // 4. Workgroup folder(s).
+
+//C:\y\c\dp\pm\Components\Include\ots_settings_def.h
+	__declspec(selectany) const wchar_t* workgroupots_dir            = L"path_wrgOts_dir";				// OTS templates path for Workgroup product.
+	__declspec(selectany) const wchar_t* workgroupots_inusedir       = L"path_wrgOts_inusedir";			// More info in "DPProfPath.h"/"CommonFilePath.h" for description on these settings.
+	__declspec(selectany) const wchar_t* workgroupots_notinusetestdir= L"path_wrgOts_notinusetestdir";
+	__declspec(selectany) const wchar_t* workgroupots_notinusedir    = L"path_wrgOts_notinusedir";
+
+//C:\y\c\dp\pm\Components\PMAT\DpoTrainMgr\Localization\DpoTrainMgr_en-US.rc
+    IDS_COL_LOGONINUSE      "Status"
+    IDS_LOGONINUSE_YES      "In use"
+    IDS_LOGONINUSE_NO       "In test"
