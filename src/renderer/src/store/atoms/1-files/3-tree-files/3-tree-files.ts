@@ -37,7 +37,7 @@ export const treeFilesAtom = atom( // files to show in the tree
 
                 return rv;
             }
-        ).filter(Boolean);
+        );
 
         return filesTree;
     }
