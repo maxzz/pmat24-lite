@@ -18,7 +18,6 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         fpath: fileContent.fpath,
         fmodi: fileContent.fmodi,
         size: fileContent.size,
-
         raw: fileContent.raw,
 
         webFsItem: fileContent.webFsItem,
@@ -29,30 +28,33 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: {} as ParsedSrc, // the real one will be assigned after parsing content in parseAndAddParseData()
+        parsedSrc: createParsedData(fileCnt),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
-        fceRoot: undefined,
+        fceRoot: undefined, // will be assigned later when all files are loaded
     };
 
-    parseAndAddParseData(rv);
     return rv;
 }
 
-function parseAndAddParseData(newFileUs: FileUs): void {
-    let mani: Mani.Manifest | undefined;
-    let fcat: CatalogFile.Root | undefined;
-    let meta: Meta.Form[] | undefined;
-    try {
-        const res = parseXMLFile(newFileUs.fileCnt.raw || '');
-        mani = res.mani;
-        fcat = res.fcat;
-        meta = buildManiMetaForms(mani);
+function createParsedData(fileCnt: FileContent): ParsedSrc {
+    const rv: ParsedSrc = {
+        mani: undefined,
+        meta: undefined,
+        fcat: undefined,
+        stats: {} as FileUsStats, // the real one will be assigned after parsing content
+    };
 
-        if (fcat) {
+    try {
+        const res = parseXMLFile(fileCnt.raw || '');
+        rv.mani = res.mani;
+        rv.fcat = res.fcat;
+        rv.meta = buildManiMetaForms(res.mani);
+
+        if (rv.fcat) {
             /**
              * TODO: later. one per root folder including A, B, C subfolders
              *
@@ -60,17 +62,14 @@ function parseAndAddParseData(newFileUs: FileUs): void {
             set(fldCatItemsAtom, items);
             */
         }
-
-        newFileUs.parsedSrc = {
-            mani,
-            fcat,
-            meta,
-            stats: fileUsStats(newFileUs),
-        };
     } catch (error) {
-        const msg = `tm parse error: ${error}\n${newFileUs.fileCnt.fname}\n${newFileUs.fileCnt.raw}`;
-        newFileUs.fileCnt.raw = msg;
-        newFileUs.fileCnt.failed = true;
+        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
+        fileCnt.raw = msg;
+        fileCnt.failed = true;
         console.error(msg);
     }
+
+    rv.stats = fileUsStats(fileCnt, rv);
+    
+    return rv;
 }
