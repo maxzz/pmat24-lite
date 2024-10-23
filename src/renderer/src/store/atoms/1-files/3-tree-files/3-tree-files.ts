@@ -28,10 +28,6 @@ export const treeFilesAtom = atom( // files to show in the tree
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
 
-                if (fileUs.parsedSrc.fcat || !fileUs.parsedSrc.mani) {
-                    return;
-                }
-
                 const rv: TreeFileItem = {
                     id: fileUs.fileCnt.unid,
                     name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),

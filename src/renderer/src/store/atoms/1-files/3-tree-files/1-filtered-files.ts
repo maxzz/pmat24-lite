@@ -18,17 +18,22 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         const fileListOptions = get(fileListOptionsAtom);
 
-        const { showNormal, showManual, showEmpty, } = fileListOptions.shownManis;
-
-        // const { showNormal, showManual, showEmpty, } = appSettings.ui.shownManis;
+        const { showNormal, showManual, showEmpty, showFldCat } = fileListOptions.shownManis; // fileListOptions is allready atomWithProxy
 
         const files = get(filesAtom);
 
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {
                 const fileUs = get(fileAtom);
-                const mani = fileUs.parsedSrc.mani;
-                const meta = fileUs.parsedSrc.meta;
+                const { mani, meta, fcat } = fileUs.parsedSrc;
+
+                if (fcat && !showFldCat) {
+                    return false;
+                }
+
+                if (!fcat && !mani) {
+                    return false;
+                }
 
                 if (capOnly) {
                     return isAnyCap(mani, regex);
