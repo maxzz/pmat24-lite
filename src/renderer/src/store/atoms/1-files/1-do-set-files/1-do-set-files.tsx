@@ -1,13 +1,15 @@
 import { atom } from "jotai";
 import { filesAtom } from "../0-files-atom";
-import { FileUs } from "@/store/store-types";
-import { FileContent } from "@shared/ipc-types";
+import { type FileUs } from "@/store/store-types";
+import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
+import { createFldCatRoots } from "./3-create-fc";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
+import { fceRoots } from "../../4-field-catalogs/2-fce-roots";
 
 /**
  * File content is populated from web or electron environment:
@@ -84,6 +86,9 @@ export const doSetDeliveredFilesAtom = atom(
                         return !notUs;
                     }
                 );
+
+        fceRoots.entries = createFldCatRoots(fileUsItems);
+        console.log('fceRoots.entries', fceRoots.entries);        
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);

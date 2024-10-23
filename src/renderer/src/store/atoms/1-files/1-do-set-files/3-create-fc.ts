@@ -24,6 +24,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
             }
 
             if (!rv[fpath]) {
+                //TODO: add file entry to files list so user can see it
                 rv[fpath] = {
                     descriptor: {},
                     items: [],
