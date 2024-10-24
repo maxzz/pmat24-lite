@@ -87,7 +87,7 @@ export const doSetDeliveredFilesAtom = atom(
                     }
                 );
 
-        sortFileUsItems(fileUsItems);
+        sortFileUsItemsInPlace(fileUsItems);
 
         fceRoots.entries = createFldCatRoots(fileUsItems);
         console.log('fceRoots.entries', fceRoots.entries);
@@ -103,17 +103,20 @@ export const doSetDeliveredFilesAtom = atom(
     }
 );
 
-function sortFileUsItems(items: FileUs[]) {
-    // sort by name and reindex
-    
-    items.sort((a, b) => {
-        if (a.parsedSrc.fcat && !b.parsedSrc.fcat) return 1;
-        if (!a.parsedSrc.fcat && b.parsedSrc.fcat) return -1;
+function sortFileUsItemsInPlace(items: FileUs[]) {
+    // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
+    items.sort(
+        (a, b) => {
+            if (a.parsedSrc.fcat && !b.parsedSrc.fcat) return 1;
+            if (!a.parsedSrc.fcat && b.parsedSrc.fcat) return -1;
 
-        return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
-    });
-    items.forEach((fileUs, idx) => fileUs.fileCnt.idx = idx + 10);
+            return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
+        }
+    );
 
+    items.forEach(
+        (fileUs, idx) => fileUs.fileCnt.idx = idx
+    );
     //console.log('sortedFileUsItems', JSON.stringify(items.map((item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`), null, 2));
 }
 

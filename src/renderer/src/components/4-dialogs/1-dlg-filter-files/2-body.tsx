@@ -7,7 +7,20 @@ import { FilteredFilesList } from "./3-files-list";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
-    return (<>
+
+    function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (text) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                setText('');
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                setIsOpen(false);
+            }
+        }
+    }
+
+    return (
         <div className="text-xs grid gap-4">
 
             <div className="relative">
@@ -24,21 +37,5 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
 
             <FilteredFilesList />
         </div>
-    </>);
-
-    function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-        if (!text) {
-            return;
-        }
-
-        if (e.key === 'Escape') {
-            e.preventDefault();
-            setText('');
-        }
-
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            setIsOpen(false);
-        }
-    }
+    );
 }
