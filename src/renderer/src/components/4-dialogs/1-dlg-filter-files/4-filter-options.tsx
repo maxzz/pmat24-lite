@@ -38,7 +38,7 @@ export function FilterOptions() {
 
     // const [oredBool, setOredBool] = useState(fileListOptionsAtom);
     const [oredBool, setOredBool] = useState(false);
-    
+
 
     return (
         <div className="flex flex-col gap-2">
@@ -59,14 +59,32 @@ export function FilterOptions() {
             <div className={subClasses}>
                 <Label className={rowClasses}>
                     {/* <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.lowToHigh } /> */}
-                    {/* <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => {
-                        console.log(`v: ${v}`);
-                        
-                        appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
-                    }} /> */}
+                    <input type="checkbox"
+                        checked={order === Order.lowToHigh}
+                        onChange={(event) => {
+                            const v = (event.currentTarget as HTMLInputElement).checked;
+                            console.log(`v: ${v}`);
+                            appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                        }}
+                    />
+                    <br></br>
+
+                    <Checkbox
+                        checked={order === Order.lowToHigh}
+                        onClick={(event) => {
+                            const v = (event.currentTarget as HTMLInputElement).checked;
+                            console.log(`v: ${v}`);
+                            appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                        }}
+                    // onCheckedChange={(v) => {
+                    //     console.log(`v: ${v}`);
+
+                    //     appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                    // }}
+                    />
                     <Checkbox checked={oredBool} onCheckedChange={(v) => {
                         console.log(`v: ${v}`);
-                        
+
                         setOredBool(v => !v);
                     }} />
                     Ascending

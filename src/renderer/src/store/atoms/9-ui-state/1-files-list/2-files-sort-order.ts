@@ -19,4 +19,5 @@ export type FilesSortOrder = {
 export const defaultFilesSortOrder: FilesSortOrder = {
     sortBy: SortBy.index,
     order: Order.highToLow,
+    // order: Order.lowToHigh,
 };
