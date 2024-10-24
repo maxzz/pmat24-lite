@@ -93,6 +93,9 @@ export const doSetDeliveredFilesAtom = atom(
 
         //TODO: sort by name
         sortedFileUsItems = fileUsItems.sort((a, b) => {
+            if (a.parsedSrc.fcat && !b.parsedSrc.fcat) return 1;
+            if (!a.parsedSrc.fcat && b.parsedSrc.fcat) return -1;
+
             return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
             // if (a.fileCnt.fname > b.fileCnt.fname) return 1;
             // if (a.fileCnt.fname < b.fileCnt.fname) return -1;
