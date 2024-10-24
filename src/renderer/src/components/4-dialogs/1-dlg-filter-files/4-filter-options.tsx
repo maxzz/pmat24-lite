@@ -21,18 +21,24 @@ function DrawerItems() {
 
 export function FilterOptions() {
     return (
-        <D.Drawer shouldScaleBackground={false}>
-            <D.DrawerTrigger asChild>
-                <Button variant="outline" className="font-normal">
-                    Fiter options
-                </Button>
-            </D.DrawerTrigger>
+        <div className="flex flex-col gap-2">
+            <D.Drawer shouldScaleBackground={false}>
+                <D.DrawerTrigger asChild>
+                    <Button variant="outline" className="font-normal">
+                        Fiter options
+                    </Button>
+                </D.DrawerTrigger>
 
-            <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" hiddenTitle="Filter options">
-                <div className="grid place-content-center">
-                    <DrawerItems />
-                </div>
-            </D.DrawerContent>
-        </D.Drawer>
+                <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" hiddenTitle="Filter options">
+                    <div className="grid place-content-center">
+                        <DrawerItems />
+                    </div>
+                </D.DrawerContent>
+            </D.Drawer>
+
+            <Button variant="outline" className="font-normal">
+                Sort options
+            </Button>
+        </div>
     );
 }
