@@ -1,6 +1,10 @@
-import { Button } from "@ui/shadcn/button";
+import { useAtom } from "jotai";
+import { appSettings, fileListOptionsAtom } from "@/store";
+import { Button, Checkbox, Label } from "@ui/shadcn";
 import * as D from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
+import { useSnapshot } from "valtio";
+import { Order } from "@/store/store-types";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -19,7 +23,14 @@ function DrawerItems() {
     );
 }
 
+const labelBoldClasses = "block mb-1 text-xs font-semibold";
+const subClasses = "py-1 flex flex-col gap-2";
+const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
+
 export function FilterOptions() {
+
+    const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
+
     return (
         <div className="flex flex-col gap-2">
             <D.Drawer shouldScaleBackground={false}>
@@ -35,6 +46,18 @@ export function FilterOptions() {
                     </div>
                 </D.DrawerContent>
             </D.Drawer>
+
+            <div className={subClasses}>
+                <Label className={rowClasses}>
+                    {/* <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.lowToHigh } /> */}
+                    <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => {
+                        console.log(`v: ${v}`);
+                        
+                        appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.lowToHigh;
+                    }} />
+                    Ascending
+                </Label>
+            </div>
 
             <Button variant="outline" className="font-normal">
                 Sort options
