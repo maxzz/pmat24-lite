@@ -93,9 +93,10 @@ export const doSetDeliveredFilesAtom = atom(
 
         //TODO: sort by name
         sortedFileUsItems = fileUsItems.sort((a, b) => {
-            if (a.fileCnt.fname > b.fileCnt.fname) return 1;
-            if (a.fileCnt.fname < b.fileCnt.fname) return -1;
-            return 0;
+            return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
+            // if (a.fileCnt.fname > b.fileCnt.fname) return 1;
+            // if (a.fileCnt.fname < b.fileCnt.fname) return -1;
+            // return 0;
         });
         console.log('sortedFileUsItems1', JSON.stringify(sortedFileUsItems.map((item, idx) => `${`${idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`), null, 2));
 
