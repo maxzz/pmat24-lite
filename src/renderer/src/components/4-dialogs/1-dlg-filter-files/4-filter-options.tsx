@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import { appSettings, fileListOptionsAtom } from "@/store";
 import { Button, Checkbox, Label } from "@ui/shadcn";
 import * as D from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
-import { useSnapshot } from "valtio";
 import { Order } from "@/store/store-types";
-import { useState } from "react";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -31,7 +31,9 @@ const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 export function FilterOptions() {
 
     // const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
-    const order = useSnapshot(appSettings.files.sortOrder).order;
+    //const order = useSnapshot(appSettings.files.sortOrder).order;
+    const [files, setFiles] = useAtom(fileListOptionsAtom);
+    const order = files.sortOrder.order;
 
     // console.log(`order: ${order}, sortBy: ${sortBy}`);
     console.log(`order: ${order}`);
@@ -71,16 +73,17 @@ export function FilterOptions() {
 
                     <Checkbox
                         checked={order === Order.lowToHigh}
-                        onClick={(event) => {
-                            const v = (event.currentTarget as HTMLInputElement).checked;
+                        // onClick={(event) => {
+                        //     const v = (event.currentTarget as HTMLInputElement).checked;
+                        //     console.log(`v: ${v}`);
+                        //     appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                        // }}
+                        onCheckedChange={(v) => {
                             console.log(`v: ${v}`);
-                            appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
-                        }}
-                    // onCheckedChange={(v) => {
-                    //     console.log(`v: ${v}`);
 
-                    //     appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
-                    // }}
+                            // appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                            setFiles({ ...files, sortOrder: { ...files.sortOrder, order: !v ? Order.lowToHigh : Order.lowToHigh } });
+                        }}
                     />
                     <Checkbox checked={oredBool} onCheckedChange={(v) => {
                         console.log(`v: ${v}`);
