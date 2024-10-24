@@ -1,8 +1,8 @@
 import { themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
+import { atomWithProxy } from "jotai-valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { FileListSettings, defaultFileListSettings } from "./atoms/9-ui-state/1-files-list";
-import { atomWithProxy } from "jotai-valtio";
 import { RightPanelSettings, defaultRightPanelSettings } from "./atoms/9-ui-state/2-right-panel";
 import { AppUISettings, defaultAppUISettings } from "./atoms/9-ui-state/3-app-ui";
 
