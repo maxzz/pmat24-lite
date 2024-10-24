@@ -39,6 +39,8 @@ function initialSettings(): AppSettings {
     return merged;
 }
 
+console.log('initialSettings', appSettings);
+
 // Apply theme changes
 
 themeApplyMode(appSettings.appUi.theme);
@@ -50,6 +52,7 @@ subscribe(appSettings, () => {
 // Save settings changes to localStorage
 
 const saveDebounced = debounce(() => {
+    console.log('saveDebounced', appSettings);
     localStorage.setItem(STORE_KEY, JSON.stringify({ [STORE_VER]: appSettings }));
 }, 400);
 

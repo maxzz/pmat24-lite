@@ -5,6 +5,7 @@ import * as D from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
 import { useSnapshot } from "valtio";
 import { Order } from "@/store/store-types";
+import { useState } from "react";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -29,7 +30,15 @@ const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 
 export function FilterOptions() {
 
-    const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
+    // const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
+    const order = useSnapshot(appSettings.files.sortOrder).order;
+
+    // console.log(`order: ${order}, sortBy: ${sortBy}`);
+    console.log(`order: ${order}`);
+
+    // const [oredBool, setOredBool] = useState(fileListOptionsAtom);
+    const [oredBool, setOredBool] = useState(false);
+    
 
     return (
         <div className="flex flex-col gap-2">
@@ -50,10 +59,15 @@ export function FilterOptions() {
             <div className={subClasses}>
                 <Label className={rowClasses}>
                     {/* <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.lowToHigh } /> */}
-                    <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => {
+                    {/* <Checkbox checked={order === Order.lowToHigh} onCheckedChange={(v) => {
                         console.log(`v: ${v}`);
                         
-                        appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.lowToHigh;
+                        appSettings.files.sortOrder.order = !v ? Order.lowToHigh : Order.lowToHigh;
+                    }} /> */}
+                    <Checkbox checked={oredBool} onCheckedChange={(v) => {
+                        console.log(`v: ${v}`);
+                        
+                        setOredBool(v => !v);
                     }} />
                     Ascending
                 </Label>
