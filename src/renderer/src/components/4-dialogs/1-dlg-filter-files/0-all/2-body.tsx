@@ -4,10 +4,7 @@ import { searchFilterData } from "@/store";
 import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
 import { FilteredFilesList } from "../1-files-list";
-import { FilterOptions } from "../2-right-side-options";
-import { OptionsDrawer } from "../2-right-side-options/2-drawer";
-import { CheckAscending } from "../2-right-side-options/3-order";
-import { CheckSortBy } from "../2-right-side-options/4-sort-by";
+import { CheckAscending, CheckSortBy, OptionsDrawer } from "../2-right-side-options";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);

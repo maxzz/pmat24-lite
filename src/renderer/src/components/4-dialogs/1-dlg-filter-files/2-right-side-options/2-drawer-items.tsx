@@ -2,6 +2,7 @@ import { SymbolDot } from "@/ui/icons";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
+
 export function DrawerItems() {
     return (
         <div className="text-xs px-1">
