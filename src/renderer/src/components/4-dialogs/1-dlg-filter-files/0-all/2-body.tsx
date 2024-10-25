@@ -5,6 +5,9 @@ import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
 import { FilteredFilesList } from "../1-files-list";
 import { FilterOptions } from "../2-right-side-options";
+import { OptionsDrawer } from "../2-right-side-options/2-drawer";
+import { CheckAscending } from "../2-right-side-options/3-order";
+import { CheckSortBy } from "../2-right-side-options/4-sort-by";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
@@ -38,7 +41,18 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
 
             <div className="grid grid-cols-[1fr_auto] gap-4">
                 <FilteredFilesList />
-                <FilterOptions />
+
+                <div className="flex flex-col gap-2">
+                    <OptionsDrawer />
+
+                    <CheckAscending />
+                    <CheckSortBy />
+
+                    {/* <Button variant="outline" className="font-normal">
+                        Sort options
+                    </Button> */}
+                </div>
+
             </div>
 
         </div>
