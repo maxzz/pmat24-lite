@@ -1,8 +1,7 @@
-import { SymbolDot } from "@/ui/icons";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment } from "react";
 
-const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
-const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
+// const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
+const popupContentTextClasses = "inline-block w-8 font-bold font-mono tracking-tight";
 
 const drawerItems: { key: string; description: string; }[] = [
     { key: "win", description: "for Windows apps" },
@@ -14,10 +13,7 @@ const drawerItems: { key: string; description: string; }[] = [
 
 export function DrawerItems() {
     return (<>
-        <div className="pb-1 font-bold">Filter modifiers</div>
-        <div className="pb-1.5 text-balance">Use a search prefix to display only logins:</div>
-
-        <div className="grid grid-cols-[auto_minmax(0,1fr)]">
+        <div className="w-max grid grid-cols-[auto_minmax(0,1fr)]">
             {drawerItems.map(
                 (item) => (<Fragment key={item.key}>
                     {/* <div className=""> */}
