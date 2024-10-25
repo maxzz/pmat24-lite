@@ -40,14 +40,14 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                 <FilteredFilesList />
 
                 <div className="flex flex-col gap-2">
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-0.5">
                         <div className="font-bold">Sort options</div>
                         <CheckAscending />
                     </div>
 
                     {/* TODO: add accordion */}
-                    <div className="1max-w-40 1w-min">
-                        <div className="pb-1 font-bold">Filter modifiers</div>
+                    <div>
+                        <div className="pb-0.5 font-bold">Filter modifiers</div>
                         <div className="pb-1.5 text-balance">Use a search prefix to display only logins:</div>
 
                         <DrawerItems />
