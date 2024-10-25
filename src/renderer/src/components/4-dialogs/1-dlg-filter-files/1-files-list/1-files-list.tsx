@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { treeFilesAtom } from "@/store";
 import { ScrollArea } from "@/ui";
-import { FilterOptions } from "./4-filter-options";
+import { FilterOptions } from "../2-right-side-options";
 
 export function FilteredFilesList() {
     const files = useAtomValue(treeFilesAtom);

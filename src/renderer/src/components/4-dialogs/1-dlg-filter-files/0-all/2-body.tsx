@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { searchFilterData } from "@/store";
 import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
-import { FilteredFilesList } from "./3-files-list";
+import { FilteredFilesList } from "../1-files-list";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
