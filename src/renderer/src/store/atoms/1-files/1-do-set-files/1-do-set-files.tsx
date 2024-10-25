@@ -55,6 +55,7 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.normal = 0;
         totalManis.manual = 0;
         totalManis.empty = 0;
+        totalManis.fc = 0;
 
         const unsupported: FileUs[] = [];
 
@@ -65,7 +66,10 @@ export const doSetDeliveredFilesAtom = atom(
                     (deliveredFileContent: FileContent) => {
                         const newFileUs = createFileUsFromFileContent(deliveredFileContent);
 
-                        if (isEmpty(newFileUs.parsedSrc.meta)) {
+                        if (newFileUs.parsedSrc.fcat) {
+                            totalManis.fc++;
+                        }
+                        else if (isEmpty(newFileUs.parsedSrc.meta)) {
                             totalManis.empty++;
                         } else if (isManual(newFileUs.parsedSrc.meta)) {
                             totalManis.manual++;
