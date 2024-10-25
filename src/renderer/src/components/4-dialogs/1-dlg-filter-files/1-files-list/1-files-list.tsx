@@ -14,7 +14,7 @@ export function FilteredFilesList() {
                             IconToRender && (
                                 <div key={file.id} className="flex items-center gap-1 leading-5">
                                     <IconToRender className="flex-none p-px size-4" />
-                                    <div className="">{file.name}</div>
+                                    <div className="truncate">{file.name}</div>
                                 </div>
                             )
                         );

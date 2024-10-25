@@ -49,7 +49,6 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                         <CheckAscending />
                     </div>
                 </div>
-
             </div>
 
         </div>
