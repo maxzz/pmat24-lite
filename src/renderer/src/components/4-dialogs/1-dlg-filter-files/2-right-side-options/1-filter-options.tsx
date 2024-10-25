@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Button, Checkbox, Label } from "@ui/shadcn";
-import * as D from "@ui/shadcn/drawer";
+import * as Dr from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
 import { Order } from "@/store/store-types";
 
@@ -29,19 +29,19 @@ const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 export function FilterOptions() {
     return (
         <div className="flex flex-col gap-2">
-            <D.Drawer shouldScaleBackground={false}>
-                <D.DrawerTrigger asChild>
+            <Dr.Drawer shouldScaleBackground={false}>
+                <Dr.DrawerTrigger asChild>
                     <Button variant="outline" className="font-normal">
                         Fiter options
                     </Button>
-                </D.DrawerTrigger>
+                </Dr.DrawerTrigger>
 
-                <D.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" hiddenTitle="Filter options">
+                <Dr.DrawerContent className="mx-auto py-4 w-1/2 max-w-sm rounded" hiddenTitle="Filter options">
                     <div className="grid place-content-center">
                         <DrawerItems />
                     </div>
-                </D.DrawerContent>
-            </D.Drawer>
+                </Dr.DrawerContent>
+            </Dr.Drawer>
 
             <CheckAscending />
 

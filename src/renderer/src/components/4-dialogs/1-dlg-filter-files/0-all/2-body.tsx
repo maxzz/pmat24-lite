@@ -1,9 +1,10 @@
-import { KeyboardEvent } from "react";
+import { type KeyboardEvent } from "react";
 import { useAtom } from "jotai";
 import { searchFilterData } from "@/store";
 import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
 import { FilteredFilesList } from "../1-files-list";
+import { FilterOptions } from "../2-right-side-options";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
@@ -35,7 +36,11 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                 />
             </div>
 
-            <FilteredFilesList />
+            <div className="grid grid-cols-[1fr_auto] gap-4">
+                <FilteredFilesList />
+                <FilterOptions />
+            </div>
+
         </div>
     );
 }
