@@ -4,7 +4,7 @@ import { searchFilterData } from "@/store";
 import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
 import { FilteredFilesList } from "../1-files-list";
-import { CheckAscending, CheckSortBy, OptionsDrawer } from "../2-right-side-options";
+import { CheckAscending, DrawerItems } from "../2-right-side-options";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
@@ -40,7 +40,7 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                 <FilteredFilesList />
 
                 <div className="flex flex-col gap-2">
-                    <OptionsDrawer />
+                    {/* <DrawerItems /> */}
 
                     <CheckAscending />
                     {/* <CheckSortBy /> */}  {/* TBD: do not need it as it is now */}
@@ -48,6 +48,10 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                     {/* <Button variant="outline" className="font-normal">
                         Sort options
                     </Button> */}
+
+                    <div className="max-w-36">
+                        <DrawerItems />
+                    </div>
                 </div>
 
             </div>
