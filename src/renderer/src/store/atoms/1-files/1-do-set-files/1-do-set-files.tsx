@@ -68,8 +68,7 @@ export const doSetDeliveredFilesAtom = atom(
 
                         if (newFileUs.parsedSrc.fcat) {
                             totalManis.fc++;
-                        }
-                        else if (isEmpty(newFileUs.parsedSrc.meta)) {
+                        } else if (isEmpty(newFileUs.parsedSrc.meta)) {
                             totalManis.empty++;
                         } else if (isManual(newFileUs.parsedSrc.meta)) {
                             totalManis.manual++;
@@ -94,7 +93,6 @@ export const doSetDeliveredFilesAtom = atom(
         sortFileUsItemsInPlace(fileUsItems);
 
         fceRoots.entries = createFldCatRoots(fileUsItems);
-        console.log('fceRoots.entries', fceRoots.entries);
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);

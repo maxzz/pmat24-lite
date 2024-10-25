@@ -39,8 +39,6 @@ function initialSettings(): AppSettings {
     return merged;
 }
 
-console.log('initialSettings', appSettings);
-
 // Apply theme changes
 
 themeApplyMode(appSettings.appUi.theme);
