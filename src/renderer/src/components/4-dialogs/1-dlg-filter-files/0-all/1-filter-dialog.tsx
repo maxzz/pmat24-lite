@@ -22,8 +22,10 @@ export function FilterFilesDialog() {
                 hiddenTitle="Files filter"
                 overlayClasses={overlayClasses}
             >
-                <DialogFilterBody setIsOpen={setIsOpen} />
-
+                {isOpen && (
+                    <DialogFilterBody setIsOpen={setIsOpen} />
+                )}
+                
             </D.DialogContent>
         </D.Dialog>
     </>);
