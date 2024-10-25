@@ -27,7 +27,6 @@ const subClasses = "py-1 flex flex-col gap-2";
 const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 
 export function FilterOptions() {
-    const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
     return (
         <div className="flex flex-col gap-2">
             <D.Drawer shouldScaleBackground={false}>
@@ -44,19 +43,41 @@ export function FilterOptions() {
                 </D.DrawerContent>
             </D.Drawer>
 
-            <div className={subClasses}>
-                <Label className={rowClasses}>
-                    <Checkbox
-                        checked={order === Order.lowToHigh}
-                        onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.highToLow}
-                    />
-                    Ascending
-                </Label>
-            </div>
+            <CheckAscending />
 
             <Button variant="outline" className="font-normal">
                 Sort options
             </Button>
+        </div>
+    );
+}
+
+function CheckAscending() {
+    const { order } = useSnapshot(appSettings.files.sortOrder);
+    return (
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox
+                    checked={order === Order.lowToHigh}
+                    onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.highToLow}
+                />
+                Ascending
+            </Label>
+        </div>
+    );
+}
+
+function CheckSortBy() {
+    const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
+    return (
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox
+                    checked={order === Order.lowToHigh}
+                    onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.highToLow}
+                />
+                Sort by
+            </Label>
         </div>
     );
 }
