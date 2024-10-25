@@ -1,9 +1,8 @@
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
-import { Button, Checkbox, Label } from "@ui/shadcn";
+import { Button } from "@ui/shadcn";
 import * as Dr from "@ui/shadcn/drawer";
 import { SymbolDot } from "@/ui/icons";
-import { Order } from "@/store/store-types";
+import { CheckAscending } from "./2-order";
+import { CheckSortBy } from "./3-sort-by";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -21,10 +20,6 @@ function DrawerItems() {
         </div>
     );
 }
-
-const labelBoldClasses = "block mb-1 text-xs font-semibold";
-const subClasses = "py-1 flex flex-col gap-2";
-const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 
 export function FilterOptions() {
     return (
@@ -44,40 +39,11 @@ export function FilterOptions() {
             </Dr.Drawer>
 
             <CheckAscending />
+            <CheckSortBy />
 
-            <Button variant="outline" className="font-normal">
+            {/* <Button variant="outline" className="font-normal">
                 Sort options
-            </Button>
-        </div>
-    );
-}
-
-function CheckAscending() {
-    const { order } = useSnapshot(appSettings.files.sortOrder);
-    return (
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox
-                    checked={order === Order.lowToHigh}
-                    onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.highToLow}
-                />
-                Ascending
-            </Label>
-        </div>
-    );
-}
-
-function CheckSortBy() {
-    const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
-    return (
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox
-                    checked={order === Order.lowToHigh}
-                    onCheckedChange={(v) => appSettings.files.sortOrder.order = v ? Order.lowToHigh : Order.highToLow}
-                />
-                Sort by
-            </Label>
+            </Button> */}
         </div>
     );
 }
