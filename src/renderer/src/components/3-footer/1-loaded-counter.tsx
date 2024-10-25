@@ -1,6 +1,6 @@
-import { totalManis, treeFilesAtom } from "@/store";
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import { totalManis, treeFilesAtom } from "@/store";
 
 export function LoadedCounter() {
     const treeFiles = useAtomValue(treeFilesAtom);
@@ -10,27 +10,17 @@ export function LoadedCounter() {
         return <div className="text-[.65rem]">No files loaded</div>;
     }
 
-    const suffix = ` file${treeFiles.length > 1 ? 's' : ''}`;
+    const total = cunter('Loaded:', treeFiles.length, true);
+    const subs = ` ( ${cunter('normal:', normal)}, ${cunter('manual:', manual)}, ${cunter('empty:', empty)}, ${cunter('field catalog:', fc)})`;
+    const all = `${total}${subs}`;
+
     return (
         <div className="text-[.65rem] leading-5 text-muted-foreground flex items-center gap-1 select-none">
-            Loaded{' '}
-
-            <span className="text-text/60">
-                {treeFiles.length}
-            </span>
-
-            {suffix}
-
-            {' ( '}
-            {subCounter('normal:', normal)}{', '}
-            {subCounter('manual:', manual)}{', '}
-            {subCounter('empty:', empty)}{', '}
-            {subCounter('field catalog:', fc)}
-            {')'}
+            {all}
         </div>
     );
 }
 
-function subCounter(label: string, counter: number, doSuffix: boolean = false): string {
+function cunter(label: string, counter: number, doSuffix: boolean = false): string {
     return `${label} ${counter} ${doSuffix ? `file${counter > 1 ? 's' : ''}` : ''}`;
 }
