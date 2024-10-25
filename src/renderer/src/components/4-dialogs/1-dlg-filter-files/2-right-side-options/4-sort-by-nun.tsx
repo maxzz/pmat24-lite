@@ -7,6 +7,8 @@ const labelBoldClasses = "block mb-1 text-xs font-semibold";
 const subClasses = "py-1 flex flex-col gap-2";
 const rowClasses = "text-xs font-normal flex place-items-center gap-1.5";
 
+/* TBD: do not need it as it is now */
+
 export function CheckSortBy() {
     const { order, sortBy } = useSnapshot(appSettings.files.sortOrder);
     return (

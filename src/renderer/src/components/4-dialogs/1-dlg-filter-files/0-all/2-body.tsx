@@ -43,7 +43,7 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                     <OptionsDrawer />
 
                     <CheckAscending />
-                    <CheckSortBy />
+                    {/* <CheckSortBy /> */}  {/* TBD: do not need it as it is now */}
 
                     {/* <Button variant="outline" className="font-normal">
                         Sort options
