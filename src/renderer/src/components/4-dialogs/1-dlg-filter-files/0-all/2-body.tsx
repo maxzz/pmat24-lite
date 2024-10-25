@@ -40,17 +40,13 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                 <FilteredFilesList />
 
                 <div className="flex flex-col gap-2">
-                    {/* <DrawerItems /> */}
-
-                    <CheckAscending />
-                    {/* <CheckSortBy /> */}  {/* TBD: do not need it as it is now */}
-
-                    {/* <Button variant="outline" className="font-normal">
-                        Sort options
-                    </Button> */}
-
-                    <div className="max-w-36">
+                    <div className="max-w-40">
                         <DrawerItems />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <div className="font-bold">Sort options</div>
+                        <CheckAscending />
                     </div>
                 </div>
 

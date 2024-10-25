@@ -1,4 +1,5 @@
 import { SymbolDot } from "@/ui/icons";
+import { Fragment } from "react/jsx-runtime";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -17,15 +18,19 @@ export function DrawerItems() {
             <div className="pb-1 font-bold">Search options</div>
             <div className="pb-1">Use the search prefix to dispay only:</div>
 
-            {drawerItems.map(
-                (item) => (
-                    <div className="flex items-center gap-0.5" key={item.key}>
-                        <SymbolDot className={popupContentDotClasses} />
-                        <span className={popupContentTextClasses}>{item.key}:</span>
+            <div className="grid grid-cols-[auto_minmax(0,1fr)]">
+                {drawerItems.map(
+                    (item) => (<Fragment key={item.key}>
+                        <div className="">
+                            {/* <SymbolDot className={popupContentDotClasses} /> */}
+                            <span className={popupContentTextClasses}>{item.key}:</span>
+
+                        </div>
+
                         {item.description}
-                    </div>
-                ))
-            }
+                    </Fragment>))
+                }
+            </div>
         </div>
     );
 }
