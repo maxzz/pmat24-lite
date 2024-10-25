@@ -1,4 +1,4 @@
-import { appSettings } from "@/store/app-settings";
+import { appSettings } from "@/store";
 import { useSnapshot } from "valtio";
 
 export function SectionTitle({ label }: { label: string; }) {
