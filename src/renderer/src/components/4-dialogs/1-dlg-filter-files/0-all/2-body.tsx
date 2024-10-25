@@ -33,11 +33,15 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                     onKeyDown={onKeyDown}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Search for manifests"
+                    spellCheck="false"
                 />
             </div>
 
             <div className="grid grid-cols-[1fr_auto] gap-4">
-                <FilteredFilesList />
+                <div className="flex flex-col gap-0.5">
+                    <div className="font-bold">Filter result</div>
+                    <FilteredFilesList />
+                </div>
 
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-0.5">
@@ -58,3 +62,6 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
         </div>
     );
 }
+
+//TODO: when filter changed or empty, reset right view as well
+//TBD: filed catalog is shown allways. That is confusing but correct. Probably need to show it allways as the last item
