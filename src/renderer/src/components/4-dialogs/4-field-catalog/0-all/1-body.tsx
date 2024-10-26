@@ -30,17 +30,17 @@ export function DialogFieldCatalogBody() {
             </D.DialogHeader>
 
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
-                <FieldCatalogToolbar className="py-1 1bg-red-300/10" />
+                <FieldCatalogToolbar className="py-1" />
 
-                {/* <div className="1bg-green-300/20 min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
-                <div className="h-full 1bg-green-300/20 border-border border rounded flex">
+                {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
+                <div className="h-full border-border border rounded flex">
                     <FldCatItemsGrid
                         selectedItemAtom={selectedItemAtom}
                         onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
                     />
 
                     <RightPanelGuard
-                        className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
+                        className="1relative bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
                         selectedItemAtom={selectedItemAtom}
                     />
                 </div>

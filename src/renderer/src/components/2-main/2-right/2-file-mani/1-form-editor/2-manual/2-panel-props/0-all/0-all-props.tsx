@@ -13,7 +13,7 @@ overflow-hidden \
 select-none";
 
 export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    const ctx = ctxForm.mAllAtoms.manual;
+    const { manual: ctx, fileUsCtx } = ctxForm.mAllAtoms;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);
@@ -28,7 +28,7 @@ export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MF
             <PanelPropsTitle type={selectedItem.type} />
 
             <div className={propsBoxClasses} {...rest}>
-                <ScriptItemPropsEditor ctx={selectedItem} fileUsCtx={ctxForm.mAllAtoms.fileUsCtx} />
+                <ScriptItemPropsEditor ctx={selectedItem} fileUsCtx={fileUsCtx} />
             </div>
 
         </div>

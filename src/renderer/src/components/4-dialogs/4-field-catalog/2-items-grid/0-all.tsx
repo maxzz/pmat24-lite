@@ -17,12 +17,12 @@ export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }
     const { ref: refRootCb, width, height } = useResizeObserver();
 
     return (
-        <div className="flex-shrink-0 relative w-full min-h-80" {...rest}>
+        <div className="flex-shrink-0 relative w-full" {...rest}>
             <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`absolute inset-0 flex flex-col`}>
 
-                <ScrollArea style={{ width, height }} className="">
+                <ScrollArea style={{ width, height }}>
                     <div
-                        className={classNames("grid grid-cols-[auto_auto_minmax(220px,1fr)] outline-none 1focus-within:ring ring-ring")}
+                        className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none 1focus-within:ring ring-ring")}
                         tabIndex={0}
                     >
                         <FldCatItemsBody
