@@ -60,8 +60,7 @@ export function Dropdown({ items, value, onValueChange, className }: DropdownPro
                 </div>
             </Select.Trigger>
 
-            {/* <Select.Portal container={document.getElementById('portal')}> */}
-            <Select.Portal>
+            <Select.Portal container={document.getElementById('portal')}>
                 <Select.Content className="z-50">
                     <Select.Viewport className={viewportClasses}>
                         {items.map(
