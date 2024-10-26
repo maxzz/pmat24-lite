@@ -1,7 +1,7 @@
 import { useAtom, useSetAtom } from "jotai";
 import { PolicyDlgConv, type PolicyDlgTypes } from "../../0-all";
 import { Dropdown } from "../../9-constrols";
-import { Label } from "@/ui";
+import { Dropdown5, Label } from "@/ui";
 import { MinMaxInputs } from "./2-min-max";
 
 function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
@@ -25,7 +25,7 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
                 Password complexity rule
             </div>
             <Label className="flex-1 text-xs flex flex-col 1items-center">
-                <Dropdown items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
+                <Dropdown5 items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
             </Label>
         </div>
     );

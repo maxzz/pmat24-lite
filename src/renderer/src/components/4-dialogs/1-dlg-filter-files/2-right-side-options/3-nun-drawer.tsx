@@ -1,6 +1,6 @@
 import { Button } from "@ui/shadcn";
 import * as Dr from "@ui/shadcn/drawer";
-import { DrawerItems } from "./2-drawer-items";
+import { DrawerItems } from "./1-drawer-items";
 
 export function OptionsDrawer() {
     return (

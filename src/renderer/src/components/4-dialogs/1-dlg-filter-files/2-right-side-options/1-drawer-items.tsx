@@ -5,7 +5,7 @@ const popupContentTextClasses = "inline-block w-8 font-bold font-mono tracking-t
 
 const drawerItems: { key: string; description: string; }[] = [
     { key: "win", description: "for Windows apps" },
-    { key: "web", description: "for web apps" },
+    { key: "web", description: "for websites" },
     { key: "why", description: "with problems" },
     { key: "cap", description: "with window caption" },
     { key: "cls", description: "with window classname" },
