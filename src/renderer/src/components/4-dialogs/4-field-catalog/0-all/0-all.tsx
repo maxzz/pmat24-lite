@@ -20,6 +20,7 @@ export function FieldCatalogDialog() {
                 noClose
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
+                container={document.getElementById('portal')}
             >
                 <DialogFieldCatalogBody />
                 
