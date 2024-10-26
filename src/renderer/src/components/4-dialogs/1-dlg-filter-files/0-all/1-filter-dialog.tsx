@@ -21,6 +21,7 @@ export function FilterFilesDialog() {
                 noClose
                 hiddenTitle="Files filter"
                 overlayClasses={overlayClasses}
+                container={document.getElementById('portal')}
             >
                 <DialogFilterBody setIsOpen={setIsOpen} />
 
