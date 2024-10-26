@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { type HTMLAttributes, type ReactNode } from "react";
 import * as Select from '@radix-ui/react-select';
 import { SymbolChevronDown } from "@ui/icons";
 import { CheckIcon } from "@radix-ui/react-icons";
@@ -38,11 +38,12 @@ export type SelectNameValueItem = string | readonly [label: ReactNode, value: st
 
 type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
     items: SelectNameValueItem[];
+    valueAsLabel?: boolean; // each item value is the same as label, but label cannot be a ReactNode (only string) in this case
     value?: string;
     onValueChange?(value: string): void;
 };
 
-export function Dropdown5({ items, value, onValueChange, className }: DropdownProps) {
+export function Dropdown5({ items, valueAsLabel, value, onValueChange, className }: DropdownProps) {
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
             <Select.Trigger asChild>
@@ -62,7 +63,11 @@ export function Dropdown5({ items, value, onValueChange, className }: DropdownPr
                             (item, idx) => {
                                 const isString = typeof item === 'string';
                                 const label = isString ? item : item[0];
-                                const value = isString ? `${idx}` : item[1]; //TBD: it can item itself as value
+                                const value = isString
+                                    ? valueAsLabel && typeof label === 'string' //TODO: do this check at DropdownProps level, otherwise we fallback to idx silently
+                                        ? label
+                                        : idx.toString()
+                                    : item[1];
                                 return (
                                     <Select.Item className={selectItemClasses} value={value} key={idx}>
                                         <Select.ItemText>{label}</Select.ItemText>

@@ -34,6 +34,12 @@ radix-disabled:opacity-50 \
 rounded select-none cursor-default \
 flex items-center";
 
+const triggerClasses = "\
+p-2 h-8 \
+text-mani-foreground bg-mani-background border-mani-border-muted border \
+flex items-center justify-between space-x-1 \
+rounded";
+
 type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
     items: string[];
     value?: string;
@@ -43,8 +49,9 @@ type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
 export function Dropdown({ items, value, onValueChange, className }: DropdownProps) {
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
+
             <Select.Trigger asChild>
-                <div className={classNames("p-2 h-8 text-mani-foreground bg-mani-background border-mani-border-muted border flex items-center justify-between space-x-1 rounded", className)} tabIndex={0}>
+                <div className={classNames(triggerClasses, className)} tabIndex={0}>
                     <Select.Value className={inputFocusClasses} />
 
                     <Select.Icon>
@@ -53,7 +60,8 @@ export function Dropdown({ items, value, onValueChange, className }: DropdownPro
                 </div>
             </Select.Trigger>
 
-            <Select.Portal container={document.getElementById('portal')}>
+            {/* <Select.Portal container={document.getElementById('portal')}> */}
+            <Select.Portal>
                 <Select.Content className="z-50">
                     <Select.Viewport className={viewportClasses}>
                         {items.map(
