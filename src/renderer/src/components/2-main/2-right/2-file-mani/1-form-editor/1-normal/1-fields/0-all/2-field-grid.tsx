@@ -9,7 +9,7 @@ export function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
 
             {ctx.nAllAtoms.normal.rowCtxs.map(
                 (fieldRowAtoms, idx) => (
-                    <FieldRow rowCtx={fieldRowAtoms} key={idx} />
+                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={ctx.nAllAtoms.fileUsCtx} key={idx} />
                 ))
             }
         </div>

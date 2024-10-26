@@ -2,19 +2,25 @@ import { atom, type PrimitiveAtom } from "jotai";
 import { type FldCatInData, type FldCatOutData } from "./9-types";
 import { type CatalogItem } from "@/store/manifest";
 import { fceRoots } from "../../4-field-catalogs/2-fce-roots";
+import { FceRoot } from "../../4-field-catalogs/9-types";
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
 export const doOpenFldCatDialogAtom = atom(
     null,
-    (get, set, inData?: FldCatInData) => {
-        const data: FldCatInData = inData
-            ? inData
-            : {
-                fceRoot: fceRoots.entries['root'],
-                showTxt: true,
-                showPsw: true,
-            };
+    (get, set, { fceRoot, inData }: { fceRoot: FceRoot | undefined, inData?: Omit<FldCatInData, 'fceRoot'>; }) => {
+        const root = fceRoot || fceRoots.entries['root'];
+        const data: FldCatInData =
+            inData
+                ? {
+                    ...inData,
+                    fceRoot: root,
+                }
+                : {
+                    fceRoot: root,
+                    showTxt: true,
+                    showPsw: true,
+                };
         set(fldCatTriggerAtom, data);
     }
 );

@@ -28,7 +28,7 @@ export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MF
             <PanelPropsTitle type={selectedItem.type} />
 
             <div className={propsBoxClasses} {...rest}>
-                <ScriptItemPropsEditor ctx={selectedItem} />
+                <ScriptItemPropsEditor ctx={selectedItem} fileUsCtx={ctxForm.mAllAtoms.fileUsCtx} />
             </div>
 
         </div>

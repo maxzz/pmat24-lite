@@ -1,6 +1,6 @@
 import { type FceRoots } from "./9-types";
 
-export type FceRootsAll = {
+export type FceRootsAll = { // TBD: to make it proxy-able?
     entries: FceRoots;
 };
 

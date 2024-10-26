@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { type NormalField } from "@/store/atoms/3-file-mani-atoms";
+import { type FileUsCtx, type NormalField } from "@/store/atoms/3-file-mani-atoms";
 import { type CatalogItem } from "@/store/manifest";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
@@ -8,7 +8,7 @@ import { Column4_Value } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 
-export function FieldRow({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
+export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
 
@@ -48,6 +48,7 @@ export function FieldRow({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
             onSelectCatItem={onSelectCatItem}
             maniIsPassword={maniField.password}
             maniDbName={maniField.dbname}
+            fileUsCtx={fileUsCtx}
             onClick={enableRow}
         />
 

@@ -1,4 +1,4 @@
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { FileUsCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { Column3_Label } from "../../../../1-normal/1-fields/3-column-label";
 import { Column4_Value } from "../../../../1-normal/1-fields/4-column-value";
 import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog";
@@ -8,7 +8,7 @@ import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
 import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
 // import { SrcriptItemFld } from "@/store";
 
-export function PropsEditorFld({ item }: { item: ManualFieldState.CtxFld; }) {
+export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
 
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.rowCtx;
 
@@ -50,6 +50,7 @@ export function PropsEditorFld({ item }: { item: ManualFieldState.CtxFld; }) {
                 onSelectCatItem={onSelectCatItem}
                 maniIsPassword={maniIsPassword}
                 maniDbName={maniDbName}
+                fileUsCtx={fileUsCtx}
             />
         </InputLabel>
 

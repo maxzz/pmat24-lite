@@ -6,6 +6,7 @@ import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
+import { FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 
 const inputParentClasses = "\
 h-7 grid grid-cols-[minmax(0,1fr)_auto] \
@@ -27,14 +28,15 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     onSelectCatItem: (item: CatalogItem | undefined) => void;
     maniIsPassword: boolean | undefined;
     maniDbName: string;
+    fileUsCtx: FileUsCtx;
 };
 
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
-    
-    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, ...rest } = props;
+
+    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, ...rest } = props;
 
     const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniIsPassword, maniDbName);
 
@@ -77,7 +79,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onSetDropdownIndex(idx: number) {
         if (idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword });
+            doOpenFldCatDialog({ fceRoot: fileUsCtx.fileUs.fceRoot, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
         setInputTextText(dropdownItems[idx]);
