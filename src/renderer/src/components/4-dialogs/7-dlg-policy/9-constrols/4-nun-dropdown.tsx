@@ -46,7 +46,7 @@ type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
     onValueChange?(value: string): void;
 };
 
-export function Dropdown({ items, value, onValueChange, className }: DropdownProps) {
+export function NunDropdown({ items, value, onValueChange, className }: DropdownProps) {
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
 

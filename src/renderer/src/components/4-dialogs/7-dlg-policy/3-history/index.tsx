@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { namesConstrainPsw } from "@/store/manifest";
 import { type PolicyDlgTypes } from "../0-all";
-import { Dropdown } from "../9-constrols";
+import { NunDropdown } from "../9-constrols";
 import { Dropdown5 } from "@/ui";
 
 export function SectionHistory({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {

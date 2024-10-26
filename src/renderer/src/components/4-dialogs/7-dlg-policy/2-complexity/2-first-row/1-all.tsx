@@ -1,6 +1,6 @@
 import { useAtom, useSetAtom } from "jotai";
 import { PolicyDlgConv, type PolicyDlgTypes } from "../../0-all";
-import { Dropdown } from "../../9-constrols";
+import { NunDropdown } from "../../9-constrols";
 import { Dropdown5, Label } from "@/ui";
 import { MinMaxInputs } from "./2-min-max";
 
