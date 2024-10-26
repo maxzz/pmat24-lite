@@ -62,7 +62,6 @@ export function Dropdown5({ items, valueAsLabel, value, onValueChange, className
                 </div>
             </Select.Trigger>
 
-            {/* <Select.Portal container={document.getElementById('portal')}> */}
             <Select.Portal>
                 <Select.Content className="z-50">
                     <Select.Viewport className={viewportClasses}>
