@@ -3,7 +3,7 @@ import { fldCatTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 
-const contentClasses = "p-0 !w-80 1!w-fit min-w-fit 1min-w-56 max-w-xl min-h-[50vh] max-h-[80vh] text-xs gap-0 select-none data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-80 min-w-fit max-w-xl min-h-[60vh] h-[70vh] max-h-[90vh] text-xs gap-0 select-none data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel hieght until it will be floated w/ absolute position
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
