@@ -15,13 +15,12 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const selectedItemAtom = useState<SelectedItemAtom>(() => atom<FceItem | null>(null))[0];
 
     const fceCtx = useState<FceCtx>(
         () => {
             const rv: FceCtx = {
                 inData,
-                selectedItemAtom,
+                selectedItemAtom: atom<FceItem | null>(null),
                 onItemDoubleClick: (item: FceItem) => closeFldCatDialog({ fldCatItem: item }),
             };
             return rv;
@@ -49,14 +48,14 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
                 <div className="h-full border-border border rounded flex">
                     <FldCatItemsGrid
-                        selectedItemAtom={selectedItemAtom}
+                        selectedItemAtom={fceCtx.selectedItemAtom}
                         onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
                         fceCtx={fceCtx}
                     />
 
                     <RightPanelGuard
                         className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
-                        selectedItemAtom={selectedItemAtom}
+                        selectedItemAtom={fceCtx.selectedItemAtom}
                         fceCtx={fceCtx}
                     />
                 </div>
@@ -67,7 +66,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons
-                        selectedItemAtom={selectedItemAtom}
+                        selectedItemAtom={fceCtx.selectedItemAtom}
                         fceCtx={fceCtx}
                     />
                 </div>
