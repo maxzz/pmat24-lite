@@ -5,13 +5,13 @@ import { Checkbox, Label } from "@/ui";
 import { classNames } from "@/utils";
 
 export function DontShowNext({ className }: HTMLAttributes<HTMLLabelElement>) {
-    const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
+    const dontShowWelcome = !useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
 
     return (
-        <Label className={classNames("flex items-center gap-1", className)}>
+        <Label className={classNames("text-xs flex items-center gap-1", className)}>
             <Checkbox
                 className="size-4"
-                checked={showWelcome}
+                checked={dontShowWelcome}
                 onClick={() => appSettings.appUi.uiGeneral.showWelcome = false}
             />
             

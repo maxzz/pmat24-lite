@@ -24,6 +24,8 @@ export function WelcomePage() {
     //     return null;
     // }
 
+    const hasRecent = false;
+
     return (
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
             <AnimatePresence>
@@ -40,27 +42,31 @@ export function WelcomePage() {
                                 Welcome to the Password Manager Admin Tool
                             </div>
 
-                            {allowHandleFiles
-                                ? 'Open a file or folder to start working with the app.'
-                                : 'Open a folder to start working with the app.'
-                            }
+                            <div className="text-xs text-balance">
+                                {allowHandleFiles
+                                    ? "Open the file or folder containing the manifest files to start working with the application."
+                                    : "Open the folder containing the manifest files to start working with the application."
+                                }
+                            </div>
 
                             {allowHandleFiles && <ButtonFilesPicker />}
                             <ButtonFilesPicker openAsFolder />
 
-                            <div className="text-xs space-y-1">
-                                <div className="font-semibold">
-                                    Resently used folders:
+                            {hasRecent && (
+                                <div className="text-xs space-y-1">
+                                    <div className="font-semibold">
+                                        Resently used folders:
+                                    </div>
+                                    <div className="">
+                                        Folder 1 (placeholder)
+                                    </div>
+                                    <div className="">
+                                        Folder 2 (placeholder)
+                                    </div>
                                 </div>
-                                <div className="">
-                                    Folder 1 (placeholder)
-                                </div>
-                                <div className="">
-                                    Folder 2 (placeholder)
-                                </div>
-                            </div>
+                            )}
 
-                            <DontShowNext className="absolute left-0 bottom-0 p-4" />
+                            <DontShowNext className="absolute left-0 bottom-0 p-2" />
                         </div>
                     </motion.div>
                 )}
