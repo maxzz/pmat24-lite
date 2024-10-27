@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type FceItem, fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
+import { type FceItem, fldCatItemsAtom } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = {
@@ -48,3 +48,6 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
         )}
     </>);
 }
+
+//TODO: move atoms undef one root fc
+//TODO: move props atoms to context

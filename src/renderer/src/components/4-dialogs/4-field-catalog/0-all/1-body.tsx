@@ -15,13 +15,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
 
-    const onItemDoubleClick = useCallback(
-        (item: FceItem) => {
-            console.log('onItemDoubleClick', item);
-            
-            closeFldCatDialog({ fldCatItem: item });
-        }, []
-    );
+    const onItemDoubleClick = useCallback((item: FceItem) => closeFldCatDialog({ fldCatItem: item }), []);
 
     const fceCtx = useState<FceCtx>(
         () => {
@@ -55,17 +49,8 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
                 {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
                 <div className="h-full border-border border rounded flex">
-                    <FldCatItemsGrid
-                        selectedItemAtom={fceCtx.selectedItemAtom}
-                        onItemDoubleClick={fceCtx.onItemDoubleClick}
-                        fceCtx={fceCtx}
-                    />
-
-                    <RightPanelGuard
-                        className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
-                        selectedItemAtom={fceCtx.selectedItemAtom}
-                        fceCtx={fceCtx}
-                    />
+                    <FldCatItemsGrid fceCtx={fceCtx} />
+                    <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
                 </div>
 
                 <div className="pl-3 font-thin">
@@ -73,10 +58,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">
-                    <BottomButtons
-                        selectedItemAtom={fceCtx.selectedItemAtom}
-                        fceCtx={fceCtx}
-                    />
+                    <BottomButtons fceCtx={fceCtx} />
                 </div>
             </div>
         </div>

@@ -7,13 +7,12 @@ import { classNames } from "@/utils";
 
 type RightPanelGuardProps = {
     fceCtx: FceCtx;
-    selectedItemAtom: SelectedItemAtom;
     className?: string;
 };
 
 const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
 
-export function RightPanelGuard({ fceCtx, selectedItemAtom, className }: RightPanelGuardProps) {
+export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
     const showProps = useAtomValue(showPropsAtom);
     return (<>
         <MotionConfig transition={transition}>
@@ -28,7 +27,7 @@ export function RightPanelGuard({ fceCtx, selectedItemAtom, className }: RightPa
 
                         className={classNames("min-w-40 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden", className)}
                     >
-                        <SelectedItemBody selectedItemAtom={selectedItemAtom} />
+                        <SelectedItemBody selectedItemAtom={fceCtx.selectedItemAtom} />
                     </motion.div>
                 )}
             </AnimatePresence>
