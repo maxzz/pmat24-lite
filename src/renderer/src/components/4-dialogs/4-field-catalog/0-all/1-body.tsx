@@ -17,13 +17,16 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<FceItem | null>(null))[0];
 
-    const fceCtx = useState<FceCtx>(() => {
-        return {
-            inData,
-            selectedItemAtom,
-            onItemDoubleClick: (item: FceItem) => closeFldCatDialog({ fldCatItem: item }),
-        };
-    })[0];
+    const fceCtx = useState<FceCtx>(
+        () => {
+            const rv: FceCtx = {
+                inData,
+                selectedItemAtom,
+                onItemDoubleClick: (item: FceItem) => closeFldCatDialog({ fldCatItem: item }),
+            };
+            return rv;
+        }
+    )[0];
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
@@ -58,7 +61,9 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                     />
                 </div>
 
-                <TotalItems ctx={inData} />
+                <div className="pl-3 font-thin">
+                    <TotalItems fceCtx={inData} />
+                </div>
 
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons
@@ -71,13 +76,11 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     );
 }
 
-function TotalItems({ ctx }: { ctx: FldCatInData; }) {
-    const totalItems = useAtomValue(ctx.fceRoot.items).length;
-    return (
-        <div className="font-thin">
-            {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
-        </div>
-    );
+function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
+    const totalItems = useAtomValue(fceCtx.fceRoot.items).length;
+    return (<>
+        {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
+    </>);
 }
 
 //TODO: show folder of the field catalog
