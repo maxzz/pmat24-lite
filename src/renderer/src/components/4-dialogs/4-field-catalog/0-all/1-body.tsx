@@ -15,22 +15,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
 
-    const fceCtx = useState<FceCtx>(
-        () => {
-            const showSelectBtn = inData.outBoxAtom;
-            const rv: FceCtx = {
-                inData,
-                selectedItemAtom: atom<FceItem | null>(null),
-                onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
-
-                nameAtom: atom(''),
-                valueAtom: atom(''),
-                typeAtom: atom(''),
-                ownernoteAtom: atom(''),
-            };
-            return rv;
-        }
-    )[0];
+    const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
@@ -54,6 +39,21 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
             </div>
         </div>
     );
+}
+
+function createFceCtx(inData: FldCatInData, closeFldCatDialog: (outData: any) => void): FceCtx {
+    const showSelectBtn = inData.outBoxAtom;
+    const rv: FceCtx = {
+        inData,
+        selectedItemAtom: atom<FceItem | null>(null),
+        onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
+
+        nameAtom: atom(''),
+        valueAtom: atom(''),
+        typeAtom: atom(''),
+        ownernoteAtom: atom(''),
+    };
+    return rv;
 }
 
 function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
