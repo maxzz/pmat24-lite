@@ -16,9 +16,6 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
     const [selectedIdx, setSelectedIdx] = useAtom(selectedIdxAtom);
     const prevSelectedIdx = useRef(selectedIdx);
 
-    const inData = useAtomValue(fldCatTriggerAtom);
-    const showSelectBtn = !!inData?.outBoxAtom;
-
     useEffect(
         () => {
             if (selectedIdx !== -1) {
@@ -34,7 +31,7 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
 
     function onDoubleClick() {
         setSelectedIdx(prevSelectedIdx.current);
-        showSelectBtn && onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
+        onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (<>
