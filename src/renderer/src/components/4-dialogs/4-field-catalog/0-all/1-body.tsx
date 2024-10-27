@@ -14,7 +14,6 @@ const subSectionClasses = 'text-xs text-foreground bg-background border-border b
 export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
-    const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
 
     const fceCtx = useState<FceCtx>(
         () => {
@@ -35,31 +34,11 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
-            {/* <D.DialogHeader className="relative py-2 border-border border-b"> */}
-            <div className="relative py-2 border-border border-b flex flex-col items-center">
-                <div className="text-sm font-bold">
-                    Field Catalog
-                </div>
-                <div className="1self-start !mt-0 flex items-center justify-start gap-1">
-                    <SymbolFolder className="size-4" />
-                    root
-                </div>
-
-                <D.DialogCloseButton
-                    className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
-                    onClick={doCancelFldCatDialog}
-                    tabIndex={-1}
-                />
-            </div>
-            {/* </D.DialogHeader> */}
+            <Header fceCtx={inData} />
 
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
-                <FieldCatalogToolbar
-                    className="py-1"
-                    fceCtx={fceCtx}
-                />
+                <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
 
-                {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
                 <div className="h-full border-border border rounded flex">
                     <FldCatItemsGrid fceCtx={fceCtx} />
                     <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
@@ -73,6 +52,29 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                     <BottomButtons fceCtx={fceCtx} />
                 </div>
             </div>
+        </div>
+    );
+}
+
+function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
+    const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
+    //const fname = fceCtx.fceRoot.
+    return (
+        <div className="relative py-2 border-border border-b flex flex-col items-center">
+            <div className="text-sm font-bold">
+                Field Catalog
+            </div>
+
+            <div className="flex items-center justify-start gap-1">
+                <SymbolFolder className="size-4" />
+                root
+            </div>
+
+            <D.DialogCloseButton
+                className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
+                onClick={doCancelFldCatDialog}
+                tabIndex={-1}
+            />
         </div>
     );
 }

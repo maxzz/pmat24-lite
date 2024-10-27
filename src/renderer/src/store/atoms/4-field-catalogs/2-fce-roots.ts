@@ -10,6 +10,7 @@ export type FceRootsRootName = 'root';
 export const fceRoots: FceRootsAll = {
     entries: {
         root: {
+            fileCnt: null,
             descriptor: {},
             items: atom<FceItem[]>([]),
         },

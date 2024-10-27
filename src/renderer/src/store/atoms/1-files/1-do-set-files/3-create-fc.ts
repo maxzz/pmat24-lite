@@ -11,7 +11,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
             const fpath = fileUs.fileCnt.fpath || 'root';
 
             if (fileUs.parsedSrc.fcat) {
-                rv[fpath] = fieldCatToFceRoot(fileUs.parsedSrc.fcat);
+                rv[fpath] = fieldCatToFceRoot(fileUs.fileCnt, fileUs.parsedSrc.fcat);
             }
         }
     );
@@ -27,6 +27,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
             if (!rv[fpath]) {
                 //TODO: add file entry to files list so user can see it
                 rv[fpath] = {
+                    fileCnt: fileUs.fileCnt,
                     descriptor: {},
                     items: atom<FceItem[]>([]),
                 };
@@ -38,3 +39,5 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
 
     return rv;
 }
+
+//TODO: add file entry to files list so user can see it. see above where it says "TODO: add file entry to files list so user can see it"
