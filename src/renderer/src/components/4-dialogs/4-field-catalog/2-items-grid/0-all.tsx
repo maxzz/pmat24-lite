@@ -1,6 +1,7 @@
 import { type HTMLAttributes, useRef } from "react";
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
+import { type FceItem } from "@/store/atoms/4-field-catalogs";
 import { type FceCtx } from "../0-all/9-types";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
@@ -9,8 +10,8 @@ import { FldCatItemsBody } from "./1-body";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
-    selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
-    onItemDoubleClick: (item: CatalogItem) => void;
+    selectedItemAtom: PrimitiveAtom<FceItem | null>;
+    onItemDoubleClick?: (item: FceItem) => void;
 };
 
 export function FldCatItemsGrid({ fceCtx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {

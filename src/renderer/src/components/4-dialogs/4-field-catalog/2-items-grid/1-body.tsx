@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type CatalogItem } from "@/store/manifest";
-import { fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
+import { type FceItem, fldCatItemsAtom, fldCatTriggerAtom } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = {
-    selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
-    onItemDoubleClick: (item: CatalogItem) => void;
+    selectedItemAtom: PrimitiveAtom<FceItem | null>;
+    onItemDoubleClick?: (item: FceItem) => void;
 };
 
 export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatItemsGridProps) {
@@ -35,7 +34,7 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
 
     function onDoubleClick() {
         setSelectedIdx(prevSelectedIdx.current);
-        showSelectBtn && onItemDoubleClick(fldCatItems[prevSelectedIdx.current]);
+        showSelectBtn && onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (<>

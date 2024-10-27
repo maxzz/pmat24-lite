@@ -49,7 +49,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 <div className="h-full border-border border rounded flex">
                     <FldCatItemsGrid
                         selectedItemAtom={fceCtx.selectedItemAtom}
-                        onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
+                        onItemDoubleClick={fceCtx.onItemDoubleClick}
                         fceCtx={fceCtx}
                     />
 
