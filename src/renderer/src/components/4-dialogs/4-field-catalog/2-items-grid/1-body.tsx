@@ -49,5 +49,6 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
     </>);
 }
 
-//TODO: move atoms undef one root fc
+//ToDO: use inputFocusClasses from one location
+//TODO: move atoms undef one root fc - done
 //TODO: move props atoms to context

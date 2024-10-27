@@ -29,5 +29,3 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
         </Button>
     </>);
 }
-
-//ToDO: use inputFocusClasses from one location
