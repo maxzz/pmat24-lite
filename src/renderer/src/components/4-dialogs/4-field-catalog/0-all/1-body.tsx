@@ -17,12 +17,12 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
 
-    const dlgCtx = useState(() => {
-        return atom<FceCtx>({
+    const dlgCtx = useState<FceCtx>(() => {
+        return {
             inData: ctx,
             selectedItemAtom,
             onItemDoubleClick: (item: CatalogItem) => closeFldCatDialog({ fldCatItem: item }),
-        });
+        };
     })[0];
 
     return (
@@ -40,7 +40,7 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
                 <FieldCatalogToolbar
                     className="py-1"
-                    ctx={ctx}
+                    ctx={dlgCtx}
                 />
 
                 {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
@@ -48,13 +48,13 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
                     <FldCatItemsGrid
                         selectedItemAtom={selectedItemAtom}
                         onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
-                        ctx={ctx}
+                        ctx={dlgCtx}
                     />
 
                     <RightPanelGuard
                         className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
                         selectedItemAtom={selectedItemAtom}
-                        ctx={ctx}
+                        ctx={dlgCtx}
                     />
                 </div>
 
@@ -63,7 +63,7 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons
                         selectedItemAtom={selectedItemAtom}
-                        ctx={ctx}
+                        ctx={dlgCtx}
                     />
                 </div>
             </div>

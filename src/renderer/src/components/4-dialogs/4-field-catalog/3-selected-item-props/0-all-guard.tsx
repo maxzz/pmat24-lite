@@ -1,11 +1,12 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
-import { type FldCatInData, type SelectedItemAtom, showPropsAtom } from "@/store";
+import { type SelectedItemAtom, showPropsAtom } from "@/store";
+import { type FceCtx } from "../0-all/9-types";
 import { SelectedItemBody } from "./1-body";
 import { classNames } from "@/utils";
 
 type RightPanelGuardProps = {
-    ctx: FldCatInData;
+    ctx: FceCtx;
     selectedItemAtom: SelectedItemAtom;
     className?: string;
 };

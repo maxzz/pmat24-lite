@@ -1,14 +1,14 @@
 import { type HTMLAttributes, useRef } from "react";
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
+import { type FceCtx } from "../0-all/9-types";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
-import { type FldCatInData } from "@/store";
 import { FldCatItemsBody } from "./1-body";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
-    ctx: FldCatInData;
+    ctx: FceCtx;
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
     onItemDoubleClick: (item: CatalogItem) => void;
 };
