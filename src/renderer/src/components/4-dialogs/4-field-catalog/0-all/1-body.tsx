@@ -7,6 +7,7 @@ import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
+import { SymbolFolder } from "@/ui/icons";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
@@ -34,15 +35,23 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
-            <D.DialogHeader className="relative py-3 text-sm font-bold border-border border-b flex items-center">
-                Field Catalog
+            {/* <D.DialogHeader className="relative py-2 border-border border-b"> */}
+            <div className="relative py-2 border-border border-b flex flex-col items-center">
+                <div className="text-sm font-bold">
+                    Field Catalog
+                </div>
+                <div className="1self-start !mt-0 flex items-center justify-start gap-1">
+                    <SymbolFolder className="size-4" />
+                    root
+                </div>
 
                 <D.DialogCloseButton
                     className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
                     onClick={doCancelFldCatDialog}
                     tabIndex={-1}
                 />
-            </D.DialogHeader>
+            </div>
+            {/* </D.DialogHeader> */}
 
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
                 <FieldCatalogToolbar
@@ -76,6 +85,3 @@ function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
 }
 
 //TODO: show folder of the field catalog
-
-//TODO: move atoms undef one root fc - done
-//TODO: move props atoms to context - done
