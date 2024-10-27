@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { type SelectedItemAtom } from "@/store";
+import { useEffect } from "react";
+import { useAtom, useAtomValue } from "jotai";
 import { PropInput, PropTextarea } from "./8-inputs";
+import { type FceCtx } from "../0-all/9-types";
 
 const itemClasses = "flex flex-col";
 
-export function SelectedItemBody({ selectedItemAtom }: { selectedItemAtom: SelectedItemAtom; }) {
+export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
-    const selectedItem = useAtomValue(selectedItemAtom);
+    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 
-    const nameAtom      /**/ = useState(() => atom(selectedItem?.displayname || ''))[0];
-    const valueAtom     /**/ = useState(() => atom(selectedItem?.value || ''))[0];
-    const typeAtom      /**/ = useState(() => atom(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt'))[0];
-    const ownernoteAtom /**/ = useState(() => atom(selectedItem?.ownernote || ''))[0];
+    // const nameAtom      /**/ = useState(() => atom(selectedItem?.displayname || ''))[0];
+    // const valueAtom     /**/ = useState(() => atom(selectedItem?.value || ''))[0];
+    // const typeAtom      /**/ = useState(() => atom(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt'))[0];
+    // const ownernoteAtom /**/ = useState(() => atom(selectedItem?.ownernote || ''))[0];
 
-    const [localName, setLocalName] = useAtom(nameAtom);
-    const [localValue, setLocalValue] = useAtom(valueAtom);
-    const [localType, setLocalType] = useAtom(typeAtom);
-    const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
+    const [localName, setLocalName] = useAtom(fceCtx.nameAtom);
+    const [localValue, setLocalValue] = useAtom(fceCtx.valueAtom);
+    const [localType, setLocalType] = useAtom(fceCtx.typeAtom);
+    const [ownernote, setOwnernote] = useAtom(fceCtx.ownernoteAtom);
 
     useEffect(
         () => {

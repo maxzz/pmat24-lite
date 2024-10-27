@@ -22,6 +22,11 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 inData,
                 selectedItemAtom: atom<FceItem | null>(null),
                 onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
+
+                nameAtom: atom(''),
+                valueAtom: atom(''),
+                typeAtom: atom(''),
+                ownernoteAtom: atom(''),
             };
             return rv;
         }
@@ -71,3 +76,6 @@ function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
 }
 
 //TODO: show folder of the field catalog
+
+//TODO: move atoms undef one root fc - done
+//TODO: move props atoms to context - done

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
-import { type SelectedItemAtom, showPropsAtom } from "@/store";
+import { showPropsAtom } from "@/store";
 import { type FceCtx } from "../0-all/9-types";
 import { SelectedItemBody } from "./1-body";
 import { classNames } from "@/utils";
@@ -17,6 +17,7 @@ export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
     return (<>
         <MotionConfig transition={transition}>
             <AnimatePresence initial={false}>
+
                 {showProps && (
                     <motion.div
                         initial={{ x: -30, opacity: 0, width: 0 }}
@@ -27,9 +28,10 @@ export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
 
                         className={classNames("min-w-40 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden", className)}
                     >
-                        <SelectedItemBody selectedItemAtom={fceCtx.selectedItemAtom} />
+                        <SelectedItemBody fceCtx={fceCtx} />
                     </motion.div>
                 )}
+                
             </AnimatePresence>
         </MotionConfig>
     </>);
