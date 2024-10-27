@@ -4,14 +4,16 @@ import { type CatalogItem } from "@/store/manifest";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
+import { type FldCatInData } from "@/store";
 import { FldCatItemsBody } from "./1-body";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
+    ctx: FldCatInData;
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
     onItemDoubleClick: (item: CatalogItem) => void;
 };
 
-export function FldCatItemsGrid({ selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
+export function FldCatItemsGrid({ ctx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
 
     const refRoot = useRef<HTMLDivElement | null>(null);
     const { ref: refRootCb, width, height } = useResizeObserver();

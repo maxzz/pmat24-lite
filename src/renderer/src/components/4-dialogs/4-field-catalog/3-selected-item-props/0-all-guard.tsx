@@ -1,12 +1,18 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
-import { type SelectedItemAtom, showPropsAtom } from "@/store";
+import { type FldCatInData, type SelectedItemAtom, showPropsAtom } from "@/store";
 import { SelectedItemBody } from "./1-body";
 import { classNames } from "@/utils";
 
+type RightPanelGuardProps = {
+    ctx: FldCatInData;
+    selectedItemAtom: SelectedItemAtom;
+    className?: string;
+};
+
 const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
 
-export function RightPanelGuard({ selectedItemAtom, className }: { selectedItemAtom: SelectedItemAtom; className?: string; }) {
+export function RightPanelGuard({ ctx, selectedItemAtom, className }: RightPanelGuardProps) {
     const showProps = useAtomValue(showPropsAtom);
     return (<>
         <MotionConfig transition={transition}>

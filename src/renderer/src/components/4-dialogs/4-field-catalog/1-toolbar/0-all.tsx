@@ -1,15 +1,20 @@
 import { useAtom } from "jotai";
-import { showPropsAtom } from "@/store";
+import { type FldCatInData, showPropsAtom } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
-import { classNames } from "@/utils";
 import { FC_PanelMenu } from "./1-fc-menu";
 import { AddItem_PanelMenu } from "./2-add-item-menu";
+import { classNames } from "@/utils";
+
+type FieldCatalogToolbarProps = {
+    ctx: FldCatInData;
+    className?: string;
+};
 
 const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
-export function FieldCatalogToolbar({ className }: { className?: string; }) {
+export function FieldCatalogToolbar({ className }: FieldCatalogToolbarProps) {
     const [showProps, doShowProps] = useAtom(showPropsAtom);
 
     return (
