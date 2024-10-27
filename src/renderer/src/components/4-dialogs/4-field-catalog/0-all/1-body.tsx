@@ -7,6 +7,7 @@ import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
+import { FceCtx } from "./9-types";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
@@ -14,8 +15,15 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const totalItems = useAtomValue(ctx.fceRoot.items).length;
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
+
+    const dlgCtx = useState(() => {
+        return atom<FceCtx>({
+            inData: ctx,
+            selectedItemAtom,
+            onItemDoubleClick: (item: CatalogItem) => closeFldCatDialog({ fldCatItem: item }),
+        });
+    })[0];
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
@@ -50,9 +58,7 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
                     />
                 </div>
 
-                <div className="font-thin">
-                    {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
-                </div>
+                <TotalItems ctx={ctx} />
 
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons
@@ -61,6 +67,15 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
                     />
                 </div>
             </div>
+        </div>
+    );
+}
+
+function TotalItems({ ctx }: { ctx: FldCatInData; }) {
+    const totalItems = useAtomValue(ctx.fceRoot.items).length;
+    return (
+        <div className="font-thin">
+            {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
         </div>
     );
 }
