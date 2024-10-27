@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FceItem, type FceRoots } from "./9-types";
+import { type FceItem, type FceRoots } from "./9-types";
 
 export type FceRootsAll = { // TBD: to make it proxy-able?
     entries: FceRoots;

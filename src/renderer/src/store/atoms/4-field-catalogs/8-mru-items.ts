@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { CatalogItem } from "@/store/manifest";
+import { type FceItem } from "./9-types";
 import { fldCatItemAtom, fldCatPswItemsAtom, fldCatTxtItemsAtom } from "./0-all-items-atom";
 
 // MRU - most recently used items
@@ -24,11 +24,11 @@ const mruFldCatPswItemsAtom = atom(
     },
 );
 
-function deleteMruWItem(mru: CatalogItem[], delItem: CatalogItem): CatalogItem[] {
+function deleteMruWItem(mru: FceItem[], delItem: FceItem): FceItem[] {
     return mru.filter((item) => item.uuid !== delItem.uuid);
 }
 
-function buildMruWItem(mru: CatalogItem[], item: CatalogItem | undefined): CatalogItem[] {
+function buildMruWItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {
     let rv = mru;
     if (item) {
         rv = deleteMruWItem(mru, item);
@@ -41,14 +41,14 @@ function buildMruWItem(mru: CatalogItem[], item: CatalogItem | undefined): Catal
 export const getMruFldCatForItemAtom = atom(
     (get) => {
         function fn(isPsw: boolean | undefined, dbname: string | undefined) {
-            const catalogItem = get(fldCatItemAtom)(dbname);
+            const fceItem = get(fldCatItemAtom)(dbname);
             
             let catalogItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
-            catalogItemsByType = buildMruWItem(catalogItemsByType, catalogItem);
+            catalogItemsByType = buildMruWItem(catalogItemsByType, fceItem);
 
             return {
                 catalogItemsByType,
-                catalogItem,
+                catalogItem: fceItem,
             };
         }
         return fn;

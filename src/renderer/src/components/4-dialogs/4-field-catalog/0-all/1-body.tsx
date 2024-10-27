@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FceItem, type FldCatInData } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
@@ -15,15 +15,13 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
 
-    const onItemDoubleClick = useCallback((item: FceItem) => closeFldCatDialog({ fldCatItem: item }), []);
-
     const fceCtx = useState<FceCtx>(
         () => {
             const showSelectBtn = inData.outBoxAtom;
             const rv: FceCtx = {
                 inData,
                 selectedItemAtom: atom<FceItem | null>(null),
-                onItemDoubleClick: showSelectBtn ? onItemDoubleClick : undefined,
+                onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
             };
             return rv;
         }

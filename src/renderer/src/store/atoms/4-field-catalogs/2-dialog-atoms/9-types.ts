@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
-import { type FceRoot } from "../../4-field-catalogs/9-types";
+import { type FceRoot } from "../9-types";
 
 /**
  * Field catalog dialog in data

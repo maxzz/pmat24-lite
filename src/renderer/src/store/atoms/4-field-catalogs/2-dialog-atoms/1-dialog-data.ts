@@ -1,8 +1,7 @@
 import { atom, type PrimitiveAtom } from "jotai";
 import { type FldCatInData, type FldCatOutData } from "./9-types";
-import { type CatalogItem } from "@/store/manifest";
-import { fceRoots } from "../../4-field-catalogs/2-fce-roots";
-import { FceRoot } from "../../4-field-catalogs/9-types";
+import { type FceItem, type FceRoot } from "../9-types";
+import { fceRoots } from "../2-fce-roots";
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
@@ -54,4 +53,4 @@ export function creteOutBoxAtom<T>() {
 
 // Selected item atom
 
-export type SelectedItemAtom = PrimitiveAtom<CatalogItem | null>;
+export type SelectedItemAtom = PrimitiveAtom<FceItem | null>;

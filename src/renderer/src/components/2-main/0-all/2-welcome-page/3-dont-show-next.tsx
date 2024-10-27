@@ -15,7 +15,7 @@ export function DontShowNext({ className }: HTMLAttributes<HTMLLabelElement>) {
                 onClick={() => appSettings.appUi.uiGeneral.showWelcome = false}
             />
             
-            Don't show this page next time
+            Do not show this welcome page
         </Label>
     );
 }

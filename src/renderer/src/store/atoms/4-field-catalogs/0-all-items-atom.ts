@@ -1,20 +1,22 @@
 import { atom } from "jotai";
-import { type CatalogItem, buildCatalogMetaFromNames } from "@/store/manifest";
+import { type FceItem } from "./9-types";
+import { buildCatalogMetaFromNames } from "@/store/manifest";
 import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
 
 // All field catalog items
 
-export const fldCatItemsAtom = atom<CatalogItem[]>(
+export const fldCatItemsAtom = atom<FceItem[]>(
     buildCatalogMetaFromNames(catalogTestNames).items
+    // []
 );
 
 // Field catalog items split into text and password items
 
-export const fldCatTxtItemsAtom = atom<CatalogItem[]>(
+export const fldCatTxtItemsAtom = atom<FceItem[]>(
     (get) => get(fldCatItemsAtom).filter((item) => !item.password),
 );
 
-export const fldCatPswItemsAtom = atom<CatalogItem[]>(
+export const fldCatPswItemsAtom = atom<FceItem[]>(
     (get) => get(fldCatItemsAtom).filter((item) => !!item.password),
 );
 
