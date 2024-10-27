@@ -8,12 +8,12 @@ import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
-    ctx: FceCtx;
+    fceCtx: FceCtx;
     selectedItemAtom: PrimitiveAtom<CatalogItem | null>;
     onItemDoubleClick: (item: CatalogItem) => void;
 };
 
-export function FldCatItemsGrid({ ctx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
+export function FldCatItemsGrid({ fceCtx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
 
     const refRoot = useRef<HTMLDivElement | null>(null);
     const { ref: refRootCb, width, height } = useResizeObserver();

@@ -9,13 +9,13 @@ import { classNames } from "@/utils";
 import { type FceCtx } from "../0-all/9-types";
 
 type FieldCatalogToolbarProps = {
-    ctx: FceCtx;
+    fceCtx: FceCtx;
     className?: string;
 };
 
 const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
-export function FieldCatalogToolbar({ className }: FieldCatalogToolbarProps) {
+export function FieldCatalogToolbar({ fceCtx, className }: FieldCatalogToolbarProps) {
     const [showProps, doShowProps] = useAtom(showPropsAtom);
 
     return (

@@ -22,7 +22,7 @@ export function FieldCatalogDialog() {
                 overlayClasses={overlayClasses}
                 container={document.getElementById('portal')}
             >
-                <DialogFieldCatalogBody ctx={fldCatTrigger} />
+                <DialogFieldCatalogBody inData={fldCatTrigger} />
 
             </D.DialogContent>
         </D.Dialog>

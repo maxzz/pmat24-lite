@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FceItem, type FldCatInData, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
+import { type FceCtx } from "./9-types";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
-import { FceCtx } from "./9-types";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
-export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
+export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
+    const selectedItemAtom = useState<SelectedItemAtom>(() => atom<FceItem | null>(null))[0];
 
-    const dlgCtx = useState<FceCtx>(() => {
+    const fceCtx = useState<FceCtx>(() => {
         return {
-            inData: ctx,
+            inData,
             selectedItemAtom,
-            onItemDoubleClick: (item: CatalogItem) => closeFldCatDialog({ fldCatItem: item }),
+            onItemDoubleClick: (item: FceItem) => closeFldCatDialog({ fldCatItem: item }),
         };
     })[0];
 
@@ -40,7 +40,7 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
                 <FieldCatalogToolbar
                     className="py-1"
-                    ctx={dlgCtx}
+                    fceCtx={fceCtx}
                 />
 
                 {/* <div className="min-h-80 border-border border rounded grid grid-cols-[minmax(200px,1fr)_200px]"> */}
@@ -48,22 +48,22 @@ export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
                     <FldCatItemsGrid
                         selectedItemAtom={selectedItemAtom}
                         onItemDoubleClick={(item: CatalogItem) => closeFldCatDialog({ fldCatItem: item })}
-                        ctx={dlgCtx}
+                        fceCtx={fceCtx}
                     />
 
                     <RightPanelGuard
                         className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10"
                         selectedItemAtom={selectedItemAtom}
-                        ctx={dlgCtx}
+                        fceCtx={fceCtx}
                     />
                 </div>
 
-                <TotalItems ctx={ctx} />
+                <TotalItems ctx={inData} />
 
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons
                         selectedItemAtom={selectedItemAtom}
-                        ctx={dlgCtx}
+                        fceCtx={fceCtx}
                     />
                 </div>
             </div>

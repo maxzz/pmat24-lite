@@ -5,11 +5,11 @@ import { inputFocusClasses } from "../3-selected-item-props/8-inputs";
 import { type FceCtx } from "./9-types";
 
 type BottomButtonsProps = {
-    ctx: FceCtx;
+    fceCtx: FceCtx;
     selectedItemAtom: SelectedItemAtom;
 };
 
-export function BottomButtons({ ctx, selectedItemAtom }: BottomButtonsProps) {
+export function BottomButtons({ fceCtx, selectedItemAtom }: BottomButtonsProps) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);

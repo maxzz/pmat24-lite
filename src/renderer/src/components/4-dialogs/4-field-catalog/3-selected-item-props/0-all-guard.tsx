@@ -6,14 +6,14 @@ import { SelectedItemBody } from "./1-body";
 import { classNames } from "@/utils";
 
 type RightPanelGuardProps = {
-    ctx: FceCtx;
+    fceCtx: FceCtx;
     selectedItemAtom: SelectedItemAtom;
     className?: string;
 };
 
 const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
 
-export function RightPanelGuard({ ctx, selectedItemAtom, className }: RightPanelGuardProps) {
+export function RightPanelGuard({ fceCtx, selectedItemAtom, className }: RightPanelGuardProps) {
     const showProps = useAtomValue(showPropsAtom);
     return (<>
         <MotionConfig transition={transition}>
