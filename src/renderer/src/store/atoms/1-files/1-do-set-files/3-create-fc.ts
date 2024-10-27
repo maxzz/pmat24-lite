@@ -1,6 +1,7 @@
 import { FileUs } from "@/store/store-types";
-import { FceRoots } from "../../4-field-catalogs";
+import { FceItem, FceRoots } from "../../4-field-catalogs";
 import { fieldCatToFceRoot } from "../../4-field-catalogs/3-fc-file-to-fc-root";
+import { atom } from "jotai";
 
 export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
     const rv: FceRoots = {};
@@ -27,7 +28,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
                 //TODO: add file entry to files list so user can see it
                 rv[fpath] = {
                     descriptor: {},
-                    items: [],
+                    items: atom<FceItem[]>([]),
                 };
             }
 

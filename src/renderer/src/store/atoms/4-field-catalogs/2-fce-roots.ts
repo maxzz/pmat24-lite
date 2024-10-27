@@ -1,4 +1,5 @@
-import { type FceRoots } from "./9-types";
+import { atom } from "jotai";
+import { FceItem, type FceRoots } from "./9-types";
 
 export type FceRootsAll = { // TBD: to make it proxy-able?
     entries: FceRoots;
@@ -7,5 +8,10 @@ export type FceRootsAll = { // TBD: to make it proxy-able?
 export type FceRootsRootName = 'root';
 
 export const fceRoots: FceRootsAll = {
-    entries: {},
+    entries: {
+        root: {
+            descriptor: {},
+            items: atom<FceItem[]>([]),
+        },
+    },
 };

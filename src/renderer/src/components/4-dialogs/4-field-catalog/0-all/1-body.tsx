@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, fldCatItemsAtom, type SelectedItemAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
@@ -10,11 +10,11 @@ import { RightPanelGuard } from "../3-selected-item-props";
 
 const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
 
-export function DialogFieldCatalogBody() {
+export function DialogFieldCatalogBody({ ctx }: { ctx: FldCatInData; }) {
 
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const totalItems = useAtomValue(fldCatItemsAtom).length;
+    const totalItems = useAtomValue(ctx.fceRoot.items).length;
     const selectedItemAtom = useState<SelectedItemAtom>(() => atom<CatalogItem | null>(null))[0];
 
     return (

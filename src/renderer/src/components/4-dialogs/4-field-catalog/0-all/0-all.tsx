@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { fldCatTriggerAtom } from "@/store";
+import { type FldCatInData, fldCatTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-body";
 
@@ -22,8 +22,8 @@ export function FieldCatalogDialog() {
                 overlayClasses={overlayClasses}
                 container={document.getElementById('portal')}
             >
-                <DialogFieldCatalogBody />
-                
+                <DialogFieldCatalogBody ctx={fldCatTrigger} />
+
             </D.DialogContent>
         </D.Dialog>
     </>);
