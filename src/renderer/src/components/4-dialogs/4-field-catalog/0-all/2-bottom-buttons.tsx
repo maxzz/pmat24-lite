@@ -1,8 +1,8 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, fldCatTriggerAtom, type SelectedItemAtom } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type SelectedItemAtom } from "@/store";
+import { type FceCtx } from "./9-types";
 import { Button } from "@/ui/shadcn";
 import { inputFocusClasses } from "../3-selected-item-props/8-inputs";
-import { type FceCtx } from "./9-types";
 
 type BottomButtonsProps = {
     fceCtx: FceCtx;
@@ -16,8 +16,7 @@ export function BottomButtons({ fceCtx, selectedItemAtom }: BottomButtonsProps) 
 
     const selectedItem = useAtomValue(selectedItemAtom);
 
-    const inData = useAtomValue(fldCatTriggerAtom);
-    const showSelectBtn = !!inData?.outBoxAtom;
+    const showSelectBtn = !!fceCtx.inData.outBoxAtom;
 
     return (<>
         {showSelectBtn && (

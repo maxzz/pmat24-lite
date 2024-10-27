@@ -15,8 +15,6 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
 
-    const showSelectBtn = inData.outBoxAtom;
-
     const onItemDoubleClick = useCallback(
         (item: FceItem) => {
             console.log('onItemDoubleClick', item);
@@ -27,6 +25,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
     const fceCtx = useState<FceCtx>(
         () => {
+            const showSelectBtn = inData.outBoxAtom;
             const rv: FceCtx = {
                 inData,
                 selectedItemAtom: atom<FceItem | null>(null),
