@@ -58,16 +58,16 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
 function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    //const fname = fceCtx.fceRoot.
+    const fname = fceCtx.fceRoot.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
             <div className="text-sm font-bold">
                 Field Catalog
             </div>
 
-            <div className="flex items-center justify-start gap-1">
+            <div className="opacity-50 flex items-center justify-start gap-1">
                 <SymbolFolder className="size-4" />
-                root
+                {fname ? fname : 'root'}
             </div>
 
             <D.DialogCloseButton
