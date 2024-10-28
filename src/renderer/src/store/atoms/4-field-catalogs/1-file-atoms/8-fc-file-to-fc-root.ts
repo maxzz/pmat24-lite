@@ -7,6 +7,9 @@ import { type FileContent } from '@shared/ipc-types';
 import { type FceCtx } from '../2-dialog-atoms';
 
 export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceRoot {
+
+    // 1. Prepare items for the field catalog editor
+
     const items: FceItem[] = fcat.names.map(
         (item, idx) => {
             const now = uuid.asRelativeNumber();
@@ -22,11 +25,25 @@ export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root):
             return rv;
         }
     );
+
+    // 2. Prepare the field catalog editor root
+
     const rv: FceRoot = {
         fileCnt: fileCnt,
         fceAtomsAtom: atom<FceCtx | null>(null),
         descriptor: fcat.descriptor,
         items: atom<FceItem[]>(items),
+    };
+
+    return rv;
+}
+
+export function createEmptyFceRoot(): FceRoot {
+    const rv: FceRoot = {
+        fileCnt: null,
+        fceAtomsAtom: atom<FceCtx | null>(null),
+        descriptor: {},
+        items: atom<FceItem[]>([]),
     };
     return rv;
 }
