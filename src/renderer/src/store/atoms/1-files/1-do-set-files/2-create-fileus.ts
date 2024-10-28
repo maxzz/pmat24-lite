@@ -36,7 +36,6 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
         fceRoot: undefined, // will be assigned later when all files are loaded
-        fceAtomsAtom: atom<FceCtx | null>(null),
     };
 
     return rv;
