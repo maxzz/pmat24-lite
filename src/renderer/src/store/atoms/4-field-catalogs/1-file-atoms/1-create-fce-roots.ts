@@ -5,7 +5,7 @@ import { createEmptyFceRoot, fieldCatToFceRoot } from "./8-fc-file-to-fc-root";
 export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
     const roots: FceRoots = {};
 
-    // 1. For each Field Catalog file create a FceRoot
+    // 1. For each Field Catalog file create a FceRoot.
 
     fileUsItems.forEach(
         (fileUs) => {
