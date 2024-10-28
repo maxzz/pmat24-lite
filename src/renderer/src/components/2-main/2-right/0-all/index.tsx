@@ -11,7 +11,12 @@ function ContentForSelected() {
     const fileUs = useAtomValue(rightPanelContentAtom);
     const { activeView } = useSnapshot(appSettings).right;
 
-    const staticText = !fileUs ? 'No file selected' : !fileUs.fileCnt.raw ? 'Not supported format' : undefined;
+    const staticText = !fileUs
+        ? 'No file selected'
+        : !fileUs.fileCnt.raw
+            ? 'Not supported format'
+            : undefined;
+
     if (staticText) {
         return (
             <div className="h-full text-muted-foreground flex items-center justify-center">
@@ -20,18 +25,18 @@ function ContentForSelected() {
         );
     }
 
-    return (<>
-        {activeView === RightPanelViewType.forms
-            ? (
-                <ManiBody />
-            ) : (
-                <Body_Xml text={fileUs?.fileCnt.raw || ''} />
-            )
-        }
-    </>);
+    if (activeView === RightPanelViewType.forms) {
+        return (
+            fileUs?.parsedSrc.fcat ? <Body_Cat /> : <ManiBody />
+        );
+    }
+
+    return (
+        <Body_Xml text={fileUs?.fileCnt.raw || ''} />
+    );
 }
 
-export function PanelB() {
+export function PanelB() { // PanelB is the right panel for the file content
     return (
         <div className={`${panel1Classes} pl-0`}>
             <div className={`${panel2Classes} rounded-r`}>

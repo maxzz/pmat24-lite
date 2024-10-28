@@ -3,7 +3,7 @@ import { ScrollArea } from '@/ui';
 import useResizeObserver from 'use-resize-observer';
 import { classNames } from '@/utils';
 
-export function Body_Cat({ text, className, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {
+export function Body_Cat({ className, ...rest }: {  } & HTMLAttributes<HTMLDivElement>) {
     const { ref, width, height } = useResizeObserver();
     return (<>
         <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
