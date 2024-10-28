@@ -2,6 +2,8 @@ import { type InputHTMLAttributes } from "react";
 import { fixTextareaResizeClasses, Input, Label, Textarea, TextareaAutoGrow } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
+import { type FceCtx } from "../0-all";
+import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value/1-field";
 
 const itemClasses = "text-xs font-normal flex flex-col";
 
@@ -48,5 +50,25 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
                 {...rest}
             />
         </Label >
+    );
+}
+
+export function PropInputValue({ label, fceCtx, className, ...rest }: { label: string; fceCtx: FceCtx;} & InputHTMLAttributes<HTMLInputElement>) {
+    return (
+        <Label className={itemClasses}>
+            {label}
+            <Column4_Value
+                useItAtom={fceCtx.useItAtom}
+                valueLifeAtom={fceCtx.valueLifeAtom}
+                choosevalue=""
+                {...rest}
+            />
+
+            {/* <Input
+                className={classNames("h-7 text-xs", inputFocusClasses2, inputRingClasses, className)}
+                {...turnOffAutoComplete}
+                {...rest}
+            /> */}
+        </Label>
     );
 }

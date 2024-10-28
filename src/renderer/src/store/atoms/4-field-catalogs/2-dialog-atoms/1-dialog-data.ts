@@ -45,8 +45,6 @@ export const doCloseFldCatDialogAtom = atom(
     }
 );
 
-export type DoCloseFldCatDialog = FldCatOutData | ((prev: FldCatOutData) => FldCatOutData);
-
 // atom to store result of the field catalog dialog
 
 export function creteOutBoxAtom<T>() {

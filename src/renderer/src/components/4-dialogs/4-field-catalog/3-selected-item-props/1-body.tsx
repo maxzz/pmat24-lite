@@ -1,18 +1,13 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { PropInput, PropTextarea } from "./8-inputs";
 import { type FceCtx } from "../0-all/9-types";
+import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 
 const itemClasses = "flex flex-col";
 
 export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-
-    // const nameAtom      /**/ = useState(() => atom(selectedItem?.displayname || ''))[0];
-    // const valueAtom     /**/ = useState(() => atom(selectedItem?.value || ''))[0];
-    // const typeAtom      /**/ = useState(() => atom(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt'))[0];
-    // const ownernoteAtom /**/ = useState(() => atom(selectedItem?.ownernote || ''))[0];
 
     const [localName, setLocalName] = useAtom(fceCtx.nameAtom);
     const [localValue, setLocalValue] = useAtom(fceCtx.valueAtom);
@@ -24,8 +19,8 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
             setLocalName(selectedItem?.displayname || '');
             setLocalValue(selectedItem?.value || '');
             setLocalType(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt');
-            //setOwnernote(selectedItem?.ownernote || '');
-            setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
+            setOwnernote(selectedItem?.ownernote || '');
+            // setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
         }, [selectedItem]
     );
 
@@ -39,7 +34,7 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={itemClasses}>
-            <PropInput label={"Value"} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
+            <PropInputValue label={"Value"} fceCtx={fceCtx} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
         </div>
 
         <div className={itemClasses}>

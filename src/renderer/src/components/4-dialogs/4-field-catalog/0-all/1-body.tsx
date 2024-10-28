@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FceItem, type FldCatInData } from "@/store";
+import { useAtomValue, useSetAtom } from "jotai";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { type FceCtx } from "./9-types";
+import { createFceCtx } from "./2-create-fce-ctx";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-const subSectionClasses = 'text-xs text-foreground bg-background border-border border-b';
-
 export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
-
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
-
     const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
-
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={inData} />
@@ -39,21 +35,6 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
             </div>
         </div>
     );
-}
-
-function createFceCtx(inData: FldCatInData, closeFldCatDialog: (outData: any) => void): FceCtx {
-    const showSelectBtn = inData.outBoxAtom;
-    const rv: FceCtx = {
-        inData,
-        selectedItemAtom: atom<FceItem | null>(null),
-        onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
-
-        nameAtom: atom(''),
-        valueAtom: atom(''),
-        typeAtom: atom(''),
-        ownernoteAtom: atom(''),
-    };
-    return rv;
 }
 
 function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
@@ -87,3 +68,4 @@ function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
 }
 
 //TODO: show folder of the field catalog
+//TODO: show folder as an icon in the header and show the path to the folder on hover
