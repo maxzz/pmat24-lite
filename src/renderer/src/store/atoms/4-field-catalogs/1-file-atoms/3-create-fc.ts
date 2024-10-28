@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type FceCtx, type FceItem, type FceRoots } from ".";
-import { fieldCatToFceRoot } from "./3-fc-file-to-fc-root";
+import { type FceCtx } from "../2-dialog-atoms";
+import { type FceItem, type FceRoots } from "../9-types-fc";
+import { fieldCatToFceRoot } from "../3-fc-file-to-fc-root";
 
 export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
     const rv: FceRoots = {};
