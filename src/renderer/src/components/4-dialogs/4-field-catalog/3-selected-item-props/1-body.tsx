@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { type FceCtx } from "../0-all/9-types-dlg";
+import { type FceCtx } from "../0-all/9-types-ctx";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 
 const itemClasses = "flex flex-col";

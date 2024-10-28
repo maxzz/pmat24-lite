@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { type FceCtx } from "./9-types-dlg";
+import { type FceCtx } from "./9-types-ctx";
 import { createFceCtx } from "./2-create-fce-ctx";
 import { BottomButtons } from "./3-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";

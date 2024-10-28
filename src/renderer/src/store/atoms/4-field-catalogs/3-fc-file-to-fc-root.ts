@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { proxy } from 'valtio';
 import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile } from '@/store/manifest';
-import { type FceItem, type FceRoot } from './9-types';
+import { type FceItem, type FceRoot } from './9-types-fc';
 import { uuid } from '@/utils';
 import { type FileContent } from '@shared/ipc-types';
 

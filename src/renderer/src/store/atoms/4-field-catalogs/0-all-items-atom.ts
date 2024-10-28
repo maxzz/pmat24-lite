@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FceItem } from "./9-types";
+import { type FceItem } from "./9-types-fc";
 import { buildCatalogMetaFromNames } from "@/store/manifest";
 import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
 
