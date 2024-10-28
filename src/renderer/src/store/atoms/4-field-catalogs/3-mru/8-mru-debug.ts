@@ -1,4 +1,4 @@
-import { type FceItem } from "./9-types-fc";
+import { type FceItem } from "../9-types-fc";
 
 // For debugging
 
