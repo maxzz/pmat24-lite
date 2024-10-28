@@ -1,5 +1,5 @@
 import { type HTMLAttributes, useRef } from "react";
-import { type FceCtx } from "../0-all/9-types";
+import { type FceCtx } from "../0-all/9-types-dlg";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
