@@ -1,7 +1,6 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
-import { showPropsAtom } from "@/store";
-import { type FceCtx } from "../0-all/9-types-ctx";
+import { showPropsAtom, type FceCtx } from "@/store";
 import { SelectedItemBody } from "./1-body";
 import { classNames } from "@/utils";
 
