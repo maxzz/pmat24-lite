@@ -2,7 +2,7 @@ import { type PrimitiveAtom, type WritableAtom } from "jotai";
 import { type CatalogFile, type Mani, type Meta } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { type FceRoot } from "../atoms/4-field-catalogs";
+import { type FceCtx, type FceRoot } from "../atoms/4-field-catalogs";
 
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain
@@ -40,7 +40,8 @@ export type FileUs = {
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
 
-    fceRoot: FceRoot | undefined;                   // reference to field catalog editor items from the fce roots storage for this file folder
+    fceRoot: FceRoot | undefined;                   // for manifest: reference to field catalog editor items from the fce roots storage for this file folder
+    fceAtomsAtom: PrimitiveAtom<FceCtx | null>;     // for fieldcat: field catalog editor ui atoms; created when field catalog file selected at top level
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

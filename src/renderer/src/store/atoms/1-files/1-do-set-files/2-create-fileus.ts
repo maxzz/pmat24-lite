@@ -3,7 +3,8 @@ import { proxySet } from 'valtio/utils';
 import { type ParsedSrc, type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from '@shared/ipc-types';
 import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
-import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from '@/store/manifest';
+import { buildManiMetaForms, parseXMLFile } from '@/store/manifest';
+import { type FceCtx } from '../../4-field-catalogs';
 import { fileUsStats } from '@/store/store-utils';
 import { uuid } from '@/utils';
 
@@ -35,6 +36,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
         fceRoot: undefined, // will be assigned later when all files are loaded
+        fceAtomsAtom: atom<FceCtx | null>(null),
     };
 
     return rv;
