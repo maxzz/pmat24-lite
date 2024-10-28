@@ -1,5 +1,5 @@
 import { Button } from '@/ui';
-import { PanelHwndGrid } from './2-active-saw';
+import { PanelHwndGrid } from './2-active-raw';
 import { hasMain } from '@/xternal-to-main';
 import { Versions } from './versions-list';
 

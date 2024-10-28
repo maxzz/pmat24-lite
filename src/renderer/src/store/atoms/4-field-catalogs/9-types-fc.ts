@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogFile, type CatalogItem } from "@/store/manifest";
-import { FileContent } from "@shared/ipc-types";
+import { type FileContent } from "@shared/ipc-types";
 
 // import { type PrimitiveAtom } from "jotai";
 
