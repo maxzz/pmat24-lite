@@ -6,7 +6,7 @@ import { type FsHandle } from "../9-fs-types";
  *
  * @param folder folder to traverse
  */
-async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[path: string[], handle: FsHandle, dir: FileSystemDirectoryHandle], void, unknown> {
+async function* getEntriesRecursively(folder: FileSystemDirectoryHandle, path: string): AsyncGenerator<[path: string[], handle: FsHandle, dir: FileSystemDirectoryHandle], void, unknown> {
     for await (const entry of folder.values()) {
         if (entry.kind === 'file') {
             console.log(`%cfile: "${folder.name}/${entry.name}"`, 'color: tomato', { folder, entry });
@@ -14,11 +14,15 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncG
             yield [[folder.name], entry, folder];
         }
         else if (entry.kind === 'directory') {
-            console.log(`dir: %c${entry.name}`, 'color: aqua', { folder, entry });
+
+            const nestedPath = path + '/' + entry.name;
+
+            // console.log(`dir: %c${entry.name}`, 'color: aqua', { folder, entry });
+            console.log(`dir: %c${entry.name}`, 'color: aqua', `nestedPath: "${nestedPath}"`);
 
             yield [[folder.name, entry.name], entry, folder]; // [folder.name, entry.name] is wrong
 
-            for await (const [path, file, folder] of getEntriesRecursively(entry)) {
+            for await (const [path, file, folder] of getEntriesRecursively(entry, nestedPath)) {
                 console.log('yield:', path, file, folder);
 
                 yield [[folder.name, ...path], file, folder];
@@ -41,7 +45,7 @@ export async function collectDndHandles(files: DataTransferItem[]): Promise<DndH
             } else {
                 rv.push([[handle.name], handle, handle]);
                 
-                for await (const subEntry of getEntriesRecursively(handle)) {
+                for await (const subEntry of getEntriesRecursively(handle, handle.name)) {
                     rv.push(subEntry);
                 }
             }
