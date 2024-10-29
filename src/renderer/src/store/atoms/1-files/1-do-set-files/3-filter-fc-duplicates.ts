@@ -19,7 +19,7 @@ export function filterFcDuplicates(deliveredFileContents: FileContent[]): FileCo
             continue;
         }
 
-        console.log(`filterFcDuplicates "${fpath}"`);
+        //console.log(`filterFcDuplicates "${fpath}" fname: "${fname}"`);
 
         const prevItem = seen.get(fpath);
         if (!prevItem) {

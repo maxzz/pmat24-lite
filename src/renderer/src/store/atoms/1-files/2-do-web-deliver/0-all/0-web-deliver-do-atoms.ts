@@ -91,10 +91,11 @@ export const doSetFilesFromModernDialogAtom = atom(
                     console.log('doSetFilesFromModernDialogAtom electron', fileContents);
                     set(doSetDeliveredFilesAtom, fileContents);
                 }
+                
                 return;
             }
 
-            console.log('doSetFilesFromModernDialogAtom', files);
+            //console.log('doSetFilesFromModernDialogAtom', files);
 
             if (files) {
                 if (!Array.isArray(files)) {

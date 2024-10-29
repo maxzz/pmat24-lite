@@ -60,8 +60,8 @@ export const doSetDeliveredFilesAtom = atom(
         const unsupported: FileUs[] = [];
 
         const fileUsItems: FileUs[] =
-            // filterFcDuplicates(deliveredFileContents)
-            deliveredFileContents
+            filterFcDuplicates(deliveredFileContents)
+            // deliveredFileContents
                 .filter((file) => file.size)
                 .map(
                     (deliveredFileContent: FileContent) => {

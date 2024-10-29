@@ -22,7 +22,7 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
         // console.log('Firefox entries detected');
     } else {
         const handles = await collectDndHandles(dataTransferItems);
-        printHandles(handles);
+        // printHandles(handles);
 
         for (const [path, handle, dir] of handles) {
             const item = new WebFsItem({
@@ -35,7 +35,7 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
         }
     }
 
-    printWebFsitems(rv);
+    // printWebFsitems(rv);
     return rv;
 }
 
