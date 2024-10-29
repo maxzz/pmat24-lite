@@ -22,7 +22,7 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
         // console.log('Firefox entries detected');
     } else {
         const handles = await collectDndHandles(dataTransferItems);
-        // printHandles(handles);
+        printHandles(handles);
 
         for (const [path, handle] of handles) {
             const item: WebFsItem = new WebFsItem({
@@ -34,23 +34,29 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
         }
     }
 
-    // printWebFsitems(rv);
+    //printWebFsitems(rv);
     return rv;
 }
 
-function printHandles(handles: DndHandle[]) {
-    for (const [path, handle] of handles) {
-        console.log(`%cpath: "${path.join('/')}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, handle);
-    }
-}
-
 function printEntryFiles(handles: FileWithPath[]) {
+    console.log('%cEntryFiles:', 'color: saddlebrown');
+
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
 
+function printHandles(handles: DndHandle[]) {
+    console.log('%cDndHandles:', 'color: saddlebrown');
+
+    for (const [path, handle, dir] of handles) {
+        console.log(`%cpath: "${path.join('/')}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, { handle, dir });
+    }
+}
+
 function printWebFsitems(items: WebFsItem[]) {
+    console.log('%cWebFsItems:', 'color: saddlebrown');
+
     for (const item of items) {
         console.log(`%cpath: "${item.path}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
     }
