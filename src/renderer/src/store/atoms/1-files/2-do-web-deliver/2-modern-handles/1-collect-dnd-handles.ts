@@ -9,14 +9,14 @@ import { type FsHandle } from "../9-fs-types";
 async function* getEntriesRecursively(folder: FileSystemDirectoryHandle): AsyncGenerator<[path: string[], handle: FsHandle, dir: FileSystemDirectoryHandle], void, unknown> {
     for await (const entry of folder.values()) {
         if (entry.kind === 'file') {
-            console.log('file:', entry.name, { folder, entry });
+            console.log(`%cfile: "${folder.name}/${entry.name}"`, 'color: tomato', { folder, entry });
 
             yield [[folder.name], entry, folder];
         }
         else if (entry.kind === 'directory') {
-            console.log('dir:', entry.name, { folder, entry });
+            console.log(`dir: %c${entry.name}`, 'color: aqua', { folder, entry });
 
-            yield [[folder.name, entry.name], entry, folder];
+            yield [[folder.name, entry.name], entry, folder]; // [folder.name, entry.name] is wrong
 
             for await (const [path, file, folder] of getEntriesRecursively(entry)) {
                 console.log('yield:', path, file, folder);
