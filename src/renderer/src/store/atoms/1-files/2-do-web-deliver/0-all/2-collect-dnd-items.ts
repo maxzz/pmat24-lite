@@ -28,7 +28,7 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
             const item: WebFsItem = new WebFsItem({
                 file: handle.kind === 'file' ? await handle.getFile() : null,
                 handle,
-                path: path.join('/'),
+                path,
             });
             rv.push(item);
         }
@@ -50,7 +50,7 @@ function printHandles(handles: DndHandle[]) {
     console.log('%cDndHandles:', 'color: saddlebrown');
 
     for (const [path, handle, dir] of handles) {
-        console.log(`%cpath: "${path.join('/')}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, { handle, dir });
+        console.log(`%cpath: "${path}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, { handle, dir });
     }
 }
 

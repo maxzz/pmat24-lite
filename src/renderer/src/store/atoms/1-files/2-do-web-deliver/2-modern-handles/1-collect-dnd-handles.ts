@@ -6,32 +6,32 @@ import { type FsHandle } from "../9-fs-types";
  *
  * @param folder folder to traverse
  */
-async function* getEntriesRecursively(folder: FileSystemDirectoryHandle, path: string): AsyncGenerator<[path: string[], handle: FsHandle, dir: FileSystemDirectoryHandle], void, unknown> {
+async function* getEntriesRecursively(folder: FileSystemDirectoryHandle, path: string): AsyncGenerator<[path: string, handle: FsHandle, dir: FileSystemDirectoryHandle], void, unknown> {
     for await (const entry of folder.values()) {
         if (entry.kind === 'file') {
             console.log(`%cfile: "${folder.name}/${entry.name}"`, 'color: tomato', { folder, entry });
 
-            yield [[folder.name], entry, folder];
+            yield [path, entry, folder];
         }
         else if (entry.kind === 'directory') {
 
-            const nestedPath = path + '/' + entry.name;
+            const nestedPath = `${path}/${entry.name}`;
 
             // console.log(`dir: %c${entry.name}`, 'color: aqua', { folder, entry });
             console.log(`dir: %c${entry.name}`, 'color: aqua', `nestedPath: "${nestedPath}"`);
 
-            yield [[folder.name, entry.name], entry, folder]; // [folder.name, entry.name] is wrong
+            yield [nestedPath, entry, folder]; // [folder.name, entry.name] is wrong
 
             for await (const [path, file, folder] of getEntriesRecursively(entry, nestedPath)) {
                 console.log('yield:', path, file, folder);
 
-                yield [[folder.name, ...path], file, folder];
+                yield [path, file, folder];
             }
         }
     }
 }
 
-export type DndHandle = [path: string[], handle: FsHandle, dir: FileSystemDirectoryHandle | null];
+export type DndHandle = [path: string, handle: FsHandle, dir: FileSystemDirectoryHandle | null];
 
 export async function collectDndHandles(files: DataTransferItem[]): Promise<DndHandle[]> {
     const rv: DndHandle[] = [];
@@ -41,9 +41,9 @@ export async function collectDndHandles(files: DataTransferItem[]): Promise<DndH
     for await (const handle of fileHandlesPromises) {
         if (handle) {
             if (handle.kind === 'file') {
-                rv.push([[], handle, null]);
+                rv.push(["", handle, null]);
             } else {
-                rv.push([[handle.name], handle, handle]);
+                rv.push([handle.name, handle, handle]);
                 
                 for await (const subEntry of getEntriesRecursively(handle, handle.name)) {
                     rv.push(subEntry);
