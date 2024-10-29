@@ -24,17 +24,18 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
         const handles = await collectDndHandles(dataTransferItems);
         printHandles(handles);
 
-        for (const [path, handle] of handles) {
-            const item: WebFsItem = new WebFsItem({
+        for (const [path, handle, dir] of handles) {
+            const item = new WebFsItem({
                 file: handle.kind === 'file' ? await handle.getFile() : null,
                 handle,
+                parent: dir,
                 path,
             });
             rv.push(item);
         }
     }
 
-    //printWebFsitems(rv);
+    printWebFsitems(rv);
     return rv;
 }
 

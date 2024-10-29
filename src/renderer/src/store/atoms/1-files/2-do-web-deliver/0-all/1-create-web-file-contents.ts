@@ -77,7 +77,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
                 (item) => {
                     const rv: DropItem = {
                         fname: item.file!.name,
-                        fpath: pathWithoutFilename(item.path),
+                        fpath: item.path,
                         fileWeb: item.file!,
                         webFsItem: item,
                         notOur: false,
