@@ -63,10 +63,15 @@ export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
-            let files: FileWithHandle[] | FileSystemDirectoryHandle[] =
-                openAsFolder
-                    ? await directoryOpen({ recursive: true, mode: 'readwrite' })
-                    : await fileOpen({ multiple: true });
+            let files: FileWithHandle[] | FileSystemDirectoryHandle[] = [];
+
+            if (openAsFolder) {
+                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
+                files = res;
+            } else {
+                const res: FileWithHandle[] = await fileOpen({ multiple: true });
+                files = res; 
+            }
 
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);
