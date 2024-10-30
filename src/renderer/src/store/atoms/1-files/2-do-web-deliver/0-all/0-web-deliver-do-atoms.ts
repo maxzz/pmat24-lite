@@ -59,9 +59,9 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
-function isfileSystemHandle(file: FileWithHandle | FileSystemHandle): file is FileSystemHandle {
-    return !!(file as FileSystemHandle).kind;
-}
+// function isFileWithHandle(file: FileWithHandle | FileSystemHandle): file is FileSystemHandle {
+//     return !!(file as FileWithHandle).handle;
+// }
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
@@ -82,8 +82,8 @@ export const doSetFilesFromModernDialogAtom = atom(
 
                 const realFiles = await Promise.all(files.map(
                     async (file) => {
-                        isfileSystemHandle(file) && await file.handle.getFile();
-                        return file.handle.getFile();
+                        // isfileSystemHandle(file) && await file.handle.getFile();
+                        return file.handle.getFile(); //TODO: This will not work for folders. fix it to work with both types
                     }
                 ));
                 console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
