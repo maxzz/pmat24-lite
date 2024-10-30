@@ -59,6 +59,10 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
+function isfileSystemHandle(file: FileWithHandle | FileSystemHandle): file is FileSystemHandle {
+    return !!(file as FileSystemHandle).kind;
+}
+
 export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
@@ -78,6 +82,7 @@ export const doSetFilesFromModernDialogAtom = atom(
 
                 const realFiles = await Promise.all(files.map(
                     async (file) => {
+                        isfileSystemHandle(file) && await file.handle.getFile();
                         return file.handle.getFile();
                     }
                 ));
