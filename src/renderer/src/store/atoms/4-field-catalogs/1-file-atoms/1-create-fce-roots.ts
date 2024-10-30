@@ -30,5 +30,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
         }
     );
 
+    console.log('createFldCatRoots', roots);
+
     return roots;
 }

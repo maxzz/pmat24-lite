@@ -8,7 +8,7 @@ export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 export const doOpenFldCatDialogAtom = atom(
     null,
     (get, set, { fceRoot, inData }: { fceRoot: FceRoot | undefined, inData?: Omit<FldCatInData, 'fceRoot'>; }) => {
-        const root = fceRoot || fceRoots.entries['root'];
+        const root = fceRoot || fceRoots.entries['root']; //TODO: get shortest path instead of 'root'
         const data: FldCatInData =
             inData
                 ? {
