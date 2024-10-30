@@ -70,10 +70,12 @@ export const doSetFilesFromModernDialogAtom = atom(
             let files: FileWithHandle[] | FileSystemDirectoryHandle[] | undefined;
             
             if (openAsFolder) {
-                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
+                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: false, mode: 'readwrite' }); // This will return files only with dir handles if recursive is true or false.
+                console.log('doSetFilesFromModernDialogAtom 1', res);
                 files = res;
             } else {
-                const res: FileWithHandle[] = await fileOpen({ multiple: true });
+                const res: FileWithHandle[] = await fileOpen({ multiple: true }); // This will return files with dir handles only and skip folders.
+                console.log('doSetFilesFromModernDialogAtom 2', res);
                 files = res; 
             }
 
@@ -111,14 +113,6 @@ export const doSetFilesFromModernDialogAtom = atom(
             }
         } catch (error) {
         }
-
-        // if (openFiles) {
-        //     const rvFile = await fileOpen();
-        //     console.log('fileOpen', rvFile);
-        // } else {
-        //     const rvDir = await directoryOpen();
-        //     console.log('directoryOpen', rvDir);
-        // }
     }
 );
 
