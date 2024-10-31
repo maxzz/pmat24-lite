@@ -70,11 +70,14 @@ export const doSetFilesFromModernDialogAtom = atom(
             let files: FileWithHandle[] | FileSystemDirectoryHandle[] | undefined;
             
             if (openAsFolder) {
-                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: false, mode: 'readwrite' }); // This will return files only with dir handles if recursive is true or false.
+                // This will return files only with dir handles if recursive is true or false and never return folders
+                // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
+                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
                 console.log('doSetFilesFromModernDialogAtom 1', res);
                 files = res;
             } else {
-                const res: FileWithHandle[] = await fileOpen({ multiple: true }); // This will return files with dir handles only and skip folders.
+                // This will return files with dir handles only and skip folders.
+                const res: FileWithHandle[] = await fileOpen({ multiple: true });
                 console.log('doSetFilesFromModernDialogAtom 2', res);
                 files = res; 
             }
