@@ -1,10 +1,11 @@
 import { atom } from "jotai";
+import { directoryOpen, fileOpen, FileWithDirectoryAndFileHandle, FileWithHandle } from "browser-fs-access";
+import { electronGetPaths } from "./8-electron-get-paths";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./1-create-web-file-contents";
-import { electronGetPaths } from "./8-electron-get-paths";
-import { directoryOpen, fileOpen, FileWithDirectoryAndFileHandle, FileWithHandle } from "browser-fs-access";
+import { pathWithoutFilename } from "@/utils";
 
 // handle files drop for web and electron environments
 
@@ -87,22 +88,26 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
     // , files[0]);
 
 
-    let shortestDirName: string | undefined = files[0].directoryHandle?.name;
+    let shortest: string | undefined = pathWithoutFilename(files[0].webkitRelativePath);
     let rv: FileWithDirectoryAndFileHandle = files[0];
+
+    console.log('shortest init:', shortest);
 
     for (let i = 1; i < files.length; i++) {
         const item = files[i];
-        const nameWithHandle = item.directoryHandle?.name; //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
+        const curr = pathWithoutFilename(item.webkitRelativePath); //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
 
-        if (!nameWithHandle) {
+        if (!curr || !item.directoryHandle) {
             continue;
         }
 
-        const isShoter = !shortestDirName || nameWithHandle.length < shortestDirName.length;
+        const isShoter = !shortest || curr.length < shortest.length;
         if (isShoter) {
-            shortestDirName = nameWithHandle;
+            shortest = curr;
             rv = item;
         }
+
+        console.log(`shortest curr: "${curr}" shortest: "${shortest}"`);
 
         // if (!shortestDirName) {
         //     shortestDirName = nameWithHandle;
@@ -128,7 +133,7 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             // This is a folder with no files, so we will return an empty array
             rootDir.handle = res[0];
             rootDir.rpath = rootDir.handle.name;
-            console.log('doSetFilesFromModernDialogAtom 1', {rootDir, res});
+            console.log('doSetFilesFromModernDialogAtom 1', { rootDir, res });
             return [];
         } else {
             let files: FileWithDirectoryAndFileHandle[] = res;
@@ -138,7 +143,7 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
 
             rootDir.handle = null; //TODO: find the root folder handle
             rootDir.rpath = '';
-            console.log('doSetFilesFromModernDialogAtom 2', {rootDir, files});
+            console.log('doSetFilesFromModernDialogAtom 2', { rootDir, files });
             return files;
         }
     } else {
@@ -147,7 +152,7 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
 
         rootDir.handle = null;
         rootDir.rpath = '';
-        console.log('doSetFilesFromModernDialogAtom 3', {rootDir, files});
+        console.log('doSetFilesFromModernDialogAtom 3', { rootDir, files });
         return files;
     }
 
