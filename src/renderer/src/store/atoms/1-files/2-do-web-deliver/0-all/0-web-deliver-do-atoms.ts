@@ -114,13 +114,14 @@ export const doSetFilesFromModernDialogAtom = atom(
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);
 
-                const realFiles = (await Promise.all(files
-                    .map(
+                const realFiles = (
+                    await Promise.all(files.map(
                         async (file) => {
-                            // isfileSystemHandle(file) && await file.handle.getFile();
-                            return file.handle && file.handle.getFile(); //TODO: This will not work for folders. fix it to work with both types
+                            return file.handle && file.handle.getFile();
                         }
-                    ))).filter(Boolean);
+                    ))
+                ).filter(Boolean);
+                
                 console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
 
                 const filenames = electronGetPaths(realFiles as File[]);
