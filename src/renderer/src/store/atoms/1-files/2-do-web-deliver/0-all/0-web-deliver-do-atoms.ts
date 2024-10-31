@@ -59,10 +59,6 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
-// function isFileWithHandle(file: FileWithHandle | FileSystemHandle): file is FileSystemHandle {
-//     return !!(file as FileWithHandle).handle;
-// }
-
 function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[]): files is FileSystemDirectoryHandle[] {
     return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
 }
@@ -73,38 +69,68 @@ export type RootHandle = {
 };
 
 const rootHandle: RootHandle = {
-    handle: null,   
-    path: '',       
+    handle: null,
+    path: '',
 };
+
+async function openFileSystemHandles(openAsFolder: boolean) {
+    let files: FileWithHandle[] | FileSystemDirectoryHandle[] | undefined;
+
+    if (openAsFolder) {
+        // This will return files only with dir handles if recursive is true or false and never return folders
+        // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
+        const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
+        if (isFileSystemDirectoryHandles(res)) {
+            // This is a folder with no files, so we will return an empty array
+            rootHandle.handle = res[0];
+            rootHandle.path = rootHandle.handle.name;
+            files = [];
+        } else {
+            rootHandle.handle = null;
+            rootHandle.path = '';
+            files = res;
+        }
+        console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
+        files = res;
+    } else {
+        // This will return files with dir handles only and skip folders.
+        const res: FileWithHandle[] = await fileOpen({ multiple: true });
+        console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
+        files = res;
+    }
+
+    return files;
+}
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             let files: FileWithHandle[] | FileSystemDirectoryHandle[] | undefined;
+            files = await openFileSystemHandles(openAsFolder);
 
-            if (openAsFolder) {
-                // This will return files only with dir handles if recursive is true or false and never return folders
-                // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
-                const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
-                if (isFileSystemDirectoryHandles(res)) {
-                    // This is a folder with no files, so we will return an empty array
-                    rootHandle.handle = res[0] as FileSystemDirectoryHandle;
-                    rootHandle.path = rootHandle.handle.name;
-                    files = [];
-                } else {
-                    rootHandle.handle = null;
-                    rootHandle.path = '';
-                    files = res;
-                }
-                console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
-                files = res;
-            } else {
-                // This will return files with dir handles only and skip folders.
-                const res: FileWithHandle[] = await fileOpen({ multiple: true });
-                console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
-                files = res;
-            }
+            // if (openAsFolder) {
+            //     // This will return files only with dir handles if recursive is true or false and never return folders
+            //     // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
+            //     const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
+            //     if (isFileSystemDirectoryHandles(res)) {
+            //         // This is a folder with no files, so we will return an empty array
+            //         rootHandle.handle = res[0];
+            //         rootHandle.path = rootHandle.handle.name;
+            //         files = [];
+            //     } else {
+            //         rootHandle.handle = null;
+            //         rootHandle.path = '';
+            //         files = res;
+            //     }
+            //     console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
+            //     files = res;
+            // } else {
+            //     // This will return files with dir handles only and skip folders.
+            //     const res: FileWithHandle[] = await fileOpen({ multiple: true });
+            //     console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
+            //     files = res;
+            // }
 
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);
