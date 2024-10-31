@@ -111,9 +111,9 @@ export const doSetFilesFromModernDialogAtom = atom(
             let files: FileWithHandle[] | undefined;
             files = await openFileSystemHandles(openAsFolder);
 
-            if (hasMain()) {
-                console.log('doSetFilesFromModernDialogAtom electron 1', files);
+            console.log('doSetFilesFromModernDialogAtom', rootHandle, files);
 
+            if (hasMain()) {
                 const realFiles = (
                     await Promise.all(files.map(
                         async (file) => {
@@ -121,7 +121,7 @@ export const doSetFilesFromModernDialogAtom = atom(
                         }
                     ))
                 ).filter(Boolean);
-                
+
                 console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
 
                 const filenames = electronGetPaths(realFiles as File[]);
@@ -135,12 +135,8 @@ export const doSetFilesFromModernDialogAtom = atom(
                 }
 
                 return;
-            }
-
-            //console.log('doSetFilesFromModernDialogAtom', files);
-
-            if (files) {
-                let filesCnt: FileContent[] = await webAfterDlgOpenCreateFileContents(files as File[]);
+            } else {
+                let filesCnt: FileContent[] = files ? await webAfterDlgOpenCreateFileContents(files) : [];
                 if (filesCnt) {
                     set(doSetDeliveredFilesAtom, filesCnt);
                 }
