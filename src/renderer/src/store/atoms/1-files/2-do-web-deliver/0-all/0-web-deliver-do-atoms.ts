@@ -74,11 +74,9 @@ const rootHandle: RootHandle = {
 };
 
 async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
-    let files: FileWithHandle[] | undefined;
-
     if (openAsFolder) {
-        // This will return files only with dir handles if recursive is true or false and never return folders
-        // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
+        // directoryOpen() will return only files with dir handles if recursive is true or false and never return folders.
+        // If folder is empty then array [FileSystemDirectoryHandle] with a single item.
         const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
@@ -96,8 +94,8 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
     } else {
         // This will return files with dir handles only and skip folders.
         const res: FileWithHandle[] = await fileOpen({ multiple: true });
+        let files: FileWithHandle[] = res;
         console.log('doSetFilesFromModernDialogAtom 3', rootHandle, res);
-        files = res;
         return files;
     }
 }
