@@ -63,8 +63,8 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 //     return !!(file as FileWithHandle).handle;
 // }
 
-function isFileSystemDirectoryHandle(file: FileWithDirectoryAndFileHandle | FileSystemDirectoryHandle): file is FileSystemDirectoryHandle {
-    return (file as FileSystemDirectoryHandle).kind === 'directory';
+function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[]): files is FileSystemDirectoryHandle[] {
+    return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
 }
 
 export type RootHandle = {
@@ -87,7 +87,7 @@ export const doSetFilesFromModernDialogAtom = atom(
                 // This will return files only with dir handles if recursive is true or false and never return folders
                 // or if folder is empty then array [FileSystemDirectoryHandle] with a single item.
                 const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
-                if (res.length === 1 && (res[0] as FileSystemDirectoryHandle).kind === 'directory') {
+                if (isFileSystemDirectoryHandles(res)) {
                     // This is a folder with no files, so we will return an empty array
                     rootHandle.handle = res[0] as FileSystemDirectoryHandle;
                     rootHandle.path = rootHandle.handle.name;
