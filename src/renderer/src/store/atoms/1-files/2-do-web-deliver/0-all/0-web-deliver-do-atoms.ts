@@ -73,6 +73,42 @@ const rootHandle: RootHandle = {
     path: '',
 };
 
+function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]): FileWithDirectoryAndFileHandle | null {
+    if (!files.length) {
+        return null;
+    }
+
+    // let shortestDirName: string = files[0].directoryHandle?.name || '';
+    // let shortestDirHandle: FileWithDirectoryAndFileHandle = files[0];
+
+    // files.reduce((shortestDirHandle, file) => {
+    //     const dirName = file.directoryHandle?.name || '';
+    //     if (dirName.length < shortestDirName.length) {
+    //         return file;
+    //     }
+    //     return shortestDirHandle;
+    // }
+    // , files[0]);
+
+
+    let shortestDirName: string = files[0].directoryHandle?.name || '';
+    let shortestDirHandle: FileWithDirectoryAndFileHandle = files[0];
+
+    for (let i = 1; i < files.length; i++) {
+        const dirName = files[i].directoryHandle?.name || '';
+        if (dirName.length < shortestDirName.length) {
+            shortestDirName = dirName;
+            shortestDirHandle = files[i];
+        }
+    }
+
+    return shortestDirHandle;
+}
+    
+
+
+
+
 async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
     if (openAsFolder) {
         // directoryOpen() will return only files with dir handles if recursive is true or false and never return folders.
@@ -87,9 +123,10 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
             return [];
         } else {
+            let files: FileWithDirectoryAndFileHandle[] = res;
+
             rootHandle.handle = null; //TODO: find the root folder handle
             rootHandle.path = '';
-            let files: FileWithDirectoryAndFileHandle[] = res;
             console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
             return files;
         }
