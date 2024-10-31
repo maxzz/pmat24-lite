@@ -95,16 +95,32 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
     let rv: FileWithDirectoryAndFileHandle = files[0];
 
     for (let i = 1; i < files.length; i++) {
-        const dirName = files[i].directoryHandle?.name;
-        if (dirName?.length! < shortestDirName?.length!) {
-            shortestDirName = dirName;
-            rv = files[i];
+        const item = files[i];
+        const nameWithHandle = item.directoryHandle?.name; //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
+
+        if (!nameWithHandle) {
+            continue
         }
+
+        const isShoter = !shortestDirName || nameWithHandle.length < shortestDirName.length;
+        if (isShoter) {
+            shortestDirName = nameWithHandle;
+            rv = item;
+        }
+
+        // if (!shortestDirName) {
+        //     shortestDirName = nameWithHandle;
+        //     rv = item;
+        // }
+        // else if (nameWithHandle.length < shortestDirName.length) {
+        //     shortestDirName = nameWithHandle;
+        //     rv = item;
+        // }
     }
 
     return rv;
 }
-    
+
 
 
 
@@ -124,6 +140,8 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             return [];
         } else {
             let files: FileWithDirectoryAndFileHandle[] = res;
+
+            console.log('shortest dir name', findShortestDirectoryNameHandle(files));
 
             rootHandle.handle = null; //TODO: find the root folder handle
             rootHandle.path = '';
