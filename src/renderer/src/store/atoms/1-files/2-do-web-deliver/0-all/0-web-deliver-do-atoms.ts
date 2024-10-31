@@ -128,16 +128,17 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             // This is a folder with no files, so we will return an empty array
             rootDir.handle = res[0];
             rootDir.rpath = rootDir.handle.name;
-            console.log('doSetFilesFromModernDialogAtom 1', rootDir, res);
+            console.log('doSetFilesFromModernDialogAtom 1', {rootDir, res});
             return [];
         } else {
             let files: FileWithDirectoryAndFileHandle[] = res;
 
-            console.log('shortest dir name', findShortestDirectoryNameHandle(files));
+            const h = findShortestDirectoryNameHandle(files);
+            console.log('shortest dir name', h, h?.directoryHandle?.name);
 
             rootDir.handle = null; //TODO: find the root folder handle
             rootDir.rpath = '';
-            console.log('doSetFilesFromModernDialogAtom 2', rootDir, res);
+            console.log('doSetFilesFromModernDialogAtom 2', {rootDir, files});
             return files;
         }
     } else {
@@ -146,7 +147,7 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
 
         rootDir.handle = null;
         rootDir.rpath = '';
-        console.log('doSetFilesFromModernDialogAtom 3', rootDir, files);
+        console.log('doSetFilesFromModernDialogAtom 3', {rootDir, files});
         return files;
     }
 
@@ -159,8 +160,7 @@ export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
-            let files: FileWithHandle[] | undefined;
-            files = await openFileSystemHandles(openAsFolder);
+            const files: FileWithHandle[] = await openFileSystemHandles(openAsFolder);
 
             console.log('doSetFilesFromModernDialogAtom', rootDir, files);
 
