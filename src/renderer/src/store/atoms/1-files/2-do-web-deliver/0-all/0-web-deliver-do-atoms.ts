@@ -61,41 +61,26 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 );
 
 export type RootDir = {
-    handle: FileSystemDirectoryHandle | null;   // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
-    rpath: string;                              // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
+    handle: FileSystemDirectoryHandle | undefined;  // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
+    rpath: string;                                  // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
 };
 
 const rootDir: RootDir = {
-    handle: null,
+    handle: undefined,
     rpath: '',
 };
 
-function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]): FileWithDirectoryAndFileHandle | null {
+function findShortestPath(files: FileWithDirectoryAndFileHandle[]): FileWithDirectoryAndFileHandle | undefined {
     if (!files.length) {
-        return null;
+        return;
     }
 
-    // let shortestDirName: string = files[0].directoryHandle?.name || '';
-    // let shortestDirHandle: FileWithDirectoryAndFileHandle = files[0];
-
-    // files.reduce((shortestDirHandle, file) => {
-    //     const dirName = file.directoryHandle?.name || '';
-    //     if (dirName.length < shortestDirName.length) {
-    //         return file;
-    //     }
-    //     return shortestDirHandle;
-    // }
-    // , files[0]);
-
-
-    let shortest: string | undefined = pathWithoutFilename(files[0].webkitRelativePath);
+    let shortest: string = pathWithoutFilename(files[0]?.webkitRelativePath);
     let rv: FileWithDirectoryAndFileHandle = files[0];
-
-    console.log('shortest init:', shortest);
 
     for (let i = 1; i < files.length; i++) {
         const item = files[i];
-        const curr = pathWithoutFilename(item.webkitRelativePath); //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
+        const curr = pathWithoutFilename(item?.webkitRelativePath); //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
 
         if (!curr || !item.directoryHandle) {
             continue;
@@ -106,17 +91,6 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
             shortest = curr;
             rv = item;
         }
-
-        console.log(`shortest curr: "${curr}" shortest: "${shortest}"`);
-
-        // if (!shortestDirName) {
-        //     shortestDirName = nameWithHandle;
-        //     rv = item;
-        // }
-        // else if (nameWithHandle.length < shortestDirName.length) {
-        //     shortestDirName = nameWithHandle;
-        //     rv = item;
-        // }
     }
 
     return rv;
@@ -138,10 +112,9 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
         } else {
             let files: FileWithDirectoryAndFileHandle[] = res;
 
-            const h = findShortestDirectoryNameHandle(files);
-            console.log('shortest dir name', h, h?.directoryHandle?.name);
+            const h = findShortestPath(files);
 
-            rootDir.handle = null; //TODO: find the root folder handle
+            rootDir.handle = undefined; //TODO: find the root folder handle
             rootDir.rpath = '';
             console.log('doSetFilesFromModernDialogAtom 2', { rootDir, files });
             return files;
@@ -150,7 +123,7 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
 
-        rootDir.handle = null;
+        rootDir.handle = undefined;
         rootDir.rpath = '';
         console.log('doSetFilesFromModernDialogAtom 3', { rootDir, files });
         return files;
