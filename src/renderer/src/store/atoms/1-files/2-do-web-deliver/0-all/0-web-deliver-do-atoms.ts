@@ -91,18 +91,18 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
     // , files[0]);
 
 
-    let shortestDirName: string = files[0].directoryHandle?.name || '';
-    let shortestDirHandle: FileWithDirectoryAndFileHandle = files[0];
+    let shortestDirName: string | undefined = files[0].directoryHandle?.name;
+    let rv: FileWithDirectoryAndFileHandle = files[0];
 
     for (let i = 1; i < files.length; i++) {
-        const dirName = files[i].directoryHandle?.name || '';
-        if (dirName.length < shortestDirName.length) {
+        const dirName = files[i].directoryHandle?.name;
+        if (dirName?.length! < shortestDirName?.length!) {
             shortestDirName = dirName;
-            shortestDirHandle = files[i];
+            rv = files[i];
         }
     }
 
-    return shortestDirHandle;
+    return rv;
 }
     
 
