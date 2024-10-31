@@ -59,18 +59,14 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
-function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[]): files is FileSystemDirectoryHandle[] {
-    return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
-}
-
-export type RootHandle = {
-    handle: FileSystemDirectoryHandle | null;   // For electron it will be null, for web it will be FileSystemDirectoryHandle
-    path: string;                               // For electron it will be absolute path, for web it will be relative path of this folder
+export type RootDir = {
+    handle: FileSystemDirectoryHandle | null;   // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
+    rpath: string;                              // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
 };
 
-const rootHandle: RootHandle = {
+const rootDir: RootDir = {
     handle: null,
-    path: '',
+    rpath: '',
 };
 
 function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]): FileWithDirectoryAndFileHandle | null {
@@ -99,7 +95,7 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
         const nameWithHandle = item.directoryHandle?.name; //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
 
         if (!nameWithHandle) {
-            continue
+            continue;
         }
 
         const isShoter = !shortestDirName || nameWithHandle.length < shortestDirName.length;
@@ -121,10 +117,6 @@ function findShortestDirectoryNameHandle(files: FileWithDirectoryAndFileHandle[]
     return rv;
 }
 
-
-
-
-
 async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
     if (openAsFolder) {
         // directoryOpen() will return only files with dir handles if recursive is true or false and never return folders.
@@ -134,28 +126,32 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
 
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
-            rootHandle.handle = res[0];
-            rootHandle.path = rootHandle.handle.name;
-            console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
+            rootDir.handle = res[0];
+            rootDir.rpath = rootDir.handle.name;
+            console.log('doSetFilesFromModernDialogAtom 1', rootDir, res);
             return [];
         } else {
             let files: FileWithDirectoryAndFileHandle[] = res;
 
             console.log('shortest dir name', findShortestDirectoryNameHandle(files));
 
-            rootHandle.handle = null; //TODO: find the root folder handle
-            rootHandle.path = '';
-            console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
+            rootDir.handle = null; //TODO: find the root folder handle
+            rootDir.rpath = '';
+            console.log('doSetFilesFromModernDialogAtom 2', rootDir, res);
             return files;
         }
     } else {
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
 
-        rootHandle.handle = null;
-        rootHandle.path = '';
-        console.log('doSetFilesFromModernDialogAtom 3', rootHandle, files);
+        rootDir.handle = null;
+        rootDir.rpath = '';
+        console.log('doSetFilesFromModernDialogAtom 3', rootDir, files);
         return files;
+    }
+
+    function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[]): files is FileSystemDirectoryHandle[] {
+        return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
     }
 }
 
@@ -166,7 +162,7 @@ export const doSetFilesFromModernDialogAtom = atom(
             let files: FileWithHandle[] | undefined;
             files = await openFileSystemHandles(openAsFolder);
 
-            console.log('doSetFilesFromModernDialogAtom', rootHandle, files);
+            console.log('doSetFilesFromModernDialogAtom', rootDir, files);
 
             if (hasMain()) {
                 const realFiles = (
