@@ -77,7 +77,9 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
     if (openAsFolder) {
         // directoryOpen() will return only files with dir handles if recursive is true or false and never return folders.
         // If folder is empty then array [FileSystemDirectoryHandle] with a single item.
-        const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] = await directoryOpen({ recursive: true, mode: 'readwrite' });
+        const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] =
+            await directoryOpen({ recursive: true, mode: 'readwrite' });
+
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
             rootHandle.handle = res[0];
@@ -85,17 +87,19 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             console.log('doSetFilesFromModernDialogAtom 1', rootHandle, res);
             return [];
         } else {
-            rootHandle.handle = null;
+            rootHandle.handle = null; //TODO: find the root folder handle
             rootHandle.path = '';
             let files: FileWithDirectoryAndFileHandle[] = res;
             console.log('doSetFilesFromModernDialogAtom 2', rootHandle, res);
             return files;
         }
     } else {
-        // This will return files with dir handles only and skip folders.
-        const res: FileWithHandle[] = await fileOpen({ multiple: true });
-        let files: FileWithHandle[] = res;
-        console.log('doSetFilesFromModernDialogAtom 3', rootHandle, res);
+        // This will return files without dir handles only and skip folders.
+        let files: FileWithHandle[] = await fileOpen({ multiple: true });
+
+        rootHandle.handle = null;
+        rootHandle.path = '';
+        console.log('doSetFilesFromModernDialogAtom 3', rootHandle, files);
         return files;
     }
 }
@@ -104,18 +108,19 @@ export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
-            let files: FileWithHandle[] | FileWithDirectoryAndFileHandle[] | undefined;
+            let files: FileWithHandle[] | undefined;
             files = await openFileSystemHandles(openAsFolder);
 
             if (hasMain()) {
                 console.log('doSetFilesFromModernDialogAtom electron 1', files);
 
-                const realFiles = await Promise.all(files.map(
-                    async (file) => {
-                        // isfileSystemHandle(file) && await file.handle.getFile();
-                        return file.handle.getFile(); //TODO: This will not work for folders. fix it to work with both types
-                    }
-                ));
+                const realFiles = (await Promise.all(files
+                    .map(
+                        async (file) => {
+                            // isfileSystemHandle(file) && await file.handle.getFile();
+                            return file.handle && file.handle.getFile(); //TODO: This will not work for folders. fix it to work with both types
+                        }
+                    ))).filter(Boolean);
                 console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
 
                 const filenames = electronGetPaths(realFiles as File[]);
