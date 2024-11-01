@@ -1,6 +1,6 @@
 import { directoryOpen, fileOpen, type FileWithDirectoryAndFileHandle, type FileWithHandle } from "browser-fs-access";
-import { setRootDir, type RootDir } from "./7-root-dir";
-import { pathWithoutFilename } from "@/utils";
+import { setRootDir } from "./7-root-dir";
+import { findShortestPathModern } from "./6-find-root-modern";
 
 export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
     if (openAsFolder) {
@@ -16,7 +16,7 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
         } else {
             // Find the root folder handle
             let files: FileWithDirectoryAndFileHandle[] = res;
-            const h = findShortestPath(files);
+            const h = findShortestPathModern(files);
             setRootDir({ rpath: h?.rpath || '', handle: h?.handle });
             return files;
         }
@@ -32,32 +32,3 @@ function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | 
     return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
 }
 
-function findShortestPath(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
-    if (!files.length) {
-        return;
-    }
-
-    let shortest: string = pathWithoutFilename(files[0]?.webkitRelativePath);
-    let theBest: FileWithDirectoryAndFileHandle = files[0];
-
-    for (let i = 1; i < files.length; i++) {
-        const item = files[i];
-        const curr = pathWithoutFilename(item?.webkitRelativePath); //TODO: it should be full path not just name, so we should use item.handle?.webkitRelativePath but is exists only for File
-
-        if (!curr || !item.directoryHandle) {
-            continue;
-        }
-
-        const isShoter = !shortest || curr.length < shortest.length;
-        if (isShoter) {
-            shortest = curr;
-            theBest = item;
-        }
-    }
-
-    const rv: RootDir = {
-        handle: theBest.directoryHandle,
-        rpath: shortest,
-    };
-    return rv;
-}
