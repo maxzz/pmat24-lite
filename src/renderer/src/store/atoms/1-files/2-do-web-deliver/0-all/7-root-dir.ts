@@ -11,4 +11,6 @@ export const rootDir: RootDir = {
 export function setRootDir({ rpath, handle }: { rpath: string, handle?: FileSystemDirectoryHandle; }) {
     rootDir.rpath = rpath;
     rootDir.handle = handle;
+    
+    console.log('%csetRootDir', 'color: magenta', rootDir);
 }

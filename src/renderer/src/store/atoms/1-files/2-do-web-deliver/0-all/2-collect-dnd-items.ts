@@ -41,7 +41,6 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
 
 function printEntryFiles(handles: FileWithPath[]) {
     console.log('%cEntryFiles:', 'color: saddlebrown');
-
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
@@ -49,7 +48,6 @@ function printEntryFiles(handles: FileWithPath[]) {
 
 function printHandles(handles: DndHandle[]) {
     console.log('%cDndHandles:', 'color: saddlebrown');
-
     for (const [path, handle, dir] of handles) {
         console.log(`%cpath: "${path}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, { handle, dir });
     }
@@ -57,7 +55,6 @@ function printHandles(handles: DndHandle[]) {
 
 function printWebFsitems(items: WebFsItem[]) {
     console.log('%cWebFsItems:', 'color: saddlebrown');
-
     for (const item of items) {
         console.log(`%cpath: "${item.path}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
     }

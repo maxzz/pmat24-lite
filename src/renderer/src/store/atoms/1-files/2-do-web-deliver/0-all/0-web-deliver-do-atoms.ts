@@ -1,12 +1,10 @@
 import { atom } from "jotai";
-import { FileWithHandle } from "browser-fs-access";
-import { electronGetPaths } from "./8-electron-get-paths";
-import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
-import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
+import { type FileWithHandle } from "browser-fs-access";
+import { type FileContent } from "@shared/ipc-types";
+import { hasMain } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
 import { openFileSystemHandles } from "./3-open-modern-handles";
-import { rootDir } from "./7-root-dir";
 
 // handle files drop for web and electron environments
 
@@ -63,26 +61,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
             printFiles(files);
 
             if (hasMain()) {
-                console.log('doSetFilesFromModernDialogAtom not supported by electron due to electronGetPaths() limitations', files);
-
-                // const realFiles = (
-                //     await Promise.all(files.map(
-                //         async (file) => {
-                //             return file.handle && file.handle.getFile();
-                //         }
-                //     ))
-                // ).filter(Boolean);
-                // console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
-                // const filenames = electronGetPaths(realFiles as File[]);
-                // console.log('doSetFilesFromModernDialogAtom electron 3', filenames);
-                // // const filenames = electronGetPaths(files as File[]);
-                // if (filenames.length) {
-                //     const fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
-                //     console.log('doSetFilesFromModernDialogAtom electron', fileContents);
-                //     set(doSetDeliveredFilesAtom, fileContents);
-                // }
-
-                return;
+                // console.log('doSetFilesFromModernDialogAtom not supported by electron due to electronGetPaths() limitations', files);
             } else {
                 let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (filesCnt) {
@@ -95,7 +74,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
 );
 
 function printFiles(files: File[]) {
-    console.log('doSetFilesFromModernDialogAtom', rootDir);
+    console.log('doSetFilesFromModernDialogAtom');
     files.forEach((f) => console.log(' ', f));
 }
 

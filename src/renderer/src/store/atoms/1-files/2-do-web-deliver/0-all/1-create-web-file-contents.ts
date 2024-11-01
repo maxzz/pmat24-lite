@@ -5,7 +5,6 @@ import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectDndItems } from "./2-collect-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles } from "@/xternal-to-main";
-import { rootDir } from "./7-root-dir";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -63,7 +62,9 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 }
 
 /**
- * Create FileContent items from open file/directory web dialog
+ * Create FileContent items from open file/directory legacy web dialog or legacy drag and drop operation
+ * Modern drag and drop and dialog operations are not supported due to electronGetPaths() limitations.
+ * It should be File object not modified by JS.
  */
 export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
     const filenames = electronGetPaths(files);
@@ -139,39 +140,8 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
     }
 }
 
-/**
- * Create FileContent items from open file/directory web dialog
- */
-async function Nun_webAfterWinn32DlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
-
-    let items: DropItem[] = await mapToDropItems(files);
-    const rv = loadFilesAndCreateFileContents(items);
-    return rv;
-
-    async function mapToDropItems(files: File[]): Promise<DropItem[]> {
-        let rv: DropItem[] = [];
-        try {
-            rv = await Promise.all(files.map(
-                async (file) => {
-                    const rv: DropItem = {
-                        fname: file.name,
-                        fpath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
-                        fileWeb: file,
-                        webFsItem: null,
-                        notOur: false,
-                    };
-                    return rv;
-                }
-            ));
-        } catch (error) {
-            console.error('cannot read from File[]', files);
-        }
-        return rv;
-    }
-}
-
 function printFnameFiles(filenames: string[], files: File[]) {
-    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta', rootDir);
+    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta');
     files.forEach((f, idx) => {
         console.log(' ', { f }, `"${filenames[idx]}"`);
     });
