@@ -1,5 +1,5 @@
 import { directoryOpen, fileOpen, type FileWithDirectoryAndFileHandle, type FileWithHandle } from "browser-fs-access";
-import { rootDir, type RootDir } from "./7-root-dir";
+import { setRootDir, type RootDir } from "./7-root-dir";
 import { pathWithoutFilename } from "@/utils";
 
 function findShortestPath(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
@@ -41,22 +41,19 @@ export async function openFileSystemHandles(openAsFolder: boolean): Promise<File
 
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
-            rootDir.handle = res[0];
-            rootDir.rpath = rootDir.handle.name;
+            setRootDir({ rpath: res[0].name, handle: res[0] });
             return [];
         } else {
             // Find the root folder handle
             let files: FileWithDirectoryAndFileHandle[] = res;
             const h = findShortestPath(files);
-            rootDir.handle = h?.handle;
-            rootDir.rpath = h?.rpath || '';
+            setRootDir({ rpath: h?.rpath || '', handle: h?.handle });
             return files;
         }
     } else {
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
-        rootDir.handle = undefined;
-        rootDir.rpath = '';
+        setRootDir({ rpath: '', handle: undefined });
         return files;
     }
 

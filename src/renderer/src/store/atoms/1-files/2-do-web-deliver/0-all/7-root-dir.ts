@@ -7,3 +7,8 @@ export const rootDir: RootDir = {
     handle: undefined,
     rpath: '',
 };
+
+export function setRootDir({ rpath, handle }: { rpath: string, handle?: FileSystemDirectoryHandle; }) {
+    rootDir.rpath = rpath;
+    rootDir.handle = handle;
+}
