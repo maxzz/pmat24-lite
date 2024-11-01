@@ -5,7 +5,8 @@ import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { webAfterDndCreateFileContents, webAfterDlgOpenCreateFileContents } from "./1-create-web-file-contents";
-import { openFileSystemHandles, rootDir } from "./3-open-modern-handles";
+import { openFileSystemHandles } from "./3-open-modern-handles";
+import { rootDir } from "./7-root-dir";
 
 // handle files drop for web and electron environments
 

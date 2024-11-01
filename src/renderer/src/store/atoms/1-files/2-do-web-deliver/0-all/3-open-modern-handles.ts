@@ -1,15 +1,6 @@
-import { directoryOpen, fileOpen, FileWithDirectoryAndFileHandle, FileWithHandle } from "browser-fs-access";
+import { directoryOpen, fileOpen, type FileWithDirectoryAndFileHandle, type FileWithHandle } from "browser-fs-access";
+import { rootDir, type RootDir } from "./7-root-dir";
 import { pathWithoutFilename } from "@/utils";
-
-export type RootDir = {
-    handle: FileSystemDirectoryHandle | undefined;  // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
-    rpath: string;                                  // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
-};
-
-export const rootDir: RootDir = {
-    handle: undefined,
-    rpath: '',
-};
 
 function findShortestPath(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
     if (!files.length) {
