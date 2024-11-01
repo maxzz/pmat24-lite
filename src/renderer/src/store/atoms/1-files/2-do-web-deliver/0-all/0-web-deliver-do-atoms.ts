@@ -4,7 +4,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { hasMain } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
-import { openFileSystemHandles } from "./3-open-modern-handles";
+import { openModernHandlesDlg } from "./3-open-modern-handles-dlg";
 
 // handle files drop for web and electron environments
 
@@ -57,7 +57,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
-            const files: FileWithHandle[] = await openFileSystemHandles(openAsFolder);
+            const files: FileWithHandle[] = await openModernHandlesDlg(openAsFolder);
             printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
