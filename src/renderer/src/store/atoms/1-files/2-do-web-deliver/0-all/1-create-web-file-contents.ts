@@ -58,22 +58,8 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
         }
     }
 
+    //TODO: setRootDir({ rpath: '', handle: undefined });
     return res;
-}
-
-/**
- * Create FileContent items from open file/directory legacy web dialog or legacy drag and drop operation
- * Modern drag and drop and dialog operations are not supported due to electronGetPaths() limitations.
- * It should be File object not modified by JS.
- */
-export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
-    const filenames = electronGetPaths(files);
-    printFnameFiles(filenames, files);
-
-    if (filenames.length) {
-        const rv: FileContent[] = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
-        return rv;
-    }
 }
 
 /**
@@ -136,6 +122,23 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
         } catch (error) {
             console.error('cannot read from File[]', files);
         }
+        return rv;
+    }
+}
+
+/**
+ * Create FileContent items from open file/directory legacy web dialog or legacy drag and drop operation
+ * Modern drag and drop and dialog operations are not supported due to electronGetPaths() limitations.
+ * It should be File object not modified by JS.
+ */
+export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
+    const filenames = electronGetPaths(files);
+    printFnameFiles(filenames, files);
+
+    //TODO: setRootDir({ rpath: '', handle: undefined });
+
+    if (filenames.length) {
+        const rv: FileContent[] = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
         return rv;
     }
 }
