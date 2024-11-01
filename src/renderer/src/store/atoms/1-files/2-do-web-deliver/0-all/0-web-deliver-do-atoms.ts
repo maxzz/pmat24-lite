@@ -70,13 +70,13 @@ const rootDir: RootDir = {
     rpath: '',
 };
 
-function findShortestPath(files: FileWithDirectoryAndFileHandle[]): FileWithDirectoryAndFileHandle | undefined {
+function findShortestPath(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
     if (!files.length) {
         return;
     }
 
     let shortest: string = pathWithoutFilename(files[0]?.webkitRelativePath);
-    let rv: FileWithDirectoryAndFileHandle = files[0];
+    let theBest: FileWithDirectoryAndFileHandle = files[0];
 
     for (let i = 1; i < files.length; i++) {
         const item = files[i];
@@ -89,10 +89,14 @@ function findShortestPath(files: FileWithDirectoryAndFileHandle[]): FileWithDire
         const isShoter = !shortest || curr.length < shortest.length;
         if (isShoter) {
             shortest = curr;
-            rv = item;
+            theBest = item;
         }
     }
 
+    const rv: RootDir = {
+        handle: theBest.directoryHandle,
+        rpath: shortest,
+    };
     return rv;
 }
 
@@ -107,25 +111,20 @@ async function openFileSystemHandles(openAsFolder: boolean): Promise<FileWithHan
             // This is a folder with no files, so we will return an empty array
             rootDir.handle = res[0];
             rootDir.rpath = rootDir.handle.name;
-            console.log('doSetFilesFromModernDialogAtom 1', { rootDir, res });
             return [];
         } else {
+            // Find the root folder handle
             let files: FileWithDirectoryAndFileHandle[] = res;
-
             const h = findShortestPath(files);
-
-            rootDir.handle = undefined; //TODO: find the root folder handle
-            rootDir.rpath = '';
-            console.log('doSetFilesFromModernDialogAtom 2', { rootDir, files });
+            rootDir.handle = h?.handle;
+            rootDir.rpath = h?.rpath || '';
             return files;
         }
     } else {
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
-
         rootDir.handle = undefined;
         rootDir.rpath = '';
-        console.log('doSetFilesFromModernDialogAtom 3', { rootDir, files });
         return files;
     }
 
