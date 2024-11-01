@@ -2,7 +2,7 @@ import { proxySet } from "valtio/utils";
 import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
-import { collectDndItems } from "./2-collect-dnd-items";
+import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles } from "@/xternal-to-main";
 
@@ -86,7 +86,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     return rv;
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
-        const dndItems = (await collectDndItems(fileDataTransferItems)).filter((item) => item.file);
+        const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
 
         let rv: DropItem[] = [];
         try {

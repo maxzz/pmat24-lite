@@ -3,15 +3,17 @@ import { collectDndHandles, type DndHandle } from "../2-modern-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../3-legacy-entries";
 
 /**
- * @param dataTransferItems - already filtered for files (i.e. `item.kind === 'file'`)
+ * This is for modern and legay DnD items.
+ * @param dataTransferItems - already filtered for files only (i.e. `item.kind === 'file'`)
  */
-export async function collectDndItems(dataTransferItems: DataTransferItem[]): Promise<WebFsItem[]> {
+export async function collectWebDndItems(dataTransferItems: DataTransferItem[]): Promise<WebFsItem[]> {
     let rv: WebFsItem[] = [];
 
     const isFirefoxEntries = dataTransferItems.some((dtFileItem) => !dtFileItem.getAsFileSystemHandle);
     if (isFirefoxEntries) {
         const files: FileWithPath[] = await getFilesFromDataTransferItems(dataTransferItems);
         // printEntryFiles(files);
+        // console.log('Firefox entries detected');
 
         rv = files.map(
             (file) => new WebFsItem({
@@ -19,7 +21,6 @@ export async function collectDndItems(dataTransferItems: DataTransferItem[]): Pr
                 path: file.path,
             })
         );
-        // console.log('Firefox entries detected');
     } else {
         const handles = await collectDndHandles(dataTransferItems);
         // printHandles(handles);
