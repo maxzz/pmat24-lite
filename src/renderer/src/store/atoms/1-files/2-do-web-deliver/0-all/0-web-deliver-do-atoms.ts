@@ -45,7 +45,8 @@ export const doSetFilesFromLegacyDialogAtom = atom(
 
         if (hasMain()) {
             const filenames = electronGetPaths(files);
-            console.log('doSetFilesFromLegacyDialogAtom electron', filenames);
+            printFnameFiles(filenames, files);
+
             // if (filenames.length) {
             //     const fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
             //     set(doSetDeliveredFilesAtom, fileContents);
@@ -59,6 +60,13 @@ export const doSetFilesFromLegacyDialogAtom = atom(
         }
     }
 );
+
+function printFnameFiles(filenames: string[], files: File[]) {
+    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta', rootDir);
+    files.forEach((f, idx) => {
+        console.log(' ', {f}, `"${filenames[idx]}"`);
+    });
+}
 
 function printFiles(files: File[]) {
     console.log('doSetFilesFromModernDialogAtom', rootDir);
