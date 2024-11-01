@@ -60,9 +60,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
             const files: FileWithHandle[] = await openFileSystemHandles(openAsFolder);
             printFiles(files);
 
-            if (hasMain()) {
-                // console.log('doSetFilesFromModernDialogAtom not supported by electron due to electronGetPaths() limitations', files);
-            } else {
+            if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
                 let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (filesCnt) {
                     set(doSetDeliveredFilesAtom, filesCnt);
@@ -77,8 +75,3 @@ function printFiles(files: File[]) {
     console.log('doSetFilesFromModernDialogAtom');
     files.forEach((f) => console.log(' ', f));
 }
-
-//TODO: MRU list
-// https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
-//      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
-//          https://github.com/jakearchibald/idb-keyval
