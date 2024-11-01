@@ -62,7 +62,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function webAfterDndCreateFileContents(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
+export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
     const rv = loadFilesAndCreateFileContents(items);
@@ -95,7 +95,7 @@ export async function webAfterDndCreateFileContents(fileDataTransferItems: DataT
 /**
  * Create FileContent items from open file/directory web dialog
  */
-export async function webAfterDlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
+export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(files);
     const rv = loadFilesAndCreateFileContents(items);
@@ -126,7 +126,7 @@ export async function webAfterDlgOpenCreateFileContents(files: File[]): Promise<
 /**
  * Create FileContent items from open file/directory web dialog
  */
-export async function webAfterWinn32DlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
+async function Nun_webAfterWinn32DlgOpenCreateFileContents(files: File[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(files);
     const rv = loadFilesAndCreateFileContents(items);

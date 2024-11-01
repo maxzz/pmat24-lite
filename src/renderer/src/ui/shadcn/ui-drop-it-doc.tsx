@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import type { DoSetFilesFromDropAtom } from "@/store";
+import type { DoSetFilesFrom_Dnd_Atom } from "@/store";
 
 type DragHandlersProps = {
-    doSetFilesFromDropAtom: DoSetFilesFromDropAtom;
+    doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;
     activeAtom: PrimitiveAtom<boolean>;
 };
 
@@ -51,7 +51,7 @@ export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHand
     );
 }
 
-export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: DoSetFilesFromDropAtom; }) {
+export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom; }) {
     const [activeAtom] = useState(atom(false));
     const active = useAtomValue(activeAtom);
     useDragHandlers({ doSetFilesFromDropAtom, activeAtom, });
