@@ -10,9 +10,9 @@ import { rootDir } from "./7-root-dir";
 
 // handle files drop for web and electron environments
 
-export type DoSetFilesFromDropAtom = typeof doSetFilesFromDropAtom;
+export type DoSetFilesFromDropAtom = typeof doSetFilesFrom_Dnd_Atom;
 
-export const doSetFilesFromDropAtom = atom(
+export const doSetFilesFrom_Dnd_Atom = atom( // used by DropItDoc only
     null,
     async (get, set, dataTransfer: DataTransfer) => {
         let fileContents: FileContent[] | undefined;
@@ -36,7 +36,7 @@ export const doSetFilesFromDropAtom = atom(
     }
 );
 
-export const doSetFilesFromLegacyDialogAtom = atom(
+export const doSetFilesFrom_LegacyDlg_Atom = atom(
     null,
     async (get, set, fileList: FileList | null) => {
         const files = fileList ? [...fileList] : [];
@@ -74,7 +74,7 @@ function printFiles(files: File[]) {
     files.forEach((f) => console.log(' ', f));
 }
 
-export const doSetFilesFromModernDialogAtom = atom(
+export const doSetFilesFrom_ModernDlg_Atom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {

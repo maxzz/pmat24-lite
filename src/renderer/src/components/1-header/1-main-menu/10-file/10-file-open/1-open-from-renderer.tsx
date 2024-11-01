@@ -2,7 +2,7 @@ import { type ChangeEvent } from "react";
 import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { doSetFilesFromLegacyDialogAtom, doSetFilesFromModernDialogAtom, isFsSupported } from "@/store";
+import { doSetFilesFrom_LegacyDlg_Atom, doSetFilesFrom_ModernDlg_Atom, isFsSupported } from "@/store";
 
 const IdOpenFiles = 'tm-dlg-open-files';
 const IdOpenFolders = 'tm-dlg-open-folders';
@@ -10,7 +10,7 @@ const IdOpenFolders = 'tm-dlg-open-folders';
 type doSetFilesFromModernDialogFn = ({ openAsFolder }: { openAsFolder: boolean; }) => void;
 
 export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFolder?: boolean; }) {
-    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
+    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFrom_ModernDlg_Atom);
     return (
         <DropdownMenuItem asChild>
             <div onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)}>
@@ -34,7 +34,7 @@ export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernD
  * This component is now global and handles file open events even if the UI is no longer displayed.
  */
 export function OpenFilesPersistentInput({ openAsFolder }: { openAsFolder?: boolean; }) {
-    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFromLegacyDialogAtom);
+    const doSetFilesFromLegacyDialog = useSetAtom(doSetFilesFrom_LegacyDlg_Atom);
     const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {

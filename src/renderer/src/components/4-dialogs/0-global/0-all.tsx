@@ -1,5 +1,5 @@
 import { OnAppMount, WorldToReactListener } from "@/xternal-to-main";
-import { doSetFilesFromDropAtom } from "@/store";
+import { doSetFilesFrom_Dnd_Atom } from "@/store";
 import { DropItDoc, Toaster } from "@/ui";
 import { AppGlobalShortcuts } from "./1-global-shortcuts";
 import { OpenFilesPersistentInput } from "@/components/1-header/1-main-menu/10-file";
@@ -24,7 +24,7 @@ export function AppGlobals() {
         {/* Rest */}
         <Toaster />
 
-        <DropItDoc doSetFilesFromDropAtom={doSetFilesFromDropAtom} />
+        <DropItDoc doSetFilesFromDropAtom={doSetFilesFrom_Dnd_Atom} />
 
         <WorldToReactListener />
         <OnAppMount />

@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doSetFilesFromModernDialogAtom } from "@/store";
+import { doSetFilesFrom_ModernDlg_Atom } from "@/store";
 import { onClickToOpenFilesDialog } from "@/components/1-header/1-main-menu/10-file";
 
 type ButtonFilesPickerProps = {
@@ -9,7 +9,7 @@ type ButtonFilesPickerProps = {
 };
 
 export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerProps) {
-    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFromModernDialogAtom);
+    const doSetFilesFromModernDialog = useSetAtom(doSetFilesFrom_ModernDlg_Atom);
     return (
         <Button onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)} {...rest}>
             {openAsFolder ? 'Open Folder...' : 'Open Files... (advanced)'}
