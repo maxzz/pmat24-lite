@@ -21,7 +21,7 @@ export function DropdownMenuItem_Open_FromRenderer({ openAsFolder }: { openAsFol
 }
 
 export function onClickToOpenFilesDialog(openModernDialog: doSetFilesFromModernDialogFn, openAsFolder?: boolean) {
-    const doLegacy = hasMain() || !isFsSupported(window); // hasMain() to get full path from electron. isFsSupported() i.e not Firefox
+    const doLegacy = /*hasMain() ||*/ !isFsSupported(window); // hasMain() to get full path from electron. isFsSupported() i.e not Firefox
     if (doLegacy) {
         const id = openAsFolder ? IdOpenFolders : IdOpenFiles;
         document.getElementById(id)?.click();

@@ -60,14 +60,17 @@ export const doSetFilesFromLegacyDialogAtom = atom(
     }
 );
 
+function printFiles(files: File[]) {
+    console.log('doSetFilesFromModernDialogAtom', rootDir);
+    files.forEach((f) => console.log(' ', f));
+}
 
 export const doSetFilesFromModernDialogAtom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             const files: FileWithHandle[] = await openFileSystemHandles(openAsFolder);
-
-            console.log('doSetFilesFromModernDialogAtom', rootDir, files);
+            printFiles(files);
 
             if (hasMain()) {
                 const realFiles = (
