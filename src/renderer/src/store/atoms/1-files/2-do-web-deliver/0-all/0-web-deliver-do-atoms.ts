@@ -4,7 +4,7 @@ import { electronGetPaths } from "./8-electron-get-paths";
 import { pmAllowedToOpenExt, type FileContent } from "@shared/ipc-types";
 import { hasMain, invokeLoadFiles } from "@/xternal-to-main";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
-import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen } from "./1-create-web-file-contents";
+import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
 import { openFileSystemHandles } from "./3-open-modern-handles";
 import { rootDir } from "./7-root-dir";
 
@@ -12,29 +12,19 @@ import { rootDir } from "./7-root-dir";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
-async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
-    const filenames = electronGetPaths(files);
-    printFnameFiles(filenames, files);
-
-    if (filenames.length) {
-        const rv: FileContent[] = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
-        return rv;
-    }
-}
-
-export const doSetFilesFrom_Dnd_Atom = atom( // used by DropItDoc only
+export const doSetFilesFrom_Dnd_Atom = atom(            // used by DropItDoc only
     null,
     async (get, set, dataTransfer: DataTransfer) => {
         let fileContents: FileContent[] | undefined;
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];
-            if (dropFiles.length) {                 // avoid drop-and-drop drop without files
+            if (dropFiles.length) {                     // avoid drop-and-drop drop without files
                 fileContents = await createFileContents_From_Main(dropFiles);
             }
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
-            if (fileDataTransferItems.length) {     // avoid drop-and-drop drop without files
+            if (fileDataTransferItems.length) {         // avoid drop-and-drop drop without files
                 fileContents = await createFileContents_WebAfterDnd(fileDataTransferItems);
             }
         }
@@ -73,25 +63,24 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
             printFiles(files);
 
             if (hasMain()) {
-                const realFiles = (
-                    await Promise.all(files.map(
-                        async (file) => {
-                            return file.handle && file.handle.getFile();
-                        }
-                    ))
-                ).filter(Boolean);
+                console.log('doSetFilesFromModernDialogAtom not supported by electron due to electronGetPaths() limitations', files);
 
-                console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
-
-                const filenames = electronGetPaths(realFiles as File[]);
-                console.log('doSetFilesFromModernDialogAtom electron 3', filenames);
-
-                // const filenames = electronGetPaths(files as File[]);
-                if (filenames.length) {
-                    const fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
-                    console.log('doSetFilesFromModernDialogAtom electron', fileContents);
-                    set(doSetDeliveredFilesAtom, fileContents);
-                }
+                // const realFiles = (
+                //     await Promise.all(files.map(
+                //         async (file) => {
+                //             return file.handle && file.handle.getFile();
+                //         }
+                //     ))
+                // ).filter(Boolean);
+                // console.log('doSetFilesFromModernDialogAtom electron 2', realFiles);
+                // const filenames = electronGetPaths(realFiles as File[]);
+                // console.log('doSetFilesFromModernDialogAtom electron 3', filenames);
+                // // const filenames = electronGetPaths(files as File[]);
+                // if (filenames.length) {
+                //     const fileContents = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
+                //     console.log('doSetFilesFromModernDialogAtom electron', fileContents);
+                //     set(doSetDeliveredFilesAtom, fileContents);
+                // }
 
                 return;
             } else {
@@ -104,13 +93,6 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
         }
     }
 );
-
-function printFnameFiles(filenames: string[], files: File[]) {
-    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta', rootDir);
-    files.forEach((f, idx) => {
-        console.log(' ', { f }, `"${filenames[idx]}"`);
-    });
-}
 
 function printFiles(files: File[]) {
     console.log('doSetFilesFromModernDialogAtom', rootDir);

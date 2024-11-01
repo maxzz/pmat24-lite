@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import type { DoSetFilesFrom_Dnd_Atom } from "@/store";
+import { atom, type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
+import { type DoSetFilesFrom_Dnd_Atom } from "@/store";
 
 type DragHandlersProps = {
     doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;

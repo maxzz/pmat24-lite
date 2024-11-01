@@ -3,6 +3,9 @@ import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ip
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectDndItems } from "./2-collect-dnd-items";
+import { electronGetPaths } from "./8-electron-get-paths";
+import { invokeLoadFiles } from "@/xternal-to-main";
+import { rootDir } from "./7-root-dir";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -57,6 +60,19 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
     }
 
     return res;
+}
+
+/**
+ * Create FileContent items from open file/directory web dialog
+ */
+export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
+    const filenames = electronGetPaths(files);
+    printFnameFiles(filenames, files);
+
+    if (filenames.length) {
+        const rv: FileContent[] = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
+        return rv;
+    }
 }
 
 /**
@@ -152,4 +168,11 @@ async function Nun_webAfterWinn32DlgOpenCreateFileContents(files: File[]): Promi
         }
         return rv;
     }
+}
+
+function printFnameFiles(filenames: string[], files: File[]) {
+    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta', rootDir);
+    files.forEach((f, idx) => {
+        console.log(' ', { f }, `"${filenames[idx]}"`);
+    });
 }
