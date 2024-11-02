@@ -1,5 +1,5 @@
 import { proxySet } from "valtio/utils";
-import { type WebFsItem, type FileContent, pmAllowedToOpenExt, type MainFileContent } from "@shared/ipc-types";
+import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
@@ -13,15 +13,6 @@ type DropItem = {
     webFsItem: WebFsItem | null;            // web: for files loaded without electron
     notOur: boolean;                        // load of file content was blocked by allowedExt list.
 };
-
-export function fullfillFileContent(fileContent: MainFileContent): FileContent {
-    const rv = {
-        ...fileContent,
-        unid: uuid.asRelativeNumber(),
-        changesSet: proxySet<string>(),
-    };
-    return rv;
-}
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const res: FileContent[] = [];
@@ -140,7 +131,7 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
  * Modern drag and drop and dialog operations are not supported due to electronGetPaths() limitations.
  * It should be File object not modified by JS.
  */
-export async function createFileContents_From_Main(files: File[]): Promise<MainFileContent[] | undefined> {
+export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
     const fileAndNames = electronGetPaths(files);
     const names = fileAndNames.map((item) => item[1]);
     printFnameFiles(names, files);
@@ -148,7 +139,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<MainF
     //TODO: setRootDir({ rpath: '', handle: undefined });
 
     if (fileAndNames.length) {
-        const rv: MainFileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);
+        const rv: FileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);
         return rv;
     }
 }
