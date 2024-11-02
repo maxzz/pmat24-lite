@@ -6,7 +6,6 @@ export function MenuItem_FileExit() {
         {hasMain() && (<>
             <DropdownMenuSeparator />
             
-            {/* <DropdownMenuItem onClick={() => sendToMain({ type: "r2m:menu:command", what: "exit" })}> */}
             <DropdownMenuItem onClick={() => R2MCalls.menuCommand({ what: "exit" })}>
                 Exit
             </DropdownMenuItem>

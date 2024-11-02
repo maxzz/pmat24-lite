@@ -9,8 +9,8 @@ export namespace R2MCalls {
         sendToMain({ type: 'r2m:menu:command', ...state });
     }
 
-    export function loadManifestsDialog(): void {
-        sendToMain({ type: 'r2m:file:load-manifests-dialog' });
+    export function loadManifestsDialog(state: R2MParams.LoadManifestsDialog): void {
+        sendToMain({ type: 'r2m:file:load-manifests-dialog', ...state });
     }
 
     // options, notify
@@ -42,7 +42,7 @@ export namespace R2MCalls {
     export function loadTestManifests(): void {
         sendToMain({ type: 'r2m:file:load-test-manifests' });
     }
-    
+
     export function startTestFromMain(): void {
         sendToMain({ type: 'r2m:test' });
     }
