@@ -17,7 +17,7 @@ type DropItem = {
 };
 
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
-    const res: FileContent[] = [];
+    const rv: FileContent[] = [];
 
     dropItems.forEach((item) => item.notOur = !isAllowedExt(item.fname, pmAllowedToOpenExt));
 
@@ -56,15 +56,13 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
                 newItem.failed = true;
             }
 
-            res.push(newItem);
+            rv.push(newItem);
         } catch (error) {
             console.error('Error processing drop item:', error, item);
         }
     }
 
-    setRootDir({ rpath: findShortestPathInFnames(res.map((item) => item.fpath)), dir: undefined, fromMain: false });
-
-    return res;
+    return rv;
 }
 
 /**
@@ -73,7 +71,11 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
 
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
-    const rv = loadFilesAndCreateFileContents(items);
+    const rv = await loadFilesAndCreateFileContents(items);
+
+    console.log('entryRoot 1');
+    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), dir: undefined, fromMain: false });
+
     return rv;
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
@@ -138,13 +140,14 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
  */
 export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
     const fileAndNames = electronGetPaths(files);
-    const names = fileAndNames.map((item) => item[1]);
-    printFnameFiles(names, files);
+    const fnames = fileAndNames.map((item) => item[1]);
+    //printFnameFiles(fnames, files);
 
-    setRootDir({ rpath: findShortestPathInFnames(fnamesToPaths(names)), dir: undefined, fromMain: true });
+    // console.log('entryRoot 2');
+    // setRootDir({ rpath: findShortestPathInFnames(fnamesToPaths(fnames)), dir: undefined, fromMain: true });
 
     if (fileAndNames.length) {
-        const rv: FileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);
+        const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
         return rv;
     }
 }
