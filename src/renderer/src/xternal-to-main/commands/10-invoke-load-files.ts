@@ -15,10 +15,6 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
 
     const res = await mainApi?.invokeMain<R2MInvoke.AllInvokes, MainFileContent[]>(d);
     const rv = (res || []).map(finalizeFileContent);
-
-    console.log('entryRoot75: 5 invoke result from main');
-    setRootFromMainFileContents(rv);
-
     return rv;
 }
 

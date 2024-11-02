@@ -4,7 +4,7 @@ import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
-import { invokeLoadFiles } from "@/xternal-to-main";
+import { invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
 import { setRootDir } from "./7-root-dir";
 import { findShortestPathInFnames, fnamesToPaths } from "./6-find-root-dir";
 
@@ -148,6 +148,10 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+
+        console.log('entryRoot75: 5 invoke result from main');
+        setRootFromMainFileContents(rv);
+            
         return rv;
     }
 }
