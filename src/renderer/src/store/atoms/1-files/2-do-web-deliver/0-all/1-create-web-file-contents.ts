@@ -132,13 +132,14 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
  * It should be File object not modified by JS.
  */
 export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
-    const filenames = electronGetPaths(files);
-    printFnameFiles(filenames, files);
+    const fileAndNames = electronGetPaths(files);
+    const names = fileAndNames.map((item) => item[1]);
+    printFnameFiles(names, files);
 
     //TODO: setRootDir({ rpath: '', handle: undefined });
 
-    if (filenames.length) {
-        const rv: FileContent[] = await invokeLoadFiles(filenames, pmAllowedToOpenExt);
+    if (fileAndNames.length) {
+        const rv: FileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);
         return rv;
     }
 }

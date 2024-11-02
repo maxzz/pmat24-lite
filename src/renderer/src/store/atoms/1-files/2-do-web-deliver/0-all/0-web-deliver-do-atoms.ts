@@ -72,6 +72,6 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
 );
 
 function printFiles(files: File[]) {
-    console.log('doSetFilesFromModernDialogAtom');
+    console.log('%cdoSetFilesFromModernDialogAtom', 'color: magenta');
     files.forEach((f) => console.log(' ', f));
 }
