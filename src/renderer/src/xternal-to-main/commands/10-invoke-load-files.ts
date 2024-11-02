@@ -14,7 +14,7 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
     return rv.map(fullfillFileContent);
 }
 
-function fullfillFileContent(fileContent: MainFileContent): FileContent {
+export function fullfillFileContent(fileContent: MainFileContent): FileContent {
     const rv = fileContent as FileContent;
     rv.unid = uuid.asRelativeNumber();
     rv.changesSet = proxySet<string>();
