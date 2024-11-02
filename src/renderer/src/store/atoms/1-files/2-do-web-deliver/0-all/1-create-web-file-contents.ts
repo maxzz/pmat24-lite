@@ -5,8 +5,8 @@ import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles } from "@/xternal-to-main";
-import { findShortestPathInFnames, fnamesToPaths } from "./6-find-root-legacy";
 import { setRootDir } from "./7-root-dir";
+import { findShortestPathInFnames, fnamesToPaths } from "./6-find-root-dir";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -23,7 +23,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
     for (const [idx, item] of dropItems.entries()) {
         if (!item.fileWeb) {
-            console.log('Empty entry or file', item);
+            console.error('Empty entry or file', item);
             continue;
         }
 
@@ -62,8 +62,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
         }
     }
 
-    const fpaths = res.map((item) => item.fpath);
-    setRootDir({ rpath: findShortestPathInFnames(fpaths), dir: undefined, fromMain: false });
+    setRootDir({ rpath: findShortestPathInFnames(res.map((item) => item.fpath)), dir: undefined, fromMain: false });
 
     return res;
 }

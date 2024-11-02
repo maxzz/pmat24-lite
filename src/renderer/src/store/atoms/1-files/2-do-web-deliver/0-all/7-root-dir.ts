@@ -10,11 +10,12 @@ export const rootDir: RootDir = {
     fromMain: false,
 };
 
-export function setRootDir({ rpath, dir }: { rpath: string, dir: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
-    rootDir.rpath = rpath;
+export function setRootDir({ rpath, dir, fromMain }: { rpath: string, dir: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
     rootDir.dir = dir;
+    rootDir.rpath = rpath;
+    rootDir.fromMain = fromMain;
 
-    console.log('%csetRootDir', 'color: magenta', rootDir);
+    console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
 }
 
 //TODO: MRU list

@@ -2,13 +2,34 @@ import { type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 import { type RootDir } from "./7-root-dir";
 import { pathWithoutFilename } from "@/utils";
 
+export function findShortestPathInFnames(filenames: string[]): string {
+    if (!filenames.length) {
+        return '';
+    }
+
+    let shortestPath = filenames[0];
+
+    for (const filename of filenames) {
+        const currentPath = filename;
+        if (currentPath.length < shortestPath.length) {
+            shortestPath = currentPath;
+        }
+    }
+
+    return shortestPath;
+}
+
+export function fnamesToPaths(filenames: string[]): string[] {
+    return filenames.map((filename) => pathWithoutFilename(filename));
+}
+
 export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
     if (!files.length) {
         return;
     }
 
     let shortest: string = pathWithoutFilename(files[0]?.webkitRelativePath);
-    let theBest: FileWithDirectoryAndFileHandle = files[0];
+    let handle: FileWithDirectoryAndFileHandle = files[0];
 
     for (let i = 1; i < files.length; i++) {
         const item = files[i];
@@ -21,12 +42,12 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
         const isShoter = !shortest || curr.length < shortest.length;
         if (isShoter) {
             shortest = curr;
-            theBest = item;
+            handle = item;
         }
     }
 
     const rv: RootDir = {
-        dir: theBest.directoryHandle,
+        dir: handle.directoryHandle,
         rpath: shortest,
         fromMain: false,
     };
