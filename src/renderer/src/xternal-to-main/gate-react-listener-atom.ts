@@ -11,7 +11,7 @@ export const doFromMainAtom = atom(
             case 'm2r:loaded-files': {
                 const rv = data.filesCnt.map(finalizeFileContent);
                 
-                console.log('entryRoot75: 6 result from call to main with sendToMain()');
+                //console.log('entryRoot75: 6 result from call to main with sendToMain()');
                 setRootFromMainFileContents(rv);
 
                 set(doSetDeliveredFilesAtom, rv);

@@ -10,12 +10,14 @@ export const rootDir: RootDir = {
     fromMain: false,
 };
 
+// All entry points after operations for web and electron: file open; folder open; dnd files; dnd folder 
+
 export function setRootDir({ rpath, dir, fromMain }: { rpath: string, dir: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
     rootDir.dir = dir;
     rootDir.rpath = rpath;
     rootDir.fromMain = fromMain;
 
-    console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
+    // console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
 }
 
 //TODO: MRU list
