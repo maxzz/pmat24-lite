@@ -1,6 +1,9 @@
-import { TargetClientRect } from "@shared/ipc-types";
+import { type TargetClientRect } from "@shared/ipc-types";
 
 export namespace R2M { // Main from Renderer
+    
+    // menu, load files
+
     export type MenuCommand = {   // will reply with 'm2r:loaded-files' from dialog
         type: 'r2m:menu:command';
         what: 'exit' | 'open-dev-tools';
@@ -11,7 +14,7 @@ export namespace R2M { // Main from Renderer
         openDirs?: boolean;
     };
 
-    //
+    // options, notify
 
     export type DarkMode = {
         type: 'r2m:dark-mode';
@@ -23,13 +26,11 @@ export namespace R2M { // Main from Renderer
         message: string;
     };
 
-    //
+    // napi
 
-    export type NapiOptions = {
+    type NapiOptions = {
         maxControls: number;
     };
-
-    // napi
 
     export type SetNapiOptions = {      // ui options to control napi calls
         type: 'r2m:set-napi-options';
@@ -70,4 +71,16 @@ export namespace R2M { // Main from Renderer
         | LoadManifestsDialog
         | StartTestFromMain
         ;
+}
+
+export namespace R2MParams {
+    export type MenuCommand = Omit<R2M.MenuCommand, 'type'>;
+    export type LoadManifestsDialog = Omit<R2M.LoadManifestsDialog, 'type'>;
+    export type DarkMode = Omit<R2M.DarkMode, 'type'>;
+    export type NotifyMessage = Omit<R2M.NotifyMessage, 'type'>;
+    export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
+    export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
+    export type HighlightRect = Omit<R2M.HighlightRect, 'type'>;
+    export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
+    export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
 }
