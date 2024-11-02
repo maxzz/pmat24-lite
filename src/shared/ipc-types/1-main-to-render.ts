@@ -1,5 +1,5 @@
 import { TargetPosition } from "@shared/ipc-types";
-import { FileContent } from "./3-file-content";
+import { type MainFileContent } from "./3-file-content";
 
 export namespace M2R { // Main to Renderer
 
@@ -7,7 +7,7 @@ export namespace M2R { // Main to Renderer
 
     export type OpenedFiles = {
         type: 'm2r:loaded-files';
-        filesCnt: FileContent[];
+        filesCnt: MainFileContent[];
     };
 
     //

@@ -1,8 +1,6 @@
 import { basename, dirname, extname, join, normalize } from 'node:path';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { type FileContent } from '@shared/ipc-types';
-
-type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>;
+import { type MainFileContent } from '@shared/ipc-types';
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(
@@ -46,7 +44,10 @@ function isAllowedExt(filename: string | undefined, allowedExt: string[]): boole
     return allowedExt.includes(ext);
 }
 
-export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): FileContent[] {
+/**
+ * @returns MainFileContent casted to FileContent. They should be filled from renderer.
+ */
+export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): MainFileContent[] {
     
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);
@@ -70,5 +71,5 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
         }
     );
 
-    return rv as FileContent[];
+    return rv;
 }

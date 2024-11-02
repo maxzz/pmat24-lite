@@ -51,4 +51,6 @@ export type FileContent = {
     changesSet: ChangesSet;             // mani editor changes set; created when file selected at top level
 };
 
+export type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>; // main process does not fill unid and changesSet
+
 export const pmAllowedToOpenExt = ['dpm', 'dpn'];
