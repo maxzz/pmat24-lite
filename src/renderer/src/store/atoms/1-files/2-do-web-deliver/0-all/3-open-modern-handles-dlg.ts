@@ -13,21 +13,21 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
 
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
-            console.log('entryRoot 01 dlg');
+            console.log('entryRoot75: 01 dlg');
             setRootDir({ rpath: res[0].name, dir: res[0], fromMain: false });
             return [];
         } else {
             // Find the root folder handle
             let files: FileWithDirectoryAndFileHandle[] = res;
             const h = findShortestPathModern(files);
-            console.log('entryRoot 02 dlg');
+            console.log('entryRoot75: 02 dlg');
             setRootDir({ rpath: h?.rpath || '', dir: h?.dir, fromMain: false });
             return files;
         }
     } else {
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
-        console.log('entryRoot 03 dlg');
+        console.log('entryRoot75: 03 dlg');
         setRootDir({ rpath: '', dir: undefined, fromMain: false });
         return files;
     }

@@ -73,7 +73,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
     const rv = await loadFilesAndCreateFileContents(items);
 
-    console.log('entryRoot 1');
+    console.log('entryRoot75: 1 dnd web');
     setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), dir: undefined, fromMain: false });
 
     return rv;
@@ -143,7 +143,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
     const fnames = fileAndNames.map((item) => item[1]);
     //printFnameFiles(fnames, files);
 
-    // console.log('entryRoot 2');
+    // console.log('entryRoot75: 2 will be set after main done');
     // setRootDir({ rpath: findShortestPathInFnames(fnamesToPaths(fnames)), dir: undefined, fromMain: true });
 
     if (fileAndNames.length) {
