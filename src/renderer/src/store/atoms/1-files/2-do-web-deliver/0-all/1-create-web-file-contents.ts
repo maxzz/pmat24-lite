@@ -35,6 +35,8 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
                 size: item.fileWeb.size,
                 raw: '',
 
+                fromMain: false,
+
                 webFsItem: item.webFsItem,
 
                 webFile: item.fileWeb,
@@ -137,6 +139,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
     printFnameFiles(names, files);
 
     //TODO: setRootDir({ rpath: '', handle: undefined });
+    //TODO: add to rootDir from main process flag
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);

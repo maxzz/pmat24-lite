@@ -2,14 +2,14 @@ import { atom } from "jotai";
 import { type M2R } from "../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/atoms/1-files";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
-import { fullfillFileContent } from "./commands/10-invoke-load-files";
+import { finalizeFileContent } from "./commands/10-invoke-load-files";
 
 export const doFromMainAtom = atom(
     null,
     (get, set, data: M2R.AllTypes) => {
         switch (data.type) {
             case 'm2r:loaded-files': {
-                const rv = data.filesCnt.map(fullfillFileContent)
+                const rv = data.filesCnt.map(finalizeFileContent)
                 set(doSetDeliveredFilesAtom, rv);
                 break;
             }

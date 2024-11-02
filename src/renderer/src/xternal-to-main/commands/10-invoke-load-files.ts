@@ -11,10 +11,13 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
     };
 
     const rv = await mainApi?.invokeMain(d) as MainFileContent[];
-    return rv.map(fullfillFileContent);
+    return rv.map(finalizeFileContent);
 }
 
-export function fullfillFileContent(fileContent: MainFileContent): FileContent {
+/**
+ * Complete the file content with additional properties on the renderer side.
+ */
+export function finalizeFileContent(fileContent: MainFileContent): FileContent {
     const rv = fileContent as FileContent;
     rv.unid = uuid.asRelativeNumber();
     rv.changesSet = proxySet<string>();
