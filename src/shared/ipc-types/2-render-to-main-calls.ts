@@ -28,7 +28,7 @@ export namespace R2M { // Main from Renderer
 
     // napi
 
-    type NapiOptions = {
+    export type NapiOptions = {
         maxControls: number;
     };
 
