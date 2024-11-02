@@ -26,8 +26,9 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
     }
 
     const rv: RootDir = {
-        handle: theBest.directoryHandle,
+        dir: theBest.directoryHandle,
         rpath: shortest,
+        fromMain: false,
     };
     return rv;
 }

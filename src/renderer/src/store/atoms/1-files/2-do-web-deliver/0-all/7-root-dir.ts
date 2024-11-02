@@ -1,16 +1,18 @@
 export type RootDir = {
-    handle: FileSystemDirectoryHandle | undefined;  // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
+    dir: FileSystemDirectoryHandle | undefined;  // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
     rpath: string;                                  // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
+    fromMain: boolean;                              // For electron it will be true, for web it will be false.
 };
 
 export const rootDir: RootDir = {
-    handle: undefined,
+    dir: undefined,
     rpath: '',
+    fromMain: false,
 };
 
-export function setRootDir({ rpath, handle }: { rpath: string, handle?: FileSystemDirectoryHandle; }) {
+export function setRootDir({ rpath, handle }: { rpath: string, handle: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
     rootDir.rpath = rpath;
-    rootDir.handle = handle;
+    rootDir.dir = handle;
 
     console.log('%csetRootDir', 'color: magenta', rootDir);
 }
