@@ -13,10 +13,12 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
         ...(allowedExt && { allowedExt }),
     };
 
-    const res = await mainApi?.invokeMain(d) as MainFileContent[];
-    const rv = res.map(finalizeFileContent);
-    console.log('entryRoot 5');
+    const res = await mainApi?.invokeMain<R2MInvoke.AllInvokes, MainFileContent[]>(d);
+    const rv = (res || []).map(finalizeFileContent);
+
+    console.log('entryRoot75: 5 invoke result from main');
     setRootFromMainFileContents(rv);
+
     return rv;
 }
 
