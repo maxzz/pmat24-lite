@@ -10,9 +10,9 @@ export const rootDir: RootDir = {
     fromMain: false,
 };
 
-export function setRootDir({ rpath, handle }: { rpath: string, handle: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
+export function setRootDir({ rpath, dir }: { rpath: string, dir: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
     rootDir.rpath = rpath;
-    rootDir.dir = handle;
+    rootDir.dir = dir;
 
     console.log('%csetRootDir', 'color: magenta', rootDir);
 }

@@ -11,19 +11,19 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
 
         if (isFileSystemDirectoryHandles(res)) {
             // This is a folder with no files, so we will return an empty array
-            setRootDir({ rpath: res[0].name, handle: res[0], fromMain: false });
+            setRootDir({ rpath: res[0].name, dir: res[0], fromMain: false });
             return [];
         } else {
             // Find the root folder handle
             let files: FileWithDirectoryAndFileHandle[] = res;
             const h = findShortestPathModern(files);
-            setRootDir({ rpath: h?.rpath || '', handle: h?.dir, fromMain: false });
+            setRootDir({ rpath: h?.rpath || '', dir: h?.dir, fromMain: false });
             return files;
         }
     } else {
         // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
-        setRootDir({ rpath: '', handle: undefined, fromMain: false });
+        setRootDir({ rpath: '', dir: undefined, fromMain: false });
         return files;
     }
 }
