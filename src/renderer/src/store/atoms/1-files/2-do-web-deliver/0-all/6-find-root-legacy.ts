@@ -5,14 +5,18 @@ export function findShortestPathInFnames(filenames: string[]): string {
         return '';
     }
 
-    let shortestPath = pathWithoutFilename(filenames[0]);
+    let shortestPath = filenames[0];
 
     for (const filename of filenames) {
-        const currentPath = pathWithoutFilename(filename);
+        const currentPath = filename;
         if (currentPath.length < shortestPath.length) {
             shortestPath = currentPath;
         }
     }
 
     return shortestPath;
+}
+
+export function fnamesToPaths(filenames: string[]): string[] {
+    return filenames.map((filename) => pathWithoutFilename(filename));
 }

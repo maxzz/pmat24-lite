@@ -5,7 +5,7 @@ import { isAllowedExt, pathWithoutFilename, uuid } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles } from "@/xternal-to-main";
-import { findShortestPathInFnames } from "./6-find-root-legacy";
+import { findShortestPathInFnames, fnamesToPaths } from "./6-find-root-legacy";
 import { setRootDir } from "./7-root-dir";
 
 type DropItem = {
@@ -62,7 +62,9 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
         }
     }
 
-    //TODO: setRootDir({ rpath: '', handle: undefined });
+    const fpaths = res.map((item) => item.fpath);
+    setRootDir({ rpath: findShortestPathInFnames(fpaths), dir: undefined, fromMain: false });
+
     return res;
 }
 
@@ -140,7 +142,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
     const names = fileAndNames.map((item) => item[1]);
     printFnameFiles(names, files);
 
-    setRootDir({ rpath: findShortestPathInFnames(names), dir: undefined, fromMain: true });
+    setRootDir({ rpath: findShortestPathInFnames(fnamesToPaths(names)), dir: undefined, fromMain: true });
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(names, pmAllowedToOpenExt);
