@@ -2,6 +2,10 @@ import { type FileUs } from "@/store/store-types";
 import { type FceRoots } from "../9-types-fc";
 import { createEmptyFceRoot, fieldCatToFceRoot } from "./8-fc-file-to-fc-root";
 
+// Field catalog should have name "field_catalog.dpn" and should be in the root folder.
+// Root "field_catalog.dpn" have impact on the root folder and A/B/C subfolders.
+// Other field catalogs should be ignored but it will be possible to edit without updating manifest files.
+
 export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
     const roots: FceRoots = {};
 
