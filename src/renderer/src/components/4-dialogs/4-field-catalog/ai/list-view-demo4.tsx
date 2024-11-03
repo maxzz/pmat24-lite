@@ -1,4 +1,5 @@
-import { ListviewWithSelect } from "./always-visible-select-v0-2";
+import { ListviewWithSelectV1 } from "./always-visible-select-v0-1";
+import { ListviewWithSelectV2 } from "./always-visible-select-v0-2";
 import { ListViewV0 } from "./list-view-v0";
 import { ListViewCo } from "./listview";
 
@@ -25,7 +26,8 @@ export function ListViewDemo() {
         <div className="p-4 w-full flex gap-4">
             {/* <ListViewCo />
             <ListViewV0 items={testData} /> */}
-            <ListviewWithSelect />
+            <ListviewWithSelectV1 />
+            <ListviewWithSelectV2 />
         </div>
     );
 }

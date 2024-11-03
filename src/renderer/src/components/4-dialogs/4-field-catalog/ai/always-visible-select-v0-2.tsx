@@ -78,7 +78,7 @@ const SelectSeparator = forwardRef<ElementRef<typeof SelectPrimitive.Separator>,
 );
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
-export function ListviewWithSelect() {
+export function ListviewWithSelectV2() {
     const [selectedItem, setSelectedItem] = useState("");
 
     const items = [
