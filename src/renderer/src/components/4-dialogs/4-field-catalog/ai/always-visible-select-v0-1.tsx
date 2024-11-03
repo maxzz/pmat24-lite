@@ -120,7 +120,7 @@ export function ListviewWithSelectV1() {
 
   return (
     <div className="w-full max-w-xs mx-auto">
-      <Select defaultOpen>
+      <Select defaultOpen onOpenChange={() => {}}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select an item" />
         </SelectTrigger>
