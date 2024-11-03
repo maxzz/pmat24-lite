@@ -1,11 +1,10 @@
-// ListView.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { FocusScope } from '@radix-ui/react-focus-scope';
 
 const items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
 
-export const ListViewCo: React.FC = () => {
+export function ListViewCo() {
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -55,4 +54,4 @@ export const ListViewCo: React.FC = () => {
             </ScrollArea>
         </FocusScope>
     );
-};
+}

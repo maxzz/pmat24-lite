@@ -21,7 +21,7 @@ const testData = [
 
 export function ListViewDemo() {
     return (
-        <div className="p-4">
+        <div className="p-4 flex gap-4">
             <ListViewCo />
             <ListViewV0 items={testData} />
         </div>
