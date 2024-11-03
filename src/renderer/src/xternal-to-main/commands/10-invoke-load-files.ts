@@ -3,7 +3,7 @@ import { R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-t
 import { mainApi } from "../to-main-apis";
 import { uuid } from "@/store/manifest";
 import { setRootDir } from "@/store/atoms/1-files/2-do-web-deliver/0-all/7-root-dir";
-import { findShortestPathInFnames } from "@/store/atoms/1-files/2-do-web-deliver/0-all/6-find-root-dir";
+import { findShortestPathInFnames } from "@/store/atoms/1-files/2-do-web-deliver/0-all/6-find-files-root-dir";
 import { toUnix } from "@/utils";
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<FileContent[]> {

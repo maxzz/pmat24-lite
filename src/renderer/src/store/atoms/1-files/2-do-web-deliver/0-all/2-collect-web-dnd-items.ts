@@ -1,6 +1,6 @@
 import { WebFsItem } from "@shared/ipc-types";
-import { collectDndHandles, type DndHandle } from "../2-modern-handles";
-import { FileWithPath, getFilesFromDataTransferItems } from "../3-legacy-entries";
+import { collectDndHandles, type DndHandle } from "../1-modern-handles";
+import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
 
 /**
  * This is for modern and legay DnD items.

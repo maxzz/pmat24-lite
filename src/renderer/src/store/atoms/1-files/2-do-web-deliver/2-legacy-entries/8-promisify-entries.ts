@@ -7,7 +7,7 @@
 // https://github.com/sanjibnarzary/bodo_music_server/blob/main/resources/assets/js/composables/useUpload.ts
 // https://github.com/react-dropzone/file-selector/blob/master/src/file-selector.ts
 
-export async function fileEntryToFilePromisify(entry: FileSystemFileEntry): Promise<File> {
+async function fileEntryToFilePromisify(entry: FileSystemFileEntry): Promise<File> {
     return new Promise<File>((resolve, reject): void => {
         entry.file(resolve, reject);
     });
