@@ -22,7 +22,6 @@ const testData = [
 export function ListViewDemo() {
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">React Learning Roadmap</h1>
             <ListViewCo />
             <ListViewV0 items={testData} />
         </div>

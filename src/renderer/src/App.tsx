@@ -3,6 +3,7 @@ import { SectionMain } from "./components/2-main";
 import { SectionFooter } from "./components/3-footer";
 import { UISymbolDefs } from "@ui/icons";
 import { AppGlobals } from "./components/4-dialogs";
+import { ListViewDemo } from "./components/4-dialogs/4-field-catalog/ai/list-view-demo4";
 
 export function App(): JSX.Element {
     return (<>
@@ -11,7 +12,8 @@ export function App(): JSX.Element {
 
         <div className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden"> {/* debug-screens */}
             <SectionHeader />
-            <SectionMain />
+            {/* <SectionMain /> */}
+            <ListViewDemo />
             <SectionFooter />
         </div>
 

@@ -16,7 +16,8 @@ export const ListViewCo: React.FC = () => {
 
         if (event.key === 'ArrowDown') {
             setFocusedIndex((prev) => (prev !== null ? Math.min(prev + 1, items.length - 1) : 0));
-        } else if (event.key === 'ArrowUp') {
+        }
+        else if (event.key === 'ArrowUp') {
             setFocusedIndex((prev) => (prev !== null ? Math.max(prev - 1, 0) : 0));
         }
     };
@@ -34,20 +35,22 @@ export const ListViewCo: React.FC = () => {
             <ScrollArea className="h-64 w-64 border border-gray-300 rounded-md overflow-auto">
                 <div
                     className="focus:outline-none"
-                    tabIndex={0}
                     onKeyDown={handleKeyDown}
+                    tabIndex={0}
                 >
-                    {items.map((item, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => (itemRefs.current[index] = el)}
-                            className={`p-2 ${focusedIndex === index ? 'bg-blue-500 text-white' : 'bg-white'}`}
-                            tabIndex={-1}
-                            onFocus={() => setFocusedIndex(index)}
-                        >
-                            {item}
-                        </div>
-                    ))}
+                    {items.map(
+                        (item, index) => (
+                            <div
+                                ref={(el) => (itemRefs.current[index] = el)}
+                                className={`p-2 ${focusedIndex === index ? 'bg-blue-500 text-white' : 'bg-white'}`}
+                                onFocus={() => setFocusedIndex(index)}
+                                tabIndex={-1}
+                                key={index}
+                            >
+                                {item}
+                            </div>
+                        )
+                    )}
                 </div>
             </ScrollArea>
         </FocusScope>
