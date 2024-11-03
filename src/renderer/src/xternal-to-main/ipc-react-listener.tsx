@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
-import { sendToMain } from "./to-main-apis";
 import { doFromMainAtom } from "./gate-react-listener-atom";
 import { debugState } from "../store/state-debug";
+import { R2MCalls } from "./commands";
 
 export const worldStore = {
     listeners: new Set<(data: unknown) => void>(),
@@ -31,7 +31,7 @@ export function WorldToReactListener() {
 // Initial state exchange with main process
 
 export function sendNapiOptions() {
-    sendToMain({ type: 'r2m:set-napi-options', state: { maxControls: debugState.uiState.maxControls } });
+    R2MCalls.setNapiOptions({state: { maxControls: debugState.uiState.maxControls }});
 }
 
 export function OnAppMount() {

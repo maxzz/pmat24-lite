@@ -1,7 +1,7 @@
 import { TargetClientRect } from "@shared/ipc-types";
 import { atom } from "jotai";
 import { sawHandleAtom } from "./do-get-hwnd";
-import { sendToMain } from "@/xternal-to-main";
+import { R2MCalls } from "@/xternal-to-main";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -14,7 +14,7 @@ export const doHighlightRectAtom = atom(
             hwnd = sawHandle?.hwnd;
         }
         if (hwnd) {
-            sendToMain({ type: 'r2m:highlight-rect', hwnd, rect });
+            R2MCalls.highlightRect(hwnd, rect);
         }
     }
 );

@@ -1,4 +1,4 @@
-import { sendToMain } from "@/xternal-to-main";
+import { R2MCalls } from "@/xternal-to-main";
 import { DropdownMenuItem, checkDevTools } from "@/ui";
 
 export function MenuItem_GetTestDirs() {
@@ -7,7 +7,7 @@ export function MenuItem_GetTestDirs() {
             onClick={() => {
                 checkDevTools.onClick();
                 console.log('click trace');
-                sendToMain({ type: 'r2m:test' });
+                R2MCalls.startTestFromMain();
             }}
         >
             Get trace from renderer
