@@ -1,10 +1,10 @@
 import { atom } from 'jotai';
 import { proxy } from 'valtio';
-import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile } from '@/store/manifest';
+import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, uuid } from '@/store/manifest';
 import { type FceItem, type FceRoot } from '../9-types-fc';
-import { uuid } from '@/utils';
 import { type FileContent } from '@shared/ipc-types';
 import { type FceCtx } from '../2-fc-dialog-atoms';
+import { finalizeFileContent } from '@/store';
 
 export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceRoot {
 
@@ -54,7 +54,7 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
 
 export function createEmptyFceRoot(): FceRoot {
     const rv: FceRoot = {
-        fileCnt: null,
+        fileCnt: finalizeFileContent(null),
         fceAtomsAtom: atom<FceCtx | null>(null),
         descriptor: {},
         items: atom<FceItem[]>([]),

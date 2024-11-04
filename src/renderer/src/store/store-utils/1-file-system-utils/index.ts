@@ -2,48 +2,24 @@ import { proxySet } from "valtio/utils";
 import { type FileContent } from "@shared/ipc-types";
 import { uuid } from "@/store/manifest";
 
-export function createEmptyFileContent(): FileContent {
+export function finalizeFileContent(fileContent: FileContent | null): FileContent {
     const rv: FileContent = {
         unid: uuid.asRelativeNumber(),
-        idx: -1,
+        idx: fileContent?.idx ?? -1,
 
-        fname: '',
-        fpath: '',
-        fmodi: 0,
-        size: 0,
-        raw: '',
+        fname: fileContent?.fname || '',
+        fpath: fileContent?.fpath || '',
+        fmodi: fileContent?.fmodi || 0,
+        size: fileContent?.size || 0,
+        raw: fileContent?.raw || '',
 
-        failed: false,
-        notOur: false,
-        newFile: true,
-        fromMain: false,
+        failed: fileContent?.failed ?? false,
+        notOur: fileContent?.notOur ?? false,
+        newFile: fileContent?.newFile ?? true,
+        fromMain: fileContent?.fromMain ?? false,
 
-        webFsItem: null,
-        webFile: undefined,
-
-        changesSet: proxySet<string>(),
-    };
-    return rv;
-}
-
-export function finalizeFileContent(fileContent: FileContent): FileContent {
-    const rv: FileContent = {
-        unid: uuid.asRelativeNumber(),
-        idx: fileContent.idx,
-
-        fname: fileContent.fname,
-        fpath: fileContent.fpath,
-        fmodi: fileContent.fmodi,
-        size: fileContent.size,
-        raw: fileContent.raw,
-
-        failed: fileContent.failed,
-        notOur: fileContent.notOur,
-        newFile: false,
-        fromMain: fileContent.fromMain,
-
-        webFsItem: fileContent.webFsItem,
-        webFile: fileContent.webFile,
+        webFsItem: fileContent?.webFsItem || null,
+        webFile: fileContent?.webFile,
 
         changesSet: proxySet<string>(),
     };

@@ -1,36 +1,13 @@
 import { atom } from 'jotai';
-import { proxySet } from 'valtio/utils';
-import { type ParsedSrc, type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from '@shared/ipc-types';
+import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent, fileUsStats } from "@/store";
 import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
 import { buildManiMetaForms, parseXMLFile } from '@/store/manifest';
-import { type FceCtx } from '../../4-field-catalogs';
-import { fileUsStats } from '@/store/store-utils';
-import { uuid } from '@/utils';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
 
-    const fileCnt: FileContent = {
-        unid: uuid.asRelativeNumber(),
-        idx: fileContent.idx,
-
-        fname: fileContent.fname,
-        fpath: fileContent.fpath,
-        fmodi: fileContent.fmodi,
-        size: fileContent.size,
-        raw: fileContent.raw,
-
-        failed: fileContent.failed,
-        notOur: fileContent.notOur,
-        newFile: false,
-        fromMain: fileContent.fromMain,
-
-        webFsItem: fileContent.webFsItem,
-        webFile: fileContent.webFile,
-
-        changesSet: proxySet<string>(),
-    };
+    const fileCnt: FileContent = finalizeFileContent(fileContent);
 
     const rv: FileUs = {
         fileCnt,
