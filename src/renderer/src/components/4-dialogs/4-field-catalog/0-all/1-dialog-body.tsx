@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, type FceCtx } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { BottomButtons } from "./3-bottom-buttons";
+import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
@@ -37,9 +37,6 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
 function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    
-    console.log('fceCtx', fceCtx);
-    
     const fname = fceCtx.fceRoot?.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
@@ -62,8 +59,6 @@ function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
 }
 
 function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
-    return null;
-
     const totalItems = useAtomValue(fceCtx.fceRoot.items).length;
     return (<>
         {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog

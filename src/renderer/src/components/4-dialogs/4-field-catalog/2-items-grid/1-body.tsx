@@ -1,17 +1,15 @@
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type FceCtx, type FceItem, fldCatItemsAtom } from "@/store";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { type FceCtx, fldCatItemsAtom } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
-    selectedItemAtom: PrimitiveAtom<FceItem | null>;
-    onItemDoubleClick?: (item: FceItem) => void;
 };
 
-export function FldCatItemsBody({ fceCtx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
+export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
     const fldCatItems = useAtomValue(fldCatItemsAtom);
-    const setSelectedItem = useSetAtom(selectedItemAtom);
+    const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
 
     const selectedIdxAtom = useState(() => atom(-1))[0];
     const [selectedIdx, setSelectedIdx] = useAtom(selectedIdxAtom);
@@ -32,7 +30,7 @@ export function FldCatItemsBody({ fceCtx, selectedItemAtom, onItemDoubleClick, .
 
     function onDoubleClick(idx: number) {
         setSelectedIdx(prevSelectedIdx.current);
-        onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
+        fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (
