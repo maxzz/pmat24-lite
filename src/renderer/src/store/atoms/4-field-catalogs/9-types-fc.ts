@@ -14,7 +14,7 @@ import { type FceCtx } from "./2-fc-dialog-atoms";
 export type FceItem = CatalogItem;
 
 export type FceRoot = {
-    fileCnt: FileContent | null;
+    fileCnt: FileContent | null;                // reference to existing file content or null for new field catalog
     fceAtomsAtom: PrimitiveAtom<FceCtx | null>; // field catalog editor ui atoms; created when field catalog file selected at top level
     descriptor?: CatalogFile.Descriptor;
     items: PrimitiveAtom<FceItem[]>;

@@ -1,4 +1,4 @@
-import { type FileUs } from "../store-types";
+import { type FileUs } from "../../store-types";
 import { type TreenIconType } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";

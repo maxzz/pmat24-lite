@@ -38,16 +38,6 @@ export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root):
     return rv;
 }
 
-export function createEmptyFceRoot(): FceRoot {
-    const rv: FceRoot = {
-        fileCnt: null,
-        fceAtomsAtom: atom<FceCtx | null>(null),
-        descriptor: {},
-        items: atom<FceItem[]>([]),
-    };
-    return rv;
-}
-
 export function addReactiveState(items: FceItem[]): FceItem[] {
     return items.map(
         (item) => {
@@ -60,4 +50,14 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
             return rv;
         }
     );
+}
+
+export function createEmptyFceRoot(): FceRoot {
+    const rv: FceRoot = {
+        fileCnt: null,
+        fceAtomsAtom: atom<FceCtx | null>(null),
+        descriptor: {},
+        items: atom<FceItem[]>([]),
+    };
+    return rv;
 }

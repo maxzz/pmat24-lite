@@ -38,8 +38,8 @@ export type FileContent = {
     size: number;                       // file size
     raw: string;                        // file content as it was loaded or error message
     
-    failed?: boolean;                   // if failed the 'raw' member has the error message.
-    notOur?: boolean;                   // load of file content was blocked by allowedExt list.
+    failed: boolean;                    // if failed the 'raw' member has the error message.
+    notOur: boolean;                    // load of file content was blocked by allowedExt list.
     newFile: boolean;                   // new file created in the editor and not saved yet to the file system.
     fromMain: boolean;                  // electron: true if loaded from electron main process, and has full absolute path; can be stored in the main process
 
