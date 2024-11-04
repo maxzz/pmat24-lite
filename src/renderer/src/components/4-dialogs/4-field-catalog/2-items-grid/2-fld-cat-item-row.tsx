@@ -2,6 +2,7 @@ import { type HTMLAttributes } from "react";
 import { type CatalogItem } from "@/store/manifest";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
+import { useSnapshot } from "valtio";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     item: CatalogItem;
@@ -23,9 +24,10 @@ transition-colors \
 ";
 
 export function FldCatItemRow({ item, idx, selectedIdx, ...rest }: FldCatItemProps) {
+    const { selected } = useSnapshot(item.editor);
     return (
         <div
-            className={classNames(rowClasses, selectedIdx === idx && rowSelectedClasses)}
+            className={classNames(rowClasses, selected && rowSelectedClasses)}
             {...rest}
         >
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
