@@ -5,9 +5,8 @@ import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
-    item: CatalogItem;
     idx: number;
-    selectedIdx: number;
+    item: CatalogItem;
 };
 
 const rowClasses = "\
@@ -23,13 +22,11 @@ rounded \
 transition-colors \
 ";
 
-export function FldCatItemRow({ item, idx, selectedIdx, ...rest }: FldCatItemProps) {
+export function FldCatItemRow({ item, idx, ...rest }: FldCatItemProps) {
     const { selected } = useSnapshot(item.editor);
     return (
-        <div
-            className={classNames(rowClasses, selected && rowSelectedClasses)}
-            {...rest}
-        >
+        <div className={classNames(rowClasses, selected && rowSelectedClasses)} {...rest}>
+
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
                 {idx + 1}
             </div>
@@ -39,15 +36,13 @@ export function FldCatItemRow({ item, idx, selectedIdx, ...rest }: FldCatItemPro
             <div className={classNames("col-start-3 truncate")}>
                 {item.displayname}
             </div>
+
         </div>
     );
 }
 
 function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className: string; }) {
     const type = isPsw ? 'psw' : 'edit';
-    const Icon =
-        fieldIcons[type]?.({ className, title: `Field type: ${type}`, })
-        ||
-        <div className="text-red-500">NaN</div>;
-    return Icon;
+    const Icon = fieldIcons[type]?.({ className, title: `Field type: ${type}`, });
+    return Icon ? Icon : <div className="text-red-500">NaN</div>;
 }

@@ -24,6 +24,7 @@ export function FldCatItemsGrid({ fceCtx, ...rest }: FldCatItemsGridProps) {
                         tabIndex={0}
                     >
                         <FldCatItemsBody
+                            fceCtx={fceCtx}
                             selectedItemAtom={fceCtx.selectedItemAtom}
                             onItemDoubleClick={fceCtx.onItemDoubleClick}
                         />
