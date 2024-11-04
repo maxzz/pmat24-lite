@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogFile, type CatalogItem } from "@/store/manifest";
 import { type FileContent } from "@shared/ipc-types";
-import { type FceCtx } from "./2-dialog-atoms";
+import { type FceCtx } from "./2-fc-dialog-atoms";
 
 // import { type PrimitiveAtom } from "jotai";
 

@@ -4,7 +4,7 @@ import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile }
 import { type FceItem, type FceRoot } from '../9-types-fc';
 import { uuid } from '@/utils';
 import { type FileContent } from '@shared/ipc-types';
-import { type FceCtx } from '../2-dialog-atoms';
+import { type FceCtx } from '../2-fc-dialog-atoms';
 
 export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceRoot {
 
