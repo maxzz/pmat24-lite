@@ -41,8 +41,9 @@ export function FldCatItemsBody({ selectedItemAtom, onItemDoubleClick }: FldCatI
                     item={item}
                     idx={idx}
                     selectedIdx={selectedIdx}
-                    itemClick={onClick}
-                    itemDoubleClick={onDoubleClick} key={idx}
+                    onClick={() => onClick(idx)}
+                    onDoubleClick={onDoubleClick}
+                    key={item.uuid}
                 />
             )
         )}

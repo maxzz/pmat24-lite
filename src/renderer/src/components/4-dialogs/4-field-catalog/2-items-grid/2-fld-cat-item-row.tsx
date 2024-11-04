@@ -1,13 +1,12 @@
+import { type HTMLAttributes } from "react";
 import { type CatalogItem } from "@/store/manifest";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
 
-type FldCatItemProps = {
+type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     item: CatalogItem;
     idx: number;
     selectedIdx: number;
-    itemClick: (idx: number) => void;
-    itemDoubleClick: () => void;
 };
 
 const rowClasses = "\
@@ -23,13 +22,11 @@ rounded \
 transition-colors \
 ";
 
-export function FldCatItemRow({ item, idx, selectedIdx, itemClick, itemDoubleClick }: FldCatItemProps) {
+export function FldCatItemRow({ item, idx, selectedIdx, ...rest }: FldCatItemProps) {
     return (
         <div
             className={classNames(rowClasses, selectedIdx === idx && rowSelectedClasses)}
-            onClick={() => itemClick(idx)}
-            onDoubleClick={itemDoubleClick}
-            key={item.uuid}
+            {...rest}
         >
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
                 {idx + 1}
