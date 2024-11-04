@@ -11,9 +11,12 @@ import { SymbolFolder } from "@/ui/icons";
 export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
+    if (!inData.fceRoot) {
+        return <div className="grid place-items-center">There is no Field Catalog</div>;
+    }
     return (
         <div className="grid grid-rows-[auto_1fr]">
-            <Header fceCtx={inData} />
+            <Header inData={inData} />
 
             <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
@@ -24,7 +27,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 </div>
 
                 <div className="pl-3 font-thin">
-                    <TotalItems fceCtx={inData} />
+                    <TotalItems inData={inData} />
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">
@@ -35,9 +38,9 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     );
 }
 
-function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
+function Header({ inData }: { inData: FldCatInData; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const fname = fceCtx.fceRoot?.fileCnt?.fpath;
+    const fname = inData.fceRoot?.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
             <div className="text-sm font-bold">
@@ -58,8 +61,8 @@ function Header({ fceCtx }: { fceCtx: FldCatInData; }) {
     );
 }
 
-function TotalItems({ fceCtx }: { fceCtx: FldCatInData; }) {
-    const totalItems = useAtomValue(fceCtx.fceRoot.items).length;
+function TotalItems({ inData }: { inData: FldCatInData; }) {
+    const totalItems = useAtomValue(inData.fceRoot.items).length;
     return (<>
         {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
     </>);
