@@ -19,18 +19,16 @@ export function FldCatItemsGrid({ fceCtx, ...rest }: FldCatItemsGridProps) {
             <div ref={(elm) => { refRootCb(elm); refRoot.current = elm; }} className={`absolute inset-0 flex flex-col`}>
 
                 <ScrollArea style={{ width, height }}>
-                    <div
+                    <FldCatItemsBody
                         className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none 1focus-within:ring ring-ring")}
                         tabIndex={0}
-                    >
-                        <FldCatItemsBody
-                            fceCtx={fceCtx}
-                            selectedItemAtom={fceCtx.selectedItemAtom}
-                            onItemDoubleClick={fceCtx.onItemDoubleClick}
-                        />
-                    </div>
+
+                        fceCtx={fceCtx}
+                        selectedItemAtom={fceCtx.selectedItemAtom}
+                        onItemDoubleClick={fceCtx.onItemDoubleClick}
+                    />
                 </ScrollArea>
-                
+
             </div>
         </div>
     );

@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { type PrimitiveAtom, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx, type FceItem, fldCatItemsAtom } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
-type FldCatItemsGridProps = {
+type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     onItemDoubleClick?: (item: FceItem) => void;
 };
 
-export function FldCatItemsBody({ fceCtx, selectedItemAtom, onItemDoubleClick }: FldCatItemsGridProps) {
+export function FldCatItemsBody({ fceCtx, selectedItemAtom, onItemDoubleClick, ...rest }: FldCatItemsGridProps) {
     const fldCatItems = useAtomValue(fldCatItemsAtom);
     const setSelectedItem = useSetAtom(selectedItemAtom);
 
@@ -35,17 +35,19 @@ export function FldCatItemsBody({ fceCtx, selectedItemAtom, onItemDoubleClick }:
         onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
-    return (<>
-        {fldCatItems.map(
-            (item, idx) => (
-                <FldCatItemRow
-                    idx={idx}
-                    item={item}
-                    onClick={() => onClick(idx)}
-                    onDoubleClick={() => onDoubleClick(idx)}
-                    key={item.uuid}
-                />
-            )
-        )}
-    </>);
+    return (
+        <div {...rest}>
+            {fldCatItems.map(
+                (item, idx) => (
+                    <FldCatItemRow
+                        idx={idx}
+                        item={item}
+                        onClick={() => onClick(idx)}
+                        onDoubleClick={() => onDoubleClick(idx)}
+                        key={item.uuid}
+                    />
+                )
+            )}
+        </div>
+    );
 }
