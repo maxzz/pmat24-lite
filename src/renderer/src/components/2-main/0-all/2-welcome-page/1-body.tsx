@@ -4,7 +4,7 @@ import { appSettings, filesAtom } from "@/store";
 import { ButtonFilesPicker } from "./2-button-files-picker";
 import { DontShowNext } from "./3-dont-show-next";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
-import { ListViewDemo } from "@/components/4-dialogs/4-field-catalog/ai/0-list-view-demo4";
+import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 
 const titleStyle = {
     color: 'black',
@@ -62,7 +62,7 @@ export function WelcomePage() {
                                 </div>
                             )}
 
-                            <ListViewDemo />
+                            {/* <ListViewDemo /> */}
 
                             <DontShowNext className="absolute left-0 bottom-0 p-2" />
                         </div>
