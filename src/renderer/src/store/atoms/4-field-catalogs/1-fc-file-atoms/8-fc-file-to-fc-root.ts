@@ -47,3 +47,17 @@ export function createEmptyFceRoot(): FceRoot {
     };
     return rv;
 }
+
+export function addReactiveState(items: FceItem[]): FceItem[] {
+    return items.map(
+        (item) => {
+            const rv: FceItem = {
+                ...item,
+                editor: proxy<CatalogItemEdit['editor']>({
+                    selected: false,
+                }),
+            };
+            return rv;
+        }
+    );
+}

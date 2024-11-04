@@ -2,11 +2,12 @@ import { atom } from "jotai";
 import { type FceItem } from "./9-types-fc";
 import { buildCatalogMetaFromNames } from "@/store/manifest";
 import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
+import { addReactiveState } from "./1-fc-file-atoms/8-fc-file-to-fc-root";
 
 // All field catalog items
 
 export const fldCatItemsAtom = atom<FceItem[]>(
-    buildCatalogMetaFromNames(catalogTestNames).items
+    addReactiveState(buildCatalogMetaFromNames(catalogTestNames).items)
     // []
 );
 
