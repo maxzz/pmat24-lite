@@ -21,6 +21,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         size: fileContent.size,
         raw: fileContent.raw,
 
+        newFile: false,
         fromMain: fileContent.fromMain,
 
         webFsItem: fileContent.webFsItem,

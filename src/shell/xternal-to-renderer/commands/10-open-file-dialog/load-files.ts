@@ -14,6 +14,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                 fmodi: 0,
                 size: 0,
                 raw: '',
+                newFile: false,
                 fromMain: true,
                 failed: false,
                 webFsItem: null,
