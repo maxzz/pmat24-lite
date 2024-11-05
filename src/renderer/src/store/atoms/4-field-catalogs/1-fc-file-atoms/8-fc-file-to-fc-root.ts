@@ -26,7 +26,7 @@ export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root):
         }
     );
 
-    // 2. Prepare the field catalog editor root
+    // 2. Finalize the field catalog editor root
 
     const rv: FceRoot = {
         fileCnt: fileCnt,
