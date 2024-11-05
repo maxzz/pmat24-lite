@@ -9,6 +9,6 @@ export type FceRootsRootName = 'root';
 
 export const fceRoots: FceRootsAll = {
     entries: {
-        root: createEmptyFceRoot(),
+        root: createEmptyFceRoot(null),
     },
 };

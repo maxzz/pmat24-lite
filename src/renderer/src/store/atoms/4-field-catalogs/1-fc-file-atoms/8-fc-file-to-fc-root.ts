@@ -52,9 +52,9 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
     );
 }
 
-export function createEmptyFceRoot(): FceRoot {
+export function createEmptyFceRoot(fileCnt: FileContent | null | undefined): FceRoot {
     const rv: FceRoot = {
-        fileCnt: finalizeFileContent(null),
+        fileCnt: fileCnt || finalizeFileContent(null),
         fceAtomsAtom: atom<FceCtx | null>(null),
         descriptor: {},
         items: atom<FceItem[]>([]),
