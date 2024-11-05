@@ -5,8 +5,7 @@ import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
-import { setRootDir } from "./7-root-dir";
-import { findShortestPathInFnames } from "./6-find-files-root-dir";
+import { findShortestPathInFnames, setRootDir } from "../3-root-dir";
 import { uuid } from "@/store/manifest";
 
 type DropItem = {

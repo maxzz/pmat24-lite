@@ -43,7 +43,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
 
 export function createFldCatRoot(fileUsItems: FileUs[]) {
 
-    const rootFcFileUs = fileUsItems.find((fileUs) => fileUs.parsedSrc.fcat && fileUs.fileCnt.fname === 'field_catalog.dpn');
+    const rootFcFileUs = fileUsItems.find((fileUs) => fileUs.parsedSrc.fcat && fileUs.fileCnt.fname === 'field_catalog.dpn' && fileUs.fileCnt.fpath === '');
 
     let rootFc = createEmptyFceRoot(rootFcFileUs?.fileCnt);
 
