@@ -1,5 +1,5 @@
 import { type FileWithDirectoryAndFileHandle } from "browser-fs-access";
-import { type RootDir } from "./7-set-root-dir";
+import { type RootDir } from "./1-set-root-dir";
 import { pathWithoutFilename } from "@/utils";
 
 // Legacy by filenames

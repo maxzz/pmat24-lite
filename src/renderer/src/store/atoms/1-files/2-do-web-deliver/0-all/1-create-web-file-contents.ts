@@ -41,7 +41,6 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
                 fromMain: false,
 
                 webFsItem: dropItem.webFsItem,
-
                 webFile: dropItem.fileWeb,
 
                 notOur: dropItem.notOur,

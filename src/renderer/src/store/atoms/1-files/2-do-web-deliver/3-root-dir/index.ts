@@ -1,2 +1,2 @@
-export * from "./6-find-files-root-dir";
-export * from "./7-set-root-dir";
+export * from "./2-find-files-root-dir";
+export * from "./1-set-root-dir";
