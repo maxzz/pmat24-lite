@@ -45,8 +45,8 @@ export type FileContent = {
 
     webFsItem: WebFsItem | null;        // web: for files loaded without electron
 
-    parentHandle?: FileSystemDirectoryHandle; // web: FileSystemDirectoryHandle from drag and drop transfer items
-    existingHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
+    //parentHandle?: FileSystemDirectoryHandle; // web: FileSystemDirectoryHandle from drag and drop transfer items
+    //existingHandle?: FileSystemFileHandle; // web: FileSystemFileHandle from drag and drop transfer items
     webFile?: File;                     // web: File object from async entry.file() call
 
     changesSet: ChangesSet;             // mani editor changes set; created when file selected at top level

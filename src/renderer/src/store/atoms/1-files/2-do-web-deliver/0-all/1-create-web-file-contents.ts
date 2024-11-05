@@ -20,11 +20,11 @@ type DropItem = {
 async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<FileContent[]> {
     const rv: FileContent[] = [];
 
-    dropItems.forEach((item) => item.notOur = !isAllowedExt(item.fname, pmAllowedToOpenExt));
+    dropItems.forEach((dropItem) => dropItem.notOur = !isAllowedExt(dropItem.fname, pmAllowedToOpenExt));
 
-    for (const [idx, item] of dropItems.entries()) {
-        if (!item.fileWeb) {
-            console.error('Empty entry or file', item);
+    for (const [idx, dropItem] of dropItems.entries()) {
+        if (!dropItem.fileWeb) {
+            console.error('Empty entry or file', dropItem);
             continue;
         }
 
@@ -32,27 +32,27 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
             const newItem: FileContent = {
                 unid: uuid.asRelativeNumber(),
                 idx,
-                fname: item.fname,
-                fpath: item.fpath,
-                fmodi: item.fileWeb.lastModified,
-                size: item.fileWeb.size,
+                fname: dropItem.fname,
+                fpath: dropItem.fpath,
+                fmodi: dropItem.fileWeb.lastModified,
+                size: dropItem.fileWeb.size,
                 raw: '',
 
                 newFile: false,
                 fromMain: false,
 
-                webFsItem: item.webFsItem,
+                webFsItem: dropItem.webFsItem,
 
-                webFile: item.fileWeb,
+                webFile: dropItem.fileWeb,
 
-                notOur: item.notOur,
+                notOur: dropItem.notOur,
                 failed: false,
 
                 changesSet: proxySet<string>(),
             };
 
             try {
-                newItem.raw = item.notOur ? '' : await textFileReaderPromisify(item.fileWeb);
+                newItem.raw = dropItem.notOur ? '' : await textFileReaderPromisify(dropItem.fileWeb);
             } catch (error) {
                 newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
                 newItem.failed = true;
@@ -60,7 +60,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 
             rv.push(newItem);
         } catch (error) {
-            console.error('Error processing drop item:', error, item);
+            console.error('Error processing drop item:', error, dropItem);
         }
     }
 
@@ -86,17 +86,17 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         let rv: DropItem[] = [];
         try {
             rv = dndItems.map(
-                (item) => {
+                (dndItem) => {
                     const rv: DropItem = {
-                        fname: item.file!.name,
-                        fpath: item.path,
-                        fileWeb: item.file!,
-                        webFsItem: item,
+                        fname: dndItem.file!.name,
+                        fpath: dndItem.path,
+                        fileWeb: dndItem.file!,
+                        webFsItem: dndItem,
                         notOur: false,
                     };
                     return rv;
                 }
-            ).filter((item) => !!item);
+            ).filter((dropItem) => !!dropItem);
         } catch (error) {
             console.error('cannot read from DataTransferItemList', fileDataTransferItems);
         }
