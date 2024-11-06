@@ -40,7 +40,13 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniIsPassword, maniDbName);
 
-    const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname), '-', CATALOG_More];
+    const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname)];
+
+    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
+    if (fceAtomsRef) {
+        dropdownItems.push('-', CATALOG_More);
+    }
+
     let catalogItemIdx = (catalogItem ? catalogItemsByType.findIndex((item) => item === catalogItem) : -1) + 1; // +1 to skip CATALOG_Not
 
     const textAtom = useState(() => atom(catalogItem?.displayname || CATALOG_Not))[0];
@@ -78,8 +84,8 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     );
 
     function onSetDropdownIndex(idx: number) {
-        if (idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ fceRoot: fileUsCtx.fileUs.fceRoot, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+        if (fceAtomsRef && idx === dropdownItems.length - 1) {
+            doOpenFldCatDialog({ fceRoot: fceAtomsRef, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
         setInputTextText(dropdownItems[idx]);
