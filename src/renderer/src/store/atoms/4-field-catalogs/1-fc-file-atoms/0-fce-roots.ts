@@ -1,5 +1,5 @@
 import { type FileUs } from "@/store/store-types";
-import { type FceRoot, type FceRoots } from "../9-types-fc";
+import { type FceAtoms, type FceRoots } from "../9-types-fc";
 import { createEmptyFceAtoms } from "./1-create-fce-roots";
 import { createEmptyFceRoot } from "./8-fc-file-to-fc-root";
 
@@ -17,13 +17,13 @@ export const fceRoots: FceRootsAll = {
 
 export const rootFcFileUs: FileUs = createEmptyFceAtoms();
 
-export function getFceRoot(): FceRoot {
+export function getFceRoot(): FceAtoms {
     if (!rootFcFileUs.fceAtoms) {
         throw new Error('rootFcFileUs.fceAtoms not set');
     }
     return rootFcFileUs.fceAtoms;
 }
 
-export function setFceRoot(fceRoot: FceRoot): void {
+export function setFceRoot(fceRoot: FceAtoms): void {
     rootFcFileUs.fceAtoms = fceRoot;
 }

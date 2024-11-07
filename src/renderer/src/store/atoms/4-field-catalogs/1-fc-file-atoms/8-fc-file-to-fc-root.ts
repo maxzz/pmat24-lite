@@ -1,12 +1,12 @@
 import { atom } from 'jotai';
 import { proxy } from 'valtio';
 import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, uuid } from '@/store/manifest';
-import { type FceItem, type FceRoot } from '../9-types-fc';
+import { type FceItem, type FceAtoms } from '../9-types-fc';
 import { type FileContent } from '@shared/ipc-types';
 import { type FceCtx } from '../2-fc-dialog-atoms';
 import { finalizeFileContent } from '@/store';
 
-export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceRoot {
+export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceAtoms {
 
     // 1. Prepare items for the field catalog editor
 
@@ -28,7 +28,7 @@ export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root):
 
     // 2. Finalize the field catalog editor root
 
-    const rv: FceRoot = {
+    const rv: FceAtoms = {
         fileCnt: fileCnt,
         fceCtxAtom: atom<FceCtx | null>(null),
         descriptor: fcat.descriptor,
@@ -52,8 +52,8 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
     );
 }
 
-export function createEmptyFceRoot(fileCnt: FileContent | null | undefined): FceRoot {
-    const rv: FceRoot = {
+export function createEmptyFceRoot(fileCnt: FileContent | null | undefined): FceAtoms {
+    const rv: FceAtoms = {
         fileCnt: fileCnt || finalizeFileContent(null),
         fceCtxAtom: atom<FceCtx | null>(null),
         descriptor: {},

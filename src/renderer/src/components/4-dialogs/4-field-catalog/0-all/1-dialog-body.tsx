@@ -11,10 +11,10 @@ import { SymbolFolder } from "@/ui/icons";
 export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
-    if (!fceCtx.inData?.fceRoot) {
+    if (!fceCtx.inData?.fceAtoms) {
         return <div className="grid place-items-center">There is no Field Catalog</div>;
     }
-    const itemsAtom = fceCtx.inData.fceRoot.items;
+    const itemsAtom = fceCtx.inData.fceAtoms.items;
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -41,7 +41,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
 function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const fname = fceCtx.inData?.fceRoot?.fileCnt?.fpath;
+    const fname = fceCtx.inData?.fceAtoms?.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
             <div className="text-sm font-bold">

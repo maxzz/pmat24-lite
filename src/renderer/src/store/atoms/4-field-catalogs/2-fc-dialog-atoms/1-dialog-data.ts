@@ -1,22 +1,22 @@
 import { atom, type PrimitiveAtom } from "jotai";
 import { type FldCatInData, type FldCatOutData } from "./9-types-dlg";
-import { type FceItem, type FceRoot } from "../9-types-fc";
+import { type FceItem, type FceAtoms } from "../9-types-fc";
 import { fceRoots } from "../1-fc-file-atoms";
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);
 
 export const doOpenFldCatDialogAtom = atom(
     null,
-    (get, set, { fceRoot, inData }: { fceRoot: FceRoot | undefined, inData?: Omit<FldCatInData, 'fceRoot'>; }) => {
+    (get, set, { fceRoot, inData }: { fceRoot: FceAtoms | undefined, inData?: Omit<FldCatInData, 'fceRoot'>; }) => {
         const root = fceRoot || fceRoots.entries['root']; //TODO: get shortest path instead of 'root'
         const data: FldCatInData =
             inData
                 ? {
                     ...inData,
-                    fceRoot: root,
+                    fceAtoms: root,
                 }
                 : {
-                    fceRoot: root,
+                    fceAtoms: root,
                     showTxt: true,
                     showPsw: true,
                 };

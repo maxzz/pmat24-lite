@@ -1,12 +1,12 @@
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogItem } from "@/store/manifest";
-import { type FceRoot } from "../9-types-fc";
+import { type FceAtoms } from "../9-types-fc";
 
 /**
  * Field catalog dialog in data
  */
 export type FldCatInData = {
-    fceRoot: FceRoot;               // field catalog editor root
+    fceAtoms: FceAtoms;             // field catalog editor root
     dbid?: string | undefined;      // dbid of the field catalog item to initially select
     showTxt: boolean;               // show text fields only
     showPsw: boolean;               // show password fields only
