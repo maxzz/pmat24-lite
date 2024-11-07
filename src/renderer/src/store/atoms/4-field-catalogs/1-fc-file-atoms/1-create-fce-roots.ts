@@ -78,6 +78,8 @@ export function createEmptyFceAtoms(): FileUs {
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
+    // 1. Find root field catalog
+
     const rootPath = rootDir.rpath.toLowerCase();
 
     let rootFc: FileUs | undefined;
@@ -97,6 +99,12 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
     }, {} as Record<string, FileUs>);
 
     rootFc = rootFc || createEmptyFceAtoms();
+
+    // 2. crete FceAtoms for each Fc fileUs
+
+    // ... createEmptyFceRoot(rootFcFileUs?.fileCnt);
+
+    // 3. assign FceAtoms to each fileUs
 
     fileUsItems.forEach(
         (fileUs) => {
