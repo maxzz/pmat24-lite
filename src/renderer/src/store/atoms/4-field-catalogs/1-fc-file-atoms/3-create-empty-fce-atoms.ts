@@ -1,7 +1,6 @@
 import { atom } from "jotai";
 import { type FileContent } from "@shared/ipc-types";
-import { type FceCtx } from "../2-fc-dialog-atoms";
-import { type FceAtoms, type FceItem } from "../9-types-fc";
+import { type FceAtoms, type FceCtx, type FceItem } from "../9-types";
 import { finalizeFileContent } from "@/store/store-utils";
 
 export function createEmptyFceAtoms(fileCnt: FileContent | null | undefined): FceAtoms {

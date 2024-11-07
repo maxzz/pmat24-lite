@@ -1,6 +1,6 @@
 import { atom, type PrimitiveAtom } from "jotai";
-import { type FldCatInData, type FldCatOutData } from "./9-types-dlg";
-import { type FceItem, type FceAtoms } from "../9-types-fc";
+import { type FldCatInData, type FldCatOutData } from "../9-types/9-types-dlg";
+import { type FceItem, type FceAtoms } from "../9-types/9-types-fc";
 import { fceRoots } from "../1-fc-file-atoms";
 
 export const fldCatTriggerAtom = atom<FldCatInData | null>(null);

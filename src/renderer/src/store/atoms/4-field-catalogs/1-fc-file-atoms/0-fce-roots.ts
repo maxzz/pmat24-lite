@@ -1,5 +1,5 @@
 import { type FileUs } from "@/store/store-types";
-import { type FceAtoms, type FceRoots } from "../9-types-fc";
+import { type FceAtoms, type FceRoots } from "../9-types/9-types-fc";
 import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
 import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
 

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FceItem } from "./9-types-fc";
+import { type FceItem } from "./9-types/9-types-fc";
 import { buildCatalogMetaFromNames } from "@/store/manifest";
 import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
 import { addReactiveState } from "./1-fc-file-atoms/4-fc-file-to-fc-atoms";

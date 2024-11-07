@@ -1,7 +1,7 @@
 import { atom } from "jotai";
-import { type FceItem, type FldCatInData } from "@/store";
-import { type FceCtx } from "./9-types-ctx";
-import { ValueAs, ValueLife } from "@/store/manifest";
+import { type FceItem, type FldCatInData } from "../9-types";
+import { type FceCtx } from "../9-types/9-types-ctx";
+import { ValueAs, type ValueLife } from "@/store/manifest";
 
 export function createFceCtx(inData: FldCatInData, closeFldCatDialog: (outData: any) => void): FceCtx {
     const showSelectBtn = inData.outBoxAtom;

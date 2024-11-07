@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import { proxy } from 'valtio';
 import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, uuid } from '@/store/manifest';
-import { type FceItem, type FceAtoms } from '../9-types-fc';
+import { type FceAtoms, type FceCtx, type FceItem } from '../9-types';
 import { type FileContent } from '@shared/ipc-types';
-import { type FceCtx } from '../2-fc-dialog-atoms';
+
 
 export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root): FceAtoms {
 
