@@ -8,7 +8,7 @@ export function TestOpenFieldCatalog() {
 
     const outDataAtom = useState(() => atom<FldCatOutData | null>(null))[0];
 
-    const inData:  Omit<FldCatInData, 'fceRoot'> = {
+    const inData:  Omit<FldCatInData, 'fceAtoms'> = {
         showTxt: true,
         showPsw: true,
         outBoxAtom: outDataAtom,
