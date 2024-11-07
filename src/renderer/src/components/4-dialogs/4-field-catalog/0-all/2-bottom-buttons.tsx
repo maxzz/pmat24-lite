@@ -18,7 +18,7 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
 
     return (<>
         {showSelectBtn && (
-            <Button className={inputFocusClasses} onClick={() => closeFldCatDialog({ fldCatItem: selectedItem })} disabled={!selectedItem}>
+            <Button className={inputFocusClasses} onClick={() => closeFldCatDialog({ selectedItem: selectedItem })} disabled={!selectedItem}>
                 Select
             </Button>
         )}

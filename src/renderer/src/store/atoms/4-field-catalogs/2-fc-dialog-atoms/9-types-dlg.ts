@@ -6,7 +6,7 @@ import { type FceAtoms } from "../9-types-fc";
  * Field catalog dialog in data
  */
 export type FldCatInData = {
-    fceAtoms: FceAtoms;             // field catalog editor root
+    fceAtoms: FceAtoms;             // field catalog editor atoms exist when open for dialog
     dbid?: string | undefined;      // dbid of the field catalog item to initially select
     showTxt: boolean;               // show text fields only
     showPsw: boolean;               // show password fields only
@@ -17,5 +17,5 @@ export type FldCatInData = {
  * Field catalog dialog output data
  */
 export type FldCatOutData = {
-    fldCatItem: CatalogItem | null; // selected item
+    selectedItem: CatalogItem | null; // selected item
 };
