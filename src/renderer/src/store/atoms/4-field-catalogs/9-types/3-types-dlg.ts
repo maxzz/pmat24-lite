@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type FceItem, type FceAtoms } from "./9-types-fc";
+import { type FceItem, type FceAtoms } from "./1-types-fce-atoms";
 
 /**
  * Field catalog dialog in data

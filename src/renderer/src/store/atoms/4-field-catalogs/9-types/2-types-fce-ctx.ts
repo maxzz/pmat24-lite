@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
-import { type FceItem } from "./9-types-fc";
-import { type FldCatInData } from "./9-types-dlg";
+import { type FceItem } from "./1-types-fce-atoms";
+import { type FldCatInData } from "./3-types-dlg";
 import { type ValueLife } from "@/store/manifest";
 
 export type FceCtx = { // Field Catalog Editor context

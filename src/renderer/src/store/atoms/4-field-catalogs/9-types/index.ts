@@ -1,3 +1,3 @@
-export * from "./9-types-fc";
-export * from "./9-types-ctx";
-export * from "./9-types-dlg";
+export * from "./1-types-fce-atoms";
+export * from "./2-types-fce-ctx";
+export * from "./3-types-dlg";

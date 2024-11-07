@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FceItem } from "../9-types/9-types-fc";
+import { type FceItem } from "../9-types/1-types-fce-atoms";
 import { fldCatItemAtom, fldCatPswItemsAtom, fldCatTxtItemsAtom } from "../0-all-items-atom";
 
 // MRU - most recently used items
