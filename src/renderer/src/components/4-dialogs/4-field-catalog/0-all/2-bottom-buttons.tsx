@@ -14,7 +14,7 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 
-    const showSelectBtn = !!fceCtx.inData.outBoxAtom;
+    const showSelectBtn = !!fceCtx.inData?.outBoxAtom;
 
     return (<>
         {showSelectBtn && (
