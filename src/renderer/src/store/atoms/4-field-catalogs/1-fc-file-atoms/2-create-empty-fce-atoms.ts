@@ -1,9 +1,8 @@
-import { type FileUs, FileUsStats } from "@/store/store-types";
-import { finalizeFileContent } from "@/store/store-utils";
-import type { FileContent } from "@shared/ipc-types";
 import { atom } from "jotai";
-import { ManiAtoms } from "../../3-file-mani-atoms";
-
+import { type FileUs, type FileUsStats } from "@/store/store-types";
+import { type FileContent } from "@shared/ipc-types";
+import { type ManiAtoms } from "../../3-file-mani-atoms";
+import { finalizeFileContent } from "@/store/store-utils";
 
 export function createEmptyFceAtoms(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);

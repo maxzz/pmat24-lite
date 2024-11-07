@@ -1,6 +1,6 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
-import { createEmptyFceAtoms } from "./createEmptyFceAtoms";
+import { createEmptyFceAtoms } from "./2-create-empty-fce-atoms";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
