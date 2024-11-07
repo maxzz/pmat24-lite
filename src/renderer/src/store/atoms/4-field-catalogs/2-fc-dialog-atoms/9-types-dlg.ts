@@ -1,6 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type CatalogItem } from "@/store/manifest";
-import { type FceAtoms } from "../9-types-fc";
+import { type FceItem, type FceAtoms } from "../9-types-fc";
 
 /**
  * Field catalog dialog in data
@@ -17,5 +16,5 @@ export type FldCatInData = {
  * Field catalog dialog output data
  */
 export type FldCatOutData = {
-    selectedItem: CatalogItem | null; // selected item
+    selectedItem: FceItem | null; // selected item
 };
