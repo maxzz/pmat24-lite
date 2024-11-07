@@ -1,6 +1,7 @@
 import type { FileUs } from "@/store/store-types";
 import type { FceRoots } from "../9-types-fc";
-import { fieldCatToFceRoot, createEmptyFceRoot } from "./8-fc-file-to-fc-root";
+import { fieldCatToFceAtoms } from "./4-fc-file-to-fc-atoms";
+import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
 
 // Field catalog should have name "field_catalog.dpn" and should be in the root folder.
 // Root "field_catalog.dpn" have impact on the root folder and A/B/C subfolders.
@@ -14,7 +15,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
         (fileUs) => {
             if (fileUs.parsedSrc.fcat) {
                 const fpath = fileUs.fileCnt.fpath || 'root';
-                roots[fpath] = fieldCatToFceRoot(fileUs.fileCnt, fileUs.parsedSrc.fcat);
+                roots[fpath] = fieldCatToFceAtoms(fileUs.fileCnt, fileUs.parsedSrc.fcat);
             }
         }
     );
@@ -25,7 +26,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
             if (!fileUs.parsedSrc.fcat) {
                 const fpath = fileUs.fileCnt.fpath || 'root';
                 if (!roots[fpath]) {
-                    roots[fpath] = createEmptyFceRoot(fileUs.fileCnt);
+                    roots[fpath] = createEmptyFceAtoms(fileUs.fileCnt);
                 }
                 fileUs.fceAtoms = roots[fpath];
             }

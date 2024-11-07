@@ -4,7 +4,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { finalizeFileContent } from "@/store/store-utils";
 
-export function createEmptyFceAtoms(): FileUs {
+export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
 
     const rv: FileUs = {

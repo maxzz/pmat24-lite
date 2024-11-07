@@ -1,7 +1,9 @@
 import { type FileUs } from "@/store/store-types";
 import { type FceAtoms, type FceRoots } from "../9-types-fc";
-import { createEmptyFceAtoms } from "./2-create-empty-fce-atoms";
-import { createEmptyFceRoot } from "./8-fc-file-to-fc-root";
+import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
+import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
+
+// Old 
 
 export type FceRootsAll = { // TBD: to make it proxy-able?
     entries: FceRoots;
@@ -11,11 +13,13 @@ export type FceRootsRootName = 'root';
 
 export const fceRoots: FceRootsAll = {
     entries: {
-        root: createEmptyFceRoot(null),
+        root: createEmptyFceAtoms(null),
     },
 };
 
-export const rootFcFileUs: FileUs = createEmptyFceAtoms();
+// New
+
+export const rootFcFileUs: FileUs = createEmptyFceFileUs();
 
 export function getFceRoot(): FceAtoms {
     if (!rootFcFileUs.fceAtoms) {

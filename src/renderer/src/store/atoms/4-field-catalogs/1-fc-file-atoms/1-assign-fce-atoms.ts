@@ -1,6 +1,6 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
-import { createEmptyFceAtoms } from "./2-create-empty-fce-atoms";
+import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
@@ -24,7 +24,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         return map;
     }, {} as Record<string, FileUs>);
 
-    rootFc = rootFc || createEmptyFceAtoms();
+    rootFc = rootFc || createEmptyFceFileUs();
 
     // 2. crete FceAtoms for each Fc fileUs
 

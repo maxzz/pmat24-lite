@@ -4,9 +4,8 @@ import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, 
 import { type FceItem, type FceAtoms } from '../9-types-fc';
 import { type FileContent } from '@shared/ipc-types';
 import { type FceCtx } from '../2-fc-dialog-atoms';
-import { finalizeFileContent } from '@/store';
 
-export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root): FceAtoms {
+export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root): FceAtoms {
 
     // 1. Prepare items for the field catalog editor
 
@@ -50,14 +49,4 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
             return rv;
         }
     );
-}
-
-export function createEmptyFceRoot(fileCnt: FileContent | null | undefined): FceAtoms {
-    const rv: FceAtoms = {
-        fileCnt: fileCnt || finalizeFileContent(null),
-        fceCtxAtom: atom<FceCtx | null>(null),
-        descriptor: {},
-        items: atom<FceItem[]>([]),
-    };
-    return rv;
 }
