@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, type FceCtx } from "@/store";
+import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
+import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, type FceCtx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -11,9 +11,10 @@ import { SymbolFolder } from "@/ui/icons";
 export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
-    if (!fceCtx.inData.fceRoot) {
+    if (!fceCtx.inData?.fceRoot) {
         return <div className="grid place-items-center">There is no Field Catalog</div>;
     }
+    const itemsAtom = fceCtx.inData.fceRoot.items;
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -27,7 +28,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
                 </div>
 
                 <div className="pl-3 font-thin">
-                    <TotalItems fceCtx={fceCtx} />
+                    <TotalItems itemsAtom={itemsAtom} />
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">
@@ -40,7 +41,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
 
 function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const fname = fceCtx.inData.fceRoot?.fileCnt?.fpath;
+    const fname = fceCtx.inData?.fceRoot?.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
             <div className="text-sm font-bold">
@@ -61,8 +62,8 @@ function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-function TotalItems({ fceCtx }: { fceCtx: FceCtx; }) {
-    const totalItems = useAtomValue(fceCtx.inData.fceRoot.items).length;
+function TotalItems({ itemsAtom }: { itemsAtom: PrimitiveAtom<FceItem[]>; }) {
+    const totalItems = useAtomValue(itemsAtom).length;
     return (<>
         {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
     </>);
