@@ -30,7 +30,7 @@ export function fieldCatToFceRoot(fileCnt: FileContent, fcat: CatalogFile.Root):
 
     const rv: FceRoot = {
         fileCnt: fileCnt,
-        fceAtomsAtom: atom<FceCtx | null>(null),
+        fceCtxAtom: atom<FceCtx | null>(null),
         descriptor: fcat.descriptor,
         items: atom<FceItem[]>(items),
     };
@@ -55,7 +55,7 @@ export function addReactiveState(items: FceItem[]): FceItem[] {
 export function createEmptyFceRoot(fileCnt: FileContent | null | undefined): FceRoot {
     const rv: FceRoot = {
         fileCnt: fileCnt || finalizeFileContent(null),
-        fceAtomsAtom: atom<FceCtx | null>(null),
+        fceCtxAtom: atom<FceCtx | null>(null),
         descriptor: {},
         items: atom<FceItem[]>([]),
     };
