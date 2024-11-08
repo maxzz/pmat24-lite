@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { atomWithCallback, type OnValueChange } from "@/util-hooks";
 import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms, type FcePropAtoms } from "../9-types";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 
@@ -23,12 +24,12 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
     return rv;
 }
 
-export function createFcePropAtoms(inData: Fce0DlgIn, closeFldCatDialog: (outData: any) => void): FcePropAtoms {
+export function createFcePropAtoms(onValueChange: OnValueChange<string>): FcePropAtoms {
     const rv: FcePropAtoms = {
-        nameAtom: atom(''),
-        typeAtom: atom(''),
-        valueAtom: atom(''),
-        ownernoteAtom: atom(''),
+        nameAtom: atomWithCallback<string>('', onValueChange),
+        typeAtom: atomWithCallback<string>('', onValueChange),
+        valueAtom: atomWithCallback<string>('', onValueChange),
+        ownernoteAtom: atomWithCallback<string>('', onValueChange),
 
         useItAtom: atom(true),
         valueLifeAtom: atom<ValueLife>({
