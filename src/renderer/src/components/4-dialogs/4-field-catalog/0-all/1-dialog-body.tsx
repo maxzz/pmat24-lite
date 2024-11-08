@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0DlgIn, type Fce0Ctx, type FceItem } from "@/store";
+import { createFce0Ctx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0DlgIn, type Fce0Ctx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -10,7 +10,7 @@ import { SymbolFolder } from "@/ui/icons";
 
 export function DialogFieldCatalogBody({ inData }: { inData: Fce0DlgIn; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
-    const fceCtx = useState<Fce0Ctx>(() => createFceCtx(inData, closeFldCatDialog))[0];
+    const fceCtx = useState<Fce0Ctx>(() => createFce0Ctx(inData, closeFldCatDialog))[0];
     if (!fceCtx.inData?.fceAtoms) {
         return <div className="grid place-items-center">There is no Field Catalog</div>;
     }
