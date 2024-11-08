@@ -4,7 +4,6 @@ import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, 
 import { type Fce0Atoms, type Fce0Ctx, type FceItem } from '../9-types';
 import { type FileContent } from '@shared/ipc-types';
 
-
 export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root): Fce0Atoms {
 
     // 1. Prepare items for the field catalog editor
