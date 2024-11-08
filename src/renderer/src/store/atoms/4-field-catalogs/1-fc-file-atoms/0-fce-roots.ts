@@ -22,12 +22,12 @@ export const fceRoots: FceRootsAll = {
 export const rootFcFileUs: FileUs = createEmptyFceFileUs();
 
 export function getFceRoot(): Fce0Atoms {
-    if (!rootFcFileUs.fceAtoms) {
+    if (!rootFcFileUs.fce0Atoms) {
         throw new Error('rootFcFileUs.fceAtoms not set');
     }
-    return rootFcFileUs.fceAtoms;
+    return rootFcFileUs.fce0Atoms;
 }
 
 export function setFceRoot(fceRoot: Fce0Atoms): void {
-    rootFcFileUs.fceAtoms = fceRoot;
+    rootFcFileUs.fce0Atoms = fceRoot;
 }

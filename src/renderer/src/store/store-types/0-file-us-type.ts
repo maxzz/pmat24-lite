@@ -39,8 +39,8 @@ export type FileUs = {
     uiState: FileUsUiState;                         // local state atoms: is currnet; is selected
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
-    fceAtomsRef: Fce0Atoms | undefined | null;       // for manifest: reference to Fce atoms or null if from unmanaged folder (i.e. not root and not A/B/C subfolder)
-    fceAtoms: Fce0Atoms | undefined | null;          // for Fc file: Fce atoms or null for manifest files
+    fce0AtomsRef: Fce0Atoms | undefined | null;       // for manifest: reference to Fce atoms or null if from unmanaged folder (i.e. not root and not A/B/C subfolder)
+    fce0Atoms: Fce0Atoms | undefined | null;          // for Fc file: Fce atoms or null for manifest files
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

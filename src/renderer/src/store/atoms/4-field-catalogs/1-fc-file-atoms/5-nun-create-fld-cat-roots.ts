@@ -28,7 +28,7 @@ export function createFldCatRoots(fileUsItems: FileUs[]): Fce0Roots {
                 if (!roots[fpath]) {
                     roots[fpath] = createEmptyFceAtoms(fileUs.fileCnt);
                 }
-                fileUs.fceAtoms = roots[fpath];
+                fileUs.fce0Atoms = roots[fpath];
             }
         }
     );

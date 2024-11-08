@@ -36,7 +36,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         (fileUs) => {
             const goodForFc = !fileUs.parsedSrc.fcat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}/([a-c])`));
             if (goodForFc) {
-                fileUs.fceAtomsRef = rootFc?.fceAtoms;
+                fileUs.fce0AtomsRef = rootFc?.fce0Atoms;
             }
         }
     );

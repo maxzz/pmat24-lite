@@ -42,7 +42,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname)];
 
-    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
+    const fceAtomsRef = fileUsCtx.fileUs.fce0AtomsRef;
     if (fceAtomsRef) {
         dropdownItems.push('-', CATALOG_More);
     }
