@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
 import { type ValueLife, type CatalogFile, type CatalogItem } from "@/store/manifest";
 import { type FileContent } from "@shared/ipc-types";
-import { type Fce0InData } from "./3-types-dlg";
+import { type Fce0DlgIn } from "./3-types-dlg";
 
 // import { type PrimitiveAtom } from "jotai";
 
@@ -27,7 +27,7 @@ export type Fce0Roots = Record<string, Fce0Atoms>;
 // FceCtx
 
 export type Fce0Ctx = { // Field Catalog Editor context
-    inData: Fce0InData | null;
+    inData: Fce0DlgIn | null;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     onItemDoubleClick?: (item: FceItem) => void;
 

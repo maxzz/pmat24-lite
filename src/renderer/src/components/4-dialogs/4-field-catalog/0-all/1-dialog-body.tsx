@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0InData, type Fce0Ctx, type FceItem } from "@/store";
+import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0DlgIn, type Fce0Ctx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -8,7 +8,7 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-export function DialogFieldCatalogBody({ inData }: { inData: Fce0InData; }) {
+export function DialogFieldCatalogBody({ inData }: { inData: Fce0DlgIn; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
     const fceCtx = useState<Fce0Ctx>(() => createFceCtx(inData, closeFldCatDialog))[0];
     if (!fceCtx.inData?.fceAtoms) {
