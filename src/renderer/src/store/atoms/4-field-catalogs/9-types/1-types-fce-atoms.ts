@@ -45,7 +45,7 @@ export type Fce0Ctx = { // Field Catalog Editor context
 
 // FceAtoms
 
-type FcePropAtoms = {                               // Field Catalog Editor Atoms
+export type FcePropAtoms = {                        // Field Catalog Editor Atoms
     nameAtom      /**/: PrimitiveAtom<string>;
     typeAtom      /**/: PrimitiveAtom<string>;
     valueAtom     /**/: PrimitiveAtom<string>;
@@ -55,7 +55,7 @@ type FcePropAtoms = {                               // Field Catalog Editor Atom
     valueLifeAtom /**/: PrimitiveAtom<ValueLife>;
 };
 
-type FceItemsAtoms = {                              // Field Catalog Editor items
+export type FceItemsAtoms = {                       // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
     items: PrimitiveAtom<FceItem[]>;
 };

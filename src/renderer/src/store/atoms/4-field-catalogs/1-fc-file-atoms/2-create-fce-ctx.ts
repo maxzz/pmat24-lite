@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms } from "../9-types";
+import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms, type FcePropAtoms } from "../9-types";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 
 export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: any) => void): Fce0Ctx {
@@ -9,6 +9,22 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
         selectedItemAtom: atom<FceItem | null>(null),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
 
+        nameAtom: atom(''),
+        typeAtom: atom(''),
+        valueAtom: atom(''),
+        ownernoteAtom: atom(''),
+
+        useItAtom: atom(true),
+        valueLifeAtom: atom<ValueLife>({
+            valueAs: ValueAs.askReuse,
+            value: '',
+        }),
+    };
+    return rv;
+}
+
+export function createFcePropAtoms(inData: Fce0DlgIn, closeFldCatDialog: (outData: any) => void): FcePropAtoms {
+    const rv: FcePropAtoms = {
         nameAtom: atom(''),
         typeAtom: atom(''),
         valueAtom: atom(''),
