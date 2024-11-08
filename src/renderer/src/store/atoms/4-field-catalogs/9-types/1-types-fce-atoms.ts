@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
-import { ValueLife, type CatalogFile, type CatalogItem } from "@/store/manifest";
+import { type ValueLife, type CatalogFile, type CatalogItem } from "@/store/manifest";
 import { type FileContent } from "@shared/ipc-types";
-import { FldCatInData } from "./3-types-dlg";
+import { type Fce0InData } from "./3-types-dlg";
 
 // import { type PrimitiveAtom } from "jotai";
 
@@ -15,19 +15,19 @@ export type FceItem = CatalogItem;
 
 // FceAtoms
 
-export type FceAtoms = {                        // Field Catalog Editor Atoms
+export type Fce0Atoms = {                        // Field Catalog Editor Atoms
     fileCnt: FileContent;                       // reference to existing file content or placeholder for new field catalog w/ flag newFile
-    fceCtxAtom: PrimitiveAtom<FceCtx | null>;   // field catalog editor ui atoms; created when field catalog file selected at top level
+    fceCtxAtom: PrimitiveAtom<Fce0Ctx | null>;   // field catalog editor ui atoms; created when field catalog file selected at top level
     descriptor?: CatalogFile.Descriptor;
     items: PrimitiveAtom<FceItem[]>;
 };
 
-export type FceRoots = Record<string, FceAtoms>;
+export type Fce0Roots = Record<string, Fce0Atoms>;
 
 // FceCtx
 
-export type FceCtx = { // Field Catalog Editor context
-    inData: FldCatInData | null;
+export type Fce0Ctx = { // Field Catalog Editor context
+    inData: Fce0InData | null;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     onItemDoubleClick?: (item: FceItem) => void;
 

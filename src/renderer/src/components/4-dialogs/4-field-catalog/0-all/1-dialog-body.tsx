@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FldCatInData, type FceCtx, type FceItem } from "@/store";
+import { createFceCtx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0InData, type Fce0Ctx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -8,9 +8,9 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
+export function DialogFieldCatalogBody({ inData }: { inData: Fce0InData; }) {
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
-    const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
+    const fceCtx = useState<Fce0Ctx>(() => createFceCtx(inData, closeFldCatDialog))[0];
     if (!fceCtx.inData?.fceAtoms) {
         return <div className="grid place-items-center">There is no Field Catalog</div>;
     }
@@ -39,7 +39,7 @@ export function DialogFieldCatalogBody({ inData }: { inData: FldCatInData; }) {
     );
 }
 
-function Header({ fceCtx }: { fceCtx: FceCtx; }) {
+function Header({ fceCtx }: { fceCtx: Fce0Ctx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
     const fname = fceCtx.inData?.fceAtoms?.fileCnt?.fpath;
     return (

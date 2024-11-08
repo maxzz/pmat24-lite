@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
-import { doOpenFldCatDialogAtom, type FldCatInData, type FldCatOutData } from "@/store";
+import { doOpenFldCatDialogAtom, type Fce0InData, type Fce0OutData } from "@/store";
 import { Button } from "@/ui";
 
 export function TestOpenFieldCatalog() {
     const doOpenFieldCatalogDialog = useSetAtom(doOpenFldCatDialogAtom);
 
-    const outDataAtom = useState(() => atom<FldCatOutData | null>(null))[0];
+    const outDataAtom = useState(() => atom<Fce0OutData | null>(null))[0];
 
-    const inData: Omit<FldCatInData, 'fceAtoms'> = {
+    const inData: Omit<Fce0InData, 'fceAtoms'> = {
         showTxt: true,
         showPsw: true,
         outBoxAtom: outDataAtom,

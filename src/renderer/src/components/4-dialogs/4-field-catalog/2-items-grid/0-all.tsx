@@ -1,12 +1,12 @@
 import { type HTMLAttributes, useRef } from "react";
-import { type FceCtx } from "@/store";
+import { type Fce0Ctx } from "@/store";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
-    fceCtx: FceCtx;
+    fceCtx: Fce0Ctx;
 };
 
 export function FldCatItemsGrid({ fceCtx, ...rest }: FldCatItemsGridProps) {

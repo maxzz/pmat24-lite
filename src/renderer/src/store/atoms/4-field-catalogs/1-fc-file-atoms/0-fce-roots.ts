@@ -1,12 +1,12 @@
 import { type FileUs } from "@/store/store-types";
-import { type FceAtoms, type FceRoots } from "../9-types/1-types-fce-atoms";
+import { type Fce0Atoms, type Fce0Roots } from "../9-types/1-types-fce-atoms";
 import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
 import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
 
 // Old 
 
 export type FceRootsAll = { // TBD: to make it proxy-able?
-    entries: FceRoots;
+    entries: Fce0Roots;
 };
 
 export type FceRootsRootName = 'root';
@@ -21,13 +21,13 @@ export const fceRoots: FceRootsAll = {
 
 export const rootFcFileUs: FileUs = createEmptyFceFileUs();
 
-export function getFceRoot(): FceAtoms {
+export function getFceRoot(): Fce0Atoms {
     if (!rootFcFileUs.fceAtoms) {
         throw new Error('rootFcFileUs.fceAtoms not set');
     }
     return rootFcFileUs.fceAtoms;
 }
 
-export function setFceRoot(fceRoot: FceAtoms): void {
+export function setFceRoot(fceRoot: Fce0Atoms): void {
     rootFcFileUs.fceAtoms = fceRoot;
 }

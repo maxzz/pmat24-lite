@@ -1,11 +1,11 @@
 import { atom } from 'jotai';
 import { proxy } from 'valtio';
 import { catalogItemInFileToFieldValue, type CatalogItemEdit, type CatalogFile, uuid } from '@/store/manifest';
-import { type FceAtoms, type FceCtx, type FceItem } from '../9-types';
+import { type Fce0Atoms, type Fce0Ctx, type FceItem } from '../9-types';
 import { type FileContent } from '@shared/ipc-types';
 
 
-export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root): FceAtoms {
+export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root): Fce0Atoms {
 
     // 1. Prepare items for the field catalog editor
 
@@ -27,9 +27,9 @@ export function fieldCatToFceAtoms(fileCnt: FileContent, fcat: CatalogFile.Root)
 
     // 2. Finalize the field catalog editor root
 
-    const rv: FceAtoms = {
+    const rv: Fce0Atoms = {
         fileCnt: fileCnt,
-        fceCtxAtom: atom<FceCtx | null>(null),
+        fceCtxAtom: atom<Fce0Ctx | null>(null),
         descriptor: fcat.descriptor,
         items: atom<FceItem[]>(items),
     };

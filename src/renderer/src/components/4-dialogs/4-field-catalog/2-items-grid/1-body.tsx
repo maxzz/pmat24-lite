@@ -1,10 +1,10 @@
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type FceCtx, fldCatItemsAtom } from "@/store";
+import { type Fce0Ctx, fldCatItemsAtom } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
-    fceCtx: FceCtx;
+    fceCtx: Fce0Ctx;
 };
 
 export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {

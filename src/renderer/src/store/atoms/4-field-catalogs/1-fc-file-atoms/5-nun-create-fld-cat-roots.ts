@@ -1,5 +1,5 @@
 import type { FileUs } from "@/store/store-types";
-import type { FceRoots } from "../9-types/1-types-fce-atoms";
+import type { Fce0Roots } from "../9-types/1-types-fce-atoms";
 import { fieldCatToFceAtoms } from "./4-fc-file-to-fc-atoms";
 import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
 
@@ -7,8 +7,8 @@ import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
 // Root "field_catalog.dpn" have impact on the root folder and A/B/C subfolders.
 // Other field catalogs should be ignored but it will be possible to edit without updating manifest files.
 
-export function createFldCatRoots(fileUsItems: FileUs[]): FceRoots {
-    const roots: FceRoots = {};
+export function createFldCatRoots(fileUsItems: FileUs[]): Fce0Roots {
+    const roots: Fce0Roots = {};
 
     // 1. For each Field Catalog file create a FceRoot.
     fileUsItems.forEach(

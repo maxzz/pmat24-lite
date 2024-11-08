@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { type FceCtx } from "@/store";
+import { type Fce0Ctx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 
 const itemClasses = "flex flex-col";
 
-export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
+export function SelectedItemBody({ fceCtx }: { fceCtx: Fce0Ctx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 
