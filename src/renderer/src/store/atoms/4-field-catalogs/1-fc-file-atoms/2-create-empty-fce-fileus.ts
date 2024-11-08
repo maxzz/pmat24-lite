@@ -20,8 +20,12 @@ export function createEmptyFceFileUs(): FileUs {
             isCurrentAtom: atom<boolean>(false),
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
+
         fce0AtomsRef: undefined,
         fce0Atoms: undefined,
+
+        fceAtomsRef: undefined,
+        fceAtoms: undefined,
     };
     return rv;
 }

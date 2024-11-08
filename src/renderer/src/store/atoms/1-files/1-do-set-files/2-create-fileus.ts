@@ -17,8 +17,12 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
             isCurrentAtom: atom<boolean>(false),
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
+
         fce0AtomsRef: undefined,     // will be assigned later when all files are loaded
         fce0Atoms: undefined,        // will be assigned later when all files are loaded
+
+        fceAtomsRef: undefined,      // will be assigned later when all files are loaded
+        fceAtoms: undefined,         // will be assigned later when all files are loaded
     };
 
     return rv;
