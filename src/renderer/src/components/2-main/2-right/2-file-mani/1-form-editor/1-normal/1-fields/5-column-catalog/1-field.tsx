@@ -1,12 +1,12 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
-import { atom, PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { FldCatOutData, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
-import { CatalogItem, Mani } from "@/store/manifest";
+import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { type FldCatOutData, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
+import { type CatalogItem } from "@/store/manifest";
+import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
-import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
-import { FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
+import { classNames, turnOffAutoComplete } from "@/utils";
 
 const inputParentClasses = "\
 h-7 grid grid-cols-[minmax(0,1fr)_auto] \

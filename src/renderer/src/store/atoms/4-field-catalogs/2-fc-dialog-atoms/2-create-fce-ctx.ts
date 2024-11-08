@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FceItem, type FldCatInData } from "../9-types";
-import { type FceCtx } from "../9-types/2-types-fce-ctx";
+import { type FceCtx } from "../9-types";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 
 export function createFceCtx(inData: FldCatInData, closeFldCatDialog: (outData: any) => void): FceCtx {
