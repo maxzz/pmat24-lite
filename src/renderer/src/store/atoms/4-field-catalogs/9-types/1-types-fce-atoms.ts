@@ -45,17 +45,17 @@ export type Fce0Ctx = { // Field Catalog Editor context
 
 // FceAtoms
 
-export type FcePropAtoms = {                        // Field Catalog Editor Atoms
-    nameAtom        /**/: PrimitiveAtom<string>;
-    typeAtom        /**/: PrimitiveAtom<string>;
-    valueAtom       /**/: PrimitiveAtom<string>;
-    ownernoteAtom   /**/: PrimitiveAtom<string>;
+type FcePropAtoms = {                               // Field Catalog Editor Atoms
+    nameAtom      /**/: PrimitiveAtom<string>;
+    typeAtom      /**/: PrimitiveAtom<string>;
+    valueAtom     /**/: PrimitiveAtom<string>;
+    ownernoteAtom /**/: PrimitiveAtom<string>;
 
-    useItAtom       /**/: PrimitiveAtom<boolean>;   // not used but required for Column4_Value component
-    valueLifeAtom   /**/: PrimitiveAtom<ValueLife>;
+    useItAtom     /**/: PrimitiveAtom<boolean>;     // not used but required for Column4_Value component
+    valueLifeAtom /**/: PrimitiveAtom<ValueLife>;
 };
 
-export type FceItemsAtoms = {                       // Field Catalog Editor items
+type FceItemsAtoms = {                              // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
     items: PrimitiveAtom<FceItem[]>;
 };
@@ -69,13 +69,11 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
     & FcePropAtoms
 >;
 
-export type FceRoots = Record<string, Fce0Atoms>;
-
 // FceCtx
 
-export type FceCtx = { // Field Catalog Editor context
-    inData: FceDlgIn | null;
+export type FceCtx = {                              // Field Catalog Editor context
+    inData: FceDlgIn | undefined;
+    fceAtoms: FceAtoms;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     onItemDoubleClick?: (item: FceItem) => void;
-
 };
