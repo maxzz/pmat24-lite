@@ -3,7 +3,7 @@ import { filesAtom } from "../0-files-atom";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
-import { delay, doDiscardAllFileUsLinksAtom } from "@/store/store-utils";
+import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { assignFceAtoms } from "../../4-field-catalogs";
 import { rightPanelAtom } from "../../2-right-panel";
@@ -51,7 +51,7 @@ export const doSetDeliveredFilesAtom = atom(
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
         set(rightPanelAtom, null);
-        set(doDiscardAllFileUsLinksAtom);
+        set(doDiscardAllFilesFileUsLinksAtom);
 
         totalManis.normal = 0;
         totalManis.manual = 0;

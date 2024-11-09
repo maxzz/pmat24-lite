@@ -1,6 +1,6 @@
-import { filesAtom } from "@/store/atoms";
-import { type FileUs } from "@/store/store-types";
 import { type Getter, type Setter, atom } from "jotai";
+import { type FileUs } from "@/store/store-types";
+import { filesAtom } from "@/store/atoms";
 
 function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
 
@@ -36,7 +36,7 @@ export const doDiscardFileUsAtom = atom(
 /**
  * Discard all array of FileUs atom
  */
-export const doDiscardAllFileUsLinksAtom = atom(
+export const doDiscardAllFilesFileUsLinksAtom = atom(
     null,
     (get, set) => {
         const all = get(filesAtom);
