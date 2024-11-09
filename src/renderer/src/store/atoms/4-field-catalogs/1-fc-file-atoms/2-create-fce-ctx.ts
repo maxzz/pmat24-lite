@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atomWithCallback, type OnValueChange } from "@/util-hooks";
+import { atomWithCallback, type OnValueChangeParams, type OnValueChange } from "@/util-hooks";
 import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms, type FcePropAtoms } from "../9-types";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 
@@ -24,13 +24,17 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
     return rv;
 }
 
+// v1
+
 export type OnChangeValueWithUpdateName<T> = (updateName: T) => OnValueChange<T>;
 
 export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string>): FcePropAtoms {
+
     function onScopedChange(name: string) {
-        return ({ get, set, nextValue }): void => {
+        function cb({ get, set, nextValue }: OnValueChangeParams<any>) { // It can be string | ValueLife
             onValueChange(name)({ get, set, nextValue });
-        };
+        }
+        return cb;
     };
 
     const rv: FcePropAtoms = {
@@ -40,19 +44,18 @@ export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<st
         ownernoteAtom: atomWithCallback<string>('', onScopedChange('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atomWithCallback<ValueLife>({
-            valueAs: ValueAs.askReuse,
-            value: '',
-        }, onScopedChange('valueLifeAtom')),
+        valueLifeAtom: atomWithCallback<ValueLife>({ valueAs: ValueAs.askReuse, value: '', }, onScopedChange('valueLifeAtom')),
     };
     return rv;
 }
 
-// v1
-
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn, closeFldCatDialog: (outData: any) => void; }): FceCtx {
     const showSelectBtn = inData.outBoxAtom;
-    const onChange = (name: string) => () => {};
+
+    const onChange = (name: string) => () => {
+        console.log('onChange', name);
+    };
+
     const rv: FceCtx = {
         inData,
         fceAtoms,
