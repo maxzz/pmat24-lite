@@ -26,25 +26,25 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
 
 // v1
 
-export type OnChangeValueWithUpdateName<T> = (updateName: T) => OnValueChange<T>;
+export type OnChangeValueWithUpdateName<T> = (updateName: string) => OnValueChange<T>;
 
-export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string>): FcePropAtoms {
+export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
 
-    function onScopedChange(name: string) {
-        function cb({ get, set, nextValue }: OnValueChangeParams<any>) { // It can be string | ValueLife
+    function onScopedChange<T extends string | ValueLife>(name: string) {
+        function cb({ get, set, nextValue }: OnValueChangeParams<T>) { // It can be string | ValueLife
             onValueChange(name)({ get, set, nextValue });
         }
         return cb;
     };
 
     const rv: FcePropAtoms = {
-        nameAtom: atomWithCallback<string>('', onScopedChange('nameAtom')),
-        typeAtom: atomWithCallback<string>('', onScopedChange('typeAtom')),
-        valueAtom: atomWithCallback<string>('', onScopedChange('valueAtom')),
-        ownernoteAtom: atomWithCallback<string>('', onScopedChange('ownernoteAtom')),
+        nameAtom: atomWithCallback<string>('', onScopedChange<string>('nameAtom')),
+        typeAtom: atomWithCallback<string>('', onScopedChange<string>('typeAtom')),
+        valueAtom: atomWithCallback<string>('', onScopedChange<string>('valueAtom')),
+        ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atomWithCallback<ValueLife>({ valueAs: ValueAs.askReuse, value: '', }, onScopedChange('valueLifeAtom')),
+        valueLifeAtom: atomWithCallback<ValueLife>({ valueAs: ValueAs.askReuse, value: '', }, onScopedChange<ValueLife>('valueLifeAtom')),
     };
     return rv;
 }
@@ -52,8 +52,10 @@ export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<st
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn, closeFldCatDialog: (outData: any) => void; }): FceCtx {
     const showSelectBtn = inData.outBoxAtom;
 
-    const onChange = (name: string) => () => {
-        console.log('onChange', name);
+    const onChange = (name: string) => {
+        return ({ get, set, nextValue }) => {
+            console.log('onChange', name, nextValue);
+        }
     };
 
     const rv: FceCtx = {
