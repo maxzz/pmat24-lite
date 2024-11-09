@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
@@ -44,9 +44,9 @@ export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'
     return rv;
 }
 
-export function destroyFileUsLinks(fileUs: FileUs) {
+export function destroyFileUsLinks(get: Getter, set: Setter, fileUs: FileUs) {
 
-    fileUs.maniAtomsAtom = undefined;
+    //fileUs.maniAtomsAtom = undefined;
 
     fileUs.fce0AtomsRef = undefined;
     fileUs.fce0Atoms = undefined;
@@ -54,3 +54,10 @@ export function destroyFileUsLinks(fileUs: FileUs) {
     fileUs.fceAtomsRef = undefined;
     fileUs.fceAtoms = undefined;
 }
+
+export const doDestroyFileUsAtom = atom(
+    null,
+    (get, set, fileUs: FileUs) => {
+        destroyFileUsLinks(get, set, fileUs);
+    }
+);
