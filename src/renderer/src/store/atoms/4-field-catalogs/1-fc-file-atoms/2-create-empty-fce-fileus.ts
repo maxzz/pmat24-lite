@@ -43,3 +43,14 @@ export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'
     };
     return rv;
 }
+
+export function destroyFileUsLinks(fileUs: FileUs) {
+
+    fileUs.maniAtomsAtom = undefined;
+
+    fileUs.fce0AtomsRef = undefined;
+    fileUs.fce0Atoms = undefined;
+
+    fileUs.fceAtomsRef = undefined;
+    fileUs.fceAtoms = undefined;
+}
