@@ -1,4 +1,5 @@
 import { type FileContent } from "@shared/ipc-types";
+import { defaultFcName } from "..";
 
 /**
  * There should be only one field_catalog.dpn per folder.
@@ -27,7 +28,7 @@ export function filterFcDuplicates(deliveredFileContents: FileContent[]): FileCo
             continue;
         }
 
-        const isLegalName = fname.toLowerCase() === 'field_catalog.dpn';
+        const isLegalName = fname.toLowerCase() === defaultFcName;
         if (isLegalName) {
             seen.set(fpath, item);
         }

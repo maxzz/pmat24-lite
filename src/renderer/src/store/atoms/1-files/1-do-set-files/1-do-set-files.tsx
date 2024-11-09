@@ -9,7 +9,6 @@ import { assignFceAtoms } from "../../4-field-catalogs";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
-import { filterFcDuplicates } from "./3-filter-fc-duplicates";
 
 /**
  * File content is populated from web or electron environment:
@@ -61,8 +60,7 @@ export const doSetDeliveredFilesAtom = atom(
         const unsupported: FileUs[] = [];
 
         const fileUsItems: FileUs[] =
-            filterFcDuplicates(deliveredFileContents)
-            // deliveredFileContents
+            deliveredFileContents
                 .filter((file) => file.size)
                 .map(
                     (deliveredFileContent: FileContent) => {

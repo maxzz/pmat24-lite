@@ -1,8 +1,8 @@
 import { type PrimitiveAtom } from "jotai";
+import { type FileUs } from "@/store/store-types";
 import { type ValueLife, type CatalogFile, type CatalogItem } from "@/store/manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { FceDlgIn, type Fce0DlgIn } from "./3-types-dlg";
-import { FileUs } from "@/store/store-types";
 
 // import { type PrimitiveAtom } from "jotai";
 
@@ -13,6 +13,8 @@ import { FileUs } from "@/store/store-types";
 // };
 
 export type FceItem = CatalogItem;
+
+export const defaultFcName = 'field_catalog.dpn';
 
 // FceAtoms
 

@@ -2,12 +2,13 @@ import { atom } from "jotai";
 import { type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms } from "../9-types";
+import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
+    fileCnt.fname = defaultFcName;
 
     const rv: FileUs = {
         fileCnt,

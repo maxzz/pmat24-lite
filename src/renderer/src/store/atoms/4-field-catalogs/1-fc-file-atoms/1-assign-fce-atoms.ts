@@ -1,8 +1,8 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
 import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
-import { set } from "idb-keyval";
 import { setRootFcFileUs } from "./0-fce-roots";
+import { defaultFcName } from "../9-types";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
@@ -16,7 +16,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         if (fileUs.parsedSrc.stats.isFCat) {
             const fpath = fileUs.fileCnt.fpath.toLowerCase();
             const fname = fileUs.fileCnt.fname.toLowerCase();
-            const isRoot = fname === 'field_catalog.dpn' && fpath === rootPath;
+            const isRoot = fname === defaultFcName && fpath === rootPath;
             if (isRoot) {
                 rootFc = fileUs;
             } else {
