@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
+import { type FceItem, type FceAtoms } from "../9-types";
 import { finalizeFileContent } from "@/store/store-utils";
 
 export function createEmptyFceFileUs(): FileUs {
@@ -26,6 +27,19 @@ export function createEmptyFceFileUs(): FileUs {
 
         fceAtomsRef: undefined,
         fceAtoms: undefined,
+    };
+
+    rv.fceAtoms = createEmptyFceAtoms(rv) as FceAtoms;
+    rv.fceAtoms.viewFceCtx = undefined;
+
+    return rv;
+}
+
+export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'> {
+    const rv: Omit<FceAtoms, 'viewFceCtx'> = {
+        fileUs,
+        descAtom: atom<string>(''),
+        itemsAtom: atom<FceItem[]>([]),
     };
     return rv;
 }

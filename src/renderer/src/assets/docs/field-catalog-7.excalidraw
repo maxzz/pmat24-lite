@@ -5025,7 +5025,7 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1731121344526,
       "link": null,
       "locked": false,
@@ -5852,8 +5852,8 @@
     },
     {
       "type": "text",
-      "version": 1372,
-      "versionNonce": 258905672,
+      "version": 1377,
+      "versionNonce": 606093965,
       "isDeleted": false,
       "id": "Fz19ame3vCPNfuX5hbnId",
       "fillStyle": "solid",
@@ -5866,23 +5866,23 @@
       "y": 379.22451359072375,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 98.30917358398438,
+      "width": 64.28814697265625,
       "height": 32.72354978635703,
       "seed": 2130016797,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1731121457507,
+      "updated": 1731123029604,
       "link": null,
       "locked": false,
       "fontSize": 13.089419914542813,
       "fontFamily": 1,
-      "text": "itemsAtom\ndescriptionAtom",
+      "text": "descAtom\nitemsAtom",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "itemsAtom\ndescriptionAtom",
+      "originalText": "descAtom\nitemsAtom",
       "lineHeight": 1.25,
       "baseline": 28
     },
@@ -5913,10 +5913,6 @@
       "boundElements": [
         {
           "id": "oLrOT7qr0JHyucJvDrmd3",
-          "type": "arrow"
-        },
-        {
-          "id": "1ZXU7POyaW31_vyieGGsI",
           "type": "arrow"
         },
         {
@@ -5951,10 +5947,6 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [
-        {
-          "id": "1ZXU7POyaW31_vyieGGsI",
-          "type": "arrow"
-        },
         {
           "id": "Q0M_xGeyDyDF2gmbYg415",
           "type": "arrow"
@@ -6369,10 +6361,6 @@
         },
         {
           "id": "wAIHzReX4RmFdKlYTVXuJ",
-          "type": "arrow"
-        },
-        {
-          "id": "ckpTVbmSvGeVjauxlW9mR",
           "type": "arrow"
         },
         {
@@ -6917,31 +6905,44 @@
       "baseline": 11
     },
     {
-      "id": "8es7lMbU2njRG7h0xvE4H",
       "type": "arrow",
-      "x": 575.0372540110537,
-      "y": 356.4226222518095,
-      "width": 147.4285452706473,
-      "height": 184.2857142857141,
-      "angle": 0,
-      "strokeColor": "#0c8599",
-      "backgroundColor": "transparent",
+      "version": 332,
+      "versionNonce": 1585954120,
+      "isDeleted": false,
+      "id": "8es7lMbU2njRG7h0xvE4H",
       "fillStyle": "solid",
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 0,
       "opacity": 50,
+      "angle": 0,
+      "x": 575.0372540110537,
+      "y": 356.4226222518095,
+      "strokeColor": "#0c8599",
+      "backgroundColor": "transparent",
+      "width": 147.4285452706473,
+      "height": 184.2857142857141,
+      "seed": 1017411640,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 1017411640,
-      "version": 332,
-      "versionNonce": 1585954120,
-      "isDeleted": false,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1731121344527,
       "link": null,
       "locked": false,
+      "startBinding": {
+        "elementId": "qMN_rr-Z2sPiGmrzf4lzB",
+        "focus": -0.6729106587121177,
+        "gap": 4.036703968038864
+      },
+      "endBinding": {
+        "elementId": "uomy9gJBJLmzmdYgyKUiR",
+        "focus": 0.25809346100483777,
+        "gap": 1
+      },
+      "lastCommittedPoint": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
       "points": [
         [
           0,
@@ -6959,20 +6960,7 @@
           -147.4285452706473,
           -183.99998256138383
         ]
-      ],
-      "lastCommittedPoint": null,
-      "startBinding": {
-        "elementId": "qMN_rr-Z2sPiGmrzf4lzB",
-        "focus": -0.6729106587121177,
-        "gap": 4.036703968038864
-      },
-      "endBinding": {
-        "elementId": "uomy9gJBJLmzmdYgyKUiR",
-        "focus": 0.25809346100483777,
-        "gap": 1
-      },
-      "startArrowhead": null,
-      "endArrowhead": "arrow"
+      ]
     },
     {
       "type": "arrow",
