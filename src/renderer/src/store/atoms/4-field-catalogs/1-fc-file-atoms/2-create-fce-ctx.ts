@@ -24,24 +24,26 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
     return rv;
 }
 
-export function createFcePropAtoms(onValueChange: OnValueChange<string>): FcePropAtoms {
+export type OnChangeValueWithUpdateName<T> = (updateName: T) => OnValueChange<T>;
+
+export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string>): FcePropAtoms {
     function onScopedChange(name: string) {
         return ({ get, set, nextValue }): void => {
-            //onValueChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
+            onValueChange(name)({ get, set, nextValue });
         };
     };
 
     const rv: FcePropAtoms = {
-        nameAtom: atomWithCallback<string>('', onValueChange),
-        typeAtom: atomWithCallback<string>('', onValueChange),
-        valueAtom: atomWithCallback<string>('', onValueChange),
-        ownernoteAtom: atomWithCallback<string>('', onValueChange),
+        nameAtom: atomWithCallback<string>('', onScopedChange('nameAtom')),
+        typeAtom: atomWithCallback<string>('', onScopedChange('typeAtom')),
+        valueAtom: atomWithCallback<string>('', onScopedChange('valueAtom')),
+        ownernoteAtom: atomWithCallback<string>('', onScopedChange('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atom<ValueLife>({
+        valueLifeAtom: atomWithCallback<ValueLife>({
             valueAs: ValueAs.askReuse,
             value: '',
-        }),
+        }, onScopedChange('valueLifeAtom')),
     };
     return rv;
 }
@@ -50,10 +52,12 @@ export function createFcePropAtoms(onValueChange: OnValueChange<string>): FcePro
 
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn, closeFldCatDialog: (outData: any) => void; }): FceCtx {
     const showSelectBtn = inData.outBoxAtom;
+    const onChange = (name: string) => () => {};
     const rv: FceCtx = {
         inData,
         fceAtoms,
         selectedItemAtom: atom<FceItem | null>(null),
+        fcePropAtoms: createFcePropAtoms(onChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
     };
     return rv;
