@@ -46,7 +46,13 @@ export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'
 
 export function destroyFileUsLinks(get: Getter, set: Setter, fileUs: FileUs) {
 
-    //fileUs.maniAtomsAtom = undefined;
+    const maniAtoms = get(fileUs.maniAtomsAtom);
+    if (maniAtoms) {
+        const login = maniAtoms[0];
+        const cpass = maniAtoms[1];
+        
+        // break other links
+    }
 
     fileUs.fce0AtomsRef = undefined;
     fileUs.fce0Atoms = undefined;
