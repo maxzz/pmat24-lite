@@ -27,7 +27,7 @@ function ContentForSelected() {
 
     if (activeView === RightPanelViewType.forms) {
         return (
-            fileUs?.parsedSrc.fcat ? <Body_Cat /> : <ManiBody />
+            fileUs?.parsedSrc.stats.isFCat ? <Body_Cat /> : <ManiBody />
         );
     }
 

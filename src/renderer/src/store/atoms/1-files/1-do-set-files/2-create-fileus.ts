@@ -39,17 +39,8 @@ function createParsedData(fileCnt: FileContent): ParsedSrc {
     try {
         const res = parseXMLFile(fileCnt.raw || '');
         rv.mani = res.mani;
-        rv.fcat = res.fcat;
         rv.meta = buildManiMetaForms(res.mani);
-
-        if (rv.fcat) {
-            /**
-             * TODO: later. one per root folder including A, B, C subfolders
-             *
-            const { items } = buildCatalogMeta(fcat); //TODO: we need to load multiple catalog files
-            set(fldCatItemsAtom, items);
-            */
-        }
+        rv.fcat = res.fcat;
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;

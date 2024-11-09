@@ -5,7 +5,7 @@ import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-typ
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconType[] {
-    if (fileUs.parsedSrc.fcat) {
+    if (fileUs.parsedSrc.stats.isFCat) {
         return [appTypeToIcon({ appIcon: AppIconType.cat, warning: false })];
     }
 

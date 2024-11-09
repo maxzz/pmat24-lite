@@ -25,13 +25,13 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {
                 const fileUs = get(fileAtom);
-                const { mani, meta, fcat } = fileUs.parsedSrc;
+                const { mani, meta, stats: { isFCat } } = fileUs.parsedSrc;
 
-                if (fcat && !showFldCat) {
+                if (isFCat && !showFldCat) {
                     return false;
                 }
 
-                if (!fcat && !mani) {
+                if (!isFCat && !mani) {
                     return false;
                 }
 

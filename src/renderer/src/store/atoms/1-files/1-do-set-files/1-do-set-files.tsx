@@ -95,7 +95,7 @@ export const doSetDeliveredFilesAtom = atom(
         sortFileUsItemsInPlace(fileUsItems);
 
         // fceRoots.entries = createFldCatRoots(fileUsItems);
-        assignFceAtoms(fileUsItems);
+        assignFceAtoms(fileUsItems); //TODO: and update conters if empty field catalog was created
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);

@@ -14,8 +14,8 @@ export function createEmptyFceFileUs(): FileUs {
         parsedSrc: {
             mani: undefined,
             meta: undefined,
-            fcat: undefined,
-            stats: {} as FileUsStats,
+            fcat: { names: [] },
+            stats: { isFCat: true } as FileUsStats,
         },
         uiState: {
             isGroupAtom: atom<boolean>(false),

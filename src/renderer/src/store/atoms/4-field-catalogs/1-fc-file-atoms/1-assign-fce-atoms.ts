@@ -13,7 +13,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
     let rootFc: FileUs | undefined;
 
     const onlyFcs = fileUsItems.reduce((map, fileUs) => {
-        if (fileUs.parsedSrc.fcat) {
+        if (fileUs.parsedSrc.stats.isFCat) {
             const fpath = fileUs.fileCnt.fpath.toLowerCase();
             const fname = fileUs.fileCnt.fname.toLowerCase();
             const isRoot = fname === 'field_catalog.dpn' && fpath === rootPath;
@@ -39,7 +39,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
     fileUsItems.forEach(
         (fileUs) => {
-            const goodForFc = !fileUs.parsedSrc.fcat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}/([a-c])$`));
+            const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}/([a-c])$`));
             if (goodForFc) {
                 fileUs.fce0AtomsRef = rootFc?.fce0Atoms;
             }

@@ -22,7 +22,7 @@ export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean,
 }
 
 export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
-    if (fileUs.parsedSrc.fcat) {
+    if (fileUs.parsedSrc.stats.isFCat) {
         return { appIcon: AppIconType.cat, warning: false };
     }
 
