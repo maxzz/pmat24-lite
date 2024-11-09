@@ -44,7 +44,7 @@ export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<st
         ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atomWithCallback<ValueLife>({ valueAs: ValueAs.askReuse, value: '', }, onScopedChange<ValueLife>('valueLifeAtom')),
+        valueLifeAtom: atomWithCallback<ValueLife>({ valueAs: ValueAs.askReuse, value: '' }, onScopedChange<ValueLife>('valueLifeAtom')),
     };
     return rv;
 }
@@ -52,9 +52,9 @@ export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<st
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn, closeFldCatDialog: (outData: any) => void; }): FceCtx {
     const showSelectBtn = inData.outBoxAtom;
 
-    const onChange = (name: string) => {
+    const onValueChange = (name: string) => {
         return ({ get, set, nextValue }) => {
-            console.log('onChange', name, nextValue);
+            console.log('onChange', fceAtoms, name, nextValue);
         }
     };
 
@@ -62,7 +62,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms
         inData,
         fceAtoms,
         selectedItemAtom: atom<FceItem | null>(null),
-        fcePropAtoms: createFcePropAtoms(onChange),
+        fcePropAtoms: createFcePropAtoms(onValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
     };
     return rv;
