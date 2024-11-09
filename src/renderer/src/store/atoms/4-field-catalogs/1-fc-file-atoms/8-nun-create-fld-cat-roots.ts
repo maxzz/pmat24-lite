@@ -1,7 +1,7 @@
 import type { FileUs } from "@/store/store-types";
 import type { Fce0Roots } from "../9-types/1-types-fce-atoms";
-import { fieldCatToFceAtoms } from "./4-fc-file-to-fc-atoms";
-import { createEmptyFceAtoms } from './3-create-empty-fce-atoms';
+import { fieldCatToFceAtoms } from "./5-fc-file-to-fc-atoms";
+import { createEmptyFceAtoms } from './4-create-empty-fce-atoms';
 
 // Field catalog should have name "field_catalog.dpn" and should be in the root folder.
 // Root "field_catalog.dpn" have impact on the root folder and A/B/C subfolders.

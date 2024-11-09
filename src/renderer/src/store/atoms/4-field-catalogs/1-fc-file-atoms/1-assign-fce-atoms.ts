@@ -26,7 +26,10 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         return map;
     }, {} as Record<string, FileUs>);
 
-    rootFc = rootFc || createEmptyFceFileUs();
+    if (!rootFc) {
+        rootFc = createEmptyFceFileUs();
+        fileUsItems.push(rootFc);
+    }
 
     // 2. crete FceAtoms for each Fc fileUs
 
