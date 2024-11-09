@@ -66,7 +66,6 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
         viewFceCtx: FceCtx | undefined;             // field catalog editor ui atoms; created when field catalog file selected at top level
     }
     & FceItemsAtoms
-    & FcePropAtoms
 >;
 
 // FceCtx
@@ -75,5 +74,6 @@ export type FceCtx = {                              // Field Catalog Editor cont
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
+    fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
 };

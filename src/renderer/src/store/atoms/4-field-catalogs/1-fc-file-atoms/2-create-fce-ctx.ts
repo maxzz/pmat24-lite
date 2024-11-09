@@ -25,6 +25,12 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
 }
 
 export function createFcePropAtoms(onValueChange: OnValueChange<string>): FcePropAtoms {
+    function onScopedChange(name: string) {
+        return ({ get, set, nextValue }): void => {
+            //onValueChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
+        };
+    };
+
     const rv: FcePropAtoms = {
         nameAtom: atomWithCallback<string>('', onValueChange),
         typeAtom: atomWithCallback<string>('', onValueChange),
