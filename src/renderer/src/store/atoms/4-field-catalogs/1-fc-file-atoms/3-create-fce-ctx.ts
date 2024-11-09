@@ -1,6 +1,7 @@
 import { atom } from "jotai";
-import { atomWithCallback, type OnValueChangeParams, type OnValueChange } from "@/util-hooks";
+import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
 import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms, type FcePropAtoms } from "../9-types";
+import { type OnChangeValueWithUpdateName } from "@/ui";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 
 export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: any) => void): Fce0Ctx {
@@ -26,7 +27,7 @@ export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: an
 
 // v1
 
-export type OnChangeValueWithUpdateName<T> = (updateName: string) => OnValueChange<T>;
+//export type OnChangeValueWithUpdateName<T> = (updateName: string) => OnValueChange<T>;
 
 export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
 
@@ -49,8 +50,8 @@ export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<st
     return rv;
 }
 
-export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn, closeFldCatDialog: (outData: any) => void; }): FceCtx {
-    const showSelectBtn = inData.outBoxAtom;
+export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: { fceAtoms: FceAtoms, inData: FceDlgIn | undefined, closeFldCatDialog: (outData: any) => void; }): FceCtx {
+    const showSelectBtn = inData?.outBoxAtom;
 
     const onValueChange = (name: string) => {
         return ({ get, set, nextValue }) => {

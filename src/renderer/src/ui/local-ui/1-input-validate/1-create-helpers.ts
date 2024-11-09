@@ -2,7 +2,7 @@ import { type PrimitiveAtom } from "jotai";
 import { type OnValueChange, atomWithCallback } from "@/util-hooks";
 import { type RowInputState } from "./9-types";
 
-export type OnChangeValueWithUpdateName = (updateName: string) => OnValueChange<any>; //TODO: it should be string, but it's any for now, due to some options are boolean
+export type OnChangeValueWithUpdateName<T = any> = (updateName: string) => OnValueChange<T>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
 export function initStateForInput(value: string, more?: Partial<RowInputState>): RowInputState {
     const state: RowInputState = {

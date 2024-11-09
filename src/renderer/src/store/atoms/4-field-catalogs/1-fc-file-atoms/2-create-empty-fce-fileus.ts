@@ -4,6 +4,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms } from "../9-types";
 import { finalizeFileContent } from "@/store/store-utils";
+import { createFceCtx } from "./3-create-fce-ctx";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -30,7 +31,11 @@ export function createEmptyFceFileUs(): FileUs {
     };
 
     rv.fceAtoms = createEmptyFceAtoms(rv) as FceAtoms;
-    rv.fceAtoms.viewFceCtx = undefined;
+    rv.fceAtoms.viewFceCtx = createFceCtx({
+        fceAtoms: rv.fceAtoms,
+        inData: undefined,
+        closeFldCatDialog: () => {},
+    });
 
     return rv;
 }
@@ -43,4 +48,3 @@ export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'
     };
     return rv;
 }
-

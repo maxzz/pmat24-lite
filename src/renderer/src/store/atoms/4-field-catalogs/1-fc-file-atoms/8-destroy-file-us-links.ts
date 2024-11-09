@@ -8,7 +8,7 @@ export function destroyFileUsLinks(get: Getter, set: Setter, fileUs: FileUs) {
         const login = maniAtoms[0];
         const cpass = maniAtoms[1];
 
-        // break other links
+        //TODO: break other links
     }
 
     fileUs.fce0AtomsRef = undefined;
