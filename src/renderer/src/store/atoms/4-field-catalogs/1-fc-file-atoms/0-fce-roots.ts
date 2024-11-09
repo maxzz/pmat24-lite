@@ -21,7 +21,7 @@ export const fceRoots: FceRootsAll = {
 
 let rootFcFileUs: FileUs = createEmptyFceFileUs();
 
-export function getFceRoot(): FceAtoms {
+export function getRootFceAtoms(): FceAtoms {
     if (!rootFcFileUs.fceAtoms) {
         throw new Error('rootFcFileUs.fceAtoms not set');
     }

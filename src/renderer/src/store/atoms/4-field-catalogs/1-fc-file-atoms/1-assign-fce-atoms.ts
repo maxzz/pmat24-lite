@@ -1,6 +1,8 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
 import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
+import { set } from "idb-keyval";
+import { setRootFcFileUs } from "./0-fce-roots";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
@@ -40,4 +42,6 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
             }
         }
     );
+
+    setRootFcFileUs(rootFc);
 }
