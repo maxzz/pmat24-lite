@@ -1,11 +1,53 @@
 import { atom } from "jotai";
+import { proxy } from "valtio";
 import { type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
+import { CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./4-create-fce-ctx";
-import { CatalogFile } from "pm-manifest";
+
+export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
+
+    const fcat = fileUs.parsedSrc.fcat;
+    if (!fcat) {
+        throw new Error('Field catalog not found');
+    }
+
+    // 1. Prepare items for the field catalog editor
+
+    const items: FceItem[] = fcat.names.map(
+        (item, idx) => {
+            const now = uuid.asRelativeNumber();
+            const rv: FceItem = {
+                ...catalogItemInFileToFieldValue(item),
+                index: idx,
+                uuid: now,
+                mru: now,
+                editor: createFceItemEditorState(),
+            };
+            return rv;
+        }
+    );
+
+    // 2. Finalize the field catalog editor root
+
+    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
+    return rv;
+}
+
+export function addReactiveState(items: FceItem[]): FceItem[] {
+    return items.map(
+        (item) => ({ ...item, editor: createFceItemEditorState(), })
+    );
+}
+
+function createFceItemEditorState(): CatalogItemEdit['editor'] {
+    return proxy<CatalogItemEdit['editor']>({
+        selected: false,
+    });
+}
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);

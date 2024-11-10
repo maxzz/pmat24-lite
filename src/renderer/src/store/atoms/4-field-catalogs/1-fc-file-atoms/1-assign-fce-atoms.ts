@@ -1,8 +1,9 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
-import { createEmptyFceFileUs } from "./2-create-empty-fce-fileus";
+import { createEmptyFceFileUs, createFceAtoms } from "./2-create-fce-atoms";
 import { setRootFcFileUs } from "./0-fce-roots";
 import { defaultFcName } from "../9-types";
+import { createFceCtx } from "./4-create-fce-ctx";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
@@ -29,6 +30,14 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
     if (!rootFc) {
         rootFc = createEmptyFceFileUs();
         fileUsItems.push(rootFc);
+    } else {
+        if (!rootFc.parsedSrc.fcat) {
+            throw new Error('Field catalog file must have parsed content');
+        }
+
+        // const desc = rootFc.parsedSrc.fcat?.descriptor;
+        // const items = rootFc.parsedSrc.fcat?.items;
+        // rootFc.fceAtoms = createFceAtoms({ fileUs: rootFc, desc: undefined, items: undefined });
     }
 
     // 2. crete FceAtoms for each Fc fileUs
@@ -41,7 +50,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         (fileUs) => {
             const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}/([a-c])$`));
             if (goodForFc) {
-                fileUs.fce0AtomsRef = rootFc?.fce0Atoms;
+                fileUs.fceAtomsRef = rootFc?.fceAtoms;
             }
         }
     );
