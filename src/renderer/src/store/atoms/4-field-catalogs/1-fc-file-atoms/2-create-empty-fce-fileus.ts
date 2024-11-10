@@ -31,17 +31,22 @@ export function createEmptyFceFileUs(): FileUs {
         fceAtoms: undefined,
     };
 
-    rv.fceAtoms = createEmptyFceAtoms(rv) as FceAtoms;
-    rv.fceAtoms.viewFceCtx = createFceCtx({
-        fceAtoms: rv.fceAtoms,
-        inData: undefined,
-        closeFldCatDialog: () => {},
-    });
+    rv.fceAtoms = createEmptyFceAtoms(rv);
 
     return rv;
 }
 
-export function createEmptyFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'> {
+export function createEmptyFceAtoms(fileUs: FileUs): FceAtoms {
+    const rv: FceAtoms = createEmptySemiFceAtoms(fileUs) as FceAtoms;
+    rv.viewFceCtx = createFceCtx({
+        fceAtoms: rv,
+        inData: undefined,
+        closeFldCatDialog: () => {},
+    });
+    return rv;
+}
+
+function createEmptySemiFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'> {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(''),
