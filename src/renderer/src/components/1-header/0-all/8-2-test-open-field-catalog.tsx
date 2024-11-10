@@ -15,7 +15,7 @@ export function TestOpenFieldCatalog() {
     };
 
     return (
-        <Button className="text-[.65rem]" onClick={() => doOpenFieldCatalogDialog({ fceRoot: undefined, inData })}>
+        <Button className="text-[.65rem]" onClick={() => doOpenFieldCatalogDialog({ inData })}>
             Field Catalog...
         </Button>
     );

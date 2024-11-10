@@ -1,8 +1,8 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type Fce0DlgOut, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
-import { type CatalogItem } from "@/store/manifest";
 import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type FceDlgOut, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
+import { type CatalogItem } from "@/store/manifest";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
@@ -42,7 +42,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname)];
 
-    const fceAtomsRef = fileUsCtx.fileUs.fce0AtomsRef;
+    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
     if (fceAtomsRef) {
         dropdownItems.push('-', CATALOG_More);
     }
@@ -57,7 +57,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const doOpenFldCatDialog = useSetAtom(doOpenFldCatDialogAtom);
 
-    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<Fce0DlgOut>())[0];
+    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
     useEffect(() => {
@@ -85,7 +85,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onSetDropdownIndex(idx: number) {
         if (fceAtomsRef && idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ fceRoot: fceAtomsRef, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
         setInputTextText(dropdownItems[idx]);

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { showPropsAtom, type Fce0Ctx } from "@/store";
+import { showPropsAtom, type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
@@ -8,7 +8,7 @@ import { AddItem_PanelMenu } from "./2-add-item-menu";
 import { classNames } from "@/utils";
 
 type FieldCatalogToolbarProps = {
-    fceCtx: Fce0Ctx;
+    fceCtx: FceCtx;
     className?: string;
 };
 

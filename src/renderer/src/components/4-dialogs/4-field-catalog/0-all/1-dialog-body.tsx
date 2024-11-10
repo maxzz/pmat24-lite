@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { createFce0Ctx, doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type Fce0DlgIn, type Fce0Ctx, type FceItem } from "@/store";
+import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FceCtx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -8,13 +7,18 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-export function DialogFieldCatalogBody({ inData }: { inData: Fce0DlgIn; }) {
+export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
+
     const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
-    const fceCtx = useState<Fce0Ctx>(() => createFce0Ctx(inData, closeFldCatDialog))[0];
-    if (!fceCtx.inData?.fceAtoms) {
-        return <div className="grid place-items-center">There is no Field Catalog</div>;
-    }
-    const itemsAtom = fceCtx.inData.fceAtoms.items;
+    // fceCtx.closeFldCatDialog = closeFldCatDialog;
+    
+    // const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
+    // if (!fceCtx.inData?.fceAtoms) {
+    //     return <div className="grid place-items-center">There is no Field Catalog</div>;
+    // }
+    
+    const itemsAtom = fceCtx.fceAtoms.itemsAtom;
+
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -39,9 +43,9 @@ export function DialogFieldCatalogBody({ inData }: { inData: Fce0DlgIn; }) {
     );
 }
 
-function Header({ fceCtx }: { fceCtx: Fce0Ctx; }) {
+function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
-    const fname = fceCtx.inData?.fceAtoms?.fileCnt?.fpath;
+    const fname = fceCtx.fceAtoms?.fileUs.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
             <div className="text-sm font-bold">

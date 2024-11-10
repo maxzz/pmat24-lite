@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { type Fce0Ctx } from "@/store";
+import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 
 const itemClasses = "flex flex-col";
 
-export function SelectedItemBody({ fceCtx }: { fceCtx: Fce0Ctx; }) {
+export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 
-    const [localName, setLocalName] = useAtom(fceCtx.nameAtom);
-    const [localValue, setLocalValue] = useAtom(fceCtx.valueAtom);
-    const [localType, setLocalType] = useAtom(fceCtx.typeAtom);
-    const [ownernote, setOwnernote] = useAtom(fceCtx.ownernoteAtom);
+    const { nameAtom, valueAtom, typeAtom, ownernoteAtom } = fceCtx.fcePropAtoms;
+
+    const [localName, setLocalName] = useAtom(nameAtom);
+    const [localValue, setLocalValue] = useAtom(valueAtom);
+    const [localType, setLocalType] = useAtom(typeAtom);
+    const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
 
     useEffect(
         () => {
