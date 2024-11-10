@@ -20,7 +20,7 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
             let files: FileWithDirectoryAndFileHandle[] = res;
             const shortest = findShortestPathModern(files);
             //console.log('entryRoot75: 02 dlg');
-            setRootDir({ rpath: shortest?.rpath || '', dir: shortest?.dir, fromMain: false });
+            setRootDir({ rpath: shortest?.rpath || '', dir: shortest?.hadle, fromMain: false });
             return files;
         }
     } else {

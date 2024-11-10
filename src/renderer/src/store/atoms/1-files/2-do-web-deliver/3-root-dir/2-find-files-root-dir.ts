@@ -51,7 +51,7 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
     }
 
     const rv: RootDir = {
-        dir: handle.directoryHandle,
+        hadle: handle.directoryHandle,
         rpath: shortest,
         fromMain: false,
     };
