@@ -1,5 +1,5 @@
-import { useAtom } from "jotai";
-import { type Fce0DlgIn, fldCatTriggerAtom } from "@/store";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { doCancelFldCatDialogAtom, type Fce0DlgIn, fceDlgTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-dialog-body";
 
@@ -8,13 +8,14 @@ const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
 
-    const [fldCatTrigger, doFldCatTrigger] = useAtom(fldCatTriggerAtom);
-    if (!fldCatTrigger) {
+    const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
+    const fceCtx = useAtomValue(fceDlgTriggerAtom);
+    if (!fceCtx) {
         return null;
     }
 
     return (<>
-        <D.Dialog open={!!fldCatTrigger} onOpenChange={() => doFldCatTrigger(null)}>
+        <D.Dialog open={!!fceCtx} onOpenChange={doCancelFldCatDialog}>
             <D.DialogContent
                 className={contentClasses}
                 noClose
@@ -22,7 +23,7 @@ export function FieldCatalogDialog() {
                 overlayClasses={overlayClasses}
                 container={document.getElementById('portal')}
             >
-                <DialogFieldCatalogBody fceCtx={fldCatTrigger} />
+                <DialogFieldCatalogBody fceCtx={fceCtx} />
 
             </D.DialogContent>
         </D.Dialog>
