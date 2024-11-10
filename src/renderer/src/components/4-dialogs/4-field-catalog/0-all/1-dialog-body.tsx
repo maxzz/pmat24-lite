@@ -1,5 +1,5 @@
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, doCloseFldCatDialogAtom, type FceCtx, type FceItem } from "@/store";
+import { doCancelFceDlgAtom, doCloseFldCatDialogAtom, type FceCtx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -44,7 +44,7 @@ export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
 }
 
 function Header({ fceCtx }: { fceCtx: FceCtx; }) {
-    const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
+    const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
     const fname = fceCtx.fceAtoms?.fileUs.fileCnt?.fpath;
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">

@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFldCatDialogAtom, type Fce0DlgIn, fceDlgTriggerAtom } from "@/store";
+import { doCancelFceDlgAtom, type Fce0DlgIn, fceDlgTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-dialog-body";
 
@@ -8,7 +8,7 @@ const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {
 
-    const doCancelFldCatDialog = useSetAtom(doCancelFldCatDialogAtom);
+    const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
     const fceCtx = useAtomValue(fceDlgTriggerAtom);
     if (!fceCtx) {
         return null;
