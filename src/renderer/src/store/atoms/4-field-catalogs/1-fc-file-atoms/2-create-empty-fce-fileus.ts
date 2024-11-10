@@ -31,12 +31,12 @@ export function createEmptyFceFileUs(): FileUs {
         fceAtoms: undefined,
     };
 
-    rv.fceAtoms = createEmptyFceAtoms(rv);
+    rv.fceAtoms = createEmptyFceAtoms({ fileUs: rv });
 
     return rv;
 }
 
-export function createEmptyFceAtoms(fileUs: FileUs): FceAtoms {
+export function createEmptyFceAtoms({ fileUs }: { fileUs: FileUs }): FceAtoms {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(''),
@@ -46,8 +46,8 @@ export function createEmptyFceAtoms(fileUs: FileUs): FceAtoms {
     (rv as FceAtoms).viewFceCtx = createFceCtx({
         fceAtoms: rv as FceAtoms,
         inData: undefined,
-        closeFldCatDialog: () => {},
-    })
+        closeFldCatDialog: () => { },
+    });
 
     return rv as FceAtoms;
 }
