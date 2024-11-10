@@ -8,52 +8,6 @@ import { CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid 
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./4-create-fce-ctx";
 
-export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
-
-    const fcat = fileUs.parsedSrc.fcat;
-    if (!fcat) {
-        throw new Error('Field catalog not found');
-    }
-
-    // 1. Prepare items for the field catalog editor
-
-    const items: FceItem[] = finalizeFceItems(fcat.names);
-
-    // 2. Finalize the field catalog editor root
-
-    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
-    return rv;
-}
-
-function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
-    const rv: FceItem[] = items.map(
-        (item, idx) => {
-            const now = uuid.asRelativeNumber();
-            const rv: FceItem = {
-                ...catalogItemInFileToFieldValue(item),
-                index: idx,
-                uuid: now,
-                mru: now,
-                editor: createFceItemEditorState(),
-            };
-            return rv;
-        }
-    );
-    return rv;
-}
-
-// export function addReactiveState(items: FceItem[]): FceItem[] {
-//     return items.map(
-//         (item) => ({ ...item, editor: createFceItemEditorState(), })
-//     );
-// }
-
-function createFceItemEditorState(): CatalogItemEdit['editor'] {
-    return proxy<CatalogItemEdit['editor']>({
-        selected: false,
-    });
-}
-
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
     fileCnt.fname = defaultFcName;
@@ -80,11 +34,39 @@ export function createEmptyFceFileUs(): FileUs {
     };
 
     rv.fceAtoms = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });
-
     return rv;
 }
 
-export function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: CatalogFile.Descriptor | undefined; items: FceItem[] | undefined; }): FceAtoms {
+export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
+    const fcat = fileUs.parsedSrc.fcat;
+    if (!fcat) {
+        throw new Error('This is not a field catalog file');
+    }
+
+    const items: FceItem[] = finalizeFceItems(fcat.names);
+
+    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
+    return rv;
+}
+
+function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
+    const rv: FceItem[] = items.map(
+        (item, idx) => {
+            const now = uuid.asRelativeNumber();
+            const rv: FceItem = {
+                ...catalogItemInFileToFieldValue(item),
+                index: idx,
+                uuid: now,
+                mru: now,
+                editor: proxy<CatalogItemEdit['editor']>({ selected: false, }),
+            };
+            return rv;
+        }
+    );
+    return rv;
+}
+
+function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: CatalogFile.Descriptor | undefined; items: FceItem[] | undefined; }): FceAtoms {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
