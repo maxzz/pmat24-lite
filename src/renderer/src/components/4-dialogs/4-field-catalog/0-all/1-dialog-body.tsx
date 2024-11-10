@@ -1,5 +1,5 @@
 import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFceDlgAtom, doCloseFldCatDialogAtom, type FceCtx, type FceItem } from "@/store";
+import { doCancelFceDlgAtom, doCloseFceDlgAtom, type FceCtx, type FceItem } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -9,7 +9,7 @@ import { SymbolFolder } from "@/ui/icons";
 
 export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
-    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
+    const closeFldCatDialog = useSetAtom(doCloseFceDlgAtom);
     // fceCtx.closeFldCatDialog = closeFldCatDialog;
     
     // const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];

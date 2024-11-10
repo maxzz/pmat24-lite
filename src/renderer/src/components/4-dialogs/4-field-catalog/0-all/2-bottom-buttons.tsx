@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { doCancelFceDlgAtom, doCloseFldCatDialogAtom, type FceCtx } from "@/store";
+import { doCancelFceDlgAtom, doCloseFceDlgAtom, type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { inputFocusClasses } from "../3-selected-item-props/8-inputs";
 
@@ -9,7 +9,7 @@ type BottomButtonsProps = {
 
 export function BottomButtons({ fceCtx }: BottomButtonsProps) {
 
-    const closeFldCatDialog = useSetAtom(doCloseFldCatDialogAtom);
+    const closeFldCatDialog = useSetAtom(doCloseFceDlgAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);

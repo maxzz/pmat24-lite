@@ -21,7 +21,7 @@ export const doCancelFceDlgAtom = atom(
     }
 );
 
-export const doCloseFldCatDialogAtom = atom(
+export const doCloseFceDlgAtom = atom(
     null,
     (get, set, outData: FceDlgOut) => {
         const inData = get(fceDlgTriggerAtom)?.inData;
