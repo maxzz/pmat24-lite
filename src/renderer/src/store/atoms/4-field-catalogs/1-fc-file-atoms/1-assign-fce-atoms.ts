@@ -1,7 +1,7 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
 import { assignFceAtomsToFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
-import { setRootFcFileUs } from "./0-fce-roots";
+import { setRootFcFileUs } from "./0-root-fce-atoms";
 import { defaultFcName } from "../9-types";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {

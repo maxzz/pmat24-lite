@@ -2,7 +2,7 @@ import { type PrimitiveAtom, type WritableAtom } from "jotai";
 import { type CatalogFile, type Mani, type Meta } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { type FceAtoms, type Fce0Atoms } from "../atoms/4-field-catalogs";
+import { type FceAtoms } from "../atoms/4-field-catalogs";
 
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain
@@ -39,11 +39,8 @@ export type FileUs = {
     uiState: FileUsUiState;                         // local state atoms: is currnet; is selected
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
-    fce0AtomsRef: Fce0Atoms | undefined | null;     // for manifest: reference to Fce atoms or null if from unmanaged folder (i.e. not root and not A/B/C subfolder)
-    fce0Atoms: Fce0Atoms | undefined | null;        // for Fc file: Fce atoms or null for manifest files
-
-    fceAtomsRef: FceAtoms | undefined;              // for manifest: reference to Fce atoms or null if from unmanaged folder (i.e. not root and not A/B/C subfolder)
     fceAtoms: FceAtoms | undefined;                 // for Fc file: Fce atoms or null for manifest files
+    fceAtomsRef: FceAtoms | undefined;              // for manifest: reference to Fce atoms or null if from unmanaged folder (i.e. not root and not A/B/C subfolder)
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

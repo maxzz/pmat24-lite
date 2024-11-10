@@ -1,31 +1,8 @@
 import { atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
-import { type FceItem, type Fce0DlgIn, type FceCtx, type FceDlgIn, type Fce0Ctx, type FceAtoms, type FcePropAtoms } from "../9-types";
+import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms } from "../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { ValueAs, type ValueLife } from "@/store/manifest";
-
-export function createFce0Ctx(inData: Fce0DlgIn, closeFldCatDialog: (outData: any) => void): Fce0Ctx {
-    const showSelectBtn = inData.outBoxAtom;
-    const rv: Fce0Ctx = {
-        inData,
-        selectedItemAtom: atom<FceItem | null>(null),
-        onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
-
-        nameAtom: atom(''),
-        typeAtom: atom(''),
-        valueAtom: atom(''),
-        ownernoteAtom: atom(''),
-
-        useItAtom: atom(true),
-        valueLifeAtom: atom<ValueLife>({
-            valueAs: ValueAs.askReuse,
-            value: '',
-        }),
-    };
-    return rv;
-}
-
-// v1
 
 //export type OnChangeValueWithUpdateName<T> = (updateName: string) => OnValueChange<T>;
 

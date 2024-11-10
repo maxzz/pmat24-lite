@@ -24,9 +24,6 @@ export function createEmptyFceFileUs(): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
 
-        fce0AtomsRef: undefined,
-        fce0Atoms: undefined,
-
         fceAtomsRef: undefined,
         fceAtoms: undefined,
     };

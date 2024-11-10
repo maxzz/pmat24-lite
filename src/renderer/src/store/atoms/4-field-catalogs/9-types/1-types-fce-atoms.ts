@@ -1,8 +1,8 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type CatalogFile, type CatalogItem } from "@/store/manifest";
+import { type ValueLife, type CatalogItem } from "@/store/manifest";
 import { type FileContent } from "@shared/ipc-types";
-import { FceDlgIn, type Fce0DlgIn } from "./3-types-dlg";
+import { type FceDlgIn } from "./3-types-dlg";
 
 // import { type PrimitiveAtom } from "jotai";
 
@@ -15,35 +15,6 @@ import { FceDlgIn, type Fce0DlgIn } from "./3-types-dlg";
 export type FceItem = CatalogItem;
 
 export const defaultFcName = 'field_catalog.dpn';
-
-// FceAtoms
-
-export type Fce0Atoms = {                           // Field Catalog Editor Atoms
-    fileCnt: FileContent;                           // reference to existing file content or placeholder for new field catalog w/ flag newFile
-    fceCtxAtom: PrimitiveAtom<Fce0Ctx | null>;      // field catalog editor ui atoms; created when field catalog file selected at top level
-    descriptor?: CatalogFile.Descriptor;
-    items: PrimitiveAtom<FceItem[]>;
-};
-
-export type Fce0Roots = Record<string, Fce0Atoms>;
-
-// FceCtx
-
-export type Fce0Ctx = { // Field Catalog Editor context
-    inData: Fce0DlgIn | null;
-    selectedItemAtom: PrimitiveAtom<FceItem | null>;
-    onItemDoubleClick?: (item: FceItem) => void;
-
-    nameAtom        /**/: PrimitiveAtom<string>;
-    typeAtom        /**/: PrimitiveAtom<string>;
-    valueAtom       /**/: PrimitiveAtom<string>;
-    ownernoteAtom   /**/: PrimitiveAtom<string>;
-
-    useItAtom       /**/: PrimitiveAtom<boolean>;   // not used but required for Column4_Value component
-    valueLifeAtom   /**/: PrimitiveAtom<ValueLife>;
-};
-
-// v1
 
 // FceAtoms
 
