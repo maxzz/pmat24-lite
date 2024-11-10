@@ -4,7 +4,8 @@ import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
 import { finalizeFileContent } from "@/store/store-utils";
-import { createFceCtx } from "./3-create-fce-ctx";
+import { createFceCtx } from "./4-create-fce-ctx";
+import { CatalogFile } from "pm-manifest";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -36,10 +37,10 @@ export function createEmptyFceFileUs(): FileUs {
     return rv;
 }
 
-export function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: string | undefined; items: FceItem[] | undefined; }): FceAtoms {
+export function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: CatalogFile.Descriptor | undefined; items: FceItem[] | undefined; }): FceAtoms {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
-        descAtom: atom<string>(desc || ''),
+        descAtom: atom<string>(desc?.id || ''),
         itemsAtom: atom<FceItem[]>(items || []),
     };
 

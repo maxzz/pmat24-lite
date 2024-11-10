@@ -12,6 +12,10 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
         //TODO: break other links
     }
 
+    if (fileUs.fceAtoms) {
+        (fileUs.fceAtoms.fileUs as any) = undefined;
+    }
+
     fileUs.fceAtomsRef = undefined;
 
     if (fileUs.fceAtoms) {
