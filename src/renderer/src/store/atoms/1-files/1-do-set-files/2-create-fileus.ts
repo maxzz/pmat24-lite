@@ -53,7 +53,7 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
     return rv;
 }
 
-export function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsStats {
+function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsStats {
     const loginForm = parsedSrc.mani?.forms[0];
     const loginFormDomain = parsedSrc.meta?.[0]?.disp.domain;
     const isLoginFormWeb = !!loginFormDomain;

@@ -17,7 +17,16 @@ export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
 
     // 1. Prepare items for the field catalog editor
 
-    const items: FceItem[] = fcat.names.map(
+    const items: FceItem[] = finalizeFceItems(fcat.names);
+
+    // 2. Finalize the field catalog editor root
+
+    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
+    return rv;
+}
+
+function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
+    const rv: FceItem[] = items.map(
         (item, idx) => {
             const now = uuid.asRelativeNumber();
             const rv: FceItem = {
@@ -30,18 +39,14 @@ export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
             return rv;
         }
     );
-
-    // 2. Finalize the field catalog editor root
-
-    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
     return rv;
 }
 
-export function addReactiveState(items: FceItem[]): FceItem[] {
-    return items.map(
-        (item) => ({ ...item, editor: createFceItemEditorState(), })
-    );
-}
+// export function addReactiveState(items: FceItem[]): FceItem[] {
+//     return items.map(
+//         (item) => ({ ...item, editor: createFceItemEditorState(), })
+//     );
+// }
 
 function createFceItemEditorState(): CatalogItemEdit['editor'] {
     return proxy<CatalogItemEdit['editor']>({

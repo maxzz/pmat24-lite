@@ -1,14 +1,14 @@
 import { atom } from "jotai";
 import { type FceItem } from "./9-types/1-types-fce-atoms";
-import { buildCatalogMetaFromNames } from "@/store/manifest";
-import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
-import { addReactiveState } from "./1-fc-file-atoms/2-create-fce-atoms";
+// import { buildCatalogMetaFromNames } from "@/store/manifest";
+// import { catalogTestNames } from "@/assets/tests/23-0414/test-field-catelog";
+// import { addReactiveState } from "./1-fc-file-atoms/2-create-fce-atoms";
 
 // All field catalog items
 
 export const fldCatItemsAtom = atom<FceItem[]>(
-    addReactiveState(buildCatalogMetaFromNames(catalogTestNames).items)
-    // []
+    //addReactiveState(buildCatalogMetaFromNames(catalogTestNames).items)
+    []
 );
 
 // Field catalog items split into text and password items
