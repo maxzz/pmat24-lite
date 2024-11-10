@@ -37,20 +37,17 @@ export function createEmptyFceFileUs(): FileUs {
 }
 
 export function createEmptyFceAtoms(fileUs: FileUs): FceAtoms {
-    const rv: FceAtoms = createEmptySemiFceAtoms(fileUs) as FceAtoms;
-    rv.viewFceCtx = createFceCtx({
-        fceAtoms: rv,
-        inData: undefined,
-        closeFldCatDialog: () => {},
-    });
-    return rv;
-}
-
-function createEmptySemiFceAtoms(fileUs: FileUs): Omit<FceAtoms, 'viewFceCtx'> {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(''),
         itemsAtom: atom<FceItem[]>([]),
     };
-    return rv;
+
+    (rv as FceAtoms).viewFceCtx = createFceCtx({
+        fceAtoms: rv as FceAtoms,
+        inData: undefined,
+        closeFldCatDialog: () => {},
+    })
+
+    return rv as FceAtoms;
 }
