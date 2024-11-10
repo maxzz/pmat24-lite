@@ -1,12 +1,13 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { type FileUs, type FileUsStats } from "@/store/store-types";
+import { type ParsedSrc, type FileUs, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
 import { CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./4-create-fce-ctx";
+import { createParsedSrcForEmptyFce } from "../../1-files/1-do-set-files/2-create-fileus";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -14,12 +15,7 @@ export function createEmptyFceFileUs(): FileUs {
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: {
-            mani: undefined,
-            meta: undefined,
-            fcat: { names: [] },
-            stats: { isFCat: true } as FileUsStats,
-        },
+        parsedSrc: createParsedSrcForEmptyFce(fileCnt),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
@@ -37,16 +33,16 @@ export function createEmptyFceFileUs(): FileUs {
     return rv;
 }
 
-export function createFromFileUsFceAtoms(fileUs: FileUs): FceAtoms {
+export function assignFceAtomsToFileUs(fileUs: FileUs) {
     const fcat = fileUs.parsedSrc.fcat;
     if (!fcat) {
         throw new Error('This is not a field catalog file');
     }
 
     const items: FceItem[] = finalizeFceItems(fcat.names);
-
     const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
-    return rv;
+
+    fileUs.fceAtoms = rv;
 }
 
 function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {

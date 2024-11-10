@@ -53,6 +53,17 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
     return rv;
 }
 
+export function createParsedSrcForEmptyFce(fileCnt: FileContent): ParsedSrc {
+    const rv: ParsedSrc = {
+        mani: undefined,
+        meta: undefined,
+        fcat: { names: [] }, // descriptor.id is optional and never used in the old PMAT
+        stats: {} as FileUsStats,
+    };
+    rv.stats = createFileUsStats(fileCnt, rv);
+    return rv;
+}
+
 function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsStats {
     const loginForm = parsedSrc.mani?.forms[0];
     const loginFormDomain = parsedSrc.meta?.[0]?.disp.domain;
@@ -66,8 +77,10 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
         isFCat: !!parsedSrc.fcat,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
         loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
+
         isSubFolder: isSubFolder,
         subFolder: fileCnt.fpath || '', // subFolder: hasSubFolders ? stripFirstFolder(fileCnt.fpath) : fileCnt.fpath || '',
+
         dateCreated: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.created),
         dateModified: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.modified),
     };

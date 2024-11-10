@@ -24,3 +24,6 @@ export function App(): JSX.Element {
 
 //TODO: use inputFocusClasses from one location
 //TODO: in files list: kbd up/down should simulate hover and by enter should select; selected item should be highlighted with a different color
+
+//TODO: from all filenames remove sourrounding curly braces (BTW: this is breaking File Explorer sorting order)
+//TODO: add feature to rename files with/without domain name prefix as PMIT does
