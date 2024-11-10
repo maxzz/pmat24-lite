@@ -1,26 +1,16 @@
 import { atom, type PrimitiveAtom } from "jotai";
-import { type Fce0DlgIn, type Fce0DlgOut } from "../9-types/3-types-dlg";
-import { type FceItem, type Fce0Atoms } from "../9-types/1-types-fce-atoms";
-import { fceRoots } from "../1-fc-file-atoms";
+import { type FceDlgIn, type FceDlgOut } from "../9-types/3-types-dlg";
+import { type FceItem, type FceAtoms, type FceCtx } from "../9-types/1-types-fce-atoms";
+import { createFceCtx, getRootFceAtoms } from "../1-fc-file-atoms";
 
-export const fldCatTriggerAtom = atom<Fce0DlgIn | null>(null);
+export const fldCatTriggerAtom = atom<FceCtx | null>(null);
 
 export const doOpenFldCatDialogAtom = atom(
     null,
-    (get, set, { fceRoot, inData }: { fceRoot: Fce0Atoms | undefined, inData?: Omit<Fce0DlgIn, 'fceAtoms'>; }) => {
-        const root = fceRoot || fceRoots.entries['root']; //TODO: get shortest path instead of 'root'
-        const data: Fce0DlgIn =
-            inData
-                ? {
-                    ...inData,
-                    fceAtoms: root,
-                }
-                : {
-                    fceAtoms: root,
-                    showTxt: true,
-                    showPsw: true,
-                };
-        set(fldCatTriggerAtom, data);
+    (get, set, { fceAtoms = getRootFceAtoms(), inData }: { fceAtoms?: FceAtoms; inData?: FceDlgIn; }) => {
+        const closeFldCatDialog = (outData: any) => { };
+        const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog });
+        set(fldCatTriggerAtom, fceCtx);
     }
 );
 
@@ -33,8 +23,8 @@ export const doCancelFldCatDialogAtom = atom(
 
 export const doCloseFldCatDialogAtom = atom(
     null,
-    (get, set, outData: Fce0DlgOut) => {
-        const inData = get(fldCatTriggerAtom);
+    (get, set, outData: FceDlgOut) => {
+        const inData = get(fldCatTriggerAtom)?.inData;
 
         const outBox = inData?.outBoxAtom;
         if (outBox) {
