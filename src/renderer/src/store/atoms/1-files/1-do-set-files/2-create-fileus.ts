@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
-import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent, fileUsStats } from "@/store";
+import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/atoms/3-file-mani-atoms';
-import { buildManiMetaForms, parseXMLFile } from '@/store/manifest';
+import { buildManiMetaForms, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
@@ -11,7 +11,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: createParsedData(fileCnt),
+        parsedSrc: createParsedSrc(fileCnt),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
@@ -28,7 +28,7 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     return rv;
 }
 
-function createParsedData(fileCnt: FileContent): ParsedSrc {
+function createParsedSrc(fileCnt: FileContent): ParsedSrc {
     const rv: ParsedSrc = {
         mani: undefined,
         meta: undefined,
@@ -48,7 +48,29 @@ function createParsedData(fileCnt: FileContent): ParsedSrc {
         console.error(msg);
     }
 
-    rv.stats = fileUsStats(fileCnt, rv);
+    rv.stats = createFileUsStats(fileCnt, rv);
+    
+    return rv;
+}
+
+export function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsStats {
+    const loginForm = parsedSrc.mani?.forms[0];
+    const loginFormDomain = parsedSrc.meta?.[0]?.disp.domain;
+    const isLoginFormWeb = !!loginFormDomain;
+    const isSubFolder = !!fileCnt.fpath && !fileCnt.fromMain; // fpath is empty for single items //const hasSubFolders = !!fileCnt.fpath?.match(/\//);
+
+    const rv: FileUsStats = {
+        loginFormDomain,
+        isLoginFormWeb,
+        isLoginFormChrome: isLoginFormWeb && !parsedSrc.meta?.[0]?.disp.isIe,
+        isFCat: !!parsedSrc.fcat,
+        isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
+        loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
+        isSubFolder: isSubFolder,
+        subFolder: fileCnt.fpath || '', // subFolder: hasSubFolders ? stripFirstFolder(fileCnt.fpath) : fileCnt.fpath || '',
+        dateCreated: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.created),
+        dateModified: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.modified),
+    };
     
     return rv;
 }
