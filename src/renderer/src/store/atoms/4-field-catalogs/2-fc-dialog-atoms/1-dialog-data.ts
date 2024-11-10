@@ -5,7 +5,7 @@ import { createFceCtx, getRootFceAtoms } from "../1-fc-file-atoms";
 
 export const fceDlgTriggerAtom = atom<FceCtx | null>(null);
 
-export const doOpenFldCatDialogAtom = atom(
+export const doOpenFceDlgAtom = atom(
     null,
     (get, set, { fceAtoms = getRootFceAtoms(), inData }: { fceAtoms?: FceAtoms; inData?: FceDlgIn; }) => {
         const closeFldCatDialog = (outData: any) => { };

@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceDlgOut, getMruFldCatForItemAtom, doOpenFldCatDialogAtom, creteOutBoxAtom } from "@/store";
+import { type FceDlgOut, getMruFldCatForItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { type CatalogItem } from "@/store/manifest";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
@@ -55,7 +55,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const useIt = useAtomValue(useItAtom);
 
-    const doOpenFldCatDialog = useSetAtom(doOpenFldCatDialogAtom);
+    const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
     const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
