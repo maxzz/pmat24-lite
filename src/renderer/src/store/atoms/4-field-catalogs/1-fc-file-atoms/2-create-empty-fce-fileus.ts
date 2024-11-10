@@ -31,16 +31,16 @@ export function createEmptyFceFileUs(): FileUs {
         fceAtoms: undefined,
     };
 
-    rv.fceAtoms = createEmptyFceAtoms({ fileUs: rv });
+    rv.fceAtoms = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });
 
     return rv;
 }
 
-export function createEmptyFceAtoms({ fileUs }: { fileUs: FileUs }): FceAtoms {
+export function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: string | undefined; items: FceItem[] | undefined; }): FceAtoms {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
-        descAtom: atom<string>(''),
-        itemsAtom: atom<FceItem[]>([]),
+        descAtom: atom<string>(desc || ''),
+        itemsAtom: atom<FceItem[]>(items || []),
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({
