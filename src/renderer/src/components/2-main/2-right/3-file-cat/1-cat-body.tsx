@@ -9,14 +9,14 @@ export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: Fil
     const fileUs = useAtomValue(fileUsAtom);
     const fceCtx = fileUs.fceAtoms?.viewFceCtx;
     if (!fceCtx) {
-        return <div className="">12345</div>;
+        return <div className="">No body</div>;
     }
     return (
-        <div className={classNames("h-full w-full flex", className)} {...rest}>
+        <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[1fr,auto]", className)} {...rest}>
 
-            <FldCatItemsGrid className="max-w-lg" fceCtx={fceCtx} />
+            <FldCatItemsGrid className="" fceCtx={fceCtx} />
 
-            <div className="p-2 min-w-48 border-border border-l">
+            <div className="m-2 ml-4 p-2 border-border border rounded-md">
                 <SelectedItemBody fceCtx={fceCtx} />
             </div>
         </div>
