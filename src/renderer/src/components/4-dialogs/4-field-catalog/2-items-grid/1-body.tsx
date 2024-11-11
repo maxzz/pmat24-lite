@@ -1,6 +1,6 @@
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type FceCtx, fldCatItemsAtom } from "@/store";
+import { type FceCtx } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {

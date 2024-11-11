@@ -22,10 +22,10 @@ rounded \
 transition-colors \
 ";
 
-export function FldCatItemRow({ item, idx, ...rest }: FldCatItemProps) {
+export function FldCatItemRow({ item, idx, className, ...rest }: FldCatItemProps) {
     const { selected } = useSnapshot(item.editor);
     return (
-        <div className={classNames(rowClasses, selected && rowSelectedClasses)} {...rest}>
+        <div className={classNames(rowClasses, selected && rowSelectedClasses, className)} {...rest}>
 
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
                 {idx + 1}

@@ -5,27 +5,22 @@ import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
 
-type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
-    fceCtx: FceCtx;
-};
-
-export function FldCatItemsGrid({ fceCtx, ...rest }: FldCatItemsGridProps) {
+export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
     const refRoot = useRef<HTMLDivElement | null>(null);
     const { ref: refRootCb, width, height } = useResizeObserver();
 
     return (
-        <div className="flex-shrink-0 relative w-full" {...rest}>
-            <div
-                ref={(elm) => { refRootCb(elm); refRoot.current = elm; }}
-                className={`absolute inset-0 flex flex-col`}
-            >
+        <div className={classNames("relative w-full", className)} {...rest}>
+            <div className={`absolute inset-0 flex flex-col`} ref={(elm) => { refRootCb(elm); refRoot.current = elm; }}>
                 <ScrollArea style={{ width, height }}>
+
                     <FldCatItemsBody
                         className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none 1focus-within:ring ring-ring")}
                         tabIndex={0}
                         fceCtx={fceCtx}
                     />
+
                 </ScrollArea>
             </div>
         </div>

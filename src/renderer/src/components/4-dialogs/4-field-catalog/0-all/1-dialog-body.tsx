@@ -16,7 +16,7 @@ export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
 
                 <div className="h-full border-border border rounded flex">
-                    <FldCatItemsGrid fceCtx={fceCtx} />
+                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
                     <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
                 </div>
 
@@ -32,22 +32,22 @@ export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-export function BodyWoButtons({ fceCtx }: { fceCtx: FceCtx; }) {
-    return (
-        <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
-            <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
+// export function BodyWoButtons({ fceCtx }: { fceCtx: FceCtx; }) {
+//     return (
+//         <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
+//             <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
 
-            <div className="h-full border-border border rounded flex">
-                <FldCatItemsGrid fceCtx={fceCtx} />
-                <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
-            </div>
+//             <div className="h-full border-border border rounded flex">
+//                 <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
+//                 <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
+//             </div>
 
-            <div className="pl-3 font-thin">
-                <TotalItems fceCtx={fceCtx} />
-            </div>
-        </div>
-    );
-}
+//             <div className="pl-3 font-thin">
+//                 <TotalItems fceCtx={fceCtx} />
+//             </div>
+//         </div>
+//     );
+// }
 
 function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
