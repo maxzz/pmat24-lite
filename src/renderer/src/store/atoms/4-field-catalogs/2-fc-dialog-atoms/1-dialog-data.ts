@@ -7,7 +7,7 @@ export const fceDlgTriggerAtom = atom<FceCtx | null>(null);
 
 export const doOpenFceDlgAtom = atom(
     null,
-    (get, set, { fceAtoms = getRootFceAtoms(), inData }: { fceAtoms?: FceAtoms; inData?: FceDlgIn; }) => {
+    (get, set, { fceAtoms = getRootFceAtoms(), inData }: { fceAtoms?: FceAtoms; inData?: FceDlgIn; }) => { //TODO: not good to use getRootFceAtoms() here it will throw error if fceAtoms is not provided
         const closeFldCatDialog = (outData: any) => { };
         const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog });
         set(fceDlgTriggerAtom, fceCtx);

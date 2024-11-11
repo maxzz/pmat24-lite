@@ -1,5 +1,5 @@
-import { PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { doCancelFceDlgAtom, doCloseFceDlgAtom, type FceCtx, type FceItem } from "@/store";
+import { useAtomValue, useSetAtom } from "jotai";
+import { doCancelFceDlgAtom, type FceCtx } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -8,17 +8,6 @@ import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
 export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
-
-    const closeFldCatDialog = useSetAtom(doCloseFceDlgAtom);
-    // fceCtx.closeFldCatDialog = closeFldCatDialog;
-    
-    // const fceCtx = useState<FceCtx>(() => createFceCtx(inData, closeFldCatDialog))[0];
-    // if (!fceCtx.inData?.fceAtoms) {
-    //     return <div className="grid place-items-center">There is no Field Catalog</div>;
-    // }
-    
-    const itemsAtom = fceCtx.fceAtoms.itemsAtom;
-
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -32,7 +21,7 @@ export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 </div>
 
                 <div className="pl-3 font-thin">
-                    <TotalItems itemsAtom={itemsAtom} />
+                    <TotalItems fceCtx={fceCtx} />
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">
@@ -66,8 +55,8 @@ function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-function TotalItems({ itemsAtom }: { itemsAtom: PrimitiveAtom<FceItem[]>; }) {
-    const totalItems = useAtomValue(itemsAtom).length;
+function TotalItems({ fceCtx }: { fceCtx: FceCtx; }) {
+    const totalItems = useAtomValue(fceCtx.fceAtoms.itemsAtom).length;
     return (<>
         {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
     </>);
