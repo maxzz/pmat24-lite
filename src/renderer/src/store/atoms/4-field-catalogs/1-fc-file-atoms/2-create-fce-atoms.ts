@@ -6,9 +6,10 @@ import { type ManiAtoms } from "../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, type OnChangeFcePropValue, defaultFcName } from "../9-types";
 import { type CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
-import { createFceCtx } from "./4-create-fce-ctx";
+import { createFceCtx } from "./3-create-fce-ctx";
 import { createParsedSrcForEmptyFce } from "../../1-files/1-do-set-files/2-create-fileus";
 import { rootDir } from "../../1-files/2-do-web-deliver/3-root-dir";
+import { doFcePropChangesAtom } from "./4-prop-changes-atom";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -70,6 +71,9 @@ function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: Catalog
 
     const onChangeFcePropValue: OnChangeFcePropValue = (...params) => {
         console.log('onChangeFcePropValue view', params);
+        
+        const { fceCtx, name,  nextValue, set } = params[0];
+        set(doFcePropChangesAtom, { fceCtx, name, nextValue });
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({

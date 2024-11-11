@@ -54,5 +54,5 @@ export type FceCtx = {                              // Field Catalog Editor cont
 
 // Callback
 
-export type OnChangeFcePropParams = Prettify<{ name: string; fceAtoms: FceAtoms; } & OnValueChangeParams<string | ValueLife>>;
+export type OnChangeFcePropParams = Prettify<{ name: string; fceCtx: FceCtx; } & OnValueChangeParams<string | ValueLife>>;
 export type OnChangeFcePropValue = (props: OnChangeFcePropParams) => void;

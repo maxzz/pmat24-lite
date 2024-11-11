@@ -39,7 +39,8 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog, onChangeFceP
 
     const onValueChange = (name: string) => {
         return ({ get, set, nextValue }) => {
-            onChangeFcePropValue({ fceAtoms, name, get, set, nextValue });
+            onChangeFcePropValue({ fceCtx: rv, name, get, set, nextValue });
+            //TODO: discard back link rv?
         };
     };
 
