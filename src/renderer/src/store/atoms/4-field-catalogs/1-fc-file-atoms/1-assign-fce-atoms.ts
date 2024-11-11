@@ -38,7 +38,7 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
     fileUsItems.forEach(
         (fileUs) => {
-            const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}/([a-c])$`));
+            const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}(?:[/\\][a-c])*$`));
             if (goodForFc) {
                 fileUs.fceAtomsRef = rootFc.fceAtoms;
             }
@@ -47,3 +47,12 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
     setRootFcFileUs(rootFc);
 }
+
+//search for: Comment55
+//TODO: add new empty field catalog file to the files list
+export function assignEmptyRootFc() {
+    const rootFc = createEmptyFceFileUs();
+    setRootFcFileUs(rootFc);
+}
+
+assignEmptyRootFc();
