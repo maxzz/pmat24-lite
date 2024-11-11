@@ -3,7 +3,7 @@ import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
+import { type FceItem, type FceAtoms, type OnChangeFcePropValue, defaultFcName } from "../9-types";
 import { type CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./4-create-fce-ctx";
@@ -68,10 +68,15 @@ function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: Catalog
         itemsAtom: atom<FceItem[]>(items || []),
     };
 
+    const onChangeFcePropValue: OnChangeFcePropValue = (...params) => {
+        console.log('onChangeFcePropValue view', params);
+    };
+
     (rv as FceAtoms).viewFceCtx = createFceCtx({
         fceAtoms: rv as FceAtoms,
         inData: undefined,
         closeFldCatDialog: () => { },
+        onChangeFcePropValue,
     });
 
     return rv as FceAtoms;

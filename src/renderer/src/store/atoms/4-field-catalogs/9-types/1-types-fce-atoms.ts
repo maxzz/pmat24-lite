@@ -1,8 +1,8 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type ValueLife, type CatalogItem } from "@/store/manifest";
-import { type FileContent } from "@shared/ipc-types";
 import { type FceDlgIn } from "./3-types-dlg";
+import { type OnValueChangeParams } from "@/util-hooks";
 
 // import { type PrimitiveAtom } from "jotai";
 
@@ -49,4 +49,10 @@ export type FceCtx = {                              // Field Catalog Editor cont
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
+    onChangeFcePropValue: OnChangeFcePropValue;
 };
+
+// Callback
+
+export type OnChangeFcePropParams = Prettify<{ name: string; fceAtoms: FceAtoms; } & OnValueChangeParams<string | ValueLife>>;
+export type OnChangeFcePropValue = (props: OnChangeFcePropParams) => void;
