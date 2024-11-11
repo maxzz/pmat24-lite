@@ -8,7 +8,8 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
-    const fldCatItems = useAtomValue(fldCatItemsAtom);
+    const fldCatItems = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
 
     const selectedIdxAtom = useState(() => atom(-1))[0];
