@@ -10,6 +10,6 @@ export function getRootFceAtoms(): FceAtoms {
     return rootFcFileUs.fceAtoms;
 }
 
-export function setRootFcFileUs(rootFcFileUs: FileUs) {
-    rootFcFileUs = rootFcFileUs;
+export function setRootFcFileUs(fileUs: FileUs | undefined) {
+    rootFcFileUs = fileUs;
 }
