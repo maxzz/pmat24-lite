@@ -9,19 +9,22 @@ export function TestOpenFieldCatalog() {
 
     const outDataAtom = useState(() => atom<FceDlgOut | null>(null))[0];
 
-    if (!hasRootFceAtoms()) {
-        toast.error('Field Catalog is not available');
-        return null;
-    }
-
     const inData: FceDlgIn = {
         showTxt: true,
         showPsw: true,
         outBoxAtom: outDataAtom,
     };
 
+    function onClick() {
+        if (!hasRootFceAtoms()) {
+            toast.error('Field Catalog is not available');
+        } else {
+            doOpenFieldCatalogDialog({ inData });
+        }
+    }
+
     return (
-        <Button className="text-[.65rem]" onClick={() => doOpenFieldCatalogDialog({ inData })}>
+        <Button className="text-[.65rem]" onClick={onClick}>
             Field Catalog...
         </Button>
     );

@@ -27,3 +27,5 @@ export function App(): JSX.Element {
 
 //TODO: from all filenames remove sourrounding curly braces (BTW: this is breaking File Explorer sorting order)
 //TODO: add feature to rename files with/without domain name prefix as PMIT does
+
+//TODO: we need global toast ID to clean previous toast. This happens when we show toast and drop files but toast is still visible. see TestOpenFieldCatalog
