@@ -1,7 +1,7 @@
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../1-files";
-import { assignFceAtomsToFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
 import { setRootFcFileUs } from "./0-root-fce-atoms";
+import { assignFceAtomsToFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
 import { defaultFcName } from "../9-types";
 
 export function assignFceAtoms(fileUsItems: FileUs[]): void {
@@ -47,12 +47,3 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
 
     setRootFcFileUs(rootFc);
 }
-
-//search for: Comment55
-//TODO: add new empty field catalog file to the files list
-export function assignEmptyRootFc() {
-    const rootFc = createEmptyFceFileUs();
-    setRootFcFileUs(rootFc);
-}
-
-assignEmptyRootFc();

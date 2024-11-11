@@ -5,7 +5,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
-import { assignFceAtoms, getRootFceAtoms, setRootFcFileUs } from "../../4-field-catalogs";
+import { assignFceAtoms, setRootFcFileUs } from "../../4-field-catalogs";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
@@ -50,20 +50,7 @@ export const doSetDeliveredFilesAtom = atom(
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
         set(rightPanelAtom, null);
-
-        /**/
-        //search for: Comment55
-        //TODO: if FC is not in the fileUsItems then memory leak will occur
-        // This is happening because we create empty field catalog file at the app start
-
-        // const rootFcFileUs = getRootFceAtoms()?.fileUs;
-        // if (rootFcFileUs) {
-        //     rootFcFileUs.fceAtoms = undefined;
-        //     rootFcFileUs.fceAtomsRef = undefined;
-        // }
         setRootFcFileUs(undefined);
-        /**/
-
         set(doDiscardAllFilesFileUsLinksAtom);
 
         totalManis.normal = 0;
