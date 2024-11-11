@@ -32,23 +32,6 @@ export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-// export function BodyWoButtons({ fceCtx }: { fceCtx: FceCtx; }) {
-//     return (
-//         <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
-//             <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} />
-
-//             <div className="h-full border-border border rounded flex">
-//                 <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
-//                 <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
-//             </div>
-
-//             <div className="pl-3 font-thin">
-//                 <TotalItems fceCtx={fceCtx} />
-//             </div>
-//         </div>
-//     );
-// }
-
 function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
     const fname = fceCtx.fceAtoms?.fileUs.fileCnt?.fpath; //TODO: if hasMain() then show path relative to main fc file, or none if main fc file

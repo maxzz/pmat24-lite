@@ -11,6 +11,8 @@ type RightPanelGuardProps = {
 
 const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
 
+const panelClasses = "min-w-40 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden";
+
 export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
     const showProps = useAtomValue(showPropsAtom);
     return (<>
@@ -25,7 +27,7 @@ export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
                         transition={transition}
                         key="right-panel"
 
-                        className={classNames("min-w-40 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden", className)}
+                        className={classNames(panelClasses, className)}
                     >
                         <SelectedItemBody fceCtx={fceCtx} />
                     </motion.div>
