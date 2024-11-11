@@ -7,13 +7,15 @@ import { rightPanelAtom } from '@/store';
 import { FcViewBody } from './1-cat-body';
 
 export function Body_Cat({ className, ...rest }: {} & HTMLAttributes<HTMLDivElement>) {
-    const { ref, width, height } = useResizeObserver();
+    // const { ref, width, height } = useResizeObserver();
     return (<>
-        <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
-            <ScrollArea style={{ width, height }} horizontal>
-                <BodyGuard />
-            </ScrollArea>
-        </div>
+        {/* <div ref={ref} className={classNames("relative h-full w-full", className)} {...rest}>
+            <div className="aaa absolute inset-0">
+                <ScrollArea style={{ width, height }} horizontal fixedWidth> */}
+                    <BodyGuard />
+                {/* </ScrollArea>
+            </div>
+        </div> */}
     </>);
 }
 
