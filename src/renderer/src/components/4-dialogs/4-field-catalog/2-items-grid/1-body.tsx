@@ -19,9 +19,17 @@ export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
     useEffect(
         () => {
             if (selectedIdx !== -1) {
+                if (fldCatItems[prevSelectedIdx.current]) {
+                    fldCatItems[prevSelectedIdx.current].editor.selected = false;
+                }
+    
                 prevSelectedIdx.current = selectedIdx;
             }
             setSelectedItem(selectedIdx === -1 ? null : fldCatItems[selectedIdx]);
+
+            if (fldCatItems[selectedIdx]) {
+                fldCatItems[selectedIdx].editor.selected = true;
+            }
         }, [selectedIdx]
     );
 

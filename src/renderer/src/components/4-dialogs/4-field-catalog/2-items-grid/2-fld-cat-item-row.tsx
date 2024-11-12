@@ -10,6 +10,7 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const rowClasses = "\
+mr-3 \
 px-2 py-1 \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
@@ -17,6 +18,7 @@ col-span-full grid grid-cols-subgrid items-center \
 ";
 
 const rowSelectedClasses = "\
+bg-red-500 \
 hover:text-foreground \
 rounded \
 transition-colors \

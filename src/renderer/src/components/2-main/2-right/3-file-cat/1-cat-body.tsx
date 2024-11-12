@@ -16,7 +16,7 @@ export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: Fil
 
             <FldCatItemsGrid className="" fceCtx={fceCtx} />
 
-            <div className="m-2 ml-4 p-2 border-border border rounded-md">
+            <div className="mx-3 my-2 p-2 border-border border rounded-md">
                 <SelectedItemBody fceCtx={fceCtx} />
             </div>
         </div>
