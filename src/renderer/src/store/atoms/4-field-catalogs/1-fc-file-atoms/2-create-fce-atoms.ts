@@ -3,13 +3,12 @@ import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms, type OnChangeFcePropValue, defaultFcName } from "../9-types";
+import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
 import { type CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { createParsedSrcForEmptyFce } from "../../1-files/1-do-set-files/2-create-fileus";
 import { rootDir } from "../../1-files/2-do-web-deliver/3-root-dir";
-import { doFcePropChangesAtom } from "./4-prop-changes-atom";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -69,15 +68,10 @@ function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: Catalog
         itemsAtom: atom<FceItem[]>(items || []),
     };
 
-    const onChangeFcePropValue: OnChangeFcePropValue = ({ fceCtx, name, nextValue, set }) => {
-        set(doFcePropChangesAtom, { fceCtx, name, nextValue });
-    };
-
     (rv as FceAtoms).viewFceCtx = createFceCtx({
         fceAtoms: rv as FceAtoms,
         inData: undefined,
         closeFldCatDialog: () => { },
-        onChangeFcePropValue,
     });
 
     return rv as FceAtoms;

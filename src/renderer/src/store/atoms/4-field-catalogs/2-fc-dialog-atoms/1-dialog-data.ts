@@ -1,8 +1,7 @@
 import { atom, type PrimitiveAtom } from "jotai";
 import { type FceDlgIn, type FceDlgOut } from "../9-types/3-types-dlg";
-import { type FceItem, type FceAtoms, type FceCtx, type OnChangeFcePropValue } from "../9-types/1-types-fce-atoms";
+import { type FceItem, type FceAtoms, type FceCtx } from "../9-types/1-types-fce-atoms";
 import { createFceCtx, getRootFceAtoms } from "../1-fc-file-atoms";
-import { doFcePropChangesAtom } from "../1-fc-file-atoms/4-prop-changes-atom";
 
 export const fceDlgTriggerAtom = atom<FceCtx | null>(null);
 
@@ -12,11 +11,7 @@ export const doOpenFceDlgAtom = atom(
 
         const closeFldCatDialog = () => { };
 
-        const onChangeFcePropValue: OnChangeFcePropValue = ({ fceCtx, name, nextValue, set }) => {
-            set(doFcePropChangesAtom, { fceCtx, name, nextValue });
-        };
-
-        const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog, onChangeFcePropValue });
+        const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog });
         set(fceDlgTriggerAtom, fceCtx);
     }
 );

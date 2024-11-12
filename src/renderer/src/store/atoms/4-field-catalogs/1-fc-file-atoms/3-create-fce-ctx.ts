@@ -1,10 +1,9 @@
 import { atom } from "jotai";
-import { atomWithCallback, OnValueChange, type OnValueChangeParams } from "@/util-hooks";
+import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropValue } from "../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { ValueAs, type ValueLife } from "@/store/manifest";
-
-//export type OnChangeValueWithUpdateName<T> = (updateName: string) => OnValueChange<T>;
+import { doFcePropChangesAtom } from "./4-prop-changes-atom";
 
 export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
 
@@ -31,11 +30,14 @@ type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
     inData: FceDlgIn | undefined;
     closeFldCatDialog: (outData: any) => void;
-    onChangeFcePropValue: OnChangeFcePropValue;
 };
 
-export function createFceCtx({ fceAtoms, inData, closeFldCatDialog, onChangeFcePropValue }: CreateFceCtxProps): FceCtx {
+export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceCtxProps): FceCtx {
     const showSelectBtn = inData?.outBoxAtom;
+
+    const onChangeFcePropValue: OnChangeFcePropValue = ({ fceCtx, name, nextValue, set }) => {
+        set(doFcePropChangesAtom, { fceCtx, name, nextValue });
+    };
 
     const onValueChange = (name: string) => {
         return ({ get, set, nextValue }) => {
