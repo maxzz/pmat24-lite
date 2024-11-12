@@ -3,7 +3,7 @@ import { type FceItem } from "./9-types/1-types-fce-atoms";
 
 // All field catalog items
 
-export const fldCatItemsAtom = atom<FceItem[]>([]);
+const fldCatItemsAtom = atom<FceItem[]>([]); // Should not be used anymore
 
 // Field catalog items split into text and password items
 
