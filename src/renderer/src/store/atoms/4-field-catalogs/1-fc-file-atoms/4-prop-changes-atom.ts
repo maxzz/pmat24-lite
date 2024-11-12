@@ -5,7 +5,11 @@ import { type ValueLife } from "@/store/manifest";
 export const doFcePropChangesAtom = atom(
     null,
     (get, set, { fceCtx, name, nextValue }: { fceCtx: FceCtx; name: string; nextValue: string | ValueLife; }) => {
+        
+        //TODO: item's name should be valtio reactive
+
         console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
+
         // const { fcePropAtoms } = fceCtx;
         // switch (name) {
         //     case 'nameAtom':

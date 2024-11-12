@@ -9,16 +9,13 @@ export const fceDlgTriggerAtom = atom<FceCtx | null>(null);
 export const doOpenFceDlgAtom = atom(
     null,
     (get, set, { fceAtoms = getRootFceAtoms(), inData }: { fceAtoms?: FceAtoms; inData?: FceDlgIn; }) => { //TODO: not good to use getRootFceAtoms() here it will throw error if fceAtoms is not provided
-        
-        const closeFldCatDialog = (outData: any) => { };
-        
-        const onChangeFcePropValue: OnChangeFcePropValue = (...params) => {
-            console.log('onChangeFcePropValue dlg', params);
-        
-            const { fceCtx, name,  nextValue, set } = params[0];
+
+        const closeFldCatDialog = () => { };
+
+        const onChangeFcePropValue: OnChangeFcePropValue = ({ fceCtx, name, nextValue, set }) => {
             set(doFcePropChangesAtom, { fceCtx, name, nextValue });
         };
-    
+
         const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog, onChangeFcePropValue });
         set(fceDlgTriggerAtom, fceCtx);
     }

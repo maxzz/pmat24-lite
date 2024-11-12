@@ -69,10 +69,7 @@ function createFceAtoms({ fileUs, desc, items }: { fileUs: FileUs; desc: Catalog
         itemsAtom: atom<FceItem[]>(items || []),
     };
 
-    const onChangeFcePropValue: OnChangeFcePropValue = (...params) => {
-        console.log('onChangeFcePropValue view', params);
-        
-        const { fceCtx, name,  nextValue, set } = params[0];
+    const onChangeFcePropValue: OnChangeFcePropValue = ({ fceCtx, name, nextValue, set }) => {
         set(doFcePropChangesAtom, { fceCtx, name, nextValue });
     };
 

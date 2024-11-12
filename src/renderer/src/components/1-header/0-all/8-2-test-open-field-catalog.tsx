@@ -17,7 +17,7 @@ export function TestOpenFieldCatalog() {
 
     function onClick() {
         if (!hasRootFceAtoms()) {
-            toast.error('Field Catalog is not available');
+            toast.warning(<div className="text-zinc-700">The field catalog is not available until the folder is opened. Open the folder first.</div>);
         } else {
             doOpenFieldCatalogDialog({ inData });
         }
