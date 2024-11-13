@@ -1,0 +1,33 @@
+@layer base {
+    :root {
+        --mani-title: #429062;
+        /* #0ea94d */
+        --mani-foreground: theme(colors.slate.800);
+        --mani-background: theme(colors.slate.50);
+        --mani-muted-background: theme(colors.slate.200);
+        --mani-muted-foreground: theme(colors.slate.500);
+
+        --mani-border: theme(colors.slate.200);
+        --mani-border-muted: theme(colors.slate.300);
+        --mani-border-separator: theme(colors.slate.300);
+
+        --mani-ring: theme(colors.slate.200);
+        --mani-ring-activated: theme(colors.slate.600);
+    }
+
+    .dark {
+        --mani-title: #45a194;
+        /* #32ffdaa0*/
+        --mani-foreground: theme(colors.slate.200);
+        --mani-background: theme(colors.slate.800);
+        --mani-muted-background: theme(colors.slate.700);
+        --mani-muted-foreground: theme(colors.slate.500);
+
+        --mani-border: theme(colors.slate.600);
+        --mani-border-muted: transparent;
+        --mani-border-separator: theme(colors.slate.900);
+
+        --mani-ring: theme(colors.slate.600);
+        --mani-ring-activated: theme(colors.slate.400);
+    }
+}
