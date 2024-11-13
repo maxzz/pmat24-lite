@@ -1,3 +1,6 @@
+@include "./fonts.css";
+/* @import "./fonts.css"; */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,8 +39,11 @@
     }
 }
 
+/* @include "./fonts.css"; */
+/* @import "./fonts.css"; */
 /* Fonts */
-@layer base {
+
+/* @layer base {
     html {
         font-family: "Source Sans Pro", system-ui, sans-serif;
     }
@@ -55,7 +61,7 @@
     font-style: normal;
     font-weight: 400;
     src: local(""), url("@/assets/fonts/source-sans-pro-v21-latin-regular.woff2") format("woff2");
-}
+} */
 
 /* Checkboxes */
 
