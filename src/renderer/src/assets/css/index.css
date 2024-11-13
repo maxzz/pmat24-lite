@@ -1,5 +1,5 @@
-@include "./fonts.css";
-/* @import "./fonts.css"; */
+/* @include "./fonts.css"; */
+@import "./fonts.css";
 
 @tailwind base;
 @tailwind components;
@@ -41,6 +41,7 @@
 
 /* @include "./fonts.css"; */
 /* @import "./fonts.css"; */
+
 /* Fonts */
 
 /* @layer base {
