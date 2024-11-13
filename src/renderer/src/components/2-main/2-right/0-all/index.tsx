@@ -43,7 +43,7 @@ export function PanelB() { // PanelB is the right panel for the file content
                 <div className={panel3Classes}>
                     <R_PanelHeader />
 
-                    <div className="relative w-full h-full" tabIndex={0}>
+                    <div className="relative w-full h-full"> {/* tabIndex={0} should be set on element inside container */}
                         <div className="absolute inset-px bottom-0.5 text-xs">
                             {/* <LongPanel className="w-full h-20 overflow-auto" /> */}
                             <ContentForSelected />
