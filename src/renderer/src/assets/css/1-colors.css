@@ -13,6 +13,11 @@
 
         --mani-ring: theme(colors.slate.200);
         --mani-ring-activated: theme(colors.slate.600);
+
+        --list-select-focus: theme(colors.slate.200);
+        --list-select-hover: theme(colors.slate.100);
+        --list-select-selected-active: theme(colors.slate.300);
+        --list-select-selected-inactive: theme(colors.slate.200);
     }
 
     .dark {
@@ -29,5 +34,10 @@
 
         --mani-ring: theme(colors.slate.600);
         --mani-ring-activated: theme(colors.slate.400);
+
+        --list-select-focus: theme(colors.slate.600);
+        --list-select-hover: theme(colors.slate.700);
+        --list-select-selected-active: theme(colors.slate.500);
+        --list-select-selected-inactive: theme(colors.slate.700);
     }
 }

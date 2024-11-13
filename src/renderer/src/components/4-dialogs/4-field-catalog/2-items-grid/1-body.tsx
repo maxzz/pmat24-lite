@@ -2,12 +2,15 @@ import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
+import { classNames } from "@/utils";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
 };
 
-export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
+const parentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
+
+export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const fldCatItems = useAtomValue(fceCtx.fceAtoms.itemsAtom);
 
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
@@ -22,7 +25,7 @@ export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
                 if (fldCatItems[prevSelectedIdx.current]) {
                     fldCatItems[prevSelectedIdx.current].editor.selected = false;
                 }
-    
+
                 prevSelectedIdx.current = selectedIdx;
             }
             setSelectedItem(selectedIdx === -1 ? null : fldCatItems[selectedIdx]);
@@ -43,7 +46,7 @@ export function FldCatItemsBody({ fceCtx, ...rest }: FldCatItemsGridProps) {
     }
 
     return (
-        <div {...rest}>
+        <div className={classNames(parentActiveClasses, className)} {...rest}>
             {fldCatItems.map(
                 (item, idx) => (
                     <FldCatItemRow

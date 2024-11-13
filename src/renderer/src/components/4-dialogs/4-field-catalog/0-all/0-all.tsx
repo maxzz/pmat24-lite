@@ -3,7 +3,15 @@ import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogFieldCatalogBody } from "./1-dialog-body";
 
-const contentClasses = "p-0 !w-80 min-w-fit max-w-xl min-h-[60vh] h-[70vh] max-h-[90vh] text-xs gap-0 select-none data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel hieght until it will be floated w/ absolute position
+const contentClasses = "\
+p-0 \
+!w-80 min-w-fit max-w-xl \
+h-[70vh] min-h-[60vh] max-h-[90vh] \
+text-xs \
+gap-0 \
+select-none \
+data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
+
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FieldCatalogDialog() {

@@ -24,11 +24,28 @@ rounded \
 transition-colors \
 ";
 
+export const leafSelectedClasses = "\
+text-accent-foreground \
+\
+before:data-[tree-item-selected]:1border \
+\
+before:bg-accent \
+before:opacity-100 \
+before:border-l-2 \
+before:border-l-accent-foreground/50 \
+\
+outline-primary-400 \
+[outline-width:calc(var(--parent-active)_*_1px)] \
+outline rounded-[3px] \
+";
+
 export function FldCatItemRow({ item, idx, className, ...rest }: FldCatItemProps) {
     const { selected } = useSnapshot(item.editor);
     return (
-        <div className={classNames(rowClasses, selected && rowSelectedClasses, className)} {...rest}>
-
+        <div
+            className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
+            {...rest}
+        >
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
                 {idx + 1}
             </div>
