@@ -4,6 +4,7 @@ import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAt
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { ValueAs, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./4-prop-changes-atom";
+import { a } from "@react-spring/web";
 
 export function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
 
@@ -48,6 +49,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     const rv: FceCtx = {
         inData,
         fceAtoms,
+        selectedIdxStoreAtom: atom(-1),
         selectedItemAtom: atom<FceItem | null>(null),
         fcePropAtoms: createFcePropAtoms(onValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,

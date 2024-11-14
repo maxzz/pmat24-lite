@@ -1,29 +1,31 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { MFormCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type FceCtx } from "@/store";
 
-export const doSetSelectItemValueAtom = atom(
+export const doSelectFceItemAtom = atom(
     null,
-    (get, set, ctx: MFormCtx, idx: number, value: boolean | ((v: boolean) => boolean)) => {
+    (get, set, ctx: FceCtx, idx: number, value: boolean | ((v: boolean) => boolean)) => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
             deselectCurrent(ctx, get, set);
         }
 
-        const chunks = get(ctx.chunksAtom);
+        const chunks = get(ctx.fceAtoms.itemsAtom);
 
-        const currentAtom = chunks[idx]?.selectedAtom;
-        if (currentAtom) {
-            value = typeof value === "function" ? value(get(currentAtom)) : value;
-            set(currentAtom, value);
-            set(ctx.selectedIdxStoreAtom, value ? idx : -1);
+        const current = chunks[idx];
+        if (current) {
+            current.editor.selected = typeof value === "function" ? value(current.editor.selected) : value;
+            set(ctx.selectedIdxStoreAtom, current.editor.selected ? idx : -1);
         }
     }
 );
 
-export function deselectCurrent(ctx: MFormCtx, get: Getter, set: Setter) {
+function deselectCurrent(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.chunksAtom);
+    const chunks = get(ctx.fceAtoms.itemsAtom);
 
-    const current = chunks[currentIdx]?.selectedAtom;
-    current && set(current, false);
+    const current = chunks[currentIdx];
+    if (current) {
+        current.editor.selected = false;
+        set(ctx.selectedIdxStoreAtom, -1);
+    }
 }

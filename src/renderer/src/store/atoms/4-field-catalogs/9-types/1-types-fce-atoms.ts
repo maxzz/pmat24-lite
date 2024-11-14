@@ -46,6 +46,7 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 export type FceCtx = {                              // Field Catalog Editor context
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
+    selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;

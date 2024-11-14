@@ -10,11 +10,15 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const rowClasses = "\
-mr-3 \
-px-2 py-1 \
-text-foreground bg-background \
-hover:text-accent-foreground hover:bg-muted \
+mr-3 px-2 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
+\
+text-foreground 1bg-background \
+bg-list-select-focus \
+1data-[list-item=selected]:bg-list-select-selected-active \
+data-[list-item=selected]:bg-sky-500 \
+\
+hover:text-accent-foreground hover:bg-muted \
 ";
 
 const rowSelectedClasses = "\
@@ -43,7 +47,10 @@ export function FldCatItemRow({ item, idx, className, ...rest }: FldCatItemProps
     const { selected } = useSnapshot(item.editor);
     return (
         <div
-            className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
+            data-list-item={selected ? 'selected' : ''}
+            // {...(selected && { 'data-tree-item-selected': '' })}
+            // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
+            className={classNames(rowClasses, className)}
             {...rest}
         >
             <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
@@ -65,3 +72,33 @@ function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className
     const Icon = fieldIcons[type]?.({ className, title: `Field type: ${type}`, });
     return Icon ? Icon : <div className="text-red-500">NaN</div>;
 }
+
+// const rowClasses = "\
+// mr-3 \
+// px-2 py-1 \
+// text-foreground bg-background \
+// hover:text-accent-foreground hover:bg-muted \
+// col-span-full grid grid-cols-subgrid items-center \
+// ";
+
+// const rowSelectedClasses = "\
+// bg-red-500 \
+// hover:text-foreground \
+// rounded \
+// transition-colors \
+// ";
+
+// export const leafSelectedClasses = "\
+// text-accent-foreground \
+// \
+// before:data-[tree-item-selected]:1border \
+// \
+// before:bg-accent \
+// before:opacity-100 \
+// before:border-l-2 \
+// before:border-l-accent-foreground/50 \
+// \
+// outline-primary-400 \
+// [outline-width:calc(var(--parent-active)_*_1px)] \
+// outline rounded-[3px] \
+// ";
