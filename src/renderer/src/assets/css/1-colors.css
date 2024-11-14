@@ -18,6 +18,11 @@
         --list-select-hover: theme(colors.slate.100);
         --list-select-selected-active: theme(colors.slate.300);
         --list-select-selected-inactive: theme(colors.slate.200);
+
+        --list-select-bg-focus: theme(colors.slate.200);
+        --list-select-bg-hover: theme(colors.slate.100);
+        --list-select-bg-selected-active: theme(colors.slate.300);
+        --list-select-bg-selected-inactive: theme(colors.slate.200);
     }
 
     .dark {
@@ -39,5 +44,10 @@
         --list-select-hover: theme(colors.slate.700);
         --list-select-selected-active: theme(colors.slate.500);
         --list-select-selected-inactive: theme(colors.slate.700);
+
+        --list-select-bg-focus: theme(colors.slate.600);
+        --list-select-bg-hover: theme(colors.slate.700);
+        --list-select-bg-selected-active: theme(colors.slate.500);
+        --list-select-bg-selected-inactive: theme(colors.slate.700);
     }
 }
