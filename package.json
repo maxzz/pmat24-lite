@@ -56,7 +56,6 @@
         "electron-vite": "^2.3.0",
         "lucide-react": "^0.456.0",
         "postcss": "^8.4.48",
-        "postcss-import": "^16.1.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-resizable-panels": "^2.1.6",
