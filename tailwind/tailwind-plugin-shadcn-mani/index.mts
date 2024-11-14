@@ -51,6 +51,24 @@ export const shadcnManiPlugin = plugin(
                             activated: "var(--mani-ring-activated)",
                         },
                     },
+                    list: {
+                        select: {
+                            focus: "var(--list-select-focus)",
+                            hover: "var(--list-select-hover)",
+                            selected: {
+                                active: "var(--list-select-selected-active)",
+                                inactive: "var(--list-select-selected-inactive)",
+                            },
+                            bg: {
+                                focus: "var(--list-select-bg-focus)",
+                                hover: "var(--list-select-bg-hover)",
+                                selected: {
+                                    active: "var(--list-select-bg-selected-active)",
+                                    inactive: "var(--list-select-bg-selected-inactive)",
+                                },
+                            },
+                        },
+                    },
 
                     // mani: {
                     //     title: "hsl(var(--mani-title))",
