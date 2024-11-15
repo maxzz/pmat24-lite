@@ -20,7 +20,7 @@ hover:text-accent-foreground hover:bg-muted \
 1data-[list-item=selected]:bg-list-select-selected-active \
 \
 data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
-data-[list-item=selected]:bg-[var(--parent-active-color)] hover:data-[list-item=selected]:bg-[var(--parent-active-color)] \
+data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
 \
 data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
