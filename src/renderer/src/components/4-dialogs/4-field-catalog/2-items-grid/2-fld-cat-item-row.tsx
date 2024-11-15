@@ -17,9 +17,8 @@ text-foreground bg-background \
 1bg-list-select-focus \
 1data-[list-item=selected]:bg-list-select-selected-active \
 \
-data-[list-item=selected]:text-white hover:data-[list-item=selected]:text-white \
+data-[list-item=selected]:text-[var(--select-item-text)] hover:data-[list-item=selected]:text-[var(--select-item-text)] \
 data-[list-item=selected]:bg-[var(--parent-active-color)] hover:data-[list-item=selected]:bg-[var(--parent-active-color)] \
-1data-[list-item=selected]:bg-[#04395e] 1hover:data-[list-item=selected]:bg-[#04395e] \
 \
 hover:text-accent-foreground hover:bg-muted \
 1hover:text-accent-foreground 1hover:bg-muted \
