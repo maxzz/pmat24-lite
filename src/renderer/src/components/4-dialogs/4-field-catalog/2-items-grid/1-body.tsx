@@ -9,27 +9,23 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
 };
 
-const parentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
-
 const listSelectionLightClasses = "\
-[--select-item-text:hsl(var(--foreground))] \
-[--select-item-text-hover:hsl(var(--foreground))] \
+[--selected-fg:hsl(var(--foreground))] \
+[--selected-fg-hover:hsl(var(--foreground))] \
 [--outline-color:#3b3b3b] \
-[--parent-active-item-bg:hsl(var(--accent))] \
+[--parent-active-bg:hsl(var(--accent))] \
 ";
 
 const listSelectionDarkClasses = "\
-dark:[--select-item-text:hsl(var(--foreground))] \
-dark:[--select-item-text-hover:hsl(var(--foreground))] \
+dark:[--selected-fg:hsl(var(--foreground))] \
+dark:[--selected-fg-hover:hsl(var(--foreground))] \
 dark:[--outline-color:#007fd4] \
-dark:[--parent-active-item-bg:#04395e] \
+dark:[--parent-active-bg:#04395e] \
 ";
 
-const parentActiveColorClasses = "\
-\
-\
-[--parent-active-color:hsl(var(--muted))] focus-within:[--parent-active-color:var(--parent-active-item-bg)] \
-\
+const parentActiveClasses = "\
+[--parent-active:0] focus-within:[--parent-active:1] \
+[--parent-active-color:hsl(var(--muted))] focus-within:[--parent-active-color:var(--parent-active-bg)] \
 ";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
@@ -50,7 +46,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div className={classNames(parentActiveClasses, listSelectionLightClasses, listSelectionDarkClasses, parentActiveColorClasses, className)} {...rest}>
+        <div className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
             {items.map(
                 (item, idx) => (
                     <FldCatItemRow

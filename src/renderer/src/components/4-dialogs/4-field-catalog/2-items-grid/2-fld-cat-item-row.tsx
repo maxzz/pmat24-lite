@@ -14,14 +14,13 @@ mr-3 px-2 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \
+hover:text-accent-foreground hover:bg-muted \
+\
 1bg-list-select-focus \
 1data-[list-item=selected]:bg-list-select-selected-active \
 \
-data-[list-item=selected]:text-[var(--select-item-text)] hover:data-[list-item=selected]:text-[var(--select-item-text)] \
+data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
 data-[list-item=selected]:bg-[var(--parent-active-color)] hover:data-[list-item=selected]:bg-[var(--parent-active-color)] \
-\
-hover:text-accent-foreground hover:bg-muted \
-1hover:text-accent-foreground 1hover:bg-muted \
 \
 data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
