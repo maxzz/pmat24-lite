@@ -49,7 +49,7 @@ export const doSetDeliveredFilesAtom = atom(
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
-        set(rightPanelAtom, null);
+        set(rightPanelAtom, undefined);
         setRootFcFileUs(undefined);
         set(doDiscardAllFilesFileUsLinksAtom);
 

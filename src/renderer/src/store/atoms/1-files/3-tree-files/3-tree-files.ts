@@ -32,7 +32,7 @@ export const treeFilesAtom = atom( // files to show in the tree
                     id: fileUs.fileCnt.unid,
                     name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),
                     icon: appTypeToIcon(fileUsToAppType(fileUs, showIeWranIcon)),
-                    fileUsAtom: fileUsAtom,
+                    fileUsAtom,
                 };
 
                 return rv;

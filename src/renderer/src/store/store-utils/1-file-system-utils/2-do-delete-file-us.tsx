@@ -10,7 +10,7 @@ export const doDeleteFileUsAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom) => {
         if (get(rightPanelAtom) === fileUsAtom) {
-            set(rightPanelAtom, null);
+            set(rightPanelAtom, undefined);
         }
 
         const fileUs = get(fileUsAtom);
