@@ -15,18 +15,18 @@ const listSelectionLightClasses = "\
 [--select-item-text:hsl(var(--foreground))] \
 [--select-item-text-hover:hsl(var(--foreground))] \
 [--outline-color:#3b3b3b] \
+[--parent-active-item-bg:hsl(var(--accent))] \
 ";
 
 const listSelectionDarkClasses = "\
 dark:[--select-item-text:hsl(var(--foreground))] \
 dark:[--select-item-text-hover:hsl(var(--foreground))] \
 dark:[--outline-color:#007fd4] \
+dark:[--parent-active-item-bg:#04395e] \
 ";
 
 const parentActiveColorClasses = "\
 \
-\
-[--parent-active-item-bg:hsl(var(--accent))] dark:[--parent-active-item-bg:#04395e] \
 \
 [--parent-active-color:hsl(var(--muted))] focus-within:[--parent-active-color:var(--parent-active-item-bg)] \
 \
