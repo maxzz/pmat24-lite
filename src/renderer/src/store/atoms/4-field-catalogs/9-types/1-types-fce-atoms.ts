@@ -1,18 +1,10 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type CatalogItem } from "@/store/manifest";
+import { type ValueLife, type CatalogItem as FceItem0 } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
-// import { type PrimitiveAtom } from "jotai";
-
-// export type FceItem = CatalogItem & { // Field Catalog Editor item
-//     editor?: {
-//         selectedAtom: PrimitiveAtom<boolean>;
-//     }
-// };
-
-export type FceItem = CatalogItem;
+export type FceItem = FceItem0;
 
 export const defaultFcName = 'field_catalog.dpn';
 
