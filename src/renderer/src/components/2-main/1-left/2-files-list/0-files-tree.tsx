@@ -30,21 +30,28 @@ export function FilesTree() {
     const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doSetRightPanelSelectedAtom);
 
+    const selectAsTrigger = false;
+
+    function onSelectChange(item: DataItemWState | undefined) {
+        const newAtom = treeItemToFileUs(item!)?.fileUsAtom;
+        setSelected({ newAtom })
+    }
+
     const TreeMemo = useMemo(
         () => {
             const dataWithState = addStateToTreeItems(treeFiles);
             return (
                 <Tree
                     data={dataWithState}
-                    className={`w-full h-full outline-none`}
+                    className="w-full h-full outline-none"
                     scrollAreaProps={{ parentContentWidth: true }}
                     IconTextRender={TreeIconAndText}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
                     arrowFirst={true}
                     hideFolderIcon={false}
-                    // selectAsTrigger
-                    onSelectChange={(item) => setSelected({ newAtom: treeItemToFileUs(item!)?.fileUsAtom })}
+                    selectAsTrigger={selectAsTrigger}
+                    onSelectChange={onSelectChange}
                 />
             );
         }, [treeFiles]
