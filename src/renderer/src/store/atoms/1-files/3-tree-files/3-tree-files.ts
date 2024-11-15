@@ -6,7 +6,7 @@ import { filteredAtom } from "./1-filtered-files";
 import { type DataItemCore, type DataItemNavigation } from "@/ui/shadcn/tree";
 
 export type TreeFcntItem = {
-    fcnt: FileUsAtom;
+    fileUsAtom: FileUsAtom;
 };
 
 export type TreeFileItem<T = {}> = Prettify<
@@ -32,7 +32,7 @@ export const treeFilesAtom = atom( // files to show in the tree
                     id: fileUs.fileCnt.unid,
                     name: getFileListDisplayName(fileUs, fileListOptions.itemsState, get),
                     icon: appTypeToIcon(fileUsToAppType(fileUs, showIeWranIcon)),
-                    fcnt: fileUsAtom,
+                    fileUsAtom: fileUsAtom,
                 };
 
                 return rv;

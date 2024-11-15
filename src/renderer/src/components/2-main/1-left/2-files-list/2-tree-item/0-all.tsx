@@ -10,7 +10,7 @@ import { TreeItemName } from "./3-tree-item-name";
 export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
 
     const fileUsItem = treeItemToFileUs(item);
-    const fileUs = useAtomValue(fileUsItem.fcnt);
+    const fileUs = useAtomValue(fileUsItem.fileUsAtom);
     const fileIndex = fileUs.fileCnt.idx + 1;
     const IconToRender = item.icon || (!hideFolderIcon && Icon);
 

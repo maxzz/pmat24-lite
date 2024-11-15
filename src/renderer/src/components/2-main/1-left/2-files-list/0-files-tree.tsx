@@ -43,8 +43,8 @@ export function FilesTree() {
                     IconForItem={IconFile}
                     arrowFirst={true}
                     hideFolderIcon={false}
-                    selectAsTrigger
-                    onSelectChange={(item) => setSelected(treeItemToFileUs(item!)?.fcnt)}
+                    // selectAsTrigger
+                    onSelectChange={(item) => setSelected(treeItemToFileUs(item!)?.fileUsAtom)}
                 />
             );
         }, [treeFiles]
