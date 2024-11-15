@@ -13,12 +13,24 @@ const rowClasses = "\
 mr-3 px-2 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
-text-foreground 1bg-background \
-bg-list-select-focus \
+text-foreground bg-background \
+1bg-list-select-focus \
 1data-[list-item=selected]:bg-list-select-selected-active \
-data-[list-item=selected]:bg-sky-500 \
+\
+data-[list-item=selected]:text-white hover:data-[list-item=selected]:text-white \
+data-[list-item=selected]:bg-[var(--parent-active-color)] hover:data-[list-item=selected]:bg-[var(--parent-active-color)] \
+1data-[list-item=selected]:bg-[#04395e] 1hover:data-[list-item=selected]:bg-[#04395e] \
 \
 hover:text-accent-foreground hover:bg-muted \
+1hover:text-accent-foreground 1hover:bg-muted \
+\
+data-[list-item=selected]:outline \
+data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
+data-[list-item=selected]:[outline-offset:-2px] \
+outline-[#007fd4] \
+rounded-[3px] \
+\
+cursor-default \
 ";
 
 const rowSelectedClasses = "\

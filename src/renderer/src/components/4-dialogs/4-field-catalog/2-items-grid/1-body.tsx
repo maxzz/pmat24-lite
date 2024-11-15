@@ -10,6 +10,7 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const parentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
+const parentActiveColorClasses = "[--parent-active-color:#37373d] focus-within:[--parent-active-color:#04395e]";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
@@ -29,7 +30,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div className={classNames(parentActiveClasses, className)} {...rest}>
+        <div className={classNames(parentActiveClasses, parentActiveColorClasses, className)} {...rest}>
             {items.map(
                 (item, idx) => (
                     <FldCatItemRow
