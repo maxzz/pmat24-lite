@@ -12,6 +12,7 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 const listSelectionLightClasses = "\
 [--selected-fg:hsl(var(--foreground))] \
 [--selected-fg-hover:hsl(var(--foreground))] \
+[--selected-bg:hsl(var(--muted))] \
 [--selected-bg-active:hsl(var(--accent))] \
 [--selected-outline:#3b3b3b] \
 ";
@@ -19,13 +20,14 @@ const listSelectionLightClasses = "\
 const listSelectionDarkClasses = "\
 dark:[--selected-fg:hsl(var(--foreground))] \
 dark:[--selected-fg-hover:hsl(var(--foreground))] \
+[--selected-bg:hsl(var(--muted))] \
 dark:[--selected-bg-active:#04395e] \
 dark:[--selected-outline:#007fd4] \
 ";
 
 const parentActiveClasses = "\
 [--parent-active:0] focus-within:[--parent-active:1] \
-[--parent-selected-bg:hsl(var(--muted))] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
+[--parent-selected-bg:var(--selected-bg)] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
 ";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
