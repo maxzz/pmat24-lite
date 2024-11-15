@@ -25,7 +25,7 @@ data-[list-item=selected]:bg-[var(--parent-active-color)] hover:data-[list-item=
 data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
 data-[list-item=selected]:[outline-offset:-2px] \
-outline-[var(--outline-color)] \
+outline-[var(--selected-outline)] \
 rounded-[3px] \
 \
 cursor-default \

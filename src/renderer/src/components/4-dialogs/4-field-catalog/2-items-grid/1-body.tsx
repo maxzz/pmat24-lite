@@ -12,14 +12,14 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 const listSelectionLightClasses = "\
 [--selected-fg:hsl(var(--foreground))] \
 [--selected-fg-hover:hsl(var(--foreground))] \
-[--outline-color:#3b3b3b] \
+[--selected-outline:#3b3b3b] \
 [--parent-active-bg:hsl(var(--accent))] \
 ";
 
 const listSelectionDarkClasses = "\
 dark:[--selected-fg:hsl(var(--foreground))] \
 dark:[--selected-fg-hover:hsl(var(--foreground))] \
-dark:[--outline-color:#007fd4] \
+dark:[--selected-outline:#007fd4] \
 dark:[--parent-active-bg:#04395e] \
 ";
 
