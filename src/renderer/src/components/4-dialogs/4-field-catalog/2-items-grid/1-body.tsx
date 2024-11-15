@@ -11,13 +11,19 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 
 const parentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
+const listSelectionLightClasses = "\
+[--select-item-text:hsl(var(--foreground))] \
+[--select-item-text-hover:hsl(var(--foreground))] \
+[--outline-color:#3b3b3b] \
+";
+
+const listSelectionDarkClasses = "\
+dark:[--select-item-text:hsl(var(--foreground))] \
+dark:[--select-item-text-hover:hsl(var(--foreground))] \
+dark:[--outline-color:#007fd4] \
+";
+
 const parentActiveColorClasses = "\
-\
-[--select-item-text:hsl(var(--foreground))] dark:[--select-item-text:hsl(var(--foreground))] \
-\
-[--select-item-text-hover:hsl(var(--foreground))] dark:[--select-item-text-hover:hsl(var(--foreground))] \
-\
-[--outline-color:#3b3b3b] dark:[--outline-color:#007fd4] \
 \
 \
 [--parent-active-item-bg:hsl(var(--accent))] dark:[--parent-active-item-bg:#04395e] \
@@ -44,7 +50,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div className={classNames(parentActiveClasses, parentActiveColorClasses, className)} {...rest}>
+        <div className={classNames(parentActiveClasses, listSelectionLightClasses, listSelectionDarkClasses, parentActiveColorClasses, className)} {...rest}>
             {items.map(
                 (item, idx) => (
                     <FldCatItemRow
