@@ -44,7 +44,7 @@ export function FilesTree() {
                     arrowFirst={true}
                     hideFolderIcon={false}
                     // selectAsTrigger
-                    onSelectChange={(item) => setSelected(treeItemToFileUs(item!)?.fileUsAtom)}
+                    onSelectChange={(item) => setSelected({ newAtom: treeItemToFileUs(item!)?.fileUsAtom })}
                 />
             );
         }, [treeFiles]

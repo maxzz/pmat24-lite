@@ -11,10 +11,10 @@ export const rightPanelContentAtom = atom(
 );
 
 export const doSetRightPanelSelectedAtom = atom(null, // tree selection trigger logic
-    (get, set, newAtom: FileUsAtom | null | undefined) => {
+    (get, set, { newAtom }: { newAtom: FileUsAtom | null | undefined; }) => {
         const currentAtom = get(rightPanelAtom);
 
-        if (currentAtom === newAtom) {
+        if (currentAtom == newAtom) { // '==' to take care of null and undefined
             set(rightPanelAtom, null);
             return;
         }
