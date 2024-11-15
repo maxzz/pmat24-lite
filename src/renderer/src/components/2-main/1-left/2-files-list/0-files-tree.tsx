@@ -30,7 +30,8 @@ export function FilesTree() {
     const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doSetRightPanelSelectedAtom);
 
-    const selectAsTrigger = false;
+    const selectAsTrigger = true;
+    const selectEmptySpace = false;
 
     function onSelectChange(item: DataItemWState | undefined) {
         const newAtom = treeItemToFileUs(item!)?.fileUsAtom;
@@ -51,6 +52,7 @@ export function FilesTree() {
                     arrowFirst={true}
                     hideFolderIcon={false}
                     selectAsTrigger={selectAsTrigger}
+                    selectEmptySpace={selectEmptySpace}
                     onSelectChange={onSelectChange}
                 />
             );
