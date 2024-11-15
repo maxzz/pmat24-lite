@@ -12,8 +12,12 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 const parentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
 const parentActiveColorClasses = "\
-[--parent-active-color-name:#909090] dark:[--parent-active-color-name:#04395e] \
 [--parent-active-color:#37373d] \
+\
+[--parent-active-color-name:#909090] dark:[--parent-active-color-name:#04395e] \
+\
+[--outline-color:#007fd4] dark:[--outline-color:#f00] \
+\
 focus-within:[--parent-active-color:var(--parent-active-color-name)] \
 1focus-within:[--parent-active-color:#04395e] \
 ";

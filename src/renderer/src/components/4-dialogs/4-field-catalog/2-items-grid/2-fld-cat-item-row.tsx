@@ -27,7 +27,7 @@ hover:text-accent-foreground hover:bg-muted \
 data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
 data-[list-item=selected]:[outline-offset:-2px] \
-outline-[#007fd4] \
+outline-[var(--outline-color)] \
 rounded-[3px] \
 \
 cursor-default \
