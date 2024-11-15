@@ -87,12 +87,18 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
                 event.stopPropagation();
 
                 if (item) {
+                    const clickedNewItem = treeState.selectedId !== item.id;
+
                     if (selectAsTrigger) {
-                        const clickedNewItem = treeState.selectedId !== item.id;
                         clickedNewItem && clearPrevSelectedState();
                         item.state.selected = clickedNewItem;
                         treeState.selectedId = clickedNewItem ? item.id : undefined;
                     } else {
+                        if (!clickedNewItem) {
+                            return;
+                        }
+                        console.log('clickedNewItem', clickedNewItem);
+
                         clearPrevSelectedState();
                         item.state.selected = !item.state.selected;
                         treeState.selectedId = item.id;

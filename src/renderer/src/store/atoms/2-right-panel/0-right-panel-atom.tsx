@@ -14,7 +14,7 @@ export const doSetRightPanelSelectedAtom = atom(null, // tree selection trigger 
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }) => {
         const currentAtom = get(rightPanelAtom);
 
-        if (currentAtom == newAtom) { // '==' to take care of null and undefined
+        if (currentAtom === newAtom) {
             set(rightPanelAtom, undefined);
             return;
         }
