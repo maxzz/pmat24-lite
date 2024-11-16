@@ -8,7 +8,7 @@ import {
     MenuItem_SaveCurrentAs,
     MenuItem_SaveAll
 } from "../10-file";
-import { MenuItem_Settings } from "../20-settings";
+import { MenuItem_Options } from "../20-options";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
 //import { PreferencesSubMenu } from "./2-nun-preferences-sub-munu";
@@ -37,7 +37,7 @@ export function MainDropdownMenu() {
                 <MenuItem_SaveAll />
                 <DropdownMenuSeparator />
 
-                <MenuItem_Settings />
+                <MenuItem_Options />
                 {/* <PreferencesSubMenu /> */}
 
                 <MenuItem_FileExit />
