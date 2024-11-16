@@ -49,6 +49,14 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                             <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => appSettings.files.itemsState.showChosen = !!v} />
                             Show user defined name instead of domain name
                         </Label>
+                        <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
+                            <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => appSettings.files.itemsState.selectAsTrigger = !!v} />
+                            Select the same file will deselect it
+                        </Label>
+                        <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
+                            <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => appSettings.files.itemsState.selectEmptySpace = !!v} />
+                            Empty space click will deselect current item
+                        </Label>
                     </div>
                 </div>
 
