@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { type FileUsCtx, type NormalField } from "@/store/atoms/3-file-mani-atoms";
-import { type CatalogItem } from "@/store/manifest";
+import { type FceItem } from "@/store";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
 import { Column3_Label } from "../3-column-label";
@@ -15,7 +15,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
     const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
 
-    function onSelectCatItem(item: CatalogItem | undefined) {
+    function onSelectCatItem(item: FceItem | undefined) {
     }
 
     return (<>

@@ -1,8 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceDlgOut, getMruFldCatForItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
-import { type CatalogItem } from "@/store/manifest";
+import { type FceItem, type FceDlgOut, getMruFldCatForItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
@@ -25,7 +24,7 @@ outline-none";
 type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
     fieldCatAtom: PA<string>;
-    onSelectCatItem: (item: CatalogItem | undefined) => void;
+    onSelectCatItem: (item: FceItem | undefined) => void;
     maniIsPassword: boolean | undefined;
     maniDbName: string;
     fileUsCtx: FileUsCtx;

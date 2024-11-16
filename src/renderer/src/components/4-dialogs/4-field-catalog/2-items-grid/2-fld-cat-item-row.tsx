@@ -7,6 +7,7 @@ import { classNames } from "@/utils";
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
     item: FceItem;
+    isDlgCtx: boolean;
 };
 
 const rowClasses = "\
@@ -53,8 +54,8 @@ outline-primary-400 \
 outline rounded-[3px] \
 ";
 
-export function FldCatItemRow({ item, idx, className, ...rest }: FldCatItemProps) {
-    const { selectedView } = useSnapshot(item.editor);
+export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
+    const { selectedView, selectedDlg } = useSnapshot(item.editor);
     return (
         <div
             data-list-item={selectedView ? 'selected' : ''}

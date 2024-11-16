@@ -49,6 +49,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     const rv: FceCtx = {
         inData,
         fceAtoms,
+        isDlgCtx: !!inData,
         selectedIdxStoreAtom: atom(-1),
         selectedItemAtom: atom<FceItem | null>(null),
         fcePropAtoms: createFcePropAtoms(onValueChange),

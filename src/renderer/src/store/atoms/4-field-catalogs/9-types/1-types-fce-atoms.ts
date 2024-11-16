@@ -6,6 +6,7 @@ import { type OnValueChangeParams } from "@/util-hooks";
 
 export type FceItemEditor = {
     selectedView: boolean;
+    selectedDlg: boolean;
 };
 
 export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
@@ -42,6 +43,7 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 export type FceCtx = {                              // Field Catalog Editor context
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
+    isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | null>;
     fcePropAtoms: FcePropAtoms;

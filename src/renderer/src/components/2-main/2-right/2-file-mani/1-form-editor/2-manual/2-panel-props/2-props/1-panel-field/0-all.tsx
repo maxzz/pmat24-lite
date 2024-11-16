@@ -1,8 +1,8 @@
-import { FileUsCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type FceItem } from "@/store";
 import { Column3_Label } from "../../../../1-normal/1-fields/3-column-label";
 import { Column4_Value } from "../../../../1-normal/1-fields/4-column-value";
 import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog";
-import { CatalogItem } from "@/store/manifest";
 import { InputLabel } from "../../8-manual-props-ui/1-input-label";
 import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
 import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
@@ -12,7 +12,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
 
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.rowCtx;
 
-    /*TODO:*/ function onSelectCatItem(item: CatalogItem | undefined) { }
+    /*TODO:*/ function onSelectCatItem(item: FceItem | undefined) { }
     /*TODO:*/ const maniIsPassword = false;
     /*TODO:*/ const maniDbName = "123";
 
