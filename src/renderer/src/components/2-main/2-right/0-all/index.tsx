@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { RightPanelViewType, appSettings, rightPanelContentAtom } from "@/store";
+import { RightPanelViewType, appSettings, fileUsOfRightPanelAtom } from "@/store";
 import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-middle/shared-classes";
 import { R_PanelHeader } from "../1-header";
 import { ManiBody } from "../2-file-mani";
@@ -8,7 +8,7 @@ import { Body_Cat } from "../3-file-cat";
 import { Body_Xml } from "../4-file-xml";
 
 function ContentForSelected() {
-    const fileUs = useAtomValue(rightPanelContentAtom);
+    const fileUs = useAtomValue(fileUsOfRightPanelAtom);
     const { activeView } = useSnapshot(appSettings).right;
 
     const staticText = !fileUs

@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { rightPanelAtom, rightPanelContentAtom } from "@/store";
+import { rightPanelAtom, fileUsOfRightPanelAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
 import { TitleNoFile } from "./9-title-no-file";
 import { TitleWithFileUs } from "./1-title-with-file-us";
@@ -10,7 +10,7 @@ import { R_PanelMenu } from "../2-menu";
 export function R_PanelHeader() {
 
     const fileUsAtom = useAtomValue(rightPanelAtom);
-    const fileUs = useAtomValue(rightPanelContentAtom);
+    const fileUs = useAtomValue(fileUsOfRightPanelAtom);
 
     if (!fileUsAtom || !fileUs) {
         return (
