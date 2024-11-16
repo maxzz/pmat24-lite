@@ -9,12 +9,14 @@ export const doSelectFceItemAtom = atom(
             deselectCurrent(ctx, get, set);
         }
 
+        const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
+
         const chunks = get(ctx.fceAtoms.itemsAtom);
 
         const current = chunks[idx];
         if (current) {
-            current.editor.selectedView = typeof value === "function" ? value(current.editor.selectedView) : value;
-            set(ctx.selectedIdxStoreAtom, current.editor.selectedView ? idx : -1);
+            current.editor[selectedName] = typeof value === "function" ? value(current.editor[selectedName]) : value;
+            set(ctx.selectedIdxStoreAtom, current.editor[selectedName] ? idx : -1);
         }
     }
 );
@@ -25,7 +27,9 @@ function deselectCurrent(ctx: FceCtx, get: Getter, set: Setter) {
 
     const current = chunks[currentIdx];
     if (current) {
-        current.editor.selectedView = false;
+        const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
+
+        current.editor[selectedName] = false;
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }

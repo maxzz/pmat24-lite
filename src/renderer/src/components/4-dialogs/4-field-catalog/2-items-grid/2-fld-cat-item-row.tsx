@@ -55,10 +55,10 @@ outline rounded-[3px] \
 ";
 
 export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
-    const { selectedView, selectedDlg } = useSnapshot(item.editor);
+    const selected = useSnapshot(item.editor)[isDlgCtx ? 'selectedDlg' : 'selectedView'];
     return (
         <div
-            data-list-item={selectedView ? 'selected' : ''}
+            data-list-item={selected ? 'selected' : ''}
             // {...(selected && { 'data-tree-item-selected': '' })}
             // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}
