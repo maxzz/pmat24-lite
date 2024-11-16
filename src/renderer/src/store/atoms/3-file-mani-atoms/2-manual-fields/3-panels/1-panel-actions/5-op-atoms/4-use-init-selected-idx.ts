@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import type { Getter, Setter } from "jotai";
 import { useAtomCallback } from "jotai/utils";
 import { type MFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { doSetSelectItemValueAtom } from "./2-do-set-select-item-value";
+import { doSetSelectItemValueAtom } from "./1-select-atoms";
 
 export function useInitSelectedIdx(ctx: MFormCtx) {
     const cb = useAtomCallback(

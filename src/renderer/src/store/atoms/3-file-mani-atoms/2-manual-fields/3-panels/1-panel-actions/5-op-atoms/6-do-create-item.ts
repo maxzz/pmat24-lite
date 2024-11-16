@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { type ChunkKey } from "@/store/manifest";
-import { deselectCurrent, type MFormCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormCtx } from "@/store/atoms/3-file-mani-atoms/9-types";
 import { createScriptItem } from "../../../2-create-new-chunk";
-import { doSelectIdxAtom } from "./1-do-select-idx";
 import { clamp } from "@/utils";
+import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 
 export const doCreateItemAtom = atom(
     null,

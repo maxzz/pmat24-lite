@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type MFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { doSetSelectItemValueAtom } from "./2-do-set-select-item-value";
+import { doSetSelectItemValueAtom } from "./1-select-atoms";
 import { swapImmutable } from "@/utils";
 
 export const doSwapItemsAtom = atom(
