@@ -4,7 +4,11 @@ import { type ValueLife, type CatalogItem as FceItem0 } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
-export type FceItem = FceItem0;
+export type FceItemEditor = {
+    selectedView: boolean;
+};
+
+export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 
 export const defaultFcName = 'field_catalog.dpn';
 

@@ -3,7 +3,7 @@ import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms, defaultFcName } from "../9-types";
+import { type FceItem, type FceAtoms, defaultFcName, type FceItemEditor } from "../9-types";
 import { type CatalogFile, type CatalogItemEdit, catalogItemInFileToFieldValue, uuid } from "@/store/manifest";
 import { rootDir } from "../../1-files/2-do-web-deliver/3-root-dir";
 import { createParsedSrcForEmptyFce } from "../../1-files/1-do-set-files/2-create-fileus";
@@ -53,7 +53,7 @@ function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
                 index: idx,
                 uuid: now,
                 mru: now,
-                editor: proxy<CatalogItemEdit['editor']>({ selected: false, }),
+                editor: proxy<FceItemEditor>({ selectedView: false, }),
             };
             return rv;
         }

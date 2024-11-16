@@ -13,8 +13,8 @@ export const doSelectFceItemAtom = atom(
 
         const current = chunks[idx];
         if (current) {
-            current.editor.selected = typeof value === "function" ? value(current.editor.selected) : value;
-            set(ctx.selectedIdxStoreAtom, current.editor.selected ? idx : -1);
+            current.editor.selectedView = typeof value === "function" ? value(current.editor.selectedView) : value;
+            set(ctx.selectedIdxStoreAtom, current.editor.selectedView ? idx : -1);
         }
     }
 );
@@ -25,7 +25,7 @@ function deselectCurrent(ctx: FceCtx, get: Getter, set: Setter) {
 
     const current = chunks[currentIdx];
     if (current) {
-        current.editor.selected = false;
+        current.editor.selectedView = false;
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }

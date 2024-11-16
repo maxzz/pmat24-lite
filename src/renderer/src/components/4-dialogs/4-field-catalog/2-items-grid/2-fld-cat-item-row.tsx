@@ -1,12 +1,12 @@
 import { type HTMLAttributes } from "react";
-import { type CatalogItem } from "@/store/manifest";
+import { useSnapshot } from "valtio";
+import { type FceItem } from "@/store";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
-import { useSnapshot } from "valtio";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
-    item: CatalogItem;
+    item: FceItem;
 };
 
 const rowClasses = "\
@@ -54,10 +54,10 @@ outline rounded-[3px] \
 ";
 
 export function FldCatItemRow({ item, idx, className, ...rest }: FldCatItemProps) {
-    const { selected } = useSnapshot(item.editor);
+    const { selectedView } = useSnapshot(item.editor);
     return (
         <div
-            data-list-item={selected ? 'selected' : ''}
+            data-list-item={selectedView ? 'selected' : ''}
             // {...(selected && { 'data-tree-item-selected': '' })}
             // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}
