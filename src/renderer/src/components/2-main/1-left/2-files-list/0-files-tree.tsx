@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { proxy } from "valtio";
-import { TreeFileItem, doSetRightPanelSelectedAtom, treeFilesAtom } from "@/store";
+import { proxy, useSnapshot } from "valtio";
+import { TreeFileItem, appSettings, doSetRightPanelSelectedAtom, treeFilesAtom } from "@/store";
 import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeIconAndText } from "./2-tree-item";
@@ -26,12 +26,10 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
 }
 
 export function FilesTree() {
+    const snapItems = useSnapshot(appSettings).files.itemsState;
 
     const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doSetRightPanelSelectedAtom);
-
-    const selectAsTrigger = true;
-    const selectEmptySpace = false;
 
     function onSelectChange(item: DataItemWState | undefined) {
         const newAtom = treeItemToFileUs(item!)?.fileUsAtom;
@@ -51,8 +49,8 @@ export function FilesTree() {
                     IconForItem={IconFile}
                     arrowFirst={true}
                     hideFolderIcon={false}
-                    selectAsTrigger={selectAsTrigger}
-                    selectEmptySpace={selectEmptySpace}
+                    selectAsTrigger={snapItems.selectAsTrigger}
+                    selectEmptySpace={snapItems.selectEmptySpace}
                     onSelectChange={onSelectChange}
                 />
             );
