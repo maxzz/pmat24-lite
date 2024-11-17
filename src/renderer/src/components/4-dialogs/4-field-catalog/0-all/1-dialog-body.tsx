@@ -7,7 +7,7 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-export function DialogFieldCatalogBody({ fceCtx }: { fceCtx: FceCtx; }) {
+export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />

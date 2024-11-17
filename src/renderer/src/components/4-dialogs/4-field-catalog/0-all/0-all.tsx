@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { DialogFieldCatalogBody } from "./1-dialog-body";
+import { FceDialogBody } from "./1-dialog-body";
 
 const contentClasses = "\
 p-0 \
@@ -14,16 +14,16 @@ data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit ri
 
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
-export function FieldCatalogDialog() {
+export function FceDialog() {
 
-    const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
+    const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
     const fceCtx = useAtomValue(fceDlgTriggerAtom);
     if (!fceCtx) {
         return null;
     }
 
     return (<>
-        <D.Dialog open={!!fceCtx} onOpenChange={doCancelFldCatDialog}>
+        <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
             <D.DialogContent
                 className={contentClasses}
                 noClose
@@ -31,9 +31,11 @@ export function FieldCatalogDialog() {
                 overlayClasses={overlayClasses}
                 container={document.getElementById('portal')}
             >
-                <DialogFieldCatalogBody fceCtx={fceCtx} />
+                <FceDialogBody fceCtx={fceCtx} />
 
             </D.DialogContent>
         </D.Dialog>
     </>);
 }
+
+//TODO: add initial selection

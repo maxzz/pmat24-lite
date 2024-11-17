@@ -22,3 +22,6 @@ export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: Fil
         </div>
     );
 }
+
+//TODO: show warning field catalog changes will be replicated to all manifests only after save
+//TODO: add to editor data: fromFile member
