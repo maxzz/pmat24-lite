@@ -37,7 +37,7 @@ const doScrollToSelectedAtom = atom(null,
 
         const itemRect = itemDom.getBoundingClientRect();
 
-        const parent = itemDom.parentElement;
+        const parent = container.querySelector(`[data-radix-scroll-area-viewport]`);
         if (!parent) {
             return;
         }
@@ -51,8 +51,8 @@ const doScrollToSelectedAtom = atom(null,
 
         console.log('Scroll to selected 5');
 
-        container.scrollTo({
-            top: itemRect.top - parentRect.top - container.clientHeight / 2,
+        parent.scrollTo({
+            top: itemRect.top - parentRect.top - parent.clientHeight / 2,
             behavior: 'smooth',
         });
     }
