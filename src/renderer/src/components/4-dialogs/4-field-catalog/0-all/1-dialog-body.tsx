@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, type FceCtx } from "@/store";
 import { DialogCloseButton } from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
@@ -8,14 +8,25 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
-    const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
-    const setSelectedIdx = useSetAtom(fceCtx.selectedIdxStoreAtom);
-
-    useEffect(() => {
+const doSetInitSelectedIdxAtom = atom(null,
+    (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
+        const items = get(fceCtx.fceAtoms.itemsAtom);
         const idx = items.findIndex(item => item.editor.selectedDlg);
-        setSelectedIdx(idx);
-    }, []);
+        set(fceCtx.selectedIdxStoreAtom, idx);
+    }
+);
+
+export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
+    // const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+    // const setSelectedIdx = useSetAtom(fceCtx.selectedIdxStoreAtom);
+
+    // useEffect(() => {
+    //     const idx = items.findIndex(item => item.editor.selectedDlg);
+    //     setSelectedIdx(idx);
+    // }, []);
+    
+    const doSetInitSelectedIdx = useSetAtom(doSetInitSelectedIdxAtom);
+    useEffect(() => { doSetInitSelectedIdx({ fceCtx }); }, []);
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
