@@ -60,6 +60,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
     return (
         <div
             data-list-item={selected ? 'selected' : ''}
+            data-list-uiid={item.uuid}
             // {...(selected && { 'data-tree-item-selected': '' })}
             // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}

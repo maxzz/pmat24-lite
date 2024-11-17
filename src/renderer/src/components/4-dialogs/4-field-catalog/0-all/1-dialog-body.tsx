@@ -17,13 +17,6 @@ const doSetInitSelectedIdxAtom = atom(null,
 );
 
 export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
-    // const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
-    // const setSelectedIdx = useSetAtom(fceCtx.selectedIdxStoreAtom);
-
-    // useEffect(() => {
-    //     const idx = items.findIndex(item => item.editor.selectedDlg);
-    //     setSelectedIdx(idx);
-    // }, []);
     
     const doSetInitSelectedIdx = useSetAtom(doSetInitSelectedIdxAtom);
     useEffect(() => { doSetInitSelectedIdx({ fceCtx }); }, []);
