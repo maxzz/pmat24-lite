@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, type FceCtx } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
@@ -7,7 +8,12 @@ import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
+let i = 0; 
+
 export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
+    console.log('FceDialogBody', fceCtx);
+    useState(() => { console.log('fceCtx', ++i, fceCtx); return true; });
+
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />

@@ -11,7 +11,7 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const rowClasses = "\
-mr-3 px-2 py-1 \
+mx-3 1px-2 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \
@@ -30,6 +30,7 @@ outline-[var(--selected-outline)] \
 rounded-[3px] \
 \
 cursor-default \
+1data-[list-item=selected]:z-10 \
 ";
 
 const rowSelectedClasses = "\

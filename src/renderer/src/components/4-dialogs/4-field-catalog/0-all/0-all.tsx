@@ -22,6 +22,9 @@ export function FceDialog() {
         return null;
     }
 
+    console.log('FceDialog');
+    
+
     return (<>
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
             <D.DialogContent
