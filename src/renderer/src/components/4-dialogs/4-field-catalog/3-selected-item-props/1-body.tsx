@@ -27,6 +27,8 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 
     return (<>
+        <SelectedInxView fceCtx={fceCtx} />
+
         <div className={itemClasses}>
             <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
         </div>
@@ -53,3 +55,12 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 //TODO: scroll the initial item if provided
 
 //TODO: show item's dbid
+
+function SelectedInxView({ fceCtx }: { fceCtx: FceCtx; }) {
+    const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
+    return (
+        <div className="absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs text-muted-foreground flex items-center justify-center rounded-sm">
+            {selectedIdx === -1 ? '' : `${selectedIdx + 1}`}
+        </div>
+    );
+}

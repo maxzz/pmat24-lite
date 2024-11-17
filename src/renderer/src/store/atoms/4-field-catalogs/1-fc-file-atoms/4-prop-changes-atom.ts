@@ -8,7 +8,7 @@ export const doFcePropChangesAtom = atom(
         
         //TODO: item's name should be valtio reactive
 
-        console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
+//        console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
 
         // const { fcePropAtoms } = fceCtx;
         // switch (name) {
