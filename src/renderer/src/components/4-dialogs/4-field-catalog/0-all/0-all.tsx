@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
-import * as D from "@/ui/shadcn/dialog";
 import { FceDialogBody } from "./1-dialog-body";
+import * as D from "@/ui/shadcn/dialog";
 
 const contentClasses = "\
 p-0 \
@@ -21,9 +21,6 @@ export function FceDialog() {
     if (!fceCtx) {
         return null;
     }
-
-    console.log('FceDialog');
-    
 
     return (<>
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>

@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, type FceCtx } from "@/store";
-import * as D from "@/ui/shadcn/dialog";
+import { DialogCloseButton } from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
 import { FldCatItemsGrid } from "../2-items-grid";
 import { RightPanelGuard } from "../3-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
-let i = 0; 
-
 export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
-    console.log('FceDialogBody', fceCtx);
-    useState(() => { console.log('fceCtx', ++i, fceCtx); return true; });
+    const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+    const setSelectedIdx = useSetAtom(fceCtx.selectedIdxStoreAtom);
+
+    useEffect(() => {
+        const idx = items.findIndex(item => item.editor.selectedDlg);
+        setSelectedIdx(idx);
+    }, []);
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
@@ -52,7 +55,7 @@ function Header({ fceCtx }: { fceCtx: FceCtx; }) {
                 {fname ? fname : 'root'}
             </div>
 
-            <D.DialogCloseButton
+            <DialogCloseButton
                 className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
                 onClick={doCancelFldCatDialog}
                 tabIndex={-1}
