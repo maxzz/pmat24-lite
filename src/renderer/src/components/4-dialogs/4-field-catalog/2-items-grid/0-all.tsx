@@ -7,75 +7,30 @@ import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
 
 const doScrollToSelectedAtom = atom(null,
-    (get, set, { container, fceCtx }: { container: HTMLDivElement | null; fceCtx: FceCtx; }) => {
+    (get, set, { container, fceCtx }: { container: HTMLElement | null; fceCtx: FceCtx; }) => {
         if (!container) {
             return;
         }
 
-        // console.log('Scroll to selected 1');
-
         const items = get(fceCtx.fceAtoms.itemsAtom);
-        if (!items.length) {
-            return;
-        }
-
-        // console.log('Scroll to selected 11');
-
         const itemIdx = get(fceCtx.selectedIdxStoreAtom);
-        if (itemIdx === -1) {
-            return;
-        }
-
         const selectedItem = items[itemIdx];
-        if (!selectedItem) {
+
+        if (!items.length || itemIdx === -1 || !selectedItem) {
             return;
         }
-
-        // console.log('Scroll to selected 2');
-
-        const itemDom = container.querySelector(`[data-list-uiid="${selectedItem.uuid}"]`);
-        if (!itemDom) {
-            return;
-        }
-
-        // console.log('Scroll to selected 3');
-
-        const itemRect = itemDom.getBoundingClientRect();
 
         const parent = container.querySelector(`[data-radix-scroll-area-viewport]`);
-        if (!parent) {
+        const itemDom = container.querySelector(`[data-list-uiid="${selectedItem.uuid}"]`);
+
+        if (!parent || !itemDom) {
             return;
         }
 
-        // console.log('Scroll to selected 4');
-
-        const parentRect = parent.getBoundingClientRect();
-        if (!parentRect) {
-            return;
-        }
-
-        console.log(`Scroll to selected 5, itemRect.top=%o`,
-            {
-                _11_item_top: itemRect.top,
-                _12_item_bottom: itemRect.bottom,
-                _13_item_height: itemRect.height,
-                _14_item_clientHeight: itemDom.clientHeight,
-                _15_: '',
-                _21_parent_top: parentRect.top,
-                _22_parent_bottom: parentRect.bottom,
-                _23_parent_height: parentRect.height,
-                _24_parent_clientHeight: parent.clientHeight,
-            }
-        );
-
-        const itemTop = itemIdx * itemDom.clientHeight;
-        if (itemTop > parent.clientHeight - itemDom.clientHeight) {
+        const top = itemIdx * itemDom.clientHeight;
+        if (top > parent.clientHeight - itemDom.clientHeight) {
             parent.scrollTop = itemIdx * itemDom.clientHeight - parent.clientHeight / 2;
         }
-
-        // Both OK
-        //parent.scrollTop = itemIdx * itemDom.clientHeight;
-        //parent.scrollTo({ top: itemIdx * itemDom.clientHeight, behavior: 'instant' });
     }
 );
 
@@ -86,13 +41,9 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
 
     const doScrollToSelected = useSetAtom(doScrollToSelectedAtom);
 
-    useEffect(() => {
-        try {
-            doScrollToSelected({ container: refRoot.current, fceCtx });
-        } catch (e) {
-            console.error(e);
-        }
-    }, [refRoot.current]);
+    useEffect(
+        () => { doScrollToSelected({ container: refRoot.current, fceCtx }); }, [refRoot.current]
+    );
 
     return (
         <div className={classNames("relative w-full", className)} {...rest}>
