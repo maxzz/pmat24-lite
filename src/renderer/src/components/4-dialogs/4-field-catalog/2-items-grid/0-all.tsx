@@ -68,27 +68,16 @@ const doScrollToSelectedAtom = atom(null,
             }
         );
 
+        const itemTop = itemIdx * itemDom.clientHeight;
+        if (itemTop > parent.clientHeight - itemDom.clientHeight) {
+            parent.scrollTop = itemIdx * itemDom.clientHeight - parent.clientHeight / 2;
+        }
+
         // Both OK
         //parent.scrollTop = itemIdx * itemDom.clientHeight;
-        parent.scrollTo({ top: itemIdx * itemDom.clientHeight, behavior: 'smooth' });
-
-        //No
-        // parent.scrollTop = itemRect.top - parentRect.top - parent.clientHeight / 2;
-
-        //No
-        // parent.scrollTo({
-        //     top: itemRect.top - parentRect.top - parent.clientHeight / 2,
-        //     behavior: 'smooth',
-        // });
+        //parent.scrollTo({ top: itemIdx * itemDom.clientHeight, behavior: 'instant' });
     }
 );
-//No
-//         container.scrollTo({
-//             top: itemRect.top - container.clientHeight / 2,
-//             behavior: 'smooth',
-//         });
-//     }
-// );
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
