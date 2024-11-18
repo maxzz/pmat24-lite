@@ -1,7 +1,6 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { type FceCtx } from "@/store";
-import { doSelectIdxAtom } from "./3-do-set-selected";
+import { doSelectIdxAtom, type FceCtx } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 

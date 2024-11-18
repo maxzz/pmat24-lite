@@ -35,3 +35,14 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }
+
+/**
+ * Set the initial selected item index
+ */
+export const doSetInitSelectedIdxAtom = atom(null,
+    (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
+        const items = get(fceCtx.fceAtoms.itemsAtom);
+        const idx = items.findIndex(item => item.editor.selectedDlg);
+        set(fceCtx.selectedIdxStoreAtom, idx);
+    }
+);
