@@ -39,7 +39,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniIsPassword, maniDbName);
 
-    const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.displayname)];
+    const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.fieldValue.displayname)];
 
     const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
     if (fceAtomsRef) {
@@ -48,7 +48,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     let catalogItemIdx = (catalogItem ? catalogItemsByType.findIndex((item) => item === catalogItem) : -1) + 1; // +1 to skip CATALOG_Not
 
-    const textAtom = useState(() => atom(catalogItem?.displayname || CATALOG_Not))[0];
+    const textAtom = useState(() => atom(catalogItem?.fieldValue.displayname || CATALOG_Not))[0];
     const [inputText, setInputTextText] = useAtom(textAtom);
     const [selectedIndex, setSelectedIndex] = useState(catalogItemIdx);
 
@@ -84,7 +84,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onSetDropdownIndex(idx: number) {
         if (fceAtomsRef && idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: catalogItem?.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: catalogItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
         setInputTextText(dropdownItems[idx]);

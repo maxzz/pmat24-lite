@@ -25,7 +25,7 @@ const mruFldCatPswItemsAtom = atom(
 );
 
 function deleteMruWItem(mru: FceItem[], delItem: FceItem): FceItem[] {
-    return mru.filter((item) => item.uuid !== delItem.uuid);
+    return mru.filter((item) => item.fceMeta.uuid !== delItem.fceMeta.uuid);
 }
 
 function buildMruWItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {

@@ -60,7 +60,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
     return (
         <div
             data-list-item={selected ? 'selected' : ''}
-            data-list-uiid={item.uuid}
+            data-list-uiid={item.fceMeta.uuid}
             // {...(selected && { 'data-tree-item-selected': '' })}
             // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}
@@ -70,10 +70,10 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
                 {idx + 1}
             </div>
 
-            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.password} />
+            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.fieldValue.password} />
 
             <div className={classNames("col-start-3 truncate")}>
-                {item.displayname}
+                {item.fieldValue.displayname}
             </div>
 
         </div>

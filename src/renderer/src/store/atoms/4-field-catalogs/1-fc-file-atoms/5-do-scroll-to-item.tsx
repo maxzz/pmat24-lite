@@ -22,7 +22,7 @@ export const doScrollToItemAtom = atom(null,
         }
 
         const parent = container.querySelector(`[data-radix-scroll-area-viewport]`);
-        const itemDom = container.querySelector(`[data-list-uiid="${selectedItem.uuid}"]`);
+        const itemDom = container.querySelector(`[data-list-uiid="${selectedItem.fceMeta.uuid}"]`);
 
         if (!parent || !itemDom) {
             return;

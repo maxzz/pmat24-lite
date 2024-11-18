@@ -49,10 +49,12 @@ function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
         (item, idx) => {
             const now = uuid.asRelativeNumber();
             const rv: FceItem = {
-                ...catalogItemInFileToFieldValue(item),
-                index: idx,
-                uuid: now,
-                mru: now,
+                fieldValue: catalogItemInFileToFieldValue(item),
+                fceMeta: {
+                    index: idx,
+                    uuid: now,
+                    mru: now,
+                },
                 editor: proxy<FceItemEditor>({ selectedView: false, selectedDlg: false, }),
             };
             return rv;

@@ -8,11 +8,11 @@ const fldCatItemsAtom = atom<FceItem[]>([]); // Should not be used anymore
 // Field catalog items split into text and password items
 
 export const fldCatTxtItemsAtom = atom<FceItem[]>(
-    (get) => get(fldCatItemsAtom).filter((item) => !item.password),
+    (get) => get(fldCatItemsAtom).filter((item) => !item.fieldValue.password),
 );
 
 export const fldCatPswItemsAtom = atom<FceItem[]>(
-    (get) => get(fldCatItemsAtom).filter((item) => !!item.password),
+    (get) => get(fldCatItemsAtom).filter((item) => !!item.fieldValue.password),
 );
 
 // Field catalog item by dbname
@@ -21,7 +21,7 @@ export const fldCatItemAtom = atom(
     (get) => (dbid: string | undefined) => {
         if (dbid) {
             const all = get(fldCatItemsAtom);
-            const rv = all.find((item) => item.dbname === dbid);
+            const rv = all.find((item) => item.fieldValue.dbname === dbid);
             return rv;
         }
     }

@@ -19,10 +19,10 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     useEffect(
         () => {
-            setLocalName(selectedItem?.displayname || '');
-            setLocalValue(selectedItem?.value || '');
-            setLocalType(!selectedItem ? '' : selectedItem?.password ? 'psw' : 'txt');
-            setOwnernote(selectedItem?.ownernote || '');
+            setLocalName(selectedItem?.fieldValue.displayname || '');
+            setLocalValue(selectedItem?.fieldValue.value || '');
+            setLocalType(!selectedItem ? '' : selectedItem?.fieldValue.password ? 'psw' : 'txt');
+            setOwnernote(selectedItem?.fieldValue.ownernote || '');
             // setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
         }, [selectedItem]
     );
@@ -48,7 +48,7 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
         {!fceCtx.isDlgCtx && (
             <div className="pt-1 text-[.65rem] text-muted-foreground">
-                ID: {selectedItem?.dbname}
+                ID: {selectedItem?.fieldValue.dbname}
             </div>
         )}
     </>);

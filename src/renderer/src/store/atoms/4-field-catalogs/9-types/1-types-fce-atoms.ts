@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type CatalogItem as FceItem0 } from "@/store/manifest";
+import { type ValueLife, type Mani, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
@@ -9,7 +9,12 @@ export type FceItemEditor = {
     selectedDlg: boolean;
 };
 
-export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
+// export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
+export type FceItem = {
+    fieldValue: Mani.FieldValue; 
+    fceMeta: CatalogItemMeta;
+    editor: FceItemEditor;
+};
 
 export const defaultFcName = 'field_catalog.dpn';
 
