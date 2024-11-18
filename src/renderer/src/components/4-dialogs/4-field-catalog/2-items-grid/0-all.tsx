@@ -1,11 +1,10 @@
 import { type HTMLAttributes, useEffect, useRef } from "react";
 import { useSetAtom } from "jotai";
-import { type FceCtx } from "@/store";
+import { ScrollArea } from "@/ui/shadcn";
 import useResizeObserver from "use-resize-observer";
 import { classNames } from "@/utils";
-import { ScrollArea } from "@/ui/shadcn";
+import { doScrollToItemAtom, type FceCtx } from "@/store";
 import { FldCatItemsBody } from "./1-body";
-import { doScrollToItemAtom } from "../../../../store/atoms/4-field-catalogs/1-fc-file-atoms/4-do-scroll-to-item";
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
