@@ -21,7 +21,12 @@ const doScrollToSelectedAtom = atom(null,
 
         // console.log('Scroll to selected 11');
 
-        const selectedItem = items[get(fceCtx.selectedIdxStoreAtom)];
+        const itemIdx = get(fceCtx.selectedIdxStoreAtom);
+        if (itemIdx === -1) {
+            return;
+        }
+
+        const selectedItem = items[itemIdx];
         if (!selectedItem) {
             return;
         }
@@ -51,24 +56,25 @@ const doScrollToSelectedAtom = atom(null,
 
         console.log(`Scroll to selected 5, itemRect.top=%o`,
             {
-                item: {
-                    _1_top: itemRect.top,
-                    _2_bottom: itemRect.bottom,
-                    _3_height: itemRect.height,
-                    _4_clientHeight: itemDom.clientHeight,
-                },
-                parent: {
-                    _1_top: parentRect.top,
-                    _2_bottom: parentRect.bottom,
-                    _3_height: parentRect.height,
-                    _4_clientHeight: parent.clientHeight,
-                }
-            });
+                _11_item_top: itemRect.top,
+                _12_item_bottom: itemRect.bottom,
+                _13_item_height: itemRect.height,
+                _14_item_clientHeight: itemDom.clientHeight,
+                _15_: '',
+                _21_parent_top: parentRect.top,
+                _22_parent_bottom: parentRect.bottom,
+                _23_parent_height: parentRect.height,
+                _24_parent_clientHeight: parent.clientHeight,
+            }
+        );
 
-        parent.scrollTo({
-            top: itemRect.top - parentRect.top - parent.clientHeight / 2,
-            behavior: 'smooth',
-        });
+        parent.scrollTop = itemIdx * itemRect.height;
+        // parent.scrollTop = itemRect.top - parentRect.top - parent.clientHeight / 2;
+
+        // parent.scrollTo({
+        //     top: itemRect.top - parentRect.top - parent.clientHeight / 2,
+        //     behavior: 'smooth',
+        // });
     }
 );
 //         container.scrollTo({
