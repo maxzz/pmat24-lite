@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
+import { classNames } from "@/utils";
 
 const itemClasses = "flex flex-col";
 
@@ -29,20 +30,24 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
         <SelectedInxView fceCtx={fceCtx} />
 
+        <div className="pb-2">
+            Field Type: {localType === 'txt' ? 'Text' : 'Password'}
+        </div>
+
         <div className={itemClasses}>
             <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
         </div>
 
-        <div className="py-2">
-            Field type: {localType === 'txt' ? 'Text' : 'Password'}
-        </div>
-
-        <div className={itemClasses}>
+        <div className={classNames(itemClasses, "pt-2")}>
             <PropInputValue label={"Value"} fceCtx={fceCtx} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
         </div>
 
-        <div className={itemClasses}>
+        <div className={classNames(itemClasses, "pt-2")}>
             <PropTextarea label="Description" value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
+        </div>
+
+        <div className="pt-1 text-[.65rem] text-muted-foreground">
+            ID: {selectedItem?.dbname}
         </div>
     </>);
 }

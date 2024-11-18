@@ -43,7 +43,7 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
             {label}
             {/* <TextareaAutoGrow */}
             <Textarea
-                className={classNames("min-h-[162px] text-xs", fixTextareaResizeClasses2, inputFocusClasses)}
+                className={classNames("text-xs", fixTextareaResizeClasses2, inputFocusClasses)}
                 // containerPaddingFont="text-xs"
                 // rows={1}
                 {...turnOffAutoComplete}

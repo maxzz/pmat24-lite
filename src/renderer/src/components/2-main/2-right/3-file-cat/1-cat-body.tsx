@@ -6,11 +6,13 @@ import { classNames } from "@/utils";
 import { SelectedItemBody } from "@/components/4-dialogs/4-field-catalog/3-selected-item-props/1-body";
 
 export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: FileUsAtom; } & HTMLAttributes<HTMLDivElement>) {
+
     const fileUs = useAtomValue(fileUsAtom);
     const fceCtx = fileUs.fceAtoms?.viewFceCtx;
     if (!fceCtx) {
         return <div className="">No body</div>;
     }
+    
     return (
         <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[1fr,auto]", className)} {...rest}>
 
