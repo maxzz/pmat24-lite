@@ -49,12 +49,23 @@ const doScrollToSelectedAtom = atom(null,
             return;
         }
 
-        console.log(`Scroll to selected 5, itemRect.top=${itemRect.top}, parent.clientHeight=${parent.clientHeight}, parentRect=%o`, {rect:{
-            _1_top: parentRect.top,
-            _2_bottom: parentRect.bottom,
-            _3_height: parentRect.height,
-            _4_clientHeight: parent.clientHeight,
-        }});
+        console.log(`Scroll to selected 5, itemRect.top=%o, parentRect=%o`,
+            {
+                item: {
+                    _1_top: itemRect.top,
+                    _2_bottom: itemRect.bottom,
+                    _3_height: itemRect.height,
+                    _4_clientHeight: itemDom.clientHeight,
+                }
+            },
+            {
+                parent: {
+                    _1_top: parentRect.top,
+                    _2_bottom: parentRect.bottom,
+                    _3_height: parentRect.height,
+                    _4_clientHeight: parent.clientHeight,
+                }
+            });
 
         parent.scrollTo({
             top: itemRect.top - parentRect.top - parent.clientHeight / 2,
