@@ -1,7 +1,7 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
-import { doSelectFceItemAtom } from "./3-do-set-selected";
+import { doSelectIdxAtom } from "./3-do-set-selected";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 
@@ -32,36 +32,21 @@ const parentActiveClasses = "\
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
-    const doSelectFceItem = useSetAtom(doSelectFceItemAtom);
+    const doSelectIdx = useSetAtom(doSelectIdxAtom);
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
 
     const refRoot = useRef<HTMLDivElement | null>(null);
 
     useEffect(
-        () => {
-            refRoot.current?.focus();
-
-            // if (!refRoot.current) {
-            //     return;
-            // }
-
-            // const timerId = setTimeout(() => {
-            //     refRoot.current?.focus();
-            // }, 100);
-
-            // return () => clearTimeout(timerId);
-        }, [refRoot.current]
+        () => refRoot.current?.focus(), [refRoot.current]
     );
 
     function onClick(idx: number) {
-        doSelectFceItem(fceCtx, idx, true);
-        setSelectedItem(items[idx]);
-        //setSelectedIdx((currentIdx) => currentIdx === idx ? -1 : idx);
+        setSelectedItem(doSelectIdx(fceCtx, idx, true));
     }
 
     function onDoubleClick(idx: number) {
-        setSelectedItem(items[idx]); 
-        // setSelectedIdx(prevSelectedIdx.current);
+        setSelectedItem(doSelectIdx(fceCtx, idx, true));
         // fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 

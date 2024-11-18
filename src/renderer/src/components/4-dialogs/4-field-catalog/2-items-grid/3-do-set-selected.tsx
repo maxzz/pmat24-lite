@@ -1,27 +1,29 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type FceCtx } from "@/store";
+import { type FceItem, type FceCtx } from "@/store";
 
-export const doSelectFceItemAtom = atom(
+export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: FceCtx, idx: number, value: boolean | ((v: boolean) => boolean)) => {
+    (get, set, ctx: FceCtx, idx: number, value: boolean | ((v: boolean) => boolean)): FceItem | undefined => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
-            deselectCurrent(ctx, get, set);
+            deselectCurrentIdx(ctx, get, set);
         }
 
         const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
 
-        const chunks = get(ctx.fceAtoms.itemsAtom);
+        const items = get(ctx.fceAtoms.itemsAtom);
 
-        const current = chunks[idx];
+        const current = items[idx];
         if (current) {
             current.editor[selectedName] = typeof value === "function" ? value(current.editor[selectedName]) : value;
             set(ctx.selectedIdxStoreAtom, current.editor[selectedName] ? idx : -1);
         }
+
+        return current;
     }
 );
 
-function deselectCurrent(ctx: FceCtx, get: Getter, set: Setter) {
+function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
     const chunks = get(ctx.fceAtoms.itemsAtom);
 
