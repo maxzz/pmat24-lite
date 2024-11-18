@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { doSelectFceItemAtom } from "./3-do-set-selected";
@@ -35,6 +35,24 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     const doSelectFceItem = useSetAtom(doSelectFceItemAtom);
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
 
+    const refRoot = useRef<HTMLDivElement | null>(null);
+
+    useEffect(
+        () => {
+            refRoot.current?.focus();
+
+            // if (!refRoot.current) {
+            //     return;
+            // }
+
+            // const timerId = setTimeout(() => {
+            //     refRoot.current?.focus();
+            // }, 100);
+
+            // return () => clearTimeout(timerId);
+        }, [refRoot.current]
+    );
+
     function onClick(idx: number) {
         doSelectFceItem(fceCtx, idx, true);
         setSelectedItem(items[idx]);
@@ -48,7 +66,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
+        <div ref={refRoot} className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
             {items.map(
                 (item, idx) => (
                     <FldCatItemRow

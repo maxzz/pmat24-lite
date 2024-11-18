@@ -46,9 +46,11 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
             <PropTextarea label="Description" value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
         </div>
 
-        <div className="pt-1 text-[.65rem] text-muted-foreground">
-            ID: {selectedItem?.dbname}
-        </div>
+        {!fceCtx.isDlgCtx && (
+            <div className="pt-1 text-[.65rem] text-muted-foreground">
+                ID: {selectedItem?.dbname}
+            </div>
+        )}
     </>);
 }
 

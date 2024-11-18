@@ -6,6 +6,7 @@ import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
 import { doScrollToItemAtom } from "./4-do-scroll-to-item";
+import { set } from "idb-keyval";
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
@@ -16,8 +17,18 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
     const doSetSelectItem = useSetAtom(fceCtx.selectedItemAtom);
     useEffect(
         () => {
+            if (!refRoot.current) {
+                return;
+            }
+
+            // const timerId = setTimeout(() => {
+            //     refRoot.current?.focus();
+            // }, 1000);
+
             const selectedItem = doScrollToSelected({ container: refRoot.current, fceCtx });
-            selectedItem && doSetSelectItem(selectedItem);
+            doSetSelectItem(selectedItem);
+
+            // return () => clearTimeout(timerId);
         }, [refRoot.current]
     );
 
