@@ -11,9 +11,10 @@ export type FceItemEditor = {
 
 // export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
-    fieldValue: Mani.FieldValue; 
-    fceMeta: CatalogItemMeta;
-    editor: FceItemEditor;
+    fieldValue: Mani.FieldValue;                   // current value for editing
+    beforeEdit: Mani.FieldValue;                   // value before editing
+    fceMeta: CatalogItemMeta;                      // metadata
+    editor: FceItemEditor;                         // editor state
 };
 
 export const defaultFcName = 'field_catalog.dpn';

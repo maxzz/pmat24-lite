@@ -48,8 +48,10 @@ function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
     const rv: FceItem[] = items.map(
         (item, idx) => {
             const now = uuid.asRelativeNumber();
+            const beforeEdit = catalogItemInFileToFieldValue(item);
             const rv: FceItem = {
-                fieldValue: catalogItemInFileToFieldValue(item),
+                fieldValue: beforeEdit,
+                beforeEdit,
                 fceMeta: {
                     index: idx,
                     uuid: now,
