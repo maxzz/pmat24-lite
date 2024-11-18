@@ -68,15 +68,21 @@ const doScrollToSelectedAtom = atom(null,
             }
         );
 
-        parent.scrollTop = itemIdx * itemRect.height;
+        // Both OK
+        //parent.scrollTop = itemIdx * itemDom.clientHeight;
+        parent.scrollTo({ top: itemIdx * itemDom.clientHeight, behavior: 'smooth' });
+
+        //No
         // parent.scrollTop = itemRect.top - parentRect.top - parent.clientHeight / 2;
 
+        //No
         // parent.scrollTo({
         //     top: itemRect.top - parentRect.top - parent.clientHeight / 2,
         //     behavior: 'smooth',
         // });
     }
 );
+//No
 //         container.scrollTo({
 //             top: itemRect.top - container.clientHeight / 2,
 //             behavior: 'smooth',
