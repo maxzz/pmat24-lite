@@ -57,6 +57,7 @@ outline rounded-[3px] \
 
 export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
     const selected = useSnapshot(item.editor)[isDlgCtx ? 'selectedDlg' : 'selectedView'];
+    const { displayname } = useSnapshot(item.fieldValue);
     return (
         <div
             data-list-item={selected ? 'selected' : ''}
@@ -73,7 +74,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
             <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.fieldValue.password} />
 
             <div className={classNames("col-start-3 truncate")}>
-                {item.fieldValue.displayname}
+                {displayname}
             </div>
 
         </div>
