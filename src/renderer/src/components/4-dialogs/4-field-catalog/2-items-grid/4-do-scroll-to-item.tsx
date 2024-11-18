@@ -1,14 +1,20 @@
 import { atom } from "jotai";
 import { type FceCtx, type FceItem } from "@/store";
 
-export const doScrollToSelectedAtom = atom(null,
-    (get, set, { container, fceCtx }: { container: HTMLElement | null; fceCtx: FceCtx; }): FceItem | undefined => {
+type doScrollToItemAtomProps = {
+    container: HTMLElement | null;
+    fceCtx: FceCtx;
+    scrollToIdx?: number; // scrool to item, if not provided, then scroll to selected item
+};
+
+export const doScrollToItemAtom = atom(null,
+    (get, set, { container, fceCtx, scrollToIdx }: doScrollToItemAtomProps): FceItem | undefined => {
         if (!container) {
             return;
         }
 
         const items = get(fceCtx.fceAtoms.itemsAtom);
-        const itemIdx = get(fceCtx.selectedIdxStoreAtom);
+        const itemIdx = scrollToIdx ?? get(fceCtx.selectedIdxStoreAtom);
         const selectedItem = items[itemIdx];
 
         if (!items.length || itemIdx === -1 || !selectedItem) {

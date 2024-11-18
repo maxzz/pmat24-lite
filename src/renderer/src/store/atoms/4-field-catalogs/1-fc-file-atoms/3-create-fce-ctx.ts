@@ -51,7 +51,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         fceAtoms,
         isDlgCtx: !!inData,
         selectedIdxStoreAtom: atom(-1),
-        selectedItemAtom: atom<FceItem | null>(null),
+        selectedItemAtom: atom<FceItem | undefined>(undefined),
         fcePropAtoms: createFcePropAtoms(onValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
         onChangeFcePropValue,

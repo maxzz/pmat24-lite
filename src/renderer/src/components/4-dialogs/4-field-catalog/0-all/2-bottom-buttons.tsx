@@ -13,12 +13,11 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-
     const showSelectBtn = !!fceCtx.inData?.outBoxAtom;
 
     return (<>
         {showSelectBtn && (
-            <Button className={inputFocusClasses} onClick={() => closeFldCatDialog({ selectedItem: selectedItem })} disabled={!selectedItem}>
+            <Button className={inputFocusClasses} disabled={!selectedItem} onClick={() => closeFldCatDialog({ selectedItem })}>
                 Select
             </Button>
         )}

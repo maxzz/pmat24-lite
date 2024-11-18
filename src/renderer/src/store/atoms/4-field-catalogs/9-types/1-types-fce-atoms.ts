@@ -45,7 +45,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     fceAtoms: FceAtoms;
     isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
     selectedIdxStoreAtom: PrimitiveAtom<number>;
-    selectedItemAtom: PrimitiveAtom<FceItem | null>;
+    selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
     onChangeFcePropValue: OnChangeFcePropValue;

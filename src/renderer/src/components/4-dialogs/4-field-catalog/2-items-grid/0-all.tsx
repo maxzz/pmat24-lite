@@ -5,15 +5,14 @@ import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { FldCatItemsBody } from "./1-body";
-import { doScrollToSelectedAtom } from "./4-do-scroll-to-selected";
-import { doSelectFceItemAtom } from "./3-do-set-selected";
+import { doScrollToItemAtom } from "./4-do-scroll-to-item";
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
     const refRoot = useRef<HTMLDivElement | null>(null);
     const { ref: refRootCb, width, height } = useResizeObserver();
 
-    const doScrollToSelected = useSetAtom(doScrollToSelectedAtom);
+    const doScrollToSelected = useSetAtom(doScrollToItemAtom);
     const doSetSelectItem = useSetAtom(fceCtx.selectedItemAtom);
     useEffect(
         () => {
