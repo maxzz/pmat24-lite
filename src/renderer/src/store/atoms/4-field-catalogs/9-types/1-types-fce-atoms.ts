@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type Mani, type CatalogItemMeta, type CatalogFile, TransformValue } from "@/store/manifest";
+import { type ValueLife, type Mani, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
@@ -9,28 +9,13 @@ export type FceItemEditor = {
     selectedDlg: boolean;
 };
 
-export type FceItemValue =
+export type FceItemValue = Prettify<
     & {
         dispname: string;
         dbname: string;
     }
-    & ValueLife;
-
-export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInFile): FceItemValue {
-    const rv: FceItemValue = {
-        dispname: catalogName.dispname,
-        dbname: catalogName.dbname,
-        ...TransformValue.valueLife4Catalog(catalogName),
-    };
-    return rv;
-}
-
-//     const { dispname, ...rest } = catalogName;
-//     return {
-//         displayname: dispname,
-//         ...rest,
-//     };
-// }
+    & ValueLife
+>;
 
 // export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
@@ -39,8 +24,6 @@ export type FceItem = {
     fceMeta: CatalogItemMeta;                      // metadata
     editor: FceItemEditor;                         // editor state
 };
-
-export const defaultFcName = 'field_catalog.dpn';
 
 // FceAtoms
 
@@ -83,3 +66,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
 
 export type OnChangeFcePropParams = Prettify<{ name: string; fceCtx: FceCtx; } & OnValueChangeParams<string | ValueLife>>;
 export type OnChangeFcePropValue = (props: OnChangeFcePropParams) => void;
+
+// Misc
+
+export const defaultFcName = 'field_catalog.dpn';
