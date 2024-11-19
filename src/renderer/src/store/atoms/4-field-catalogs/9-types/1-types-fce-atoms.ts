@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type Mani, type CatalogItemMeta } from "@/store/manifest";
+import { type ValueLife, type Mani, type CatalogItemMeta, type CatalogFile, TransformValue } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
@@ -8,6 +8,29 @@ export type FceItemEditor = {
     selectedView: boolean;
     selectedDlg: boolean;
 };
+
+export type FceItemValue =
+    & {
+        dispname: string;
+        dbname: string;
+    }
+    & ValueLife;
+
+export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInFile): FceItemValue {
+    const rv: FceItemValue = {
+        dispname: catalogName.dispname,
+        dbname: catalogName.dbname,
+        ...TransformValue.valueLife4Catalog(catalogName),
+    };
+    return rv;
+}
+
+//     const { dispname, ...rest } = catalogName;
+//     return {
+//         displayname: dispname,
+//         ...rest,
+//     };
+// }
 
 // export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
