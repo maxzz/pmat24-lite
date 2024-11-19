@@ -52,8 +52,8 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         {!fceCtx.isDlgCtx && (
-            <div className="pt-1 text-[.65rem] text-muted-foreground">
-                ID: {selectedItem?.fieldValue.dbname}
+            <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
+                ID: {selectedItem ? selectedItem?.fieldValue.dbname : 'No item selected'}
             </div>
         )}
     </>);
