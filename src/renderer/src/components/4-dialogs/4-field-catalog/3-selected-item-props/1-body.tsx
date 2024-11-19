@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
+import { FieldTyp } from "@/store/manifest";
 import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
@@ -10,18 +11,18 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 
-    const { nameAtom, valueAtom, typeAtom, ownernoteAtom } = fceCtx.fcePropAtoms;
+    const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
 
     const [localName, setLocalName] = useAtom(nameAtom);
     const [localValue, setLocalValue] = useAtom(valueAtom);
-    const [localType, setLocalType] = useAtom(typeAtom);
     const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
+    const localValueLife = useAtomValue(valueLifeAtom);
 
     useEffect(
         () => {
             setLocalName(selectedItem?.fieldValue.displayname || '');
             setLocalValue(selectedItem?.fieldValue.value || '');
-            setLocalType(!selectedItem ? '' : selectedItem?.fieldValue.password ? 'psw' : 'txt');
+            //setLocalType(!selectedItem ? '' : selectedItem?.fieldValue.password ? 'psw' : 'txt');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
             // setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
         }, [selectedItem]
@@ -31,7 +32,7 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <SelectedInxView fceCtx={fceCtx} />
 
         <div className="pb-2">
-            Field Type: {localType === 'txt' ? 'Text' : 'Password'}
+            Field Type: {localValueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
         <div className={itemClasses}>

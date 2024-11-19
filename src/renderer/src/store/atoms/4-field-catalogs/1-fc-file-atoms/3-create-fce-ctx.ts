@@ -48,7 +48,6 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
 
     const rv: FcePropAtoms = {
         nameAtom: atomWithCallback<string>('', onScopedChange<string>('nameAtom')),
-        typeAtom: atomWithCallback<string>('', onScopedChange<string>('typeAtom')),
         valueAtom: atomWithCallback<string>('', onScopedChange<string>('valueAtom')),
         ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
 

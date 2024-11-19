@@ -23,7 +23,6 @@ export const defaultFcName = 'field_catalog.dpn';
 
 export type FcePropAtoms = {                        // Field Catalog Editor Atoms
     nameAtom      /**/: PrimitiveAtom<string>;
-    typeAtom      /**/: PrimitiveAtom<string>;
     valueAtom     /**/: PrimitiveAtom<string>;
     ownernoteAtom /**/: PrimitiveAtom<string>;
 
