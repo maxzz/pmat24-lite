@@ -11,7 +11,7 @@ export const doFcePropChangesAtom = atom(
             return;
         }
 
-        console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
+        //console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
 
         switch (name) {
             case 'nameAtom':

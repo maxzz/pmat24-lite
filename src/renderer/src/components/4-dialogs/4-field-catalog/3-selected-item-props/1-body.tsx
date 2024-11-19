@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp, TransformValue, ValueAs } from "@/store/manifest";
 import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
@@ -16,15 +16,19 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
     const [localName, setLocalName] = useAtom(nameAtom);
     const [localValue, setLocalValue] = useAtom(valueAtom);
     const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
-    const localValueLife = useAtomValue(valueLifeAtom);
+    const [localValueLife, setLocalValueLife] = useAtom(valueLifeAtom);
 
     useEffect(
         () => {
+            console.log('selectedItem', selectedItem);
+            
             setLocalName(selectedItem?.fieldValue.displayname || '');
             setLocalValue(selectedItem?.fieldValue.value || '');
-            //setLocalType(!selectedItem ? '' : selectedItem?.fieldValue.password ? 'psw' : 'txt');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
             // setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
+
+            const localValueLife = selectedItem ? TransformValue.valueLife4Catalog(selectedItem.fieldValue) : { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false };
+            setLocalValueLife(localValueLife);
         }, [selectedItem]
     );
 
