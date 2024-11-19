@@ -8,6 +8,7 @@ export function createForManualMetaField(password: boolean): Meta.Field {
         life: {
             fType: FieldTyp.edit,
             valueAs: ValueAs.askReuse,
+            isNon: false,
         },
         path: {},
         pidx: 0, // index is irrelevant for manual fields for now

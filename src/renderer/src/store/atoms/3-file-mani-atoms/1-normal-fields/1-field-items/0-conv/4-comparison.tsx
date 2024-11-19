@@ -6,7 +6,8 @@ function theSameValue(from: ValueLife, to: ValueLife): boolean {
     const rv = (
         from.value === to.value &&
         from.valueAs === to.valueAs &&
-        from.isRef === to.isRef
+        from.isRef === to.isRef &&
+        from.isNon === to.isNon
     );
     return rv;
 }

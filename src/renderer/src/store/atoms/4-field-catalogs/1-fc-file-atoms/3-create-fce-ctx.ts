@@ -53,7 +53,7 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
         ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atomWithCallback<ValueLife>({ fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '' }, onScopedChange<ValueLife>('valueLifeAtom')),
+        valueLifeAtom: atomWithCallback<ValueLife>({ fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false }, onScopedChange<ValueLife>('valueLifeAtom')),
     };
     return rv;
 }

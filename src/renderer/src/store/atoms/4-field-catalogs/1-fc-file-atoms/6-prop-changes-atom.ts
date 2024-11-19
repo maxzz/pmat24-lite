@@ -31,7 +31,24 @@ export const doFcePropChangesAtom = atom(
                 // set(fcePropAtoms.useItAtom, nextValue);
                 break;
             case 'valueLifeAtom':
-                // set(fcePropAtoms.valueLifeAtom, nextValue);
+                {
+                //     selectedItem.fieldValue = nextValue as ValueLife
+                //     const { fType, valueAs } = nextValue as ValueLife;
+
+                //     valueAs: ValueAs;           // how to treat value from user
+                //     value?: string;             // key in 'references' if started with '@' otherwise it's a constant value
+                //     isRef?: boolean;            // true if value started with '@' but not '@@'
+                
+                //     fType: FieldTyp;            // now it has type psw and edit/psw/rest information
+                
+                //    //isPsw?: boolean;           // it comes from field.password, and not from ref @password (ref should reflect field type not opposite).
+                //    //isBtn?: boolean;           // any type but not edit or password
+                //     isNon?: boolean;            // true when value is empty and valueAs is default AskReuse, but input cleared by user
+                
+                //     selectedItem.fieldValue.password = fType === FieldTyp.psw;
+                //     selectedItem.fieldValue.valueAs = valueAs;
+                //     selectedItem.fieldValue.value = nextValue.value;
+                }
                 break;
             default:
                 throw new Error(`Unknown prop name: ${name}`);
