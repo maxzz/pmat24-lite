@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 
 const itemClasses = "flex flex-col";
 
-export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
+export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
 

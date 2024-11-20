@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
 import { showPropsAtom, type FceCtx } from "@/store";
-import { SelectedItemBody } from "./1-body";
+import { SelectedItemPropsBody } from "./1-props-body";
 import { classNames } from "@/utils";
 
 type RightPanelGuardProps = {
@@ -29,7 +29,7 @@ export function RightPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
 
                         className={classNames(panelClasses, className)}
                     >
-                        <SelectedItemBody fceCtx={fceCtx} />
+                        <SelectedItemPropsBody fceCtx={fceCtx} />
                     </motion.div>
                 )}
                 
