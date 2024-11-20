@@ -9,3 +9,12 @@ export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInF
     };
     return rv;
 }
+
+export function fceItemValueToCatalogItemInFile(itemValue: FceItemValue): CatalogFile.ItemInFile {
+    const rv: CatalogFile.ItemInFile = {
+        dispname: itemValue.dispname,
+        dbname: itemValue.dbname,
+    };
+    TransformValue.valueLife2Mani(itemValue, rv);
+    return rv;
+}
