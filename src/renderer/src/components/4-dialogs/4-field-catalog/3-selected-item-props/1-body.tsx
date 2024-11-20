@@ -20,15 +20,10 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     useEffect(
         () => {
-            console.log('selectedItem', selectedItem);
-            
             setLocalName(selectedItem?.fieldValue.displayname || '');
             setLocalValue(selectedItem?.fieldValue.value || '');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
-            // setOwnernote(selectedItem?.ownernote || JSON.stringify(selectedItem || {})); // temp to debug size of the ownernote field
-
-            const localValueLife = selectedItem ? TransformValue.valueLife4Catalog(selectedItem.fieldValue) : { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false };
-            setLocalValueLife(localValueLife);
+            setLocalValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false });
         }, [selectedItem]
     );
 
