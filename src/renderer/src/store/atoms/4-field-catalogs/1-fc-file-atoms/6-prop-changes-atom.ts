@@ -10,26 +10,55 @@ export const doFcePropChangesAtom = atom(
             return;
         }
 
+        const changesSet = fceCtx.fceAtoms.fileUs.fileCnt.changesSet;
+
         switch (name) {
             case 'nameAtom': {
-                selectedItem.fieldValue.displayname = nextValue as string;
+                const displayname = nextValue as string;
+                selectedItem.fieldValue.displayname = displayname;
+                
+                const changed = displayname !== selectedItem.beforeEdit.displayname;
+                if (changed) {
+                    changesSet.add(`name-${selectedItem.fceMeta.uuid}`);
+                } else {
+                    changesSet.delete(`name-${selectedItem.fceMeta.uuid}`);
+                }
+
                 break;
             }
             case 'ownernoteAtom': {
                 const ownernote = nextValue as string;
                 selectedItem.fieldValue.ownernote = ownernote;
+
+                const changed = ownernote !== selectedItem.beforeEdit.ownernote;
+                if (changed) {
+                    changesSet.add(`note-${selectedItem.fceMeta.uuid}`);
+                } else {
+                    changesSet.delete(`note-${selectedItem.fceMeta.uuid}`);
+                }
+
                 break;
             }
             case 'valueLifeAtom': {
-                console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
+                //console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
 
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
                 selectedItem.fieldValue.value = value;
                 selectedItem.fieldValue.valueAs = valueAs;
                 selectedItem.fieldValue.isRef = isRef;
                 selectedItem.fieldValue.isNon = isNon;
+
+                const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
+                if (changed) {
+                    changesSet.add(`life-${selectedItem.fceMeta.uuid}`);
+                } else {
+                    changesSet.delete(`life-${selectedItem.fceMeta.uuid}`);
+                }
+
                 break;
             }
         }
+
+        console.log('doFcePropChangesAtom changesSet', changesSet);
     }
 );
