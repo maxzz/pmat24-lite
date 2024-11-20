@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { FieldTyp, TransformValue, ValueAs } from "@/store/manifest";
+import { FieldTyp, ValueAs } from "@/store/manifest";
 import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
@@ -13,17 +13,17 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
 
-    const [localName, setLocalName] = useAtom(nameAtom);
-    const [localValue, setLocalValue] = useAtom(valueAtom);
+    const [displayName, setDisplayName] = useAtom(nameAtom);
+    const [value, setValue] = useAtom(valueAtom);
     const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
-    const [localValueLife, setLocalValueLife] = useAtom(valueLifeAtom);
+    const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
     useEffect(
         () => {
-            setLocalName(selectedItem?.fieldValue.displayname || '');
-            setLocalValue(selectedItem?.fieldValue.value || '');
+            setDisplayName(selectedItem?.fieldValue.displayname || '');
+            setValue(selectedItem?.fieldValue.value || '');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
-            setLocalValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false });
+            setValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false });
         }, [selectedItem]
     );
 
@@ -31,15 +31,15 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <SelectedInxView fceCtx={fceCtx} />
 
         <div className="pb-2">
-            Field Type: {localValueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
+            Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
         <div className={itemClasses}>
-            <PropInput label={"Name"} value={localName} onChange={(e) => setLocalName(e.target.value)} />
+            <PropInput label={"Name"} value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
         </div>
 
         <div className={classNames(itemClasses, "pt-2")}>
-            <PropInputValue label={"Value"} fceCtx={fceCtx} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
+            <PropInputValue label={"Value"} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
 
         <div className={classNames(itemClasses, "pt-2")}>
@@ -54,15 +54,6 @@ export function SelectedItemBody({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
-//TODO: don't allow to change type if item; type defined from the Add menu
-//TODO: value input should from normal mode editor as result we don't need validation
-//TODO: we still need to validate the name input field is not empty or assign a default name #
-
-//TODO: scroll to newly created item
-//TODO: scroll the initial item if provided
-
-//TODO: show item's dbid
-
 function SelectedInxView({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
     return (
@@ -71,3 +62,9 @@ function SelectedInxView({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
     );
 }
+
+//TODO: don't allow to change type if item; type defined from the Add menu
+//TODO: value input should from normal mode editor as result we don't need validation
+//TODO: we still need to validate the name input field is not empty or assign a default name #
+
+//TODO: scroll to newly created item
