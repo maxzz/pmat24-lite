@@ -3,6 +3,7 @@ import { useSnapshot } from "valtio";
 import { type FceItem } from "@/store";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
+import { FieldTyp } from "pm-manifest";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
@@ -71,7 +72,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
                 {idx + 1}
             </div>
 
-            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.fieldValue.password} />
+            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.fieldValue.fType === FieldTyp.psw} />
 
             <div className={classNames("col-start-3 truncate")}>
                 {displayname}

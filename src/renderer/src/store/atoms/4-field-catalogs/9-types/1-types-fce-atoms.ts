@@ -11,16 +11,17 @@ export type FceItemEditor = {
 
 export type FceItemValue = Prettify<
     & {
-        dispname: string;
+        displayname: string;
         dbname: string;
+        ownernote: string;
     }
     & ValueLife
 >;
 
 // export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
-    fieldValue: Mani.FieldValue;                   // current value for editing
-    beforeEdit: Mani.FieldValue;                   // value before editing
+    fieldValue: FceItemValue;                       // current value for editing
+    beforeEdit: FceItemValue;                       // value before editing
     fceMeta: CatalogItemMeta;                      // metadata
     editor: FceItemEditor;                         // editor state
 };
