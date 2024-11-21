@@ -51,7 +51,7 @@ function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
             const now = uuid.asRelativeNumber();
             const beforeEdit = catalogItemInFileToFceItemValue(item);
             const rv: FceItem = {
-                fieldValue: proxy<FceItemValue>(beforeEdit),
+                fieldValue: proxy<FceItemValue>({ ...beforeEdit }),
                 beforeEdit,
                 fceMeta: {
                     index: idx,
