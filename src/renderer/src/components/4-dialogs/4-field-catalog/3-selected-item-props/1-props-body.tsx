@@ -28,7 +28,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 
     return (<>
-        <SelectedInxView fceCtx={fceCtx} />
+        <SelectedIdxView fceCtx={fceCtx} />
 
         <div className="pb-2">
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
@@ -54,7 +54,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
-function SelectedInxView({ fceCtx }: { fceCtx: FceCtx; }) {
+function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
     return (
         <div className="absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs text-muted-foreground flex items-center justify-center rounded-sm">
