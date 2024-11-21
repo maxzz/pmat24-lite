@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { type FceCtx } from "../9-types";
 import { type ValueLife } from "@/store/manifest";
 import { setManiChanges } from "../../3-file-mani-atoms";
+import { theSameValue } from "../../3-file-mani-atoms/1-normal-fields/1-field-items/0-conv/4-comparison";
 
 export const doFcePropChangesAtom = atom(
     null,
@@ -30,12 +31,17 @@ export const doFcePropChangesAtom = atom(
             }
             case 'valueLifeAtom': {
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
-                const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
 
-                selectedItem.fieldValue.value = value;
-                selectedItem.fieldValue.valueAs = valueAs;
-                selectedItem.fieldValue.isRef = isRef;
-                selectedItem.fieldValue.isNon = isNon;
+                const changed = !theSameValue(nextValue as ValueLife, selectedItem.fieldValue);
+
+                console.log('doFcePropChangesAtom', { nextValue, current: selectedItem.fieldValue, changed });
+
+                //const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
+
+                // selectedItem.fieldValue.value = value;
+                // selectedItem.fieldValue.valueAs = valueAs;
+                // selectedItem.fieldValue.isRef = isRef;
+                // selectedItem.fieldValue.isNon = isNon;
                 setManiChanges(fceCtx.fceAtoms, changed, `life-${selectedItem.fceMeta.uuid}`);
                 break;
             }

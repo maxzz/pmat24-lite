@@ -2,7 +2,7 @@ import { type EditorField, type Mani, type ValueLife } from "@/store/manifest";
 
 // Comparison
 
-function theSameValue(from: ValueLife, to: ValueLife): boolean {
+export function theSameValue(from: ValueLife, to: ValueLife): boolean {
     const rv = (
         from.value === to.value &&
         from.valueAs === to.valueAs &&
