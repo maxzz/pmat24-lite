@@ -3,12 +3,12 @@ import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
 
-export function AddItem_PanelMenu() {
+export function PanelMenu_AddItem() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost">
+                <Button variant="ghost" title="Add new item" tabIndex={-1}>
                     <IconAdd className="size-4 fill-current" />
                 </Button>
             </DropdownMenuTrigger>

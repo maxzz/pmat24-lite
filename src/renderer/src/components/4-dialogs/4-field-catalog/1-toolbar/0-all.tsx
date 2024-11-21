@@ -3,8 +3,8 @@ import { showPropsAtom, type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
 import { inputFocusClasses } from "@/ui/local-ui";
-import { FC_PanelMenu } from "./1-fc-menu";
-import { AddItem_PanelMenu } from "./2-add-item-menu";
+import { PanelMenu_Fc } from "./1-menu-fc";
+import { PanelMenu_AddItem } from "./2-menu-add-item";
 import { classNames } from "@/utils";
 
 type FieldCatalogToolbarProps = {
@@ -19,26 +19,16 @@ export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: Fiel
     const [showProps, doShowProps] = useAtom(showPropsAtom);
 
     return (
-        <div className={classNames("flex items-center justify-end gap-1", className)}>
+        <div className={classNames("flex items-center justify-end", className)}>
+            <PanelMenu_AddItem />
 
-            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1} title="Add new item">
-                +
-            </Button> */}
-            <AddItem_PanelMenu />
-
-            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}> */}
             {showPropsExpand && (
                 <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
                     <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'} transition-transform duration-200`} />
                 </Button>
             )}
 
-            {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
-                <IconMenuHamburger5 className="size-3" />
-            </Button> */}
-
-            <FC_PanelMenu />
-
+            <PanelMenu_Fc />
         </div>
     );
 }
