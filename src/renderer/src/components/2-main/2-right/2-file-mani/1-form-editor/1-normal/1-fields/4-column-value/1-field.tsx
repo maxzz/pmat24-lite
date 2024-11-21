@@ -65,7 +65,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
                 {...turnOffAutoComplete}
             />
 
-            {!!dropdownAllItems.length && (
+            {!!dropdownAllItems.length && !disabled && (
                 <ValueDropdown useItAtom={useItAtom} items={dropdownAllItems} selectedIndex={dropdownSelectedIndex} onSetIndex={onSetDropdownIndex} />
             )}
         </div>

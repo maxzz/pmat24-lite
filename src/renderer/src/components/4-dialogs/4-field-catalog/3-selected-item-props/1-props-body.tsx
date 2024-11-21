@@ -50,7 +50,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={classNames("pt-2", itemClasses, disabled(!selectedItem))}>
-            <PropInputValue label={"Value"} disabled={!selectedItem} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
+            <PropInputValue label={"Value"} disabled={!selectedItem} parentDisabled={!selectedItem} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
 
         <div className={classNames("pt-2", disabled(!selectedItem))}>
