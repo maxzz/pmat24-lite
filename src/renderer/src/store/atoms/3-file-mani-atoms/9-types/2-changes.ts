@@ -22,15 +22,3 @@ export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean,
 // all files changes; it is important to show that some files have changes due to scrolling 
 
 export const allFileUsChanges = proxySet<string>();
-
-
-
-
-
-
-
-
-
-
-
-//TODO: update fileUsCtx to fileUs only. field catalog has a different fileUsCtx

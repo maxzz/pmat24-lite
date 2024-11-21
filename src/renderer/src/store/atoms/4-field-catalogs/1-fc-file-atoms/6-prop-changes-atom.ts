@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { type FceCtx } from "../9-types";
 import { type ValueLife } from "@/store/manifest";
+import { setManiChanges } from "../../3-file-mani-atoms";
 
 export const doFcePropChangesAtom = atom(
     null,
@@ -18,11 +19,14 @@ export const doFcePropChangesAtom = atom(
                 selectedItem.fieldValue.displayname = displayname;
                 
                 const changed = displayname !== selectedItem.beforeEdit.displayname;
-                if (changed) {
-                    changesSet.add(`name-${selectedItem.fceMeta.uuid}`);
-                } else {
-                    changesSet.delete(`name-${selectedItem.fceMeta.uuid}`);
-                }
+                setManiChanges(fceCtx.fceAtoms, changed, `name-${selectedItem.fceMeta.uuid}`);
+
+
+                // if (changed) {
+                //     changesSet.add(`name-${selectedItem.fceMeta.uuid}`);
+                // } else {
+                //     changesSet.delete(`name-${selectedItem.fceMeta.uuid}`);
+                // }
 
                 break;
             }
@@ -31,11 +35,13 @@ export const doFcePropChangesAtom = atom(
                 selectedItem.fieldValue.ownernote = ownernote;
 
                 const changed = ownernote !== selectedItem.beforeEdit.ownernote;
-                if (changed) {
-                    changesSet.add(`note-${selectedItem.fceMeta.uuid}`);
-                } else {
-                    changesSet.delete(`note-${selectedItem.fceMeta.uuid}`);
-                }
+                setManiChanges(fceCtx.fceAtoms, changed, `note-${selectedItem.fceMeta.uuid}`);
+
+                // if (changed) {
+                //     changesSet.add(`note-${selectedItem.fceMeta.uuid}`);
+                // } else {
+                //     changesSet.delete(`note-${selectedItem.fceMeta.uuid}`);
+                // }
 
                 break;
             }
@@ -49,11 +55,14 @@ export const doFcePropChangesAtom = atom(
                 selectedItem.fieldValue.isNon = isNon;
 
                 const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
-                if (changed) {
-                    changesSet.add(`life-${selectedItem.fceMeta.uuid}`);
-                } else {
-                    changesSet.delete(`life-${selectedItem.fceMeta.uuid}`);
-                }
+
+                setManiChanges(fceCtx.fceAtoms, changed, `life-${selectedItem.fceMeta.uuid}`);
+                
+                // if (changed) {
+                //     changesSet.add(`life-${selectedItem.fceMeta.uuid}`);
+                // } else {
+                //     changesSet.delete(`life-${selectedItem.fceMeta.uuid}`);
+                // }
 
                 break;
             }
