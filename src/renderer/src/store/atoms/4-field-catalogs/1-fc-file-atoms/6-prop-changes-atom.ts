@@ -34,14 +34,12 @@ export const doFcePropChangesAtom = atom(
 
                 const changed = !theSameValue(nextValue as ValueLife, selectedItem.fieldValue);
 
-                console.log('doFcePropChangesAtom', { nextValue, current: selectedItem.fieldValue, changed });
+                console.log('doFcePropChangesAtom', JSON.stringify({ nextValue, current: selectedItem.fieldValue, changed }, null, 2));
 
-                //const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
-
-                // selectedItem.fieldValue.value = value;
-                // selectedItem.fieldValue.valueAs = valueAs;
-                // selectedItem.fieldValue.isRef = isRef;
-                // selectedItem.fieldValue.isNon = isNon;
+                selectedItem.fieldValue.value = value;
+                selectedItem.fieldValue.valueAs = valueAs;
+                selectedItem.fieldValue.isRef = isRef;
+                selectedItem.fieldValue.isNon = isNon;
                 setManiChanges(fceCtx.fceAtoms, changed, `life-${selectedItem.fceMeta.uuid}`);
                 break;
             }

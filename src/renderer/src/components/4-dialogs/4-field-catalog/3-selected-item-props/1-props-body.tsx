@@ -6,7 +6,7 @@ import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
 const itemClasses = "flex flex-col disabled:opacity-25 disabled:pointer-events-none";
-const disabledClasses = "opacity-5 pointer-events-none cursor-not-allowed";
+const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
@@ -27,14 +27,9 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             setValueLife(selectedItem?.fieldValue || createEmptyValueLife({ fType: FieldTyp.edit }));
         }, [selectedItem]
     );
-
+    
     const enabled = !!selectedItem;
     const allClasses = classNames(itemClasses, !enabled && disabledClasses);
-
-    function disabled(disabled: boolean) {
-        const disabledClasses = "opacity-5 pointer-events-none cursor-not-allowed";
-        return disabled ? disabledClasses : "";
-    }
 
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />

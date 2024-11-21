@@ -58,9 +58,10 @@ export type FceCtx = {                              // Field Catalog Editor cont
     isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
+    scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
-    onChangeFcePropValue: OnChangeFcePropValue;
+    onChangeFcePropValue: OnChangeFcePropValue;     // TODO: callback for newly created itmes, but we don't really need it
 };
 
 // Callback

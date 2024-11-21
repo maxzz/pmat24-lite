@@ -36,3 +36,24 @@ export const doScrollToItemAtom = atom(null,
         return selectedItem;
     }
 );
+
+// TODO: we can use this to scroll to the selected item, but not used since we need to track the container size change and activation moment
+const doScrollToOffsetAtom = atom(null,
+    (get, set, { container, fceCtx }: Omit<doScrollToItemAtomProps, 'scrollToIdx'>): void => {
+        if (!container) {
+            return;
+        }
+
+        const items = get(fceCtx.fceAtoms.itemsAtom);
+        if (!items.length) {
+            return;
+        }
+
+        const parent = container.querySelector(`[data-radix-scroll-area-viewport]`);
+        if (!parent) {
+            return;
+        }
+
+        parent.scrollTop = fceCtx.scrollTo;
+    }
+);
