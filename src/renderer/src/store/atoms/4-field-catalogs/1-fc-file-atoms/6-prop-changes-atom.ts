@@ -21,6 +21,7 @@ export const doFcePropChangesAtom = atom(
                 const changed = displayname !== selectedItem.beforeEdit.displayname;
                 setManiChanges(fceCtx.fceAtoms, changed, `name-${selectedItem.fceMeta.uuid}`);
 
+                console.log(`doFcePropChangesAtom changesSe1 ${changed} "${displayname}" before "${selectedItem.beforeEdit.displayname}"`, [...changesSet]);
 
                 // if (changed) {
                 //     changesSet.add(`name-${selectedItem.fceMeta.uuid}`);
@@ -68,6 +69,6 @@ export const doFcePropChangesAtom = atom(
             }
         }
 
-        console.log('doFcePropChangesAtom changesSet', changesSet);
+        console.log('doFcePropChangesAtom changesSet', [...changesSet]);
     }
 );
