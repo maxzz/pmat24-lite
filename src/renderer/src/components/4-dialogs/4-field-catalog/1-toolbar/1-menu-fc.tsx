@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button } from "@/ui/shadcn";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
-import { IconMenuHamburger5 } from "@/ui/icons";
-import { appSettings, RightPanelViewType } from "@/store";
 import { useSnapshot } from "valtio";
+import { type FceCtx, appSettings, RightPanelViewType } from "@/store";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
+import { Button } from "@/ui/shadcn";
+import { IconMenuHamburger5 } from "@/ui/icons";
 
-export function PanelMenu_Fc() {
+export function PanelMenu_Fc({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>

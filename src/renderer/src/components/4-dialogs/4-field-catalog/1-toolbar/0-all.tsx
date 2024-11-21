@@ -15,7 +15,7 @@ export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: Fiel
         <div className={classNames("flex items-center justify-end", className)}>
             <PanelMenu_AddItem fceCtx={fceCtx} />
             <ShowPropsTrigger showPropsExpand={showPropsExpand} />
-            <PanelMenu_Fc />
+            <PanelMenu_Fc fceCtx={fceCtx} />
         </div>
     );
 }
