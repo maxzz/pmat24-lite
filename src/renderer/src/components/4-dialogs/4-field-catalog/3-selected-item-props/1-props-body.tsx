@@ -5,7 +5,7 @@ import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
-const itemClasses = "flex flex-col";
+const itemClasses = "flex flex-col disabled:opacity-25 disabled:pointer-events-none";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
@@ -27,7 +27,12 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         }, [selectedItem]
     );
 
+    if (!selectedItem) {
+        return null;
+    }
+
     return (<>
+
         <SelectedIdxView fceCtx={fceCtx} />
 
         <div className="pb-2">
@@ -35,15 +40,15 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={itemClasses}>
-            <PropInput label={"Name"} value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+            <PropInput label={"Name"} disabled={!selectedItem} value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+        </div>
+
+        <div className={classNames(itemClasses, !selectedItem && "opacity-25 pointer-events-none cursor-not-allowed", "pt-2")}>
+            <PropInputValue label={"Value"} disabled={!selectedItem} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
 
         <div className={classNames(itemClasses, "pt-2")}>
-            <PropInputValue label={"Value"} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
-        </div>
-
-        <div className={classNames(itemClasses, "pt-2")}>
-            <PropTextarea label="Description" value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
+            <PropTextarea label="Description" disabled={!selectedItem} value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
         </div>
 
         {!fceCtx.isDlgCtx && (
