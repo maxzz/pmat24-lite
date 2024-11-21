@@ -11,64 +11,34 @@ export const doFcePropChangesAtom = atom(
             return;
         }
 
-        const changesSet = fceCtx.fceAtoms.fileUs.fileCnt.changesSet;
-
         switch (name) {
             case 'nameAtom': {
                 const displayname = nextValue as string;
-                selectedItem.fieldValue.displayname = displayname;
-                
                 const changed = displayname !== selectedItem.beforeEdit.displayname;
+
+                selectedItem.fieldValue.displayname = displayname;
                 setManiChanges(fceCtx.fceAtoms, changed, `name-${selectedItem.fceMeta.uuid}`);
-
-                console.log(`doFcePropChangesAtom changesSe1 ${changed} "${displayname}" before "${selectedItem.beforeEdit.displayname}"`, selectedItem, [...changesSet]);
-
-                // if (changed) {
-                //     changesSet.add(`name-${selectedItem.fceMeta.uuid}`);
-                // } else {
-                //     changesSet.delete(`name-${selectedItem.fceMeta.uuid}`);
-                // }
-
                 break;
             }
             case 'ownernoteAtom': {
                 const ownernote = nextValue as string;
-                selectedItem.fieldValue.ownernote = ownernote;
-
                 const changed = ownernote !== selectedItem.beforeEdit.ownernote;
+
+                selectedItem.fieldValue.ownernote = ownernote;
                 setManiChanges(fceCtx.fceAtoms, changed, `note-${selectedItem.fceMeta.uuid}`);
-
-                // if (changed) {
-                //     changesSet.add(`note-${selectedItem.fceMeta.uuid}`);
-                // } else {
-                //     changesSet.delete(`note-${selectedItem.fceMeta.uuid}`);
-                // }
-
                 break;
             }
             case 'valueLifeAtom': {
-                //console.log('doFcePropChangesAtom', { name, nextValue, fceCtx });
-
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
+                const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
+
                 selectedItem.fieldValue.value = value;
                 selectedItem.fieldValue.valueAs = valueAs;
                 selectedItem.fieldValue.isRef = isRef;
                 selectedItem.fieldValue.isNon = isNon;
-
-                const changed = value !== selectedItem.beforeEdit.value || valueAs !== selectedItem.beforeEdit.valueAs || isRef !== selectedItem.beforeEdit.isRef || isNon !== selectedItem.beforeEdit.isNon;
-
                 setManiChanges(fceCtx.fceAtoms, changed, `life-${selectedItem.fceMeta.uuid}`);
-                
-                // if (changed) {
-                //     changesSet.add(`life-${selectedItem.fceMeta.uuid}`);
-                // } else {
-                //     changesSet.delete(`life-${selectedItem.fceMeta.uuid}`);
-                // }
-
                 break;
             }
         }
-
-        console.log('doFcePropChangesAtom changesSet', [...changesSet]);
     }
 );
