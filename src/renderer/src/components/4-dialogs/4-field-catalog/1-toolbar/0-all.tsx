@@ -1,11 +1,8 @@
-import { useAtom } from "jotai";
-import { showPropsAtom, type FceCtx } from "@/store";
-import { Button } from "@/ui/shadcn";
-import { IconMenuHamburger5, SymbolDoubleDown } from "@/ui/icons";
-import { inputFocusClasses } from "@/ui/local-ui";
+import { type FceCtx } from "@/store";
+import { classNames } from "@/utils";
 import { PanelMenu_Fc } from "./1-menu-fc";
 import { PanelMenu_AddItem } from "./2-menu-add-item";
-import { classNames } from "@/utils";
+import { ShowPropsTrigger } from "./3-show-poprs.trigger";
 
 type FieldCatalogToolbarProps = {
     fceCtx: FceCtx;
@@ -13,21 +10,11 @@ type FieldCatalogToolbarProps = {
     className?: string;
 };
 
-const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
-
 export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: FieldCatalogToolbarProps) {
-    const [showProps, doShowProps] = useAtom(showPropsAtom);
-
     return (
         <div className={classNames("flex items-center justify-end", className)}>
-            <PanelMenu_AddItem />
-
-            {showPropsExpand && (
-                <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
-                    <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'} transition-transform duration-200`} />
-                </Button>
-            )}
-
+            <PanelMenu_AddItem fceCtx={fceCtx} />
+            <ShowPropsTrigger showPropsExpand={showPropsExpand} />
             <PanelMenu_Fc />
         </div>
     );
@@ -36,15 +23,9 @@ export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: Fiel
 //TODO: add sorting and filtering
 //TODO: add expand/collapse properties
 
-{/* <Button className={inputFocusClasses}>
-Filter
-</Button>
+{/* 
+    <Button className={inputFocusClasses}>Filter</Button>
+    <Button className={inputFocusClasses}>Sort by</Button>
+*/}
 
-<Button className={inputFocusClasses}>
-Sort by
-</Button>
- */}
-
-//  <Button className={classNames(inputFocusClasses, "aspect-square")} variant="outline" size="xs">
-//  {'>>'}
-// </Button>
+// const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none"; //TODO: make it global
