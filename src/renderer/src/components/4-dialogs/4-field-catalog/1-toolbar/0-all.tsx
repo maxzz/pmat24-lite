@@ -9,12 +9,13 @@ import { classNames } from "@/utils";
 
 type FieldCatalogToolbarProps = {
     fceCtx: FceCtx;
+    showPropsExpand?: boolean;
     className?: string;
 };
 
 const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none";
 
-export function FieldCatalogToolbar({ fceCtx, className }: FieldCatalogToolbarProps) {
+export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: FieldCatalogToolbarProps) {
     const [showProps, doShowProps] = useAtom(showPropsAtom);
 
     return (
@@ -26,9 +27,11 @@ export function FieldCatalogToolbar({ fceCtx, className }: FieldCatalogToolbarPr
             <AddItem_PanelMenu />
 
             {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}> */}
-            <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
-                <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'} transition-transform duration-200`} />
-            </Button>
+            {showPropsExpand && (
+                <Button variant="ghost" tabIndex={-1} title="Show item details" onClick={() => doShowProps((v) => !v)}>
+                    <SymbolDoubleDown className={`size-3 ${showProps ? 'rotate-90' : '-rotate-90'} transition-transform duration-200`} />
+                </Button>
+            )}
 
             {/* <Button className={classNames(inputFocusClasses, pressClasses, "aspect-square")} variant="outline" size="xs" tabIndex={-1}>
                 <IconMenuHamburger5 className="size-3" />
