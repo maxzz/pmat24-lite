@@ -53,7 +53,13 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
     );
 }
 
-export function PropInputValue({ label, fceCtx, parentDisabled, className, ...rest }: { label: string; fceCtx: FceCtx; parentDisabled?: boolean; } & InputHTMLAttributes<HTMLInputElement>) {
+type PropInputValueProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
+    fceCtx: FceCtx;
+    parentDisabled?: boolean;
+};
+
+export function PropInputValue({ label, fceCtx, className, ...rest }: PropInputValueProps) {
     return (
         <Label className={itemClasses}>
             {label}
@@ -61,15 +67,8 @@ export function PropInputValue({ label, fceCtx, parentDisabled, className, ...re
                 useItAtom={fceCtx.fcePropAtoms.useItAtom}
                 valueLifeAtom={fceCtx.fcePropAtoms.valueLifeAtom}
                 choosevalue=""
-                parentDisabled={parentDisabled}
                 {...rest}
             />
-
-            {/* <Input
-                className={classNames("h-7 text-xs", inputFocusClasses2, inputRingClasses, className)}
-                {...turnOffAutoComplete}
-                {...rest}
-            /> */}
         </Label>
     );
 }

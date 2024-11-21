@@ -6,6 +6,7 @@ import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
 const itemClasses = "flex flex-col disabled:opacity-25 disabled:pointer-events-none";
+const disabledClasses = "opacity-5 pointer-events-none cursor-not-allowed";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
@@ -27,11 +28,8 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         }, [selectedItem]
     );
 
-    //useEffect(() => console.log('mounted'), []);
-
-    // if (!selectedItem) {
-    //     return null;
-    // }
+    const enabled = !!selectedItem;
+    const allClasses = classNames(itemClasses, !enabled && disabledClasses);
 
     function disabled(disabled: boolean) {
         const disabledClasses = "opacity-5 pointer-events-none cursor-not-allowed";
@@ -41,25 +39,39 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
 
-        <div className={classNames("pb-2", disabled(!selectedItem))}>
+        <div className={classNames(!enabled && disabledClasses)}>
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
-        <div className={classNames(itemClasses, disabled(!selectedItem))}>
-            <PropInput label={"Name"} disabled={!selectedItem} value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+        <div className={classNames("pt-2", allClasses)}>
+            <PropInput
+                label={"Name"}
+                disabled={!enabled}
+                value={displayName} onChange={(e) => setDisplayName(e.target.value)}
+            />
         </div>
 
-        <div className={classNames("pt-2", itemClasses, disabled(!selectedItem))}>
-            <PropInputValue label={"Value"} disabled={!selectedItem} parentDisabled={!selectedItem} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
+        <div className={classNames("pt-2", allClasses)}>
+            <PropInputValue
+                label={"Value"}
+                disabled={!enabled}
+                parentDisabled={!enabled}
+                fceCtx={fceCtx}
+                value={value} onChange={(e) => setValue(e.target.value)}
+            />
         </div>
 
-        <div className={classNames("pt-2", disabled(!selectedItem))}>
-            <PropTextarea label="Description" disabled={!selectedItem} value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
+        <div className={classNames("pt-2", allClasses)}>
+            <PropTextarea
+                label="Description"
+                disabled={!enabled}
+                value={ownernote} onChange={(e) => setOwnernote(e.target.value)}
+            />
         </div>
 
         {!fceCtx.isDlgCtx && (
             <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
-                ID: {selectedItem ? selectedItem?.fieldValue.dbname : 'No item selected'}
+                ID: {selectedItem ? selectedItem.fieldValue.dbname : 'No item selected'}
             </div>
         )}
     </>);
