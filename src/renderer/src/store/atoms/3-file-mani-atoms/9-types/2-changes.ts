@@ -1,14 +1,14 @@
 import { proxySet } from "valtio/utils";
-import { FileUsCtx } from "./1-mani-atoms";
+import { type FileUs } from "@/store/store-types";
 
 export type ChangesSet = Set<string>;
 
 // fileUs changes
 
-export function setManiChanges(fileUsCtx: FileUsCtx, changed: boolean, changeName: string): ChangesSet {
-    
+export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
+
     const fileUs = fileUsCtx.fileUs;
-    
+
     const changes = fileUs.fileCnt.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
 
@@ -22,3 +22,15 @@ export function setManiChanges(fileUsCtx: FileUsCtx, changed: boolean, changeNam
 // all files changes; it is important to show that some files have changes due to scrolling 
 
 export const allFileUsChanges = proxySet<string>();
+
+
+
+
+
+
+
+
+
+
+
+//TODO: update fileUsCtx to fileUs only. field catalog has a different fileUsCtx
