@@ -23,7 +23,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             setDisplayName(selectedItem?.fieldValue.displayname || '');
             setValue(selectedItem?.fieldValue.value || '');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
-            setValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isNon: false });
+            setValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false });
         }, [selectedItem]
     );
 

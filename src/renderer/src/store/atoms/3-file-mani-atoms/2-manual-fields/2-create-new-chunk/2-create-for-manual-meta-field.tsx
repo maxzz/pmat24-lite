@@ -8,6 +8,8 @@ export function createForManualMetaField(password: boolean): Meta.Field {
         life: {
             fType: FieldTyp.edit,
             valueAs: ValueAs.askReuse,
+            value: '',
+            isRef: false,
             isNon: false,
         },
         path: {},
