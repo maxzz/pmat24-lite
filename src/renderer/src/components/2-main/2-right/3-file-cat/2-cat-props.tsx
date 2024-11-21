@@ -21,9 +21,9 @@ export function BottomPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
 
                 {showProps && (
                     <motion.div
-                        initial={{ x: -30, opacity: 0, width: 0 }}
-                        animate={{ x: 4, opacity: 1, width: "auto" }}
-                        exit={{ x: -30, opacity: 0, width: 0 }}
+                        initial={{ y: -30, opacity: 0, height: 0 }}
+                        animate={{ y: 0, opacity: 1, height: "auto" }}
+                        exit={{ y: -30, opacity: 0, height: 0 }}
                         transition={transition}
                         key="fce-props-panel"
 

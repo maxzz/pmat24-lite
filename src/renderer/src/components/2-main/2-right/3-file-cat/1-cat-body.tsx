@@ -19,12 +19,12 @@ export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: Fil
 
             <FldCatItemsGrid className="" fceCtx={fceCtx} />
 
-            <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
+            {/* <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
                 <SelectedItemPropsBody fceCtx={fceCtx} />
-            </div>
+            </div> */}
 
-            <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
-                <BottomPanelGuard fceCtx={fceCtx} />
+            <div className="relative">
+                <BottomPanelGuard className="mx-3 my-2 p-2 border-border border rounded-md" fceCtx={fceCtx} />
             </div>
         </div>
     );
