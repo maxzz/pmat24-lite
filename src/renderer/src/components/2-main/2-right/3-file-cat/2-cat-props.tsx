@@ -11,7 +11,7 @@ type RightPanelGuardProps = {
 
 const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
 
-const panelClasses = "min-w-44 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden";
+const panelClasses = "";
 
 export function BottomPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
     const showProps = useAtomValue(fceCtx.selectedItemAtom);
@@ -25,7 +25,7 @@ export function BottomPanelGuard({ fceCtx, className }: RightPanelGuardProps) {
                         animate={{ x: 4, opacity: 1, width: "auto" }}
                         exit={{ x: -30, opacity: 0, width: 0 }}
                         transition={transition}
-                        key="right-panel"
+                        key="fce-props-panel"
 
                         className={classNames(panelClasses, className)}
                     >
