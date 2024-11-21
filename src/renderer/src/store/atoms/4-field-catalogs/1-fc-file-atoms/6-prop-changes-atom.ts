@@ -32,9 +32,9 @@ export const doFcePropChangesAtom = atom(
             case 'valueLifeAtom': {
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
 
-                const changed = !theSameValue(nextValue as ValueLife, selectedItem.fieldValue);
+                const changed = !theSameValue(nextValue as ValueLife, selectedItem.beforeEdit);
 
-                console.log('doFcePropChangesAtom', JSON.stringify({ nextValue, current: selectedItem.fieldValue, changed }, null, 2));
+                // console.log('doFcePropChangesAtom', JSON.stringify({ nextValue, current: selectedItem.fieldValue, changed }, null, 2));
 
                 selectedItem.fieldValue.value = value;
                 selectedItem.fieldValue.valueAs = valueAs;
