@@ -25,9 +25,10 @@ type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
+    parentDisabled?: boolean; // Container is disabled vs. input is disabled
 };
 
-export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className, ...rest }: Column4_ValueProps) {
+export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, ...rest }: Column4_ValueProps) {
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
@@ -38,11 +39,12 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, className
         context,
         inputText,
         showAsRef,
-        disabled,
+        disabled: disabledItself,
         title,
     } = getValueUiState(valueLife, choosevalue);
 
     const showInputText = !useIt && !valueLife.isRef && !valueLife.value;
+    const disabled = parentDisabled || disabledItself;
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>

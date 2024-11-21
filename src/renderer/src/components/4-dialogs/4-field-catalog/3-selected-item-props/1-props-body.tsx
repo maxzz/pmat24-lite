@@ -27,27 +27,33 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         }, [selectedItem]
     );
 
-    if (!selectedItem) {
-        return null;
+    //useEffect(() => console.log('mounted'), []);
+
+    // if (!selectedItem) {
+    //     return null;
+    // }
+
+    function disabled(disabled: boolean) {
+        const disabledClasses = "opacity-5 pointer-events-none cursor-not-allowed";
+        return disabled ? disabledClasses : "";
     }
 
     return (<>
-
         <SelectedIdxView fceCtx={fceCtx} />
 
-        <div className="pb-2">
+        <div className={classNames("pb-2", disabled(!selectedItem))}>
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
-        <div className={itemClasses}>
+        <div className={classNames(itemClasses, disabled(!selectedItem))}>
             <PropInput label={"Name"} disabled={!selectedItem} value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
         </div>
 
-        <div className={classNames(itemClasses, !selectedItem && "opacity-25 pointer-events-none cursor-not-allowed", "pt-2")}>
+        <div className={classNames("pt-2", itemClasses, disabled(!selectedItem))}>
             <PropInputValue label={"Value"} disabled={!selectedItem} fceCtx={fceCtx} value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
 
-        <div className={classNames(itemClasses, "pt-2")}>
+        <div className={classNames("pt-2", disabled(!selectedItem))}>
             <PropTextarea label="Description" disabled={!selectedItem} value={ownernote} onChange={(e) => setOwnernote(e.target.value)} />
         </div>
 
