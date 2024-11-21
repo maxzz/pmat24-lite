@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { FieldTyp, ValueAs } from "@/store/manifest";
+import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
@@ -23,7 +23,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             setDisplayName(selectedItem?.fieldValue.displayname || '');
             setValue(selectedItem?.fieldValue.value || '');
             setOwnernote(selectedItem?.fieldValue.ownernote || '');
-            setValueLife(selectedItem?.fieldValue || { fType: FieldTyp.edit, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false });
+            setValueLife(selectedItem?.fieldValue || createEmptyValueLife({ fType: FieldTyp.edit }));
         }, [selectedItem]
     );
 

@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams } from "../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import { FieldTyp, ValueAs, type ValueLife } from "@/store/manifest";
+import { createEmptyValueLife, FieldTyp, ValueAs, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 
 type CreateFceCtxProps = {
@@ -52,7 +52,7 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
         ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
 
         useItAtom: atom(true),
-        valueLifeAtom: atomWithCallback<ValueLife>({ fType: FieldTyp.edit, valueAs: ValueAs.askReuse, value: '', isRef: false, isNon: false }, onScopedChange<ValueLife>('valueLifeAtom')),
+        valueLifeAtom: atomWithCallback<ValueLife>(createEmptyValueLife({ fType: FieldTyp.edit }), onScopedChange<ValueLife>('valueLifeAtom')),
     };
     return rv;
 }
