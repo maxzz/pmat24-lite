@@ -19,8 +19,6 @@ export const doAddItemAtom = atom(
         set(doSelectIdxAtom, ctx, items.length - 1, true);
         set(ctx.selectedItemAtom, newItem);
 
-        console.log('add new item', newItem);
-        
         return newItem;
     }
 );

@@ -31,23 +31,14 @@ const parentActiveClasses = "\
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
-    const [selectedItem, setSelectedItem] = useAtom(fceCtx.selectedItemAtom);
+    const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
-    const doScrollToItem = useSetAtom(doScrollToItemAtom);
 
     const refRoot = useRef<HTMLDivElement | null>(null);
 
     useEffect(
         () => refRoot.current?.focus(), [refRoot.current]
     );
-
-    useEffect(() => {
-        if (refRoot.current && selectedItem) {
-            console.log('scroll to item', selectedItem);
-            
-            doScrollToItem({ container: refRoot.current, fceCtx });
-        }
-    }, [selectedItem]);
 
     function onClick(idx: number) {
         setSelectedItem(doSelectIdx(fceCtx, idx, true));
