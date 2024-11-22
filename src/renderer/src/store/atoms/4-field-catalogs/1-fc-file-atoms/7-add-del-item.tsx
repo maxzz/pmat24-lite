@@ -1,5 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
+import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
 
 export const doAddItemAtom = atom(
     null,
@@ -9,7 +10,7 @@ export const doAddItemAtom = atom(
         if (!item) {
             return;
         }
-        const newItem = createEmptyFceItem();
+        const newItem = createEmptyFceItem(FieldTyp.edit);
         items.splice(idx, 0, newItem);
         set(ctx.fceAtoms.itemsAtom, items);
         return newItem;

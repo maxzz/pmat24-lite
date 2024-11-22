@@ -52,11 +52,11 @@ export function createEmptyMeta(): Meta.Field {
 }
 */
 
-export function createEmptyFceItemValue(): FceItemValue {
+export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
     return {
+        fType,
         displayname: '',
         dbname: '',
-        fType: FieldTyp.edit,
         ownernote: '',
         value: '',
         valueAs: ValueAs.askReuse,
@@ -65,9 +65,9 @@ export function createEmptyFceItemValue(): FceItemValue {
     };
 }
 
-export function createEmptyFceItem(): FceItem {
+export function createEmptyFceItem(fType: FieldTyp): FceItem {
     const now = uuid.asRelativeNumber();
-    const beforeEdit = createEmptyFceItemValue();
+    const beforeEdit = createEmptyFceItemValue(fType);
     return {
         fieldValue: proxy({...beforeEdit}),
         beforeEdit: beforeEdit,
@@ -82,3 +82,4 @@ export function createEmptyFceItem(): FceItem {
         },
     };
 }
+// TODO: provide name, index
