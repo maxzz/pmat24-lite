@@ -1,14 +1,41 @@
 import { proxy } from "valtio";
-import { type FceItem, type FceItemValue } from "@/store/atoms";
+import { type FceItemEditor, type FceItem, type FceItemValue } from "@/store/atoms";
 import { FieldTyp, uuid, ValueAs, type ValueLife } from "pm-manifest";
 
 export function createEmptyValueLife({ fType }: { fType: FieldTyp; }): ValueLife {
     return {
         fType,
-        valueAs: ValueAs.askReuse,
         value: '',
+        valueAs: ValueAs.askReuse,
         isRef: false,
         isNon: false,
+    };
+}
+
+export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
+    return {
+        displayname: '',
+        dbname: '',
+        ownernote: '',
+        ...createEmptyValueLife({ fType }),
+    };
+}
+
+/**
+ * Name and index should be set by caller.
+ */
+export function createEmptyFceItem(fType: FieldTyp): FceItem {
+    const now = uuid.asRelativeNumber();
+    const beforeEdit = createEmptyFceItemValue(fType);
+    return {
+        fieldValue: proxy({ ...beforeEdit }),
+        beforeEdit: beforeEdit,
+        fceMeta: {
+            index: 0,
+            uuid: now,
+            mru: now,
+        },
+        editor: proxy<FceItemEditor>({ selectedView: false, selectedDlg: false, }),
     };
 }
 
@@ -51,35 +78,3 @@ export function createEmptyMeta(): Meta.Field {
     };
 }
 */
-
-export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
-    return {
-        fType,
-        displayname: '',
-        dbname: '',
-        ownernote: '',
-        value: '',
-        valueAs: ValueAs.askReuse,
-        isRef: false,
-        isNon: false,
-    };
-}
-
-export function createEmptyFceItem(fType: FieldTyp): FceItem {
-    const now = uuid.asRelativeNumber();
-    const beforeEdit = createEmptyFceItemValue(fType);
-    return {
-        fieldValue: proxy({...beforeEdit}),
-        beforeEdit: beforeEdit,
-        fceMeta: {
-            index: 0,
-            uuid: now,
-            mru: now,
-        },
-        editor: {
-            selectedView: false,
-            selectedDlg: false,
-        },
-    };
-}
-// TODO: provide name, index
