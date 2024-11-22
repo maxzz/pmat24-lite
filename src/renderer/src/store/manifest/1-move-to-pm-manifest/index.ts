@@ -1,3 +1,4 @@
+import { proxy } from "valtio";
 import { type FceItem, type FceItemValue } from "@/store/atoms";
 import { FieldTyp, uuid, ValueAs, type ValueLife } from "pm-manifest";
 
@@ -65,13 +66,15 @@ export function createEmptyFceItemValue(): FceItemValue {
 }
 
 export function createEmptyFceItem(): FceItem {
+    const now = uuid.asRelativeNumber();
+    const beforeEdit = createEmptyFceItemValue();
     return {
-        fieldValue: createEmptyFceItemValue(),
-        beforeEdit: createEmptyFceItemValue(),
+        fieldValue: proxy({...beforeEdit}),
+        beforeEdit: beforeEdit,
         fceMeta: {
             index: 0,
-            uuid: uuid.asRelativeNumber(),
-            mru: uuid.asRelativeNumber(),
+            uuid: now,
+            mru: now,
         },
         editor: {
             selectedView: false,
