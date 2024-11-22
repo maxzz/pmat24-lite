@@ -1,4 +1,5 @@
-import { FieldTyp, ValueAs, type ValueLife } from "pm-manifest";
+import { type FceItem, type FceItemValue } from "@/store/atoms";
+import { FieldTyp, uuid, ValueAs, type ValueLife } from "pm-manifest";
 
 export function createEmptyValueLife({ fType }: { fType: FieldTyp; }): ValueLife {
     return {
@@ -48,11 +49,25 @@ export function createEmptyMeta(): Meta.Field {
         uuid: uuid.asRelativeNumber(),
     };
 }
+*/
+
+export function createEmptyFceItemValue(): FceItemValue {
+    return {
+        displayname: '',
+        dbname: '',
+        fType: FieldTyp.edit,
+        ownernote: '',
+        value: '',
+        valueAs: ValueAs.askReuse,
+        isRef: false,
+        isNon: false,
+    };
+}
 
 export function createEmptyFceItem(): FceItem {
     return {
-        fieldValue: createEmptyField(),
-        beforeEdit: createEmptyField(),
+        fieldValue: createEmptyFceItemValue(),
+        beforeEdit: createEmptyFceItemValue(),
         fceMeta: {
             index: 0,
             uuid: uuid.asRelativeNumber(),
@@ -64,4 +79,3 @@ export function createEmptyFceItem(): FceItem {
         },
     };
 }
-*/
