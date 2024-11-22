@@ -24,6 +24,8 @@ export const doScrollToItemAtom = atom(null,
         const parent = container.querySelector(`[data-radix-scroll-area-viewport]`);
         const itemDom = container.querySelector(`[data-list-uiid="${selectedItem.fceMeta.uuid}"]`);
 
+        console.log('parent', parent, 'itemDom', itemDom, );
+
         if (!parent || !itemDom) {
             return;
         }

@@ -11,13 +11,15 @@ export const doAddItemAtom = atom(
         let items = [...get(ctx.fceAtoms.itemsAtom), newItem];
 
         newItem.fceMeta.index = items.length - 1;
-        newItem.beforeEdit.displayname = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newItem.fceMeta.index}`;
+        newItem.beforeEdit.displayname = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newItem.fceMeta.index + 1}`;
         newItem.fieldValue.displayname = newItem.beforeEdit.displayname;
 
         set(ctx.fceAtoms.itemsAtom, items);
 
         set(doSelectIdxAtom, ctx, items.length - 1, true);
         set(ctx.selectedItemAtom, newItem);
+
+        console.log('add new item', newItem);
         
         return newItem;
     }
