@@ -1,6 +1,6 @@
 import { proxy } from "valtio";
 import { type FceItemEditor, type FceItem, type FceItemValue } from "@/store/atoms";
-import { FieldTyp, uuid, ValueAs, type ValueLife } from "pm-manifest";
+import { createGuid, FieldTyp, uuid, ValueAs, type ValueLife } from "pm-manifest";
 
 export function createEmptyValueLife({ fType }: { fType: FieldTyp; }): ValueLife {
     return {
@@ -15,7 +15,7 @@ export function createEmptyValueLife({ fType }: { fType: FieldTyp; }): ValueLife
 export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
     return {
         displayname: '',
-        dbname: '',
+        dbname: createGuid(),
         ownernote: '',
         ...createEmptyValueLife({ fType }),
     };
