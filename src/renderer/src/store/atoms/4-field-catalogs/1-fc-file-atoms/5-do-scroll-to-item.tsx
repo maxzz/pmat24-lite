@@ -30,9 +30,9 @@ export const doScrollToItemAtom = atom(null,
 
         const itemTop = itemIdx * itemDom.clientHeight;
 
-        // already visible 
+        // already visible; reduce parent height to fit the last item
         const parentTop = parent.scrollTop;
-        if (itemTop >= parentTop && itemTop <= parentTop + parent.clientHeight) {
+        if (itemTop >= parentTop && itemTop <= parentTop + parent.clientHeight - itemDom.clientHeight) {
             return selectedItem;
         }
 
