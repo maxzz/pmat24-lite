@@ -28,8 +28,16 @@ export const doScrollToItemAtom = atom(null,
             return;
         }
 
-        const top = itemIdx * itemDom.clientHeight;
-        if (top > parent.clientHeight - itemDom.clientHeight) {
+        const itemTop = itemIdx * itemDom.clientHeight;
+
+        // already visible 
+        const parentTop = parent.scrollTop;
+        if (itemTop >= parentTop && itemTop <= parentTop + parent.clientHeight) {
+            return selectedItem;
+        }
+
+        // item is below the viewport
+        if (itemTop > parent.clientHeight - itemDom.clientHeight) {
             parent.scrollTop = itemIdx * itemDom.clientHeight - parent.clientHeight / 2;
         }
 

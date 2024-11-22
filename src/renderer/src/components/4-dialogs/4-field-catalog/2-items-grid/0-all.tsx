@@ -1,7 +1,7 @@
 import { type HTMLAttributes, useEffect, useRef } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { ScrollArea } from "@/ui/shadcn";
+import { useAtom, useSetAtom } from "jotai";
 import useResizeObserver from "use-resize-observer";
+import { ScrollArea } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { doScrollToItemAtom, type FceCtx } from "@/store";
 import { FldCatItemsBody } from "./1-body";
@@ -12,14 +12,15 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
     const { ref: refRootCb, width, height } = useResizeObserver();
 
     const doScrollToSelected = useSetAtom(doScrollToItemAtom);
-    const doSetSelectItem = useSetAtom(fceCtx.selectedItemAtom);
+
+    const [selectedItem, doSetSelectItem] = useAtom(fceCtx.selectedItemAtom);
+
     useEffect(
         () => {
             doSetSelectItem(doScrollToSelected({ container: refRoot.current, fceCtx }));
         }, [refRoot.current]
     );
 
-    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
     useEffect(
         () => {
             doScrollToSelected({ container: refRoot.current, fceCtx });
