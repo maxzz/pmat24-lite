@@ -31,6 +31,7 @@ const parentActiveClasses = "\
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+    
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
 

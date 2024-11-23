@@ -26,7 +26,6 @@ export const doAddItemAtom = atom(
     }
 );
 
-//TODO: for delete remove 'add' and add 'del' changes
 export const doDeleteItemIdxAtom = atom(
     null,
     (get, set, fceCtx: FceCtx, idx: number) => {

@@ -2,7 +2,7 @@ import { type FceCtx } from "@/store";
 import { classNames } from "@/utils";
 import { PanelMenu_Fc } from "./1-menu-fc";
 import { PanelMenu_AddItem } from "./2-menu-add-item";
-import { ShowPropsTrigger } from "./3-show-poprs.trigger";
+import { ShowPropsTrigger } from "./6-show-poprs.trigger";
 
 type FieldCatalogToolbarProps = {
     fceCtx: FceCtx;
