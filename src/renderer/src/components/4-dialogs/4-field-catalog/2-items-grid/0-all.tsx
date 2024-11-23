@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactNode, type RefObject, useCallback, useEffect, useRef } from "react";
+import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
@@ -9,27 +9,21 @@ import { FldCatItemsBody } from "./1-body";
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <FceScrollGuard fceCtx={fceCtx} className={className} {...rest}>
-            <FceBody fceCtx={fceCtx} />
+            <FldCatItemsBody
+                className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none select-none")}
+                tabIndex={0}
+                fceCtx={fceCtx}
+            />
         </FceScrollGuard>
     );
 }
 
-function FceBody({ fceCtx }) {
-    return (
-        <FldCatItemsBody
-            className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none select-none")}
-            tabIndex={0}
-            fceCtx={fceCtx}
-        />
-    );
-}
-
 function FceScrollGuard({ fceCtx, className, children, ...rest }: { fceCtx: FceCtx; children: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
-    const { ref: refRootCb, width, height } = useResizeObserver();
-    const { ref: refRoot } = useScrollToSelected(fceCtx);
+    const { ref: refSize, width, height } = useResizeObserver();
+    const { ref: refScroll } = useScrollToSelected(fceCtx);
     return (
         <div className={classNames("relative w-full", className)} {...rest}>
-            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refRootCb(elm); refRoot(elm); }}>
+            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refSize(elm); refScroll(elm); }}>
                 <ScrollArea style={{ width, height }}>
                     {children}
                 </ScrollArea>
@@ -53,7 +47,7 @@ function useScrollToSelected<T extends HTMLElement>(fceCtx: FceCtx): { ref: (elm
 
     useEffect(
         () => {
-            doScrollToSelected({ container: ref.current, fceCtx });
+            doScrollToSelected({ container: ref.current, fceCtx }); //TODO: we can do it inside specialized fceCtx.selectedItemAtom
         }, [selectedItem]
     );
 
