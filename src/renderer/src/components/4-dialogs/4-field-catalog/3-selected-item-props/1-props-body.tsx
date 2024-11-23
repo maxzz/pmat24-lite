@@ -5,8 +5,9 @@ import { type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
-const itemClasses = "flex flex-col disabled:opacity-25 disabled:pointer-events-none";
+const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
 const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
+const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled && disabledClasses);
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
@@ -29,7 +30,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
     
     const enabled = !!selectedItem;
-    const allClasses = classNames(itemClasses, !enabled && disabledClasses);
+    const allClasses = mergeStateClasses(enabled);
 
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
@@ -38,7 +39,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
-        <div className={classNames("pt-2", allClasses)}>
+        <div className={allClasses}>
             <PropInput
                 label={"Name"}
                 disabled={!enabled}
@@ -46,7 +47,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </div>
 
-        <div className={classNames("pt-2", allClasses)}>
+        <div className={allClasses}>
             <PropInputValue
                 label={"Value"}
                 disabled={!enabled}
@@ -56,7 +57,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </div>
 
-        <div className={classNames("pt-2", allClasses)}>
+        <div className={allClasses}>
             <PropTextarea
                 label="Description"
                 disabled={!enabled}
