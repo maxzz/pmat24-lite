@@ -59,6 +59,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
+    focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
     onChangeFcePropValue: OnChangeFcePropValue;     // TODO: callback for newly created itmes, but we don't really need it

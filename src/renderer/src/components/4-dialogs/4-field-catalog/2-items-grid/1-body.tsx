@@ -31,14 +31,24 @@ const parentActiveClasses = "\
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
-    
+
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
+    const [focusGrid, setFocusGrid] = useAtom(fceCtx.focusGridAtom);
 
-    const refRoot = useRef<HTMLDivElement | null>(null);
+    const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(
-        () => refRoot.current?.focus(), [refRoot.current]
+        () => ref.current?.focus(), [ref.current]
+    );
+
+    useEffect(
+        () => {
+            if (focusGrid) {
+                setTimeout(() => ref.current?.focus(), 200); // "Add" button still has focus, so wait a bit
+                setFocusGrid(false);
+            }
+        }, [focusGrid]
     );
 
     function onClick(idx: number) {
@@ -51,7 +61,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div ref={refRoot} className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
+        <div ref={ref} className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
             {items.map(
                 (item, idx) => (
                     <FldCatItemRow
