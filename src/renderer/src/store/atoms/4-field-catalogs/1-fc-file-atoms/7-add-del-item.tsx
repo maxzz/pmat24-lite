@@ -32,7 +32,8 @@ export const doDeleteSelectedItemAtom = atom(
     null,
     (get, set, fceCtx: FceCtx) => {
 
-        const items = get(fceCtx.fceAtoms.itemsAtom);
+        const fceAtoms = fceCtx.fceAtoms;
+        const items = get(fceAtoms.itemsAtom);
         const idx = get(fceCtx.selectedIdxStoreAtom);
         const currentItem = items[idx];
 
@@ -42,7 +43,7 @@ export const doDeleteSelectedItemAtom = atom(
 
         const newItems = items.filter((item) => item.fceMeta.uuid !== currentItem.fceMeta.uuid);
 
-        set(fceCtx.fceAtoms.itemsAtom, newItems);
+        set(fceAtoms.itemsAtom, newItems);
 
         const newIdx = idx > 0 ? idx - 1 : 0;
         set(doSelectIdxAtom, fceCtx, newIdx, true);
@@ -50,14 +51,14 @@ export const doDeleteSelectedItemAtom = atom(
 
         // update file changes
 
-        const changesSet = fceCtx.fceAtoms.fileUs.fileCnt.changesSet;
+        const changesSet = fceAtoms.fileUs.fileCnt.changesSet;
         const uuid = currentItem.fceMeta.uuid;
 
         const hasAdd = changesSet.has(`add-${uuid}`);
         if (hasAdd) {
-            setManiChanges(fceCtx.fceAtoms, false, `add-${uuid}`);
+            setManiChanges(fceAtoms, false, `add-${uuid}`);
         } else {
-            setManiChanges(fceCtx.fceAtoms, true, `del-${uuid}`);
+            setManiChanges(fceAtoms, true, `del-${uuid}`);
         }
     }
 );

@@ -19,6 +19,11 @@ export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean,
     return changes;
 }
 
+export function hasManiChange(fileUsCtx: { fileUs: FileUs; }, name: string): boolean {
+    const fileUs = fileUsCtx.fileUs;
+    return fileUs.fileCnt.changesSet.has(name);
+}
+
 // all files changes; it is important to show that some files have changes due to scrolling 
 
 export const allFileUsChanges = proxySet<string>();
