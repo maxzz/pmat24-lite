@@ -9,7 +9,7 @@ import { FldCatItemsBody } from "./1-body";
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
     const { ref: refRootCb, width, height } = useResizeObserver();
-    
+
     // const refRoot = useRef<HTMLDivElement | null>(null);
 
     // const doScrollToSelected = useSetAtom(doScrollToItemAtom);
@@ -28,21 +28,32 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
     //     }, [selectedItem]
     // );
     const { ref: refRoot } = useScrollToSelected(fceCtx);
-    
+
     return (
         <div className={classNames("relative w-full", className)} {...rest}>
             <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refRootCb(elm); refRoot(elm); }}>
                 <ScrollArea style={{ width, height }}>
 
-                    <FldCatItemsBody
+                    {/* <FldCatItemsBody
                         className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none select-none")}
                         tabIndex={0}
                         fceCtx={fceCtx}
-                    />
+                    /> */}
+                    <GridBody fceCtx={fceCtx} />
 
                 </ScrollArea>
             </div>
         </div>
+    );
+}
+
+function GridBody({ fceCtx }) {
+    return (
+        <FldCatItemsBody
+            className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none select-none")}
+            tabIndex={0}
+            fceCtx={fceCtx}
+        />
     );
 }
 
