@@ -1,4 +1,4 @@
-import { type HTMLAttributes, useEffect, useRef } from "react";
+import { type HTMLAttributes, type RefObject, useCallback, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
@@ -8,28 +8,30 @@ import { FldCatItemsBody } from "./1-body";
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
 
-    const refRoot = useRef<HTMLDivElement | null>(null);
     const { ref: refRootCb, width, height } = useResizeObserver();
+    
+    // const refRoot = useRef<HTMLDivElement | null>(null);
 
-    const doScrollToSelected = useSetAtom(doScrollToItemAtom);
+    // const doScrollToSelected = useSetAtom(doScrollToItemAtom);
 
-    const [selectedItem, doSetSelectItem] = useAtom(fceCtx.selectedItemAtom);
+    // const [selectedItem, doSetSelectItem] = useAtom(fceCtx.selectedItemAtom);
 
-    useEffect(
-        () => {
-            doSetSelectItem(doScrollToSelected({ container: refRoot.current, fceCtx }));
-        }, [refRoot.current]
-    );
+    // useEffect(
+    //     () => {
+    //         doSetSelectItem(doScrollToSelected({ container: refRoot.current, fceCtx }));
+    //     }, [refRoot.current]
+    // );
 
-    useEffect(
-        () => {
-            doScrollToSelected({ container: refRoot.current, fceCtx });
-        }, [selectedItem]
-    );
-
+    // useEffect(
+    //     () => {
+    //         doScrollToSelected({ container: refRoot.current, fceCtx });
+    //     }, [selectedItem]
+    // );
+    const { ref: refRoot } = useScrollToSelected(fceCtx);
+    
     return (
         <div className={classNames("relative w-full", className)} {...rest}>
-            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refRootCb(elm); refRoot.current = elm; }}>
+            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refRootCb(elm); refRoot(elm); }}>
                 <ScrollArea style={{ width, height }}>
 
                     <FldCatItemsBody
@@ -42,4 +44,32 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
             </div>
         </div>
     );
+}
+
+//TODO: move to hook state from FldCatItemsGrid to reduce rerenders
+
+export function useScrollToSelected<T extends HTMLElement>(fceCtx: FceCtx): { ref: (elm: T | null) => void; } {
+    const ref = useRef<T | null>(null);
+
+    const doScrollToSelected = useSetAtom(doScrollToItemAtom);
+
+    const [selectedItem, doSetSelectItem] = useAtom(fceCtx.selectedItemAtom);
+
+    useEffect(
+        () => {
+            doSetSelectItem(doScrollToSelected({ container: ref.current, fceCtx }));
+        }, [ref.current]
+    );
+
+    useEffect(
+        () => {
+            doScrollToSelected({ container: ref.current, fceCtx });
+        }, [selectedItem]
+    );
+
+    const refCb = useCallback((elm: T | null) => {
+        ref.current = elm;
+    }, []);
+
+    return { ref: refCb };
 }
