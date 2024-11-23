@@ -52,11 +52,12 @@ export const doDeleteSelectedItemAtom = atom(
 
         const changesSet = fceCtx.fceAtoms.fileUs.fileCnt.changesSet;
         const uuid = currentItem.fceMeta.uuid;
+
         const hasAdd = changesSet.has(`add-${uuid}`);
         if (hasAdd) {
-            changesSet.delete(`add-${uuid}`);
+            setManiChanges(fceCtx.fceAtoms, false, `add-${uuid}`);
         } else {
-            changesSet.add(`del-${uuid}`);
+            setManiChanges(fceCtx.fceAtoms, true, `del-${uuid}`);
         }
     }
 );
