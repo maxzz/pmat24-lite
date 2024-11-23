@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
-import { MenuItem_ShowXML } from "./1-show-xml";
+import { MenuItem_ShowXML } from "./50-show-xml";
 import { MenuItem_More } from "./9-more";
 
 export function R_PanelMenu() {

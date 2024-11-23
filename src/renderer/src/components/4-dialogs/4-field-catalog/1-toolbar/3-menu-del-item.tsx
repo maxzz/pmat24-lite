@@ -1,7 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
-import { IconAdd } from "@/ui/icons";
 import { doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-add-del-item";
 
 export function Button_DeleteItem({ fceCtx }: { fceCtx: FceCtx; }) {
