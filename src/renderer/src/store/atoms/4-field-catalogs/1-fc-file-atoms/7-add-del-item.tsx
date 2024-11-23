@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
 import { doSelectIdxAtom } from "./4-do-set-selected";
-import { setManiChanges } from "../../3-file-mani-atoms";
+import { hasManiChange, setManiChanges } from "../../3-file-mani-atoms";
 
 export const doAddItemAtom = atom(
     null,
@@ -51,11 +51,9 @@ export const doDeleteSelectedItemAtom = atom(
 
         // update file changes
 
-        const changesSet = fceAtoms.fileUs.fileCnt.changesSet;
         const uuid = currentItem.fceMeta.uuid;
 
-        const hasAdd = changesSet.has(`add-${uuid}`);
-        if (hasAdd) {
+        if (hasManiChange(fceAtoms, `add-${uuid}`)) {
             setManiChanges(fceAtoms, false, `add-${uuid}`);
         } else {
             setManiChanges(fceAtoms, true, `del-${uuid}`);
