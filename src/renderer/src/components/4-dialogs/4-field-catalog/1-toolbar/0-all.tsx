@@ -3,6 +3,7 @@ import { classNames } from "@/utils";
 import { PanelMenu_Fc } from "./1-menu-fc";
 import { PanelMenu_AddItem } from "./2-menu-add-item";
 import { ShowPropsTrigger } from "./6-show-poprs.trigger";
+import { Button_DeleteItem } from "./3-menu-del-item";
 
 type FieldCatalogToolbarProps = {
     fceCtx: FceCtx;
@@ -14,6 +15,7 @@ export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: Fiel
     return (
         <div className={classNames("flex items-center justify-end", className)}>
             <PanelMenu_AddItem fceCtx={fceCtx} />
+            <Button_DeleteItem fceCtx={fceCtx} />
             <ShowPropsTrigger showPropsExpand={showPropsExpand} />
             <PanelMenu_Fc fceCtx={fceCtx} />
         </div>
