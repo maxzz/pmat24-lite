@@ -45,9 +45,16 @@ export const doDeleteSelectedItemAtom = atom(
 
         set(fceAtoms.itemsAtom, newItems);
 
-        const newIdx = idx > 0 ? idx - 1 : 0;
+        const newIdx = idx > 0
+            ? idx - 1
+            : idx <= newItems.length - 1
+                ? idx
+                : -1;
+                
+        const newItem = newItems[newIdx];
+
         set(doSelectIdxAtom, fceCtx, newIdx, true);
-        set(fceCtx.selectedItemAtom, undefined);
+        set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes
 
