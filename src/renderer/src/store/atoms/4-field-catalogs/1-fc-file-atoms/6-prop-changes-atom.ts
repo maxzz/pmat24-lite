@@ -12,27 +12,30 @@ export const doFcePropChangesAtom = atom(
             return;
         }
 
+        const beforeEdit = selectedItem.beforeEdit;
+        const uuid = selectedItem.fceMeta.uuid;
+
         switch (name) {
             case 'nameAtom': {
                 const displayname = nextValue as string;
-                const changed = displayname !== selectedItem.beforeEdit.displayname;
+                const changed = displayname !== beforeEdit.displayname;
 
                 selectedItem.fieldValue.displayname = displayname;
-                setManiChanges(fceCtx.fceAtoms, changed, `name-${selectedItem.fceMeta.uuid}`);
+                setManiChanges(fceCtx.fceAtoms, changed, `name-${uuid}`);
                 break;
             }
             case 'ownernoteAtom': {
                 const ownernote = nextValue as string;
-                const changed = ownernote !== selectedItem.beforeEdit.ownernote;
+                const changed = ownernote !== beforeEdit.ownernote;
 
                 selectedItem.fieldValue.ownernote = ownernote;
-                setManiChanges(fceCtx.fceAtoms, changed, `note-${selectedItem.fceMeta.uuid}`);
+                setManiChanges(fceCtx.fceAtoms, changed, `note-${uuid}`);
                 break;
             }
             case 'valueLifeAtom': {
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
 
-                const changed = !theSameValue(nextValue as ValueLife, selectedItem.beforeEdit);
+                const changed = !theSameValue(nextValue as ValueLife, beforeEdit);
 
                 // console.log('doFcePropChangesAtom', JSON.stringify({ nextValue, current: selectedItem.fieldValue, changed }, null, 2));
 
@@ -40,7 +43,7 @@ export const doFcePropChangesAtom = atom(
                 selectedItem.fieldValue.valueAs = valueAs;
                 selectedItem.fieldValue.isRef = isRef;
                 selectedItem.fieldValue.isNon = isNon;
-                setManiChanges(fceCtx.fceAtoms, changed, `life-${selectedItem.fceMeta.uuid}`);
+                setManiChanges(fceCtx.fceAtoms, changed, `life-${uuid}`);
                 break;
             }
         }

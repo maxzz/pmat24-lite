@@ -65,6 +65,10 @@ export const doDeleteSelectedItemAtom = atom(
 
         if (hasManiChange(fceAtoms, `add-${uuid}`)) {
             setManiChanges(fceAtoms, false, `add-${uuid}`);
+
+            setManiChanges(fceAtoms, false, `name-${uuid}`);
+            setManiChanges(fceAtoms, false, `note-${uuid}`);
+            setManiChanges(fceAtoms, false, `life-${uuid}`);
         } else {
             setManiChanges(fceAtoms, true, `del-${uuid}`);
         }
