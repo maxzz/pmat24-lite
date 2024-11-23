@@ -10,14 +10,16 @@ export const doAddItemAtom = atom(
         const newItem = createEmptyFceItem(fType);
 
         const newItems = [...get(fceCtx.fceAtoms.itemsAtom), newItem];
-
-        newItem.fceMeta.index = newItems.length - 1;
-        newItem.beforeEdit.displayname = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newItem.fceMeta.index + 1}`;
-        newItem.fieldValue.displayname = newItem.beforeEdit.displayname;
-
         set(fceCtx.fceAtoms.itemsAtom, newItems);
 
-        set(doSelectIdxAtom, fceCtx, newItems.length - 1, true);
+        const newIdx = newItems.length - 1;
+        const newName = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newIdx + 1}`;
+
+        newItem.fceMeta.index = newIdx;
+        newItem.beforeEdit.displayname = newName;
+        newItem.fieldValue.displayname = newName;
+
+        set(doSelectIdxAtom, fceCtx, newIdx, true);
         set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes
@@ -42,8 +44,9 @@ export const doDeleteSelectedItemAtom = atom(
         }
 
         const newItems = items.filter((item) => item.fceMeta.uuid !== currentItem.fceMeta.uuid);
-
         set(fceAtoms.itemsAtom, newItems);
+
+        // select previous item if exists, otherwise select the next item or select nothing
 
         const newIdx = idx > 0
             ? idx - 1
