@@ -9,16 +9,18 @@ export const doAddItemAtom = atom(
     (get, set, fceCtx: FceCtx, fType: FieldTyp): FceItem | undefined => {
         const newItem = createEmptyFceItem(fType);
 
-        let items = [...get(fceCtx.fceAtoms.itemsAtom), newItem];
+        const newItems = [...get(fceCtx.fceAtoms.itemsAtom), newItem];
 
-        newItem.fceMeta.index = items.length - 1;
+        newItem.fceMeta.index = newItems.length - 1;
         newItem.beforeEdit.displayname = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newItem.fceMeta.index + 1}`;
         newItem.fieldValue.displayname = newItem.beforeEdit.displayname;
 
-        set(fceCtx.fceAtoms.itemsAtom, items);
+        set(fceCtx.fceAtoms.itemsAtom, newItems);
 
-        set(doSelectIdxAtom, fceCtx, items.length - 1, true);
+        set(doSelectIdxAtom, fceCtx, newItems.length - 1, true);
         set(fceCtx.selectedItemAtom, newItem);
+
+        // update file changes
 
         setManiChanges(fceCtx.fceAtoms, true, `add-${newItem.fceMeta.uuid}`);
 
@@ -26,30 +28,35 @@ export const doAddItemAtom = atom(
     }
 );
 
-export const doDeleteItemIdxAtom = atom(
+export const doDeleteSelectedItemAtom = atom(
     null,
-    (get, set, fceCtx: FceCtx, idx: number) => {
-        let items = get(fceCtx.fceAtoms.itemsAtom);
-        const item = items[idx];
+    (get, set, fceCtx: FceCtx) => {
 
-        if (!item) {
+        const items = get(fceCtx.fceAtoms.itemsAtom);
+        const idx = get(fceCtx.selectedIdxStoreAtom);
+        const currentItem = items[idx];
+
+        if (!currentItem) {
             return;
         }
 
-        items = items.slice(idx, idx + 1);
+        const newItems = items.filter((item) => item.fceMeta.uuid !== currentItem.fceMeta.uuid);
 
-        set(fceCtx.fceAtoms.itemsAtom, items);
+        set(fceCtx.fceAtoms.itemsAtom, newItems);
 
         const newIdx = idx > 0 ? idx - 1 : 0;
         set(doSelectIdxAtom, fceCtx, newIdx, true);
         set(fceCtx.selectedItemAtom, undefined);
 
+        // update file changes
+
         const changesSet = fceCtx.fceAtoms.fileUs.fileCnt.changesSet;
-        const hasAdd = changesSet.has(`add-${item.fceMeta.uuid}`);
+        const uuid = currentItem.fceMeta.uuid;
+        const hasAdd = changesSet.has(`add-${uuid}`);
         if (hasAdd) {
-            changesSet.delete(`add-${item.fceMeta.uuid}`);
+            changesSet.delete(`add-${uuid}`);
         } else {
-            changesSet.add(`del-${item.fceMeta.uuid}`);
+            changesSet.add(`del-${uuid}`);
         }
     }
 );
