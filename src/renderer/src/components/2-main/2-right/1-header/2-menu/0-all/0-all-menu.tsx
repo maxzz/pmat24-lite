@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/sha
 import { IconMenuHamburger5 } from "@/ui/icons";
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
+import { R_PanelMenuXml } from "../3-menu-xml";
 
 export function R_PanelMenu() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -59,7 +60,7 @@ function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
 
 function MenuForXmlGuard({ fileUs }: { fileUs: FileUs; }) {
     return (
-        <div>TODO: XML menu</div>
+        <R_PanelMenuXml fileUs={fileUs} />
     );
 }
 
