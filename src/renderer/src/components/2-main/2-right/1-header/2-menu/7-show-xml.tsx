@@ -13,4 +13,3 @@ export function MenuItem_ShowXML() {
         </DropdownMenuCheckboxItem>
     );
 }
-//(checked) => appSettings.rightPanel.rightPanelState.view = checked ? RightPanelView.xml : RightPanelView.forms
