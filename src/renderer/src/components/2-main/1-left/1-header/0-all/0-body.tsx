@@ -9,7 +9,7 @@ import { classNames } from "@/utils";
 
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
 
-export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+export function L_PanelHeaderBody({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(panelHeaderClasses, "h-10 select-none flex items-center justify-between gap-1", className)} {...rest}>
 
