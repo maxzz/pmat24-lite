@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useAtomValue } from "jotai";
+import { appSettings, type FileUs, fileUsOfRightPanelAtom, RightPanelViewType } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
-
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
-import { appSettings, type FileUs, fileUsOfRightPanelAtom, RightPanelViewType } from "@/store";
 
 export function R_PanelMenu() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -46,26 +45,26 @@ function MenuSelector() {
 
 function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
-    if (!maniAtoms) {
-        return <div>no menu</div>;
-    }
-    return (
-        <R_PanelMenuMani maniAtoms={maniAtoms} />
-    );
+    return (<>
+        {maniAtoms ? <R_PanelMenuMani maniAtoms={maniAtoms} /> : <NoMenu />}
+    </>);
 }
 
 function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
-    const fceAtoms = fileUs.fceAtoms;
-    if (!fceAtoms?.viewFceCtx) {
-        return <div>no menu</div>;
-    }
-    return (
-        <R_PanelMenuFc fceCtx={fceAtoms.viewFceCtx} />
-    );
+    const fceCtx = fileUs.fceAtoms?.viewFceCtx;
+    return (<>
+        {fceCtx ? <R_PanelMenuFc fceCtx={fceCtx} /> : <NoMenu />}
+    </>);
 }
 
 function MenuForXmlGuard({ fileUs }: { fileUs: FileUs; }) {
     return (
-        <div>TODO XML menu</div>
+        <div>TODO: XML menu</div>
+    );
+}
+
+function NoMenu() {
+    return (
+        <div>no menu</div>
     );
 }
