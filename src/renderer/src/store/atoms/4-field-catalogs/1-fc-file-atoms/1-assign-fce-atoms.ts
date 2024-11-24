@@ -45,5 +45,9 @@ export function assignFceAtoms(fileUsItems: FileUs[]): void {
         }
     );
 
+    if (rootFc.fceAtoms?.viewFceCtx) {
+        rootFc.fceAtoms.viewFceCtx.isMaster = true;
+    }
+
     setRootFcFileUs(rootFc);
 }

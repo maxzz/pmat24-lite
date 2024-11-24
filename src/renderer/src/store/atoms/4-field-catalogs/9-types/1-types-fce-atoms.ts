@@ -1,6 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type ValueLife, type Mani, type CatalogItemMeta } from "@/store/manifest";
+import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
@@ -56,6 +56,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
     isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
+    isMaster: boolean;                              // true if this is a master field catalog
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.

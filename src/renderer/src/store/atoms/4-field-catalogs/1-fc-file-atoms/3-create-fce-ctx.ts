@@ -28,6 +28,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         inData,
         fceAtoms,
         isDlgCtx: !!inData,
+        isMaster: false,
         selectedIdxStoreAtom: atom(-1),
         selectedItemAtom: atom<FceItem | undefined>(undefined),
         scrollTo: 0,
