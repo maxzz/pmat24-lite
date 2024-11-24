@@ -35,13 +35,17 @@ export function MenuSelector() {
 
     if (appSettings.right.activeView === RightPanelViewType.xml) {
         return (
-            <div className="">XML menu</div>
+            <div className="">TODO XML menu</div>
         );
     }
 
     if (fileUs.parsedSrc.stats.isFCat) {
+        const fceAtoms = fileUs.fceAtoms;
+        if (!fceAtoms?.viewFceCtx) {
+            return <div className="">no menu</div>;
+        }
         return (
-            <R_PanelMenuFc />
+            <R_PanelMenuFc fceCtx={fceAtoms.viewFceCtx} />
         );
     }
 
@@ -53,7 +57,6 @@ export function MenuSelector() {
 
     return (<>
         <R_PanelMenuMani />
-        <R_PanelMenuFc />
 
         {/* <ManiBodyGuarded fileUsAtom={fileUsAtom} /> */}
     </>
