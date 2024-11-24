@@ -4,7 +4,8 @@ import { FieldTyp } from "@/store/manifest";
 import { DropdownMenuItem } from "@/ui/shadcn/dropdown-menu";
 import { doAddItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-add-del-item";
 
-export function AddDel_FceMenuItems({ fceCtx }: { fceCtx: FceCtx; }) {
+export function MenuItem_AddFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
+
     const doAddItem = useSetAtom(doAddItemAtom);
     const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
 
