@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { rightPanelAtom, fileUsOfRightPanelAtom } from "@/store";
+import { rightPanelAtom, fileUsOfRightPanelAtom, type FileUs, type FileUsAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
 import { TitleNoFile } from "./9-title-no-file";
 import { SaveResetButtons } from "./5-save-reset-buttons";
@@ -26,27 +26,30 @@ export function R_PanelHeaderBody() {
     return (
         <div className={panelHeaderClasses}>
             <div className={"relative max-w-4xl xl:border-r border-border"}>
-
-                <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
-
-                    <Row1ChooseName fileUs={fileUs} />
-
-                    <div className="flex items-center gap-1.5">
-                        <Row2AppIcons fileUs={fileUs} />
-                        <Row2Explanation fileUs={fileUs} />
-                    </div>
-
-                    <Row3FnameParts fname={fileUs.fileCnt.fname} />
-                </div>
-
-                <div className=" absolute right-0 top-0.5 flex items-center gap-2">
-                    <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
-
-                    <ButtonQuickXml />
-                    <R_PanelMenu />
-                </div>
-
+                <HeaderContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
             </div>
         </div>
     );
+}
+
+function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
+    return (<>
+        <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
+            <Row1ChooseName fileUs={fileUs} />
+
+            <div className="flex items-center gap-1.5">
+                <Row2AppIcons fileUs={fileUs} />
+                <Row2Explanation fileUs={fileUs} />
+            </div>
+
+            <Row3FnameParts fname={fileUs.fileCnt.fname} />
+        </div>
+
+        <div className=" absolute right-0 top-0.5 flex items-center gap-2">
+            <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
+
+            <ButtonQuickXml />
+            <R_PanelMenu />
+        </div>
+    </>);
 }
