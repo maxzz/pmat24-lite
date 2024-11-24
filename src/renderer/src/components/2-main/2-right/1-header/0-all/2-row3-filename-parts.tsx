@@ -13,7 +13,7 @@ const partClasses = {
 
 const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; //TODO: handle '{guid} + extra.dpm' filenames
 
-export function ManiFilenameParts({ fname, large }: ParsedFnameParams) {
+export function Row3FnameParts({ fname, large }: ParsedFnameParams) {
     const { container, sm, xs, lg: large1, l2: large2 } = partClasses;
 
     const match = (fname || '').match(reFilenameMatch);

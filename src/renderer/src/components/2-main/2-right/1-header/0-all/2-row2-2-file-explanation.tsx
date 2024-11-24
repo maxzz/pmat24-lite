@@ -2,7 +2,7 @@ import { FileUs } from "@/store/store-types";
 import { isManual } from "@/store/manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
-export function ManiAppTitleExplanation({ fileUs }: { fileUs: FileUs; }) {
+export function Row2Explanation({ fileUs }: { fileUs: FileUs; }) {
 
     const domain = fileUs.parsedSrc.stats.loginFormDomain;
     if (!domain) {

@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { rightPanelAtom, fileUsOfRightPanelAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
 import { TitleNoFile } from "./9-title-no-file";
-import { TitleWithFileUs } from "./1-title-with-file-us";
+import { TitleWithFileUs } from "./1-row1-title-with-file-us";
 import { SaveResetButtons } from "./5-save-reset-buttons";
 import { ButtonQuickXml } from "./3-btn-quick-xml";
 import { R_PanelMenu } from "../2-menu";

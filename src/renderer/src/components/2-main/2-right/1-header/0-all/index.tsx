@@ -1,1 +1,1 @@
-export * from "./0-right-header";
+export * from "./0-body";
