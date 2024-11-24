@@ -33,31 +33,15 @@ function MenuSelector() {
         return null;
     }
 
-    // menu for xml view
-
     if (appSettings.right.activeView === RightPanelViewType.xml) {
-        return (
-            <div className="">TODO XML menu</div>
-        );
+        return <MenuForXmlGuard fileUs={fileUs} />;
     }
-
-    // menu for field catalog
 
     if (fileUs.parsedSrc.stats.isFCat) {
-        const fceAtoms = fileUs.fceAtoms;
-        if (!fceAtoms?.viewFceCtx) {
-            return <div>no menu</div>;
-        }
-        return (
-            <R_PanelMenuFc fceCtx={fceAtoms.viewFceCtx} />
-        );
+        return <MenuForFcGuard fileUs={fileUs} />;
     }
 
-    // menu for manifest
-
-    return (
-        <MenuForManifestGuard fileUs={fileUs} />
-    );
+    return <MenuForManifestGuard fileUs={fileUs} />;
 }
 
 function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
@@ -67,5 +51,21 @@ function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
     }
     return (
         <R_PanelMenuMani maniAtoms={maniAtoms} />
+    );
+}
+
+function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
+    const fceAtoms = fileUs.fceAtoms;
+    if (!fceAtoms?.viewFceCtx) {
+        return <div>no menu</div>;
+    }
+    return (
+        <R_PanelMenuFc fceCtx={fceAtoms.viewFceCtx} />
+    );
+}
+
+function MenuForXmlGuard({ fileUs }: { fileUs: FileUs; }) {
+    return (
+        <div>TODO XML menu</div>
     );
 }
