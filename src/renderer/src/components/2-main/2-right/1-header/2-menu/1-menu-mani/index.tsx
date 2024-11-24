@@ -1,1 +1,1 @@
-export * from "./1-menu-mani";
+export * from "./0-all-mani";

@@ -45,7 +45,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     useEffect(
         () => {
             if (focusGrid) {
-                setTimeout(() => ref.current?.focus(), 200); // "Add" button still has focus, so wait a bit
+                setTimeout(() => ref.current?.focus(), 300); // "Add" button still has focus, so wait a bit. TODO: make it better on logn list.
                 setFocusGrid(false);
             }
         }, [focusGrid]

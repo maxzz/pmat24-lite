@@ -29,12 +29,18 @@ export function PanelMenu_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
 export function AddDel_FceMenuItems({ fceCtx }: { fceCtx: FceCtx; }) {
     const doAddItem = useSetAtom(doAddItemAtom);
     const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
+
+    function onAddItem(fType: FieldTyp) {
+        doAddItem(fceCtx, fType);
+        doSetFocusGrid(true);
+    }
+
     return (<>
-        <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.edit); doSetFocusGrid(true); }}>
+        <DropdownMenuItem onClick={() => { onAddItem(FieldTyp.edit); }}>
             Add Text Field
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.psw); doSetFocusGrid(true); }}>
+        <DropdownMenuItem onClick={() => { onAddItem(FieldTyp.psw); }}>
             Add Password Field
         </DropdownMenuItem>
     </>);

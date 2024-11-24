@@ -1,1 +1,1 @@
-export * from "./2-menu-fc";
+export * from "./0-all-fc";
