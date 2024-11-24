@@ -1,14 +1,13 @@
 import { useAtomValue } from "jotai";
 import { rightPanelAtom, fileUsOfRightPanelAtom, type FileUs, type FileUsAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
-import { TitleNoFile } from "./9-title-no-file";
-import { SaveResetButtons } from "./5-save-reset-buttons";
-import { ButtonQuickXml } from "./3-btn-quick-xml";
-import { R_PanelMenu } from "../2-menu";
 import { Row1ChooseName } from "./1-row1-title-with-file-us";
 import { Row2AppIcons } from "./2-row2-1-file-icons";
 import { Row2Explanation } from "./2-row2-2-file-explanation";
 import { Row3FnameParts } from "./2-row3-filename-parts";
+import { SaveResetButtons } from "./5-save-reset-buttons";
+import { R_PanelMenu } from "../2-menu";
+import { ButtonQuickXml } from "../3-mini-toolbar";
 
 export function R_PanelHeaderBody() {
 
@@ -18,7 +17,9 @@ export function R_PanelHeaderBody() {
     if (!fileUsAtom || !fileUs) {
         return (
             <div className={`${panelHeaderClasses} h-10`}>
-                <TitleNoFile />
+                <div className="h-full select-none flex items-center">
+                    No File
+                </div>
             </div>
         );
     }
@@ -59,4 +60,4 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
     </>);
 }
 
-//TODO: don't show <ButtonQuickXml /> if file is not saved
+//TODO: don't show <ButtonQuickXml /> if FC file is not saved
