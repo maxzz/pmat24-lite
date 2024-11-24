@@ -18,16 +18,16 @@ export function R_PanelMenu() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="min-w-36 text-xs" align="end">
-
-                <MenuSelector />
-
-            </DropdownMenuContent>
+            {menuOpen && (
+                <DropdownMenuContent className="min-w-36 text-xs" align="end">
+                    <MenuSelector />
+                </DropdownMenuContent>
+            )}
         </DropdownMenu>
     );
 }
 
-export function MenuSelector() {
+function MenuSelector() {
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
     if (!fileUs) {
         return null;
@@ -49,16 +49,12 @@ export function MenuSelector() {
         );
     }
 
-    // const [maniAtoms, setManiAtoms] = useAtom(fileUs.maniAtomsAtom);
-
-    // if (!maniAtoms) { // maniAtoms not ready yet but will be on the next render
-    //     return null;
-    // }
+    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
+    if (!maniAtoms) {
+        return null;
+    }
 
     return (<>
-        <R_PanelMenuMani />
-
-        {/* <ManiBodyGuarded fileUsAtom={fileUsAtom} /> */}
-    </>
-    );
+        <R_PanelMenuMani maniAtoms={maniAtoms} />
+    </>);
 }
