@@ -6,7 +6,7 @@ import { IconMenuHamburger5 } from "@/ui/icons";
 
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
-import { appSettings, fileUsOfRightPanelAtom, rightPanelAtom, RightPanelViewType } from "@/store";
+import { appSettings, type FileUs, fileUsOfRightPanelAtom, RightPanelViewType } from "@/store";
 
 export function R_PanelMenu() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -55,12 +55,17 @@ function MenuSelector() {
 
     // menu for manifest
 
+    return (
+        <MenuForManifestGuard fileUs={fileUs} />
+    );
+}
+
+function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
         return <div>no menu</div>;
     }
-
-    return (<>
+    return (
         <R_PanelMenuMani maniAtoms={maniAtoms} />
-    </>);
+    );
 }
