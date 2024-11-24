@@ -33,25 +33,31 @@ function MenuSelector() {
         return null;
     }
 
+    // menu for xml view
+
     if (appSettings.right.activeView === RightPanelViewType.xml) {
         return (
             <div className="">TODO XML menu</div>
         );
     }
 
+    // menu for field catalog
+
     if (fileUs.parsedSrc.stats.isFCat) {
         const fceAtoms = fileUs.fceAtoms;
         if (!fceAtoms?.viewFceCtx) {
-            return <div className="">no menu</div>;
+            return <div>no menu</div>;
         }
         return (
             <R_PanelMenuFc fceCtx={fceAtoms.viewFceCtx} />
         );
     }
 
+    // menu for manifest
+
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
-        return null;
+        return <div>no menu</div>;
     }
 
     return (<>
