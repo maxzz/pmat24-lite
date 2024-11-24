@@ -7,35 +7,6 @@ import { ManiBody } from "../2-file-mani";
 import { Body_Cat } from "../3-file-cat";
 import { Body_Xml } from "../4-file-xml";
 
-function ContentForSelected() {
-    const fileUs = useAtomValue(fileUsOfRightPanelAtom);
-    const { activeView } = useSnapshot(appSettings).right;
-
-    const staticText = !fileUs
-        ? 'No file selected'
-        : !fileUs.fileCnt.raw
-            ? 'Not supported format'
-            : undefined;
-
-    if (staticText) {
-        return (
-            <div className="h-full text-muted-foreground flex items-center justify-center">
-                {staticText}
-            </div>
-        );
-    }
-
-    if (activeView === RightPanelViewType.forms) {
-        return (
-            fileUs?.parsedSrc.stats.isFCat ? <Body_Cat /> : <ManiBody />
-        );
-    }
-
-    return (
-        <Body_Xml text={fileUs?.fileCnt.raw || ''} />
-    );
-}
-
 export function PanelB() { // PanelB is the right panel for the file content
     return (
         <div className={`${panel1Classes} pl-0`}>
@@ -46,11 +17,41 @@ export function PanelB() { // PanelB is the right panel for the file content
                     <div className="relative w-full h-full"> {/* tabIndex={0} should be set on element inside container */}
                         <div className="absolute inset-px bottom-0.5 text-xs">
                             {/* <LongPanel className="w-full h-20 overflow-auto" /> */}
-                            <ContentForSelected />
+                            <ContentSelector />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    );
+}
+
+function ContentSelector() {
+    const fileUs = useAtomValue(fileUsOfRightPanelAtom);
+    const { activeView } = useSnapshot(appSettings).right;
+
+    const staticText =
+        !fileUs
+            ? 'No file selected'
+            : !fileUs.fileCnt.raw
+                ? 'Not supported format'
+                : undefined;
+
+    if (staticText) {
+        return (
+            <div className="h-full text-muted-foreground flex items-center justify-center">
+                {staticText}
+            </div>
+        );
+    }
+
+    if (activeView === RightPanelViewType.xml) {
+        return <Body_Xml text={fileUs?.fileCnt.raw || ''} />;
+    }
+
+    return (
+        fileUs?.parsedSrc.stats.isFCat
+            ? <Body_Cat />
+            : <ManiBody />
     );
 }

@@ -4,10 +4,12 @@ import { IconClose } from "@/ui/icons";
 import { Button } from "@/ui";
 
 export function CurrentFilter() {
+
     const [text, setText] = useAtom(searchFilterData.textAtom);
     if (!text) {
         return null;
     }
+    
     return (<>
         <div className="font-light">Filter:</div>
         <div className="ml-1 truncate">{text}</div>
