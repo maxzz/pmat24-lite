@@ -1,1 +1,1 @@
-export * from "./0-all-menu";
+export * from "./0-all";

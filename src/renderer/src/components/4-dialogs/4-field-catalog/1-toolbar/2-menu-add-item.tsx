@@ -9,8 +9,6 @@ import { FieldTyp } from "pm-manifest";
 
 export function PanelMenu_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
-    const doAddItem = useSetAtom(doAddItemAtom);
-    const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
 
@@ -21,15 +19,23 @@ export function PanelMenu_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="min-w-36 text-xs" align="end">
-                <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.edit); doSetFocusGrid(true); }}>
-                    Add Text Field
-                </DropdownMenuItem>
-
-                <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.psw); doSetFocusGrid(true); }}>
-                    Add Password Field
-                </DropdownMenuItem>
+                <AddDel_FceMenuItems fceCtx={fceCtx} />
             </DropdownMenuContent>
 
         </DropdownMenu>
     );
+}
+
+export function AddDel_FceMenuItems({ fceCtx }: { fceCtx: FceCtx; }) {
+    const doAddItem = useSetAtom(doAddItemAtom);
+    const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
+    return (<>
+        <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.edit); doSetFocusGrid(true); }}>
+            Add Text Field
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={() => { doAddItem(fceCtx, FieldTyp.psw); doSetFocusGrid(true); }}>
+            Add Password Field
+        </DropdownMenuItem>
+    </>);
 }
