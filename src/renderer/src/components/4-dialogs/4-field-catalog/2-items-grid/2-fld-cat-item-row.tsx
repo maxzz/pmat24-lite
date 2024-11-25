@@ -12,7 +12,7 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const rowClasses = "\
-mx-3 1px-2 py-1 \
+ml-2 mr-3 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \
@@ -68,7 +68,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
             className={classNames(rowClasses, className)}
             {...rest}
         >
-            <div className={classNames("col-start-1 px-1 text-[0.65rem] text-center text-muted-foreground")}>
+            <div className={classNames("col-start-1 pr-1.5 text-[0.65rem] text-right text-muted-foreground")}>
                 {idx + 1}
             </div>
 

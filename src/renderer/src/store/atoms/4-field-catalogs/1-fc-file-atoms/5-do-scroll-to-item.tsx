@@ -65,3 +65,5 @@ const doScrollToOffsetAtom = atom(null,
         parent.scrollTop = fceCtx.scrollTo;
     }
 );
+
+//TODO: when the last (or first when list is scrolled) in view item is selected, we scroll hit to the middle, but this is wrong
