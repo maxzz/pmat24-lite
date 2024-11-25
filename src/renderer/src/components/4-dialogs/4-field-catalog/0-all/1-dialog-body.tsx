@@ -17,7 +17,7 @@ export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="px-3 pb-3 h-full grid grid-rows-[auto_1fr]">
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className="h-full border-border border rounded flex">

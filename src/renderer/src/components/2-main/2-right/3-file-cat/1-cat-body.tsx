@@ -15,11 +15,12 @@ export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: Fil
     }
     
     return (
-        <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[auto,1fr,auto]", className)} {...rest}>
+        // <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[auto,1fr,auto]", className)} {...rest}>
+        <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[1fr,auto]", className)} {...rest}>
 
-            <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
+            {/* <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
                 <FieldCatalogToolbar fceCtx={fceCtx} />
-            </div>
+            </div> */}
 
             <FldCatItemsGrid fceCtx={fceCtx} />
 
