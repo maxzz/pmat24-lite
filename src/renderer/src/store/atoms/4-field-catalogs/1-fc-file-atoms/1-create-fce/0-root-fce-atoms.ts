@@ -1,5 +1,5 @@
 import { type FileUs } from "@/store/store-types";
-import { type FceAtoms } from "../9-types";
+import { type FceAtoms } from "../../9-types";
 
 let rootFcFileUs: FileUs | undefined;
 

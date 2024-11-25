@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
-import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams } from "../9-types";
+import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
-import { doFcePropChangesAtom } from "./6-prop-changes-atom";
+import { doFcePropChangesAtom } from "../6-prop-changes-atom";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;

@@ -1,6 +1,6 @@
 import { appSettings, type FileUs, RightPanelViewType } from "@/store";
 import { ButtonQuickXml } from "../3-btn-quick-xml";
-import { Button_AddItem, Button_DeleteItem } from "../2-fc-tools";
+import { Button_AddItem, Button_DeleteItem, Button_Filter } from "../2-fc-tools";
 
 export function ToolbarContent({ fileUs }: { fileUs: FileUs; }) {
 
@@ -38,6 +38,7 @@ function ToolbarForFc({ fileUs }: { fileUs: FileUs; }) {
         return null;
     }
     return (<>
+        <Button_Filter fceCtx={fceCtx} />
         <Button_AddItem fceCtx={fceCtx} />
         <Button_DeleteItem fceCtx={fceCtx} />
         {/* //TODO: buttons add, delete, filter, sort */}

@@ -2,14 +2,14 @@ import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type ManiAtoms } from "../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue } from "../9-types";
+import { type ManiAtoms } from "../../../3-file-mani-atoms";
+import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue } from "../../9-types";
 import { type CatalogFile, uuid } from "@/store/manifest";
-import { rootDir } from "../../1-files/2-do-web-deliver/3-root-dir";
-import { createParsedSrcForEmptyFce } from "../../1-files/1-do-set-files/2-create-fileus";
+import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
+import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
-import { catalogItemInFileToFceItemValue } from "../4-io";
+import { catalogItemInFileToFceItemValue } from "../../4-io";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
