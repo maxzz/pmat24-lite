@@ -88,3 +88,5 @@ function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
 //TODO: we still need to validate the name input field is not empty or assign a default name #
 
 //TODO: scroll to newly created item
+
+//TODO: value dropdown is showing one jusnk separator
