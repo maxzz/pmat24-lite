@@ -7,7 +7,7 @@ import { doAddItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-
 import { useSetAtom } from "jotai";
 import { FieldTyp } from "pm-manifest";
 
-export function PanelMenu_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
+export function Button_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
@@ -26,7 +26,7 @@ export function PanelMenu_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-export function AddDel_FceMenuItems({ fceCtx }: { fceCtx: FceCtx; }) {
+function AddDel_FceMenuItems({ fceCtx }: { fceCtx: FceCtx; }) {
     const doAddItem = useSetAtom(doAddItemAtom);
     const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
 
