@@ -48,15 +48,11 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
 
         <div className=" absolute right-0 top-0.5 flex items-center gap-2">
             <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
-
-            {/* <ButtonQuickXml /> */}
             <R_PanelMenu />
         </div>
 
-        <div className=" absolute right-4 bottom-0.5 flex items-center gap-2">
+        <div className=" absolute right-1 bottom-0.5 flex items-center gap-1">
             <ToolbarContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
         </div>
     </>);
 }
-
-//TODO: don't show <ButtonQuickXml /> if FC file is not saved

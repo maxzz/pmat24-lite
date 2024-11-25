@@ -9,7 +9,7 @@ export function Button_DeleteItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
     const doDeleteSelectedItem = useSetAtom(doDeleteSelectedItemAtom);
     return (
-        <Button variant="ghost" disabled={!selectedItem} title="Delete current item" tabIndex={-1} onClick={() => doDeleteSelectedItem(fceCtx)}>
+        <Button className="-mx-1" variant="ghost" disabled={!selectedItem} title="Delete current item" tabIndex={-1} onClick={() => doDeleteSelectedItem(fceCtx)}>
             <IconTrash className="size-4" />
         </Button>
     );

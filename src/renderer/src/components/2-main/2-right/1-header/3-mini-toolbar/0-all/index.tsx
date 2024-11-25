@@ -38,12 +38,10 @@ function ToolbarForFc({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: File
     if (!fceCtx) {
         return null;
     }
-    return (
-        <div className="flex items-center gap-1">
-            <Button_AddItem fceCtx={fceCtx} />
-            <Button_DeleteItem fceCtx={fceCtx} />
-            <ButtonQuickXml />
-        </div>
-    );
+    return (<>
+        <Button_AddItem fceCtx={fceCtx} />
+        <Button_DeleteItem fceCtx={fceCtx} />
+        <ButtonQuickXml /> {/* //TODO: dissable <ButtonQuickXml /> if FC file is not saved */}
+    </>);
 }
 

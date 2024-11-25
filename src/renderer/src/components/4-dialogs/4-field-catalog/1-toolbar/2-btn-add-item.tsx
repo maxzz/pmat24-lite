@@ -13,7 +13,7 @@ export function Button_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
 
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" title="Add new item" tabIndex={-1}>
+                <Button className="-mx-1" variant="ghost" title="Add new item" tabIndex={-1}>
                     <IconAdd className="size-4 fill-current" />
                 </Button>
             </DropdownMenuTrigger>
