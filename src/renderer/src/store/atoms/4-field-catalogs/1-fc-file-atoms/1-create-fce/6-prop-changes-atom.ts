@@ -1,8 +1,8 @@
 import { atom } from "jotai";
-import { type FceCtx } from "../9-types";
+import { type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
-import { setManiChanges } from "../../3-file-mani-atoms";
-import { theSameValue } from "../../3-file-mani-atoms/1-normal-fields/1-field-items/0-conv/4-comparison";
+import { setManiChanges } from "../../../3-file-mani-atoms";
+import { theSameValue } from "../../../3-file-mani-atoms/1-normal-fields/1-field-items/0-conv/4-comparison";
 
 export const doFcePropChangesAtom = atom(
     null,

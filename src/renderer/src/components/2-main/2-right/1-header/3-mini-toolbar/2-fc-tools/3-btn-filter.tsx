@@ -3,7 +3,7 @@ import { type FceCtx } from "@/store";
 import { Button } from "@/ui";
 import { IconFilter, IconTrash, SymbolCode } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-add-del-item";
+import { doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 
 export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);

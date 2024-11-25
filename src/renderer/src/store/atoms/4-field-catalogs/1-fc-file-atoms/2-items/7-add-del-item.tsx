@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
 import { doSelectIdxAtom } from "./4-do-set-selected";
-import { hasManiChange, setManiChanges } from "../../3-file-mani-atoms";
+import { hasManiChange, setManiChanges } from "../../../3-file-mani-atoms";
 
 export const doAddItemAtom = atom(
     null,

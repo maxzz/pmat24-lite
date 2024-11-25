@@ -3,7 +3,7 @@ import { type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
-import { doAddItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-add-del-item";
+import { doAddItemAtom } from "@/store/atoms/4-field-catalogs";
 import { useSetAtom } from "jotai";
 import { FieldTyp } from "pm-manifest";
 

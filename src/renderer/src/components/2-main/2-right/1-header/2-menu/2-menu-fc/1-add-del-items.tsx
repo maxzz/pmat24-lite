@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { FieldTyp } from "@/store/manifest";
 import { DropdownMenuItem } from "@/ui/shadcn/dropdown-menu";
-import { doAddItemAtom, doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs/1-fc-file-atoms/7-add-del-item";
+import { doAddItemAtom, doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 
 export function MenuItem_AddFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
 
