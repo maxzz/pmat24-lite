@@ -52,7 +52,7 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
         </div>
 
         <div className=" absolute right-1 bottom-0.5 flex items-center gap-1">
-            <ToolbarContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
+            <ToolbarContent fileUs={fileUs} />
         </div>
     </>);
 }
