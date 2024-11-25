@@ -10,7 +10,7 @@ export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx
     return (
         <FceScrollGuard fceCtx={fceCtx} className={className} {...rest}>
             <FldCatItemsBody
-                className={classNames("grid grid-cols-[auto_auto_minmax(0px,1fr)] outline-none select-none")}
+                className={classNames("grid grid-cols-[minmax(32px,auto)_auto_minmax(0px,1fr)] outline-none select-none")}
                 tabIndex={0}
                 fceCtx={fceCtx}
             />
