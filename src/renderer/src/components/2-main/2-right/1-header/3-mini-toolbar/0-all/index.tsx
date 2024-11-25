@@ -1,5 +1,7 @@
 import { appSettings, type FileUs, type FileUsAtom, RightPanelViewType } from "@/store";
 import { ButtonQuickXml } from "../3-btn-quick-xml";
+import { Button_DeleteItem } from "../2-fc-tools";
+import { Button_AddItem } from "@/components/4-dialogs/4-field-catalog/1-toolbar/2-btn-add-item";
 
 export function ToolbarContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
 
@@ -38,8 +40,8 @@ function ToolbarForFc({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: File
     }
     return (
         <div className="flex items-center gap-1">
-            {/* <Button_AddItem fceCtx={fceCtx} />
-            <Button_DeleteItem fceCtx={fceCtx} /> */}
+            <Button_AddItem fceCtx={fceCtx} />
+            <Button_DeleteItem fceCtx={fceCtx} />
             <ButtonQuickXml />
         </div>
     );

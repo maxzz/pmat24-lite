@@ -7,7 +7,7 @@ import { Row2Explanation } from "./2-row2-2-file-explanation";
 import { Row3FnameParts } from "./2-row3-filename-parts";
 import { SaveResetButtons } from "./5-save-reset-buttons";
 import { R_PanelMenu } from "../2-menu";
-import { ButtonQuickXml } from "../3-mini-toolbar";
+import { ToolbarContent } from "../3-mini-toolbar/0-all";
 
 export function R_PanelHeaderBody() {
 
@@ -54,8 +54,7 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
         </div>
 
         <div className=" absolute right-4 bottom-0.5 flex items-center gap-2">
-            <ButtonQuickXml />
-            <ButtonQuickXml />
+            <ToolbarContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
         </div>
     </>);
 }
