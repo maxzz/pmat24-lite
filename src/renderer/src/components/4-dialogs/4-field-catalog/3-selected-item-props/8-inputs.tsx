@@ -43,7 +43,7 @@ export function PropTextarea({ label, className, ...rest }: { label: string; } &
             {label}
             {/* <TextareaAutoGrow */}
             <Textarea
-                className={classNames("text-xs rounded", fixTextareaResizeClasses2, inputFocusClasses)}
+                className={classNames("min-h-12 text-xs rounded", fixTextareaResizeClasses2, inputFocusClasses)}
                 // containerPaddingFont="text-xs"
                 // rows={1}
                 {...turnOffAutoComplete}
@@ -59,7 +59,7 @@ type PropInputValueProps = InputHTMLAttributes<HTMLInputElement> & {
     parentDisabled?: boolean;
 };
 
-export function PropInputValue({ label, fceCtx, className, ...rest }: PropInputValueProps) {
+export function PropInputValue({ label, fceCtx, ...rest }: PropInputValueProps) {
     return (
         <Label className={itemClasses}>
             {label}

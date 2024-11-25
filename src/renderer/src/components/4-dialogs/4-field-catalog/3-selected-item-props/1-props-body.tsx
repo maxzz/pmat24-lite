@@ -52,6 +52,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 label={"Value"}
                 disabled={!enabled}
                 parentDisabled={!enabled}
+                className="w-max"
                 fceCtx={fceCtx}
                 value={value} onChange={(e) => setValue(e.target.value)}
             />
