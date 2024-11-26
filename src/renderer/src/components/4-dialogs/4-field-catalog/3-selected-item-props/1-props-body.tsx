@@ -94,11 +94,18 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </div>
 
-        {/* {!fceCtx.isDlgCtx && (
+        <SelectedIdView fceCtx={fceCtx} />
+    </>);
+}
+
+function SelectedIdView({ fceCtx }: { fceCtx: FceCtx; }) {
+    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
+    return (<>
+        {!fceCtx.isDlgCtx && (
             <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
                 ID: {selectedItem ? selectedItem.fieldValue.dbname : 'No item selected'}
             </div>
-        )} */}
+        )}
     </>);
 }
 
