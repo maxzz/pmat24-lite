@@ -33,12 +33,16 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
     
     const filterCb = useAtomValue(filteredItemsAtom);
-    const filteredItems = useMemo(() => filterCb(fceCtx), [filterCb, fceCtx]);
-    // const filteredItems = useMemo(() => filterCb(fceCtx), [items]); // OK as well
-    
+
+    // const filteredItems = useMemo(() => filterCb(fceCtx), [filterCb, fceCtx]);
+
+    const filteredItems = useMemo(() => filterCb(fceCtx), [items]); // OK as well
+
     // const filteredItems = filterCb(fceCtx);
+
     // const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
-    useEffect(() => console.log('!! filteredItems', filteredItems), [filteredItems]);
+
+    // useEffect(() => console.log('!! filteredItems', filteredItems), [filteredItems]);
 
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
@@ -70,7 +74,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
 
     return (
         <div ref={ref} className={classNames(listSelectionLightClasses, listSelectionDarkClasses, parentActiveClasses, className)} {...rest}>
-            {items.map(
+            {filteredItems.map(
                 (item, idx) => (
                     <FldCatItemRow
                         idx={idx}
