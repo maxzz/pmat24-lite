@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { hasSelectedItemAtom, type FceCtx } from "@/store";
-import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
+import { PropText, PropValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
 const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
@@ -43,7 +43,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropInput
+            <PropText
                 label={"Name"}
                 disabled={!enabled}
                 value={displayName} onChange={(e) => setDisplayName(e.target.value)}
@@ -51,7 +51,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropInputValue
+            <PropValue
                 label={"Value"}
                 disabled={!enabled}
                 parentDisabled={!enabled}

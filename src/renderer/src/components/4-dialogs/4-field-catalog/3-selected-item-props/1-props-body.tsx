@@ -2,7 +2,7 @@ import { type ReactNode, useEffect } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { hasSelectedItemAtom, type FceCtx } from "@/store";
-import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
+import { PropText, PropValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
@@ -55,12 +55,7 @@ const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled
 function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
     const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
 
-    const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
-
-    const [displayName, setDisplayName] = useAtom(nameAtom);
-    const [value, setValue] = useAtom(valueAtom);
-    const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
-    const [valueLife, setValueLife] = useAtom(valueLifeAtom);
+    const [valueLife, setValueLife] = useAtom(fceCtx.fcePropAtoms.valueLifeAtom);
 
     const enabled = hasSelectedItem;
     const allClasses = mergeStateClasses(enabled);
@@ -74,21 +69,20 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropInput
+            <PropText
                 label={"Name"}
                 disabled={!enabled}
-                value={displayName} onChange={(e) => setDisplayName(e.target.value)}
+                editAtom={fceCtx.fcePropAtoms.nameAtom}
             />
         </div>
 
         <div className={allClasses}>
-            <PropInputValue
+            <PropValue
                 label={"Value"}
                 disabled={!enabled}
                 parentDisabled={!enabled}
                 className="w-max"
                 fceCtx={fceCtx}
-                value={value} onChange={(e) => setValue(e.target.value)}
             />
         </div>
 
@@ -96,7 +90,7 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
             <PropTextarea
                 label="Description"
                 disabled={!enabled}
-                value={ownernote} onChange={(e) => setOwnernote(e.target.value)}
+                editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
             />
         </div>
 
