@@ -38,7 +38,7 @@ function ToolbarForFc({ fileUs }: { fileUs: FileUs; }) {
         return null;
     }
     return (<>
-        <Button_Filter fceCtx={fceCtx} />
+        {/* <Button_Filter fceCtx={fceCtx} /> */}
         <Button_AddItem fceCtx={fceCtx} />
         <Button_DeleteItem fceCtx={fceCtx} />
         {/* //TODO: buttons add, delete, filter, sort */}

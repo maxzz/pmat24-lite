@@ -46,3 +46,13 @@ export const doSetInitSelectedIdxAtom = atom(null,
         set(fceCtx.selectedIdxStoreAtom, idx);
     }
 );
+
+/**
+ * Has selected 
+ */
+export const hasSelectedItemAtom = atom(
+    (get) => ({ fceCtx }: { fceCtx: FceCtx; }) => {
+        const selectedItem = get(fceCtx.selectedItemAtom);
+        return !!selectedItem;
+    }
+);
