@@ -66,26 +66,23 @@ export function PropTextarea({ label, editAtom, className, ...rest }: PropTextar
 }
 
 type PropValueProps = InputHTMLAttributes<HTMLInputElement> & {
-    label: string;
     fceCtx: FceCtx;
     parentDisabled?: boolean;
 };
 
-export function PropValue({ label, fceCtx, ...rest }: PropValueProps) {
+export function PropValue({ fceCtx, ...rest }: PropValueProps) {
     const { useItAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
     return (
-        <NewLabel label={label}>
-            <Column4_Value
-                useItAtom={useItAtom}
-                valueLifeAtom={valueLifeAtom}
-                choosevalue=""
-                {...rest}
-            />
-        </NewLabel>
+        <Column4_Value
+            useItAtom={useItAtom}
+            valueLifeAtom={valueLifeAtom}
+            choosevalue=""
+            {...rest}
+        />
     );
 }
 
-function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
+export function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
     return (<Label className={itemClasses}>
         {label}
         {children}

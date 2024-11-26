@@ -2,7 +2,7 @@ import { type ReactNode, useEffect } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { hasSelectedItemAtom, type FceCtx } from "@/store";
-import { PropText, PropValue, PropTextarea } from "./8-inputs";
+import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
 import { classNames } from "@/utils";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
@@ -53,7 +53,7 @@ const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
 const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled && disabledClasses);
 
 function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
-    
+
     const hasSelected = useAtomValue(hasSelectedItemAtom)({ fceCtx });
     const valueLife = useAtomValue(fceCtx.fcePropAtoms.valueLifeAtom);
 
@@ -76,13 +76,14 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropValue
-                label={"Value"}
-                disabled={!hasSelected}
-                parentDisabled={!hasSelected}
-                className="w-max"
-                fceCtx={fceCtx}
-            />
+            <NewLabel label="Value">
+                <PropValue
+                    disabled={!hasSelected}
+                    parentDisabled={!hasSelected}
+                    className="w-max"
+                    fceCtx={fceCtx}
+                />
+            </NewLabel>
         </div>
 
         <div className={allClasses}>
