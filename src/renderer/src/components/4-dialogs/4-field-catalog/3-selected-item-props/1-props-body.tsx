@@ -1,25 +1,34 @@
-import { useEffect } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import { type ReactNode, useEffect } from "react";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { hasSelectedItemAtom, type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
-const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
-const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
-const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled && disabledClasses);
-
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
+    return (<>
+        <SelectedItemPropsGuard fceCtx={fceCtx}>
+            <SelectedItemPropsContent fceCtx={fceCtx} />
+        </SelectedItemPropsGuard>
+    </>);
+}
 
+function SelectedItemPropsGuard({ fceCtx, children }: { fceCtx: FceCtx; children: ReactNode; }) {
+    useSelectedUpdates({ fceCtx });
+    return (<>
+        {children}
+    </>);
+}
+
+function useSelectedUpdates({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
 
     const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
 
-    const [displayName, setDisplayName] = useAtom(nameAtom);
-    const [value, setValue] = useAtom(valueAtom);
-    const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
-    const [valueLife, setValueLife] = useAtom(valueLifeAtom);
+    const setDisplayName = useSetAtom(nameAtom);
+    const setValue = useSetAtom(valueAtom);
+    const setOwnernote = useSetAtom(ownernoteAtom);
+    const setValueLife = useSetAtom(valueLifeAtom);
 
     useEffect(
         () => {
@@ -29,7 +38,22 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             setValueLife(selectedItem?.fieldValue || createEmptyValueLife({ fType: FieldTyp.edit }));
         }, [selectedItem]
     );
-    
+}
+
+const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
+const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
+const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled && disabledClasses);
+
+function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
+    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
+
+    const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
+
+    const [displayName, setDisplayName] = useAtom(nameAtom);
+    const [value, setValue] = useAtom(valueAtom);
+    const [ownernote, setOwnernote] = useAtom(ownernoteAtom);
+    const [valueLife, setValueLife] = useAtom(valueLifeAtom);
+
     const enabled = hasSelectedItem;
     const allClasses = mergeStateClasses(enabled);
 
@@ -67,11 +91,11 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </div>
 
-        {!fceCtx.isDlgCtx && (
+        {/* {!fceCtx.isDlgCtx && (
             <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
                 ID: {selectedItem ? selectedItem.fieldValue.dbname : 'No item selected'}
             </div>
-        )}
+        )} */}
     </>);
 }
 
