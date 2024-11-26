@@ -2,6 +2,9 @@ import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { setSelectedProps } from "./4-update-selected-props";
 
+/**
+ * Select item by index
+ */
 export const doSelectIdxAtom = atom(
     null,
     (get, set, ctx: FceCtx, idx: number, value: boolean | ((v: boolean) => boolean)): FceItem | undefined => {
@@ -25,6 +28,9 @@ export const doSelectIdxAtom = atom(
     }
 );
 
+/**
+ * Deselect current idx
+ */
 function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
     const chunks = get(ctx.fceAtoms.itemsAtom);
