@@ -53,25 +53,24 @@ const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
 const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled && disabledClasses);
 
 function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
-    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
+    
+    const hasSelected = useAtomValue(hasSelectedItemAtom)({ fceCtx });
+    const valueLife = useAtomValue(fceCtx.fcePropAtoms.valueLifeAtom);
 
-    const [valueLife, setValueLife] = useAtom(fceCtx.fcePropAtoms.valueLifeAtom);
-
-    const enabled = hasSelectedItem;
-    const allClasses = mergeStateClasses(enabled);
+    const allClasses = mergeStateClasses(hasSelected);
 
     // return null;
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
 
-        <div className={classNames(!enabled && disabledClasses)}>
+        <div className={classNames(!hasSelected && disabledClasses)}>
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
         <div className={allClasses}>
             <PropText
                 label={"Name"}
-                disabled={!enabled}
+                disabled={!hasSelected}
                 editAtom={fceCtx.fcePropAtoms.nameAtom}
             />
         </div>
@@ -79,8 +78,8 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className={allClasses}>
             <PropValue
                 label={"Value"}
-                disabled={!enabled}
-                parentDisabled={!enabled}
+                disabled={!hasSelected}
+                parentDisabled={!hasSelected}
                 className="w-max"
                 fceCtx={fceCtx}
             />
@@ -89,7 +88,7 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className={allClasses}>
             <PropTextarea
                 label="Description"
-                disabled={!enabled}
+                disabled={!hasSelected}
                 editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
             />
         </div>

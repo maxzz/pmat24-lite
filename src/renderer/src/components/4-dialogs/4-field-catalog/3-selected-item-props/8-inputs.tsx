@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes } from "react";
+import { type ReactNode, type InputHTMLAttributes } from "react";
 import { useAtom, type PrimitiveAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Input, Label, Textarea } from "@/ui/shadcn";
@@ -74,14 +74,20 @@ type PropValueProps = InputHTMLAttributes<HTMLInputElement> & {
 export function PropValue({ label, fceCtx, ...rest }: PropValueProps) {
     const { useItAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
     return (
-        <Label className={itemClasses}>
-            {label}
+        <NewLabel label={label}>
             <Column4_Value
                 useItAtom={useItAtom}
                 valueLifeAtom={valueLifeAtom}
                 choosevalue=""
                 {...rest}
             />
-        </Label>
+        </NewLabel>
     );
+}
+
+function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
+    return (<Label className={itemClasses}>
+        {label}
+        {children}
+    </Label>);
 }
