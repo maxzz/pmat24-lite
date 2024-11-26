@@ -4,7 +4,7 @@ import { type FceCtx } from "../../9-types";
 
 export const filteredItemsAtom = atom(
     (get) => (fceCtx: FceCtx) => {
-        const all = get(fceCtx.fceAtoms.itemsAtom);
+        const all = get(fceCtx.fceAtoms.shownAtom);
         const rv = all.filter((item) => item.fieldValue.fType === FieldTyp.edit);
         return rv;
     }

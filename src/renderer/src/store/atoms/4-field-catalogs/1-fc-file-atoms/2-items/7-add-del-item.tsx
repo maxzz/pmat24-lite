@@ -9,8 +9,8 @@ export const doAddItemAtom = atom(
     (get, set, fceCtx: FceCtx, fType: FieldTyp): FceItem | undefined => {
         const newItem = createEmptyFceItem(fType);
 
-        const newItems = [...get(fceCtx.fceAtoms.itemsAtom), newItem];
-        set(fceCtx.fceAtoms.itemsAtom, newItems);
+        const newItems = [...get(fceCtx.fceAtoms.shownAtom), newItem];
+        set(fceCtx.fceAtoms.shownAtom, newItems);
 
         const newIdx = newItems.length - 1;
         const newName = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newIdx + 1}`;
@@ -35,7 +35,7 @@ export const doDeleteSelectedItemAtom = atom(
     (get, set, fceCtx: FceCtx) => {
 
         const fceAtoms = fceCtx.fceAtoms;
-        const items = get(fceAtoms.itemsAtom);
+        const items = get(fceAtoms.shownAtom);
         const idx = get(fceCtx.selectedIdxStoreAtom);
         const currentItem = items[idx];
 
@@ -44,7 +44,7 @@ export const doDeleteSelectedItemAtom = atom(
         }
 
         const newItems = items.filter((item) => item.fceMeta.uuid !== currentItem.fceMeta.uuid);
-        set(fceAtoms.itemsAtom, newItems);
+        set(fceAtoms.shownAtom, newItems);
 
         // select previous item if exists, otherwise select the next item or select nothing
 

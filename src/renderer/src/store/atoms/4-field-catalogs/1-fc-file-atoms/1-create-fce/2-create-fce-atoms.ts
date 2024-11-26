@@ -76,7 +76,8 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
-        itemsAtom: atom<FceItem[]>(items || []),
+        shownAtom: atom<FceItem[]>(items || []),
+        allAtom: atom<FceItem[]>(items || []),
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({

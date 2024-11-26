@@ -39,7 +39,8 @@ export type FcePropAtoms = {                        // Field Catalog Editor Atom
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
-    itemsAtom: PrimitiveAtom<FceItem[]>;
+    shownAtom: PrimitiveAtom<FceItem[]>;            // field catalog items shown on screen
+    allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
 };
 
 export type FceAtoms = Prettify<                    // Field Catalog Editor Atoms

@@ -15,7 +15,7 @@ export const doSelectIdxAtom = atom(
 
         const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
 
-        const items = get(ctx.fceAtoms.itemsAtom);
+        const items = get(ctx.fceAtoms.shownAtom);
 
         const current = items[idx];
         if (current) {
@@ -33,7 +33,7 @@ export const doSelectIdxAtom = atom(
  */
 function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.fceAtoms.itemsAtom);
+    const chunks = get(ctx.fceAtoms.shownAtom);
 
     const current = chunks[currentIdx];
     if (current) {
@@ -49,7 +49,7 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
  */
 export const doSetInitSelectedIdxAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const items = get(fceCtx.fceAtoms.itemsAtom);
+        const items = get(fceCtx.fceAtoms.shownAtom);
         const idx = items.findIndex(item => item.editor.selectedDlg);
         set(fceCtx.selectedIdxStoreAtom, idx);
     }

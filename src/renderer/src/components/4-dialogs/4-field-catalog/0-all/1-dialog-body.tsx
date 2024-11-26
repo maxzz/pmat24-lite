@@ -61,7 +61,7 @@ function Header({ fceCtx }: { fceCtx: FceCtx; }) {
 }
 
 function TotalItems({ fceCtx }: { fceCtx: FceCtx; }) {
-    const totalItems = useAtomValue(fceCtx.fceAtoms.itemsAtom).length;
+    const totalItems = useAtomValue(fceCtx.fceAtoms.shownAtom).length;
     return (<>
         {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
     </>);
