@@ -8,17 +8,17 @@ import { FldCatItemsBody } from "./1-body";
 
 export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <FceScrollGuard fceCtx={fceCtx} className={className} {...rest}>
+        <FceScrollArea fceCtx={fceCtx} className={className} {...rest}>
             <FldCatItemsBody
                 className={classNames("grid grid-cols-[minmax(32px,auto)_auto_minmax(0px,1fr)] outline-none select-none")}
                 tabIndex={0}
                 fceCtx={fceCtx}
             />
-        </FceScrollGuard>
+        </FceScrollArea>
     );
 }
 
-function FceScrollGuard({ fceCtx, className, children, ...rest }: { fceCtx: FceCtx; children: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+function FceScrollArea({ fceCtx, className, children, ...rest }: { fceCtx: FceCtx; children: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
     const { ref: refSize, width, height } = useResizeObserver();
     const { ref: refScroll } = useScrollToSelected(fceCtx);
     return (

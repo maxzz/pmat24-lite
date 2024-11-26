@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
-import { type FceCtx } from "@/store";
+import { hasSelectedItemAtom, type FceCtx } from "@/store";
 import { PropInput, PropInputValue, PropTextarea } from "./8-inputs";
 import { classNames } from "@/utils";
 
@@ -12,6 +12,7 @@ const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
+    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
 
     const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
 
@@ -29,7 +30,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         }, [selectedItem]
     );
     
-    const enabled = !!selectedItem;
+    const enabled = hasSelectedItem;
     const allClasses = mergeStateClasses(enabled);
 
     return (<>
