@@ -30,19 +30,19 @@ const parentActiveClasses = "\
 ";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
-    const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+    // const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
     
     const filterCb = useAtomValue(filteredItemsAtom);
 
     // const filteredItems = useMemo(() => filterCb(fceCtx), [filterCb, fceCtx]);
 
-    const filteredItems = useMemo(() => filterCb(fceCtx), [items]); // OK as well
+    // const filteredItems = useMemo(() => filterCb(fceCtx), [items]); // OK as well
 
-    // const filteredItems = filterCb(fceCtx);
+    const filteredItems = filterCb(fceCtx);
 
     // const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
 
-    // useEffect(() => console.log('!! filteredItems', filteredItems), [filteredItems]);
+    useEffect(() => console.log('!! filteredItems', filteredItems), [filteredItems]);
 
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);

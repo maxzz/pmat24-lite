@@ -6,7 +6,6 @@ export const filteredItemsAtom = atom(
     (get) => (fceCtx: FceCtx) => {
         const all = get(fceCtx.fceAtoms.itemsAtom);
         const rv = all.filter((item) => item.fieldValue.fType === FieldTyp.edit);
-        console.log('filteredItems', rv);
         return rv;
     }
 );
