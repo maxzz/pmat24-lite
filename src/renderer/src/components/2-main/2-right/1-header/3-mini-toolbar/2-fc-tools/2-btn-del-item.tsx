@@ -5,7 +5,7 @@ import { IconTrash } from "@/ui/icons";
 import { doDeleteSelectedItemAtom, hasSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 
 export function Button_DeleteItem({ fceCtx }: { fceCtx: FceCtx; }) {
-    const hasSelectedItem = useAtomValue(hasSelectedItemAtom);
+    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
     const doDeleteSelectedItem = useSetAtom(doDeleteSelectedItemAtom);
     return (
         <Button
