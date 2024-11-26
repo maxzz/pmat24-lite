@@ -7,9 +7,12 @@ import { classNames } from "@/utils";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
-        <SelectedItemPropsGuard fceCtx={fceCtx}>
+        {/* <SelectedItemPropsGuard fceCtx={fceCtx}>
             <SelectedItemPropsContent fceCtx={fceCtx} />
-        </SelectedItemPropsGuard>
+        </SelectedItemPropsGuard> */}
+
+        <FakeSelectedUpdates fceCtx={fceCtx} />
+        <SelectedItemPropsContent fceCtx={fceCtx} />
     </>);
 }
 
@@ -18,6 +21,11 @@ function SelectedItemPropsGuard({ fceCtx, children }: { fceCtx: FceCtx; children
     return (<>
         {children}
     </>);
+}
+
+function FakeSelectedUpdates({ fceCtx }: { fceCtx: FceCtx; }) {
+    useSelectedUpdates({ fceCtx });
+    return null;
 }
 
 function useSelectedUpdates({ fceCtx }: { fceCtx: FceCtx; }) {
@@ -57,6 +65,7 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
     const enabled = hasSelectedItem;
     const allClasses = mergeStateClasses(enabled);
 
+    // return null;
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
 
