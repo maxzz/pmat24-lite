@@ -1,22 +1,23 @@
 import { type ReactNode, useEffect } from "react";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { createEmptyValueLife, FieldTyp } from "@/store/manifest";
 import { hasSelectedItemAtom, type FceCtx } from "@/store";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
 import { classNames } from "@/utils";
+import { SelectedIdxView, SelectedIdView } from "./7-selected-views";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
-        {/* <SelectedItemPropsGuard fceCtx={fceCtx}>
+        {/* <FakeSelectedUpdates0 fceCtx={fceCtx}>
             <SelectedItemPropsContent fceCtx={fceCtx} />
-        </SelectedItemPropsGuard> */}
+        </FakeSelectedUpdates0> */}
 
         <FakeSelectedUpdates fceCtx={fceCtx} />
         <SelectedItemPropsContent fceCtx={fceCtx} />
     </>);
 }
 
-function SelectedItemPropsGuard({ fceCtx, children }: { fceCtx: FceCtx; children: ReactNode; }) {
+function FakeSelectedUpdates0({ fceCtx, children }: { fceCtx: FceCtx; children: ReactNode; }) {
     useSelectedUpdates({ fceCtx });
     return (<>
         {children}
@@ -66,63 +67,29 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 
-        <div className={allClasses}>
-            <NewLabel label="Name">
-                <PropText
-                    disabled={!hasSelected}
-                    editAtom={fceCtx.fcePropAtoms.nameAtom}
-                />
-            </NewLabel>
-        </div>
+        <NewLabel label="Name" className={allClasses}>
+            <PropText
+                disabled={!hasSelected}
+                editAtom={fceCtx.fcePropAtoms.nameAtom}
+            />
+        </NewLabel>
 
-        <div className={allClasses}>
-            <NewLabel label="Value">
-                <PropValue
-                    disabled={!hasSelected}
-                    parentDisabled={!hasSelected}
-                    className="w-max"
-                    fceCtx={fceCtx}
-                />
-            </NewLabel>
-        </div>
+        <NewLabel label="Value" className={allClasses}>
+            <PropValue
+                className="w-max"
+                disabled={!hasSelected}
+                parentDisabled={!hasSelected}
+                fceCtx={fceCtx}
+            />
+        </NewLabel>
 
-        <div className={allClasses}>
-            <NewLabel label="Description">
-                <PropTextarea
-                    disabled={!hasSelected}
-                    editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
-                />
-            </NewLabel>
-        </div>
+        <NewLabel label="Description" className={allClasses}>
+            <PropTextarea
+                disabled={!hasSelected}
+                editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
+            />
+        </NewLabel>
 
         <SelectedIdView fceCtx={fceCtx} />
     </>);
 }
-
-function SelectedIdView({ fceCtx }: { fceCtx: FceCtx; }) {
-    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-    return (<>
-        {!fceCtx.isDlgCtx && (
-            <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
-                ID: {selectedItem ? selectedItem.fieldValue.dbname : 'No item selected'}
-            </div>
-        )}
-    </>);
-}
-
-function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
-    const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
-    return (
-        <div className="absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs text-muted-foreground flex items-center justify-center rounded-sm">
-            {selectedIdx === -1 ? '' : `${selectedIdx + 1}`}
-        </div>
-    );
-}
-
-//TODO: don't allow to change type if item; type defined from the Add menu
-//TODO: value input should from normal mode editor as result we don't need validation
-//TODO: we still need to validate the name input field is not empty or assign a default name #
-
-//TODO: scroll to newly created item
-
-//TODO: value dropdown is showing one jusnk separator

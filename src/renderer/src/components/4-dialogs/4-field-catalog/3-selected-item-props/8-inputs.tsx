@@ -1,16 +1,16 @@
-import { type ReactNode, type InputHTMLAttributes } from "react";
+import { type ReactNode, type InputHTMLAttributes, HTMLAttributes } from "react";
 import { useAtom, type PrimitiveAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Input, Label, Textarea } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { inputRingClasses } from "@/ui";
 import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value/1-field";
+import { inputRingClasses } from "@/ui";
 
 const itemClasses = "text-xs font-normal flex flex-col";
 
-export function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
+export function NewLabel({ label, children, className, ...rest }: { label: string; children: ReactNode; } & HTMLAttributes<HTMLLabelElement> ) {
     return (
-        <Label className={itemClasses}>
+        <Label className={classNames(itemClasses, className)} {...rest}>
             {label}
             {children}
         </Label>
