@@ -1,5 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type FceItem, type FceCtx } from "@/store";
+import { type FceItem, type FceCtx } from "../../9-types";
+import { setSelectedProps } from "./4-update-selected-props";
 
 export const doSelectIdxAtom = atom(
     null,
@@ -17,6 +18,7 @@ export const doSelectIdxAtom = atom(
         if (current) {
             current.editor[selectedName] = typeof value === "function" ? value(current.editor[selectedName]) : value;
             set(ctx.selectedIdxStoreAtom, current.editor[selectedName] ? idx : -1);
+            setSelectedProps({ fceCtx: ctx, selectedItem: current, get, set });
         }
 
         return current;

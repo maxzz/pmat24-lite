@@ -1,8 +1,8 @@
-import type { FceCtx } from "@/store";
-import { createEmptyValueLife } from "@/store/manifest";
-import { useAtomValue, useSetAtom } from "jotai";
-import { FieldTyp } from "pm-manifest";
 import { useEffect } from "react";
+import { useAtomValue, useSetAtom, type Getter, type Setter } from "jotai";
+import { type FceCtx, type FceItem } from "@/store";
+import { createEmptyValueLife } from "@/store/manifest";
+import { FieldTyp } from "@/store/manifest";
 
 export function useSelectedUpdates({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
@@ -22,4 +22,17 @@ export function useSelectedUpdates({ fceCtx }: { fceCtx: FceCtx; }) {
             setValueLife(selectedItem?.fieldValue || createEmptyValueLife({ fType: FieldTyp.edit }));
         }, [selectedItem]
     );
+}
+
+const emptyValueLife = createEmptyValueLife({ fType: FieldTyp.edit });
+
+export function setSelectedProps({ fceCtx, selectedItem, get, set }: { fceCtx: FceCtx; selectedItem: FceItem; get: Getter; set: Setter; }) {
+    //const selectedItem = get(fceCtx.selectedItemAtom);
+
+    const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
+
+    set(nameAtom, selectedItem?.fieldValue.displayname || '');
+    set(valueAtom, selectedItem?.fieldValue.value || '');
+    set(ownernoteAtom, selectedItem?.fieldValue.ownernote || '');
+    set(valueLifeAtom, selectedItem?.fieldValue || emptyValueLife);
 }

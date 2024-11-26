@@ -7,7 +7,7 @@ import { SelectedIdxView, SelectedIdView } from "./7-selected-views";
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
-        <FakeSelectedUpdates fceCtx={fceCtx} />
+        {/* <FakeSelectedUpdates fceCtx={fceCtx} /> */}
         <SelectedItemPropsContent fceCtx={fceCtx} />
     </>);
 }
