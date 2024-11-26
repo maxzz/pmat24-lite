@@ -1,6 +1,6 @@
-import { useEffect, useRef, type HTMLAttributes } from "react";
+import { useEffect, useMemo, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { doScrollToItemAtom, doSelectIdxAtom, type FceCtx } from "@/store";
+import { doScrollToItemAtom, doSelectIdxAtom, filteredItemsAtom, type FceCtx } from "@/store";
 import { FldCatItemRow } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 
@@ -31,6 +31,14 @@ const parentActiveClasses = "\
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
     const items = useAtomValue(fceCtx.fceAtoms.itemsAtom);
+    
+    const filterCb = useAtomValue(filteredItemsAtom);
+    const filteredItems = useMemo(() => filterCb(fceCtx), [filterCb, fceCtx]);
+    // const filteredItems = useMemo(() => filterCb(fceCtx), [items]); // OK as well
+    
+    // const filteredItems = filterCb(fceCtx);
+    // const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
+    useEffect(() => console.log('!! filteredItems', filteredItems), [filteredItems]);
 
     const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
