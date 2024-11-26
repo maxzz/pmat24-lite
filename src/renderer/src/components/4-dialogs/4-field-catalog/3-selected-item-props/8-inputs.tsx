@@ -8,6 +8,15 @@ import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-ed
 
 const itemClasses = "text-xs font-normal flex flex-col";
 
+export function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
+    return (
+        <Label className={itemClasses}>
+            {label}
+            {children}
+        </Label>
+    );
+}
+
 export const inputFocusClasses = "\
 \
 text-mani-foreground bg-mani-background \
@@ -26,42 +35,34 @@ const fixTextareaResizeClasses2 = "";
 const inputRingClasses2 = "";
 
 type PropTextProps = InputHTMLAttributes<HTMLInputElement> & {
-    label: string;
     editAtom: PrimitiveAtom<string>;
 };
 
-export function PropText({ label, editAtom, className, ...rest }: PropTextProps) {
+export function PropText({ editAtom, className, ...rest }: PropTextProps) {
     const [text, setText] = useAtom(editAtom);
     return (
-        <Label className={itemClasses}>
-            {label}
-            <Input
-                className={classNames("h-7 text-xs rounded", inputFocusClasses2, inputRingClasses, className)}
-                {...turnOffAutoComplete}
-                value={text} onChange={(e) => setText(e.target.value)}
-                {...rest}
-            />
-        </Label>
+        <Input
+            className={classNames("h-7 text-xs rounded", inputFocusClasses2, inputRingClasses, className)}
+            {...turnOffAutoComplete}
+            value={text} onChange={(e) => setText(e.target.value)}
+            {...rest}
+        />
     );
 }
 
 type PropTextareaProps = InputHTMLAttributes<HTMLTextAreaElement> & {
-    label: string;
     editAtom: PrimitiveAtom<string>;
 };
 
-export function PropTextarea({ label, editAtom, className, ...rest }: PropTextareaProps) {
+export function PropTextarea({ editAtom, className, ...rest }: PropTextareaProps) {
     const [text, setText] = useAtom(editAtom);
     return (
-        <Label className={itemClasses}>
-            {label}
-            <Textarea
-                className={classNames("min-h-12 text-xs rounded", fixTextareaResizeClasses2, inputFocusClasses, className)}
-                value={text} onChange={(e) => setText(e.target.value)}
-                {...turnOffAutoComplete}
-                {...rest}
-            />
-        </Label >
+        <Textarea
+            className={classNames("min-h-12 text-xs rounded", fixTextareaResizeClasses2, inputFocusClasses, className)}
+            value={text} onChange={(e) => setText(e.target.value)}
+            {...turnOffAutoComplete}
+            {...rest}
+        />
     );
 }
 
@@ -80,11 +81,4 @@ export function PropValue({ fceCtx, ...rest }: PropValueProps) {
             {...rest}
         />
     );
-}
-
-export function NewLabel({ label, children }: { label: string; children: ReactNode; }) {
-    return (<Label className={itemClasses}>
-        {label}
-        {children}
-    </Label>);
 }

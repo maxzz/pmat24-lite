@@ -59,7 +59,6 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const allClasses = mergeStateClasses(hasSelected);
 
-    // return null;
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
 
@@ -68,11 +67,12 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropText
-                label={"Name"}
-                disabled={!hasSelected}
-                editAtom={fceCtx.fcePropAtoms.nameAtom}
-            />
+            <NewLabel label="Name">
+                <PropText
+                    disabled={!hasSelected}
+                    editAtom={fceCtx.fcePropAtoms.nameAtom}
+                />
+            </NewLabel>
         </div>
 
         <div className={allClasses}>
@@ -87,11 +87,12 @@ function SelectedItemPropsContent({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
 
         <div className={allClasses}>
-            <PropTextarea
-                label="Description"
-                disabled={!hasSelected}
-                editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
-            />
+            <NewLabel label="Description">
+                <PropTextarea
+                    disabled={!hasSelected}
+                    editAtom={fceCtx.fcePropAtoms.ownernoteAtom}
+                />
+            </NewLabel>
         </div>
 
         <SelectedIdView fceCtx={fceCtx} />
