@@ -37,10 +37,18 @@ export type FcePropAtoms = {                        // Field Catalog Editor Atom
     valueLifeAtom /**/: PrimitiveAtom<ValueLife>;
 };
 
+export type FceFilterOptions = {
+    showText: boolean;
+    showPassword: boolean;
+    search: string;
+    ascending: boolean;
+};
+
 export type FceItemsAtoms = {                       // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
     shownAtom: PrimitiveAtom<FceItem[]>;            // field catalog items shown on screen
     allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
+    fceFilterOptions: FceFilterOptions;             // valtio proxy: filter options to apply on all items and get shown items
 };
 
 export type FceAtoms = Prettify<                    // Field Catalog Editor Atoms
