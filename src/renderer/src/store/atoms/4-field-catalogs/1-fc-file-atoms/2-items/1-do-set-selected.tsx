@@ -7,32 +7,24 @@ import { setSelectedProps } from "./4-update-selected-props";
  */
 export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: FceCtx, idx: number, value: boolean | ((v: boolean) => boolean)): FceItem | undefined => {
+    (get, set, ctx: FceCtx, idx: number): FceItem | undefined => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
             deselectCurrentIdx(ctx, get, set);
         }
 
-        const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
-
         const items = get(ctx.fceAtoms.shownAtom);
 
-        const current = items[idx];
-        if (current) {
-            const newValue = typeof value === "function" ? value(current.editor[selectedName]) : value;
-            current.editor[selectedName] = newValue;
-            set(ctx.selectedIdxStoreAtom, newValue ? idx : -1);
+        const newItem = items[idx];
+        if (newItem) {
+            newItem.editor[ctx.isDlgCtx ? 'selectedDlg' : 'selectedView'] = true;
+            set(ctx.selectedIdxStoreAtom, idx);
 
-            if (newValue) {
-                set(ctx.selectedItemAtom, current);
-                setSelectedProps({ fceCtx: ctx, selectedItem: current, get, set });
-            }
-        } else {
-            set(ctx.selectedItemAtom, current);
-            setSelectedProps({ fceCtx: ctx, selectedItem: current, get, set });
+            set(ctx.selectedItemAtom, newItem);
+            setSelectedProps({ fceCtx: ctx, selectedItem: newItem, get, set });
         }
 
-        return current;
+        return newItem;
     }
 );
 
@@ -45,9 +37,7 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
 
     const current = chunks[currentIdx];
     if (current) {
-        const selectedName = ctx.isDlgCtx ? 'selectedDlg' : 'selectedView';
-
-        current.editor[selectedName] = false;
+        current.editor[ctx.isDlgCtx ? 'selectedDlg' : 'selectedView'] = false;
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }

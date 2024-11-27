@@ -52,11 +52,11 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     );
 
     function onClick(idx: number) {
-        doSelectIdx(fceCtx, idx, true);
+        doSelectIdx(fceCtx, idx);
     }
 
     function onDoubleClick(idx: number) {
-        doSelectIdx(fceCtx, idx, true);
+        doSelectIdx(fceCtx, idx);
         // fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
