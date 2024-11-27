@@ -73,12 +73,13 @@ type CreateFceAtomsProps = {
 };
 
 function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms {
-    const rv: Omit<FceAtoms, 'viewFceCtx'> = {
+    const fceFilterOptions = proxy<FceFilterOptions>({ showText: true, showPassword: true, search: '', ascending: true });
+
+    const rv: Omit<FceAtoms, 'viewFceCtx' | 'shownAtom'> = {
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
-        shownAtom: atom<FceItem[]>(items || []),
         allAtom: atom<FceItem[]>(items || []),
-        fceFilterOptions: proxy<FceFilterOptions>({ showText: true, showPassword: true, search: '', ascending: true }),
+        fceFilterOptions,
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({
@@ -87,5 +88,23 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
         closeFldCatDialog: () => { },
     });
 
+    (rv as FceAtoms).shownAtom = createShownItemsAtom(rv as FceAtoms);
+
     return rv as FceAtoms;
 }
+
+const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
+    const items = atom<FceItem[]>(
+        (get) => {
+            const rv = get(fceAtoms.allAtom).filter(
+                (item) => {
+                    const { showText, showPassword, search, ascending } = fceAtoms.fceFilterOptions;
+                    console.log('filter', item);
+                    return item;
+                }
+            );
+            return rv;
+        }
+    );
+    return items;
+};
