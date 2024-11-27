@@ -68,6 +68,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     isMaster: boolean;                              // true if this is a master field catalog
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
+    hasSelectedItemAtom: Atom<boolean>;             // true if there is a selected item
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
     fcePropAtoms: FcePropAtoms;

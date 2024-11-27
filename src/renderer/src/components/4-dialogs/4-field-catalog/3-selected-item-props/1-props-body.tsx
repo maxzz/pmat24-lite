@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
+import { type FceCtx } from "@/store";
 import { FieldTyp } from "@/store/manifest";
-import { hasSelectedItemAtom, type FceCtx } from "@/store";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
 import { SelectedIdxView, SelectedIdView } from "./7-selected-views";
 import { classNames } from "@/utils";
@@ -11,7 +11,7 @@ const mergeStateClasses = (enabled: boolean) => classNames(itemClasses, !enabled
 
 export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
-    const hasSelected = useAtomValue(hasSelectedItemAtom)({ fceCtx });
+    const hasSelected = useAtomValue(fceCtx.hasSelectedItemAtom);
     const valueLife = useAtomValue(fceCtx.fcePropAtoms.valueLifeAtom);
 
     const allClasses = mergeStateClasses(hasSelected);

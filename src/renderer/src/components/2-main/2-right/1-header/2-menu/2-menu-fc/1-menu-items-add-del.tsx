@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { FieldTyp } from "@/store/manifest";
 import { DropdownMenuItem } from "@/ui/shadcn/dropdown-menu";
-import { doAddItemAtom, doDeleteSelectedItemAtom, hasSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
+import { doAddItemAtom, doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 
 export function MenuItem_AddFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
 
@@ -27,8 +27,7 @@ export function MenuItem_AddFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
 
 export function MenuItem_DelFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
 
-    // const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-    const hasSelectedItem = useAtomValue(hasSelectedItemAtom)({ fceCtx });
+    const hasSelectedItem = useAtomValue(fceCtx.hasSelectedItemAtom);
 
     const doDeleteSelectedItem = useSetAtom(doDeleteSelectedItemAtom);
     const doSetFocusGrid = useSetAtom(fceCtx.focusGridAtom);
@@ -39,7 +38,6 @@ export function MenuItem_DelFcItem({ fceCtx }: { fceCtx: FceCtx; }) {
     }
 
     return (<>
-        {/* <DropdownMenuItem disabled={!selectedItem} onClick={onDeleteItem}> */}
         <DropdownMenuItem disabled={!hasSelectedItem} onClick={onDeleteItem}>
             Delete selected item
         </DropdownMenuItem>

@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { type Atom, atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { setSelectedProps } from "./4-update-selected-props";
 
@@ -56,9 +56,18 @@ export const doSetInitSelectedIdxAtom = atom(null,
 /**
  * Has selected 
  */
-export const hasSelectedItemAtom = atom(
-    (get) => ({ fceCtx }: { fceCtx: FceCtx; }) => {
-        const selectedItem = get(fceCtx.selectedItemAtom);
-        return !!selectedItem;
-    }
-);
+// const hasSelectedItemAtom = atom(
+//     (get) => ({ fceCtx }: { fceCtx: FceCtx; }) => {
+//         const selectedItem = get(fceCtx.selectedItemAtom);
+//         return !!selectedItem;
+//     }
+// );
+
+export const createHasSelectedItemAtom = (fceCtx: FceCtx): Atom<boolean> => {
+    return atom(
+        (get) => {
+            const selectedItem = get(fceCtx.selectedItemAtom);
+            return !!selectedItem;
+        }
+    );
+};
