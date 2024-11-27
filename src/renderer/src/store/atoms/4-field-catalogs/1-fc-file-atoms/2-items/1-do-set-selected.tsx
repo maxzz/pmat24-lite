@@ -19,8 +19,16 @@ export const doSelectIdxAtom = atom(
 
         const current = items[idx];
         if (current) {
-            current.editor[selectedName] = typeof value === "function" ? value(current.editor[selectedName]) : value;
-            set(ctx.selectedIdxStoreAtom, current.editor[selectedName] ? idx : -1);
+            const newValue = typeof value === "function" ? value(current.editor[selectedName]) : value;
+            current.editor[selectedName] = newValue;
+            set(ctx.selectedIdxStoreAtom, newValue ? idx : -1);
+
+            if (newValue) {
+                set(ctx.selectedItemAtom, current);
+                setSelectedProps({ fceCtx: ctx, selectedItem: current, get, set });
+            }
+        } else {
+            set(ctx.selectedItemAtom, current);
             setSelectedProps({ fceCtx: ctx, selectedItem: current, get, set });
         }
 

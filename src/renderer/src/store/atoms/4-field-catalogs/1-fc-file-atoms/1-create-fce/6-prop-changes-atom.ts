@@ -19,6 +19,7 @@ export const doFcePropChangesAtom = atom(
             case 'nameAtom': {
                 const displayname = nextValue as string;
                 const changed = displayname !== beforeEdit.displayname;
+                //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
                 selectedItem.fieldValue.displayname = displayname;
                 setManiChanges(fceCtx.fceAtoms, changed, `name-${uuid}`);
@@ -27,6 +28,7 @@ export const doFcePropChangesAtom = atom(
             case 'ownernoteAtom': {
                 const ownernote = nextValue as string;
                 const changed = ownernote !== beforeEdit.ownernote;
+                //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
                 selectedItem.fieldValue.ownernote = ownernote;
                 setManiChanges(fceCtx.fceAtoms, changed, `note-${uuid}`);
@@ -35,7 +37,7 @@ export const doFcePropChangesAtom = atom(
             case 'valueLifeAtom': {
                 const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
                 const changed = !theSameValue(nextValue as ValueLife, beforeEdit);
-                // console.log('doFcePropChangesAtom', JSON.stringify({ changed, nextValue, current: selectedItem.fieldValue }, null, 2));
+                //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
                 selectedItem.fieldValue.value = value;
                 selectedItem.fieldValue.valueAs = valueAs;

@@ -30,9 +30,9 @@ const parentActiveClasses = "\
 ";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
+
     const filteredItems = useAtomValue(fceCtx.fceAtoms.shownAtom); // so far no, need to update other places //OK: const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
 
-    const setSelectedItem = useSetAtom(fceCtx.selectedItemAtom);
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
     const [focusGrid, setFocusGrid] = useAtom(fceCtx.focusGridAtom);
 
@@ -52,11 +52,11 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     );
 
     function onClick(idx: number) {
-        setSelectedItem(doSelectIdx(fceCtx, idx, true));
+        doSelectIdx(fceCtx, idx, true);
     }
 
     function onDoubleClick(idx: number) {
-        setSelectedItem(doSelectIdx(fceCtx, idx, true));
+        doSelectIdx(fceCtx, idx, true);
         // fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
