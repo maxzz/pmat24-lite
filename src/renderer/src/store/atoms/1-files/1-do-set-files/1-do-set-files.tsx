@@ -43,7 +43,7 @@ import { toast } from "sonner";
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, deliveredFileContents: FileContent[]) => {
-        printDelivered(deliveredFileContents);
+        //printDelivered(deliveredFileContents);
 
         if (deliveredFileContents.length > 100) {    // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier

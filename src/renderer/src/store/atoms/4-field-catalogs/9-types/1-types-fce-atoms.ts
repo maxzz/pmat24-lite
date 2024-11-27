@@ -1,4 +1,4 @@
-import { type PrimitiveAtom } from "jotai";
+import { type Atom, type PrimitiveAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
@@ -46,7 +46,7 @@ export type FceFilterOptions = {
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
-    shownAtom: PrimitiveAtom<FceItem[]>;            // field catalog items shown on screen
+    shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
     allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
     fceFilterOptions: FceFilterOptions;             // valtio proxy: filter options to apply on all items and get shown items
 };
