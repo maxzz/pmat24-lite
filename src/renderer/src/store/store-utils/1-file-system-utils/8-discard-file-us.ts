@@ -56,9 +56,9 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
 
 //TODO: Omit<FceCtx, 'fceAtoms' | 'hasSelectedItemAtom'>
 
-type TypeWiithUndefinedMembeRecurcive<T> = {
-    [P in keyof T]: T[P] extends object ? TypeWiithUndefinedMembeRecurcive<T[P]> : T[P] | undefined;
-};
+// type TypeWiithUndefinedMembeRecurcive<T> = {
+//     [P in keyof T]: T[P] extends object ? TypeWiithUndefinedMembeRecurcive<T[P]> : T[P] | undefined;
+// };
 
 //type TypeWiithUndefinedMember<T, P extends keyof T> = Omit<T, P> & { [K in P]?: undefined };
 

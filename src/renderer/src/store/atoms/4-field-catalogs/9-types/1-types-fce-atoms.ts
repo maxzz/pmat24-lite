@@ -48,7 +48,6 @@ export type FceItemsAtoms = {                       // Field Catalog Editor item
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
     shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
     allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
-    fceFilterOptions: FceFilterOptions;             // valtio proxy: filter options to apply on all items and get shown items
 };
 
 export type FceAtoms = Prettify<                    // Field Catalog Editor Atoms
@@ -71,6 +70,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     hasSelectedItemAtom: Atom<boolean>;             // true if there is a selected item
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
+    /*TODO: show be separate for dlg and view*/fceFilterOptions: FceFilterOptions;             // valtio proxy: filter options to apply on all items and get shown items
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
     onChangeFcePropValue: OnChangeFcePropValue;     // TODO: callback for newly created itmes, but we don't really need it

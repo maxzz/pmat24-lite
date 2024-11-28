@@ -79,7 +79,7 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
         allAtom: atom<FceItem[]>(items || []),
-        fceFilterOptions,
+        //fceFilterOptions,
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({
@@ -98,7 +98,7 @@ const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
         (get) => {
             const rv = get(fceAtoms.allAtom).filter(
                 (item) => {
-                    const { showText, showPassword, search, ascending } = fceAtoms.fceFilterOptions;
+                    const { showText, showPassword, search, ascending } = fceAtoms.viewFceCtx?.fceFilterOptions || {};
                     console.log('filter', item);
                     return item;
                 }
