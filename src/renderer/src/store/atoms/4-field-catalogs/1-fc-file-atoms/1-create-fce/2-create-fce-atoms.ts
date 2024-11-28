@@ -4,7 +4,7 @@ import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceFilterOptions } from "../../9-types";
-import { type CatalogFile, uuid } from "@/store/manifest";
+import { type CatalogFile, FieldTyp, uuid } from "@/store/manifest";
 import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
 import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
@@ -110,3 +110,44 @@ const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
     );
     return items;
 };
+
+export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
+    const { showText, showPassword, search, ascending } = filterOptions;
+    const filteredItems = items
+        .filter(
+            (item) => {
+                const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
+
+                if (!showText && fType === FieldTyp.edit) {
+                    return false;
+                }
+
+                if (!showPassword && fType === FieldTyp.psw) {
+                    return false;
+                }
+
+                if (!search) {
+                    return true;
+                }
+
+                const include = (
+                    (showText && displayname.toLowerCase().includes(search.toLowerCase())) 
+                    // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
+                    // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
+                    // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
+                    // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
+                    // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
+                );
+
+                return include;
+            }
+        )
+        .sort((a, b) => {
+            if (ascending) {
+                return a.fieldValue.displayname.localeCompare(b.fieldValue.displayname);
+            } else {
+                return b.fieldValue.displayname.localeCompare(a.fieldValue.displayname);
+            }
+        });
+    return filteredItems;
+} 
