@@ -21,6 +21,7 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
     if (fileUs.fceAtoms) {
         if (fileUs.fceAtoms.viewFceCtx) {
             (fileUs.fceAtoms.viewFceCtx.fceAtoms as any) = undefined;
+            (fileUs.fceAtoms.viewFceCtx.hasSelectedItemAtom as any) = undefined; // atom with scope
             fileUs.fceAtoms.viewFceCtx = undefined;
         }
         fileUs.fceAtoms = undefined;
