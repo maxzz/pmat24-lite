@@ -10,6 +10,7 @@ import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-cr
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../4-io";
+import { createEmptyFceFilterOptions } from "../2-items";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -79,7 +80,6 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
         allAtom: atom<FceItem[]>(items || []),
-        //fceFilterOptions,
     };
 
     (rv as FceAtoms).viewFceCtx = createFceCtx({
@@ -96,9 +96,11 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
 const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
     const items = atom<FceItem[]>(
         (get) => {
+            const filterOptions = fceAtoms.viewFceCtx ? get(fceAtoms.viewFceCtx.filterAtom) : createEmptyFceFilterOptions();
+
             const rv = get(fceAtoms.allAtom).filter(
                 (item) => {
-                    const { showText, showPassword, search, ascending } = fceAtoms.viewFceCtx?.fceFilterOptions || {};
+                    const { showText, showPassword, search, ascending } = filterOptions;
                     console.log('filter', item);
                     return item;
                 }

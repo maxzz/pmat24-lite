@@ -1,6 +1,15 @@
 import { atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
-import { type FceCtx } from "../../9-types";
+import { type FceFilterOptions, type FceCtx } from "../../9-types";
+
+export function createEmptyFceFilterOptions(): FceFilterOptions {
+    return {
+        showText: true,
+        showPassword: true,
+        search: '',
+        ascending: true,
+    };
+}
 
 export const filteredItemsAtom = atom(
     (get) => (fceCtx: FceCtx) => {

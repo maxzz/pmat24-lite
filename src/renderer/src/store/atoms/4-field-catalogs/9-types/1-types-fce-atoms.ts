@@ -60,7 +60,7 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 
 // FceCtx
 
-export type FceCtx = {                              // Field Catalog Editor context
+export type FceCtx = {                              // Field Catalog Editor context for view or dialog
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
     isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
@@ -68,9 +68,9 @@ export type FceCtx = {                              // Field Catalog Editor cont
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
     hasSelectedItemAtom: Atom<boolean>;             // true if there is a selected item
-    scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
+    scrollTo: number;                               // nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
-    /*TODO: show be separate for dlg and view*/fceFilterOptions: FceFilterOptions;             // valtio proxy: filter options to apply on all items and get shown items
+    filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
     fcePropAtoms: FcePropAtoms;
     onItemDoubleClick?: (item: FceItem) => void;
     onChangeFcePropValue: OnChangeFcePropValue;     // TODO: callback for newly created itmes, but we don't really need it

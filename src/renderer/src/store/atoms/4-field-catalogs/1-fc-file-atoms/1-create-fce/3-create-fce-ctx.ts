@@ -4,7 +4,7 @@ import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAt
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
-import { createHasSelectedItemAtom } from "../2-items";
+import { createEmptyFceFilterOptions, createHasSelectedItemAtom } from "../2-items";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -25,7 +25,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         };
     }
 
-    const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> =  {
+    const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
         fceAtoms,
         isDlgCtx: !!inData,
@@ -35,6 +35,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         scrollTo: 0,
         focusGridAtom: atom(false),
         fcePropAtoms: createFcePropAtoms(onValueChange),
+        filterAtom: atom(createEmptyFceFilterOptions()),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
         onChangeFcePropValue,
     };
