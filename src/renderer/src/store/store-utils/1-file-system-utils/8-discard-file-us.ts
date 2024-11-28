@@ -1,6 +1,32 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { filesAtom } from "@/store/atoms";
+import { type FceCtx, filesAtom } from "@/store/atoms";
+
+/**
+ * Discard FileUs links atom
+ */
+export const doDiscardFileUsAtom = atom(
+    null,
+    (get, set, fileUs: FileUs) => {
+        discardFileUs(get, set, fileUs);
+    }
+);
+
+/**
+ * Discard all array of FileUs atom
+ */
+export const doDiscardAllFilesFileUsLinksAtom = atom(
+    null,
+    (get, set) => {
+        const all = get(filesAtom);
+        all.forEach(
+            (fileUsAtom) => {
+                const fileUs = get(fileUsAtom);
+                discardFileUs(get, set, fileUs);
+            }
+        );
+    }
+);
 
 function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
 
@@ -28,28 +54,17 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
     }
 }
 
-/**
- * Discard FileUs links atom
- */
-export const doDiscardFileUsAtom = atom(
-    null,
-    (get, set, fileUs: FileUs) => {
-        discardFileUs(get, set, fileUs);
-    }
-);
+//TODO: Omit<FceCtx, 'fceAtoms' | 'hasSelectedItemAtom'>
 
-/**
- * Discard all array of FileUs atom
- */
-export const doDiscardAllFilesFileUsLinksAtom = atom(
-    null,
-    (get, set) => {
-        const all = get(filesAtom);
-        all.forEach(
-            (fileUsAtom) => {
-                const fileUs = get(fileUsAtom);
-                discardFileUs(get, set, fileUs);
-            }
-        );
-    }
-);
+type TypeWiithUndefinedMembeRecurcive<T> = {
+    [P in keyof T]: T[P] extends object ? TypeWiithUndefinedMembeRecurcive<T[P]> : T[P] | undefined;
+};
+
+//type TypeWiithUndefinedMember<T, P extends keyof T> = Omit<T, P> & { [K in P]?: undefined };
+
+//[P in keyof T]: T[P] | undefined;
+
+// export function discardFceCtx(fceCtx: FceCtx) {
+//     fceCtx.fceAtoms = undefined;
+//     fceCtx.hasSelectedItemAtom = undefined;
+// }
