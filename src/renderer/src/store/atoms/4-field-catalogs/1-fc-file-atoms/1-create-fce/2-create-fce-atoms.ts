@@ -11,6 +11,7 @@ import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../4-io";
 import { createEmptyFceFilterOptions } from "../2-items";
+import { a } from "@react-spring/web";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -112,42 +113,46 @@ const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
 };
 
 export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
-    const { showText, showPassword, search, ascending } = filterOptions;
-    const filteredItems = items
-        .filter(
-            (item) => {
-                const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
+    const { search, showText, showPassword, ascending } = filterOptions;
 
-                if (!showText && fType === FieldTyp.edit) {
-                    return false;
-                }
+    let filteredItems = items.filter(
+        (item) => {
+            const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
 
-                if (!showPassword && fType === FieldTyp.psw) {
-                    return false;
-                }
-
-                if (!search) {
-                    return true;
-                }
-
-                const include = (
-                    (showText && displayname.toLowerCase().includes(search.toLowerCase())) 
-                    // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
-                    // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
-                    // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
-                    // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
-                    // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
-                );
-
-                return include;
+            if (!showText && fType === FieldTyp.edit) {
+                return false;
             }
-        )
-        .sort((a, b) => {
+
+            if (!showPassword && fType === FieldTyp.psw) {
+                return false;
+            }
+
+            if (!search) {
+                return true;
+            }
+
+            const include = (
+                (showText && displayname.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
+                // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
+                // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
+            );
+
+            return include;
+        }
+    );
+
+    if (ascending !== undefined) {
+        filteredItems = filteredItems.sort((a, b) => {
             if (ascending) {
                 return a.fieldValue.displayname.localeCompare(b.fieldValue.displayname);
             } else {
                 return b.fieldValue.displayname.localeCompare(a.fieldValue.displayname);
             }
         });
+    }
+
     return filteredItems;
 } 

@@ -38,10 +38,10 @@ export type FcePropAtoms = {                        // Field Catalog Editor Atom
 };
 
 export type FceFilterOptions = {
-    showText: boolean;
-    showPassword: boolean;
-    search: string;
-    ascending: boolean;
+    search: string;                                 // search string
+    showText: boolean;                              // show text fields
+    showPassword: boolean;                          // show password fields
+    ascending: boolean | undefined;                 // undefined means unsorted
 };
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items

@@ -4,10 +4,10 @@ import { type FceFilterOptions, type FceCtx } from "../../9-types";
 
 export function createEmptyFceFilterOptions(): FceFilterOptions {
     return {
+        search: '',
         showText: true,
         showPassword: true,
-        search: '',
-        ascending: true,
+        ascending: undefined,
     };
 }
 
