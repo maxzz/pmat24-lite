@@ -12,7 +12,7 @@ export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean,
     const changes = fileUs.fileCnt.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
 
-    console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
+    //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
 
     allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
 
