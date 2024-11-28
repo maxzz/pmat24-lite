@@ -3,15 +3,14 @@ import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../../3-file-mani-atoms";
-import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceFilterOptions } from "../../9-types";
-import { type CatalogFile, FieldTyp, uuid } from "@/store/manifest";
+import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceFilterOptions, type FceCtx } from "../../9-types";
+import { type CatalogFile, uuid } from "@/store/manifest";
 import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
 import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../4-io";
-import { createEmptyFceFilterOptions } from "../2-items";
-import { a } from "@react-spring/web";
+import { createEmptyFceFilterOptions, filterFceItems } from "../2-items";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -89,70 +88,20 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
         closeFldCatDialog: () => { },
     });
 
-    (rv as FceAtoms).shownAtom = createShownItemsAtom(rv as FceAtoms);
+    (rv as FceAtoms).shownAtom = createShownItemsAtom(rv as FceAtoms, (rv as FceAtoms).viewFceCtx!);
 
     return rv as FceAtoms;
 }
 
-const createShownItemsAtom = (fceAtoms: FceAtoms): Atom<FceItem[]> => {
+const createShownItemsAtom = (fceAtoms: FceAtoms, fceCtx: FceCtx): Atom<FceItem[]> => {
     const items = atom<FceItem[]>(
         (get) => {
-            const filterOptions = fceAtoms.viewFceCtx ? get(fceAtoms.viewFceCtx.filterAtom) : createEmptyFceFilterOptions();
+            const filterOptions = get(fceCtx.filterAtom);
 
-            const rv = get(fceAtoms.allAtom).filter(
-                (item) => {
-                    const { showText, showPassword, search, ascending } = filterOptions;
-                    console.log('filter', item);
-                    return item;
-                }
-            );
+            const items = get(fceAtoms.allAtom);
+            const rv = filterFceItems(items, filterOptions);
             return rv;
         }
     );
     return items;
 };
-
-export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
-    const { search, showText, showPassword, ascending } = filterOptions;
-
-    let filteredItems = items.filter(
-        (item) => {
-            const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
-
-            if (!showText && fType === FieldTyp.edit) {
-                return false;
-            }
-
-            if (!showPassword && fType === FieldTyp.psw) {
-                return false;
-            }
-
-            if (!search) {
-                return true;
-            }
-
-            const include = (
-                (showText && displayname.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
-                // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
-                // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
-            );
-
-            return include;
-        }
-    );
-
-    if (ascending !== undefined) {
-        filteredItems = filteredItems.sort((a, b) => {
-            if (ascending) {
-                return a.fieldValue.displayname.localeCompare(b.fieldValue.displayname);
-            } else {
-                return b.fieldValue.displayname.localeCompare(a.fieldValue.displayname);
-            }
-        });
-    }
-
-    return filteredItems;
-} 

@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
-import { type FceFilterOptions, type FceCtx } from "../../9-types";
+import { type FceFilterOptions, type FceCtx, type FceItem } from "../../9-types";
 
 export function createEmptyFceFilterOptions(): FceFilterOptions {
     return {
@@ -10,6 +10,51 @@ export function createEmptyFceFilterOptions(): FceFilterOptions {
         ascending: undefined,
     };
 }
+
+export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
+    const { search, showText, showPassword, ascending } = filterOptions;
+
+    let filteredItems = items.filter(
+        (item) => {
+            const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
+
+            if (!showText && fType === FieldTyp.edit) {
+                return false;
+            }
+
+            if (!showPassword && fType === FieldTyp.psw) {
+                return false;
+            }
+
+            if (!search) {
+                return true;
+            }
+
+            const include = (
+                (showText && displayname.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
+                // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
+                // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
+                // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
+            );
+
+            return include;
+        }
+    );
+
+    if (ascending !== undefined) {
+        filteredItems = filteredItems.sort((a, b) => {
+            if (ascending) {
+                return a.fieldValue.displayname.localeCompare(b.fieldValue.displayname);
+            } else {
+                return b.fieldValue.displayname.localeCompare(a.fieldValue.displayname);
+            }
+        });
+    }
+
+    return filteredItems;
+} 
 
 export const filteredItemsAtom = atom(
     (get) => (fceCtx: FceCtx) => {
