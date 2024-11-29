@@ -13,7 +13,7 @@ export const doScrollToItemAtom = atom(null,
             return;
         }
 
-        const items = get(fceCtx.fceAtoms.shownAtom);
+        const items = get(fceCtx.shownAtom);
         const itemIdx = scrollToIdx ?? get(fceCtx.selectedIdxStoreAtom);
         const selectedItem = items[itemIdx];
 
@@ -52,7 +52,7 @@ const doScrollToOffsetAtom = atom(null,
             return;
         }
 
-        const items = get(fceCtx.fceAtoms.shownAtom);
+        const items = get(fceCtx.shownAtom);
         if (!items.length) {
             return;
         }
