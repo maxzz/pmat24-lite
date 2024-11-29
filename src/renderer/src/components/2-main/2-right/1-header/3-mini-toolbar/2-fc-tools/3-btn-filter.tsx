@@ -1,4 +1,4 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Button } from "@/ui";
 import { IconFilter, IconTrash, SymbolCode } from "@/ui/icons";
@@ -7,13 +7,19 @@ import { doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const inputClasses = "w-full h-7 text-sm bg-mani-background border-border border rounded-md";
+const inputClasses = "w-full px-2 h-7 text-xs bg-mani-background border-border border rounded-md";
 
 export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
     const [showFilter, setShowFilter] = useState(false);
 
+    const [filter, setFilter] = useAtom(fceCtx.filterAtom);
+
+    function onFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setFilter({ ...filter, search: e.target.value });
+    }
+
     return (<>
-        <div className="overflow-hidden">
+        <div className="pr-1 overflow-hidden">
             <AnimatePresence>
                 {showFilter && (
                     <motion.div
@@ -22,7 +28,7 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
                         exit={{ opacity: 0, x: 30 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <input type="text" className={inputClasses} />
+                        <input type="text" className={inputClasses} value={filter.search} onChange={onFilterChange} />
                     </motion.div>
                 )}
             </AnimatePresence>
