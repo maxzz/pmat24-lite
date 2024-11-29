@@ -13,7 +13,7 @@ export const doSelectIdxAtom = atom(
             deselectCurrentIdx(ctx, get, set);
         }
 
-        const items = get(ctx.fceAtoms.shownAtom);
+        const items = get(ctx.shownAtom);
 
         const newItem = items[idx];
         if (newItem) {
@@ -33,7 +33,7 @@ export const doSelectIdxAtom = atom(
  */
 function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.fceAtoms.shownAtom);
+    const chunks = get(ctx.shownAtom);
 
     const current = chunks[currentIdx];
     if (current) {
@@ -47,7 +47,7 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
  */
 export const doSetInitSelectedIdxAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const items = get(fceCtx.fceAtoms.shownAtom);
+        const items = get(fceCtx.shownAtom);
         const idx = items.findIndex(item => item.editor.selectedDlg);
         set(fceCtx.selectedIdxStoreAtom, idx);
     }
