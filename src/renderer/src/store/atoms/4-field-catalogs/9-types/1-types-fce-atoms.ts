@@ -71,7 +71,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     scrollTo: number;                               // nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
     
-    shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
+    showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
     
     fcePropAtoms: FcePropAtoms;

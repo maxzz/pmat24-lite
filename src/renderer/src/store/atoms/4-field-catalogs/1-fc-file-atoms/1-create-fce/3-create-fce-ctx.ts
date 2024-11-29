@@ -39,7 +39,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         focusGridAtom: atom(false),
 
         filterAtom,
-        shownAtom,
+        showAtom: shownAtom,
 
         fcePropAtoms: createFcePropAtoms(onValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
