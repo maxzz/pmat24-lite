@@ -1,10 +1,10 @@
-import { atom } from "jotai";
+import { Atom, atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
-import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams } from "../../9-types";
+import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
-import { createEmptyFceFilterOptions, createHasSelectedItemAtom } from "../2-items";
+import { createEmptyFceFilterOptions, createHasSelectedItemAtom, filterFceItems } from "../2-items";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -25,6 +25,9 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         };
     }
 
+    const filterAtom = atom(createEmptyFceFilterOptions());
+    const shownAtom = createShownAtom(filterAtom, fceAtoms.allAtom);
+
     const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
         fceAtoms,
@@ -34,8 +37,11 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         selectedItemAtom: atom<FceItem | undefined>(undefined),
         scrollTo: 0,
         focusGridAtom: atom(false),
+
+        filterAtom,
+        shownAtom,
+
         fcePropAtoms: createFcePropAtoms(onValueChange),
-        filterAtom: atom(createEmptyFceFilterOptions()),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
         onChangeFcePropValue,
     };
@@ -64,4 +70,13 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
         valueLifeAtom: atomWithCallback<ValueLife>(createEmptyValueLife({ fType: FieldTyp.edit }), onScopedChange<ValueLife>('valueLifeAtom')),
     };
     return rv;
+}
+
+function createShownAtom(filterAtom: Atom<FceFilterOptions>, allAtom: Atom<FceItem[]>): Atom<FceItem[]> {
+    return atom<FceItem[]>(
+        (get) => {
+            const filterOptions = get(filterAtom);
+            return filterFceItems(get(allAtom), filterOptions);
+        }
+    );
 }
