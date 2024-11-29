@@ -35,7 +35,7 @@ export const doDeleteSelectedItemAtom = atom(
     (get, set, fceCtx: FceCtx) => {
 
         const fceAtoms = fceCtx.fceAtoms;
-        const items = get(fceAtoms.shownAtom);
+        const items = get(fceCtx.shownAtom);
         const idx = get(fceCtx.selectedIdxStoreAtom);
         const currentItem = items[idx];
 
