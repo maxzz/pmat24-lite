@@ -38,22 +38,27 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
         //TODO: break other links
     }
 
-    if (fileUs.fceAtoms) {
-        (fileUs.fceAtoms.fileUs as any) = undefined;
+    discardFceCtx(fileUs.fceAtoms?.viewFceCtx);
+    discardAllKeysValue(fileUs.fceAtoms);
+    discardAllKeysValue(fileUs);
+}
+
+export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
+    discardAllKeysValue(fceCtx);
+}
+
+/**
+ * just set all keys value to undefined
+ */
+export function discardAllKeysValue(obj: {} | undefined | null) {
+    if (!obj) {
+        return;
     }
-
-    fileUs.fceAtomsRef = undefined;
-
-    if (fileUs.fceAtoms) {
-        if (fileUs.fceAtoms.viewFceCtx) {
-            discardAllKeysValue(fileUs.fceAtoms.viewFceCtx);
-
-            // (fileUs.fceAtoms.viewFceCtx.fceAtoms as any) = undefined;
-            // (fileUs.fceAtoms.viewFceCtx.hasSelectedItemAtom as any) = undefined; // atom with scope
-            // fileUs.fceAtoms.viewFceCtx = undefined;
+    Object.keys(obj).forEach(
+        (key) => {
+            obj[key] = undefined;
         }
-        fileUs.fceAtoms = undefined;
-    }
+    );
 }
 
 //TODO: Omit<FceCtx, 'fceAtoms' | 'hasSelectedItemAtom'>
@@ -70,15 +75,3 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
 //     fceCtx.fceAtoms = undefined;
 //     fceCtx.hasSelectedItemAtom = undefined;
 // }
-
-
-/**
- * just set all keys value to undefined
- */
-export function discardAllKeysValue(obj: {}) {
-    Object.keys(obj).forEach(
-        (key) => {
-            obj[key] = undefined;
-        }
-    );
-}
