@@ -1,4 +1,4 @@
-import { type Atom, atom } from "jotai";
+import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
@@ -10,7 +10,6 @@ import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-cr
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../4-io";
-import { filterFceItems } from "../2-items";
 
 export function createEmptyFceFileUs(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -70,7 +69,7 @@ type CreateFceAtomsProps = {
 };
 
 function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms {
-    const rv: Omit<FceAtoms, 'viewFceCtx' | 'shownAtom'> = {
+    const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
         descAtom: atom<string>(desc?.id || ''),
         allAtom: atom<FceItem[]>(items || []),
@@ -82,21 +81,5 @@ function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms 
         closeFldCatDialog: () => { },
     });
 
-    (rv as FceAtoms).shownAtom = createShownAtom(rv as FceAtoms);
-
     return rv as FceAtoms;
-}
-
-function createShownAtom(fceAtoms: FceAtoms): Atom<FceItem[]> {
-    const fceCtx = fceAtoms.viewFceCtx;
-    if (!fceCtx) {
-        throw new Error('N/A'); //This not reachable since it is a local function and fceCtx always exists
-    }
-
-    return atom<FceItem[]>(
-        (get) => {
-            const filterOptions = get(fceCtx.filterAtom);
-            return filterFceItems(get(fceAtoms.allAtom), filterOptions);
-        }
-    );
 }

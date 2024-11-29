@@ -46,7 +46,6 @@ export type FceFilterOptions = {
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
     descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
-    shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
     allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
 };
 
@@ -65,13 +64,18 @@ export type FceCtx = {                              // Field Catalog Editor cont
     fceAtoms: FceAtoms;
     isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
     isMaster: boolean;                              // true if this is a master field catalog
+    
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
     hasSelectedItemAtom: Atom<boolean>;             // true if there is a selected item
     scrollTo: number;                               // nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
+    
+    shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
+    
     fcePropAtoms: FcePropAtoms;
+
     onItemDoubleClick?: (item: FceItem) => void;
     onChangeFcePropValue: OnChangeFcePropValue;     // TODO: callback for newly created itmes, but we don't really need it
 };
