@@ -1,7 +1,7 @@
-import { PrimitiveAtom } from 'jotai';
-import * as menu from '@radix-ui/react-dropdown-menu';
-import { classNames } from '@/utils';
+import { type PrimitiveAtom } from 'jotai';
+import * as M from '@radix-ui/react-dropdown-menu';
 import { SymbolChevronDown, SymbolDot } from '@ui/icons';
+import { classNames } from '@/utils';
 
 const menuContentClasses = "\
 py-1 max-h-[50vh] \
@@ -40,49 +40,46 @@ type ValueDropdownProps = {
 
 export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: ValueDropdownProps) {
     return (
-        <menu.Root>
-            <menu.Trigger asChild>
+        <M.Root>
+            <M.Trigger asChild>
                 <button className="px-1.5 border-mani-border-separator border-l outline-none group/btn">
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded group-focus-within/btn:border" />
                 </button>
-            </menu.Trigger>
+            </M.Trigger>
 
-            <menu.Portal container={document.getElementById('portal')}>
-                <menu.Content className={menuContentClasses} sideOffset={4} align="end" >
-
+            <M.Portal container={document.getElementById('portal')}>
+                <M.Content className={menuContentClasses} sideOffset={4} align="end" >
                     {items.map(
                         (item, idx) => {
                             const isSeparator = item === '-';
                             if (isSeparator) {
-                                return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
+                                return <M.Separator className="my-1 h-px bg-mani-border" key={idx} />;
+                            } else {
+                                return <MenuItemValue item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />;
                             }
-                            return (
-                                <ValueItemMenu item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
-                            );
                         })
                     }
-
-                </menu.Content>
-            </menu.Portal>
-        </menu.Root>
+                </M.Content>
+            </M.Portal>
+        </M.Root>
     );
 }
 
-type ValueItemMenuProps = {
+type MenuItemValueProps = {
     item: string;
     idx: number;
     selectedIndex: number;
     onSetIndex: (idx: number) => void;
 };
 
-function ValueItemMenu({ item, idx, selectedIndex, onSetIndex }: ValueItemMenuProps): JSX.Element {
+function MenuItemValue({ item, idx, selectedIndex, onSetIndex }: MenuItemValueProps): JSX.Element {
     const isSelected = selectedIndex === idx;
     const isSeparator = item === '-';
     if (isSeparator) {
-        return <menu.Separator className="my-1 h-px bg-mani-border" key={idx} />;
+        return <M.Separator className="my-1 h-px bg-mani-border" key={idx} />;
     }
     return (
-        <menu.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
+        <M.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
             {isSelected && (
                 <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
             )}
@@ -90,6 +87,6 @@ function ValueItemMenu({ item, idx, selectedIndex, onSetIndex }: ValueItemMenuPr
             <span className="flex-grow">
                 {item}
             </span>
-        </menu.Item>
+        </M.Item>
     );
 }
