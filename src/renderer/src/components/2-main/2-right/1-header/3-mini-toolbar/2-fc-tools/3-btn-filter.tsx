@@ -18,18 +18,18 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
     }
 
     return (<>
-        <Button
-            className={classNames("-mx-1", showFilter && "bg-muted")}
-            variant="ghost"
-            title="Filter items"
-            tabIndex={-1}
-            onClick={() => setShowFilter(!showFilter)}
-        >
-            <IconFilter className="size-4" />
-        </Button>
-
-        <div className="pr-1 overflow-hidden">
+        <div className="pr-1 overflow-hidden flex items-center">
             <AnimatePresence>
+                <Button
+                    className={classNames("-mx-1", showFilter && "bg-muted")}
+                    variant="ghost"
+                    title="Filter items"
+                    tabIndex={-1}
+                    onClick={() => setShowFilter(!showFilter)}
+                >
+                    <IconFilter className="size-4" />
+                </Button>
+
                 {showFilter && (
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
@@ -43,7 +43,7 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
             </AnimatePresence>
         </div>
 
-        <Button 
+        <Button
             className={classNames("-mx-1", showFilter && "bg-muted")}
             variant="ghost"
             title="Clear filter"
