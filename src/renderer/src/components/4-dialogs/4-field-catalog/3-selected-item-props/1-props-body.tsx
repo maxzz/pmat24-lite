@@ -19,7 +19,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
 
-        <div className={classNames(!hasSelected && disabledClasses)}>
+        <div className={classNames("select-none cursor-default", !hasSelected && disabledClasses)}>
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
         </div>
 

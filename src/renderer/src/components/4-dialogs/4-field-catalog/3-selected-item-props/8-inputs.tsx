@@ -6,14 +6,14 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value/1-field";
 import { inputRingClasses } from "@/ui";
 
-const itemClasses = "text-xs font-normal flex flex-col";
+const itemClasses = "text-xs font-normal flex flex-col select-none cursor-default";
 
-export function NewLabel({ label, children, className, ...rest }: { label: string; children: ReactNode; } & HTMLAttributes<HTMLLabelElement> ) {
+export function NewLabel({ label, children, className, ...rest }: { label: string; children: ReactNode; } & HTMLAttributes<HTMLDivElement> ) {
     return (
-        <Label className={classNames(itemClasses, className)} {...rest}>
+        <div className={classNames(itemClasses, className)} {...rest}>
             {label}
             {children}
-        </Label>
+        </div>
     );
 }
 

@@ -1,10 +1,16 @@
 import { useAtomValue } from "jotai";
 import { type FceCtx } from "@/store";
 
+const ixsClasses = "\
+absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs \
+text-muted-foreground \
+rounded-sm select-none cursor-default \
+flex items-center justify-center";
+
 export function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
     return (
-        <div className="absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs text-muted-foreground flex items-center justify-center rounded-sm">
+        <div className={ixsClasses}>
             {selectedIdx === -1 ? '' : `${selectedIdx + 1}`}
         </div>
     );
