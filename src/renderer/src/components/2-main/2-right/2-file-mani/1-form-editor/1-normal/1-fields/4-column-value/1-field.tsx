@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
-import { DropdownValue } from "./2-value-dropdown";
+import { DropdownValue } from "./2-dropdown-value";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
@@ -20,6 +20,8 @@ const inputClasses = "\
 px-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
 outline-none";
+
+const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
 
 type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
@@ -39,22 +41,19 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
         context,
         inputText,
         showAsRef,
-        disabled: disabledItself,
+        disabled: itselfDisabled,
         title,
     } = getValueUiState(valueLife, choosevalue);
 
     const showInputText = !useIt && !valueLife.isRef && !valueLife.value;
-    const disabled = parentDisabled || disabledItself;
+    const showAsRefAndNotNon = showAsRef && !valueLife.isNon;
+    const disabled = parentDisabled || itselfDisabled;
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-            
+
             <input
-                className={classNames(
-                    inputClasses,
-                    showAsRef && !valueLife.isNon && "text-[0.6rem] !text-blue-400 cursor-default",
-                    disabled && "pointer-events-none",
-                )}
+                className={classNames(inputClasses, showAsRefAndNotNon && inputAsRefClasses, disabled && "pointer-events-none")}
                 value={showInputText ? '' : inputText}
                 onChange={(event) => onSetText(event.target.value)}
                 onKeyDown={onSetKey}
@@ -65,7 +64,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
                 {...turnOffAutoComplete}
             />
 
-            {!!dropdownAllItems.length && !disabled && (
+            {dropdownAllItems.length && !disabled && (
                 <DropdownValue useItAtom={useItAtom} items={dropdownAllItems} selectedIndex={dropdownSelectedIndex} onSetIndex={onSetDropdownIndex} />
             )}
         </div>

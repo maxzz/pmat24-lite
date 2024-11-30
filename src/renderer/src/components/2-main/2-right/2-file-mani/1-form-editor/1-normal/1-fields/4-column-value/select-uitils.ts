@@ -1,11 +1,11 @@
 import { FieldTyp, LIST_references, LIST_valueAskNames, ReferenceItem, ValueAs, ValueLife } from "@/store/manifest";
 
-function pickRefsList(isPsw: boolean): Record<string, ReferenceItem> { //TODO: move out value <-> index mappers
+function pickReferences(isPsw: boolean): Record<string, ReferenceItem> { //TODO: move out value <-> index mappers
     return LIST_references[isPsw ? 'psw' : 'txt'];
 }
 
 function idx2RefName(v: number, isPsw: boolean) {
-    return Object.keys(pickRefsList(isPsw))[v];
+    return Object.keys(pickReferences(isPsw))[v];
 }
 
 type getValueUiStateReturn = {
@@ -21,14 +21,15 @@ type getValueUiStateReturn = {
 export function getValueUiState(valueLife: ValueLife, choosevalue: string | undefined): getValueUiStateReturn {
     const isBtn = valueLife.fType === FieldTyp.button;
     const isPsw = valueLife.fType === FieldTyp.psw;
+    const isTxt = valueLife.fType === FieldTyp.edit;
 
     const listAskNames = isBtn ? [] : [...LIST_valueAskNames];
     listAskNames.length && listAskNames.push('-');
 
-    const listValues = choosevalue?.split(':') || [];
+    const listValues = (choosevalue && choosevalue?.split(':')) || [];
     listValues.length && listValues.push('-');
 
-    const listRefs = isPsw || valueLife.fType === FieldTyp.edit ? Object.values(pickRefsList(isPsw)).map((item) => item.f) : [];
+    const listRefs = isTxt || isPsw ? Object.values(pickReferences(isPsw)).map((item) => item.f) : [];
 
     const idxToStartValues = listAskNames.length;
     const idxToStartRefs = idxToStartValues + listValues.length;
@@ -64,15 +65,15 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
     };
 
     function refName2Idx(value: string | undefined, isPsw: boolean) {
-        return value ? pickRefsList(isPsw)[value].i : -1;
+        return value ? pickReferences(isPsw)[value].i : -1;
     }
 
     function refName2Txt(value: string | undefined, isPsw: boolean) {
-        return value ? pickRefsList(isPsw)[value].s : '';
+        return value ? pickReferences(isPsw)[value].s : '';
     }
 
     function refName2Full(value: string | undefined, isPsw: boolean) {
-        return value ? pickRefsList(isPsw)[value].f : ''; //TODO: we can use placeholder on top of input (ingone all events on it) and do multiple lines
+        return value ? pickReferences(isPsw)[value].f : ''; //TODO: we can use placeholder on top of input (ingone all events on it) and do multiple lines
     }
 
     function valueAs2Idx(valueAs: ValueAs) {
@@ -92,7 +93,7 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
                             : LIST_valueAskNames[valueLife.valueAs];
         return inputText;
     }
-    
+
     function getDropdownSelectedIndex(valueLife: ValueLife, idxToStartRefs: number, idxToStartValues: number, listValues: string[], isPsw: boolean) {
         const dropdownSelectedIndex =
             valueLife.isRef
