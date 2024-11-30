@@ -31,14 +31,14 @@ rounded-md outline-none select-none cursor-default \
 \
 flex items-center";
 
-type ValueDropdownProps = {
+type DropdownValueProps = {
     useItAtom: PrimitiveAtom<boolean>;
     items: string[];
     selectedIndex: number;
     onSetIndex: (idx: number) => void;
 };
 
-export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: ValueDropdownProps) {
+export function DropdownValue({ useItAtom, items, selectedIndex, onSetIndex }: DropdownValueProps) {
     return (
         <M.Root>
             <M.Trigger asChild>
@@ -50,15 +50,8 @@ export function ValueDropdown({ useItAtom, items, selectedIndex, onSetIndex }: V
             <M.Portal container={document.getElementById('portal')}>
                 <M.Content className={menuContentClasses} sideOffset={4} align="end" >
                     {items.map(
-                        (item, idx) => {
-                            const isSeparator = item === '-';
-                            if (isSeparator) {
-                                return <M.Separator className="my-1 h-px bg-mani-border" key={idx} />;
-                            } else {
-                                return <MenuItemValue item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />;
-                            }
-                        })
-                    }
+                        (item, idx) => <MenuItemValue item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
+                    )}
                 </M.Content>
             </M.Portal>
         </M.Root>
@@ -72,12 +65,14 @@ type MenuItemValueProps = {
     onSetIndex: (idx: number) => void;
 };
 
-function MenuItemValue({ item, idx, selectedIndex, onSetIndex }: MenuItemValueProps): JSX.Element {
+function MenuItemValue({ item, idx, selectedIndex, onSetIndex }: MenuItemValueProps) {
     const isSelected = selectedIndex === idx;
+
     const isSeparator = item === '-';
     if (isSeparator) {
         return <M.Separator className="my-1 h-px bg-mani-border" key={idx} />;
     }
+
     return (
         <M.Item className={classNames(menuItemClasses, isSelected && "bg-accent")} onSelect={() => onSetIndex(idx)} key={idx}>
             {isSelected && (
