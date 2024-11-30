@@ -1,9 +1,8 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Button } from "@/ui";
-import { IconFilter, IconTrash, SymbolCode } from "@/ui/icons";
+import { IconClose, IconFilter } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { doDeleteSelectedItemAtom } from "@/store/atoms/4-field-catalogs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -19,6 +18,16 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
     }
 
     return (<>
+        <Button
+            className={classNames("-mx-1", showFilter && "bg-muted")}
+            variant="ghost"
+            title="Filter items"
+            tabIndex={-1}
+            onClick={() => setShowFilter(!showFilter)}
+        >
+            <IconFilter className="size-4" />
+        </Button>
+
         <div className="pr-1 overflow-hidden">
             <AnimatePresence>
                 {showFilter && (
@@ -34,14 +43,14 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
             </AnimatePresence>
         </div>
 
-        <Button
+        <Button 
             className={classNames("-mx-1", showFilter && "bg-muted")}
             variant="ghost"
-            title="Filter items"
+            title="Clear filter"
             tabIndex={-1}
-            onClick={() => setShowFilter(!showFilter)}
+            onClick={() => setShowFilter(false)}
         >
-            <IconFilter className="size-4" />
+            <IconClose className="size-4" />
         </Button>
     </>);
 }
