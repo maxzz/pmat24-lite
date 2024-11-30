@@ -3,7 +3,7 @@ import { type FceCtx } from "@/store";
 import { Button } from "@/ui";
 import { IconClose, IconFilter } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const inputClasses = "w-full px-2 h-7 text-xs bg-mani-background border-border border rounded-md";
@@ -17,29 +17,43 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
         setFilter({ ...filter, search: e.target.value });
     }
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(
+        () => {
+            if (showFilter && inputRef.current) {
+                inputRef.current.focus();
+            }
+        }, [showFilter]
+    );
+
     return (<>
-        <div className="pr-1 overflow-hidden">
-            <Button
-                className={classNames("-mx-1", showFilter && "bg-muted")}
-                variant="ghost"
-                title="Filter items"
-                tabIndex={-1}
-                onClick={() => setShowFilter(!showFilter)}
+        <div className="pr-1 overflow-hidden flex items-center gap-2">
+            <motion.div
+                layout
             >
-                <IconFilter className="size-4" />
-            </Button>
+                <Button
+                    className={classNames("-mx-1", showFilter && "bg-muted")}
+                    variant="ghost"
+                    title="Filter items"
+                    tabIndex={-1}
+                    onClick={() => setShowFilter(!showFilter)}
+                >
+                    <IconFilter className="size-4" />
+                </Button>
+            </motion.div>
 
             <AnimatePresence>
 
                 {showFilter && (
                     <motion.div
-                        className="1relative flex items-center"
+                        className="relative flex items-center gap-2"
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 30 }}
-                        transition={{ duration: 2.2 }}
+                        transition={{ duration: 0.2 }}
                     >
-                        <input type="text" className={inputClasses} value={filter.search} onChange={onFilterChange} />
+                        <input ref={inputRef} type="text" className={inputClasses} value={filter.search} onChange={onFilterChange} />
 
                         <Button
                             className={classNames("-mx-1", showFilter && "bg-muted")}
