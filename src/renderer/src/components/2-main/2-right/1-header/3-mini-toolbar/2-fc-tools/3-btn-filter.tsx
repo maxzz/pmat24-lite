@@ -26,7 +26,7 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
             if (showFilter && inputRef.current) {
                 timeout = setTimeout(() => inputRef.current?.focus(), 700);
             }
-            
+
             return () => clearTimeout(timeout);
         }, [showFilter]
     );

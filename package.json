@@ -11,7 +11,7 @@
         "@electron-toolkit/utils": "^3.0.0",
         "browser-fs-access": "^0.35.0",
         "electron-updater": "^6.3.9",
-        "framer-motion": "^11.11.11",
+        "framer-motion": "^11.12.0",
         "idb-keyval": "^6.2.1",
         "jotai": "^2.10.3",
         "jotai-valtio": "^0.5.0",
