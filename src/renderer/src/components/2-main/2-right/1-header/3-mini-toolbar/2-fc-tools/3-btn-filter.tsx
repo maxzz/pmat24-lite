@@ -18,39 +18,42 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
     }
 
     return (<>
-        <div className="pr-1 overflow-hidden flex items-center">
+        <div className="pr-1 overflow-hidden">
+            <Button
+                className={classNames("-mx-1", showFilter && "bg-muted")}
+                variant="ghost"
+                title="Filter items"
+                tabIndex={-1}
+                onClick={() => setShowFilter(!showFilter)}
+            >
+                <IconFilter className="size-4" />
+            </Button>
+
             <AnimatePresence>
-                <Button
-                    className={classNames("-mx-1", showFilter && "bg-muted")}
-                    variant="ghost"
-                    title="Filter items"
-                    tabIndex={-1}
-                    onClick={() => setShowFilter(!showFilter)}
-                >
-                    <IconFilter className="size-4" />
-                </Button>
 
                 {showFilter && (
                     <motion.div
+                        className="1relative flex items-center"
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 30 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 2.2 }}
                     >
                         <input type="text" className={inputClasses} value={filter.search} onChange={onFilterChange} />
+
+                        <Button
+                            className={classNames("-mx-1", showFilter && "bg-muted")}
+                            variant="ghost"
+                            title="Clear filter"
+                            tabIndex={-1}
+                            onClick={() => setShowFilter(false)}
+                        >
+                            <IconClose className="size-4" />
+                        </Button>
+
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
-
-        <Button
-            className={classNames("-mx-1", showFilter && "bg-muted")}
-            variant="ghost"
-            title="Clear filter"
-            tabIndex={-1}
-            onClick={() => setShowFilter(false)}
-        >
-            <IconClose className="size-4" />
-        </Button>
     </>);
 }
