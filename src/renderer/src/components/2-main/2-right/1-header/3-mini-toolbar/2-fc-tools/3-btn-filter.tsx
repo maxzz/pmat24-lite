@@ -21,9 +21,13 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
 
     useEffect(
         () => {
+            let timeout: ReturnType<typeof setTimeout>;
+
             if (showFilter && inputRef.current) {
-                inputRef.current.focus();
+                timeout = setTimeout(() => inputRef.current?.focus(), 700);
             }
+            
+            return () => clearTimeout(timeout);
         }, [showFilter]
     );
 
@@ -47,7 +51,7 @@ export function Button_Filter({ fceCtx }: { fceCtx: FceCtx; }) {
 
                 {showFilter && (
                     <motion.div
-                        className="relative flex items-center gap-2"
+                        className="relative flex items-center gap-1"
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 30 }}
