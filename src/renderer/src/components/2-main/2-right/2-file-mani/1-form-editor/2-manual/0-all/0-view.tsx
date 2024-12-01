@@ -5,7 +5,7 @@ import { Scroll } from "lucide-react";
 import { ScrollArea } from "@/ui";
 
 const manualModeViewClasses = "\
-pl-0.5 pr-2.5 min-w-60 h-full bg-green-400 \
+pl-0.5 min-w-60 h-full bg-green-400 \
 \
 grid grid-cols-1 grid-rows-[minmax(100px,_1fr),auto] min-h-0 \
 @[600px]:grid-cols-2 \
@@ -15,8 +15,8 @@ gap-1 \
 export function ManualModeView({ ctx }: { ctx: MFormContextProps; }) {
     return (<>
         <div className={manualModeViewClasses}>
-            <ManualPanelActions className="@container/actions h-full min-h-[23rem]" ctx={ctx} />
-            <ManualPanelProps className="@container/props min-h-[340px] text-xs" ctx={ctx} />
+            <ManualPanelActions className="@container/actions" ctx={ctx} />
+            <ManualPanelProps className="@container/props min-h-[320px] text-xs" ctx={ctx} />
         </div>
     </>);
 }
