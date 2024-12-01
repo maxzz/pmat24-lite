@@ -5,7 +5,7 @@ import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditor } from "../2-props";
 import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
-import { propsBoxClasses } from "../8-manual-props-ui";
+import { propsBoxClasses } from "../2-props/8-props-ui";
 
 const PanelPropsClasses = "\
 grid grid-rows-[auto,1fr] gap-2 \

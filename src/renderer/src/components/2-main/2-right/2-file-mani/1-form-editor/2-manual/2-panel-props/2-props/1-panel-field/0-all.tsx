@@ -3,9 +3,7 @@ import { type FceItem } from "@/store";
 import { Column3_Label } from "../../../../1-normal/1-fields/3-column-label";
 import { Column4_Value } from "../../../../1-normal/1-fields/4-column-value";
 import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog";
-import { InputLabel } from "../../8-manual-props-ui/1-input-label";
-import { ManualFieldType } from "../../8-manual-props-ui/5-input-field-type";
-import { ManualFieldPolicy } from "../../8-manual-props-ui/6-input-policy";
+import { InputLabel, ManualFieldPolicy, ManualFieldType } from "../8-props-ui";
 // import { SrcriptItemFld } from "@/store";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
@@ -17,12 +15,14 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     /*TODO:*/ const maniDbName = "123";
 
     return (<>
-        {/* <RowInputWLabel stateAtom={item.} label="Field id" />
+        {/* 
+            <RowInputWLabel stateAtom={item.} label="Field id" />
 
             <InputField label="Field label" value={`${snap.id}`} onChange={(e) => item.id = e.target.value} />
             <InputField label="Type" />
             <InputField label="Reference" />
-            <InputField label="Value" /> */}
+            <InputField label="Value" /> 
+        */}
 
         <InputLabel label="Type">
             <ManualFieldType item={item} />

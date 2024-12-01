@@ -1,6 +1,6 @@
 import { type PrimitiveAtom, useAtom } from "jotai";
 import { type RowInputState } from "@/ui";
-import { InputSelect } from "../../8-manual-props-ui";
+import { InputSelect } from "../8-props-ui";
 import { actionKeys } from "@/store/manifest";
 
 export function InputKey({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {

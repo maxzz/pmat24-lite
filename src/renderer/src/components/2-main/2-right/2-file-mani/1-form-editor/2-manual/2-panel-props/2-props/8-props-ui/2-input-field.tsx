@@ -1,5 +1,5 @@
 import { InputLabel, type InputLabelProps } from "./1-input-label";
-import { focusClasses } from "../../8-manual-shared-styles";
+import { focusClasses } from "../../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
 const inputTextClasses = "\
