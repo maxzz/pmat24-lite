@@ -38,4 +38,6 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
             </div>
         );
     }
+
+    return null;
 }
