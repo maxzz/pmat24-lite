@@ -10,6 +10,13 @@ import { TabFormEditorGuard } from "../../1-form-editor";
 import { TabFormOptions } from "../../2-form-options/0-all/0-all";
 import { ManiTabsList } from "./2-mani-tabs-list";
 
+const refClasses = "\
+@container/tab-content \
+\
+flex-1 mt-1 h-full w-full min-h-0 max-w-4xl \
+overflow-hidden";
+// border-muted-foreground/20 border rounded \
+
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
     const activeTab = useSnapshot(appSettings).right.mani.activeTab;
@@ -34,11 +41,11 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
         <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => appSettings.right.mani.activeTab = value}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
-            <div ref={ref} className="flex-1 min-h-0 mt-1 max-w-4xl rounded border-muted-foreground/20 border     @container/tab-content h-full w-full overflow-hidden">
+            <div ref={ref} className={refClasses}>
                 <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                     <TabsContent value="options" tabIndex={-1}>
-                        <TabFormOptions fileUs={fileUs} key={fileUsAtom.toString()} />
+                        <TabFormOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
                     </TabsContent>
 
                     <TabsContent value="login" tabIndex={-1}>
