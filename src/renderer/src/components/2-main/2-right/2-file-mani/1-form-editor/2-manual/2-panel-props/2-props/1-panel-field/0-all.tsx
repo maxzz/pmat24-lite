@@ -33,25 +33,29 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             />
         </InputLabel>
 
-        <InputLabel label="Value">
-            <Column4_Value
-                useItAtom={useItAtom}
-                valueLifeAtom={valueLifeAtom}
-                choosevalue={""}
-            />
-        </InputLabel>
+        <div className="grid grid-cols-2 gap-2">
+            <InputLabel label="Value">
+                <Column4_Value
+                    useItAtom={useItAtom}
+                    valueLifeAtom={valueLifeAtom}
+                    choosevalue={""}
+                />
+            </InputLabel>
 
-        <InputLabel label="Catalog">
-            <Column5_Catalog
-                useItAtom={useItAtom}
-                fieldCatAtom={dbnameAtom}
-                onSelectCatItem={onSelectCatItem}
-                maniIsPassword={maniIsPassword}
-                maniDbName={maniDbName}
-                fileUsCtx={fileUsCtx}
-            />
-        </InputLabel>
+            <InputLabel label="Catalog">
+                <Column5_Catalog
+                    useItAtom={useItAtom}
+                    fieldCatAtom={dbnameAtom}
+                    onSelectCatItem={onSelectCatItem}
+                    maniIsPassword={maniIsPassword}
+                    maniDbName={maniDbName}
+                    fileUsCtx={fileUsCtx}
+                />
+            </InputLabel>
+        </div>
 
-        <ManualFieldPolicy item={item} />
+        <InputLabel label="Policy">
+            <ManualFieldPolicy item={item} />
+        </InputLabel>
     </>);
 }
