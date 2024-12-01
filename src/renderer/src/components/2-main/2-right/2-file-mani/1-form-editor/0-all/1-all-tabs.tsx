@@ -33,9 +33,7 @@ export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formId
     if (formAtoms.normal) {
         const ctx: NFormContextProps = { maniAtoms, nAllAtoms: formAtoms as NFormAtoms, formIdx };
         return (
-            <div className="mr-1 h-full flex flex-col">
-                <NormalFormTabContent ctx={ctx} />
-            </div>
+            <NormalFormTabContent ctx={ctx} />
         );
     }
 
