@@ -33,7 +33,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             />
         </InputLabel>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-[1fr,1fr,auto] gap-2">
             <InputLabel label="Value">
                 <Column4_Value
                     useItAtom={useItAtom}
@@ -52,13 +52,13 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                     fileUsCtx={fileUsCtx}
                 />
             </InputLabel>
-        </div>
 
-        {/* <InputLabel label="Policy"> */}
-        <div className="">
+            <InputLabel label="Policy">
+                {/* <div className=""> */}
 
-            <ManualFieldPolicy item={item} />
+                <ManualFieldPolicy item={item} />
+                {/* </div> */}
+            </InputLabel>
         </div>
-        {/* </InputLabel> */}
     </>);
 }
