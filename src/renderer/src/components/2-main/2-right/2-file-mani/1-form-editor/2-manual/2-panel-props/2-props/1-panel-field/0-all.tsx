@@ -54,8 +54,11 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </InputLabel>
         </div>
 
-        <InputLabel label="Policy">
+        {/* <InputLabel label="Policy"> */}
+        <div className="">
+
             <ManualFieldPolicy item={item} />
-        </InputLabel>
+        </div>
+        {/* </InputLabel> */}
     </>);
 }
