@@ -5,17 +5,25 @@ import { PanelActionsList } from "./2-panel-items";
 import { classNames } from "@/utils";
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
 import { editorFrameClasses, focusWithinClasses } from "../8-manual-shared-styles";
+import { ScrollArea } from "@/ui";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    
+
     const cb = useInitSelectedIdx(ctx.mAllAtoms.manual);
     useEffect(() => { cb(); }, []);
 
     return (
-        <div className={classNames("flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses, className)} {...rest}>
+        <div className={classNames("h-full flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses, className)} {...rest}>
 
             <PanelActionsTitle ctx={ctx} />
-            <PanelActionsList ctx={ctx} />
+
+            <div className="relative h-full">
+                <div className="absolute inset-0 bg-red-400 overflow-hidden">
+                    <ScrollArea className="h-full bg-red-400">
+                        <PanelActionsList ctx={ctx} />
+                    </ScrollArea>
+                </div>
+            </div>
         </div>
     );
 }

@@ -15,17 +15,8 @@ gap-1 \
 export function ManualModeView({ ctx }: { ctx: MFormContextProps; }) {
     return (<>
         <div className={manualModeViewClasses}>
-
-            <div className="relative">
-                <div className="absolute inset-0 bg-red-400 overflow-hidden">
-                    <ScrollArea className="h-full bg-red-400">
-                        <ManualPanelActions className="@container/actions h-full min-h-[23rem]" ctx={ctx} />
-                    </ScrollArea>
-                </div>
-            </div>
-
+            <ManualPanelActions className="@container/actions h-full min-h-[23rem]" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[340px] text-xs" ctx={ctx} />
-
         </div>
     </>);
 }
