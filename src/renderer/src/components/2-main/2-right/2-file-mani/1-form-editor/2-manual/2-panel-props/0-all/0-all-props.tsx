@@ -2,7 +2,7 @@ import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelPropsTitle } from "./1-panel-props-title";
-import { ScriptItemPropsEditor } from "../2-props";
+import { ScriptItemPropsEditorSelector } from "../2-props";
 import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
@@ -29,7 +29,7 @@ export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MF
             <PanelPropsTitle type={selectedItem.type} />
 
             <div className={propsBoxClasses} {...rest}>
-                <ScriptItemPropsEditor ctx={selectedItem} fileUsCtx={fileUsCtx} />
+                <ScriptItemPropsEditorSelector ctx={selectedItem} fileUsCtx={fileUsCtx} />
             </div>
 
         </div>
