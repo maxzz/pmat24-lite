@@ -1,8 +1,6 @@
 import { type FileUsCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type FceItem } from "@/store";
-import { Column3_Label } from "../../../../1-normal/1-fields/3-column-label";
-import { Column4_Value } from "../../../../1-normal/1-fields/4-column-value";
-import { Column5_Catalog } from "../../../../1-normal/1-fields/5-column-catalog";
+import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 import { InputLabel, ManualFieldPolicy, ManualFieldType } from "../8-props-ui";
 // import { SrcriptItemFld } from "@/store";
 

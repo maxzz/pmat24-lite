@@ -5,12 +5,13 @@ import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditor } from "../2-props";
 import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
-import { propsBoxClasses } from "../2-props/8-props-ui";
 
 const PanelPropsClasses = "\
 grid grid-rows-[auto,1fr] gap-2 \
 overflow-hidden \
 select-none";
+
+const propsBoxClasses = "px-1 flex flex-col gap-y-2";
 
 export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
     const { manual: ctx, fileUsCtx } = ctxForm.mAllAtoms;
