@@ -11,7 +11,7 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     isDlgCtx: boolean;
 };
 
-export const listSelectionLightClasses = "\
+const listSelectionLightClasses = "\
 [--selected-fg:hsl(var(--foreground))] \
 [--selected-fg-hover:hsl(var(--foreground))] \
 [--selected-bg:hsl(var(--muted))] \
@@ -19,7 +19,7 @@ export const listSelectionLightClasses = "\
 [--selected-outline:#3b3b3b] \
 ";
 
-export const listSelectionDarkClasses = "\
+const listSelectionDarkClasses = "\
 dark:[--selected-fg:hsl(var(--foreground))] \
 dark:[--selected-fg-hover:hsl(var(--foreground))] \
 [--selected-bg:hsl(var(--muted))] \
@@ -27,10 +27,12 @@ dark:[--selected-bg-active:#04395e] \
 dark:[--selected-outline:#007fd4] \
 ";
 
-export const parentActiveClasses = "\
+const parentActiveClasses = "\
 [--parent-active:0] focus-within:[--parent-active:1] \
 [--parent-selected-bg:var(--selected-bg)] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
 ";
+
+export const parentClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
 
 const rowClasses = "\
 ml-2 mr-3 py-1 \
