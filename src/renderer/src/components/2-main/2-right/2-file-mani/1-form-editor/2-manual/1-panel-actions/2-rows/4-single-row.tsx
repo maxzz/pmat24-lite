@@ -53,7 +53,13 @@ function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowPro
     const title = hasError ? "This row has errors" : undefined;
 
     return (
-        <div ref={ref} className={classNames(rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>
+        <div
+            ref={ref}
+            data-list-item={isSelected ? 'selected' : ''}
+            className={classNames(rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")}
+            title={title}
+            {...rest}
+        >
             <RowColumnIcon type={chunk.type} />
 
             <div className="pl-3 pr-2 text-xs">
