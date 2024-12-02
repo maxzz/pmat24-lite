@@ -11,6 +11,27 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     isDlgCtx: boolean;
 };
 
+export const listSelectionLightClasses = "\
+[--selected-fg:hsl(var(--foreground))] \
+[--selected-fg-hover:hsl(var(--foreground))] \
+[--selected-bg:hsl(var(--muted))] \
+[--selected-bg-active:hsl(var(--accent))] \
+[--selected-outline:#3b3b3b] \
+";
+
+export const listSelectionDarkClasses = "\
+dark:[--selected-fg:hsl(var(--foreground))] \
+dark:[--selected-fg-hover:hsl(var(--foreground))] \
+[--selected-bg:hsl(var(--muted))] \
+dark:[--selected-bg-active:#04395e] \
+dark:[--selected-outline:#007fd4] \
+";
+
+export const parentActiveClasses = "\
+[--parent-active:0] focus-within:[--parent-active:1] \
+[--parent-selected-bg:var(--selected-bg)] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
+";
+
 const rowClasses = "\
 ml-2 mr-3 py-1 \
 col-span-full grid grid-cols-subgrid items-center \

@@ -1,33 +1,12 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { doSelectIdxAtom, type FceCtx } from "@/store";
-import { FldCatItemRow } from "./2-fld-cat-item-row";
+import { FldCatItemRow, listSelectionDarkClasses, listSelectionLightClasses, parentActiveClasses } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
 };
-
-const listSelectionLightClasses = "\
-[--selected-fg:hsl(var(--foreground))] \
-[--selected-fg-hover:hsl(var(--foreground))] \
-[--selected-bg:hsl(var(--muted))] \
-[--selected-bg-active:hsl(var(--accent))] \
-[--selected-outline:#3b3b3b] \
-";
-
-const listSelectionDarkClasses = "\
-dark:[--selected-fg:hsl(var(--foreground))] \
-dark:[--selected-fg-hover:hsl(var(--foreground))] \
-[--selected-bg:hsl(var(--muted))] \
-dark:[--selected-bg-active:#04395e] \
-dark:[--selected-outline:#007fd4] \
-";
-
-const parentActiveClasses = "\
-[--parent-active:0] focus-within:[--parent-active:1] \
-[--parent-selected-bg:var(--selected-bg)] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
-";
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
 

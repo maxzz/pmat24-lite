@@ -19,7 +19,10 @@ const rowClasses = "\
 py-0.5 leading-6 \
 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
 \
-hover:bg-primary-200/30 dark:hover:bg-primary-800/40 \
+text-foreground bg-background \
+hover:text-accent-foreground hover:bg-muted \
+\
+1hover:bg-primary-200/30 1dark:hover:bg-primary-800/40 \
 ";
 
 const rowSelectedClasses = "\
