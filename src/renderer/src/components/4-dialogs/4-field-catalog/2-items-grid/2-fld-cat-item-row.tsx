@@ -48,7 +48,7 @@ rounded-[3px]";
 
 // Specific to this file styles
 
-const rowClasses0 = "\
+const rowLocalClasses = "\
 ml-2 mr-3 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
@@ -56,7 +56,7 @@ text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
 cursor-pointer";
 
-const rowClasses = `${rowClasses0} ${rowSelectClasses}`;
+const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
 export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
     const selected = useSnapshot(item.editor)[isDlgCtx ? 'selectedDlg' : 'selectedView'];

@@ -14,15 +14,15 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
 };
 
-const rowClasses0 = "\
-py-0.5 leading-6 \
+const rowLocalClasses = "\
+mr-1 py-px leading-6 \
 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
 \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
 cursor-pointer";
 
-const rowClasses = `${rowClasses0} ${rowSelectClasses}`;
+const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
 function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
