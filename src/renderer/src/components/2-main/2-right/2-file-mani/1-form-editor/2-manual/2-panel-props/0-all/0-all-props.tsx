@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditorSelector } from "../2-props";
-import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
+import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
 const PanelPropsClasses = "\
@@ -24,7 +24,7 @@ export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MF
     }
 
     return (
-        <div className={classNames(PanelPropsClasses, editorFrameClasses, focusWithinClasses, className)} {...rest}>
+        <div className={classNames(PanelPropsClasses, "p-1 border-border border rounded", focusWithinClasses, className)} {...rest}>
 
             <PanelPropsTitle type={selectedItem.type} />
 

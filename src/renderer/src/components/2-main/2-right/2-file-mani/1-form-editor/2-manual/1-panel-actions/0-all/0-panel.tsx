@@ -4,7 +4,7 @@ import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
 import { classNames } from "@/utils";
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
-import { editorFrameClasses, focusWithinClasses } from "../../8-manual-shared-styles";
+import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { ScrollArea } from "@/ui";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
@@ -13,7 +13,7 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
     useEffect(() => { cb(); }, []);
 
     return (
-        <div className={classNames("h-full flex flex-col space-y-1 select-none", editorFrameClasses, focusWithinClasses, className)} {...rest}>
+        <div className={classNames("pr-0 h-full p-1 border-border border rounded flex flex-col space-y-1 select-none", focusWithinClasses, className)} {...rest}>
 
             <PanelActionsTitle ctx={ctx} />
 
