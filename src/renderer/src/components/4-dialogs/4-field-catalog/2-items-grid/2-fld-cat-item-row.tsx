@@ -32,9 +32,20 @@ const parentActiveClasses = "\
 [--parent-selected-bg:var(--selected-bg)] focus-within:[--parent-selected-bg:var(--selected-bg-active)] \
 ";
 
-export const parentClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
+export const rowParentActiveClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
 
-const rowClasses = "\
+const rowSelectedClasses = "\
+data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
+data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
+\
+data-[list-item=selected]:outline \
+data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
+data-[list-item=selected]:[outline-offset:-2px] \
+outline-[var(--selected-outline)] \
+rounded-[3px] \
+";
+
+const rowClasses0 = "\
 ml-2 mr-3 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
@@ -57,12 +68,14 @@ cursor-default \
 1data-[list-item=selected]:z-10 \
 ";
 
-const rowSelectedClasses = "\
-bg-red-500 \
-hover:text-foreground \
-rounded \
-transition-colors \
-";
+const rowClasses = `${rowClasses0} ${rowSelectedClasses}`;
+
+// const rowSelectedClasses1 = "\
+// bg-red-500 \
+// hover:text-foreground \
+// rounded \
+// transition-colors \
+// ";
 
 const leafSelectedClasses = "\
 text-accent-foreground \
@@ -87,7 +100,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
             data-list-item={selected ? 'selected' : ''}
             data-list-uiid={item.fceMeta.uuid}
             // {...(selected && { 'data-tree-item-selected': '' })}
-            // className={classNames(rowClasses, selected && rowSelectedClasses, selected && leafSelectedClasses, className)}
+            // className={classNames(rowClasses, selected && rowSelectedClasses1, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}
             {...rest}
         >

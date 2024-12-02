@@ -1,7 +1,7 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { doSelectIdxAtom, type FceCtx } from "@/store";
-import { FldCatItemRow, parentClasses } from "./2-fld-cat-item-row";
+import { FldCatItemRow, rowParentActiveClasses } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
@@ -40,7 +40,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     }
 
     return (
-        <div ref={ref} className={classNames(parentClasses, className)} {...rest}>
+        <div ref={ref} className={classNames(rowParentActiveClasses, className)} {...rest}>
             {filteredItems.map(
                 (item, idx) => (
                     <FldCatItemRow

@@ -13,8 +13,6 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
 };
 
-export const rowParentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
-
 const rowClasses = "\
 py-0.5 leading-6 \
 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \

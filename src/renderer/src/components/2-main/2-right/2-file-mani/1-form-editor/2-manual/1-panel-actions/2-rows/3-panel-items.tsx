@@ -2,10 +2,9 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
-import { rowParentActiveClasses } from "./4-single-row";
 import { classNames } from "@/utils";
 import { AnimatePresence } from "framer-motion";
-import { parentClasses } from "@/components/4-dialogs/4-field-catalog/2-items-grid/2-fld-cat-item-row";
+import { rowParentActiveClasses } from "@/components/4-dialogs/4-field-catalog/2-items-grid/2-fld-cat-item-row";
 
 export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
     const ctx = ctxForm.mAllAtoms.manual;
@@ -17,7 +16,7 @@ export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) 
     const swapItems = useSetAtom(doSwapItemsAtom);
 
     return (<>
-        <div className={classNames("min-h-10 outline-none", parentClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
+        <div className={classNames("min-h-10 outline-none", rowParentActiveClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
 
             <AnimatePresence initial={false}>
                 {chunks.map(
