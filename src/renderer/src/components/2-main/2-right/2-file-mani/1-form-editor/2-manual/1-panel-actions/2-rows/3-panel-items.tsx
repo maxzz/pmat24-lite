@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
-import { rowParentActiveClasses } from "../../8-manual-shared-styles";
+import { rowParentActiveClasses } from "./8-row-classes";
 import { classNames } from "@/utils";
 import { AnimatePresence } from "framer-motion";
 

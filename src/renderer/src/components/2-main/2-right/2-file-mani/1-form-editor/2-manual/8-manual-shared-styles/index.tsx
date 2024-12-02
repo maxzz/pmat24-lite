@@ -1,6 +1,5 @@
 export * from "./3-focus";
 export * from "./4-menu";
-export * from "./2-paenl-actions-list";
 export * from "./1-editor-title-w-frame";
 
 export const editorFrameClasses = "p-1 border-border border rounded";
