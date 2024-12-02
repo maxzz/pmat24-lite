@@ -11,6 +11,8 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     isDlgCtx: boolean;
 };
 
+// Commom styles will be moved to common file later
+
 const listSelectionLightClasses = "\
 [--selected-fg:hsl(var(--foreground))] \
 [--selected-fg-hover:hsl(var(--foreground))] \
@@ -34,7 +36,7 @@ const parentActiveClasses = "\
 
 export const rowParentActiveClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
 
-export const rowSelectedClasses = "\
+export const rowSelectClasses = "\
 data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
 data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
 \
@@ -42,8 +44,9 @@ data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
 data-[list-item=selected]:[outline-offset:-2px] \
 outline-[var(--selected-outline)] \
-rounded-[3px] \
-";
+rounded-[3px]";
+
+// Specific to this file styles
 
 const rowClasses0 = "\
 ml-2 mr-3 py-1 \
@@ -51,34 +54,9 @@ col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
-\
-cursor-default \
-1data-[list-item=selected]:z-10 \
-";
+cursor-pointer";
 
-const rowClasses = `${rowClasses0} ${rowSelectedClasses}`;
-
-// const rowSelectedClasses1 = "\
-// bg-red-500 \
-// hover:text-foreground \
-// rounded \
-// transition-colors \
-// ";
-
-const leafSelectedClasses = "\
-text-accent-foreground \
-\
-before:data-[tree-item-selected]:1border \
-\
-before:bg-accent \
-before:opacity-100 \
-before:border-l-2 \
-before:border-l-accent-foreground/50 \
-\
-outline-primary-400 \
-[outline-width:calc(var(--parent-active)_*_1px)] \
-outline rounded-[3px] \
-";
+const rowClasses = `${rowClasses0} ${rowSelectClasses}`;
 
 export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
     const selected = useSnapshot(item.editor)[isDlgCtx ? 'selectedDlg' : 'selectedView'];
@@ -87,8 +65,6 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
         <div
             data-list-item={selected ? 'selected' : ''}
             data-list-uiid={item.fceMeta.uuid}
-            // {...(selected && { 'data-tree-item-selected': '' })}
-            // className={classNames(rowClasses, selected && rowSelectedClasses1, selected && leafSelectedClasses, className)}
             className={classNames(rowClasses, className)}
             {...rest}
         >
@@ -111,33 +87,3 @@ function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className
     const Icon = fieldIcons[type]?.({ className, title: `Field type: ${type}`, });
     return Icon ? Icon : <div className="text-red-500">NaN</div>;
 }
-
-// const rowClasses = "\
-// mr-3 \
-// px-2 py-1 \
-// text-foreground bg-background \
-// hover:text-accent-foreground hover:bg-muted \
-// col-span-full grid grid-cols-subgrid items-center \
-// ";
-
-// const rowSelectedClasses = "\
-// bg-red-500 \
-// hover:text-foreground \
-// rounded \
-// transition-colors \
-// ";
-
-// export const leafSelectedClasses = "\
-// text-accent-foreground \
-// \
-// before:data-[tree-item-selected]:1border \
-// \
-// before:bg-accent \
-// before:opacity-100 \
-// before:border-l-2 \
-// before:border-l-accent-foreground/50 \
-// \
-// outline-primary-400 \
-// [outline-width:calc(var(--parent-active)_*_1px)] \
-// outline rounded-[3px] \
-// ";
