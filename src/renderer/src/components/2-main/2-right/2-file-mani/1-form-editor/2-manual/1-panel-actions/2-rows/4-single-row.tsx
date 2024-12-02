@@ -2,8 +2,8 @@ import { forwardRef, Ref, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { type MFormCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
-import { RowColumnDetails, RowColumnIcon, rowColumnName } from "./3-row-details";
-import { rowClasses, rowSelectedClasses } from "../8-manual-shared-styles";
+import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
+import { rowClasses, rowSelectedClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 import { motion } from "framer-motion";
 
