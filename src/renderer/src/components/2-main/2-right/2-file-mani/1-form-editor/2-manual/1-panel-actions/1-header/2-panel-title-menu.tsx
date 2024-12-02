@@ -2,8 +2,8 @@ import { useSetAtom } from "jotai";
 import * as Menu from "@radix-ui/react-dropdown-menu";
 import { type ChunkKey } from "@/store/manifest";
 import { doCreateItemAtom, type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
-import { RowColumnIcon, rowColumnName } from "./3-row-details";
-import { focusClasses, menuContentClasses, menuItemClasses } from "../8-manual-shared-styles";
+import { RowColumnIcon, rowColumnName } from "../3-row-details";
+import { focusClasses, menuContentClasses, menuItemClasses } from "../../8-manual-shared-styles";
 import { IconAdd } from "@/ui/icons";
 import { classNames } from "@/utils";
 
