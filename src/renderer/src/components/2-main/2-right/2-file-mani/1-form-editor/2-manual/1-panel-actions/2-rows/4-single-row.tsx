@@ -13,15 +13,16 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
 };
 
-const singleRowClasses = "py-0.5 grid grid-cols-[min-content,5rem,1fr,min-content] items-center";
-
 export const rowParentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
-export const rowClasses = "\
+const rowClasses = "\
+py-0.5 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
+\
 leading-6 \
-hover:bg-primary-200/30 dark:hover:bg-primary-800/40";
+hover:bg-primary-200/30 dark:hover:bg-primary-800/40 \
+";
 
-export const rowSelectedClasses = "\
+const rowSelectedClasses = "\
 text-primary-800 dark:text-primary-200 \
 \
 bg-primary-400/20 dark:bg-primary-400/20 \
@@ -41,7 +42,7 @@ function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowPro
     const title = hasError ? "This row has errors" : undefined;
 
     return (
-        <div ref={ref} className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>
+        <div ref={ref} className={classNames(rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>
             <RowColumnIcon type={chunk.type} />
 
             <div className="pl-3 pr-2 text-xs">
