@@ -13,7 +13,7 @@ type FrameProps = HTMLAttributes<HTMLDivElement> & {
 
 export function GroupFrame({ label, children, className, ...rest }: FrameProps) {
     return (
-        <div className={classNames("relative px-2 py-4 border-border border-dotted border rounded", className)} {...rest}>
+        <div className={classNames("relative pl-2 pt-2 border-border border-dotted border rounded", className)} {...rest}>
             <div className="absolute left-2 -top-3 px-1 py-1 font-light bg-muted/20 border-border border-dotted border rounded">
                 {label}
             </div>
@@ -26,7 +26,7 @@ export function GroupFrame({ label, children, className, ...rest }: FrameProps) 
 function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<RowInputState>; }) {
     const [modifier, setModifier] = useAtom(valueAtom);
     return (
-        <div className={classNames("flex-1 max-w-36 flex @[190px]/modifier:flex-col @[190px]/modifier:gap-y-0.5 items-center gap-x-2")}>
+        <div className={classNames("flex-1 max-w-36 flex items-center @[190px]/modifier:flex-col @[190px]/modifier:gap-y-0.5 gap-x-2")}>
             <div className="self-start @[190px]/modifier:pl-2 min-w-12 text-xs @[190px]/modifier:text-[0.65rem] font-light">
                 {label}
             </div>
@@ -44,7 +44,7 @@ function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAto
 
 export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
     return (
-        <GroupFrame className="@container/modifier mt-4 -ml-2 max-w-64" label="Key modifiers">
+        <GroupFrame className="@container/modifier mt-4 max-w-[230px]" label="Key modifiers">
             <div className="my-2 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
 
                 <Modifier label="Shift" valueAtom={item.shiftAtom} />

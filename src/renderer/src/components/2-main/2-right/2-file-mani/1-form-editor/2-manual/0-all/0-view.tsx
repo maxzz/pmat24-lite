@@ -1,13 +1,11 @@
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
-import { Scroll } from "lucide-react";
-import { ScrollArea } from "@/ui";
 
 const manualModeViewClasses = "\
-pl-0.5 min-w-60 h-full 1bg-green-400 \
+min-w-60 h-full min-h-0 \
 \
-grid grid-cols-1 grid-rows-[minmax(100px,_1fr),auto] min-h-0 \
+grid grid-cols-1 grid-rows-[minmax(100px,_1fr),auto] \
 @[600px]:grid-cols-2 \
 gap-1 \
 ";

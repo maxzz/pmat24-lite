@@ -5,7 +5,7 @@ import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-op
 
 export function InputDelay({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
     return (
-        <label className="flex flex-col gap-1">
+        <label className="flex flex-col gap-0.5">
             <span>
                 Delay the next action by
             </span>
