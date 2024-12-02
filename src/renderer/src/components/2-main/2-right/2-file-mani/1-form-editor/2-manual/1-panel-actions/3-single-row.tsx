@@ -24,20 +24,18 @@ function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowPro
     const title = hasError ? "This row has errors" : undefined;
 
     return (
-        <div ref={ref} {...rest}>
-            <div className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title}>
-                <RowColumnIcon type={chunk.type} />
+        <div ref={ref} className={classNames(singleRowClasses, rowClasses, isSelected && rowSelectedClasses, hasError && "text-red-500 font-semibold")} title={title} {...rest}>
+            <RowColumnIcon type={chunk.type} />
 
-                <div className="pl-3 pr-2 text-xs">
-                    {dispText}
-                </div>
-
-                <div className="px-4 text-[.65rem] font-light">
-                    <RowColumnDetails ctx={chunk} />
-                </div>
-
-                <RowMenuButton menuState={menuState} />
+            <div className="pl-3 pr-2 text-xs">
+                {dispText}
             </div>
+
+            <div className="px-4 text-[.65rem] font-light">
+                <RowColumnDetails ctx={chunk} />
+            </div>
+
+            <RowMenuButton menuState={menuState} />
         </div>
     );
 }
