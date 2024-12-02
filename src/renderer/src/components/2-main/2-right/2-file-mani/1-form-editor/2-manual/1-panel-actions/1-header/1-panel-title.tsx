@@ -7,7 +7,7 @@ import { classNames } from "@/utils";
 export function PanelActionsTitle({ ctx }: { ctx: MFormContextProps; }) {
     const title = ctx.formIdx === FormIdx.login ? "Login actions" : "Password change actions"; // 'Fill in actions'
     return (
-        <div className={classNames("-1mx-1 -mt-1 1p-2 pr-1 p-2 pl-3", panelEditorTitleClasses)}>
+        <div className={classNames("-ml-1 -mt-1 pl-2", panelEditorTitleClasses)}>
 
             <div>
                 {title}

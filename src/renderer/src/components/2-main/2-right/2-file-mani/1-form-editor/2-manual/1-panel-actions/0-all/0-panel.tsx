@@ -13,7 +13,7 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
     useEffect(() => { cb(); }, []);
 
     return (
-        <div className={classNames("pr-0 h-full p-1 border-border border rounded flex flex-col space-y-1 select-none", focusWithinClasses, className)} {...rest}>
+        <div className={classNames("p-1 pr-0 h-full border-border border rounded flex flex-col space-y-1 select-none", focusWithinClasses, className)} {...rest}>
 
             <PanelActionsTitle ctx={ctx} />
 

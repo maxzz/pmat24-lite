@@ -15,7 +15,7 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const rowLocalClasses = "\
-mr-1 py-px leading-6 \
+mx-1 py-px leading-6 \
 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
 \
 text-foreground bg-background \

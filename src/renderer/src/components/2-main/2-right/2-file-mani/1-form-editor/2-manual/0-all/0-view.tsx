@@ -8,7 +8,7 @@ min-w-60 h-full min-h-0 \
 grid grid-cols-1 grid-rows-[minmax(100px,_1fr),auto] \
 @[600px]:grid-cols-2 \
 @[600px]:gap-y-0 \
-gap-y-3 gap-x-2 \
+gap-y-2 gap-x-1 \
 ";
 
 export function ManualModeView({ ctx }: { ctx: MFormContextProps; }) {

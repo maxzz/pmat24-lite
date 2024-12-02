@@ -5,7 +5,7 @@ import { classNames } from "@/utils";
 
 export function PanelPropsTitle({ type }: { type: ChunkKey; }) {
     return (
-        <div className={classNames("-mx-1 -mt-1 p-2 pl-3", panelEditorTitleClasses)}>
+        <div className={classNames("-mx-1 -mt-1 pl-2 pr-3", panelEditorTitleClasses)}>
             <PanelPropsTitleBody type={type} />
         </div>
     );
