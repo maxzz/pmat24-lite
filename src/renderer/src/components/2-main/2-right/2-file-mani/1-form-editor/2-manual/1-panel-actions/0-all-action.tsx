@@ -1,7 +1,7 @@
 import { type HTMLAttributes, useEffect } from "react";
 import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { PanelActionsTitle } from "./1-panel-title";
-import { PanelActionsList } from "./2-panel-items";
+import { PanelActionsList } from "./3-panel-items";
 import { classNames } from "@/utils";
 import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
 import { editorFrameClasses, focusWithinClasses } from "../8-manual-shared-styles";
