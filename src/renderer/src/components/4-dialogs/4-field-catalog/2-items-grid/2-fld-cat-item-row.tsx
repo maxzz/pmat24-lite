@@ -41,7 +41,7 @@ rounded \
 transition-colors \
 ";
 
-export const leafSelectedClasses = "\
+const leafSelectedClasses = "\
 text-accent-foreground \
 \
 before:data-[tree-item-selected]:1border \

@@ -16,13 +16,24 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
 export const rowParentActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
 const rowClasses = "\
-py-0.5 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
+py-0.5 leading-6 \
+grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
 \
-leading-6 \
 hover:bg-primary-200/30 dark:hover:bg-primary-800/40 \
 ";
 
 const rowSelectedClasses = "\
+data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
+data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
+\
+data-[list-item=selected]:outline \
+data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
+data-[list-item=selected]:[outline-offset:-2px] \
+outline-[var(--selected-outline)] \
+rounded-[3px] \
+";
+
+const rowSelectedClasses0 = "\
 text-primary-800 dark:text-primary-200 \
 \
 bg-primary-400/20 dark:bg-primary-400/20 \
