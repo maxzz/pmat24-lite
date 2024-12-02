@@ -34,7 +34,7 @@ const parentActiveClasses = "\
 
 export const rowParentActiveClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
 
-const rowSelectedClasses = "\
+export const rowSelectedClasses = "\
 data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
 data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
 \
@@ -51,18 +51,6 @@ col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
-\
-1bg-list-select-focus \
-1data-[list-item=selected]:bg-list-select-selected-active \
-\
-data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
-data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
-\
-data-[list-item=selected]:outline \
-data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
-data-[list-item=selected]:[outline-offset:-2px] \
-outline-[var(--selected-outline)] \
-rounded-[3px] \
 \
 cursor-default \
 1data-[list-item=selected]:z-10 \
