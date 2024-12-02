@@ -18,8 +18,8 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
             <PanelActionsTitle ctx={ctx} />
 
             <div className="relative h-full">
-                <div className="absolute inset-0 bg-red-400">
-                    <ScrollArea className="pr-1 h-full bg-red-400">
+                <div className="absolute inset-0">
+                    <ScrollArea className="pr-1 h-full">
                         <PanelActionsList ctx={ctx} />
                     </ScrollArea>
                 </div>

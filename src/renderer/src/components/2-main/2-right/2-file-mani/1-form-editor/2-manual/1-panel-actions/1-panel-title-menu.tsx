@@ -25,7 +25,7 @@ function MenuRow({ ctx, type, password }: { ctx: MFormContextProps; type: ChunkK
 }
 
 const buttonClasses = "\
-w-7 h-6 \
+mr-1.5 size-6 \
 hover:bg-primary-200 dark:hover:bg-primary-700 \
 border-muted-foreground/20 \
 border rounded outline-none \
