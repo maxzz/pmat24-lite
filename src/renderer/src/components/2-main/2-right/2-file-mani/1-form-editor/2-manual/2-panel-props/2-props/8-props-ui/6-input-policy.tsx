@@ -14,11 +14,13 @@ export function ManualFieldPolicy({ item }: { item: ManualFieldState.CtxFld; }) 
     }
 
     return (
-        <Column6_Policy
-            useItAtom={useItAtom}
-            typeAtom={typeAtom}
-            policiesAtom={policiesAtom}
-        />
+        <InputLabel label="Policy" className="ml-2">
+            <Column6_Policy
+                useItAtom={useItAtom}
+                typeAtom={typeAtom}
+                policiesAtom={policiesAtom}
+            />
+        </InputLabel>
     );
 }
 

@@ -7,7 +7,7 @@ export type InputLabelProps = InputHTMLAttributes<HTMLLabelElement> & {
     horizontal?: boolean;
 };
 
-export function InputLabel({ label, labelClasses, horizontal, className, children, ...rest }: InputLabelProps) {
+export function InputLabel({ label, labelClasses, horizontal, children, ...rest }: InputLabelProps) {
     return (
         <label className={classNames("flex", horizontal ? "items-center space-x-2" : "flex-col space-y-px")} {...rest}>
             <div className={classNames("text-xs", labelClasses)}>
