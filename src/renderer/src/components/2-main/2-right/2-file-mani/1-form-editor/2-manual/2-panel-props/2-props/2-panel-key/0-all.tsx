@@ -5,8 +5,8 @@ import { InputModifiers } from "./3-input-modifiers";
 
 export function PropsEditorKey({ item }: { item: ManualFieldState.CtxKbd; }) {
     return (<>
-        <div className="flex items-center gap-x-4">
-            <InputKey valueAtom={item.charAtom} />
+        <div className="flex items-center gap-x-3">
+            <InputKey valueAtom={item.charAtom} triggerClasses="min-w-36" />
             <InputRepeat valueAtom={item.repeatAtom} />
         </div>
         

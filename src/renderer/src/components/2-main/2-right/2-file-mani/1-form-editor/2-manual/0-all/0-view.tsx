@@ -15,7 +15,7 @@ export function ManualModeView({ ctx }: { ctx: MFormContextProps; }) {
     return (<>
         <div className={manualModeViewClasses}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
-            <ManualPanelProps className="@container/props min-h-[210px] text-xs" ctx={ctx} />
+            <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
         </div>
     </>);
 }

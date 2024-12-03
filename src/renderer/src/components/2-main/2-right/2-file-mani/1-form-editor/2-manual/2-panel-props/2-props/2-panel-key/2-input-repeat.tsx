@@ -8,10 +8,10 @@ export function InputRepeat({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputSt
     return (
         <label className="flex flex-col gap-1">
             <span>
-                Repeat key
+                Repeat
             </span>
 
-            <div className="max-w-24 flex items-center gap-1" title="Number of times to repeat this key">
+            <div className="max-w-[70px] flex items-center gap-1" title="Number of times to repeat this key">
                 <InputWTooltip stateAtom={valueAtom} asCheckbox={false} />
 
                 <span className="pt-0.5">

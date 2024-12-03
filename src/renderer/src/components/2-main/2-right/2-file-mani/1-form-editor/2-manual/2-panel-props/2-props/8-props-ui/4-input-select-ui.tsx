@@ -64,14 +64,14 @@
 // const contentClasses = `text-xs ${popupColorClasses} border-primary-500 border rounded-md shadow shadow-primary-500/30 overflow-hidden select-none`;
 // const scrollButtonClasses = `h-4 ${popupColorClasses} flex items-center justify-center`;
 
-export type StringValueChangeProps = {
-    value: string;
-    onValueChange: (value: string) => void;
-};
+// export type StringValueChangeProps = {
+//     value: string;
+//     onValueChange: (value: string) => void;
+// };
 
-type InputSelectUiProps = StringValueChangeProps & {
-    items: ModifierDisplayText[];
-};
+// type InputSelectUiProps = StringValueChangeProps & {
+//     items: ModifierDisplayText[];
+// };
 
 // export function InputSelectUi2({ items, value, onValueChange }: InputSelectUiProps) {
 //     return (
@@ -111,17 +111,28 @@ type InputSelectUiProps = StringValueChangeProps & {
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type ModifierDisplayText } from "@/store/manifest";
+import { classNames } from "@/utils";
+
+export type StringValueChangeProps = {
+    value: string;
+    onValueChange: (value: string) => void;
+};
+
+type InputSelectUiProps = StringValueChangeProps & {
+    items: ModifierDisplayText[];
+    triggerClasses?: string;
+};
 
 const popupColorClasses = "\
 h-6 \
 bg-primary-100 dark:bg-primary-900 \
 text-primary-900 dark:text-primary-300";
 
-export function InputSelectUi({ items, value, onValueChange }: InputSelectUiProps) {
+export function InputSelectUi({ items, value, onValueChange, triggerClasses }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className="px-2 py-1 w-max h-7 text-xs gap-1">
+            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses)}>
                 <SelectValue placeholder="Select key" />
             </SelectTrigger>
 
