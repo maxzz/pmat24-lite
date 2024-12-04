@@ -3,16 +3,16 @@ import { FormIdx } from '@/store/manifest';
 import { FieldRow } from "./2-field-row";
 import { TableHeader, fieldsGridClasses } from "./3-fields-header";
 
-export function TabFields({ ctx }: { ctx: NFormContextProps; }) {
+export function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
 
     if (!ctx.nAllAtoms.normal.rowCtxs.length) {
         return <NoFields formType={ctx.formIdx} />;
     } else {
-        return <FieldsGrid ctx={ctx} />;
+        return <FieldsGridBody ctx={ctx} />;
     }
 }
 
-function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
+function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
     return (
         <div className={fieldsGridClasses}>
             <TableHeader />
