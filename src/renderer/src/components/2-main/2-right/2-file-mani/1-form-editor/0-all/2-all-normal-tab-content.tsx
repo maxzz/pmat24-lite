@@ -13,12 +13,14 @@ export function NormalFormTabContent({ ctx }: { ctx: NFormContextProps; }) {
             </div>
             <FieldsGrid ctx={ctx} />
 
-            {hasFields && (<>
-                <div className={labelClasses}>
-                    Form submit options
-                </div>
-                <TabSubmit ctx={ctx} />
-            </>)}
+            {hasFields && (
+                <>
+                    <div className={labelClasses}>
+                        Form submit options
+                    </div>
+                    <TabSubmit ctx={ctx} />
+                </>
+            )}
         </div>
     );
 }
