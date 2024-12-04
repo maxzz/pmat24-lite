@@ -16,7 +16,7 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
 
     let filteredItems = items.filter(
         (item) => {
-            const { fType, displayname, dbname, ownernote, value, isRef, isNon } = item.fieldValue;
+            const { fType, displayname } = item.fieldValue;
 
             if (!showText && fType === FieldTyp.edit) {
                 return false;
@@ -30,15 +30,7 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
                 return true;
             }
 
-            const include = (
-                (showText && displayname.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && dbname.toLowerCase().includes(search.toLowerCase()))
-                // || (showText && ownernote.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && value.toLowerCase().includes(search.toLowerCase()))
-                // || (showPassword && isRef.toString().toLowerCase().includes(search.toLowerCase()))
-                // ||(showPassword && isNon.toString().toLowerCase().includes(search.toLowerCase())
-            );
-
+            const include = showText && displayname.toLowerCase().includes(search.toLowerCase());
             return include;
         }
     );
@@ -54,9 +46,9 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
     }
 
     return filteredItems;
-} 
+}
 
-export const filteredItemsAtom = atom(
+const filteredItemsAtom = atom(
     (get) => (fceCtx: FceCtx) => {
         const all = get(fceCtx.fceAtoms.allAtom);
         const rv = all.filter((item) => item.fieldValue.fType === FieldTyp.edit);

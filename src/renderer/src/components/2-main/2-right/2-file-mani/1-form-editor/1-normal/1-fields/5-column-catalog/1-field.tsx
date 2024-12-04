@@ -25,8 +25,8 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
     fieldCatAtom: PA<string>;
     onSelectCatItem: (item: FceItem | undefined) => void;
-    maniIsPassword: boolean | undefined;
-    maniDbName: string;
+    maniIsPassword: boolean | undefined; // Manifest field is password
+    maniDbName: string;                  // Manifest field dbname
     fileUsCtx: FileUsCtx;
 };
 
