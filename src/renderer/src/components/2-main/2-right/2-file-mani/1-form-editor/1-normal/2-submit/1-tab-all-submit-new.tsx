@@ -2,6 +2,24 @@ import { useAtomValue, useAtom } from "jotai";
 import { type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
+export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
+    const isWeb = ctx.nAllAtoms.normal.submitCtx.isWeb;
+    return (
+        <div className="ml-1 p-1 flex items-center gap-1">
+            {isWeb
+                ? (<>
+                    After filling in the form fields,
+                    <SubmitSelector ctx={ctx} />
+                    the form data.
+                </>)
+                : (
+                    <SubmitBodyForWin32 ctx={ctx} />
+                )
+            }
+        </div>
+    );
+}
+
 function SubmitSelector({ ctx }: { ctx: NFormContextProps; }) {
 
     const { buttonNameItemsAtom, selectedAtom } = ctx.nAllAtoms.normal.submitCtx;
@@ -37,22 +55,4 @@ function SubmitBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
         <SubmitSelector ctx={ctx} />
         {selected ? " button will be used to submit the form data." : " the form data."}
     </>);
-}
-
-export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
-    const isWeb = ctx.nAllAtoms.normal.submitCtx.isWeb;
-    return (
-        <div className="p-1 flex items-center gap-1">
-            {isWeb
-                ? (<>
-                    After filling in the form fields,
-                    <SubmitSelector ctx={ctx} />
-                    the form data.
-                </>)
-                : (
-                    <SubmitBodyForWin32 ctx={ctx} />
-                )
-            }
-        </div>
-    );
 }
