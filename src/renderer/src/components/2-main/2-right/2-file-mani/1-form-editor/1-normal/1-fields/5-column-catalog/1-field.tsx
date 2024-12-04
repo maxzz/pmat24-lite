@@ -37,7 +37,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, ...rest } = props;
 
-    const { catalogItemsByType, catalogItem, } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
+    const { fceItemsByType: catalogItemsByType, fecItem: catalogItem, } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
     const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.fieldValue.displayname)];
 
