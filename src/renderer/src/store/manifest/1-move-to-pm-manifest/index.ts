@@ -35,7 +35,7 @@ export function createEmptyFceItem(fType: FieldTyp): FceItem {
             uuid: now,
             mru: now,
         },
-        editor: proxy<FceItemEditor>({ isSelectedInView: false, selectedDlg: false, }),
+        editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInDlg: false, }),
     };
 }
 

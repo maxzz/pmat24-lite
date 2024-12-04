@@ -6,7 +6,7 @@ import { type OnValueChangeParams } from "@/util-hooks";
 
 export type FceItemEditor = {
     isSelectedInView: boolean;
-    selectedDlg: boolean;
+    isSelectedInDlg: boolean;
 };
 
 export type FceItemValue = Prettify<
