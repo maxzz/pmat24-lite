@@ -38,15 +38,15 @@ export type FcePropAtoms = {                        // Field Catalog Editor Atom
 };
 
 export type FceFilterOptions = {
-    search: string;                                 // search string
-    showText: boolean;                              // show text fields
-    showPassword: boolean;                          // show password fields
-    ascending: boolean | undefined;                 // undefined means unsorted
+    search: string;                                 // Search string
+    showText: boolean;                              // Show text fields
+    showPassword: boolean;                          // Show password fields
+    ascending: boolean | undefined;                 // Undefined means unsorted, true means ascending, false means descending
 };
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
-    descAtom: PrimitiveAtom<string>;                // field catalog descriptor. i.e. id from CatalogFile.Descriptor
-    allAtom: PrimitiveAtom<FceItem[]>;              // all field catalog items from file
+    descAtom: PrimitiveAtom<string>;                // Field catalog descriptor. i.e. id from CatalogFile.Descriptor
+    allAtom: PrimitiveAtom<FceItem[]>;              // All field catalog items from file
 };
 
 export type FceAtoms = Prettify<                    // Field Catalog Editor Atoms
@@ -62,14 +62,14 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 export type FceCtx = {                              // Field Catalog Editor context for view or dialog
     inData: FceDlgIn | undefined;
     fceAtoms: FceAtoms;
-    isDlgCtx: boolean;                              // true if this is a field catalog dialog context, not a field catalog view context
-    isMaster: boolean;                              // true if this is a master field catalog
+    isDlgCtx: boolean;                              // True if this is a field catalog dialog context, not a field catalog view context
+    isMaster: boolean;                              // True if this is a master field catalog
     
     selectedIdxStoreAtom: PrimitiveAtom<number>;
-    selectedItemAtom: PrimitiveAtom<FceItem | undefined>;
-    hasSelectedItemAtom: Atom<boolean>;             // true if there is a selected item
-    scrollTo: number;                               // nun: index of selected item to scroll when view rendered. Do later or never.
-    focusGridAtom: PrimitiveAtom<boolean>;          // true if grid should be focused, and reset after focus set by grid
+    selectedItemAtom: PrimitiveAtom<FceItem | undefined>; // Used for dialog close, scroll to, props editor, add and delete operations.
+    hasSelectedItemAtom: Atom<boolean>;             // True if there is a selected item
+    scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
+    focusGridAtom: PrimitiveAtom<boolean>;          // True if grid should be focused, and reset after focus set by grid.
     
     showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
