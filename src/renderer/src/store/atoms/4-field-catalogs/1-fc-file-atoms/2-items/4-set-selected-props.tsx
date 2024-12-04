@@ -10,7 +10,7 @@ type Props = {
     set: Setter;
 };
 
-const emptyValueLife = createEmptyValueLife({ fType: FieldTyp.edit }); // This should be changed since it is hidden
+const emptyValueLife = createEmptyValueLife({ fType: FieldTyp.edit }); // This should not be changed since UI will be hidden
 
 export function setSelectedProps({ fceCtx, selectedItem, get, set }: Props) {
     const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;

@@ -1,6 +1,6 @@
 import { type Atom, atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
-import { setSelectedProps } from "./4-update-selected-props";
+import { setSelectedProps } from "./4-set-selected-props";
 
 /**
  * Select item by index
