@@ -4,6 +4,12 @@ grid grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max
 text-foreground \
 rounded-sm";
 
+const headerClasses = "\
+mb-2 px-1 text-[.65rem] truncate \
+text-muted-foreground border-mani-muted-foreground \
+border-b \
+select-none";
+
 const rowColumns = [
     ['Type',                /**/ 'Type of field'],
     ['Use it',              /**/ 'Use this field or not'],
@@ -12,12 +18,6 @@ const rowColumns = [
     ['Shared ID (Catalog)', /**/ 'The Shared ID determines whether the value\nwill be shared through the field catalog'],
     ['Policy',              /**/ 'Password policy for the field'],
 ];
-
-const headerClasses = "\
-mb-2 px-1 text-[.65rem] truncate \
-text-muted-foreground border-mani-muted-foreground \
-border-b \
-select-none";
 
 export function TableHeader() {
     return (<>
