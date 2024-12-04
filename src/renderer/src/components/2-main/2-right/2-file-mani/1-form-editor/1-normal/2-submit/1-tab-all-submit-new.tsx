@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
     const isWeb = ctx.nAllAtoms.normal.submitCtx.isWeb;
     return (
-        <div className="ml-1 p-1 flex items-center gap-1">
+        <div className="ml-1 p-1 flex items-center gap-1 select-none">
             {isWeb
                 ? (<>
                     After filling in the form fields,
