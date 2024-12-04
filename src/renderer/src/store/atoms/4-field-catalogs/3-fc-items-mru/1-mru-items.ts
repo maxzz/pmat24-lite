@@ -56,7 +56,7 @@ function deleteMruWItem(mru: FceItem[], delItem: FceItem): FceItem[] {
     return mru.filter((item) => item.fceMeta.uuid !== delItem.fceMeta.uuid);
 }
 
-function buildMruWItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {
+function buildMruWithItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {
     let rv = mru;
     if (item) {
         rv = deleteMruWItem(mru, item);
@@ -71,11 +71,11 @@ export const getMruFldCatForItemAtom = atom(
         function fn(isPsw: boolean | undefined, dbname: string | undefined) {
             const fceItem = get(fldCatItemAtom)(dbname);
             
-            let catalogItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
-            catalogItemsByType = buildMruWItem(catalogItemsByType, fceItem);
+            const mruItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
+            const mruItemsByType2 = buildMruWithItem(mruItemsByType, fceItem);
 
             return {
-                catalogItemsByType,
+                catalogItemsByType: mruItemsByType2,
                 catalogItem: fceItem,
             };
         }
