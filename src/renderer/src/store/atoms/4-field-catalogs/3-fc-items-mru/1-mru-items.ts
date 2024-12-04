@@ -41,6 +41,23 @@ function findFceItem(items: FceItem[], dbid: string): FceItem | undefined {
 }
 
 //*********************************************************************************
+// utilities MRU
+
+function deleteMruWItem(mru: FceItem[], delItem: FceItem): FceItem[] {
+    return mru.filter((item) => item.fceMeta.uuid !== delItem.fceMeta.uuid);
+}
+
+function buildMruWithItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {
+    let rv = mru;
+    if (item) {
+        rv = deleteMruWItem(mru, item);
+        rv.unshift(item);
+        rv = rv.slice(0, mruSize);
+    }
+    return rv;
+}
+
+//*********************************************************************************
 // MRU - most recently used items
 
 const mruSize = 7;
@@ -62,20 +79,6 @@ const mruFldCatPswItemsAtom = atom(
         return all;
     },
 );
-
-function deleteMruWItem(mru: FceItem[], delItem: FceItem): FceItem[] {
-    return mru.filter((item) => item.fceMeta.uuid !== delItem.fceMeta.uuid);
-}
-
-function buildMruWithItem(mru: FceItem[], item: FceItem | undefined): FceItem[] {
-    let rv = mru;
-    if (item) {
-        rv = deleteMruWItem(mru, item);
-        rv.unshift(item);
-        rv.length > mruSize && rv.pop();
-    }
-    return rv;
-}
 
 type MruForFcItemResult = {
     catalogItemsByType: FceItem[];
