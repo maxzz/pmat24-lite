@@ -1,5 +1,5 @@
-import { atom } from "jotai";
-import { type FceItem } from "../9-types/1-types-fce-atoms";
+import { type Atom, atom } from "jotai";
+import { type FceCtx, type FceItem } from "../9-types/1-types-fce-atoms";
 import { FieldTyp } from "@/store/manifest";
 
 //*********************************************************************************
@@ -84,3 +84,12 @@ export const getMruFldCatForItemAtom = atom(
 );
 
 //*********************************************************************************
+
+// export const createScopedMruAtom = (fceCtx: FceCtx): Atom<boolean> => {
+//     return atom(
+//         (get) => {
+//             const selectedItem = get(fceCtx.selectedItemAtom);
+//             return !!selectedItem;
+//         }
+//     );
+// };
