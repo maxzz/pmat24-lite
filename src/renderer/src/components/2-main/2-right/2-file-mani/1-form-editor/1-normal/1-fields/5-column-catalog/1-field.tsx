@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgOut, getMruFldCatForItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
+import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
@@ -37,7 +37,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, ...rest } = props;
 
-    const { catalogItemsByType, catalogItem, } = useAtomValue(getMruFldCatForItemAtom)(maniIsPassword, maniDbName);
+    const { catalogItemsByType, catalogItem, } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
     const dropdownItems = [CATALOG_Not, ...catalogItemsByType.map((item) => item.fieldValue.displayname)];
 

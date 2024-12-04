@@ -22,12 +22,16 @@ const fldCatItemsAtom = atom<FceItem[]>([]); // Should not be used anymore
 /*export*/ const fldCatItemAtom = atom(
     (get) => (dbid: string | undefined) => {
         if (dbid) {
-            const all = get(fldCatItemsAtom);
-            const rv = all.find((item) => item.fieldValue.dbname === dbid);
-            return rv;
+            const items = get(fldCatItemsAtom);
+            return findFceItem(items, dbid);
         }
     }
 );
+
+function findFceItem(items: FceItem[], dbid: string): FceItem | undefined {
+    const rv = items.find((item) => item.fieldValue.dbname === dbid);
+    return rv;
+}
 
 //*********************************************************************************
 // MRU - most recently used items
@@ -66,11 +70,16 @@ function buildMruWithItem(mru: FceItem[], item: FceItem | undefined): FceItem[] 
     return rv;
 }
 
-export const getMruFldCatForItemAtom = atom(
+type MruForFcItemResult = {
+    catalogItemsByType: FceItem[];
+    catalogItem: FceItem | undefined;
+};
+
+export const getMruForFcItemAtom = atom(
     (get) => {
-        function fn(isPsw: boolean | undefined, dbname: string | undefined) {
+        function fn(isPsw: boolean | undefined, dbname: string | undefined): MruForFcItemResult {
             const fceItem = get(fldCatItemAtom)(dbname);
-            
+
             const mruItemsByType = get(isPsw ? mruFldCatPswItemsAtom : mruFldCatTxtItemsAtom);
             const mruItemsByType2 = buildMruWithItem(mruItemsByType, fceItem);
 
@@ -85,11 +94,11 @@ export const getMruFldCatForItemAtom = atom(
 
 //*********************************************************************************
 
-// export const createScopedMruAtom = (fceCtx: FceCtx): Atom<boolean> => {
-//     return atom(
-//         (get) => {
-//             const selectedItem = get(fceCtx.selectedItemAtom);
-//             return !!selectedItem;
-//         }
-//     );
-// };
+export const createMruScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
+    return atom(
+        (get) => {
+            const selectedItem = get(fceCtx.selectedItemAtom);
+            return !!selectedItem;
+        }
+    );
+};

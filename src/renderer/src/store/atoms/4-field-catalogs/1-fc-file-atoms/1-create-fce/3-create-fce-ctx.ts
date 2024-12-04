@@ -4,7 +4,7 @@ import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAt
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
-import { createEmptyFceFilterOptions, createHasSelectedItemAtom, filterFceItems } from "../2-items";
+import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -47,7 +47,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     };
 
     const rv: FceCtx = rv0 as FceCtx;
-    rv.hasSelectedItemAtom = createHasSelectedItemAtom(rv);
+    rv.hasSelectedItemAtom = createHasSelectedScopedAtom(rv);
 
     return rv;
 }

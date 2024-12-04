@@ -56,7 +56,7 @@ export const doSetInitSelectedIdxAtom = atom(null,
 /**
  * Has selected 
  */
-export const createHasSelectedItemAtom = (fceCtx: FceCtx): Atom<boolean> => {
+export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
     return atom(
         (get) => {
             const selectedItem = get(fceCtx.selectedItemAtom);
