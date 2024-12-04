@@ -5,7 +5,7 @@ import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
 export type FceItemEditor = {
-    selectedView: boolean;
+    isSelectedInView: boolean;
     selectedDlg: boolean;
 };
 
