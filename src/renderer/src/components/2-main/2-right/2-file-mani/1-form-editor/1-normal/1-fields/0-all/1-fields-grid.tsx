@@ -30,12 +30,12 @@ function NoFields({ formType }: { formType: FormIdx; }) {
 
     const label =
         formType === FormIdx.login
-            ? "No login form"
-            : "No password change form";
+            ? "There are no login fields"
+            : "There are no password change fields";
 
     return (
-        <div className="px-4 text-xs text-mani-title/30 select-none">
-            {label}
+        <div className="p-2 text-xs text-mani-title/30 select-none">
+            {label}.
         </div>
     );
 }
