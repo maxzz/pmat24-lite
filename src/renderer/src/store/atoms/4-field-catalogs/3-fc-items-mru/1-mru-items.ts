@@ -9,17 +9,17 @@ const fldCatItemsAtom = atom<FceItem[]>([]); // Should not be used anymore
 
 // Field catalog items split into text and password items
 
-export const fldCatTxtItemsAtom = atom<FceItem[]>(
+/*export*/ const fldCatTxtItemsAtom = atom<FceItem[]>(
     (get) => get(fldCatItemsAtom).filter((item) => item.fieldValue.fType === FieldTyp.edit),
 );
 
-export const fldCatPswItemsAtom = atom<FceItem[]>(
+/*export*/ const fldCatPswItemsAtom = atom<FceItem[]>(
     (get) => get(fldCatItemsAtom).filter((item) => item.fieldValue.fType === FieldTyp.psw),
 );
 
 // Field catalog item by dbname
 
-export const fldCatItemAtom = atom(
+/*export*/ const fldCatItemAtom = atom(
     (get) => (dbid: string | undefined) => {
         if (dbid) {
             const all = get(fldCatItemsAtom);
