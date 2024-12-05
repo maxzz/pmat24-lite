@@ -5,6 +5,8 @@ import { type OnChangeValueWithUpdateName } from "@/ui";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
+import { create } from "domain";
+import { createMruScopedAtom } from "../../3-fc-items-mru";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -28,7 +30,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     const filterAtom = atom(createEmptyFceFilterOptions());
     const shownAtom = createShownAtom(filterAtom, fceAtoms.allAtom);
 
-    const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
+    const rv0: Omit<FceCtx, 'hasSelectedItemAtom' | 'txtAtom' | 'pswAtom'> = {
         inData,
         fceAtoms,
         isDlgCtx: !!inData,
@@ -48,6 +50,8 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
 
     const rv: FceCtx = rv0 as FceCtx;
     rv.hasSelectedItemAtom = createHasSelectedScopedAtom(rv);
+    rv.txtAtom = createMruScopedAtom(rv, true);
+    rv.pswAtom = createMruScopedAtom(rv, false);
 
     return rv;
 }
