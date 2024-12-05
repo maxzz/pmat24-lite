@@ -45,7 +45,7 @@ export type FceFilterOptions = {
 };
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
-    descAtom: PrimitiveAtom<string>;                // Field catalog descriptor. i.e. id from CatalogFile.Descriptor
+    aboutAtom: PrimitiveAtom<string>;               // Field catalog descriptor. i.e. id from CatalogFile.Descriptor
     allAtom: PrimitiveAtom<FceItem[]>;              // All field catalog items from file
 };
 
@@ -71,8 +71,10 @@ export type FceCtx = {                              // Field Catalog Editor cont
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // True if grid should be focused, and reset after focus set by grid.
     
-    showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
+    showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
+    txtAtom: Atom<FceItem[]>;                       // readonly: field catalog text items for MRU
+    pswAtom: Atom<FceItem[]>;                       // readonly: field catalog password items for MRU
     
     fcePropAtoms: FcePropAtoms;
 

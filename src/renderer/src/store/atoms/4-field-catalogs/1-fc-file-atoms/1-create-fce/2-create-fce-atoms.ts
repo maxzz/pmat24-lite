@@ -71,7 +71,7 @@ type CreateFceAtomsProps = {
 function createFceAtoms({ fileUs, desc, items }: CreateFceAtomsProps): FceAtoms {
     const rv: Omit<FceAtoms, 'viewFceCtx'> = {
         fileUs,
-        descAtom: atom<string>(desc?.id || ''),
+        aboutAtom: atom<string>(desc?.id || ''),
         allAtom: atom<FceItem[]>(items || []),
     };
 
