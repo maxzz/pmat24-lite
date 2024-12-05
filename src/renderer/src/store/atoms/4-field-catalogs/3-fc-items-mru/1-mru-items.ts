@@ -110,7 +110,8 @@ export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceIte
         (get) => {
             const items = get(fceCtx.fceAtoms.allAtom);
             const byType = getFceItemsByType(items, isPsw ? FieldTyp.psw : FieldTyp.edit);
-            return byType;
+            const rv = byType.sort((a, b) => a.fceMeta.mru - b.fceMeta.mru).slice(0, mruSize);
+            return rv;
         }
     );
     return rv;
