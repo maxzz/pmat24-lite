@@ -36,8 +36,12 @@ function getFceItemsByType(items: FceItem[], fType: FieldTyp): FceItem[] {
 }
 
 function findFceItem(items: FceItem[], dbid: string): FceItem | undefined {
-    const rv = items.find((item) => item.fieldValue.dbname === dbid);
-    return rv;
+    return items.find((item) => item.fieldValue.dbname === dbid);
+}
+
+function mruToString(items: FceItem[]) {
+    return JSON.stringify(items.map((item) => `${JSON.stringify(item)}\n`), null, 4);
+    //console.log('buildMruWItem', `\n${JSON.stringify(item)}\n\n`, mruToString(rv));
 }
 
 //*********************************************************************************
@@ -113,7 +117,7 @@ export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceIte
 
             const rv = items
                 .filter((item) => item.fieldValue.fType === fType)
-                .sort((a, b) => a.fceMeta.mru - b.fceMeta.mru)
+                .sort((a, b) => b.fceMeta.mru - a.fceMeta.mru) // descending i.e. latest date first
                 .slice(0, mruSize); // reverse // assign MRU backwards to have them initially first as latest
 
             return rv;
