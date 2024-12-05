@@ -103,12 +103,15 @@ export const getMruForFcItemAtom = atom(
 );
 
 //*********************************************************************************
+// New MRU
 
-export const createMruScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
-    return atom(
+export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceItem[]> => {
+    const rv = atom(
         (get) => {
-            const selectedItem = get(fceCtx.selectedItemAtom);
-            return !!selectedItem;
+            const items = get(fceCtx.fceAtoms.allAtom);
+            const byType = getFceItemsByType(items, isPsw ? FieldTyp.psw : FieldTyp.edit);
+            return byType;
         }
     );
+    return rv;
 };
