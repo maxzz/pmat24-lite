@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type FceItem } from "../9-types";
+import { getRootFceAtoms } from "../1-fc-file-atoms";
 
 export const txtMruAtom = atom<FceItem[]>([]);
 export const pswMruAtom = atom<FceItem[]>([]);
@@ -19,10 +20,15 @@ function buildMruList(mru: FceItem[], doPsw: boolean): FceItem[] {
 }
 
 export const doInitMruAtom = atom(null,
-    (get, set, { mru }: { mru: FceItem[]; }) => {
+    (get, set) => {
 
-        const txtItems = buildMruList(mru, false);
-        const pswItems = buildMruList(mru, true);
+        const all = get(getRootFceAtoms().allAtom);
+
+        const txtItems = buildMruList(all, false);
+        const pswItems = buildMruList(all, true);
+
+        console.log('txtItems', txtItems);
+        console.log('pswItems', pswItems);
 
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);

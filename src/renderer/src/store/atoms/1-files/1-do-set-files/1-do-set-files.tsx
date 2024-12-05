@@ -5,7 +5,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
-import { assignFceAtoms, setRootFcFileUs } from "../../4-field-catalogs";
+import { assignFceAtoms, doInitMruAtom, setRootFcFileUs } from "../../4-field-catalogs";
 import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { toast } from "sonner";
@@ -93,8 +93,8 @@ export const doSetDeliveredFilesAtom = atom(
 
         sortFileUsItemsInPlace(fileUsItems);
 
-        // fceRoots.entries = createFldCatRoots(fileUsItems);
         assignFceAtoms(fileUsItems); //TODO: and update conters if empty field catalog was created
+        set(doInitMruAtom);
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);
