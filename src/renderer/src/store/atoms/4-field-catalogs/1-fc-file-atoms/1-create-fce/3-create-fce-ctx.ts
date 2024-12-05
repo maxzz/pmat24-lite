@@ -6,7 +6,7 @@ import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
 import { create } from "domain";
-import { createMruScopedAtom } from "../../3-fc-items-mru";
+import { createMruScopedAtom } from "../../3-fc-mru";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;

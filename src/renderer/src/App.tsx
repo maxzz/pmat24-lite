@@ -29,3 +29,5 @@ export function App(): JSX.Element {
 //TODO: add feature to rename files with/without domain name prefix as PMIT does
 
 //TODO: we need global toast ID to clean previous toast. This happens when we show toast and drop files but toast is still visible. see TestOpenFieldCatalog
+
+//TODO: save pictures previews in separate folder

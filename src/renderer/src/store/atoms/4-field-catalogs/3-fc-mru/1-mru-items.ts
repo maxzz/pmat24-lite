@@ -114,7 +114,7 @@ export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceIte
             const rv = items
                 .filter((item) => item.fieldValue.fType === fType)
                 .sort((a, b) => a.fceMeta.mru - b.fceMeta.mru)
-                .slice(0, mruSize);
+                .slice(0, mruSize); // reverse // assign MRU backwards to have them initially first as latest
 
             return rv;
         }
