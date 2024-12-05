@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type FceItem } from "../9-types";
-import { getRootFceAtoms } from "../1-fc-file-atoms";
+import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
 
 export const txtMruAtom = atom<FceItem[]>([]);
 export const pswMruAtom = atom<FceItem[]>([]);
@@ -21,6 +21,11 @@ function buildMruList(mru: FceItem[], doPsw: boolean): FceItem[] {
 
 export const doInitMruAtom = atom(null,
     (get, set) => {
+        if (!hasRootFceAtoms()) {
+            set(txtMruAtom, []);
+            set(pswMruAtom, []);
+            return;
+        }
 
         const all = get(getRootFceAtoms().allAtom);
 
@@ -36,9 +41,9 @@ export const doInitMruAtom = atom(null,
 );
 
 export const doAddMruItemAtom = atom(null,
-    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem }) => {
+    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem; }) => {
         const doPsw = item.fieldValue.fType === FieldTyp.psw;
-        
+
         let newItems = doPsw ? get(pswMruAtom) : get(txtMruAtom);
         newItems.unshift(item);
         newItems = newItems.slice(0, mruSize);
@@ -48,9 +53,9 @@ export const doAddMruItemAtom = atom(null,
 );
 
 export const doDeleteMruItemAtom = atom(null,
-    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem }) => {
+    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem; }) => {
         const doPsw = item.fieldValue.fType === FieldTyp.psw;
-        
+
         let newItems = doPsw ? get(pswMruAtom) : get(txtMruAtom);
         newItems = newItems.filter((item) => item.fceMeta.uuid !== item.fceMeta.uuid);
 

@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { filesAtom } from "../0-files-atom";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
@@ -50,7 +50,7 @@ export const doSetDeliveredFilesAtom = atom(
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
         set(rightPanelAtom, undefined);
-        setRootFcFileUs(undefined);
+        updateRootFc(undefined, get, set);
         set(doDiscardAllFilesFileUsLinksAtom);
 
         totalManis.normal = 0;
@@ -93,8 +93,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         sortFileUsItemsInPlace(fileUsItems);
 
-        assignFceAtoms(fileUsItems); //TODO: and update conters if empty field catalog was created
-        set(doInitMruAtom);
+        updateRootFc(undefined, get, set);
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);
@@ -106,6 +105,15 @@ export const doSetDeliveredFilesAtom = atom(
         busyIndicator.msg = '';
     }
 );
+
+function updateRootFc(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
+    if (fileUs) {
+        assignFceAtoms(fileUs); //TODO: and update conters if empty field catalog was created
+    } else {
+        setRootFcFileUs(undefined);
+    }
+    set(doInitMruAtom);
+}
 
 function sortFileUsItemsInPlace(items: FileUs[]) {
     // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
