@@ -108,11 +108,18 @@ export const getMruForFcItemAtom = atom(
 export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceItem[]> => {
     const rv = atom(
         (get) => {
+            const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
             const items = get(fceCtx.fceAtoms.allAtom);
-            const byType = getFceItemsByType(items, isPsw ? FieldTyp.psw : FieldTyp.edit);
-            const rv = byType.sort((a, b) => a.fceMeta.mru - b.fceMeta.mru).slice(0, mruSize);
+
+            const rv = items
+                .filter((item) => item.fieldValue.fType === fType)
+                .sort((a, b) => a.fceMeta.mru - b.fceMeta.mru)
+                .slice(0, mruSize);
+
             return rv;
         }
     );
     return rv;
 };
+
+//TODO: fceMeta.mru should be atom defined outside manifest library, so it will be reactive to track changes in createMruScopedAtom
