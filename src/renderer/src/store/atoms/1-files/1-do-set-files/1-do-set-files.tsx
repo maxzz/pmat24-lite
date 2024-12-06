@@ -1,13 +1,13 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { filesAtom } from "../0-files-atom";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
-import { assignFceAtoms, doInitMruAtom, setRootFcFileUs } from "../../4-field-catalogs";
-import { rightPanelAtom } from "../../2-right-panel";
 import { busyIndicator, totalManis } from "../../9-ui-state";
+import { rightPanelAtom } from "../../2-right-panel";
+import { updateRootFc } from "../../4-field-catalogs";
 import { toast } from "sonner";
 
 /**
@@ -93,7 +93,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         sortFileUsItemsInPlace(fileUsItems);
 
-        updateRootFc(undefined, get, set);
+        updateRootFc(fileUsItems, get, set);
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);
@@ -105,15 +105,6 @@ export const doSetDeliveredFilesAtom = atom(
         busyIndicator.msg = '';
     }
 );
-
-function updateRootFc(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
-    if (fileUs) {
-        assignFceAtoms(fileUs); //TODO: and update conters if empty field catalog was created
-    } else {
-        setRootFcFileUs(undefined);
-    }
-    set(doInitMruAtom);
-}
 
 function sortFileUsItemsInPlace(items: FileUs[]) {
     // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
