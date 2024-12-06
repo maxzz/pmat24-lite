@@ -4,6 +4,8 @@ import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
+// FceItem
+
 export type FceItemValue = Prettify<
     & {
         displayname: string;
@@ -25,12 +27,11 @@ export type FceItemMeta = Prettify<
     }
 >;
 
-// export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
-    fieldValue: FceItemValue;                       // current value for editing
-    beforeEdit: FceItemValue;                       // value before editing
+    fieldValue: FceItemValue;                       // reactive valtio proxy: current value for editing
+    beforeEdit: FceItemValue;                       // non-reactive: value before editing
     fceMeta: FceItemMeta;                           // metadata
-    editor: FceItemEditor;                          // reactive valtio proxy editor state
+    editor: FceItemEditor;                          // reactive valtio proxy: editor state
 };
 
 // FceAtoms

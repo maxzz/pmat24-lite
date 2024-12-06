@@ -1,11 +1,11 @@
 import { atom } from "jotai";
-import { filesAtom } from "../0-files-atom";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { isEmpty, isManual } from "@/store/manifest";
 import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
+import { filesAtom } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
 import { updateRootFc } from "../../4-field-catalogs";
 import { toast } from "sonner";
@@ -49,6 +49,7 @@ export const doSetDeliveredFilesAtom = atom(
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
+        
         set(rightPanelAtom, undefined);
         updateRootFc(undefined, get, set);
         set(doDiscardAllFilesFileUsLinksAtom);
@@ -60,39 +61,37 @@ export const doSetDeliveredFilesAtom = atom(
 
         const unsupported: FileUs[] = [];
 
-        const fileUsItems: FileUs[] =
-            deliveredFileContents
-                .filter((file) => file.size)
-                .map(
-                    (deliveredFileContent: FileContent) => {
-                        const newFileUs = createFileUsFromFileContent(deliveredFileContent);
+        const fileUsItems: FileUs[] = deliveredFileContents
+            .filter((file) => file.size)
+            .map(
+                (deliveredFileContent: FileContent) => {
+                    const newFileUs = createFileUsFromFileContent(deliveredFileContent);
 
-                        if (newFileUs.parsedSrc.fcat) {
-                            totalManis.fc++;
-                        } else if (isEmpty(newFileUs.parsedSrc.meta)) {
-                            totalManis.empty++;
-                        } else if (isManual(newFileUs.parsedSrc.meta)) {
-                            totalManis.manual++;
-                        } else {
-                            totalManis.normal++;
-                        }
+                    if (newFileUs.parsedSrc.fcat) {
+                        totalManis.fc++;
+                    } else if (isEmpty(newFileUs.parsedSrc.meta)) {
+                        totalManis.empty++;
+                    } else if (isManual(newFileUs.parsedSrc.meta)) {
+                        totalManis.manual++;
+                    } else {
+                        totalManis.normal++;
+                    }
 
-                        return newFileUs;
+                    return newFileUs;
+                }
+            )
+            .filter(
+                (fileUs) => {
+                    const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
+                    if (notUs) {
+                        fileUs.fileCnt.failed && console.error(fileUs.fileCnt.raw);
+                        unsupported.push(fileUs);
                     }
-                )
-                .filter(
-                    (fileUs) => {
-                        const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
-                        if (notUs) {
-                            fileUs.fileCnt.failed && console.error(fileUs.fileCnt.raw);
-                            unsupported.push(fileUs);
-                        }
-                        return !notUs;
-                    }
-                );
+                    return !notUs;
+                }
+            );
 
         sortFileUsItemsInPlace(fileUsItems);
-
         updateRootFc(fileUsItems, get, set);
 
         if (unsupported.length) {
@@ -107,8 +106,7 @@ export const doSetDeliveredFilesAtom = atom(
 );
 
 function sortFileUsItemsInPlace(items: FileUs[]) {
-    // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
-    items.sort(
+    items.sort( // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
         (a, b) => {
             if (a.parsedSrc.fcat && !b.parsedSrc.fcat) return 1;
             if (!a.parsedSrc.fcat && b.parsedSrc.fcat) return -1;
@@ -116,7 +114,6 @@ function sortFileUsItemsInPlace(items: FileUs[]) {
             return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
         }
     );
-
     items.forEach(
         (fileUs, idx) => fileUs.fileCnt.idx = idx
     );
