@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type FceItem } from "../9-types";
 import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
@@ -8,12 +8,12 @@ export const pswMruAtom = atom<FceItem[]>([]);
 
 const mruSize = 7;
 
-function buildMruList(mru: FceItem[], doPsw: boolean): FceItem[] {
+function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter): FceItem[] {
     const fType = doPsw ? FieldTyp.psw : FieldTyp.edit;
 
     const rv = mru
         .filter((item) => item.fieldValue.fType === fType)
-        .sort((a, b) => b.fceMeta.mru - a.fceMeta.mru) // descending i.e. latest date first
+        .sort((a, b) => get(b.fceMeta.mruAtom) - get(a.fceMeta.mruAtom)) // descending i.e. latest date first
         .slice(0, mruSize); // reverse // assign MRU backwards to have them initially first as latest
 
     return rv;
@@ -29,8 +29,8 @@ export const doInitMruAtom = atom(null,
 
         const all = get(getRootFceAtoms().allAtom);
 
-        const txtItems = buildMruList(all, false);
-        const pswItems = buildMruList(all, true);
+        const txtItems = buildMruList(all, false, get, set);
+        const pswItems = buildMruList(all, true, get, set);
 
         console.log('txtItems', txtItems);
         console.log('pswItems', pswItems);

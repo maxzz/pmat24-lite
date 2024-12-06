@@ -54,7 +54,7 @@ function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
             const rv: FceItem = {
                 fieldValue: proxy<FceItemValue>({ ...beforeEdit }),
                 beforeEdit,
-                fceMeta: { index, uuid: uuId, mru },
+                fceMeta: { index, uuid: uuId, mruAtom: atom(mru) },
                 editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInDlg: false, }),
             };
             return rv;
