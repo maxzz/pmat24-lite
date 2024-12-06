@@ -1,15 +1,6 @@
 import { FieldTyp } from "@/store/manifest";
 import { type FceFilterOptions, type FceItem } from "../../9-types";
 
-export function createEmptyFceFilterOptions(): FceFilterOptions {
-    return {
-        search: '',
-        showText: true,
-        showPassword: true,
-        ascending: undefined,
-    };
-}
-
 export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
     const { search, showText, showPassword, ascending } = filterOptions;
 
@@ -45,6 +36,15 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
     }
 
     return filteredItems;
+}
+
+export function createEmptyFceFilterOptions(): FceFilterOptions {
+    return {
+        search: '',
+        showText: true,
+        showPassword: true,
+        ascending: undefined,
+    };
 }
 
 // const filteredItemsAtom = atom(
