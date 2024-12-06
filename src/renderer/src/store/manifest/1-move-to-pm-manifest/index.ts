@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { type FceItemEditor, type FceItem, type FceItemValue } from "@/store/atoms";
+import { type FceItemEditor, type FceItem, type FceItemValue, FceItemMeta } from "@/store/atoms";
 import { createGuid, FieldTyp, startTime, uuid, ValueAs, type ValueLife } from "pm-manifest";
 
 export function createEmptyValueLife({ fType }: { fType: FieldTyp; }): ValueLife {
@@ -26,19 +26,22 @@ export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
  * Name and index should be set by caller.
  */
 export function createEmptyFceItem(fType: FieldTyp): FceItem {
-    const mru = uuid.asNumber();
-    const now = mru - startTime
-
     const beforeEdit = createEmptyFceItemValue(fType);
     return {
         fieldValue: proxy({ ...beforeEdit }),
         beforeEdit: beforeEdit,
-        fceMeta: {
-            index: 0,
-            uuid: now,
-            mruAtom: atom(mru),
-        },
+        fceMeta: createFceItemMeta(0),
         editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInDlg: false, }),
+    };
+}
+
+export function createFceItemMeta(index: number): FceItemMeta {
+    const mru = uuid.asNumber();
+    const now = mru - startTime
+    return {
+        index,
+        uuid: now,
+        mruAtom: atom(mru),
     };
 }
 

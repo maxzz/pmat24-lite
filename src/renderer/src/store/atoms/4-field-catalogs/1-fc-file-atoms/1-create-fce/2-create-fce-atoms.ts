@@ -4,7 +4,7 @@ import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue } from "../../9-types";
-import { type CatalogFile, startTime, uuid } from "@/store/manifest";
+import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
 import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
@@ -48,13 +48,11 @@ export function assignFceAtomsToFileUs(fileUs: FileUs) {
 function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
     const rv: FceItem[] = items.map(
         (item, index) => {
-            const mru = uuid.asNumber();
-            const uuId = mru - startTime;
             const beforeEdit = catalogItemInFileToFceItemValue(item);
             const rv: FceItem = {
                 fieldValue: proxy<FceItemValue>({ ...beforeEdit }),
                 beforeEdit,
-                fceMeta: { index, uuid: uuId, mruAtom: atom(mru) },
+                fceMeta: createFceItemMeta(index),
                 editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInDlg: false, }),
             };
             return rv;
