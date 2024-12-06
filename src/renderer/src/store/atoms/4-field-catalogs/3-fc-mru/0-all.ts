@@ -21,6 +21,7 @@ function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter):
 
 export const doInitMruAtom = atom(null,
     (get, set) => {
+
         if (!hasRootFceAtoms()) {
             set(txtMruAtom, []);
             set(pswMruAtom, []);
@@ -41,7 +42,7 @@ export const doInitMruAtom = atom(null,
 );
 
 export const doAddMruItemAtom = atom(null,
-    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem; }) => {
+    (get, set, { item }: { item: FceItem; }) => {
         const doPsw = item.fieldValue.fType === FieldTyp.psw;
 
         let newItems = doPsw ? get(pswMruAtom) : get(txtMruAtom);
@@ -53,7 +54,7 @@ export const doAddMruItemAtom = atom(null,
 );
 
 export const doDeleteMruItemAtom = atom(null,
-    (get, set, { mru, item }: { mru: FceItem[]; item: FceItem; }) => {
+    (get, set, { item }: { item: FceItem; }) => {
         const doPsw = item.fieldValue.fType === FieldTyp.psw;
 
         let newItems = doPsw ? get(pswMruAtom) : get(txtMruAtom);
@@ -62,3 +63,9 @@ export const doDeleteMruItemAtom = atom(null,
         set(doPsw ? pswMruAtom : txtMruAtom, newItems);
     }
 );
+
+//
+
+export function findFceItem(items: FceItem[], dbid: string | undefined): FceItem | undefined {
+    return items.find((item) => item.fieldValue.dbname === dbid);
+}
