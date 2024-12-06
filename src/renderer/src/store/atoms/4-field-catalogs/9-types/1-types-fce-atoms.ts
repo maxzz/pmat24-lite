@@ -81,8 +81,6 @@ export type FceCtx = {                              // Field Catalog Editor cont
 
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
     showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
-    txtAtom: Atom<FceItem[]>;                       // readonly: field catalog text items for MRU
-    pswAtom: Atom<FceItem[]>;                       // readonly: field catalog password items for MRU
 
     fcePropAtoms: FcePropAtoms;
 

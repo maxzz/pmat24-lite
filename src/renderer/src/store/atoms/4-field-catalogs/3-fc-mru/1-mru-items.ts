@@ -109,7 +109,7 @@ export const getMruForFcItemAtom = atom(
 //*********************************************************************************
 // New MRU
 
-export const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceItem[]> => {
+const createMruScopedAtom = (fceCtx: FceCtx, isPsw: boolean): Atom<FceItem[]> => {
     const rv = atom(
         (get) => {
             const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;

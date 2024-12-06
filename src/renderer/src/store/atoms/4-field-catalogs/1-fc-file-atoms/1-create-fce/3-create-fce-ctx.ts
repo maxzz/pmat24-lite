@@ -1,12 +1,10 @@
-import { Atom, atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
+import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
-import { create } from "domain";
-import { createMruScopedAtom } from "../../3-fc-mru";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -30,7 +28,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     const filterAtom = atom(createEmptyFceFilterOptions());
     const shownAtom = createShownAtom(filterAtom, fceAtoms.allAtom);
 
-    const rv0: Omit<FceCtx, 'hasSelectedItemAtom' | 'txtAtom' | 'pswAtom'> = {
+    const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
         fceAtoms,
         isDlgCtx: !!inData,
@@ -50,8 +48,6 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
 
     const rv: FceCtx = rv0 as FceCtx;
     rv.hasSelectedItemAtom = createHasSelectedScopedAtom(rv);
-    rv.txtAtom = createMruScopedAtom(rv, true);
-    rv.pswAtom = createMruScopedAtom(rv, false);
 
     return rv;
 }
