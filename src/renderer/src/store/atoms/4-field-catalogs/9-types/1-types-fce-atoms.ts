@@ -4,11 +4,6 @@ import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
 import { type OnValueChangeParams } from "@/util-hooks";
 
-export type FceItemEditor = {
-    isSelectedInView: boolean;
-    isSelectedInDlg: boolean;
-};
-
 export type FceItemValue = Prettify<
     & {
         displayname: string;
@@ -18,12 +13,24 @@ export type FceItemValue = Prettify<
     & ValueLife
 >;
 
+export type FceItemEditor = {
+    isSelectedInView: boolean;
+    isSelectedInDlg: boolean;
+};
+
+export type FceItemMeta = Prettify<
+    & CatalogItemMeta
+    & {
+        mruAtom: PrimitiveAtom<number>;
+    }
+>;
+
 // export type FceItem = Omit<FceItem0, 'editor'> & {editor: FceItemEditor};
 export type FceItem = {
     fieldValue: FceItemValue;                       // current value for editing
     beforeEdit: FceItemValue;                       // value before editing
-    fceMeta: CatalogItemMeta;                      // metadata
-    editor: FceItemEditor;                         // editor state
+    fceMeta: FceItemMeta;                           // metadata
+    editor: FceItemEditor;                          // reactive valtio proxy editor state
 };
 
 // FceAtoms
@@ -64,18 +71,18 @@ export type FceCtx = {                              // Field Catalog Editor cont
     fceAtoms: FceAtoms;
     isDlgCtx: boolean;                              // True if this is a field catalog dialog context, not a field catalog view context
     isMaster: boolean;                              // True if this is a master field catalog
-    
+
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>; // Used for dialog close, scroll to, props editor, add and delete operations.
     hasSelectedItemAtom: Atom<boolean>;             // True if there is a selected item
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
     focusGridAtom: PrimitiveAtom<boolean>;          // True if grid should be focused, and reset after focus set by grid.
-    
+
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
     showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
     txtAtom: Atom<FceItem[]>;                       // readonly: field catalog text items for MRU
     pswAtom: Atom<FceItem[]>;                       // readonly: field catalog password items for MRU
-    
+
     fcePropAtoms: FcePropAtoms;
 
     onItemDoubleClick?: (item: FceItem) => void;
