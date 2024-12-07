@@ -1,21 +1,21 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
-import { setRootFcFileUs } from "./0-root-fce-atoms";
-import { assignFceAtomsToFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
+import { setRootFcFileUs } from "./0-root-fce";
+import { createFceAtomsInFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
 
-export function updateRootFc(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
+export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
     if (fileUs) {
-        assignFceAtoms(fileUs); //TODO: and update conters if empty field catalog was created
+        updateFceAtomsRefs(fileUs); //TODO: and update conters in all files if empty field catalog was created
     } else {
         setRootFcFileUs(undefined);
     }
     set(doInitMruAtom);
 }
 
-function assignFceAtoms(fileUsItems: FileUs[]): void {
+function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
 
     // 1. Find root field catalog
 
@@ -29,7 +29,7 @@ function assignFceAtoms(fileUsItems: FileUs[]): void {
                 const fpath = fileUs.fileCnt.fpath.toLowerCase();
                 const fname = fileUs.fileCnt.fname.toLowerCase();
 
-                assignFceAtomsToFileUs(fileUs);
+                createFceAtomsInFileUs(fileUs);
 
                 const isRoot = fname === defaultFcName && fpath === rootPath;
                 if (isRoot) {

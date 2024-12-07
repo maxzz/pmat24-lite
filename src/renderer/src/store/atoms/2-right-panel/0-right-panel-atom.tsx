@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "../3-file-mani-atoms";
+import { createFceAtomsInFileUs } from "../4-field-catalogs/1-fc-file-atoms/1-create-fce/2-create-fce-atoms";
 
 export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
 
@@ -37,7 +38,8 @@ export const doPreloadEditorCtxAtom = atom(null,
                 const maniAtoms = get(fileUs.maniAtomsAtom);
                 !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
             } else if (fileUs.parsedSrc.fcat) {
-                //TODO: preload fields catalogs as well
+                // preload fields catalogs as well
+                createFceAtomsInFileUs(fileUs);
             }
         }
     }

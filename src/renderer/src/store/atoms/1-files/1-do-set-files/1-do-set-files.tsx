@@ -7,7 +7,7 @@ import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { filesAtom } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
-import { updateRootFc } from "../../4-field-catalogs";
+import { assignFcRoot } from "../../4-field-catalogs";
 import { toast } from "sonner";
 
 /**
@@ -49,9 +49,9 @@ export const doSetDeliveredFilesAtom = atom(
             busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
             await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
-        
+
         set(rightPanelAtom, undefined);
-        updateRootFc(undefined, get, set);
+        assignFcRoot(undefined, get, set);
         set(doDiscardAllFilesFileUsLinksAtom);
 
         totalManis.normal = 0;
@@ -91,8 +91,8 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
+        assignFcRoot(fileUsItems, get, set);
         sortFileUsItemsInPlace(fileUsItems);
-        updateRootFc(fileUsItems, get, set);
 
         if (unsupported.length) {
             unsupportedMsg(unsupported);

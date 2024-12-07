@@ -33,16 +33,18 @@ export function createEmptyFceFileUs(): FileUs {
     return rv;
 }
 
-export function assignFceAtomsToFileUs(fileUs: FileUs) {
+export function createFceAtomsInFileUs(fileUs: FileUs): void {
     const fcat = fileUs.parsedSrc.fcat;
     if (!fcat) {
         throw new Error('This is not a field catalog file');
     }
 
-    const items: FceItem[] = finalizeFceItems(fcat.names);
-    const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
+    if (fileUs.parsedSrc.fcat && !fileUs.fceAtoms) {
+        const items: FceItem[] = finalizeFceItems(fcat.names);
+        const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
 
-    fileUs.fceAtoms = rv;
+        fileUs.fceAtoms = rv;
+    }
 }
 
 function finalizeFceItems(items: CatalogFile.ItemInFile[]): FceItem[] {
