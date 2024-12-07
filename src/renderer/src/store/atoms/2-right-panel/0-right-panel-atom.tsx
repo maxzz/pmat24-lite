@@ -8,22 +8,12 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }) => {
         const currentAtom = get(rightPanelAtom);
 
-        if (currentAtom === newAtom) { // tree selection trigger logic
+        if (currentAtom === newAtom) { // tree selection trigger logic is provided by the tree
             set(rightPanelAtom, undefined);
             return;
         }
 
-        // preload mani/fce atoms for the right panel item
-        // if (newAtom) {
-        //     const fileUs = get(newAtom);
-        //     const maniAtoms = get(fileUs.maniAtomsAtom);
-        //     if (fileUs.parsedSrc.mani && !maniAtoms) {
-        //         set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newAtom));
-        //     }
-        //     //TODO: preload fields catalogs as well
-        // }
         set(doPreloadEditorCtxAtom, newAtom);
-
         set(rightPanelAtom, newAtom);
     }
 );
@@ -42,11 +32,13 @@ export const doPreloadEditorCtxAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
         if (fileUsAtom) {
             const fileUs = get(fileUsAtom);
-            const maniAtoms = get(fileUs.maniAtomsAtom);
-            if (fileUs.parsedSrc.mani && !maniAtoms) {
-                set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
+
+            if (fileUs.parsedSrc.mani) {
+                const maniAtoms = get(fileUs.maniAtomsAtom);
+                !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
+            } else if (fileUs.parsedSrc.fcat) {
+                //TODO: preload fields catalogs as well
             }
-            //TODO: preload fields catalogs as well
         }
     }
 );
