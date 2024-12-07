@@ -102,6 +102,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 ...fldAtoms,
                 metaField: chunk.field,
                 fromFile: fieldForAtoms,
+                fromFc: undefined,
             };
 
             const rv: ManualFieldState.CtxFld = {

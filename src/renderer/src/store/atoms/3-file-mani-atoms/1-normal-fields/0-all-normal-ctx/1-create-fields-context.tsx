@@ -36,6 +36,7 @@ export namespace NormalFieldsState {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
+            fromFc: undefined,
         };
         return rv;
     }
