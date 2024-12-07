@@ -14,14 +14,15 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
         }
 
         // preload mani/fce atoms for the right panel item
-        if (newAtom) {
-            const fileUs = get(newAtom);
-            const maniAtoms = get(fileUs.maniAtomsAtom);
-            if (fileUs.parsedSrc.mani && !maniAtoms) {
-                set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newAtom));
-            }
-            //TODO: preload fields catalogs as well
-        }
+        // if (newAtom) {
+        //     const fileUs = get(newAtom);
+        //     const maniAtoms = get(fileUs.maniAtomsAtom);
+        //     if (fileUs.parsedSrc.mani && !maniAtoms) {
+        //         set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newAtom));
+        //     }
+        //     //TODO: preload fields catalogs as well
+        // }
+        set(doPreloadEditorCtxAtom, newAtom);
 
         set(rightPanelAtom, newAtom);
     }
@@ -32,4 +33,20 @@ export const fileUsOfRightPanelAtom = atom(
         const selectedAtom = get(rightPanelAtom);
         return selectedAtom ? get(selectedAtom) : undefined;
     },
+);
+
+/**
+ * Preload mani/fce atoms for the right panel item
+ */
+export const doPreloadEditorCtxAtom = atom(null,
+    (get, set, fileUsAtom: FileUsAtom | undefined) => {
+        if (fileUsAtom) {
+            const fileUs = get(fileUsAtom);
+            const maniAtoms = get(fileUs.maniAtomsAtom);
+            if (fileUs.parsedSrc.mani && !maniAtoms) {
+                set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
+            }
+            //TODO: preload fields catalogs as well
+        }
+    }
 );
