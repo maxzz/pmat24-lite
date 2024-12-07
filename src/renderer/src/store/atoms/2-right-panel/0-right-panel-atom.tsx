@@ -1,7 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "../3-file-mani-atoms";
-import { createFceAtomsInFileUs } from "../4-field-catalogs/1-fc-file-atoms/1-create-fce/2-create-fce-atoms";
 
 export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
 
@@ -34,12 +33,9 @@ export const doPreloadEditorCtxAtom = atom(null,
         if (fileUsAtom) {
             const fileUs = get(fileUsAtom);
 
-            if (fileUs.parsedSrc.mani) {
+            if (fileUs.parsedSrc.mani) { // no need to preload fceAtoms they are always created when fc loaded
                 const maniAtoms = get(fileUs.maniAtomsAtom);
                 !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
-            } else if (fileUs.parsedSrc.fcat) {
-                // preload fields catalogs as well
-                createFceAtomsInFileUs(fileUs);
             }
         }
     }
