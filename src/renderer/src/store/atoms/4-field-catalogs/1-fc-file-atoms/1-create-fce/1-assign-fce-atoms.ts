@@ -2,7 +2,7 @@ import { type Getter, type Setter } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
 import { setRootFcFileUs } from "./0-root-fce";
-import { createFceAtomsInFileUs, createEmptyFceFileUs } from "./2-create-fce-atoms";
+import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-atoms";
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
 
@@ -43,7 +43,7 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
     );
 
     if (!rootFc) {
-        rootFc = createEmptyFceFileUs();
+        rootFc = createFileUsForNewFc();
         fileUsItems.push(rootFc);
     }
 

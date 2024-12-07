@@ -11,7 +11,7 @@ import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../4-io";
 
-export function createEmptyFceFileUs(): FileUs {
+export function createFileUsForNewFc(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
     fileCnt.fpath = rootDir.rpath;
     fileCnt.fname = defaultFcName;
@@ -39,10 +39,9 @@ export function createFceAtomsInFileUs(fileUs: FileUs): void {
         throw new Error('This is not a field catalog file');
     }
 
-    if (fileUs.parsedSrc.fcat && !fileUs.fceAtoms) {
+    if (!fileUs.fceAtoms) {
         const items: FceItem[] = finalizeFceItems(fcat.names);
         const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
-
         fileUs.fceAtoms = rv;
     }
 }
