@@ -13,10 +13,11 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
             return;
         }
 
+        // preload mani/fce atoms for the right panel item
         if (newAtom) {
             const fileUs = get(newAtom);
             const maniAtoms = get(fileUs.maniAtomsAtom);
-            if (fileUs.parsedSrc.mani && !maniAtoms) { // preload mani atoms
+            if (fileUs.parsedSrc.mani && !maniAtoms) {
                 set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newAtom));
             }
             //TODO: preload fields catalogs as well

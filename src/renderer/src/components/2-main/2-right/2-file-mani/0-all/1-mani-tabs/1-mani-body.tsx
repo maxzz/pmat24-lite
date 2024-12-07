@@ -30,7 +30,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
         }, [maniAtoms, fileUs, fileUsAtom]
     );
 
-    if (!maniAtoms) { // maniAtoms not ready yet but will be on the next render
+    if (!maniAtoms) { // console.log('maniAtoms not ready yet but will be on the next render');
         return null;
     }
 
