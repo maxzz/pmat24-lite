@@ -1,5 +1,6 @@
 import { atom } from "jotai";
-import { FileUsAtom } from "@/store/store-types";
+import { type FileUsAtom } from "@/store/store-types";
+import { createManiAtoms } from "../3-file-mani-atoms";
 
 export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
 
@@ -10,6 +11,13 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
         if (currentAtom === newAtom) { // tree selection trigger logic
             set(rightPanelAtom, undefined);
             return;
+        }
+
+        if (newAtom) {
+            const fileUs = get(newAtom);
+            if (fileUs.parsedSrc.mani && !fileUs.maniAtomsAtom) {
+                set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newAtom));
+            }
         }
 
         set(rightPanelAtom, newAtom);
