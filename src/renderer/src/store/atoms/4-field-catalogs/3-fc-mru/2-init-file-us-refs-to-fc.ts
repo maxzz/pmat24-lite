@@ -1,4 +1,5 @@
 import { type FileUs } from "@/store/store-types";
+import { FceAtoms, FceItem } from "../9-types";
 
 export function initFileUssRefsToFc(fileUs: FileUs[]) {
     fileUs.forEach((fileUs) => initFileUsRefsToFc(fileUs));
@@ -20,3 +21,9 @@ function initFileUsRefsToFc(fileUs: FileUs) {
         }
     }
 }
+
+// function findDbname(fceAtoms: FceAtoms, dbname: string): FceItem | undefined {
+//     return fceAtoms.allAtom.find((item) => item.fieldValue.dbname === dbname);
+// }
+
+//getRootFceAtoms
