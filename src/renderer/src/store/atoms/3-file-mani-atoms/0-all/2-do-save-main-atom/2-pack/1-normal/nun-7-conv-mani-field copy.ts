@@ -4,7 +4,7 @@ type FieldForFileManiProps = {
     from: EditorField.Members;  // from editor
     maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
-    rdir: FileMani.FieldDirection | undefined;
+    rdir: FileMani.FieldLinks | undefined;
     isSubmit: boolean;
 };
 

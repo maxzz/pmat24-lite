@@ -1,16 +1,16 @@
-import { FieldTyp, type Mani, type FileMani, type EditorField } from "@/store/manifest";
+import { FieldTyp, Mani, type FileMani, type EditorField } from "@/store/manifest";
 
 type MergeManiFieldsProps = {
     from: EditorField.Members;  // from editor
     maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
-    rdir: FileMani.FieldDirection | undefined;
+    rdir: FileMani.FieldLinks | undefined;
     isSubmit: boolean;
 };
 
 export function mergeToManiField({ from, maniField, ftyp, rdir, isSubmit }: MergeManiFieldsProps): Mani.Field {
     const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : undefined;
-    const rfieldform = rdir?.rfieldform;
+    const rfieldform = rdir?.rfieldform ? +rdir.rfieldform : undefined;
     const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;
 
     const rv: Mani.Field = {
