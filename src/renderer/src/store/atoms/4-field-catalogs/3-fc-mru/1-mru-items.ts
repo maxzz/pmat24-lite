@@ -85,8 +85,8 @@ const mruFldCatPswItemsAtom = atom(
 );
 
 type MruForFcItemResult = {
-    fceItemsByType: FceItem[];
-    fceItem: FceItem | undefined;
+    mruItems: FceItem[];
+    thisFceItem: FceItem | undefined;
 };
 
 export const getMruForFcItemAtom = atom(
@@ -98,8 +98,8 @@ export const getMruForFcItemAtom = atom(
             const mruItemsByType2 = buildMruWithItem(mruItemsByType, fceItem);
 
             return {
-                fceItemsByType: mruItemsByType2,
-                fceItem: fceItem,
+                mruItems: mruItemsByType2,
+                thisFceItem: fceItem,
             };
         }
         return fn;

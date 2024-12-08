@@ -37,20 +37,20 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, ...rest } = props;
 
-    const { fceItemsByType, fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
+    const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
-    const dropdownItems = [CATALOG_Not, ...fceItemsByType.map((item) => item.fieldValue.displayname)];
+    const dropdownItems = [CATALOG_Not, ...mruItems.map((item) => item.fieldValue.displayname)];
 
     const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
     if (fceAtomsRef) {
         dropdownItems.push('-', CATALOG_More);
     }
 
-    let catalogItemIdx = (fceItem ? fceItemsByType.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
+    let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
 
     const textAtom = useState(() => atom(fceItem?.fieldValue.displayname || CATALOG_Not))[0];
     const [inputText, setInputTextText] = useAtom(textAtom);
-    const [selectedIndex, setSelectedIndex] = useState(catalogItemIdx);
+    const [selectedIndex, setSelectedIndex] = useState(thisItemIdx);
 
     const useIt = useAtomValue(useItAtom);
 
