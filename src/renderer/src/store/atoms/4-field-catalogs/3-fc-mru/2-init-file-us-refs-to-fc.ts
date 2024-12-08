@@ -1,9 +1,18 @@
+import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
+import { Mani } from "@/store/manifest";
 import { FceAtoms, FceItem } from "../9-types";
 
-export function initFileUssRefsToFc(fileUs: FileUs[]) {
-    fileUs.forEach((fileUs) => initFileUsRefsToFc(fileUs));
-}
+export const doInitFileUssRefsToFcAtom = atom(null,
+    (get, set, fileUs: FileUs[]) => {
+        if (!fileUs) {
+            return;
+        }
+        fileUs.forEach(
+            (fileUs) => initFileUsRefsToFc(fileUs)
+        );
+    }
+);
 
 function initFileUsRefsToFc(fileUs: FileUs) {
     if (!fileUs.parsedSrc.mani) {
@@ -16,7 +25,7 @@ function initFileUsRefsToFc(fileUs: FileUs) {
     for (const maniForm of maniForms) {
         const maniFormFields = maniForm.fields || [];
         for (const maniFormField of maniFormFields) {
-            if (maniFormField.dbname) {
+            if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
             }
         }
     }
@@ -39,7 +48,7 @@ export function removeLinksToFc(fileUs: FileUs) {
     for (const maniForm of maniForms) {
         const maniFormFields = maniForm.fields || [];
         for (const maniFormField of maniFormFields) {
-            if (maniFormField.dbname) {
+            if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
             }
         }
     }
