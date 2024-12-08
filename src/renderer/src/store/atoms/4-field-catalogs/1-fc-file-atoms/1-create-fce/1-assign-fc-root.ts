@@ -9,7 +9,7 @@ import { doInitMruAtom, doInitFileUssRefsToFcAtom } from "../../3-fc-mru";
 export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
     if (fileUs) {
         updateFceAtomsRefs(fileUs); //TODO: and update conters in all files if empty field catalog was created
-        set(doInitFileUssRefsToFcAtom,fileUs);
+        set(doInitFileUssRefsToFcAtom, fileUs);
     } else {
         setRootFcFileUs(undefined);
     }
