@@ -27,3 +27,20 @@ function initFileUsRefsToFc(fileUs: FileUs) {
 // }
 
 //getRootFceAtoms
+
+export function removeLinksToFc(fileUs: FileUs) {
+    if (!fileUs.parsedSrc.mani) {
+        return;
+    }
+
+    const mani = fileUs.parsedSrc.mani;
+    const maniForms = mani.forms || [];
+
+    for (const maniForm of maniForms) {
+        const maniFormFields = maniForm.fields || [];
+        for (const maniFormField of maniFormFields) {
+            if (maniFormField.dbname) {
+            }
+        }
+    }
+}
