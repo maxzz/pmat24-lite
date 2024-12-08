@@ -1,6 +1,10 @@
 import { type FileUs } from "@/store/store-types";
 
-export function initFileUsRefsToFc(fileUs: FileUs) {
+export function initFileUssRefsToFc(fileUs: FileUs[]) {
+    fileUs.forEach((fileUs) => initFileUsRefsToFc(fileUs));
+}
+
+function initFileUsRefsToFc(fileUs: FileUs) {
     if (!fileUs.parsedSrc.mani) {
         return;
     }
