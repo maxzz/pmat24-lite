@@ -31,17 +31,42 @@ function initFileUsRefsToFc(fileUs: FileUs, fceItemsMap: FceItemsMap) {
         return;
     }
 
-    const mani = fileUs.parsedSrc.mani;
-    const maniForms = mani.forms || [];
+    if (!fileUsHasFcRef(fileUs)) {
+        return;
+    }
+
+    //TODO: create maniAtoms for fileUs and assign FC ref to maniAtoms
+
+    // const mani = fileUs.parsedSrc.mani;
+    // const maniForms = mani.forms || [];
+
+    // for (const maniForm of maniForms) {
+    //     const maniFormFields = maniForm.fields || [];
+    //     for (const maniFormField of maniFormFields) {
+    //         if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
+    //             console.log('maniFormField.dbname', maniFormField.dbname);
+    //         }
+    //     }
+    // }
+}
+
+function fileUsHasFcRef(fileUs: FileUs): boolean {
+    if (!fileUs.parsedSrc.mani) {
+        return false;
+    }
+
+    const maniForms = fileUs.parsedSrc.mani.forms || [];
 
     for (const maniForm of maniForms) {
         const maniFormFields = maniForm.fields || [];
         for (const maniFormField of maniFormFields) {
             if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
-                console.log('maniFormField.dbname', maniFormField.dbname);
+                return true;
             }
         }
     }
+
+    return false;
 }
 
 // function findDbname(fceAtoms: FceAtoms, dbname: string): FceItem | undefined {
