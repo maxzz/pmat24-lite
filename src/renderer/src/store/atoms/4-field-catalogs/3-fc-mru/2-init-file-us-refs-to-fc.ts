@@ -1,10 +1,10 @@
 import { atom } from "jotai";
-import { type FileUs } from "@/store/store-types";
 import { Mani } from "@/store/manifest";
-import { FceAtoms, FceItem } from "../9-types";
+import { type FileUs } from "@/store/store-types";
+import { type FceItem } from "../9-types";
 import { getRootFceAtoms } from "../1-fc-file-atoms";
 
-type FceItemsMap = Record<string, FceItem>; // dbname -> fceItem
+type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
 export const doInitFileUssRefsToFcAtom = atom(null,
     (get, set, fileUs: FileUs[]) => {
@@ -15,9 +15,9 @@ export const doInitFileUssRefsToFcAtom = atom(null,
         const fceItems = get(getRootFceAtoms().allAtom);
         const fceItemsMap = fceItems.reduce(
             (acc, item) => {
-                acc[item.fieldValue.dbname] = item;
+                acc.set(item.beforeEdit.dbname, item);
                 return acc;
-            }, {} as FceItemsMap
+            }, new Map<string, FceItem>()
         );
 
         fileUs.forEach(
@@ -38,6 +38,7 @@ function initFileUsRefsToFc(fileUs: FileUs, fceItemsMap: FceItemsMap) {
         const maniFormFields = maniForm.fields || [];
         for (const maniFormField of maniFormFields) {
             if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
+                console.log('maniFormField.dbname', maniFormField.dbname);
             }
         }
     }
