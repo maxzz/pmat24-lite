@@ -53,7 +53,8 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                             } else {
                                 field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
-                            console.log(`%c${fceItem ? '  ' : 'no'} assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
+
+                            printFceItem(fceItem, fileUs, field.fromFile.dbname);
                         }
                     }
                     else if (form?.manual) {
@@ -70,7 +71,8 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                             } else {
                                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
-                            console.log(`%c${fceItem ? '  ' : 'no'} assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
+
+                            printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
                         }
                     }
                 }//for
@@ -79,8 +81,9 @@ export const doInitFileUssRefsToFcAtom = atom(null,
     }
 );
 
-//TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
-//TODO: add option to show only root and A/B/C folder and ignore other sub-folders
+function printFceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: string) {
+    console.log(`%c${fceItem ? '  ' : 'no'} assign ${dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
+}
 
 function fileUsHasFcRef(fileUs: FileUs): boolean {
     if (!fileUs.parsedSrc.mani) {
@@ -105,13 +108,13 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
 //     return fceItems.find((item) => item.fieldValue.dbname === dbname);
 // }
 
-export const removeLinksToFcAtom = atom(null,
+export const removeLinksToFceItemAtom = atom(null,
     (get, set, { fceItem }: { fceItem: FceItem; }) => {
 
-        const files = get(filesAtom);
+        const filesAtoms = get(filesAtom);
 
-        for (const file of files) {
-            const fileUs = get(file);
+        for (const fileAtom of filesAtoms) {
+            const fileUs = get(fileAtom);
             if (!fileUs.parsedSrc.mani || !fileUsHasFcRef(fileUs)) {
                 continue;
             }
@@ -150,6 +153,6 @@ export const removeLinksToFcAtom = atom(null,
                     }
                 }
             }//for
-        }            
+        }
     }
 );

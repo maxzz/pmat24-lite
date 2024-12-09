@@ -31,3 +31,7 @@ export function App(): JSX.Element {
 //TODO: we need global toast ID to clean previous toast. This happens when we show toast and drop files but toast is still visible. see TestOpenFieldCatalog
 
 //TODO: save pictures previews in separate folder
+
+//12.09.24
+//TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
+//TODO: add option to show only root and A/B/C folder and ignore other sub-folders
