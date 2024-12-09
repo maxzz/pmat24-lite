@@ -110,7 +110,7 @@
 // }
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-import { type ModifierDisplayText } from "@/store/manifest";
+import { type OptionTextValue } from "@/store/manifest";
 import { classNames } from "@/utils";
 
 export type StringValueChangeProps = {
@@ -119,7 +119,7 @@ export type StringValueChangeProps = {
 };
 
 type InputSelectUiProps = StringValueChangeProps & {
-    items: ModifierDisplayText[];
+    items: OptionTextValue[];
     triggerClasses?: string;
 };
 

@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
 import { InputSelectUi } from "./4-input-select-ui";
-import { FieldTyp, ModifierDisplayText } from "@/store/manifest";
+import { FieldTyp, type OptionTextValue } from "@/store/manifest";
 
-const inputTypes: ModifierDisplayText[] = [
+const inputTypes: OptionTextValue[] = [
     ["Text", `${FieldTyp.edit}`], 
     ["Passowrd", `${FieldTyp.psw}`],
 ];
