@@ -4,12 +4,11 @@ import { rootDir } from "../../../1-files";
 import { setRootFcFileUs } from "./0-root-fce";
 import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-atoms";
 import { defaultFcName } from "../../9-types";
-import { doInitMruAtom, doInitFileUssRefsToFcAtom } from "../../3-fc-mru";
+import { doInitMruAtom } from "../../3-fc-mru";
 
 export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
     if (fileUs) {
-        updateFceAtomsRefs(fileUs); //TODO: and update conters in all files if empty field catalog was created
-        set(doInitFileUssRefsToFcAtom, fileUs);
+        updateFceAtomsRefs(fileUs); //TODO: and update counters in all files if empty field catalog was created
     } else {
         setRootFcFileUs(undefined);
     }

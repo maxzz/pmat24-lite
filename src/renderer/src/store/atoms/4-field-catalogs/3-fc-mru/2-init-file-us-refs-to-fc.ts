@@ -1,14 +1,15 @@
 import { atom } from "jotai";
 import { Mani } from "@/store/manifest";
-import { type FileUs } from "@/store/store-types";
+import { FileUsAtom, type FileUs } from "@/store/store-types";
 import { type FceItem } from "../9-types";
 import { getRootFceAtoms } from "../1-fc-file-atoms";
+import { doPreloadEditorCtxAtom } from "../../2-right-panel";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
 export const doInitFileUssRefsToFcAtom = atom(null,
-    (get, set, fileUs: FileUs[]) => {
-        if (!fileUs) {
+    (get, set, fileUsAtoms: FileUsAtom[]) => {
+        if (!fileUsAtoms) {
             return;
         }
 
@@ -20,8 +21,18 @@ export const doInitFileUssRefsToFcAtom = atom(null,
             }, new Map<string, FceItem>()
         );
 
-        fileUs.forEach(
-            (fileUs) => initFileUsRefsToFc(fileUs, fceItemsMap)
+        fileUsAtoms.forEach(
+            (fileUsAtom) => {
+                const fileUs = get(fileUsAtom);
+
+                if (!fileUs.parsedSrc.mani) {
+                    return;
+                }
+                
+                if (fileUsHasFcRef(fileUs)) {
+                    set(doPreloadEditorCtxAtom, fileUsAtom);
+                }
+            }
         );
     }
 );
@@ -35,19 +46,9 @@ function initFileUsRefsToFc(fileUs: FileUs, fceItemsMap: FceItemsMap) {
         return;
     }
 
+
     //TODO: create maniAtoms for fileUs and assign FC ref to maniAtoms
 
-    // const mani = fileUs.parsedSrc.mani;
-    // const maniForms = mani.forms || [];
-
-    // for (const maniForm of maniForms) {
-    //     const maniFormFields = maniForm.fields || [];
-    //     for (const maniFormField of maniFormFields) {
-    //         if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
-    //             console.log('maniFormField.dbname', maniFormField.dbname);
-    //         }
-    //     }
-    // }
 }
 
 function fileUsHasFcRef(fileUs: FileUs): boolean {
@@ -69,9 +70,9 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
     return false;
 }
 
-// function findDbname(fceAtoms: FceAtoms, dbname: string): FceItem | undefined {
-//     return fceAtoms.allAtom.find((item) => item.fieldValue.dbname === dbname);
-// }
+function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
+    return fceItems.find((item) => item.fieldValue.dbname === dbname);
+}
 
 //getRootFceAtoms
 
