@@ -24,32 +24,45 @@ export const doInitFileUssRefsToFcAtom = atom(null,
         fileUsAtoms.forEach(
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
-
                 if (!fileUs.parsedSrc.mani) {
                     return;
                 }
-                
+
+                // Create maniAtoms for fileUs and assign FC ref to maniAtoms
+
                 if (fileUsHasFcRef(fileUs)) {
                     set(doPreloadEditorCtxAtom, fileUsAtom);
+
+                    const maniAtoms = get(fileUs.maniAtomsAtom);
+                    if (!maniAtoms) {
+                        return;
+                    }
+
+                    for (const maniForm of maniAtoms) {
+                        if (maniForm?.normal) {
+                            const maniFormFields = maniForm.normal?.rowCtxs || [];
+                            for (const maniFormField of maniFormFields) {
+                                if (maniFormField.metaField.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
+                                    continue;
+                                }
+                                const fceItem = fceItemsMap.get(maniFormField.fromFile.dbname);
+                                if (fceItem) {
+                                    maniFormField.fromFc = fceItem;
+                                } else {
+                                    maniFormField.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
+                                }
+                            }
+                        }
+                        else if (maniForm?.manual) {
+                            //TODO: assign maniForm.manual.rowCtxs to maniForm.manual.ctx.rowCtxs
+                            console.log(`assign maniForm.manual.rowCtxs to maniForm.manual.ctx.rowCtxs ${fileUs.fileCnt.fname}`);
+                        }
+                    }
                 }
             }
         );
     }
 );
-
-function initFileUsRefsToFc(fileUs: FileUs, fceItemsMap: FceItemsMap) {
-    if (!fileUs.parsedSrc.mani) {
-        return;
-    }
-
-    if (!fileUsHasFcRef(fileUs)) {
-        return;
-    }
-
-
-    //TODO: create maniAtoms for fileUs and assign FC ref to maniAtoms
-
-}
 
 function fileUsHasFcRef(fileUs: FileUs): boolean {
     if (!fileUs.parsedSrc.mani) {
