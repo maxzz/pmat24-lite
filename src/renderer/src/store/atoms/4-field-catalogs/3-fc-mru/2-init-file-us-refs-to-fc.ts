@@ -4,7 +4,7 @@ import { FileUsAtom, type FileUs } from "@/store/store-types";
 import { type FceItem } from "../9-types";
 import { getRootFceAtoms } from "../1-fc-file-atoms";
 import { doPreloadEditorCtxAtom } from "../../2-right-panel";
-import { ManualFieldState } from "../../3-file-mani-atoms";
+import { ManualFieldState, NormalField } from "../../3-file-mani-atoms";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
@@ -37,12 +37,13 @@ export const doInitFileUssRefsToFcAtom = atom(null,
 
                 for (const form of maniAtoms) {
                     if (form?.normal) {
-                        const maniFormFields = form.normal?.rowCtxs || [];
+                        const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
 
-                        for (const field of maniFormFields) {
+                        for (const field of fields) {
                             if (field.metaField.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
                                 continue;
                             }
+                            
                             const fceItem = fcMap.get(field.fromFile.dbname);
                             if (fceItem) {
                                 field.fromFc = fceItem;
@@ -58,6 +59,10 @@ export const doInitFileUssRefsToFcAtom = atom(null,
 
                         for (const chunk of chunks) {
                             if (chunk.type === 'fld') {
+                                if (chunk.original.field.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
+                                    continue;
+                                }
+
                                 const fceItem = fcMap.get(chunk.rowCtx.fromFile.dbname);
                                 if (fceItem) {
                                     chunk.rowCtx.fromFc = fceItem;
