@@ -1,16 +1,16 @@
 import { atom } from "jotai";
 import { FieldTyp, Mani } from "@/store/manifest";
 import { FileUsAtom, type FileUs } from "@/store/store-types";
-import { type FceItem } from "../9-types";
-import { getRootFceAtoms } from "../1-fc-file-atoms";
-import { doPreloadEditorCtxAtom } from "../../2-right-panel";
-import { ManualFieldState, NormalField } from "../../3-file-mani-atoms";
-import { filesAtom } from "../../1-files";
+import { type FceItem } from "../../9-types";
+import { getRootFceAtoms } from "..";
+import { doPreloadEditorCtxAtom } from "../../../2-right-panel";
+import { ManualFieldState, NormalField } from "../../../3-file-mani-atoms";
+import { filesAtom } from "../../../1-files";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
 /**
- * Create maniAtoms for fileUs if needed and assign FC ref to maniAtoms
+ * Create maniAtoms for fileUs if needed and then assign field catalog refs to maniAtoms
  */
 export const doInitFileUssRefsToFcAtom = atom(null,
     (get, set, fileUsAtoms: FileUsAtom[]) => {
@@ -108,6 +108,9 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
     return false;
 }
 
+/**
+ * Remove links to field catalog from all files when field catalog item is removed
+ */
 export const removeLinksToFceItemAtom = atom(null,
     (get, set, { fceItem }: { fceItem: FceItem; }) => {
 

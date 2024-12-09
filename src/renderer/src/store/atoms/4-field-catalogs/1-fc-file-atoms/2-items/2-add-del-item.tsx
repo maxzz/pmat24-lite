@@ -1,8 +1,9 @@
 import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
-import { doSelectIdxAtom } from "./1-do-set-selected";
 import { hasManiChange, setManiChanges } from "../../../3-file-mani-atoms";
+import { doSelectIdxAtom } from "./1-do-set-selected";
+import { removeLinksToFceItemAtom } from "./5-file-us-refs-to-fc";
 
 export const doAddItemAtom = atom(
     null,
@@ -37,14 +38,16 @@ export const doDeleteSelectedItemAtom = atom(
         const fceAtoms = fceCtx.fceAtoms;
         const items = get(fceCtx.showAtom);
         const idx = get(fceCtx.selectedIdxStoreAtom);
-        const currentItem = items[idx];
+        const currentfceItem = items[idx];
 
-        if (!currentItem) {
+        if (!currentfceItem) {
             return;
         }
 
+        set(removeLinksToFceItemAtom, { fceItem: currentfceItem });
+
         const allItems = get(fceAtoms.allAtom);
-        const newItems = allItems.filter((item) => item.fceMeta.uuid !== currentItem.fceMeta.uuid);
+        const newItems = allItems.filter((item) => item.fceMeta.uuid !== currentfceItem.fceMeta.uuid);
         set(fceAtoms.allAtom, newItems);
 
         // select previous item if exists, otherwise select the next item or select nothing
@@ -54,7 +57,7 @@ export const doDeleteSelectedItemAtom = atom(
             : idx <= newItems.length - 1
                 ? idx
                 : -1;
-                
+
         const newItem = newItems[newIdx];
 
         set(doSelectIdxAtom, fceCtx, newIdx);
@@ -62,7 +65,7 @@ export const doDeleteSelectedItemAtom = atom(
 
         // update file changes
 
-        const uuid = currentItem.fceMeta.uuid;
+        const uuid = currentfceItem.fceMeta.uuid;
 
         if (hasManiChange(fceAtoms, `add-${uuid}`)) {
             setManiChanges(fceAtoms, false, `add-${uuid}`);
