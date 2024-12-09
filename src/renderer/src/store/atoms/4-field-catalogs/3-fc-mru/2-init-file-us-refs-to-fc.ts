@@ -85,17 +85,21 @@ function printFceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: stri
     console.log(`%c${fceItem ? '  ' : 'no'} assign ${dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
 }
 
+// function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
+//     return fceItems.find((item) => item.fieldValue.dbname === dbname);
+// }
+
 function fileUsHasFcRef(fileUs: FileUs): boolean {
     if (!fileUs.parsedSrc.mani) {
         return false;
     }
 
-    const maniForms = fileUs.parsedSrc.mani.forms || [];
+    const forms = fileUs.parsedSrc.mani.forms || [];
 
-    for (const maniForm of maniForms) {
-        const maniFormFields = maniForm.fields || [];
-        for (const maniFormField of maniFormFields) {
-            if (maniFormField.rfieldform === Mani.FORMNAME.fieldcatalog) {
+    for (const form of forms) {
+        const fields = form.fields || [];
+        for (const field of fields) {
+            if (field.rfieldform === Mani.FORMNAME.fieldcatalog) {
                 return true;
             }
         }
@@ -103,10 +107,6 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
 
     return false;
 }
-
-// function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
-//     return fceItems.find((item) => item.fieldValue.dbname === dbname);
-// }
 
 export const removeLinksToFceItemAtom = atom(null,
     (get, set, { fceItem }: { fceItem: FceItem; }) => {
