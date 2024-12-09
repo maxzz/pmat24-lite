@@ -16,10 +16,7 @@ export const doInitFileUssRefsToFcAtom = atom(null,
 
         const fceItems = get(getRootFceAtoms().allAtom);
         const fceItemsMap = fceItems.reduce<FceItemsMap>(
-            (acc, item) => {
-                acc.set(item.beforeEdit.dbname, item);
-                return acc;
-            }, new Map()
+            (acc, item) => (acc.set(item.beforeEdit.dbname, item), acc), new Map()
         );
 
         fileUsAtoms.forEach(
@@ -50,10 +47,10 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                                 const fceItem = fceItemsMap.get(field.fromFile.dbname);
                                 if (fceItem) {
                                     field.fromFc = fceItem;
-                                    // console.log(`assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`);
+                                    console.log(`assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                 } else {
                                     field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
-                                    // console.log(`%cno assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
+                                    console.log(`%cno assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                 }
                             }
                         }
@@ -65,10 +62,10 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                                     const fceItem = fceItemsMap.get(chunk.rowCtx.fromFile.dbname);
                                     if (fceItem) {
                                         chunk.rowCtx.fromFc = fceItem;
-                                        // console.log(`assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`);
+                                        console.log(`assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                     } else {
                                         chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
-                                        // console.log(`%cno assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
+                                        console.log(`%cno assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                     }
                                 }
                             }
