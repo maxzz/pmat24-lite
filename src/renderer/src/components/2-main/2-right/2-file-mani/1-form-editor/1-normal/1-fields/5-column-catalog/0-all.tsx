@@ -74,6 +74,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
                 onChange={onSetInputText}
                 onKeyDown={onSetKey}
                 onBlur={onBlur}
+                readOnly
                 multiple
                 {...turnOffAutoComplete}
             />

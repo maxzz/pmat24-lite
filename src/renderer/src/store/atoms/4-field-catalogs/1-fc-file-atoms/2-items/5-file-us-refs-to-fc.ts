@@ -54,7 +54,7 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                                 field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
 
-                            printFceItem(fceItem, fileUs, field.fromFile.dbname);
+                            // printFceItem(fceItem, fileUs, field.fromFile.dbname);
                         }
                     }
                     else if (form?.manual) {
@@ -72,7 +72,7 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
 
-                            printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
+                            // printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
                         }
                     }
                 }//for
