@@ -15,11 +15,11 @@ export const doInitFileUssRefsToFcAtom = atom(null,
         }
 
         const fceItems = get(getRootFceAtoms().allAtom);
-        const fceItemsMap = fceItems.reduce(
+        const fceItemsMap = fceItems.reduce<FceItemsMap>(
             (acc, item) => {
                 acc.set(item.beforeEdit.dbname, item);
                 return acc;
-            }, new Map<string, FceItem>()
+            }, new Map()
         );
 
         fileUsAtoms.forEach(
@@ -39,35 +39,36 @@ export const doInitFileUssRefsToFcAtom = atom(null,
                         return;
                     }
 
-                    for (const maniForm of maniAtoms) {
-                        if (maniForm?.normal) {
-                            const maniFormFields = maniForm.normal?.rowCtxs || [];
+                    for (const form of maniAtoms) {
+                        if (form?.normal) {
+                            const maniFormFields = form.normal?.rowCtxs || [];
+
                             for (const field of maniFormFields) {
                                 if (field.metaField.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
                                     continue;
                                 }
                                 const fceItem = fceItemsMap.get(field.fromFile.dbname);
                                 if (fceItem) {
-                                    console.log(`assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                     field.fromFc = fceItem;
+                                    // console.log(`assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                 } else {
-                                    console.log(`%cno assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                     field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
+                                    // console.log(`%cno assign ${field.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                 }
                             }
                         }
-                        else if (maniForm?.manual) {
-                            const chunks: ManualFieldState.Ctx[] = get(maniForm?.manual.chunksAtom);
+                        else if (form?.manual) {
+                            const chunks: ManualFieldState.Ctx[] = get(form?.manual.chunksAtom);
 
                             for (const chunk of chunks) {
                                 if (chunk.type === 'fld') {
                                     const fceItem = fceItemsMap.get(chunk.rowCtx.fromFile.dbname);
                                     if (fceItem) {
-                                        console.log(`assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                         chunk.rowCtx.fromFc = fceItem;
+                                        // console.log(`assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`);
                                     } else {
-                                        console.log(`%cno assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                         chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
+                                        // console.log(`%cno assign ${chunk.rowCtx.fromFile.dbname} ${fileUs.fileCnt.fname}`, 'color: red');
                                     }
                                 }
                             }
@@ -101,8 +102,6 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
 // function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
 //     return fceItems.find((item) => item.fieldValue.dbname === dbname);
 // }
-
-//getRootFceAtoms
 
 export function removeLinksToFc(fileUs: FileUs) {
     if (!fileUs.parsedSrc.mani) {
