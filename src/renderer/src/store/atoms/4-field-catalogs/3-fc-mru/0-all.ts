@@ -33,11 +33,10 @@ export const doInitMruAtom = atom(null,
         const txtItems = buildMruList(all, false, get, set);
         const pswItems = buildMruList(all, true, get, set);
 
-        console.log('txtItems', txtItems);
-        console.log('pswItems', pswItems);
-
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);
+
+        printAllItems(txtItems, pswItems);
     }
 );
 
@@ -68,4 +67,18 @@ export const doDeleteMruItemAtom = atom(null,
 
 export function findFceItem(items: FceItem[], dbid: string | undefined): FceItem | undefined {
     return items.find((item) => item.fieldValue.dbname === dbid);
+}
+
+
+function printAllItems(txtItems: FceItem[], pswItems: FceItem[]) {
+    printFceItems('txtMruItems', txtItems);
+    printFceItems('pswMruItems', pswItems);
+
+    function printFceItems(label: string, items: FceItem[]) {
+        console.log(`${label}:`);
+        items.forEach((item, idx) => {
+            let i: any = { ...item.fieldValue }; delete i.displayname; i = { ...i, displayname: item.fieldValue.displayname }; // put displayname to the end
+            console.log(`${idx}: ${JSON.stringify(i)}`);
+        });
+    }
 }

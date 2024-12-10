@@ -125,7 +125,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
             return;
         }
 
-        console.log(`onSelectCatItem value: "${value}", fceItem: $o`, fceItem);
+        console.log(`onSelectCatItem value: "${value}", fceItem: %o`, fceItem);
     }
 
     return (
