@@ -76,10 +76,6 @@ function printAllItems(txtItems: FceItem[], pswItems: FceItem[]) {
 
     function printFceItems(label: string, items: FceItem[]) {
         console.log(`${label}:`);
-        items.forEach((item, idx) => {
-            let q = { dbname: item.fieldValue.dbname, displayname: item.fieldValue.displayname };
-            // let i: any = { ...item.fieldValue }; delete i.displayname; delete i.ownernote; delete i.isNon; i = { ...i, displayname: item.fieldValue.displayname }; // put displayname to the end
-            console.log(`${idx}: ${JSON.stringify(q)}`);
-        });
+        items.forEach((item, idx) => console.log(`${idx}:`, { dbname: item.fieldValue.dbname, displayname: item.fieldValue.displayname }));
     }
 }
