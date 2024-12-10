@@ -32,10 +32,19 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     rowCtx: NormalField.RowCtx;
 };
 
-const CATALOG_Not = "Not from catalog";
-const CATALOG_More = "More fields ...";
+const CATALOG_Not = ['Not from catalog', '-1'] as const;
+const CATALOG_More = ['More fields ...', '-2'] as const;
 
-//const inputTypes: OptionTextValue2<{ key: string; } | { key: string; fceItem: FceItem; }>[] = [];
+/**
+ * List item can be string or object with key and fceItem or key and string
+ *    * '-'
+ *    * ['More fields ...', '-2']
+ *    * ['Field name', { key: anyUniqueId, fceItem }]
+ */
+type OptionItemValue = string | {
+    key: string;
+    fceItem: FceItem;
+};
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
@@ -46,11 +55,11 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
 
-    const listItems: OptionTextValue2<string | { key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
+    const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
     if (fileUsCtx.fileUs.fceAtomsRef) {
         listItems.push('-', CATALOG_More);
     }
-    listItems.unshift([CATALOG_Not, '-1'], '-'); //TODO: add '-' if we have items
+    listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
@@ -58,7 +67,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
     if (fceAtomsRef) {
-        dropdownItems.push('-', CATALOG_More);
+        dropdownItems.push('-', CATALOG_More[0]);
     }
 
     let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
@@ -98,6 +107,15 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     function onValueChange(value: string) {
         const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
+
+        if (value === '-1') {
+            return;
+        }
+
+        if (value === '-2') {
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: maniDbName, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            return;
+        }
 
         console.log(`onSelectCatItem value: "${value}", fceItem: $o`, fceItem);
     }
