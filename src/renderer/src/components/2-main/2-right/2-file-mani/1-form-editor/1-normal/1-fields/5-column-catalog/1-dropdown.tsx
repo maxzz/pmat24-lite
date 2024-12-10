@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type OptionTextValue } from "@/store/manifest";
 import { classNames } from "@/utils";
 
@@ -35,6 +35,12 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses, pla
                 {items.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';
+
+                        const isSeparator = isString && item === '-';
+                        if (isSeparator) {
+                            return <SelectSeparator className="my-1 h-px bg-mani-border" key={idx} />;
+                        }
+                    
                         const label = isString ? item : item[0];
                         const value = isString ? item : item[1];
                         const value2 = typeof value === 'string' ? value : value.key;

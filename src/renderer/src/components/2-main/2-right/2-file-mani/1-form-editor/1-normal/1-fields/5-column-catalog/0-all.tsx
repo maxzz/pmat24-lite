@@ -46,10 +46,11 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
 
-    const listItems: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.displayname, fceItem: item }]));
+    const listItems: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
     if (fileUsCtx.fileUs.fceAtomsRef) {
         listItems.push('-', CATALOG_More);
     }
+    listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
@@ -96,7 +97,16 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     //#endregion
 
     function onValueChange(value: string) {
-        console.log('onSelectCatItem', value);
+
+        const fceItem = listItems.find((item) => {
+            if (typeof item === 'string') {
+                console.log(`onSelectCatItem string: "${value}"`);
+                return item === value;
+            }
+            return item[1].key === value;
+        });
+
+        console.log(`onSelectCatItem value: "${value}"`, fceItem);
     }
 
     return (
