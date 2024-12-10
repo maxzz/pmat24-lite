@@ -35,7 +35,7 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
-const inputTypes: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = [];
+//const inputTypes: OptionTextValue2<{ key: string; } | { key: string; fceItem: FceItem; }>[] = [];
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
@@ -46,11 +46,11 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
 
-    const listItems: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
+    const listItems: OptionTextValue2<string | { key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
     if (fileUsCtx.fileUs.fceAtomsRef) {
         listItems.push('-', CATALOG_More);
     }
-    listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
+    listItems.unshift([CATALOG_Not, '-1'], '-'); //TODO: add '-' if we have items
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
@@ -97,22 +97,15 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     //#endregion
 
     function onValueChange(value: string) {
+        const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
 
-        const fceItem = listItems.find((item) => {
-            if (typeof item === 'string') {
-                console.log(`onSelectCatItem string: "${value}"`);
-                return item === value;
-            }
-            return item[1].key === value;
-        });
-
-        console.log(`onSelectCatItem value: "${value}"`, fceItem);
+        console.log(`onSelectCatItem value: "${value}", fceItem: $o`, fceItem);
     }
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <InputSelectUi items={listItems} onValueChange={onValueChange} value={''} />
+            <InputSelectUi items={listItems} value={''} onValueChange={onValueChange} />
 
             {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines

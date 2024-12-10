@@ -9,7 +9,7 @@ export type StringValueChangeProps = {
 
 export type OptionValueObj<T extends object> = { key: string; } & T;
 export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
-export type OptionTextValue2<TValue = string | OptionValue<object>> = Prettify<string | readonly [label: string, value: TValue]>;
+export type OptionTextValue2<TValue extends string | { key: string; } = string | { key: string; }> = Prettify<string | readonly [label: string, value: TValue]>;
 
 type InputSelectUiProps = StringValueChangeProps & {
     // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];
@@ -23,7 +23,7 @@ h-6 \
 bg-primary-100 dark:bg-primary-900 \
 text-primary-900 dark:text-primary-300";
 
-export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
+export function InputSelectUi<T>({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
@@ -40,7 +40,7 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses, pla
                         if (isSeparator) {
                             return <SelectSeparator className="my-1 h-px bg-mani-border" key={idx} />;
                         }
-                    
+
                         const label = isString ? item : item[0];
                         const value = isString ? item : item[1];
                         const value2 = typeof value === 'string' ? value : value.key;
