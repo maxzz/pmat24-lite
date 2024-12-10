@@ -32,9 +32,6 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     rowCtx: NormalField.RowCtx;
 };
 
-const CATALOG_Not = ['Not from catalog', '-1'] as const;
-const CATALOG_More = ['More fields ...', '-2'] as const;
-
 /**
  * List item can be string or object with key and fceItem or key and string
  *    * '-'
@@ -46,20 +43,30 @@ type OptionItemValue = string | {
     fceItem: FceItem;
 };
 
+const CATALOG_Not = ['Not from catalog', '-1'] as const;
+const CATALOG_More = ['More fields ...', '-2'] as const;
+
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, rowCtx, ...rest } = props;
 
     const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+
+    const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
+
     if (rowCtx.fromFc) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
-
-    const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
-    if (fileUsCtx.fileUs.fceAtomsRef) {
+    
+    if (fileUsCtx.fileUs.fceAtomsRef) { //TODO: add only if we in main field catalog dialog
         listItems.push('-', CATALOG_More);
     }
+
     listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
+
+    const value = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
+
+    //
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
@@ -113,7 +120,8 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         }
 
         if (value === '-2') {
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: maniDbName, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            const dbid = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
 
@@ -123,7 +131,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <InputSelectUi items={listItems} value={''} onValueChange={onValueChange} />
+            <InputSelectUi items={listItems} value={value} onValueChange={onValueChange} />
 
             {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
