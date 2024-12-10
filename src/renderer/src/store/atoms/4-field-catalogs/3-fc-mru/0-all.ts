@@ -1,6 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { FieldTyp } from "@/store/manifest";
-import { type FceItem } from "../9-types";
+import { FceItemValue, type FceItem } from "../9-types";
 import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
 
 export const txtMruAtom = atom<FceItem[]>([]);
@@ -77,7 +77,7 @@ function printAllItems(txtItems: FceItem[], pswItems: FceItem[]) {
     function printFceItems(label: string, items: FceItem[]) {
         console.log(`${label}:`);
         items.forEach((item, idx) => {
-            let i: any = { ...item.fieldValue }; delete i.displayname; i = { ...i, displayname: item.fieldValue.displayname }; // put displayname to the end
+            let i: any = { ...item.fieldValue }; delete i.displayname; delete i.ownernote; delete i.isNon; i = { ...i, displayname: item.fieldValue.displayname }; // put displayname to the end
             console.log(`${idx}: ${JSON.stringify(i)}`);
         });
     }
