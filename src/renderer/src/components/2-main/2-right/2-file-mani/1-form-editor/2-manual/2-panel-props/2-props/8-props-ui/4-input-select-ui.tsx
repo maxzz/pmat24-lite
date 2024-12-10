@@ -126,6 +126,7 @@ type InputSelectUiProps = StringValueChangeProps & {
     // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];
     items: OptionTextValue2[];
     triggerClasses?: string;
+    placeholder?: string;
 };
 
 const popupColorClasses = "\
@@ -133,12 +134,12 @@ h-6 \
 bg-primary-100 dark:bg-primary-900 \
 text-primary-900 dark:text-primary-300";
 
-export function InputSelectUi({ items, value, onValueChange, triggerClasses }: InputSelectUiProps) {
+export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
             <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses)}>
-                <SelectValue placeholder="Select key" />
+                <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">

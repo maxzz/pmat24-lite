@@ -8,6 +8,7 @@ export function InputKey({ valueAtom, triggerClasses }: { valueAtom: PrimitiveAt
     return (
         <InputSelect
             items={actionKeys}
+            placeholder="Select key"
             label="Key to press"
             labelClasses="min-w-[9ch]"
             triggerClasses={triggerClasses}
