@@ -118,9 +118,9 @@ export type StringValueChangeProps = {
     onValueChange: (value: string) => void;
 };
 
-export type OptionObjKey<T extends unknown> = { key: string; } & T;
-export type OptionValue<TKey extends unknown> = Prettify<string | OptionObjKey<TKey>>;
-export type OptionTextValue2<TValue = string | OptionValue<{}>> = Prettify<string | readonly [label: string, value: TValue]>;
+export type OptionValueObj<T extends object> = { key: string; } & T;
+export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
+export type OptionTextValue2<TValue = string | OptionValue<object>> = Prettify<string | readonly [label: string, value: TValue]>;
 
 type InputSelectUiProps = StringValueChangeProps & {
     // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];

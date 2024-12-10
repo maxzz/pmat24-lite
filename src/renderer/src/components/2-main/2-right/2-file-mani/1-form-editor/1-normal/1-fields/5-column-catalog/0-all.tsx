@@ -6,6 +6,7 @@ import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { InputSelectUi, type OptionTextValue2 } from "./1-dropdown";
 
 const inputParentClasses = "\
 h-7 grid grid-cols-[minmax(0,1fr)_auto] \
@@ -32,6 +33,11 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
 
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
+
+const inputTypes: OptionTextValue2<{ key: string; no: string; }>[] = [
+    ["Text", { key: '2222', no: '11' }],
+    ["Text2", { key: '332', no: '12' }],
+];
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
@@ -68,7 +74,9 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <input
+            <InputSelectUi items={inputTypes} onValueChange={() => { }} value={''} />
+
+            {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
                 value={inputText}
                 onChange={onSetInputText}
@@ -79,7 +87,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
                 {...turnOffAutoComplete}
             />
 
-            <CatalogDropdown items={dropdownItems} selectedIndex={selectedIndex} onSetIndex={onSetDropdownIndex} />
+            <CatalogDropdown items={dropdownItems} selectedIndex={selectedIndex} onSetIndex={onSetDropdownIndex} /> */}
         </div>
     );
 
