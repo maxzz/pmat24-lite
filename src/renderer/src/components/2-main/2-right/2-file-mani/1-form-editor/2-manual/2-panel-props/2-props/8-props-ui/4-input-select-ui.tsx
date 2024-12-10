@@ -110,7 +110,7 @@
 // }
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-// import { type OptionTextValue } from "@/store/manifest";
+import { type OptionTextValue } from "@/store/manifest";
 import { classNames } from "@/utils";
 
 export type StringValueChangeProps = {
@@ -118,13 +118,13 @@ export type StringValueChangeProps = {
     onValueChange: (value: string) => void;
 };
 
-type OptionObjKey<T extends unknown> = { key: string; } & T;
-type OptionValue<TKey extends unknown> = Prettify<string | OptionObjKey<TKey>>;
-type OptionTextValue<TValue = string | OptionValue<{}>> = Prettify<string | readonly [label: string, value: TValue]>;
+export type OptionObjKey<T extends unknown> = { key: string; } & T;
+export type OptionValue<TKey extends unknown> = Prettify<string | OptionObjKey<TKey>>;
+export type OptionTextValue2<TValue = string | OptionValue<{}>> = Prettify<string | readonly [label: string, value: TValue]>;
 
 type InputSelectUiProps = StringValueChangeProps & {
     // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];
-    items: OptionTextValue[];
+    items: OptionTextValue2[];
     triggerClasses?: string;
 };
 
