@@ -110,7 +110,7 @@
 // }
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-import { type OptionTextValue } from "@/store/manifest";
+// import { type OptionTextValue } from "@/store/manifest";
 import { classNames } from "@/utils";
 
 export type StringValueChangeProps = {
@@ -118,7 +118,12 @@ export type StringValueChangeProps = {
     onValueChange: (value: string) => void;
 };
 
+type OptionObjKey<T extends unknown> = { key: string; } & T;
+type OptionValue<TKey extends unknown> = Prettify<string | OptionObjKey<TKey>>;
+type OptionTextValue<TValue = string | OptionValue<{}>> = Prettify<string | readonly [label: string, value: TValue]>;
+
 type InputSelectUiProps = StringValueChangeProps & {
+    // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];
     items: OptionTextValue[];
     triggerClasses?: string;
 };
@@ -142,8 +147,9 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses }: I
                         const isString = typeof item === 'string';
                         const label = isString ? item : item[0];
                         const value = isString ? item : item[1];
+                        const value2 = typeof value === 'string' ? value : value.key;
                         return (
-                            <SelectItem className="text-xs" value={value} indicatorFirst key={idx}>
+                            <SelectItem className="text-xs" value={value2} indicatorFirst key={idx}>
                                 {label}
                             </SelectItem>
                         );
