@@ -1,11 +1,9 @@
 import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
-import { InputSelectUi, OptionTextValue2 } from "./4-input-select-ui";
-// import { FieldTyp, type OptionTextValue } from "@/store/manifest";
-import { FieldTyp } from "@/store/manifest";
+import { InputSelectUi } from "./4-input-select-ui";
+import { FieldTyp, type OptionTextValue } from "@/store/manifest";
 
-
-const inputTypes: OptionTextValue2[] = [
+const inputTypes: OptionTextValue[] = [
     ["Text", `${FieldTyp.edit}`], 
     ["Passowrd", `${FieldTyp.psw}`],
 ];

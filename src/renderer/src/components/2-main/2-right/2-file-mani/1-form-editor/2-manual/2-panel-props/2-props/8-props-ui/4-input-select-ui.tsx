@@ -118,13 +118,8 @@ export type StringValueChangeProps = {
     onValueChange: (value: string) => void;
 };
 
-export type OptionValueObj<T extends object> = { key: string; } & T;
-export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
-export type OptionTextValue2<TValue = string | OptionValue<object>> = Prettify<string | readonly [label: string, value: TValue]>;
-
 type InputSelectUiProps = StringValueChangeProps & {
-    // items: OptionTextValue<string | OptionValue<{ na: string; }>>[];
-    items: OptionTextValue2[];
+    items: OptionTextValue[];
     triggerClasses?: string;
     placeholder?: string;
 };
@@ -148,9 +143,8 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses, pla
                         const isString = typeof item === 'string';
                         const label = isString ? item : item[0];
                         const value = isString ? item : item[1];
-                        const value2 = typeof value === 'string' ? value : value.key;
                         return (
-                            <SelectItem className="text-xs" value={value2} indicatorFirst key={idx}>
+                            <SelectItem className="text-xs" value={value} indicatorFirst key={idx}>
                                 {label}
                             </SelectItem>
                         );

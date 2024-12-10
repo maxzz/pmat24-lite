@@ -1,6 +1,5 @@
 import { InputHTMLAttributes } from "react";
-// import { type OptionTextValue } from "@/store/manifest";
-import { type OptionTextValue2 } from "./4-input-select-ui";
+import { type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi, StringValueChangeProps } from "./4-input-select-ui";
 import { classNames } from "@/utils";
 
@@ -10,7 +9,7 @@ type InputSelectProps = InputHTMLAttributes<HTMLInputElement> & StringValueChang
     horizontal?: boolean;
     triggerClasses?: string;
     
-    items: OptionTextValue2[];
+    items: OptionTextValue[];
 };
 
 export function InputSelect({ items, label, labelClasses, title, horizontal = false, ...rest }: InputSelectProps) {
