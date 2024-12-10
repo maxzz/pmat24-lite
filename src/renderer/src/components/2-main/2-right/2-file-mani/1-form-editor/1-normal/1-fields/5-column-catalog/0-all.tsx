@@ -42,8 +42,13 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, rowCtx, ...rest } = props;
 
     const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
-    if (rowCtx.fromFc)  {
+    if (rowCtx.fromFc) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
+    }
+
+    const listItems: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.displayname, fceItem: item }]));
+    if (fileUsCtx.fileUs.fceAtomsRef) {
+        listItems.push('-', CATALOG_More);
     }
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
@@ -97,7 +102,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <InputSelectUi items={inputTypes} onValueChange={onValueChange} value={''} />
+            <InputSelectUi items={listItems} onValueChange={onValueChange} value={''} />
 
             {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
