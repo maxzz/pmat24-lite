@@ -43,7 +43,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
     if (rowCtx.fromFc)  {
-        mruNewItems.push(rowCtx.fromFc);
+        mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
@@ -57,11 +57,25 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
 
+    //#region on select
+
     const textAtom = useState(() => atom(fceItem?.fieldValue.displayname || CATALOG_Not))[0];
     const [inputText, setInputTextText] = useAtom(textAtom);
     const [selectedIndex, setSelectedIndex] = useState(thisItemIdx);
+    function onSetDropdownIndex(idx: number) {
+        if (fceAtomsRef && idx === dropdownItems.length - 1) {
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: fceItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            return;
+        }
+        setInputTextText(dropdownItems[idx]);
+        setSelectedIndex(idx);
+    }
+
+    //#endregion
 
     const useIt = useAtomValue(useItAtom);
+
+    //#region dialog start
 
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
@@ -74,10 +88,16 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         }
     }, [fldCatOutBox]);
 
+    //#endregion
+
+    function onValueChange(value: string) {
+        console.log('onSelectCatItem', value);
+    }
+
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <InputSelectUi items={inputTypes} onValueChange={() => { }} value={''} />
+            <InputSelectUi items={inputTypes} onValueChange={onValueChange} value={''} />
 
             {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
@@ -94,36 +114,27 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         </div>
     );
 
-    function onSetDropdownIndex(idx: number) {
-        if (fceAtomsRef && idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: fceItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
-            return;
-        }
-        setInputTextText(dropdownItems[idx]);
-        setSelectedIndex(idx);
-    }
+    // function onSetInputText({ target: { value } }: ChangeEvent<HTMLInputElement>) {
+    //     if (value) {
+    //         setInputTextText(value);
+    //         setSelectedIndex(-1);
+    //     }
+    //     else {
+    //         setInputTextText(CATALOG_Not);
+    //         setSelectedIndex(0);
+    //     };
+    // }
 
-    function onSetInputText({ target: { value } }: ChangeEvent<HTMLInputElement>) {
-        if (value) {
-            setInputTextText(value);
-            setSelectedIndex(-1);
-        }
-        else {
-            setInputTextText(CATALOG_Not);
-            setSelectedIndex(0);
-        };
-    }
+    // function onSetKey(event: React.KeyboardEvent) {
+    //     if (~selectedIndex && isKeyToClearDefault(event.key)) {
+    //         setInputTextText('');
+    //         setSelectedIndex(-1);
+    //     }
+    // }
 
-    function onSetKey(event: React.KeyboardEvent) {
-        if (~selectedIndex && isKeyToClearDefault(event.key)) {
-            setInputTextText('');
-            setSelectedIndex(-1);
-        }
-    }
-
-    function onBlur() {
-        ~~selectedIndex && !inputText && onSetDropdownIndex(0);
-    }
+    // function onBlur() {
+    //     ~~selectedIndex && !inputText && onSetDropdownIndex(0);
+    // }
 }
 
 //TODO: buttons are not stored in field catalog
