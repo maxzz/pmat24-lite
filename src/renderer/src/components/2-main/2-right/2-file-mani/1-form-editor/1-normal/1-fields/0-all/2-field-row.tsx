@@ -49,6 +49,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
             maniIsPassword={maniField.password}
             maniDbName={maniField.dbname}
             fileUsCtx={fileUsCtx}
+            rowCtx={rowCtx}
             onClick={enableRow}
         />
 

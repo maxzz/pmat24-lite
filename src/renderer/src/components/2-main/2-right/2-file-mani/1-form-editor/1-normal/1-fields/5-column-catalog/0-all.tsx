@@ -1,7 +1,7 @@
-import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
+import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
+import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
+import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
@@ -29,19 +29,22 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     maniIsPassword: boolean | undefined; // Manifest field is password
     maniDbName: string;                  // Manifest field dbname
     fileUsCtx: FileUsCtx;
+    rowCtx: NormalField.RowCtx;
 };
 
 const CATALOG_Not = "Not from catalog";
 const CATALOG_More = "More fields ...";
 
-const inputTypes: OptionTextValue2<{ key: string; no: string; }>[] = [
-    ["Text", { key: '2222', no: '11' }],
-    ["Text2", { key: '332', no: '12' }],
-];
+const inputTypes: OptionTextValue2<{ key: string; fceItem: FceItem; }>[] = [];
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
-    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, ...rest } = props;
+    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, rowCtx, ...rest } = props;
+
+    const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+    if (rowCtx.fromFc)  {
+        mruNewItems.push(rowCtx.fromFc);
+    }
 
     const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
 
