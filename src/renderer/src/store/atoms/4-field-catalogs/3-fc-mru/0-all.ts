@@ -6,7 +6,7 @@ import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
 export const txtMruAtom = atom<FceItem[]>([]);
 export const pswMruAtom = atom<FceItem[]>([]);
 
-const mruSize = 7;
+export const mruSize = 7;
 
 function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter): FceItem[] {
     const fType = doPsw ? FieldTyp.psw : FieldTyp.edit;

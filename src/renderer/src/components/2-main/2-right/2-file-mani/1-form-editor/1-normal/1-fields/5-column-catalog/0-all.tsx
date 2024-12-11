@@ -1,12 +1,13 @@
 import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom } from "@/store";
+import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom, mruSize } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { InputSelectUi, type OptionTextValue2 } from "./1-dropdown";
+import { FieldTyp } from "@/store/manifest";
 
 const inputParentClasses = "\
 h-7 grid grid-cols-[minmax(0,1fr)_auto] \
@@ -43,6 +44,22 @@ type OptionItemValue = string | {
     fceItem: FceItem;
 };
 
+function useMruItems(maniIsPassword: boolean | undefined, fromFc: FceItem): FceItem[] {
+    const fType = maniIsPassword ? FieldTyp.psw : FieldTyp.edit;
+    const mruItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+
+    const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
+
+    const notThere = byType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
+    if (notThere === -1) {
+        byType.push(fromFc);
+    }
+
+    byType.splice(mruSize);
+
+    return byType;
+}
+
 const CATALOG_Not = ['Not from catalog', '-1'] as const;
 const CATALOG_More = ['More fields ...', '-2'] as const;
 
@@ -57,7 +74,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     if (rowCtx.fromFc) {
         mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
     }
-    
+
     if (fileUsCtx.fileUs.fceAtomsRef) { //TODO: add only if we in main field catalog dialog
         listItems.push('-', CATALOG_More);
     }

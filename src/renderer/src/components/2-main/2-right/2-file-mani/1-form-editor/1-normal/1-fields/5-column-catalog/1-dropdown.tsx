@@ -1,20 +1,22 @@
 import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { classNames } from "@/utils";
 
+export type OptionValueObj<T extends object> = { key: string; } & T;
+export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
+export type OptionTextValue2<TValue extends string | { key: string; } = string | { key: string; }> = Prettify<string | readonly [label: string, value: TValue]>;
+
 export type StringValueChangeProps = {
     value: string;
     onValueChange: (value: string) => void;
 };
 
-export type OptionValueObj<T extends object> = { key: string; } & T;
-export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
-export type OptionTextValue2<TValue extends string | { key: string; } = string | { key: string; }> = Prettify<string | readonly [label: string, value: TValue]>;
-
-type InputSelectUiProps = StringValueChangeProps & {
-    items: OptionTextValue2[];
-    triggerClasses?: string;
-    placeholder?: string;
-};
+type InputSelectUiProps =
+    & {
+        items: OptionTextValue2[];
+        triggerClasses?: string;
+        placeholder?: string;
+    }
+    & StringValueChangeProps;
 
 const popupColorClasses = "\
 h-6 \
