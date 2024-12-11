@@ -109,6 +109,8 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const value = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
 
+    console.log(`dropdown value: "${value}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
+
     //
 
     // const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
