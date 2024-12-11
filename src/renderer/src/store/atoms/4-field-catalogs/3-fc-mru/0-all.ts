@@ -73,9 +73,9 @@ export function findFceItem(items: FceItem[], dbid: string | undefined): FceItem
 function printAllItems(txtItems: FceItem[], pswItems: FceItem[]) {
     printFceItems('txtMruItems', txtItems);
     printFceItems('pswMruItems', pswItems);
+}
 
-    function printFceItems(label: string, items: FceItem[]) {
-        console.log(`${label}:`);
-        items.forEach((item, idx) => console.log(`${idx}:`, { dbname: item.fieldValue.dbname, displayname: item.fieldValue.displayname }));
-    }
+export function printFceItems(label: string, items: FceItem[]) {
+    console.log(`${label}:`);
+    items.forEach((item, idx) => console.log(`${idx}:`, { dbname: item.fieldValue.dbname, displayname: item.fieldValue.displayname }));
 }

@@ -52,6 +52,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                     maniIsPassword={maniIsPassword}
                     maniDbName={maniDbName}
                     fileUsCtx={fileUsCtx}
+                    rowCtx={item.rowCtx}
                 />
             </InputLabel>
 
