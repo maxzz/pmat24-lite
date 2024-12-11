@@ -40,7 +40,7 @@ export type FileUs = {
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
     fceAtoms: FceAtoms | undefined;                 // for Fc file: Fce atoms or null for manifest files
-    fceAtomsRef: FceAtoms | undefined;              // for manifest: reference to FceAtoms of the root FC or null if from unmanaged folder (i.e. not root and not A/B/C subfolder) (Maybe later: of correcponding FC if applicable for sub-folder (now only main))
+    fceAtomsRefForMani: FceAtoms | undefined;       // for manifest: reference to FceAtoms of the root FC or null if from unmanaged folder (i.e. not root and not A/B/C subfolder) (Maybe later: of correcponding FC if applicable for sub-folder (now only main))
 };
 
 export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;

@@ -25,7 +25,7 @@ export function createFileUsForNewFc(): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
 
-        fceAtomsRef: undefined,
+        fceAtomsRefForMani: undefined,
         fceAtoms: undefined,
     };
 
