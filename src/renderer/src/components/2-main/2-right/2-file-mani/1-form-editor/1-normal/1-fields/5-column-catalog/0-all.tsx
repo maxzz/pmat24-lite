@@ -32,6 +32,27 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     rowCtx: NormalField.RowCtx;
 };
 
+function useFcDialog(maniIsPassword: boolean | undefined, maniDbName: string): { fldCatOutBoxAtom: PA<FceDlgOut | null>; } {
+    
+    const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
+    
+    //const { doOpenFceDlgAtom, doCancelFceDlgAtom, doCloseFceDlgAtom, doCloseFceDlgAtom } = useSetAtom(doOpenFceDlgAtom);
+    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
+    const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
+
+    useEffect(() => {
+        if (fldCatOutBox) {
+            console.log('Result of the field catalog dialog', fldCatOutBox);
+        }
+    }, [fldCatOutBox]);
+
+    // function doOpenFldCatDialog(inData: FceDlgIn) {
+    //     doOpenFceDlgAtom({ fceAtoms: undefined, inData, closeFldCatDialog: doCloseFceDlgAtom });
+    // }
+
+    return { fldCatOutBoxAtom };
+}
+
 export function Column5_Catalog(props: Column5_CatalogProps) {
     const { useItAtom, onSelectCatItem, fieldCatAtom, className, fileUsCtx, rowCtx, ...rest } = props;
 
