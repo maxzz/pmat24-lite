@@ -28,85 +28,45 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PA<boolean>;
     fieldCatAtom: PA<string>;
     onSelectCatItem: (item: FceItem | undefined) => void;
-    maniIsPassword: boolean | undefined; // Manifest field is password
-    maniDbName: string;                  // Manifest field dbname
     fileUsCtx: FileUsCtx;
     rowCtx: NormalField.RowCtx;
 };
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
-
-    const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, rowCtx, ...rest } = props;
-    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRefForMani;
-
-    const listItems2 = useMruItems(maniIsPassword, rowCtx.fromFc);
-
-    // const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
-    // const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
-    // if (rowCtx.fromFc) {
-    //     mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
-    // }
-    // if (fceAtomsRef) { //TODO: add only if we in main field catalog dialog
-    //     listItems.push('-', CATALOG_More);
-    // }
-    // listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
-
-    const value = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
-
-    console.log(`dropdown value: "${value}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
-
-    //
-
-    // const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
-    // const dropdownItems = [CATALOG_Not, ...mruItems.map((item) => item.fieldValue.displayname)];
-    // if (fceAtomsRef) {
-    //     dropdownItems.push('-', CATALOG_More[0]);
-    // }
-    // let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
-
-    //#region on select
-
-    // const textAtom = useState(() => atom(fceItem?.fieldValue.displayname || CATALOG_Not))[0];
-    // const [inputText, setInputTextText] = useAtom(textAtom);
-    // const [selectedIndex, setSelectedIndex] = useState(thisItemIdx);
-    // function onSetDropdownIndex(idx: number) {
-    //     if (fceAtomsRef && idx === dropdownItems.length - 1) {
-    //         doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: fceItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
-    //         return;
-    //     }
-    //     setInputTextText(dropdownItems[idx]);
-    //     setSelectedIndex(idx);
-    // }
-
-    //#endregion
+    const { useItAtom, onSelectCatItem, fieldCatAtom, className, fileUsCtx, rowCtx, ...rest } = props;
 
     const useIt = useAtomValue(useItAtom);
+    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
+    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    const listItems = useMruItems(isPsw, rowCtx.fromFc);
+
+    console.log(`dropdown value: "${dbid}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     //#region dialog start
 
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
-    // const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
-    // const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
+    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
+    const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
-    // useEffect(() => {
-    //     if (fldCatOutBox) {
-    //         console.log('Result of the field catalog dialog', fldCatOutBox);
-    //     }
-    // }, [fldCatOutBox]);
+    useEffect(() => {
+        if (fldCatOutBox) {
+            console.log('Result of the field catalog dialog', fldCatOutBox);
+        }
+    }, [fldCatOutBox]);
 
     //#endregion
 
     function onValueChange(value: string) {
-        const fceItem = listItems2.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
+        const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
 
         if (value === '-1') {
             return;
         }
 
         if (value === '-2') {
-            // const dbid = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
-            // doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRefForMani;
+            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !isPsw, showPsw: !!isPsw } });
             return;
         }
 
@@ -115,46 +75,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-
-            <InputSelectUi items={listItems2} value={value} onValueChange={onValueChange} />
-
-            {/* <input
-                className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
-                value={inputText}
-                onChange={onSetInputText}
-                onKeyDown={onSetKey}
-                onBlur={onBlur}
-                readOnly
-                multiple
-                {...turnOffAutoComplete}
-            />
-
-            <CatalogDropdown items={dropdownItems} selectedIndex={selectedIndex} onSetIndex={onSetDropdownIndex} /> */}
+            <InputSelectUi items={listItems} value={dbid} onValueChange={onValueChange} />
         </div>
     );
-
-    // function onSetInputText({ target: { value } }: ChangeEvent<HTMLInputElement>) {
-    //     if (value) {
-    //         setInputTextText(value);
-    //         setSelectedIndex(-1);
-    //     }
-    //     else {
-    //         setInputTextText(CATALOG_Not);
-    //         setSelectedIndex(0);
-    //     };
-    // }
-
-    // function onSetKey(event: React.KeyboardEvent) {
-    //     if (~selectedIndex && isKeyToClearDefault(event.key)) {
-    //         setInputTextText('');
-    //         setSelectedIndex(-1);
-    //     }
-    // }
-
-    // function onBlur() {
-    //     ~~selectedIndex && !inputText && onSetDropdownIndex(0);
-    // }
 }
-
-//TODO: buttons are not stored in field catalog
-//TODO: buttons should not have dbname (it is useless, they don't have state to save)

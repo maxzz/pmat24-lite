@@ -9,8 +9,8 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     const { useItAtom, labelAtom, valueLifeAtom, dbnameAtom } = item.rowCtx;
 
     /*TODO:*/ function onSelectCatItem(item: FceItem | undefined) { }
-    /*TODO:*/ const maniIsPassword = false;
-    /*TODO:*/ const maniDbName = "123";
+    // /*TODO:*/ const maniIsPassword = false;
+    // /*TODO:*/ const maniDbName = "123";
 
     return (<>
         {/* 
@@ -49,8 +49,6 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                     useItAtom={useItAtom}
                     fieldCatAtom={dbnameAtom}
                     onSelectCatItem={onSelectCatItem}
-                    maniIsPassword={maniIsPassword}
-                    maniDbName={maniDbName}
                     fileUsCtx={fileUsCtx}
                     rowCtx={item.rowCtx}
                 />

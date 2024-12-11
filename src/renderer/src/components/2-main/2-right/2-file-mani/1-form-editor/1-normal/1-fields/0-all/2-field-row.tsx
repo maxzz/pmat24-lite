@@ -46,8 +46,6 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
             useItAtom={useItAtom}
             fieldCatAtom={dbnameAtom}
             onSelectCatItem={onSelectCatItem}
-            maniIsPassword={maniField.password}
-            maniDbName={maniField.dbname}
             fileUsCtx={fileUsCtx}
             rowCtx={rowCtx}
             onClick={enableRow}
