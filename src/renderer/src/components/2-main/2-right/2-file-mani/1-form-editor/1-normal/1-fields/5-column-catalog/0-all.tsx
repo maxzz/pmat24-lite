@@ -1,7 +1,7 @@
-import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from "react";
+import { type ChangeEvent, type InputHTMLAttributes, useEffect, useMemo, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom, mruSize } from "@/store";
+import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom, mruSize, printFceItems } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
@@ -44,20 +44,47 @@ type OptionItemValue = string | {
     fceItem: FceItem;
 };
 
-function useMruItems(maniIsPassword: boolean | undefined, fromFc: FceItem): FceItem[] {
-    const fType = maniIsPassword ? FieldTyp.psw : FieldTyp.edit;
-    const mruItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
+    return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
+}
 
-    const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
+function mruToOptions(fecItems: FceItem[]): OptionTextValue2<OptionItemValue>[] {
+    return fecItems.map(fceItemToOption);
+}
 
-    const notThere = byType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
-    if (notThere === -1) {
-        byType.push(fromFc);
-    }
+function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
+    const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
+    const mruItems = useAtomValue(isPsw ? pswMruAtom : txtMruAtom);
 
-    byType.splice(mruSize);
+    const rv = useMemo(() => {
+        const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
 
-    return byType;
+        if (fromFc) {
+            const notThere = byType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
+
+            if (notThere === -1 && fromFc) {
+                byType.push(fromFc);
+            }
+
+            byType.splice(mruSize);
+        }
+
+        printFceItems(`MRU ${isPsw ? 'psw' : 'txt'}`, byType);
+
+        const rv = mruToOptions(byType);
+
+        if (rv.length > mruSize) { //TODO: add only if we in main field catalog dialog
+            rv.push('-', CATALOG_More);
+        }
+
+        if (fromFc) {
+            rv.unshift(CATALOG_Not, '-');
+        }
+
+        return rv;
+    }, [isPsw, fromFc, mruItems]);
+
+    return rv;
 }
 
 const CATALOG_Not = ['Not from catalog', '-1'] as const;
@@ -66,49 +93,44 @@ const CATALOG_More = ['More fields ...', '-2'] as const;
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const { useItAtom, onSelectCatItem, fieldCatAtom, maniIsPassword, maniDbName, className, fileUsCtx, rowCtx, ...rest } = props;
+    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRefForMani;
 
-    const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+    const listItems2 = useMruItems(maniIsPassword, rowCtx.fromFc);
 
-    const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
-
-    if (rowCtx.fromFc) {
-        mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
-    }
-
-    if (fileUsCtx.fileUs.fceAtomsRef) { //TODO: add only if we in main field catalog dialog
-        listItems.push('-', CATALOG_More);
-    }
-
-    listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
+    // const mruNewItems = useAtomValue(maniIsPassword ? pswMruAtom : txtMruAtom);
+    // const listItems: OptionTextValue2<OptionItemValue>[] = mruNewItems.map((item) => ([item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }]));
+    // if (rowCtx.fromFc) {
+    //     mruNewItems.push(rowCtx.fromFc); //TODO: if not in mru, add to mru and check the list size
+    // }
+    // if (fceAtomsRef) { //TODO: add only if we in main field catalog dialog
+    //     listItems.push('-', CATALOG_More);
+    // }
+    // listItems.unshift(CATALOG_Not, '-'); //TODO: add '-' if we have items
 
     const value = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
 
     //
 
-    const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
-
-    const dropdownItems = [CATALOG_Not, ...mruItems.map((item) => item.fieldValue.displayname)];
-
-    const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRef;
-    if (fceAtomsRef) {
-        dropdownItems.push('-', CATALOG_More[0]);
-    }
-
-    let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
+    // const { mruItems, thisFceItem: fceItem } = useAtomValue(getMruForFcItemAtom)(maniIsPassword, maniDbName);
+    // const dropdownItems = [CATALOG_Not, ...mruItems.map((item) => item.fieldValue.displayname)];
+    // if (fceAtomsRef) {
+    //     dropdownItems.push('-', CATALOG_More[0]);
+    // }
+    // let thisItemIdx = (fceItem ? mruItems.findIndex((item) => item === fceItem) : -1) + 1; // +1 to skip CATALOG_Not
 
     //#region on select
 
-    const textAtom = useState(() => atom(fceItem?.fieldValue.displayname || CATALOG_Not))[0];
-    const [inputText, setInputTextText] = useAtom(textAtom);
-    const [selectedIndex, setSelectedIndex] = useState(thisItemIdx);
-    function onSetDropdownIndex(idx: number) {
-        if (fceAtomsRef && idx === dropdownItems.length - 1) {
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: fceItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
-            return;
-        }
-        setInputTextText(dropdownItems[idx]);
-        setSelectedIndex(idx);
-    }
+    // const textAtom = useState(() => atom(fceItem?.fieldValue.displayname || CATALOG_Not))[0];
+    // const [inputText, setInputTextText] = useAtom(textAtom);
+    // const [selectedIndex, setSelectedIndex] = useState(thisItemIdx);
+    // function onSetDropdownIndex(idx: number) {
+    //     if (fceAtomsRef && idx === dropdownItems.length - 1) {
+    //         doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid: fceItem?.fieldValue.dbname, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+    //         return;
+    //     }
+    //     setInputTextText(dropdownItems[idx]);
+    //     setSelectedIndex(idx);
+    // }
 
     //#endregion
 
@@ -118,27 +140,27 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
-    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
-    const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
+    // const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
+    // const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
-    useEffect(() => {
-        if (fldCatOutBox) {
-            console.log('Result of the field catalog dialog', fldCatOutBox);
-        }
-    }, [fldCatOutBox]);
+    // useEffect(() => {
+    //     if (fldCatOutBox) {
+    //         console.log('Result of the field catalog dialog', fldCatOutBox);
+    //     }
+    // }, [fldCatOutBox]);
 
     //#endregion
 
     function onValueChange(value: string) {
-        const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
+        const fceItem = listItems2.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
 
         if (value === '-1') {
             return;
         }
 
         if (value === '-2') {
-            const dbid = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
+            // const dbid = rowCtx.fromFc?.fieldValue.dbname || maniDbName;
+            // doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !maniIsPassword, showPsw: !!maniIsPassword } });
             return;
         }
 
@@ -148,7 +170,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
 
-            <InputSelectUi items={listItems} value={value} onValueChange={onValueChange} />
+            <InputSelectUi items={listItems2} value={value} onValueChange={onValueChange} />
 
             {/* <input
                 className={classNames(inputClasses, ~selectedIndex && "text-[0.6rem] !text-blue-400")} //TODO: we can use placeholder on top and ingone all events on placeholder and do multiple lines
