@@ -1,13 +1,14 @@
-import { type ChangeEvent, type InputHTMLAttributes, useEffect, useMemo, useState } from "react";
+import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { FieldTyp } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom, txtMruAtom, pswMruAtom, mruSize, printFceItems } from "@/store";
+import { useMruItems } from "@/store/atoms/4-field-catalogs";
+import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { inputRingClasses } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { InputSelectUi, type OptionTextValue2 } from "./1-dropdown";
-import { FieldTyp } from "@/store/manifest";
+import { InputSelectUi } from "./1-dropdown";
 
 const inputParentClasses = "\
 h-7 grid grid-cols-[minmax(0,1fr)_auto] \
@@ -32,63 +33,6 @@ type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     fileUsCtx: FileUsCtx;
     rowCtx: NormalField.RowCtx;
 };
-
-/**
- * List item can be string or object with key and fceItem or key and string
- *    * '-'
- *    * ['More fields ...', '-2']
- *    * ['Field name', { key: anyUniqueId, fceItem }]
- */
-type OptionItemValue = string | {
-    key: string;
-    fceItem: FceItem;
-};
-
-function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
-    return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
-}
-
-function mruToOptions(fecItems: FceItem[]): OptionTextValue2<OptionItemValue>[] {
-    return fecItems.map(fceItemToOption);
-}
-
-function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
-    const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
-    const mruItems = useAtomValue(isPsw ? pswMruAtom : txtMruAtom);
-
-    const rv = useMemo(() => {
-        const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
-
-        if (fromFc) {
-            const notThere = byType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
-
-            if (notThere === -1 && fromFc) {
-                byType.push(fromFc);
-            }
-
-            byType.splice(mruSize);
-        }
-
-        printFceItems(`MRU ${isPsw ? 'psw' : 'txt'}`, byType);
-
-        const rv = mruToOptions(byType);
-
-        if (rv.length > mruSize) { //TODO: add only if we in main field catalog dialog
-            rv.push('-', CATALOG_More);
-        }
-
-        if (fromFc) {
-            rv.unshift(CATALOG_Not, '-');
-        }
-
-        return rv;
-    }, [isPsw, fromFc, mruItems]);
-
-    return rv;
-}
-
-const CATALOG_Not = ['Not from catalog', '-1'] as const;
-const CATALOG_More = ['More fields ...', '-2'] as const;
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
 
