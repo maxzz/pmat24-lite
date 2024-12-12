@@ -42,6 +42,7 @@ export const doCloseFceDlgAtom = atom(
 // atom to store result of the field catalog dialog
 
 export function creteOutBoxAtom<T>() {
+    console.log('------------------------------------');
     return atom<T | null>(null);
 }
 

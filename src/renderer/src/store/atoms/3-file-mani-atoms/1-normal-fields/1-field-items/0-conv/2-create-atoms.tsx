@@ -11,6 +11,7 @@ export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValu
         valueLifeAtom: atomWithCallback(valueLife, onChange),
         dbnameAtom: atomWithCallback(dbname, onChange),
         policiesAtom: atomWithCallback(policies, onChange),
+        
         rfieldAtom: atomWithCallback(rfield, onChange),
         rfieldIndexAtom: atomWithCallback(rfieldIndex, onChange),
         rfieldFormAtom: atomWithCallback(rfieldForm, onChange),

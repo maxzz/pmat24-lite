@@ -9,7 +9,7 @@ import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, dbnameAtom, policiesAtom, metaField } = rowCtx;
+    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
 
     const setUseIt = useSetAtom(useItAtom);
@@ -43,11 +43,9 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
         />
 
         <Column5_Catalog
-            useItAtom={useItAtom}
-            fieldCatAtom={dbnameAtom}
-            onSelectCatItem={onSelectCatItem}
-            fileUsCtx={fileUsCtx}
             rowCtx={rowCtx}
+            fileUsCtx={fileUsCtx}
+            onSelectCatItem={onSelectCatItem}
             onClick={enableRow}
         />
 

@@ -12,6 +12,10 @@ export function forMani(from: EditorField.ForAtoms): EditorField.Members {
         policy: from.policies.policy,
         policy2: from.policies.policy2,
         options: from.policies.options,
+
+        rfield: from.rfield as 'in' | 'out' | undefined,
+        rfieldindex: from.rfieldIndex,
+        rfieldform: from.rfieldForm,
     };
 
     TransformValue.valueLife2Mani(from.valueLife, rv);

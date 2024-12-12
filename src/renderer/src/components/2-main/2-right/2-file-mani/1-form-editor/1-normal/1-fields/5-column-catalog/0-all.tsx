@@ -23,24 +23,24 @@ bg-mani-background text-mani-foreground \
 outline-none";
 
 type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
-    useItAtom: PA<boolean>;
-    fieldCatAtom: PA<string>;
     onSelectCatItem: (item: FceItem | undefined) => void;
     fileUsCtx: FileUsCtx;
     rowCtx: NormalField.RowCtx;
 };
 
 export function Column5_Catalog(props: Column5_CatalogProps) {
-    const { useItAtom, onSelectCatItem, fieldCatAtom, className, fileUsCtx, rowCtx, ...rest } = props;
+    const { onSelectCatItem, className, fileUsCtx, rowCtx, ...rest } = props;
+    const { useItAtom, dbnameAtom } = rowCtx;
 
     const useIt = useAtomValue(useItAtom);
-    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
+
+    // const v = useAtomValue();
+
+    const value = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
 
     const listItems = useMruItems(isPsw, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx });
-
-    console.log(`render dropdown value: "${dbid}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     function onValueChange(value: string) {
         if (value === '-1') {
@@ -54,35 +54,36 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         console.log(`onSelectCatItem value: "${value}", fceItem: %o`, fceItem);
     }
 
+    console.log(`render dropdown, value: "${value}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
+
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-            <InputSelectUi items={listItems} value={dbid} onValueChange={onValueChange} />
+            <InputSelectUi items={listItems} value={value} onValueChange={onValueChange} />
         </div>
     );
 }
 
 function useFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; }): () => void {
-
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
-    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
-    const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
+    const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
+    const fceOutBox = useAtomValue(fceOutBoxAtom);
 
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
     const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
 
     useEffect(() => {
-        if (fldCatOutBox) {
-            console.log('Result of the field catalog dialog', fldCatOutBox);
+        if (fceOutBox) {
+            console.log('Result of the field catalog dialog', fceOutBox);
         }
-    }, [fldCatOutBox]);
+    }, [fceOutBox]);
 
     const doOpenDlg = useCallback(
         function doOpenDlg() {
             const fceAtoms = fileUsCtx.fileUs.fceAtomsRefForMani;
             const inData: FceDlgIn = {
                 dbid,
-                outBoxAtom: fldCatOutBoxAtom,
+                outBoxAtom: fceOutBoxAtom,
                 showTxt: !isPsw,
                 showPsw: !!isPsw,
             };
