@@ -1,13 +1,11 @@
-import { type ChangeEvent, type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
-import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
+import { type PrimitiveAtom as PA, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type FceDlgIn, useMruItems } from "@/store/atoms/4-field-catalogs";
-import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
-import { CatalogDropdown } from "./2-catalog-dropdown";
-import { isKeyToClearDefault } from "../6-fields-shared-ui";
+import { type FceItem, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { inputRingClasses } from "@/ui";
-import { classNames, turnOffAutoComplete } from "@/utils";
+import { classNames } from "@/utils";
 import { InputSelectUi } from "./1-dropdown";
 
 const inputParentClasses = "\
@@ -45,17 +43,14 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     console.log(`render dropdown value: "${dbid}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     function onValueChange(value: string) {
-        const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
-
         if (value === '-1') {
             return;
-        }
-
-        if (value === '-2') {
+        } else if (value === '-2') {
             doOpenDlg();
             return;
         }
 
+        const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
         console.log(`onSelectCatItem value: "${value}", fceItem: %o`, fceItem);
     }
 
