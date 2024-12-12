@@ -36,7 +36,6 @@ function useFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: Norm
 
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
-    //const { doOpenFceDlgAtom, doCancelFceDlgAtom, doCloseFceDlgAtom, doCloseFceDlgAtom } = useSetAtom(doOpenFceDlgAtom);
     const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
@@ -51,13 +50,14 @@ function useFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: Norm
 
     const doOpenDlg = useCallback(
         function doOpenDlg() {
+            const fceAtoms = fileUsCtx.fileUs.fceAtomsRefForMani;
             const inData: FceDlgIn = {
                 dbid,
                 outBoxAtom: fldCatOutBoxAtom,
                 showTxt: !isPsw,
                 showPsw: !!isPsw,
             };
-            doOpenFldCatDialog({ fceAtoms: undefined, inData });
+            doOpenFldCatDialog({ fceAtoms, inData });
         }, [dbid, isPsw]
     );
 
@@ -70,25 +70,11 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     const useIt = useAtomValue(useItAtom);
     const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+
     const listItems = useMruItems(isPsw, rowCtx.fromFc);
-
-    console.log(`dropdown value: "${dbid}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
-
-    //#region dialog start
-
-    const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx });
 
-    const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
-    const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
-
-    useEffect(() => {
-        if (fldCatOutBox) {
-            console.log('Result of the field catalog dialog', fldCatOutBox);
-        }
-    }, [fldCatOutBox]);
-
-    //#endregion
+    console.log(`render dropdown value: "${dbid}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     function onValueChange(value: string) {
         const fceItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
@@ -98,10 +84,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
         }
 
         if (value === '-2') {
-            const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRefForMani;
             doOpenDlg();
-            //doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !isPsw, showPsw: !!isPsw } });
-
             return;
         }
 
