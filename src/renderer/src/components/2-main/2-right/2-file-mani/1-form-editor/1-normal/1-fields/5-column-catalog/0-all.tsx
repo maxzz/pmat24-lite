@@ -49,15 +49,17 @@ function useFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: Norm
         }
     }, [fldCatOutBox]);
 
-    const doOpenDlg = useCallback(function doOpenDlg() {
-        const inData: FceDlgIn = {
-            dbid,
-            outBoxAtom: fldCatOutBoxAtom,
-            showTxt: !isPsw,
-            showPsw: !!isPsw,
-        };
-        doOpenFldCatDialog({ fceAtoms: undefined, inData });
-    }, []);
+    const doOpenDlg = useCallback(
+        function doOpenDlg() {
+            const inData: FceDlgIn = {
+                dbid,
+                outBoxAtom: fldCatOutBoxAtom,
+                showTxt: !isPsw,
+                showPsw: !!isPsw,
+            };
+            doOpenFldCatDialog({ fceAtoms: undefined, inData });
+        }, [dbid, isPsw]
+    );
 
     return doOpenDlg;
 }
@@ -75,6 +77,7 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
     //#region dialog start
 
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
+    const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx });
 
     const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
@@ -96,7 +99,9 @@ export function Column5_Catalog(props: Column5_CatalogProps) {
 
         if (value === '-2') {
             const fceAtomsRef = fileUsCtx.fileUs.fceAtomsRefForMani;
-            doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !isPsw, showPsw: !!isPsw } });
+            doOpenDlg();
+            //doOpenFldCatDialog({ fceAtoms: fceAtomsRef, inData: { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !isPsw, showPsw: !!isPsw } });
+
             return;
         }
 
