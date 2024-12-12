@@ -1,8 +1,8 @@
-import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from "react";
+import { type ChangeEvent, type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom as PA, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { useMruItems } from "@/store/atoms/4-field-catalogs";
+import { type FceDlgIn, useMruItems } from "@/store/atoms/4-field-catalogs";
 import { type FceItem, type FceDlgOut, getMruForFcItemAtom, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
 import { CatalogDropdown } from "./2-catalog-dropdown";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
@@ -40,15 +40,24 @@ function useFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: Norm
     const fldCatOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fldCatOutBox = useAtomValue(fldCatOutBoxAtom);
 
+    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
+
     useEffect(() => {
         if (fldCatOutBox) {
             console.log('Result of the field catalog dialog', fldCatOutBox);
         }
     }, [fldCatOutBox]);
 
-    function doOpenDlg() {
-        // doOpenFceDlgAtom({ fceAtoms: undefined, { dbid, outBoxAtom: fldCatOutBoxAtom, showTxt: !isPsw, showPsw: !!isPsw }, closeFldCatDialog: doCloseFceDlgAtom });
-    }
+    const doOpenDlg = useCallback(function doOpenDlg() {
+        const inData: FceDlgIn = {
+            dbid,
+            outBoxAtom: fldCatOutBoxAtom,
+            showTxt: !isPsw,
+            showPsw: !!isPsw,
+        };
+        doOpenFldCatDialog({ fceAtoms: undefined, inData });
+    }, []);
 
     return doOpenDlg;
 }
