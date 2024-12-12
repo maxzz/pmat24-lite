@@ -2,7 +2,7 @@ import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/util-ho
 import { EditorField } from "@/store/manifest";
 
 export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValueChangeAny): Atomize<EditorField.ForAtoms> {
-    const { useIt, label, type, dbname, valueLife, policies } = initialState;
+    const { useIt, label, type, dbname, valueLife, policies, rfield, rfieldIndex, rfieldForm } = initialState;
 
     const rv: Atomize<EditorField.ForAtoms> = {
         useItAtom: atomWithCallback(useIt, onChange),
@@ -11,6 +11,9 @@ export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValu
         valueLifeAtom: atomWithCallback(valueLife, onChange),
         dbnameAtom: atomWithCallback(dbname, onChange),
         policiesAtom: atomWithCallback(policies, onChange),
+        rfieldAtom: atomWithCallback(rfield, onChange),
+        rfieldIndexAtom: atomWithCallback(rfieldIndex, onChange),
+        rfieldFormAtom: atomWithCallback(rfieldForm, onChange),
     };
 
     return rv;
