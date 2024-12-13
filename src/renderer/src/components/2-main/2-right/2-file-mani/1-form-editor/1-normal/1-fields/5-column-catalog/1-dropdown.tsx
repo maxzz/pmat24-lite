@@ -1,5 +1,4 @@
 import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-import { classNames } from "@/utils";
 
 export type OptionValueObj<T extends object> = { key: string; } & T;
 export type OptionValue<TKey extends object> = Prettify<string | OptionValueObj<TKey>>;
@@ -31,12 +30,6 @@ export function InputSelectUi<T>({ items, value, onValueChange, triggerClasses, 
                 <div className="truncate">
                     <SelectValue placeholder={placeholder} />
                 </div>
-
-                {/* <SelectValue className="truncate" placeholder={placeholder} /> */}
-                {/* <SelectValue className="truncate" placeholder={placeholder} asChild>
-                    <div className="truncate">{value}</div>
-                </SelectValue> */}
-
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
