@@ -15,6 +15,7 @@ focus:ring-offset-1 \
 focus:ring-offset-mani-background \
 focus:ring-mani-ring-activated \
 \
+truncate \
 outline-none \
 rounded \
 ";
