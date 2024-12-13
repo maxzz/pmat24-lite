@@ -9,20 +9,19 @@ import { classNames } from "@/utils";
 import { InputSelectUi } from "./1-dropdown";
 
 const inputParentClasses = "\
-h-7 1grid 1grid-cols-[minmax(0,1fr)_auto] \
+px-2 py-1 w-full h-7 text-xs \
 \
 bg-mani-background \
-\
 border-mani-border-muted border \
 \
 rounded overflow-hidden";
 
-const inputClasses = "\
-px-2 py-3 h-7 \
-bg-mani-background text-mani-foreground \
-outline-none";
-
 const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
+
+// const inputClasses = "\
+// px-2 py-3 h-7 \
+// bg-mani-background text-mani-foreground \
+// outline-none";
 
 type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     rowCtx: NormalField.RowCtx;
@@ -75,7 +74,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             {...rest}
         > */}
             <InputSelectUi
-                triggerClasses={classNames("px-2 py-1 w-full h-7 text-xs rounded", inputParentClasses, selectValue === '-1' && inputAsRefClasses)}
+                triggerClasses={classNames(inputParentClasses, inputRingClasses, selectValue === '-1' && inputAsRefClasses)}
                 items={listItems}
                 value={selectValue}
                 onValueChange={onSelectValueChange}
