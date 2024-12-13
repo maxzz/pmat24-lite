@@ -20,15 +20,23 @@ type InputSelectUiProps =
 
 const popupColorClasses = "\
 h-6 \
-bg-primary-100 dark:bg-primary-900 \
-text-primary-900 dark:text-primary-300";
+text-primary-900 dark:text-primary-300 \
+bg-primary-100 dark:bg-primary-900";
 
 export function InputSelectUi<T>({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
             <SelectTrigger className={triggerClasses}>
-                <SelectValue placeholder={placeholder} />
+                <div className="truncate">
+                    <SelectValue placeholder={placeholder} />
+                </div>
+
+                {/* <SelectValue className="truncate" placeholder={placeholder} /> */}
+                {/* <SelectValue className="truncate" placeholder={placeholder} asChild>
+                    <div className="truncate">{value}</div>
+                </SelectValue> */}
+
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
