@@ -2,21 +2,18 @@ import { type InputHTMLAttributes, useCallback, useEffect, useState } from "reac
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceDlgIn, useMruItems } from "@/store/atoms/4-field-catalogs";
-import { type FceItem, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom } from "@/store";
+import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useMruItems } from "@/store";
 import { inputRingClasses } from "@/ui";
 import { classNames } from "@/utils";
 import { InputSelectUi } from "./1-dropdown";
 
-const inputParentClasses = "\
+const selectClasses = "\
 px-2 py-1 w-full h-7 text-xs \
-\
 bg-mani-background \
 border-mani-border-muted border \
-\
 rounded overflow-hidden cursor-pointer";
 
-const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
+const selectAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
 
 type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     rowCtx: NormalField.RowCtx;
@@ -57,32 +54,15 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
     console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
-    return (<>
-        {/* <div
-            className={classNames(
-                inputParentClasses,
-                inputRingClasses,
-                !useIt && "opacity-30 cursor-pointer",
-                className)
-            }
-
-            {...rest}
-        > */}
-
+    return (
         <InputSelectUi
-            triggerClasses={
-                classNames(
-                    inputParentClasses, inputRingClasses,
-                    !useIt && "opacity-30",
-                    selectValue === '-1' && inputAsRefClasses,
-                )}
+            triggerClasses={classNames(selectClasses, inputRingClasses, !useIt && "opacity-30", selectValue === '-1' && selectAsRefClasses)}
             items={listItems}
             value={selectValue}
             onValueChange={onSelectValueChange}
             {...rest}
         />
-        {/* </div> */}
-    </>);
+    );
 }
 
 function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
