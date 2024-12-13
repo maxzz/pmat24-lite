@@ -43,8 +43,11 @@ export function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefi
 
         const rv = byType.map(fceItemToOption);
 
+        if (rv.length > 0) {
+            rv.unshift('-');
+        }
+        rv.unshift(CATALOG_Not);
         rv.push('-', CATALOG_More);
-        rv.unshift(CATALOG_Not, '-');
 
         return rv;
     }, [isPsw, fromFc, mruItems]);
