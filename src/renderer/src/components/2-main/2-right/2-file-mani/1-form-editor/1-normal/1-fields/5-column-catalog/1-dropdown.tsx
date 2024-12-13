@@ -23,13 +23,11 @@ h-6 \
 bg-primary-100 dark:bg-primary-900 \
 text-primary-900 dark:text-primary-300";
 
-const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
-
 export function InputSelectUi<T>({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", value === '-1' && inputAsRefClasses, triggerClasses)}>
+            <SelectTrigger className={triggerClasses}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 

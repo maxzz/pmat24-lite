@@ -22,6 +22,8 @@ px-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
 outline-none";
 
+const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
+
 type Column5_CatalogProps = InputHTMLAttributes<HTMLInputElement> & {
     rowCtx: NormalField.RowCtx;
     fileUsCtx: FileUsCtx;
@@ -61,11 +63,25 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
     console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
-    return (
-        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-            <InputSelectUi items={listItems} value={selectValue} onValueChange={onSelectValueChange} />
-        </div>
-    );
+    return (<>
+        {/* <div
+            className={classNames(
+                inputParentClasses,
+                inputRingClasses,
+                !useIt && "opacity-30 cursor-pointer",
+                className)
+            }
+
+            {...rest}
+        > */}
+            <InputSelectUi
+                triggerClasses={classNames("px-2 py-1 w-full h-7 text-xs", selectValue === '-1' && inputAsRefClasses)}
+                items={listItems}
+                value={selectValue}
+                onValueChange={onSelectValueChange}
+            />
+        {/* </div> */}
+        </>);
 }
 
 function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
