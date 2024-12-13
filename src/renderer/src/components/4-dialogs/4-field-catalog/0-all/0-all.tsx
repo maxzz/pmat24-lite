@@ -29,7 +29,7 @@ export function FceDialog() {
                 noClose
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
-                container={document.getElementById('portal')}
+                // container={document.getElementById('portal')} // dialog from select portal will throw warning
             >
                 <FceDialogBody fceCtx={fceCtx} />
 
