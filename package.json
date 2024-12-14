@@ -18,7 +18,7 @@
         "pm-manifest": "^1.2.63",
         "pm-manifest-icons": "latest",
         "react-syntax-highlighter": "^15.6.1",
-        "react-use": "^17.5.1",
+        "react-use": "^17.6.0",
         "use-resize-observer": "^9.1.0",
         "valtio": "^2.1.2",
         "vaul": "^1.1.1"
