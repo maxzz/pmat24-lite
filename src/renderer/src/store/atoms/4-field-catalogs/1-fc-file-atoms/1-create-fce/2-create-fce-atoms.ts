@@ -25,11 +25,11 @@ export function createFileUsForNewFc(): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
 
+        fceAtomsForFcFile: undefined,
         fceAtomsRefForMani: undefined,
-        fceAtoms: undefined,
     };
 
-    rv.fceAtoms = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });
+    rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });
     return rv;
 }
 
@@ -39,10 +39,10 @@ export function createFceAtomsInFileUs(fileUs: FileUs): void {
         throw new Error('This is not a field catalog file');
     }
 
-    if (!fileUs.fceAtoms) {
+    if (!fileUs.fceAtomsForFcFile) {
         const items: FceItem[] = finalizeFceItems(fcat.names);
         const rv: FceAtoms = createFceAtoms({ fileUs, desc: fcat.descriptor, items });
-        fileUs.fceAtoms = rv;
+        fileUs.fceAtomsForFcFile = rv;
     }
 }
 

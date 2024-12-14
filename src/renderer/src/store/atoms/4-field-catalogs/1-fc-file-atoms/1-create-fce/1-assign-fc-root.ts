@@ -53,13 +53,13 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
         (fileUs) => {
             const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}(?:[/\\][a-c])*$`));
             if (goodForFc) {
-                fileUs.fceAtomsRefForMani = rootFc.fceAtoms;
+                fileUs.fceAtomsRefForMani = rootFc.fceAtomsForFcFile;
             }
         }
     );
 
-    if (rootFc.fceAtoms?.viewFceCtx) {
-        rootFc.fceAtoms.viewFceCtx.isMaster = true;
+    if (rootFc.fceAtomsForFcFile?.viewFceCtx) {
+        rootFc.fceAtomsForFcFile.viewFceCtx.isMaster = true;
     }
 
     setRootFcFileUs(rootFc);

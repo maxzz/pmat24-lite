@@ -52,7 +52,7 @@ function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
 }
 
 function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
-    const fceCtx = fileUs.fceAtoms?.viewFceCtx;
+    const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
     return (<>
         {fceCtx ? <R_PanelMenuFc fceCtx={fceCtx} /> : <NoMenu />}
     </>);

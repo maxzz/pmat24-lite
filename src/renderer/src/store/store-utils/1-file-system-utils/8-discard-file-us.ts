@@ -38,8 +38,8 @@ function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
         //TODO: break other links
     }
 
-    discardFceCtx(fileUs.fceAtoms?.viewFceCtx);
-    discardAllKeysValue(fileUs.fceAtoms);
+    discardFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
+    discardAllKeysValue(fileUs.fceAtomsForFcFile);
     discardAllKeysValue(fileUs);
 }
 

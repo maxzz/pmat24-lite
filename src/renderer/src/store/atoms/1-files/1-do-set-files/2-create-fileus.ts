@@ -18,8 +18,8 @@ export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
         },
         maniAtomsAtom: atom<ManiAtoms | null>(null),
 
-        fceAtomsRefForMani: undefined,      // will be assigned later when all files are loaded
-        fceAtoms: undefined,         // will be assigned later when all files are loaded
+        fceAtomsForFcFile: undefined,   // will be assigned later when all files are loaded
+        fceAtomsRefForMani: undefined,  // will be assigned later when all files are loaded
     };
 
     return rv;

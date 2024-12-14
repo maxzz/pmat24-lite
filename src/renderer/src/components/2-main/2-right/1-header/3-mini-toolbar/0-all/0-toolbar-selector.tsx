@@ -32,7 +32,7 @@ function ToolbarContentForManifest({ fileUs }: { fileUs: FileUs; }) {
     );
 }
 function ToolbarContentForFc({ fileUs }: { fileUs: FileUs; }) {
-    const fceCtx = fileUs.fceAtoms?.viewFceCtx;
+    const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
     if (!fceCtx) {
         return null;
     }

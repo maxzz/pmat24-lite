@@ -19,7 +19,7 @@ function ManiName({ fileUs }: { fileUs: FileUs; }) {
 }
 
 function FcName({ fileUs }: { fileUs: FileUs; }) {
-    const isMaster = fileUs.fceAtoms?.viewFceCtx?.isMaster;
+    const isMaster = fileUs.fceAtomsForFcFile?.viewFceCtx?.isMaster;
     const hint = isMaster ? '' : 'The active field catalog is located at the root of the open folder \nand has the file name "field_catalog.dpn".';
     return (
         <div className="text-sm font-semibold" title="Name from manifest file">

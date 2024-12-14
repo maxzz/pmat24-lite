@@ -10,14 +10,14 @@ let rootFcFileUs: FileUs | undefined;
  * without having a drop operation prior.
  */
 export function hasRootFceAtoms(): boolean {
-    return !!rootFcFileUs?.fceAtoms;
+    return !!rootFcFileUs?.fceAtomsForFcFile;
 }
 
 export function getRootFceAtoms(): FceAtoms {
-    if (!rootFcFileUs?.fceAtoms) {
+    if (!rootFcFileUs?.fceAtomsForFcFile) {
         throw new Error('root fc not set yet');
     }
-    return rootFcFileUs.fceAtoms;
+    return rootFcFileUs.fceAtomsForFcFile;
 }
 
 export function setRootFcFileUs(fileUs: FileUs | undefined) {

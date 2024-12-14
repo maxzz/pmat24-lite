@@ -9,7 +9,7 @@ import { SelectedItemPropsBody } from "@/components/4-dialogs/4-field-catalog/3-
 export function FcViewBody({ fileUsAtom, className, ...rest }: { fileUsAtom: FileUsAtom; } & HTMLAttributes<HTMLDivElement>) {
 
     const fileUs = useAtomValue(fileUsAtom);
-    const fceCtx = fileUs.fceAtoms?.viewFceCtx;
+    const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
     if (!fceCtx) {
         return <div>No body</div>;
     }
