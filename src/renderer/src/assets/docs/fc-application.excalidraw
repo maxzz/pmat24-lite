@@ -5,8 +5,8 @@
   "elements": [
     {
       "type": "text",
-      "version": 2557,
-      "versionNonce": 636274079,
+      "version": 2563,
+      "versionNonce": 1858379171,
       "isDeleted": false,
       "id": "LRk5KKsx36ktKPIckcDbH",
       "fillStyle": "solid",
@@ -33,7 +33,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1734216904166,
+      "updated": 1734217676085,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
@@ -1711,8 +1711,8 @@
     },
     {
       "type": "text",
-      "version": 2711,
-      "versionNonce": 668065475,
+      "version": 2712,
+      "versionNonce": 1044951917,
       "isDeleted": false,
       "id": "FCzi0pT0ZkaPh2ktxd3_M",
       "fillStyle": "solid",
@@ -1722,7 +1722,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 823.8635635375979,
-      "y": 593.0993362401979,
+      "y": 592.2997950227742,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
       "width": 159.1125946044922,
@@ -1739,7 +1739,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1734217039755,
+      "updated": 1734217452684,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
@@ -1754,8 +1754,8 @@
     },
     {
       "type": "text",
-      "version": 2859,
-      "versionNonce": 1287997955,
+      "version": 2901,
+      "versionNonce": 90530957,
       "isDeleted": false,
       "id": "NnJOmf4Nle4sLSvz3KQd2",
       "fillStyle": "solid",
@@ -1764,11 +1764,11 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 823.8635635375979,
-      "y": 636.2995315526979,
+      "x": 824.0635757446291,
+      "y": 635.8971104848922,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
-      "width": 261.8612365722656,
+      "width": 323.64593505859375,
       "height": 77.00834658239602,
       "seed": 1541977407,
       "groupIds": [
@@ -1782,23 +1782,23 @@
           "type": "arrow"
         }
       ],
-      "updated": 1734217039755,
+      "updated": 1734217618588,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
       "fontFamily": 1,
-      "text": "3. Delete FC item\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched set it undefined\n      * 1",
+      "text": "3. Delete FC item\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched set it undefined\n        * EditorField.ForAtoms.rfieldForm set to none",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "3. Delete FC item\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched set it undefined\n      * 1",
+      "originalText": "3. Delete FC item\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched set it undefined\n        * EditorField.ForAtoms.rfieldForm set to none",
       "lineHeight": 1.25,
       "baseline": 72
     },
     {
       "type": "text",
-      "version": 2772,
-      "versionNonce": 835118403,
+      "version": 2834,
+      "versionNonce": 747742275,
       "isDeleted": false,
       "id": "Wp4QdHU0KvyIj5z8HItkL",
       "fillStyle": "solid",
@@ -1808,11 +1808,11 @@
       "opacity": 100,
       "angle": 0,
       "x": 823.8635635375979,
-      "y": 781.0994583105104,
+      "y": 725.6994338964478,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
-      "width": 131.577392578125,
-      "height": 15.401669316479204,
+      "width": 379.92364501953125,
+      "height": 77.00834658239602,
       "seed": 325615359,
       "groupIds": [
         "709M74AA9e41R3ytMNPgC"
@@ -1825,23 +1825,23 @@
           "type": "arrow"
         }
       ],
-      "updated": 1734217039755,
+      "updated": 1734217660237,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
       "fontFamily": 1,
-      "text": "4. After FC item edit",
+      "text": "4. After FC item edit\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched\n        * EditorField.ForAtoms.valueLife set to value from FC",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "4. After FC item edit",
+      "originalText": "4. After FC item edit\n  * for each fileUs in maniAtoms\n    * for each NormalField.RowCtx\n      * if fromFc matched\n        * EditorField.ForAtoms.valueLife set to value from FC",
       "lineHeight": 1.25,
-      "baseline": 10
+      "baseline": 72
     },
     {
       "type": "arrow",
-      "version": 100,
-      "versionNonce": 1753168675,
+      "version": 124,
+      "versionNonce": 696111331,
       "isDeleted": false,
       "id": "3ubhQ0lPDUQZL_oxgseIZ",
       "fillStyle": "solid",
@@ -1851,28 +1851,28 @@
       "opacity": 50,
       "angle": 0,
       "x": 759.2000528971354,
-      "y": 521.1110213757265,
+      "y": 523.2524181512837,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 57.800018310546875,
-      "height": 4.715481752107166,
+      "width": 51.600067138671875,
+      "height": 0.8039649434223293,
       "seed": 1526602001,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734217039755,
+      "updated": 1734217676089,
       "link": null,
       "locked": false,
       "startBinding": {
         "elementId": "LRk5KKsx36ktKPIckcDbH",
-        "focus": -0.37822677589648884,
+        "focus": -0.29548221939908,
         "gap": 7.1148401896158475
       },
       "endBinding": {
         "elementId": "imKonw4wtDGUp-snDkqI_",
-        "focus": 0.04136610092194755,
-        "gap": 6.86349232991563
+        "focus": 0.5938331614699845,
+        "gap": 13.06344350179063
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -1883,15 +1883,15 @@
           0
         ],
         [
-          57.800018310546875,
-          4.715481752107166
+          51.600067138671875,
+          0.8039649434223293
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 124,
-      "versionNonce": 407834211,
+      "version": 155,
+      "versionNonce": 1451568291,
       "isDeleted": false,
       "id": "1YpBUqRB-7-MQbt7Xdi0v",
       "fillStyle": "solid",
@@ -1904,21 +1904,21 @@
       "y": 541.5998942057292,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 162.6001586914066,
-      "height": 52.86280352950973,
+      "width": 163.00015258789097,
+      "height": 55.66279132247848,
       "seed": 1589208831,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734217039755,
+      "updated": 1734217460353,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "FCzi0pT0ZkaPh2ktxd3_M",
-        "focus": -0.384774484338586,
-        "gap": 12.463467915852902
+        "focus": -0.4897517814883652,
+        "gap": 12.063474019368527
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -1929,15 +1929,15 @@
           0
         ],
         [
-          162.6001586914066,
-          52.86280352950973
+          163.00015258789097,
+          55.66279132247848
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 135,
-      "versionNonce": 2050167203,
+      "version": 233,
+      "versionNonce": 2042841837,
       "isDeleted": false,
       "id": "aY399M2JJBdC6wJlC3ggI",
       "fillStyle": "solid",
@@ -1946,25 +1946,25 @@
       "roughness": 0,
       "opacity": 50,
       "angle": 0,
-      "x": 624.7999369303384,
-      "y": 557.5998942057292,
+      "x": 641.4907182861978,
+      "y": 557.199930826823,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 182.1092979898441,
-      "height": 75.44682238379141,
+      "width": 170.3093712320316,
+      "height": 86.97789175690923,
       "seed": 875940593,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734217039755,
+      "updated": 1734217618588,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "NnJOmf4Nle4sLSvz3KQd2",
-        "focus": -0.2103645543514508,
-        "gap": 17.263547261556084
+        "focus": -0.48439429192825023,
+        "gap": 12.263486226399777
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -1975,15 +1975,15 @@
           0
         ],
         [
-          182.1092979898441,
-          75.44682238379141
+          170.3093712320316,
+          86.97789175690923
         ]
       ]
     },
     {
       "type": "arrow",
-      "version": 157,
-      "versionNonce": 1524581603,
+      "version": 251,
+      "versionNonce": 1274684387,
       "isDeleted": false,
       "id": "fuPKADAue2uQzj4Mv96ZY",
       "fillStyle": "solid",
@@ -1992,25 +1992,25 @@
       "roughness": 0,
       "opacity": 50,
       "angle": 0,
-      "x": 637.5999552408853,
+      "x": 640.6889839406851,
       "y": 573.5999552408855,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 171.40020751953148,
-      "height": 207.6182313819387,
+      "width": 168.02207687774433,
+      "height": 168.41263895118823,
       "seed": 728388209,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734217039755,
+      "updated": 1734217660239,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "Wp4QdHU0KvyIj5z8HItkL",
-        "focus": -1.0311381374935358,
-        "gap": 14.863400777181141
+        "focus": -0.8011972045935873,
+        "gap": 15.15250271916841
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -2021,8 +2021,8 @@
           0
         ],
         [
-          171.40020751953148,
-          207.6182313819387
+          168.02207687774433,
+          168.41263895118823
         ]
       ]
     }
