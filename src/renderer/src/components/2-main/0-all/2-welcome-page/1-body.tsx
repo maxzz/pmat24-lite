@@ -14,7 +14,6 @@ const titleStyle = {
     WebkitFontSmoothing: 'antialiased',
 };
 
-
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
@@ -39,8 +38,8 @@ export function WelcomePage() {
                                 Welcome to the Password Manager Admin Tool
                             </div>
 
-                            <div className="h-7">
-                            <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
+                            <div className="h-24 [--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]">
+                                <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
                             </div>
 
                             <div className="text-xs text-balance">
