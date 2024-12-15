@@ -38,9 +38,9 @@ export function WelcomePage() {
                                 Welcome to the Password Manager Admin Tool
                             </div>
 
-                            <div className="h-24 [--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]">
+                            {/* <div className="h-24 [--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]">
                                 <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
-                            </div>
+                            </div> */}
 
                             <div className="text-xs text-balance">
                                 {allowHandleFiles

@@ -39,13 +39,13 @@ export function TextHoverEffect({ text, duration, }: { text: string; duration?: 
                     r="25%"
                     // className="[--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]"
                 >
-                    {/* {hovered && (<> */}
+                    {hovered && (<>
                         <stop offset="0%" stopColor={"var(--yellow-500)"} />
                         <stop offset="25%" stopColor={"var(--red-500)"} />
                         <stop offset="50%" stopColor={"var(--blue-500)"} />
                         <stop offset="75%" stopColor={"var(--cyan-500)"} />
                         <stop offset="100%" stopColor={"var(--violet-500)"} />
-                    {/* </>)} */}
+                    </>)}
                 </linearGradient>
 
                 <motion.radialGradient
