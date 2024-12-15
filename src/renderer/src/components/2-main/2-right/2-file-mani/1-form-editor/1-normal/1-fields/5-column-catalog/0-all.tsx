@@ -1,6 +1,6 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp, Mani } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useMruItems } from "@/store";
 import { inputRingClasses } from "@/ui";
@@ -20,6 +20,11 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
     fileUsCtx: FileUsCtx;
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
+
+const setSelectedItemAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+    rowCtx.fromFc = fceItem;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
+});
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, dbnameAtom } = rowCtx;
@@ -45,11 +50,13 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
         }
 
         const optionItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
-        console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
+        const newFceItem = typeof optionItem?.[1] === 'string' ? undefined : optionItem?.[1].fceItem;
 
-        if (typeof optionItem?.[1] !== 'string' && optionItem?.[1].fceItem) {
-            setSelectValue(optionItem[1].fceItem.fieldValue.dbname);
+        if (newFceItem) {
+            setSelectValue(newFceItem.fieldValue.dbname);
         }
+
+        console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
     }
 
     console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
