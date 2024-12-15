@@ -4,7 +4,7 @@ import { type ValueLife } from "@/store/manifest";
 import { setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
 
-type ChangesProps = {
+type FcePropChangesProps = {
     fceCtx: FceCtx;
     name: string;
     nextValue: string | ValueLife;
@@ -12,16 +12,18 @@ type ChangesProps = {
 
 export const doFcePropChangesAtom = atom(
     null,
-    (get, set, { fceCtx, name, nextValue }: ChangesProps) => {
-        handlePropChangesDebounced({ fceCtx, name, nextValue }, get, set);
+    (get, set, props: FcePropChangesProps) => {
+        handlePropChangesDebounced(props, get, set);
     },
 );
 
-function handlePropChanges({ fceCtx, name, nextValue }: ChangesProps, get: Getter, set: Setter) {
+function handlePropChanges({ fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
     const selectedItem = get(fceCtx.selectedItemAtom);
     if (!selectedItem) {
         return;
     }
+
+    console.log('handlePropChanges', name, nextValue);
 
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
