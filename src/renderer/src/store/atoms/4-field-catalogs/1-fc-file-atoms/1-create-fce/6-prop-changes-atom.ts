@@ -1,8 +1,8 @@
-import { atom, Getter, Setter } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
-import { setManiChanges } from "../../../3-file-mani-atoms";
-import { theSameValue } from "../../../3-file-mani-atoms/1-normal-fields/1-field-items/0-conv/4-comparison";
+import { setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
+import { debounce } from "@/utils";
 
 type ChangesProps = {
     fceCtx: FceCtx;
@@ -13,11 +13,11 @@ type ChangesProps = {
 export const doFcePropChangesAtom = atom(
     null,
     (get, set, { fceCtx, name, nextValue }: ChangesProps) => {
-        handleChanges({ fceCtx, name, nextValue }, get, set);
+        handlePropChangesDebounced({ fceCtx, name, nextValue }, get, set);
     },
 );
 
-function handleChanges({ fceCtx, name, nextValue }: ChangesProps, get: Getter, set: Setter) {
+function handlePropChanges({ fceCtx, name, nextValue }: ChangesProps, get: Getter, set: Setter) {
     const selectedItem = get(fceCtx.selectedItemAtom);
     if (!selectedItem) {
         return;
@@ -59,3 +59,5 @@ function handleChanges({ fceCtx, name, nextValue }: ChangesProps, get: Getter, s
         }
     }
 }
+
+const handlePropChangesDebounced = debounce(handlePropChanges, 500);
