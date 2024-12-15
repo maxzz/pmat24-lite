@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type FceCtx } from "../../9-types";
+import { type FceItem, type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
 import { setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
@@ -13,16 +13,16 @@ type FcePropChangesProps = {
 export const doFcePropChangesAtom = atom(
     null,
     (get, set, props: FcePropChangesProps) => {
-        handlePropChangesDebounced(props, get, set);
+        const selectedItem = get(props.fceCtx.selectedItemAtom);
+        if (!selectedItem) {
+            return;
+        }
+
+        debouncedHandleFcePropChanges(selectedItem, props, get, set);
     },
 );
 
-function handlePropChanges({ fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
-    const selectedItem = get(fceCtx.selectedItemAtom);
-    if (!selectedItem) {
-        return;
-    }
-
+function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
     console.log('handlePropChanges', name, nextValue);
 
     const beforeEdit = selectedItem.beforeEdit;
@@ -62,4 +62,4 @@ function handlePropChanges({ fceCtx, name, nextValue }: FcePropChangesProps, get
     }
 }
 
-const handlePropChangesDebounced = debounce(handlePropChanges, 500);
+const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);
