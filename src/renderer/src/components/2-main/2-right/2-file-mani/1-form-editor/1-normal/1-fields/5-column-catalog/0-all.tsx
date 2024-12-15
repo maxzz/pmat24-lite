@@ -21,6 +21,11 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
 
+const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+    rowCtx.fromFc = undefined;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
+});
+
 const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
     rowCtx.fromFc = fceItem;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
@@ -28,7 +33,8 @@ const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowC
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, dbnameAtom } = rowCtx;
-    const setSelectedItem = useSetAtom(setSelectedItemFromFcAtom);
+    const setSelectedItemFromFc = useSetAtom(setSelectedItemFromFcAtom);
+    const setSelectedItemNotFromFc = useSetAtom(setSelectedItemNotFromFcAtom);
 
     const useIt = useAtomValue(useItAtom);
 
@@ -44,6 +50,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     function onSelectValueChange(value: string) {
         if (value === '-1') {
             setSelectValue('-1');
+            setSelectedItemNotFromFc(rowCtx);
             return;
         } else if (value === '-2') {
             doOpenDlg();
@@ -55,7 +62,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
         if (newFceItem) {
             setSelectValue(newFceItem.fieldValue.dbname);
-            setSelectedItem(rowCtx, newFceItem);
+            setSelectedItemFromFc(rowCtx, newFceItem);
         }
 
         console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
