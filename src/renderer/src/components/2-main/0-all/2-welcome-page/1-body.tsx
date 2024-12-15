@@ -5,6 +5,7 @@ import { ButtonFilesPicker } from "./2-button-files-picker";
 import { DontShowNext } from "./3-dont-show-next";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
+import { TextHoverEffect } from "@/ui";
 
 const titleStyle = {
     color: 'black',
@@ -36,6 +37,10 @@ export function WelcomePage() {
                             <div className="text-2xl font-extrabold opacity-30 scale-y-125" style={titleStyle}>
                                 {/* Password Manager Admin Tool */}
                                 Welcome to the Password Manager Admin Tool
+                            </div>
+
+                            <div className="h-7">
+                            <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
                             </div>
 
                             <div className="text-xs text-balance">
