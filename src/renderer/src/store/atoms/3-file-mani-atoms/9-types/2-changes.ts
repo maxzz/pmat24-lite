@@ -1,7 +1,6 @@
 import { proxySet } from "valtio/utils";
+import { type ChangesSet } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
-
-export type ChangesSet = Set<string>;
 
 // fileUs changes
 

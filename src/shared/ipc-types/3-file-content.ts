@@ -1,5 +1,3 @@
-import { type ChangesSet } from "@/store/atoms/3-file-mani-atoms";
-
 // WebFsItem exists only for item loaded without electron
 
 type WebFsItemParams = {
@@ -25,6 +23,8 @@ export class WebFsItem {
         this.path = path || '';
     }
 };
+
+export type ChangesSet = Set<string>;
 
 // FileContent
 
