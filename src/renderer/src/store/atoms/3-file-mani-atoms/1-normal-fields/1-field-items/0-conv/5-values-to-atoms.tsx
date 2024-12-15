@@ -9,4 +9,8 @@ export function valuesToAtoms(values: EditorField.ForAtoms, atoms: Atomize<Edito
     set(atoms.dbnameAtom, values.dbname);
     set(atoms.valueLifeAtom, values.valueLife);
     set(atoms.policiesAtom, values.policies);
+
+    set(atoms.rfieldAtom, values.rfield);
+    set(atoms.rfieldIndexAtom, values.rfieldIndex);
+    set(atoms.rfieldFormAtom, values.rfieldForm);
 }

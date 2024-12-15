@@ -11,6 +11,7 @@ export function fromAtoms(rowCtx: NormalField.RowCtx, get: Getter, set?: Setter)
         valueLife: get(rowCtx.valueLifeAtom),
         dbname: get(rowCtx.dbnameAtom),
         policies: get(rowCtx.policiesAtom),
+        
         rfield: get(rowCtx.rfieldAtom),
         rfieldIndex: get(rowCtx.rfieldIndexAtom),
         rfieldForm: get(rowCtx.rfieldFormAtom),

@@ -29,7 +29,11 @@ export function areTheSame(from: EditorField.ForAtoms, to: EditorField.ForAtoms)
         from.dbname === to.dbname &&
         theSameValue(from.valueLife, to.valueLife) &&
         from.valueLife.valueAs === to.valueLife.valueAs &&
-        theSamePolicyStrings(from.policies, to.policies)
+        theSamePolicyStrings(from.policies, to.policies) &&
+        
+        from.rfield === to.rfield &&
+        from.rfieldIndex === to.rfieldIndex &&
+        from.rfieldForm === to.rfieldForm
     );
     return rv;
 }
