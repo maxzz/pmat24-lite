@@ -22,4 +22,7 @@ export function getRootFceAtoms(): FceAtoms {
 
 export function setRootFcFileUs(fileUs: FileUs | undefined) {
     rootFcFileUs = fileUs;
+    if (fileUs) {
+        fileUs.parsedSrc.stats.isFCatRoot = true;
+    }
 }

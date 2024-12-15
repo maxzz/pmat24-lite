@@ -72,6 +72,7 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
         isLoginFormWeb,
         isLoginFormChrome: isLoginFormWeb && !parsedSrc.meta?.[0]?.disp.isIe,
         isFCat: !!parsedSrc.fcat,
+        isFCatRoot: false,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
         loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
 

@@ -59,10 +59,12 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
         }
     }
 
-    const changed = hasAnyManiChange(fceCtx.fceAtoms);
-    // if (changed) {
+    if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
+        const changed = hasAnyManiChange(fceCtx.fceAtoms);
         console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
-    // }
+
+        
+    }
 }
 
 const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);

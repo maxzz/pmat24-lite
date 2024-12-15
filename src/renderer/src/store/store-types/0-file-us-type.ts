@@ -10,6 +10,7 @@ export type FileUsStats = {
     isLoginFormWeb: boolean;                        // is login web form; ourl maybe changed but should not become empty
     isLoginFormChrome: boolean;                     // is web apploication and not IE; isWeb && !fileUs.meta?.[0]?.disp.isIe
     isFCat: boolean;                                // is file field catalog
+    isFCatRoot: boolean;                            // is file root field catalog
     isCustomization: boolean;                       // is file customization; !fileUs.meta?.length && !!fileUs.mani?.options
 
     loginFormChooseNameAtom: PrimitiveAtom<string>; // loginForm?.options.choosename
