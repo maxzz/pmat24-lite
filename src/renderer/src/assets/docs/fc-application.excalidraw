@@ -5,8 +5,8 @@
   "elements": [
     {
       "type": "text",
-      "version": 2594,
-      "versionNonce": 1446653619,
+      "version": 2622,
+      "versionNonce": 795737343,
       "isDeleted": false,
       "id": "mnZ-i-AAUKIMuIgHAsb-F",
       "fillStyle": "solid",
@@ -20,7 +20,7 @@
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
       "width": 250.02175903320312,
-      "height": 107.81168521535443,
+      "height": 123.21335453183363,
       "seed": 81193843,
       "groupIds": [
         "mwqZdi_QQ9nCp2TmQNBkd"
@@ -29,22 +29,22 @@
       "roundness": null,
       "boundElements": [
         {
-          "id": "fuPKADAue2uQzj4Mv96ZY",
+          "id": "3ubhQ0lPDUQZL_oxgseIZ",
           "type": "arrow"
         }
       ],
-      "updated": 1734218903008,
+      "updated": 1734230895861,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
       "fontFamily": 1,
-      "text": "Field Catalog interaction:\n\n1. Update all loaded files with loaded FC\n2. Create new FC item\n3. Delete FC item\n4. After FC item edit\n5. Set field not fromFC",
+      "text": "Field Catalog interaction:\n\n1. Update all loaded files with loaded FC\n2. Create new FC item\n3. Delete FC item\n4. After FC item edit\n5. Set field not from FC\n6. Set field from FC",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Field Catalog interaction:\n\n1. Update all loaded files with loaded FC\n2. Create new FC item\n3. Delete FC item\n4. After FC item edit\n5. Set field not fromFC",
+      "originalText": "Field Catalog interaction:\n\n1. Update all loaded files with loaded FC\n2. Create new FC item\n3. Delete FC item\n4. After FC item edit\n5. Set field not from FC\n6. Set field from FC",
       "lineHeight": 1.25,
-      "baseline": 103
+      "baseline": 118
     },
     {
       "type": "rectangle",
@@ -1845,8 +1845,8 @@
     },
     {
       "type": "arrow",
-      "version": 183,
-      "versionNonce": 611255571,
+      "version": 232,
+      "versionNonce": 201059217,
       "isDeleted": false,
       "id": "3ubhQ0lPDUQZL_oxgseIZ",
       "fillStyle": "solid",
@@ -1855,8 +1855,8 @@
       "roughness": 0,
       "opacity": 50,
       "angle": 0,
-      "x": 758.6000162760416,
-      "y": 526.4428502887451,
+      "x": 758.000010172526,
+      "y": 523.0428258746826,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
       "width": 52.20010375976551,
@@ -1866,18 +1866,18 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734218812240,
+      "updated": 1734230903136,
       "link": null,
       "locked": false,
       "startBinding": {
-        "focus": -0.29548221939908,
-        "gap": 7.1148401896158475,
-        "elementId": "mnZ-i-AAUKIMuIgHAsb-F"
+        "elementId": "mnZ-i-AAUKIMuIgHAsb-F",
+        "focus": -0.4114584415658024,
+        "gap": 5.9147974650064725
       },
       "endBinding": {
-        "focus": 0.5938331614699845,
-        "gap": 13.06344350179063,
-        "elementId": "imKonw4wtDGUp-snDkqI_"
+        "elementId": "imKonw4wtDGUp-snDkqI_",
+        "focus": 0.6968963167965774,
+        "gap": 13.663449605306369
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -1895,8 +1895,8 @@
     },
     {
       "type": "arrow",
-      "version": 155,
-      "versionNonce": 1451568291,
+      "version": 200,
+      "versionNonce": 427684849,
       "isDeleted": false,
       "id": "1YpBUqRB-7-MQbt7Xdi0v",
       "fillStyle": "solid",
@@ -1916,13 +1916,13 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734217460353,
+      "updated": 1734230806067,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "FCzi0pT0ZkaPh2ktxd3_M",
-        "focus": -0.4897517814883652,
+        "focus": -0.6027804737341764,
         "gap": 12.063474019368527
       },
       "lastCommittedPoint": null,
@@ -1934,6 +1934,10 @@
           0
         ],
         [
+          33.52366215062648,
+          0.4441322169824389
+        ],
+        [
           163.00015258789097,
           55.66279132247848
         ]
@@ -1941,8 +1945,8 @@
     },
     {
       "type": "arrow",
-      "version": 239,
-      "versionNonce": 1721509213,
+      "version": 276,
+      "versionNonce": 1115475953,
       "isDeleted": false,
       "id": "aY399M2JJBdC6wJlC3ggI",
       "fillStyle": "solid",
@@ -1962,14 +1966,14 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734218832974,
+      "updated": 1734230923622,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
         "elementId": "NnJOmf4Nle4sLSvz3KQd2",
-        "focus": -0.4270601425313495,
-        "gap": 12.063504536946652
+        "focus": -0.5626906751519678,
+        "gap": 11.863492329915402
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -1978,6 +1982,10 @@
         [
           0,
           0
+        ],
+        [
+          42.63289910531398,
+          0.6440833888574389
         ],
         [
           170.50935292148472,
@@ -1987,8 +1995,8 @@
     },
     {
       "type": "arrow",
-      "version": 262,
-      "versionNonce": 837107069,
+      "version": 337,
+      "versionNonce": 1135299953,
       "isDeleted": false,
       "id": "jg1v8UpUYhB_9imPJVowI",
       "fillStyle": "solid",
@@ -1997,25 +2005,25 @@
       "roughness": 0,
       "opacity": 50,
       "angle": 0,
-      "x": 640.6889839406851,
-      "y": 573.5999552408855,
+      "x": 653.8890571828726,
+      "y": 573.999979654948,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 169.8220951882912,
-      "height": 156.21268777931323,
+      "width": 156.6220219461037,
+      "height": 156.16864101154954,
       "seed": 1861642525,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734218902247,
+      "updated": 1734230941660,
       "link": null,
       "locked": false,
       "startBinding": null,
       "endBinding": {
-        "focus": -0.7157570363011586,
-        "gap": 13.352484408621535,
-        "elementId": "Wp4QdHU0KvyIj5z8HItkL"
+        "elementId": "Wp4QdHU0KvyIj5z8HItkL",
+        "focus": -0.803162221375499,
+        "gap": 13.352484408621535
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -2026,17 +2034,21 @@
           0
         ],
         [
-          169.8220951882912,
-          156.21268777931323
+          28.834535794576595,
+          -0.3559776462988111
+        ],
+        [
+          156.6220219461037,
+          155.81266336525073
         ]
       ]
     },
     {
       "type": "text",
-      "version": 2743,
-      "versionNonce": 1863942711,
+      "version": 2746,
+      "versionNonce": 23834705,
       "isDeleted": false,
-      "id": "LRk5KKsx36ktKPIckcDbH",
+      "id": "eKclTP2kOx0vF0Dc60MDn",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -2048,6 +2060,99 @@
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
       "width": 483.8673095703125,
+      "height": 46.205007949437615,
+      "seed": 1087700639,
+      "groupIds": [
+        "S7aJxaZYMoMourZMP3aPR"
+      ],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [
+        {
+          "id": "LnlN7EQ1qp1GGIqUKrQY0",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1734230831791,
+      "link": null,
+      "locked": false,
+      "fontSize": 12.321335453183362,
+      "fontFamily": 1,
+      "text": "5. Set field not fromFC\n      * set fromFc to undefined (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to not Mani.FORMNAME.fieldcatalog",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "5. Set field not fromFC\n      * set fromFc to undefined (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to not Mani.FORMNAME.fieldcatalog",
+      "lineHeight": 1.25,
+      "baseline": 41
+    },
+    {
+      "type": "arrow",
+      "version": 552,
+      "versionNonce": 1699161855,
+      "isDeleted": false,
+      "id": "LnlN7EQ1qp1GGIqUKrQY0",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 50,
+      "angle": 0,
+      "x": 656.993999018953,
+      "y": 586.801551315177,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 156.0271087787628,
+      "height": 228.05406013525646,
+      "seed": 1329707487,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": null,
+      "updated": 1734230956674,
+      "link": null,
+      "locked": false,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "eKclTP2kOx0vF0Dc60MDn",
+        "focus": -0.9390435384849383,
+        "gap": 10.842455739882098
+      },
+      "lastCommittedPoint": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          17.729593958496253,
+          -1.1574882713715624
+        ],
+        [
+          156.0271087787628,
+          226.8965718638849
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "version": 2783,
+      "versionNonce": 569805073,
+      "isDeleted": false,
+      "id": "LRk5KKsx36ktKPIckcDbH",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 823.8635635375979,
+      "y": 872.499482724573,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#a5d8ff",
+      "width": 463.2066345214844,
       "height": 46.205007949437615,
       "seed": 1272374961,
       "groupIds": [
@@ -2065,23 +2170,23 @@
           "type": "arrow"
         }
       ],
-      "updated": 1734230566115,
+      "updated": 1734230771503,
       "link": null,
       "locked": false,
       "fontSize": 12.321335453183362,
       "fontFamily": 1,
-      "text": "5. Set field not fromFC\n      * set fromFc to undefined (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to not Mani.FORMNAME.fieldcatalog",
+      "text": "6. Set field from FC\n      * set fromFc to selected fceItem (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to Mani.FORMNAME.fieldcatalog",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "5. Set field not fromFC\n      * set fromFc to undefined (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to not Mani.FORMNAME.fieldcatalog",
+      "originalText": "6. Set field from FC\n      * set fromFc to selected fceItem (this is none-reactive, set it first)\n      * EditorField.ForAtoms.rfieldForm set to Mani.FORMNAME.fieldcatalog",
       "lineHeight": 1.25,
       "baseline": 41
     },
     {
       "type": "arrow",
-      "version": 428,
-      "versionNonce": 124215479,
+      "version": 585,
+      "versionNonce": 1083672817,
       "isDeleted": false,
       "id": "fuPKADAue2uQzj4Mv96ZY",
       "fillStyle": "solid",
@@ -2090,29 +2195,25 @@
       "roughness": 0,
       "opacity": 50,
       "angle": 0,
-      "x": 648.7784334946294,
-      "y": 597.1998697916667,
+      "x": 638.7940020707108,
+      "y": 602.601600143302,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 164.03537573443134,
-      "height": 212.70441522913734,
+      "width": 173.02709351997373,
+      "height": 274.6966206920099,
       "seed": 728388209,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1734230576436,
+      "updated": 1734230969506,
       "link": null,
       "locked": false,
-      "startBinding": {
-        "elementId": "mnZ-i-AAUKIMuIgHAsb-F",
-        "focus": 0.13449178442843757,
-        "gap": 3.289031441583063
-      },
+      "startBinding": null,
       "endBinding": {
         "elementId": "LRk5KKsx36ktKPIckcDbH",
-        "focus": -0.9018107418940292,
-        "gap": 11.049754308537103
+        "focus": -0.9614879409167009,
+        "gap": 12.042467946913348
       },
       "lastCommittedPoint": null,
       "startArrowhead": null,
@@ -2123,8 +2224,12 @@
           0
         ],
         [
-          164.03537573443134,
-          212.70441522913734
+          30.929621424316565,
+          0.042401865347187595
+        ],
+        [
+          173.02709351997373,
+          274.6966206920099
         ]
       ]
     }
