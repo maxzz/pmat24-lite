@@ -29,6 +29,13 @@ const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.R
 const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
     rowCtx.fromFc = fceItem;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
+
+    //TODO: copy field catalog item valueLife to manifest item
+});
+
+const setDisconnectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+    rowCtx.fromFc = undefined;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
