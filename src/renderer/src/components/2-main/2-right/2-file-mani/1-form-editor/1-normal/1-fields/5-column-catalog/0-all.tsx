@@ -21,13 +21,14 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
 
-const setSelectedItemAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
     rowCtx.fromFc = fceItem;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 });
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, dbnameAtom } = rowCtx;
+    const setSelectedItem = useSetAtom(setSelectedItemFromFcAtom);
 
     const useIt = useAtomValue(useItAtom);
 
@@ -54,6 +55,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
         if (newFceItem) {
             setSelectValue(newFceItem.fieldValue.dbname);
+            setSelectedItem(rowCtx, newFceItem);
         }
 
         console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
