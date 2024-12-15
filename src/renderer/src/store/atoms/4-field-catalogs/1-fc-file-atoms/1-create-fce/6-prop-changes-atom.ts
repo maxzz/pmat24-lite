@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
-import { setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
+import { hasAnyManiChange, setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
 
 type FcePropChangesProps = {
@@ -23,8 +23,6 @@ export const doFcePropChangesAtom = atom(
 );
 
 function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
-    console.log('handlePropChanges', name, nextValue);
-
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
 
@@ -60,6 +58,11 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
             break;
         }
     }
+
+    const changed = hasAnyManiChange(fceCtx.fceAtoms);
+    // if (changed) {
+        console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
+    // }
 }
 
 const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);
