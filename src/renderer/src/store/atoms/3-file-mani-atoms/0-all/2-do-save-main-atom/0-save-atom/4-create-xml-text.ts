@@ -36,7 +36,7 @@ function getManiContent(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiA
 
     packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
-    const fileMani4Xml = toManiFileFormat(newMani);
+    const fileMani4Xml: FileMani.Manifest = toManiFileFormat(newMani);
     const { xml, error } = convertToXml(fileMani4Xml);
 
     console.log('xml', xml);

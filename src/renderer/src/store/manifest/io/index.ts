@@ -1,8 +1,16 @@
-import { FileUs } from "@/store/store-types";
-import { FileMani, makeXML, Mani, showError } from 'pm-manifest';
+import { CatalogFile, FileMani, makeXML, Mani, showError } from '@/store/manifest';
 //import { fileDownload } from '@/utils/file-download';
 
-export function convertToXml(mani: FileMani.Manifest): { error: string; xml?: undefined; } | { xml: string; error?: undefined; } {
+type ConvertToXmlResult =
+    {
+        error: string;
+        xml?: undefined;
+    } | {
+        xml: string;
+        error?: undefined;
+    };
+
+export function convertToXml(mani: FileMani.Manifest | CatalogFile.Root): ConvertToXmlResult {
     let xml = '';
     try {
         // 1.
