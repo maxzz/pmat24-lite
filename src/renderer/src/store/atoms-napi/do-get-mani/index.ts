@@ -3,7 +3,7 @@ import { invokeMain } from "@/xternal-to-main";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { EngineControl } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { CatalogFile, Mani, Meta, buildCatalogMeta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
+import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
 import { lastBuildProgressAtom } from "../do-get-hwnd";
 
 type SawContentReply = {

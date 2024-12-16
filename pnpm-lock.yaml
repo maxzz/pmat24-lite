@@ -33,8 +33,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(jotai@2.10.3(@types/react@18.3.12)(react@18.3.1))(valtio@2.1.2(@types/react@18.3.12)(react@18.3.1))
       pm-manifest:
-        specifier: ^1.2.64
-        version: 1.2.64
+        specifier: ^1.2.65
+        version: 1.2.65
       pm-manifest-icons:
         specifier: latest
         version: 1.0.3(react@18.3.1)
@@ -2938,8 +2938,8 @@ packages:
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
 
-  pm-manifest@1.2.64:
-    resolution: {integrity: sha512-o+mE+7ZvC1OQU/nTUP9q4npjqlNa/fiPIoUGiNmbNN+behhOa2y0u697kkYKYt9SvEQ0G6zROo3chqIySVe+zQ==}
+  pm-manifest@1.2.65:
+    resolution: {integrity: sha512-28jiTol34GLr+/ubeJQGW6Ej6mmYJnCnYgytILgo0ogyG/mfZNwZxINWQwQiiXmSJkoapPXcz7UU8f/6o6ep1Q==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -6545,7 +6545,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  pm-manifest@1.2.64:
+  pm-manifest@1.2.65:
     dependencies:
       '@types/uuid': 10.0.0
       fast-xml-parser: 4.5.0
