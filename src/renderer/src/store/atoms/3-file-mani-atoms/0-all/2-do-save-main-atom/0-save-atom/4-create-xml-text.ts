@@ -1,11 +1,12 @@
 import { Getter, Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { convertToXml, type Mani } from "@/store/manifest";
+import { CatalogFile, convertToXml, FileMani, type Mani } from "@/store/manifest";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 //import { printTestManifest } from "./8-print-test-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
 import { type ManiAtoms } from "../../../9-types";
+import { Description } from "@radix-ui/react-dialog";
 
 export function createXmlText(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     const fileUs = get(fileUsAtom);
@@ -23,7 +24,6 @@ export function createXmlText(fileUsAtom: FileUsAtom, get: Getter, set: Setter):
 }
 
 function getManiContent(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms, get: Getter, set: Setter): string | undefined {
-    
     if (stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }
@@ -36,9 +36,8 @@ function getManiContent(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiA
 
     packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
-    const fileMani = toManiFileFormat(newMani);
-
-    const { xml, error } = convertToXml(fileMani);
+    const fileMani4Xml = toManiFileFormat(newMani);
+    const { xml, error } = convertToXml(fileMani4Xml);
 
     console.log('xml', xml);
 
@@ -47,7 +46,7 @@ function getManiContent(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiA
         return;
     }
 
-    // printTestManifest(fileMani);
+    // printTestManifest(fileMani4Xml);
     // printTestManifest(newMani);
 
     return xml;
@@ -55,5 +54,11 @@ function getManiContent(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiA
 
 function getFcContent(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     const fceAtoms = fileUs.fceAtomsForFcFile;
+    const fce4Xml: CatalogFile.Root = {
+        descriptor: { id: 'dummy' },
+        names: [],
+    };
+
+    // const { xml, error } = convertToXml(fce4Xml);
     return;
 }
