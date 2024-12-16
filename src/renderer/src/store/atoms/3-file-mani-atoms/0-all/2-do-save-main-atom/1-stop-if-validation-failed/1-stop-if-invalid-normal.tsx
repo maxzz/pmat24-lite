@@ -4,7 +4,7 @@ import { doVerifyNormalFormAtom } from "../../7-do-verify-atom/4-do-verify-norma
 import { toast } from "sonner";
 import { appSettings } from "@/store";
 
-export function stopIfNormalErrors(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+export function stopIfInvalidNormal(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
 
     const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
 

@@ -1,7 +1,7 @@
 import { Getter, Setter } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { convertToXml, type Mani } from "@/store/manifest";
-import { stopIfAnyErrors } from "../1-stop-if-errors";
+import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 //import { printTestManifest } from "./8-print-test-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
@@ -10,7 +10,7 @@ export function createXmlText(fileUsAtom: FileUsAtom, get: Getter, set: Setter):
     const fileUs = get(fileUsAtom);
 
     const maniAtoms = get(fileUs.maniAtomsAtom);
-    if (!maniAtoms || stopIfAnyErrors(maniAtoms, get, set)) {
+    if (!maniAtoms || stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }
 

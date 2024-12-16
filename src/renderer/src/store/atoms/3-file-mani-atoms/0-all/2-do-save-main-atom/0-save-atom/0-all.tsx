@@ -1,14 +1,15 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { saveContentToFile } from "./5-save-content";
+import { hasAnyManiChange } from "../../../9-types";
 import { createXmlText } from "./4-create-xml-text";
+import { saveContentToFile } from "./5-save-content";
 
 export const doSaveOneAtom = atom(
     null,
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
-        const changed = !!fileUs.fileCnt.changesSet.size;
+        const changed = hasAnyManiChange({ fileUs });
         if (!changed) {
             return;
         }
