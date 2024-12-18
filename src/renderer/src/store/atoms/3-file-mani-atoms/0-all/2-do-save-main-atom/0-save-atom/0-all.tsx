@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { clearFileUsChanges, hasAnyManiChange } from "../../../9-types";
+import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../9-types";
 import { fileUsToXmlString } from "./4-create-xml-text";
 import { saveContentToFile } from "./5-save-content-to-file";
 
@@ -9,7 +9,7 @@ export const doSaveOneAtom = atom(
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
         const fileUs = get(fileUsAtom);
 
-        const changed = hasAnyManiChange({ fileUs });
+        const changed = hasFileUsAnyChanges({ fileUs });
         if (!changed) {
             return;
         }

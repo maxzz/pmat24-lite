@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
-import { hasAnyManiChange, setManiChanges, theSameValue } from "../../../3-file-mani-atoms";
+import { hasFileUsAnyChanges, setFileUsChangeFlag, theSameValue } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
 
 type FcePropChangesProps = {
@@ -33,7 +33,7 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
             //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
             selectedItem.fieldValue.displayname = displayname;
-            setManiChanges(fceCtx.fceAtoms, changed, `name-${uuid}`);
+            setFileUsChangeFlag(fceCtx.fceAtoms, changed, `name-${uuid}`);
             break;
         }
         case 'ownernoteAtom': {
@@ -42,7 +42,7 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
             //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
             selectedItem.fieldValue.ownernote = ownernote;
-            setManiChanges(fceCtx.fceAtoms, changed, `note-${uuid}`);
+            setFileUsChangeFlag(fceCtx.fceAtoms, changed, `note-${uuid}`);
             break;
         }
         case 'valueLifeAtom': {
@@ -54,13 +54,13 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
             selectedItem.fieldValue.valueAs = valueAs;
             selectedItem.fieldValue.isRef = isRef;
             selectedItem.fieldValue.isNon = isNon;
-            setManiChanges(fceCtx.fceAtoms, changed, `life-${uuid}`);
+            setFileUsChangeFlag(fceCtx.fceAtoms, changed, `life-${uuid}`);
             break;
         }
     }
 
     if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
-        const changed = hasAnyManiChange(fceCtx.fceAtoms);
+        const changed = hasFileUsAnyChanges(fceCtx.fceAtoms);
         console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
         

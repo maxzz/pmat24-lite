@@ -4,17 +4,15 @@ import { type FileUs } from "@/store/store-types";
 
 // fileUs changes
 
-export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
-
+export function setFileUsChangeFlag(fileUsCtx: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
     const fileUs = fileUsCtx.fileUs;
 
     const changes = fileUs.fileCnt.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
 
-    //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
-
     allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
 
+    //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
     return changes;
 }
 
@@ -26,12 +24,12 @@ export function clearFileUsChanges(fileUsCtx: { fileUs: FileUs; }) {
     allFileUsChanges.delete(`${fileUs.fileCnt.unid}`);
 }
 
-export function hasManiChange(fileUsCtx: { fileUs: FileUs; }, name: string): boolean {
+export function hasFileUsChange(fileUsCtx: { fileUs: FileUs; }, name: string): boolean {
     const fileUs = fileUsCtx.fileUs;
     return fileUs.fileCnt.changesSet.has(name);
 }
 
-export function hasAnyManiChange(fileUsCtx: { fileUs: FileUs; }): boolean {
+export function hasFileUsAnyChanges(fileUsCtx: { fileUs: FileUs; }): boolean {
     const fileUs = fileUsCtx.fileUs;
     return fileUs.fileCnt.changesSet.size > 0;
 }

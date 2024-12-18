@@ -1,4 +1,4 @@
-import { type FileUsCtx, type ManiAtoms, type OnChangeProps, setManiChanges } from "../../9-types";
+import { type FileUsCtx, type ManiAtoms, type OnChangeProps, setFileUsChangeFlag } from "../../9-types";
 import { SubmitConv, type SubmitFieldTypes } from "../2-submit/0-conv";
 import { debounce } from "@/utils";
 
@@ -35,7 +35,7 @@ function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
     const fromUi = SubmitConv.fromAtoms(atoms, get, set);
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
 
-    setManiChanges(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
+    setFileUsChangeFlag(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
