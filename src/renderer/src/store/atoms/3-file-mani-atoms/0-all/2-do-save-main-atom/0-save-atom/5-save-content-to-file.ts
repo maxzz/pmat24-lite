@@ -18,19 +18,24 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
             console.error('getAsFileSystemHandleFromEntry', error);
         };
 
+        const handle = fileUs.fileCnt.webFsItem?.handle?.kind === 'file' ? fileUs.fileCnt.webFsItem.handle : null;
+
         const fileSystemHandle = await fileSave(blob,
             {
                 fileName: newFilename,
             },
-
+            handle,
         );
+
+        if (fileUs.fileCnt.webFsItem) {
+            fileUs.fileCnt.webFsItem.handle = fileSystemHandle;
+        }
 
         console.log('fileSystemHandle', fileSystemHandle);
     } catch (error) {
         console.error('saveContentToFile', error);
         return false;
     }
-
 
     return saved;
 }

@@ -1,8 +1,8 @@
 // WebFsItem exists only for item loaded without electron
 
 type WebFsItemParams = {
-    parent?: FileSystemDirectoryHandle | null;
-    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;
+    parent?: FileSystemDirectoryHandle | null;                          // FS handle of directory
+    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;   // FS handle of file
     entry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;
     file?: File | null;
     path?: string;
