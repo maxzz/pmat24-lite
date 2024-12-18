@@ -4,9 +4,7 @@ import { type FileUs } from "@/store/store-types";
 
 // fileUs changes
 
-export function setFileUsChangeFlag(fileUsCtx: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
-    const fileUs = fileUsCtx.fileUs;
-
+export function setFileUsChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
     const changes = fileUs.fileCnt.changesSet;
     changes[changed ? 'add' : 'delete'](changeName);
 
@@ -16,21 +14,16 @@ export function setFileUsChangeFlag(fileUsCtx: { fileUs: FileUs; }, changed: boo
     return changes;
 }
 
-export function clearFileUsChanges(fileUsCtx: { fileUs: FileUs; }) {
-    const fileUs = fileUsCtx.fileUs;
-
+export function clearFileUsChanges({ fileUs }: { fileUs: FileUs; }) {
     fileUs.fileCnt.changesSet.clear();
-
     allFileUsChanges.delete(`${fileUs.fileCnt.unid}`);
 }
 
-export function hasFileUsChange(fileUsCtx: { fileUs: FileUs; }, name: string): boolean {
-    const fileUs = fileUsCtx.fileUs;
+export function hasFileUsChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
     return fileUs.fileCnt.changesSet.has(name);
 }
 
-export function hasFileUsAnyChanges(fileUsCtx: { fileUs: FileUs; }): boolean {
-    const fileUs = fileUsCtx.fileUs;
+export function hasFileUsAnyChanges({ fileUs }: { fileUs: FileUs; }): boolean {
     return fileUs.fileCnt.changesSet.size > 0;
 }
 
