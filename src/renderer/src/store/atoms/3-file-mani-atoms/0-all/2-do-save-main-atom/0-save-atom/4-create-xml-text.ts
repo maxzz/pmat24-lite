@@ -5,6 +5,7 @@ import { type CatalogFile, type FieldCatalog, type FileMani, type Mani, convertT
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
+import { filterEmptyValues } from "./7-filter-empty-values";
 //import { printTestManifest } from "./8-print-test-manifest";
 
 export function createXmlText(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
@@ -58,7 +59,7 @@ function getFcContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, fceAtoms: FceA
 
     const fce4Xml: CatalogFile.Root = {
         descriptor: { id: aboutId || createGuid() },
-        names: items.map(item => fceItemValueToCatalogItemInFile(item.fieldValue)),
+        names: items.map(item => filterEmptyValues(fceItemValueToCatalogItemInFile(item.fieldValue))).filter(Boolean),
     };
 
     const { xml, error } = convertToXml({ fc: fce4Xml });
