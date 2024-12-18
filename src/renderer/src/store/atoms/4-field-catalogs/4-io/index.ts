@@ -22,11 +22,17 @@ export function fceItemValueToCatalogItemInFile(itemValue: FceItemValue): Catalo
 }
 
 export function fceItemValueToFcItem(itemValue: FceItemValue): CatalogItem {
-    const rv = {
+
+    const valueLife: TransformValue.valueLife2ManiLogicReturn = {};
+
+    TransformValue.valueLife2Mani(itemValue, valueLife);
+
+    const rv: CatalogItem = {
         displayname: itemValue.displayname,
         dbname: itemValue.dbname,
         ownernote: itemValue.ownernote,
-    } as CatalogItem;
-    TransformValue.valueLife2Mani(itemValue, rv);
+        ...valueLife,
+    };
+
     return rv;
 }
