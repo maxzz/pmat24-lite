@@ -47,7 +47,7 @@ function hasKeys(obj?: object): boolean {
 
 export function prepareNewFc4Xml2(fc: CatalogFile.Root): CatalogFile.Root {
     const { descriptor, names, ...rest } = fc;
-    const rv: any = { storagecatalog: { names: [] } };
+    const rv: any = { storagecatalog: {} };
 
     // 1. Customization
     if (hasKeys(descriptor)) {
@@ -65,5 +65,8 @@ export function prepareNewFc4Xml2(fc: CatalogFile.Root): CatalogFile.Root {
         };
     }
 
-    return { ...rv, ...rest, };
+    const rv2 = { ...rv, ...rest };
+    console.log('rv2', rv2);
+
+    return rv2;
 }
