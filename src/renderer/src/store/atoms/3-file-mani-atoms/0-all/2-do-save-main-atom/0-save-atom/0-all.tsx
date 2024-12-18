@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { hasAnyManiChange } from "../../../9-types";
-import { createXmlText } from "./4-create-xml-text";
+import { fileUsToXmlString } from "./4-create-xml-text";
 import { saveContentToFile } from "./5-save-content-to-file";
 
 export const doSaveOneAtom = atom(
@@ -14,7 +14,7 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        const xml = createXmlText(fileUsAtom, get, set);
+        const xml = fileUsToXmlString(fileUsAtom, get, set);
         if (!xml) {
             return;
         }

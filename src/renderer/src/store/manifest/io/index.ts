@@ -1,7 +1,7 @@
 import { convertJsToXml, type CatalogFile, type FileMani, type Mani, prepareNewFc4Xml, prepareNewMani4Xml, showError } from '@/store/manifest';
 //import { fileDownload } from '@/utils/file-download';
 
-type ConvertToXmlStringResult =
+export type ConvertToXmlStringResult =
     | {
         error: string;
         xml?: undefined;
