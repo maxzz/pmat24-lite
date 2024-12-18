@@ -46,4 +46,4 @@ export type FileUs = {
 
 export type FileUsAtom = PrimitiveAtom<FileUs>;
 
-export type FileUsAtomsAtom = PrimitiveAtom<ManiAtoms>; // already checked at top level if not null and ready to use
+//export type ManiAtomsAtom = PrimitiveAtom<ManiAtoms>; // already checked at top level if not null and ready to use

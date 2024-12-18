@@ -57,15 +57,15 @@ function getFcContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, fceAtoms: FceA
         items: [],
     };
 
-    const items = get(fceAtoms.allAtom);
-    fce4Xml.items = items.map(item => fceItemValueToCatalogItemInFile(item.fieldValue));
+    // const items = get(fceAtoms.allAtom);
+    // fce4Xml.items = items.map(item => fceItemValueToCatalogItemInFile(item.fieldValue));
 
-    const { xml, error } = convertToXml({ fc: fce4Xml });
+    // const { xml, error } = convertToXml({ fc: fce4Xml });
 
-    if (error || !xml) {
-        console.error('Error converting to xml', error);
-        return;
-    }
+    // if (error || !xml) {
+    //     console.error('Error converting to xml', error);
+    //     return;
+    // }
 
 
     // const { xml, error } = convertToXml(fce4Xml);

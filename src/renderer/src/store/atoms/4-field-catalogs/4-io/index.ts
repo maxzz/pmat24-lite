@@ -21,18 +21,18 @@ export function fceItemValueToCatalogItemInFile(itemValue: FceItemValue): Catalo
     return rv;
 }
 
-export function fceItemValueToFcItem(itemValue: FceItemValue): CatalogItem {
+// export function fceItemValueToFcItem(itemValue: FceItemValue): CatalogItem {
 
-    const valueLife: TransformValue.valueLife2ManiLogicReturn = {};
+//     const valueLife: TransformValue.valueLife2ManiLogicReturn = {};
 
-    TransformValue.valueLife2Mani(itemValue, valueLife);
+//     TransformValue.valueLife2Mani(itemValue, valueLife);
 
-    const rv: CatalogItem = {
-        displayname: itemValue.displayname,
-        dbname: itemValue.dbname,
-        ownernote: itemValue.ownernote,
-        ...valueLife,
-    };
+//     const rv: CatalogItem = {
+//         displayname: itemValue.displayname,
+//         dbname: itemValue.dbname,
+//         ownernote: itemValue.ownernote,
+//         ...valueLife,
+//     };
 
-    return rv;
-}
+//     return rv;
+// }
