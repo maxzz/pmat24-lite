@@ -14,11 +14,11 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Sett
     const fileUs = get(fileUsAtom);
 
     if (fileUs.fceAtomsForFcFile) { // FC
-        res = getFcContentText(fileUs, fileUsAtom, fileUs.fceAtomsForFcFile, get, set);
+        res = getFcContentText(fileUs.fceAtomsForFcFile, get, set);
     } else { // Manifest
         const maniAtoms = get(fileUs.maniAtomsAtom);
         if (maniAtoms) {
-            res = getManiContentText(fileUs, fileUsAtom, maniAtoms, get, set);
+            res = getManiContentText(fileUs, maniAtoms, get, set);
         }
     }
 
@@ -35,7 +35,7 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Sett
     }
 }
 
-function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
     if (stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }
@@ -46,7 +46,7 @@ function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: M
         forms: [],
     };
 
-    packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
+    packManifest({ fileUs, maniAtoms, newMani, get, set });
 
     const fileMani4Xml: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: fileMani4Xml });
@@ -56,7 +56,7 @@ function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: M
     return rv;
 }
 
-function getFcContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, fceAtoms: FceAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getFcContentText(fceAtoms: FceAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
 
     const aboutId = get(fceAtoms.aboutAtom);
     const items = get(fceAtoms.allAtom);

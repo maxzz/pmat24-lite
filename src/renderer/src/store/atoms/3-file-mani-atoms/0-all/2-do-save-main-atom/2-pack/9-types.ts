@@ -5,7 +5,6 @@ import { type Getter, type Setter } from "jotai";
 
 export type PackManifestDataParams = {
     fileUs: FileUs;
-    fileUsAtom: FileUsAtom;
     maniAtoms: ManiAtoms;
     newMani: Partial<Mani.Manifest>; // New manifest being created
     get: Getter;
