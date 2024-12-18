@@ -1,5 +1,5 @@
 import { Getter, Setter } from "jotai";
-import { type FileUs, type FileUsAtom, type FceAtoms } from "@/store";
+import { type FileUs, type FileUsAtom, type FceAtoms, fceItemValueToCatalogItemInFile } from "@/store";
 import { type CatalogFile, convertToXml, type FileMani, type Mani } from "@/store/manifest";
 import { type ManiAtoms } from "../../../9-types";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
@@ -36,7 +36,7 @@ function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: M
     packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
     const fileMani4Xml: FileMani.Manifest = toManiFileFormat(newMani);
-    const { xml, error } = convertToXml({mani: fileMani4Xml});
+    const { xml, error } = convertToXml({ mani: fileMani4Xml });
 
     console.log('xml', xml);
 
@@ -57,7 +57,16 @@ function getFcContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, fceAtoms: FceA
         names: [],
     };
 
-    // if (fileUs.fceAtomsForFcFile) {
+    const items = get(fceAtoms.allAtom);
+    fce4Xml.names = items.map(item => fceItemValueToCatalogItemInFile(item.fieldValue));
+
+    const { xml, error } = convertToXml({ fc: fce4Xml });
+
+    if (error || !xml) {
+        console.error('Error converting to xml', error);
+        return;
+    }
+
 
     // const { xml, error } = convertToXml(fce4Xml);
     return;
