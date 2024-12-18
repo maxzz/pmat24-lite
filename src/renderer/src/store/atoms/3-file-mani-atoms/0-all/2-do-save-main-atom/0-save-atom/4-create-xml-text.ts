@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom, type FceAtoms, fceItemValueToCatalogItemInFile } from "@/store";
 import { type ManiAtoms } from "../../../9-types";
-import { type CatalogFile, type FileMani, type Mani, convertToXml, createGuid } from "@/store/manifest";
+import { type CatalogFile, type FileMani, type Mani, convertToXmlString, createGuid } from "@/store/manifest";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
@@ -37,7 +37,7 @@ function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: M
     packManifest({ fileUs, fileUsAtom, maniAtoms, newMani, get, set });
 
     const fileMani4Xml: FileMani.Manifest = toManiFileFormat(newMani);
-    const { xml, error } = convertToXml({ mani: fileMani4Xml });
+    const { xml, error } = convertToXmlString({ mani: fileMani4Xml });
 
     console.log('xml', xml);
 
@@ -62,7 +62,7 @@ function getFcContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, fceAtoms: FceA
         names: items.map(item => filterEmptyValues(fceItemValueToCatalogItemInFile(item.fieldValue))).filter(Boolean),
     };
 
-    const { xml, error } = convertToXml({ fc: fce4Xml });
+    const { xml, error } = convertToXmlString({ fc: fce4Xml });
 
     console.log('xml', xml);
 

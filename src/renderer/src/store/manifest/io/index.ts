@@ -1,7 +1,7 @@
 import { convertJsToXml, type CatalogFile, type FileMani, type Mani, prepareNewFc4Xml, prepareNewMani4Xml, showError } from '@/store/manifest';
 //import { fileDownload } from '@/utils/file-download';
 
-type ConvertToXmlResult =
+type ConvertToXmlStringResult =
     | {
         error: string;
         xml?: undefined;
@@ -11,7 +11,7 @@ type ConvertToXmlResult =
         error?: undefined;
     };
 
-export function convertToXml(params: { mani?: FileMani.Manifest, fc?: CatalogFile.Root; }): ConvertToXmlResult {
+export function convertToXmlString(params: { mani?: FileMani.Manifest, fc?: CatalogFile.Root; }): ConvertToXmlStringResult {
     try {
         // 1.
 
@@ -20,7 +20,7 @@ export function convertToXml(params: { mani?: FileMani.Manifest, fc?: CatalogFil
         if (params.mani) {
             objForXml = prepareNewMani4Xml(params.mani as Mani.Manifest);
         } else if (params.fc) {
-            objForXml = prepareNewFc4Xml2(params.fc);
+            objForXml = prepareNewFc4Xml(params.fc);
         }
 
         if (!objForXml) {
@@ -37,36 +37,4 @@ export function convertToXml(params: { mani?: FileMani.Manifest, fc?: CatalogFil
         showError({ error });
         return { error: 'failed to convert' };
     }
-}
-
-const ATTRS: string = "_attributes";
-
-function hasKeys(obj?: object): boolean {
-    return !!obj && !!Reflect.ownKeys(obj).length;
-}
-
-export function prepareNewFc4Xml2(fc: CatalogFile.Root): CatalogFile.Root {
-    const { descriptor, names, ...rest } = fc;
-    const rv: any = { storagecatalog: {} };
-
-    // 1. Customization
-    if (hasKeys(descriptor)) {
-        rv.storagecatalog.descriptor = { [ATTRS]: descriptor };
-    }
-
-    // 2. Names
-    if (names?.length) {
-        rv.storagecatalog.names = {
-            name: names.map(
-                (name: CatalogFile.ItemInFile) => {
-                    return { [ATTRS]: name };
-                }
-            )
-        };
-    }
-
-    const rv2 = { ...rv, ...rest };
-    console.log('rv2', rv2);
-
-    return rv2;
 }
