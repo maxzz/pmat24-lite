@@ -3,8 +3,7 @@ import { fileSave } from "browser-fs-access";
 import { getFilenameAndExt } from "@/utils";
 
 export async function saveContentToFile(fileUs: FileUs, content: string, filename: string): Promise<boolean> {
-    const saved = false;
-    console.log('saved', fileUs);
+    const rvSaved = false;
 
     const blob = new Blob([content], { type: 'text/xml' });
 
@@ -20,24 +19,19 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
 
         const handle = fileUs.fileCnt.webFsItem?.handle?.kind === 'file' ? fileUs.fileCnt.webFsItem.handle : null;
 
-        const fileSystemHandle = await fileSave(blob,
-            {
-                fileName: newFilename,
-            },
-            handle,
-        );
+        const fileSystemHandle = await fileSave(blob, { fileName: newFilename, }, handle);
 
         if (fileUs.fileCnt.webFsItem) {
             fileUs.fileCnt.webFsItem.handle = fileSystemHandle;
         }
 
-        console.log('fileSystemHandle', fileSystemHandle);
+        console.log('saveContentToFile, fileSystemHandle', fileSystemHandle);
     } catch (error) {
         console.error('saveContentToFile', error);
         return false;
     }
 
-    return saved;
+    return rvSaved;
 }
 
 //TODO: add member fileUs.contentToSave

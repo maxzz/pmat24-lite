@@ -57,7 +57,6 @@ function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms, get: Getter, s
 }
 
 function getFcContentText(fceAtoms: FceAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
-
     const aboutId = get(fceAtoms.aboutAtom);
     const items = get(fceAtoms.allAtom);
 
