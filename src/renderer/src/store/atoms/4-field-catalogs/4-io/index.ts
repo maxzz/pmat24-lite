@@ -1,4 +1,4 @@
-import { type CatalogFile, TransformValue } from "@/store/manifest";
+import { type CatalogFile, type CatalogItem, TransformValue } from "@/store/manifest";
 import { type FceItemValue } from "../9-types";
 
 export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInFile): FceItemValue {
@@ -17,6 +17,16 @@ export function fceItemValueToCatalogItemInFile(itemValue: FceItemValue): Catalo
         dbname: itemValue.dbname,
         ownernote: itemValue.ownernote,
     };
+    TransformValue.valueLife2Mani(itemValue, rv);
+    return rv;
+}
+
+export function fceItemValueToFcItem(itemValue: FceItemValue): CatalogItem {
+    const rv = {
+        displayname: itemValue.displayname,
+        dbname: itemValue.dbname,
+        ownernote: itemValue.ownernote,
+    } as CatalogItem;
     TransformValue.valueLife2Mani(itemValue, rv);
     return rv;
 }
