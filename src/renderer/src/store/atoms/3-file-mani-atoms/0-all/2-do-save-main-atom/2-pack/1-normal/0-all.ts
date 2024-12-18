@@ -8,6 +8,48 @@ import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
 import { printFields } from "./8-print-fields";
 
+type PackNormalFieldsAndSubmitResult = {
+    newFields: Mani.Field[];
+    submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
+};
+
+export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
+
+    const allByUuid = getAllByUiid(packParams, formIdx);
+    const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
+    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
+
+    const rv: ByUuid = {
+        ...allByUuid,
+        ...newRowFieldsByUuid,
+        ...newSubmitsByUuid,
+    };
+
+    Object.entries(rv)
+        .forEach(
+            ([uuid, field]) => {
+                if (!field.newMani) {
+                    field.newMani = field.meta.mani; // if field is not changed in any editor, keep the old one
+                }
+            }
+        );
+
+    const newSortedFields =
+        Object.entries(rv)
+            .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
+            .map(([uuid, field]) => field);
+
+    //Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
+    //printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+
+    const newFields = newSortedFields.map((field) => field.newMani!);
+
+    return {
+        newFields,
+        submittype: doFormSubmit,
+    };
+}
+
 function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
     const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
@@ -79,47 +121,5 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
     return {
         newSubmitsByUuid,
         doFormSubmit,
-    };
-}
-
-type PackNormalFieldsAndSubmitResult = {
-    newFields: Mani.Field[];
-    submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
-};
-
-export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
-
-    const allByUuid = getAllByUiid(packParams, formIdx);
-    const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
-    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
-
-    const rv: ByUuid = {
-        ...allByUuid,
-        ...newRowFieldsByUuid,
-        ...newSubmitsByUuid,
-    };
-
-    Object.entries(rv)
-        .forEach(
-            ([uuid, field]) => {
-                if (!field.newMani) {
-                    field.newMani = field.meta.mani; // if field is not changed in any editor, keep the old one
-                }
-            }
-        );
-
-    const newSortedFields =
-        Object.entries(rv)
-            .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
-            .map(([uuid, field]) => field);
-
-    //Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
-    //printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
-
-    const newFields = newSortedFields.map((field) => field.newMani!);
-
-    return {
-        newFields,
-        submittype: doFormSubmit,
     };
 }
