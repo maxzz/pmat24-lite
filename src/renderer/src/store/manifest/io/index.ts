@@ -47,16 +47,16 @@ function hasKeys(obj?: object): boolean {
 
 export function prepareNewFc4Xml2(fc: CatalogFile.Root): CatalogFile.Root {
     const { descriptor, names, ...rest } = fc;
-    const rv: any = { names: [] };
+    const rv: any = { storagecatalog: { names: [] } };
 
     // 1. Customization
     if (hasKeys(descriptor)) {
-        rv.descriptor = { [ATTRS]: descriptor };
+        rv.storagecatalog.descriptor = { [ATTRS]: descriptor };
     }
 
     // 2. Names
     if (names?.length) {
-        rv.names = {
+        rv.storagecatalog.names = {
             name: names.map(
                 (name: CatalogFile.ItemInFile) => {
                     return { [ATTRS]: name };
