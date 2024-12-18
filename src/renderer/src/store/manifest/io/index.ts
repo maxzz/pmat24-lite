@@ -20,7 +20,7 @@ export function convertToXml(params: { mani?: FileMani.Manifest, fc?: CatalogFil
         if (params.mani) {
             objForXml = prepareNewMani4Xml(params.mani as Mani.Manifest);
         } else if (params.fc) {
-            objForXml = prepareNewFc4Xml(params.fc);
+            objForXml = prepareNewFc4Xml2(params.fc);
         }
 
         if (!objForXml) {
@@ -37,4 +37,33 @@ export function convertToXml(params: { mani?: FileMani.Manifest, fc?: CatalogFil
         showError({ error });
         return { error: 'failed to convert' };
     }
+}
+
+const ATTRS: string = "_attributes";
+
+function hasKeys(obj?: object): boolean {
+    return !!obj && !!Reflect.ownKeys(obj).length;
+}
+
+export function prepareNewFc4Xml2(fc: CatalogFile.Root): CatalogFile.Root {
+    const { descriptor, names, ...rest } = fc;
+    const rv: any = { names: [] };
+
+    // 1. Customization
+    if (hasKeys(descriptor)) {
+        rv.descriptor = { [ATTRS]: descriptor };
+    }
+
+    // 2. Names
+    if (names?.length) {
+        rv.names = {
+            name: names.map(
+                (name: CatalogFile.ItemInFile) => {
+                    return { [ATTRS]: name };
+                }
+            )
+        };
+    }
+
+    return { ...rv, ...rest, };
 }
