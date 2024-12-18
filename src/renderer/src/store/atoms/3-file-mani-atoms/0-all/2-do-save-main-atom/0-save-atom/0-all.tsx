@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { hasAnyManiChange } from "../../../9-types";
+import { clearFileUsChanges, hasAnyManiChange } from "../../../9-types";
 import { fileUsToXmlString } from "./4-create-xml-text";
 import { saveContentToFile } from "./5-save-content-to-file";
 
@@ -31,7 +31,7 @@ export const doSaveOneAtom = atom(
         console.log('saved', fileUs.fileCnt.fname);
 
         // Do this only after successful save:
-        // fileUs.changesSet.clear();
+        clearFileUsChanges({ fileUs });
 
         //TODO: check if we can save from web or electron
 

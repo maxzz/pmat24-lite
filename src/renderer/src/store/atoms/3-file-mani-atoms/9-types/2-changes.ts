@@ -18,6 +18,14 @@ export function setManiChanges(fileUsCtx: { fileUs: FileUs; }, changed: boolean,
     return changes;
 }
 
+export function clearFileUsChanges(fileUsCtx: { fileUs: FileUs; }) {
+    const fileUs = fileUsCtx.fileUs;
+
+    fileUs.fileCnt.changesSet.clear();
+
+    allFileUsChanges.delete(`${fileUs.fileCnt.unid}`);
+}
+
 export function hasManiChange(fileUsCtx: { fileUs: FileUs; }, name: string): boolean {
     const fileUs = fileUsCtx.fileUs;
     return fileUs.fileCnt.changesSet.has(name);
