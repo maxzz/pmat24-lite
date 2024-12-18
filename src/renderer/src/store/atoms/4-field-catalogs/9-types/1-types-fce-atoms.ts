@@ -68,8 +68,8 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 // FceCtx
 
 export type FceCtx = {                              // Field Catalog Editor context for view or dialog
-    inData: FceDlgIn | undefined;
-    fceAtoms: FceAtoms;
+    inData: FceDlgIn | undefined;                   // Data for dialog
+    fceAtoms: FceAtoms;                             // Back reference to fcxCtx holder
     isDlgCtx: boolean;                              // True if this is a field catalog dialog context, not a field catalog view context
     isMaster: boolean;                              // True if this is a master field catalog
 

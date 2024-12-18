@@ -1,4 +1,4 @@
-import { type PrimitiveAtom, type WritableAtom } from "jotai";
+import { type PrimitiveAtom } from "jotai";
 import { type CatalogFile, type Mani, type Meta } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
@@ -44,6 +44,6 @@ export type FileUs = {
     fceAtomsRefForMani: FceAtoms | undefined;       // for manifest: reference to FceAtoms of the root FC or null if from unmanaged folder (i.e. not root and not A/B/C subfolder) (Maybe later: of correcponding FC if applicable for sub-folder (now only main))
 };
 
-export type FileUsAtom = WritableAtom<FileUs, [FileUs], void>;
+export type FileUsAtom = PrimitiveAtom<FileUs>;
 
 export type FileUsAtomsAtom = PrimitiveAtom<ManiAtoms>; // already checked at top level if not null and ready to use
