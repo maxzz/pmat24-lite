@@ -13,5 +13,4 @@ export * from "./25-sliders";
 
 export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
-
-
+export * from "./logos";

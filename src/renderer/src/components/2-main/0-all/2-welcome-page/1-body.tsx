@@ -6,6 +6,7 @@ import { DontShowNext } from "./3-dont-show-next";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 import { TextHoverEffect } from "@/ui";
+import { IconHIDWoFrame } from "@/ui/icons";
 
 const titleStyle = {
     color: 'black',
@@ -65,6 +66,8 @@ export function WelcomePage() {
                                     </div>
                                 </div>
                             )}
+
+                            <IconHIDWoFrame className="absolute right-2 top-2 p-1.5 w-12 text-[#003087] border-border border rounded" />
 
                             {/* <ListViewDemo /> */}
 
