@@ -2,16 +2,20 @@ import { proxySet } from "valtio/utils";
 import { type ChangesSet } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
 
+// all files changes; it is important to show that some files have changes due to scrolling 
+
+export const allFileUsChanges = proxySet<string>();
+
 // fileUs changes
 
 export function setFileUsChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
-    const changes = fileUs.fileCnt.changesSet;
-    changes[changed ? 'add' : 'delete'](changeName);
+    const set = fileUs.fileCnt.changesSet;
+    set[changed ? 'add' : 'delete'](changeName);
 
-    allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
+    allFileUsChanges[set.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
 
     //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
-    return changes;
+    return set;
 }
 
 export function clearFileUsChanges({ fileUs }: { fileUs: FileUs; }) {
@@ -26,7 +30,3 @@ export function hasFileUsChange({ fileUs }: { fileUs: FileUs; }, name: string): 
 export function hasFileUsAnyChanges({ fileUs }: { fileUs: FileUs; }): boolean {
     return fileUs.fileCnt.changesSet.size > 0;
 }
-
-// all files changes; it is important to show that some files have changes due to scrolling 
-
-export const allFileUsChanges = proxySet<string>();

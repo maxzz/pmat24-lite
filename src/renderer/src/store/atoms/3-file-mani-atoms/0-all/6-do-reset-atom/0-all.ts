@@ -1,13 +1,13 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { resetManifest } from "./1-reset-manifest";
+import { clearFileUsChanges, hasFileUsAnyChanges } from "../../9-types";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
 
-        const changed = !!fileUs.fileCnt.changesSet.size;
-        if (!changed) {
+        if (!hasFileUsAnyChanges({ fileUs })) {
             return;
         }
 
@@ -18,8 +18,8 @@ export const doResetOneAtom = atom(null,
 
         resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
 
-        console.log('reset', fileUs.fileCnt.fname);
+        clearFileUsChanges({ fileUs });
 
-        fileUs.fileCnt.changesSet.clear();
+        console.log('reset', fileUs.fileCnt.fname);
     }
 );
