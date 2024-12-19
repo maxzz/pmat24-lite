@@ -68,7 +68,7 @@ export function WelcomePage() {
 
                             {/* <ListViewDemo /> */}
 
-                            <DontShowNext className="absolute left-0 bottom-0 p-2" />
+                            {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
                         </div>
                     </motion.div>
                 )}
