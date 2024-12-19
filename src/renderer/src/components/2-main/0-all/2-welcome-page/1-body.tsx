@@ -67,10 +67,7 @@ export function WelcomePage() {
                                 </div>
                             )}
 
-                            <IconHIDWoFrame className="absolute right-2 top-2 p-1.5 w-12 text-white border-border 1border rounded" />
-                            {/* <IconHIDWoFrame className="absolute right-2 top-2 p-1.5 w-12 text-[#00308710] border-border border rounded" /> */}
-                            {/* <IconHIDWoFrame className="absolute right-2 top-2 p-1.5 w-12 text-[#003087] border-border border rounded" /> */}
-                            {/* <IconHIDWoFrame className="absolute right-2 top-2 p-1.5 w-12 text-transparent stroke-foreground stroke-[.3] border-border border rounded" /> */}
+                            <IconHIDWoFrame className="absolute left-0.5 bottom-0 p-1.5 w-12 text-border rounded" />
 
                             {/* <ListViewDemo /> */}
 
