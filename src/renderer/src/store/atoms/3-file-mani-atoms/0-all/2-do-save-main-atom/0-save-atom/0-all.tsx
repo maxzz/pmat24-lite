@@ -3,6 +3,7 @@ import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../9-types";
 import { fileUsToXmlString } from "./4-fileus-to-xml-string";
 import { saveContentToFile } from "./5-save-to-file-system";
+//import { fileDownload } from '@/utils/file-download';
 
 export const doSaveOneAtom = atom(
     null,
@@ -27,6 +28,9 @@ export const doSaveOneAtom = atom(
             //TODO: update member fileUs.contentToSave
             return;
         }
+
+        // 2.
+        //fileDownload({ data: xml, filename: fileUs.fname, mime: 'text/plain;charset=utf-8' });
 
         console.log('saved', fileUs.fileCnt.fname);
 

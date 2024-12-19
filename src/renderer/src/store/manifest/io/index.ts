@@ -1,5 +1,4 @@
-import { convertJsToXml, type CatalogFile, type FileMani, type Mani, prepareNewFc4Xml, prepareNewMani4Xml, showError } from '@/store/manifest';
-//import { fileDownload } from '@/utils/file-download';
+import { convertJsToXml, type CatalogFile, type FileMani, type Mani, prepareNewFc4Xml, prepareNewMani4Xml } from '@/store/manifest';
 
 export type ConvertToXmlStringResult =
     | {
@@ -13,8 +12,6 @@ export type ConvertToXmlStringResult =
 
 export function convertToXmlString(params: { mani?: FileMani.Manifest, fc?: CatalogFile.Root; }): ConvertToXmlStringResult {
     try {
-        // 1.
-
         let objForXml: object | undefined;
 
         if (params.mani) {
@@ -28,13 +25,8 @@ export function convertToXmlString(params: { mani?: FileMani.Manifest, fc?: Cata
         }
 
         const xml = convertJsToXml(objForXml) || '';
-        //console.log('%c---------new xml from converted---------', 'color: green', `\n${xml}`);
-
-        // 2.
-        //fileDownload({ data: xml, filename: fileUs.fname, mime: 'text/plain;charset=utf-8' });
         return { xml };
     } catch (error) {
-        showError({ error });
-        return { error: 'failed to convert' };
+        return { error: 'Failed to convert' + error };
     }
 }

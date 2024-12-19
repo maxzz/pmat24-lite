@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom, type FceAtoms, fceItemValueToCatalogItemInFile } from "@/store";
 import { type ManiAtoms } from "../../../9-types";
-import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid } from "@/store/manifest";
+import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, showError } from "@/store/manifest";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
@@ -27,10 +27,11 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Sett
 
         if (error || !xml) {
             console.error('Error converting to xml', error);
+            showError({ error });
             return;
         }
 
-        console.log('xml', xml);
+        //console.log('%c---------new xml from converted---------', 'color: green', `\n${xml}`);
         return xml;
     }
 }
