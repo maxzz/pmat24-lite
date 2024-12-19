@@ -5,8 +5,8 @@ import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Ma
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { packManifest } from "./1-pack-manifest";
 import { toManiFileFormat } from "./3-to-mani-file-format";
-import { filterEmptyValues } from "./7-filter-empty-values";
-//import { printTestManifest } from "./8-print-test-manifest";
+import { filterEmptyValues } from "./8-save-utils";
+// import { printTestManifest } from "./8-save-utils";
 
 export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     let res: ConvertToXmlStringResult | undefined;
