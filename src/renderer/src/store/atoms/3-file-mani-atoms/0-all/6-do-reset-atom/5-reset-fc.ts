@@ -8,7 +8,7 @@ export function resetFc(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set
         return;
     }
 
-    const items = get(fceAtoms.allAtom);
+    const items = get(fceAtoms.allAtom); // what about showAtom vs allAtom? OK, showAtom will be recreated, but we did not change it yet.
 
     items.forEach(
         (item) => {
@@ -17,6 +17,7 @@ export function resetFc(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set
     );
 
     //what about deleted and added items?
+    //what about if selected item is not in the shown list?
 
     const fceCtx = fceAtoms.viewFceCtx;
     if (!fceCtx) {
