@@ -1,5 +1,6 @@
 import { proxySet } from "valtio/utils";
-import { type WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
+import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
+import { WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { textFileReaderPromisify } from "./8-text-file-reader";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
@@ -102,6 +103,14 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     }
 }
 
+function isFileWithFileHandle(file: File): file is FileWithHandle {
+    return !!(file as FileWithDirectoryAndFileHandle).handle;
+}
+
+function isFileWithDirectoryAndFileHandle(file: File): file is FileWithDirectoryAndFileHandle {
+    return !!(file as FileWithDirectoryAndFileHandle).directoryHandle;
+}
+
 /**
  * Create FileContent items from open file/directory web dialog
  */
@@ -116,11 +125,18 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
         try {
             rv = await Promise.all(files.map(
                 async (file) => {
+                    const webFsItem = new WebFsItem({
+                        file,
+                        handle: isFileWithFileHandle(file) ? file.handle : null,
+                        parent: isFileWithDirectoryAndFileHandle(file) ? file.directoryHandle : null,
+                        path: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
+                    });
+
                     const rv: DropItem = {
                         fname: file.name,
                         fpath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
                         fileWeb: file,
-                        webFsItem: null,
+                        webFsItem: webFsItem,
                         notOur: false,
                     };
                     return rv;
