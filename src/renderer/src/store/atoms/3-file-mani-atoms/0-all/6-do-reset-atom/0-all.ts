@@ -11,14 +11,15 @@ export const doResetOneAtom = atom(null,
             return;
         }
 
-        const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms) {
-            return;
+        if (fileUs.fceAtomsForFcFile) { // FC
+            // res = getFcContentText(fileUs.fceAtomsForFcFile, get, set);
+        } else { // Manifest
+            const maniAtoms = get(fileUs.maniAtomsAtom);
+            if (maniAtoms) {
+                resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
+                clearFileUsChanges({ fileUs });
+            }
         }
-
-        resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
-
-        clearFileUsChanges({ fileUs });
 
         console.log('reset', fileUs.fileCnt.fname);
     }
