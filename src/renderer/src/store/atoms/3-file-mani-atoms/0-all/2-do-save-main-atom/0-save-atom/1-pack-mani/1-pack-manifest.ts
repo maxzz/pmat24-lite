@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { type AnyFormAtoms } from "../../../../9-types";
 import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../../2-pack";
-import { packDescriptor } from "./2-pack-descriptor";
+import { createGuid, Mani, TimeUtils } from "@/store/manifest";
 
 export function packManifest(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
@@ -11,6 +11,25 @@ export function packManifest(packParams: PackManifestDataParams) {
 
     packForm(loginFormAtoms, FormIdx.login, packParams);
     packForm(cpassFormAtoms, FormIdx.cpass, packParams);
+}
+
+function packDescriptor(packParams: PackManifestDataParams) {
+    const { newMani } = packParams;
+
+    const { fileUs } = packParams;
+
+    let descriptor = fileUs.parsedSrc.mani?.descriptor;
+
+    descriptor = descriptor
+        ? { ...descriptor, }
+        : { id: `{${createGuid()}}`, created: TimeUtils.timeNowAsDpTime(), } as Mani.Descriptor;
+
+    descriptor.modified = TimeUtils.timeNowAsDpTime();
+    descriptor.version = '2.4.5';
+
+    newMani.descriptor = descriptor;
+
+    fileUs.parsedSrc.mani?.options && (newMani.options = fileUs.parsedSrc.mani.options);
 }
 
 function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {

@@ -4,13 +4,11 @@ import { filterEmptyValues } from "../0-all/8-save-utils";
 //TODO: order is wrong
 
 export function toManiFileFormat(newMani: Partial<Mani.Manifest>): FileMani.Manifest {
-
     const rv: FileMani.Manifest = {
         descriptor: newMani.descriptor!,
         options: newMani.options,
         forms: newMani.forms?.map(convertForm).filter(Boolean),
     };
-
     return rv;
 }
 
