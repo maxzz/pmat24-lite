@@ -1,12 +1,12 @@
 import { proxySet } from "valtio/utils";
-import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
-import { WebFsItem, type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
-import { textFileReaderPromisify } from "./8-text-file-reader";
-import { isAllowedExt, pathWithoutFilename } from "@/utils";
-import { collectWebDndItems } from "./2-collect-web-dnd-items";
-import { electronGetPaths } from "./8-electron-get-paths";
 import { invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
+import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
+import { isFileWithFileHandle, isFileWithDirectoryAndFileHandle } from "./3-open-modern-handles-dlg";
+import { collectWebDndItems } from "./2-collect-web-dnd-items";
+import { textFileReaderPromisify } from "./8-text-file-reader";
+import { electronGetPaths } from "./8-electron-get-paths";
 import { findShortestPathInFnames, setRootDir } from "../3-root-dir";
+import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { uuid } from "@/store/manifest";
 
 type DropItem = {
@@ -61,7 +61,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
         } catch (error) {
             console.error('Error processing drop item:', error, dropItem);
         }
-    }
+    }//for
 
     return rv;
 }
@@ -74,9 +74,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
     const rv = await loadFilesAndCreateFileContents(items);
 
-    //console.log('entryRoot75: 1 dnd web');
     setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), dir: undefined, fromMain: false });
-
     return rv;
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
@@ -103,14 +101,6 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     }
 }
 
-function isFileWithFileHandle(file: File): file is FileWithHandle {
-    return !!(file as FileWithDirectoryAndFileHandle).handle;
-}
-
-function isFileWithDirectoryAndFileHandle(file: File): file is FileWithDirectoryAndFileHandle {
-    return !!(file as FileWithDirectoryAndFileHandle).directoryHandle;
-}
-
 /**
  * Create FileContent items from open file/directory web dialog
  */
@@ -134,7 +124,7 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
 
                     const rv: DropItem = {
                         fname: file.name,
-                        fpath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
+                        fpath: webFsItem.path,
                         fileWeb: file,
                         webFsItem: webFsItem,
                         notOur: false,
@@ -161,16 +151,14 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
-
-        //console.log('entryRoot75: 5 invoke result from main');
         setRootFromMainFileContents(rv);
-            
         return rv;
     }
 }
 
 function printFnameFiles(filenames: string[], files: File[]) {
     console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta');
+    
     files.forEach((f, idx) => {
         console.log(' ', { f }, `"${filenames[idx]}"`);
     });
