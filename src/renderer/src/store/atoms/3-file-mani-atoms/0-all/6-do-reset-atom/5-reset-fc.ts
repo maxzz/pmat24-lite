@@ -2,6 +2,13 @@ import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceItemValue } from "@/store/atoms/4-field-catalogs";
 
+// The reset operation is not a good idea for the main field catalog:
+//  * What about showAtom vs allAtom? OK, showAtom will be recreated, but we did not change it yet.
+//      * We need to get items from file fcat.names
+//      * We need to get selected item uuid before udpating items
+//  * What about deleted and added items?
+//  * What about if selected item is not in the shown list?
+
 export function resetFc(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set: Setter) {
     const fceAtoms = fileUs.fceAtomsForFcFile;
     if (!fceAtoms) {
