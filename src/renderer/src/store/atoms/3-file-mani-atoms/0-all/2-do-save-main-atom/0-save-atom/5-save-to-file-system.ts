@@ -11,11 +11,9 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
     const newFilename = `${name}.test.${ext}`;
 
     try {
-        //const existingHandle: FileSystemFileHandle | null = fileUs.entry || null;
-
-        const logDropError = (error) => {
-            console.error('getAsFileSystemHandleFromEntry', error);
-        };
+        if (fileUs.fileCnt.fromMain) {
+            throw new Error('Cannot save from main. Not implemented yet.');
+        }
 
         const handle = fileUs.fileCnt.webFsItem?.handle?.kind === 'file' ? fileUs.fileCnt.webFsItem.handle : null;
 
