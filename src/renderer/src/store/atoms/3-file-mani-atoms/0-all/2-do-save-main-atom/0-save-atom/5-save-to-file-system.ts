@@ -3,8 +3,6 @@ import { fileSave } from "browser-fs-access";
 import { getFilenameAndExt } from "@/utils";
 
 export async function saveContentToFile(fileUs: FileUs, content: string, filename: string): Promise<boolean> {
-    const rvSaved = false;
-
     const blob = new Blob([content], { type: 'text/xml' });
 
     const [name, ext] = getFilenameAndExt(filename);
@@ -24,12 +22,12 @@ export async function saveContentToFile(fileUs: FileUs, content: string, filenam
         }
 
         console.log('saveContentToFile, fileSystemHandle', fileSystemHandle);
+        
+        return true;
     } catch (error) {
         console.error('saveContentToFile', error);
         return false;
     }
-
-    return rvSaved;
 }
 
 //TODO: add member fileUs.contentToSave
