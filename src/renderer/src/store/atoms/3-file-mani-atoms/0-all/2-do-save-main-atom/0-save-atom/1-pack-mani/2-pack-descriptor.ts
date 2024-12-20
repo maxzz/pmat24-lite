@@ -1,5 +1,5 @@
 import { createGuid, Mani, TimeUtils } from "@/store/manifest";
-import { PackManifestDataParams } from "../2-pack";
+import { PackManifestDataParams } from "../../2-pack";
 
 export function packDescriptor(packParams: PackManifestDataParams) {
     const { newMani } = packParams;

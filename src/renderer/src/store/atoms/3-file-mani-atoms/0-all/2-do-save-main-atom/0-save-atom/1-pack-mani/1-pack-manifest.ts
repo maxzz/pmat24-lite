@@ -1,6 +1,6 @@
 import { FormIdx } from "@/store/manifest";
-import { type AnyFormAtoms } from "../../../9-types";
-import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../2-pack";
+import { type AnyFormAtoms } from "../../../../9-types";
+import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../../2-pack";
 import { packDescriptor } from "./2-pack-descriptor";
 
 export function packManifest(packParams: PackManifestDataParams) {
