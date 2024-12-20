@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { resetManifest } from "./1-reset-manifest";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../9-types";
+import { resetFc } from "./5-reset-fc";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
@@ -12,7 +13,8 @@ export const doResetOneAtom = atom(null,
         }
 
         if (fileUs.fceAtomsForFcFile) { // FC
-            // res = getFcContentText(fileUs.fceAtomsForFcFile, get, set);
+            resetFc(fileUs, fileUsAtom, get, set);
+            clearFileUsChanges({ fileUs });
         } else { // Manifest
             const maniAtoms = get(fileUs.maniAtomsAtom);
             if (maniAtoms) {
