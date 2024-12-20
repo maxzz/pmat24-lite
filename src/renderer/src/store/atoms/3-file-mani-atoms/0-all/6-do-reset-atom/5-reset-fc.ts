@@ -10,14 +10,17 @@ export function resetFc(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set
 
     const items = get(fceAtoms.allAtom); // what about showAtom vs allAtom? OK, showAtom will be recreated, but we did not change it yet.
 
+    // we need to get items from file fcat.names
+    // we need to get selected item uuid before udpating items
+
     items.forEach(
         (item) => {
             copyFceItemValue(item.fieldValue, item.beforeEdit);
         }
     );
 
-    //what about deleted and added items?
-    //what about if selected item is not in the shown list?
+    // what about deleted and added items?
+    // what about if selected item is not in the shown list?
 
     const fceCtx = fceAtoms.viewFceCtx;
     if (!fceCtx) {
