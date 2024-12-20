@@ -16,7 +16,14 @@ export function resetFc(fileUs: FileUs, fileUsAtom: FileUsAtom, get: Getter, set
         }
     );
 
-    set(fileUsAtom, fileUs);
+    //what about deleted and added items?
+
+    const fceCtx = fceAtoms.viewFceCtx;
+    if (!fceCtx) {
+        return;
+    }
+
+    set(fceCtx.selectedIdxStoreAtom, get(fceCtx.selectedIdxStoreAtom));
 
     console.log('reset fc', fileUs.fileCnt.fname);
 }
