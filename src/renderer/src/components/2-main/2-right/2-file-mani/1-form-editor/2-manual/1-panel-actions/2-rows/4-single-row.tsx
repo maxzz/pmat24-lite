@@ -5,7 +5,7 @@ import { type MFormCtx, type ManualFieldState } from "@/store/atoms/3-file-mani-
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
 import { classNames } from "@/utils";
-import { rowSelectClasses } from "@/components/4-dialogs/4-field-catalog/2-items-grid/2-fld-cat-item-row";
+import { rowSelectClasses } from "@/components/4-dialogs/4-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     formCtx: MFormCtx;

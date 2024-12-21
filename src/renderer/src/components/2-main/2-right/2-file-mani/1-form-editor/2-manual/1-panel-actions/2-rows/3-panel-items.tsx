@@ -4,7 +4,7 @@ import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
 import { classNames } from "@/utils";
 import { AnimatePresence } from "framer-motion";
-import { rowParentActiveClasses } from "@/components/4-dialogs/4-field-catalog/2-items-grid/2-fld-cat-item-row";
+import { rowParentActiveClasses } from "@/components/4-dialogs/4-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
     const ctx = ctxForm.mAllAtoms.manual;

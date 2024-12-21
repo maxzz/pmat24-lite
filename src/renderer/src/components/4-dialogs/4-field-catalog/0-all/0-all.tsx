@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
-import { FceDialogBody } from "./1-dialog-body";
+import { FceDialogBody } from "./2-dialog-select-body";
 
 const contentClasses = "\
 p-0 \

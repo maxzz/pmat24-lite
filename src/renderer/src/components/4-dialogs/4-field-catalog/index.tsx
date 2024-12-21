@@ -1,3 +1,3 @@
 export * from "./0-all";
-export * from "./2-items-grid";
-export * from "./3-selected-item-props";
+export * from "./3-items-grid";
+export * from "./4-selected-item-props";

@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { doCancelFceDlgAtom, doSetInitSelectedItemAtom, type FceCtx } from "@/store";
 import { DialogCloseButton } from "@/ui/shadcn/dialog";
-import { BottomButtons } from "./2-bottom-buttons";
-import { FieldCatalogToolbar } from "../1-toolbar";
-import { FldCatItemsGrid } from "../2-items-grid";
-import { RightPanelGuard } from "../3-selected-item-props";
+import { BottomButtons } from "./3-bottom-buttons";
+import { FieldCatalogToolbar } from "../2-toolbar";
+import { FldCatItemsGrid } from "../3-items-grid";
+import { RightPanelGuard } from "../4-selected-item-props";
 import { SymbolFolder } from "@/ui/icons";
 
 export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {

@@ -36,7 +36,7 @@ export const doInitMruAtom = atom(null,
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);
 
-        printAllItems(txtItems, pswItems);
+        //printAllItems(txtItems, pswItems);
     }
 );
 
