@@ -15,6 +15,8 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
     const showSelectBtn = !!fceCtx.inData?.outBoxAtom;
 
+    const openMainDlg = !fceCtx.inData?.dbid; //TODO: implement logic
+
     return (<>
         {showSelectBtn && (
             <Button className={inputFocusClasses} disabled={!selectedItem} onClick={() => closeFldCatDialog({ selectedItem })}>

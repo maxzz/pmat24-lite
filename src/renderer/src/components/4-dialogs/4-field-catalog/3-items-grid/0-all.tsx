@@ -6,13 +6,13 @@ import { classNames } from "@/utils";
 import { doScrollToItemAtom, type FceCtx } from "@/store";
 import { FldCatItemsBody } from "./1-body";
 
-export function FldCatItemsGrid({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
+export function FldCatItemsGrid(props: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <FceScrollArea fceCtx={fceCtx} className={className} {...rest}>
+        <FceScrollArea {...props}>
             <FldCatItemsBody
                 className={classNames("grid grid-cols-[minmax(32px,auto)_auto_minmax(0px,1fr)] outline-none select-none")}
                 tabIndex={0}
-                fceCtx={fceCtx}
+                fceCtx={props.fceCtx}
             />
         </FceScrollArea>
     );

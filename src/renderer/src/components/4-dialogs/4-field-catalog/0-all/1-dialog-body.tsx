@@ -22,7 +22,7 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
-function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
+function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -47,7 +47,7 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
+function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -57,11 +57,6 @@ function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
                 <div className="h-full border-border border rounded flex">
                     <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
-                    <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
-                </div>
-
-                <div className="pl-3 font-thin">
-                    <TotalItems fceCtx={fceCtx} />
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">
