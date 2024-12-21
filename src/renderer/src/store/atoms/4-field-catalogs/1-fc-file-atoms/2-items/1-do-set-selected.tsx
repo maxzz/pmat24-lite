@@ -67,7 +67,7 @@ export function setSelectedProps({ fceCtx, selectedItem, get, set }: SetSelected
 /**
  * Set the initial selected item index
  */
-export const doSetInitSelectedIdxAtom = atom(null,
+export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
         const items = get(fceCtx.showAtom);
         const idx = items.findIndex(item => item.editor.isSelectedInDlg);

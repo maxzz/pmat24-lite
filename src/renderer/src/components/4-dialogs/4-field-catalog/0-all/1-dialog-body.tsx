@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { doCancelFceDlgAtom, doSetInitSelectedIdxAtom, type FceCtx } from "@/store";
+import { doCancelFceDlgAtom, doSetInitSelectedItemAtom, type FceCtx } from "@/store";
 import { DialogCloseButton } from "@/ui/shadcn/dialog";
 import { BottomButtons } from "./2-bottom-buttons";
 import { FieldCatalogToolbar } from "../1-toolbar";
@@ -10,8 +10,8 @@ import { SymbolFolder } from "@/ui/icons";
 
 export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
     
-    const doSetInitSelectedIdx = useSetAtom(doSetInitSelectedIdxAtom);
-    useEffect(() => { doSetInitSelectedIdx({ fceCtx }); }, []);
+    const doSetInitSelectedItem = useSetAtom(doSetInitSelectedItemAtom);
+    useEffect(() => { doSetInitSelectedItem({ fceCtx }); }, []);
 
     return (
         <div className="grid grid-rows-[auto_1fr]">
