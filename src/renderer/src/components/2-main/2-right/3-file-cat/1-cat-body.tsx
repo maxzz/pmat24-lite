@@ -1,8 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { type FceCtx } from "@/store";
-import { FldCatItemsGrid } from "@/components/4-dialogs/4-field-catalog/2-items-grid";
+import { FldCatItemsGrid, SelectedItemPropsBody } from "@/components/4-dialogs/4-field-catalog";
 import { classNames } from "@/utils";
-import { SelectedItemPropsBody } from "@/components/4-dialogs/4-field-catalog/3-selected-item-props/1-props-body";
 
 export function FcViewBody({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
     return (
