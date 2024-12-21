@@ -15,6 +15,9 @@ function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
     const dispName = rowColumnName(type);
     return (<>
         <div>
+            <span className="text-xs font-light">
+                Action{' '}
+            </span>
             {dispName}
             <span className="text-xs font-light">
                 {' '}properties

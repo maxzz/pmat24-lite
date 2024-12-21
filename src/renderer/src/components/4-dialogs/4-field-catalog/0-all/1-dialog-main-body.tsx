@@ -1,25 +1,37 @@
-import { type HTMLAttributes } from "react";
-import { type FceCtx } from "@/store";
-import { FldCatItemsGrid, SelectedItemPropsBody } from "@/components/4-dialogs/4-field-catalog";
-import { classNames } from "@/utils";
+import { useEffect } from "react";
+import { useSetAtom } from "jotai";
+import { doSetInitSelectedItemAtom, type FceCtx } from "@/store";
+import { FieldCatalogToolbar } from "../2-toolbar";
+import { FldCatItemsGrid } from "../3-items-grid";
+import { RightPanelGuard } from "../4-selected-item-props";
+import { Header, TotalItems } from "./3-header";
+import { BottomButtons } from "./4-bottom-buttons";
 
-// export function FcViewBody({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
-//     return (
-//         // <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[auto,1fr,auto]", className)} {...rest}>
-//         <div className={classNames("h-full w-full max-w-4xl grid grid-rows-[1fr,auto]", className)} {...rest}>
+export function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
+    
+    const doSetInitSelectedItem = useSetAtom(doSetInitSelectedItemAtom);
+    useEffect(() => { doSetInitSelectedItem({ fceCtx }); }, []);
 
-//             {/* <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
-//                 <FieldCatalogToolbar fceCtx={fceCtx} />
-//             </div> */}
+    return (
+        <div className="grid grid-rows-[auto_1fr]">
+            <Header fceCtx={fceCtx} />
 
-//             <FldCatItemsGrid fceCtx={fceCtx} />
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
+                <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
-//             <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
-//                 <SelectedItemPropsBody fceCtx={fceCtx} />
-//             </div>
-//         </div>
-//     );
-// }
+                <div className="h-full border-border border rounded flex">
+                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
+                    <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
+                </div>
 
-// //TODO: show warning field catalog changes will be replicated to all manifests only after save
-// //TODO: add to editor data: fromFile member
+                <div className="pl-3 font-thin">
+                    <TotalItems fceCtx={fceCtx} />
+                </div>
+
+                <div className="flex items-center justify-end gap-x-2">
+                    <BottomButtons fceCtx={fceCtx} />
+                </div>
+            </div>
+        </div>
+    );
+}

@@ -7,7 +7,7 @@ import { RightPanelGuard } from "../4-selected-item-props";
 import { Header, TotalItems } from "./3-header";
 import { BottomButtons } from "./4-bottom-buttons";
 
-export function FceDialogBody({ fceCtx }: { fceCtx: FceCtx; }) {
+export function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     
     const doSetInitSelectedItem = useSetAtom(doSetInitSelectedItemAtom);
     useEffect(() => { doSetInitSelectedItem({ fceCtx }); }, []);
