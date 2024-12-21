@@ -2,6 +2,7 @@ import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceItemValue } from "@/store/atoms/4-field-catalogs";
 
+// Notes:
 // The reset operation is not a good idea for the main field catalog:
 //  * What about showAtom vs allAtom? OK, showAtom will be recreated, but we did not change it yet.
 //      * We need to get items from file fcat.names

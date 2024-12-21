@@ -16,6 +16,7 @@ export const doResetOneAtom = atom(null,
         if (fileUs.fceAtomsForFcFile) { // FC
             toast.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
             /*
+            // Good but deprecated (see notes inside resetFc()):
             resetFc(fileUs, fileUsAtom, get, set);
             clearFileUsChanges({ fileUs });
             */
