@@ -72,10 +72,10 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             setSelectedItemFromFc(rowCtx, newFceItem);
         }
 
-        console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
+        // console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
     }
 
-    console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
+    // console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     return (
         <InputSelectUi

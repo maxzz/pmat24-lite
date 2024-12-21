@@ -12,9 +12,14 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     const doSetInitSelectedItem = useSetAtom(doSetInitSelectedItemAtom);
     useEffect(() => { doSetInitSelectedItem({ fceCtx }); }, []);
 
-    return (
-        <FceDialogSelectBody fceCtx={fceCtx} />
-    );
+    const openMainDlg = !fceCtx.inData?.dbid;
+
+    return (<>
+        {openMainDlg
+            ? <FceDialogMainBody fceCtx={fceCtx} />
+            : <FceDialogSelectBody fceCtx={fceCtx} />
+        }
+    </>);
 }
 
 export function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
