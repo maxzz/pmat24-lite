@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
-import { FceDialogSelectBody } from "./2-dialog-select-body";
+import { FceDialogBodySelector } from "./2-dialog-select-body";
 
 const contentClasses = "\
 p-0 \
@@ -31,7 +31,7 @@ export function FceDialog() {
                 overlayClasses={overlayClasses}
             //container={document.getElementById('portal')} // dialog from select portal will throw warning
             >
-                <FceDialogSelectBody fceCtx={fceCtx} />
+                <FceDialogBodySelector fceCtx={fceCtx} />
 
             </D.DialogContent>
         </D.Dialog>
