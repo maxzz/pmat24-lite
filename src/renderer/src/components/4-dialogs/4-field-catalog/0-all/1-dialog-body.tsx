@@ -22,7 +22,7 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
-export function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
+function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
@@ -47,7 +47,7 @@ export function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-export function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
+function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
