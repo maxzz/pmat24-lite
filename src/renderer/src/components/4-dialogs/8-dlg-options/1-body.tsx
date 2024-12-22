@@ -13,7 +13,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
     const snapItems = useSnapshot(appSettings).files.itemsState;
     const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
-    const { showFldCat  } = useSnapshot(appSettings.files.shownManis);
+    const { showFldCat } = useSnapshot(appSettings.files.shownManis);
 
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
@@ -110,41 +110,31 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                         Advanced settings
                     </Label>
 
-                    <div className="grid grid-cols-2 gap-x-2 grid-flow-dense">
+                    <div className="grid grid-cols-2 gap-2 grid-flow-dense">
 
-                            <div className={classNames("col-start-1", subClasses)}>
-                                <Label className={rowClasses}>
-                                    <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
-                                    Allow opening of individual files
-                                </Label>
-                            </div>
-                            <div className={classNames("col-start-1", subClasses)}>
-                                <Label className={rowClasses}>
-                                    <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
-                                    Show field catalog files
-                                </Label>
-                            </div>
-                            <div className={classNames("col-start-1", subClasses)}>
-                                <Label className={rowClasses}>
-                                    <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
-                                    Show field catalog files
-                                </Label>
-                            </div>
+                        <Label className={classNames("col-start-1", rowClasses)}>
+                            <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
+                            Allow opening of individual files
+                        </Label>
 
-                            <div className={classNames("col-start-2", subClasses)}>
-                                <Label className={rowClasses}>
-                                    <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
-                                    Allow opening of individual files
-                                </Label>
-                            </div>
-                            <div className={classNames("col-start-2", subClasses)}>
-                                <Label className={rowClasses}>
-                                    <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
-                                    Show field catalog files
-                                </Label>
-                            </div>
+                        <Label className={classNames("col-start-1", rowClasses)}>
+                            <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
+                            Show field catalog files
+                        </Label>
+                        <Label className={classNames("col-start-1", rowClasses)}>
+                            <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
+                            Show field catalog files
+                        </Label>
 
-
+                        <Label className={classNames("col-start-2", rowClasses)}>
+                            <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
+                            Allow opening of individual files
+                        </Label>
+                        <Label className={classNames("col-start-2", rowClasses)}>
+                            <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
+                            Show field catalog files
+                        </Label>
+                        
                     </div>
                 </div>
             </div>
