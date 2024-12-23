@@ -1,5 +1,5 @@
 import { type HTMLAttributes } from "react";
-import { FilterFilesDialog } from "@/components/4-dialogs";
+import { FilterFilesDialogTrigger } from "@/components/4-dialogs";
 import { classNames } from "@/utils";
 import { L_PanelMenuTrigger } from "../1-menu-main/0-body/0-trigger";
 import { CurrentFilter } from "./1-filter-indicator";
@@ -18,7 +18,7 @@ export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
             <div className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center">
                 <CurrentFilter />
-                <FilterFilesDialog />
+                <FilterFilesDialogTrigger />
 
                 <L_PanelMenuTrigger />
             </div>

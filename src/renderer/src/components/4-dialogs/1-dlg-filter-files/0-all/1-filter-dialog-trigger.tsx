@@ -8,7 +8,7 @@ import { DialogFilterBody } from "./2-body";
 
 const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
-export function FilterFilesDialog() {
+export function FilterFilesDialogTrigger() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (<>
         <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
