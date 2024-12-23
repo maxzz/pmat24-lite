@@ -4,7 +4,7 @@ import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
 import { MainMenuBody } from "../../2-main/1-left/1-header/1-menu-main/0-body/1-menu-body";
 
-export function MainDropdownMenu() {
+export function TopMainDropdownMenu() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
