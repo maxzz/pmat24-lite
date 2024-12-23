@@ -27,7 +27,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                 <div>
                     <Label className={labelBoldClasses}>
-                        File list options
+                        File list
                     </Label>
 
                     <div className={subClasses}>
@@ -60,20 +60,20 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                 <div>
                     <Label className={labelBoldClasses}>
-                        UI settings
+                        UI/UX
                     </Label>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showStatusbar = !!v} />
-                            Show status bar
+                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showWelcome = !!v} />
+                            Show Welcome screen on start
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showOptOnRight = !!v} />
-                            Show manifest form option labels on the right side
+                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showStatusbar = !!v} />
+                            Show status bar
                         </Label>
                     </div>
 
@@ -86,20 +86,20 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showWelcome = !!v} />
-                            Show Welcome screen on start
+                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showOptOnRight = !!v} />
+                            Show manifest form option labels on the right side
                         </Label>
                     </div>
                 </div>
 
                 <div>
                     <Label className={labelBoldClasses}>
-                        Dialog Password Policy settings
+                        Dialog Password Policy
                     </Label>
 
                     <Label className={rowClasses}>
                         Number of generated passwords
-                        <Input className="h-7 max-w-12" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
+                        <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
                     </Label>
                 </div>
 
