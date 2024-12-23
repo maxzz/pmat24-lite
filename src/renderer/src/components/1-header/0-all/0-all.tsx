@@ -1,16 +1,15 @@
-import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { TestOpenFiles } from "./8-1-test-open-files";
 import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
-import { Button } from "@/ui";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
+import { TestCreateManifest } from "./7-1-create-mani";
+import { TestCreatewithDrawer } from "./7-2-create-mani-w-drawer";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
 // import { TestPolicyIcons } from "./8-3-test-policy-icons";
 
 export function SectionHeader() {
-    
+
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     if (!showUiHeader) {
         return <div />;
@@ -22,10 +21,7 @@ export function SectionHeader() {
                 {/* <TopMainDropdownMenu /> */}
 
                 <TestCreateManifest />
-
                 <TestCreatewithDrawer />
-
-
                 <TestOpenFiles />
                 <TestOpenFieldCatalog />
 
@@ -34,23 +30,5 @@ export function SectionHeader() {
 
             <ThemeSwitch />
         </div>
-    );
-}
-
-function TestCreateManifest() {
-    const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
-    return (
-        <Button variant="outline" className="text-[.65rem]" onClick={() => doOpenCreateDialog(true)}>
-            Create mani
-        </Button>
-    );
-}
-
-function TestCreatewithDrawer() {
-    const doOpenDrawer = useSetAtom(doOpenDrawerAtom);
-    return (
-        <Button variant="outline" className="text-[.65rem]" onClick={() => doOpenDrawer(true)}>
-            Create
-        </Button>
     );
 }
