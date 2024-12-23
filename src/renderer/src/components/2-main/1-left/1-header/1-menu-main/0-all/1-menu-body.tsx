@@ -8,23 +8,29 @@ import {
     MenuItem_SaveAll
 } from "../11-files";
 import { MenuItem_Options } from "../20-options";
+import { MenuItem_FilterFiles } from "../1-filter-files";
+import { MenuItem_ClearFiles } from "../2-clear-files";
 //import { PreferencesSubMenu } from "./2-nun-preferences-sub-munu";
 
 //TODO: const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced); move menu items into files menu
 
-export function MainMenuBody() {
+export function FilesMainMenuBody() {
     return (<>
         <MenuItems_OpenFiles />
+        
         <DropdownMenuSeparator />
-
         <MenuItem_CreateMani />
-        <DropdownMenuSeparator />
 
+        <DropdownMenuSeparator />
         <MenuItem_SaveCurrent />
         <MenuItem_SaveCurrentAs />
         <MenuItem_SaveAll />
-        <DropdownMenuSeparator />
 
+        <DropdownMenuSeparator />
+        <MenuItem_FilterFiles />
+        <MenuItem_ClearFiles />
+
+        <DropdownMenuSeparator />
         <MenuItem_Options />
         {/* <PreferencesSubMenu /> */}
 
