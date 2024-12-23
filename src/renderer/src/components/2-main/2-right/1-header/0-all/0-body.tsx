@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { rightPanelAtom, fileUsOfRightPanelAtom, type FileUs, type FileUsAtom } from "@/store";
-import { panelHeaderClasses } from "../../../1-left/1-header/0-all";
+import { panelHeaderClasses } from "../../../1-left/1-header/0-all-header";
 import { Row1ChooseName } from "./1-row1-title-with-file-us";
 import { Row2AppIcons } from "./2-row2-1-file-icons";
 import { Row2Explanation } from "./2-row2-2-file-explanation";
