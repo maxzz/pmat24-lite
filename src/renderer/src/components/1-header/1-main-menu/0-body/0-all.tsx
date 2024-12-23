@@ -25,24 +25,32 @@ export function MainDropdownMenu() {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="min-w-40 text-xs" align="start">
-
-                <MenuItems_OpenFiles />
-                <DropdownMenuSeparator />
-
-                <MenuItem_CreateMani />
-                <DropdownMenuSeparator />
-
-                <MenuItem_SaveCurrent />
-                <MenuItem_SaveCurrentAs />
-                <MenuItem_SaveAll />
-                <DropdownMenuSeparator />
-
-                <MenuItem_Options />
-                {/* <PreferencesSubMenu /> */}
-
-                <MenuItem_FileExit />
+                <MainMenuBody />
             </DropdownMenuContent>
+
 
         </DropdownMenu>
     );
+}
+
+//TODO: const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced); move menu items into files menu
+
+/*export*/ function MainMenuBody() {
+    return (<>
+        <MenuItems_OpenFiles />
+        <DropdownMenuSeparator />
+
+        <MenuItem_CreateMani />
+        <DropdownMenuSeparator />
+
+        <MenuItem_SaveCurrent />
+        <MenuItem_SaveCurrentAs />
+        <MenuItem_SaveAll />
+        <DropdownMenuSeparator />
+
+        <MenuItem_Options />
+        {/* <PreferencesSubMenu /> */}
+
+        <MenuItem_FileExit />
+    </>);
 }
