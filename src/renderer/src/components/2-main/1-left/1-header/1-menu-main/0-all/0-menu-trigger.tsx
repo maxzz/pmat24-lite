@@ -14,7 +14,7 @@ export function L_PanelMenuTrigger() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="min-w-36 text-xs" align="start">
+            <DropdownMenuContent className="min-w-48 text-xs" align="start">
                 <FilesMainMenuBody />
             </DropdownMenuContent>
         </DropdownMenu>

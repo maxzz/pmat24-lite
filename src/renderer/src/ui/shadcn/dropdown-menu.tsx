@@ -58,8 +58,9 @@ export type DropdownMenuItemProps = ComponentPropsWithoutRef<typeof Prim.Item> &
     inset?: boolean;
 };
 
+// default was: "relative px-2 py-1 ...""
 const DropdownMenuItemClasses = "\
-relative px-2 py-1.5 \
+relative px-2 py-1 min-h-[26px] \
 \
 focus:text-accent-foreground \
 focus:bg-accent \
