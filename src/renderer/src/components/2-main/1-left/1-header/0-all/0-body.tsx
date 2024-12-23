@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { FilterFilesDialog } from "@/components/4-dialogs";
 import { classNames } from "@/utils";
-import { L_PanelMenu } from "../1-menu-main/0-body/0-all";
+import { L_PanelMenuTrigger } from "../1-menu-main/0-body/0-trigger";
 import { CurrentFilter } from "./1-filter-indicator";
 import { ChangeIndicator } from "./2-change-indicator";
 
@@ -20,7 +20,7 @@ export function L_PanelHeaderBody({ className, ...rest }: HTMLAttributes<HTMLDiv
                 <CurrentFilter />
                 <FilterFilesDialog />
 
-                <L_PanelMenu />
+                <L_PanelMenuTrigger />
             </div>
         </div>
     );

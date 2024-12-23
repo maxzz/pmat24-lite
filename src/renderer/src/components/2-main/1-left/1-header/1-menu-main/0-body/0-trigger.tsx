@@ -5,7 +5,7 @@ import { IconMenuHamburger5 } from "@/ui/icons";
 import { MenuItem_FilterFiles } from "../1-filter-files";
 import { MenuItem_ClearFiles } from "../2-clear-files";
 
-export function L_PanelMenu() {
+export function L_PanelMenuTrigger() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>

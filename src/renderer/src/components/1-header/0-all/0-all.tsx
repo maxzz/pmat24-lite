@@ -16,7 +16,7 @@ export function SectionHeader() {
     }
 
     return (
-        <div className="px-4 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between">
+        <div className="px-2 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between">
             <div className="flex items-center gap-2">
                 {/* <TopMainDropdownMenu /> */}
 
