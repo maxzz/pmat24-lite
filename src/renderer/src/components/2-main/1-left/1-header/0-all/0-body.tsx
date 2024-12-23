@@ -1,8 +1,8 @@
 import { type HTMLAttributes } from "react";
 import { FilterFilesDialog } from "@/components/4-dialogs";
-import { L_PanelMenu } from "../3-menu";
-import { CurrentFilter } from "./1-filter-indicator";
 import { classNames } from "@/utils";
+import { L_PanelMenu } from "../1-menu-main/0-body/0-all";
+import { CurrentFilter } from "./1-filter-indicator";
 import { ChangeIndicator } from "./2-change-indicator";
 
 export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";

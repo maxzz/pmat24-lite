@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
-import { MainDropdownMenu } from "../../2-main/1-left/1-header/1-menu-main";
+import { MainDropdownMenu } from "./1-old-main-menu-all";
 import { Button } from "@/ui";
 import { doOpenCreateDialogAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { TestOpenFiles } from "./8-1-test-open-files";
