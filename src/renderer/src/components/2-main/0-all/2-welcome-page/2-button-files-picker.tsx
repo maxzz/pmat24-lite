@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
 import { doSetFilesFrom_ModernDlg_Atom } from "@/store";
-import { onClickToOpenFilesDialog } from "@/components/1-header/1-main-menu/10-file";
+import { onClickToOpenFilesDialog } from "@/components/2-main/1-left/1-header/1-menu-main/10-file";
 
 type ButtonFilesPickerProps = {
     openAsFolder?: boolean;
