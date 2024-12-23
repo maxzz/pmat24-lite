@@ -1,9 +1,11 @@
 export type UiAdvancedState = {     // Advanced UI settings
     allowHandleFiles: boolean;      // Allow opening of individual files (TBD: for electron renderer only?)
+    showUiHeader: boolean;          // Show application main header (with quick access buttons)
 };
 
 export const defaultUiAdvancedState: UiAdvancedState = {
     allowHandleFiles: false,
+    showUiHeader: false,
 };
 
 /*

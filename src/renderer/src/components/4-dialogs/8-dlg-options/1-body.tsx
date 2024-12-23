@@ -118,7 +118,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 }
 
 function AdvancedSettings() {
-    const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
 
     return (<>
@@ -137,18 +137,10 @@ function AdvancedSettings() {
                 <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
                 Show field catalog files
             </Label>
-            <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
-                Show field catalog files
-            </Label>
 
             <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
-                Allow opening of individual files
-            </Label>
-            <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
-                Show field catalog files
+                <Checkbox checked={showUiHeader} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showUiHeader = !!v} />
+                Show application main header
             </Label>
 
         </div>
