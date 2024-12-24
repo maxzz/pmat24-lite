@@ -2,11 +2,11 @@ import { type FileUs } from "../../store-types";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
-import { FormIconType, appTypeToIcon } from "./8-form-type-to-icon";
+import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return [appTypeToIcon({ appIcon: FormIconType.cat, warning: false })];
+        return [formTypeToIcon({ formIcon: FormIconEnum.cat, warning: false })];
     }
 
     if (!fileUs.parsedSrc.meta) {
@@ -27,7 +27,7 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
             const icon = getAppIconType(isWeb, isIe, isManual, showIeWranIcon);
 
             const rv: IconTypeWithWarning = {
-                appIcon: icon,
+                formIcon: icon,
                 warning: hasBailOut,
             };
 
@@ -41,11 +41,11 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
     const rv: TreenIconComponent[] = [];
 
     if (login) {
-        rv.push(appTypeToIcon(login));
+        rv.push(formTypeToIcon(login));
     }
 
-    if (login && cpass && (login.appIcon !== cpass.appIcon || login.warning !== cpass.warning)) {
-        rv.push(appTypeToIcon(cpass));
+    if (login && cpass && (login.formIcon !== cpass.formIcon || login.warning !== cpass.warning)) {
+        rv.push(formTypeToIcon(cpass));
     }
 
     return rv;

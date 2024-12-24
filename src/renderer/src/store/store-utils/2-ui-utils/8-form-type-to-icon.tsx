@@ -5,7 +5,7 @@ import { classNames } from "@/utils";
 // import { SymbolAppWebIe } from "@/ui/icons/symbols/app/4-app-web-ie";
 // import { SymbolAppWebIeText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 
-export const enum FormIconType {
+export const enum FormIconEnum {
     web,    // web chrome
     win,    // windows app
     man,    // manual mode
@@ -13,21 +13,21 @@ export const enum FormIconType {
     cat,    // field catalog
 }
 
-type IconsTable = Record<FormIconType, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
+type IconsTable = Record<FormIconEnum, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
 
 const normalClasses = "text-muted-foreground";
 const warningClasses = "text-red-500 fill-red-300 opacity-75";
 
 const components: IconsTable = {
-    [FormIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [FormIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [FormIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [FormIconType.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses: normalClasses, warningClasses: "" },
-    [FormIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
+    [FormIconEnum.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconEnum.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconEnum.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconEnum.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses: normalClasses, warningClasses: "" },
+    [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconComponent {
-    const { Icon, normalClasses, warningClasses } = components[appIcon];
+export function formTypeToIcon({ formIcon, warning }: IconTypeWithWarning): TreenIconComponent {
+    const { Icon, normalClasses, warningClasses } = components[formIcon];
 
     const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
         <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
