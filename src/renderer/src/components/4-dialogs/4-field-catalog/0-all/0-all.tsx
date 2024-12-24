@@ -2,6 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import { FceDialogBodySelector } from "./1-dialog-body";
+import { overlayClasses } from "../../1-dlg-filter-files";
 
 const contentClasses = "\
 p-0 \
@@ -11,8 +12,6 @@ text-xs \
 gap-0 \
 select-none \
 data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
-
-const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);

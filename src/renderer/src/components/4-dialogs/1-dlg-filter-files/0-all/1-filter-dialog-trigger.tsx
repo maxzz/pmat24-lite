@@ -6,7 +6,7 @@ import * as D from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
 import { DialogFilterBody } from "./2-body";
 
-const overlayClasses = "backdrop-blur-[1px] bg-background/30";
+export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
 
 export function FilterFilesDialogTrigger() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);

@@ -1,10 +1,10 @@
 import { useAtom } from "jotai";
-import { doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
 import * as D from "@/ui/shadcn/dialog";
+import { doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
 import { DialogOptionsBody } from "./1-body";
+import { overlayClasses } from "../1-dlg-filter-files";
 
 const contentClasses = "p-0 !w-1/2 max-w-xl data-[state=open]:[animation-duration:200ms]";
-const overlayClasses = "backdrop-blur-[1px] bg-background/30";
 
 export function AppOptionsDialog() {
 
