@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { fileListOptionsAtom } from "@/store";
-import { appTypeToIcon, fileUsToAppType, getFileListDisplayText } from "@/store/store-utils";
+import { appTypeToIcon, fileUsToAppType, getFileListItemDisplayText } from "@/store/store-utils";
 import { filteredAtom } from "./1-filtered-files";
 import { type DataItemCore, type DataItemNavigation } from "@/ui/shadcn/tree";
 
@@ -30,7 +30,7 @@ export const treeFilesAtom = atom( // files to show in the tree
 
                 const rv: TreeFileItem = {
                     id: fileUs.fileCnt.unid,
-                    name: getFileListDisplayText(fileUs, fileListOptions.itemsState, get),
+                    name: getFileListItemDisplayText(fileUs, fileListOptions.itemsState, get),
                     icon: appTypeToIcon(fileUsToAppType(fileUs, showIeWranIcon)),
                     fileUsAtom,
                 };
