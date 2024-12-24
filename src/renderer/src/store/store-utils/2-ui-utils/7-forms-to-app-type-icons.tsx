@@ -1,7 +1,7 @@
 import { type FileUs } from "../../store-types";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
-import { type IconTypeWithWarning, getFormIconEnum } from "./7-file-us-to-app-type";
+import { type IconEnumWithWarning, getFormIconEnum } from "./7-file-us-to-app-type";
 import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
 export function getRightHeaderIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): TreenIconComponent[] {
@@ -26,7 +26,7 @@ export function getRightHeaderIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean
 
             const iconEnum = getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon });
 
-            const rv: IconTypeWithWarning = {
+            const rv: IconEnumWithWarning = {
                 iconEnum: iconEnum,
                 uiOptShowIeWarnIcon: hasBailOut,
             };

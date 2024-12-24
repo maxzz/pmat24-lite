@@ -1,5 +1,5 @@
 import { TreenIconComponent } from "@/ui/shadcn/tree";
-import { IconTypeWithWarning } from "./7-file-us-to-app-type";
+import { IconEnumWithWarning } from "./7-file-us-to-app-type";
 import { SymbolAppWebChrome, SymbolAppWebIeDot, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
 // import { SymbolAppWebIe } from "@/ui/icons/symbols/app/4-app-web-ie";
@@ -26,7 +26,7 @@ const components: IconsTable = {
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function formTypeToIcon(props: IconTypeWithWarning[]): TreenIconComponent {
+export function formTypeToIcon(props: IconEnumWithWarning[]): TreenIconComponent {
     const { iconEnum: iconEnum1, uiOptShowIeWarnIcon: uiOptShowIeWarnIcon1 } = props[0] || {};
     const { iconEnum: iconEnum2, uiOptShowIeWarnIcon: uiOptShowIeWarnIcon2 } = props[1] || {};
 

@@ -2,19 +2,19 @@ import { type FileUs } from "../../store-types";
 import { isAnyIe6, isAnyWhy, isManual } from "@/store/manifest";
 import { FormIconEnum } from "./8-form-type-to-icon";
 
-export type IconTypeWithWarning = {
+export type IconEnumWithWarning = {
     iconEnum: FormIconEnum;
     uiOptShowIeWarnIcon?: boolean;
 };
 
-export function fileUsToAppType(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): IconTypeWithWarning {
+export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): IconEnumWithWarning[] {
     const { stats, meta } = fileUs.parsedSrc;
 
     if (stats.isFCat) {
-        return {
+        return [{
             iconEnum: FormIconEnum.cat,
             uiOptShowIeWarnIcon: false,
-        };
+        }];
     }
 
     const iconEnum = getFormIconEnum({
@@ -25,10 +25,10 @@ export function fileUsToAppType(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): I
     });
     const hasBailOut = isAnyWhy(meta);
 
-    return {
+    return [{
         iconEnum,
         uiOptShowIeWarnIcon: hasBailOut,
-    };
+    }];
 }
 
 type GetFormIconEnumParams = {
