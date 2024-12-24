@@ -26,8 +26,11 @@ const components: IconsTable = {
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function formTypeToIcon(props: IconTypeWithWarning): TreenIconComponent {
-    const { iconEnum, uiOptShowIeWarnIcon: warning } = props;
+export function formTypeToIcon(props: IconTypeWithWarning[]): TreenIconComponent {
+    if (!props[0]) {
+        return () => <></>;
+    }
+    const { iconEnum, uiOptShowIeWarnIcon: warning } = props[0];
     const { Icon, normalClasses, warningClasses } = components[iconEnum];
 
     const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (

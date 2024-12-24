@@ -6,7 +6,7 @@ import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return [formTypeToIcon({ iconEnum: FormIconEnum.cat, uiOptShowIeWarnIcon: false })];
+        return [formTypeToIcon([{ iconEnum: FormIconEnum.cat, uiOptShowIeWarnIcon: false }])];
     }
 
     if (!fileUs.parsedSrc.meta) {
@@ -36,15 +36,15 @@ export function formToAppTypeIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean)
     ).filter(Boolean);
 
     const rv: TreenIconComponent[] = [];
-    
+
     const login = forms?.[0];
     if (login) {
-        rv.push(formTypeToIcon(login));
+        rv.push(formTypeToIcon([login]));
     }
 
     const cpass = forms?.[1];
     if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.uiOptShowIeWarnIcon !== cpass.uiOptShowIeWarnIcon)) {
-        rv.push(formTypeToIcon(cpass));
+        rv.push(formTypeToIcon([cpass]));
     }
 
     return rv;
