@@ -1,12 +1,12 @@
 import { type FileUs } from "../../store-types";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
-import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
+import { type IconTypeWithWarning, getFormIconEnum } from "./7-file-us-to-app-type";
 import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return [formTypeToIcon({ formIcon: FormIconEnum.cat, warning: false })];
+        return [formTypeToIcon({ iconEnum: FormIconEnum.cat, warning: false })];
     }
 
     if (!fileUs.parsedSrc.meta) {
@@ -24,10 +24,10 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
             const isManual = isManualForm(form);
             const isIe = isAnyIe6(fileUs.parsedSrc.meta);
 
-            const icon = getAppIconType({ isWeb, isIe, isManual, showIeWranIcon });
+            const icon = getFormIconEnum({ isWeb, isIe, isManual, showIeWranIcon });
 
             const rv: IconTypeWithWarning = {
-                formIcon: icon,
+                iconEnum: icon,
                 warning: hasBailOut,
             };
 
@@ -44,7 +44,7 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
         rv.push(formTypeToIcon(login));
     }
 
-    if (login && cpass && (login.formIcon !== cpass.formIcon || login.warning !== cpass.warning)) {
+    if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.warning !== cpass.warning)) {
         rv.push(formTypeToIcon(cpass));
     }
 

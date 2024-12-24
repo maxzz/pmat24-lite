@@ -1,13 +1,36 @@
+import { type FileUs } from "../../store-types";
 import { isAnyIe6, isAnyWhy, isManual } from "@/store/manifest";
-import { FileUs } from "../../store-types";
 import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconTypeWithWarning = {
-    formIcon: FormIconEnum;
+    iconEnum: FormIconEnum;
     warning?: boolean;
 };
 
-export function getAppIconType({ isWeb, isIe, isManual, showIeWranIcon }: { isWeb: boolean; isIe: boolean; isManual: boolean; showIeWranIcon: boolean; }): FormIconEnum {
+export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
+    const { stats, meta } = fileUs.parsedSrc;
+
+    if (stats.isFCat) {
+        return { iconEnum: FormIconEnum.cat, warning: false };
+    }
+
+    const hasBailOut = isAnyWhy(meta);
+    const appIcon = getFormIconEnum({ isWeb: stats.isLoginFormWeb, isIe: isAnyIe6(meta), isManual: isManual(meta), showIeWranIcon });
+
+    return {
+        iconEnum: appIcon,
+        warning: hasBailOut,
+    };
+}
+
+type GetFormIconEnumParams = {
+    isWeb: boolean;
+    isIe: boolean;
+    isManual: boolean;
+    showIeWranIcon: boolean;
+};
+
+export function getFormIconEnum({ isWeb, isIe, isManual, showIeWranIcon }: GetFormIconEnumParams): FormIconEnum {
     const icon =
         isWeb
             ? isIe
@@ -19,20 +42,4 @@ export function getAppIconType({ isWeb, isIe, isManual, showIeWranIcon }: { isWe
                 ? FormIconEnum.man
                 : FormIconEnum.win;
     return icon;
-}
-
-export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
-    const { stats, meta } = fileUs.parsedSrc;
-
-    if (stats.isFCat) {
-        return { formIcon: FormIconEnum.cat, warning: false };
-    }
-
-    const hasBailOut = isAnyWhy(meta);
-    const appIcon = getAppIconType({ isWeb: stats.isLoginFormWeb, isIe: isAnyIe6(meta), isManual: isManual(meta), showIeWranIcon });
-
-    return {
-        formIcon: appIcon,
-        warning: hasBailOut,
-    };
 }

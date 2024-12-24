@@ -26,7 +26,7 @@ const components: IconsTable = {
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function formTypeToIcon({ formIcon, warning }: IconTypeWithWarning): TreenIconComponent {
+export function formTypeToIcon({ iconEnum: formIcon, warning }: IconTypeWithWarning): TreenIconComponent {
     const { Icon, normalClasses, warningClasses } = components[formIcon];
 
     const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
