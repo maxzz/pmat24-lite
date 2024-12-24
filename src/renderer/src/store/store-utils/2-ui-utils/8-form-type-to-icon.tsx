@@ -32,15 +32,17 @@ export function formTypeToIcon(props: IconTypeWithWarning[]): TreenIconComponent
     }
     const { iconEnum, uiOptShowIeWarnIcon: warning } = props[0];
     const { Icon, normalClasses, warningClasses } = components[iconEnum];
+    
+    const classes = warning ? warningClasses : normalClasses;
 
     const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
-        <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
+        <Icon className={classNames(classes, className)} {...rest} />
     );
 
     const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
         <div className="relative size-4 w-5">
-            <Icon className={classNames("absolute top-0 left-0", warning ? warningClasses : normalClasses, className)} {...rest} />
-            <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", warning ? warningClasses : normalClasses, className)} {...rest} />
+            <Icon className={classNames("absolute top-0 left-0", classes, className)} {...rest} />
+            <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", classes, className)} {...rest} />
         </div>
     );
 
