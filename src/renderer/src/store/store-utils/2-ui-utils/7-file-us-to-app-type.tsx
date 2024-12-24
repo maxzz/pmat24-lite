@@ -1,6 +1,6 @@
 import { isAnyIe6, isAnyWhy, isManual } from "@/store/manifest";
 import { FileUs } from "../../store-types";
-import { AppIconType } from "./8-app-type-to-icon";
+import { AppIconType } from "./8-form-type-to-icon";
 
 export type IconTypeWithWarning = {
     appIcon: AppIconType;

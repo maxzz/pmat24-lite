@@ -2,7 +2,7 @@ import { type FileUs } from "../../store-types";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
-import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
+import { AppIconType, appTypeToIcon } from "./8-form-type-to-icon";
 
 export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
