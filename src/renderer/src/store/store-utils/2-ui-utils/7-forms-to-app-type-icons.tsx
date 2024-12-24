@@ -24,10 +24,10 @@ export function getRightHeaderIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean
             const isManual = isManualForm(form);
             const isIe = isAnyIe6(fileUs.parsedSrc.meta);
 
-            const icon = getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon });
+            const iconEnum = getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon });
 
             const rv: IconTypeWithWarning = {
-                iconEnum: icon,
+                iconEnum: iconEnum,
                 uiOptShowIeWarnIcon: hasBailOut,
             };
 

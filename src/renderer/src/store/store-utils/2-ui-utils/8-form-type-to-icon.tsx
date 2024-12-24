@@ -27,31 +27,35 @@ const components: IconsTable = {
 };
 
 export function formTypeToIcon(props: IconTypeWithWarning[]): TreenIconComponent {
-    if (!props[0]) {
-        return () => <></>;
-    }
-
-    const { iconEnum, uiOptShowIeWarnIcon } = props[0];
-    const { Icon, normalClasses, warningClasses } = components[iconEnum];
+    const { iconEnum: iconEnum1, uiOptShowIeWarnIcon: uiOptShowIeWarnIcon1 } = props[0] || {};
+    const { iconEnum: iconEnum2, uiOptShowIeWarnIcon: uiOptShowIeWarnIcon2 } = props[1] || {};
 
     const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => {
-        const classes = uiOptShowIeWarnIcon ? warningClasses : normalClasses;
+        const { Icon, normalClasses, warningClasses } = components[iconEnum1];
+        const classes = uiOptShowIeWarnIcon1 ? warningClasses : normalClasses;
         return (
             <Icon className={classNames(classes, className)} {...rest} />
         );
     };
 
     const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => {
-        const classes = uiOptShowIeWarnIcon ? warningClasses : normalClasses;
+        const { Icon: Icon1, normalClasses: n1, warningClasses: w1 } = components[iconEnum1];
+        const classes1 = uiOptShowIeWarnIcon1 ? w1 : n1;
+
+        const { Icon: Icon2, normalClasses: n2, warningClasses: w2 } = components[iconEnum2];
+        const classes2 = uiOptShowIeWarnIcon2 ? w2 : n2;
+
         return (
             <div className="relative size-4 w-5">
-                <Icon className={classNames("absolute top-0 left-0", classes, className)} {...rest} />
-                <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", classes, className)} {...rest} />
+                <Icon1 className={classNames("absolute top-0 left-0", classes1, className)} {...rest} />
+                <Icon2 className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", classes2, className)} {...rest} />
             </div>
         );
     };
 
-    return fn2;
+    const isSingle = props.length === 1 || (iconEnum1 === iconEnum2 && uiOptShowIeWarnIcon1 === uiOptShowIeWarnIcon2);
+
+    return isSingle ? fn1 : fn2;
 }
 
 // const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE     className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
