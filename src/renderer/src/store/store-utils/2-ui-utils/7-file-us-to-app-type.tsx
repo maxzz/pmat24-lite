@@ -7,7 +7,7 @@ export type IconTypeWithWarning = {
     warning?: boolean;
 };
 
-export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean, showIeWranIcon: boolean): FormIconEnum {
+export function getAppIconType({ isWeb, isIe, isManual, showIeWranIcon }: { isWeb: boolean; isIe: boolean; isManual: boolean; showIeWranIcon: boolean; }): FormIconEnum {
     const icon =
         isWeb
             ? isIe
@@ -22,12 +22,14 @@ export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean,
 }
 
 export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
-    if (fileUs.parsedSrc.stats.isFCat) {
+    const { stats, meta } = fileUs.parsedSrc;
+
+    if (stats.isFCat) {
         return { formIcon: FormIconEnum.cat, warning: false };
     }
 
-    const hasBailOut = isAnyWhy(fileUs.parsedSrc.meta);
-    const appIcon = getAppIconType(fileUs.parsedSrc.stats.isLoginFormWeb, isAnyIe6(fileUs.parsedSrc.meta), isManual(fileUs.parsedSrc.meta), showIeWranIcon);
+    const hasBailOut = isAnyWhy(meta);
+    const appIcon = getAppIconType({ isWeb: stats.isLoginFormWeb, isIe: isAnyIe6(meta), isManual: isManual(meta), showIeWranIcon });
 
     return {
         formIcon: appIcon,

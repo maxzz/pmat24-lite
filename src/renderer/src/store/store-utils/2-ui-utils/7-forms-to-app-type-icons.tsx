@@ -24,7 +24,7 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
             const isManual = isManualForm(form);
             const isIe = isAnyIe6(fileUs.parsedSrc.meta);
 
-            const icon = getAppIconType(isWeb, isIe, isManual, showIeWranIcon);
+            const icon = getAppIconType({ isWeb, isIe, isManual, showIeWranIcon });
 
             const rv: IconTypeWithWarning = {
                 formIcon: icon,
