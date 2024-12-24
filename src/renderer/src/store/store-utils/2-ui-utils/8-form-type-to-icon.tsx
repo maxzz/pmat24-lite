@@ -26,17 +26,21 @@ const components: IconsTable = {
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function formTypeToIcon({ iconEnum: formIcon, warning }: IconTypeWithWarning): TreenIconComponent {
-    const { Icon, normalClasses, warningClasses } = components[formIcon];
+export function formTypeToIcon({ iconEnum, warning }: IconTypeWithWarning): TreenIconComponent {
+    const { Icon, normalClasses, warningClasses } = components[iconEnum];
 
-    const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
+    const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
+        <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
+    );
+
+    const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
         <div className="relative size-4 w-5">
             <Icon className={classNames("absolute top-0 left-0", warning ? warningClasses : normalClasses, className)} {...rest} />
             <Icon className={classNames("absolute top-2 left-3 size-2", warning ? warningClasses : normalClasses, className)} {...rest} />
         </div>
     );
 
-    return fn;
+    return fn2;
 }
 
 // const WebIe = ({ className, ...rest }: SVGIconTypeProps) => <SymbolAppWebIE     className={classNames("text-muted-foreground size-3.5 stroke-1", className)} {...rest} />;
