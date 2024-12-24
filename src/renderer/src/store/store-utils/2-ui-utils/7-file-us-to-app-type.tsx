@@ -1,29 +1,29 @@
 import { isAnyIe6, isAnyWhy, isManual } from "@/store/manifest";
 import { FileUs } from "../../store-types";
-import { AppIconType } from "./8-form-type-to-icon";
+import { FormIconType } from "./8-form-type-to-icon";
 
 export type IconTypeWithWarning = {
-    appIcon: AppIconType;
+    appIcon: FormIconType;
     warning?: boolean;
 };
 
-export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean, showIeWranIcon: boolean): AppIconType {
+export function getAppIconType(isWeb: boolean, isIe: boolean, isManual: boolean, showIeWranIcon: boolean): FormIconType {
     const icon =
         isWeb
             ? isIe
                 ? showIeWranIcon
-                    ? AppIconType.ie6 // There are too many of them and we don't have a nice icon for them, but now it's an option from the Options dialog
-                    : AppIconType.web
-                : AppIconType.web
+                    ? FormIconType.ie6 // There are too many of them and we don't have a nice icon for them, but now it's an option from the Options dialog
+                    : FormIconType.web
+                : FormIconType.web
             : isManual
-                ? AppIconType.man
-                : AppIconType.win;
+                ? FormIconType.man
+                : FormIconType.win;
     return icon;
 }
 
 export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return { appIcon: AppIconType.cat, warning: false };
+        return { appIcon: FormIconType.cat, warning: false };
     }
 
     const hasBailOut = isAnyWhy(fileUs.parsedSrc.meta);

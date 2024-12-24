@@ -5,7 +5,7 @@ import { classNames } from "@/utils";
 // import { SymbolAppWebIe } from "@/ui/icons/symbols/app/4-app-web-ie";
 // import { SymbolAppWebIeText } from "@/ui/icons/symbols/app/5-app-web-ie-text";
 
-export const enum AppIconType {
+export const enum FormIconType {
     web,    // web chrome
     win,    // windows app
     man,    // manual mode
@@ -13,17 +13,17 @@ export const enum AppIconType {
     cat,    // field catalog
 }
 
-type IconsTable = Record<AppIconType, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
+type IconsTable = Record<FormIconType, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
 
 const normalClasses = "text-muted-foreground";
 const warningClasses = "text-red-500 fill-red-300 opacity-75";
 
 const components: IconsTable = {
-    [AppIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [AppIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [AppIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
-    [AppIconType.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses: normalClasses, warningClasses: "" },
-    [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
+    [FormIconType.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconType.win]: { Icon: SymbolAppWin,       /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconType.man]: { Icon: SymbolManualMode,   /**/ normalClasses: normalClasses, warningClasses: warningClasses },
+    [FormIconType.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses: normalClasses, warningClasses: "" },
+    [FormIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
 export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconComponent {
