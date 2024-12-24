@@ -30,21 +30,26 @@ export function formTypeToIcon(props: IconTypeWithWarning[]): TreenIconComponent
     if (!props[0]) {
         return () => <></>;
     }
-    const { iconEnum, uiOptShowIeWarnIcon: warning } = props[0];
+
+    const { iconEnum, uiOptShowIeWarnIcon } = props[0];
     const { Icon, normalClasses, warningClasses } = components[iconEnum];
-    
-    const classes = warning ? warningClasses : normalClasses;
 
-    const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
-        <Icon className={classNames(classes, className)} {...rest} />
-    );
+    const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => {
+        const classes = uiOptShowIeWarnIcon ? warningClasses : normalClasses;
+        return (
+            <Icon className={classNames(classes, className)} {...rest} />
+        );
+    };
 
-    const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
-        <div className="relative size-4 w-5">
-            <Icon className={classNames("absolute top-0 left-0", classes, className)} {...rest} />
-            <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", classes, className)} {...rest} />
-        </div>
-    );
+    const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => {
+        const classes = uiOptShowIeWarnIcon ? warningClasses : normalClasses;
+        return (
+            <div className="relative size-4 w-5">
+                <Icon className={classNames("absolute top-0 left-0", classes, className)} {...rest} />
+                <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", classes, className)} {...rest} />
+            </div>
+        );
+    };
 
     return fn2;
 }
