@@ -30,9 +30,12 @@ export function formTypeToIcon({ iconEnum: formIcon, warning }: IconTypeWithWarn
     const { Icon, normalClasses, warningClasses } = components[formIcon];
 
     const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
-        <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
+        <div className="relative size-4 w-5">
+            <Icon className={classNames("absolute top-0 left-0", warning ? warningClasses : normalClasses, className)} {...rest} />
+            <Icon className={classNames("absolute top-2 left-3 size-2", warning ? warningClasses : normalClasses, className)} {...rest} />
+        </div>
     );
-    
+
     return fn;
 }
 
