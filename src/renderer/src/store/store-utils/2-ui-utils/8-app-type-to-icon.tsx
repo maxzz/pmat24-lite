@@ -29,7 +29,7 @@ const components: IconsTable = {
 export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconType {
     const { Icon, normalClasses, warningClasses } = components[appIcon];
 
-    const fn: SVGIconType = ({ className, ...rest }: SVGIconTypeProps) => (
+    const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
         <Icon className={classNames(warning ? warningClasses : normalClasses, className)} {...rest} />
     );
     

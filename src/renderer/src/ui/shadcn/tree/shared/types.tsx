@@ -8,12 +8,12 @@ export type DataItemNavigation<T> =
         children?: DataItemNavigation<T>[];
     };
 
-export type TreenIconType = LucideIconType | SVGIconType;
+export type TreenIconType = LucideIconType | SVGIconComponent;
 
 export type DataItemCore = {
     id: string | number;
     name: string;
-    icon?: TreenIconType | SVGIconType;
+    icon?: TreenIconType | SVGIconComponent;
 };
 
 // export type DataItem = DataItemNavigation<DataItemCore>;
