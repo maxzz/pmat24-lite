@@ -5,7 +5,7 @@ import { CurrentFilter } from "./2-filter-indicator";
 import { L_PanelMenuTrigger } from "../1-menu-main/0-all/0-menu-trigger";
 import { classNames } from "@/utils";
 
-export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b group-focus-within:bg-background/30";
+export const panelHeaderClasses = "px-2 py-1 text-xs bg-muted border-border border-b"; //group-focus-within:bg-background/30
 
 export function L_PanelHeader({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
