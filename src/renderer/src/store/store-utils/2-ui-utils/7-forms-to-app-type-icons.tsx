@@ -4,9 +4,9 @@ import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { type IconTypeWithWarning, getFormIconEnum } from "./7-file-us-to-app-type";
 import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
-export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconComponent[] {
+export function formToAppTypeIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return [formTypeToIcon({ iconEnum: FormIconEnum.cat, warning: false })];
+        return [formTypeToIcon({ iconEnum: FormIconEnum.cat, uiOptShowIeWarnIcon: false })];
     }
 
     if (!fileUs.parsedSrc.meta) {
@@ -24,27 +24,26 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
             const isManual = isManualForm(form);
             const isIe = isAnyIe6(fileUs.parsedSrc.meta);
 
-            const icon = getFormIconEnum({ isWeb, isIe, isManual, showIeWranIcon });
+            const icon = getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon });
 
             const rv: IconTypeWithWarning = {
                 iconEnum: icon,
-                warning: hasBailOut,
+                uiOptShowIeWarnIcon: hasBailOut,
             };
 
             return rv;
         }
     ).filter(Boolean);
 
-    const login = forms?.[0];
-    const cpass = forms?.[1];
-
     const rv: TreenIconComponent[] = [];
-
+    
+    const login = forms?.[0];
     if (login) {
         rv.push(formTypeToIcon(login));
     }
 
-    if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.warning !== cpass.warning)) {
+    const cpass = forms?.[1];
+    if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.uiOptShowIeWarnIcon !== cpass.uiOptShowIeWarnIcon)) {
         rv.push(formTypeToIcon(cpass));
     }
 

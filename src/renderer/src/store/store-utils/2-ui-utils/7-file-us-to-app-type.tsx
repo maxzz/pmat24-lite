@@ -4,22 +4,30 @@ import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconTypeWithWarning = {
     iconEnum: FormIconEnum;
-    warning?: boolean;
+    uiOptShowIeWarnIcon?: boolean;
 };
 
-export function fileUsToAppType(fileUs: FileUs, showIeWranIcon: boolean): IconTypeWithWarning {
+export function fileUsToAppType(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): IconTypeWithWarning {
     const { stats, meta } = fileUs.parsedSrc;
 
     if (stats.isFCat) {
-        return { iconEnum: FormIconEnum.cat, warning: false };
+        return {
+            iconEnum: FormIconEnum.cat,
+            uiOptShowIeWarnIcon: false,
+        };
     }
 
+    const iconEnum = getFormIconEnum({
+        isWeb: stats.isLoginFormWeb,
+        isIe: isAnyIe6(meta),
+        isManual: isManual(meta),
+        uiOptShowIeWarnIcon: uiOptShowIeWarnIcon,
+    });
     const hasBailOut = isAnyWhy(meta);
-    const appIcon = getFormIconEnum({ isWeb: stats.isLoginFormWeb, isIe: isAnyIe6(meta), isManual: isManual(meta), showIeWranIcon });
 
     return {
-        iconEnum: appIcon,
-        warning: hasBailOut,
+        iconEnum,
+        uiOptShowIeWarnIcon: hasBailOut,
     };
 }
 
@@ -27,14 +35,14 @@ type GetFormIconEnumParams = {
     isWeb: boolean;
     isIe: boolean;
     isManual: boolean;
-    showIeWranIcon: boolean;
+    uiOptShowIeWarnIcon: boolean;
 };
 
-export function getFormIconEnum({ isWeb, isIe, isManual, showIeWranIcon }: GetFormIconEnumParams): FormIconEnum {
+export function getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon }: GetFormIconEnumParams): FormIconEnum {
     const icon =
         isWeb
             ? isIe
-                ? showIeWranIcon
+                ? uiOptShowIeWarnIcon
                     ? FormIconEnum.ie6 // There are too many of them and we don't have a nice icon for them, but now it's an option from the Options dialog
                     : FormIconEnum.web
                 : FormIconEnum.web

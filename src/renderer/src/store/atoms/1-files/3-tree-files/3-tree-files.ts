@@ -22,7 +22,7 @@ export const treeFilesAtom = atom( // files to show in the tree
         }
 
         const fileListOptions = get(fileListOptionsAtom);
-        const showIeWranIcon = fileListOptions.itemsState.showIeMarker;
+        const uiOptShowIeWarnIcon = fileListOptions.itemsState.showIeMarker;
 
         const filesTree: TreeFileItem[] = files.map(
             (fileUsAtom) => {
@@ -31,7 +31,7 @@ export const treeFilesAtom = atom( // files to show in the tree
                 const rv: TreeFileItem = {
                     id: fileUs.fileCnt.unid,
                     name: getFileListItemDisplayText(fileUs, fileListOptions.itemsState, get),
-                    icon: formTypeToIcon(fileUsToAppType(fileUs, showIeWranIcon)),
+                    icon: formTypeToIcon(fileUsToAppType(fileUs, uiOptShowIeWarnIcon)),
                     fileUsAtom,
                 };
 

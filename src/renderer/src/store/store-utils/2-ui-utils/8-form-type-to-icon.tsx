@@ -26,7 +26,8 @@ const components: IconsTable = {
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function formTypeToIcon({ iconEnum, warning }: IconTypeWithWarning): TreenIconComponent {
+export function formTypeToIcon(props: IconTypeWithWarning): TreenIconComponent {
+    const { iconEnum, uiOptShowIeWarnIcon: warning } = props;
     const { Icon, normalClasses, warningClasses } = components[iconEnum];
 
     const fn1: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
@@ -36,7 +37,7 @@ export function formTypeToIcon({ iconEnum, warning }: IconTypeWithWarning): Tree
     const fn2: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (
         <div className="relative size-4 w-5">
             <Icon className={classNames("absolute top-0 left-0", warning ? warningClasses : normalClasses, className)} {...rest} />
-            <Icon className={classNames("absolute top-2 left-3 size-2", warning ? warningClasses : normalClasses, className)} {...rest} />
+            <Icon className={classNames("absolute top-2 left-2.5 size-2 !fill-muted", warning ? warningClasses : normalClasses, className)} {...rest} />
         </div>
     );
 
