@@ -1,10 +1,10 @@
 import { type FileUs } from "../../store-types";
-import { type TreenIconType } from "@/ui/shadcn/tree";
+import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { isAnyIe6, isManualForm, isWebForm, isWhyForm } from "@/store/manifest";
 import { type IconTypeWithWarning, getAppIconType } from "./7-file-us-to-app-type";
 import { AppIconType, appTypeToIcon } from "./8-app-type-to-icon";
 
-export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconType[] {
+export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
         return [appTypeToIcon({ appIcon: AppIconType.cat, warning: false })];
     }
@@ -38,7 +38,7 @@ export function formToAppTypeIcons(fileUs: FileUs, showIeWranIcon: boolean): Tre
     const login = forms?.[0];
     const cpass = forms?.[1];
 
-    const rv: TreenIconType[] = [];
+    const rv: TreenIconComponent[] = [];
 
     if (login) {
         rv.push(appTypeToIcon(login));

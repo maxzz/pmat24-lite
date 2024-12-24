@@ -1,4 +1,4 @@
-import { TreenIconType } from "@/ui/shadcn/tree";
+import { TreenIconComponent } from "@/ui/shadcn/tree";
 import { IconTypeWithWarning } from "./7-file-us-to-app-type";
 import { SymbolAppWebChrome, SymbolAppWebIeDot, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
@@ -13,7 +13,7 @@ export const enum AppIconType {
     cat,    // field catalog
 }
 
-type IconsTable = Record<AppIconType, { Icon: TreenIconType, normalClasses: string, warningClasses: string; }>;
+type IconsTable = Record<AppIconType, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
 
 const normalClasses = "text-muted-foreground";
 const warningClasses = "text-red-500 fill-red-300 opacity-75";
@@ -26,7 +26,7 @@ const components: IconsTable = {
     [AppIconType.cat]: { Icon: SymbolCatalog,      /**/ normalClasses: normalClasses, warningClasses: "" },
 };
 
-export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconType {
+export function appTypeToIcon({ appIcon, warning }: IconTypeWithWarning): TreenIconComponent {
     const { Icon, normalClasses, warningClasses } = components[appIcon];
 
     const fn: SVGIconComponent = ({ className, ...rest }: SVGIconTypeProps) => (

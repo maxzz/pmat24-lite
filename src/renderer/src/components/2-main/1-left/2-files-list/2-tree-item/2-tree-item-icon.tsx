@@ -1,12 +1,12 @@
 import { FileUs } from "@/store/store-types";
 import { isAnyWhy } from "@/store/manifest";
-import { TreenIconType } from "@ui/shadcn/tree";
+import { TreenIconComponent } from "@ui/shadcn/tree";
 import { TreeItemTooltip } from "./4-tooltip-all";
 import { TooltipBody } from "./5-tooltip-body";
 
 type FileIconAttentionProps = {
     fileUs: FileUs;
-    IconToRender: false | TreenIconType | undefined;
+    IconToRender: false | TreenIconComponent | undefined;
     name: string;
     iconClasses: string;
 };
