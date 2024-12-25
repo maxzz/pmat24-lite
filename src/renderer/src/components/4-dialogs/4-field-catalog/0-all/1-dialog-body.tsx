@@ -22,15 +22,22 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
+const itemsClasses = "h-full border-border border rounded grid grid-rows-[1fr_auto] \
+grid-cols-1 \
+@[400px]:grid-cols-2 \
+@[600px]:gap-y-0 \
+gap-y-2 gap-x-1 \
+";
+
 function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
+            <div className="@container p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
-                <div className="h-full border-border border rounded grid grid-rows-[1fr_auto] gap-y-2">
+                <div className={itemsClasses}>
                     <FldCatItemsGrid className="h-full bg-amber-600" fceCtx={fceCtx} />
                     <div className="bg-amber-500/20">
                         <SelectedItemPropsBody fceCtx={fceCtx} />
