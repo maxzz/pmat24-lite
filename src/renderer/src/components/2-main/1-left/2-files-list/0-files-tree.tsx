@@ -26,7 +26,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
 }
 
 export function FilesTree() {
-    const snapItems = useSnapshot(appSettings).files.itemsState;
+    const {selectAsTrigger, selectEmptySpace} = useSnapshot(appSettings.files.itemsState);
 
     const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
@@ -49,8 +49,8 @@ export function FilesTree() {
                     IconForItem={IconFile}
                     arrowFirst={true}
                     hideFolderIcon={false}
-                    selectAsTrigger={snapItems.selectAsTrigger}
-                    selectEmptySpace={snapItems.selectEmptySpace}
+                    selectAsTrigger={selectAsTrigger}
+                    selectEmptySpace={selectEmptySpace}
                     onSelectChange={onSelectChange}
                 />
             );
