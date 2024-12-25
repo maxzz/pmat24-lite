@@ -4,7 +4,7 @@ import { proxy, useSnapshot } from "valtio";
 import { TreeFileItem, appSettings, doTriggerRightPanelSelectedAtom, treeFilesAtom } from "@/store";
 import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
-import { TreeIconAndText } from "./2-tree-item";
+import { TreeItemRowRender } from "./2-tree-item";
 
 //type TreeItem = Prettify<ReturnType<typeof addStateToTreeItems>>;
 //const dataWithState = addStateToTreeItems(data);
@@ -43,8 +43,8 @@ export function FilesTree() {
                 <Tree
                     data={dataWithState}
                     className="w-full h-full outline-none"
-                    scrollAreaProps={{ parentContentWidth: true }}
-                    IconTextRender={TreeIconAndText}
+                    scrollAreaProps={{ parentContentWidth: true, fixedWidth: true }}
+                    IconTextRender={TreeItemRowRender}
                     IconForFolder={IconFolder}
                     IconForItem={IconFile}
                     arrowFirst={true}

@@ -7,7 +7,7 @@ import { TreeItemIconWithAttention } from "./2-tree-item-icon";
 import { TreeItemFileIndex } from "./1-tree-item-index";
 import { TreeItemName } from "./3-tree-item-name";
 
-export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
+export function TreeItemRowRender({ item, Icon, iconClasses, hideFolderIcon }: TreeIconAndTextProps) {
 
     const fileUsItem = treeItemToFileUs(item);
     const fileUs = useAtomValue(fileUsItem.fileUsAtom);
