@@ -69,7 +69,6 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
 
     const rv: FileUsStats = {
         loginFormDomain,
-        isLoginFormWeb,
         isLoginFormChrome: isLoginFormWeb && !parsedSrc.meta?.[0]?.disp.isIe,
         isFCat: !!parsedSrc.fcat,
         isFCatRoot: false,

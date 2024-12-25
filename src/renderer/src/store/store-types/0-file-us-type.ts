@@ -7,7 +7,7 @@ import { type FceAtoms } from "../atoms/4-field-catalogs";
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain
 
-    isLoginFormWeb: boolean;                        // is login web form; ourl maybe changed but should not become empty
+    //isLoginFormWeb: boolean;                        // is login web form; ourl maybe changed but should not become empty
     isLoginFormChrome: boolean;                     // is web apploication and not IE; isWeb && !fileUs.meta?.[0]?.disp.isIe
     isFCat: boolean;                                // is file field catalog
     isFCatRoot: boolean;                            // is file root field catalog; setRootFcFileUs() sets it others files will have false

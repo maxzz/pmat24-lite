@@ -1,5 +1,5 @@
 import { type FileUs } from "../../store-types";
-import { isAnyIe6, isAnyWhy, isAnyManual } from "@/store/manifest";
+import { isAnyIe6, isAnyWhy, isAnyManual, isFormWeb } from "@/store/manifest";
 import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconEnumWithWarning = {
@@ -18,7 +18,7 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
     }
 
     const iconEnum = getFormIconEnum({
-        isWeb: stats.isLoginFormWeb,
+        isWeb: isFormWeb(meta?.[0]),
         isIe: isAnyIe6(meta),
         isManual: isAnyManual(meta),
         uiOptShowIeWarnIcon: uiOptShowIeWarnIcon,
