@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { isEmpty, isManual } from "@/store/manifest";
+import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
@@ -69,9 +69,9 @@ export const doSetDeliveredFilesAtom = atom(
 
                     if (newFileUs.parsedSrc.fcat) {
                         totalManis.fc++;
-                    } else if (isEmpty(newFileUs.parsedSrc.meta)) {
+                    } else if (isAnyEmpty(newFileUs.parsedSrc.meta)) {
                         totalManis.empty++;
-                    } else if (isManual(newFileUs.parsedSrc.meta)) {
+                    } else if (isAnyManual(newFileUs.parsedSrc.meta)) {
                         totalManis.manual++;
                     } else {
                         totalManis.normal++;

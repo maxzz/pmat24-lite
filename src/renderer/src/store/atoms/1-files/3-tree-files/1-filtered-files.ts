@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "../0-files-atom";
-import { isAnyCap, isAnyCls, isAnyWeb, isAnyWhy, isEmpty, isManual } from "@/store/manifest";
+import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "../../9-ui-state/04-filters-search";
 import { fileListOptionsAtom } from "@/store";
@@ -36,11 +36,11 @@ export const filteredAtom = atom<FileUsAtom[]>(
                 }
 
                 if (capOnly) {
-                    return isAnyCap(mani, regex);
+                    return isAnyMatchedCap(mani, regex);
                 }
 
                 if (clsOnly) {
-                    return isAnyCls(mani, regex);
+                    return isAnyMatchedCls(mani, regex);
                 }
 
                 const isWeb = isAnyWeb(meta);
@@ -48,7 +48,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
                     return false;
                 }
 
-                let useItNow = isEmpty(meta) ? showEmpty : isManual(meta) ? showManual : showNormal;
+                let useItNow = isAnyEmpty(meta) ? showEmpty : isAnyManual(meta) ? showManual : showNormal;
                 if (useItNow && regex) {
                     useItNow = useFileUsByFilter(fileUs, regex);
                 }
