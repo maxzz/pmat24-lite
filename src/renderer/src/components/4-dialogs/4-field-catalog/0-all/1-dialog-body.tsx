@@ -22,6 +22,26 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     </>);
 }
 
+function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
+    return (
+        <div className="grid grid-rows-[auto_1fr]">
+            <Header fceCtx={fceCtx} />
+
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
+                <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
+
+                <div className="h-full border-border border rounded flex">
+                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
+                </div>
+
+                <div className="flex items-center justify-end gap-x-2">
+                    <BottomButtons fceCtx={fceCtx} />
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
         <div className="grid grid-rows-[auto_1fr]">
@@ -37,26 +57,6 @@ function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
                 <div className="pl-3 font-thin">
                     <TotalItems fceCtx={fceCtx} />
-                </div>
-
-                <div className="flex items-center justify-end gap-x-2">
-                    <BottomButtons fceCtx={fceCtx} />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
-    return (
-        <div className="grid grid-rows-[auto_1fr]">
-            <Header fceCtx={fceCtx} />
-
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
-                <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
-
-                <div className="h-full border-border border rounded flex">
-                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">

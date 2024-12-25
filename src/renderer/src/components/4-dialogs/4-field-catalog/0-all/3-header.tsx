@@ -7,12 +7,12 @@ export function Header({ fceCtx }: { fceCtx: FceCtx; }) {
 
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
-    const openMainDlg = !fceCtx.inData?.dbid;
+    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
     const fname = fceCtx.fceAtoms?.fileUs.fileCnt?.fpath; //TODO: if hasMain() then show path relative to main fc file, or none if main fc file
 
     return (
         <div className="relative py-2 border-border border-b flex flex-col items-center">
-            <div className="text-sm font-bold">
+            <div className="text-xs font-semibold">
                 Field Catalog
             </div>
 
