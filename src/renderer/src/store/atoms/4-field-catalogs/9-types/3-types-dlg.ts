@@ -5,6 +5,7 @@ import { type FceItem } from "./1-types-fce-atoms";
  * Field catalog dialog in data
  */
 export type FceDlgIn = {
+    openSelectItemDlg: boolean;                     // select item from field catalog, i.e. not master field catalog
     dbid?: string | undefined;                      // dbid of the field catalog item to initially select
     showTxt: boolean;                               // show text fields only
     showPsw: boolean;                               // show password fields only

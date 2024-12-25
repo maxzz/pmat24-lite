@@ -107,6 +107,7 @@ function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUs
         function doOpenDlg() {
             const fceAtoms = fileUsCtx.fileUs.fceAtomsRefForMani;
             const inData: FceDlgIn = {
+                openSelectItemDlg: true,
                 dbid,
                 outBoxAtom: fceOutBoxAtom,
                 showTxt: !isPsw,
