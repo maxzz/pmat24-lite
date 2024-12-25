@@ -1,5 +1,5 @@
 import { type FileUs } from "../../store-types";
-import { isAnyIe6, isAnyWhy, isAnyManual, isFormWeb } from "@/store/manifest";
+import { isAnyIe6, isAnyWhy, isAnyManual, isFormWeb, isFormIe6, isFormManual } from "@/store/manifest";
 import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconEnumWithWarning = {
@@ -17,18 +17,22 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
         }];
     }
 
+    const rv: IconEnumWithWarning[] = [];
+
     const iconEnum = getFormIconEnum({
         isWeb: isFormWeb(meta?.[0]),
-        isIe: isAnyIe6(meta),
-        isManual: isAnyManual(meta),
-        uiOptShowIeWarnIcon: uiOptShowIeWarnIcon,
+        isIe: isFormIe6(meta?.[0]),
+        isManual: isFormManual(meta?.[0]),
+        uiOptShowIeWarnIcon,
     });
     const hasBailOut = isAnyWhy(meta);
 
-    return [{
+    rv.push({
         iconEnum,
         uiOptShowIeWarnIcon: hasBailOut,
-    }];
+    });
+
+    return rv;
 }
 
 type GetFormIconEnumParams = {

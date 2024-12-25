@@ -68,9 +68,11 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
 
     const rv: FileUsStats = {
         loginFormDomain,
+
         isFCat: !!parsedSrc.fcat,
         isFCatRoot: false,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
+        
         loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
 
         isSubFolder: isSubFolder,
