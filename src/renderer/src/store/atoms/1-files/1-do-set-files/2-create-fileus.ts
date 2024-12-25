@@ -64,12 +64,10 @@ export function createParsedSrcForEmptyFce(fileCnt: FileContent): ParsedSrc {
 function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsStats {
     const loginForm = parsedSrc.mani?.forms[0];
     const loginFormDomain = parsedSrc.meta?.[0]?.disp.domain;
-    const isLoginFormWeb = !!loginFormDomain;
     const isSubFolder = !!fileCnt.fpath && !fileCnt.fromMain; // fpath is empty for single items //const hasSubFolders = !!fileCnt.fpath?.match(/\//);
 
     const rv: FileUsStats = {
         loginFormDomain,
-        isLoginFormChrome: isLoginFormWeb && !parsedSrc.meta?.[0]?.disp.isIe,
         isFCat: !!parsedSrc.fcat,
         isFCatRoot: false,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
