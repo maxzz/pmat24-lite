@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { doSetInitSelectedItemAtom, type FceCtx } from "@/store";
 import { FieldCatalogToolbar } from "../2-toolbar";
 import { FldCatItemsGrid } from "../3-items-grid";
-import { RightPanelGuard } from "../4-selected-item-props";
+import { RightPanelGuard, SelectedItemPropsBody } from "../4-selected-item-props";
 import { Header, TotalItems } from "./3-header";
 import { BottomButtons } from "./4-bottom-buttons";
 
@@ -27,11 +27,14 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
-                <div className="h-full border-border border rounded flex">
-                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
+                <div className="h-full border-border border rounded grid grid-rows-[1fr_auto] gap-y-2">
+                    <FldCatItemsGrid className="h-full bg-amber-600" fceCtx={fceCtx} />
+                    <div className="bg-amber-500/20">
+                        <SelectedItemPropsBody fceCtx={fceCtx} />
+                    </div>
                 </div>
 
                 <div className="flex items-center justify-end gap-x-2">

@@ -43,13 +43,12 @@ data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=s
 data-[list-item=selected]:outline \
 data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
 data-[list-item=selected]:[outline-offset:-2px] \
-outline-[var(--selected-outline)] \
-rounded-[3px]";
+outline-[var(--selected-outline)]";
 
 // Specific to this file styles
 
 const rowLocalClasses = "\
-ml-2 mr-3 py-1 \
+ml-2 mr-2 py-1 \
 col-span-full grid grid-cols-subgrid items-center \
 \
 text-foreground bg-background \

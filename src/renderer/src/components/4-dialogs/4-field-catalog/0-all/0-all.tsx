@@ -9,7 +9,7 @@ const contentMainClasses = "!w-4/5 max-w-4xl";
 const contentClasses = "!w-80 min-w-fit max-w-xl";
 const contentRestClasses = "\
 p-0 \
-h-[70vh] min-h-[60vh] max-h-[90vh] \
+h-4/5 min-h-[60vh] max-h-[90vh] \
 text-xs \
 gap-0 \
 select-none \
