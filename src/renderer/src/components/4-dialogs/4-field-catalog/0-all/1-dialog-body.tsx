@@ -25,9 +25,8 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
 const itemsClasses = "h-full border-border border rounded grid grid-rows-[1fr_auto] \
 grid-cols-1 \
 @[400px]:grid-cols-2 \
-@[600px]:gap-y-0 \
-gap-y-2 gap-x-1 \
-";
+@[400px]:gap-y-0 \
+gap-y-2";
 
 function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
@@ -38,13 +37,14 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className={itemsClasses}>
-                    <FldCatItemsGrid className="h-full bg-amber-600" fceCtx={fceCtx} />
-                    <div className="bg-amber-500/20">
+                    <FldCatItemsGrid className="h-full" fceCtx={fceCtx} />
+
+                    <div className="relative px-2 py-1 border-border border-l">
                         <SelectedItemPropsBody fceCtx={fceCtx} />
                     </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-x-2">
+                <div className="pt-3 flex items-center justify-end gap-x-2">
                     <BottomButtons fceCtx={fceCtx} />
                 </div>
             </div>
