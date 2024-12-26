@@ -12,10 +12,9 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
     const closeFldCatDialog = useSetAtom(doCloseFceDlgAtom);
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
-    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-    const showSelectBtn = !!fceCtx.inData?.outBoxAtom;
-
     const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic
+    const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
+    const showSelectBtn = !openMainDlg;
 
     return (<>
         {showSelectBtn && (
