@@ -57,17 +57,17 @@ function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr]">
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr] gap-3">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
-                <div className="h-full border-border border rounded flex">
+                <div className="-mx-3 pb-3 h-full border-border border-b rounded flex">
                     <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
                     <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
                 </div>
 
-                <div className="pl-3 font-thin">
+                {/* <div className="pl-3 font-thin">
                     <TotalItems fceCtx={fceCtx} />
-                </div>
+                </div> */}
 
                 <div className="flex items-center justify-end gap-x-2">
                     <BottomButtons fceCtx={fceCtx} />
