@@ -11,6 +11,12 @@ type FieldCatalogToolbarProps = {
 };
 
 export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: FieldCatalogToolbarProps) {
+
+    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    if (!openMainDlg) {
+        return <div></div>;
+    }
+
     return (
         <div className={classNames("flex items-center justify-end", className)}>
             <Button_AddItem fceCtx={fceCtx} />
