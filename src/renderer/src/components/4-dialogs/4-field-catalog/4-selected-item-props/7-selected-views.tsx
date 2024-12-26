@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { type FceCtx } from "@/store";
 
 const ixsClasses = "\
-absolute top-1 right-2 mt-1 p-1 h-4 aspect-square text-xs \
+absolute top-1 right-1.5 p-1 h-4 aspect-square text-xs \
 text-muted-foreground \
 rounded-sm select-none cursor-default \
 flex items-center justify-center";

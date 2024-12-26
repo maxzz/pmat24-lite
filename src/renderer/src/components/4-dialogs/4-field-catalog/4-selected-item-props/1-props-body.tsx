@@ -4,6 +4,7 @@ import { FieldTyp } from "@/store/manifest";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
 import { SelectedIdxView, SelectedIdView } from "./7-selected-views";
 import { classNames } from "@/utils";
+import { useMemo } from "react";
 
 const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
 const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";
@@ -14,7 +15,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     const hasSelected = useAtomValue(fceCtx.hasSelectedItemAtom);
     const valueLife = useAtomValue(fceCtx.fcePropAtoms.valueLifeAtom);
 
-    const allClasses = mergeStateClasses(hasSelected);
+    const allClasses = useMemo(() => mergeStateClasses(hasSelected), [hasSelected]);
 
     return (<>
         <SelectedIdxView fceCtx={fceCtx} />
