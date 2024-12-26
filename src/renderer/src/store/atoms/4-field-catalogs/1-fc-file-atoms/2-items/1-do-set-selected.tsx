@@ -8,7 +8,7 @@ import { FieldTyp } from "@/store/manifest";
  */
 export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: FceCtx, idx: number): FceItem | undefined => {
+    (get, set, ctx: FceCtx, idx: number, doubleClick: boolean): FceItem | undefined => {
         const currentIdx = get(ctx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
             deselectCurrentIdx(ctx, get, set);

@@ -31,12 +31,12 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     );
 
     function onClick(idx: number) {
-        doSelectIdx(fceCtx, idx);
+        doSelectIdx(fceCtx, idx, false);
     }
 
     function onDoubleClick(idx: number) {
-        doSelectIdx(fceCtx, idx);
-        // fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
+        doSelectIdx(fceCtx, idx, true);
+        //fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (

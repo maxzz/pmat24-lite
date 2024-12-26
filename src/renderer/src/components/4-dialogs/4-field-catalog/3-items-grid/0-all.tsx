@@ -34,9 +34,7 @@ function FceScrollArea({ fceCtx, className, children, ...rest }: { fceCtx: FceCt
 
 function useScrollToSelected<T extends HTMLElement>(fceCtx: FceCtx): { ref: (elm: T | null) => void; } {
     const ref = useRef<T | null>(null);
-
     const doScrollToSelected = useSetAtom(doScrollToItemAtom);
-
     const [selectedItem, doSetSelectItem] = useAtom(fceCtx.selectedItemAtom);
 
     useEffect(

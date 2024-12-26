@@ -20,7 +20,7 @@ export const doAddItemAtom = atom(
         newItem.beforeEdit.displayname = newName;
         newItem.fieldValue.displayname = newName;
 
-        set(doSelectIdxAtom, fceCtx, newIdx);
+        set(doSelectIdxAtom, fceCtx, newIdx, false);
         set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes
@@ -60,7 +60,7 @@ export const doDeleteSelectedItemAtom = atom(
 
         const newItem = newItems[newIdx];
 
-        set(doSelectIdxAtom, fceCtx, newIdx);
+        set(doSelectIdxAtom, fceCtx, newIdx, false);
         set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes

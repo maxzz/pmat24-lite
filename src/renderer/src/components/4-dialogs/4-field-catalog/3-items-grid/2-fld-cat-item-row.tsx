@@ -76,7 +76,6 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
             <div className={classNames("col-start-3 truncate")}>
                 {displayname}
             </div>
-
         </div>
     );
 }
