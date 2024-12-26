@@ -24,8 +24,8 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
 
 const itemsClasses = "h-full border-border border rounded grid grid-rows-[1fr_auto] \
 grid-cols-1 \
-@[400px]:grid-cols-2 \
-@[400px]:gap-y-0 \
+@[400px]/fc-body:grid-cols-2 \
+@[400px]/fc-body:gap-y-0 \
 gap-y-2";
 
 function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
@@ -33,13 +33,13 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="@container p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
+            <div className="@container/fc-body p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className={itemsClasses}>
                     <FldCatItemsGrid className="h-full" fceCtx={fceCtx} />
 
-                    <div className="relative px-2 py-1 border-border border-t @[400px]:border-t-0 @[400px]:border-l">
+                    <div className="relative px-2 py-1 border-border border-t @[400px]/fc-body:border-t-0 @[400px]/fc-body:border-l">
                         <SelectedItemPropsBody fceCtx={fceCtx} />
                     </div>
                 </div>
