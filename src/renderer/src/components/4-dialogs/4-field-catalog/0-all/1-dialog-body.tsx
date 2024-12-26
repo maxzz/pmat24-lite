@@ -39,7 +39,7 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 <div className={itemsClasses}>
                     <FldCatItemsGrid className="h-full" fceCtx={fceCtx} />
 
-                    <div className="relative px-2 py-1 border-border border-l">
+                    <div className="relative px-2 py-1 border-border border-t @[400px]:border-t-0 @[400px]:border-l">
                         <SelectedItemPropsBody fceCtx={fceCtx} />
                     </div>
                 </div>
