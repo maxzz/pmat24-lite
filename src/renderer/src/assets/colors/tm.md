@@ -2,13 +2,13 @@
 
 * sub-folder colors from "C:\Program Files\Microsoft VS Code\resources\app\extensions\theme-defaults\themes" 
 
-# docs
+### Docs
 
 * https://code.visualstudio.com/api/references/theme-color
 * https://code.visualstudio.com/api/references/theme-color#color-theme-json-reference
 * https://code.visualstudio.com/docs/getstarted/theme-color-reference
 
-# code
+### Code
 
 * https://github.com/microsoft/vscode/blob/main/src/vs/workbench/common/theme.ts
 * https://github.com/microsoft/vscode/blob/main/src/vs/workbench/contrib/theme-defaults/browser/themeDefaults.ts
@@ -38,3 +38,34 @@
     * 'export const MENUBAR_SELECTION_BORDER = registerColor('menubar.selectionBorder'''
   * https://github.com/microsoft/vscode/blob/main/src/vs/platform/theme/common/colorUtils.ts#L305 'export function transparent'
     * https://github.com/microsoft/vscode/blob/main/src/vs/base/common/color.ts#L256 'export class Color'
+
+### Colors from DevTools
+
+// --vscode-menu-selectionBackground: #0060c0; light
+// --vscode-menu-selectionBackground: #0078d4; dark
+
+//GH: 'repo:microsoft/vscode #0078d4'
+    * https://github.com/microsoft/vscode/blob/main/src/vs/workbench/services/themes/common/workbenchThemeService.ts#L55 
+```js
+      export const COLOR_THEME_DARK_INITIAL_COLORS = ...
+      export const COLOR_THEME_LIGHT_INITIAL_COLORS = ...
+```
+  * https://github.com/microsoft/vscode/blob/main/extensions/theme-defaults/themes/dark_modern.json#L58
+```json
+      * '"menu.background": "#1F1F1F"'
+      * '"menu.selectionBackground": "#0078d4"'
+```
+  * https://github.com/microsoft/vscode/blob/main/extensions/theme-defaults/themes/dark_vs.json
+```json
+      "menu.background": "#252526",
+	  "menu.foreground": "#CCCCCC",
+	  "menu.separatorBackground": "#454545",
+	  "menu.border": "#454545",
+	  "menu.selectionBackground": "#0078d4",
+```
+
+//GH: 'repo:microsoft/vscode #0060c0'
+ * https://github.com/microsoft/vscode/blob/main/src/vs/platform/theme/common/colors/listColors.ts#L34
+
+   * https://github.com/microsoft/vscode/blob/main/src/vs/platform/theme/common/colorUtils.ts#L236 'export function registerColor'
+     * https://github.com/microsoft/vscode/blob/main/src/vs/base/common/color.ts#L256 'export class Color'
