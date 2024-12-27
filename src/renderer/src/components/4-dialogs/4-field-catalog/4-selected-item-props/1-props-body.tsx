@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { type FceCtx } from "@/store";
 import { FieldTyp } from "@/store/manifest";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
-import { SelectedIdxView, SelectedIdView } from "./7-selected-views";
+import { ViewOfSelectedIndex, ViewOfSelectedId } from "./7-selected-views";
 import { classNames } from "@/utils";
 import { useMemo } from "react";
 
@@ -18,7 +18,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
     const allClasses = useMemo(() => mergeStateClasses(hasSelected), [hasSelected]);
 
     return (<>
-        <SelectedIdxView fceCtx={fceCtx} />
+        <ViewOfSelectedIndex fceCtx={fceCtx} />
 
         <div className={classNames("select-none cursor-default", !hasSelected && disabledClasses)}>
             Field Type: {valueLife.fType === FieldTyp.edit ? 'Text' : 'Password'}
@@ -47,6 +47,6 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </NewLabel>
 
-        <SelectedIdView fceCtx={fceCtx} />
+        <ViewOfSelectedId fceCtx={fceCtx} />
     </>);
 }

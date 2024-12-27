@@ -7,7 +7,7 @@ text-muted-foreground \
 rounded-sm select-none cursor-default \
 flex items-center justify-center";
 
-export function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
+export function ViewOfSelectedIndex({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedIdx = useAtomValue(fceCtx.selectedIdxStoreAtom);
     return (
         <div className={ixsClasses}>
@@ -16,7 +16,7 @@ export function SelectedIdxView({ fceCtx }: { fceCtx: FceCtx; }) {
     );
 }
 
-export function SelectedIdView({ fceCtx }: { fceCtx: FceCtx; }) {
+export function ViewOfSelectedId({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
     return (<>
         {!fceCtx.isDlgCtx && (
