@@ -4,8 +4,9 @@ import { doSetInitSelectedItemAtom, type FceCtx } from "@/store";
 import { FieldCatalogToolbar } from "../2-toolbar";
 import { FldCatItemsGrid } from "../3-items-grid";
 import { RightPanelGuard, SelectedItemPropsBody } from "../4-selected-item-props";
-import { Header, TotalItems } from "./3-header";
-import { BottomButtons } from "./4-bottom-buttons";
+import { Header } from "./3-header";
+import { TotalItems } from "./4-total-items";
+import { BottomButtons } from "./5-bottom-buttons";
 
 export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
 

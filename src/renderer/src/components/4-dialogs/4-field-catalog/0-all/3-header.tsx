@@ -1,4 +1,4 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { type FceCtx, doCancelFceDlgAtom } from "@/store";
 import { DialogCloseButton } from "@/ui/shadcn/dialog";
 // import { SymbolFolder } from "@/ui/icons";
@@ -31,13 +31,3 @@ export function Header({ fceCtx }: { fceCtx: FceCtx; }) {
         </div>
     );
 }
-
-export function TotalItems({ fceCtx }: { fceCtx: FceCtx; }) {
-    const totalItems = useAtomValue(fceCtx.fceAtoms.allAtom).length;
-    return (<>
-        {totalItems} item{totalItems === 1 ? '' : 's'} in field catalog
-    </>);
-}
-
-//TODO: show folder of the field catalog
-//TODO: show folder as an icon in the header and show the path to the folder on hover
