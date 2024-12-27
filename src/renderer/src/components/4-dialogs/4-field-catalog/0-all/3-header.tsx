@@ -11,7 +11,7 @@ export function Header({ fceCtx }: { fceCtx: FceCtx; }) {
                 Field Catalog
             </div>
 
-            <HeaderFolder fceCtx={fceCtx} />
+            {/* <HeaderFolder fceCtx={fceCtx} /> */}
 
             <DialogCloseButton
                 className="absolute right-1 top-1/2 -translate-y-1/2 p-2 hover:bg-muted hover:rounded-sm"
