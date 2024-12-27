@@ -8,21 +8,25 @@ import { FieldTyp } from "@/store/manifest";
  */
 export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: FceCtx, idx: number, doubleClick: boolean): FceItem | undefined => {
-        const currentIdx = get(ctx.selectedIdxStoreAtom);
+    (get, set, { fceCtx, idx, doubleClick }: { fceCtx: FceCtx, idx: number, doubleClick: boolean; }): FceItem | undefined => {
+        const currentIdx = get(fceCtx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
-            deselectCurrentIdx(ctx, get, set);
+            deselectCurrentIdx(fceCtx, get, set);
         }
 
-        const items = get(ctx.showAtom);
+        const items = get(fceCtx.showAtom);
 
         const newItem = items[idx];
         if (newItem) {
-            newItem.editor[ctx.isDlgCtx ? 'selectedDlg' : 'selectedView'] = true;
-            set(ctx.selectedIdxStoreAtom, idx);
+            newItem.editor[fceCtx.isDlgCtx ? 'selectedDlg' : 'selectedView'] = true;
+            set(fceCtx.selectedIdxStoreAtom, idx);
 
-            set(ctx.selectedItemAtom, newItem);
-            setSelectedProps({ fceCtx: ctx, selectedItem: newItem, get, set });
+            set(fceCtx.selectedItemAtom, newItem);
+            setSelectedProps({ fceCtx: fceCtx, selectedItem: newItem, get, set });
+        }
+
+        if (doubleClick) {
+            fceCtx.onItemDoubleClick?.(newItem);
         }
 
         return newItem;
