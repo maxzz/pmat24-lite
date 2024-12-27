@@ -11,7 +11,9 @@ export const doOpenFceDlgAtom = atom(
 
         fceAtoms = fceAtoms || getRootFceAtoms(); //TODO: not good to use getRootFceAtoms() here it will throw error if fceAtoms is not provided
 
-        const closeFldCatDialog = () => { };
+        function closeFldCatDialog(outData: FceDlgOut) {
+            set(doCloseFceDlgAtom, outData);
+        }
 
         const fceCtx = createFceCtx({ fceAtoms, inData, closeFldCatDialog });
         set(fceDlgTriggerAtom, fceCtx);
