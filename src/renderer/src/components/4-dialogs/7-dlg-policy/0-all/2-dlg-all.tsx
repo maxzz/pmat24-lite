@@ -44,11 +44,10 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
 
             <DialogContent
                 className="px-6 py-4 max-w-[500px] text-xs select-none"
-                container={document.getElementById('portal')}
                 modal
                 withScroll
                 noClose
-            >
+            > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                 <PolicyEditorBody dlgUiCtx={dlgUiCtx} doCloseWithOk={closeWithOk} />
                 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />

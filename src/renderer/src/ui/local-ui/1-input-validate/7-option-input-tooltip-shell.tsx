@@ -28,7 +28,7 @@ export function OptionInputTooltipShell({ stateAtom, children, containerClasses,
                 </div>
 
                 {state.error && state.touched && (
-                    <TooltipPortal container={document.getElementById("portal")}>
+                    <TooltipPortal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                         <TooltipContent align="end" sideOffset={-2}>
                             {state.error}
                         </TooltipContent>

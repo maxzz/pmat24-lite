@@ -21,8 +21,7 @@ export function FilterFilesDialogTrigger() {
                 noClose
                 hiddenTitle="Files filter"
                 overlayClasses={overlayClasses}
-                container={document.getElementById('portal')}
-            >
+            > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                 <DialogFilterBody setIsOpen={setIsOpen} />
 
             </D.DialogContent>

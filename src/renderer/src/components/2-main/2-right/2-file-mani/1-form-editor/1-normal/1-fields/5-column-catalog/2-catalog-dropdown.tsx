@@ -45,7 +45,7 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
                 </button>
             </menu.Trigger>
 
-            <menu.Portal container={document.getElementById('portal')}>
+            <menu.Portal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                 <menu.Content className={menuContentClasses} sideOffset={4} align="end">
                     {items.map((item, idx) => (
                         <CatalogMenuItem item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />

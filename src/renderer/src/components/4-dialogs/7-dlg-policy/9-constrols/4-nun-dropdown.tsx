@@ -60,7 +60,7 @@ export function NunDropdown({ items, value, onValueChange, className }: Dropdown
                 </div>
             </Select.Trigger>
 
-            <Select.Portal container={document.getElementById('portal')}>
+            <Select.Portal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                 <Select.Content className="z-50">
                     <Select.Viewport className={viewportClasses}>
                         {items.map(

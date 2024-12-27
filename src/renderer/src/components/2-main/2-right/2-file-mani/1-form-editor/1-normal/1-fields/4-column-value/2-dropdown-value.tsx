@@ -48,7 +48,7 @@ export function DropdownValue({ useItAtom, items, selectedIndex, onSetIndex }: D
                 </button>
             </M.Trigger>
 
-            <M.Portal container={document.getElementById('portal')}>
+            <M.Portal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                 <M.Content className={menuContentClasses} sideOffset={4} align="end" >
                     {items.map(
                         (item, idx) => <MenuItemValue item={item} idx={idx} selectedIndex={selectedIndex} onSetIndex={onSetIndex} key={idx} />
