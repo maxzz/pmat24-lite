@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
-import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions } from "../../9-types";
+import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions, type FceDlgOut } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
@@ -9,7 +9,7 @@ import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItem
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
     inData: FceDlgIn | undefined;
-    closeFldCatDialog: (outData: any) => void;
+    closeFldCatDialog: (outData: FceDlgOut) => void;
 };
 
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceCtxProps): FceCtx {
@@ -42,7 +42,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         showAtom: shownAtom,
 
         fcePropAtoms: createFcePropAtoms(onValueChange),
-        onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ fldCatItem: item }) : undefined,
+        onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ selectedItem: item }) : undefined,
         onChangeFcePropValue,
     };
 
