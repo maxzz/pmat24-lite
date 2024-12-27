@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { type FceCtx } from "@/store";
 import { FieldTyp } from "@/store/manifest";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
-import { ViewOfSelectedIndex, ViewOfSelectedId } from "./7-selected-views";
+import { ViewOfSelectedIndex, ViewOfSelectedId } from "./7-view-of-selected";
 import { classNames } from "@/utils";
 import { useMemo } from "react";
 
