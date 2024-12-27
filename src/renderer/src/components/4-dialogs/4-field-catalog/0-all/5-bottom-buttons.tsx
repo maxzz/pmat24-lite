@@ -3,18 +3,15 @@ import { doCancelFceDlgAtom, doCloseFceDlgAtom, type FceCtx } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { inputFocusClasses } from "../4-selected-item-props/8-inputs";
 
-type BottomButtonsProps = {
-    fceCtx: FceCtx;
-};
+export function BottomButtons({ fceCtx }: { fceCtx: FceCtx; }) {
+    const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
-export function BottomButtons({ fceCtx }: BottomButtonsProps) {
     const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic
     const showSelectBtn = !openMainDlg;
-    const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
     return (<>
         {showSelectBtn && (
-            <SelectBtn fceCtx={fceCtx} />
+            <ButtonSelect fceCtx={fceCtx} />
         )}
 
         <Button className={inputFocusClasses} onClick={doCancelFldCatDialog}>
@@ -23,7 +20,7 @@ export function BottomButtons({ fceCtx }: BottomButtonsProps) {
     </>);
 }
 
-function SelectBtn({ fceCtx }: { fceCtx: FceCtx; }) {
+function ButtonSelect({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
     const closeFldCatDialog = useSetAtom(doCloseFceDlgAtom);
     return (
