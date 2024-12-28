@@ -28,17 +28,17 @@ export function FceDialog() {
 
     return (
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
-            <D.DialogContent
-                className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
-                noClose
-                hiddenTitle="Field Catalog"
-                overlayClasses={overlayClasses}
-            > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
-                {fceCtx &&
+            {fceCtx &&
+                <D.DialogContent
+                    className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
+                    noClose
+                    hiddenTitle="Field Catalog"
+                    overlayClasses={overlayClasses}
+                > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
                     <FceDialogBodySelector fceCtx={fceCtx} />
-                }
 
-            </D.DialogContent>
+                </D.DialogContent>
+            }
         </D.Dialog>
     );
 }
