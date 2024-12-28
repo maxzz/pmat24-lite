@@ -20,25 +20,20 @@ export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
 
     const fceCtx = useAtomValue(fceDlgTriggerAtom);
-    // if (!fceCtx) {
-    //     return null;
-    // }
-
     const openMainDlg = !fceCtx?.inData?.openSelectItemDlg;
 
     return (
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
-            {fceCtx &&
-                <D.DialogContent
-                    className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
-                    noClose
-                    hiddenTitle="Field Catalog"
-                    overlayClasses={overlayClasses}
-                > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
+            <D.DialogContent
+                className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
+                noClose
+                hiddenTitle="Field Catalog"
+                overlayClasses={overlayClasses}
+            >
+                {fceCtx &&
                     <FceDialogBodySelector fceCtx={fceCtx} />
-
-                </D.DialogContent>
-            }
+                }
+            </D.DialogContent>
         </D.Dialog>
     );
 }
