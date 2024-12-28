@@ -14,8 +14,11 @@ h-4/5 min-h-[60vh] max-h-[90vh] \
 text-xs \
 gap-0 \
 select-none \
-data-[state=open]:[animation-duration:200ms] \
-data-[state=closed]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
+1data-[state=open]:none \
+1data-[state=closed]:none \
+1data-[state=open]:[animation-duration:200ms] \
+1data-[state=closed]:[animation-duration:200ms] \
+"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
 
 export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
@@ -34,17 +37,15 @@ export function FceDialog() {
                 <AnimatePresence>
                     {!!fceCtx && (
                         <motion.div
-                            initial={{ opacity: 0, scale: 2.3 }}
+                            initial={{ opacity: 0, scale: 1 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 2.3 }}
+                            exit={{ opacity: 0, scale: .3 }}
                             transition={{ duration: .1 }}
-                            // className="w-full h-full"
+                        // className="w-full h-full"
                         >
-                            <motion.div className="w-full h-full" layout>
                             {/* {fceCtx && */}
-                                <FceDialogBodySelector fceCtx={fceCtx} />
+                            <FceDialogBodySelector fceCtx={fceCtx} />
                             {/* } */}
-                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
