@@ -63,7 +63,7 @@ function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
                 <div className="-mx-3 pb-3 h-full border-border border-b rounded flex">
                     <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
-                    <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} />
+                    {/* <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} /> */}
                 </div>
 
                 {/* <div className="pl-3 font-thin">

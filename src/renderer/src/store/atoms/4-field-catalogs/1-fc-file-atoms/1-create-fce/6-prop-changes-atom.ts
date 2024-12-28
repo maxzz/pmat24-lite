@@ -25,6 +25,11 @@ export const doFcePropChangesAtom = atom(
 function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
+    
+    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    if (!openMainDlg) {
+        return;
+    }
 
     switch (name) {
         case 'nameAtom': {
