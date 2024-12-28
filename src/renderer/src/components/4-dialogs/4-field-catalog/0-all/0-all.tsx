@@ -4,7 +4,7 @@ import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "../../1-dlg-filter-files";
 import { classNames } from "@/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 
 const contentMainClasses = "!w-4/5 max-w-4xl";
 const contentClasses = "!w-80 min-w-fit max-w-xl";
@@ -14,8 +14,8 @@ h-4/5 min-h-[60vh] max-h-[90vh] \
 text-xs \
 gap-0 \
 select-none \
-1data-[state=open]:none \
-1data-[state=closed]:none \
+data-[state=open]:[animation:none] \
+data-[state=closed]:[animation:none] \
 1data-[state=open]:[animation-duration:200ms] \
 1data-[state=closed]:[animation-duration:200ms] \
 "; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
@@ -34,21 +34,23 @@ export function FceDialog() {
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
             >
-                <AnimatePresence>
-                    {!!fceCtx && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 1 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: .3 }}
-                            transition={{ duration: .1 }}
-                        // className="w-full h-full"
-                        >
-                            {/* {fceCtx && */}
-                            <FceDialogBodySelector fceCtx={fceCtx} />
-                            {/* } */}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
+                    <AnimatePresence>
+                        {!!fceCtx && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: .3 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: .3 }}
+                                transition={{ duration: 2.3 }}
+                            // className="w-full h-full"
+                            >
+                                {/* {fceCtx && */}
+                                <FceDialogBodySelector fceCtx={fceCtx} />
+                                {/* } */}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                {/* </MotionConfig> */}
             </D.DialogContent>
         </D.Dialog>
     );
