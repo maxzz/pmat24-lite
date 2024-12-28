@@ -34,15 +34,17 @@ export function FceDialog() {
                 <AnimatePresence>
                     {!!fceCtx && (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            initial={{ opacity: 0, scale: 2.3 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ type: "spring", duration: .7 }}
-                            className="w-full h-full"
+                            exit={{ opacity: 0, scale: 2.3 }}
+                            transition={{ duration: .1 }}
+                            // className="w-full h-full"
                         >
-                            {fceCtx &&
+                            <motion.div className="w-full h-full" layout>
+                            {/* {fceCtx && */}
                                 <FceDialogBodySelector fceCtx={fceCtx} />
-                            }
+                            {/* } */}
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
