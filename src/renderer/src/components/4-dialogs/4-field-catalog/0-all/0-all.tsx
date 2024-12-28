@@ -36,7 +36,7 @@ export function FceDialog() {
             >
                 {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
                     <AnimatePresence>
-                        {!!fceCtx && (
+                        {/* {!!fceCtx && ( */}
                             <motion.div
                                 initial={{ opacity: 0, scale: .3 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -44,11 +44,11 @@ export function FceDialog() {
                                 transition={{ duration: 2.3 }}
                             // className="w-full h-full"
                             >
-                                {/* {fceCtx && */}
+                                {fceCtx &&
                                 <FceDialogBodySelector fceCtx={fceCtx} />
-                                {/* } */}
+                                }
                             </motion.div>
-                        )}
+                        {/* )} */}
                     </AnimatePresence>
                 {/* </MotionConfig> */}
             </D.DialogContent>
