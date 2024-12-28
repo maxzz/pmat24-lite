@@ -44,11 +44,9 @@ export function FceDialog() {
                                 transition={{ duration: .3 }}
                             // className="w-full h-full"
                             >
-                                <motion.div layout>
                                 {fceCtx &&
                                 <FceDialogBodySelector fceCtx={fceCtx} />
                                 }
-                                </motion.div>
                             </motion.div>
                         {/* )} */}
                     </AnimatePresence>
