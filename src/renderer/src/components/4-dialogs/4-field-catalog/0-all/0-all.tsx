@@ -13,17 +13,18 @@ h-4/5 min-h-[60vh] max-h-[90vh] \
 text-xs \
 gap-0 \
 select-none \
-data-[state=open]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
+data-[state=open]:[animation-duration:200ms] \
+data-[state=closed]:[animation-duration:2200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
 
 export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
 
     const fceCtx = useAtomValue(fceDlgTriggerAtom);
-    if (!fceCtx) {
-        return null;
-    }
+    // if (!fceCtx) {
+    //     return null;
+    // }
 
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx?.inData?.openSelectItemDlg;
 
     return (
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
@@ -33,7 +34,9 @@ export function FceDialog() {
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
             > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
-                <FceDialogBodySelector fceCtx={fceCtx} />
+                {fceCtx &&
+                    <FceDialogBodySelector fceCtx={fceCtx} />
+                }
 
             </D.DialogContent>
         </D.Dialog>
