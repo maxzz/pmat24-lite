@@ -15,9 +15,9 @@ text-xs \
 gap-0 \
 select-none \
 data-[state=open]:[animation:none] \
-data-[state=closed]:[animation:none] \
+1data-[state=closed]:[animation:none] \
 1data-[state=open]:[animation-duration:200ms] \
-1data-[state=closed]:[animation-duration:200ms] \
+data-[state=closed]:[animation-duration:200ms] \
 "; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
 
 export function FceDialog() {
@@ -45,11 +45,9 @@ export function FceDialog() {
                         layout
                     // className="w-full h-full"
                     >
-                        <motion.div className="w-full h-full" layout>
-                            {fceCtx &&
-                                <FceDialogBodySelector fceCtx={fceCtx} />
-                            }
-                        </motion.div>
+                        {fceCtx &&
+                            <FceDialogBodySelector fceCtx={fceCtx} />
+                        }
                     </motion.div>
                     {/* )} */}
                 </AnimatePresence>
