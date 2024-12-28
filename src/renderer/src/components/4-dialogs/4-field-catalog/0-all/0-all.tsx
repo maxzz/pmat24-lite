@@ -35,21 +35,24 @@ export function FceDialog() {
                 overlayClasses={overlayClasses}
             >
                 {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
-                    <AnimatePresence>
-                        {/* {!!fceCtx && ( */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 1.3 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: .3 }}
-                                transition={{ duration: .3 }}
-                            // className="w-full h-full"
-                            >
-                                {fceCtx &&
+                <AnimatePresence>
+                    {/* {!!fceCtx && ( */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: .9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: .9 }}
+                        transition={{ duration: .1 }}
+                        layout
+                    // className="w-full h-full"
+                    >
+                        <motion.div className="w-full h-full" layout>
+                            {fceCtx &&
                                 <FceDialogBodySelector fceCtx={fceCtx} />
-                                }
-                            </motion.div>
-                        {/* )} */}
-                    </AnimatePresence>
+                            }
+                        </motion.div>
+                    </motion.div>
+                    {/* )} */}
+                </AnimatePresence>
                 {/* </MotionConfig> */}
             </D.DialogContent>
         </D.Dialog>
