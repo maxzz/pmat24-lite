@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { doSetInitSelectedItemAtom, type FceCtx } from "@/store";
-import { FieldCatalogToolbar } from "../2-toolbar";
-import { FldCatItemsGrid } from "../3-items-grid";
-import { RightPanelGuard, SelectedItemPropsBody } from "../4-selected-item-props";
 import { Header } from "./3-header";
+import { FieldCatalogToolbar } from "../2-toolbar";
+import { RightPanelGuard, SelectedItemPropsBody } from "../4-selected-item-props";
 import { TotalItems } from "./4-total-items";
+import { FldCatItemsGrid } from "../3-items-grid";
 import { BottomButtons } from "./5-bottom-buttons";
 
 export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
@@ -58,7 +58,7 @@ function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr] gap-3">
+            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto] gap-3">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className="-mx-3 pb-3 h-full border-border border-b rounded flex">
