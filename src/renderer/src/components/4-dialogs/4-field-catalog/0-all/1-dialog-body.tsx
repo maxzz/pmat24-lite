@@ -31,7 +31,7 @@ gap-y-2";
 
 function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
-        <div className="grid grid-rows-[auto_1fr]">
+        <div className="h-full grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
             <div className="@container/fc-body p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
@@ -55,7 +55,7 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
 
 function FceDialogSelectBody({ fceCtx }: { fceCtx: FceCtx; }) {
     return (
-        <div className="grid grid-rows-[auto_1fr]">
+        <div className="h-full grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
             <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto] gap-3">

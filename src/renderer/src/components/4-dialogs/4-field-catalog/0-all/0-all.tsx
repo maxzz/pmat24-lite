@@ -4,6 +4,7 @@ import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "../../1-dlg-filter-files";
 import { classNames } from "@/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 const contentMainClasses = "!w-4/5 max-w-4xl";
 const contentClasses = "!w-80 min-w-fit max-w-xl";
@@ -14,7 +15,7 @@ text-xs \
 gap-0 \
 select-none \
 data-[state=open]:[animation-duration:200ms] \
-data-[state=closed]:[animation-duration:2200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
+data-[state=closed]:[animation-duration:200ms]"; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
 
 export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
@@ -30,9 +31,21 @@ export function FceDialog() {
                 hiddenTitle="Field Catalog"
                 overlayClasses={overlayClasses}
             >
-                {fceCtx &&
-                    <FceDialogBodySelector fceCtx={fceCtx} />
-                }
+                <AnimatePresence>
+                    {!!fceCtx && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ type: "spring", duration: .7 }}
+                            className="w-full h-full"
+                        >
+                            {fceCtx &&
+                                <FceDialogBodySelector fceCtx={fceCtx} />
+                            }
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </D.DialogContent>
         </D.Dialog>
     );
