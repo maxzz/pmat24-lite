@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { type FceItem } from "@/store";
+import { type FceCtx, type FceItem } from "@/store";
 import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
 import { FieldTyp } from "pm-manifest";
@@ -8,7 +8,7 @@ import { FieldTyp } from "pm-manifest";
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
     fceItem: FceItem;
-    isDlgCtx: boolean;
+    fceCtx: FceCtx;
 };
 
 // Commom styles will be moved to common file later
@@ -57,8 +57,8 @@ cursor-pointer";
 
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
-export function FldCatItemRow({ idx, fceItem, isDlgCtx, className, ...rest }: FldCatItemProps) {
-    const selected = useSnapshot(fceItem.editor)[isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+export function FldCatItemRow({ idx, fceItem, fceCtx, className, ...rest }: FldCatItemProps) {
+    const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
     const { displayname } = useSnapshot(fceItem.fieldValue);
     return (
         <div

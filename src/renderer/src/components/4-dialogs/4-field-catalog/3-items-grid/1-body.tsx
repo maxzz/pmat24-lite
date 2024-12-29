@@ -46,7 +46,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
                     <FldCatItemRow
                         idx={idx}
                         fceItem={fceItem}
-                        isDlgCtx={fceCtx.isDlgCtx}
+                        fceCtx={fceCtx}
                         onClick={() => onClick(idx)}
                         onDoubleClick={() => onDoubleClick(idx)}
                         key={fceItem.fceMeta.uuid}
