@@ -11,6 +11,31 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;
 };
 
+export function FldCatItemRow({ idx, fceItem, fceCtx, className, ...rest }: FldCatItemProps) {
+
+    const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+    const { displayname } = useSnapshot(fceItem.fieldValue);
+
+    return (
+        <div
+            data-list-item={selected ? 'selected' : ''}
+            data-list-uiid={fceItem.fceMeta.uuid}
+            className={classNames(rowClasses, className)}
+            {...rest}
+        >
+            <div className={classNames("col-start-1 pr-1.5 text-[0.65rem] text-right text-muted-foreground")}>
+                {idx + 1}
+            </div>
+
+            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={fceItem.fieldValue.fType === FieldTyp.psw} />
+
+            <div className={classNames("col-start-3 truncate")}>
+                {displayname}
+            </div>
+        </div>
+    );
+}
+
 // Commom styles will be moved to common file later
 
 const listSelectionLightClasses = "\
@@ -56,34 +81,6 @@ hover:text-accent-foreground hover:bg-muted \
 cursor-pointer";
 
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
-
-export function FldCatItemRow({ idx, fceItem, fceCtx, className, ...rest }: FldCatItemProps) {
-    // const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
-    
-    const editor = useSnapshot(fceItem.editor);
-    const { isSelectedInDlg, isSelectedInView } = editor;
-    const selected = fceCtx.isDlgCtx ? editor.isSelectedInDlg : editor.isSelectedInView;
-
-    const { displayname } = useSnapshot(fceItem.fieldValue);
-    return (
-        <div
-            data-list-item={selected ? 'selected' : ''}
-            data-list-uiid={fceItem.fceMeta.uuid}
-            className={classNames(rowClasses, className)}
-            {...rest}
-        >
-            <div className={classNames("col-start-1 pr-1.5 text-[0.65rem] text-right text-muted-foreground")}>
-                {idx + 1}
-            </div>
-
-            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={fceItem.fieldValue.fType === FieldTyp.psw} />
-
-            <div className={classNames("col-start-3 truncate")}>
-                {displayname}
-            </div>
-        </div>
-    );
-}
 
 function FieldIcon({ isPsw, className }: { isPsw: boolean | undefined, className: string; }) {
     const type = isPsw ? 'psw' : 'edit';
