@@ -31,7 +31,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
         fceAtoms,
-        isPicker: !!inData,
+        isPicker: !!inData?.openItemPickerDlg,
         isMaster: false,
         selectedIdxStoreAtom: atom(-1),
         selectedItemAtom: atom<FceItem | undefined>(undefined),
