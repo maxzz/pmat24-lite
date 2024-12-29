@@ -6,7 +6,7 @@ import { inputFocusClasses } from "../4-selected-item-props/8-inputs";
 export function BottomButtons({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
 
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg; //TODO: implement logic
     const showSelectBtn = !openMainDlg;
 
     return (<>

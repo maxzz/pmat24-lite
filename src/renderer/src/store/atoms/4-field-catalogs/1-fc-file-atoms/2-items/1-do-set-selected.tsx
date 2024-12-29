@@ -73,7 +73,7 @@ export function setSelectedProps({ fceCtx, selectedItem, get, set }: SetSelected
  */
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic item.editor.isSelectedInPicker or item.editor.isSelectedInView
+        const openMainDlg = !fceCtx.inData?.openItemPickerDlg; //TODO: implement logic item.editor.isSelectedInPicker or item.editor.isSelectedInView
 
         const items = get(fceCtx.showAtom);
         const idx = items.findIndex(item => item.editor.isSelectedInPicker);

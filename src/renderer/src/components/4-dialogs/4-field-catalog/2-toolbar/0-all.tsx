@@ -12,7 +12,7 @@ type FieldCatalogToolbarProps = {
 
 export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: FieldCatalogToolbarProps) {
 
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
     if (!openMainDlg) {
         return <div></div>;
     }

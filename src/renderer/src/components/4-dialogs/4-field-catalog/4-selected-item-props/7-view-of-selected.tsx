@@ -18,7 +18,7 @@ export function ViewOfSelectedIndex({ fceCtx }: { fceCtx: FceCtx; }) {
 
 export function ViewOfSelectedId({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
     return (<>
         {openMainDlg && (
             <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">

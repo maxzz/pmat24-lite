@@ -26,7 +26,7 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
     
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
     if (!openMainDlg) {
         return;
     }

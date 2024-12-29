@@ -18,7 +18,7 @@ export function TestOpenFieldCatalog() {
             ));
         } else {
             const inData: FceDlgIn = {
-                openSelectItemDlg: false,
+                openItemPickerDlg: false,
                 showTxt: true,
                 showPsw: true,
                 outBoxAtom: outDataAtom,

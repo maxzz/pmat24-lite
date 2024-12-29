@@ -24,7 +24,7 @@ export function FceDialog() {
     const doCancelFceDlg = useSetAtom(doCancelFceDlgAtom);
 
     const fceCtx = useAtomValue(fceDlgTriggerAtom);
-    const openMainDlg = !fceCtx?.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx?.inData?.openItemPickerDlg;
 
     return (
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>

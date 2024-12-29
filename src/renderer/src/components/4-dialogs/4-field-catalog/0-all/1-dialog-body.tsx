@@ -13,7 +13,7 @@ export function FceDialogBodySelector({ fceCtx }: { fceCtx: FceCtx; }) {
     const doSetInitSelectedItem = useSetAtom(doSetInitSelectedItemAtom);
     useEffect(() => { doSetInitSelectedItem({ fceCtx }); }, []);
 
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
 
     return (<>
         {openMainDlg

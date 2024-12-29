@@ -23,7 +23,7 @@ export function Header({ fceCtx }: { fceCtx: FceCtx; }) {
 }
 
 function HeaderFolder({ fceCtx }: { fceCtx: FceCtx; }) {
-    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
+    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
     const fname = fceCtx.fceAtoms?.fileUs.fileCnt?.fpath; //TODO: if hasMain() then show path relative to main fc file, or none if main fc file
     return (<>
         {!openMainDlg &&
