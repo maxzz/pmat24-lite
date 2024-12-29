@@ -17,7 +17,7 @@ export type FceItemValue = Prettify<
 
 export type FceItemEditor = {
     isSelectedInView: boolean;                      // True if this item is selected in view or main FC dialog
-    isSelectedInDlg: boolean;                       // True if this item is selected in the select(picker) dialog
+    isSelectedInPicker: boolean;                    // True if this item is selected in the select(picker) dialog
 };
 
 export type FceItemMeta = Prettify<

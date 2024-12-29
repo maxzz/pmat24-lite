@@ -31,7 +31,7 @@ export function createEmptyFceItem(fType: FieldTyp): FceItem {
         fieldValue: proxy({ ...beforeEdit }),
         beforeEdit: beforeEdit,
         fceMeta: createFceItemMeta(0),
-        editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInDlg: false, }),
+        editor: proxy<FceItemEditor>({ isSelectedInView: false, isSelectedInPicker: false, }),
     };
 }
 

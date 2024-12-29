@@ -18,7 +18,7 @@ export const doSelectIdxAtom = atom(
 
         const newItem = items[idx];
         if (newItem) {
-            newItem.editor[fceCtx.isPicker ? 'isSelectedInDlg' : 'isSelectedInView'] = true;
+            newItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
 
             set(fceCtx.selectedItemAtom, newItem);
@@ -42,7 +42,7 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
 
     const current = chunks[currentIdx];
     if (current) {
-        current.editor[ctx.isPicker ? 'isSelectedInDlg' : 'isSelectedInView'] = false;
+        current.editor[ctx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = false;
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }
@@ -73,10 +73,10 @@ export function setSelectedProps({ fceCtx, selectedItem, get, set }: SetSelected
  */
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic item.editor.isSelectedInDlg or item.editor.isSelectedInView
+        const openMainDlg = !fceCtx.inData?.openSelectItemDlg; //TODO: implement logic item.editor.isSelectedInPicker or item.editor.isSelectedInView
 
         const items = get(fceCtx.showAtom);
-        const idx = items.findIndex(item => item.editor.isSelectedInDlg);
+        const idx = items.findIndex(item => item.editor.isSelectedInPicker);
         set(fceCtx.selectedIdxStoreAtom, idx);
     }
 );
