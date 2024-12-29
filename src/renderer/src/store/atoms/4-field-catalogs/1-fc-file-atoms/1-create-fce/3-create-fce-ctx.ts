@@ -5,6 +5,7 @@ import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAt
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { doFcePropChangesAtom } from "./6-prop-changes-atom";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
+import { printFceItems } from "../../3-fc-mru";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;
@@ -25,7 +26,12 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         };
     }
 
-    const filterAtom = atom(createEmptyFceFilterOptions());
+    const filterAtom = atom(createEmptyFceFilterOptions({
+        search: '',
+        showText: !!inData?.showTxt,
+        showPassword: !!inData?.showPsw,
+        ascending: undefined,
+    }));
     const shownAtom = createShownScopedAtom(fceAtoms.allAtom, filterAtom);
 
     const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
@@ -76,7 +82,9 @@ function createShownScopedAtom(allAtom: Atom<FceItem[]>, filterAtom: Atom<FceFil
     return atom<FceItem[]>(
         (get) => {
             const filterOptions = get(filterAtom);
-            return filterFceItems(get(allAtom), filterOptions);
+            const rv = filterFceItems(get(allAtom), filterOptions);
+            // console.log(`filterFceItems rv:`, printFceItems('filter', rv));
+            return rv
         }
     );
 }

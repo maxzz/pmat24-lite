@@ -38,13 +38,14 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
     return filteredItems;
 }
 
-export function createEmptyFceFilterOptions(): FceFilterOptions {
-    return {
+export function createEmptyFceFilterOptions(options: FceFilterOptions | undefined): FceFilterOptions {
+    const rv: FceFilterOptions = options ?? {
         search: '',
         showText: true,
         showPassword: true,
         ascending: undefined,
     };
+    return rv;
 }
 
 // const filteredItemsAtom = atom(
