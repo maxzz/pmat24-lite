@@ -81,7 +81,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     focusGridAtom: PrimitiveAtom<boolean>;          // True if grid should be focused, and reset after focus set by grid.
 
     filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
-    showAtom: Atom<FceItem[]>;                      // readonly: field catalog items shown on screen
+    shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
 
     fcePropAtoms: FcePropAtoms;
 

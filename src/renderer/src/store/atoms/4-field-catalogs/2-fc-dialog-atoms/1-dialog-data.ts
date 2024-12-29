@@ -8,7 +8,6 @@ export const fceDlgTriggerAtom = atom<FceCtx | null>(null);
 export const doOpenFceDlgAtom = atom(
     null,
     (get, set, { fceAtoms, inData }: { fceAtoms?: FceAtoms | undefined; inData?: FceDlgIn; }) => {
-
         fceAtoms = fceAtoms || getRootFceAtoms(); //TODO: not good to use getRootFceAtoms() here it will throw error if fceAtoms is not provided
 
         function closeFldCatDialog(outData: FceDlgOut) {
@@ -41,13 +40,14 @@ export const doCloseFceDlgAtom = atom(
     }
 );
 
-// atom to store result of the field catalog dialog
-
+/**
+ * Atom to store result of the field catalog dialog
+ */
 export function creteOutBoxAtom<T>() {
-    console.log('------------------------------------ creteOutBoxAtom()');
     return atom<T | null>(null);
 }
 
-// Selected item atom
-
+/**
+ * TType of atom to store selected item from the field catalog picker dialog
+ */
 export type SelectedItemAtom = PrimitiveAtom<FceItem | null>;

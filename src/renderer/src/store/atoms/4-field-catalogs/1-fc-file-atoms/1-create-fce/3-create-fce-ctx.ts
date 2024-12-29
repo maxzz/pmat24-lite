@@ -45,7 +45,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         focusGridAtom: atom(false),
 
         filterAtom,
-        showAtom: shownAtom,
+        shownAtom,
 
         fcePropAtoms: createFcePropAtoms(onValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ selectedItem: item }) : undefined,
@@ -83,8 +83,8 @@ function createShownScopedAtom(allAtom: Atom<FceItem[]>, filterAtom: Atom<FceFil
         (get) => {
             const filterOptions = get(filterAtom);
             const rv = filterFceItems(get(allAtom), filterOptions);
-            // console.log(`filterFceItems rv:`, printFceItems('filter', rv));
-            return rv
+            //printFceItems('filterFceItems rv:', rv);
+            return rv;
         }
     );
 }

@@ -14,7 +14,7 @@ export const doSelectIdxAtom = atom(
             deselectCurrentIdx(fceCtx, get, set);
         }
 
-        const items = get(fceCtx.showAtom);
+        const items = get(fceCtx.shownAtom);
 
         const newItem = items[idx];
         if (newItem) {
@@ -38,7 +38,7 @@ export const doSelectIdxAtom = atom(
  */
 function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.showAtom);
+    const chunks = get(ctx.shownAtom);
 
     const current = chunks[currentIdx];
     if (current) {
@@ -75,7 +75,7 @@ export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
         const openMainDlg = !fceCtx.inData?.openItemPickerDlg; //TODO: implement logic item.editor.isSelectedInPicker or item.editor.isSelectedInView
 
-        const items = get(fceCtx.showAtom);
+        const items = get(fceCtx.shownAtom);
         const idx = items.findIndex(item => item.editor.isSelectedInPicker);
         set(fceCtx.selectedIdxStoreAtom, idx);
     }

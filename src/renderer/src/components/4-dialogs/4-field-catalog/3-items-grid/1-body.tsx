@@ -10,7 +10,7 @@ type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
 
 export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridProps) {
 
-    const filteredItems = useAtomValue(fceCtx.showAtom); // so far no, need to update other places //OK: const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
+    const filteredItems = useAtomValue(fceCtx.shownAtom); // so far no, need to update other places //OK: const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
 
     const doSelectIdx = useSetAtom(doSelectIdxAtom);
     const [focusGrid, setFocusGrid] = useAtom(fceCtx.focusGridAtom);
