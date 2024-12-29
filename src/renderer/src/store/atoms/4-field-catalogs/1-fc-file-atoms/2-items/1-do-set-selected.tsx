@@ -18,7 +18,7 @@ export const doSelectIdxAtom = atom(
 
         const newItem = items[idx];
         if (newItem) {
-            newItem.editor[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'] = true;
+            newItem.editor[fceCtx.isPicker ? 'isSelectedInDlg' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
 
             set(fceCtx.selectedItemAtom, newItem);
@@ -42,7 +42,7 @@ function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
 
     const current = chunks[currentIdx];
     if (current) {
-        current.editor[ctx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'] = false;
+        current.editor[ctx.isPicker ? 'isSelectedInDlg' : 'isSelectedInView'] = false;
         set(ctx.selectedIdxStoreAtom, -1);
     }
 }

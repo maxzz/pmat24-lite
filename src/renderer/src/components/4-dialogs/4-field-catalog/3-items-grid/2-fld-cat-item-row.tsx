@@ -13,7 +13,7 @@ type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
 
 export function FldCatItemRow({ idx, fceItem, fceCtx, className, ...rest }: FldCatItemProps) {
 
-    const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+    const selected = useSnapshot(fceItem.editor)[fceCtx.isPicker ? 'isSelectedInDlg' : 'isSelectedInView'];
     const { displayname } = useSnapshot(fceItem.fieldValue);
 
     return (

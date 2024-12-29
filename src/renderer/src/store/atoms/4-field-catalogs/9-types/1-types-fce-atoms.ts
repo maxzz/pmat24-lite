@@ -71,8 +71,8 @@ export type FceCtx = {                              // Field Catalog Editor cont
     inData: FceDlgIn | undefined;                   // Data for dialog
     fceAtoms: FceAtoms;                             // Back reference to fcxCtx holder
     
-    isDlgCtx: boolean;                              // True if this is a field catalog dialog context, not a field catalog view context
-    isMaster: boolean;                              // True if this is a master field catalog
+    isPicker: boolean;                              // True if this context is for FC picker (select FC item) dialog, i.e. not FC view or main dialog.
+    isMaster: boolean;                              // True if this is a master field catalog; but now we support only one master field catalog
 
     selectedIdxStoreAtom: PrimitiveAtom<number>;
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>; // Used for dialog close, scroll to, props editor, add and delete operations.
