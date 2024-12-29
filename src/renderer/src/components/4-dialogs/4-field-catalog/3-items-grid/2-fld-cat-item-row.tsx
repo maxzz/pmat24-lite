@@ -58,7 +58,12 @@ cursor-pointer";
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
 export function FldCatItemRow({ idx, fceItem, fceCtx, className, ...rest }: FldCatItemProps) {
-    const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+    // const selected = useSnapshot(fceItem.editor)[fceCtx.isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+    
+    const editor = useSnapshot(fceItem.editor);
+    const { isSelectedInDlg, isSelectedInView } = editor;
+    const selected = fceCtx.isDlgCtx ? editor.isSelectedInDlg : editor.isSelectedInView;
+
     const { displayname } = useSnapshot(fceItem.fieldValue);
     return (
         <div
