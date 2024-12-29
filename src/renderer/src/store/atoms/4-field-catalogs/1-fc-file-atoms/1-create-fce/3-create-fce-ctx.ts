@@ -26,7 +26,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     }
 
     const filterAtom = atom(createEmptyFceFilterOptions());
-    const shownAtom = createShownScopedAtom(filterAtom, fceAtoms.allAtom);
+    const shownAtom = createShownScopedAtom(fceAtoms.allAtom, filterAtom);
 
     const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
@@ -72,7 +72,7 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
     return rv;
 }
 
-function createShownScopedAtom(filterAtom: Atom<FceFilterOptions>, allAtom: Atom<FceItem[]>): Atom<FceItem[]> {
+function createShownScopedAtom(allAtom: Atom<FceItem[]>, filterAtom: Atom<FceFilterOptions>): Atom<FceItem[]> {
     return atom<FceItem[]>(
         (get) => {
             const filterOptions = get(filterAtom);
