@@ -7,7 +7,7 @@ import { FieldTyp } from "pm-manifest";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
-    item: FceItem;
+    fceItem: FceItem;
     isDlgCtx: boolean;
 };
 
@@ -57,13 +57,13 @@ cursor-pointer";
 
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
-export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCatItemProps) {
-    const selected = useSnapshot(item.editor)[isDlgCtx ? 'selectedDlg' : 'selectedView'];
-    const { displayname } = useSnapshot(item.fieldValue);
+export function FldCatItemRow({ idx, fceItem, isDlgCtx, className, ...rest }: FldCatItemProps) {
+    const selected = useSnapshot(fceItem.editor)[isDlgCtx ? 'isSelectedInDlg' : 'isSelectedInView'];
+    const { displayname } = useSnapshot(fceItem.fieldValue);
     return (
         <div
             data-list-item={selected ? 'selected' : ''}
-            data-list-uiid={item.fceMeta.uuid}
+            data-list-uiid={fceItem.fceMeta.uuid}
             className={classNames(rowClasses, className)}
             {...rest}
         >
@@ -71,7 +71,7 @@ export function FldCatItemRow({ idx, item, isDlgCtx, className, ...rest }: FldCa
                 {idx + 1}
             </div>
 
-            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={item.fieldValue.fType === FieldTyp.psw} />
+            <FieldIcon className="col-start-2 mr-1.5 size-4 opacity-50" isPsw={fceItem.fieldValue.fType === FieldTyp.psw} />
 
             <div className={classNames("col-start-3 truncate")}>
                 {displayname}

@@ -39,7 +39,7 @@ export function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefi
             byType.splice(mruSize + 1);
         }
 
-        printFceItems(`MRU ${isPsw ? 'psw' : 'txt'}`, byType);
+        //printFceItems(`MRU ${isPsw ? 'psw' : 'txt'}`, byType);
 
         const rv = byType.map(fceItemToOption);
 

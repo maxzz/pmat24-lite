@@ -18,8 +18,9 @@ export function ViewOfSelectedIndex({ fceCtx }: { fceCtx: FceCtx; }) {
 
 export function ViewOfSelectedId({ fceCtx }: { fceCtx: FceCtx; }) {
     const selectedItem = useAtomValue(fceCtx.selectedItemAtom);
+    const openMainDlg = !fceCtx.inData?.openSelectItemDlg;
     return (<>
-        {!fceCtx.isDlgCtx && (
+        {openMainDlg && (
             <div className="pt-1 text-[.65rem] h-4 text-muted-foreground">
                 ID: {selectedItem ? selectedItem.fieldValue.dbname : 'No item selected'}
             </div>

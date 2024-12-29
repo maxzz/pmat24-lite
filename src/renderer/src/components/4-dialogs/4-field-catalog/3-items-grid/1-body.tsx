@@ -42,14 +42,14 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     return (
         <div ref={ref} className={classNames(rowParentActiveClasses, className)} {...rest}>
             {filteredItems.map(
-                (item, idx) => (
+                (fceItem, idx) => (
                     <FldCatItemRow
                         idx={idx}
-                        item={item}
+                        fceItem={fceItem}
                         isDlgCtx={fceCtx.isDlgCtx}
                         onClick={() => onClick(idx)}
                         onDoubleClick={() => onDoubleClick(idx)}
-                        key={item.fceMeta.uuid}
+                        key={fceItem.fceMeta.uuid}
                     />
                 )
             )}
