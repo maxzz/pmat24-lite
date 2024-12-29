@@ -16,8 +16,8 @@ export type FceItemValue = Prettify<
 >;
 
 export type FceItemEditor = {
-    isSelectedInView: boolean;
-    isSelectedInDlg: boolean;
+    isSelectedInView: boolean;                      // True if this item is selected in view or main FC dialog
+    isSelectedInDlg: boolean;                       // True if this item is selected in the select(picker) dialog
 };
 
 export type FceItemMeta = Prettify<
@@ -70,6 +70,7 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 export type FceCtx = {                              // Field Catalog Editor context for view or dialog
     inData: FceDlgIn | undefined;                   // Data for dialog
     fceAtoms: FceAtoms;                             // Back reference to fcxCtx holder
+    
     isDlgCtx: boolean;                              // True if this is a field catalog dialog context, not a field catalog view context
     isMaster: boolean;                              // True if this is a master field catalog
 
