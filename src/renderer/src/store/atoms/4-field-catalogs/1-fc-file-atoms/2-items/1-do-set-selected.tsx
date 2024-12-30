@@ -10,14 +10,14 @@ export const doSelectIdxAtom = atom(
     null,
     (get, set, { fceCtx, idx, doubleClick }: { fceCtx: FceCtx, idx: number, doubleClick: boolean; }): FceItem | undefined => {
 
-        const currentIdx = get(fceCtx.selectedIdxStoreAtom);
-        if (currentIdx !== idx) {
-            deselectCurrentIdx(fceCtx, get, set);
+        const previousIdx = get(fceCtx.selectedIdxStoreAtom);
+        if (previousIdx !== idx) {
+            deselectPreviousIdx(fceCtx, get, set);
         }
 
-        const items = get(fceCtx.shownAtom);
+        const shownItems = get(fceCtx.shownAtom);
 
-        const newItem = items[idx];
+        const newItem = shownItems[idx];
         if (newItem) {
             newItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
@@ -37,7 +37,7 @@ export const doSelectIdxAtom = atom(
 /**
  * Deselect current idx
  */
-function deselectCurrentIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
+function deselectPreviousIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
     const currentIdx = get(fceCtx.selectedIdxStoreAtom);
     const shownItems = get(fceCtx.shownAtom);
 
@@ -86,10 +86,8 @@ export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
  */
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
-
         const items = get(fceCtx.shownAtom);
-        const idx = items.findIndex(item => (openMainDlg ? item.editor.isSelectedInView : item.editor.isSelectedInPicker));
+        const idx = items.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
         set(fceCtx.selectedIdxStoreAtom, idx);
     }
 );
