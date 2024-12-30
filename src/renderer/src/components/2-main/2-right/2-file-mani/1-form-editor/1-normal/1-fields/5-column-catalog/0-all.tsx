@@ -22,20 +22,21 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 };
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
-    const { useItAtom, dbnameAtom } = rowCtx;
+    const { useItAtom, typeAtom, dbnameAtom } = rowCtx;
     const setSelectedItemFromFc = useSetAtom(setSelectedItemFromFcAtom);
     const setSelectedItemNotFromFc = useSetAtom(setSelectedItemNotFromFcAtom);
 
     const useIt = useAtomValue(useItAtom);
+    const fType = useAtomValue(typeAtom);
 
     const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
     // const value0 = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
-    const f = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
-    const fieldTyp = rowCtx.fromFc?.fieldValue.fType;
+    // const f = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    // const fieldTyp = rowCtx.fromFc?.fieldValue.fType;
 
-    const listItems = useFcItemsWithMru(fieldTyp, rowCtx.fromFc);
+    const listItems = useFcItemsWithMru(fType, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {
