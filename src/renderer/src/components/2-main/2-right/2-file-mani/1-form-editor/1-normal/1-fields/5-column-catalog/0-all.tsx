@@ -2,7 +2,7 @@ import { type InputHTMLAttributes, useCallback, useEffect, useState } from "reac
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, Mani } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useMruItems } from "@/store";
+import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
 import { inputRingClasses } from "@/ui";
 import { classNames } from "@/utils";
 import { InputSelectUi } from "./1-dropdown";
@@ -34,7 +34,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     // const value0 = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
 
-    const listItems = useMruItems(isPsw, rowCtx.fromFc);
+    const listItems = useFcItemsWithMru(isPsw, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {

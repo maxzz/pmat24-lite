@@ -22,11 +22,11 @@ function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
     return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
 }
 
-export function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
-    const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
+export function useFcItemsWithMru(isPsw: boolean | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
     const mruItems = useAtomValue(isPsw ? pswMruAtom : txtMruAtom);
 
     const rv = useMemo(() => {
+        const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
         const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
 
         if (fromFc) {
