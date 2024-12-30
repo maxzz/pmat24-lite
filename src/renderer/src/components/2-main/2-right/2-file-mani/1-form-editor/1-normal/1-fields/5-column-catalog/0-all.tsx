@@ -32,10 +32,6 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
-    // const value0 = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
-    // const f = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
-    // const fieldTyp = rowCtx.fromFc?.fieldValue.fType;
-
     const listItems = useFcItemsWithMru(fType, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
@@ -49,18 +45,13 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             return;
         }
 
-        const optionItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
-        const newFceItem = typeof optionItem?.[1] === 'string' ? undefined : optionItem?.[1].fceItem;
-
+        const newFceItem = getFceItemFromValue(listItems, value);
         if (newFceItem) {
             setSelectValue(newFceItem.fieldValue.dbname);
             setSelectedItemFromFc(rowCtx, newFceItem);
         }
-
         // console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
     }
-
-    // console.log(`render dropdown, value: "${selectValue}", ${rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw ? 'psw' : 'txt'}`);
 
     return (
         <InputSelectUi
@@ -71,6 +62,12 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             {...rest}
         />
     );
+}
+
+function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefined {
+    const optionItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
+    const newFceItem = typeof optionItem?.[1] === 'string' ? undefined : optionItem?.[1].fceItem;
+    return newFceItem;
 }
 
 function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
@@ -121,5 +118,3 @@ const setDisconnectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.
     rowCtx.fromFc = undefined;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
-
-//TODO: if checkbox then show only "Not from field catalog" item.
