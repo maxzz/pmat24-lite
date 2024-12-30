@@ -32,9 +32,10 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
     // const value0 = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
-    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    const f = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    const fieldTyp = rowCtx.fromFc?.fieldValue.fType;
 
-    const listItems = useFcItemsWithMru(isPsw, rowCtx.fromFc);
+    const listItems = useFcItemsWithMru(fieldTyp, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {

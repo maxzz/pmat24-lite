@@ -5,6 +5,7 @@ import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
 
 export const txtMruAtom = atom<FceItem[]>([]);
 export const pswMruAtom = atom<FceItem[]>([]);
+export const emptyMruAtom = atom<FceItem[]>([]); // This is used for fields that are not part of field catalog, i.e. checkboxes, buttons, etc.
 
 export const mruSize = 7;
 

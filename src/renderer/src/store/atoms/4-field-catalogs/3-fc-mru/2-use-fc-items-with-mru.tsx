@@ -22,7 +22,8 @@ function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
     return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
 }
 
-export function useFcItemsWithMru(isPsw: boolean | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
+export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
+    const isPsw = fieldTyp === FieldTyp.psw;
     const mruItems = useAtomValue(isPsw ? pswMruAtom : txtMruAtom);
 
     const rv = useMemo(() => {
