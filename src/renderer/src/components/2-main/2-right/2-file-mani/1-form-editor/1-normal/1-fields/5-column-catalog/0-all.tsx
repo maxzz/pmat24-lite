@@ -1,6 +1,6 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { FieldTyp, Mani } from "@/store/manifest";
+import { Mani, FieldTyp } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
 import { inputRingClasses } from "@/ui";
@@ -32,7 +32,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
-    const listItems = useFcItemsWithMru(fType, rowCtx.fromFc);
+    const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
     const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {
@@ -45,7 +45,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             return;
         }
 
-        const newFceItem = getFceItemFromValue(listItems, value);
+        const newFceItem = getFceItemFromValue(dropdownItems, value);
         if (newFceItem) {
             setSelectValue(newFceItem.fieldValue.dbname);
             setSelectedItemFromFc(rowCtx, newFceItem);
@@ -56,12 +56,44 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     return (
         <InputSelectUi
             triggerClasses={classNames(selectClasses, inputRingClasses, !useIt && "opacity-30", selectValue === '-1' && selectAsRefClasses)}
-            items={listItems}
+            items={dropdownItems}
             value={selectValue}
             onValueChange={onSelectValueChange}
             {...rest}
         />
     );
+}
+
+function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
+    const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
+
+    const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
+    const fceOutBox = useAtomValue(fceOutBoxAtom);
+
+    useEffect(() => {
+        if (fceOutBox) {
+            console.log('Result of the field catalog dialog', fceOutBox);
+        }
+    }, [fceOutBox]);
+
+    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
+    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
+
+    const doOpenDlg = useCallback(
+        function doOpenDlg() {
+            const fceAtoms = fileUsCtx.fileUs.fceAtomsRefForMani;
+            const inData: FceDlgIn = {
+                openItemPickerDlg: true,
+                dbid,
+                outBoxAtom: fceOutBoxAtom,
+                showTxt: !isPsw,
+                showPsw: !!isPsw,
+            };
+            doOpenFldCatDialog({ fceAtoms, inData });
+        }, [isPsw, dbid]
+    );
+
+    return doOpenDlg;
 }
 
 function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefined {
@@ -80,37 +112,7 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
     return newFceItem;
 }
 
-function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
-    const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
-
-    const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
-    const fceOutBox = useAtomValue(fceOutBoxAtom);
-
-    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
-    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
-
-    useEffect(() => {
-        if (fceOutBox) {
-            console.log('Result of the field catalog dialog', fceOutBox);
-        }
-    }, [fceOutBox]);
-
-    const doOpenDlg = useCallback(
-        function doOpenDlg() {
-            const fceAtoms = fileUsCtx.fileUs.fceAtomsRefForMani;
-            const inData: FceDlgIn = {
-                openItemPickerDlg: true,
-                dbid,
-                outBoxAtom: fceOutBoxAtom,
-                showTxt: !isPsw,
-                showPsw: !!isPsw,
-            };
-            doOpenFldCatDialog({ fceAtoms, inData });
-        }, [dbid, isPsw]
-    );
-
-    return doOpenDlg;
-}
+// Action atoms
 
 const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
     rowCtx.fromFc = undefined;
