@@ -65,7 +65,17 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 }
 
 function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefined {
-    const optionItem = listItems.find((item) => (typeof item === 'string' ? item === value : typeof item[1] === 'string' ? item[1] === value : item[1].key === value));
+    const optionItem = listItems.find(
+        (item) => {
+            return (
+                typeof item === 'string'
+                    ? item === value
+                    : typeof item[1] === 'string'
+                        ? item[1] === value
+                        : item[1].key === value
+            );
+        }
+    );
     const newFceItem = typeof optionItem?.[1] === 'string' ? undefined : optionItem?.[1].fceItem;
     return newFceItem;
 }
