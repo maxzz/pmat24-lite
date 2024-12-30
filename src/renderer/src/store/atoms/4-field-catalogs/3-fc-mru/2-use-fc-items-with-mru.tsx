@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { useAtomValue } from "jotai";
-import { type FceItem, pswMruAtom, txtMruAtom, mruSize, printFceItems } from "@/store";
+import { type FceItem, pswMruAtom, txtMruAtom, mruSize, emptyMruAtom, printFceItems } from "@/store";
+import { type OptionTextValue2 } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/5-column-catalog/1-dropdown";
 import { FieldTyp } from "@/store/manifest";
-import type { OptionTextValue2 } from "../../../../components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/5-column-catalog/1-dropdown";
 
 /**
  * List item can be string or object with key and fceItem or key and string
@@ -15,18 +15,16 @@ type OptionItemValue = string | {
     fceItem: FceItem;
 };
 
-const CATALOG_NotFromFc = ['Not from catalog', '-1'] as const;
-const CATALOG_MoreFields = ['More fields ...', '-2'] as const;
-
-function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
-    return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
-}
-
 export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
+    const isEmpty = fieldTyp !== FieldTyp.edit && fieldTyp !== FieldTyp.psw;
     const isPsw = fieldTyp === FieldTyp.psw;
-    const mruItems = useAtomValue(isPsw ? pswMruAtom : txtMruAtom);
+    const mruItems = useAtomValue(isEmpty ? emptyMruAtom : isPsw ? pswMruAtom : txtMruAtom);
 
     const rv = useMemo(() => {
+        if (isEmpty) {
+            return [CATALOG_NotFromFc];
+        }
+
         const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
         const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
 
@@ -51,7 +49,14 @@ export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceIte
         rv.push('-', CATALOG_MoreFields);
 
         return rv;
-    }, [isPsw, fromFc, mruItems]);
+    }, [isEmpty, isPsw, fromFc, mruItems]);
 
     return rv;
+}
+
+const CATALOG_NotFromFc = ['Not from catalog', '-1'] as const;
+const CATALOG_MoreFields = ['More fields ...', '-2'] as const;
+
+function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
+    return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
 }
