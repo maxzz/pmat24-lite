@@ -69,19 +69,6 @@ export function setSelectedProps({ fceCtx, selectedItem, get, set }: SetSelected
 }
 
 /**
- * Set the initial selected item index
- */
-export const doSetInitSelectedItemAtom = atom(null,
-    (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const openMainDlg = !fceCtx.inData?.openItemPickerDlg; //TODO: implement logic item.editor.isSelectedInPicker or item.editor.isSelectedInView
-
-        const items = get(fceCtx.shownAtom);
-        const idx = items.findIndex(item => item.editor.isSelectedInPicker);
-        set(fceCtx.selectedIdxStoreAtom, idx);
-    }
-);
-
-/**
  * Has selected 
  */
 export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
@@ -92,3 +79,16 @@ export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
         }
     );
 };
+
+/**
+ * Set the initial selected item index
+ */
+export const doSetInitSelectedItemAtom = atom(null,
+    (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
+        const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
+
+        const items = get(fceCtx.shownAtom);
+        const idx = items.findIndex(item => (openMainDlg ? item.editor.isSelectedInView : item.editor.isSelectedInPicker));
+        set(fceCtx.selectedIdxStoreAtom, idx);
+    }
+);

@@ -19,11 +19,11 @@ export function FldCatItemsGrid(props: { fceCtx: FceCtx; } & HTMLAttributes<HTML
 }
 
 function FceScrollArea({ fceCtx, className, children, ...rest }: { fceCtx: FceCtx; children: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
-    const { ref: refSize, width, height } = useResizeObserver();
-    const { ref: refScroll } = useScrollToSelected(fceCtx);
+    const { ref: refForSize, width, height } = useResizeObserver();
+    const { ref: refForScroll } = useScrollToSelected(fceCtx);
     return (
         <div className={classNames("relative w-full", className)} {...rest}>
-            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refSize(elm); refScroll(elm); }}>
+            <div className={`absolute inset-0 py-px flex flex-col`} ref={(elm) => { refForSize(elm); refForScroll(elm); }}>
                 <ScrollArea style={{ width, height }}>
                     {children}
                 </ScrollArea>
@@ -39,7 +39,8 @@ function useScrollToSelected<T extends HTMLElement>(fceCtx: FceCtx): { ref: (elm
 
     useEffect(
         () => {
-            doSetSelectItem(doScrollToSelected({ container: ref.current, fceCtx }));
+            const newItem = doScrollToSelected({ container: ref.current, fceCtx });
+            doSetSelectItem(newItem);
         }, [ref.current]
     );
 
