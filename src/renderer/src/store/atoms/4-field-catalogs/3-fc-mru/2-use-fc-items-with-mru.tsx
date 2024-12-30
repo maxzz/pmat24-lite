@@ -16,31 +16,29 @@ type OptionItemValue = string | {
 };
 
 export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
-    const isEmpty = fieldTyp !== FieldTyp.edit && fieldTyp !== FieldTyp.psw;
+    const isNonFcItem = fieldTyp !== FieldTyp.edit && fieldTyp !== FieldTyp.psw;
     const isPsw = fieldTyp === FieldTyp.psw;
-    const mruItems = useAtomValue(isEmpty ? emptyMruAtom : isPsw ? pswMruAtom : txtMruAtom);
+    const mruItems = useAtomValue(isNonFcItem ? emptyMruAtom : isPsw ? pswMruAtom : txtMruAtom);
 
     const rv = useMemo(() => {
-        if (isEmpty) {
+        if (isNonFcItem) {
             return [CATALOG_NotFromFc];
         }
 
         const fType = isPsw ? FieldTyp.psw : FieldTyp.edit;
-        const byType = mruItems.filter((item) => item.fieldValue.fType === fType);
+        const mruItemsByType = mruItems.filter((item) => item.fieldValue.fType === fType);
 
         if (fromFc) {
-            const notThere = byType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
-
-            if (notThere === -1) {
-                byType.push(fromFc);
+            const inMru = mruItemsByType.findIndex((item) => item.fieldValue.dbname === fromFc.fieldValue.dbname);
+            if (inMru === -1) {
+                mruItemsByType.push(fromFc);
             }
-
-            byType.splice(mruSize + 1);
+            mruItemsByType.splice(mruSize + 1);
         }
 
         //printFceItems(`MRU ${isPsw ? 'psw' : 'txt'}`, byType);
 
-        const rv = byType.map(fceItemToOption);
+        const rv = mruItemsByType.map(makeOptionFromFceItem);
 
         if (rv.length > 0) {
             rv.unshift('-');
@@ -49,14 +47,20 @@ export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceIte
         rv.push('-', CATALOG_MoreFields);
 
         return rv;
-    }, [isEmpty, isPsw, fromFc, mruItems]);
+    }, [isNonFcItem, isPsw, fromFc, mruItems]);
 
     return rv;
 }
 
+function makeOptionFromFceItem(item: FceItem): OptionTextValue2<OptionItemValue> {
+    return [
+        item.fieldValue.displayname,
+        {
+            key: item.fieldValue.dbname,
+            fceItem: item,
+        }
+    ];
+}
+
 const CATALOG_NotFromFc = ['Not from catalog', '-1'] as const;
 const CATALOG_MoreFields = ['More fields ...', '-2'] as const;
-
-function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
-    return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
-}
