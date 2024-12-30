@@ -21,23 +21,6 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
 
-const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    rowCtx.fromFc = undefined;
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
-});
-
-const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
-    rowCtx.fromFc = fceItem;
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
-
-    //TODO: copy field catalog item valueLife to manifest item
-});
-
-const setDisconnectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    rowCtx.fromFc = undefined;
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
-});
-
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, dbnameAtom } = rowCtx;
     const setSelectedItemFromFc = useSetAtom(setSelectedItemFromFcAtom);
@@ -119,3 +102,22 @@ function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUs
 
     return doOpenDlg;
 }
+
+const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+    rowCtx.fromFc = undefined;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
+});
+
+const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+    rowCtx.fromFc = fceItem;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
+
+    //TODO: copy field catalog item valueLife to manifest item
+});
+
+const setDisconnectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+    rowCtx.fromFc = undefined;
+    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
+});
+
+//TODO: if checkbox then show only "Not from field catalog" item.

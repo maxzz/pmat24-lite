@@ -15,8 +15,8 @@ type OptionItemValue = string | {
     fceItem: FceItem;
 };
 
-const CATALOG_Not = ['Not from catalog', '-1'] as const;
-const CATALOG_More = ['More fields ...', '-2'] as const;
+const CATALOG_NotFromFc = ['Not from catalog', '-1'] as const;
+const CATALOG_MoreFields = ['More fields ...', '-2'] as const;
 
 function fceItemToOption(item: FceItem): OptionTextValue2<OptionItemValue> {
     return [item.fieldValue.displayname, { key: item.fieldValue.dbname, fceItem: item }];
@@ -46,8 +46,8 @@ export function useMruItems(isPsw: boolean | undefined, fromFc: FceItem | undefi
         if (rv.length > 0) {
             rv.unshift('-');
         }
-        rv.unshift(CATALOG_Not);
-        rv.push('-', CATALOG_More);
+        rv.unshift(CATALOG_NotFromFc);
+        rv.push('-', CATALOG_MoreFields);
 
         return rv;
     }, [isPsw, fromFc, mruItems]);

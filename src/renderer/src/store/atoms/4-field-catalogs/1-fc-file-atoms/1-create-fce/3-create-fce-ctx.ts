@@ -38,7 +38,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         inData,
         fceAtoms,
         isPicker: !!inData?.openItemPickerDlg,
-        isMaster: false,
+        isMaster: false, // this is set after all files loaded
         selectedIdxStoreAtom: atom(-1),
         selectedItemAtom: atom<FceItem | undefined>(undefined),
         scrollTo: 0,
