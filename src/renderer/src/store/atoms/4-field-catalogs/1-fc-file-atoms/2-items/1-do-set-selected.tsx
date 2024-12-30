@@ -9,6 +9,7 @@ import { FieldTyp } from "@/store/manifest";
 export const doSelectIdxAtom = atom(
     null,
     (get, set, { fceCtx, idx, doubleClick }: { fceCtx: FceCtx, idx: number, doubleClick: boolean; }): FceItem | undefined => {
+
         const currentIdx = get(fceCtx.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
             deselectCurrentIdx(fceCtx, get, set);
@@ -36,14 +37,14 @@ export const doSelectIdxAtom = atom(
 /**
  * Deselect current idx
  */
-function deselectCurrentIdx(ctx: FceCtx, get: Getter, set: Setter) {
-    const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.shownAtom);
+function deselectCurrentIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
+    const currentIdx = get(fceCtx.selectedIdxStoreAtom);
+    const shownItems = get(fceCtx.shownAtom);
 
-    const current = chunks[currentIdx];
-    if (current) {
-        current.editor[ctx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = false;
-        set(ctx.selectedIdxStoreAtom, -1);
+    const currentItem = shownItems[currentIdx];
+    if (currentItem) {
+        currentItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = false;
+        set(fceCtx.selectedIdxStoreAtom, -1);
     }
 }
 
