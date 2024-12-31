@@ -74,7 +74,7 @@ export type FceCtx = {                              // Field Catalog Editor cont
     isPicker: boolean;                              // True if this context is for FC picker (select FC item) dialog, i.e. not FC view or main dialog.
     isMaster: boolean;                              // True if this is a master field catalog; but now we support only one master field catalog
 
-    selectedIdxStoreAtom: PrimitiveAtom<number>;
+    selectedIdxStoreAtom: PrimitiveAtom<number>;    // This should be set interanally only from doSelectIdxAtom and similar atoms and anything else for read only. for set use doSelectIdxAtom
     selectedItemAtom: PrimitiveAtom<FceItem | undefined>; // Used for dialog close, scroll to, props editor, add and delete operations.
     hasSelectedItemAtom: Atom<boolean>;             // True if there is a selected item
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
