@@ -2,7 +2,6 @@ import { type Atom, atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { createEmptyValueLife } from "@/store/manifest";
 import { FieldTyp } from "@/store/manifest";
-import { printFceItems } from "../../3-fc-mru";
 
 /**
  * Select item by index
@@ -86,8 +85,6 @@ export const doSetInitSelectedItemAtom = atom(null,
             if (dbid) {
                 const shownItems = get(fceCtx.shownAtom);
                 const idx = shownItems.findIndex(item => item.fieldValue.dbname === dbid);
-                console.log('doSetInitSelectedItemAtom. idx', idx);
-                printFceItems('shownItems', [shownItems[idx]]);
 
                 set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
                 return;
