@@ -33,8 +33,8 @@ export function FceDialog() {
             {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
             <AnimatePresence>
 
+            {!!fceCtx && (
                 <DialogContentPortal>
-                    {!!fceCtx && (
                         //{/* We need to scale Prim.Content right after DialogPortal */ }
                         <motion.div
                             initial={{ opacity: 0, scale: .5 }}
@@ -62,8 +62,8 @@ export function FceDialog() {
                         </motion.div>
 
                         // {/* </motion.div> */}
-                    )}
                 </DialogContentPortal>
+                    )}
             </AnimatePresence>
             {/* </MotionConfig> */}
         </D.Dialog >
