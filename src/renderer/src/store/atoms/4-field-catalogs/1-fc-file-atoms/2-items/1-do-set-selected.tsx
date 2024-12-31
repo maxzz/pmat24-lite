@@ -51,16 +51,9 @@ function deselectPreviousIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
 /**
  * Set selected item properties
  */
-type SetSelectedPropsProps = {
-    fceCtx: FceCtx;
-    selectedItem: FceItem | undefined;
-    get: Getter;
-    set: Setter;
-};
-
 const emptyValueLife = createEmptyValueLife({ fType: FieldTyp.edit }); // This should not be changed since UI will be hidden
 
-export function setSelectedProps({ fceCtx, selectedItem, get, set }: SetSelectedPropsProps) {
+function setSelectedProps({ fceCtx, selectedItem, get, set }: { fceCtx: FceCtx; selectedItem: FceItem | undefined; get: Getter; set: Setter; }) {
     const { nameAtom, valueAtom, ownernoteAtom, valueLifeAtom } = fceCtx.fcePropAtoms;
 
     set(nameAtom, selectedItem?.fieldValue.displayname || '');
