@@ -85,8 +85,12 @@ export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
  */
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
+        console.log('doSetInitSelectedItemAtom');
+        
         const items = get(fceCtx.shownAtom);
         const idx = items.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
-        set(fceCtx.selectedIdxStoreAtom, idx);
+
+        //set(fceCtx.selectedIdxStoreAtom, idx);
+        set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
     }
 );
