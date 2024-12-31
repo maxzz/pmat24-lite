@@ -1,3 +1,4 @@
+import { type ComponentPropsWithoutRef, forwardRef, type ElementRef, type ReactNode } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
@@ -6,7 +7,6 @@ import { overlayClasses } from "../../1-dlg-filter-files";
 import { classNames, cn } from "@/utils";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { DialogPortalProps } from "@radix-ui/react-dialog";
-import { ComponentPropsWithoutRef, forwardRef, ElementRef } from "react";
 
 const contentMainClasses = "!w-4/5 max-w-4xl";
 const contentClasses = "!w-80 min-w-fit max-w-xl";
@@ -32,35 +32,38 @@ export function FceDialog() {
         <D.Dialog open={!!fceCtx} onOpenChange={doCancelFceDlg}>
             {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
             <AnimatePresence>
-                {!!fceCtx && (
-                    //{/* We need to scale Prim.Content right after DialogPortal */ }
-                    <motion.div
-                        initial={{ opacity: 0, scale: .5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: .3 }}
-                        transition={{ duration: 3.3 }}
-                        layout
-                        layoutId="fc-dlg-body"
-                    // className="w-full h-full"
-                    >
-                        {/* {fceCtx && */}
-                        <D.DialogContent
-                            className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
-                            noClose
-                            hiddenTitle="Field Catalog"
-                            overlayClasses={overlayClasses}
-                            // forceMount
-                        >
-                            {/* <motion.div className="w-full h-full" layout="size" transition={{ duration: .3 }}> */}
-                            {/* {fceCtx && */}
-                            <FceDialogBodySelector fceCtx={fceCtx} />
-                            {/* } */}
-                        </D.DialogContent>
-                        {/* } */}
-                    </motion.div>
 
-                    // {/* </motion.div> */}
-                )}
+                <DialogContentPortal>
+                    {!!fceCtx && (
+                        //{/* We need to scale Prim.Content right after DialogPortal */ }
+                        <motion.div
+                            initial={{ opacity: 0, scale: .5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: .3 }}
+                            transition={{ duration: 3.3 }}
+                            // layout
+                            layoutId="fc-dlg-body"
+                        // className="w-full h-full"
+                        >
+                            {/* {fceCtx && */}
+                            <DialogContent
+                                className={classNames(openMainDlg ? contentMainClasses : contentClasses, contentRestClasses)}
+                                noClose
+                                hiddenTitle="Field Catalog"
+                                overlayClasses={overlayClasses}
+                            // forceMount
+                            >
+                                {/* <motion.div className="w-full h-full" layout="size" transition={{ duration: .3 }}> */}
+                                {/* {fceCtx && */}
+                                <FceDialogBodySelector fceCtx={fceCtx} />
+                                {/* } */}
+                            </DialogContent>
+                            {/* } */}
+                        </motion.div>
+
+                        // {/* </motion.div> */}
+                    )}
+                </DialogContentPortal>
             </AnimatePresence>
             {/* </MotionConfig> */}
         </D.Dialog >
@@ -69,6 +72,7 @@ export function FceDialog() {
 
 //TODO: add initial selection
 
+//version by https://codesandbox.io/p/sandbox/dialog-radix-framer-motion-8w7dqz?file=%2Fsrc%2FApp.js%3A10%2C55
 
 import * as Prim from "@radix-ui/react-dialog";
 
@@ -106,8 +110,8 @@ type DialogContentProps = ComponentPropsWithoutRef<typeof Prim.Content> & {
 const preventClose = (e: Event) => e.preventDefault();
 
 const DialogContent = forwardRef<ElementRef<typeof Prim.Content>, DialogContentProps>(
-    ({ className, children, noClose, container, withScroll, modal, overlayClasses, onPointerDownOutside, hiddenTitle, ...rest }, ref) => (
-        <D.DialogPortal container={container}>
+    ({ className, children, noClose, withScroll, modal, overlayClasses, onPointerDownOutside, hiddenTitle, ...rest }, ref) => (
+        <>
             {withScroll ? <D.DialogOverlayWithScroll className={overlayClasses} /> : <D.DialogOverlay className={overlayClasses} />}
 
             <Prim.Content
@@ -120,10 +124,18 @@ const DialogContent = forwardRef<ElementRef<typeof Prim.Content>, DialogContentP
                 {hiddenTitle && (
                     <Prim.Title className="sr-only">{hiddenTitle}</Prim.Title>
                 )}
-                
+
                 {children}
                 {!noClose && <D.DialogCloseButton />}
             </Prim.Content>
-        </D.DialogPortal>
+        </>
     )
 );
+
+function DialogContentPortal({ children, container }: { children: ReactNode, container?: DialogPortalProps['container']; }) {
+    return (
+        <D.DialogPortal container={container} forceMount>
+            {children}
+        </D.DialogPortal>
+    );
+}
