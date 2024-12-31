@@ -14,7 +14,7 @@
         "framer-motion": "^11.15.0",
         "idb-keyval": "^6.2.1",
         "jotai": "^2.11.0",
-        "jotai-valtio": "^0.5.0",
+        "jotai-valtio": "^0.6.0",
         "pm-manifest": "^1.2.70",
         "pm-manifest-icons": "latest",
         "react-syntax-highlighter": "^15.6.1",

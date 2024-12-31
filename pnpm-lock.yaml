@@ -30,8 +30,8 @@ importers:
         specifier: ^2.11.0
         version: 2.11.0(@types/react@18.3.12)(react@18.3.1)
       jotai-valtio:
-        specifier: ^0.5.0
-        version: 0.5.0(jotai@2.11.0(@types/react@18.3.12)(react@18.3.1))(valtio@2.1.2(@types/react@18.3.12)(react@18.3.1))
+        specifier: ^0.6.0
+        version: 0.6.0(jotai@2.11.0(@types/react@18.3.12)(react@18.3.1))(valtio@2.1.2(@types/react@18.3.12)(react@18.3.1))
       pm-manifest:
         specifier: ^1.2.70
         version: 1.2.70
@@ -2437,11 +2437,11 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jotai-valtio@0.5.0:
-    resolution: {integrity: sha512-4XVKGhPe3/XFkMwuYLGk8CkWISsog5KRnHtB3bSo0cr7+xb5wm0uJl142pe+Kbls7dQGrYXLt1eurYdibfalnQ==}
+  jotai-valtio@0.6.0:
+    resolution: {integrity: sha512-ohn1On9O8dUZRfl04BFdJk1JcFjYmjLV8UZWNNypxpyzrx0nKKqbnu7mvAZjE8430obnqYQX1KRb+4CluFVPeA==}
     peerDependencies:
       jotai: '>=2.0.0'
-      valtio: '>=1.0.0'
+      valtio: '>=2.0.0'
 
   jotai@2.11.0:
     resolution: {integrity: sha512-zKfoBBD1uDw3rljwHkt0fWuja1B76R7CjznuBO+mSX6jpsO1EBeWNRKpeaQho9yPI/pvCv4recGfgOXGxwPZvQ==}
@@ -6028,7 +6028,7 @@ snapshots:
   jiti@2.4.2:
     optional: true
 
-  jotai-valtio@0.5.0(jotai@2.11.0(@types/react@18.3.12)(react@18.3.1))(valtio@2.1.2(@types/react@18.3.12)(react@18.3.1)):
+  jotai-valtio@0.6.0(jotai@2.11.0(@types/react@18.3.12)(react@18.3.1))(valtio@2.1.2(@types/react@18.3.12)(react@18.3.1)):
     dependencies:
       jotai: 2.11.0(@types/react@18.3.12)(react@18.3.1)
       valtio: 2.1.2(@types/react@18.3.12)(react@18.3.1)
