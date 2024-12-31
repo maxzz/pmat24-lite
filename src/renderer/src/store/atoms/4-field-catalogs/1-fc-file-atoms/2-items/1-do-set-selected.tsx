@@ -79,20 +79,15 @@ export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
 
-        const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
-        if (!openMainDlg) {
-            const dbid = fceCtx.inData?.dbid;
-            if (dbid) {
-                const shownItems = get(fceCtx.shownAtom);
-                const idx = shownItems.findIndex(item => item.fieldValue.dbname === dbid);
-
-                set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
-                return;
-            }
-        }
-
         const shownItems = get(fceCtx.shownAtom);
-        const idx = shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
+
+        const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
+        const dbid = fceCtx.inData?.dbid;
+
+        const idx = openMainDlg || !dbid
+            ? shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']))
+            : shownItems.findIndex(item => item.fieldValue.dbname === dbid);
+
         set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
     }
 );
