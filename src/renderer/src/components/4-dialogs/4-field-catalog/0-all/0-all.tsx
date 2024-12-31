@@ -3,8 +3,10 @@ import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "../../1-dlg-filter-files";
-import { classNames } from "@/utils";
+import { classNames, cn } from "@/utils";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { DialogPortalProps } from "@radix-ui/react-dialog";
+import { ComponentPropsWithoutRef, forwardRef, ElementRef } from "react";
 
 const contentMainClasses = "!w-4/5 max-w-4xl";
 const contentClasses = "!w-80 min-w-fit max-w-xl";
@@ -66,3 +68,62 @@ export function FceDialog() {
 }
 
 //TODO: add initial selection
+
+
+import * as Prim from "@radix-ui/react-dialog";
+
+export const DialogContentClasses = "\
+fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50 \
+p-6 w-full md:w-full max-w-lg \
+\
+bg-background \
+\
+data-[state=open]:animate-in \
+data-[state=open]:fade-in-0 \
+data-[state=open]:zoom-in-95 \
+data-[state=open]:slide-in-from-left-1/2 \
+data-[state=open]:slide-in-from-top-[48%] \
+\
+data-[state=closed]:animate-out \
+data-[state=closed]:fade-out-0 \
+data-[state=closed]:zoom-out-95 \
+data-[state=closed]:slide-out-to-left-1/2 \
+data-[state=closed]:slide-out-to-top-[48%] \
+\
+border sm:rounded-lg shadow-lg \
+duration-200 \
+grid gap-4";
+
+type DialogContentProps = ComponentPropsWithoutRef<typeof Prim.Content> & {
+    modal?: boolean;
+    container?: DialogPortalProps['container'];
+    noClose?: boolean;
+    withScroll?: boolean; // by default DialogContent has no scroll for popups
+    hiddenTitle?: string; // If headenTitle is not provided, then parent component should provide own Prim.Title (same for aria-describedby)
+    overlayClasses?: string;
+};
+
+const preventClose = (e: Event) => e.preventDefault();
+
+const DialogContent = forwardRef<ElementRef<typeof Prim.Content>, DialogContentProps>(
+    ({ className, children, noClose, container, withScroll, modal, overlayClasses, onPointerDownOutside, hiddenTitle, ...rest }, ref) => (
+        <D.DialogPortal container={container}>
+            {withScroll ? <D.DialogOverlayWithScroll className={overlayClasses} /> : <D.DialogOverlay className={overlayClasses} />}
+
+            <Prim.Content
+                ref={ref}
+                className={cn(DialogContentClasses, className)}
+                onPointerDownOutside={modal ? preventClose : onPointerDownOutside}
+                aria-describedby={undefined}
+                {...rest}
+            >
+                {hiddenTitle && (
+                    <Prim.Title className="sr-only">{hiddenTitle}</Prim.Title>
+                )}
+                
+                {children}
+                {!noClose && <D.DialogCloseButton />}
+            </Prim.Content>
+        </D.DialogPortal>
+    )
+);
