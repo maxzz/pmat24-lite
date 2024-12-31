@@ -2,6 +2,7 @@ import { type Atom, atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { createEmptyValueLife } from "@/store/manifest";
 import { FieldTyp } from "@/store/manifest";
+import { printFceItems } from "../../3-fc-mru";
 
 /**
  * Select item by index
@@ -78,8 +79,23 @@ export const createHasSelectedScopedAtom = (fceCtx: FceCtx): Atom<boolean> => {
  */
 export const doSetInitSelectedItemAtom = atom(null,
     (get, set, { fceCtx }: { fceCtx: FceCtx; }) => {
-        const items = get(fceCtx.shownAtom);
-        const idx = items.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
+
+        const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
+        if (!openMainDlg) {
+            const dbid = fceCtx.inData?.dbid;
+            if (dbid) {
+                const shownItems = get(fceCtx.shownAtom);
+                const idx = shownItems.findIndex(item => item.fieldValue.dbname === dbid);
+                console.log('doSetInitSelectedItemAtom. idx', idx);
+                printFceItems('shownItems', [shownItems[idx]]);
+
+                set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
+                return;
+            }
+        }
+
+        const shownItems = get(fceCtx.shownAtom);
+        const idx = shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
         set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
     }
 );
