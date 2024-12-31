@@ -58,10 +58,10 @@ function FceDialogPickerBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="h-full grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto] gap-3">
+            <div className="p-3 pt-0 pb-2 h-full grid grid-rows-[auto_1fr_auto] 1gap-3">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
-                <div className="-mx-3 pb-3 h-full border-border border-b rounded flex">
+                <div className="-mx-3 pt-1 h-full border-border 1border-b rounded flex">
                     <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
                     {/* <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} /> */}
                 </div>
@@ -70,7 +70,7 @@ function FceDialogPickerBody({ fceCtx }: { fceCtx: FceCtx; }) {
                     <TotalItems fceCtx={fceCtx} />
                 </div> */}
 
-                <div className="flex items-center justify-end gap-x-2">
+                <div className="pt-2 flex items-center justify-center gap-x-2">
                     <BottomButtons fceCtx={fceCtx} />
                 </div>
             </div>
