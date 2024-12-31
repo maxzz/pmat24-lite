@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { doCancelFceDlgAtom, doCloseFceDlgAtom, type FceCtx } from "@/store";
+import { type FceCtx, doCancelFceDlgAtom, doCloseFceDlgAtom } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { inputFocusClasses } from "../4-selected-item-props/8-inputs";
 

@@ -13,11 +13,12 @@ export const doScrollToItemAtom = atom(null,
             return;
         }
 
-        const items = get(fceCtx.shownAtom);
         const itemIdx = scrollToIdx ?? get(fceCtx.selectedIdxStoreAtom);
-        const selectedItem = items[itemIdx];
+        
+        const shownItems = get(fceCtx.shownAtom);
+        const selectedItem = shownItems[itemIdx];
 
-        if (!items.length || itemIdx === -1 || !selectedItem) {
+        if (itemIdx === -1 || !selectedItem) {
             return;
         }
 

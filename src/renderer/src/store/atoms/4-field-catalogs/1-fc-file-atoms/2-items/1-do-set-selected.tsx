@@ -15,12 +15,18 @@ export const doSelectIdxAtom = atom(
             deselectPreviousIdx(fceCtx, get, set);
         }
 
+        console.log('doSelectIdxAtom. idx', idx);
+        
+
         const shownItems = get(fceCtx.shownAtom);
 
         const newItem = shownItems[idx];
         if (newItem) {
             newItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
+
+            console.log('newItem', newItem);
+            
 
             set(fceCtx.selectedItemAtom, newItem);
             setSelectedProps({ fceCtx: fceCtx, selectedItem: newItem, get, set });
