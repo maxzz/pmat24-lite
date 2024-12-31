@@ -37,12 +37,13 @@ export function FceDialog() {
                 <DialogContentPortal>
                         //{/* We need to scale Prim.Content right after DialogPortal */ }
                         <motion.div
-                            initial={{ opacity: 0, scale: .5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: .3 }}
-                            transition={{ duration: 3.3 }}
+                            // initial={{ opacity: 0, scale: .9 }}
+                            // animate={{ opacity: 1, scale: 1 }}
+                            // exit={{ opacity: 0, scale: .9 }}
+                            // transition={{ duration: .3 }}
                             // layout
-                            layoutId="fc-dlg-body"
+                            // layoutId="fc-dlg-body"
+
                         // className="w-full h-full"
                         >
                             {/* {fceCtx && */}
@@ -82,13 +83,13 @@ p-6 w-full md:w-full max-w-lg \
 \
 bg-background \
 \
-data-[state=open]:animate-in \
+1data-[state=open]:animate-in \
 data-[state=open]:fade-in-0 \
 data-[state=open]:zoom-in-95 \
 data-[state=open]:slide-in-from-left-1/2 \
 data-[state=open]:slide-in-from-top-[48%] \
 \
-data-[state=closed]:animate-out \
+1data-[state=closed]:animate-out \
 data-[state=closed]:fade-out-0 \
 data-[state=closed]:zoom-out-95 \
 data-[state=closed]:slide-out-to-left-1/2 \
@@ -119,6 +120,7 @@ const DialogContent = forwardRef<ElementRef<typeof Prim.Content>, DialogContentP
                 className={cn(DialogContentClasses, className)}
                 onPointerDownOutside={modal ? preventClose : onPointerDownOutside}
                 aria-describedby={undefined}
+                forceMount
                 {...rest}
             >
                 {hiddenTitle && (
