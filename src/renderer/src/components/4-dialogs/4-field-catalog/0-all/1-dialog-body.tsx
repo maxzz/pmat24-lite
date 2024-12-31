@@ -34,7 +34,7 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <div className="h-full grid grid-rows-[auto_1fr]">
             <Header fceCtx={fceCtx} />
 
-            <div className="@container/fc-body p-3 pt-0 h-full grid grid-rows-[auto_1fr_auto]">
+            <div className="@container/fc-body p-3 pt-0 pb-2 h-full grid grid-rows-[auto_1fr_auto]">
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className={itemsClasses}>
@@ -45,7 +45,7 @@ function FceDialogMainBody({ fceCtx }: { fceCtx: FceCtx; }) {
                     </div>
                 </div>
 
-                <div className="pt-3 flex items-center justify-end gap-x-2">
+                <div className="pt-2 flex items-center justify-end gap-x-2">
                     <BottomButtons fceCtx={fceCtx} />
                 </div>
             </div>
