@@ -23,8 +23,8 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, typeAtom, dbnameAtom } = rowCtx;
-    const setSelectedItemFromFc = useSetAtom(setSelectedItemFromFcAtom);
-    const setSelectedItemNotFromFc = useSetAtom(setSelectedItemNotFromFcAtom);
+    const setSelectedItemFromFc = useSetAtom(setFormFieldFromFcAtom);
+    const setSelectedItemNotFromFc = useSetAtom(setFormFieldNotFromFcAtom);
 
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
@@ -114,19 +114,19 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
 
 // Action atoms
 
-const setSelectedItemNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+const setFormFieldNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
     rowCtx.fromFc = undefined;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
 
-const setSelectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+const setFormFieldFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
     rowCtx.fromFc = fceItem;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
     //TODO: copy field catalog item valueLife to manifest item
 });
 
-const setDisconnectedItemFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+const setFormFieldDisconnectedFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
     rowCtx.fromFc = undefined;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
