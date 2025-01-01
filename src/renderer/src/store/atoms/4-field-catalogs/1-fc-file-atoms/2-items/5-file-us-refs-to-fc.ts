@@ -19,7 +19,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
         }
 
         const fceItems = get(getRootFceAtoms().allAtom);
-        const fcMap = fceItems.reduce<FceItemsMap>(
+        const fcQuickMap = fceItems.reduce<FceItemsMap>(
             (acc, item) => (acc.set(item.beforeEdit.dbname, item), acc), new Map()
         );
 
@@ -47,13 +47,12 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                                 continue;
                             }
 
-                            const fceItem = fcMap.get(field.fromFile.dbname);
+                            const fceItem = fcQuickMap.get(field.fromFile.dbname);
                             if (fceItem) {
                                 field.fromFc = fceItem;
                             } else {
                                 field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
-
                             // printFceItem(fceItem, fileUs, field.fromFile.dbname);
                         }
                     }
@@ -65,13 +64,12 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                                 continue;
                             }
 
-                            const fceItem = fcMap.get(chunk.rowCtx.fromFile.dbname);
+                            const fceItem = fcQuickMap.get(chunk.rowCtx.fromFile.dbname);
                             if (fceItem) {
                                 chunk.rowCtx.fromFc = fceItem;
                             } else {
                                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
-
                             // printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
                         }
                     }
@@ -80,33 +78,6 @@ export const doInitFileUsLinksToFcAtom = atom(null,
         );
     }
 );
-
-function printFceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: string) {
-    console.log(`%c${fceItem ? '  ' : 'no'} assign ${dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
-}
-
-// function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
-//     return fceItems.find((item) => item.fieldValue.dbname === dbname);
-// }
-
-function fileUsHasFcRef(fileUs: FileUs): boolean {
-    if (!fileUs.parsedSrc.mani) {
-        return false;
-    }
-
-    const forms = fileUs.parsedSrc.mani.forms || [];
-
-    for (const form of forms) {
-        const fields = form.fields || [];
-        for (const field of fields) {
-            if (field.rfieldform === Mani.FORMNAME.fieldcatalog) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
 
 /**
  * Remove links to field catalog from all files when field catalog item is removed
@@ -159,3 +130,30 @@ export const removeLinksToFceItemAtom = atom(null,
         }
     }
 );
+
+function fileUsHasFcRef(fileUs: FileUs): boolean {
+    if (!fileUs.parsedSrc.mani) {
+        return false;
+    }
+
+    const forms = fileUs.parsedSrc.mani.forms || [];
+
+    for (const form of forms) {
+        const fields = form.fields || [];
+        for (const field of fields) {
+            if (field.rfieldform === Mani.FORMNAME.fieldcatalog) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function printFceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: string) {
+    console.log(`%c${fceItem ? '  ' : 'no'} assign ${dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
+}
+
+// function findByDbname(fceItems: FceItem[], dbname: string): FceItem | undefined {
+//     return fceItems.find((item) => item.fieldValue.dbname === dbname);
+// }
