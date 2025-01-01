@@ -1,4 +1,4 @@
-import { TargetPosition } from "@shared/ipc-types";
+import { type TargetPosition } from "@shared/ipc-types";
 import { type MainFileContent } from "./3-file-content";
 
 export namespace M2R { // Main to Renderer

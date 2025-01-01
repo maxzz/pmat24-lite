@@ -1,11 +1,11 @@
 import { atom } from "jotai";
 import { FieldTyp, Mani } from "@/store/manifest";
-import { FileUsAtom, type FileUs } from "@/store/store-types";
+import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type FceItem } from "../../9-types";
-import { getRootFceAtoms } from "..";
-import { doPreloadEditorCtxAtom } from "../../../2-right-panel";
-import { ManualFieldState, NormalField } from "../../../3-file-mani-atoms";
 import { filesAtom } from "../../../1-files";
+import { getRootFceAtoms } from "../1-create-fce";
+import { doPreloadEditorCtxAtom } from "../../../2-right-panel";
+import { type ManualFieldState, type NormalField } from "../../../3-file-mani-atoms";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
