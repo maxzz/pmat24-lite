@@ -23,8 +23,8 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, typeAtom, dbnameAtom } = rowCtx;
-    const setSelectedItemFromFc = useSetAtom(setFormFieldFromFcAtom);
-    const setSelectedItemNotFromFc = useSetAtom(setFormFieldNotFromFcAtom);
+    const doSetFormFieldFromFc = useSetAtom(doSetFormFieldFromFcAtom);
+    const doSetFormFieldNotFromFc = useSetAtom(doSetFormFieldNotFromFcAtom);
 
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
@@ -33,24 +33,22 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
     const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
-    const doOpenDlg = useFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
+    const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {
-        if (value === '-1') {
+        if (value === '-1') { // "Not from catalog"
             setSelectValue('-1');
-            setSelectedItemNotFromFc(rowCtx);
-            return;
-        } else if (value === '-2') {
+            doSetFormFieldNotFromFc(rowCtx);
+        } else if (value === '-2') { // "More fields..."
             doOpenDlg();
-            return;
+        } else {
+            const newFceItem = getFceItemFromValue(dropdownItems, value);
+            if (newFceItem) {
+                setSelectValue(newFceItem.fieldValue.dbname);
+                doSetFormFieldFromFc(rowCtx, newFceItem);
+                // console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
+            }
         }
-
-        const newFceItem = getFceItemFromValue(dropdownItems, value);
-        if (newFceItem) {
-            setSelectValue(newFceItem.fieldValue.dbname);
-            setSelectedItemFromFc(rowCtx, newFceItem);
-        }
-        // console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
     }
 
     return (
@@ -64,7 +62,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     );
 }
 
-function useFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
+function useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
     const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
@@ -114,19 +112,19 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
 
 // Action atoms
 
-const setFormFieldNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+const doSetFormFieldNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
     rowCtx.fromFc = undefined;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
 
-const setFormFieldFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+const doSetFormFieldFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
     rowCtx.fromFc = fceItem;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
     //TODO: copy field catalog item valueLife to manifest item
 });
 
-const setFormFieldDisconnectedFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
+const doSetFormFieldDisconnectedFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
     rowCtx.fromFc = undefined;
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
