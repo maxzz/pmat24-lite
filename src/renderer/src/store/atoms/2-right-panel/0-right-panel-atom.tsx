@@ -13,7 +13,7 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
             return;
         }
 
-        set(doPreloadEditorCtxAtom, newAtom);
+        set(doPreloadManiAtomsAtom, newAtom);
         set(rightPanelAtom, newAtom);
     }
 );
@@ -28,7 +28,7 @@ export const fileUsOfRightPanelAtom = atom(
 /**
  * Preload mani/fce atoms for the right panel item
  */
-export const doPreloadEditorCtxAtom = atom(null,
+export const doPreloadManiAtomsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
         if (fileUsAtom) {
             const fileUs = get(fileUsAtom);
