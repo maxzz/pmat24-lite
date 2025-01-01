@@ -36,10 +36,10 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
 
     function onSelectValueChange(value: string) {
-        if (value === '-1') { // "Not from catalog"
-            setSelectValue('-1');
+        if (value === '-1') {                   // "Not from catalog"
             doSetFormFieldNotFromFc(rowCtx);
-        } else if (value === '-2') { // "More fields..."
+            setSelectValue(value);
+        } else if (value === '-2') {            // "More fields ..."
             doOpenDlg();
         } else {
             const newFceItem = getFceItemFromValue(dropdownItems, value);
