@@ -12,7 +12,7 @@ type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 /**
  * Create maniAtoms for fileUs if needed and then assign field catalog refs to maniAtoms
  */
-export const doInitFileUssRefsToFcAtom = atom(null,
+export const doInitFileUsLinksToFcAtom = atom(null,
     (get, set, fileUsAtoms: FileUsAtom[]) => {
         if (!fileUsAtoms) {
             return;

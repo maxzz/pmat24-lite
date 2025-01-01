@@ -7,7 +7,7 @@ import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { filesAtom } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
-import { assignFcRoot, doInitFileUssRefsToFcAtom } from "../../4-field-catalogs";
+import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { toast } from "sonner";
 
 /**
@@ -100,7 +100,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
         
-        set(doInitFileUssRefsToFcAtom, fileUsAtoms);
+        set(doInitFileUsLinksToFcAtom, fileUsAtoms);
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
     }
