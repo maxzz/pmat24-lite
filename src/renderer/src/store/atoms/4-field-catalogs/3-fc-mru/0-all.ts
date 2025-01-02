@@ -9,25 +9,11 @@ export const emptyMruAtom = atom<FceItem[]>([]); // This is used for fields that
 
 export const mruSize = 7;
 
-// function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter): FceItem[] {
-//     const fType = doPsw ? FieldTyp.psw : FieldTyp.edit;
-
-//     const rv = mru
-//         .filter((item) => item.fieldValue.fType === fType)
-//         .sort((a, b) => get(b.fceMeta.mruAtom) - get(a.fceMeta.mruAtom)) // descending i.e. latest date first
-//         .slice(0, mruSize); // reverse // assign MRU backwards to have them initially first as latest
-
-//     return rv;
-// }
-
 function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter): FceItem[] {
     const fType = doPsw ? FieldTyp.psw : FieldTyp.edit;
 
     const rv = mru
-        .filter((item) => {
-            console.log('buildMruList item.fieldValue.fType ${item.fieldValue.fType}: %o', item.fieldValue.fType, item);
-            return item.fieldValue.fType === fType
-        })
+        .filter((item) => item.fieldValue.fType === fType)
         .sort((a, b) => get(b.fceMeta.mruAtom) - get(a.fceMeta.mruAtom)) // descending i.e. latest date first
         .slice(0, mruSize); // reverse // assign MRU backwards to have them initially first as latest
 
@@ -49,7 +35,7 @@ export const doInitMruAtom = atom(null,
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);
 
-        printAllItems(txtItems, pswItems);
+        // printAllItems(txtItems, pswItems);
     }
 );
 

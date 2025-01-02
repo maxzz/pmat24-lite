@@ -21,7 +21,7 @@ export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceIte
 
     const mruItems = useAtomValue(isNonFcItem ? emptyMruAtom : isPsw ? pswMruAtom : txtMruAtom);
 
-    printFceItems(`useFcItemsWithMru. isPsw:${isPsw} "${fieldTyp}" items:\n`, mruItems);    
+    // printFceItems(`useFcItemsWithMru. isPsw:${isPsw} "${fieldTyp}" items:\n`, mruItems);
 
     const rv = useMemo(() => {
         if (isNonFcItem) {
