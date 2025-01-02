@@ -35,7 +35,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const rfieldForm = useAtomValue(rfieldFormAtom);
     useEffect(
         () => {
-            console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": rfieldForm: ${rfieldForm}`);
+            console.log(`Column5_Catalog rfieldForm: ${`${rfieldForm}`.padStart(2, ' ')} "${rowCtx.metaField.mani.displayname}"`);
 
             if (rfieldForm === Mani.FORMNAME.fieldcatalog) {
                 setSelectValue(rowCtx.fromFc?.fieldValue.dbname || '-1');
@@ -83,12 +83,14 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
     const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fceOutBox = useAtomValue(fceOutBoxAtom);
 
-    useEffect(() => {
-        if (fceOutBox) {
-            console.log('Result of the field catalog dialog', fceOutBox);
-            doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
-        }
-    }, [rowCtx, fceOutBox]);
+    useEffect(
+        () => {
+            if (fceOutBox) {
+                console.log('Result of the field catalog dialog', fceOutBox);
+                doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
+            }
+        }, [rowCtx, fceOutBox]
+    );
 
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
     const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
