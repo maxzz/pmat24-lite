@@ -32,19 +32,17 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
     const fromFc = useAtomValue(rowCtx.fromFcAtom);
+    const rfieldForm = useAtomValue(rfieldFormAtom);
 
     const selectValueAtom = useState(() => atom(fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
-    const rfieldForm = useAtomValue(rfieldFormAtom);
     useEffect(
         () => {
-            console.log(`Column5_Catalog rfieldForm: ${`${rfieldForm}`.padStart(2, ' ')} "${rowCtx.metaField.mani.displayname}"`);
-
+            //console.log(`Column5_Catalog rfieldForm: ${`${rfieldForm}`.padStart(2, ' ')} "${rowCtx.metaField.mani.displayname}"`);
             if (rfieldForm === Mani.FORMNAME.fieldcatalog) {
                 setSelectValue(fromFc?.fieldValue.dbname || '-1');
             }
-
         }, [fromFc, rfieldForm]
     );
 

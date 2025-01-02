@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
-import { getValueUiState, mapIndexToValueLife } from "./select-uitils";
+import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
