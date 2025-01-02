@@ -18,7 +18,8 @@ rounded-lg shadow-md \
 overflow-auto smallscroll smallscroll-light \
 \
 grid grid-cols-1 \
-z-30"; //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
+z-[51]"; // dialog has z-index 50, so we need to be higher
+//TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 const menuItemClasses = "\
 relative mx-1 pl-7 pr-2 py-1.5 text-xs \
