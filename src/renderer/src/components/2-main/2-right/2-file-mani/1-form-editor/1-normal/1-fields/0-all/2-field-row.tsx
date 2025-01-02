@@ -47,6 +47,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
             fileUsCtx={fileUsCtx}
             onSelectCatItem={onSelectCatItem}
             onClick={enableRow}
+            key={rowCtx.metaField.uuid} // we need key to updata Column5_Catalog.selectValueAtom
         />
 
         <Column6_Policy

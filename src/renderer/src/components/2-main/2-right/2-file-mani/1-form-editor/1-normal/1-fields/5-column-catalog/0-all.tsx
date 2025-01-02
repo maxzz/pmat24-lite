@@ -36,7 +36,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     })[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
-    console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
+    //console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
 
     const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
     const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
