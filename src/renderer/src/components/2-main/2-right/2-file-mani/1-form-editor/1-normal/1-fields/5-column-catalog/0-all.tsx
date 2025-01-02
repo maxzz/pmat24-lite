@@ -29,17 +29,13 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
 
-    // const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
-    const selectValueAtom = useState(() => {
-        console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o as init for selectValueAtom`, rowCtx.fromFc);
-        return atom(rowCtx.fromFc?.fieldValue.dbname || '-1');
-    })[0];
+    const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
     //console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
 
     const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
-    const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
+    const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx });
 
     function onSelectValueChange(value: string) {
         if (value === '-1') {                   // "Not from catalog"
@@ -68,7 +64,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     );
 }
 
-function useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; selectValueAtom: PrimitiveAtom<string>; }): () => void {
+function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; }): () => void {
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
 
     const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
