@@ -29,8 +29,14 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
 
-    const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
+    // const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
+    const selectValueAtom = useState(() => {
+        console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o as init for selectValueAtom`, rowCtx.fromFc);
+        return atom(rowCtx.fromFc?.fieldValue.dbname || '-1');
+    })[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
+
+    console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
 
     const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
     const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx, selectValueAtom });
@@ -44,8 +50,8 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
         } else {
             const newFceItem = getFceItemFromValue(dropdownItems, value);
             if (newFceItem) {
-                setSelectValue(newFceItem.fieldValue.dbname);
                 doSetFormFieldFromFc(rowCtx, newFceItem);
+                setSelectValue(newFceItem.fieldValue.dbname);
                 // console.log(`onSelectCatItem value: "${value}", fceItem: %o`, optionItem);
             }
         }
