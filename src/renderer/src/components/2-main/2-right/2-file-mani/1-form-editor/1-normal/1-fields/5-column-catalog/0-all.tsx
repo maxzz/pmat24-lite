@@ -22,7 +22,7 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
 };
 
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
-    const { useItAtom, typeAtom, dbnameAtom } = rowCtx;
+    const { useItAtom, typeAtom, dbnameAtom, rfieldFormAtom } = rowCtx;
     const doSetFormFieldFromFc = useSetAtom(doSetFormFieldFromFcAtom);
     const doSetFormFieldNotFromFc = useSetAtom(doSetFormFieldNotFromFcAtom);
 
@@ -31,6 +31,18 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
     const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
+
+    const rfieldForm = useAtomValue(rfieldFormAtom);
+    useEffect(
+        () => {
+            console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": rfieldForm: ${rfieldForm}`);
+
+            if (rfieldForm === Mani.FORMNAME.fieldcatalog) {
+                setSelectValue(rowCtx.fromFc?.fieldValue.dbname || '-1');
+            }
+
+        }, [rfieldForm]
+    );
 
     //console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
 
@@ -66,6 +78,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
 function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; }): () => void {
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
+    const doSetFormFieldFromFc = useSetAtom(doSetFormFieldFromFcAtom);
 
     const fceOutBoxAtom = useState(() => creteOutBoxAtom<FceDlgOut>())[0];
     const fceOutBox = useAtomValue(fceOutBoxAtom);
@@ -73,8 +86,9 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
     useEffect(() => {
         if (fceOutBox) {
             console.log('Result of the field catalog dialog', fceOutBox);
+            doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
         }
-    }, [fceOutBox]);
+    }, [rowCtx, fceOutBox]);
 
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
     const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
