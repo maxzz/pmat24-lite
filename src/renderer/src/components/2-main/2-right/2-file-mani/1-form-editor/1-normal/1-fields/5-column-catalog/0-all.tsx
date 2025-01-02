@@ -89,7 +89,7 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
                 console.log('Result of the field catalog dialog', fceOutBox);
                 doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
             }
-        }, [rowCtx, fceOutBox]
+        }, [rowCtx, fceOutBox] // TODO: Why rowCtx is needed? We are using only fceOutBox, but trigger extra call to doSetFormFieldFromFc.
     );
 
     const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;

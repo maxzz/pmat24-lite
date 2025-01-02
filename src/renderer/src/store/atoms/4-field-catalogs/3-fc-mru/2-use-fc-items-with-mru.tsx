@@ -18,7 +18,10 @@ type OptionItemValue = string | {
 export function useFcItemsWithMru(fieldTyp: FieldTyp | undefined, fromFc: FceItem | undefined): OptionTextValue2<OptionItemValue>[] {
     const isNonFcItem = fieldTyp !== FieldTyp.edit && fieldTyp !== FieldTyp.psw;
     const isPsw = fieldTyp === FieldTyp.psw;
+
     const mruItems = useAtomValue(isNonFcItem ? emptyMruAtom : isPsw ? pswMruAtom : txtMruAtom);
+
+    printFceItems(`useFcItemsWithMru. isPsw:${isPsw} "${fieldTyp}" items:\n`, mruItems);    
 
     const rv = useMemo(() => {
         if (isNonFcItem) {
