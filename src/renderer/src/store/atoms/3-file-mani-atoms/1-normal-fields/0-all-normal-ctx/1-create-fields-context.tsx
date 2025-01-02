@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from 'jotai';
+import { atom, type Getter, type Setter } from 'jotai';
 import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
 import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
 import { type OnChangeProps, setFileUsChangeFlag, type FileUsCtx, type ManiAtoms } from "../../9-types";
@@ -36,7 +36,7 @@ export namespace NormalFieldsState {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
-            fromFc: undefined,
+            fromFcAtom: atom(),
         };
         return rv;
     }

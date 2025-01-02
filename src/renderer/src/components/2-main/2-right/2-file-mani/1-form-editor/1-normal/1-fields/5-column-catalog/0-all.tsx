@@ -31,8 +31,9 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
 
     const useIt = useAtomValue(useItAtom);
     const fType = useAtomValue(typeAtom);
+    const fromFc = useAtomValue(rowCtx.fromFcAtom);
 
-    const selectValueAtom = useState(() => atom(rowCtx.fromFc?.fieldValue.dbname || '-1'))[0];
+    const selectValueAtom = useState(() => atom(fromFc?.fieldValue.dbname || '-1'))[0];
     const [selectValue, setSelectValue] = useAtom(selectValueAtom);
 
     const rfieldForm = useAtomValue(rfieldFormAtom);
@@ -41,15 +42,15 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
             console.log(`Column5_Catalog rfieldForm: ${`${rfieldForm}`.padStart(2, ' ')} "${rowCtx.metaField.mani.displayname}"`);
 
             if (rfieldForm === Mani.FORMNAME.fieldcatalog) {
-                setSelectValue(rowCtx.fromFc?.fieldValue.dbname || '-1');
+                setSelectValue(fromFc?.fieldValue.dbname || '-1');
             }
 
-        }, [rfieldForm]
+        }, [fromFc, rfieldForm]
     );
 
     //console.log(`Column5_Catalog "${rowCtx.metaField.mani.displayname}": %o, selectValue: ${selectValue}`, rowCtx.fromFc);
 
-    const dropdownItems = useFcItemsWithMru(fType, rowCtx.fromFc);
+    const dropdownItems = useFcItemsWithMru(fType, fromFc);
     const doOpenDlg = useOpenFcDialog({ fileUsCtx, rowCtx });
 
     function onSelectValueChange(value: string) {
@@ -95,8 +96,10 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
         }, [rowCtx, fceOutBox] // TODO: Why rowCtx is needed? We are using only fceOutBox, but trigger extra call to doSetFormFieldFromFc.
     );
 
-    const isPsw = rowCtx.fromFc?.fieldValue.fType === FieldTyp.psw;
-    const dbid = rowCtx.fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
+    const fromFc = useAtomValue(rowCtx.fromFcAtom);
+
+    const isPsw = fromFc?.fieldValue.fType === FieldTyp.psw;
+    const dbid = fromFc?.fieldValue.dbname || rowCtx.metaField.mani.dbname;
 
     const doOpenDlg = useCallback(
         function doOpenDlg() {
@@ -109,7 +112,7 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
                 showPsw: !!isPsw,
             };
             doOpenFldCatDialog({ fceAtoms, inData });
-        }, [isPsw, dbid]
+        }, [isPsw, dbid, fceOutBoxAtom]
     );
 
     return doOpenDlg;
@@ -134,18 +137,18 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
 // Action atoms
 
 const doSetFormFieldNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    rowCtx.fromFc = undefined;
+    set(rowCtx.fromFcAtom, undefined);
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });
 
 const doSetFormFieldFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
-    rowCtx.fromFc = fceItem;
+    set(rowCtx.fromFcAtom, fceItem);
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
     //TODO: copy field catalog item valueLife to manifest item
 });
 
 const doSetFormFieldDisconnectedFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    rowCtx.fromFc = undefined;
+    set(rowCtx.fromFcAtom, undefined);
     set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
 });

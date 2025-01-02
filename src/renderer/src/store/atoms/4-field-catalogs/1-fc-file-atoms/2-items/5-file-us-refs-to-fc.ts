@@ -49,7 +49,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
 
                             const fceItem = fcQuickMap.get(field.fromFile.dbname);
                             if (fceItem) {
-                                field.fromFc = fceItem;
+                                set(field.fromFcAtom, fceItem);
                             } else {
                                 field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
@@ -66,7 +66,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
 
                             const fceItem = fcQuickMap.get(chunk.rowCtx.fromFile.dbname);
                             if (fceItem) {
-                                chunk.rowCtx.fromFc = fceItem;
+                                set(chunk.rowCtx.fromFcAtom, fceItem);
                             } else {
                                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
                             }
@@ -107,8 +107,8 @@ export const removeLinksToFceItemAtom = atom(null,
                             continue;
                         }
 
-                        if (field.fromFc === fceItem) {
-                            field.fromFc = undefined;
+                        if (get(field.fromFcAtom) === fceItem) {
+                            set(field.fromFcAtom, undefined);
                             field.metaField.mani.rfieldform = Mani.FORMNAME.noname;
                         }
                     }
@@ -120,8 +120,8 @@ export const removeLinksToFceItemAtom = atom(null,
                             continue;
                         }
 
-                        if (chunk.rowCtx.fromFc === fceItem) {
-                            chunk.rowCtx.fromFc = undefined;
+                        if (get(chunk.rowCtx.fromFcAtom) === fceItem) {
+                            set(chunk.rowCtx.fromFcAtom, undefined);
                             chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname;
                         }
                     }
