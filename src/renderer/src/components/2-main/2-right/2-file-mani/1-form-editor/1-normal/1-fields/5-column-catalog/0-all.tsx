@@ -21,6 +21,9 @@ type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
 
+//TODO: MRU list is mixed with psw and txt. problem with save fc wo/ psw field
+//TODO: more fields.. dialog has double selection. we set new selection but did not clear old one
+
 export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className, ...rest }: Column5_CatalogProps) {
     const { useItAtom, typeAtom, dbnameAtom, rfieldFormAtom } = rowCtx;
     const doSetFormFieldFromFc = useSetAtom(doSetFormFieldFromFcAtom);
@@ -86,7 +89,7 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
     useEffect(
         () => {
             if (fceOutBox) {
-                console.log('Result of the field catalog dialog', fceOutBox);
+                console.log('%cSelected from dialog "%s", %o', 'color: tomato', fceOutBox.selectedItem?.fieldValue.displayname, fceOutBox.selectedItem);
                 doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
             }
         }, [rowCtx, fceOutBox] // TODO: Why rowCtx is needed? We are using only fceOutBox, but trigger extra call to doSetFormFieldFromFc.
