@@ -37,6 +37,9 @@ export const doSaveOneAtom = atom(
         // Do this only after successful save:
         clearFileUsChanges({ fileUs });
 
+        // Update file content with new xml
+        fileUs.fileCnt.raw = xml;
+
         //TODO: check if we can save from web or electron
 
         //TODO: update values from file after successful save

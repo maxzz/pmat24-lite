@@ -24,7 +24,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     useEffect(
         () => {
             if (focusGrid) {
-                setTimeout(() => ref.current?.focus(), 300); // "Add" button still has focus, so wait a bit. TODO: make it better on logn list.
+                setTimeout(() => ref.current?.focus(), 300); // "Add" button still has focus, so wait a bit. TODO: make it better on logon list.
                 setFocusGrid(false);
             }
         }, [focusGrid]
@@ -36,7 +36,6 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
 
     function onDoubleClick(idx: number) {
         doSelectIdx({ fceCtx, idx, doubleClick: true });
-        //fceCtx.onItemDoubleClick?.(fldCatItems[prevSelectedIdx.current]);
     }
 
     return (
