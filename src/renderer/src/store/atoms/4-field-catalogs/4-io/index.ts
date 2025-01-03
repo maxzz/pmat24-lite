@@ -1,4 +1,4 @@
-import { type CatalogFile, fieldTyp2Obj, TransformValue } from "@/store/manifest";
+import { type CatalogFile, fieldTyp2FcObj, TransformValue } from "@/store/manifest";
 import { type FceItemValue } from "../9-types";
 
 export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInFile): FceItemValue {
@@ -16,7 +16,7 @@ export function fceItemValueToCatalogItemInFile(itemValue: FceItemValue): Catalo
         dispname: itemValue.displayname,
         dbname: itemValue.dbname,
         ownernote: itemValue.ownernote,
-        ...fieldTyp2Obj(itemValue.fType),
+        ...fieldTyp2FcObj(itemValue.fType),
     };
     TransformValue.valueLife2Mani(itemValue, rv);
     return rv;
