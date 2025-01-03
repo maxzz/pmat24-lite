@@ -84,18 +84,15 @@ export const doSetInitSelectedItemAtom = atom(null,
         const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
         const dbid = fceCtx.inData?.dbid;
 
-        // const idx = openMainDlg || !dbid
-        //     ? shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']))
-        //     : shownItems.findIndex(item => item.fieldValue.dbname === dbid);
-
         let idx: number | undefined;
+
         if (openMainDlg || !dbid) {
             idx = shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']))
         } else {
             idx = shownItems.findIndex(item => item.fieldValue.dbname === dbid);
+            
             shownItems.forEach((item) => item.editor.isSelectedInPicker = false); // deselect all
         }
-        console.log('doSetInitSelectedItemAtom', idx);
 
         set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
     }

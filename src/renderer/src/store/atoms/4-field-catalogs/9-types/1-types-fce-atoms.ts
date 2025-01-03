@@ -1,4 +1,4 @@
-import { type Atom, type PrimitiveAtom } from "jotai";
+import { type Atom, type PrimitiveAtom as PAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
@@ -23,7 +23,7 @@ export type FceItemEditor = {
 export type FceItemMeta = Prettify<
     & CatalogItemMeta
     & {
-        mruAtom: PrimitiveAtom<number>;
+        mruAtom: PAtom<number>;
     }
 >;
 
@@ -37,12 +37,12 @@ export type FceItem = {
 // FceAtoms
 
 export type FcePropAtoms = {                        // Field Catalog Editor Atoms
-    nameAtom      /**/: PrimitiveAtom<string>;
-    valueAtom     /**/: PrimitiveAtom<string>;
-    ownernoteAtom /**/: PrimitiveAtom<string>;
+    nameAtom: PAtom<string>;
+    valueAtom: PAtom<string>;
+    ownernoteAtom: PAtom<string>;
 
-    useItAtom     /**/: PrimitiveAtom<boolean>;     // not used but required for Column4_Value component
-    valueLifeAtom /**/: PrimitiveAtom<ValueLife>;
+    useItAtom: PAtom<boolean>;                      // not used but required for Column4_Value component
+    valueLifeAtom: PAtom<ValueLife>;
 };
 
 export type FceFilterOptions = {
@@ -53,8 +53,8 @@ export type FceFilterOptions = {
 };
 
 export type FceItemsAtoms = {                       // Field Catalog Editor items
-    aboutAtom: PrimitiveAtom<string>;               // Field catalog descriptor. i.e. id from CatalogFile.Descriptor
-    allAtom: PrimitiveAtom<FceItem[]>;              // All field catalog items from file
+    aboutAtom: PAtom<string>;                       // Field catalog descriptor. i.e. id from CatalogFile.Descriptor
+    allAtom: PAtom<FceItem[]>;                      // All field catalog items from file
 };
 
 export type FceAtoms = Prettify<                    // Field Catalog Editor Atoms
@@ -70,17 +70,17 @@ export type FceAtoms = Prettify<                    // Field Catalog Editor Atom
 export type FceCtx = {                              // Field Catalog Editor context for view or dialog
     inData: FceDlgIn | undefined;                   // Data for dialog
     fceAtoms: FceAtoms;                             // Back reference to fcxCtx holder
-    
+
     isPicker: boolean;                              // True if this context is for FC picker (select FC item) dialog, i.e. not FC view or main dialog.
     isMaster: boolean;                              // True if this is a master field catalog; but now we support only one master field catalog
 
-    selectedIdxStoreAtom: PrimitiveAtom<number>;    // This should be set interanally only from doSelectIdxAtom and similar atoms and anything else for read only. for set use doSelectIdxAtom
-    selectedItemAtom: PrimitiveAtom<FceItem | undefined>; // Used for dialog close, scroll to, props editor, add and delete operations.
+    selectedIdxStoreAtom: PAtom<number>;            // This should be set interanally only from doSelectIdxAtom and similar atoms and anything else for read only. for set use doSelectIdxAtom
+    selectedItemAtom: PAtom<FceItem | undefined>;   // Used for dialog close, scroll to, props editor, add and delete operations.
     hasSelectedItemAtom: Atom<boolean>;             // True if there is a selected item
     scrollTo: number;                               // Nun: index of selected item to scroll when view rendered. Do later or never.
-    focusGridAtom: PrimitiveAtom<boolean>;          // True if grid should be focused, and reset after focus set by grid.
+    focusGridAtom: PAtom<boolean>;                  // True if grid should be focused, and reset after focus set by grid.
 
-    filterAtom: PrimitiveAtom<FceFilterOptions>;    // filter options to apply on all items and get fceAtoms.shownAtom items
+    filterAtom: PAtom<FceFilterOptions>;            // filter options to apply on all items and get fceAtoms.shownAtom items
     shownAtom: Atom<FceItem[]>;                     // readonly: field catalog items shown on screen
 
     fcePropAtoms: FcePropAtoms;
