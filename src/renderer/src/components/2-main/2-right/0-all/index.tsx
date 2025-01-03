@@ -33,9 +33,11 @@ function ContentSelector() {
     const staticText =
         !fileUs
             ? 'No file selected'
-            : !fileUs.fileCnt.raw
-                ? 'Not supported format'
-                : undefined;
+            : fileUs.parsedSrc.stats.isFCatRoot // it can be just created file
+                ? undefined
+                : !fileUs.fileCnt.raw
+                    ? 'Not supported format'
+                    : undefined;
 
     if (staticText) {
         return (
