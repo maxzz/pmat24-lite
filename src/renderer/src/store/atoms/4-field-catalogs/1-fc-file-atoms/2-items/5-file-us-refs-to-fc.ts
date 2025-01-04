@@ -51,7 +51,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                             if (fceItem) {
                                 set(field.fromFcAtom, fceItem);
                             } else {
-                                field.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
+                                field.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
                             }
                             // printFceItem(fceItem, fileUs, field.fromFile.dbname);
                         }
@@ -68,7 +68,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                             if (fceItem) {
                                 set(chunk.rowCtx.fromFcAtom, fceItem);
                             } else {
-                                chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname; // This field is not from field catalog anymore
+                                chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
                             }
                             // printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
                         }
