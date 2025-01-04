@@ -21,7 +21,7 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        printXmlManiFile(xml);
+        //printXmlManiFile(xml);
         return;
 
         /** /

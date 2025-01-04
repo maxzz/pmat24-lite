@@ -52,12 +52,11 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
             newForm.fields = newFields;
             newForm.options.submittype = submittype;
         }
-
-        if (form.manual) {
+        else if (form.manual) {
             const fields = packManualFields(form.manual, formIdx, packParams);
             newForm.fields = fields;
         }
 
-        //console.log('newForm', JSON.stringify(newForm, null, 2));
+        console.log('%cnewForm.fields', 'color: cyan', JSON.stringify(newForm.fields, null, 2));
     }
 }
