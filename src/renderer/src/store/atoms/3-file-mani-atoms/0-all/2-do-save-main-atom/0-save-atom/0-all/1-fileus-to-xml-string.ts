@@ -8,13 +8,15 @@ import { filterEmptyValues } from "./8-save-utils";
 // import { printTestManifest } from "./8-save-utils";
 
 export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
+    const fileUs = get(fileUsAtom);
+    
     let res: ConvertToXmlStringResult | undefined;
 
-    const fileUs = get(fileUsAtom);
-
-    if (fileUs.fceAtomsForFcFile) { // FC
+    if (fileUs.fceAtomsForFcFile) {
+        // FC
         res = getFcContentText(fileUs.fceAtomsForFcFile, get, set);
-    } else { // Manifest
+    } else {
+        // Manifest
         const maniAtoms = get(fileUs.maniAtomsAtom);
         if (maniAtoms) {
             res = getManiContentText(fileUs, maniAtoms, get, set);
