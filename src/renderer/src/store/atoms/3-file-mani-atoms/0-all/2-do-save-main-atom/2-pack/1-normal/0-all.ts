@@ -37,7 +37,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    printFields2(newSubmitsByUuid, doFormSubmit, newSortedFields);
+    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
@@ -47,11 +47,13 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     };
 }
 
-function printFields2(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
-    
-    Object.keys(newSubmitsByUuid).length 
-        && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
-
+function printFinalFields(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
+    const values = Object.values(newSubmitsByUuid);
+    if (values.length) {
+        console.log('newSortedFields2', JSON.stringify(values.map(
+            (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
+        ), null, 2));
+    }
     printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
