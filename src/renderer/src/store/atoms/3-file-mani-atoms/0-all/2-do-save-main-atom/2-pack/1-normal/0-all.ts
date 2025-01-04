@@ -78,7 +78,6 @@ function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParam
                 from: editField,
                 maniField: metaField.mani,
                 ftyp: metaField.ftyp,
-                rdir: undefined,
                 isSubmit: false,
             });
 

@@ -14,7 +14,7 @@ export function getNormalFieldValues(formCtx: NFormCtx, packParams: PackManifest
         (rowCtx: NormalField.RowCtx) => {
             const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowCtx, get, set);
             const maniValues: EditorField.Members = NormalFieldConv.forMani(fromAtomValues);
-
+            
             const rv: EditorFieldAndMeta = {
                 metaField: rowCtx.metaField,
                 editField: maniValues,

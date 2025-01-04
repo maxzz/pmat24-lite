@@ -4,14 +4,13 @@ type MergeManiFieldsProps = {
     from: EditorField.Members;  // from editor
     maniField: Mani.Field;      // from loaded manifest
     ftyp: FieldTyp;
-    rdir: FileMani.FieldLinks | undefined;
     isSubmit: boolean;
 };
 
-export function mergeToManiField({ from, maniField, ftyp, rdir, isSubmit }: MergeManiFieldsProps): Mani.Field {
-    const rfield = rdir?.rfield === 'in' || rdir?.rfield === 'out' ? rdir.rfield : undefined;
-    const rfieldindex = rdir?.rfieldindex ? +rdir.rfieldindex : undefined;
-    const rfieldform = rdir?.rfieldform ? +rdir.rfieldform : undefined;
+export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiFieldsProps): Mani.Field {
+    const rfield = from.rfield === 'in' || from.rfield === 'out' ? from.rfield : undefined;
+    const rfieldindex = from.rfieldindex ? +from.rfieldindex : undefined;
+    const rfieldform = from.rfieldform ? +from.rfieldform : undefined;
 
     const rv: Mani.Field = {
         ...maniField,

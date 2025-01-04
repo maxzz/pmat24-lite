@@ -51,8 +51,8 @@ function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms, get: Getter, s
 
     packManifest({ fileUs, maniAtoms, newMani, get, set });
 
-    const fileMani4Xml: FileMani.Manifest = toManiFileFormat(newMani);
-    const rv = convertToXmlString({ mani: fileMani4Xml });
+    const root: FileMani.Manifest = toManiFileFormat(newMani);
+    const rv = convertToXmlString({ mani: root });
 
     // if (rv.xml) { printTestManifest(fileMani4Xml); printTestManifest(newMani); }
 
@@ -63,11 +63,11 @@ function getFcContentText(fceAtoms: FceAtoms, get: Getter, set: Setter): Convert
     const aboutId = get(fceAtoms.aboutAtom);
     const items = get(fceAtoms.allAtom);
 
-    const fce4Xml: CatalogFile.Root = {
+    const root: CatalogFile.Root = {
         descriptor: { id: aboutId || createGuid() },
         names: items.map(item => filterEmptyValues(fceItemValueToCatalogItemInFile(item.fieldValue))).filter(Boolean),
     };
 
-    const rv = convertToXmlString({ fc: fce4Xml });
+    const rv = convertToXmlString({ fc: root });
     return rv;
 }

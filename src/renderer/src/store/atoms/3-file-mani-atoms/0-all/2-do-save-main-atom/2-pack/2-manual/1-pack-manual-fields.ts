@@ -20,7 +20,6 @@ export function packManualFields(formCtx: MFormCtx, formIdx: FormIdx, packParams
                 from,
                 maniField: chunkAndsn.chunk.field.mani,
                 ftyp,
-                rdir: undefined,
                 isSubmit: false,
             });
 
