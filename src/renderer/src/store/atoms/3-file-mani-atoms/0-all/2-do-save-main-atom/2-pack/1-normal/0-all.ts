@@ -19,18 +19,17 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
-    const combinedFields: RecordOldNewFieldByUuid = {
+    const combinedEntries = Object.entries({
         ...allByUuid,
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
-    };
+    });
 
-    Object.entries(combinedFields).forEach(
+    combinedEntries.forEach(
         ([uuid, field]) => { field.newMani = field.newMani || field.meta.mani; } // If field is not changed/reclaimed by any editor, keep the old one
     );
 
-    const newSortedFields = Object
-        .entries(combinedFields)
+    const newSortedFields = combinedEntries
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
