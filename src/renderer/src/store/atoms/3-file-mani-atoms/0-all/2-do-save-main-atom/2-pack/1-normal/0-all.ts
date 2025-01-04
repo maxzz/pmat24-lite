@@ -1,25 +1,25 @@
 import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitFieldTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type MapByUuid } from "./9-types";
+import { type RecordOldNewFieldByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
 import { printFinalFields } from "./8-print-fields";
 
-type PackNormalFieldsAndSubmitResult = {
+type PackResult = {
     newFields: Mani.Field[];
     submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
 };
 
-export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
+export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
 
     const allByUuid = getByUiidAllFields(packParams, formIdx);
     const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
-    const combinedFields: MapByUuid = {
+    const combinedFields: RecordOldNewFieldByUuid = {
         ...allByUuid,
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
@@ -47,13 +47,13 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
 /**
  * Get all fields from meta form
  */
-function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx): MapByUuid {
+function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx): RecordOldNewFieldByUuid {
     const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
         return {};
     }
 
-    const allByUuid: MapByUuid = metaForm.fields.reduce<MapByUuid>(
+    const allByUuid: RecordOldNewFieldByUuid = metaForm.fields.reduce<RecordOldNewFieldByUuid>(
         (acc, metaField) => {
             acc[metaField.uuid] = {
                 meta: metaField,
@@ -69,10 +69,10 @@ function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx
 /**
  * Get new fields created by editors and assign them new Mani.Field
  */
-function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): MapByUuid {
+function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
-    const newRowFieldsByUuid: MapByUuid = editAndMeta.reduce<MapByUuid>(
+    const newRowFieldsByUuid: RecordOldNewFieldByUuid = editAndMeta.reduce<RecordOldNewFieldByUuid>(
         (acc, { metaField, editField }) => {
 
             const newField: Mani.Field = mergeToManiField({
@@ -98,7 +98,7 @@ function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParam
 /**
  * Get submit type
  */
-function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: MapByUuid; doFormSubmit: SUBMIT | undefined; } {
+function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: RecordOldNewFieldByUuid; doFormSubmit: SUBMIT | undefined; } {
     const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
@@ -109,7 +109,7 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
         selected = -1;
     }
 
-    const newSubmitsByUuid: MapByUuid = submitsValues.buttonNameItems.reduce<MapByUuid>(
+    const newSubmitsByUuid: RecordOldNewFieldByUuid = submitsValues.buttonNameItems.reduce<RecordOldNewFieldByUuid>(
         (acc, field, idx) => {
             if (field.metaField) { // metaField is empty for 'Do not submit' and 'Submit' buttons
                 acc[field.metaField.uuid] = {

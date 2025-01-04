@@ -1,7 +1,7 @@
-import { SUBMIT, type Mani, type Meta } from "@/store/manifest";
-import { MapByUuid } from "./9-types";
+import { SUBMIT } from "@/store/manifest";
+import { type OldNewField, type RecordOldNewFieldByUuid } from "./9-types";
 
-export function printFieldsAsTable(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+export function printFieldsAsTable(label: string, fields: OldNewField[]) {
     const colors: string[] = [];
     const items: string[] = [];
 
@@ -31,7 +31,7 @@ export function printFieldsAsTable(label: string, fields: { meta: Meta.Field; ne
     }
 }
 
-export function printFinalFields(newSubmitsByUuid: MapByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
 
     const values = Object.values(newSubmitsByUuid);
     if (values.length) {
