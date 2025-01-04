@@ -1,7 +1,7 @@
 import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitFieldTypes, type NFormCtx } from "@/store/atoms/3-file-mani-atoms";
-import { type ByUuid } from "./9-types";
+import { type MapByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
@@ -19,7 +19,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
-    const rv: ByUuid = {
+    const rv: MapByUuid = {
         ...allByUuid,
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
@@ -47,7 +47,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     };
 }
 
-function printFinalFields(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
+function printFinalFields(newSubmitsByUuid: MapByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
     const values = Object.values(newSubmitsByUuid);
 
     if (values.length) {
@@ -59,13 +59,16 @@ function printFinalFields(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undef
     printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
-function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
+/**
+ * Get all fields from meta form
+ */
+function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx): MapByUuid {
     const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
         return {};
     }
 
-    const allByUuid: ByUuid = metaForm.fields.reduce<ByUuid>(
+    const allByUuid: MapByUuid = metaForm.fields.reduce<MapByUuid>(
         (acc, metaField) => {
             acc[metaField.uuid] = {
                 meta: metaField,
@@ -78,10 +81,13 @@ function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx
     return allByUuid;
 }
 
-function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
+/**
+ * Get new fields created by editors and assign them new Mani.Field
+ */
+function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): MapByUuid {
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
-    const newRowFieldsByUuid: ByUuid = editAndMeta.reduce<ByUuid>(
+    const newRowFieldsByUuid: MapByUuid = editAndMeta.reduce<MapByUuid>(
         (acc, { metaField, editField }) => {
 
             const newField: Mani.Field = mergeToManiField({
@@ -104,7 +110,10 @@ function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParam
     return newRowFieldsByUuid;
 }
 
-function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: ByUuid; doFormSubmit: SUBMIT | undefined; } {
+/**
+ * Get submit type
+ */
+function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: MapByUuid; doFormSubmit: SUBMIT | undefined; } {
     const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;
@@ -115,7 +124,7 @@ function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams)
         selected = -1;
     }
 
-    const newSubmitsByUuid: ByUuid = submitsValues.buttonNameItems.reduce<ByUuid>(
+    const newSubmitsByUuid: MapByUuid = submitsValues.buttonNameItems.reduce<MapByUuid>(
         (acc, field, idx) => {
             if (field.metaField) { // metaField is empty for 'Do not submit' and 'Submit' buttons
                 acc[field.metaField.uuid] = {
