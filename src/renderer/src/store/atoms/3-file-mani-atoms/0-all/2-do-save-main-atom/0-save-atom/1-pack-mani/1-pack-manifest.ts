@@ -1,7 +1,7 @@
-import { FormIdx } from "@/store/manifest";
+import { type Mani, createGuid, FormIdx, TimeUtils } from "@/store/manifest";
 import { type AnyFormAtoms } from "../../../../9-types";
 import { type PackManifestDataParams, packManualFields, packNormalFieldsAndSubmit, packFormOptions } from "../../2-pack";
-import { createGuid, Mani, TimeUtils } from "@/store/manifest";
+import { filterEmptyValues } from "../0-all/8-save-utils";
 
 export function packManifest(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
@@ -57,6 +57,20 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
             newForm.fields = fields;
         }
 
-        console.log('%cnewForm.fields', 'color: cyan', JSON.stringify(newForm.fields, null, 2));
+        printFields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
     }
+}
+
+function printFields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {
+    const items =
+        keepEmptyvalues
+            ? fields
+            : fields.map(
+                (field) => {
+                    const f = filterEmptyValues({ ...field });
+                    delete f?.path_ext;
+                    return f;
+                }
+            );
+    console.log(`%c${label}`, 'color: cyan', JSON.stringify(items, null, 2));
 }

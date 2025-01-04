@@ -6,7 +6,7 @@ import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
-import { printFields } from "./8-print-fields";
+import { printFieldsAsTable } from "./8-print-fields";
 
 type PackNormalFieldsAndSubmitResult = {
     newFields: Mani.Field[];
@@ -56,7 +56,7 @@ function printFinalFields(newSubmitsByUuid: MapByUuid, doFormSubmit: SUBMIT | un
         ), null, 2));
     }
 
-    printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+    printFieldsAsTable(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
 /**

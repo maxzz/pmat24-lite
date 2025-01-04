@@ -1,14 +1,8 @@
 import { type Mani, type Meta } from "@/store/manifest";
 
-export function printFields(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+export function printFieldsAsTable(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
     const colors: string[] = [];
     const items: string[] = [];
-
-    function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
-        items.push(`%c${name}%c${value}`);
-        colors.push(colorName || 'color: gray');
-        colors.push(colorValue || 'color: #d58e00');
-    }
 
     fields.forEach(
         (field, idx) => {
@@ -28,4 +22,10 @@ export function printFields(label: string, fields: { meta: Meta.Field; newMani: 
     );
 
     console.log(`${label}\n${items.join('')}`, ...colors);
+
+    function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+        items.push(`%c${name}%c${value}`);
+        colors.push(colorName || 'color: gray');
+        colors.push(colorValue || 'color: #d58e00');
+    }
 }
