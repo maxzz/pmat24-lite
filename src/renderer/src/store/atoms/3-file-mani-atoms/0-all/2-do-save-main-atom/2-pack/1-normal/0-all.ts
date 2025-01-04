@@ -15,8 +15,8 @@ type PackNormalFieldsAndSubmitResult = {
 
 export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackNormalFieldsAndSubmitResult {
 
-    const allByUuid = getAllByUiid(packParams, formIdx);
-    const newRowFieldsByUuid = getFieldsByUuid(formCtx, packParams);
+    const allByUuid = getByUiidAllFields(packParams, formIdx);
+    const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
     const rv: ByUuid = {
@@ -49,15 +49,17 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
 
 function printFinalFields(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
     const values = Object.values(newSubmitsByUuid);
+
     if (values.length) {
         console.log('newSortedFields2', JSON.stringify(values.map(
             (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
         ), null, 2));
     }
+
     printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
-function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
+function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
     const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
         return {};
@@ -76,7 +78,7 @@ function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByU
     return allByUuid;
 }
 
-function getFieldsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
+function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): ByUuid {
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
     const newRowFieldsByUuid: ByUuid = editAndMeta.reduce<ByUuid>(
