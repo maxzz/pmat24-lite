@@ -25,22 +25,19 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         ...newSubmitsByUuid,
     };
 
-    Object.entries(rv)
-        .forEach(
-            ([uuid, field]) => {
-                if (!field.newMani) {
-                    field.newMani = field.meta.mani; // if field is not changed in any editor, keep the old one
-                }
+    Object.entries(rv).forEach(
+        ([uuid, field]) => {
+            if (!field.newMani) {
+                field.newMani = field.meta.mani; // If field is not changed in any editor, keep the old one
             }
-        );
+        }
+    );
 
-    const newSortedFields =
-        Object.entries(rv)
-            .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
-            .map(([uuid, field]) => field);
+    const newSortedFields = Object.entries(rv)
+        .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
+        .map(([uuid, field]) => field);
 
-    //Object.keys(newSubmitsByUuid).length && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
-    //printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+    printFields2(newSubmitsByUuid, doFormSubmit, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
@@ -48,6 +45,14 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         newFields,
         submittype: doFormSubmit,
     };
+}
+
+function printFields2(newSubmitsByUuid: ByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
+    
+    Object.keys(newSubmitsByUuid).length 
+        && console.log('newSortedFields2', JSON.stringify(Object.values(newSubmitsByUuid).map((item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)), null, 2));
+
+    printFields(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
 function getAllByUiid(packParams: PackManifestDataParams, formIdx: FormIdx): ByUuid {
