@@ -1,4 +1,4 @@
-import { FieldTyp, Mani, type FileMani, type EditorField } from "@/store/manifest";
+import { FieldTyp, Mani, type EditorField } from "@/store/manifest";
 
 type MergeManiFieldsProps = {
     from: EditorField.Members;  // from editor
@@ -8,22 +8,14 @@ type MergeManiFieldsProps = {
 };
 
 export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiFieldsProps): Mani.Field {
-    const rfield = from.rfield === 'in' || from.rfield === 'out' ? from.rfield : undefined;
-    const rfieldindex = from.rfieldindex ? +from.rfieldindex : undefined;
-    const rfieldform = from.rfieldform ? +from.rfieldform : undefined;
-
     const rv: Mani.Field = {
         ...maniField,
         ...from,
-
         submit: isSubmit,
-
-        rfield,
-        rfieldindex,
-        rfieldform,
+        rfieldform: from.rfieldform === Mani.FORMNAME.brokenFcLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, // It was broken now but who knows which fc will be loaded next time
     };
-
     rv.value = getFieldStringValue(from.value, ftyp);
+    
     //TODO: we need to correlate policies with password change form
 
     return rv;
