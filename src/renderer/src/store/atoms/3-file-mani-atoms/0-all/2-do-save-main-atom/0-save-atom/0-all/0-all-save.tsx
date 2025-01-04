@@ -3,6 +3,7 @@ import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveContentToFile } from "./2-save-to-file-system";
+import { printXmlManiFile } from "./8-save-utils";
 //import { fileDownload } from '@/utils/file-download';
 
 export const doSaveOneAtom = atom(
@@ -20,7 +21,7 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        console.log("🚀 ~ xml:", xml);
+        printXmlManiFile(xml);
         return;
 
         /** /

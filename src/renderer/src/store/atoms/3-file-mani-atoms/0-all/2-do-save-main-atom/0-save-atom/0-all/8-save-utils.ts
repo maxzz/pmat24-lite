@@ -19,3 +19,8 @@ export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Man
 
     console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(newMani, null, 2));
 }
+
+export function printXmlManiFile(xml: string) {
+    const xml2 = xml.replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+    console.log('%c🚀 ~ xml:\n', 'color: magenta', xml2);
+}
