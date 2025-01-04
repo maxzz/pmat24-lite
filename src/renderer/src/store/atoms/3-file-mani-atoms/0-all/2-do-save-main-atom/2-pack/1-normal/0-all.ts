@@ -37,7 +37,7 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
+    //printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
