@@ -6,7 +6,7 @@ import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
-import { printFieldsAsTable } from "./8-print-fields";
+import { printFinalFields } from "./8-print-fields";
 
 type PackNormalFieldsAndSubmitResult = {
     newFields: Mani.Field[];
@@ -19,25 +19,22 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
     const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
 
-    const rv: MapByUuid = {
+    const combinedFields: MapByUuid = {
         ...allByUuid,
         ...newRowFieldsByUuid,
         ...newSubmitsByUuid,
     };
 
-    Object.entries(rv).forEach(
-        ([uuid, field]) => {
-            if (!field.newMani) {
-                field.newMani = field.meta.mani; // If field is not changed in any editor, keep the old one
-            }
-        }
+    Object.entries(combinedFields).forEach(
+        ([uuid, field]) => { field.newMani = field.newMani || field.meta.mani; } // If field is not changed/reclaimed by any editor, keep the old one
     );
 
-    const newSortedFields = Object.entries(rv)
+    const newSortedFields = Object
+        .entries(combinedFields)
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    //printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
+    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
@@ -45,18 +42,6 @@ export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, p
         newFields,
         submittype: doFormSubmit,
     };
-}
-
-function printFinalFields(newSubmitsByUuid: MapByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields) {
-    const values = Object.values(newSubmitsByUuid);
-
-    if (values.length) {
-        console.log('newSortedFields2', JSON.stringify(values.map(
-            (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
-        ), null, 2));
-    }
-
-    printFieldsAsTable(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
 
 /**

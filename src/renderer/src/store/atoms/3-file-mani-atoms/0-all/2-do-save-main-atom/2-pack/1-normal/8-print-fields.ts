@@ -1,4 +1,5 @@
-import { type Mani, type Meta } from "@/store/manifest";
+import { SUBMIT, type Mani, type Meta } from "@/store/manifest";
+import { MapByUuid } from "./9-types";
 
 export function printFieldsAsTable(label: string, fields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
     const colors: string[] = [];
@@ -28,4 +29,16 @@ export function printFieldsAsTable(label: string, fields: { meta: Meta.Field; ne
         colors.push(colorName || 'color: gray');
         colors.push(colorValue || 'color: #d58e00');
     }
+}
+
+export function printFinalFields(newSubmitsByUuid: MapByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: { meta: Meta.Field; newMani: Mani.Field | undefined; }[]) {
+
+    const values = Object.values(newSubmitsByUuid);
+    if (values.length) {
+        console.log('newSortedFields2', JSON.stringify(values.map(
+            (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
+        ), null, 2));
+    }
+
+    printFieldsAsTable(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
 }
