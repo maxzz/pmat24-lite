@@ -1,10 +1,11 @@
 import { type Getter, type Setter } from "jotai";
-import { type FileUs, type FileUsAtom, type FceAtoms, fceItemValueToCatalogItemInFile } from "@/store";
+import { type FileUs, type FileUsAtom, type FceAtoms, } from "@/store";
 import { type ManiAtoms } from "../../../../9-types";
 import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, showError } from "@/store/manifest";
 import { stopIfInvalidAny } from "../../1-stop-if-validation-failed";
 import { packManifest, toManiFileFormat } from "../1-pack-mani";
 import { filterEmptyValues } from "./8-save-utils";
+import { fceItemValueToCatalogItemInFile } from "../../2-pack";
 // import { printTestManifest } from "./8-save-utils";
 
 export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {

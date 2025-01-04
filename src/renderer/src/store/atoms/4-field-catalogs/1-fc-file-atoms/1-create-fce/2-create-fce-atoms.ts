@@ -9,7 +9,7 @@ import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
 import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
-import { catalogItemInFileToFceItemValue } from "../../4-io";
+import { catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms/0-all/2-do-save-main-atom/2-pack/4-fc";
 
 export function createFileUsForNewFc(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
