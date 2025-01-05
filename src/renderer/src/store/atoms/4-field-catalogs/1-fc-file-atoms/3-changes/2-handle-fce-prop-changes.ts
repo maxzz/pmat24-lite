@@ -5,14 +5,13 @@ import { type FcePropChangesProps } from "./1-prop-changes-atom";
 import { setFileUsChangeFlag, hasFileUsAnyChanges } from "@/store/atoms/3-file-mani-atoms";
 
 export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesProps, get: Getter, set: Setter) {
+    if (ctx.fceCtx.inData?.openItemPickerDlg) {
+        return;
+    }
+
     const { fceCtx, name, nextValue } = ctx;
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
-
-    const openMainDlg = !fceCtx.inData?.openItemPickerDlg;
-    if (!openMainDlg) {
-        return;
-    }
 
     let changed = false;
     let changePrefix: string | undefined;
@@ -22,7 +21,7 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
             changePrefix = 'name';
             const displayname = nextValue as string;
             changed = displayname !== beforeEdit.displayname;
-            //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
+
             selectedItem.fieldValue.displayname = displayname;
             break;
         }
@@ -30,19 +29,20 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
             changePrefix = 'note';
             const ownernote = nextValue as string;
             changed = ownernote !== beforeEdit.ownernote;
-            //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
+
             selectedItem.fieldValue.ownernote = ownernote;
             break;
         }
         case 'valueLifeAtom': {
             changePrefix = 'life';
-            changed = !sameValueLife(nextValue as ValueLife, beforeEdit);
-            //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
+            const valueLife = nextValue as ValueLife;
+            changed = !sameValueLife(valueLife, beforeEdit);
 
-            const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
+            const { value, valueAs, isRef, fType, isNon } = valueLife;
             selectedItem.fieldValue.value = value;
             selectedItem.fieldValue.valueAs = valueAs;
             selectedItem.fieldValue.isRef = isRef;
+            selectedItem.fieldValue.fType = fType;
             selectedItem.fieldValue.isNon = isNon;
             break;
         }
@@ -60,6 +60,6 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
 
     if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
         const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
-        console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, fileChanged, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
+        console.log('FcePropChanges', JSON.stringify({ name, changed, fileChanged, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
     }
 }
