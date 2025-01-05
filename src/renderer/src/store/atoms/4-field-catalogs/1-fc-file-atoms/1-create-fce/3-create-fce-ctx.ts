@@ -3,7 +3,7 @@ import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions, type FceDlgOut } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import { doFcePropChangesAtom } from "./6-prop-changes-atom";
+import { doFcePropChangesAtom } from "../3-changes";
 import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
 import { printFceItems } from "../../3-fc-mru";
 

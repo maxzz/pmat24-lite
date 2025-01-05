@@ -22,6 +22,8 @@ export const doFcePropChangesAtom = atom(
     },
 );
 
+const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);
+
 function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }: FcePropChangesProps, get: Getter, set: Setter) {
     const beforeEdit = selectedItem.beforeEdit;
     const uuid = selectedItem.fceMeta.uuid;
@@ -67,9 +69,5 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
     if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
         const changed = hasFileUsAnyChanges(fceCtx.fceAtoms);
         console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
-
-        
     }
 }
-
-const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);
