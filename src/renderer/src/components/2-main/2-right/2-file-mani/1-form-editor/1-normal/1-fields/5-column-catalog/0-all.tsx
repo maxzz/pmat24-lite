@@ -134,19 +134,18 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
 
 // Action atoms
 
-const doSetFormFieldNotFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    set(rowCtx.fromFcAtom, undefined);
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
-});
+const doSetFormFieldNotFromFcAtom = atom(null,
+    (get, set, rowCtx: NormalField.RowCtx) => {
+        set(rowCtx.fromFcAtom, undefined);
+        set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
+    }
+);
 
-const doSetFormFieldFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
-    set(rowCtx.fromFcAtom, fceItem);
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
+const doSetFormFieldFromFcAtom = atom(null,
+    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+        set(rowCtx.fromFcAtom, fceItem);
+        set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
-    //TODO: copy field catalog item valueLife to manifest item
-});
-
-const doSetFormFieldDisconnectedFromFcAtom = atom(null, (get, set, rowCtx: NormalField.RowCtx) => {
-    set(rowCtx.fromFcAtom, undefined);
-    set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
-});
+        //TODO: copy field catalog item valueLife to manifest item
+    }
+);

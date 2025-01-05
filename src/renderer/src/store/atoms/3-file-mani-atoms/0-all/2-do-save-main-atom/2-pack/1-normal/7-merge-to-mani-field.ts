@@ -8,8 +8,11 @@ type MergeManiFieldsProps = {
 };
 
 export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiFieldsProps): Mani.Field {
+
     const restoreLink = from.rfieldform === Mani.FORMNAME.noname && maniField.rfieldform === Mani.FORMNAME.brokenFcLink; // It was broken now but who knows which fc will be loaded next time
-    //TODO: this is still not true if user intentionally changed it to not use fc. I guess we should remove maniField.rfieldform Mani.FORMNAME.brokenFcLink when user set it to not use fc
+    //TODO: this is still not true if user explicitly set it to not use fc.
+    // I guess we should remove maniField.rfieldform Mani.FORMNAME.brokenFcLink when user set it to not use fc.
+    // There is no good way to perform reset operation on maniField.rfieldform (maybe to have in addition Mani.FORMNAME.brokenFcLink2?).
 
     const rv: Mani.Field = {
         ...maniField,
