@@ -35,6 +35,8 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
+    const uiState = getValueUiState(valueLife, choosevalue);
+
     const {
         dropdownAllItems,
         dropdownSelectedIndex,
@@ -43,7 +45,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
         showAsRef,
         disabled: itselfDisabled,
         title,
-    } = getValueUiState(valueLife, choosevalue);
+    } = uiState;
 
     const showInputText = !useIt && !valueLife.isRef && !valueLife.value;
     const showAsRefAndNotNon = showAsRef && !valueLife.isNon;

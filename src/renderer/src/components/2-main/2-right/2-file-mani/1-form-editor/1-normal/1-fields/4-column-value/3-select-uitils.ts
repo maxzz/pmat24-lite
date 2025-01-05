@@ -1,13 +1,5 @@
 import { FieldTyp, LIST_references, LIST_valueAskNames, ReferenceItem, ValueAs, ValueLife } from "@/store/manifest";
 
-function pickReferences(isPsw: boolean): Record<string, ReferenceItem> { //TODO: move out value <-> index mappers
-    return LIST_references[isPsw ? 'psw' : 'txt'];
-}
-
-function idx2RefName(v: number, isPsw: boolean) {
-    return Object.keys(pickReferences(isPsw))[v];
-}
-
 type getValueUiStateReturn = {
     dropdownAllItems: string[];
     dropdownSelectedIndex: number;
@@ -50,13 +42,7 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
         dropdownAllItems,
         dropdownSelectedIndex,
 
-        context: {
-            dropdownIdxs,
-            idxToStartRefs,
-            idxToStartValues,
-            listValues,
-            isPsw,
-        },
+        context: { dropdownIdxs, idxToStartRefs, idxToStartValues, listValues, isPsw, },
 
         inputText,
         showAsRef,
@@ -105,6 +91,14 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
                     : valueAs2Idx(valueLife.valueAs);
         return dropdownSelectedIndex;
     }
+}
+
+function pickReferences(isPsw: boolean): Record<string, ReferenceItem> { //TODO: move out value <-> index mappers
+    return LIST_references[isPsw ? 'psw' : 'txt'];
+}
+
+function idx2RefName(v: number, isPsw: boolean) {
+    return Object.keys(pickReferences(isPsw))[v];
 }
 
 type Context = {

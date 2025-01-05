@@ -1,11 +1,11 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { Mani, FieldTyp } from "@/store/manifest";
+import { Mani, FieldTyp, type ValueLife } from "@/store/manifest";
 import { type NormalField, type FileUsCtx } from "@/store/atoms/3-file-mani-atoms";
 import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
 import { inputRingClasses } from "@/ui";
-import { classNames } from "@/utils";
 import { InputSelectUi } from "./1-dropdown";
+import { classNames } from "@/utils";
 
 const selectClasses = "\
 px-2 py-1 w-full h-7 text-xs \
@@ -147,6 +147,12 @@ const doSetFormFieldFromFcAtom = atom(null,
         set(rowCtx.fromFcAtom, fceItem);
         set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
-        //TODO: copy field catalog item valueLife to manifest item
+        // 2. Copy field catalog item valueLife to manifest item
+        
+        const { dbname, valueAs, value, isRef, fType, isNon, } = fceItem.fieldValue;
+        const valueLife: ValueLife = { valueAs, value, isRef, fType, isNon, };
+
+        set(rowCtx.dbnameAtom, dbname);
+        set(rowCtx.valueLifeAtom, valueLife);
     }
 );
