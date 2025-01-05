@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
-import { type ValueLife } from "@/store/manifest";
-import { hasFileUsAnyChanges, setFileUsChangeFlag, sameValueLife } from "../../../3-file-mani-atoms";
+import { sameValueLife, type ValueLife } from "@/store/manifest";
+import { hasFileUsAnyChanges, setFileUsChangeFlag } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
 
 type FcePropChangesProps = {
