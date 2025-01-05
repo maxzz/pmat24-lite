@@ -8,14 +8,17 @@ type MergeManiFieldsProps = {
 };
 
 export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiFieldsProps): Mani.Field {
+    const restoreLink = from.rfieldform === Mani.FORMNAME.noname && maniField.rfieldform === Mani.FORMNAME.brokenFcLink; // It was broken now but who knows which fc will be loaded next time
+
     const rv: Mani.Field = {
         ...maniField,
         ...from,
         submit: isSubmit,
-        rfieldform: from.rfieldform === Mani.FORMNAME.noname && maniField.rfieldform === Mani.FORMNAME.brokenFcLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, // It was broken now but who knows which fc will be loaded next time
+        rfieldform: restoreLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, 
     };
-    rv.value = getFieldStringValue(from.value, ftyp);
     
+    rv.value = getFieldStringValue(from.value, ftyp);
+
     //TODO: we need to correlate policies with password change form
 
     return rv;
