@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { type ValueLife } from "@/store/manifest";
-import { hasFileUsAnyChanges, setFileUsChangeFlag, theSameValue } from "../../../3-file-mani-atoms";
+import { hasFileUsAnyChanges, setFileUsChangeFlag, sameValueLife } from "../../../3-file-mani-atoms";
 import { debounce } from "@/utils";
 
 type FcePropChangesProps = {
@@ -54,7 +54,7 @@ function handleFcePropChanges(selectedItem: FceItem, { fceCtx, name, nextValue }
         }
         case 'valueLifeAtom': {
             const { value, valueAs, isRef, isNon } = nextValue as ValueLife;
-            const changed = !theSameValue(nextValue as ValueLife, beforeEdit);
+            const changed = !sameValueLife(nextValue as ValueLife, beforeEdit);
             //console.log('doFcePropChangesAtom', JSON.stringify({ name, changed, uuid, nextValue, current: selectedItem.fieldValue }, null, 2));
 
             selectedItem.fieldValue.value = value;
