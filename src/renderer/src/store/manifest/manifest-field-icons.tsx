@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 import { FieldTyp, Mani } from "@/store/manifest";
 import { SymbolFieldBtn, SymbolFieldTxt, SymbolFieldChk, SymbolFieldLst, SymbolFieldPsw, SymbolFieldEdt } from "@ui/icons";
 import { EngineControl } from "@shared/ipc-types";
@@ -21,7 +21,7 @@ export type FieldPartsToSelectIcon = Pick<Mani.Field, 'type' | 'password' | 'cho
 
 export function FieldTypeIconComponent({ field, className, title }: { field: FieldPartsToSelectIcon; className?: string; title?: string; }) {
     const type = field.password
-        ? "psw"
+        ? 'psw'
         : field.type as keyof typeof fieldIcons;
 
     const Icon = fieldIcons[type]?.({ className, title }) || <div className="text-red-500">nan</div>;
@@ -42,12 +42,12 @@ export const fieldTitle: Record<FieldValidKeys, string> = {
 
 export function fieldTypeTitle(field: FieldPartsToSelectIcon) {
     const type = field.password
-        ? "psw"
+        ? 'psw'
         : field.type as keyof typeof fieldTitle;
     const typeName = fieldTitle[type]
 
     const title =
-        type === "list"
+        type === 'list'
             ? `Field ${typeName} choices:\n${field.choosevalue?.split(':').join('\n') || 'No choices'}`
             : `Field type: ${typeName}`;
     return title;
