@@ -87,9 +87,10 @@ function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: 
 
     useEffect(
         () => {
-            if (fceOutBox) {
-                console.log('%cSelected from dialog "%s", %o', 'color: tomato', fceOutBox.selectedItem?.fieldValue.displayname, fceOutBox.selectedItem);
-                doSetFormFieldFromFc(rowCtx, fceOutBox.selectedItem);
+            const selectedItem = fceOutBox?.selectedItem;
+            if (selectedItem) {
+                console.log('%cSelected from dialog "%s", %o', 'color: tomato', selectedItem.fieldValue.displayname, selectedItem);
+                doSetFormFieldFromFc(rowCtx, selectedItem);
             }
         }, [rowCtx, fceOutBox] // TODO: Why rowCtx is needed? We are using only fceOutBox, but trigger extra call to doSetFormFieldFromFc.
     );
@@ -142,7 +143,7 @@ const doSetFormFieldNotFromFcAtom = atom(null,
 );
 
 const doSetFormFieldFromFcAtom = atom(null,
-    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem | undefined) => {
+    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem) => {
         set(rowCtx.fromFcAtom, fceItem);
         set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
 
