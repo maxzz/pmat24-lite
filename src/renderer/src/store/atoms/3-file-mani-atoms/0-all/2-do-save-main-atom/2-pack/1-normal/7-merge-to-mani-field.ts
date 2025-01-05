@@ -12,8 +12,7 @@ export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiF
         ...maniField,
         ...from,
         submit: isSubmit,
-        // We don't need it since we set this to field in parced manifest, not to rfieldFormAtom.
-        // rfieldform: from.rfieldform === Mani.FORMNAME.brokenFcLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, // It was broken now but who knows which fc will be loaded next time
+        rfieldform: from.rfieldform === Mani.FORMNAME.noname && maniField.rfieldform === Mani.FORMNAME.brokenFcLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, // It was broken now but who knows which fc will be loaded next time
     };
     rv.value = getFieldStringValue(from.value, ftyp);
     
@@ -35,5 +34,3 @@ function getFieldStringValue(fromValue: string | undefined, ftyp: FieldTyp): str
 
     return rv;
 }
-
-//TODO: set Mani.FORMNAME.brokenFcLink when fc item removed by user (was set to use fc but removed)
