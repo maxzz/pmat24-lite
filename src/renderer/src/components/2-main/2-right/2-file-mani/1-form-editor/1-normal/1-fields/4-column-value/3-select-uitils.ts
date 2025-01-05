@@ -15,6 +15,8 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
     const isPsw = valueLife.fType === FieldTyp.psw;
     const isTxt = valueLife.fType === FieldTyp.edit;
 
+    console.log('getValueUiState', valueLife, choosevalue);
+
     const listAskNames = isBtn ? [] : [...LIST_valueAskNames];
     listAskNames.length && listAskNames.push('-');
 

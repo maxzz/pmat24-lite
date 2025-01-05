@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, useMemo } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { ValueAs, ValueLife } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
@@ -35,8 +35,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
-    const uiState = getValueUiState(valueLife, choosevalue);
-
+    const uiState = useMemo(() => getValueUiState(valueLife, choosevalue), [valueLife, choosevalue]);
     const {
         dropdownAllItems,
         dropdownSelectedIndex,
@@ -53,7 +52,6 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
-
             <input
                 className={classNames(inputClasses, showAsRefAndNotNon && inputAsRefClasses, disabled && "pointer-events-none")}
                 value={showInputText ? '' : inputText}
