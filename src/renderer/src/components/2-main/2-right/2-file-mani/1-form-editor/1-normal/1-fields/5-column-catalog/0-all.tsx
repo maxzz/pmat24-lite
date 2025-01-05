@@ -146,9 +146,16 @@ const doSetFormFieldFromFcAtom = atom(null,
     (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem) => {
         set(rowCtx.fromFcAtom, fceItem);
         set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
+        set(doCopyValueLifeFceItemToRowCtxAtom, rowCtx, fceItem);
+    }
+);
 
-        // 2. Copy field catalog item valueLife to manifest item
-        
+/**
+ * Copy field catalog item valueLife to manifest item
+ */
+const doCopyValueLifeFceItemToRowCtxAtom = atom(null,
+    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem) => {
+
         const { dbname, valueAs, value, isRef, fType, isNon, } = fceItem.fieldValue;
         const valueLife: ValueLife = { valueAs, value, isRef, fType, isNon, };
 
