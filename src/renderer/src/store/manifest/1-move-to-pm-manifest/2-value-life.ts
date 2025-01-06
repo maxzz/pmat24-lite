@@ -20,3 +20,10 @@ export function sameValueLife(from: ValueLife, to: ValueLife): boolean {
     );
     return rv;
 }
+
+/**
+ * Mostly for debugging
+ */
+export function valueAs2Str(valueAs: ValueAs) {
+    return valueAs === ValueAs.askReuse ? 'ask' : valueAs === ValueAs.askConfirm ? 'confirm' : 'always';
+}
