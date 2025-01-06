@@ -61,14 +61,16 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
     if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
         const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
 
-        let s = JSON.stringify({ name, changed, fileChanged, uuid }, null, 2);
-
-        s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
-
-        valueLife2Str('curr', selectedItem.fieldValue);
-        valueLife2Str('next', nextValue as ValueLife);
-
+        // let s = JSON.stringify({ name, changed, fileChanged, uuid }, null, 2);
+        // s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
         // console.log('FcePropChanges', s);
+
+        // valueLife2Str('curr', selectedItem.fieldValue);
+        // valueLife2Str('next', nextValue as ValueLife);
+
+        console.log(...valueLife2Styles('curr: ', selectedItem.fieldValue).toFormated('curr'));
+        console.log(...valueLife2Styles('next: ', nextValue as ValueLife).toFormated('next'));
+
 /* 
         const curr: any = { ...selectedItem.fieldValue };
         const next: any = {...nextValue as ValueLife};
@@ -88,8 +90,8 @@ function valueLife2Str(label: string, valueLife: ValueLife) {
 }
 
 function valueLife2Str2(label: string, valueLife: ValueLife) {
-//     const colors: string[] = [];
-//     const items: string[] = [];
+    const colors: string[] = [];
+    const items: string[] = [];
 
 //     fields.forEach(
 //         (field, idx) => {
@@ -108,11 +110,47 @@ function valueLife2Str2(label: string, valueLife: ValueLife) {
 //         }
 //     );
 
-//     console.log(`${label}\n${items.join('')}`, ...colors);
+    console.log(`${label}\n${items.join('')}`, ...colors);
 
-//     function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
-//         items.push(`%c${name}%c${value}`);
-//         colors.push(colorName || 'color: gray');
-//         colors.push(colorValue || 'color: #d58e00');
-//     }
+    function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+        items.push(`%c${name}%c${value}`);
+        colors.push(colorName || 'color: gray');
+        colors.push(colorValue || 'color: #d58e00');
+    }
+}
+
+class ConsoleStyles {
+    colors: string[] = [];
+    items: string[] = [];
+
+    defaultColorName = 'color: gray';
+    defaultColorValue = 'color: #d58e00';
+
+    toFormated(label: string): string[] {
+        return [`${label}${this.items.join('')}`, ...this.colors];
+    }
+
+    toFormat(): string {
+        return this.items.join('');
+    }
+
+    toStyles(): string[] {
+        return this.colors;
+    }
+
+    add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+        this.items.push(`%c${name}%c${value}`);
+        this.colors.push(colorName || this.defaultColorName);
+        this.colors.push(colorValue || this.defaultColorValue);
+    }
+}
+
+function valueLife2Styles(label: string, valueLife: ValueLife): ConsoleStyles {
+    const { value, valueAs, isRef, isNon } = valueLife;
+    const out: ConsoleStyles = new ConsoleStyles();
+    out.add({ name: ' valueAs: ',  /**/ value: valueAs2Str(valueAs),     /**/ colorValue: 'color: #8eacf8' });
+    out.add({ name: ' value: ',    /**/ value: `'${value}'`,             /**/ colorValue: 'color: #8eacf8' });
+    out.add({ name: ' isRef: ',    /**/ value: isRef ? 'true' : 'false', /**/ colorValue: isRef ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ' isNon: ',    /**/ value: isNon ? 'true' : 'false', /**/ colorValue: isNon ? 'color: #00a000' : 'color: #ababab' });
+    return out;
 }
