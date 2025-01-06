@@ -56,3 +56,5 @@ function SubmitBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
         {selected ? " button will be used to submit the form data." : " the form data."}
     </>);
 }
+
+//NOTE: Theoretically, two buttons cannot be selected. Only the first one will be pressed, but it depends on the application (submit vs. trigger).

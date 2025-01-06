@@ -7,22 +7,6 @@ import { isKeyToClearDefault } from "../6-fields-shared-ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
-const inputParentClasses = "\
-h-7 grid grid-cols-[minmax(0,1fr)_auto] \
-\
-bg-mani-background \
-\
-border-mani-border-muted border \
-\
-rounded overflow-hidden";
-
-const inputClasses = "\
-px-2 py-3 h-7 \
-bg-mani-background text-mani-foreground \
-truncate outline-none";
-
-const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
-
 type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
     valueLifeAtom: PrimitiveAtom<ValueLife>;
@@ -35,16 +19,8 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
 
-    const uiState = useMemo(() => getValueUiState(valueLife, choosevalue), [valueLife, choosevalue]);
-    const {
-        dropdownAllItems,
-        dropdownSelectedIndex,
-        context,
-        inputText,
-        showAsRef,
-        disabled: itselfDisabled,
-        title,
-    } = uiState;
+    const uiState = useMemo(() => getValueUiState(valueLife, choosevalue), [Object.values(valueLife), choosevalue]);
+    const { dropdownAllItems, dropdownSelectedIndex, context, inputText, showAsRef, disabled: itselfDisabled, title, } = uiState;
 
     const showInputText = !useIt && !valueLife.isRef && !valueLife.value;
     const showAsRefAndNotNon = showAsRef && !valueLife.isNon;
@@ -90,4 +66,18 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
 
 }
 
-//NOTE: Theoretically, two buttons cannot be selected. Only the first one will be pressed, but it depends on the application (submit vs. trigger).
+const inputParentClasses = "\
+h-7 grid grid-cols-[minmax(0,1fr)_auto] \
+\
+bg-mani-background \
+\
+border-mani-border-muted border \
+\
+rounded overflow-hidden";
+
+const inputClasses = "\
+px-2 py-3 h-7 \
+bg-mani-background text-mani-foreground \
+truncate outline-none";
+
+const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
