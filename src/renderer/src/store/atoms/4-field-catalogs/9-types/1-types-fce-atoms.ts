@@ -37,9 +37,8 @@ export type FceItem = {
 // FceAtoms
 
 export type FcePropAtoms = {                        // Field Catalog Editor Atoms
-    nameAtom: PAtom<string>;
-    valueAtom: PAtom<string>;
-    ownernoteAtom: PAtom<string>;
+    dispNameAtom: PAtom<string>;                    // human display name
+    ownernoteAtom: PAtom<string>;                   // description
 
     useItAtom: PAtom<boolean>;                      // not used but required for Column4_Value component
     valueLifeAtom: PAtom<ValueLife>;

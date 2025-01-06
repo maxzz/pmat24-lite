@@ -27,7 +27,7 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
         <NewLabel label="Name" className={allClasses}>
             <PropText
                 disabled={!hasSelected}
-                editAtom={fceCtx.fcePropAtoms.nameAtom}
+                editAtom={fceCtx.fcePropAtoms.dispNameAtom}
             />
         </NewLabel>
 

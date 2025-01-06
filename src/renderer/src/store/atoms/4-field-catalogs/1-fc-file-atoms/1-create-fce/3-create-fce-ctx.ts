@@ -68,10 +68,8 @@ function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | 
     }
 
     const rv: FcePropAtoms = {
-        nameAtom: atomWithCallback<string>('', onScopedChange<string>('nameAtom')),
-        valueAtom: atomWithCallback<string>('', onScopedChange<string>('valueAtom')),
+        dispNameAtom: atomWithCallback<string>('', onScopedChange<string>('nameAtom')),
         ownernoteAtom: atomWithCallback<string>('', onScopedChange<string>('ownernoteAtom')),
-
         useItAtom: atom(true),
         valueLifeAtom: atomWithCallback<ValueLife>(createEmptyValueLife({ fType: FieldTyp.edit }), onScopedChange<ValueLife>('valueLifeAtom')),
     };

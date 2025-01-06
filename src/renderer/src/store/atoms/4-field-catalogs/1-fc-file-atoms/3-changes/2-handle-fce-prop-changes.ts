@@ -3,6 +3,7 @@ import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";
 import { setFileUsChangeFlag, hasFileUsAnyChanges } from "@/store/atoms/3-file-mani-atoms";
+import { ConsoleStyles } from "./8-console-styles";
 
 export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesProps, get: Getter, set: Setter) {
     if (ctx.fceCtx.inData?.openItemPickerDlg) {
@@ -59,98 +60,58 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
     const { fceCtx, name, nextValue } = ctx;
 
     if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
-        const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
 
+        // 1.
+        // const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
         // let s = JSON.stringify({ name, changed, fileChanged, uuid }, null, 2);
         // s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
         // console.log('FcePropChanges', s);
 
-        // valueLife2Str('curr', selectedItem.fieldValue);
-        // valueLife2Str('next', nextValue as ValueLife);
+        // 2.
+        const curr = selectedItem.fieldValue;
+        const next = nextValue as ValueLife;
 
-        console.log(...valueLife2Styles('curr: ', selectedItem.fieldValue).toFormated('curr'));
-        console.log(...valueLife2Styles('next: ', nextValue as ValueLife).toFormated('next'));
+        // console.log(...valueLife2Styles(curr).toFormated('curr'));
+        // console.log(...valueLife2Styles(next).toFormated('next'));
 
-/* 
-        const curr: any = { ...selectedItem.fieldValue };
-        const next: any = {...nextValue as ValueLife};
+        // OK
+        // const stylesCurr = valueLife2Styles(curr);
+        // const stylesNext = valueLife2Styles(next);
 
-        curr.valueAs = valueAs2Str(curr.valueAs);
-        next.valueAs = valueAs2Str(next.valueAs);
+        // const final = [
+        //     `${stylesCurr.toFormat()}${stylesNext.toFormat()}`,
+        //     ...stylesCurr.toStyles(),
+        //     ...stylesNext.toStyles(),
+        //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
+        // ];
+        // console.log(...final);
 
-        console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
- */
+        // OK
+        // const final = [
+        //     ...valueLife2Styles(curr).toFormated('curr'),
+        //     '\n',
+        //     ...valueLife2Styles(next).toFormated('next'),
+        //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
+        // ];
+        // console.log(...final);
+
+        // OK
+        // console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
+
+        // OK
+        console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`);
+        console.log(...valueLife2Styles(curr).toFormated('curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
+        // console.log(...valueLife2Styles(next).toFormated('next'), `${next.displayname}, dbname: ${next.dbname}`);
+        console.log('nextValue:', next);
     }
 }
 
-function valueLife2Str(label: string, valueLife: ValueLife) {
-    const { value, valueAs, isRef, isNon } = valueLife;
-    const s = `valueAs: ${valueAs2Str(valueAs)} value: '${value}' isRef: ${isRef} isNon: ${isNon}`;
-    console.log(`${label}: ${s}`);
-}
-
-function valueLife2Str2(label: string, valueLife: ValueLife) {
-    const colors: string[] = [];
-    const items: string[] = [];
-
-//     fields.forEach(
-//         (field, idx) => {
-//             if (!field.newMani) {
-//                 return;
-//             }
-//             const m = field.newMani;
-
-//             items.push('   ');
-//             add({ name: ' type: ',  /**/ value: `${m.type.padEnd(6, ' ')}`,         /**/ colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
-//             add({ name: ' useIt: ', /**/ value: m.useit ? 'true' : '    ',          /**/ colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
-//             add({ name: ' uuid: ',  /**/ value: `${field.meta.uuid}`,               /**/ colorValue: 'color: #ababab; font-size: 0.5rem' });
-//             add({ name: ' name: ',  /**/ value: `${m.displayname || '???no name'}`, /**/ colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
-//             add({ name: '',         /**/ value: '',                                 /**/ colorValue: 'color: black' }); // the last dummy item to fix font-size
-//             idx !== fields.length - 1 && items.push('\n');
-//         }
-//     );
-
-    console.log(`${label}\n${items.join('')}`, ...colors);
-
-    function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
-        items.push(`%c${name}%c${value}`);
-        colors.push(colorName || 'color: gray');
-        colors.push(colorValue || 'color: #d58e00');
-    }
-}
-
-class ConsoleStyles {
-    colors: string[] = [];
-    items: string[] = [];
-
-    defaultColorName = 'color: gray';
-    defaultColorValue = 'color: #d58e00';
-
-    toFormated(label: string): string[] {
-        return [`${label}${this.items.join('')}`, ...this.colors];
-    }
-
-    toFormat(): string {
-        return this.items.join('');
-    }
-
-    toStyles(): string[] {
-        return this.colors;
-    }
-
-    add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
-        this.items.push(`%c${name}%c${value}`);
-        this.colors.push(colorName || this.defaultColorName);
-        this.colors.push(colorValue || this.defaultColorValue);
-    }
-}
-
-function valueLife2Styles(label: string, valueLife: ValueLife): ConsoleStyles {
+function valueLife2Styles(valueLife: ValueLife): ConsoleStyles {
     const { value, valueAs, isRef, isNon } = valueLife;
     const out: ConsoleStyles = new ConsoleStyles();
     out.add({ name: ' valueAs: ',  /**/ value: valueAs2Str(valueAs),     /**/ colorValue: 'color: #8eacf8' });
     out.add({ name: ' value: ',    /**/ value: `'${value}'`,             /**/ colorValue: 'color: #8eacf8' });
-    out.add({ name: ' isRef: ',    /**/ value: isRef ? 'true' : 'false', /**/ colorValue: isRef ? 'color: #00a000' : 'color: #ababab' });
-    out.add({ name: ' isNon: ',    /**/ value: isNon ? 'true' : 'false', /**/ colorValue: isNon ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ' isRef: ',    /**/ value: isRef ? 'true ' : 'false', /**/ colorValue: isRef ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ' isNon: ',    /**/ value: isNon ? 'true ' : 'false', /**/ colorValue: isNon ? 'color: #00a000' : 'color: #ababab' });
     return out;
 }
