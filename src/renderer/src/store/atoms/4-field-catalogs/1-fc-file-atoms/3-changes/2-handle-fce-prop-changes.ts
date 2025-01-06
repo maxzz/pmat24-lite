@@ -3,7 +3,7 @@ import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";
 import { setFileUsChangeFlag, hasFileUsAnyChanges } from "@/store/atoms/3-file-mani-atoms";
-import { ConsoleStyles } from "./8-console-styles";
+import { ConsoleStyles } from "@/utils";
 
 export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesProps, get: Getter, set: Setter) {
     if (ctx.fceCtx.inData?.openItemPickerDlg) {
@@ -99,10 +99,9 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
         // console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
 
         // OK
-        console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`);
-        console.log(...valueLife2Styles(curr).toFormated('curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
-        // console.log(...valueLife2Styles(next).toFormated('next'), `${next.displayname}, dbname: ${next.dbname}`);
-        console.log('nextValue:', next);
+        console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`, {next});
+        console.log(...valueLife2Styles(curr).toFormated('    curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
+      //console.log(...valueLife2Styles(next).toFormated('    next'), `${next.displayname}, dbname: ${next.dbname}`);
     }
 }
 

@@ -11,3 +11,4 @@ export * from "./merge-refs";
 //export * from "./uuid"; // use it from manifest
 export * from "./valtio-array";
 export * from './x-sub-error';
+export * from "./console-styles";
