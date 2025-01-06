@@ -65,14 +65,54 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
 
         s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
 
-        console.log('FcePropChanges', s);
+        valueLife2Str('curr', selectedItem.fieldValue);
+        valueLife2Str('next', nextValue as ValueLife);
 
+        // console.log('FcePropChanges', s);
+/* 
         const curr: any = { ...selectedItem.fieldValue };
         const next: any = {...nextValue as ValueLife};
 
         curr.valueAs = valueAs2Str(curr.valueAs);
         next.valueAs = valueAs2Str(next.valueAs);
 
-        console.table({ current: curr, nextValue: next });
+        console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
+ */
     }
+}
+
+function valueLife2Str(label: string, valueLife: ValueLife) {
+    const { value, valueAs, isRef, isNon } = valueLife;
+    const s = `valueAs: ${valueAs2Str(valueAs)} value: '${value}' isRef: ${isRef} isNon: ${isNon}`;
+    console.log(`${label}: ${s}`);
+}
+
+function valueLife2Str2(label: string, valueLife: ValueLife) {
+//     const colors: string[] = [];
+//     const items: string[] = [];
+
+//     fields.forEach(
+//         (field, idx) => {
+//             if (!field.newMani) {
+//                 return;
+//             }
+//             const m = field.newMani;
+
+//             items.push('   ');
+//             add({ name: ' type: ',  /**/ value: `${m.type.padEnd(6, ' ')}`,         /**/ colorValue: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
+//             add({ name: ' useIt: ', /**/ value: m.useit ? 'true' : '    ',          /**/ colorValue: m.useit ? 'color: #00a000' : 'color: #ababab' });
+//             add({ name: ' uuid: ',  /**/ value: `${field.meta.uuid}`,               /**/ colorValue: 'color: #ababab; font-size: 0.5rem' });
+//             add({ name: ' name: ',  /**/ value: `${m.displayname || '???no name'}`, /**/ colorValue: 'color: var(--console-color-yellow); font-size: 0.6rem' });
+//             add({ name: '',         /**/ value: '',                                 /**/ colorValue: 'color: black' }); // the last dummy item to fix font-size
+//             idx !== fields.length - 1 && items.push('\n');
+//         }
+//     );
+
+//     console.log(`${label}\n${items.join('')}`, ...colors);
+
+//     function add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+//         items.push(`%c${name}%c${value}`);
+//         colors.push(colorName || 'color: gray');
+//         colors.push(colorValue || 'color: #d58e00');
+//     }
 }
