@@ -1,3 +1,14 @@
+/**
+ * Make console output more readable:
+ ```js
+ function some2Styles(v: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
+     const isRefStr = v.isRef ? 'true ' : 'false';
+     out.add({ name: ' value: ', value: `'${v.value}'`, cValue: 'color: #8eacf8' });
+     out.add({ name: ' isRef: ', value: isRefStr,       cValue: v.isRef ? 'color: #00a000' : 'color: #ababab' });
+     return out;
+ }
+ ```
+ */
 export class ConsoleStyles {
     colors: string[] = [];
     items: string[] = [];
@@ -10,10 +21,6 @@ export class ConsoleStyles {
         this.defaultColorValue = colorValue || this.defaultColorValue;
     }
 
-    toFormated(label: string): string[] {
-        return [`${label}${this.items.join('')}`, ...this.colors];
-    }
-
     toFormat(): string {
         return this.items.join('');
     }
@@ -22,9 +29,13 @@ export class ConsoleStyles {
         return this.colors;
     }
 
-    add({ name, value, colorValue, colorName }: { name: string; value: string; colorValue?: string; colorName?: string; }) {
+    toFormated(label: string): string[] {
+        return [`${label}${this.items.join('')}`, ...this.colors];
+    }
+
+    add({ name, value, cName, cValue }: { name: string; value: string | number | boolean; cName?: string; cValue?: string; }) {
         this.items.push(`%c${name}%c${value}`);
-        this.colors.push(colorName || this.defaultColorName);
-        this.colors.push(colorValue || this.defaultColorValue);
+        this.colors.push(cName || this.defaultColorName);
+        this.colors.push(cValue || this.defaultColorValue);
     }
 }

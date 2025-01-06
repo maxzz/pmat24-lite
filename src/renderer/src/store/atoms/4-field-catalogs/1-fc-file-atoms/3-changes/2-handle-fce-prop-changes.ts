@@ -105,12 +105,11 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
     }
 }
 
-function valueLife2Styles(valueLife: ValueLife): ConsoleStyles {
+function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
     const { value, valueAs, isRef, isNon } = valueLife;
-    const out: ConsoleStyles = new ConsoleStyles();
-    out.add({ name: ' valueAs: ',  /**/ value: valueAs2Str(valueAs),     /**/ colorValue: 'color: #8eacf8' });
-    out.add({ name: ' value: ',    /**/ value: `'${value}'`,             /**/ colorValue: 'color: #8eacf8' });
-    out.add({ name: ' isRef: ',    /**/ value: isRef ? 'true ' : 'false', /**/ colorValue: isRef ? 'color: #00a000' : 'color: #ababab' });
-    out.add({ name: ' isNon: ',    /**/ value: isNon ? 'true ' : 'false', /**/ colorValue: isNon ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ' valueAs: ',  /**/ value: valueAs2Str(valueAs),      /**/ cValue: 'color: #8eacf8' });
+    out.add({ name: ' value: ',    /**/ value: `'${value}'`,              /**/ cValue: 'color: #8eacf8' });
+    out.add({ name: ' isRef: ',    /**/ value: isRef ? 'true ' : 'false', /**/ cValue: isRef ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ' isNon: ',    /**/ value: isNon ? 'true ' : 'false', /**/ cValue: isNon ? 'color: #00a000' : 'color: #ababab' });
     return out;
 }
