@@ -15,8 +15,7 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
     const isPsw = valueLife.fType === FieldTyp.psw;
     const isTxt = valueLife.fType === FieldTyp.edit;
 
-    //TODO: test rerendering:
-    //console.log('getValueUiState', valueLife, choosevalue);
+    //console.log('getValueUiState', valueLife, choosevalue); //TODO: test rerendering:
 
     const listAskNames = isBtn ? [] : [...LIST_valueAskNames];
     listAskNames.length && listAskNames.push('-');
@@ -52,48 +51,48 @@ export function getValueUiState(valueLife: ValueLife, choosevalue: string | unde
         disabled,
         title,
     };
+}
 
-    function refName2Idx(value: string | undefined, isPsw: boolean) {
-        return value ? pickReferences(isPsw)[value].i : -1;
-    }
+function refName2Idx(value: string | undefined, isPsw: boolean) {
+    return value ? pickReferences(isPsw)[value].i : -1;
+}
 
-    function refName2Txt(value: string | undefined, isPsw: boolean) {
-        return value ? pickReferences(isPsw)[value].s : '';
-    }
+function refName2Txt(value: string | undefined, isPsw: boolean) {
+    return value ? pickReferences(isPsw)[value].s : '';
+}
 
-    function refName2Full(value: string | undefined, isPsw: boolean) {
-        return value ? pickReferences(isPsw)[value].f : ''; //TODO: we can use placeholder on top of input (ingone all events on it) and do multiple lines
-    }
+function refName2Full(value: string | undefined, isPsw: boolean) {
+    return value ? pickReferences(isPsw)[value].f : ''; //TODO: we can use placeholder on top of input (ingone all events on it) and do multiple lines
+}
 
-    function valueAs2Idx(valueAs: ValueAs) {
-        return valueAs === ValueAs.askReuse ? 0 : valueAs === ValueAs.askConfirm ? 1 : valueAs === ValueAs.askAlways ? 2 : 0;
-    }
+function valueAs2Idx(valueAs: ValueAs) {
+    return valueAs === ValueAs.askReuse ? 0 : valueAs === ValueAs.askConfirm ? 1 : valueAs === ValueAs.askAlways ? 2 : 0;
+}
 
-    function getInpuText(valueLife: ValueLife, isBtn: boolean, isPsw: boolean) {
-        const inputText =
-            valueLife.isRef
-                ? refName2Txt(valueLife.value, isPsw)
-                : valueLife.value
-                    ? valueLife.value
-                    : valueLife.isNon
+function getDropdownSelectedIndex(v: ValueLife, idxToStartRefs: number, idxToStartValues: number, listValues: string[], isPsw: boolean) {
+    const dropdownSelectedIndex =
+        v.isRef
+            ? idxToStartRefs + refName2Idx(v.value, isPsw)
+            : v.value
+                ? listValues.length
+                    ? idxToStartValues + listValues.indexOf(v.value)
+                    : -1
+                : valueAs2Idx(v.valueAs);
+    return dropdownSelectedIndex;
+}
+
+function getInpuText(v: ValueLife, isBtn: boolean, isPsw: boolean) {
+    const inputText =
+        v.isRef
+            ? refName2Txt(v.value, isPsw)
+            : v.value
+                ? v.value
+                : v.isNon
+                    ? ''
+                    : isBtn
                         ? ''
-                        : isBtn
-                            ? ''
-                            : LIST_valueAskNames[valueLife.valueAs];
-        return inputText;
-    }
-
-    function getDropdownSelectedIndex(valueLife: ValueLife, idxToStartRefs: number, idxToStartValues: number, listValues: string[], isPsw: boolean) {
-        const dropdownSelectedIndex =
-            valueLife.isRef
-                ? idxToStartRefs + refName2Idx(valueLife.value, isPsw)
-                : valueLife.value
-                    ? listValues.length
-                        ? idxToStartValues + listValues.indexOf(valueLife.value)
-                        : -1
-                    : valueAs2Idx(valueLife.valueAs);
-        return dropdownSelectedIndex;
-    }
+                        : LIST_valueAskNames[v.valueAs];
+    return inputText;
 }
 
 function pickReferences(isPsw: boolean): Record<string, ReferenceItem> { //TODO: move out value <-> index mappers

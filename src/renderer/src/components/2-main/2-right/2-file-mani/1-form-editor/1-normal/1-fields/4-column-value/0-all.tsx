@@ -63,7 +63,6 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
         showAsRef && !inputText &&
             setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
     }
-
 }
 
 const inputParentClasses = "\
