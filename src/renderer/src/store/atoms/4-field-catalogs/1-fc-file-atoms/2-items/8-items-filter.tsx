@@ -1,5 +1,5 @@
 import { FieldTyp } from "@/store/manifest";
-import { type FceFilterOptions, type FceItem } from "../../9-types";
+import { type FceDlgIn, type FceFilterOptions, type FceItem } from "../../9-types";
 
 export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions): FceItem[] {
     const { search, showText, showPassword, ascending } = filterOptions;
@@ -38,11 +38,11 @@ export function filterFceItems(items: FceItem[], filterOptions: FceFilterOptions
     return filteredItems;
 }
 
-export function createEmptyFceFilterOptions(options: FceFilterOptions | undefined): FceFilterOptions {
-    const rv: FceFilterOptions = options ?? {
+export function createFceFilterOptions(inData?: FceDlgIn): FceFilterOptions {
+    const rv: FceFilterOptions = {
         search: '',
-        showText: true,
-        showPassword: true,
+        showText: inData?.showTxt ?? true,
+        showPassword: inData?.showPsw ?? true,
         ascending: undefined,
     };
     return rv;

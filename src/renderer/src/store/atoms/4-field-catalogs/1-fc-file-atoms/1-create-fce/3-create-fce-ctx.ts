@@ -4,7 +4,7 @@ import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions, type FceDlgOut } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { doFcePropChangesAtom } from "../3-changes";
-import { createEmptyFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
+import { createFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
 import { printFceItems } from "../../3-fc-mru";
 
 type CreateFceCtxProps = {
@@ -14,25 +14,21 @@ type CreateFceCtxProps = {
 };
 
 export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceCtxProps): FceCtx {
-    const showSelectBtn = inData?.outBoxAtom;
 
     function onChangeFcePropValue({ fceCtx, name, nextValue, set }: OnChangeFcePropParams) {
         set(doFcePropChangesAtom, { fceCtx, name, nextValue });
     }
 
-    function onValueChange(name: string) {
+    function onNamedValueChange(name: string) {
         return ({ get, set, nextValue }) => {
             onChangeFcePropValue({ fceCtx: rv, name, get, set, nextValue }); //TBD: discard back link rv?
         };
     }
 
-    const filterAtom = atom(createEmptyFceFilterOptions({
-        search: '',
-        showText: !!inData?.showTxt,
-        showPassword: !!inData?.showPsw,
-        ascending: undefined,
-    }));
+    const filterAtom = atom(createFceFilterOptions(inData));
     const shownAtom = createShownScopedAtom(fceAtoms.allAtom, filterAtom);
+
+    const showSelectBtn = inData?.outBoxAtom;
 
     const rv0: Omit<FceCtx, 'hasSelectedItemAtom'> = {
         inData,
@@ -47,7 +43,7 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
         filterAtom,
         shownAtom,
 
-        fcePropAtoms: createFcePropAtoms(onValueChange),
+        fcePropAtoms: createFcePropAtoms(onNamedValueChange),
         onItemDoubleClick: showSelectBtn ? (item: FceItem) => closeFldCatDialog({ selectedItem: item }) : undefined,
         onChangeFcePropValue,
     };
@@ -58,11 +54,11 @@ export function createFceCtx({ fceAtoms, inData, closeFldCatDialog }: CreateFceC
     return rv;
 }
 
-function createFcePropAtoms(onValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
+function createFcePropAtoms(onNamedValueChange: OnChangeValueWithUpdateName<string | ValueLife>): FcePropAtoms {
 
     function onScopedChange<T extends string | ValueLife>(name: string) {
         function cb({ get, set, nextValue }: OnValueChangeParams<T>) { // It can be string | ValueLife
-            onValueChange(name)({ get, set, nextValue });
+            onNamedValueChange(name)({ get, set, nextValue });
         }
         return cb;
     }
