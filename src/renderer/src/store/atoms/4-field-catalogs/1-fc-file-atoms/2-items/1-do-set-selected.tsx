@@ -22,7 +22,7 @@ export const doSelectIdxAtom = atom(
             newItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
             set(fceCtx.selectedItemAtom, newItem);
-            setSelectedProps({ fceCtx: fceCtx, selectedItem: newItem, get, set });
+            setSelectedProps({ fceCtx, selectedItem: newItem, get, set });
         }
 
         if (doubleClick) {
