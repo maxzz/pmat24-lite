@@ -56,14 +56,14 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
 }
 
 function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, changed: boolean, changePrefix: string, uuid: number) {
-    const { fceCtx, name, nextValue } = ctx;
+    const { fceCtx/*, name, nextValue*/ } = ctx;
 
     if (!fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
         return;
     }
 
     const curr = selectedItem.fieldValue;
-    const next = nextValue as ValueLife;
+    // const next = nextValue as ValueLife;
 
     const fmt = new ConsoleStyles();
 
@@ -75,13 +75,13 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
 
     console.log(...fmt.toFormated(''));
 
-    // OK
-    // function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
-    //     const { value, valueAs, isRef, isNon } = valueLife;
-    //     out.add({ name: ' valueAs:',  /**/ value: valueAs2Str(valueAs),      /**/ cValue: 'color: #8eacf8' });
-    //     out.add({ name: ', value:',    /**/ value: `'${value}'`,              /**/ cValue: 'color: #8eacf8' });
-    //     out.add({ name: ', isRef:',    /**/ value: isRef ? 'true ' : 'false', /**/ cValue: isRef ? 'color: #00a000' : 'color: #ababab' });
-    //     out.add({ name: ', isNon:',    /**/ value: isNon ? 'true ' : 'false', /**/ cValue: isNon ? 'color: #00a000' : 'color: #ababab' });
-    //     return out;
-    // }
+}
+
+function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
+    const { value, valueAs, isRef, isNon } = valueLife;
+    out.add({ name: ' valueAs:',  /**/ value: valueAs2Str(valueAs),      /**/ cValue: 'color: #8eacf8' });
+    out.add({ name: ', value:',    /**/ value: `'${value}'`,              /**/ cValue: 'color: #8eacf8' });
+    out.add({ name: ', isRef:',    /**/ value: isRef ? 'true ' : 'false', /**/ cValue: isRef ? 'color: #00a000' : 'color: #ababab' });
+    out.add({ name: ', isNon:',    /**/ value: isNon ? 'true ' : 'false', /**/ cValue: isNon ? 'color: #00a000' : 'color: #ababab' });
+    return out;
 }
