@@ -67,13 +67,13 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
 
     const fmt = new ConsoleStyles();
 
-    fmt.add({ name: 'change: ', value: `'${changePrefix}'`, cValue: 'color: #ea900a' });
+    fmt.add({ name: 'fceItem.change:', value: `'${changePrefix}'`, cValue: 'color: #ea900a' });
     fmt.add({ name: ', changed:', value: changed ? 'true, ' : 'false,', cValue: changed ? 'color: #00a000' : 'color: #ababab' });
     valueLife2Styles(curr, fmt);
     fmt.add({ name: ', dbid:', value: `${curr.dbname}` });
     fmt.add({ name: ', disp:', value: `'${curr.displayname}'`, cValue: 'color: #8eacf8' });
 
-    console.log(...fmt.toFormated("curr: "));
+    console.log(...fmt.toFormated(''));
 
     function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
         const { value, valueAs, isRef, isNon } = valueLife;
