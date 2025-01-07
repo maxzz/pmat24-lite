@@ -57,7 +57,7 @@ function setSelectedProps({ fceCtx, selectedItem, get, set }: { fceCtx: FceCtx; 
 
     set(nameAtom, selectedItem?.fieldValue.displayname || '');
     set(ownernoteAtom, selectedItem?.fieldValue.ownernote || '');
-    set(valueLifeAtom, selectedItem?.fieldValue || emptyValueLife);
+    set(valueLifeAtom, selectedItem?.fieldValue || emptyValueLife); // Here instead of setting ValueLife only we set FceItemValue that contains ValueLife.
 }
 
 /**

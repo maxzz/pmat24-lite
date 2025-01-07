@@ -51,58 +51,58 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
 
     if (changePrefix) {
         setFileUsChangeFlag(fceCtx.fceAtoms, changed, `${changePrefix}-${uuid}`);
+        printItemChanges(selectedItem, ctx, changed, uuid);
     }
-
-    printItemChanges(selectedItem, ctx, changed, uuid);
 }
 
 function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, changed: boolean, uuid: number) {
     const { fceCtx, name, nextValue } = ctx;
 
-    if (fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
-
-        // 1.
-        // const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
-        // let s = JSON.stringify({ name, changed, fileChanged, uuid }, null, 2);
-        // s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
-        // console.log('FcePropChanges', s);
-
-        // 2.
-        const curr = selectedItem.fieldValue;
-        const next = nextValue as ValueLife;
-
-        // console.log(...valueLife2Styles(curr).toFormated('curr'));
-        // console.log(...valueLife2Styles(next).toFormated('next'));
-
-        // OK
-        // const stylesCurr = valueLife2Styles(curr);
-        // const stylesNext = valueLife2Styles(next);
-
-        // const final = [
-        //     `${stylesCurr.toFormat()}${stylesNext.toFormat()}`,
-        //     ...stylesCurr.toStyles(),
-        //     ...stylesNext.toStyles(),
-        //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
-        // ];
-        // console.log(...final);
-
-        // OK
-        // const final = [
-        //     ...valueLife2Styles(curr).toFormated('curr'),
-        //     '\n',
-        //     ...valueLife2Styles(next).toFormated('next'),
-        //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
-        // ];
-        // console.log(...final);
-
-        // OK
-        // console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
-
-        // OK
-        console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`, {next});
-        console.log(...valueLife2Styles(curr).toFormated('    curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
-      //console.log(...valueLife2Styles(next).toFormated('    next'), `${next.displayname}, dbname: ${next.dbname}`);
+    if (!fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {
+        return;
     }
+
+    // 1.
+    // const fileChanged = hasFileUsAnyChanges(fceCtx.fceAtoms);
+    // let s = JSON.stringify({ name, changed, fileChanged, uuid }, null, 2);
+    // s += JSON.stringify({ current: selectedItem.fieldValue, nextValue }, null, 2);
+    // console.log('FcePropChanges', s);
+
+    // 2.
+    const curr = selectedItem.fieldValue;
+    const next = nextValue as ValueLife;
+
+    // console.log(...valueLife2Styles(curr).toFormated('curr'));
+    // console.log(...valueLife2Styles(next).toFormated('next'));
+
+    // OK
+    // const stylesCurr = valueLife2Styles(curr);
+    // const stylesNext = valueLife2Styles(next);
+
+    // const final = [
+    //     `${stylesCurr.toFormat()}${stylesNext.toFormat()}`,
+    //     ...stylesCurr.toStyles(),
+    //     ...stylesNext.toStyles(),
+    //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
+    // ];
+    // console.log(...final);
+
+    // OK
+    // const final = [
+    //     ...valueLife2Styles(curr).toFormated('curr'),
+    //     '\n',
+    //     ...valueLife2Styles(next).toFormated('next'),
+    //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
+    // ];
+    // console.log(...final);
+
+    // OK
+    // console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
+
+    // OK
+    console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`, { next });
+    console.log(...valueLife2Styles(curr).toFormated('    curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
+  //console.log(...valueLife2Styles(next).toFormated('    next'), `${next.displayname}, dbname: ${next.dbname}`);
 }
 
 function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
