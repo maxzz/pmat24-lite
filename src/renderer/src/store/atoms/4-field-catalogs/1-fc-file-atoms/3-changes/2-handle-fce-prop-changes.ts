@@ -34,19 +34,19 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
             selectedItem.fieldValue.ownernote = ownernote;
             break;
         }
-        case 'valueLifeAtom': {
-            changePrefix = 'life';
-            const valueLife = nextValue as ValueLife;
-            changed = !sameValueLife(valueLife, beforeEdit);
+        // case 'valueLifeAtom': { // this not part of fc anymore
+        //     changePrefix = 'life';
+        //     const valueLife = nextValue as ValueLife;
+        //     changed = !sameValueLife(valueLife, beforeEdit);
 
-            const { value, valueAs, isRef, fType, isNon } = valueLife;
-            selectedItem.fieldValue.value = value;
-            selectedItem.fieldValue.valueAs = valueAs;
-            selectedItem.fieldValue.isRef = isRef;
-            selectedItem.fieldValue.fType = fType;
-            selectedItem.fieldValue.isNon = isNon;
-            break;
-        }
+        //     const { value, valueAs, isRef, fType, isNon } = valueLife;
+        //     selectedItem.fieldValue.value = value;
+        //     selectedItem.fieldValue.valueAs = valueAs;
+        //     selectedItem.fieldValue.isRef = isRef;
+        //     selectedItem.fieldValue.fType = fType;
+        //     selectedItem.fieldValue.isNon = isNon;
+        //     break;
+        // }
     }
 
     if (changePrefix) {
@@ -74,7 +74,6 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
     fmt.add({ name: ', disp:', value: `'${curr.displayname}'`, cValue: 'color: #8eacf8' });
 
     console.log(...fmt.toFormated(''));
-
 }
 
 function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
