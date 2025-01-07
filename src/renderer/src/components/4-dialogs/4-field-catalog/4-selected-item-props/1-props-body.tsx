@@ -31,14 +31,14 @@ export function SelectedItemPropsBody({ fceCtx }: { fceCtx: FceCtx; }) {
             />
         </NewLabel>
 
-        <NewLabel label="Value" className={allClasses}>
+        {/* <NewLabel label="Value" className={allClasses}>
             <PropValue
                 className="w-max"
                 disabled={!hasSelected}
                 parentDisabled={!hasSelected}
                 fceCtx={fceCtx}
             />
-        </NewLabel>
+        </NewLabel> */}
 
         <NewLabel label="Description" className={allClasses}>
             <PropTextarea
