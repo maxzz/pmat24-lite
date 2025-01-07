@@ -13,8 +13,8 @@ export class ConsoleStyles {
     colors: string[] = [];
     items: string[] = [];
 
-    defaultColorName = 'color: gray';
-    defaultColorValue = 'color: #d58e00';
+    defaultColorName = 'color: #7c7c7c';
+    defaultColorValue = 'color: #ababab'; // #d58e00 #8eacf8
     
     constructor(colorName?: string, colorValue?: string) {
         this.defaultColorName = colorName || this.defaultColorName;

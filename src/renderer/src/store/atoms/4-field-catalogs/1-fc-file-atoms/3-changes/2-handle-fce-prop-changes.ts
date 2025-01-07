@@ -66,48 +66,20 @@ function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, chang
     const next = nextValue as ValueLife;
 
     const fmt = new ConsoleStyles();
+
     fmt.add({ name: 'changed: ', value: `'${changePrefix}'`, cValue: 'color: #ea900a' });
     valueLife2Styles(curr, fmt);
-    console.log(...fmt.toFormated("curr:\n"), `, disp:'${curr.displayname}', dbid: ${curr.dbname}`);
+    fmt.add({ name: ', dbid:', value: `${curr.dbname}` });
+    fmt.add({ name: ', disp:', value: `'${curr.displayname}'`, cValue: 'color: #8eacf8' });
 
-    // console.log(...valueLife2Styles(curr).toFormated('curr'));
-    // console.log(...valueLife2Styles(next).toFormated('next'));
+    console.log(...fmt.toFormated("curr: "));
 
-    // OK
-    // const stylesCurr = valueLife2Styles(curr);
-    // const stylesNext = valueLife2Styles(next);
-
-    // const final = [
-    //     `${stylesCurr.toFormat()}${stylesNext.toFormat()}`,
-    //     ...stylesCurr.toStyles(),
-    //     ...stylesNext.toStyles(),
-    //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
-    // ];
-    // console.log(...final);
-
-    // OK
-    // const final = [
-    //     ...valueLife2Styles(curr).toFormated('curr'),
-    //     '\n',
-    //     ...valueLife2Styles(next).toFormated('next'),
-    //     `displayname: ${selectedItem.fieldValue.displayname}, dbname: ${selectedItem.fieldValue.dbname}`
-    // ];
-    // console.log(...final);
-
-    // OK
-    // console.table({ current: curr, nextValue: next }, ['displayname', 'dbname', 'valueAs' ]);
-
-    // OK
-    // console.log(`FcePropChanges: displayname: ${curr.displayname}, dbname: ${curr.dbname}`, { next });
-    // console.log(...valueLife2Styles(curr).toFormated('    curr'), `${curr.displayname}, dbname: ${curr.dbname}`);
-  //console.log(...valueLife2Styles(next).toFormated('    next'), `${next.displayname}, dbname: ${next.dbname}`);
-}
-
-function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
-    const { value, valueAs, isRef, isNon } = valueLife;
-    out.add({ name: ', valueAs:',  /**/ value: valueAs2Str(valueAs),      /**/ cValue: 'color: #8eacf8' });
-    out.add({ name: ', value:',    /**/ value: `'${value}'`,              /**/ cValue: 'color: #8eacf8' });
-    out.add({ name: ', isRef:',    /**/ value: isRef ? 'true ' : 'false', /**/ cValue: isRef ? 'color: #00a000' : 'color: #ababab' });
-    out.add({ name: ', isNon:',    /**/ value: isNon ? 'true ' : 'false', /**/ cValue: isNon ? 'color: #00a000' : 'color: #ababab' });
-    return out;
+    function valueLife2Styles(valueLife: ValueLife, out: ConsoleStyles = new ConsoleStyles()): ConsoleStyles {
+        const { value, valueAs, isRef, isNon } = valueLife;
+        out.add({ name: ', valueAs:',  /**/ value: valueAs2Str(valueAs),      /**/ cValue: 'color: #8eacf8' });
+        out.add({ name: ', value:',    /**/ value: `'${value}'`,              /**/ cValue: 'color: #8eacf8' });
+        out.add({ name: ', isRef:',    /**/ value: isRef ? 'true ' : 'false', /**/ cValue: isRef ? 'color: #00a000' : 'color: #ababab' });
+        out.add({ name: ', isNon:',    /**/ value: isNon ? 'true ' : 'false', /**/ cValue: isNon ? 'color: #00a000' : 'color: #ababab' });
+        return out;
+    }
 }
