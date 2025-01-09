@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Step } from "./1-steps-line";
 
-export function Demo() {
+export function StepsDemo() {
     let [step, setStep] = useState(1);
 
     return (
@@ -39,7 +39,7 @@ export function Demo() {
                         </button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     );

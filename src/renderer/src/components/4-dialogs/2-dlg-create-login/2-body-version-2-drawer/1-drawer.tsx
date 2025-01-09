@@ -4,6 +4,7 @@ import { Button } from "@ui/shadcn/button";
 import { SymbolDot } from "@/ui/icons";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
+import { StepsDemo } from "../8-ui";
 
 const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
 const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
@@ -11,6 +12,9 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 function DrawerItems() {
     return (
         <div className="text-xs px-1">
+            
+            <StepsDemo />
+
             <ButtonCreateFormSelector triggerLabel="Create new manifest" />
         </div>
     );
