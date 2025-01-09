@@ -1,6 +1,6 @@
-import { CreateManiDialog } from "../1-body-first-page";
-import { CreateManiSecondDialog } from "../2-body-second-page";
-import { ManiDrawer } from "../2-body-second-page/1-drawer";
+import { CreateManiDialog } from "../1-body-version-1-dialog";
+import { CreateManiSecondDialog } from "../2-body-version-2-drawer";
+import { ManiDrawer } from "../2-body-version-2-drawer/1-drawer";
 
 export function ManiCreateDialogs() {
     return (<>
