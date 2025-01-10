@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Step } from "./1-steps-line";
+import { Step } from "./1-steps-dot";
 
 export function StepsDemo() {
     let [step, setStep] = useState(1);

@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Step } from "./1-steps-line";
+import { Step } from "./1-steps-dot";
+import { StepConnector } from "./2-steps-line";
 
 export function StepsDemo2() {
     let [step, setStep] = useState(1);
     return (
         <div className={containerClasses}>
 
-            <div className="flex justify-between rounded p-8">
-                <Step step={1} currentStep={step} />
-                <Step step={2} currentStep={step} />
-                <Step step={3} currentStep={step} />
+            <div className="flex items-center justify-between rounded p-8">
+                <Step step={1} currentStep={step} /> <StepConnector step={1} currentStep={step} />
+                <Step step={2} currentStep={step} /> <StepConnector step={2} currentStep={step} />
+                <Step step={3} currentStep={step} /> <StepConnector step={3} currentStep={step} />
                 <Step step={4} currentStep={step} />
             </div>
 
@@ -41,7 +42,7 @@ p-4 \
 min-w-96 \
 min-h-full \
 \
-bg-green-300/20 \
+bg-background \
 1backdrop-blur-xl \
 1sm:aspect-[4/3] \
 1md:aspect-[2/1] \
