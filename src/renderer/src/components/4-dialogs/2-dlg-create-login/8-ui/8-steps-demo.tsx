@@ -3,10 +3,9 @@ import { Step } from "./1-steps-line";
 
 export function StepsDemo() {
     let [step, setStep] = useState(1);
-
     return (
-        <div className="flex min-h-full flex-1 flex-col items-center justify-center bg-gray-900/90 p-4 backdrop-blur-xl sm:aspect-[4/3] md:aspect-[2/1]">
-            <div className="mx-auto w-full max-w-md rounded-lg bg-white shadow-xl">
+        <div className={containerClasses}>
+            <div className={container2Classes}>
 
                 <div className="flex justify-between rounded p-8">
                     <Step step={1} currentStep={step} />
@@ -26,14 +25,14 @@ export function StepsDemo() {
                     <div className="mt-10 flex justify-between">
                         <button
                             onClick={() => setStep(step < 2 ? step : step - 1)}
-                            className={`${step === 1 ? "pointer-events-none opacity-50" : ""} duration-350 rounded px-2 py-1 text-neutral-400 transition hover:text-neutral-700`}
+                            className={`${step === 1 ? "pointer-events-none opacity-50" : ""} ${prevButtonClasses}`}
                         >
                             Back
                         </button>
 
                         <button
                             onClick={() => setStep(step > 4 ? step : step + 1)}
-                            className={`${step > 4 ? "pointer-events-none opacity-50" : ""} bg duration-350 flex items-center justify-center rounded-full bg-blue-500 py-1.5 px-3.5 font-medium tracking-tight text-white transition hover:bg-blue-600 active:bg-blue-700`}
+                            className={`${step > 4 ? "pointer-events-none opacity-50" : ""} ${nextButtonClasses}`}
                         >
                             Continue
                         </button>
@@ -44,3 +43,20 @@ export function StepsDemo() {
         </div>
     );
 }
+
+const containerClasses = "flex \
+flex-1 \
+p-4 \
+min-h-full \
+bg-gray-900/90 \
+backdrop-blur-xl \
+sm:aspect-[4/3] \
+md:aspect-[2/1] \
+flex-col items-center justify-center \
+";
+
+const container2Classes = "mx-auto w-full max-w-md rounded-lg bg-white shadow-xl";
+
+const prevButtonClasses = "duration-350 rounded px-2 py-1 text-neutral-400 transition hover:text-neutral-700";
+
+const nextButtonClasses = "duration-350 flex items-center justify-center rounded-full bg-blue-500 py-1.5 px-3.5 font-medium tracking-tight text-white transition hover:bg-blue-600 active:bg-blue-700";

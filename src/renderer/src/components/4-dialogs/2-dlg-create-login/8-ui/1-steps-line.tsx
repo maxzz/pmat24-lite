@@ -8,7 +8,6 @@ export function Step({ step, currentStep }: { step: number; currentStep: number;
             : currentStep < step
                 ? "inactive"
                 : "complete";
-
     return (
         <motion.div animate={status} className="relative">
             <motion.div
@@ -26,6 +25,7 @@ export function Step({ step, currentStep }: { step: number; currentStep: number;
             />
 
             <motion.div
+                className="relative flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold"
                 initial={false}
                 variants={{
                     inactive: {
@@ -45,14 +45,12 @@ export function Step({ step, currentStep }: { step: number; currentStep: number;
                     },
                 }}
                 transition={{ duration: 0.2 }}
-                className="relative flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold"
             >
                 <div className="flex items-center justify-center">
-                    {status === "complete" ? (
-                        <CheckIcon className="h-6 w-6 text-white" />
-                    ) : (
-                        <span>{step}</span>
-                    )}
+                    {status === "complete"
+                        ? <CheckIcon className="h-6 w-6 text-white" />
+                        : <span>{step}</span>
+                    }
                 </div>
             </motion.div>
         </motion.div>
