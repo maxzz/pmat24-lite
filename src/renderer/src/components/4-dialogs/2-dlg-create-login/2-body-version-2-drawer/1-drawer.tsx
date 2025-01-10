@@ -5,6 +5,7 @@ import { SymbolDot } from "@/ui/icons";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 import { StepsDemo, StepsDemo2 } from "../8-ui";
+import { TimelineDemo } from "../8-ui/4-timeline-demo";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -36,6 +37,7 @@ function DrawerBody() {
     return (
         <div className="grid place-content-center gap-4">
             <StepsDemo2 />
+            <TimelineDemo />
 
             <div className="text-xs px-1">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
