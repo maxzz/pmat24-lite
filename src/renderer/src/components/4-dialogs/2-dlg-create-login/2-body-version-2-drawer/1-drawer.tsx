@@ -6,20 +6,6 @@ import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 import { StepsDemo } from "../8-ui";
 
-const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
-const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
-
-function DrawerItems() {
-    return (
-        <div className="text-xs px-1">
-            
-            <StepsDemo />
-
-            <ButtonCreateFormSelector triggerLabel="Create new manifest" />
-        </div>
-    );
-}
-
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
     return (
@@ -36,9 +22,24 @@ export function ManiDrawer() {
                 hiddenTitle="Page 2"
             >
                 <div className="h-full grid place-content-center">
-                    <DrawerItems />
+                    <DrawerBody />
                 </div>
             </D.DrawerContent>
         </D.Drawer>
+    );
+}
+
+const popupContentDotClasses = "w-3 h-3 inline fill-foreground/70 stroke-foreground/50 stroke-2";
+const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight w-8";
+
+function DrawerBody() {
+    return (
+        <div className="grid place-content-center gap-4">
+            <StepsDemo />
+
+            <div className="text-xs px-1">
+                <ButtonCreateFormSelector triggerLabel="Create new manifest" />
+            </div>
+        </div>
     );
 }
