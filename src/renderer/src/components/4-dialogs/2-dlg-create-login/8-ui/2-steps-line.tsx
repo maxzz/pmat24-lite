@@ -9,21 +9,21 @@ export function StepConnector({ step, currentStep }: { step: number; currentStep
         <motion.div animate={status}
             className={lineClasses}
             variants={lineVariants}
-            transition={{ duration: 0.6, delay: 0.2, type: "tween", ease: "circOut", }}
+            // transition={{ duration: 0.6, delay: 0.2, type: "tween", ease: "circOut", }}
         />
     );
 }
 
 const lineClasses = "\
-relative w-12 h-1 \
+relative mx-1.5 w-12 h-1 \
 bg-blue-200 \
 -1z-10 \
 ";
 
 const lineVariants = {
     inactive: {
-        backgroundColor: "#fff", // neutral
-        transition: { delay: 0, duration: 1.2, },
+        backgroundColor: "transparent", // neutral
+        transition: { delay: 0, duration: 0.7, },
     },
     complete: {
         backgroundColor: "#3b82f6", // blue-500
