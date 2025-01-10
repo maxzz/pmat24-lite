@@ -44,19 +44,45 @@ export function StepsDemo() {
     );
 }
 
-const containerClasses = "flex \
+const containerClasses = "\
 flex-1 \
 p-4 \
+min-w-96 \
 min-h-full \
-bg-gray-900/90 \
-backdrop-blur-xl \
-sm:aspect-[4/3] \
-md:aspect-[2/1] \
-flex-col items-center justify-center \
+\
+bg-green-500/40 \
+1backdrop-blur-xl \
+1sm:aspect-[4/3] \
+1md:aspect-[2/1] \
+\
+flex flex-col items-center justify-center \
 ";
 
 const container2Classes = "mx-auto w-full max-w-md rounded-lg bg-white shadow-xl";
 
-const prevButtonClasses = "duration-350 rounded px-2 py-1 text-neutral-400 transition hover:text-neutral-700";
+const prevButtonClasses = "\
+duration-350 \
+rounded \
+px-2 \
+py-1 \
+text-neutral-400 \
+transition \
+hover:text-neutral-700 \
+";
 
-const nextButtonClasses = "duration-350 flex items-center justify-center rounded-full bg-blue-500 py-1.5 px-3.5 font-medium tracking-tight text-white transition hover:bg-blue-600 active:bg-blue-700";
+const nextButtonClasses = "\
+duration-350 \
+flex \
+items-center \
+justify-center \
+rounded-full \
+bg-blue-500 \
+py-1.5 \
+px-3.5 \
+font-medium \
+tracking-tight \
+text-white \
+transition \
+hover:bg-blue-600 \
+active:bg-blue-700 \
+";
