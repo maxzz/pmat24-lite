@@ -23,26 +23,22 @@ export function Step({ idx, label, isLast, status }: StepProps) {
     const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
     const Icon = statusIcon(idx, status);
     return (
-        <div className="w-full flex items-start justify-between gap-4 [--size:40px] [--pt:8px]"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
+        <div className="flex items-start gap-4 [--size:40px] [--pt:8px] debug"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
+            <div className="flex flex-col items-center">
 
-            <div className="flex items-start gap-4">
-                <div className="flex flex-col items-center">
-
-                    <div className="relative size-[calc(var(--size))]">
-                        <div className={`absolute inset-0 rounded-full ${classes.circleBorderClasses}`} />
-                        <div className={`absolute inset-1 rounded-full ${classes.circleClasses} flex items-center justify-center`}>
-                            {Icon}
-                        </div>
+                <div className="relative size-[calc(var(--size))]">
+                    <div className={`absolute inset-0 rounded-full ${classes.circleBorderClasses}`} />
+                    <div className={`absolute inset-1 rounded-full ${classes.circleClasses} flex items-center justify-center`}>
+                        {Icon}
                     </div>
-
-                    {!isLast && <div className={`-mb-4 w-[2px] h-10 ${lineClasses}`} />}
                 </div>
 
-                <div className="flex-1 pt-[var(--pt)]">
-                    <p className="text-sm font-medium">{label}</p>
-                </div>
+                {!isLast && <div className={`-mb-4 w-[2px] h-10 ${lineClasses}`} />}
             </div>
 
+            <div className="flex-1 pt-[var(--pt)]">
+                <p className="text-sm font-medium">{label}</p>
+            </div>
         </div>
     );
 }

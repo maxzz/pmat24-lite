@@ -11,12 +11,12 @@ const stepItems: StepItem[] = [
         </div>
     }, {
         label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">Select fields and submit</div>
-            <div className="text-xs">Select fields to train</div>
+            <div className="font-semibold">Fields and submit</div>
+            <div className="text-xs">Select fields and submit</div>
         </div>
     }, {
         label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">options</div>
+            <div className="font-semibold">Options</div>
             <div className="text-xs">Customize options of the new manifest</div>
         </div>
     }, {
