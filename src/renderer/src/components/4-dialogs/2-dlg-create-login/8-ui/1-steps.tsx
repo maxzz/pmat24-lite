@@ -2,6 +2,7 @@ import { ComponentProps, type ReactNode } from "react";
 import { atom, useAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { StatusEnum, Step, type StepItem } from "./2-step";
+import { classNames } from "@/utils";
 
 const stepItems: StepItem[] = [
     {
@@ -29,13 +30,10 @@ const stepItems: StepItem[] = [
 
 const currentStepAtom = atom(1);
 
-/**
- * Former Timeline5WithAI from shadch-tv
- */
-export function LeftPanelProgress(props: ComponentProps<"div">) {
+export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
-        <div className="bg-muted/20 flex flex-col items-start gap-4"{...props}>
+        <div className={classNames("bg-muted/20 flex flex-col items-start gap-4 debug", className)} {...rest}>
             {stepItems.map((item, idx) => {
                 const status =
                     idx < currentStep
@@ -44,7 +42,13 @@ export function LeftPanelProgress(props: ComponentProps<"div">) {
                             ? StatusEnum.current
                             : StatusEnum.notStarted;
                 return (
-                    <Step idx={idx} label={item.label} isLast={idx === stepItems.length - 1} status={status} key={idx} />
+                    <Step
+                        idx={idx}
+                        label={item.label}
+                        isLast={idx === stepItems.length - 1}
+                        status={status}
+                        key={idx}
+                    />
                 );
             })}
         </div>
@@ -54,7 +58,7 @@ export function LeftPanelProgress(props: ComponentProps<"div">) {
 export function TestButtons() {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
-        <div className="flex items-center justify-end gap-1">
+        <div className="px-4 flex items-center justify-end gap-1">
             <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s - 1)} disabled={currentStep < 0}>
                 Prev
             </Button>

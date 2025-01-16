@@ -1,11 +1,11 @@
-import { classNames } from "@/utils";
 import type { ReactNode, SVGAttributes } from "react";
+import { classNames } from "@/utils";
 
 export type StepItem = {
     label: ReactNode;
 };
 
-export const enum StatusEnum {
+export const enum StatusEnum { // Former Timeline5WithAI from shadch-tv
     complete = "Completed",
     current = "In Progress", // i.e. in progress
     notStarted = "Not Started",
@@ -23,7 +23,7 @@ export function Step({ idx, label, isLast, status }: StepProps) {
     const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
     const Icon = statusIcon(idx, status);
     return (
-        <div className="flex items-start gap-4 [--size:40px] [--pt:8px] debug"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
+        <div className="flex items-start gap-4 [--size:40px] [--pt:8px]"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
             <div className="flex flex-col items-center">
 
                 <div className="relative size-[calc(var(--size))]">
