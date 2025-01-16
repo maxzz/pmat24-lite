@@ -1,4 +1,4 @@
-import { type ReactNode, type SVGAttributes } from "react";
+import { ComponentProps, type ReactNode, type SVGAttributes } from "react";
 import { atom, useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui/shadcn";
@@ -25,10 +25,10 @@ const currentStepAtom = atom(1);
 /**
  * Former Timeline5WithAI from shadch-tv
  */
-export function Timeline5WithAI() {
+export function Timeline5WithAI(props: ComponentProps<"div">) {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
-        <div className="my-4 flex flex-col gap-2 1debug">
+        <div className="my-4 flex flex-col gap-2 1debug" {...props}>
 
             <div className="p-4 bg-muted/20 flex flex-col items-start gap-4">
                 {stepItems.map((item, idx) => {

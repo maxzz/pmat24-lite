@@ -21,7 +21,7 @@ export function ManiDrawer() {
                 withoutOverlay
                 hiddenTitle="Page 2"
             >
-                <div className="h-full grid place-content-center">
+                <div className="h-full grid 1place-content-center">
                     <DrawerBody />
                 </div>
             </D.DrawerContent>
@@ -36,7 +36,7 @@ function DrawerBody() {
     return (
         <div className="grid grid-cols-[auto_1fr] gap-4 p-4">
             {/* <StepsDemo2 /> */}
-            <Timeline5WithAI className="w-full" />
+            <Timeline5WithAI className="self-center" />
 
             <div className="text-xs px-1">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
