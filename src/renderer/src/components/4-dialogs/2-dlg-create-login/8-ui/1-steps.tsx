@@ -25,7 +25,7 @@ const currentStepAtom = atom(1);
 /**
  * Former Timeline5WithAI from shadch-tv
  */
-export function Timeline5WithAI(props: ComponentProps<"div">) {
+export function LeftPanelProgress(props: ComponentProps<"div">) {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
         <div className="my-4 flex flex-col gap-2 1debug" {...props}>
@@ -114,7 +114,7 @@ function Step({ idx, label, isLast, status }: StepProps) {
                     <p className="text-sm font-medium">{label}</p>
                 </div>
             </div>
-            
+
         </div>
     );
 }
