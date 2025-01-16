@@ -34,11 +34,11 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="grid grid-cols-[auto_1fr] gap-4 p-4">
+        <div className="px-4 grid grid-cols-[auto_1fr] gap-4">
             {/* <StepsDemo2 /> */}
             <Timeline5WithAI className="self-center" />
 
-            <div className="text-xs px-1">
+            <div className="-my-4 px-4 text-xs border-l border-red-500 grid place-content-center">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
             </div>
         </div>

@@ -56,19 +56,6 @@ export function Timeline5WithAI(props: ComponentProps<"div">) {
     );
 }
 
-type StepClasses = {
-    circleClasses: string;
-    circleBorderClasses: string;
-    statusClasses: string;
-};
-
-type StepClasses2 = {
-    started: StepClasses;
-    notStarted: StepClasses;
-};
-
-const acsentColor = "#5c90f0";
-
 const stepClasses = {
     started: {
         circleClasses: "text-background bg-[#5c90f0]",
@@ -80,7 +67,7 @@ const stepClasses = {
         circleBorderClasses: "bg-foreground/10",
         statusClasses: "text-foreground/50",
     },
-} as StepClasses2;
+};
 
 const lineStepClasses = {
     complete: "bg-[#5c90f0]",
@@ -127,8 +114,7 @@ function Step({ idx, label, isLast, status }: StepProps) {
                     <p className="text-sm font-medium">{label}</p>
                 </div>
             </div>
-
-            <div className={`pt-[var(--pt)] text-sm font-medium ${classes.statusClasses}`}>{status}</div>
+            
         </div>
     );
 }
