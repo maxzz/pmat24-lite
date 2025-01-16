@@ -6,7 +6,7 @@ import { StatusEnum, Step, type StepItem } from "./2-step";
 const stepItems: StepItem[] = [
     {
         label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">Pick application</div>
+            <div className="text-sm font-semibold">Pick application</div>
             <div className="text-xs">Select application to train</div>
         </div>
     }, {
