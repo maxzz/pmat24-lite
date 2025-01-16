@@ -1,17 +1,7 @@
 import { ComponentProps, type ReactNode } from "react";
 import { atom, useAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
-import { Step } from "./2-step";
-
-type StepItem = {
-    label: ReactNode;
-};
-
-export const enum StatusEnum {
-    Completed = "Completed",
-    InProgress = "In Progress",
-    NotStarted = "Not Started",
-}
+import { StatusEnum, Step, type StepItem } from "./2-step";
 
 const stepItems: StepItem[] = [
     { label: "Pick application", },

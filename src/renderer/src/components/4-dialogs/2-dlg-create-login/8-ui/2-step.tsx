@@ -1,38 +1,32 @@
 import { classNames } from "@/utils";
 import type { ReactNode, SVGAttributes } from "react";
-import { StatusEnum } from "./1-steps";
 
-const stepClasses = {
-    started: {
-        circleClasses: "text-background bg-[#5c90f0]",
-        circleBorderClasses: "bg-[#5c90f0]/50",
-        statusClasses: "text-foreground",
-    },
-    notStarted: {
-        circleClasses: "text-foreground",
-        circleBorderClasses: "bg-foreground/10",
-        statusClasses: "text-foreground/50",
-    },
+export type StepItem = {
+    label: ReactNode;
 };
-const lineStepClasses = {
-    complete: "bg-[#5c90f0]",
-    incomplete: "bg-[#5c90f0]/20",
-};
+
+export const enum StatusEnum {
+    Completed = "Completed",
+    InProgress = "In Progress",
+    NotStarted = "Not Started",
+}
+
 type StepProps = {
     idx: number;
     label: ReactNode;
     isLast?: boolean;
-    status: ReactNode;
+    status: StatusEnum;
 };
+
 export function Step({ idx, label, isLast, status }: StepProps) {
-    const classes = status !== StatusEnum.NotStarted ? stepClasses.started : stepClasses.notStarted;
+    const classes = status !== StatusEnum.NotStarted ? stepClasses.complete : stepClasses.notStarted;
     const lineClasses = status === StatusEnum.Completed ? lineStepClasses.complete : lineStepClasses.incomplete;
 
-    const Icon = status === "Completed"
+    const Icon = status === StatusEnum.Completed
         ? <CheckIcon className="size-4" />
-        : status === "In Progress"
+        : status === StatusEnum.InProgress
             ? <LoaderIcon className="size-4 1animate-spin" />
-            : status === "Not Started"
+            : status === StatusEnum.NotStarted
                 ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
                 : null;
 
@@ -60,6 +54,25 @@ export function Step({ idx, label, isLast, status }: StepProps) {
         </div>
     );
 }
+
+const stepClasses = {
+    complete: {
+        circleClasses: "text-background bg-[#5c90f0]",
+        circleBorderClasses: "bg-[#5c90f0]/50",
+        statusClasses: "text-foreground",
+    },
+    notStarted: {
+        circleClasses: "text-foreground",
+        circleBorderClasses: "bg-foreground/10",
+        statusClasses: "text-foreground/50",
+    },
+};
+
+const lineStepClasses = {
+    complete: "bg-[#5c90f0]",
+    incomplete: "bg-[#5c90f0]/20",
+};
+
 function CheckIcon({ className, ...rest }: SVGAttributes<SVGElement>) {
     return (
         <svg
@@ -73,6 +86,7 @@ function CheckIcon({ className, ...rest }: SVGAttributes<SVGElement>) {
         </svg>
     );
 }
+
 function LoaderIcon({ className, ...rest }: SVGAttributes<SVGElement>) {
     return (
         <svg
