@@ -34,7 +34,7 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="grid place-content-center gap-4">
+        <div className="grid grid-cols-[auto_1fr] gap-4 p-4">
             <StepsDemo2 />
 
             <div className="text-xs px-1">
