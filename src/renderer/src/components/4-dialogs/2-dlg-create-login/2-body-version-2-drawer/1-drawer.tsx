@@ -1,10 +1,8 @@
 import { useAtom } from "jotai";
 import * as D from "@ui/shadcn/drawer";
-import { Button } from "@ui/shadcn/button";
-import { SymbolDot } from "@/ui/icons";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
-import { StepsDemo, StepsDemo2, Timeline5WithAI } from "../8-ui";
+import { Timeline5WithAI } from "../8-ui";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -17,9 +15,9 @@ export function ManiDrawer() {
             </D.DrawerTrigger> */}
 
             <D.DrawerContent
-                className="mt-0 py-4 w-full h-full max-w-3xl rounded outline-none"
+                className="w-full h-full max-w-3xl rounded outline-none"
                 withoutOverlay
-                hiddenTitle="Page 2"
+                hiddenTitle="Create manifest"
             >
                 <div className="h-full grid 1place-content-center">
                     <DrawerBody />
@@ -34,11 +32,12 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="px-4 grid grid-cols-[auto_1fr] gap-4">
-            {/* <StepsDemo2 /> */}
-            <Timeline5WithAI className="self-center" />
+        <div className="grid grid-cols-[auto_1fr]">
+            <div className="bg-muted">
+                <Timeline5WithAI className="" />
+            </div>
 
-            <div className="-my-4 px-4 text-xs border-l border-red-500 grid place-content-center">
+            <div className="-my-4 px-4 text-xs border-l border-border grid place-content-center">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
             </div>
         </div>
