@@ -14,21 +14,16 @@ const enum StatusEnum {
 }
 
 const stepItems: StepItem[] = [
-    { label: "Fetching inspiration", },
-    { label: "Applying your styles", },
-    { label: "Making modifications", },
-    { label: "Final touches", },
+    { label: "Pick application", },
+    { label: "Select fields and submit", },
+    { label: "Name and options", },
+    { label: "Save", },
 ];
 
 const currentStepAtom = atom(1);
 
 /**
- * v0 by Vercel.
- * @see https://v0.dev/t/k3pVcsueP80
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- * Prompt: A multi-step loading screen, where the steps are arranged vertically. Each step has a small circle on the left, followed by a one-line description of the text, and a status indicator on the right. The left-hand circles are connected by a thin line that becomes colored-in once the step is complete. Display the loading indicator with 4 steps, where the first is complete, the second is in-progress, and the third and fourth haven't started.
- * tm: https://v0.dev/chat/custom-loading-screen-UzCA6zSiGUB
- * Prompt tm: A multi-step loading screen, where the steps are arranged vertically if there is enough height in the parent container otherwise horizontally. Each step has a small circle on the left, followed by a one-line description of the text, and a status indicator on the right. The left-hand circles are connected by a thin line that becomes colored-in once the step is complete. Display the loading indicator with 4 steps, where the first is complete, the second is in-progress, and the third and fourth haven't started. Make each step as a component customized by params.
+ * Former Timeline5WithAI from shadch-tv
  */
 export function Timeline5WithAI() {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
@@ -113,7 +108,7 @@ function Step({ idx, label, isLast, status }: StepProps) {
                     : null;
 
     return (
-        <div className="flex items-start justify-between gap-4 w-96 [--size:32px] [--pt:4px]"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
+        <div className="w-full flex items-start justify-between gap-4 [--size:32px] [--pt:4px]"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
 
             <div className="flex items-start gap-4">
                 <div className="flex flex-col items-center">

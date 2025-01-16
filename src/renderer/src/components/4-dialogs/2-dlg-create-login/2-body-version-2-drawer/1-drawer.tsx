@@ -36,7 +36,7 @@ function DrawerBody() {
     return (
         <div className="grid grid-cols-[auto_1fr] gap-4 p-4">
             {/* <StepsDemo2 /> */}
-            <Timeline5WithAI />
+            <Timeline5WithAI className="w-full" />
 
             <div className="text-xs px-1">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
