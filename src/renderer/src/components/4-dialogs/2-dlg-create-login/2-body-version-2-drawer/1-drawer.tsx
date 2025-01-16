@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import * as D from "@ui/shadcn/drawer";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
-import { LeftPanelProgress } from "../8-ui";
+import { LeftPanelProgress, TestButtons } from "../8-ui";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -32,9 +32,10 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="grid grid-cols-[auto_1fr]">
+        <div className="grid grid-cols-[auto_1fr] debug">
             <div className="bg-muted">
                 <LeftPanelProgress className="" />
+                <TestButtons />
             </div>
 
             <div className="-my-4 px-4 text-xs border-l border-border grid place-content-center">

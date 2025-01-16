@@ -28,30 +28,32 @@ const currentStepAtom = atom(1);
 export function LeftPanelProgress(props: ComponentProps<"div">) {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
-        <div className="my-4 flex flex-col gap-2 1debug" {...props}>
+        <div className="bg-muted/20 flex flex-col items-start gap-4"{...props}>
+            {stepItems.map((item, idx) => {
+                const status =
+                    idx < currentStep
+                        ? StatusEnum.Completed
+                        : idx === currentStep
+                            ? StatusEnum.InProgress
+                            : StatusEnum.NotStarted;
+                return (
+                    <Step idx={idx} label={item.label} isLast={idx === stepItems.length - 1} status={status} key={idx} />
+                );
+            })}
+        </div>
+    );
+}
 
-            <div className="p-4 bg-muted/20 flex flex-col items-start gap-4">
-                {stepItems.map((item, idx) => {
-                    const status =
-                        idx < currentStep
-                            ? StatusEnum.Completed
-                            : idx === currentStep
-                                ? StatusEnum.InProgress
-                                : StatusEnum.NotStarted;
-                    return (
-                        <Step idx={idx} label={item.label} isLast={idx === stepItems.length - 1} status={status} key={idx} />
-                    );
-                })}
-            </div>
-
-            <div className="flex items-center justify-end gap-1">
-                <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s - 1)} disabled={currentStep < 0}>
-                    Prev
-                </Button>
-                <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s + 1)} disabled={currentStep >= stepItems.length}>
-                    Next
-                </Button>
-            </div>
+export function TestButtons() {
+    const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
+    return (
+        <div className="flex items-center justify-end gap-1">
+            <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s - 1)} disabled={currentStep < 0}>
+                Prev
+            </Button>
+            <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s + 1)} disabled={currentStep >= stepItems.length}>
+                Next
+            </Button>
         </div>
     );
 }
