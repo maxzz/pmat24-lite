@@ -6,9 +6,9 @@ export type StepItem = {
 };
 
 export const enum StatusEnum {
-    Completed = "Completed",
-    InProgress = "In Progress",
-    NotStarted = "Not Started",
+    complete = "Completed",
+    current = "In Progress", // i.e. in progress
+    notStarted = "Not Started",
 }
 
 type StepProps = {
@@ -19,14 +19,14 @@ type StepProps = {
 };
 
 export function Step({ idx, label, isLast, status }: StepProps) {
-    const classes = status !== StatusEnum.NotStarted ? stepClasses.complete : stepClasses.notStarted;
-    const lineClasses = status === StatusEnum.Completed ? lineStepClasses.complete : lineStepClasses.incomplete;
+    const classes = status !== StatusEnum.notStarted ? stepClasses.complete : stepClasses.notStarted;
+    const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
 
-    const Icon = status === StatusEnum.Completed
+    const Icon = status === StatusEnum.complete
         ? <CheckIcon className="size-4" />
-        : status === StatusEnum.InProgress
+        : status === StatusEnum.current
             ? <LoaderIcon className="size-4 1animate-spin" />
-            : status === StatusEnum.NotStarted
+            : status === StatusEnum.notStarted
                 ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
                 : null;
 

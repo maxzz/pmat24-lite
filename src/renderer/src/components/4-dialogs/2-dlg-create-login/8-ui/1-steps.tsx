@@ -22,10 +22,10 @@ export function LeftPanelProgress(props: ComponentProps<"div">) {
             {stepItems.map((item, idx) => {
                 const status =
                     idx < currentStep
-                        ? StatusEnum.Completed
+                        ? StatusEnum.complete
                         : idx === currentStep
-                            ? StatusEnum.InProgress
-                            : StatusEnum.NotStarted;
+                            ? StatusEnum.current
+                            : StatusEnum.notStarted;
                 return (
                     <Step idx={idx} label={item.label} isLast={idx === stepItems.length - 1} status={status} key={idx} />
                 );
