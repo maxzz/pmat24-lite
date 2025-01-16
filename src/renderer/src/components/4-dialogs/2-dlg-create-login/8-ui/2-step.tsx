@@ -21,15 +21,7 @@ type StepProps = {
 export function Step({ idx, label, isLast, status }: StepProps) {
     const classes = status !== StatusEnum.notStarted ? stepClasses.complete : stepClasses.notStarted;
     const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
-
-    const Icon = status === StatusEnum.complete
-        ? <CheckIcon className="size-4" />
-        : status === StatusEnum.current
-            ? <LoaderIcon className="size-4 1animate-spin" />
-            : status === StatusEnum.notStarted
-                ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
-                : null;
-
+    const Icon = statusIcon(idx, status);
     return (
         <div className="w-full flex items-start justify-between gap-4 [--size:32px] [--pt:4px]"> {/* as usual pt is half of a quarter of the size: (48:12) (32:4), but 24:1 */}
 
@@ -52,6 +44,18 @@ export function Step({ idx, label, isLast, status }: StepProps) {
             </div>
 
         </div>
+    );
+}
+
+function statusIcon(idx: number, status: StatusEnum) {
+    return (
+        status === StatusEnum.complete
+            ? <CheckIcon className="size-4" />
+            : status === StatusEnum.current
+                ? <LoaderIcon className="size-4 1animate-spin" />
+                : status === StatusEnum.notStarted
+                    ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
+                    : null
     );
 }
 

@@ -4,10 +4,27 @@ import { Button } from "@/ui/shadcn";
 import { StatusEnum, Step, type StepItem } from "./2-step";
 
 const stepItems: StepItem[] = [
-    { label: "Pick application", },
-    { label: "Select fields and submit", },
-    { label: "Name and options", },
-    { label: "Save", },
+    {
+        label: <div className="flex flex-col gap-1">
+            <div className="font-semibold">Pick application</div>
+            <div className="text-xs">Select application to train</div>
+        </div>
+    }, {
+        label: <div className="flex flex-col gap-1">
+            <div className="font-semibold">Select fields and submit</div>
+            <div className="text-xs">Select fields to train</div>
+        </div>
+    }, {
+        label: <div className="flex flex-col gap-1">
+            <div className="font-semibold">options</div>
+            <div className="text-xs">Customize options of the new manifest</div>
+        </div>
+    }, {
+        label: <div className="flex flex-col gap-1">
+            <div className="font-semibold">Save</div>
+            <div className="text-xs">Name manifest and save</div>
+        </div>
+    },
 ];
 
 const currentStepAtom = atom(1);
