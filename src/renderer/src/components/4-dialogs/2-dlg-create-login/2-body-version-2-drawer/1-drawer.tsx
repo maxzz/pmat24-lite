@@ -4,7 +4,7 @@ import { Button } from "@ui/shadcn/button";
 import { SymbolDot } from "@/ui/icons";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
-import { StepsDemo, StepsDemo2 } from "../8-ui";
+import { StepsDemo, StepsDemo2, Timeline5WithAI } from "../8-ui";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -35,7 +35,8 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 function DrawerBody() {
     return (
         <div className="grid grid-cols-[auto_1fr] gap-4 p-4">
-            <StepsDemo2 />
+            {/* <StepsDemo2 /> */}
+            <Timeline5WithAI />
 
             <div className="text-xs px-1">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
