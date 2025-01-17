@@ -3,6 +3,7 @@ import * as D from "@ui/shadcn/drawer";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 import { LeftPanelProgress, TestButtons } from "../8-ui";
+import { AppsGrid } from "../8-ui/2-apps-grid";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -39,7 +40,8 @@ function DrawerBody() {
             </div>
 
             <div className="-my-4 px-4 text-xs border-l border-border grid place-content-center">
-                <ButtonCreateFormSelector triggerLabel="Create new manifest" />
+                <AppsGrid />
+                {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
             </div>
         </div>
     );
