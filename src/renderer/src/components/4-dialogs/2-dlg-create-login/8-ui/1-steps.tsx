@@ -33,7 +33,7 @@ const currentStepAtom = atom(1);
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     return (
-        <div className={classNames("bg-muted/20 flex flex-col items-start gap-4 debug", className)} {...rest}>
+        <div className={classNames("bg-muted/20 flex flex-col items-start gap-4 1debug", className)} {...rest}>
             {stepItems.map((item, idx) => {
                 const status =
                     idx < currentStep
