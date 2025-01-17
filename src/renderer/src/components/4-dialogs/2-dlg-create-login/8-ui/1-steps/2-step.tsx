@@ -37,7 +37,7 @@ export function Step({ idx, label, isLast, status }: StepProps) {
             </div>
 
             <div className="flex-1 pt-[var(--pt)]">
-                <p className="text-sm font-medium">{label}</p>
+                <div className="text-sm font-medium">{label}</div>
             </div>
         </div>
     );
