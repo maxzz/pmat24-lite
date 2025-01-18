@@ -8,7 +8,7 @@ import { classNames } from "@/utils";
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
-        <div className={classNames("grid gap-12 1debug", className)} {...rest}>
+        <div className={classNames("grid gap-4 1debug", className)} {...rest}>
 
             {data.map(
                 (item, idx) => {

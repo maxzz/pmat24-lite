@@ -6,7 +6,7 @@ import { ButtonCreateFormSelector } from "@/components/4-dialogs/9-select-create
 export function Page1Apps() {
     const { ref, width, height } = useResizeObserver();
     return (
-        <div className="1-my-4 px-4 text-xs border-l border-border grid grid-rows-[1fr,auto] debug">
+        <div className="1-my-4 px-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] debug">
 
             <div className="">Description</div>
 
