@@ -13,24 +13,24 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
             {data.map(
                 (item, idx) => {
                     if (item.type === 'error') {
-                        const res = null;
-                        // const res = (
-                        //     <div className="flex flex-col gap-1" key={idx}>
-                        //         Error. hwnd: {item.hwnd}, error code: "{item.errorCode}"
-                        //     </div>
-                        // );
+                        // const res = null;
+                        const res = (
+                            <div className="flex flex-col gap-1" key={idx}>
+                                Error. hwnd: {item.hwnd}, error code: "{item.errorCode}"
+                            </div>
+                        );
                         return res;
                     }
 
                     // const Img = data64ToImage(item.data);
-                    // const dataUrl = `data:image/png;base64,${item.data}`;
+                    const dataUrl = `data:image/png;base64,${item.data}`;
                     const res = (
                         <div className="flex flex-col gap-1" key={idx}>
 
                             {/* <img className="w-full h-full" src={img} /> */}
                             {/* <Img className="w-full h-full" /> */}
                             {/* {Img} */}
-                            {/* <img className="1w-12 1h-12" src={dataUrl} /> */}
+                            <img className="1w-12 1h-12" src={dataUrl} />
                             <div className="pb-96 text-xs font-semibold">{item.caption}</div>
                         </div>
                     );
