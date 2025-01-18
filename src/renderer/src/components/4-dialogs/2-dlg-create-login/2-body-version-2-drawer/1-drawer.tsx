@@ -42,7 +42,7 @@ function DrawerBody() {
 
             <div className="relative -my-4 px-4 text-xs border-l border-border 1grid place-content-center">
                 <div className="aboslute inset-0">
-                    <ScrollArea className="h-full" fullHeight fixedWidth>
+                    <ScrollArea className="1h-full" fullHeight fixedWidth>
                         <AppsGrid />
                     </ScrollArea>
                 </div>
