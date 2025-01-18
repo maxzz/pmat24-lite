@@ -10,14 +10,14 @@ export function Page1Apps() {
 
             <div className="relative">
                 <div ref={ref} className="aboslute inset-0">
-                    <ScrollArea className="h-full" style={{ width, height }} fullHeight fixedWidth>
+                    <ScrollArea style={{ width, height }} fullHeight fixedWidth>
                         <AppsGrid />
                     </ScrollArea>
                 </div>
             </div>
 
             <ButtonCreateFormSelector triggerLabel="Create new manifest" />
-            
+
         </div>
     );
 }
