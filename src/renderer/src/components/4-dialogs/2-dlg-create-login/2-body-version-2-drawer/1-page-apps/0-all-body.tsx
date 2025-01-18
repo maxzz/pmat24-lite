@@ -12,7 +12,7 @@ export function Page1Apps() {
             <div ref={ref} className="relative h-full w-full">
                 <div className="aboslute inset-0">
                     <ScrollArea style={{ width, height }} fullHeight fixedWidth>
-                        {/* <AppsGrid /> */}
+                        <AppsGrid />
                     </ScrollArea>
                 </div>
             </div>
