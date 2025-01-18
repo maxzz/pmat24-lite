@@ -10,7 +10,7 @@ export function Page1Apps() {
             <div className="text-xl bg-green-400">Description</div>
 
             <div ref={ref} className="relative h-full w-full">
-                <div className="aboslute inset-0">
+                <div className="absolute inset-0">
                     <ScrollArea style={{ width, height }} fullHeight fixedWidth>
                         <AppsGrid />
                     </ScrollArea>
