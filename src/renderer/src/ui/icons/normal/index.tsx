@@ -10,6 +10,7 @@ export * from "./22-search";
 export * from "./22-filter";
 export * from "./24-refresh";
 export * from "./25-sliders";
+export * from "./26-broken-img";
 
 export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
