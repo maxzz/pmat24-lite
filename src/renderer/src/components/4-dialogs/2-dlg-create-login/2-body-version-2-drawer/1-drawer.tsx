@@ -5,6 +5,7 @@ import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 import { LeftPanelProgress, TestButtons } from "../8-ui";
 import { AppsGrid } from "../8-ui/2-apps-grid";
 import { ScrollArea } from "@/ui";
+import { Page1Apps } from "./1-page-apps";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -40,14 +41,9 @@ function DrawerBody() {
                 <TestButtons />
             </div>
 
-            <div className="relative -my-4 px-4 text-xs border-l border-border 1grid place-content-center">
-                <div className="aboslute inset-0">
-                    <ScrollArea className="1h-full" fullHeight fixedWidth>
-                        <AppsGrid />
-                    </ScrollArea>
-                </div>
-                {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
-            </div>
+            <Page1Apps />
+
+            {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
         </div>
     );
 }

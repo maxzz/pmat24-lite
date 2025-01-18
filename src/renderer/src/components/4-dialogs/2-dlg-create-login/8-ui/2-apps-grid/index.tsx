@@ -8,17 +8,17 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
         <div className={className} {...rest}>
-            <div className="grid grid-cols-1 gap-4 2debug">
+            <div className="h-full grid grid-cols-1 gap-4 2debug">
 
                 {data.map(
                     (item, idx) => {
                         if (item.type === 'error') {
-                            // const res = null;
-                            const res = (
-                                <div className="flex flex-col gap-1" key={idx}>
-                                    Error. hwnd: {item.hwnd}, error code: "{item.errorCode}"
-                                </div>
-                            );
+                            const res = null;
+                            // const res = (
+                            //     <div className="flex flex-col gap-1" key={idx}>
+                            //         Error. hwnd: {item.hwnd}, error code: "{item.errorCode}"
+                            //     </div>
+                            // );
                             return res;
                         }
 
