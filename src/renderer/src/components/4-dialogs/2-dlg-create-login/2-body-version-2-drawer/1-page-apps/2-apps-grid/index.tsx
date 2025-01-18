@@ -8,7 +8,7 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
         <div className={className} {...rest}>
-            <div className="h-full grid grid-cols-1 gap-4 2debug">
+            <div className="h-full grid gap-12 1debug">
 
                 {data.map(
                     (item, idx) => {

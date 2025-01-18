@@ -3,7 +3,7 @@ import * as D from "@ui/shadcn/drawer";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs";
 import { LeftPanelProgress, TestButtons } from "../8-ui";
-import { AppsGrid } from "../8-ui/2-apps-grid";
+import { AppsGrid } from "./1-page-apps/2-apps-grid";
 import { ScrollArea } from "@/ui";
 import { Page1Apps } from "./1-page-apps";
 
