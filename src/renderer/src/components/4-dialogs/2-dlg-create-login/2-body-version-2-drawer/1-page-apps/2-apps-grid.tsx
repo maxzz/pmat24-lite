@@ -30,7 +30,7 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
                             {/* <img className="w-full h-full" src={img} /> */}
                             {/* <Img className="w-full h-full" /> */}
                             {/* {Img} */}
-                            <img className="1w-12 1h-12" src={dataUrl} />
+                            {/* <img className="1w-12 1h-12" src={dataUrl} /> */}
                             <div className="pb-96 text-xs font-semibold">{item.caption}</div>
                         </div>
                     );
