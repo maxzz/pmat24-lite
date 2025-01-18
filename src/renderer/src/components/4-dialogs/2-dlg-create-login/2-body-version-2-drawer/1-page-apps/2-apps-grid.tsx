@@ -8,7 +8,7 @@ import { classNames } from "@/utils";
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
-        <div className={classNames("1grid gap-12 debug", className)} {...rest}>
+        <div className={classNames("grid gap-12 1debug", className)} {...rest}>
 
             {data.map(
                 (item, idx) => {
@@ -23,16 +23,15 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
                     }
 
                     // const Img = data64ToImage(item.data);
-                    const dataUrl = `data:image/png;base64,${item.data}`;
+                    // const dataUrl = `data:image/png;base64,${item.data}`;
                     const res = (
                         <div className="flex flex-col gap-1" key={idx}>
-                            <div className="text-xs font-semibold">{item.caption}</div>
-                            <div className="1relative">
-                                {/* <img className="w-full h-full" src={img} /> */}
-                                {/* <Img className="w-full h-full" /> */}
-                                {/* {Img} */}
-                                <img className="1w-12 1h-12" src={dataUrl} />
-                            </div>
+
+                            {/* <img className="w-full h-full" src={img} /> */}
+                            {/* <Img className="w-full h-full" /> */}
+                            {/* {Img} */}
+                            {/* <img className="1w-12 1h-12" src={dataUrl} /> */}
+                            <div className="pb-96 text-xs font-semibold">{item.caption}</div>
                         </div>
                     );
                     return res;

@@ -20,9 +20,7 @@ export function ManiDrawer() {
                 withoutOverlay
                 hiddenTitle="Create manifest"
             >
-                <div className="h-full grid 1place-content-center">
-                    <DrawerBody />
-                </div>
+                <DrawerBody />
             </D.DrawerContent>
         </D.Drawer>
     );
@@ -33,7 +31,7 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="grid grid-cols-[auto_1fr] 1debug">
+        <div className="h-full grid grid-cols-[auto_1fr] 1debug">
             <div className=" bg-muted">
                 <LeftPanelProgress className="p-4" />
                 <TestButtons />
