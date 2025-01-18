@@ -31,7 +31,7 @@ const popupContentTextClasses = "inline-block font-bold font-mono tracking-tight
 
 function DrawerBody() {
     return (
-        <div className="h-full grid grid-cols-[auto_1fr] grid-rows-1 1debug">
+        <div className="grid grid-cols-[auto_1fr] 1debug">
             <div className=" bg-muted">
                 <LeftPanelProgress className="p-4" />
                 <TestButtons />
