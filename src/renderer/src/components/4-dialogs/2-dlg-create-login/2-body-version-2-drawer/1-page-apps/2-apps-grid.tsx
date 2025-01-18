@@ -8,7 +8,7 @@ import { classNames } from "@/utils";
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
-        <div className={classNames("grid gap-12 1debug", className)} {...rest}>
+        <div className={classNames("1grid gap-12 debug", className)} {...rest}>
 
             {data.map(
                 (item, idx) => {
@@ -27,11 +27,11 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
                     const res = (
                         <div className="flex flex-col gap-1" key={idx}>
                             <div className="text-xs font-semibold">{item.caption}</div>
-                            <div className="relative">
+                            <div className="1relative">
                                 {/* <img className="w-full h-full" src={img} /> */}
                                 {/* <Img className="w-full h-full" /> */}
                                 {/* {Img} */}
-                                <img className="w-full h-full" src={dataUrl} />
+                                <img className="1w-12 1h-12" src={dataUrl} />
                             </div>
                         </div>
                     );
