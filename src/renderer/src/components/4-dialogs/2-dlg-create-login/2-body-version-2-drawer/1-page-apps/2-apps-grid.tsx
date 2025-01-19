@@ -9,7 +9,7 @@ import { IconBrokenImage } from "@/ui/icons";
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const data = reply as GetTlwScreenshotsResult;
     return (
-        <div className={classNames("grid gap-4 1debug", className)} {...rest}>
+        <div className={classNames("grid gap-4 grid-cols-[repeat(auto-fill,minmax(150px,1fr))] debug", className)} {...rest}>
 
             {data.map(
                 (item, idx) => {
@@ -17,7 +17,7 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
                         // const res = null;
                         const res = (
                             <div className="pb-4 flex flex-col gap-1" key={idx}>
-                                <IconBrokenImage className="size-12" title="Broken image" />
+                                <IconBrokenImage className="1size-12" title="Broken image" />
                                 <div className="">Error. hwnd: {item.hwnd}, error code: "{item.errorCode}"</div>
                             </div>
                         );
@@ -32,7 +32,7 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
                             {/* <img className="w-full h-full" src={img} /> */}
                             {/* <Img className="w-full h-full" /> */}
                             {/* {Img} */}
-                            <img className="size-12" src={dataUrl} />
+                            <img className="1size-12" src={dataUrl} />
                             <div className="text-xs font-semibold">{item.caption}</div>
                         </div>
                     );
