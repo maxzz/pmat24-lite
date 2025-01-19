@@ -4,7 +4,7 @@ import { ButtonCreateFormSelector } from "@/components/4-dialogs/9-select-create
 
 export function Page1Apps() {
     return (
-        <div className="1-my-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] debug">
+        <div className="1-my-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">
                 Description
             </div>
