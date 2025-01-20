@@ -27,6 +27,10 @@ export const doSetFilesFrom_Dnd_Atom = atom(            // used by DropItDoc onl
             }
         }
 
+        if (!fileContents?.length) {                    // avoid drop-and-drop drop without files
+            return;
+        }
+
         fileContents && set(doSetDeliveredFilesAtom, fileContents);
     }
 );
