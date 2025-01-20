@@ -6,7 +6,7 @@ export function Page1Apps() {
     return (
         <div className="1-my-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">
-                Description
+                Select the login window for which you will create a manifest.
             </div>
 
             <div className="relative h-full w-full">
