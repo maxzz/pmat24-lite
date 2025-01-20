@@ -28,6 +28,9 @@ export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 
     });
 }
 
+/*
+// import { Buffer } from "node:buffer";
+
 function saveIconFile(filename: string, data: string) {
     const obj = JSON.parse(data) as WindowIconGetterResult;
     const iconBinary = base64Decode(obj.data);
@@ -37,3 +40,4 @@ function saveIconFile(filename: string, data: string) {
         return Buffer.from(str, 'base64');
     }
 }
+*/
