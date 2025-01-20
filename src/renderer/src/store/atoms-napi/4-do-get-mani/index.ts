@@ -4,7 +4,7 @@ import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { EngineControl } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
-import { lastBuildProgressAtom } from "../do-get-hwnd";
+import { lastBuildProgressAtom } from "../1-do-get-hwnd";
 
 type SawContentReply = {
     pool: string;

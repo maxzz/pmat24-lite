@@ -3,7 +3,7 @@ import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { invokeMain } from "@/xternal-to-main";
 import { getSubError } from "@/utils";
 import { WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { lastBuildProgressAtom } from "../do-get-hwnd";
+import { lastBuildProgressAtom } from "../1-do-get-hwnd";
 import { EngineControlsWithMeta, controlsReplyToEngineControlWithMeta } from "./controls-meta";
 
 export const sawContentStrAtom = atom<string | undefined>('');
