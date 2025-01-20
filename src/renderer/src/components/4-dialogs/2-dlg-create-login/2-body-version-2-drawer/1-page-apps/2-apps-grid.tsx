@@ -32,14 +32,16 @@ function RenaderTlwScreenshot({ item, idx }: { item: TlwScreenshot, idx: number;
     }
 
     // const Img = data64ToImage(item.data);
-    const dataUrl = `data:image/png;base64,${item.data}`;
+    // const dataUrl = `data:image/png;base64,${item.data}`;
     const res = (
         <div className="pb-4 flex flex-col gap-1" key={idx}>
 
             {/* <img className="w-full h-full" src={img} /> */}
             {/* <Img className="w-full h-full" /> */}
             {/* {Img} */}
-            <img className="max-w-52" src={dataUrl} />
+
+            {/* <img className="max-w-52" src={dataUrl} /> */}
+            <RenderData64 className="max-w-52" data64={item.data} />
             <div className="text-xs font-semibold">{item.caption}</div>
         </div>
     );
@@ -58,4 +60,14 @@ function data64ToImage(data64: string): HTMLImageElement {
     const dataUrl = `data:image/png;base64,${data64}`;
     img.src = dataUrl;
     return img;
+}
+
+function RenderData64({ data64, ...rest }: { data64: string; } & ComponentProps<'img'>): JSX.Element {
+
+    const dataUrl = `data:image/png;base64,${data64}`;
+    // console.log('RenderData64');
+
+    return (
+        <img src={dataUrl} {...rest} />
+    );
 }
