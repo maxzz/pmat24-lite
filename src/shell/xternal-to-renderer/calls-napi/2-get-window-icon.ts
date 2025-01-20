@@ -1,4 +1,4 @@
-import fs from "fs";
+// import fs from "fs";
 import { addon } from "./0-addon";
 import { type WindowIconGetterParams, type ImageFormatType, type WindowIconGetter, type WindowIconGetterResult } from "./pmat-plugin-types";
 

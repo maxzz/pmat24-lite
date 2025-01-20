@@ -1,5 +1,5 @@
 import { addon } from "./0-addon";
-import { type DragAndDropParams, type DragAndDropResult, type TargetPosition } from ".";
+import { type DragAndDropParams, type DragAndDropResult, type TargetPosition } from "./pmat-plugin-types";
 import { mainToRenderer } from "./9-external";
 
 export function getWindowPos(hwnd: string): Promise<TargetPosition> {
