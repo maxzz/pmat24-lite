@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/ui/shadcn";
-import { AppsGrid } from "./2-apps-grid";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs/9-select-create-mani-type";
+import { AppsGrid } from "../../8-create-ui";
+import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/8-create-ui/7-select-create-mani-type";
 
 export function Page1Apps() {
     return (

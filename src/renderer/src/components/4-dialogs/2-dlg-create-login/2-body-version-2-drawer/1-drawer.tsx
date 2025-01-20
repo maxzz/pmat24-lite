@@ -1,8 +1,7 @@
 import { useAtom } from "jotai";
 import * as D from "@ui/shadcn/drawer";
 import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs";
-import { LeftPanelProgress, TestButtons } from "../8-create-ui";
+import { ButtonCreateFormSelector, LeftPanelProgress, TestButtons } from "../8-create-ui";
 import { Page1Apps } from "./1-page-apps";
 
 export function ManiDrawer() {
