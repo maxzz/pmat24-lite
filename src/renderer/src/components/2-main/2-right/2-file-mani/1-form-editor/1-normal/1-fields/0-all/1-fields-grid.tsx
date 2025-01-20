@@ -1,4 +1,4 @@
-import { type NFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, fieldsGridClasses } from "./3-fields-header";
 

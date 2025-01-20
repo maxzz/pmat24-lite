@@ -1,7 +1,7 @@
 import { type HTMLAttributes, useState } from "react";
 import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
 import { type FieldTyp, type Mani } from "@/store/manifest";
-import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from "@/store/atoms/3-file-mani-atoms";
+import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from "@/store/1-atoms/3-file-mani-atoms";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";

@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { rightPanelAtom } from "@/store/atoms";
+import { rightPanelAtom } from "@/store/1-atoms";
 import { doDiscardFileUsAtom } from "./8-discard-file-us";
 
 /**

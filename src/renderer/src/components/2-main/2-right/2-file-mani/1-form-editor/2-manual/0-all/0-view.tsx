@@ -1,4 +1,4 @@
-import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 

@@ -1,6 +1,6 @@
 import { FormIdx } from "@/store/manifest";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
-import { MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { MenuAddButton } from "./2-panel-title-menu";
 import { classNames } from "@/utils";
 

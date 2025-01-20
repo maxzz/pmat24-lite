@@ -1,5 +1,5 @@
 import { SVGProps } from "react";
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { type ChunkKey } from "@/store/manifest";
 import { DetailsKbd } from "./1-details-key";
 import { DetailsFld } from "./2-details-fld";

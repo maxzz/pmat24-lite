@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
 import { classNames } from "@/utils";

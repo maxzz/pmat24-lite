@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
 import { toast } from "sonner";
-import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom, doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
+import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom, doOpenDrawerAtom } from "@/store/1-atoms/7-dialogs";
 
 export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>; }) {
     const selectedIdx = useAtomValue(selectedIdxAtom);

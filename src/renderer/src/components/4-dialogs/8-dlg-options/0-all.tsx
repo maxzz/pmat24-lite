@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenOptionsDialogAtom } from "@/store/atoms/7-dialogs";
+import { doOpenOptionsDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { DialogOptionsBody } from "./1-body";
 import { overlayClasses } from "../1-dlg-filter-files";
 

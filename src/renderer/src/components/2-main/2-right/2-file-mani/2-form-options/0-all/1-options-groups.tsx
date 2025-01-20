@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
-import { OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { OFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-controls";
 import { Part1General } from "../3-sections";
 import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";

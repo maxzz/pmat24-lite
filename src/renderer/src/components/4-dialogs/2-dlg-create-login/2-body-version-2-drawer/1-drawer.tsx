@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import * as D from "@ui/shadcn/drawer";
-import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
+import { doOpenDrawerAtom } from "@/store/1-atoms/7-dialogs";
 import { ButtonCreateFormSelector, LeftPanelProgress, TestButtons } from "../8-create-ui";
 import { Page1Apps } from "./1-page-apps";
 

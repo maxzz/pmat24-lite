@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { subscribe } from "valtio";
 import { type RowInputState } from "@/ui";
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { InputWTooltip, RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { buildState } from "./8-pos-build-state";
 //import { InputXY } from "./2-input-xy";

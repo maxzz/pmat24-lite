@@ -1,4 +1,4 @@
-import { OptionsState } from "@/store/atoms/3-file-mani-atoms/4-options";
+import { OptionsState } from "@/store/1-atoms/3-file-mani-atoms/4-options";
 import { RowInputWTitle } from "../9-controls";
 
 export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {

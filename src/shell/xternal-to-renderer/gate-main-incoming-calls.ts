@@ -1,7 +1,7 @@
 import { Notification } from "electron";
 import { R2M } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
-import { getElectronModulePaths, highlightRect } from "./calls-napi";
+import { getElectronModulePaths, highlightRect } from "./7-napi-calls";
 import { mainToRenderer } from "./main-to-renderer";
 import { openFileDialogAndReply } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";

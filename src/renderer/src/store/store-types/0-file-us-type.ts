@@ -1,8 +1,8 @@
 import { type PrimitiveAtom } from "jotai";
 import { type CatalogFile, type Mani, type Meta } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
-import { type ManiAtoms } from "@/store/atoms/3-file-mani-atoms";
-import { type FceAtoms } from "../atoms/4-field-catalogs";
+import { type ManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
+import { type FceAtoms } from "../1-atoms/4-field-catalogs";
 
 export type FileUsStats = {
     loginFormDomain?: string;                       // fileUs.meta?.[0]?.disp.domain

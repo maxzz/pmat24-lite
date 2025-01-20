@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { type FileUsCtx, type NormalField } from "@/store/atoms/3-file-mani-atoms";
+import { type FileUsCtx, type NormalField } from "@/store/1-atoms/3-file-mani-atoms";
 import { type FceItem } from "@/store";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";

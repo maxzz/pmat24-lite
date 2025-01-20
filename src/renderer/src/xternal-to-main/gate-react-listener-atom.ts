@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../shared/ipc-types";
-import { doSetDeliveredFilesAtom } from "@/store/atoms/1-files";
+import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { finalizeFileContent, setRootFromMainFileContents } from "./commands/10-invoke-load-files";
 

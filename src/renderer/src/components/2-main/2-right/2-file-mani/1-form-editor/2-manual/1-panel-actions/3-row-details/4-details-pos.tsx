@@ -1,4 +1,4 @@
-import type { ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import type { ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { useAtomValue } from "jotai";
 
 export function DetailsPos({ item }: { item: ManualFieldState.CtxPos; }) {

@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { type OFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type OFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 

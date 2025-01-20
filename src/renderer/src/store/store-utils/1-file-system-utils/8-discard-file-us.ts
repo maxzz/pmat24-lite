@@ -1,6 +1,6 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type FceCtx, filesAtom } from "@/store/atoms";
+import { type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
  * Discard FileUs links atom

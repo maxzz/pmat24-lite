@@ -1,4 +1,4 @@
-import { type OptionsState } from "@/store/atoms/3-file-mani-atoms";
+import { type OptionsState } from "@/store/1-atoms/3-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
 
 export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {

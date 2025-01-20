@@ -5,4 +5,4 @@ export * from './2-render-to-main-calls';
 export * from './2-render-to-main-invoke';
 export * from './3-file-content';
 
-export* from "../../shell/xternal-to-renderer/calls-napi/pmat-plugin-types";
+export* from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types";

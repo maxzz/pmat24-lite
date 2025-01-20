@@ -1,4 +1,4 @@
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { InputKey } from "./1-input-key";
 import { InputRepeat } from "./2-input-repeat";
 import { InputModifiers } from "./3-input-modifiers";

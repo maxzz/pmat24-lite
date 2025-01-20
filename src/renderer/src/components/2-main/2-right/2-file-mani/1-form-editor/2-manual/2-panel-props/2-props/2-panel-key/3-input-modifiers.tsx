@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { type RowInputState } from "@/ui";
 import { modifierKeys } from "@/store/manifest";
 import { InputSelectUi } from "../8-props-ui";

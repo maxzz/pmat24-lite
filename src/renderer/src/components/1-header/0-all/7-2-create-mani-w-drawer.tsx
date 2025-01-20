@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpenDrawerAtom } from "@/store/atoms/7-dialogs";
+import { doOpenDrawerAtom } from "@/store/1-atoms/7-dialogs";
 
 export function TestCreatewithDrawer() {
     const doOpenDrawer = useSetAtom(doOpenDrawerAtom);

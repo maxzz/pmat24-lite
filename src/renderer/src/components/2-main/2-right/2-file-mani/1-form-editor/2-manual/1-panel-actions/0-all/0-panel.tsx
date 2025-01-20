@@ -1,9 +1,9 @@
 import { type HTMLAttributes, useEffect } from "react";
-import { type MFormContextProps } from "@/store/atoms/3-file-mani-atoms";
+import { type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
 import { classNames } from "@/utils";
-import { useInitSelectedIdx } from "@/store/atoms/3-file-mani-atoms";
+import { useInitSelectedIdx } from "@/store/1-atoms/3-file-mani-atoms";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { ScrollArea } from "@/ui";
 

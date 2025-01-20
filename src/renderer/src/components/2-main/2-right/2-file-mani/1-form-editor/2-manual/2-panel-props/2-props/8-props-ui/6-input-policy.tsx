@@ -1,4 +1,4 @@
-import { type ManualFieldState } from "@/store/atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { InputLabel } from "./1-input-label";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { useAtomValue } from "jotai";
