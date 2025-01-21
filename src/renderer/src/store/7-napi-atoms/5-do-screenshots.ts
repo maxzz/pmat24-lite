@@ -1,6 +1,6 @@
 import { atom, type Setter } from "jotai";
 import { proxy } from "valtio";
-import { invokeMain } from "@/xternal-to-main";
+import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { uuid } from "../manifest";
 import { toast } from "sonner";
@@ -17,7 +17,18 @@ type TlwScreenshotInfo = {
 
 export const screenshotAtom = atom<TlwScreenshotInfo[]>([]);
 
-export const doGetScreenshotsAtom = atom(
+export const doSetScreenshotsAtom = atom(
+    null,
+    async (get, set, width: number | undefined): Promise<void> => {
+        if (hasMain()) {
+            set(doCollectScreenshotsAtom, width);
+        } else {
+            set(doTestScreenshotsAtom, width);
+        }
+    }
+);
+
+const doCollectScreenshotsAtom = atom(
     null,
     async (get, set, width: number | undefined): Promise<void> => {
         const tlwInfos: GetTlwScreenshotsParams = {
@@ -33,7 +44,7 @@ export const doGetScreenshotsAtom = atom(
     }
 );
 
-export const doSetTestScreenshotsAtom = atom(
+const doTestScreenshotsAtom = atom(
     null,
     async (get, set, width: number | undefined): Promise<void> => {
         const screenshots = replyTest as TlwScreenshot[];
