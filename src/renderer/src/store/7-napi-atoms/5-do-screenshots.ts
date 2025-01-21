@@ -7,7 +7,7 @@ import { toast } from "sonner";
 // import replyTest from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots.json";
 import replyTest from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots2many.json";
 
-type TlwScreenshotInfo = {
+export type TlwScreenshotInfo = {
     item: TlwScreenshot;
     uuid: number;
     editor: {
@@ -15,7 +15,7 @@ type TlwScreenshotInfo = {
     };
 };
 
-export const screenshotAtom = atom<TlwScreenshotInfo[]>([]);
+export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
 
 export const doSetScreenshotsAtom = atom(
     null,
@@ -63,13 +63,13 @@ function setScreenshots(screenshots: TlwScreenshot[], set: Setter) {
             return rv;
         });
 
-        set(screenshotAtom, infos);
+        set(allScreenshotAtom, infos);
 
         console.log('doGetWindowIconAtom', infos);
 
     } catch (error) {
         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
         toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
-        set(screenshotAtom, []);
+        set(allScreenshotAtom, []);
     }
 }
