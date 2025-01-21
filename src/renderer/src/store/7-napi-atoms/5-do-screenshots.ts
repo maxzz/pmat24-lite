@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
-import { type GetTlwScreenshotsResult, type GetTlwScreenshotsParams } from "@shared/ipc-types";
+import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
+
+const screenshotAtom = atom<TlwScreenshot[]>([]);
 
 export const doGetScreenshotsAtom = atom(
     null,
@@ -12,8 +14,22 @@ export const doGetScreenshotsAtom = atom(
 
         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
 
-        const arr = JSON.parse(res || '{}') as GetTlwScreenshotsResult;
-        
-        console.log('doGetWindowIconAtom', arr);
+        try {
+            const arr = JSON.parse(res || '{}') as TlwScreenshot[];
+
+            if (arr.length === 0) {
+                return;
+                //TODO: show error in UI
+            }
+
+            set(screenshotAtom, arr);
+            
+            console.log('doGetWindowIconAtom', arr);
+
+        } catch (error) {
+            console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+            
+            //TODO: show error in UI
+        }
     }
 );
