@@ -1,8 +1,12 @@
+import { useState } from "react";
+import { useSetAtom } from "jotai";
+import { doSetScreenshotsAtom } from "@/store";
+import { AppsGrid, ButtonCreateFormSelector } from "../../8-create-ui";
 import { ScrollArea } from "@/ui/shadcn";
-import { AppsGrid } from "../../8-create-ui";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/8-create-ui/7-select-create-mani-type";
 
 export function Page1Apps() {
+    const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
+    useState(() => doSetScreenshots(300));
     return (
         <div className="1-my-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">

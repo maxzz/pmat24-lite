@@ -24,7 +24,6 @@ export function RenaderTlwScreenshot({ item, idx }: { item: TlwScreenshotInfo; i
 }
 
 function RenderData64({ data64, ...rest }: { data64: string; } & ComponentProps<'img'>): JSX.Element {
-
     // console.log('RenderData64');
     return (
         <img src={data64} {...rest} />

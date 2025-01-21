@@ -56,10 +56,11 @@ const doTestScreenshotsAtom = atom(
 function setScreenshots(screenshots: TlwScreenshot[], set: Setter) {
     try {
         const infos = screenshots.map((item, idx) => {
-            if (item.type === 'data') {
-                item.data = `data:image/png;base64,${item.data}`;
+            const newItem: TlwScreenshot = { ...item };
+            if (newItem.type === 'data') {
+                newItem.data = `data:image/png;base64,${newItem.data}`;
             }
-            const rv: TlwScreenshotInfo = { item, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
+            const rv: TlwScreenshotInfo = { item: newItem, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
             return rv;
         });
 
