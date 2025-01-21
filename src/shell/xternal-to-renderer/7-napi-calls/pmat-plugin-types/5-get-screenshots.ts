@@ -37,7 +37,7 @@ export type GetTlwInfoResult = {
 };
 
 export interface getTopLevelWindowsInfo {
-    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
+    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void; // TODO: params type definition is missing. there is no params so define as an empty object
 }
 
 // 2. Get top-level window screenshots

@@ -1,3 +1,5 @@
+import { type GetTlwScreenshotsParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // load
@@ -44,6 +46,15 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         hwnd: string;
     };
 
+    type GetTlwInfos = {
+        type: 'r2mi:get-tlw-infos';
+    };
+
+    type GetTlwScreenshots = {
+        type: 'r2mi:get-tlw-screenshots';
+        tlwInfos: GetTlwScreenshotsParams;
+    };
+
     //
 
     export type AllInvokes =
@@ -55,5 +66,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetSecondWindowIcon
         | GetSecondWindowMani
         | GetWindowPos
+        | GetTlwInfos
+        | GetTlwScreenshots
         ;
 }

@@ -1,6 +1,7 @@
 import { R2MInvoke } from "@shared/ipc-types";
 import { loadWin32FilesContent } from "./commands/10-open-file-dialog/load-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./7-napi-calls";
+import { getTlwInfos, getTlwScreenshots } from "./7-napi-calls/5-screenshots";
 
 export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Promise<any> {
     switch (data.type) {
@@ -34,6 +35,14 @@ export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Prom
         }
         case 'r2mi:get-window-mani': {
             const res = await getWindowMani(data.hwnd, data.wantXml);
+            return res;
+        }
+        case 'r2mi:get-tlw-infos': {
+            const res = await getTlwInfos();
+            return res;
+        }
+        case "r2mi:get-tlw-screenshots": {
+            const res = await getTlwScreenshots(data.tlwInfos);
             return res;
         }
 
