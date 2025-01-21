@@ -6,8 +6,6 @@ import { classNames } from "@/utils";
 
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const items = useAtomValue(allScreenshotAtom);
-    console.log('AppsGrid', items);
-    
     return (
         <div className={classNames("grid gap-4 grid-cols-[repeat(auto-fill,minmax(150px,1fr))] 1debug", className)} {...rest}>
             {items.map(
