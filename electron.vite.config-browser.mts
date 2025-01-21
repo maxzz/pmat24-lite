@@ -1,5 +1,5 @@
 import { join, resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, type PluginOption, type UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -35,7 +35,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
 }
 
 // https://vitejs.dev/config
-export default defineConfig(() => {
+export default defineConfig((): UserConfig => {
     return {
         base: '',
         root: resolve(__dirname, 'src/renderer'),
@@ -63,7 +63,7 @@ export default defineConfig(() => {
                 template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).
                 gzipSize: true,
                 brotliSize: true,
-            }),
+            })  as PluginOption,
         ],
 
         build: {
