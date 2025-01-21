@@ -17,14 +17,16 @@ export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 
             throw new Error('no gWindowIconGetter');
         }
 
-        gWindowIconGetter.getWindowIcon(param, (err: any, data: string) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-                //saveIconFile(`test-icon.${iconFormat}`, data); // The icon will go to the root folder of the electron-window-monitor project.
+        gWindowIconGetter.getWindowIcon(param,
+            (err: any, data: string) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                    //saveIconFile(`test-icon.${iconFormat}`, data); // The icon will go to the root folder of the electron-window-monitor project.
+                }
             }
-        });
+        );
     });
 }
 

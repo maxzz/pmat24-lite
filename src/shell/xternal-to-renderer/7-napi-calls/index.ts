@@ -4,6 +4,6 @@ export * from "./1-get-target-hwnd";
 export * from "./2-get-window-icon";
 export * from "./3-get-window-controls";
 export * from "./4-get-window-mani";
-export * from "./5-screenshots";
-export * from "./6-highligth-rect";
+export * from "./5-get-screenshots";
+export * from "./6-do-highligth-rect";
 export * from "./7-get-window-pos";

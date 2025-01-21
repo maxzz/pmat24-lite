@@ -8,31 +8,33 @@ export function getWindowPos(hwnd: string): Promise<TargetPosition> {
             const params: DragAndDropParams = { hwnd };
             const param = JSON.stringify(params);
 
-            addon.dragAndDrop(param, (err: string, data: string) => {
-                console.log('+++++++++++++', data);
+            addon.dragAndDrop(param,
+                (err: string, data: string) => {
+                    console.log('+++++++++++++', data);
 
-                if (err) {
-                    reject(err);
-                    return;
-                }
-
-                try {
-                    const res = JSON.parse(data) as DragAndDropResult;
-
-                    if (res.status === 'progress') {
-                        console.log('progress', res.point);
-
-                        mainToRenderer({ type: "m2r:position-progress", progress: res });
+                    if (err) {
+                        reject(err);
                         return;
                     }
 
-                    resolve(res);
-                } catch (error) {
-                    console.error('error', error);
+                    try {
+                        const res = JSON.parse(data) as DragAndDropResult;
 
-                    reject('>>>Faieled to get posiotion.');
+                        if (res.status === 'progress') {
+                            console.log('progress', res.point);
+
+                            mainToRenderer({ type: "m2r:position-progress", progress: res });
+                            return;
+                        }
+
+                        resolve(res);
+                    } catch (error) {
+                        console.error('error', error);
+
+                        reject('>>>Faieled to get posiotion.');
+                    }
                 }
-            });
+            );
         }
     );
 }
