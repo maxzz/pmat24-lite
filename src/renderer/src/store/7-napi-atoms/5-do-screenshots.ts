@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 
-const screenshotAtom = atom<TlwScreenshot[]>([]);
+export const screenshotAtom = atom<TlwScreenshot[]>([]);
 
 export const doGetScreenshotsAtom = atom(
     null,
@@ -21,6 +21,14 @@ export const doGetScreenshotsAtom = atom(
                 return;
                 //TODO: show error in UI
             }
+
+            arr.forEach(
+                (item) => {
+                    if (item.type === 'data') {
+                        item.data = `data:image/png;base64,${item.data}`; //TODO this should be done in plugin
+                    }
+                }
+            );
 
             set(screenshotAtom, arr);
             
