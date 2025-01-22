@@ -2,7 +2,7 @@ import { type ComponentProps } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { newManiCtx } from "../../9-types-ctx";
-import { StatusEnum, Step, type StepItem } from "./2-step";
+import { indexToStatus, Step, type StepItem } from "./2-step";
 import { classNames } from "@/utils";
 
 const stepItems: StepItem[] = [
@@ -34,18 +34,12 @@ export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">)
     return (
         <div className={classNames("bg-muted/20 flex flex-col items-start gap-4 1debug", className)} {...rest}>
             {stepItems.map((item, idx) => {
-                const status =
-                    idx < currentStep
-                        ? StatusEnum.complete
-                        : idx === currentStep
-                            ? StatusEnum.current
-                            : StatusEnum.notStarted;
                 return (
                     <Step
                         idx={idx}
                         label={item.label}
                         isLast={idx === stepItems.length - 1}
-                        status={status}
+                        status={indexToStatus(idx, currentStep)}
                         key={idx}
                     />
                 );
@@ -67,3 +61,11 @@ export function TestButtons() {
         </div>
     );
 }
+
+//TODO: should use doSetWizardPageAtom
+//TODO: add loader after some time
+
+//ctx:
+//currentPage
+//selectedApp get local atom with custom set
+//0-ctx instead of 9-types

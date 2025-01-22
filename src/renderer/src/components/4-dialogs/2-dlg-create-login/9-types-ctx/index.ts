@@ -22,7 +22,7 @@ function createNewManiCtx(): NewManiCtx {
     return rv;
 }
 
-export const doSetWizardPage = atom(
+export const doSetWizardPageAtom = atom(
     null,
     (get, set, page: WizardPage) => {
         set(newManiCtx.currentPageAtom, page);

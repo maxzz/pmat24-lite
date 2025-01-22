@@ -19,7 +19,7 @@ type StepProps = {
 };
 
 export function Step({ idx, label, isLast, status }: StepProps) {
-    const classes = status !== StatusEnum.notStarted ? stepClasses.complete : stepClasses.notStarted;
+    const classes = status === StatusEnum.notStarted ? stepClasses.notStarted : stepClasses.complete;
     const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
     const Icon = statusIcon(idx, status);
     return (
@@ -52,6 +52,16 @@ function statusIcon(idx: number, status: StatusEnum) {
                 : status === StatusEnum.notStarted
                     ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
                     : null
+    );
+}
+
+export function indexToStatus(idx: number, currentStep: number) {
+    return (
+        idx < currentStep
+            ? StatusEnum.complete
+            : idx === currentStep
+                ? StatusEnum.current
+                : StatusEnum.notStarted
     );
 }
 
