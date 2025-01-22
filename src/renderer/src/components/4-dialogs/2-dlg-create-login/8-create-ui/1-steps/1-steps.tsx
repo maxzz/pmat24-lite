@@ -1,33 +1,10 @@
 import { type ComponentProps } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { Button } from "@/ui/shadcn";
-import { newManiCtx } from "../../9-types-ctx";
-import { indexToStatus, Step, type StepItem } from "./2-step";
 import { classNames } from "@/utils";
-
-const stepItems: StepItem[] = [
-    {
-        label: <div className="flex flex-col gap-1">
-            <div className="text-sm font-semibold">Pick application</div>
-            <div className="text-xs">Select application to train</div>
-        </div>
-    }, {
-        label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">Fields and submit</div>
-            <div className="text-xs">Select fields and submit</div>
-        </div>
-    }, {
-        label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">Options</div>
-            <div className="text-xs">Customize options of the new manifest</div>
-        </div>
-    }, {
-        label: <div className="flex flex-col gap-1">
-            <div className="font-semibold">Save</div>
-            <div className="text-xs">Name manifest and save</div>
-        </div>
-    },
-];
+import { newManiCtx } from "../../9-types-ctx";
+import { indexToStatus, Step } from "./2-step";
+import { stepItems } from "./8-step-items-data";
 
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);

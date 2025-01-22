@@ -1,15 +1,6 @@
-import type { ReactNode, SVGAttributes } from "react";
+import { type ReactNode, type SVGAttributes } from "react";
+import { StatusEnum } from "./9-types";
 import { classNames } from "@/utils";
-
-export type StepItem = {
-    label: ReactNode;
-};
-
-export const enum StatusEnum { // Former Timeline5WithAI from shadch-tv
-    complete,
-    current, // i.e. in progress
-    notStarted,
-}
 
 type StepProps = {
     idx: number;
@@ -46,9 +37,9 @@ export function Step({ idx, label, isLast, status }: StepProps) {
 function statusIcon(idx: number, status: StatusEnum) {
     return (
         status === StatusEnum.complete
-            ? <CheckIcon className="size-4" />
+            ? <IconCheck className="size-4" />
             : status === StatusEnum.current
-                ? <LoaderIcon className="size-4 1animate-spin" />
+                ? <IconLoader className="size-4 1animate-spin" />
                 : status === StatusEnum.notStarted
                     ? <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{idx + 1}</span>
                     : null
@@ -83,29 +74,19 @@ const lineStepClasses = {
     incomplete: "bg-[#5c90f0]/20",
 };
 
-function CheckIcon({ className, ...rest }: SVGAttributes<SVGElement>) {
+function IconCheck({ className, ...rest }: SVGAttributes<SVGElement>) {
     return (
         <svg
-            className={classNames("fill-none stroke-current stroke-2", className)}
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            {...rest}
-        >
+            className={classNames("fill-none stroke-current stroke-2", className)} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" {...rest}>
             <path d="M20 6 9 17l-5-5" />
         </svg>
     );
 }
 
-function LoaderIcon({ className, ...rest }: SVGAttributes<SVGElement>) {
+function IconLoader({ className, ...rest }: SVGAttributes<SVGElement>) {
     return (
         <svg
-            className={classNames("fill-none stroke-current stroke-2", className)}
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            {...rest}
-        >
+            className={classNames("fill-none stroke-current stroke-2", className)} viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" {...rest}>
             <path d="M12 2v4" />
             <path d="m16.2 7.8 2.9-2.9" />
             <path d="M18 12h4" />
