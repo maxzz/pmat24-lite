@@ -7,8 +7,8 @@ import { RenderTwlData } from "./2-renader-tlw-data";
 export function RenaderTlwScreenshot({ item, idx }: { item: TlwScreenshotInfo; idx: number; }) {
     return (<>
         {item.item.type === 'error'
-            ? <RenderTwlError item={item.item} key={idx} />
-            : <RenderTwlData item={item.item} key={idx} />
+            ? <RenderTwlError item={item.item} key={item.uuid} />
+            : <RenderTwlData item={item} key={item.uuid} />
         }
     </>);
 }
