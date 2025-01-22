@@ -1,7 +1,7 @@
 import { type ComponentProps } from "react";
 import { useAtomValue } from "jotai";
 import { allScreenshotAtom } from "@/store";
-import { RenaderTlwScreenshot } from "./2-renader-tlw-screenshot";
+import { RenaderTlwScreenshot } from "./1-renader-tlw-guard";
 import { classNames } from "@/utils";
 
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
