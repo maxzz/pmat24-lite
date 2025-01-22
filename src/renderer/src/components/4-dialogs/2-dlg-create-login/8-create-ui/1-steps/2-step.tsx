@@ -6,9 +6,9 @@ export type StepItem = {
 };
 
 export const enum StatusEnum { // Former Timeline5WithAI from shadch-tv
-    complete = "Completed",
-    current = "In Progress", // i.e. in progress
-    notStarted = "Not Started",
+    complete,
+    current, // i.e. in progress
+    notStarted,
 }
 
 type StepProps = {

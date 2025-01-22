@@ -1,6 +1,7 @@
-import { ComponentProps, type ReactNode } from "react";
-import { atom, useAtom } from "jotai";
+import { type ComponentProps } from "react";
+import { useAtom, useAtomValue } from "jotai";
 import { Button } from "@/ui/shadcn";
+import { newManiCtx } from "../../9-types-ctx";
 import { StatusEnum, Step, type StepItem } from "./2-step";
 import { classNames } from "@/utils";
 
@@ -28,10 +29,8 @@ const stepItems: StepItem[] = [
     },
 ];
 
-const currentStepAtom = atom(1);
-
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
-    const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
+    const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     return (
         <div className={classNames("bg-muted/20 flex flex-col items-start gap-4 1debug", className)} {...rest}>
             {stepItems.map((item, idx) => {
@@ -56,7 +55,7 @@ export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">)
 }
 
 export function TestButtons() {
-    const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
+    const [currentStep, setCurrentStep] = useAtom(newManiCtx.currentPageAtom);
     return (
         <div className="px-4 flex items-center justify-end gap-1">
             <Button variant="outline" size="xs" onClick={() => setCurrentStep((s) => s - 1)} disabled={currentStep < 0}>
