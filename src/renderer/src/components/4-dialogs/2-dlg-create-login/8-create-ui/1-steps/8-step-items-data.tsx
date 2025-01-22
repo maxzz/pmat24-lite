@@ -1,11 +1,15 @@
+import exp from "constants";
 import { type StepItem } from "./9-types";
 
 export enum WizardPage {
-    start,
     apps,
     fields,
     options,
+    save,
 }
+
+export const wizardFirstPage = WizardPage.apps;
+export const wizardLastPage = WizardPage.save;
 
 export const stepItems: StepItem[] = [
     {

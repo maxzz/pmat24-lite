@@ -1,6 +1,6 @@
 import { atom, type Atom, type PrimitiveAtom } from "jotai";
 import { clamp } from "@/utils";
-import { WizardPage } from "../8-create-ui/1-steps/8-step-items-data";
+import { wizardFirstPage, wizardLastPage, type WizardPage } from "../8-create-ui/1-steps/8-step-items-data";
 
 export type NewManiCtx = {
     currentPageAtom: Atom<WizardPage>;  // current page
@@ -17,7 +17,7 @@ function createNewManiCtx(): NewManiCtx {
     return rv;
 }
 
-const _currentPageAtom = atom<WizardPage>(WizardPage.start);
+const _currentPageAtom = atom<WizardPage>(wizardFirstPage);
 
 export const doSetWizardPageAtom = atom(
     null,
@@ -30,7 +30,7 @@ export const doMoveWizardPageAtom = atom(
     null,
     (get, set, {next}:{next: boolean}) => {
         const currentPage = get(_currentPageAtom);
-        const page = clamp(currentPage + (next ? 1 : -1), WizardPage.start, WizardPage.options);
+        const page = clamp(currentPage + (next ? 1 : -1), wizardFirstPage, wizardLastPage);
         set(_currentPageAtom, page);
     }
 );
