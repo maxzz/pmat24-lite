@@ -38,5 +38,3 @@ export function TestButtons() {
         </div>
     );
 }
-
-//TODO: add loader after some time

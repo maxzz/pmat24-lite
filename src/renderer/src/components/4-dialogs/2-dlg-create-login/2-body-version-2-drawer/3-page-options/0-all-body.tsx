@@ -4,7 +4,7 @@ import { doSetScreenshotsAtom } from "@/store";
 import { AppsGrid, ButtonCreateFormSelector } from "../../8-create-ui";
 import { ScrollArea } from "@/ui/shadcn";
 
-export function Page1AppsBody() {
+export function Page3OptionsBody() {
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     useState(() => doSetScreenshots(300));
     return (
