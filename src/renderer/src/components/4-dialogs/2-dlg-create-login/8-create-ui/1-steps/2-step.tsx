@@ -4,12 +4,13 @@ import { classNames } from "@/utils";
 
 type StepProps = {
     idx: number;
+    currentStep: number;
     label: ReactNode;
     isLast?: boolean;
-    status: StatusEnum;
 };
 
-export function Step({ idx, label, isLast, status }: StepProps) {
+export function Step({ idx, currentStep, label, isLast}: StepProps) {
+    const status=indexToStatus(idx, currentStep)
     const classes = status === StatusEnum.notStarted ? stepClasses.notStarted : stepClasses.complete;
     const lineClasses = status === StatusEnum.complete ? lineStepClasses.complete : lineStepClasses.incomplete;
     const Icon = statusIcon(idx, status);

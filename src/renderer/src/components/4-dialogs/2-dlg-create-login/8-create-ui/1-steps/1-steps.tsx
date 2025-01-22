@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { classNames } from "@/utils";
 import { newManiCtx } from "../../9-types-ctx";
-import { indexToStatus, Step } from "./2-step";
+import { Step } from "./2-step";
 import { stepItems } from "./8-step-items-data";
 
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
@@ -14,9 +14,9 @@ export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">)
                 return (
                     <Step
                         idx={idx}
+                        currentStep={currentStep}
                         label={item.label}
                         isLast={idx === stepItems.length - 1}
-                        status={indexToStatus(idx, currentStep)}
                         key={idx}
                     />
                 );
