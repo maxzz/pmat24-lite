@@ -2,8 +2,7 @@ import { type ComponentProps } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { classNames } from "@/utils";
-import { stepItems } from "./8-step-items-data";
-import { doMoveWizardPageAtom, newManiCtx } from "../../9-new-mani-ctx";
+import { doMoveWizardPageAtom, newManiCtx, stepItems } from "../../9-new-mani-ctx";
 import { Step } from "./2-step";
 
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
@@ -40,10 +39,4 @@ export function TestButtons() {
     );
 }
 
-//TODO: should use doSetWizardPageAtom - done
 //TODO: add loader after some time
-
-//ctx:
-//currentPage - done
-//selectedApp get local atom with custom set - done
-//0-ctx instead of 9-types - done

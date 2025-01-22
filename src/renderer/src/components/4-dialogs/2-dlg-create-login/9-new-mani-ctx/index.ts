@@ -1,12 +1,8 @@
 import { atom, type Atom, type PrimitiveAtom } from "jotai";
 import { clamp } from "@/utils";
+import { WizardPage } from "../8-create-ui/1-steps/8-step-items-data";
 
-export enum WizardPage {
-    start,
-    apps,
-    fields,
-    options,
-}
+export * from "../8-create-ui/1-steps/8-step-items-data";
 
 export type NewManiCtx = {
     currentPageAtom: Atom<WizardPage>;  // current page
