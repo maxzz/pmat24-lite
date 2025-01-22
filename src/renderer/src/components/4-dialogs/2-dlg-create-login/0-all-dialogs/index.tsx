@@ -1,1 +1,1 @@
-export * from "./0-all-global-create-dialogs";
+export * from "./8-all-global-create-dialogs";
