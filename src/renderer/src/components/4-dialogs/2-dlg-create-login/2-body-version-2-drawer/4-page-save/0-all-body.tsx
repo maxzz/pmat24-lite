@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetScreenshotsAtom } from "@/store";
-import { AppsGrid, ButtonCreateFormSelector } from "../../8-create-ui";
+import { ButtonCreateFormSelector } from "../../8-create-ui";
 import { ScrollArea } from "@/ui/shadcn";
+import { AppsGrid } from "../1-page-apps/2-apps-grid";
 
 export function Page4SaveBody() {
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
