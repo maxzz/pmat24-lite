@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { doSetScreenshotsAtom } from "@/store";
 import { ButtonCreateFormSelector } from "../../8-create-ui";
 import { ScrollArea } from "@/ui/shadcn";
-import { AppsGrid } from "../1-page-apps/2-apps-grid";
+import { AppsGrid } from "../1-page-apps/1-apps-grid";
 
 export function Page2FieldsBody() {
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);

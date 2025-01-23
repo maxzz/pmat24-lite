@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetScreenshotsAtom } from "@/store";
 import { ButtonCreateFormSelector } from "../../8-create-ui";
-import { AppsGrid } from "./2-apps-grid";
+import { AppsGrid } from "./1-apps-grid";
 import { ScrollArea } from "@/ui/shadcn";
 
 export function Page1AppsBody() {
