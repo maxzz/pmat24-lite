@@ -15,11 +15,11 @@ export function WizardBody() {
             <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
 
             <div className="h-full grid grid-rows-[1fr_auto]">
-                <AnimatePresence initial={false}>
-                    {currentStep === WizardPage.apps && <Page1AppsBody />}
-                    {currentStep === WizardPage.fields && <Page2FieldsBody />}
-                    {currentStep === WizardPage.options && <Page3OptionsBody />}
-                    {currentStep === WizardPage.save && <Page4SaveBody />}
+                <AnimatePresence initial={false} mode="wait">
+                    {currentStep === WizardPage.apps && <PageWrapper><Page1AppsBody /></PageWrapper>}
+                    {currentStep === WizardPage.fields && <PageWrapper><Page2FieldsBody /></PageWrapper>}
+                    {currentStep === WizardPage.options && <PageWrapper><Page3OptionsBody /></PageWrapper>}
+                    {currentStep === WizardPage.save && <PageWrapper><Page4SaveBody /></PageWrapper>}
                 </AnimatePresence>
 
                 {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
