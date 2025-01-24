@@ -10,33 +10,35 @@ export enum WizardPage {
 export const wizardFirstPage = WizardPage.apps;
 export const wizardLastPage = WizardPage.save;
 
+const explanationClasses = "text-balance text-xs";
+
 export const stepItems: StepItem[] = [
     {
         label: (
             <div className="flex flex-col gap-1">
                 <div className="text-sm font-semibold">Pick application</div>
-                <div className="text-xs">Select application to train</div>
+                <div className={explanationClasses}>Select application to train</div>
             </div>
         )
     }, {
         label: (
             <div className="flex flex-col gap-1">
                 <div className="font-semibold">Fields and submit</div>
-                <div className="text-xs">Select fields and submit</div>
+                <div className={explanationClasses}>Configure new manifest fields and submission method.</div>
             </div>
         )
     }, {
         label: (
             <div className="flex flex-col gap-1">
                 <div className="font-semibold">Options</div>
-                <div className="text-xs">Customize options of the new manifest</div>
+                <div className={explanationClasses}>Configure the new manifest settings.</div>
             </div>
         )
     }, {
         label: (
             <div className="flex flex-col gap-1">
                 <div className="font-semibold">Save</div>
-                <div className="text-xs">Name manifest and save</div>
+                <div className={explanationClasses}>Name the manifest and save the file.</div>
             </div>
         )
     },

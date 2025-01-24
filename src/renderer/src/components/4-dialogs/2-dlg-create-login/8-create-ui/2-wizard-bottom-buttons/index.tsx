@@ -4,7 +4,6 @@ import { Button } from "@/ui";
 import { newManiCtx, doMoveWizardPageAtom, stepItems } from "../../9-new-mani-ctx";
 import { classNames } from "@/utils";
 
-
 export function WizardBottomButtons({className, ...rest}: ComponentProps<"div">) {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const doMoveWizardPage = useSetAtom(doMoveWizardPageAtom);
