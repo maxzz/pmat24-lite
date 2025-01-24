@@ -1,4 +1,6 @@
+import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
+import { AnimatePresence, motion } from "framer-motion";
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../9-new-mani-ctx";
 import { Page1AppsBody } from "../1-page-apps";
@@ -13,10 +15,12 @@ export function WizardBody() {
             <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
 
             <div className="h-full grid grid-rows-[1fr_auto]">
-                {currentStep === WizardPage.apps && <Page1AppsBody />}
-                {currentStep === WizardPage.fields && <Page2FieldsBody />}
-                {currentStep === WizardPage.options && <Page3OptionsBody />}
-                {currentStep === WizardPage.save && <Page4SaveBody />}
+                <AnimatePresence initial={false}>
+                    {currentStep === WizardPage.apps && <Page1AppsBody />}
+                    {currentStep === WizardPage.fields && <Page2FieldsBody />}
+                    {currentStep === WizardPage.options && <Page3OptionsBody />}
+                    {currentStep === WizardPage.save && <Page4SaveBody />}
+                </AnimatePresence>
 
                 {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
 
@@ -27,3 +31,11 @@ export function WizardBody() {
 }
 
 //TODO: add loader after some time
+
+function PageWrapper({ children }: { children: ReactNode; }) {
+    return (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            {children}
+        </motion.div>
+    );
+}
