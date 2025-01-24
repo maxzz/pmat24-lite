@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/manifest";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/8-create-ui";
+import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/1-body/8-create-ui";
 
 export function NoFormTabContent({ formType }: { formType: FormIdx; }) {
 
