@@ -23,7 +23,7 @@ export function WizardBody() {
 
                 {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
 
-                <WizardBottomButtons />
+                <WizardBottomButtons className="my-4" />
             </div>
         </div>
     );

@@ -1,13 +1,15 @@
-import { Button } from "@/ui";
+import { type ComponentProps } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { newManiCtx, doMoveWizardPageAtom } from "../../9-new-mani-ctx";
-import { stepItems } from "../1-steps/8-step-items-data";
+import { Button } from "@/ui";
+import { newManiCtx, doMoveWizardPageAtom, stepItems } from "../../9-new-mani-ctx";
+import { classNames } from "@/utils";
 
-export function WizardBottomButtons() {
+
+export function WizardBottomButtons({className, ...rest}: ComponentProps<"div">) {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const doMoveWizardPage = useSetAtom(doMoveWizardPageAtom);
     return (
-        <div className="px-4 flex items-center justify-end gap-1">
+        <div className={classNames("px-4 flex items-center justify-end gap-1", className)} {...rest}>
             <Button variant="outline" size="xs" onClick={() => doMoveWizardPage({next: false})} disabled={currentStep < 0}>
                 Prev
             </Button>
