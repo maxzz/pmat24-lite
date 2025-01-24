@@ -1,6 +1,6 @@
 import { atom, type Atom, type PrimitiveAtom } from "jotai";
 import { clamp } from "@/utils";
-import { wizardFirstPage, wizardLastPage, type WizardPage } from "../8-create-ui/1-steps/8-step-items-data";
+import { wizardFirstPage, wizardLastPage, type WizardPage } from "./8-step-items-data";
 
 export type NewManiCtx = {
     currentPageAtom: Atom<WizardPage>;  // current page

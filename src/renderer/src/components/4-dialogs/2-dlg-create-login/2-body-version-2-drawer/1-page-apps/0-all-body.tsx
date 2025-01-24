@@ -11,7 +11,7 @@ export function Page1AppsBody() {
     return (
         <div className="1-my-4 text-xs grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">
-                Select the login window for which you will create a manifest.
+                Select the window for which you want to create a manifest.
             </div>
 
             <div className="relative h-full w-full">
