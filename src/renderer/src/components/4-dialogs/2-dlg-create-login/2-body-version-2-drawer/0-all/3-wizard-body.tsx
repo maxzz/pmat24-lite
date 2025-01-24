@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { LeftPanelProgress, TestButtons, WizardBottomButtons } from "../../8-create-ui";
+import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../9-new-mani-ctx";
 import { Page1AppsBody } from "../1-page-apps";
 import { Page2FieldsBody } from "../2-page-fields";
@@ -10,10 +10,7 @@ export function WizardBody() {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     return (
         <div className="h-full grid grid-cols-[auto_1fr]">
-            <div className=" bg-muted">
-                <LeftPanelProgress className="p-4" />
-                <TestButtons />
-            </div>
+            <LeftPanelProgress className="p-4 bg-muted border-r-2 border-red-500" />
 
             <div className="h-full grid grid-rows-[1fr_auto]">
                 {currentStep === WizardPage.apps && <Page1AppsBody />}
