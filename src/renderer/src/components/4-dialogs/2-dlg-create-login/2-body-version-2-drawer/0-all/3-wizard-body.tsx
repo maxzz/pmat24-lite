@@ -10,7 +10,7 @@ export function WizardBody() {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     return (
         <div className="h-full grid grid-cols-[auto_1fr]">
-            <LeftPanelProgress className="p-4 bg-muted border-r-2 border-red-500" />
+            <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
 
             <div className="h-full grid grid-rows-[1fr_auto]">
                 {currentStep === WizardPage.apps && <Page1AppsBody />}

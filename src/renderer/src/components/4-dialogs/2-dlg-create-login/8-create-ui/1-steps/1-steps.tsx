@@ -7,7 +7,7 @@ import { Step } from "./2-step";
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     return (
-        <div className={classNames("max-w-64 bg-muted/20 flex flex-col items-start gap-4 1debug", className)} {...rest}>
+        <div className={classNames("max-w-64 bg-muted/20 flex flex-col items-start gap-4", className)} {...rest}>
             {stepItems.map((item, idx) => {
                 return (
                     <Step

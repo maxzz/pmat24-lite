@@ -9,7 +9,7 @@ export function Page1AppsBody() {
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     useState(() => doSetScreenshots(300));
     return (
-        <div className="1-my-4 text-xs border-l border-border grid grid-rows-[auto,1fr,auto] 1debug">
+        <div className="1-my-4 text-xs grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">
                 Select the login window for which you will create a manifest.
             </div>
