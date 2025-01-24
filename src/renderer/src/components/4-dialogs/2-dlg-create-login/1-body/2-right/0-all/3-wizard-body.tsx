@@ -16,10 +16,10 @@ export function WizardBody() {
 
             <div className="h-full grid grid-rows-[1fr_auto]">
                 <AnimatePresence initial={false} mode="wait">
-                    {currentStep === WizardPage.apps && <PageWrapper><Page1AppsBody /></PageWrapper>}
-                    {currentStep === WizardPage.fields && <PageWrapper><Page2FieldsBody /></PageWrapper>}
-                    {currentStep === WizardPage.options && <PageWrapper><Page3OptionsBody /></PageWrapper>}
-                    {currentStep === WizardPage.save && <PageWrapper><Page4SaveBody /></PageWrapper>}
+                    {currentStep === WizardPage.apps && <PageWrapper key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
+                    {currentStep === WizardPage.fields && <PageWrapper key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
+                    {currentStep === WizardPage.options && <PageWrapper key={WizardPage.options}><Page3OptionsBody /></PageWrapper>}
+                    {currentStep === WizardPage.save && <PageWrapper key={WizardPage.save}><Page4SaveBody /></PageWrapper>}
                 </AnimatePresence>
 
                 {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}

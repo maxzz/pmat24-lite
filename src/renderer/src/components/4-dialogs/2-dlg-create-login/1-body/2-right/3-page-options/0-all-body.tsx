@@ -6,8 +6,8 @@ import { ScrollArea } from "@/ui/shadcn";
 import { AppsGrid } from "../1-page-apps/1-apps-grid";
 
 export function Page3OptionsBody() {
-    const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
-    useState(() => doSetScreenshots(300));
+    // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
+    // useState(() => doSetScreenshots(300));
     return (
         <div className="1-my-4 text-xs grid grid-rows-[auto,1fr,auto] 1debug">
             <div className="px-2 py-1 text-sm bg-muted/30">
@@ -16,9 +16,10 @@ export function Page3OptionsBody() {
 
             <div className="relative h-full w-full">
                 <div className="absolute inset-0">
-                    <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth>
+                    {/* <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth>
                         <AppsGrid />
-                    </ScrollArea>
+                    </ScrollArea> */}
+                    3-page-options
                 </div>
             </div>
 
