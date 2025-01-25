@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3
+import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //https://motion-primitives.com/docs/popover
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../9-new-mani-ctx";
 import { Page1AppsBody } from "../1-page-apps";
@@ -19,7 +19,7 @@ export function WizardBody() {
                 <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
 
                     <div className="flex">
-                        <AnimatePresence initial={false} custom={direction}>
+                        <AnimatePresence initial={false} custom={direction} mode="wait">
                             {currentStep === WizardPage.apps && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
                             {currentStep === WizardPage.fields && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
                             {currentStep === WizardPage.options && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}><Page3OptionsBody /></PageWrapper>}
@@ -38,15 +38,17 @@ export function WizardBody() {
 
 const TRANSITION = {
     type: 'spring',
-    bounce: 0.05,
-    duration: 0.3,
+    // bounce: 0.05,
+    // duration: 0.3,
+    stiffness: 300,
+    damping: 30,
 };
 
 const variants = {
     enter: (direction: number) => {
         return {
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0
+            x: direction > 0 ? 150 : -150,
+            opacity: 1
         };
     },
     center: {
@@ -57,8 +59,11 @@ const variants = {
     exit: (direction: number) => {
         return {
             zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
-            opacity: 0
+            x: direction < 0 ? 150 : -150,
+            opacity: 1,
+            transition: {
+                duration: 0 
+            }
         };
     }
 };

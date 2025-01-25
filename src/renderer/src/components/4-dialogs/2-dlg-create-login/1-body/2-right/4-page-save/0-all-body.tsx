@@ -9,7 +9,7 @@ export function Page4SaveBody() {
     // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     // useState(() => doSetScreenshots(300));
     return (
-        <div className="h-full text-xs bg-sky-500 grid grid-rows-[auto,1fr,auto]">
+        <div className="h-full text-xs bg-green-300 grid grid-rows-[auto,1fr,auto]">
             <div className="px-2 py-1 text-sm bg-muted/30">
                 Select the login window for which you will create a manifest.
             </div>
