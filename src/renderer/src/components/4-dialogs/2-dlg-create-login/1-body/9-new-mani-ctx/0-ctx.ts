@@ -1,12 +1,11 @@
 import { atom, type WritableAtom, type Atom, type PrimitiveAtom } from "jotai";
-import { clamp } from "@/utils";
-import { wizardFirstPage, wizardLastPage, type WizardPage } from "./8-step-items-data";
-import { PageAndDirection, createCurrentPageAtom, createPageAndDirectionAtom, createDoMoveWizardPageAtom } from "./1-current-page";
+import { type WizardPage } from "./8-step-items-data";
+import { type PageAndDirection, type CreateDoMoveWizardPageAtom, createCurrentPageAtom, createPageAndDirectionAtom, createDoMoveWizardPageAtom } from "./1-current-page";
 
 class NewManiCtx {
-    currentPageAtom: Atom<WizardPage>;              // current page
-    pageAndDirectionAtom: Atom<PageAndDirection>;
-    doMoveWizardPageAtom: WritableAtom<null, [{ next: boolean; }], void>;
+    currentPageAtom: Atom<WizardPage>;                  // current page
+    pageAndDirectionAtom: Atom<PageAndDirection>;       // current page and direction
+    doMoveWizardPageAtom: CreateDoMoveWizardPageAtom;  // move wizard page
 
     appSelectedIdxAtom: PrimitiveAtom<number>;      // selected application index
 

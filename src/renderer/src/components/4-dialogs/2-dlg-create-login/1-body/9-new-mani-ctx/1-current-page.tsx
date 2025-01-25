@@ -26,3 +26,5 @@ export function createDoMoveWizardPageAtom() {
         }
     );
 }
+
+export type CreateDoMoveWizardPageAtom = ReturnType<typeof createDoMoveWizardPageAtom>; // WritableAtom<null, [{ next: boolean; }], void>
