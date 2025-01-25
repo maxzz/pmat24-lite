@@ -1,6 +1,6 @@
-import { atom, type WritableAtom, type Atom, type PrimitiveAtom } from "jotai";
+import { atom } from "jotai";
+import { type WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { clamp } from "@/utils";
-import { wizardFirstPage, wizardLastPage, type WizardPage } from "./8-step-items-data";
 
 export type PageAndDirection = [page: WizardPage, direction: number];
 
