@@ -9,7 +9,7 @@ export function Page1AppsBody() {
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     useState(() => doSetScreenshots(300));
     return (
-        <div className="1-my-4 text-xs grid grid-rows-[auto,1fr,auto] 1debug">
+        <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
             <div className="px-2 py-1 text-sm bg-muted/30">
                 Select the window for which you want to create a manifest.
             </div>
