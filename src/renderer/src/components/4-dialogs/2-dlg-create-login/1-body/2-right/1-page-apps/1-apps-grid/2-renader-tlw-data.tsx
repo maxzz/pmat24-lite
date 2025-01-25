@@ -1,9 +1,12 @@
 import { type ComponentProps } from "react";
 import { useSnapshot } from "valtio";
+import { AnimatePresence, motion } from "framer-motion";
 import { type TlwScreenshotInfo } from "@/store";
 import { type TlwData } from "@shared/ipc-types";
 import { CheckIcon } from "lucide-react";
 import { classNames } from "@/utils";
+
+const MotionIcon = motion.create(CheckIcon);
 
 export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & ComponentProps<'div'>) {
     const isSelected = useSnapshot(item.editor).selected;
@@ -16,10 +19,18 @@ export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & 
         >
             <RenderData64 className={classNames("m-1 max-w-52", isSelected && itemSelectedClasses)} data64={tlwData.data} />
 
-            {isSelected
-                ? <CheckIcon className={checkboxClasses} />
-                : null
-            }
+            {/* {isSelected && <CheckIcon className={checkboxClasses} />} */}
+            <AnimatePresence>
+                {isSelected && (
+                    <MotionIcon
+                        className={checkboxClasses}
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1.1, opacity: 1 }}
+                        exit={{ scale: 0.9, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                    />
+                )}
+            </AnimatePresence>
 
             <div className="m-1 text-xs font-semibold">{tlwData.caption}</div>
         </div>
@@ -40,7 +51,7 @@ const itemSelectedClasses = `${itemSelected1Classes} ${itemSelected2Classes}`;
 // rounded-full";
 
 const checkboxClasses = "\
-absolute left-4 top-3 p-1 size-6 \
+absolute left-3.5 top-3 p-1 size-6 \
 text-black bg-white border-2 border-sky-500 \
 shadow-sm shadow-slate-500 \
 rounded-full";
