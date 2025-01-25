@@ -37,8 +37,9 @@ function PageWrapper({ children }: { children: ReactNode; }) {
         <motion.div
             initial={{ opacity: 1, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 1, x: "-100%" }}
-            transition={{ duration: 0.15, ease: "easeInOut" }}
+            exit={{ opacity: 1, x: "-100%", transition: { duration: 2, ease: "easeOut" } } }
+            transition={{ duration: 2.15, ease: "easeOut" }}
+            layout
         >
             {children}
         </motion.div>
