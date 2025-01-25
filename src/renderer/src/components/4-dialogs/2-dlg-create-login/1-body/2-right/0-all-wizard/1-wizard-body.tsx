@@ -16,10 +16,10 @@ export function WizardBody() {
 
             <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
                 <AnimatePresence initial={false} mode="wait">
-                    {currentStep === WizardPage.apps && <PageWrapper key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
-                    {currentStep === WizardPage.fields && <PageWrapper key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
-                    {currentStep === WizardPage.options && <PageWrapper key={WizardPage.options}><Page3OptionsBody /></PageWrapper>}
-                    {currentStep === WizardPage.save && <PageWrapper key={WizardPage.save}><Page4SaveBody /></PageWrapper>}
+                    {currentStep === WizardPage.apps && <PageWrapper currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
+                    {currentStep === WizardPage.fields && <PageWrapper currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
+                    {currentStep === WizardPage.options && <PageWrapper currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}><Page3OptionsBody /></PageWrapper>}
+                    {currentStep === WizardPage.save && <PageWrapper currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}><Page4SaveBody /></PageWrapper>}
                 </AnimatePresence>
 
                 {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
@@ -32,14 +32,15 @@ export function WizardBody() {
 
 //TODO: add loader after some time
 
-function PageWrapper({ children }: { children: ReactNode; }) {
+function PageWrapper({ children, currentStep, thisStep }: { children: ReactNode; currentStep: WizardPage; thisStep: WizardPage; }) {
+    const direction = currentStep >= thisStep ? '-100%' : '100%';
     return (
         <motion.div
-            initial={{ opacity: 1, x: "100%" }}
+            initial={{ opacity: 1, x: direction }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 1, x: "-100%", transition: { duration: 2, ease: "easeOut" } } }
+            exit={{ opacity: 1, x: direction, transition: { duration: 2, ease: "easeOut" } }}
             transition={{ duration: 2.15, ease: "easeOut" }}
-            layout
+
         >
             {children}
         </motion.div>
