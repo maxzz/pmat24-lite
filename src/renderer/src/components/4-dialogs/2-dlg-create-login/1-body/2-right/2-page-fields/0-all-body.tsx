@@ -11,7 +11,7 @@ export function Page2FieldsBody() {
     return (
         <div className="h-full text-xs bg-sky-300 grid grid-rows-[auto,1fr,auto]">
             <div className="px-2 py-1 text-sm bg-muted/30">
-                Select the login window for which you will create a manifest.
+                Set up new form fields and submission method.
             </div>
 
             <div className="relative h-full w-full">
@@ -23,9 +23,9 @@ export function Page2FieldsBody() {
                 </div>
             </div>
 
-            <div className="px-1 py-2 bg-muted/30 border-t border-border">
+            {/* <div className="px-1 py-2 bg-muted/30 border-t border-border">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -11,7 +11,7 @@ export function Page3OptionsBody() {
     return (
         <div className="h-full text-xs bg-yellow-300 grid grid-rows-[auto,1fr,auto]">
             <div className="px-2 py-1 text-sm bg-muted/30">
-                Select the login window for which you will create a manifest.
+                Name the manifest and save the file.
             </div>
 
             <div className="relative h-full w-full">
@@ -23,9 +23,9 @@ export function Page3OptionsBody() {
                 </div>
             </div>
 
-            <div className="px-1 py-2 bg-muted/30 border-t border-border">
+            {/* <div className="px-1 py-2 bg-muted/30 border-t border-border">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
-            </div>
+            </div> */}
         </div>
     );
 }

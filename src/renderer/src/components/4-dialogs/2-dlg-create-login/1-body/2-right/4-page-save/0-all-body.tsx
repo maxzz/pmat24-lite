@@ -23,9 +23,9 @@ export function Page4SaveBody() {
                 </div>
             </div>
 
-            <div className="px-1 py-2 bg-muted/30 border-t border-border">
+            {/* <div className="px-1 py-2 bg-muted/30 border-t border-border">
                 <ButtonCreateFormSelector triggerLabel="Create new manifest" />
-            </div>
+            </div> */}
         </div>
     );
 }
