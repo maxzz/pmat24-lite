@@ -1,14 +1,18 @@
 import { type ComponentProps } from "react";
+import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "framer-motion";
 import { type TlwScreenshotInfo } from "@/store";
 import { type TlwData } from "@shared/ipc-types";
 import { CheckIcon } from "lucide-react";
 import { classNames } from "@/utils";
+import { newManiCtx } from "../../../9-new-mani-ctx";
 
 const MotionIcon = motion.create(CheckIcon);
 
 export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & ComponentProps<'div'>) {
+    const doSetSelected = useSetAtom(newManiCtx.appSelectedIdxAtom);
+
     const isSelected = useSnapshot(item.editor).selected;
     const tlwData = item.item as TlwData;
     return (

@@ -29,10 +29,11 @@ export function Page1AppsBody() {
 }
 
 function PageHeader({ page }: { page: WizardPage; }) {
+    const [title, explanation] = stepInfo[page];
     return (
         <div className="px-4 py-3 text-sm bg-muted/30 flex flex-col gap-1">
-            <div className="text-sm font-semibold">{stepInfo[page][0]}</div>
-            <div className="text-xs text-foreground/50">{stepInfo[page][1]}</div>
+            <div className="text-sm font-semibold">{title}</div>
+            <div className="text-xs text-foreground/50">{explanation}</div>
         </div>
     );
 }

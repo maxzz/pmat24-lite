@@ -9,7 +9,7 @@ export const doOpenDrawerAtom = atom(
     (get) => get(_doOpenDrawerAtom),
     (get, set, open: boolean) => {
         if (open) {
-            set(newManiCtx.initAtom, { ctx: newManiCtx });
+            set(newManiCtx.doInitAtom, { ctx: newManiCtx });
         }
         set(_doOpenDrawerAtom, open);
     }

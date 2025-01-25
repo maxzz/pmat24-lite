@@ -6,7 +6,7 @@ import { classNames } from "@/utils";
 
 export function WizardBottomButtons({className, ...rest}: ComponentProps<"div">) {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
-    const doMoveWizardPage = useSetAtom(newManiCtx.doMoveWizardPageAtom);
+    const doMoveWizardPage = useSetAtom(newManiCtx.doAdvancePageAtom);
     return (
         <div className={classNames("px-4 flex items-center justify-end gap-1", className)} {...rest}>
             <Button variant="outline" size="xs" onClick={() => doMoveWizardPage({next: false})} disabled={currentStep < 0}>

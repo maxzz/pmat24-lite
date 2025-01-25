@@ -16,7 +16,7 @@ export function createCurrentPageAtom() {
     });
 }
 
-export function createDoMoveWizardPageAtom() {
+export function createDoAdvancePageAtom() {
     return atom(
         null,
         (get, set, { next }: { next: boolean; }) => {
@@ -27,4 +27,4 @@ export function createDoMoveWizardPageAtom() {
     );
 }
 
-export type CreateDoMoveWizardPageAtom = ReturnType<typeof createDoMoveWizardPageAtom>; // WritableAtom<null, [{ next: boolean; }], void>
+export type CreateDoAdvancePageAtom = ReturnType<typeof createDoAdvancePageAtom>; // WritableAtom<null, [{ next: boolean; }], void>
