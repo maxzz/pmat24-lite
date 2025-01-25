@@ -2,20 +2,30 @@ import { atom, type Atom, type PrimitiveAtom } from "jotai";
 import { clamp } from "@/utils";
 import { wizardFirstPage, wizardLastPage, type WizardPage } from "./8-step-items-data";
 
-export type NewManiCtx = {
+// export type NewManiCtx = {
+//     currentPageAtom: Atom<WizardPage>;  // current page
+//     appSelectedIdxAtom: PrimitiveAtom<number>;   // selected application index
+// };
+
+class NewManiCtx {
     currentPageAtom: Atom<WizardPage>;  // current page
     appSelectedIdxAtom: PrimitiveAtom<number>;   // selected application index
-};
 
-export const newManiCtx = createNewManiCtx();
-
-function createNewManiCtx(): NewManiCtx {
-    const rv = {
-        currentPageAtom: atom((get) => get(_currentPageAtom)),
-        appSelectedIdxAtom: atom(0),
-    };
-    return rv;
+    constructor() {
+        this.currentPageAtom = atom((get) => get(_currentPageAtom));
+        this.appSelectedIdxAtom = atom(0);
+    }
 }
+
+export const newManiCtx: NewManiCtx = new NewManiCtx();
+
+// function createNewManiCtx(): NewManiCtx {
+//     const rv = {
+//         currentPageAtom: atom((get) => get(_currentPageAtom)),
+//         appSelectedIdxAtom: atom(0),
+//     };
+//     return rv;
+// }
 
 const _currentPageAtom = atom<WizardPage>(wizardFirstPage);
 

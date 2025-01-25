@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../9-new-mani-ctx";
 import { Page1AppsBody } from "../1-page-apps";
@@ -30,17 +30,46 @@ export function WizardBody() {
     );
 }
 
+const variants = {
+    enter: (direction: number) => {
+        return {
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0
+        };
+    },
+    center: {
+        zIndex: 1,
+        x: 0,
+        opacity: 1
+    },
+    exit: (direction: number) => {
+        return {
+            zIndex: 0,
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0
+        };
+    }
+};
+
 //TODO: add loader after some time
 
 function PageWrapper({ children, currentStep, thisStep }: { children: ReactNode; currentStep: WizardPage; thisStep: WizardPage; }) {
     const direction = currentStep >= thisStep ? '-100%' : '100%';
     return (
         <motion.div
-            initial={{ opacity: 1, x: direction }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 1, x: direction, transition: { duration: 2, ease: "easeOut" } }}
-            transition={{ duration: 2.15, ease: "easeOut" }}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+            }}
 
+        // initial={{ opacity: 1, x: direction }}
+        // animate={{ opacity: 1, x: 0 }}
+        // exit={{ opacity: 1, x: direction, transition: { duration: 2, ease: "easeOut" } }}
+        // transition={{ duration: 2.15, ease: "easeOut" }}
         >
             {children}
         </motion.div>
