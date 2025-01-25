@@ -40,9 +40,11 @@ export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & 
 // const itemSelectedClasses = "outline outline-2 -outline-offset-2 outline-sky-500 outline-o rounded";
 // const itemSelectedClasses = "ring-2 ring-sky-500 1ring-offset-1 ring-o rounded";
 
-const itemSelected1Classes = "outline outline-2 -outline-offset-2 outline-sky-500 outline-o rounded";
-const itemSelected2Classes = "ring-1 ring-sky-500 1ring-offset-1 ring-o rounded";
-const itemSelectedClasses = `${itemSelected1Classes} ${itemSelected2Classes}`;
+const itemSelectedClasses = "\
+outline outline-2 -outline-offset-2 outline-sky-500 outline-o \
+ring-1 ring-sky-500 1ring-offset-1 ring-o \
+rounded-md \
+";
 
 // const checkboxClasses = "\
 // absolute left-2 top-1.5 p-1 size-6 \
