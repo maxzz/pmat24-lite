@@ -13,11 +13,11 @@ export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & 
     const tlwData = item.item as TlwData;
     return (
         <div
-            className={classNames("relative m-1 pb-4 flex flex-col gap-1 overflow-hidden")}
+            className={classNames("relative m-1 pb-4 flex flex-col gap-1 overflow-hidden cursor-pointer")}
             onClick={() => item.editor.selected = !isSelected}
             {...rest}
         >
-            <RenderData64 className={classNames("m-1 max-w-52", isSelected && itemSelectedClasses)} data64={tlwData.data} />
+            <RenderData64 className={classNames("m-1 max-w-52 max-h-36", isSelected && itemSelectedClasses)} data64={tlwData.data} />
 
             {/* {isSelected && <CheckIcon className={checkboxClasses} />} */}
             <AnimatePresence>
@@ -44,6 +44,7 @@ const itemSelectedClasses = "\
 outline outline-2 -outline-offset-2 outline-sky-500 outline-o \
 ring-1 ring-sky-500 1ring-offset-1 ring-o \
 rounded-md \
+1transition-all 1duration-[300ms] \
 ";
 
 // const checkboxClasses = "\
