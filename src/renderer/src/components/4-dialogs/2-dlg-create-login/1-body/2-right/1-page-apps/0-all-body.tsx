@@ -6,8 +6,8 @@ import { AppsGrid } from "./1-apps-grid";
 import { ScrollArea } from "@/ui/shadcn";
 
 export function Page1AppsBody() {
-    const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
-    useState(() => doSetScreenshots(300));
+    // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
+    // useState(() => doSetScreenshots(300));
     return (
         <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
             <div className="px-2 py-1 text-sm bg-muted/30">
