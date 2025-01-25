@@ -14,7 +14,7 @@ export function WizardBody() {
         <div className="h-full grid grid-cols-[auto_1fr]">
             <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
 
-            <div className="h-full grid grid-rows-[1fr_auto]">
+            <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
                 <AnimatePresence initial={false} mode="wait">
                     {currentStep === WizardPage.apps && <PageWrapper key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
                     {currentStep === WizardPage.fields && <PageWrapper key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
@@ -34,7 +34,12 @@ export function WizardBody() {
 
 function PageWrapper({ children }: { children: ReactNode; }) {
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div
+            initial={{ opacity: 1, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 1, x: "-100%" }}
+            transition={{ duration: 0.15, ease: "easeInOut" }}
+        >
             {children}
         </motion.div>
     );
