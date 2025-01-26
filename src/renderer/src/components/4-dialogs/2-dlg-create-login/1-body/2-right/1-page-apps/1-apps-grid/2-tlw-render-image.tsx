@@ -10,15 +10,20 @@ import { newManiCtx } from "../../../9-new-mani-ctx";
 
 const MotionIcon = motion.create(CheckIcon);
 
-export function TwlRenderImage({ item, ...rest }: { item: TlwScreenshotInfo; } & ComponentProps<'div'>) {
+export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo; idx: number; } & ComponentProps<'div'>) {
     const doSetSelected = useSetAtom(newManiCtx.appSelectedIdxAtom);
 
-    const isSelected = useSnapshot(item.editor).selected;
-    const tlwData = item.item as TlwData;
+    const isSelected = useSnapshot(info.editor).selected;
+    const tlwData = info.item as TlwData;
     return (
         <div
             className={classNames("relative m-1 pb-4 flex flex-col gap-1 overflow-hidden cursor-pointer")}
-            onClick={() => item.editor.selected = !isSelected}
+            onClick={
+                () => {
+                    info.editor.selected = !isSelected;
+                    doSetSelected(idx);
+                }
+            }
             {...rest}
         >
             <RenderData64 className={classNames("m-1 max-w-52 max-h-36", isSelected && itemSelectedClasses)} data64={tlwData.data} />

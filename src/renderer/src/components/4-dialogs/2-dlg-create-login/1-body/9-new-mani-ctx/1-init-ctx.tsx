@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { NewManiCtx } from "./0-ctx";
+import { type NewManiCtx } from "./0-ctx";
 import { wizardFirstPage } from "./8-step-items-data";
 import { doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
