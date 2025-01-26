@@ -2,13 +2,13 @@ import { type ComponentProps } from "react";
 import { type TlwScreenshotInfo } from "@/store";
 import { type TlwError } from "@shared/ipc-types";
 import { IconBrokenImage } from "@/ui/icons";
-import { RenderTwlData } from "./2-renader-tlw-data";
+import { TwlRenderImage } from "./2-tlw-render-image";
 
-export function RenaderTlwScreenshot({ item, idx }: { item: TlwScreenshotInfo; idx: number; }) {
+export function TlwRendererSelector({ item, idx }: { item: TlwScreenshotInfo; idx: number; }) {
     return (<>
         {item.item.type === 'error'
             ? <RenderTwlError item={item.item} key={item.uuid} />
-            : <RenderTwlData item={item} key={item.uuid} />
+            : <TwlRenderImage item={item} key={item.uuid} />
         }
     </>);
 }

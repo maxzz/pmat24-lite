@@ -10,7 +10,7 @@ import { newManiCtx } from "../../../9-new-mani-ctx";
 
 const MotionIcon = motion.create(CheckIcon);
 
-export function RenderTwlData({ item, ...rest }: { item: TlwScreenshotInfo; } & ComponentProps<'div'>) {
+export function TwlRenderImage({ item, ...rest }: { item: TlwScreenshotInfo; } & ComponentProps<'div'>) {
     const doSetSelected = useSetAtom(newManiCtx.appSelectedIdxAtom);
 
     const isSelected = useSnapshot(item.editor).selected;
