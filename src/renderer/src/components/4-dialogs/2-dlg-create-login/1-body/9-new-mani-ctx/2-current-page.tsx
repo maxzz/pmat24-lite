@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { type WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { clamp } from "@/utils";
 
@@ -10,7 +10,7 @@ export function createPageAndDirectionAtom() {
     return _pageAndDirectionAtom;
 }
 
-export function createCurrentPageAtom() {
+export function createCurrentPageAtom(): Atom<WizardPage> {
     return atom((get) => {
         return get(_pageAndDirectionAtom)[0];
     });

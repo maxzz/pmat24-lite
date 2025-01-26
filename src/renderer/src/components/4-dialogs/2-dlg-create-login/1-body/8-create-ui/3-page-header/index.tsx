@@ -1,4 +1,4 @@
-import { WizardPage, stepInfo } from "../9-new-mani-ctx";
+import { WizardPage, stepInfo } from "../../9-new-mani-ctx";
 
 export function WizardPageHeader({ page }: { page: WizardPage; }) {
     const [title, explanation] = stepInfo[page];
