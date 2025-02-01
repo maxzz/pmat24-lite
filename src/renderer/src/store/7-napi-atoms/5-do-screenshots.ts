@@ -1,4 +1,4 @@
-import { atom, type Setter } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { proxy } from "valtio";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
@@ -21,62 +21,47 @@ export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, width: number | undefined): Promise<void> => {
         if (hasMain()) {
-            set(doCollectScreenshotsAtom, width);
+            doCollectScreenshotsAtom(width, set);
         } else {
-            set(doTestScreenshotsAtom, width);
+            doTestScreenshotsAtom(width, set);
         }
     }
 );
 
-const doCollectScreenshotsAtom = atom(
-    null,
-    async (get, set, width: number | undefined): Promise<void> => {
-        try {
-            const tlwInfos: GetTlwScreenshotsParams = {
-                imageFormat: 'png',
-                width: width || 300,
-            };
-    
-            const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
-
-            const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
-
-            setScreenshots(screenshots, set);
-        } catch (error) {
-            console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
-            toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
-            set(allScreenshotAtom, []);
-        }
-    }
-);
-
-const doTestScreenshotsAtom = atom(
-    null,
-    async (get, set, width: number | undefined): Promise<void> => {
-        const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
-
-        setScreenshots(screenshots, set);
-    }
-);
-
-function setScreenshots(screenshots: TlwScreenshot[], set: Setter) {
+async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
     try {
-        const infos = screenshots.map((item, idx) => {
-            const newItem: TlwScreenshot = { ...item };
-            if (newItem.type === 'data') {
-                newItem.data = `data:image/png;base64,${newItem.data}`;
-            }
-            const rv: TlwScreenshotInfo = { item: newItem, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
-            return rv;
-        });
+        const tlwInfos: GetTlwScreenshotsParams = {
+            imageFormat: 'png',
+            width: width || 300,
+        };
 
-        set(allScreenshotAtom, infos);
+        const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+        const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
-        console.log('doGetWindowIconAtom', infos);
-
+        setScreenshotsWithExtra(screenshots, set);
     } catch (error) {
         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
         toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
         set(allScreenshotAtom, []);
     }
+}
+
+async function doTestScreenshotsAtom(width: number | undefined, set: Setter) {
+    const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
+    setScreenshotsWithExtra(screenshots, set);
+}
+
+function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
+    const infos = screenshots.map((item, idx) => {
+        const newItem: TlwScreenshot = { ...item };
+        if (newItem.type === 'data') {
+            newItem.data = `data:image/png;base64,${newItem.data}`;
+        }
+        const rv: TlwScreenshotInfo = { item: newItem, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
+        return rv;
+    });
+
+    set(allScreenshotAtom, infos);
+
+    console.log('doGetWindowIconAtom', infos);
 }
