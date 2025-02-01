@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSetAtom } from "jotai";
 import { doSetScreenshotsAtom } from "@/store";
-import { ButtonCreateFormSelector, WizardPageHeader } from "../../8-create-ui";
+import { ButtonCreateFormSelector, WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
 import { ScrollArea } from "@/ui/shadcn";
-import { WizardPage } from "../../9-new-mani-ctx";
+import { WizardPage } from "../../../9-new-mani-ctx";
 
 
 export function Page1AppsBody() {

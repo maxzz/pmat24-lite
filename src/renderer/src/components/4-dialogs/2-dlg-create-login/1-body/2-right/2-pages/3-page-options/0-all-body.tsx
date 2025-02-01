@@ -1,10 +1,5 @@
-import { useState } from "react";
-import { useSetAtom } from "jotai";
-import { doSetScreenshotsAtom } from "@/store";
-import { ButtonCreateFormSelector, WizardPageHeader } from "../../8-create-ui";
-import { ScrollArea } from "@/ui/shadcn";
-import { AppsGrid } from "../1-page-apps/1-apps-grid";
-import { WizardPage } from "../../9-new-mani-ctx";
+import { WizardPageHeader } from "../../../8-create-ui";
+import { WizardPage } from "../../../9-new-mani-ctx";
 
 export function Page3OptionsBody() {
     // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);

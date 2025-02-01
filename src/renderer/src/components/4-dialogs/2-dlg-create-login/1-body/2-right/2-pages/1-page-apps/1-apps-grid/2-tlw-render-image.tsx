@@ -6,7 +6,7 @@ import { type TlwScreenshotInfo } from "@/store";
 import { type TlwData } from "@shared/ipc-types";
 import { CheckIcon } from "lucide-react";
 import { classNames } from "@/utils";
-import { newManiCtx } from "../../../9-new-mani-ctx";
+import { newManiCtx } from "../../../../9-new-mani-ctx";
 
 const MotionIcon = motion.create(CheckIcon);
 
