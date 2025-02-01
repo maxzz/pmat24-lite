@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //https://motion-primitives.com/docs/popover
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
-import { newManiCtx, WizardPage } from "../../9-new-mani-ctx";
+import { newManiCtx, WizardPage } from "../../0-new-mani-ctx";
 import { Page1AppsBody } from "../2-pages/1-page-apps";
 import { Page2FieldsBody } from "../2-pages/2-page-fields";
 import { Page3OptionsBody } from "../2-pages/3-page-options";

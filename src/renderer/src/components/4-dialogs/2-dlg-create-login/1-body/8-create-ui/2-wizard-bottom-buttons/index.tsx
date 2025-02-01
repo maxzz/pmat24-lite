@@ -1,7 +1,7 @@
 import { type ComponentProps } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { newManiCtx, stepItems } from "../../9-new-mani-ctx";
+import { newManiCtx, stepItems } from "../../0-new-mani-ctx";
 import { classNames } from "@/utils";
 
 export function WizardBottomButtons({ className, ...rest }: ComponentProps<"div">) {

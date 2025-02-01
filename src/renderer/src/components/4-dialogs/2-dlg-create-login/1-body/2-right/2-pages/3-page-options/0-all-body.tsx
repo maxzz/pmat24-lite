@@ -1,5 +1,5 @@
 import { WizardPageHeader } from "../../../8-create-ui";
-import { WizardPage } from "../../../9-new-mani-ctx";
+import { WizardPage } from "../../../0-new-mani-ctx";
 
 export function Page3OptionsBody() {
     // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);

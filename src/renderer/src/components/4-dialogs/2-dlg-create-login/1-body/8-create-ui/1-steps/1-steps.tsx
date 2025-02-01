@@ -1,7 +1,7 @@
 import { type ComponentProps } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { newManiCtx, stepItems } from "../../9-new-mani-ctx";
+import { newManiCtx, stepItems } from "../../0-new-mani-ctx";
 import { Step } from "./2-step";
 
 export function LeftPanelProgress({ className, ...rest }: ComponentProps<"div">) {
