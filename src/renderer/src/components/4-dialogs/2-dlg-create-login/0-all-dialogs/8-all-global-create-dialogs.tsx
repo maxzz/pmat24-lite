@@ -1,6 +1,5 @@
-import { CreateManiDialog } from "../1-body-version-1-dialog";
-import { CreateManiSecondDialog } from "../2-body-version-2-drawer";
-import { ManiDrawer } from "../2-body-version-2-drawer/0-all/1-entry-drawer";
+import { CreateManiDialog } from "./1-start-version-1-dialog";
+import { CreateManiSecondDialog, ManiDrawer } from "./2-start-version-2-drawer";
 
 export function ManiCreateDialogs() {
     return (<>
