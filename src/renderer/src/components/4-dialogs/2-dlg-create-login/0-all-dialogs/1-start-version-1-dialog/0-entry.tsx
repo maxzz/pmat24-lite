@@ -3,7 +3,7 @@ import { doOpenCreateDialogAtom } from "@/store/1-atoms/7-dialogs";
 import * as D from "@/ui/shadcn/dialog";
 import { DialogCreateManiBody } from "./1-body";
 
-export function CreateManiDialog() {
+export function DialogCreateManiV1() {
     const [openCreateDialog, doOpenCreateDialog] = useAtom(doOpenCreateDialogAtom);
     if (!openCreateDialog) {
         return null;

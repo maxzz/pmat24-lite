@@ -4,8 +4,8 @@ import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { uuid } from "../manifest";
 import { toast } from "sonner";
-// import replyTest from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots.json";
-import replyTest from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots2many.json";
+// import TEST_SCREENSHOTS from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots.json";
+import TEST_SCREENSHOTS from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots2many.json";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -31,23 +31,29 @@ export const doSetScreenshotsAtom = atom(
 const doCollectScreenshotsAtom = atom(
     null,
     async (get, set, width: number | undefined): Promise<void> => {
-        const tlwInfos: GetTlwScreenshotsParams = {
-            imageFormat: 'png',
-            width: width || 300,
-        };
+        try {
+            const tlwInfos: GetTlwScreenshotsParams = {
+                imageFormat: 'png',
+                width: width || 300,
+            };
+    
+            const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
 
-        const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+            const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
-        const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
-
-        setScreenshots(screenshots, set);
+            setScreenshots(screenshots, set);
+        } catch (error) {
+            console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+            toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+            set(allScreenshotAtom, []);
+        }
     }
 );
 
 const doTestScreenshotsAtom = atom(
     null,
     async (get, set, width: number | undefined): Promise<void> => {
-        const screenshots = replyTest as TlwScreenshot[];
+        const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
 
         setScreenshots(screenshots, set);
     }

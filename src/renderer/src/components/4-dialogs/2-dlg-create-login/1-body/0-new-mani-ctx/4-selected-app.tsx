@@ -11,7 +11,7 @@ export function createAppSelectedIdxAtom() {
             const currentIdx = get(_appSelectedIdxAtom);
 
             if (currentIdx === newIdx) {
-                items[currentIdx].editor.selected = false;
+                currentIdx !== -1 && (items[currentIdx].editor.selected = false);
                 set(_appSelectedIdxAtom, -1);
                 return;
             }
