@@ -8,7 +8,7 @@ export function CreateManiDialog() {
     if (!openCreateDialog) {
         return null;
     }
-    return (<>
+    return (
         <D.Dialog open={openCreateDialog} onOpenChange={() => doOpenCreateDialog(false)}>
             <D.DialogContent
                 className="p-0 !w-2/3 max-w-3xl rounded-md data-[state=open]:[animation-duration:200ms]"
@@ -20,5 +20,5 @@ export function CreateManiDialog() {
 
             </D.DialogContent>
         </D.Dialog>
-    </>);
+    );
 }

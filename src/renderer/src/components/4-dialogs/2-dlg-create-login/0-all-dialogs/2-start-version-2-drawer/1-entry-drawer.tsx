@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import * as Dr from "@ui/shadcn/drawer";
 import { doOpenDrawerAtom } from "@/store/1-atoms/7-dialogs";
-import { WizardBody } from "../../../1-body/2-right/0-all-wizard";
+import { WizardBody } from "../../1-body/2-right/0-all-wizard";
 
 export function ManiDrawer() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
