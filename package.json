@@ -75,7 +75,7 @@
         "preview": "electron-vite preview",
         "postinstall": "electron-builder install-app-deps",
         "....................................................................................2": ".......................................................",
-        "build:win": "pnpm run build && electron-builder --win",
+        "build:win": "pnpm run build && electron-builder --win -c.win.identity=null",
         "build:unpack": "pnpm run build && electron-builder --dir",
         "....................................................................................a": ".......................................................",
         "build:web": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir",
