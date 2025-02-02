@@ -16,7 +16,7 @@ asarUnpack:
   - out/plugins/**/*
 win:
   executableName: pmat24
-  icon: resources/icon.ico
+  icon: resources/icon.png
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
