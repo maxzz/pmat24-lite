@@ -1,54 +1,69 @@
 import { type ReactNode } from "react";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //tm: https://codesandbox.io/p/sandbox/framer-motion-image-gallery-forked-cr347p //https://motion-primitives.com/docs/popover
+import * as D from "@/ui/shadcn/dialog";
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../0-new-mani-ctx";
 import { Page1AppsBody } from "../2-pages/1-page-apps";
 import { Page2FieldsBody } from "../2-pages/2-page-fields";
 import { Page3OptionsBody } from "../2-pages/3-page-options";
 import { Page4SaveBody } from "../2-pages/4-page-save";
+import { doOpenDrawerAtom } from "@/store";
 
 export function WizardBody() {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const [page, direction] = useAtomValue(newManiCtx.pageAndDirectionAtom);
+    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
     return (
-        <div className="h-full grid grid-cols-[auto_1fr]">
-            <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
+        <div className="h-full">
+            <D.DialogHeader className="relative text-base font-bold flex items-center">
+                <D.DialogTitle asChild>
+                    <div className="py-4">New manifest</div>
+                </D.DialogTitle>
 
-            <MotionConfig transition={TRANSITION}>
-                <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
+                <D.DialogCloseButton onClick={() => setDoOpenDrawer(false)} tabIndex={-1} />
+            </D.DialogHeader>
 
-                    <div className="flex">
-                        <AnimatePresence initial={false} custom={direction} mode="wait">
-                            
-                            {currentStep === WizardPage.apps &&
-                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}>
-                                    <Page1AppsBody />
-                                </PageWrapper>}
+            <div className="h-full grid grid-cols-[auto_1fr]">
+                <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
 
-                            {currentStep === WizardPage.fields &&
-                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}>
-                                    <Page2FieldsBody />
-                                </PageWrapper>}
+                <MotionConfig transition={TRANSITION}>
+                    <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
 
-                            {currentStep === WizardPage.options &&
-                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}>
-                                    <Page3OptionsBody />
-                                </PageWrapper>}
+                        <div className="flex">
+                            <AnimatePresence initial={false} custom={direction} mode="wait">
 
-                            {currentStep === WizardPage.save &&
-                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}>
-                                    <Page4SaveBody />
-                                </PageWrapper>}
+                                {currentStep === WizardPage.apps &&
+                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}>
+                                        <Page1AppsBody />
+                                    </PageWrapper>}
 
-                        </AnimatePresence>
+                                {currentStep === WizardPage.fields &&
+                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}>
+                                        <Page2FieldsBody />
+                                    </PageWrapper>}
+
+                                {currentStep === WizardPage.options &&
+                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}>
+                                        <Page3OptionsBody />
+                                    </PageWrapper>}
+
+                                {currentStep === WizardPage.save &&
+                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}>
+                                        <Page4SaveBody />
+                                    </PageWrapper>}
+
+                            </AnimatePresence>
+                        </div>
+
+                        {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
+
+                        {/* <WizardBottomButtons className="my-4" /> */}
                     </div>
+                </MotionConfig>
+            </div>
 
-                    {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
-
-                    <WizardBottomButtons className="my-4" />
-                </div>
-            </MotionConfig>
+            <WizardBottomButtons className="my-4" />
         </div>
     );
 }
@@ -79,7 +94,7 @@ const variants = {
             x: direction < 0 ? 150 : -150,
             opacity: 1,
             transition: {
-                duration: 0 
+                duration: 0
             }
         };
     }
