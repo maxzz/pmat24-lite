@@ -8,6 +8,8 @@
         "src/shell/preload/**/*",
         "src/renderer/src/vite-typescript/**/*",
 
+        // "src/renderer/src/**/*",
+
         "src/renderer/src/xternal-to-main/index.ts",
         "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
         "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
@@ -34,7 +36,8 @@
         },
 
         "types": [
-            "electron-vite/node"
+            "electron-vite/node",
+            "@types/wicg-file-system-access",
         ],
     },
 }
