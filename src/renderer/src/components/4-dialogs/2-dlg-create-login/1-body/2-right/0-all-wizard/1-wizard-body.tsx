@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //https://motion-primitives.com/docs/popover
+import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //tm: https://codesandbox.io/p/sandbox/framer-motion-image-gallery-forked-cr347p //https://motion-primitives.com/docs/popover
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { newManiCtx, WizardPage } from "../../0-new-mani-ctx";
 import { Page1AppsBody } from "../2-pages/1-page-apps";
@@ -20,10 +20,27 @@ export function WizardBody() {
 
                     <div className="flex">
                         <AnimatePresence initial={false} custom={direction} mode="wait">
-                            {currentStep === WizardPage.apps && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}><Page1AppsBody /></PageWrapper>}
-                            {currentStep === WizardPage.fields && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}><Page2FieldsBody /></PageWrapper>}
-                            {currentStep === WizardPage.options && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}><Page3OptionsBody /></PageWrapper>}
-                            {currentStep === WizardPage.save && <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}><Page4SaveBody /></PageWrapper>}
+                            
+                            {currentStep === WizardPage.apps &&
+                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}>
+                                    <Page1AppsBody />
+                                </PageWrapper>}
+
+                            {currentStep === WizardPage.fields &&
+                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}>
+                                    <Page2FieldsBody />
+                                </PageWrapper>}
+
+                            {currentStep === WizardPage.options &&
+                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}>
+                                    <Page3OptionsBody />
+                                </PageWrapper>}
+
+                            {currentStep === WizardPage.save &&
+                                <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}>
+                                    <Page4SaveBody />
+                                </PageWrapper>}
+
                         </AnimatePresence>
                     </div>
 
