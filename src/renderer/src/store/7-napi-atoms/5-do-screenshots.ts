@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { proxy } from "valtio";
 import { hasMain, invokeMain } from "@/xternal-to-main";
-import { type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
+import { GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { uuid } from "../manifest";
 import { toast } from "sonner";
 // import TEST_SCREENSHOTS from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots.json";
@@ -30,9 +30,14 @@ export const doSetScreenshotsAtom = atom(
 
 async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
     try {
+        const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' }); //TODO: TlwInfo[] is returned instead of GetTlwInfoResult //TODO: hwnd [] should be optional
+        const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
+        const hwnds = infos.map(obj => obj.hwnd);
+        
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
             width: width || 300,
+            hwnd: hwnds,
         };
 
         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
@@ -40,11 +45,30 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 
         setScreenshotsWithExtra(screenshots, set);
     } catch (error) {
-        console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
-        toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+        console.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
+        toast.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
         set(allScreenshotAtom, []);
     }
 }
+
+// This is how it should be done
+// async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
+//     try {
+//         const tlwInfos: GetTlwScreenshotsParams = {
+//             imageFormat: 'png',
+//             width: width || 300,
+//         };
+
+//         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+//         const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
+
+//         setScreenshotsWithExtra(screenshots, set);
+//     } catch (error) {
+//         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+//         toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+//         set(allScreenshotAtom, []);
+//     }
+// }
 
 async function doTestScreenshotsAtom(width: number | undefined, set: Setter) {
     const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
