@@ -70,19 +70,25 @@
     "scripts": {
         "dev": "electron-vite dev",
         "web": "vite --config electron.vite.config-browser.mts",
-        "preview": "electron-vite preview",
+        "....................................................................................1": ".......................................................",
         "build": "pnpm run typecheck && electron-vite build",
+        "preview": "electron-vite preview",
         "postinstall": "electron-builder install-app-deps",
-        "build:unpack": "pnpm run build && electron-builder --dir",
+        "....................................................................................2": ".......................................................",
         "build:win": "pnpm run build && electron-builder --win",
-        "build:mac": "electron-vite build && electron-builder --mac",
-        "build:linux": "electron-vite build && electron-builder --linux",
+        "build:unpack": "pnpm run build && electron-builder --dir",
+        "....................................................................................a": ".......................................................",
         "build:web": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir",
         "build:web:github": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir && gh-pages -d ./dist",
         "build:web:preview": "vite --config electron.vite.config-browser.mts preview --outDir ../../dist",
+        "....................................................................................3": ".......................................................",
+        "tsc": "tsc -w --noEmit -p tsconfig.web.json --composite false",
         "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
-        "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
         "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
-        "tsc": "tsc -w --noEmit -p tsconfig.web.json --composite false"
+        "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+        "....................................................................................4": ".......................................................",
+        "build:mac": "electron-vite build && electron-builder --mac",
+        "build:linux": "electron-vite build && electron-builder --linux",
+        "....................................................................................5": "not-uused-now"
     }
 }

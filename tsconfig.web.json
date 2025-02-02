@@ -7,6 +7,7 @@
         "./src/renderer/src/**/*",
         "./src/renderer/src/**/*.tsx",
         "./src/shell/preload/*.d.ts",
+
         "./src/shell/app/**/*",
         "./src/shared/**/*",
         "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
@@ -17,12 +18,13 @@
         "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
     ],
     "compilerOptions": {
-        "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "composite": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "noImplicitReturns": false,
+
         "jsx": "react-jsx",
+        "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "paths": {
             "@/*": [
                 "./src/renderer/src/*"
@@ -40,5 +42,5 @@
                 "./src/shared/*"
             ]
         }
-    }
+    },
 }
