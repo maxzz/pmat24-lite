@@ -1,13 +1,13 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
     "include": [
-        "./src/shell/app/**/*",
-        "./src/shared/**/*",
+        "src/shell/app/**/*",
+        "src/shared/**/*",
         "electron.vite.config.*",
 
-        "./src/shell/preload/**/*",
-        "./src/renderer/src/vite-typescript/**/*",
-        
+        "src/shell/preload/**/*",
+        "src/renderer/src/vite-typescript/**/*",
+
         "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
         "src/renderer/src/xternal-to-main/index.ts",
         "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
@@ -26,23 +26,15 @@
         "noUnusedParameters": false,
         "noImplicitReturns": false,
 
+        "paths": {
+            "@/*":       [ "./src/renderer/src/*" ],
+            "@ui/*":     [ "./src/renderer/src/ui/*" ],
+            "@shell/*":  [ "./src/shell/app/*" ],
+            "@shared/*": [ "./src/shared/*" ]
+        },
+
         "types": [
             "electron-vite/node"
         ],
-
-        "paths": {
-            "@/*": [
-                "./src/renderer/src/*"
-            ],
-            "@ui/*": [
-                "./src/renderer/src/ui/*"
-            ],
-            "@shell/*": [
-                "./src/shell/app/*"
-            ],
-            "@shared/*": [
-                "./src/shared/*"
-            ]
-        }
     },
 }

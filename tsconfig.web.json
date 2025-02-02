@@ -1,17 +1,17 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
     "include": [
-        "./src/shell/app/**/*",
-        "./src/shared/**/*",
+        "src/shell/app/**/*",
+        "src/shared/**/*",
         "electron.vite.config-browser.mts",
 
-        "./src/renderer/src/vite-typescript/env.d.ts",
-        "./src/renderer/src/vite-typescript/svg-icon-type.d.ts",
-        "./src/renderer/src/vite-typescript/lib.es5.d.ts",
-        
-        "./src/renderer/src/**/*",
-        "./src/renderer/src/**/*.tsx",
-        "./src/shell/preload/*.d.ts",
+        "src/renderer/src/vite-typescript/env.d.ts",
+        "src/renderer/src/vite-typescript/svg-icon-type.d.ts",
+        "src/renderer/src/vite-typescript/lib.es5.d.ts",
+
+        "src/renderer/src/**/*",
+        "src/renderer/src/**/*.tsx",
+        "src/shell/preload/*.d.ts",
 
         "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
         "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
@@ -26,24 +26,16 @@
         "noUnusedParameters": false,
         "noImplicitReturns": false,
 
+        "paths": {
+            "@/*":       [ "./src/renderer/src/*" ],
+            "@ui/*":     [ "./src/renderer/src/ui/*" ],
+            "@shell/*":  [ "./src/shell/app/*" ],
+            "@shared/*": [ "./src/shared/*" ],
+
+            "@renderer/*": [ "./src/renderer/src/*" ],
+        },
+
         "jsx": "react-jsx",
         "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
-        "paths": {
-            "@/*": [
-                "./src/renderer/src/*"
-            ],
-            "@ui/*": [
-                "./src/renderer/src/ui/*"
-            ],
-            "@renderer/*": [
-                "./src/renderer/src/*"
-            ],
-            "@shell/*": [
-                "./src/shell/app/*"
-            ],
-            "@shared/*": [
-                "./src/shared/*"
-            ]
-        }
     },
 }
