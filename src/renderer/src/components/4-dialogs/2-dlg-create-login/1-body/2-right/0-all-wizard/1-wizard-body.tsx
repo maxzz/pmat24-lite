@@ -11,8 +11,6 @@ import { Page4SaveBody } from "../2-pages/4-page-save";
 import { doOpenDrawerAtom } from "@/store";
 
 export function WizardBody() {
-    const currentStep = useAtomValue(newManiCtx.currentPageAtom);
-    const [page, direction] = useAtomValue(newManiCtx.pageAndDirectionAtom);
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
     return (
         <div className="h-full">
@@ -26,45 +24,52 @@ export function WizardBody() {
 
             <div className="h-full grid grid-cols-[auto_1fr]">
                 <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
-
-                <MotionConfig transition={TRANSITION}>
-                    <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
-
-                        <div className="flex">
-                            <AnimatePresence initial={false} custom={direction} mode="wait">
-
-                                {currentStep === WizardPage.apps &&
-                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}>
-                                        <Page1AppsBody />
-                                    </PageWrapper>}
-
-                                {currentStep === WizardPage.fields &&
-                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}>
-                                        <Page2FieldsBody />
-                                    </PageWrapper>}
-
-                                {currentStep === WizardPage.options &&
-                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}>
-                                        <Page3OptionsBody />
-                                    </PageWrapper>}
-
-                                {currentStep === WizardPage.save &&
-                                    <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}>
-                                        <Page4SaveBody />
-                                    </PageWrapper>}
-
-                            </AnimatePresence>
-                        </div>
-
-                        {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
-
-                        {/* <WizardBottomButtons className="my-4" /> */}
-                    </div>
-                </MotionConfig>
+                <Pages />
             </div>
 
             <WizardBottomButtons className="my-4" />
         </div>
+    );
+}
+
+function Pages() {
+    const currentStep = useAtomValue(newManiCtx.currentPageAtom);
+    const [page, direction] = useAtomValue(newManiCtx.pageAndDirectionAtom);
+    return (
+        <MotionConfig transition={TRANSITION}>
+            <div className="h-full grid grid-rows-[1fr_auto] overflow-hidden">
+
+                <div className="flex">
+                    <AnimatePresence initial={false} custom={direction} mode="wait">
+
+                        {currentStep === WizardPage.apps &&
+                            <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.apps} key={WizardPage.apps}>
+                                <Page1AppsBody />
+                            </PageWrapper>}
+
+                        {currentStep === WizardPage.fields &&
+                            <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.fields} key={WizardPage.fields}>
+                                <Page2FieldsBody />
+                            </PageWrapper>}
+
+                        {currentStep === WizardPage.options &&
+                            <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.options} key={WizardPage.options}>
+                                <Page3OptionsBody />
+                            </PageWrapper>}
+
+                        {currentStep === WizardPage.save &&
+                            <PageWrapper direction={direction} currentStep={currentStep} thisStep={WizardPage.save} key={WizardPage.save}>
+                                <Page4SaveBody />
+                            </PageWrapper>}
+
+                    </AnimatePresence>
+                </div>
+
+                {/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
+
+                {/* <WizardBottomButtons className="my-4" /> */}
+            </div>
+        </MotionConfig>
     );
 }
 
