@@ -8,14 +8,14 @@
         "src/shell/preload/**/*",
         "src/renderer/src/vite-typescript/**/*",
 
-        "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
         "src/renderer/src/xternal-to-main/index.ts",
+        "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
         "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
         "src/renderer/src/xternal-to-main/ipc-renderer.ts",
 
+        "src/shell/xternal-to-renderer/index.ts",
         "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
         "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
-        "src/shell/xternal-to-renderer/index.ts",
         "src/shell/xternal-to-renderer/main-to-renderer.ts",
         "src/shell/xternal-to-renderer/commands",
         "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
