@@ -11,7 +11,7 @@
         // "src/renderer/src/**/*",
 
         "src/renderer/src/xternal-to-main/index.ts",
-        "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
+        // "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
         "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
         "src/renderer/src/xternal-to-main/ipc-renderer.ts",
 
