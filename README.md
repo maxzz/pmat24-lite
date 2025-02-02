@@ -8,9 +8,14 @@ An Electron application with React and TypeScript
 
 ![](./src/renderer/src/assets/previews/2024-05-10_17-32-32-submit.png)
 
+## resources 
+
+ * icon - https://seeklogo.com/vector-logo/450809/hid-global
+
 # commands
 
 * ```tsc -p tsconfig.web.json -w --noEmit```
+* ```pnpm electron-builder --win``` - skip build and pack for testing only
 
 # refs
 * https://electron-vite.org/guide/dev
