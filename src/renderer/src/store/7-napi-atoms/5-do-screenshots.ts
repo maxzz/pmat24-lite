@@ -34,7 +34,7 @@ export const doSetScreenshotsAtom = atom(
 
 async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
     try {
-        const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' }); //TODO: TlwInfo[] is returned instead of GetTlwInfoResult //TODO: hwnd [] should be optional
+        const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' });
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
 
@@ -54,6 +54,13 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
         set(allScreenshotAtom, []);
     }
 }
+
+//TODO: From doCollectScreenshotsAtom TlwInfo[] is returned instead of GetTlwInfoResult 
+//TODO: hwnd [] should be optional for get-tlw-infos
+//TODO: windows list is updated during a few calls refresh
+//TODO: for error we need to have error reason
+//TODO: exclude PMAT windows from the returned list
+//TODO: after clicking refresh a couple of times, debug_heap.cpp exception at line 904, and that will crash the app
 
 // This is how it should be done
 // async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {

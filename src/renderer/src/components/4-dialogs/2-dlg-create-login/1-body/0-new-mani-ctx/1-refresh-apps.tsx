@@ -11,6 +11,7 @@ export function create_DoRefreshAppsAtom() {
             // Get current selected item
             const currentIdx = get(ctx.appSelectedIdxAtom);
             let currentItem: TlwScreenshotInfo | undefined = currentIdx === -1 ? undefined : get(allScreenshotAtom)[currentIdx];
+            set(ctx.appSelectedIdxAtom, -1);
 
             // Refresh screenshots
             await set(doSetScreenshotsAtom, { width: 300 });
