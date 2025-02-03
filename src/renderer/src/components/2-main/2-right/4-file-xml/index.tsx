@@ -8,7 +8,7 @@ import { classNames } from '@/utils';
 export function Body_Xml({ text, className, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {
     const { ref, width, height } = useResizeObserver();
     return (<>
-        <div className={classNames("h-full w-full", className)} ref={ref} {...rest}>
+        <div className={classNames("size-full", className)} ref={ref} {...rest}>
             <ScrollArea style={{ width, height }} horizontal>
                 <SyntaxHighlighterXml className="p-1 dark:opacity-60">
                     {text}

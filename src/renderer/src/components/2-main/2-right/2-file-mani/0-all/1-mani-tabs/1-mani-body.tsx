@@ -13,7 +13,7 @@ import { ManiTabsList } from "./2-mani-tabs-list";
 const refClasses = "\
 @container/tab-content \
 \
-flex-1 mt-1 h-full w-full min-h-0 max-w-4xl \
+flex-1 mt-1 size-full min-h-0 max-w-4xl \
 overflow-hidden";
 // border-muted-foreground/20 border rounded \
 

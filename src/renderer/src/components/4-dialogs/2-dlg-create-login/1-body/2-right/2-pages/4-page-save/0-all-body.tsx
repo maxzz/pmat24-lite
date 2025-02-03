@@ -8,7 +8,7 @@ export function Page4SaveBody() {
         <div className="h-full text-xs bg-green-300 grid grid-rows-[auto,1fr,auto]">
             <WizardPageHeader page={WizardPage.save} />
 
-            <div className="relative h-full w-full">
+            <div className="relative size-full">
                 <div className="absolute inset-0">
                     {/* <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth>
                         <AppsGrid />
