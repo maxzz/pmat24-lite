@@ -25,9 +25,9 @@ export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, { hwnd, width }: { hwnd: string | undefined; width: number | undefined; }): Promise<void> => {
         if (hasMain()) {
-            doCollectScreenshotsAtom(width, set);
+            await doCollectScreenshotsAtom(width, set);
         } else {
-            doTestScreenshotsAtom(width, set);
+            await doTestScreenshotsAtom(width, set);
         }
     }
 );

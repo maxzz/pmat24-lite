@@ -6,13 +6,13 @@ import { type TlwScreenshotInfo, allScreenshotAtom, doSetScreenshotsAtom  } from
 export function create_DoRefreshAppsAtom() {
     return atom(
         null,
-        (get, set) => {
+        async (get, set) => {
             const ctx = newManiCtx;
             const currentIdx = get(ctx.appSelectedIdxAtom);
 
             let currentItem: TlwScreenshotInfo | undefined = currentIdx === -1 ? undefined : get(allScreenshotAtom)[currentIdx];
-            set(ctx.appSelectedIdxAtom, -1);
 
+            await set(doSetScreenshotsAtom, { hwnd: currentItem?.item.hwnd, width: 300 });
         }
     );
 }
