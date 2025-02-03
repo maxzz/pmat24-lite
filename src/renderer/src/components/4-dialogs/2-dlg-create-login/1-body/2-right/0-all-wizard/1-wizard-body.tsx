@@ -23,7 +23,7 @@ export function WizardBody() {
             </D.DialogHeader>
 
             <div className="h-full grid grid-cols-[auto_1fr]">
-                <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20" />
+                <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBody />
             </div>
 
