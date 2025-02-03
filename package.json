@@ -13,7 +13,7 @@
         "electron-updater": "^6.3.9",
         "framer-motion": "^11.18.1",
         "idb-keyval": "^6.2.1",
-        "jotai": "^2.11.0",
+        "jotai": "^2.11.3",
         "jotai-valtio": "^0.6.0",
         "pm-manifest": "^1.2.74",
         "pm-manifest-icons": "latest",
