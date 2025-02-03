@@ -23,42 +23,23 @@ const titleClasses = "text-xs font-semibold";
 const explanationClasses = "text-xs text-balance";
 
 export const stepItems: StepItem[] = [
-    {
-        label: (
-            <div className="flex flex-col gap-1">
-                <div className={titleClasses}><span className="text-foreground/50">1.{' '}</span>{stepInfo[WizardPage.apps][0]}</div>
-                <div className={explanationClasses}>{stepInfo[WizardPage.apps][1]}</div>
-            </div>
-        )
-    }, {
-        label: (
-            <div className="flex flex-col gap-1">
-                <div className={titleClasses}><span className="text-foreground/50">2.{' '}</span>{stepInfo[WizardPage.fields][0]}</div>
-                <div className={explanationClasses}>{stepInfo[WizardPage.fields][1]}</div>
-            </div>
-        )
-    }, {
-        label: (
-            <div className="flex flex-col gap-1">
-                <div className={titleClasses}><span className="text-foreground/50">3.{' '}</span>{stepInfo[WizardPage.options][0]}</div>
-                <div className={explanationClasses}>{stepInfo[WizardPage.options][1]}</div>
-            </div>
-        )
-    }, {
-        label: (
-            <div className="flex flex-col gap-1">
-                <div className={titleClasses}><span className="text-foreground/50">4.{' '}</span>{stepInfo[WizardPage.save][0]}</div>
-                <div className={explanationClasses}>{stepInfo[WizardPage.save][1]}</div>
-            </div>
-        )
-    },
+    { label: OneStep(WizardPage.apps), },
+    { label: OneStep(WizardPage.fields), },
+    { label: OneStep(WizardPage.options), },
+    { label: OneStep(WizardPage.save), },
 ];
 
 function OneStep(wizardPage: WizardPage) {
+    const [title, explanation] = stepInfo[wizardPage];
     return (
         <div className="flex flex-col gap-1">
-            <div className={titleClasses}><span className="text-foreground/50">{wizardPage + 1}.{' '}</span>{stepInfo[wizardPage][0]}</div>
-            <div className={explanationClasses}>{stepInfo[wizardPage][1]}</div>
+            <div className={titleClasses}>
+                {/* <span className="text-foreground/50">
+                    {wizardPage + 1}.{' '}
+                </span> */}
+                {title}
+            </div>
+            <div className={explanationClasses}>{explanation}</div>
         </div>
     );
 }
