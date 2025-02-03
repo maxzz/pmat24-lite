@@ -1,6 +1,7 @@
 import { type Atom, type PrimitiveAtom as PA } from "jotai";
 import { type WizardPage } from "./8-step-items-data";
 import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
+import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
 import { type NextEnabledAtom, create_NextEnabledAtom } from "./3-prev-next";
@@ -15,6 +16,7 @@ export class NewManiCtx {
     nextEnabledAtom: NextEnabledAtom;            // is next button enabled
 
     appSelectedIdxAtom: AppSelectedIdxAtom;      // selected application index
+    doRefreshAppsAtom: DoRefreshAppsAtom;        // refresh apps
 
     constructor() {
         this.doInitAtom = create_DoInitNewManiCtxAtom();
@@ -26,6 +28,7 @@ export class NewManiCtx {
         this.nextEnabledAtom = create_NextEnabledAtom();
 
         this.appSelectedIdxAtom = create_AppSelectedIdxAtom();
+        this.doRefreshAppsAtom = create_DoRefreshAppsAtom();
     }
 }
 

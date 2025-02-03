@@ -17,9 +17,13 @@ export type TlwScreenshotInfo = {
 
 export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
 
+/**
+ * @param hwnd - optional, if provided this this will be window handle to select
+ * @param width - max screenshot width, height - auto
+ */
 export const doSetScreenshotsAtom = atom(
     null,
-    async (get, set, width: number | undefined): Promise<void> => {
+    async (get, set, { hwnd, width }: { hwnd: string | undefined; width: number | undefined; }): Promise<void> => {
         if (hasMain()) {
             doCollectScreenshotsAtom(width, set);
         } else {
@@ -33,7 +37,7 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
         const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' }); //TODO: TlwInfo[] is returned instead of GetTlwInfoResult //TODO: hwnd [] should be optional
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
-        
+
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
             width: width || 300,

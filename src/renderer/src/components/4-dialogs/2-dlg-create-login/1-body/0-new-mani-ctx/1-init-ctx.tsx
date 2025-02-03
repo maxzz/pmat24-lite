@@ -9,7 +9,7 @@ export function create_DoInitNewManiCtxAtom() {
         (get, set, {ctx}: {ctx: NewManiCtx}) => {
             set(ctx.pageAndDirectionAtom, [wizardFirstPage, 0]);
             set(ctx.appSelectedIdxAtom, -1);
-            set(doSetScreenshotsAtom, 300);
+            set(doSetScreenshotsAtom, { hwnd: undefined, width: 300 });
         }
     );
 }
