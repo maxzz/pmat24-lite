@@ -1,18 +1,26 @@
 import { atom } from "jotai";
-import { newManiCtx, type NewManiCtx } from "./0-ctx";
-import { wizardFirstPage } from "./8-step-items-data";
-import { type TlwScreenshotInfo, allScreenshotAtom, doSetScreenshotsAtom  } from "@/store/7-napi-atoms";
+import { newManiCtx } from "./0-ctx";
+import { type TlwScreenshotInfo, allScreenshotAtom, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function create_DoRefreshAppsAtom() {
     return atom(
         null,
         async (get, set) => {
             const ctx = newManiCtx;
-            const currentIdx = get(ctx.appSelectedIdxAtom);
 
+            // Get current selected item
+            const currentIdx = get(ctx.appSelectedIdxAtom);
             let currentItem: TlwScreenshotInfo | undefined = currentIdx === -1 ? undefined : get(allScreenshotAtom)[currentIdx];
 
-            await set(doSetScreenshotsAtom, { hwnd: currentItem?.item.hwnd, width: 300 });
+            // Refresh screenshots
+            await set(doSetScreenshotsAtom, { width: 300 });
+
+            // Find previously selected item in the new list
+            if (currentItem) {
+                const allScreenshots = get(allScreenshotAtom);
+                const newIdx = allScreenshots.findIndex(item => item.item.hwnd === currentItem.item.hwnd);
+                set(ctx.appSelectedIdxAtom, newIdx);
+            }
         }
     );
 }

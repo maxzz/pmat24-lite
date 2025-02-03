@@ -23,7 +23,7 @@ export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
  */
 export const doSetScreenshotsAtom = atom(
     null,
-    async (get, set, { hwnd, width }: { hwnd: string | undefined; width: number | undefined; }): Promise<void> => {
+    async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
         if (hasMain()) {
             await doCollectScreenshotsAtom(width, set);
         } else {
