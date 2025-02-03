@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import { atom, useAtom } from "jotai";
 import { WizardPage } from "../../../0-new-mani-ctx";
-import { Button, Checkbox, ScrollArea } from "@/ui/shadcn";
-import { IconRefresh } from "@/ui/icons";
-import { toast } from "sonner";
+import { Checkbox, ScrollArea } from "@/ui/shadcn";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
+import { ButtonReloadApps } from "./2-button-refresh-apps";
 
 export function Page1AppsBody() {
     return (
@@ -29,22 +26,5 @@ export function Page1AppsBody() {
                 Define manifest content manually
             </div>
         </div>
-    );
-}
-
-function ButtonReloadApps() {
-    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
-    const [toastId, setToastId] = useAtom(toastIdAtom);
-
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
-
-    return (
-        <Button
-            className="self-end mr-3" variant="outline" size="xs"
-            onClick={() => setToastId(toast('Updated'))} tabIndex={-1}
-            title="Refresh windows list"
-        >
-            <IconRefresh className="size-3" title="Refresh windows list" />
-        </Button>
     );
 }
