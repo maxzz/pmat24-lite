@@ -1,12 +1,31 @@
+import { useState, useEffect } from "react";
+import { atom, useAtom } from "jotai";
 import { WizardPage } from "../../../0-new-mani-ctx";
-import { Checkbox, ScrollArea } from "@/ui/shadcn";
+import { Button, Checkbox, ScrollArea } from "@/ui/shadcn";
+import { IconRefresh } from "@/ui/icons";
+import { toast } from "sonner";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
 
 export function Page1AppsBody() {
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    const [toastId, setToastId] = useAtom(toastIdAtom);
+
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+
     return (
         <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
-            <WizardPageHeader page={WizardPage.apps} />
+            <div className="flex items-center justify-between gap-2">
+                <WizardPageHeader page={WizardPage.apps} />
+
+                <Button
+                    className="self-end mr-3" variant="outline" size="xs"
+                    onClick={() => setToastId(toast('Updated'))} tabIndex={-1}
+                    title="Refresh windows list"
+                >
+                    <IconRefresh className="size-3" title="Refresh windows list" />
+                </Button>
+            </div>
 
             <div className="relative size-full">
                 <div className="absolute inset-3">
