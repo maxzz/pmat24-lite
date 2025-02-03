@@ -9,10 +9,12 @@ import { newManiCtx } from "../../../0-new-mani-ctx";
 export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const doRefreshApps = useSetAtom(newManiCtx.doRefreshAppsAtom);
 
-    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
-    const [toastId, setToastId] = useAtom(toastIdAtom);
+    // const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    // const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+    // useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+
+    const setToastId = useAutoCleanupToast();
 
     function updateApps() {
         doRefreshApps();
@@ -28,4 +30,13 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
             <IconRefresh className="size-3" title="Refresh windows list" />
         </Button>
     );
+}
+
+function useAutoCleanupToast() {
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    const [toastId, setToastId] = useAtom(toastIdAtom);
+
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+
+    return setToastId;
 }
