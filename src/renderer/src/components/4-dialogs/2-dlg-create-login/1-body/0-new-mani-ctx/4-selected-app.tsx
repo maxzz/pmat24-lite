@@ -3,7 +3,7 @@ import { allScreenshotAtom } from "@/store";
 
 const _appSelectedIdxAtom = atom(0);
 
-export function createAppSelectedIdxAtom() {
+export function create_AppSelectedIdxAtom() {
     return atom(
         (get) => get(_appSelectedIdxAtom),
         (get, set, newIdx: number) => {
@@ -23,4 +23,4 @@ export function createAppSelectedIdxAtom() {
     );
 }
 
-export type CreateAppSelectedIdxAtom = ReturnType<typeof createAppSelectedIdxAtom>;
+export type AppSelectedIdxAtom = ReturnType<typeof create_AppSelectedIdxAtom>;

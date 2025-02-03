@@ -3,9 +3,7 @@ import { type NewManiCtx } from "./0-ctx";
 import { wizardFirstPage } from "./8-step-items-data";
 import { doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
-export type DoInitNewManiCtxAtom = ReturnType<typeof createDoInitNewManiCtxAtom>;
-
-export function createDoInitNewManiCtxAtom() {
+export function create_DoInitNewManiCtxAtom() {
     return atom(
         null,
         (get, set, {ctx}: {ctx: NewManiCtx}) => {
@@ -15,3 +13,5 @@ export function createDoInitNewManiCtxAtom() {
         }
     );
 }
+
+export type DoInitNewManiCtxAtom = ReturnType<typeof create_DoInitNewManiCtxAtom>;

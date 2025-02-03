@@ -6,17 +6,17 @@ export type PageAndDirection = [page: WizardPage, direction: number];
 
 const _pageAndDirectionAtom = atom<PageAndDirection>([wizardFirstPage, 0]);
 
-export function createPageAndDirectionAtom() {
+export function create_PageAndDirectionAtom() {
     return _pageAndDirectionAtom;
 }
 
-export function createCurrentPageAtom(): Atom<WizardPage> {
+export function create_CurrentPageAtom(): Atom<WizardPage> {
     return atom((get) => {
         return get(_pageAndDirectionAtom)[0];
     });
 }
 
-export function createDoAdvancePageAtom() {
+export function create_DoAdvancePageAtom() {
     return atom(
         null,
         (get, set, { next }: { next: boolean; }) => {
@@ -27,4 +27,4 @@ export function createDoAdvancePageAtom() {
     );
 }
 
-export type CreateDoAdvancePageAtom = ReturnType<typeof createDoAdvancePageAtom>; // WritableAtom<null, [{ next: boolean; }], void>
+export type DoAdvancePageAtom = ReturnType<typeof create_DoAdvancePageAtom>; // WritableAtom<null, [{ next: boolean; }], void>

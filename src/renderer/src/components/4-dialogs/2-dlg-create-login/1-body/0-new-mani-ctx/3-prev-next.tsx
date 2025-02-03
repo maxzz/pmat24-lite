@@ -28,8 +28,8 @@ const _nextEnabledAtom = atom(
     }
 );
 
-export function createNextEnabledAtom() {
+export function create_NextEnabledAtom() {
     return _nextEnabledAtom;
 }
 
-export type CreateNextEnabledAtom = ReturnType<typeof createNextEnabledAtom>;
+export type NextEnabledAtom = ReturnType<typeof create_NextEnabledAtom>;

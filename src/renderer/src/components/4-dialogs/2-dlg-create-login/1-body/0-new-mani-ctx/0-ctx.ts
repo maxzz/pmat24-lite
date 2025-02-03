@@ -1,31 +1,31 @@
-import { type Atom, type PrimitiveAtom } from "jotai";
+import { type Atom, type PrimitiveAtom as PA } from "jotai";
 import { type WizardPage } from "./8-step-items-data";
-import { type DoInitNewManiCtxAtom, createDoInitNewManiCtxAtom } from "./1-init-ctx";
-import { type PageAndDirection, type CreateDoAdvancePageAtom, createCurrentPageAtom, createPageAndDirectionAtom, createDoAdvancePageAtom } from "./2-current-page";
-import { type CreateAppSelectedIdxAtom, createAppSelectedIdxAtom } from "./4-selected-app";
-import { type CreateNextEnabledAtom, createNextEnabledAtom } from "./3-prev-next";
+import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
+import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
+import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
+import { type NextEnabledAtom, create_NextEnabledAtom } from "./3-prev-next";
 
 export class NewManiCtx {
-    doInitAtom: DoInitNewManiCtxAtom;                       // init state of the context
+    doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
 
-    currentPageAtom: Atom<WizardPage>;                      // read only current page atom
-    pageAndDirectionAtom: PrimitiveAtom<PageAndDirection>;  // current page and direction
+    currentPageAtom: Atom<WizardPage>;           // read only current page atom
+    pageAndDirectionAtom: PA<PageAndDirection>;  // current page and direction
 
-    doAdvancePageAtom: CreateDoAdvancePageAtom;             // move wizard page
-    nextEnabledAtom: CreateNextEnabledAtom;                 // is next button enabled
+    doAdvancePageAtom: DoAdvancePageAtom;        // move wizard page
+    nextEnabledAtom: NextEnabledAtom;            // is next button enabled
 
-    appSelectedIdxAtom: CreateAppSelectedIdxAtom;           // selected application index
+    appSelectedIdxAtom: AppSelectedIdxAtom;      // selected application index
 
     constructor() {
-        this.doInitAtom = createDoInitNewManiCtxAtom();
+        this.doInitAtom = create_DoInitNewManiCtxAtom();
         
-        this.currentPageAtom = createCurrentPageAtom();
-        this.pageAndDirectionAtom = createPageAndDirectionAtom();
+        this.currentPageAtom = create_CurrentPageAtom();
+        this.pageAndDirectionAtom = create_PageAndDirectionAtom();
         
-        this.doAdvancePageAtom = createDoAdvancePageAtom();
-        this.nextEnabledAtom = createNextEnabledAtom();
+        this.doAdvancePageAtom = create_DoAdvancePageAtom();
+        this.nextEnabledAtom = create_NextEnabledAtom();
 
-        this.appSelectedIdxAtom = createAppSelectedIdxAtom();
+        this.appSelectedIdxAtom = create_AppSelectedIdxAtom();
     }
 }
 
