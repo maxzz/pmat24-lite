@@ -8,23 +8,12 @@ import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
 
 export function Page1AppsBody() {
-    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
-    const [toastId, setToastId] = useAtom(toastIdAtom);
-
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
-
     return (
         <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
             <div className="flex items-center justify-between gap-2">
                 <WizardPageHeader page={WizardPage.apps} />
 
-                <Button
-                    className="self-end mr-3" variant="outline" size="xs"
-                    onClick={() => setToastId(toast('Updated'))} tabIndex={-1}
-                    title="Refresh windows list"
-                >
-                    <IconRefresh className="size-3" title="Refresh windows list" />
-                </Button>
+                <ButtonReloadApps />
             </div>
 
             <div className="relative size-full">
@@ -40,5 +29,22 @@ export function Page1AppsBody() {
                 Define manifest content manually
             </div>
         </div>
+    );
+}
+
+function ButtonReloadApps() {
+    const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
+    const [toastId, setToastId] = useAtom(toastIdAtom);
+
+    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+
+    return (
+        <Button
+            className="self-end mr-3" variant="outline" size="xs"
+            onClick={() => setToastId(toast('Updated'))} tabIndex={-1}
+            title="Refresh windows list"
+        >
+            <IconRefresh className="size-3" title="Refresh windows list" />
+        </Button>
     );
 }
