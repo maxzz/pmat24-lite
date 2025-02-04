@@ -1,5 +1,6 @@
 export * from "./classnames";
 export * from "./debounce";
+export * from "./delay";
 export * from "./disable-hidden-children";
 export * from "./numbers";
 export * from "./os-utils";
