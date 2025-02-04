@@ -61,6 +61,8 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 //TODO: for error we need to have error reason
 //TODO: exclude PMAT windows from the returned list
 //TODO: after clicking refresh a couple of times, debug_heap.cpp exception at line 904, and that will crash the app
+//TODO: for const tlwInfos: GetTlwScreenshotsParams I asked png but got jpg (see setScreenshotsWithExtra() where I set the type to png)
+//TODO: during refresh app is showing a yellow frame. What is it?
 
 // This is how it should be done
 // async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
@@ -90,13 +92,28 @@ function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
     const infos = screenshots.map((item, idx) => {
         const newItem: TlwScreenshot = { ...item };
         if (newItem.type === 'data') {
-            newItem.data = `data:image/png;base64,${newItem.data}`;
+            // newItem.data = `data:image/png;base64,${newItem.data}`;
+            newItem.data = `data:image/${newItem.format};base64,${newItem.data}`;
         }
         const rv: TlwScreenshotInfo = { item: newItem, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
         return rv;
     });
 
     set(allScreenshotAtom, infos);
+    //console.log('doGetWindowIconAtom', infos);
 
-    console.log('doGetWindowIconAtom', infos);
+    printScreenshots(screenshots);
+}
+
+function printScreenshots(screenshots: TlwScreenshot[]) {
+    const items = screenshots.map(item => {
+        if (item.type === 'data') {
+            const newItem: Partial<TlwScreenshot> = { ...item };
+            newItem.data = item.data.substring(0, 25);
+            return newItem;
+        }
+        return item;
+    });
+
+    console.log(`Screenshots`, JSON.stringify(items, null, 2));
 }
