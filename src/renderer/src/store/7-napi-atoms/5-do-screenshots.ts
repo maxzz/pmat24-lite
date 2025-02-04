@@ -59,7 +59,7 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 
 //TODO: From doCollectScreenshotsAtom TlwInfo[] is returned instead of GetTlwInfoResult 
 //TODO: hwnd [] should be optional for get-tlw-infos
-//TODO: windows list is updated during a few calls refresh
+//TODO: windows list is updated during a few calls refresh (maybe sort them? but anyway why this is happening?)
 //TODO: for error we need to have error reason
 //TODO: exclude PMAT windows from the returned list
 
