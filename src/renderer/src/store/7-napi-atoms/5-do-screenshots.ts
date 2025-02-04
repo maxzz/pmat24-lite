@@ -115,5 +115,21 @@ function printScreenshots(screenshots: TlwScreenshot[]) {
         return item;
     });
 
-    console.log(`Screenshots`, JSON.stringify(items, null, 2));
+    const lines: string[] = [];
+
+    items.forEach(
+        (item, idx) => {
+            const idxStr = `${idx + 1}`.padStart(2, ' ');
+            if (item.type === 'error') {
+                lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd} errorCode: ${item.errorCode}`);
+                return;
+            } else if (item.type === 'data') {
+                lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd}`);
+                return;
+            }
+            lines.push('undefined');
+        }
+    );
+
+    console.log(`Screenshots`, JSON.stringify(lines, null, 2));
 }
