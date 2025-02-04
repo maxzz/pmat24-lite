@@ -60,9 +60,14 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 //TODO: windows list is updated during a few calls refresh
 //TODO: for error we need to have error reason
 //TODO: exclude PMAT windows from the returned list
+
 //TODO: after clicking refresh a couple of times, debug_heap.cpp exception at line 904, and that will crash the app
+//TODO: who will watch reentrancy? plugin or UI? I think it should be plugin.
+
 //TODO: for const tlwInfos: GetTlwScreenshotsParams I asked png but got jpg (see setScreenshotsWithExtra() where I set the type to png)
 //TODO: during refresh app is showing a yellow frame. What is it?
+
+//TODO: error should include caption
 
 // This is how it should be done
 // async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
@@ -106,27 +111,29 @@ function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
 }
 
 function printScreenshots(screenshots: TlwScreenshot[]) {
-    const items = screenshots.map(item => {
-        if (item.type === 'data') {
-            const newItem: Partial<TlwScreenshot> = { ...item };
-            newItem.data = item.data.substring(0, 25);
-            return newItem;
-        }
-        return item;
-    });
+    // const items = screenshots.map(item => {
+    //     if (item.type === 'data') {
+    //         const newItem: Partial<TlwScreenshot> = { ...item };
+    //         newItem.data = item.data.substring(0, 25);
+    //         return newItem;
+    //     }
+    //     return item;
+    // });
 
     const lines: string[] = [];
 
-    items.forEach(
+    screenshots.forEach(
         (item, idx) => {
             const idxStr = `${idx + 1}`.padStart(2, ' ');
+
             if (item.type === 'error') {
                 lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd} errorCode: ${item.errorCode}`);
                 return;
             } else if (item.type === 'data') {
-                lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd}`);
+                lines.push(`${idxStr}. hwnd:${item.hwnd} ${item.format} ${`${item.width}`.padStart(4, ' ')}x${`${item.height}`.padEnd(4, ' ')} img:'${item.data?.substring(0, 7)}...' caption: '${item.caption}'`);
                 return;
             }
+
             lines.push('undefined');
         }
     );
