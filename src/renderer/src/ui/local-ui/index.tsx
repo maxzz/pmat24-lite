@@ -5,3 +5,5 @@ export * from "./8-not-impl-yet";
 export * from "./8-shared-styles";
 
 export * from "./text-hover-effect";
+export * from "./4-bars-loader";
+

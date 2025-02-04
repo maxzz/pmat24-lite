@@ -47,6 +47,8 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
         const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
+        printScreenshots(screenshots);
+
         setScreenshotsWithExtra(screenshots, set);
     } catch (error) {
         console.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
@@ -106,20 +108,9 @@ function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
 
     set(allScreenshotAtom, infos);
     //console.log('doGetWindowIconAtom', infos);
-
-    printScreenshots(screenshots);
 }
 
 function printScreenshots(screenshots: TlwScreenshot[]) {
-    // const items = screenshots.map(item => {
-    //     if (item.type === 'data') {
-    //         const newItem: Partial<TlwScreenshot> = { ...item };
-    //         newItem.data = item.data.substring(0, 25);
-    //         return newItem;
-    //     }
-    //     return item;
-    // });
-
     const lines: string[] = [];
 
     screenshots.forEach(
@@ -130,7 +121,7 @@ function printScreenshots(screenshots: TlwScreenshot[]) {
                 lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd} errorCode: ${item.errorCode}`);
                 return;
             } else if (item.type === 'data') {
-                lines.push(`${idxStr}. hwnd:${item.hwnd} ${item.format} ${`${item.width}`.padStart(4, ' ')}x${`${item.height}`.padEnd(4, ' ')} img:'${item.data?.substring(0, 7)}...' caption: '${item.caption}'`);
+                lines.push(`${idxStr}. hwnd:${item.hwnd} ${item.format} ${`${item.width}`.padStart(4, ' ')} x ${`${item.height}`.padEnd(4, ' ')} img:'${item.data?.substring(0, 7)}...' caption: '${item.caption}'`);
                 return;
             }
 

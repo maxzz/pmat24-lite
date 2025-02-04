@@ -1,0 +1,49 @@
+/* https://css-loaders.com */
+/* HTML: <div class="loader"></div> */
+.loader {
+    /* width: 85px; */
+    /* height: 50px; */
+
+    --barw: 30%;
+    --barh: 70%;
+    --framew: 2px;
+    --speed: 2s;
+
+    --g1: conic-gradient(from 90deg at left var(--framew) top var(--framew), #0000 90deg, currentColor 0);
+    --g2: conic-gradient(from -90deg at bottom var(--framew) right var(--framew), #0000 90deg, currentColor 0);
+
+    background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
+    background-position: left, center, right;
+    background-repeat: no-repeat;
+
+    animation: l10 var(--speed) infinite alternate;
+}
+
+@keyframes l10 {
+
+    0%,
+    2% {
+        background-size: var(--barw) 50%, var(--barw) 50%, var(--barw) 50%
+    }
+
+    20% {
+        background-size: var(--barw) 25%, var(--barw) 50%, var(--barw) 50%
+    }
+
+    40% {
+        background-size: var(--barw) var(--barh), var(--barw) 25%, var(--barw) 50%
+    }
+
+    60% {
+        background-size: var(--barw) 50%, var(--barw) var(--barh), var(--barw) 25%
+    }
+
+    80% {
+        background-size: var(--barw) 50%, var(--barw) 50%, var(--barw) var(--barh)
+    }
+
+    98%,
+    100% {
+        background-size: var(--barw) 50%, var(--barw) 50%, var(--barw) 50%
+    }
+}
