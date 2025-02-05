@@ -1,4 +1,4 @@
-import { FieldPath, MPath, MSAA_ROLE, RoleStateNames, getRoleStateNames } from "@/store/manifest";
+import { FieldPath, type MPath, type RoleStateNames, getRoleStateNames } from "@/store/manifest";
 import { type TargetClientRect } from "@shared/ipc-types";
 
 export function getRoleAndStates(p4a: MPath.p4a[] | undefined): RoleStateNames | undefined {

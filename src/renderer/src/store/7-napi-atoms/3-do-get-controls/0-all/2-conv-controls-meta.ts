@@ -1,6 +1,6 @@
 import { FieldPath, splitPool, uuid } from "@/store/manifest";
 import { EngineControl, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { type EngineControlWithMeta, type EngineControlsWithMeta } from "../9-types";
+import { type EngineControlMeta, type EngineControlWithMeta, type EngineControlsWithMeta } from "../9-types";
 import { getControlTaretRect, getRoleAndStates } from "./8-utils";
 
 export function controlsReplyToEngineControlWithMeta(reply: WindowControlsCollectFinalAfterParse): EngineControlsWithMeta | null {
@@ -24,14 +24,15 @@ function addMetaToEngineControls(pool: string[], controls: EngineControl[]): Eng
         const path = FieldPath.fieldPathItems(pool, control.path);
         const rect = getControlTaretRect(path.loc);
         const role = getRoleAndStates(path.p4 || path.p4a);
+        const meta: EngineControlMeta = {
+            uuid: uuid.asRelativeNumber(),
+            path,
+            ...(rect && { rect }),
+            ...(role && { role }),
+        };
         const item = {
             control,
-            meta: {
-                uuid: uuid.asRelativeNumber(),
-                path,
-                ...(rect && { rect }),
-                ...(role && { role }),
-            }
+            meta,
         };
         return item;
     });
