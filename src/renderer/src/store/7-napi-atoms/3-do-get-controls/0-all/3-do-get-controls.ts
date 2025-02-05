@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { type EngineControlsWithMeta, controlsReplyToEngineControlWithMeta } from "./../controls-meta";
+import { type EngineControlsWithMeta } from "../9-types";
+import { controlsReplyToEngineControlWithMeta } from "./../controls-meta";
 import { getSubError } from "@/utils";
 import { buildProgressState, maniBuildState } from "@/store/state-debug";
 import { lastBuildProgressAtom } from "../../1-do-get-hwnd";
