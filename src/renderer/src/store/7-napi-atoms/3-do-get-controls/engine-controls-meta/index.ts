@@ -1,26 +1,6 @@
-import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { FieldPath, MPath, MSAA_ROLE, Meta, splitPool, uuid } from "@/store/manifest";
-
-export type RoleStateNames = {
-    role: string;
-    state: string;
-};
-
-export type EngineControlMeta = {
-    uuid: number;
-    path: Meta.Path;
-    rect?: TargetClientRect;
-    role?: RoleStateNames;
-};
-
-export type EngineControlWithMeta = {
-    control: EngineControl;
-    meta: EngineControlMeta;
-};
-
-export type EngineControlsWithMeta = Omit<WindowControlsCollectFinalAfterParse, 'controls'> & {
-    controls: EngineControlWithMeta[];
-};
+import { FieldPath, type MPath, MSAA_ROLE, type RoleStateNames, splitPool, uuid } from "@/store/manifest";
+import { type EngineControl, type TargetClientRect, type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
+import { type EngineControlsWithMeta, type EngineControlWithMeta } from "../9-types";
 
 export function controlsReplyToEngineControlWithMeta(reply: WindowControlsCollectFinalAfterParse): EngineControlsWithMeta | null {
     const final = reply.pool && reply.controls?.length ? reply : null;
@@ -72,8 +52,9 @@ export function controlsReplyToEngineControlWithMeta(reply: WindowControlsCollec
         const stateNum = parts[1] || 0;
 
         return {
+            raw: lastP4a?.roleString,
             role: roleName,
-            state: `${stateNum}`,
+            states: [`${stateNum}`],
         };
     }
 
