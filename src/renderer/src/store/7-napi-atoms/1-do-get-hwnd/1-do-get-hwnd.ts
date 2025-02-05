@@ -2,8 +2,8 @@ import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugState, maniBuildStateAtom } from "@/store/state-debug";
-import { sawContentAtom, sawContentStrAtom } from "./3-do-get-controls";
-import { doGetWindowIconAtom } from "./2-do-get-icon";
+import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
+import { doGetWindowIconAtom } from "../2-do-get-icon";
 
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
