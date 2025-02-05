@@ -1,4 +1,4 @@
-import { useReducer, useState, type ComponentProps } from "react";
+import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { useAutoCleanupToast } from "@/util-hooks";
 import { newManiCtx } from "../../../0-new-mani-ctx";
@@ -14,16 +14,6 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const setToastId = useAutoCleanupToast();
 
     const [refreshEnabled, setRefreshEnabled] = useState(true);
-
-    // const [refreshing, setRefreshing] = useStateOnce(() => {
-    //     console.log('refreshing');
-    //     return false;
-    // });
-
-    // const [refreshing2, setRefreshing2] = useState(() => {
-    //     console.log('refreshing 2');
-    //     return false;
-    // });
 
     async function callUpdateAppsList() {
         if (!refreshEnabled) {
@@ -57,8 +47,6 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
                 }
             </AnimatePresence>
 
-            {/* {refreshing as any} */}
-
             <Button
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
                 onClick={callUpdateAppsList}
@@ -76,9 +64,3 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
         </div>
     );
 }
-
-function useStateOnce<T>(initialState: T) { // from 'Fluent React - 2024' page 142
-    const [state, dispatch] = useReducer((state: T, newValue: T) => newValue, initialState);
-    return [state, dispatch];
-}
-
