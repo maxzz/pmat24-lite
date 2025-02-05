@@ -1,6 +1,7 @@
-import { EngineControl, TargetClientRect, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { FieldPath, MPath, Meta, RoleStateNames, getRoleStateNames, splitPool, uuid } from "@/store/manifest";
+import { FieldPath, splitPool, uuid } from "@/store/manifest";
+import { EngineControl, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlWithMeta, type EngineControlsWithMeta } from "../9-types";
+import { getControlTaretRect, getRoleAndStates } from "./8-utils";
 
 export function controlsReplyToEngineControlWithMeta(reply: WindowControlsCollectFinalAfterParse): EngineControlsWithMeta | null {
     const final = reply.pool && reply.controls?.length ? reply : null;
@@ -35,24 +36,4 @@ function addMetaToEngineControls(pool: string[], controls: EngineControl[]): Eng
         return item;
     });
     return rv;
-}
-
-function getRoleAndStates(p4a: MPath.p4a[] | undefined): RoleStateNames | undefined {
-    if (!p4a?.length) {
-        return;
-    }
-    const lastP4a = p4a.at(-1);
-    return getRoleStateNames(lastP4a?.roleString);
-}
-
-function getControlTaretRect(pathLoc: string | undefined): TargetClientRect | undefined {
-    const loc = FieldPath.loc.getControlRect(pathLoc);
-    if (loc) {
-        return {
-            left: loc[0],      // x1.x
-            top: loc[1],       // x1.y
-            right: loc[2],     // x2.x
-            bottom: loc[3],    // x2.y
-        };
-    }
 }
