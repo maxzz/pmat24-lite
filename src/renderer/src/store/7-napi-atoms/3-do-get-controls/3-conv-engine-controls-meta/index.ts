@@ -22,7 +22,7 @@ function addMetaToEngineControls(pool: string[], controls: EngineControl[]): Eng
     const rv = controls.map((control) => {
         const path = FieldPath.fieldPathItems(pool, control.path);
         const rect = getControlTaretRect(path.loc);
-        const role = getRole(path.p4 || path.p4a);
+        const role = getRole_old_should_be_from_manifest(path.p4 || path.p4a);
         const item = {
             control,
             meta: {
@@ -37,7 +37,7 @@ function addMetaToEngineControls(pool: string[], controls: EngineControl[]): Eng
     return rv;
 }
 
-function getRole(p4a: MPath.p4a[] | undefined): RoleStateNames | undefined {
+function getRole_old_should_be_from_manifest(p4a: MPath.p4a[] | undefined): RoleStateNames | undefined {
     if (!p4a?.length) {
         return;
     }
