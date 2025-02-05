@@ -1,4 +1,4 @@
-import { useState, type ComponentProps } from "react";
+import { useReducer, useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { useAutoCleanupToast } from "@/util-hooks";
 import { newManiCtx } from "../../../0-new-mani-ctx";
@@ -15,7 +15,17 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
     const [refreshEnabled, setRefreshEnabled] = useState(true);
 
-    async function updateApps() {
+    // const [refreshing, setRefreshing] = useStateOnce(() => {
+    //     console.log('refreshing');
+    //     return false;
+    // });
+
+    // const [refreshing2, setRefreshing2] = useState(() => {
+    //     console.log('refreshing 2');
+    //     return false;
+    // });
+
+    async function callUpdateAppsList() {
         if (!refreshEnabled) {
             console.error('updateApps - refresh disabled');
             return;
@@ -23,8 +33,7 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
         setRefreshEnabled(false);
         try {
-            await doRefreshApps();
-            // await delay(3000);
+            await doRefreshApps(); // await delay(3000);
             setToastId(toast('Updated'));
         } catch (error) {
             console.error(`'updateApps' ${error instanceof Error ? error.message : `${error}`}`);
@@ -48,9 +57,11 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
                 }
             </AnimatePresence>
 
+            {/* {refreshing as any} */}
+
             <Button
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
-                onClick={updateApps}
+                onClick={callUpdateAppsList}
                 disabled={!refreshEnabled}
                 title="Refresh windows list"
             >
@@ -65,3 +76,9 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
         </div>
     );
 }
+
+function useStateOnce<T>(initialState: T) { // from 'Fluent React - 2024' page 142
+    const [state, dispatch] = useReducer((state: T, newValue: T) => newValue, initialState);
+    return [state, dispatch];
+}
+
