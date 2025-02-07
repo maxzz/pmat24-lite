@@ -7,6 +7,7 @@ import { getSubError } from "@/utils";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
 export const sawIconAtom = atom<HTMLImageElement | null>(null);
+export type SawIconAtom = typeof sawIconAtom;
 
 type IconsCache = Map<string, string>; // hwnd -> string with WindowIconGetterResult
 
@@ -43,6 +44,7 @@ export const doGetWindowIconAtom = atom(
             //console.log('doGetSawIconAtom.set', JSON.stringify(str, null, 4));
         } catch (error) {
             set(sawIconStrAtom, '');
+            set(sawIconAtom, null);
 
             napiBuildState.buildError = getSubError(error);
 
