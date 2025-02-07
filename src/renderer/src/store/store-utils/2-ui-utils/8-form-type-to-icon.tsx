@@ -1,5 +1,5 @@
-import { TreenIconComponent } from "@/ui/shadcn/tree";
-import { IconEnumWithWarning } from "./7-file-us-to-app-type";
+import { type TreenIconComponent } from "@/ui/shadcn/tree";
+import { type IconEnumWithWarning } from "./7-file-us-to-app-type";
 import { SymbolAppWebChrome, SymbolAppWebIeDot, SymbolAppWin, SymbolCatalog, SymbolManualMode } from "@/ui/icons";
 import { classNames } from "@/utils";
 // import { SymbolAppWebIe } from "@/ui/icons/symbols/app/4-app-web-ie";

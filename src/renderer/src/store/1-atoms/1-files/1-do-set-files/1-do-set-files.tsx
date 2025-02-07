@@ -2,13 +2,14 @@ import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { isAnyEmpty, isAnyManual } from "@/store/manifest";
-import { delay, doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
+import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { filesAtom } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { toast } from "sonner";
+import { delay } from "@/utils";
 
 /**
  * File content is populated from web or electron environment:

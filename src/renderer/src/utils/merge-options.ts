@@ -46,6 +46,9 @@ export function mergeConfigRecursively<T extends Record<string, any>>(defaults: 
     return rv as T;
 }
 
+// export function isObject(value: any): boolean { //non-vite version
+//     return value && typeof value === 'object';
+// }
 export function isObject(value: unknown): value is Record<string, any> {
     return Object.prototype.toString.call(value) === '[object Object]';
 }
