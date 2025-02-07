@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
-import { maniBuildState } from "@/store/state-debug";
+import { napiBuildState } from "@/store/state-debug";
 import { WindowIconGetterResult } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 //import { sawHandleAtom } from "./do-get-hwnd";
@@ -38,13 +38,13 @@ export const doGetWindowIconAtom = atom(
                 set(sawIconAtom, image);
             }
 
-            maniBuildState.buildError = '';
+            napiBuildState.buildError = '';
 
             //console.log('doGetSawIconAtom.set', JSON.stringify(str, null, 4));
         } catch (error) {
             set(sawIconStrAtom, '');
 
-            maniBuildState.buildError = getSubError(error);
+            napiBuildState.buildError = getSubError(error);
 
             console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
         }

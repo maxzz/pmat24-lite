@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
-import { buildProgressState, maniBuildState } from "@/store/state-debug";
+import { napiBuildProgress, napiBuildState } from "@/store/state-debug";
 import { finalizeFileContent, setRootFromMainFileContents } from "./commands/10-invoke-load-files";
 
 export const doFromMainAtom = atom(
@@ -36,15 +36,15 @@ export const doFromMainAtom = atom(
             // napi
 
             case 'm2r:detection-progress': {
-                buildProgressState.buildCounter = data.progress;
+                napiBuildProgress.buildCounter = data.progress;
                 break;
             }
             case 'm2r:position-progress': {
-                buildProgressState.getPosProgress = data.progress;
+                napiBuildProgress.getPosProgress = data.progress;
                 break;
             }
             case 'm2r:failed-raw-content': {
-                maniBuildState.buildFailedBody = data.body;
+                napiBuildState.buildFailedBody = data.body;
                 break;
             }
 

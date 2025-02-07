@@ -1,29 +1,29 @@
-import { TargetPosition } from '@shared/ipc-types';
-import { atomWithProxy } from 'jotai-valtio';
 import { proxy } from 'valtio';
+import { atomWithProxy } from 'jotai-valtio';
+import { TargetPosition } from '@shared/ipc-types';
 
-type ManiBuildState = {
+type NapiBuildState = {                         // state of Napi multistep build: icons, controls, manifest
     buildRunning: boolean;                      // content check build is runnning
     buildError: string;                         // error message if build failed
     buildFailedBody: string;                    // raw string returned from main that failed to parse
 };
 
-export const maniBuildState = proxy<ManiBuildState>({
+export const napiBuildState = proxy<NapiBuildState>({
     buildRunning: false,
     buildError: '',
     buildFailedBody: '',
 });
 
-export const maniBuildStateAtom = atomWithProxy(maniBuildState);
+export const napiBuildStateAtom = atomWithProxy(napiBuildState);
 
 //
 
-type BuildProgressState = {
+type NapiBuildProgress = {
     buildCounter: number;                       // controls detection progress
     getPosProgress: TargetPosition | null;      // get window position progress
 };
 
-export const buildProgressState = proxy<BuildProgressState>({
+export const napiBuildProgress = proxy<NapiBuildProgress>({
     buildCounter: 0,
     getPosProgress: null,
 });
