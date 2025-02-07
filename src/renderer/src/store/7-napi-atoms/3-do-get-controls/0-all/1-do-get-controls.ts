@@ -4,8 +4,8 @@ import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "../9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
 import { getSubError } from "@/utils";
-import { napiBuildProgress, napiBuildState } from "@/store/state-debug";
 import { lastBuildProgressAtom } from "../../1-do-get-hwnd";
+import { napiBuildProgress, napiBuildState } from "../../9-napi-build-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');
 export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);

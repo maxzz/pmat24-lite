@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
-import { napiBuildProgress, napiBuildState } from "@/store/state-debug";
 import { EngineControl } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 import { CatalogFile, Mani, Meta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
+import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { lastBuildProgressAtom } from "../1-do-get-hwnd";
 
 type SawContentReply = {

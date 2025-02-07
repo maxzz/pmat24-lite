@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
-import { napiBuildProgress, napiBuildState } from "@/store/state-debug";
+import { napiBuildProgress, napiBuildState } from "@/store/7-napi-atoms";
 import { finalizeFileContent, setRootFromMainFileContents } from "./commands/10-invoke-load-files";
 
 export const doFromMainAtom = atom(
