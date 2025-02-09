@@ -1,7 +1,7 @@
 import { FieldPath, splitPool, uuid } from "@/store/manifest";
 import { EngineControl, WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
-import { type EngineControlMeta, type EngineControlWithMeta, type EngineControlsWithMeta } from "../9-types";
-import { getControlTaretRect, getRoleAndStates } from "./8-utils";
+import { type EngineControlMeta, type EngineControlWithMeta, type EngineControlsWithMeta } from "./9-types";
+import { getControlTaretRect, getRoleAndStates } from "./8-utils-conv";
 
 export function controlsReplyToEngineControlWithMeta(reply: WindowControlsCollectFinalAfterParse): EngineControlsWithMeta | null {
     const final = reply.pool && reply.controls?.length ? reply : null;
