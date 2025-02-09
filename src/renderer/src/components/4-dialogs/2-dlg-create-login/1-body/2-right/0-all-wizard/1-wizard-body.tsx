@@ -17,7 +17,7 @@ export function WizardBody() {
                     <div className="py-3 text-sm">New manifest</div>
                 </D.DialogTitle>
 
-                <div className="absolute py-4 -left-2 -top-7 scale-[.65]">
+                <div className="absolute -left-[28px] -top-[14px] scale-[.72] bg-muted rounded-tl-md border border-foreground/20">
                     <DebugButtons />
                 </div>
 
@@ -41,20 +41,24 @@ type TestAppEnum = 'none' | 'win32' | 'web'; // New manifest test content
 
 function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("p-0.5 border border-foreground/20 rounded-md grid grid-rows-2", className)} {...rest}>
+        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_1fr] grid-rows-2 gap-x-1", className)} {...rest}>
 
+            screen:
             <RadioGroup className="flex items-center gap-x-1">
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="win32" /> win32</Label>
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="web" /> web</Label>
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="none" /> none</Label>
+                <Label className={labelClasses}> <RadioGroupItem value="A" /> A </Label>
+                <Label className={labelClasses}> <RadioGroupItem value="B" /> B </Label>
+                <Label className={labelClasses}> <RadioGroupItem value="none" /> none </Label>
             </RadioGroup>
 
+            content:
             <RadioGroup className="flex items-center gap-x-1">
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="A" /> A</Label>
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="B" /> B</Label>
-                <Label className="text-[.67rem] flex items-center gap-1"><RadioGroupItem value="none" /> none</Label>
+                <Label className={labelClasses}> <RadioGroupItem value="win32" /> win32 </Label>
+                <Label className={labelClasses}> <RadioGroupItem value="web" /> web </Label>
+                <Label className={labelClasses}> <RadioGroupItem value="none" /> none </Label>
             </RadioGroup>
 
         </div>
     );
 }
+
+const labelClasses = "text-[.67rem] flex items-center gap-1";
