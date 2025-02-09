@@ -17,7 +17,7 @@ export function WizardBody() {
                     <div className="py-3 text-sm">New manifest</div>
                 </D.DialogTitle>
 
-                <div className="absolute -left-[28px] -top-[14px] scale-[.72] bg-muted rounded-tl-md border border-foreground/20">
+                <div className="absolute -left-7 -top-[14px] scale-[.74] bg-muted rounded-tl-md border border-foreground/10">
                     <DebugButtons />
                 </div>
 
@@ -41,20 +41,20 @@ type TestAppEnum = 'none' | 'win32' | 'web'; // New manifest test content
 
 function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_1fr] grid-rows-2 gap-x-1", className)} {...rest}>
+        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
 
             screen:
-            <RadioGroup className="flex items-center gap-x-1">
-                <Label className={labelClasses}> <RadioGroupItem value="A" /> A </Label>
-                <Label className={labelClasses}> <RadioGroupItem value="B" /> B </Label>
-                <Label className={labelClasses}> <RadioGroupItem value="none" /> none </Label>
+            <RadioGroup className="grid-cols-subgrid col-span-3">
+                <Label className={classNames("col-start-1", labelClasses)}> <RadioGroupItem value="A" /> A </Label>
+                <Label className={classNames("col-start-2", labelClasses)}> <RadioGroupItem value="B" /> B </Label>
+                <Label className={classNames("col-start-3", labelClasses)}> <RadioGroupItem value="none" /> none </Label>
             </RadioGroup>
 
             content:
-            <RadioGroup className="flex items-center gap-x-1">
-                <Label className={labelClasses}> <RadioGroupItem value="win32" /> win32 </Label>
-                <Label className={labelClasses}> <RadioGroupItem value="web" /> web </Label>
-                <Label className={labelClasses}> <RadioGroupItem value="none" /> none </Label>
+            <RadioGroup className="grid-cols-subgrid col-span-3">
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="win32" /> win32 </Label>
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="web" /> web </Label>
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="none" /> none </Label>
             </RadioGroup>
 
         </div>
