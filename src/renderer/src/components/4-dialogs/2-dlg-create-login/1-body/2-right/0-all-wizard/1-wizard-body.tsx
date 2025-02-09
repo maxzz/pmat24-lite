@@ -1,12 +1,12 @@
-import { type ComponentPropsWithoutRef } from "react";
 import { useAtom } from "jotai";
+import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
-import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
 import { doOpenDrawerAtom } from "@/store";
 import { PagesBody } from "./2-pages-body";
-import { Button, Label, RadioGroup, RadioGroupItem } from "@/ui";
+import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { classNames } from "@/utils";
+import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
+import { DebugButtons } from "./3-wizard-header-test-buttons";
 
 export function WizardBody() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
@@ -17,9 +17,11 @@ export function WizardBody() {
                     <div className="py-3 text-sm">New manifest</div>
                 </D.DialogTitle>
 
-                <div className="absolute -left-7 -top-[14px] scale-[.74] bg-muted rounded-tl-md border border-foreground/10">
-                    <DebugButtons />
-                </div>
+                {!hasMain() &&
+                    <div className="absolute -left-7 -top-[14px] scale-[.74] bg-muted rounded-tl-md border border-foreground/10">
+                        <DebugButtons />
+                    </div>
+                }
 
                 <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => setDoOpenDrawer(false)}>
                     <Cross2Icon className="size-4" />
@@ -35,30 +37,3 @@ export function WizardBody() {
         </div>
     );
 }
-
-type TestScreenEnum = 'none' | 'A' | 'B'; // Test screenshots collection
-type TestAppEnum = 'none' | 'win32' | 'web'; // New manifest test content
-
-function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    return (
-        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
-
-            screen:
-            <RadioGroup className="grid-cols-subgrid col-span-3">
-                <Label className={classNames("col-start-1", labelClasses)}> <RadioGroupItem value="A" /> A </Label>
-                <Label className={classNames("col-start-2", labelClasses)}> <RadioGroupItem value="B" /> B </Label>
-                <Label className={classNames("col-start-3", labelClasses)}> <RadioGroupItem value="none" /> none </Label>
-            </RadioGroup>
-
-            content:
-            <RadioGroup className="grid-cols-subgrid col-span-3">
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="win32" /> win32 </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="web" /> web </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value="none" /> none </Label>
-            </RadioGroup>
-
-        </div>
-    );
-}
-
-const labelClasses = "text-[.67rem] flex items-center gap-1";
