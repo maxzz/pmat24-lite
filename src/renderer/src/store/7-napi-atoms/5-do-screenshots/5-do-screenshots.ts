@@ -25,14 +25,14 @@ export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
         if (hasMain()) {
-            await doCollectScreenshotsAtom(width, set);
+            await doLiveScreenshots(width, set);
         } else {
-            await doTestScreenshotsAtom(width, get, set);
+            await doTestScreenshots(width, get, set);
         }
     }
 );
 
-async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
+async function doLiveScreenshots(width: number | undefined, set: Setter) {
     try {
         // 1. get all tlw infos
         const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' });
@@ -91,7 +91,7 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 //     }
 // }
 
-async function doTestScreenshotsAtom(width: number | undefined, get: Getter,set: Setter) {
+async function doTestScreenshots(width: number | undefined, get: Getter, set: Setter) {
     const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
     set(allScreenshotAtom, addScreenshotsExtra(screenshots));
 }
