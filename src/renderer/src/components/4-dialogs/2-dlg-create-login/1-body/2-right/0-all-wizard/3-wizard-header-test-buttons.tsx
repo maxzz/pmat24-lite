@@ -3,12 +3,12 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
-import { type TestAppEnum, type TestScreenEnum, debugSettings, doLoadFakeManiAtom, doLoadFakeScreenshotsAtom, testApp, testScreen } from "@/store/1-atoms/9-ui-state";
+import { type TestManiEnum, type TestScreenEnum, debugSettings, doLoadFakeManiAtom, doLoadFakeScreensAtom, testMani, testScreen } from "@/store/1-atoms/9-ui-state";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const { screen, app } = useSnapshot(debugSettings.testCreate);
+    const { screen, mani: app } = useSnapshot(debugSettings.testCreate);
 
-    const doLoadRsourceScreenContent = useSetAtom(doLoadFakeScreenshotsAtom);
+    const doLoadFakeScreens = useSetAtom(doLoadFakeScreensAtom);
     const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
 
     return (
@@ -20,7 +20,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 value={screen}
                 onValueChange={
                     (v) => {
-                        doLoadRsourceScreenContent(v as TestScreenEnum);
+                        doLoadFakeScreens(v as TestScreenEnum);
                         debugSettings.testCreate.screen = v as TestScreenEnum;
                     }
                 }>
@@ -34,13 +34,13 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 className="grid-cols-subgrid col-span-3"
                 value={app}
                 onValueChange={(v) => {
-                    doLoadFakeMani(v as TestAppEnum);
-                    debugSettings.testCreate.app = v as TestAppEnum;
+                    doLoadFakeMani(v as TestManiEnum);
+                    debugSettings.testCreate.mani = v as TestManiEnum;
                 }}
             >
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testApp.win32} /> {testApp.win32} </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testApp.web} /> {testApp.web} </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testApp.none} /> {testApp.none} </Label>
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
+                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
             </RadioGroup>
 
         </div>

@@ -2,7 +2,7 @@ import { prependUrlPath } from "@/utils";
 import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
 
-export const hashedResQueryAtom = atomFamily(
+export const hashedQueryAtom = atomFamily(
     (fname: string) => atom(
         async () => {
             try {

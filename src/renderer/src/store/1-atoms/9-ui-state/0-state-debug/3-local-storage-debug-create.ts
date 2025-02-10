@@ -4,23 +4,23 @@ export const testScreen = { // Test screenshots collection
     none: 'none',
 };
 
-export const testApp = { // New manifest test content
+export const testMani = { // Test manifests content
     win32: 'win32',
     web: 'web',
     none: 'none',
 };
 
 export type TestScreenEnum = keyof typeof testScreen;   // Test screenshots collection
-export type TestAppEnum = keyof typeof testApp;         // New manifest test content
+export type TestManiEnum = keyof typeof testMani;       // New manifest test content
 
 //
 
 export type TestCreate = {
     screen: TestScreenEnum;
-    app: TestAppEnum;
+    mani: TestManiEnum;
 };
 
 export const initialTestCreate: TestCreate = {
     screen: 'none',
-    app: 'none',
+    mani: 'none',
 };
