@@ -2,10 +2,10 @@ import { useAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { doOpenDrawerAtom } from "@/store";
-import { PagesBody } from "./2-pages-body";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
+import { PagesBody } from "./2-pages-body";
 import { DebugButtons } from "./3-wizard-header-test-buttons";
 
 export function WizardBody() {

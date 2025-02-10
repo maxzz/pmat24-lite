@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { type TestAppEnum, type TestScreenEnum, debugSettings, doLoadRsourceScreenContentAtom, testApp, testScreen } from "@/store/1-atoms/9-ui-state";
+import { type TestAppEnum, type TestScreenEnum, debugSettings, doLoadFakeScreenshotsAtom, testApp, testScreen } from "@/store/1-atoms/9-ui-state";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { useSetAtom } from "jotai";
 
@@ -15,7 +15,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
     //     console.log('resourceQuery', resourceQuery);
     // }, [resourceQuery]);
 
-    const doLoadRsourceScreenContent = useSetAtom(doLoadRsourceScreenContentAtom);
+    const doLoadRsourceScreenContent = useSetAtom(doLoadFakeScreenshotsAtom);
     // useEffect(() => {
     //     doLoadRsourceScreenContent('screenA');
     // }, [doLoadRsourceScreenContent]);

@@ -4,6 +4,7 @@ export * from "./delay";
 export * from "./disable-hidden-children";
 export * from "./numbers";
 export * from "./os-utils";
+export * from "./prepend-url-path";
 export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
 export * from "./theme-apply";
