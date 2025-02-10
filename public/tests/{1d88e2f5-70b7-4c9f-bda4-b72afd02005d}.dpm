@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{fc96e10d-d461-417a-87d2-08aa5c476ff5}"
+		created="1d6ea83 6e535a9d"
+		modified="1d6ea83 d2ac1b61"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Workday Resource Center - Sign In"
+				web_ourl="https://signin.resourcecenter.workday.com/login/login.htm"
+				web_murl="https://signin.resourcecenter.workday.com/login/login.htm"
+				web_qurl="https://signin.resourcecenter.workday.com/login/login.htm"
+				web_checkurl="1"
+				names_ext="96_:Shell DocObject View:9_100000:a_100000:Internet Explorer_Server:https^2dot;//signin^dot;resourcecenter^dot;workday^dot;com/login/login^dot;htm:10_40:Workday Resource Center - Sign In:2a_:0 0 0 0:8 133 1912 1032:8 238 1895 1011:803 757 1100 793:101:form1^dot;idp-discovery-username^dot;username:form1:&lt;input name=&quot;username&quot; id=&quot;idp-discovery-username&quot; aria-label=&quot;&quot; required=&quot;&quot; type=&quot;text&quot; placeholder=&quot;&quot; value=&quot;&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;1&quot;&gt;:2b_100:Next:802 834 1101 882:form1^dot;idp-discovery-submit^dot;:&lt;input class=&quot;button button-primary&quot; id=&quot;idp-discovery-submit&quot; type=&quot;submit&quot; value=&quot;Next&quot; data-type=&quot;save&quot; data-dpmaxz-eid=&quot;2&quot;&gt;"
+				monitor="1"
+				processname="%25ProgramFiles%25\internet explorer\iexplore.exe"
+				commandline="%25ProgramFiles%25\internet explorer\iexplore.exe"
+			/>
+			<options
+				choosename="Workday Resource Center"
+				quicklink="Workday Resource Center"
+				autoprompt="1"
+				usequicklink="1"
+			/>
+			<fields>
+				<field
+					displayname="Email"
+					type="edit"
+					dbname="{ebf25c7e-27dc-46fa-88c6-bb3f3df36c0b}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.8..[loc]9|a|a|a|b|c[sid]d.e.f..10"
+					value="@e-mail"
+					useit="1"
+				/>
+				<field
+					displayname="Next"
+					type="button"
+					dbname="{47baec7a-a999-410c-844b-2583173679cd}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.11..12[loc]9|a|a|a|b|13[sid]d.14.f..15"
+					submit="1"
+					useit="1"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>
