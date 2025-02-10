@@ -1,3 +1,4 @@
+import { is } from "@electron-toolkit/utils";
 import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
 
@@ -16,24 +17,31 @@ export type LocalResource = keyof typeof localResources;
 export const resourceQueryAtom = atomFamily((id: LocalResource) =>
     atom(async () => {
         try {
-            const isIdJson = id.endsWith('.json');
-            
             const name = localResources[id];
             if (!name) {
                 return '';
             }
 
-            const url = `${location.pathname}/${name}`.replaceAll('//', '/'); // "/1.json" (localhost) vs. "/pmat24-lite/1.json" (GitHub)
+            const isIdJson = name.endsWith('.json');
 
-            const response = await fetch(url).then(
-                (res) => {
-                    if (isIdJson) {
-                        return res.json();
-                    } else {
-                        return res.text();
-                    }
-                }
-            );
+            const url = `${location.pathname}/${name}`.replaceAll('//', '/'); // "/1.json" (localhost) vs. "/pmat24-lite/1.json" (GitHub)
+            console.log('url', url);
+
+            const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`Failed to fetch ${url}`);
+            }
+            const response = isIdJson ? await res.json() : await res.text();
+
+            // const response = await fetch(url).then(
+            //     (res) => {
+            //         if (isIdJson) {
+            //             return res.json();
+            //         } else {
+            //             return res.text();
+            //         }
+            //     }
+            // );
             return response;
         } catch (error) {
             console.error(error);
