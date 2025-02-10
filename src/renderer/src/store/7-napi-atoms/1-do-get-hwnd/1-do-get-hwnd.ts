@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
-import { debugState } from "@/store/state-debug";
+import { debugState } from "@/store/1-atoms/9-ui-state";
 import { doGetWindowIconAtom } from "../2-do-get-icon";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { napiBuildStateAtom } from "../9-napi-build-state";

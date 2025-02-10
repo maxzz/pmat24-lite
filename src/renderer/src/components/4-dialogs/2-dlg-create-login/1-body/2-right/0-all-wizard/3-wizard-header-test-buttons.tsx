@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { type TestAppEnum, type TestScreenEnum, debugState, testApp, testScreen } from "@/store/state-debug";
+import { type TestAppEnum, type TestScreenEnum, debugState, testApp, testScreen } from "@/store/1-atoms/9-ui-state";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {

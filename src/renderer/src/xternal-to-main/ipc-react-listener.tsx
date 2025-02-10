@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
 import { doFromMainAtom } from "./gate-react-listener-atom";
-import { debugState } from "../store/state-debug";
+import { debugState } from "../store/1-atoms/9-ui-state";
 import { R2MCalls } from "./commands";
 
 export const worldStore = {
