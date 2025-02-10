@@ -1,1 +1,1 @@
-export * from "./1-app-settings";
+export * from "./1-local-storage-app";
