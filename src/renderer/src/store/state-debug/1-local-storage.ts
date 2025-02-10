@@ -2,19 +2,19 @@ import { proxy, subscribe } from 'valtio';
 import { sendNapiOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
 import { type DebugMonitorState, initialDebugMonitorState } from './2-local-storage-debug-monitor';
-import { type TestCreateOptions, initialTestCreateOptions } from './3-local-storage-debug-create';
+import { type TestCreate, initialTestCreate } from './3-local-storage-debug-create';
 
 const STORAGE_UI_KEY = 'pmat24-lite:ui';
 const STORAGE_UI_VER = 'v1';
 
 type DebugState = {
     uiState: DebugMonitorState;
-    testCreate: TestCreateOptions;
+    testCreate: TestCreate;
 };
 
 const initialDebugState: DebugState = {
     uiState: initialDebugMonitorState,
-    testCreate: initialTestCreateOptions,
+    testCreate: initialTestCreate,
 };
 
 export const debugState = proxy<DebugState>(loadUiInitialState());
