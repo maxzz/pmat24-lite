@@ -17,7 +17,7 @@ const initialDebugState: DebugState = {
     testCreate: initialTestCreate,
 };
 
-export const debugState = proxy<DebugState>(loadUiInitialState());
+export const debugSettings = proxy<DebugState>(loadUiInitialState());
 
 // Local storage is separate from the main app settings
 
@@ -36,9 +36,9 @@ function loadUiInitialState(): DebugState {
     return state;
 }
 
-subscribe(debugState, () => {
-    console.log('store ui  ', JSON.stringify(debugState, null, 2));
+subscribe(debugSettings, () => {
+    console.log('store ui  ', JSON.stringify(debugSettings, null, 2));
 
     sendNapiOptions();
-    localStorage.setItem(STORAGE_UI_KEY, JSON.stringify({ [STORAGE_UI_VER]: debugState }));
+    localStorage.setItem(STORAGE_UI_KEY, JSON.stringify({ [STORAGE_UI_VER]: debugSettings }));
 });

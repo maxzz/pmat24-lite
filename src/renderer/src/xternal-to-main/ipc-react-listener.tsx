@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { M2R } from "@shared/ipc-types";
 import { doFromMainAtom } from "./gate-react-listener-atom";
-import { debugState } from "../store/1-atoms/9-ui-state";
+import { debugSettings } from "../store/1-atoms/9-ui-state";
 import { R2MCalls } from "./commands";
 
 export const worldStore = {
@@ -31,7 +31,7 @@ export function WorldToReactListener() {
 // Initial state exchange with main process
 
 export function sendNapiOptions() {
-    R2MCalls.setNapiOptions({state: { maxControls: debugState.uiState.maxControls }});
+    R2MCalls.setNapiOptions({state: { maxControls: debugSettings.uiState.maxControls }});
 }
 
 export function OnAppMount() {
