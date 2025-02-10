@@ -27,13 +27,14 @@ export const doSetScreenshotsAtom = atom(
         if (hasMain()) {
             await doCollectScreenshotsAtom(width, set);
         } else {
-            await doTestScreenshotsAtom(width, set);
+            await doTestScreenshotsAtom(width, get, set);
         }
     }
 );
 
 async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) {
     try {
+        // 1. get all tlw infos
         const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' });
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
@@ -44,12 +45,12 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
             hwnd: hwnds,
         };
 
+        // 2. get all tlw screenshots
         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
         const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
-
         printScreenshots(screenshots);
 
-        setScreenshotsWithExtra(screenshots, set);
+        set(allScreenshotAtom, addScreenshotsExtra(screenshots));
     } catch (error) {
         console.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
         toast.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
@@ -90,12 +91,12 @@ async function doCollectScreenshotsAtom(width: number | undefined, set: Setter) 
 //     }
 // }
 
-async function doTestScreenshotsAtom(width: number | undefined, set: Setter) {
+async function doTestScreenshotsAtom(width: number | undefined, get: Getter,set: Setter) {
     const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
-    setScreenshotsWithExtra(screenshots, set);
+    set(allScreenshotAtom, addScreenshotsExtra(screenshots));
 }
 
-function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
+function addScreenshotsExtra(screenshots: TlwScreenshot[]): TlwScreenshotInfo[] {
     const infos = screenshots.map(
         (item, idx) => {
             const newItem: TlwScreenshot = { ...item };
@@ -110,7 +111,7 @@ function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
             return rv;
         }
     );
-    set(allScreenshotAtom, infos);
+    return infos;
 }
 
 function printScreenshots(screenshots: TlwScreenshot[]) {
