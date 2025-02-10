@@ -96,18 +96,21 @@ async function doTestScreenshotsAtom(width: number | undefined, set: Setter) {
 }
 
 function setScreenshotsWithExtra(screenshots: TlwScreenshot[], set: Setter) {
-    const infos = screenshots.map((item, idx) => {
-        const newItem: TlwScreenshot = { ...item };
-        if (newItem.type === 'data') {
-            // newItem.data = `data:image/png;base64,${newItem.data}`;
-            newItem.data = `data:image/${newItem.format};base64,${newItem.data}`;
+    const infos = screenshots.map(
+        (item, idx) => {
+            const newItem: TlwScreenshot = { ...item };
+            if (newItem.type === 'data') {
+                newItem.data = `data:image/${newItem.format};base64,${newItem.data}`;
+            }
+            const rv: TlwScreenshotInfo = {
+                item: newItem,
+                uuid: uuid.asRelativeNumber(),
+                editor: proxy({ selected: false }),
+            };
+            return rv;
         }
-        const rv: TlwScreenshotInfo = { item: newItem, uuid: uuid.asRelativeNumber(), editor: proxy({ selected: false }) };
-        return rv;
-    });
-
+    );
     set(allScreenshotAtom, infos);
-    //console.log('doGetWindowIconAtom', infos);
 }
 
 function printScreenshots(screenshots: TlwScreenshot[]) {
