@@ -4,7 +4,7 @@ import { atomWithProxy } from "jotai-valtio";
 import { debounce, mergeConfigRecursively } from "@/utils";
 import { FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
-import { AppUISettings, defaultAppUISettings } from "../3-app-ui";
+import { AppUISettings, defaultAppUISettings } from "../8-app-ui";
 
 export type AppSettings = {
     appUi: AppUISettings;           // App UI settings: theme, divider, etc.
