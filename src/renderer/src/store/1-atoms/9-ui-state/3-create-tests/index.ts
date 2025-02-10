@@ -1,39 +1,26 @@
 import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { prependUrlPath } from "@/utils";
-
-const localResources = {
-    screenNone: "",
-    screenA: "tests/25.01.16.25/TopLevelWindowsScreenshots.json",
-    screenB: "tests/25.01.16.25/TopLevelWindowsScreenshots2many.json",
-
-    appNone: "",
-    win32A: "tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm",
-    webB: "tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm",
-};
-
-export type LocalResource = keyof typeof localResources;
+import { TestAppEnum, type TestScreenEnum } from "../0-state-debug";
 
 const hashedResQueryAtom = atomFamily(
-    (id: LocalResource) => atom(
+    (fname: string) => atom(
         async () => {
             try {
-                const name = localResources[id];
-                if (!name) {
+                if (!fname) {
                     return '';
                 }
 
-                const isIdJson = name.endsWith('.json');
-
-                const url = prependUrlPath(name);
-
+                const isIdJson = fname.endsWith('.json');
+                const url = prependUrlPath(fname);
                 const res = await fetch(url);
+
                 if (!res.ok) {
                     throw new Error(`Failed to fetch ${url}`);
                 }
 
-                const response = isIdJson ? await res.json() : await res.text();
-                return response;
+                const rv = isIdJson ? await res.json() : await res.text();
+                return rv;
             } catch (error) {
                 console.error(error);
                 return '';
@@ -42,17 +29,46 @@ const hashedResQueryAtom = atomFamily(
     )
 );
 
-// export const resorceScreenAtom = atom<LocalResource>('appNone');
-export const resourceScreenContentAtom = atom<string>('');
+const testScreenIds: Record<TestScreenEnum, string> = {
+    none: '',
+    A: 'tests/25.01.16.25/TopLevelWindowsScreenshots.json',
+    B: 'tests/25.01.16.25/TopLevelWindowsScreenshots2many.json',
+};
 
 export const doLoadFakeScreenshotsAtom = atom(
     null,
-    async (get, set, data: LocalResource) => {
-        // const resource = get(resorceScreenAtom);
-        const cnt = await get(hashedResQueryAtom(data));
+    async (get, set, tsId: TestScreenEnum) => {
+        if (tsId === 'none') {
+            return '';
+        }
 
-        console.log('doLoadRsourceScreenContent', data, cnt);
+        const fname = testScreenIds[tsId];
+        const cnt = await get(hashedResQueryAtom(fname));
 
-        set(resourceScreenContentAtom, cnt);
+        console.log('doLoadFakeScreenshotsAtom', fname, cnt);
+
+        return cnt;
+    }
+);
+
+const testManis: Record<TestAppEnum, string> = {
+    none: '',
+    win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
+    web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+}
+
+export const doLoadFakeManiAtom = atom(
+    null,
+    async (get, set, tsId: TestAppEnum) => {
+        if (tsId === 'none') {
+            return '';
+        }
+
+        const fname = testManis[tsId];
+        const cnt = await get(hashedResQueryAtom(fname));
+
+        console.log('doLoadFakeManiAtom', fname, cnt);
+
+        return cnt;
     }
 );
