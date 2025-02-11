@@ -2,6 +2,7 @@ import { type Atom, atom } from "jotai";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { clamp } from "@/utils";
 import { appSelectedAppAtom } from "./4-selected-app";
+import { doAddNextToastIdAtom, doDissmissNextToastsAtom } from "./8-next-toast";
 import { toast } from "sonner";
 
 export type PageAndDirection = [page: WizardPage, direction: number];
@@ -28,8 +29,12 @@ export function create_DoAdvancePageAtom() {
         (get, set, { next }: { next: boolean; }) => {
             const currentPage = get(_pageAndDirectionAtom)[0];
 
+            if (!next) {
+                set(doDissmissNextToastsAtom);
+            }
+
             if (next && currentPage === wizardLastPage) {
-                toast.error('Cannot save yet.');
+                set(doAddNextToastIdAtom, toast.error('Cannot save yet.'));
                 return;
             }
 
@@ -39,7 +44,7 @@ export function create_DoAdvancePageAtom() {
                 if (newPage === WizardPage.fields) {
                     const selectedApp = get(appSelectedAppAtom);
                     if (!selectedApp) {
-                        toast.error('Select application window first.');
+                        set(doAddNextToastIdAtom, toast.error('Select application window first.'));
                         return;
                     }
                 } else if (newPage === WizardPage.options) {
