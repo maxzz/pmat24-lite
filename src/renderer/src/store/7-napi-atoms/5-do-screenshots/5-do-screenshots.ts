@@ -1,12 +1,10 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { proxy } from "valtio";
 import { hasMain, invokeMain } from "@/xternal-to-main";
+import { debugSettings, doLoadFakeScreensAtom } from "@/store/1-atoms/9-ui-state";
 import { GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { uuid } from "../../manifest";
 import { toast } from "sonner";
-// import TEST_SCREENSHOTS from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots.json";
-import TEST_SCREENSHOTS from "@/assets/tests/25.01.16.25/TopLevelWindowsScreenshots2many.json";
-import { debugSettings, doLoadFakeScreensAtom } from "@/store/1-atoms/9-ui-state";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -93,11 +91,9 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
 // }
 
 async function doTestScreenshots(width: number | undefined, get: Getter, set: Setter) {
-    // const screenshots = TEST_SCREENSHOTS as TlwScreenshot[];
-
     const screen = debugSettings.testCreate.screen;
     const screenshots = await set(doLoadFakeScreensAtom, screen);
-    
+
     set(allScreenshotAtom, addScreenshotsExtra(screenshots));
 }
 
