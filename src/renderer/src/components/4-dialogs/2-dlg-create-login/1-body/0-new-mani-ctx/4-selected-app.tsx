@@ -13,12 +13,10 @@ export function create_AppSelectedIdxAtom() {
             if (currentIdx === newIdx) {
                 currentIdx !== -1 && (items[currentIdx].editor.selected = false);
                 set(_appSelectedIdxAtom, -1);
-                return;
+            } else {
+                items.forEach((item, idx) => (item.editor.selected = idx === newIdx));
+                set(_appSelectedIdxAtom, newIdx);
             }
-
-            items.forEach((item, idx) => (item.editor.selected = idx === newIdx));
-
-            set(_appSelectedIdxAtom, newIdx);
         }
     );
 }
@@ -32,4 +30,4 @@ export const appSelectedAppAtom = atom(
         const idx = get(_appSelectedIdxAtom);
         return idx === -1 ? undefined : get(allScreenshotAtom)[idx];
     }
-)
+);

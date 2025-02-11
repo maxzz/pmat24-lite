@@ -1,6 +1,8 @@
 import { type Atom, atom } from "jotai";
-import { type WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
+import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { clamp } from "@/utils";
+import { appSelectedAppAtom } from "./4-selected-app";
+import { toast } from "sonner";
 
 export type PageAndDirection = [page: WizardPage, direction: number];
 
@@ -25,8 +27,19 @@ export function create_DoAdvancePageAtom() {
         null,
         (get, set, { next }: { next: boolean; }) => {
             const currentPage = get(_pageAndDirectionAtom)[0];
-            const page = clamp(currentPage + (next ? 1 : -1), wizardFirstPage, wizardLastPage);
-            set(_pageAndDirectionAtom, [page, next ? 1 : -1]);
+            const newPage = clamp(currentPage + (next ? 1 : -1), wizardFirstPage, wizardLastPage);
+
+            if (next) {
+                if (newPage === WizardPage.fields) {
+                    const selectedApp = get(appSelectedAppAtom);
+                    if (!selectedApp) {
+                        toast.error('Select application window first.');
+                        return;
+                    }
+                }
+            }
+
+            set(_pageAndDirectionAtom, [newPage, next ? 1 : -1]);
         }
     );
 }

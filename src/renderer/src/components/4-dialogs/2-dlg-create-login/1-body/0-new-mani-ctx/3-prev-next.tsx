@@ -5,32 +5,31 @@ import { appSelectedAppAtom } from "./4-selected-app";
 
 const _nextEnabledAtom = atom(
     (get) => {
-        const ctx = newManiCtx;
-        const currentPage = get(ctx.currentPageAtom);
+        // const ctx = newManiCtx;
+        // const currentPage = get(ctx.currentPageAtom);
 
-        const currentApp = get(appSelectedAppAtom);
+        // const currentApp = get(appSelectedAppAtom);
+        // if (!currentApp) {
+        //     return false;
+        // }
 
-        if (currentApp) {
-            return false;
-        }
+        // if (currentPage === WizardPage.apps) {
+        // }
 
-        if (currentPage === WizardPage.apps) {
-        }
+        // if (currentPage === WizardPage.fields) {
+        //     return true;
+        // }
 
-        if (currentPage === WizardPage.fields) {
-            return true;
-        }
-
-        if (currentPage === WizardPage.options) {
-            return true;
-        }
+        // if (currentPage === WizardPage.options) {
+        //     return true;
+        // }
         
-        if (currentPage === WizardPage.save) {
+        // if (currentPage === WizardPage.save) {
 
-            //TODO: if we are on the last page, then save if always enabled. we need to check if we can move to the next page instead
+        //     //TODO: if we are on the last page, then save if always enabled. we need to check if we can move to the next page instead
 
-            return false;
-        }
+        //     return false;
+        // }
 
         return true;
     }
