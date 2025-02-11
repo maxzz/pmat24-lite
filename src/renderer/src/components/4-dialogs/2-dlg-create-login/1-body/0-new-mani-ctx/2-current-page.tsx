@@ -27,6 +27,12 @@ export function create_DoAdvancePageAtom() {
         null,
         (get, set, { next }: { next: boolean; }) => {
             const currentPage = get(_pageAndDirectionAtom)[0];
+
+            if (next && currentPage === wizardLastPage) {
+                toast.error('Cannot save yet.');
+                return;
+            }
+
             const newPage = clamp(currentPage + (next ? 1 : -1), wizardFirstPage, wizardLastPage);
 
             if (next) {
@@ -36,6 +42,7 @@ export function create_DoAdvancePageAtom() {
                         toast.error('Select application window first.');
                         return;
                     }
+                } else if (newPage === WizardPage.options) {
                 }
             }
 

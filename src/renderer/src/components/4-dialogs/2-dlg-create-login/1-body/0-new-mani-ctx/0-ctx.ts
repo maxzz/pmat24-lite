@@ -4,7 +4,6 @@ import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
-import { type NextEnabledAtom, create_NextEnabledAtom } from "./3-prev-next";
 
 export class NewManiCtx {
     doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
@@ -13,7 +12,6 @@ export class NewManiCtx {
     pageAndDirectionAtom: PA<PageAndDirection>;  // current page and direction
 
     doAdvancePageAtom: DoAdvancePageAtom;        // move wizard page
-    nextEnabledAtom: NextEnabledAtom;            // is next button enabled
 
     appSelectedIdxAtom: AppSelectedIdxAtom;      // selected application index
     doRefreshAppsAtom: DoRefreshAppsAtom;        // refresh apps
@@ -25,7 +23,6 @@ export class NewManiCtx {
         this.pageAndDirectionAtom = create_PageAndDirectionAtom();
         
         this.doAdvancePageAtom = create_DoAdvancePageAtom();
-        this.nextEnabledAtom = create_NextEnabledAtom();
 
         this.appSelectedIdxAtom = create_AppSelectedIdxAtom();
         this.doRefreshAppsAtom = create_DoRefreshAppsAtom();

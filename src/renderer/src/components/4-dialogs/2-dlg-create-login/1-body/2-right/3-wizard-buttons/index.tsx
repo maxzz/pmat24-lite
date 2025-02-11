@@ -1,14 +1,13 @@
 import { type ComponentProps } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { Button } from "@/ui";
-import { newManiCtx, stepItems } from "../../0-new-mani-ctx";
 import { classNames } from "@/utils";
+import { Button } from "@/ui";
+import { newManiCtx, wizardLastPage } from "../../0-new-mani-ctx";
 
 export function WizardButtons({ className, ...rest }: ComponentProps<"div">) {
 
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const doAdvancePage = useSetAtom(newManiCtx.doAdvancePageAtom);
-    const nextEnabled = useAtomValue(newManiCtx.nextEnabledAtom);
 
     return (
         <div className={classNames("px-4 flex items-center justify-end gap-1", className)} {...rest}>
@@ -16,19 +15,17 @@ export function WizardButtons({ className, ...rest }: ComponentProps<"div">) {
                 variant="outline"
                 size="xs"
                 onClick={() => doAdvancePage({ next: false })}
-                disabled={currentStep < 0}
+                disabled={currentStep <= 0}
             >
                 Prev
             </Button>
 
             <Button
-                variant="outline"
+                variant="default"
                 size="xs"
-                onClick={() => doAdvancePage({ next: true })}
-                // disabled={currentStep >= stepItems.length}
-                disabled={!nextEnabled}
+                onClick={() => doAdvancePage({ next: true })} // always enabled to show toast as hint
             >
-                Next
+                {currentStep === wizardLastPage ? 'Save' : 'Next'}
             </Button>
         </div>
     );
