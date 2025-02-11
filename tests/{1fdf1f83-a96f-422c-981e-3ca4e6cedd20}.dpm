@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{516a85b3-63c7-4e80-b7da-226da536af98}"
+		created="1d4df29 40794322"
+		modified="1d70aef 80fa4ed5"
+		integrity="OTS2.0406774dc545ed173ce667c5bde2628b1"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Visa Online"
+				web_ourl="https://gvol.visaonline.com/login/LoginMain.aspx?target=HTTPS%3a%2f%2fwww.vrol.visaonline.com%2frolol%2fAdminDispatcher%3faction%3dRouteToLandingPage%26HTTP_ENTRY_POINT%3d%26V%3d13"
+				web_murl="https://gvol.visaonline.com/login/LoginMain.aspx?target=HTTPS%3a%2f%2fwww.vrol.visaonline.com%2frolol%2fAdminDispatcher%3faction%3dRouteToLandingPage%26HTTP_ENTRY_POINT%3d%26V%3d13"
+				web_qurl="https://gvol.visaonline.com/login/LoginMain.aspx?target=HTTPS%3a%2f%2fwww.vrol.visaonline.com%2frolol%2fAdminDispatcher%3faction%3dRouteToLandingPage%26HTTP_ENTRY_POINT%3d%26V%3d13"
+				web_checkurl="1"
+				names_ext="96_:Shell DocObject View:9_100000:a_100000:Internet Explorer_Server:https^2dot;//gvol^dot;visaonline^dot;com/login/LoginMain^dot;aspx?target=HTTPS%253a%252f%252fwww^dot;vrol^dot;visaonline^dot;com%252frolol%252fAdminDispatcher%253faction%253dRouteToLandingPage%2526HTTP_ENTRY_POINT%253d%2526V%253d13:10_40:Visa Online:1e_c08000:0 0 0 0:0 106 1920 1050:0 106 1903 1050:0 106 1 107:12_8000:Enroll in Visa Online  Close%0d%0a%0d%0a%0d%0a%0d%0a%0d%0aEnrolling is easy!%0d%0a%0d%0aEnter business information%0d%0a%0d%0a%0d%0aRequest services (Optional)%0d%0a%0d%0a%0d%0a%0d%0aWhat You&apos;ll Need^2dot; %0d%0a %0d%0aBusiness email address%0d%0a%0d%0a %0d%0aOrganization Business ID (BID)%0d%0a%0d%0a %0d%0aManager&apos;s contact details%0d%0a%0d%0a%0d%0a%0d%0aEnroll Today! %0d%0a%0d%0a%0d%0a%0d%0aFirst Name%0d%0aPlease provide your first name^dot; %0d%0a%0d%0aLast Name%0d%0aPlease provide your last name^dot; %0d%0a%0d%0aBusiness Email Address%0d%0aPlease provide your business email address^dot; %0d%0a We&apos;re sorry^dot; This email address provided was not properly fomatted^dot; Please enter it again %0d%0aConfirm Email Address%0d%0aPlease confirm your email address^dot; We&apos;re sorry^dot; The email address values do not match^dot; Please enter it again^dot; %0d%0a%0d%0a  %0d%0a%0d%0a%0d%0a%0d%0aAlready enrolled? Log in  %0d%0a%0d%0aContinue %0d%0a%0d%0aIt only takes 5 minutes to enroll^dot; Click on HOW in %0d%0a   the box to your left to learn more^dot; %0d%0a%0d%0aNot Enrolled Yet? %0d%0aPassword and Username Help:1e_408000:Log in:Enroll Today!:2a_:Support%0d%0a%0d%0aLog In Help%0d%0a%0d%0a%0d%0aFAQs%0d%0a%0d%0a%0d%0aContact Us%0d%0a%0d%0a%0d%0a%0d%0aLanguage%0d%0aEnglish Spanish Portuguese %0d%0aEnglish%0d%0a%0d%0aSpanish%0d%0a%0d%0a%0d%0aPortuguese:1e_400000:0 106 1903 178:357 127 443 154:21_:22_:User Name%0d%0a Please enter your user name^dot;:User Name:1204 327 1502 572:1204 327 1502 384:1204 350 1502 384:101:aspnetForm^dot;txtUsername^dot;ctl00$PlaceHolderMain$txtUsername:aspnetForm:&lt;input name=&quot;ctl00$PlaceHolderMain$txtUsername&quot; tabindex=&quot;1&quot; title=&quot;Enter User Name&quot; id=&quot;txtUsername&quot; onkeypress=&quot;changeVal(&apos;btnLogin&apos;,event)&quot; onchange=&quot;LoginOnChange(this);&quot; type=&quot;text&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;11&quot;&gt;:Password%0d%0a Please enter your password^dot;:2a_20000000:Password:1204 402 1502 460:1204 425 1502 460:aspnetForm^dot;txtPd^dot;ctl00$PlaceHolderMain$txtPd:&lt;input name=&quot;ctl00$PlaceHolderMain$txtPd&quot; tabindex=&quot;2&quot; title=&quot;Enter Your Password&quot; id=&quot;txtPd&quot; onchange=&quot;LoginOnChange(this);&quot; type=&quot;password&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;12&quot;&gt;:1e_c00000:357 442 535 489:Log In:1204 478 1502 516:Forgot your User Name? Forgot your Password? %0d%0a%0d%0aIf you forgot your password, login to recover^dot;:Forgot your User Name?:1204 534 1502 572:1204 534 1353 572:Forgot your Password?:1353 534 1502 572:Learn more about Visa Online:360 625 654 667:1e_c18000:357 2523 535 2570:2a_18000:Legal %0d%0aTerms and Conditions %0d%0aPrivacy %0d%0a%0d%0a%0d%0aSupport%0d%0aLog In Help %0d%0aFrequently Asked Questions %0d%0aContact Us %0d%0a%0d%0a  %0d%0a%0d%0a%0d%0aOther Visa Sites%0d%0aVisa^dot;com %0d%0a%0d%0a%0d%0aBack to top %0d%0a%0d%0a%0d%0aThe information furnished herein is CONFIDENTIAL and is to be used solely for the support of clients&apos; Visa programs^dot; This information shall not be duplicated, published, or disclosed in whole, or in part, without the prior written permission of Visa^dot; %0d%0a%0d%0a%0d%0a©Copyright 2019, Visa Inc^dot; All Rights Reserved^dot;:1e_418000:Back to top:0 2907 1903 3217:1403 2947 1497 2976:Legal %0d%0aTerms and Conditions %0d%0aPrivacy %0d%0a%0d%0a%0d%0aSupport%0d%0aLog In Help %0d%0aFrequently Asked Questions %0d%0aContact Us %0d%0a%0d%0a  %0d%0a%0d%0a%0d%0aOther Visa Sites%0d%0aVisa^dot;com:21_18000:22_18000:Legal %0d%0aTerms and Conditions %0d%0aPrivacy:Terms and Conditions:407 2947 1279 3072:407 2947 1279 2948:407 2947 637 3043:407 2985 637 3030:407 2985 637 3001:407 2984 545 3003:Support%0d%0aLog In Help %0d%0aFrequently Asked Questions %0d%0aContact Us:Log In Help:637 2947 924 3072:694 2985 924 3059:694 2985 924 3001:694 2984 765 3003:Other Visa Sites%0d%0aVisa^dot;com:Visa^dot;com:924 2947 1211 3014:981 2985 1211 3001:981 2984 1039 3003:Privacy:407 3014 637 3030:407 3013 453 3032:Frequently Asked Questions:694 3014 924 3030:694 3013 870 3032:Contact Us:694 3043 924 3059:694 3042 763 3061"
+				monitor="1"
+				processname="%25ProgramFiles%25\Internet Explorer\iexplore.exe"
+				commandline="%25ProgramFiles%25\Internet Explorer\iexplore.exe"
+			/>
+			<options
+				choosename="VISA Online Login"
+				quicklink="VISA Online Login"
+				autoprompt="1"
+				usequicklink="1"
+			/>
+			<fields>
+				<field
+					displayname="button"
+					type="button"
+					dbname="{dafb1bd7-4f2b-4f8f-8d32-84fcfb871511}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|3.8..[loc]9|a|a|a|b|c"
+					submit="1"
+				/>
+				<field
+					displayname="Log in"
+					type="button"
+					dbname="{6e29dbc2-acfb-4814-8c5a-0797db411e91}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.d..e|0.f..10[loc]9|a|a|a|b|c|c"
+					submit="1"
+				/>
+				<field
+					displayname="Enroll Today!"
+					type="button"
+					dbname="{b925c015-b56c-4c0f-bb2e-71c237a1c6a8}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.d..e|1.f..11[loc]9|a|a|a|b|c|c"
+					submit="1"
+				/>
+				<field
+					displayname="VISA"
+					type="button"
+					dbname="{e58b0721-d21b-4a55-ba7c-623e82f7e154}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.12..13|0.14..[loc]9|a|a|a|b|15|16"
+					submit="1"
+				/>
+				<field
+					displayname="User Name"
+					type="edit"
+					dbname="{c468950d-7158-443b-a6f3-298e92719e9b}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.17..|0.18..19|0.12..1a[loc]9|a|a|a|b|1b|1c|1d[sid]1e.1f.20..21"
+					value="@e-mail"
+					useit="1"
+				/>
+				<field
+					displayname="Password"
+					type="edit"
+					dbname="{501a2a32-e73a-47d7-9846-a01ed6086fb7}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.17..|1.18..22|0.23..24[loc]9|a|a|a|b|1b|25|26[sid]1e.27.20..28"
+					policy="[p4]g:8:20::different_ap"
+					policy2="[e1]g:A{2,5}d{1,}[!@#$%^&amp;*._]{1,}a{2,5}&lt;8,20&gt;"
+					options="{&quot;chgpolopts&quot;:{&quot;chkppos&quot;:false,&quot;norep&quot;:false}}"
+					rfieldform="-2"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="button"
+					type="button"
+					dbname="{2bdf7c39-7c46-4487-8ff9-f6bc658f9e7c}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.29..[loc]9|a|a|a|b|2a"
+					submit="1"
+				/>
+				<field
+					displayname="Log In"
+					type="button"
+					dbname="{ac8c6730-0c75-470b-a12d-f50aa7bf069e}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.17..|2.18..2b|0.14..2b[loc]9|a|a|a|b|1b|2c|2c"
+					submit="1"
+					useit="1"
+				/>
+				<field
+					displayname="Forgot your User Name?"
+					type="button"
+					dbname="{43f275a5-505a-4427-9a66-c9c96abe309d}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.17..|3.18..2d|0.14..2e[loc]9|a|a|a|b|1b|2f|30"
+					submit="1"
+				/>
+				<field
+					displayname="Forgot your Password?"
+					type="button"
+					dbname="{c4c7e20c-0749-4d82-96ec-1b56a77da3bb}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.17..|3.18..2d|1.14..31[loc]9|a|a|a|b|1b|2f|32"
+					submit="1"
+				/>
+				<field
+					displayname="Learn more about Visa Online"
+					type="button"
+					dbname="{45639584-19c0-4896-8ef0-45d9c7113cd5}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.14..33[loc]9|a|a|a|b|34"
+					submit="1"
+				/>
+				<field
+					displayname="button"
+					type="button"
+					dbname="{4b290932-b6c4-45c3-9089-e180525d1bdd}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|5.35..[loc]9|a|a|a|b|36"
+					submit="1"
+				/>
+				<field
+					displayname="Back to top"
+					type="button"
+					dbname="{deaeb5fe-4d6b-486f-b587-d40c9f405c6b}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.39..3a[loc]9|a|a|a|b|3b|3c"
+					submit="1"
+				/>
+				<field
+					displayname="Terms and Conditions"
+					type="button"
+					dbname="{dfa9d6be-a735-4777-a9e2-0ef4d2af5c39}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|0.3f..40|0.3e..|0.3f..41|0.39..41[loc]9|a|a|a|b|3b|42|43|44|45|46|47"
+					submit="1"
+				/>
+				<field
+					displayname="Log In Help"
+					type="button"
+					dbname="{ca36f888-6774-4ca9-aab0-1ff2757778de}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|1.3f..48|0.3e..|0.3f..49|0.39..49[loc]9|a|a|a|b|3b|42|43|4a|4b|4c|4d"
+					submit="1"
+				/>
+				<field
+					displayname="Visa.com"
+					type="button"
+					dbname="{b4d0c056-ee89-43f4-bfa8-f278ac44af19}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|2.3f..4e|0.3e..|0.3f..4f|0.39..4f[loc]9|a|a|a|b|3b|42|43|50|51|51|52"
+					submit="1"
+				/>
+				<field
+					displayname="Privacy"
+					type="button"
+					dbname="{b6e83f84-a501-4665-ac75-0302a72192c1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|0.3f..40|0.3e..|1.3f..53|0.39..53[loc]9|a|a|a|b|3b|42|43|44|45|54|55"
+					submit="1"
+				/>
+				<field
+					displayname="Frequently Asked Questions"
+					type="button"
+					dbname="{c4d4aff9-cfa4-4ee1-bf27-26c2b44d3424}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|1.3f..48|0.3e..|1.3f..56|0.39..56[loc]9|a|a|a|b|3b|42|43|4a|4b|57|58"
+					submit="1"
+				/>
+				<field
+					displayname="Contact Us"
+					type="button"
+					dbname="{0653485b-5f69-45a5-93a4-33fa6596aa55}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|1.37..38|0.37..3d|0.3e..|1.3f..48|0.3e..|2.3f..59|0.39..59[loc]9|a|a|a|b|3b|42|43|4a|4b|5a|5b"
+					submit="1"
+				/>
+			</fields>
+		</form>
+		<form>
+			<fcontext
+				type="pchange"
+				name="1"
+			/>
+			<detection
+				caption="Login - Create new Password - Visa Online"
+				web_ourl="https://www.visaonline.com/cpw/Login-PasswordReset.aspx?daysleft=%203"
+				web_murl="https://www.visaonline.com/cpw/Login-PasswordReset.aspx?daysleft=%203"
+				web_qurl="https://www.visaonline.com/cpw/Login-PasswordReset.aspx?daysleft=%203"
+				web_checkurl="1"
+				names_ext="96_:Shell DocObject View:9_100000:a_100000:Internet Explorer_Server:https^2dot;//www^dot;visaonline^dot;com/cpw/Login-PasswordReset^dot;aspx?daysleft=%25203:10_40:Login - Create new Password - Visa Online:14_:Password Reset%0d%0a%0d%0aPasswords must contain 8 to 64 characters, include at least one lowercase letter, one uppercase letter, one numeral and at least one special character^2dot; ! ^at; # $ %25 ^up; &amp; * ^dot; _  (e^dot;g^dot;, passWd4^at;)^dot; Your password cannot contain your Visa Online username, be one that you have used in the last 12 months, be too generic or otherwise at higher risk of compromise^dot;%0d%0a%0d%0aYour password must change every 35 or 90 days, depending on your type of access^dot;%0d%0a%0d%0a%0d%0a%0d%0a%0d%0aCurrent Password%0d%0a%0d%0a %0d%0a%0d%0aPlease provide your current password^dot; Please provide your current password^dot; %0d%0a%0d%0a%0d%0aNew Password%0d%0a%0d%0a %0d%0a%0d%0aPlease provide your new password^dot; Please provide your new password^dot; We are sorry, the password does not meet the required criteria as outlined above^dot; Your new password needs to be different than your old one^dot; %0d%0a%0d%0a%0d%0aConfirm Password%0d%0a%0d%0a %0d%0a%0d%0aWe are sorry, the passwords do not match, please re-enter^dot; Please confirm your new password^dot; Please confirm your new password^dot; %0d%0a%0d%0a%0d%0a%0d%0a%0d%0a %0d%0a%0d%0a%0d%0aRemind Me Later %0d%0a%0d%0a%0d%0a %0d%0a%0d%0a%0d%0aTips%0d%0a%0d%0aChoose a password that will be easy to recall - but unique enough so that it is not easy for someone to guess^dot; Please make sure your password meets all of the outlined criteria^dot;:2a_24000000:Current Password:0 0 0 0:8 174 1912 961:8 174 1895 961:464 250 1439 783:570 443 768 461:101:aspnetForm^dot;txtCurrentPd^dot;ctl00$PlaceHolderMain$txtCurrentPd:aspnetForm:&lt;input name=&quot;ctl00$PlaceHolderMain$txtCurrentPd&quot; title=&quot;Enter your current password&quot; id=&quot;txtCurrentPd&quot; aria-required=&quot;true&quot; style=&quot;border^2dot; 1px solid silver; width^2dot; 196px; color^2dot; black;&quot; onchange=&quot;ValidateTempPasswordText(this);&quot; type=&quot;password&quot; maxlength=&quot;70&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;9&quot;&gt;:2a_34000000:New Password:570 505 768 523:aspnetForm^dot;txtNewPd^dot;ctl00$PlaceHolderMain$txtNewPd:&lt;input name=&quot;ctl00$PlaceHolderMain$txtNewPd&quot; title=&quot;Enter your new password&quot; class=&quot;error&quot; id=&quot;txtNewPd&quot; aria-invalid=&quot;true&quot; aria-required=&quot;true&quot; aria-describedby=&quot;valValidPd&quot; style=&quot;border^2dot; 1px solid red; width^2dot; 196px; color^2dot; black;&quot; onchange=&quot;ValidatePasswordText(this);&quot; type=&quot;password&quot; maxlength=&quot;70&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;10&quot;&gt;:Confirm Password:570 567 768 585:aspnetForm^dot;txtConfirmPd^dot;ctl00$PlaceHolderMain$txtConfirmPd:&lt;input name=&quot;ctl00$PlaceHolderMain$txtConfirmPd&quot; title=&quot;Re-enter your new password&quot; id=&quot;txtConfirmPd&quot; aria-required=&quot;true&quot; style=&quot;border^2dot; 1px solid silver; width^2dot; 196px; color^2dot; black;&quot; onchange=&quot;ValidatePasswordText(this);&quot; type=&quot;password&quot; maxlength=&quot;70&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;11&quot;&gt;:2b_100:Login to Visa Online:570 615 846 658:aspnetForm^dot;ctl00_PlaceHolderMain_btnLoginVisaOnline^dot;ctl00$PlaceHolderMain$btnLoginVisaOnline:&lt;input name=&quot;ctl00$PlaceHolderMain$btnLoginVisaOnline&quot; title=&quot;Login to Visa Online&quot; class=&quot;xlarge&quot; id=&quot;ctl00_PlaceHolderMain_btnLoginVisaOnline&quot; onclick=&apos;javascript^2dot;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$PlaceHolderMain$btnLoginVisaOnline&quot;, &quot;&quot;, true, &quot;password&quot;, &quot;&quot;, false, false))&apos; type=&quot;submit&quot; value=&quot;Login to Visa Online&quot; autocomplete=&quot;off&quot; data-dpmaxz-eid=&quot;12&quot;&gt;"
+				monitor="1"
+				processname="%25ProgramFiles%25\internet explorer\iexplore.exe"
+				commandline="%25ProgramFiles%25\internet explorer\iexplore.exe"
+			/>
+			<options
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Current Password"
+					type="edit"
+					dbname="{501a2a32-e73a-47d7-9846-a01ed6086fb7}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.8..9|0.a..b[loc]c|d|d|d|e|f|10[sid]11.12.13..14"
+					rfield="in"
+					rfieldindex="5"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="New Password"
+					type="edit"
+					dbname="{501a2a32-e73a-47d7-9846-a01ed6086fb7}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.8..9|1.15..16[loc]c|d|d|d|e|f|17[sid]11.18.13..19"
+					rfield="out"
+					rfieldindex="5"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Confirm Password"
+					type="edit"
+					dbname="{501a2a32-e73a-47d7-9846-a01ed6086fb7}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.8..9|2.a..1a[loc]c|d|d|d|e|f|1b[sid]11.1c.13..1d"
+					rfield="out"
+					rfieldindex="5"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Login to Visa Online"
+					type="button"
+					dbname="{142a3a26-df39-473e-9b75-f13b9f112cf2}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3.1.|0.3.4.5|0.6.4.7|0.8..9|0.1e..1f[loc]c|d|d|d|e|f|20[sid]11.21.13..22"
+					submit="1"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>
