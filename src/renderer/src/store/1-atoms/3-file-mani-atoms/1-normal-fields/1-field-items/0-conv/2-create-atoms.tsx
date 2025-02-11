@@ -1,4 +1,4 @@
-import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/util-hooks";
+import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/utils";
 import { EditorField } from "@/store/manifest";
 
 export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValueChangeAny): Atomize<EditorField.ForAtoms> {

@@ -1,7 +1,7 @@
-import { type Atomize } from "@/util-hooks";
+import { type PrimitiveAtom } from "jotai";
+import { type Atomize } from "@/utils";
 import { type EditorField, type Meta } from "@/store/manifest";
 import { FceItem } from "@/store/1-atoms/4-field-catalogs";
-import { PrimitiveAtom } from "jotai";
 
 export namespace NormalField {
 

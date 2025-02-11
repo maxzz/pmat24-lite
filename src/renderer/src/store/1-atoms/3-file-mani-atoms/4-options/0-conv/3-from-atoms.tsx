@@ -2,7 +2,7 @@ import { type Getter, type Setter } from "jotai";
 import { type FormOptionsState } from "./9-types";
 
 export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Setter): FormOptionsState.ForAtoms {
-    const { p1General: p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
+    const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
 
     const rv: FormOptionsState.ForAtoms = {
         p1General: {

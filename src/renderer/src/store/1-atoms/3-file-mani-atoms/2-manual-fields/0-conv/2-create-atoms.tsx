@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atomWithCallback, type Atomize } from "@/util-hooks";
+import { type Atomize, atomWithCallback } from "@/utils";
 import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
 import { NormalFieldConv, type NormalField } from "../../1-normal-fields";

@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type OnValueChange, atomWithCallback } from "@/util-hooks";
+import { type OnValueChange, atomWithCallback } from "@/utils";
 import { type RowInputState } from "./9-types";
 
 export type OnChangeValueWithUpdateName<T = any> = (updateName: string) => OnValueChange<T>; //TODO: it should be string, but it's any for now, due to some options are boolean

@@ -1,6 +1,6 @@
 import { type Getter, type Setter } from "jotai";
 import { EditorField } from "@/store/manifest";
-import { Atomize } from "@/util-hooks";
+import { Atomize } from "@/utils";
 
 export function valuesToAtoms(values: EditorField.ForAtoms, atoms: Atomize<EditorField.ForAtoms>, get: Getter, set: Setter): void {
     set(atoms.useItAtom, values.useIt);

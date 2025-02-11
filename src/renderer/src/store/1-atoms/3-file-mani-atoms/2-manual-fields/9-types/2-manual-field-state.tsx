@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type AtomizeWithType } from "@/util-hooks";
+import { type AtomizeWithType } from "@/utils";
 import { type EditorDataForKbd, type EditorDataForPos, type EditorDataForDly, type EditorDataForFld, type ChunkKey } from "@/store/manifest";
 import { type NormalField } from "../../1-normal-fields";
 import { type RowInputState } from "@/ui";

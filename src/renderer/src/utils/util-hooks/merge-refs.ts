@@ -1,6 +1,6 @@
-import { LegacyRef, MutableRefObject, RefCallback } from "react";
+import { type LegacyRef, type MutableRefObject, type RefCallback } from "react";
 
-export function mergeRefs<T = any>(refs: Array<MutableRefObject<T> | LegacyRef<T>>): RefCallback<T> {
+export function mergeRefs<T = any>(refs: Array<MutableRefObject<T> | LegacyRef<T> | undefined | null>): RefCallback<T> {
     return (value) => {
         refs.forEach(
             (ref) => {

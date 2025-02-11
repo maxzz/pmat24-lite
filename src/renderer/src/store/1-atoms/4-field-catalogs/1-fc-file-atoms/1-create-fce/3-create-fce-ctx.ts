@@ -1,5 +1,5 @@
 import { type Atom, atom } from "jotai";
-import { atomWithCallback, type OnValueChangeParams } from "@/util-hooks";
+import { atomWithCallback, type OnValueChangeParams } from "@/utils";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions, type FceDlgOut } from "../../9-types";
 import { type OnChangeValueWithUpdateName } from "@/ui";

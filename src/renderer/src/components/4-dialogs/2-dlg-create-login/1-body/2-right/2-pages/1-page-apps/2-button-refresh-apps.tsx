@@ -1,8 +1,7 @@
 import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
-import { useAutoCleanupToast } from "@/util-hooks";
 import { newManiCtx } from "../../../0-new-mani-ctx";
-import { classNames, delay } from "@/utils";
+import { classNames, delay, useAutoCleanupToast } from "@/utils";
 import { Button } from "@/ui/shadcn";
 import { IconRefresh } from "@/ui/icons";
 import { toast } from "sonner";

@@ -4,8 +4,7 @@ import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { parseForEditor } from "@/store/manifest";
 import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { atomWithCallback } from "@/util-hooks";
-import { debounce } from "@/utils";
+import { atomWithCallback, debounce } from "@/utils";
 import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {

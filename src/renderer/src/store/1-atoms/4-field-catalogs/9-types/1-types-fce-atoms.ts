@@ -2,7 +2,7 @@ import { type Atom, type PrimitiveAtom as PAtom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type ValueLife, type CatalogItemMeta } from "@/store/manifest";
 import { type FceDlgIn } from "./3-types-dlg";
-import { type OnValueChangeParams } from "@/util-hooks";
+import { type OnValueChangeParams } from "@/utils";
 
 // FceItem
 

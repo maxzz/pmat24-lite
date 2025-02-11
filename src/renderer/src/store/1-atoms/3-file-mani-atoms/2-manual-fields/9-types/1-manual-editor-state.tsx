@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type OnValueChangeAny } from "@/util-hooks";
+import { type OnValueChangeAny } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type ManualFieldState } from "./2-manual-field-state";
 import { type EditorDataForOne } from "@/store/manifest";
