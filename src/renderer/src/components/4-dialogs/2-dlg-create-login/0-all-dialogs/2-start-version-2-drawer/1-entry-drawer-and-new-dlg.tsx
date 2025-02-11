@@ -1,11 +1,11 @@
 import { useAtom } from "jotai";
 import * as Dr from "@ui/shadcn/drawer";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenDrawerAtom } from "@/store/1-atoms/7-dialogs";
+import { doOpenCreateManiAtom } from "@/store/1-atoms/7-dialogs";
 import { WizardBody } from "../../1-body/2-right/0-all-wizard";
 
 export function DialogCreateManiV2_() {
-    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
+    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenCreateManiAtom);
     return (
         <Dr.Drawer open={doOpenDrawer} onOpenChange={setDoOpenDrawer} shouldScaleBackground={false} direction="left" modal>
             <Dr.DrawerContent
@@ -20,7 +20,7 @@ export function DialogCreateManiV2_() {
 }
 
 export function DialogCreateManiV2() {
-    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
+    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenCreateManiAtom);
     return (<>
         <D.Dialog open={doOpenDrawer} onOpenChange={setDoOpenDrawer}>
             <D.DialogContent className={dialogClasses} hiddenTitle="Create manifest" noClose>

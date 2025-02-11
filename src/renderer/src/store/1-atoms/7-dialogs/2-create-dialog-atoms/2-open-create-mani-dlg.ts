@@ -1,16 +1,16 @@
 import { newManiCtx } from "@/components/4-dialogs/2-dlg-create-login/1-body/0-new-mani-ctx";
 import { atom } from "jotai";
 
-// Drawer atoms
+// Former dialog as drawer atom
 
-const _doOpenDrawerAtom = atom(false);
+const _isDlgOpenAtom = atom(false);
 
-export const doOpenDrawerAtom = atom(
-    (get) => get(_doOpenDrawerAtom),
+export const doOpenCreateManiAtom = atom(
+    (get) => get(_isDlgOpenAtom),
     (get, set, open: boolean) => {
         if (open) {
             set(newManiCtx.doInitAtom, { ctx: newManiCtx });
         }
-        set(_doOpenDrawerAtom, open);
+        set(_isDlgOpenAtom, open);
     }
 );

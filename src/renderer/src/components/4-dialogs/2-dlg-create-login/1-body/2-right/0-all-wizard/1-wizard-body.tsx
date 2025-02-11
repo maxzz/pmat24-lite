@@ -1,7 +1,7 @@
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenDrawerAtom } from "@/store";
+import { doOpenCreateManiAtom } from "@/store";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { LeftPanelProgress } from "../../8-create-ui";
@@ -10,7 +10,7 @@ import { PagesBody } from "./2-pages-body";
 import { DebugButtons } from "./3-wizard-header-test-buttons";
 
 export function WizardBody() {
-    const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenDrawerAtom);
+    const setDoOpenDrawer = useSetAtom(doOpenCreateManiAtom);
     return (
         <div className="h-full flex flex-col">
             <D.DialogHeader className="relative text-base font-bold border-b border-foreground/20 flex items-center">
