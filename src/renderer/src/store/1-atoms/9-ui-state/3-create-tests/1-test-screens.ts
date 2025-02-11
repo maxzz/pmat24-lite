@@ -12,15 +12,12 @@ const testScreenIds: Record<TestScreenEnum, string> = {
 export const doLoadFakeScreensAtom = atom(
     null,
     async (get, set, tsId: TestScreenEnum) => {
-        if (tsId === 'none') {
+        const fname = testScreenIds[tsId];
+        if (!fname) {
             return [];
         }
 
-        const fname = testScreenIds[tsId];
-        const cnt = await get(hashedQueryAtom(fname)) as TlwScreenshot[];
-
-        console.log('doLoadFakeScreenshotsAtom', fname, cnt);
-
+        const cnt = await get(hashedQueryAtom(fname)) as TlwScreenshot[]; //console.log('doLoadFakeScreenshotsAtom', fname, cnt);
         return cnt;
     }
 );

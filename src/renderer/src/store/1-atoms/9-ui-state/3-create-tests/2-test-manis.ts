@@ -11,15 +11,12 @@ const testManis: Record<TestManiEnum, string> = {
 export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum) => {
-        if (tsId === 'none') {
+        const fname = testManis[tsId];
+        if (!fname) {
             return '';
         }
-
-        const fname = testManis[tsId];
-        const cnt = await get(hashedQueryAtom(fname)) as string;
-
-        console.log('doLoadFakeManiAtom', fname, cnt);
-
+        
+        const cnt = await get(hashedQueryAtom(fname)) as string; //console.log('doLoadFakeManiAtom', fname, cnt);
         return cnt;
     }
 );

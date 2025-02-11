@@ -24,3 +24,12 @@ export function create_AppSelectedIdxAtom() {
 }
 
 export type AppSelectedIdxAtom = ReturnType<typeof create_AppSelectedIdxAtom>;
+
+//
+
+export const appSelectedAppAtom = atom(
+    (get) => {
+        const idx = get(_appSelectedIdxAtom);
+        return idx === -1 ? undefined : get(allScreenshotAtom)[idx];
+    }
+)

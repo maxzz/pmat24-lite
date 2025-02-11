@@ -4,7 +4,8 @@ import * as D from "@/ui/shadcn/dialog";
 import { doOpenDrawerAtom } from "@/store";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { LeftPanelProgress, WizardBottomButtons } from "../../8-create-ui";
+import { LeftPanelProgress } from "../../8-create-ui";
+import { WizardButtons } from "../3-wizard-buttons";
 import { PagesBody } from "./2-pages-body";
 import { DebugButtons } from "./3-wizard-header-test-buttons";
 
@@ -17,11 +18,11 @@ export function WizardBody() {
                     <div className="py-3 text-sm">New manifest</div>
                 </D.DialogTitle>
 
-                {!hasMain() &&
+                {!hasMain() && (
                     <div className="absolute -left-7 -top-[14px] scale-[.74] bg-muted/50 rounded-tl-md border border-foreground/10">
                         <DebugButtons />
                     </div>
-                }
+                )}
 
                 <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => setDoOpenDrawer(false)}>
                     <Cross2Icon className="size-4" />
@@ -33,7 +34,7 @@ export function WizardBody() {
                 <PagesBody />
             </div>
 
-            <WizardBottomButtons className="py-3 border-t border-foreground/20" />
+            <WizardButtons className="py-3 border-t border-foreground/20" />
         </div>
     );
 }

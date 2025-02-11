@@ -1,21 +1,29 @@
 import { atom } from "jotai";
 import { newManiCtx } from "./0-ctx";
-import { allScreenshotAtom } from "@/store/7-napi-atoms";
 import { WizardPage } from "./8-step-items-data";
+import { appSelectedAppAtom } from "./4-selected-app";
 
 const _nextEnabledAtom = atom(
     (get) => {
         const ctx = newManiCtx;
         const currentPage = get(ctx.currentPageAtom);
 
-        const appCurrentIdx = get(ctx.appSelectedIdxAtom);
+        const currentApp = get(appSelectedAppAtom);
 
-        if (appCurrentIdx === -1) {
+        if (currentApp) {
             return false;
         }
 
-        //TODO: check other conditions
+        if (currentPage === WizardPage.apps) {
+        }
 
+        if (currentPage === WizardPage.fields) {
+            return true;
+        }
+
+        if (currentPage === WizardPage.options) {
+            return true;
+        }
         
         if (currentPage === WizardPage.save) {
 

@@ -11,9 +11,11 @@ export function create_PageAndDirectionAtom() {
 }
 
 export function create_CurrentPageAtom(): Atom<WizardPage> {
-    return atom((get) => {
-        return get(_pageAndDirectionAtom)[0];
-    });
+    return atom(
+        (get) => {
+            return get(_pageAndDirectionAtom)[0];
+        }
+    );
 }
 
 export function create_DoAdvancePageAtom() {
@@ -27,4 +29,4 @@ export function create_DoAdvancePageAtom() {
     );
 }
 
-export type DoAdvancePageAtom = ReturnType<typeof create_DoAdvancePageAtom>; // WritableAtom<null, [{ next: boolean; }], void>
+export type DoAdvancePageAtom = ReturnType<typeof create_DoAdvancePageAtom>;
