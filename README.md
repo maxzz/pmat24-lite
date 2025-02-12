@@ -12,12 +12,12 @@ An Electron application with React and TypeScript
 
  * icon - https://seeklogo.com/vector-logo/450809/hid-global
 
-# commands
+## commands
 
 * ```tsc -p tsconfig.web.json -w --noEmit```
 * ```pnpm electron-builder --win``` - skip build and pack for testing only
 
-# refs
+## refs
 * https://electron-vite.org/guide/dev
 * https://www.electronjs.org/docs/latest/tutorial/context-isolation
 
@@ -34,3 +34,31 @@ sizable-panels @radix-ui/react-scroll-area @radix-ui/react-select sonner @radix-
 ``` pnpx @electron/asar extract app.asar <destfolder> ```
 
 This is phone edit test
+
+<div style="display: none">
+## to many scripts:
+    "scripts": {
+        "dev": "electron-vite dev",
+        "web": "vite --config electron.vite.config-browser.mts",
+        "....................................................................................1": ".......................................................",
+        "build": "pnpm run typecheck && electron-vite build",
+        "preview": "electron-vite preview",
+        "postinstall": "electron-builder install-app-deps",
+        "....................................................................................2": ".......................................................",
+        "build:win": "pnpm run build && electron-builder --win",
+        "build:unpack": "pnpm run build && electron-builder --dir",
+        "....................................................................................a": ".......................................................",
+        "build:web": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir",
+        "build:web:github": "vite --config electron.vite.config-browser.mts build --outDir ../../dist --emptyOutDir && gh-pages -d ./dist",
+        "build:web:preview": "vite --config electron.vite.config-browser.mts preview --outDir ../../dist",
+        "....................................................................................3": ".......................................................",
+        "tsc": "tsc -w --noEmit -p tsconfig.web.json --composite false",
+        "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
+        "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+        "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+        "....................................................................................4": ".......................................................",
+        "build:mac": "electron-vite build && electron-builder --mac",
+        "build:linux": "electron-vite build && electron-builder --linux",
+        "....................................................................................5": "not-uused-now"
+    }
+</div>

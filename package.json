@@ -86,9 +86,6 @@
         "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
         "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-        "....................................................................................4": ".......................................................",
-        "build:mac": "electron-vite build && electron-builder --mac",
-        "build:linux": "electron-vite build && electron-builder --linux",
         "....................................................................................5": "not-uused-now"
     }
 }
