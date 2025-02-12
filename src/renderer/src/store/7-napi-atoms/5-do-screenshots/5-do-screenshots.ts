@@ -38,6 +38,9 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
 
+        console.log(`Infos`, JSON.stringify(infos, null, 2));
+        
+
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
             width: width || 300,
@@ -46,7 +49,10 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
 
         // 2. get all tlw screenshots
         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
-        const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
+        let screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
+
+        screenshots = correlateScreenshotsOrder(infos, screenshots);
+        
         printScreenshots(screenshots);
 
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
@@ -55,6 +61,19 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
         toast.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
         set(allScreenshotAtom, []);
     }
+}
+
+function correlateScreenshotsOrder(screenshotsInitial: TlwInfo[], screenshotsMixed: TlwScreenshot[]): TlwScreenshot[] {
+    const rv: TlwScreenshot[] = [];
+    screenshotsInitial.forEach(item => {
+        const idx = screenshotsMixed.findIndex(obj => obj.hwnd === item.hwnd);
+        if (idx >= 0) {
+            rv.push(screenshotsMixed[idx]);
+        } else {
+            console.error(`Could not find ${item.hwnd} in ${screenshotsMixed.map(obj => obj.hwnd).join(', ')}`);
+        }
+    });
+    return rv;
 }
 
 //TODO: From doCollectScreenshotsAtom TlwInfo[] is returned instead of GetTlwInfoResult 
