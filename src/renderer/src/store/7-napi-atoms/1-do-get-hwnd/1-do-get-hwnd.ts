@@ -52,8 +52,8 @@ export const doGetTargetHwndAtom = atom(
 
 export const sawGetDisabledAtom = atom(
     (get) => {
-        const secondActiveWindow = get(sawHandleAtom);
         const { buildRunning } = get(napiBuildStateAtom);
+        const secondActiveWindow = get(sawHandleAtom);
         const hwnd = secondActiveWindow?.hwnd;
         const isDisabled = !hwnd || buildRunning;
         return isDisabled;

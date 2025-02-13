@@ -9,8 +9,8 @@ type SetLocalStateParams = {
 };
 
 export function setLocalState({ progress, lastProgress, isRunning, error, failedBody }: SetLocalStateParams) {
-    lastProgress !== undefined && (napiBuildProgress.lastProgress = lastProgress);
     progress !== undefined && (napiBuildProgress.buildCounter = progress);
+    lastProgress !== undefined && (napiBuildProgress.lastProgress = lastProgress);
     isRunning !== undefined && (napiBuildState.buildRunning = isRunning);
     error !== undefined && (napiBuildState.buildError = error);
     failedBody !== undefined && (napiBuildState.buildFailedBody = failedBody);
