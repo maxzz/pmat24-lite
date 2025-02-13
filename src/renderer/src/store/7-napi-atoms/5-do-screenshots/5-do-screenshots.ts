@@ -39,7 +39,7 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
         const hwnds = infos.map(obj => obj.hwnd);
 
         console.log(`Infos`, JSON.stringify(infos, null, 2));
-        
+
 
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
@@ -52,7 +52,7 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
         let screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
         screenshots = correlateScreenshotsOrder(infos, screenshots);
-        
+
         printScreenshots(screenshots);
 
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
@@ -65,6 +65,9 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
 
 function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreenshot[]): TlwScreenshot[] {
     const rv: TlwScreenshot[] = [];
+
+    tlwInfos.forEach((item, idx) => item.hwnd.length < 16 && (item.hwnd = `0x${item.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
+
     tlwInfos.forEach(item => {
         const screenshotItem = screenshots.find(obj => obj.hwnd === item.hwnd);
         if (screenshotItem) {
@@ -154,4 +157,4 @@ function printScreenshots(screenshots: TlwScreenshot[]) {
     );
 
     console.log(`Screenshots`, JSON.stringify(lines, null, 2));
-}
+};
