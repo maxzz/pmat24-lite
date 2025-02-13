@@ -1,5 +1,5 @@
 import { Button } from '@/ui';
-import { PanelHwndGrid } from './2-active-raw';
+import { SawHwndPropsGrid } from './2-active-raw';
 import { hasMain } from '@/xternal-to-main';
 import { Versions } from './versions-list';
 
@@ -18,7 +18,7 @@ export function Demos() {
     return (
         <div className="p-4 flex flex-col">
 
-            <PanelHwndGrid />
+            <SawHwndPropsGrid />
 
             <div className="flex items-center gap-2">
                 {hasMain() && (
