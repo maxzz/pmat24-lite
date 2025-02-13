@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinal } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { lastBuildProgressAtom, napiBuildProgress, napiBuildState } from "../9-napi-build-state";
+import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { setLocalState } from "../3-do-get-controls";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
@@ -23,7 +23,7 @@ export const doGetWindowManiAtom = atom(
 
             // 1. call napi to get raw reply string
 
-            setLocalState({ progress: 0, isRunning: true, error: '', failedBody: '' });
+            setLocalState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
             const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
@@ -48,8 +48,7 @@ export const doGetWindowManiAtom = atom(
                 console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
             }
 
-            set(lastBuildProgressAtom, napiBuildProgress.buildCounter);
-            setLocalState({ progress: 0, isRunning: false, error: '' });
+            setLocalState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
         } catch (error) {
             set(sawManiStrAtom, '');
             set(sawManiAtom, null);

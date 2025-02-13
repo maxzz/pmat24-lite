@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai";
-import { lastBuildProgressAtom, sawHandleAtom } from "@/store";
+import { useSnapshot } from "valtio";
+import { napiBuildProgress, sawHandleAtom } from "@/store";
 import { classNames } from "@/utils";
 
 function GridRow({ name, value, className, highlight }: { name: string; value: string; className?: string; highlight?: boolean; }) {
@@ -11,7 +12,7 @@ function GridRow({ name, value, className, highlight }: { name: string; value: s
 
 export function PanelHwndGrid() {
     const secondActiveWindow = useAtomValue(sawHandleAtom);
-    const lastBuildProgress = useAtomValue(lastBuildProgressAtom);
+    const lastBuildProgress = useSnapshot(napiBuildProgress).lastProgress;
     return (<>
         {secondActiveWindow && (
             <div className="relative text-xs">

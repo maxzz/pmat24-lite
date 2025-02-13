@@ -1,4 +1,3 @@
-import { atom } from 'jotai';
 import { proxy } from 'valtio';
 import { atomWithProxy } from 'jotai-valtio';
 import { TargetPosition } from '@shared/ipc-types';
@@ -17,16 +16,16 @@ export const napiBuildState = proxy<NapiBuildState>({
 
 export const napiBuildStateAtom = atomWithProxy(napiBuildState);
 
-export const lastBuildProgressAtom = atom(0); // last number of build progress or 0
-
 //
 
 type NapiBuildProgress = {
     buildCounter: number;                       // controls detection progress
+    lastProgress: number;                       // last number of build progress or 0
     getPosProgress: TargetPosition | null;      // get window position progress
 };
 
 export const napiBuildProgress = proxy<NapiBuildProgress>({
     buildCounter: 0,
+    lastProgress: 0,
     getPosProgress: null,
 });
