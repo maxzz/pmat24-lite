@@ -1,6 +1,6 @@
-import { prependUrlPath } from "@/utils";
 import { atom } from "jotai";
 import { atomFamily } from "jotai/utils";
+import { prependUrlPath } from "@/utils";
 
 export const hashedQueryAtom = atomFamily(
     (fname: string) => atom(

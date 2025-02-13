@@ -1,14 +1,14 @@
 import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinal } from "@shared/ipc-types";
-import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
-import { setLocalState } from "../3-do-get-controls";
-import { lastBuildProgressAtom } from "../1-do-get-hwnd";
 import { getSubError } from "@/utils";
+import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
+import { lastBuildProgressAtom } from "../1-do-get-hwnd";
+import { setLocalState } from "../3-do-get-controls";
 
-export const sawManiStrAtom = atom<string | undefined>('');         // raw unprocessed reply string from napi to compare with current
-export const sawManiXmlAtom = atom<string | undefined>(undefined);  // raw xml string from napi if called with wantXml
-export const sawManiAtom = atom<WindowControlsCollectFinal | null>(null); // reply with controls and pool
+export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
+export const sawManiXmlAtom = atom<string | undefined>(undefined);          // raw xml string from napi if called with wantXml
+export const sawManiAtom = atom<WindowControlsCollectFinal | null>(null);   // reply with controls and pool
 
 export const doGetWindowManiAtom = atom(
     null,

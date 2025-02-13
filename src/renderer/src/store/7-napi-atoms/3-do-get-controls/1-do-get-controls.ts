@@ -5,11 +5,11 @@ import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
 import { getSubError } from "@/utils";
 import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
-import { setLocalState } from "./8-utils-set-state";
 import { lastBuildProgressAtom } from "../1-do-get-hwnd";
+import { setLocalState } from "./8-utils-set-state";
 
-export const sawContentStrAtom = atom<string | undefined>('');
-export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);
+export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
+export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);        // reply with controls and pool
 
 export const doGetWindowControlsAtom = atom(
     null,
@@ -34,14 +34,14 @@ export const doGetWindowControlsAtom = atom(
             }
             set(sawContentStrAtom, res);
 
-            const reply = JSON.parse(res || '{}') as WindowControlsCollectFinalAfterParse;
-            const final = controlsReplyToEngineControlWithMeta(reply);
+            const poolAndControls = JSON.parse(res || '{}') as WindowControlsCollectFinalAfterParse;
+            const final = controlsReplyToEngineControlWithMeta(poolAndControls);
 
             set(sawContentAtom, final);
             set(lastBuildProgressAtom, napiBuildProgress.buildCounter);
             setLocalState({ progress: 0, isRunning: false, error: '' });
 
-            console.log('doGetWindowControlsAtom.set', JSON.stringify(reply, null, 4));
+            console.log('doGetWindowControlsAtom', JSON.stringify(poolAndControls, null, 4));
         } catch (error) {
             set(sawContentStrAtom, '');
             set(sawContentAtom, null);
