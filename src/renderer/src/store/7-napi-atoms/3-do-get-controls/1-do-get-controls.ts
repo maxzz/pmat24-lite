@@ -4,8 +4,7 @@ import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
 import { getSubError } from "@/utils";
-import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
-import { lastBuildProgressAtom } from "../1-do-get-hwnd";
+import { lastBuildProgressAtom, napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { setLocalState } from "./8-utils-set-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
@@ -23,6 +22,8 @@ export const doGetWindowControlsAtom = atom(
                 return;
             }
 
+            // 1. call napi to get raw reply string
+
             setLocalState({ progress: 0, isRunning: true, error: '', failedBody: '' });
 
             const res = await invokeMain<string>({ type: 'r2mi:get-window-controls', hwnd });
@@ -33,6 +34,8 @@ export const doGetWindowControlsAtom = atom(
                 return;
             }
             set(sawContentStrAtom, res);
+
+            // 2. parse reply string to get final reply
 
             const poolAndControls = JSON.parse(res || '{}') as WindowControlsCollectFinalAfterParse;
             const final = controlsReplyToEngineControlWithMeta(poolAndControls);

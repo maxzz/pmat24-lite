@@ -8,7 +8,6 @@ import { napiBuildStateAtom } from "../9-napi-build-state";
 
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
-export const lastBuildProgressAtom = atom(0); // last number of build progress or 0
 
 export const doClearSawHandleAtom = atom(
     null,

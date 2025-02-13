@@ -2,8 +2,7 @@ import { atom } from "jotai";
 import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinal } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
-import { lastBuildProgressAtom } from "../1-do-get-hwnd";
+import { lastBuildProgressAtom, napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { setLocalState } from "../3-do-get-controls";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
