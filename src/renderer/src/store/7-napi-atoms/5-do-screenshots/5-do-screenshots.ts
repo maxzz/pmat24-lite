@@ -63,14 +63,14 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
     }
 }
 
-function correlateScreenshotsOrder(screenshotsInitial: TlwInfo[], screenshotsMixed: TlwScreenshot[]): TlwScreenshot[] {
+function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreenshot[]): TlwScreenshot[] {
     const rv: TlwScreenshot[] = [];
-    screenshotsInitial.forEach(item => {
-        const idx = screenshotsMixed.findIndex(obj => obj.hwnd === item.hwnd);
-        if (idx >= 0) {
-            rv.push(screenshotsMixed[idx]);
+    tlwInfos.forEach(item => {
+        const screenshotItem = screenshots.find(obj => obj.hwnd === item.hwnd);
+        if (screenshotItem) {
+            rv.push(screenshotItem);
         } else {
-            console.error(`Could not find ${item.hwnd} in ${screenshotsMixed.map(obj => obj.hwnd).join(', ')}`);
+            console.error(`Could not find ${item.hwnd} in ${screenshots.map(obj => obj.hwnd).join(', ')}`);
         }
     });
     return rv;
