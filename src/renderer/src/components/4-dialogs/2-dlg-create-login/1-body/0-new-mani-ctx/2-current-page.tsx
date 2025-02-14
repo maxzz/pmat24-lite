@@ -6,6 +6,9 @@ import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data
 import { doAddNextToastIdAtom, doDissmissNextToastsAtom } from "./8-next-toast";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { newManiCtx } from "./0-ctx";
+import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
+import { type FileContent } from "@shared/ipc-types";
+import { type FileUs } from "@/store";
 
 export type PageAndDirection = [page: WizardPage, direction: number];
 
@@ -59,6 +62,24 @@ export function create_DoAdvancePageAtom() {
                     if (!maniXml) {
                         await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
                         const sawManiXml = get(sawManiXmlAtom);
+
+                        if (!sawManiXml) {
+                            set(doAddNextToastIdAtom, toast.error('Cannot get manifest.'));
+                            return;
+                        }
+
+                        try {
+                            const fileContent: FileContent = createFileContent(sawManiXml);
+                            const fileUs: FileUs = createFileUsFromFileContent(fileContent);
+                            
+                            console.log('fileUs', fileUs);
+                            
+                            //TODO: update loaded counters
+                        } catch (error) {
+                            console.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
+                            toast.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
+                            return;
+                        }
 
                         console.log('sawManiXml', sawManiXml);
                     }

@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
@@ -15,8 +16,8 @@ export function createFileContent(raw: string): FileContent {
         raw,
         failed: false,
         notOur: false,
-        newFile: false,
-        fromMain: false,
+        newFile: true,
+        fromMain: hasMain(),
         webFsItem: null,
         changesSet: new Set(),
     };
@@ -91,7 +92,7 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
         isFCatRoot: false,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
         
-        loginFormChooseNameAtom: atom(loginForm?.options.choosename || ''),
+        loginFormChooseNameAtom: atom(loginForm?.options?.choosename || ''),
 
         isSubFolder: isSubFolder,
         subFolder: fileCnt.fpath || '', // subFolder: hasSubFolders ? stripFirstFolder(fileCnt.fpath) : fileCnt.fpath || '',
