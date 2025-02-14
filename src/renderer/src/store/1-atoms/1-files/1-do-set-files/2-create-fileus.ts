@@ -2,7 +2,25 @@ import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, parseXMLFile, TimeUtils } from '@/store/manifest';
+import { buildManiMetaForms, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
+
+export function createFileContent(raw: string): FileContent {
+    return {
+        unid: uuid.asRelativeNumber(),
+        idx: 0,
+        fname: '',
+        fpath: '',
+        fmodi: 0,
+        size: 0,
+        raw,
+        failed: false,
+        notOur: false,
+        newFile: false,
+        fromMain: false,
+        webFsItem: null,
+        changesSet: new Set(),
+    };
+}
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
