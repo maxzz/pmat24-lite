@@ -1,9 +1,11 @@
 import { type Atom, atom } from "jotai";
-import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { clamp } from "@/utils";
-import { appSelectedAppAtom } from "./4-selected-app";
-import { doAddNextToastIdAtom, doDissmissNextToastsAtom } from "./8-next-toast";
 import { toast } from "sonner";
+import { doGetWindowManiAtom, napiBuildState, sawManiXmlAtom } from "@/store/7-napi-atoms";
+import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
+import { doAddNextToastIdAtom, doDissmissNextToastsAtom } from "./8-next-toast";
+import { appSelectedAppAtom } from "./4-selected-app";
+import { newManiCtx } from "./0-ctx";
 
 export type PageAndDirection = [page: WizardPage, direction: number];
 
@@ -26,10 +28,15 @@ export function create_CurrentPageAtom(): Atom<WizardPage> {
 export function create_DoAdvancePageAtom() {
     return atom(
         null,
-        (get, set, { next }: { next: boolean; }) => {
+        async (get, set, { next }: { next: boolean; }) => {
+
+            if (napiBuildState.buildRunning) {
+                return;
+            }
+
             const currentPage = get(_pageAndDirectionAtom)[0];
 
-            if (!next) {
+            if (!next) { // i.e. prev
                 set(doDissmissNextToastsAtom);
             }
 
@@ -47,6 +54,15 @@ export function create_DoAdvancePageAtom() {
                         set(doAddNextToastIdAtom, toast.error('Select application window first.'));
                         return;
                     }
+
+                    const maniXml = get(newManiCtx.maniXmlAtom);
+                    if (!maniXml) {
+                        await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
+                        const sawManiXml = get(sawManiXmlAtom);
+
+                        console.log('sawManiXml', sawManiXml);
+                    }
+
                 } else if (newPage === WizardPage.options) {
                 }
             }

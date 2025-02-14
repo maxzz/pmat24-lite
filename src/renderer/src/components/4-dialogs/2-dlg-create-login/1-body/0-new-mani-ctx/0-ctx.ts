@@ -1,4 +1,4 @@
-import { type Atom, type PrimitiveAtom as PA } from "jotai";
+import { atom, type Atom, type PrimitiveAtom as PA } from "jotai";
 import { type WizardPage } from "./8-step-items-data";
 import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
@@ -16,6 +16,8 @@ export class NewManiCtx {
     appSelectedIdxAtom: AppSelectedIdxAtom;      // selected application index
     doRefreshAppsAtom: DoRefreshAppsAtom;        // refresh apps
 
+    maniXmlAtom: PA<string | undefined>;         // xml of the selected application
+
     constructor() {
         this.doInitAtom = create_DoInitNewManiCtxAtom();
         
@@ -26,6 +28,8 @@ export class NewManiCtx {
 
         this.appSelectedIdxAtom = create_AppSelectedIdxAtom();
         this.doRefreshAppsAtom = create_DoRefreshAppsAtom();
+
+        this.maniXmlAtom = atom<string | undefined>(undefined);
     }
 }
 
