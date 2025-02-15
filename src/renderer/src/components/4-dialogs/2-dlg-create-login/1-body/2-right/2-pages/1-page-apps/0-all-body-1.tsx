@@ -28,3 +28,5 @@ export function Page1AppsBody() {
         </div>
     );
 }
+
+//TODO: when open mani chrome windows update sometimes goes forever

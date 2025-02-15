@@ -36,12 +36,13 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
             <AnimatePresence>
                 {!refreshEnabled &&
                     <motion.div
-                        className=""
+                        className="flex items-center gap-1"
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1.1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                     >
                         <BarsLoader className="w-6 h-4 text-sky-500 [--barh:10%] [--framew:1px]" title="Refresh windows list" />
+                        Updating...
                     </motion.div>
                 }
             </AnimatePresence>
@@ -50,12 +51,12 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
                 onClick={callUpdateAppsList}
                 disabled={!refreshEnabled}
-                title="Refresh windows list"
+                title="Refresh window list"
             >
                 <motion.div
                     layout
                 >
-                    <IconRefresh className="size-3" title="Refresh windows list" />
+                    <IconRefresh className="size-3" />
                 </motion.div>
 
                 {/* <IconRefresh className="size-3" title="Refresh windows list" /> */}
