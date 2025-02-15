@@ -65,10 +65,15 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     );
 }
 
-//TODO:
 /*
-            <button className={buttonClasses} onClick={() => sendToMain({ type: 'cancel-detection' })}>
-                Cancel
-            </button>
+    //TODO: Detection may take a long time so add indicator and cancel button
 
+    <div className="flex items-center gap-1">
+        <BarsLoader className="w-6 h-4 text-sky-500 [--barh:10%] [--framew:1px]" title="Refresh windows list" />
+        Detecting...
+    </div>
+
+    <button className={buttonClasses} onClick={() => sendToMain({ type: 'cancel-detection' })}>
+        Cancel
+    </button>
 */
