@@ -15,9 +15,7 @@ export const doDissmissNextToastsAtom = atom(
     null,
     (get, set) => {
         const ids = get(_nextToastIdAtom);
-        ids.forEach(
-            (id) => id && toast.dismiss(id)
-        );
+        ids.forEach(toastId => toastId && toast.dismiss(toastId));
         set(_nextToastIdAtom, []);
     }
 );
