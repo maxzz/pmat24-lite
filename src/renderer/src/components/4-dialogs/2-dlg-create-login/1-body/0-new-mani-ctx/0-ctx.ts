@@ -4,7 +4,7 @@ import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
-import { FileUsAtom } from "@/store";
+import { type FileUs } from "@/store";
 
 export class NewManiCtx {
     doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
@@ -18,7 +18,7 @@ export class NewManiCtx {
     doRefreshAppsAtom: DoRefreshAppsAtom;        // refresh apps
 
     maniXmlAtom: PA<string | undefined>;         // xml of the selected application
-    fileUsAtom: FileUsAtom | undefined;          // fileUs of the selected application
+    fileUsAtom: PA<FileUs | undefined>;          // fileUs of the selected application
 
     constructor() {
         this.doInitAtom = create_DoInitNewManiCtxAtom();
@@ -32,7 +32,7 @@ export class NewManiCtx {
         this.doRefreshAppsAtom = create_DoRefreshAppsAtom();
 
         this.maniXmlAtom = atom<string | undefined>(undefined);
-        this.fileUsAtom = undefined;
+        this.fileUsAtom = atom<FileUs | undefined>(undefined);
     }
 }
 
