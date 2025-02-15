@@ -16,7 +16,11 @@ export function create_DoRefreshAppsAtom() {
             // 2. Refresh screenshots
             await set(doSetScreenshotsAtom, { width: 300 });
 
-            // 3. Find previously selected item in the new list
+            // 3. clear previously detected content
+            set(newManiCtx.maniXmlAtom, undefined);
+            set(newManiCtx.fileUsAtom, undefined);
+
+            // 4. Find previously selected item in the new list
             if (currentItem) {
                 const allScreenshots = get(allScreenshotAtom);
                 const newIdx = allScreenshots.findIndex(item => item.item.hwnd === currentItem.item.hwnd);

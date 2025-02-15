@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { allScreenshotAtom } from "@/store";
+import { newManiCtx } from "./0-ctx";
 
 const _appSelectedIdxAtom = atom(0);
 
@@ -17,6 +18,9 @@ export function create_AppSelectedIdxAtom() {
                 items.forEach((item, idx) => (item.editor.selected = idx === newIdx));
                 set(_appSelectedIdxAtom, newIdx);
             }
+
+            set(newManiCtx.maniXmlAtom, undefined);
+            set(newManiCtx.fileUsAtom, undefined);
         }
     );
 }
