@@ -33,7 +33,7 @@ function BodyRawXml() {
             </Button>
         )}
 
-        <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth>
+        <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
             <div className="whitespace-pre">
                 {maniXml || ''}
             </div>
