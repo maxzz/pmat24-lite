@@ -60,7 +60,7 @@ export function create_DoAdvancePageAtom() {
                     if (!maniXml) {
                         // 0. claen up the context before parsing
                         set(newManiCtx.maniXmlAtom, undefined);
-                        set(newManiCtx.fileUsAtom, undefined); //TODO: should it be always atom?
+                        set(newManiCtx.fileUsAtom, undefined);
 
                         // 1. get manifest as maniXml from the window
                         await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
