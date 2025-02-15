@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiAtom } from "@/store";
 import { LeftPanelProgress } from "../../8-create-ui";
 import { DebugButtons, WizardButtons } from "../3-wizard-buttons";
 import { PagesBodyAnimation } from "./2-pages-body";
-import { doDissmissNextToastsAtom } from "../../0-new-mani-ctx/8-next-toast";
-import { useEffect } from "react";
 
 export function WizardBody() {
     const doOpenCreateMani = useSetAtom(doOpenCreateManiAtom);

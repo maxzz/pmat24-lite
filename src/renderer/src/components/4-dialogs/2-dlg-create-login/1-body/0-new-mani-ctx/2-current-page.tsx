@@ -1,9 +1,8 @@
 import { type Atom, atom, type Getter, type Setter } from "jotai";
-import { clamp, errorToString } from "@/utils";
+import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { doGetWindowManiAtom, napiBuildState, sawManiXmlAtom } from "@/store/7-napi-atoms";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
-import { doAddNextToastIdAtom, doDissmissNextToastsAtom } from "./8-next-toast";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { newManiCtx } from "./0-ctx";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
@@ -73,7 +72,7 @@ async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean
     }
 
     const maniXml = get(newManiCtx.maniXmlAtom);
-    
+
     if (!maniXml) {
         // 0. Claen up the context before parsing
         set(newManiCtx.maniXmlAtom, undefined);

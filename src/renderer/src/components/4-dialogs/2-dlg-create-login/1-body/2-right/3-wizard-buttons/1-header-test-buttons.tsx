@@ -1,11 +1,10 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { classNames } from "@/utils";
+import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { type TestManiEnum, type TestScreenEnum, debugSettings, doLoadFakeManiAtom, testMani, testScreen } from "@/store/1-atoms/9-ui-state";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
-import { doDissmissNextToastsAtom } from "../../0-new-mani-ctx";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const { screen, mani } = useSnapshot(debugSettings.testCreate);
