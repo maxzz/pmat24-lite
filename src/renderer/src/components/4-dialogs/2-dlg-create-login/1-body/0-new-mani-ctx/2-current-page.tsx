@@ -58,26 +58,35 @@ export function create_DoAdvancePageAtom() {
 
                     const maniXml = get(newManiCtx.maniXmlAtom);
                     if (!maniXml) {
+                        // 1. get manifest as maniXml from the window
                         await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
                         const sawManiXml = get(sawManiXmlAtom);
 
+                        // 2. save maniXml to the context
                         if (!sawManiXml) {
-                            set(doAddNextToastIdAtom, toast.error('Cannot get manifest.'));
+                            set(doAddNextToastIdAtom, toast.error('Cannot access window content.'));
                             return;
                         }
 
+                        set(newManiCtx.maniXmlAtom, sawManiXml);
+
+                        // 3. parse maniXml to fileUs
                         try {
                             const fileContent: FileContent = createFileContent(sawManiXml);
                             const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
+                            newManiCtx.fileUsAtom = atom(fileUs);
+
                             console.log('fileUs', fileUs);
 
-                            //TODO: update loaded counters
+                            //TODO: update loaded counters in the files list on the left
                         } catch (error) {
                             console.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
                             toast.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
                             return;
                         }
+
+                        // 4. done
 
                         console.log('sawManiXml', sawManiXml);
                     }
