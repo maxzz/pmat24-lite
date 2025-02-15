@@ -1,5 +1,5 @@
 import { type Atom, atom, type Getter, type Setter } from "jotai";
-import { clamp } from "@/utils";
+import { clamp, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { doGetWindowManiAtom, napiBuildState, sawManiXmlAtom } from "@/store/7-napi-atoms";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
@@ -9,23 +9,24 @@ import { newManiCtx } from "./0-ctx";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs } from "@/store";
-import { b } from "vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P";
+
+// Page and direction
 
 export type PageAndDirection = [page: WizardPage, direction: number];
 
 const _pageAndDirectionAtom = atom<PageAndDirection>([wizardFirstPage, 0]);
 
-//
-
 export function create_PageAndDirectionAtom() {
     return _pageAndDirectionAtom;
 }
+
+// Current page
 
 export function create_CurrentPageAtom(): Atom<WizardPage> {
     return atom((get) => get(_pageAndDirectionAtom)[0]);
 }
 
-//
+// Advance page
 
 export type DoAdvancePageAtom = ReturnType<typeof create_DoAdvancePageAtom>;
 
@@ -72,16 +73,17 @@ async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean
     }
 
     const maniXml = get(newManiCtx.maniXmlAtom);
+    
     if (!maniXml) {
-        // 0. claen up the context before parsing
+        // 0. Claen up the context before parsing
         set(newManiCtx.maniXmlAtom, undefined);
         set(newManiCtx.fileUsAtom, undefined);
 
-        // 1. get manifest as maniXml from the window
+        // 1. Get manifest as maniXml from the window
         await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
         const sawManiXml = get(sawManiXmlAtom);
 
-        // 2. save maniXml to the context
+        // 2. Save maniXml to the context
         if (!sawManiXml) {
             set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.'));
             return false;
@@ -89,7 +91,7 @@ async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean
 
         set(newManiCtx.maniXmlAtom, sawManiXml);
 
-        // 3. parse maniXml to fileUs
+        // 3. Parse maniXml to fileUs
         try {
             const fileContent: FileContent = createFileContent(sawManiXml);
             const fileUs: FileUs = createFileUsFromFileContent(fileContent);
@@ -100,8 +102,9 @@ async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean
 
             //TODO: update loaded counters in the files list on the left
         } catch (error) {
-            console.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
-            toast.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
+            const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
+            console.error(msg);
+            toast.error(msg);
             return false;
         }
 

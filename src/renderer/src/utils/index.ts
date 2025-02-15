@@ -2,6 +2,7 @@ export * from "./classnames";
 export * from "./debounce";
 export * from "./delay";
 export * from "./disable-hidden-children";
+export * from "./error-to-string";
 export * from "./numbers";
 export * from "./os-utils";
 export * from "./prepend-url-path";
