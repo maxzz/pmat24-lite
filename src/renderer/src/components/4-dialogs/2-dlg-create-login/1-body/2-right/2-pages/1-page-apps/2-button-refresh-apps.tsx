@@ -64,3 +64,11 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
         </div>
     );
 }
+
+//TODO:
+/*
+            <button className={buttonClasses} onClick={() => sendToMain({ type: 'cancel-detection' })}>
+                Cancel
+            </button>
+
+*/
