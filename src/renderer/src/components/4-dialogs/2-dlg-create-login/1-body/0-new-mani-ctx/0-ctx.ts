@@ -36,5 +36,4 @@ export class NewManiCtx {
     }
 }
 
-// export const newManiCtx = (() => new NewManiCtx())();
 export const newManiCtx = new NewManiCtx();
