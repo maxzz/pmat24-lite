@@ -30,7 +30,7 @@ export const doSetScreenshotsAtom = atom(
         if (hasMain()) {
             await doLiveScreenshots(width, set);
         } else {
-            await doTestScreenshots(width, get, set);
+            await doTestScreenshots(get, set);
         }
     }
 );
@@ -43,7 +43,6 @@ async function doLiveScreenshots(width: number, set: Setter) {
         const hwnds = infos.map(obj => obj.hwnd);
 
         console.log(`Infos`, JSON.stringify(infos, null, 2));
-
 
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
@@ -68,9 +67,7 @@ async function doLiveScreenshots(width: number, set: Setter) {
 }
 
 function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreenshot[]): TlwScreenshot[] {
-    const rv: TlwScreenshot[] = [];
-
-    //tlwInfos.forEach((tlwInfo, idx) => tlwInfo.hwnd.length < 16 && (tlwInfo.hwnd = `0x${tlwInfo.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
+    const rv: TlwScreenshot[] = []; //tlwInfos.forEach((tlwInfo, idx) => tlwInfo.hwnd.length < 16 && (tlwInfo.hwnd = `0x${tlwInfo.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
 
     tlwInfos.forEach(tlwInfo => {
         const screenshotItem = screenshots.find(screenshot => screenshot.hwnd === tlwInfo.hwnd);
@@ -80,6 +77,7 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
             console.log(`%cMissing '${tlwInfo.hwnd}' in screenshots [${screenshots.map(screenshot => `'${screenshot.hwnd}'`).join(', ')}]`, 'color: red');
         }
     });
+
     return rv;
 }
 
@@ -116,7 +114,7 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
 //     }
 // }
 
-async function doTestScreenshots(width: number, get: Getter, set: Setter) {
+async function doTestScreenshots(get: Getter, set: Setter) {
     const screen = debugSettings.testCreate.screen;
     const screenshots = await set(doLoadFakeScreensAtom, screen);
 

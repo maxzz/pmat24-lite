@@ -25,9 +25,9 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                         doSetScreenshots({ width: defaultScreenshotWidth });
                     }
                 }>
-                <Label className={classNames("col-start-1", labelClasses)}> <RadioGroupItem value={testScreen.A} /> {testScreen.A} </Label>
-                <Label className={classNames("col-start-2", labelClasses)}> <RadioGroupItem value={testScreen.B} /> {testScreen.B} </Label>
-                <Label className={classNames("col-start-3", labelClasses)}> <RadioGroupItem value={testScreen.none} /> {testScreen.none} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testScreen.A} /> {testScreen.A} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testScreen.B} /> {testScreen.B} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testScreen.none} /> {testScreen.none} </Label>
             </RadioGroup>
 
             content:
@@ -39,9 +39,9 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                     doLoadFakeMani(v as TestManiEnum);
                 }}
             >
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
-                <Label className={classNames("", labelClasses)}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
+                <Label className={labelClasses}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
             </RadioGroup>
 
         </div>
