@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { type TestManiEnum, type TestScreenEnum, debugSettings, doLoadFakeManiAtom, testMani, testScreen } from "@/store/1-atoms/9-ui-state";
-import { doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const { screen, mani } = useSnapshot(debugSettings.testCreate);
@@ -22,7 +22,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 onValueChange={
                     (v) => {
                         debugSettings.testCreate.screen = v as TestScreenEnum;
-                        doSetScreenshots({ width: 300 });
+                        doSetScreenshots({ width: defaultScreenshotWidth });
                     }
                 }>
                 <Label className={classNames("col-start-1", labelClasses)}> <RadioGroupItem value={testScreen.A} /> {testScreen.A} </Label>

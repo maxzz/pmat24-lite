@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type NewManiCtx } from "./0-ctx";
 import { wizardFirstPage } from "./8-step-items-data";
-import { doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function create_DoInitNewManiCtxAtom() {
     return atom(
@@ -9,7 +9,7 @@ export function create_DoInitNewManiCtxAtom() {
         (get, set, {ctx}: {ctx: NewManiCtx}) => {
             set(ctx.pageAndDirectionAtom, [wizardFirstPage, 0]);
             set(ctx.appSelectedIdxAtom, -1);
-            set(doSetScreenshotsAtom, { width: 300 });
+            set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
         }
     );
 }

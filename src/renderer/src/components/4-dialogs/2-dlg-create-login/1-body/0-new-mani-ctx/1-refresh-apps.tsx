@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { newManiCtx } from "./0-ctx";
-import { type TlwScreenshotInfo, allScreenshotAtom, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { type TlwScreenshotInfo, allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function create_DoRefreshAppsAtom() {
     return atom(
@@ -14,7 +14,7 @@ export function create_DoRefreshAppsAtom() {
             set(ctx.appSelectedIdxAtom, -1);
 
             // 2. Refresh screenshots
-            await set(doSetScreenshotsAtom, { width: 300 });
+            await set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
 
             // 3. clear previously detected content
             set(newManiCtx.maniXmlAtom, undefined);

@@ -16,6 +16,8 @@ export type TlwScreenshotInfo = {
 
 export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
 
+export const defaultScreenshotWidth = 300;
+
 /**
  * @param hwnd - optional, if provided this this will be window handle to select
  * @param width - max screenshot width, height - auto
@@ -23,6 +25,8 @@ export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
 export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
+        width = width || defaultScreenshotWidth;
+
         if (hasMain()) {
             await doLiveScreenshots(width, set);
         } else {
@@ -31,7 +35,7 @@ export const doSetScreenshotsAtom = atom(
     }
 );
 
-async function doLiveScreenshots(width: number | undefined, set: Setter) {
+async function doLiveScreenshots(width: number, set: Setter) {
     try {
         // 1. get all tlw infos
         const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' });
@@ -43,7 +47,7 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
 
         const tlwInfos: GetTlwScreenshotsParams = {
             imageFormat: 'png',
-            width: width || 300,
+            width: width,
             hwnd: hwnds,
         };
 
@@ -66,14 +70,14 @@ async function doLiveScreenshots(width: number | undefined, set: Setter) {
 function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreenshot[]): TlwScreenshot[] {
     const rv: TlwScreenshot[] = [];
 
-    tlwInfos.forEach((item, idx) => item.hwnd.length < 16 && (item.hwnd = `0x${item.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
+    //tlwInfos.forEach((tlwInfo, idx) => tlwInfo.hwnd.length < 16 && (tlwInfo.hwnd = `0x${tlwInfo.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
 
-    tlwInfos.forEach(item => {
-        const screenshotItem = screenshots.find(obj => obj.hwnd === item.hwnd);
+    tlwInfos.forEach(tlwInfo => {
+        const screenshotItem = screenshots.find(screenshot => screenshot.hwnd === tlwInfo.hwnd);
         if (screenshotItem) {
             rv.push(screenshotItem);
         } else {
-            console.error(`Could not find ${item.hwnd} in ${screenshots.map(obj => obj.hwnd).join(', ')}`);
+            console.log(`%cMissing '${tlwInfo.hwnd}' in screenshots [${screenshots.map(screenshot => `'${screenshot.hwnd}'`).join(', ')}]`, 'color: red');
         }
     });
     return rv;
@@ -112,7 +116,7 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
 //     }
 // }
 
-async function doTestScreenshots(width: number | undefined, get: Getter, set: Setter) {
+async function doTestScreenshots(width: number, get: Getter, set: Setter) {
     const screen = debugSettings.testCreate.screen;
     const screenshots = await set(doLoadFakeScreensAtom, screen);
 

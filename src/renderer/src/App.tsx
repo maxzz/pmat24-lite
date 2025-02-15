@@ -33,9 +33,15 @@ export function App(): JSX.Element {
 //TODO: save pictures previews in separate folder
 
 //12.09.24, files
-//TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
-//TODO: add option to show only root and A/B/C folder and ignore other sub-folders
+    //TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
+    //TODO: add option to show only root and A/B/C folder and ignore other sub-folders
 
 //12.11.24, field catalog
-//TODO: buttons are not stored in field catalog
-//TODO: buttons should not have dbname (it is useless, they don't have state to save)
+    //TODO: buttons are not stored in field catalog
+    //TODO: buttons should not have dbname (it is useless, they don't have state to save)
+
+//12.14.25, create new manifest
+    //src/shell/xternal-to-renderer/7-napi-calls/4-get-window-mani.ts
+    //TODO: define ManifestForWindowCreatorResult when result is object
+    //TODO: error handling
+    //TODO: test screenshots get/update for many open chrome windows and get content for active window with many other windows opened and controls
