@@ -7,7 +7,7 @@ import { Page2FieldsBody } from "../2-pages/2-page-fields";
 import { Page3OptionsBody } from "../2-pages/3-page-options";
 import { Page4SaveBody } from "../2-pages/4-page-save";
 
-export function PagesBody() {
+export function PagesBodyAnimation() {
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const [page, direction] = useAtomValue(newManiCtx.pageAndDirectionAtom);
     return (

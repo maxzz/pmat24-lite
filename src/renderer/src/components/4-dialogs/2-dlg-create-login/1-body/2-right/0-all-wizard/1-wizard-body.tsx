@@ -1,13 +1,12 @@
 import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenCreateManiAtom } from "@/store";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { doOpenCreateManiAtom } from "@/store";
 import { LeftPanelProgress } from "../../8-create-ui";
-import { WizardButtons } from "../3-wizard-buttons";
-import { PagesBody } from "./2-pages-body";
-import { DebugButtons } from "./3-wizard-header-test-buttons";
+import { DebugButtons, WizardButtons } from "../3-wizard-buttons";
+import { PagesBodyAnimation } from "./2-pages-body";
 
 export function WizardBody() {
     const setDoOpenDrawer = useSetAtom(doOpenCreateManiAtom);
@@ -31,7 +30,7 @@ export function WizardBody() {
 
             <div className="h-full grid grid-cols-[auto_1fr]">
                 <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
-                <PagesBody />
+                <PagesBodyAnimation />
             </div>
 
             <WizardButtons className="py-3 border-t border-foreground/20" />
