@@ -37,11 +37,9 @@ export function create_DoAdvancePageAtom() {
                 return;
             }
 
-            const currentPage = get(_pageAndDirectionAtom)[0];
+            set(doDissmissNextToastsAtom);
 
-            if (!next) { // i.e. prev
-                set(doDissmissNextToastsAtom);
-            }
+            const currentPage = get(_pageAndDirectionAtom)[0];
 
             if (next && currentPage === wizardLastPage) {
                 set(doAddNextToastIdAtom, toast.error('Cannot save yet.'));
@@ -71,9 +69,9 @@ export function create_DoAdvancePageAtom() {
                         try {
                             const fileContent: FileContent = createFileContent(sawManiXml);
                             const fileUs: FileUs = createFileUsFromFileContent(fileContent);
-                            
+
                             console.log('fileUs', fileUs);
-                            
+
                             //TODO: update loaded counters
                         } catch (error) {
                             console.error(`'doAdvancePageAtom' ${error instanceof Error ? error.message : `${error}`}`);
