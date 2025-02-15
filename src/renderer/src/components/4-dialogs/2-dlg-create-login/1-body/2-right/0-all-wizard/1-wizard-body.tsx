@@ -7,14 +7,22 @@ import { doOpenCreateManiAtom } from "@/store";
 import { LeftPanelProgress } from "../../8-create-ui";
 import { DebugButtons, WizardButtons } from "../3-wizard-buttons";
 import { PagesBodyAnimation } from "./2-pages-body";
+import { doDissmissNextToastsAtom } from "../../0-new-mani-ctx/8-next-toast";
+import { useEffect } from "react";
 
 export function WizardBody() {
-    const setDoOpenDrawer = useSetAtom(doOpenCreateManiAtom);
+    const doOpenCreateMani = useSetAtom(doOpenCreateManiAtom);
+
+    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    useEffect(() => doDissmissNextToasts, []);
+
     return (
         <div className="h-full flex flex-col">
             <D.DialogHeader className="relative text-base font-bold border-b border-foreground/20 flex items-center">
                 <D.DialogTitle asChild>
-                    <div className="py-3 text-sm">New manifest</div>
+                    <div className="py-3 text-sm">
+                        New manifest
+                    </div>
                 </D.DialogTitle>
 
                 {!hasMain() && (
@@ -23,7 +31,10 @@ export function WizardBody() {
                     </div>
                 )}
 
-                <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => setDoOpenDrawer(false)}>
+                <Button
+                    className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
+                    onClick={() => doOpenCreateMani(false)}
+                >
                     <Cross2Icon className="size-4" />
                 </Button>
             </D.DialogHeader>
