@@ -31,3 +31,5 @@ export const appSelectedAppAtom = atom(
         return idx === -1 ? undefined : get(allScreenshotAtom)[idx];
     }
 );
+
+//TODO: need to reset xml and fileUs when app selected

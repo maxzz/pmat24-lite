@@ -8,15 +8,15 @@ export function create_DoRefreshAppsAtom() {
         async (get, set) => {
             const ctx = newManiCtx;
 
-            // Get current selected item
+            // 1. Get current selected item
             const currentIdx = get(ctx.appSelectedIdxAtom);
             let currentItem: TlwScreenshotInfo | undefined = currentIdx === -1 ? undefined : get(allScreenshotAtom)[currentIdx];
             set(ctx.appSelectedIdxAtom, -1);
 
-            // Refresh screenshots
+            // 2. Refresh screenshots
             await set(doSetScreenshotsAtom, { width: 300 });
 
-            // Find previously selected item in the new list
+            // 3. Find previously selected item in the new list
             if (currentItem) {
                 const allScreenshots = get(allScreenshotAtom);
                 const newIdx = allScreenshots.findIndex(item => item.item.hwnd === currentItem.item.hwnd);
