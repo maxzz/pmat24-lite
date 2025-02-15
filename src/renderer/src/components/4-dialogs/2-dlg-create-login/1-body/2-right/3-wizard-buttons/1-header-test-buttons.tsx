@@ -5,12 +5,14 @@ import { classNames } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { type TestManiEnum, type TestScreenEnum, debugSettings, doLoadFakeManiAtom, testMani, testScreen } from "@/store/1-atoms/9-ui-state";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { doDissmissNextToastsAtom } from "../../0-new-mani-ctx";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const { screen, mani } = useSnapshot(debugSettings.testCreate);
 
     const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
+    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
 
     return (
         <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
@@ -22,6 +24,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 onValueChange={
                     (v) => {
                         debugSettings.testCreate.screen = v as TestScreenEnum;
+                        doDissmissNextToasts();
                         doSetScreenshots({ width: defaultScreenshotWidth });
                     }
                 }>
@@ -36,6 +39,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 value={mani}
                 onValueChange={(v) => {
                     debugSettings.testCreate.mani = v as TestManiEnum;
+                    doDissmissNextToasts();
                     doLoadFakeMani(v as TestManiEnum);
                 }}
             >

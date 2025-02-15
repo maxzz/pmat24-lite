@@ -16,7 +16,7 @@ export type TlwScreenshotInfo = {
 
 export const allScreenshotAtom = atom<TlwScreenshotInfo[]>([]);
 
-export const defaultScreenshotWidth = 300;
+export const defaultScreenshotWidth = 400;
 
 /**
  * @param hwnd - optional, if provided this this will be window handle to select
