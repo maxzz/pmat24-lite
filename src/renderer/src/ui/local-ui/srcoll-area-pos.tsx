@@ -1,10 +1,9 @@
 import { useRef, useEffect } from "react"; //copilot: 'How to preserve scroll position of shadcn ScrollArea'
 import { ScrollArea2 } from "@/ui/shadcn";
 
-export type PosStorage = {
-    name: string;
-    getTop: (name: string) => string | undefined | null;
-    setTop: (name: string, top: number) => void;
+export type PositionStorage = {
+    getTop: () => string | undefined | null;
+    setTop: (top: number) => void;
 }
 
 interface PreserveScrollAreaProps {
@@ -12,7 +11,7 @@ interface PreserveScrollAreaProps {
     className?: string;
     fullHeight?: boolean;
     fixedWidth?: boolean;
-    storage: PosStorage;
+    storage: PositionStorage;
 }
 
 export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps) {
@@ -22,7 +21,7 @@ export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps
         () => {
             const scrollElement = scrollRef.current;
             if (scrollElement) {
-                const savedPos = storage.getTop(storage.name);
+                const savedPos = storage.getTop();
                 if (savedPos) {
                     const pos = parseInt(savedPos, 10);
                     if (!isNaN(pos)) {
@@ -31,7 +30,7 @@ export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps
                 }
 
                 const handleScroll = () => {
-                    storage.setTop(storage.name, scrollElement.scrollTop);
+                    storage.setTop(scrollElement.scrollTop);
                 };
 
                 scrollElement.addEventListener("scroll", handleScroll);
