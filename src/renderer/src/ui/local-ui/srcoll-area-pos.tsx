@@ -1,11 +1,6 @@
 import { useRef, useEffect } from "react"; //copilot: 'How to preserve scroll position of shadcn ScrollArea'
 import { ScrollArea2 } from "@/ui/shadcn";
 
-export type PositionStorage = {
-    getTop: () => string | undefined | null;
-    setTop: (top: number) => void;
-}
-
 interface PreserveScrollAreaProps {
     children: React.ReactNode;
     className?: string;
@@ -21,6 +16,7 @@ export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps
         () => {
             const scrollElement = scrollRef.current;
             if (scrollElement) {
+
                 const savedPos = storage.getTop();
                 if (savedPos) {
                     const pos = parseInt(savedPos, 10);
@@ -29,9 +25,7 @@ export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps
                     }
                 }
 
-                const handleScroll = () => {
-                    storage.setTop(scrollElement.scrollTop);
-                };
+                const handleScroll = () => storage.setTop(scrollElement.scrollTop);
 
                 scrollElement.addEventListener("scroll", handleScroll);
                 return () => {
@@ -44,4 +38,28 @@ export function PreserveScrollArea({ storage, ...rest }: PreserveScrollAreaProps
     return (
         <ScrollArea2 ref={scrollRef} {...rest} />
     );
+}
+
+// Position Storage //TODO: add left position as well
+
+export type PositionStorage = {
+    getTop: () => string | undefined | null;
+    setTop: (top: number) => void;
+}
+
+export function createSessionStorage(name: string): PositionStorage {
+    const storage: PositionStorage = {
+        getTop: () => localStorage.getItem(name),
+        setTop: (top: number) => localStorage.setItem(name, top.toString()),
+    };
+    return storage;
+}
+
+export function createVarStorage(): PositionStorage {
+    const rv: PositionStorage & { pos: string; } = {
+        pos: '0',
+        getTop: () => rv.pos,
+        setTop: (top: number) => rv.pos = top.toString(),
+    };
+    return rv;
 }
