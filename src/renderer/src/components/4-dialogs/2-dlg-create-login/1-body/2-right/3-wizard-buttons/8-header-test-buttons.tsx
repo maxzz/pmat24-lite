@@ -30,7 +30,9 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                         doDissmissNextToasts();
                         doSetScreenshots({ width: defaultScreenshotWidth });
                     }
-                }>
+                }
+                tabIndex={-1}
+            >
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.A} /> {testScreen.A} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.B} /> {testScreen.B} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.none} /> {testScreen.none} </Label>
@@ -47,6 +49,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                     doDissmissNextToasts();
                     doLoadFakeMani(v as TestManiEnum);
                 }}
+                tabIndex={-1}
             >
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>

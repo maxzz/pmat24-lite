@@ -20,6 +20,8 @@ export class NewManiCtx {
     maniXmlAtom: PA<string | undefined>;         // xml of the selected application
     fileUsAtom: PA<FileUs | undefined>;          // fileUs of the selected application
 
+    showControlsScanProgressAtom: PA<boolean>;   // show window content detection progress bar
+
     constructor() {
         this.doInitAtom = create_DoInitNewManiCtxAtom();
 
@@ -33,6 +35,8 @@ export class NewManiCtx {
 
         this.maniXmlAtom = atom<string | undefined>(undefined);
         this.fileUsAtom = atom<FileUs | undefined>(undefined);
+
+        this.showControlsScanProgressAtom = atom(false);
     }
 }
 
