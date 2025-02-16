@@ -15,6 +15,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
 
     const { testCreateAppsDelay, testCreateManiDelay } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const settings = appSettings.appUi.uiAdvanced;
 
     return (
         <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
@@ -34,7 +35,7 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.B} /> {testScreen.B} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.none} /> {testScreen.none} </Label>
 
-                <DelayInput value={testCreateAppsDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateAppsDelay = +e.target.value} />
+                <DelayInput value={testCreateAppsDelay} onChange={(e) => settings.testCreateAppsDelay = +e.target.value} />
             </RadioGroup>
 
             content:
@@ -50,8 +51,8 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
-                
-                <DelayInput value={testCreateManiDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateManiDelay = +e.target.value} />
+
+                <DelayInput value={testCreateManiDelay} onChange={(e) => settings.testCreateManiDelay = +e.target.value} />
             </RadioGroup>
 
         </div>
@@ -68,4 +69,4 @@ function DelayInput({ value, onChange }: { value: number; onChange: ChangeEventH
 }
 
 const labelClasses = "text-[.67rem] flex items-center gap-1";
-const inputClasses = "px-0.5 max-w-10 font-normal outline-sky-500 -outline-offset-1";
+const inputClasses = "px-0.5 max-w-10 font-normal text-foreground bg-background outline-sky-500 -outline-offset-1";

@@ -4,6 +4,8 @@ export * from "./3-ui-arrow";
 export * from "./8-not-impl-yet";
 export * from "./8-shared-styles";
 
+export * from "./srcoll-area-pos";
+
 export * from "./text-hover-effect";
 export * from "./4-bars-loader";
 
