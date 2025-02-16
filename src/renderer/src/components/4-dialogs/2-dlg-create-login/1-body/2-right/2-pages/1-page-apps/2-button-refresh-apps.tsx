@@ -36,13 +36,13 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
             <AnimatePresence>
                 {!refreshEnabled &&
                     <motion.div
-                        className="flex items-center gap-1"
+                        className="flex flex-col items-center"
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1.1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                     >
-                        <BarsLoader className="w-6 h-4 text-sky-500 [--barh:10%] [--framew:1px]" title="Refresh windows list" />
-                        Updating...
+                        <span className="text-[.65rem]">Updating...</span>
+                        <BarsLoader className="w-6 h-4 text-sky-500 [--barh:5%] [--framew:1px]" title="Refresh windows list" />
                     </motion.div>
                 }
             </AnimatePresence>
