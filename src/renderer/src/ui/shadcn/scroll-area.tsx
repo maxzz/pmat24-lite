@@ -52,6 +52,34 @@ const ScrollArea = forwardRef<ElementRef<typeof Prim.Root>, ScrollAreaProps>(
 );
 ScrollArea.displayName = Prim.Root.displayName;
 
+/**
+ * ScrollArea2 - The same as ScrollArea but with ref on the viewport element to have ability to preserve scroll position
+ */
+const ScrollArea2 = forwardRef<ElementRef<typeof Prim.Root>, ScrollAreaProps>(
+    ({ className, children, horizontal, fixedWidth, fullHeight, parentContentWidth, ...rest }, ref) => (
+        <Prim.Root
+            className={cn(
+                "relative overflow-hidden",
+                fullHeight && fullHeightClasses,
+                fixedWidth && fixedWidthClasses,
+                parentContentWidth && parentContentWidthClasses,
+                className
+            )}
+            {...rest}
+        >
+            <Prim.Viewport ref={ref} className="h-full w-full rounded-[inherit]">
+                {children}
+            </Prim.Viewport>
+
+            <ScrollBar />
+            {horizontal && <ScrollBar orientation="horizontal" />}
+
+            <Prim.Corner />
+        </Prim.Root>
+    )
+);
+ScrollArea2.displayName = Prim.Root.displayName;
+
 const ScrollBar = forwardRef<ElementRef<typeof Prim.ScrollAreaScrollbar>, ComponentPropsWithoutRef<typeof Prim.ScrollAreaScrollbar>>(
     ({ className, orientation = "vertical", ...rest }, ref) => (
         <Prim.ScrollAreaScrollbar
@@ -71,4 +99,4 @@ const ScrollBar = forwardRef<ElementRef<typeof Prim.ScrollAreaScrollbar>, Compon
 );
 ScrollBar.displayName = Prim.ScrollAreaScrollbar.displayName;
 
-export { ScrollArea, ScrollBar };
+export { ScrollArea, ScrollArea2, ScrollBar };

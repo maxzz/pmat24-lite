@@ -1,8 +1,14 @@
 import { WizardPage } from "../../../0-new-mani-ctx";
-import { Checkbox, PreserveScrollArea } from "@/ui";
+import { Checkbox, PosStorage, PreserveScrollArea } from "@/ui";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
 import { ButtonReloadApps } from "./2-button-refresh-apps";
+
+const storageSession: PosStorage = {
+    name: "sessionStorage",
+    getTop: (name: string) => sessionStorage.getItem(name),
+    setTop: (name: string, top: number) => sessionStorage.setItem(name, top.toString()),
+};
 
 export function Page1AppsBody() {
     return (
@@ -15,7 +21,7 @@ export function Page1AppsBody() {
 
             <div className="relative size-full">
                 <div className="absolute inset-3">
-                    <PreserveScrollArea className="px-2 py-1 size-full bg-muted/50 border border-border rounded-md" fullHeight fixedWidth>
+                    <PreserveScrollArea className="px-2 py-1 size-full bg-muted/50 border border-border rounded-md" fullHeight fixedWidth storage={storageSession}>
                         <AppsGrid />
                     </PreserveScrollArea>
                 </div>
@@ -28,6 +34,3 @@ export function Page1AppsBody() {
         </div>
     );
 }
-
-//TODO: preserve scroll position
-//TODO: when open mani chrome windows update sometimes goes forever

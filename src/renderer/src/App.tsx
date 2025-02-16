@@ -45,3 +45,9 @@ export function App(): JSX.Element {
     //TODO: define ManifestForWindowCreatorResult when result is object
     //TODO: error handling
     //TODO: test screenshots get/update for many open chrome windows and get content for active window with many other windows opened and controls
+
+//12.15.25, scroll position
+    //TODO: preserve scroll position - partially done
+    //TODO: prevent dialog from closing when clicking outside of the dialog
+
+    //TODO: when open mani chrome windows update sometimes goes forever - provide feedback to user and cancel the update button
