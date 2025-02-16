@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from "react";
+import { type ChangeEventHandler, type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
@@ -33,10 +33,8 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.A} /> {testScreen.A} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.B} /> {testScreen.B} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testScreen.none} /> {testScreen.none} </Label>
-                <div className="ml-2 flex items-center gap-1" title="delay >= 0 and < 10000 ms.">
-                    delay
-                    <input className="max-w-10 font-normal" type="number" value={testCreateAppsDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateAppsDelay = +e.target.value} />
-                </div>
+
+                <DelayInput value={testCreateAppsDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateAppsDelay = +e.target.value} />
             </RadioGroup>
 
             content:
@@ -52,14 +50,22 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
                 <Label className={labelClasses}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
-                <div className="ml-2 flex items-center gap-1" title="delay >= 0 and < 10000 ms.">
-                    delay
-                    <input className="max-w-10 font-normal" type="number" value={testCreateManiDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateManiDelay = +e.target.value} />
-                </div>
+                
+                <DelayInput value={testCreateManiDelay} onChange={(e) => appSettings.appUi.uiAdvanced.testCreateManiDelay = +e.target.value} />
             </RadioGroup>
 
         </div>
     );
 }
 
+function DelayInput({ value, onChange }: { value: number; onChange: ChangeEventHandler<HTMLInputElement>; }) {
+    return (
+        <div className="ml-2 flex items-center gap-1" title="delay >= 0 and < 10000 ms.">
+            delay
+            <input className={inputClasses} type="number" value={value} onChange={onChange} tabIndex={-1} />
+        </div>
+    );
+}
+
 const labelClasses = "text-[.67rem] flex items-center gap-1";
+const inputClasses = "px-0.5 max-w-10 font-normal outline-sky-500 -outline-offset-1";
