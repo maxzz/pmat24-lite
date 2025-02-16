@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { type TestManiEnum } from "../0-state-debug";
 import { hashedQueryAtom } from "./8-hashed-query";
+import { appSettings } from "../0-all";
+import { delay } from "@/utils";
 
 const testManis: Record<TestManiEnum, string> = {
     none: '',
@@ -11,6 +13,14 @@ const testManis: Record<TestManiEnum, string> = {
 export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum) => {
+        // 1. Check if we need to delay
+        const d = appSettings.appUi.uiAdvanced.testCreateManiDelay;
+        const hasDelay = d > 0 && d < 10000;
+        if (hasDelay) {
+            await delay(d);
+        }
+
+        // 2. Get content
         const fname = testManis[tsId];
         if (!fname) {
             return '';

@@ -35,6 +35,8 @@ export function create_DoAdvancePageAtom() {
         async (get, set, { next }: { next: boolean; }) => {
 
             if (napiBuildState.buildRunning) {
+                //TODO: show message about build running
+                set(doAddNextToastIdAtom, toast.info('Build running...'));
                 return;
             }
 
@@ -84,11 +86,13 @@ async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean
 
         // 2. Save maniXml to the context
         if (!sawManiXml) {
-            set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.'));
+            set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.')); //TODO: you can define manifest content manually
             return false;
         }
 
         set(newManiCtx.maniXmlAtom, sawManiXml);
+
+        //TODO: check created manifest content manually checkbox
 
         // 3. Parse maniXml to fileUs
         try {

@@ -26,7 +26,7 @@ export function WizardBody() {
                 </D.DialogTitle>
 
                 {!hasMain() && (
-                    <div className="absolute -left-7 -top-[14px] scale-[.74] bg-muted/50 rounded-tl-md border border-foreground/10">
+                    <div className="absolute -left-[38px] -top-[14px] scale-[.74] bg-muted/50 rounded-tl-md border border-foreground/10">
                         <DebugButtons />
                     </div>
                 )}
