@@ -14,9 +14,6 @@ export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'d
     const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
 
-    // const { testCreateAppsDelay, testCreateManiDelay } = useSnapshot(appSettings.appUi.uiAdvanced);
-    // const settings = appSettings.appUi.uiAdvanced;
-
     return (
         <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
 
@@ -66,22 +63,10 @@ function DelayInput({ keyName }: { keyName: SettingsKey; }) {
     const value = useSnapshot(appSettings.appUi.uiAdvanced)[keyName];
     const settings = appSettings.appUi.uiAdvanced;
     return (
-        <div 
-        className="ml-2 flex items-center gap-1" title="delay will be 100...10000 in ms or 1..100 in sec.">
+        <div
+            className="ml-2 flex items-center gap-1" title="delay will be 100...10000 in ms or 1..100 in sec.">
             delay
-            <input
-                className={inputClasses}
-                type="number"
-                value={value}
-                onChange={(e) => {
-                    let n = +e.target.value;
-                    if (n > 0 && n < 100) {
-                        n = n * 1000;
-                    }
-                    settings[keyName] = n;
-                }}
-                tabIndex={-1}
-            />
+            <input className={inputClasses} type="number" tabIndex={-1} value={value} onChange={(e) => settings[keyName] = +e.target.value} />
         </div>
     );
 }

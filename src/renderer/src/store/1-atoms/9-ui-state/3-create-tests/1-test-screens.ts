@@ -1,9 +1,10 @@
 import { atom } from "jotai";
 import { type TestScreenEnum } from "../0-state-debug";
 import { type TlwScreenshot } from "@shared/ipc-types";
-import { hashedQueryAtom } from "./8-hashed-query";
 import { appSettings } from "../0-all";
 import { delay } from "@/utils";
+import { hashedQueryAtom } from "./8-hashed-query";
+import { easyDelayInput } from "./3-easy-delay-input";
 
 const testScreenIds: Record<TestScreenEnum, string> = {
     none: '',
@@ -15,10 +16,9 @@ export const doLoadFakeScreensAtom = atom(
     null,
     async (get, set, tsId: TestScreenEnum) => {
         // 1. Check if we need to delay
-        const d = appSettings.appUi.uiAdvanced.testCreateAppsDelay;
-        const hasDelay = d > 0 && d < 10000;
-        if (hasDelay) {
-            await delay(d);
+        const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateAppsDelay);
+        if (nDelay) {
+            await delay(nDelay);
         }
 
         // 2. Get content
@@ -27,7 +27,7 @@ export const doLoadFakeScreensAtom = atom(
             return [];
         }
 
-        const cnt = await get(hashedQueryAtom(fname)) as TlwScreenshot[]; //console.log('doLoadFakeScreenshotsAtom', fname, cnt);
-        return cnt;
+        const rv = await get(hashedQueryAtom(fname)) as TlwScreenshot[]; //console.log('doLoadFakeScreenshotsAtom', fname, cnt);
+        return rv;
     }
 );
