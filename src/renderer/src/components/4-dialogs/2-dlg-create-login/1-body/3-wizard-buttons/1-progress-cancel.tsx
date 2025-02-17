@@ -1,26 +1,45 @@
-import { type ComponentPropsWithoutRef, type ComponentProps } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { classNames } from "@/utils";
+import { useAtomValue } from "jotai";
+import { AnimatePresence, motion } from "framer-motion";
 import { BarsLoader, Button } from "@/ui";
-import { newManiCtx, wizardLastPage } from "../0-new-mani-ctx";
+import { classNames } from "@/utils";
+import { newManiCtx } from "../0-new-mani-ctx";
 
-export function ControlsScanProgressBar({className, ...rest}: ComponentPropsWithoutRef<"div">) {
+export function ControlsScanProgressBar({ className }: { className?: string; }) {
 
     const showProgressBar = useAtomValue(newManiCtx.showControlsScanProgressAtom);
     if (!showProgressBar) {
         return null;
     }
 
-    return (
-        <div className={classNames("text-xs flex items-center gap-1", className)} {...rest}>
+    return (<>
+        <AnimatePresence>
+            {showProgressBar && (
+                <motion.div
+                    className={classNames("text-xs flex items-center gap-1", className)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                >
+                    Collecting controls...
+                    <BarsLoader className="w-6 h-4 text-orange-500 [--barh:100%] [--framew:4px] [--speed:1s]" title="Refresh windows list" />
+
+                    <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1}> {/* onClick={() => sendToMain({ type: 'cancel-detection' })} */}
+                        Cancel
+                    </Button>
+                </motion.div>
+            )}
+
+        </AnimatePresence>
+
+        {/* <div className={classNames("text-xs flex items-center gap-1", className)} {...rest}>
             Collecting controls...
             <BarsLoader className="w-6 h-4 text-orange-500 [--barh:100%] [--framew:4px] [--speed:1s]" title="Refresh windows list" />
-            
-            <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1}> {/* onClick={() => sendToMain({ type: 'cancel-detection' })} */}
+
+            <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1}> {/* onClick={() => sendToMain({ type: 'cancel-detection' })} * /}
                 Cancel
             </Button>
-        </div>
-    );
+        </div> */}
+    </>);
 }
 
 const cancelButtonClasses = "ml-2 text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
