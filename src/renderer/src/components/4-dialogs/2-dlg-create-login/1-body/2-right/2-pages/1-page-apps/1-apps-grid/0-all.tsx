@@ -9,9 +9,7 @@ export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     return (
         <div className={classNames("grid gap-1 grid-cols-[repeat(auto-fill,minmax(160px,1fr))] 1debug", className)} {...rest}>
             {items.map(
-                (item, idx) => {
-                    return <TlwRendererSelector item={item} idx={idx} key={item.uuid} />;
-                }
+                (item, idx) => <TlwRendererSelector item={item} idx={idx} key={item.uuid} />
             )}
         </div>
     );

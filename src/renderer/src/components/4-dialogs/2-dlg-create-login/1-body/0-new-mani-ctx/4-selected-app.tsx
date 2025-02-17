@@ -19,6 +19,8 @@ export function create_AppSelectedIdxAtom() {
                 set(_appSelectedIdxAtom, newIdx);
             }
 
+            newManiCtx.lastSelectedHwnd = items[newIdx]?.item.hwnd;
+
             set(newManiCtx.maniXmlAtom, undefined);
             set(newManiCtx.fileUsAtom, undefined);
         }

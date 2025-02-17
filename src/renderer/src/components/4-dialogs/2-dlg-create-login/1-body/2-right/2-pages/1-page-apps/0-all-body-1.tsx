@@ -1,10 +1,8 @@
-import { WizardPage } from "../../../0-new-mani-ctx";
-import { Checkbox, createVarStorage, PreserveScrollArea } from "@/ui";
+import { Checkbox, PreserveScrollArea } from "@/ui";
+import { newManiCtx, WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
 import { ButtonReloadApps } from "./2-button-refresh-apps";
-
-const storageSession = createVarStorage(); 
 
 export function Page1AppsBody() {
     return (
@@ -17,7 +15,10 @@ export function Page1AppsBody() {
 
             <div className="relative size-full">
                 <div className="absolute inset-3">
-                    <PreserveScrollArea className="px-2 py-1 size-full bg-muted/50 border border-border rounded-md" fullHeight fixedWidth storage={storageSession}>
+                    <PreserveScrollArea
+                        className="px-2 py-1 size-full bg-muted/50 border border-border rounded-md"
+                        fullHeight fixedWidth storage={newManiCtx.appsScrollPos}
+                    >
                         <AppsGrid />
                     </PreserveScrollArea>
                 </div>

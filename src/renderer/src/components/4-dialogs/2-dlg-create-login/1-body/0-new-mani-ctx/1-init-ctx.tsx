@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type NewManiCtx } from "./0-ctx";
 import { wizardFirstPage } from "./8-step-items-data";
-import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function create_DoInitNewManiCtxAtom() {
     return atom(
@@ -10,6 +10,15 @@ export function create_DoInitNewManiCtxAtom() {
             set(ctx.pageAndDirectionAtom, [wizardFirstPage, 0]);
             set(ctx.appSelectedIdxAtom, -1);
             set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
+
+            ctx.appsScrollPos.setTop(0);
+
+            if (ctx.lastSelectedHwnd) {
+                const items = get(allScreenshotAtom);
+                const newIdx = items.findIndex(info => info.item.hwnd === ctx.lastSelectedHwnd);
+                set(ctx.appSelectedIdxAtom, newIdx);
+                //TODO: we need to scroll to the selected item as well
+            }
         }
     );
 }

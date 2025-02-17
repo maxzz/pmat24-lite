@@ -15,6 +15,9 @@ export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo
 
     const isSelected = useSnapshot(info.editor).selected;
     const tlwData = info.item as TlwData;
+
+    //console.log('TwlRenderImage', isSelected);
+    
     return (
         <div
             className={classNames("relative m-1 pb-4 flex flex-col gap-1 overflow-hidden cursor-pointer")}

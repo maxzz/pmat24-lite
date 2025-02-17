@@ -1,10 +1,11 @@
 import { atom, type Atom, type PrimitiveAtom as PA } from "jotai";
+import { type PositionStorage, createVarStorage } from "@/ui";
+import { type FileUs } from "@/store";
 import { type WizardPage } from "./8-step-items-data";
 import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
-import { type FileUs } from "@/store";
 
 export class NewManiCtx {
     doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
@@ -21,6 +22,10 @@ export class NewManiCtx {
     fileUsAtom: PA<FileUs | undefined>;          // fileUs of the selected application
 
     showControlsScanProgressAtom: PA<boolean>;   // show window content detection progress bar
+    
+    // UI state
+    appsScrollPos: PositionStorage;              // scroll position of the apps grid
+    lastSelectedHwnd: string | undefined;        // when dlg closed and opened again, this hwnd will be selected if exists after apps scan
 
     constructor() {
         this.doInitAtom = create_DoInitNewManiCtxAtom();
@@ -37,6 +42,9 @@ export class NewManiCtx {
         this.fileUsAtom = atom<FileUs | undefined>(undefined);
 
         this.showControlsScanProgressAtom = atom(false);
+    
+        this.appsScrollPos = createVarStorage();
+        this.lastSelectedHwnd = undefined; //TODO: not really good idea, because we need to scroll to the selected item as well. Not working yet.
     }
 }
 
