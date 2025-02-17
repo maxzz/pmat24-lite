@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef, type ComponentProps } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { BarsLoader, Button } from "@/ui";
-import { newManiCtx, wizardLastPage } from "../../0-new-mani-ctx";
+import { newManiCtx, wizardLastPage } from "../0-new-mani-ctx";
 
 export function ControlsScanProgressBar({className, ...rest}: ComponentPropsWithoutRef<"div">) {
 

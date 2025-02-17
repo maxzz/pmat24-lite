@@ -7,7 +7,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiAtom } from "@/store";
 import { LeftPanelProgress } from "../../8-create-ui";
-import { DebugButtons, WizardButtons } from "../3-wizard-buttons";
+import { DebugButtons, WizardButtons } from "../../3-wizard-buttons";
 import { PagesBodyAnimation } from "./2-pages-body";
 
 export function WizardBody() {
