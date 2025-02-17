@@ -8,14 +8,16 @@
         "src/shell/preload/**/*",
         "src/renderer/src/vite-typescript/**/*",
 
-        // "src/renderer/src/**/*",
+        "src/renderer/src/xternal-to-main/**/*",
+        "src/renderer/src/store/**/*",
 
-        "src/renderer/src/xternal-to-main/index.ts",
-        "src/renderer/src/xternal-to-main/commands",
-        "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
-        // "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
-        "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
-        "src/renderer/src/xternal-to-main/ipc-renderer.ts",
+        // // "src/renderer/src/store/1-atoms/**/*",
+        // "src/renderer/src/xternal-to-main/index.ts",
+        // "src/renderer/src/xternal-to-main/index.ts",
+        // "src/renderer/src/xternal-to-main/commands",
+        // // "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
+        // "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
+        // "src/renderer/src/xternal-to-main/ipc-renderer.ts",
 
         "src/shell/xternal-to-renderer/index.ts",
         "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
@@ -33,6 +35,7 @@
         "paths": {
             "@/*":       [ "./src/renderer/src/*" ],
             "@ui/*":     [ "./src/renderer/src/ui/*" ],
+            "@store/*":  [ "./src/renderer/src/store/*" ],
             "@shell/*":  [ "./src/shell/app/*" ],
             "@shared/*": [ "./src/shared/*" ]
         },
