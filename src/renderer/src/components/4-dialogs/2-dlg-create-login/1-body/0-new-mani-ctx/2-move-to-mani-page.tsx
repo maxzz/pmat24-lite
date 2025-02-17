@@ -26,9 +26,13 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
         set(newManiCtx.maniXmlAtom, undefined);
         set(newManiCtx.fileUsAtom, undefined);
 
+        set(newManiCtx.showControlsScanProgressAtom, true);
+
         // 1. Get manifest as maniXml from the window
         await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
         const sawManiXml = get(sawManiXmlAtom);
+
+        set(newManiCtx.showControlsScanProgressAtom, false);
 
         // 2. Save maniXml to the context
         if (!sawManiXml) {
