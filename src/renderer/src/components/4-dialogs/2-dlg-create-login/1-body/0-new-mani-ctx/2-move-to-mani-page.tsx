@@ -8,6 +8,10 @@ import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs } from "@/store";
 
+/**
+ * Create new manifest and allow to move to the next page.
+ * @returns true if move to the next page is allowed
+ */
 export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<boolean> {
     const selectedApp = get(appSelectedAppAtom);
     if (!selectedApp) {
@@ -49,7 +53,7 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
         } catch (error) {
             const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
             console.error(msg);
-            toast.error(msg);
+            set(doAddNextToastIdAtom, toast.error(msg));
             return false;
         }
 
