@@ -1,17 +1,17 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings, debugSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, Checkbox, Input, Label } from "@/ui";
 import { classNames } from "@/utils";
-
-const labelBoldClasses = "block mb-1 text-xs font-semibold";
-const subClasses = "py-1 flex flex-col gap-2";
-const rowClasses = "text-xs font-normal flex place-items-center gap-1.5 cursor-pointer";
+import { c } from "vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
-    const snapItems = useSnapshot(appSettings).files.itemsState;
+    const snapItems = useSnapshot(appSettings.files).itemsState;
+    const liveItems = appSettings.files.itemsState;
+
     const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
+    const liveUiGeneral = appSettings.appUi.uiGeneral;
 
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
 
@@ -32,27 +32,27 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => appSettings.files.itemsState.showIndex = !!v} />
+                            <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => liveItems.showIndex = !!v} />
                             Show file index
                         </Label>
                         <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => appSettings.files.itemsState.showIeMarker = !!v} />
+                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => liveItems.showIeMarker = !!v} />
                             Show IE warning icon
                         </Label>
                         <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => appSettings.files.itemsState.showFname = !!v} />
+                            <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => liveItems.showFname = !!v} />
                             Show always file name
                         </Label>
                         <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
-                            <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => appSettings.files.itemsState.showChosen = !!v} />
+                            <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => liveItems.showChosen = !!v} />
                             Show user defined name instead of domain name
                         </Label>
                         <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => appSettings.files.itemsState.selectAsTrigger = !!v} />
+                            <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => liveItems.selectAsTrigger = !!v} />
                             Select the same file will deselect it
                         </Label>
                         <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => appSettings.files.itemsState.selectEmptySpace = !!v} />
+                            <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => liveItems.selectEmptySpace = !!v} />
                             Empty space click will deselect current item
                         </Label>
                     </div>
@@ -65,28 +65,28 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showWelcome} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showWelcome = !!v} />
+                            <Checkbox checked={showWelcome} onCheckedChange={(v) => liveUiGeneral.showWelcome = !!v} />
                             Show Welcome screen on start
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showStatusbar = !!v} />
+                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
                             Show status bar
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showQuickXml = !!v} />
+                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
                             Show quick access button to XML manifest content
                         </Label>
                     </div>
 
                     <div className={subClasses}>
                         <Label className={rowClasses}>
-                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => appSettings.appUi.uiGeneral.showOptOnRight = !!v} />
+                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
                             Show manifest form option labels on the right side
                         </Label>
                     </div>
@@ -118,8 +118,15 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 }
 
 function AdvancedSettings() {
+
     const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const liveUiAdvanced = appSettings.appUi.uiAdvanced;
+
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
+    const liveFiles = appSettings.files;
+
+    const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
+    const liveDebugOnly = debugSettings.debugOnly;
 
     return (<>
         <Label className={labelBoldClasses}>
@@ -129,20 +136,29 @@ function AdvancedSettings() {
         <div className="grid grid-cols-2 gap-2 grid-flow-dense">
 
             <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.allowHandleFiles = !!v} />
+                <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
                 Allow opening of individual files
             </Label>
 
             <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={showFldCat} onCheckedChange={(v) => appSettings.files.shownManis.showFldCat = !!v} />
+                <Checkbox checked={showFldCat} onCheckedChange={(v) => liveFiles.shownManis.showFldCat = !!v} />
                 Show field catalog files
             </Label>
 
             <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={showUiHeader} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showUiHeader = !!v} />
+                <Checkbox checked={showUiHeader} onCheckedChange={(v) => liveUiAdvanced.showUiHeader = !!v} />
                 Show application main header
+            </Label>
+
+            <Label className={classNames("col-start-2", rowClasses)}>
+                <Checkbox checked={snapDebugOnly.showCreateSourceCode} onCheckedChange={(v) => liveDebugOnly.showCreateSourceCode = !!v} />
+                Show source code button in the new manifest editor
             </Label>
 
         </div>
     </>);
 }
+
+const labelBoldClasses = "block mb-1 text-xs font-semibold";
+const subClasses = "py-1 flex flex-col gap-2";
+const rowClasses = "text-xs font-normal flex place-items-center gap-1.5 cursor-pointer";

@@ -4,8 +4,6 @@ import { doOpenOptionsDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { DialogOptionsBody } from "./1-body";
 import { overlayClasses } from "../1-dlg-filter-files";
 
-const contentClasses = "p-0 !w-1/2 max-w-xl data-[state=open]:[animation-duration:200ms]";
-
 export function AppOptionsDialog() {
 
     const [optionsDialogOpen, doOpenOptionsDialog] = useAtom(doOpenOptionsDialogAtom);
@@ -27,3 +25,5 @@ export function AppOptionsDialog() {
         </D.Dialog>
     </>);
 }
+
+const contentClasses = "p-0 !w-1/2 max-w-xl data-[state=open]:[animation-duration:200ms]";

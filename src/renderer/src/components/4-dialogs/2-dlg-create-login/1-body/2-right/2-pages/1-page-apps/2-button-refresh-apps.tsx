@@ -1,12 +1,12 @@
 import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
-import { newManiCtx } from "../../../0-new-mani-ctx";
-import { classNames, delay, useAutoCleanupToast } from "@/utils";
-import { Button } from "@/ui/shadcn";
-import { IconRefresh } from "@/ui/icons";
-import { toast } from "sonner";
-import { BarsLoader } from "@/ui";
+import { classNames, errorToString, useAutoCleanupToast } from "@/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import { Button } from "@/ui/shadcn";
+import { toast } from "sonner";
+import { IconRefresh } from "@/ui/icons";
+import { newManiCtx } from "../../../0-new-mani-ctx";
+import { BarsLoader } from "@/ui";
 
 export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const doRefreshApps = useSetAtom(newManiCtx.doRefreshAppsAtom);
@@ -22,11 +22,12 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
         setRefreshEnabled(false);
         try {
-            await doRefreshApps(); // await delay(3000);
+            await doRefreshApps();
             setToastId(toast('Updated'));
         } catch (error) {
-            console.error(`'updateApps' ${error instanceof Error ? error.message : `${error}`}`);
-            toast.error(`'updateApps' ${error instanceof Error ? error.message : `${error}`}`);
+            const msg = errorToString(error);
+            console.error(`'updateApps' ${msg}`);
+            toast.error(`'updateApps' ${msg}`);
         }
         setRefreshEnabled(true);
     }
