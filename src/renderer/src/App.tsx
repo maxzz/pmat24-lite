@@ -51,3 +51,9 @@ export function App(): JSX.Element {
     //TODO: prevent dialog from closing when clicking outside of the dialog
 
     //TODO: when open mani chrome windows update sometimes goes forever - provide feedback to user and cancel the update button
+
+//12.17.25, screenshot timeout
+    //ocasionally the screenshot is not taken and the timeout is reached, we need to have cancel the detection and re-entrance should be blocked on server side as well
+        //otherwise stack corruption will happen
+    //build counter is not incremented for browser windows (win32 OK)
+    //TODO: highlight application window rect; to unsure that it's the right window

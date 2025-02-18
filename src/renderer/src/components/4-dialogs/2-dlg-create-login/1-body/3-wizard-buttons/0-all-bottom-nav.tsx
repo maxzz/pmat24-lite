@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { newManiCtx, wizardLastPage } from "../0-new-mani-ctx";
-import { ControlsScanProgressBar } from "./1-progress-cancel";
+import { ProgressBarControlsScan } from "./1-progress-cancel";
 
 export function WizardButtons({ className, ...rest }: ComponentProps<"div">) {
 
@@ -14,7 +14,7 @@ export function WizardButtons({ className, ...rest }: ComponentProps<"div">) {
         <div className={classNames("relative px-4 flex items-center justify-end gap-1", className)} {...rest}>
 
             <div className="absolute left-2 top-1/2 -translate-y-1/2">
-                <ControlsScanProgressBar />
+                <ProgressBarControlsScan />
             </div>
 
             <Button

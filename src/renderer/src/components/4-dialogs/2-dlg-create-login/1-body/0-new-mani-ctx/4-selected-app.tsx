@@ -39,3 +39,4 @@ export const appSelectedAppAtom = atom(
 );
 
 //TODO: need to reset xml and fileUs when app selected
+//TODO: highlight application window rect; to unsure that it's the right window
