@@ -19,7 +19,7 @@ export function ProgressBarControlsScan({ className }: { className?: string; }) 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9, transition: { delay: 0 } }}
-                    transition={{ duration: 0.7, delay: .2 }}
+                    transition={{ duration: 0.7, delay: 2 }}
                 >
                     Collecting controls...
                     <BarsLoader className="w-6 h-4 text-orange-500 [--barh:100%] [--framew:4px] [--speed:1s]" title="Refresh windows list" />

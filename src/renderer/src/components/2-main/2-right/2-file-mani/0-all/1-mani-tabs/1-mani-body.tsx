@@ -6,16 +6,19 @@ import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { appSettings, rightPanelAtom } from "@/store";
 import { FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
-import { TabFormEditorGuard } from "../../1-form-editor";
+import { FormEditorSelector } from "../../1-form-editor";
 import { TabFormOptions } from "../../2-form-options/0-all/0-all";
 import { ManiTabsList } from "./2-mani-tabs-list";
 
-const refClasses = "\
-@container/tab-content \
-\
-flex-1 mt-1 size-full min-h-0 max-w-4xl \
-overflow-hidden";
-// border-muted-foreground/20 border rounded \
+export function ManiBody() {
+    const fileUsAtom = useAtomValue(rightPanelAtom);
+    if (!fileUsAtom) {
+        return null;
+    }
+    return (
+        <ManiBodyGuarded fileUsAtom={fileUsAtom} />
+    );
+}
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
@@ -49,11 +52,11 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                     </TabsContent>
 
                     <TabsContent value="login" tabIndex={-1}>
-                        <TabFormEditorGuard fileUs={fileUs} formIdx={0} />
+                        <FormEditorSelector fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
                     <TabsContent value="cpass" tabIndex={-1}>
-                        <TabFormEditorGuard fileUs={fileUs} formIdx={1} />
+                        <FormEditorSelector fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
                 </ScrollArea>
@@ -62,12 +65,9 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     );
 }
 
-export function ManiBody() {
-    const fileUsAtom = useAtomValue(rightPanelAtom);
-    if (!fileUsAtom) {
-        return null;
-    }
-    return (
-        <ManiBodyGuarded fileUsAtom={fileUsAtom} />
-    );
-}
+const refClasses = "\
+@container/tab-content \
+\
+flex-1 mt-1 size-full min-h-0 max-w-4xl \
+overflow-hidden";
+// border-muted-foreground/20 border rounded \

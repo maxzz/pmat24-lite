@@ -1,10 +1,10 @@
 import { Button, TabsList, TabsTrigger } from "@/ui";
 
 export function ManiTabsList({ hasCpass, hasChanges }: { hasCpass: boolean; hasChanges: boolean; }) {
-    const cpassLabel =
-        hasCpass
-            ? "Password change"
-            : <div><span className="text-foreground">No</span> password change</div>;
+
+    const cpassLabel = hasCpass
+        ? "Password change"
+        : <div><span className="text-foreground">No</span> password change</div>;
 
     return (
         <div className="flex items-center justify-between">

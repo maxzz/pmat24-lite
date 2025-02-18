@@ -6,7 +6,7 @@ import { NoFormTabContent } from "./8-no-form-tab-content";
 import { useAtomValue } from "jotai";
 import { ManualFormTabContent } from "./3-all-manual-tab-content";
 
-export function TabFormEditorGuard({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
+export function FormEditorSelector({ fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }) {
 
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {

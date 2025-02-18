@@ -1,1 +1,1 @@
-export * from "./1-all-tabs";
+export * from "./1-all-editor-selector";
