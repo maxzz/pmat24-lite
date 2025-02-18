@@ -14,6 +14,7 @@ export function InputKey({ valueAtom, triggerClasses }: { valueAtom: PrimitiveAt
             triggerClasses={triggerClasses}
             value={value.data}
             onValueChange={(value) => setValue((prev) => ({ ...prev, data: value }))}
-            title="Key for this action" />
+            title="Key for this action"
+        />
     );
 }

@@ -109,9 +109,9 @@
 //     );
 // }
 
+import { classNames } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type OptionTextValue } from "@/store/manifest";
-import { classNames } from "@/utils";
 
 export type StringValueChangeProps = {
     value: string;
@@ -123,11 +123,6 @@ type InputSelectUiProps = StringValueChangeProps & {
     triggerClasses?: string;
     placeholder?: string;
 };
-
-const popupColorClasses = "\
-h-6 \
-bg-primary-100 dark:bg-primary-900 \
-text-primary-900 dark:text-primary-300";
 
 export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (
@@ -155,3 +150,8 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses, pla
         </Select>
     );
 }
+
+const popupColorClasses = "\
+h-6 \
+bg-primary-100 dark:bg-primary-900 \
+text-primary-900 dark:text-primary-300";

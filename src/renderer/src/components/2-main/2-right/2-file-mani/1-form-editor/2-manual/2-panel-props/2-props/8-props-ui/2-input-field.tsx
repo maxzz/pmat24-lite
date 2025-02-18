@@ -1,6 +1,6 @@
+import { classNames } from "@/utils";
 import { InputLabel, type InputLabelProps } from "./1-input-label";
 import { focusClasses } from "../../../8-manual-shared-styles";
-import { classNames } from "@/utils";
 
 const inputTextClasses = "\
 px-2 py-1 \

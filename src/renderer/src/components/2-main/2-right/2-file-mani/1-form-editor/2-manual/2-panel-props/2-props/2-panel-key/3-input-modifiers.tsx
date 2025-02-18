@@ -1,10 +1,10 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
-import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
-import { type RowInputState } from "@/ui";
-import { modifierKeys } from "@/store/manifest";
-import { InputSelectUi } from "../8-props-ui";
 import { classNames } from "@/utils";
+import { type RowInputState } from "@/ui";
+import { InputSelectUi } from "../8-props-ui";
+import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import { modifierKeys } from "@/store/manifest";
 
 type FrameProps = HTMLAttributes<HTMLDivElement> & {
     label: string;
@@ -20,6 +20,20 @@ export function GroupFrame({ label, children, className, ...rest }: FrameProps) 
 
             {children}
         </div>
+    );
+}
+
+export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
+    return (
+        <GroupFrame className="@container/modifier mt-2 max-w-[220px]" label="Key modifiers:">
+            <div className="my-1.5 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
+
+                <Modifier label="Shift" valueAtom={item.shiftAtom} />
+                <Modifier label="Control" valueAtom={item.ctrlAtom} />
+                <Modifier label="Alt" valueAtom={item.altAtom} />
+
+            </div>
+        </GroupFrame>
     );
 }
 
@@ -39,19 +53,5 @@ function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAto
                 />
             </div>
         </div>
-    );
-}
-
-export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
-    return (
-        <GroupFrame className="@container/modifier mt-2 max-w-[220px]" label="Key modifiers:">
-            <div className="my-1.5 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
-
-                <Modifier label="Shift" valueAtom={item.shiftAtom} />
-                <Modifier label="Control" valueAtom={item.ctrlAtom} />
-                <Modifier label="Alt" valueAtom={item.altAtom} />
-
-            </div>
-        </GroupFrame>
     );
 }

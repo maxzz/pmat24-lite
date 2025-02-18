@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
+import { classNames } from "@/utils";
 import { type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi, StringValueChangeProps } from "./4-input-select-ui";
-import { classNames } from "@/utils";
 
 type InputSelectProps = InputHTMLAttributes<HTMLInputElement> & StringValueChangeProps & {
     label: string;
