@@ -6,8 +6,8 @@ import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { appSettings, rightPanelAtom } from "@/store";
 import { FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
-import { FormEditorSelector } from "../../1-form-editor";
-import { TabFormOptions } from "../../2-form-options/0-all/0-all";
+import { ManiEditorFormSelector } from "../../1-form-editor";
+import { ManiEditorAllOptions } from "../../2-form-options/0-all/0-all";
 import { ManiTabsList } from "./2-mani-tabs-list";
 
 export function ManiBody() {
@@ -48,15 +48,15 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                 <ScrollArea style={{ width, height }} horizontal fullHeight>
 
                     <TabsContent value="options" tabIndex={-1}>
-                        <TabFormOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
+                        <ManiEditorAllOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
                     </TabsContent>
 
                     <TabsContent value="login" tabIndex={-1}>
-                        <FormEditorSelector fileUs={fileUs} formIdx={0} />
+                        <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
                     <TabsContent value="cpass" tabIndex={-1}>
-                        <FormEditorSelector fileUs={fileUs} formIdx={1} />
+                        <ManiEditorFormSelector fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
                 </ScrollArea>

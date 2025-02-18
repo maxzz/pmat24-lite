@@ -5,6 +5,28 @@ import { type ManiAtoms, type OFormContextProps } from "@/store/1-atoms/3-file-m
 import { SectionTitle } from "../9-controls";
 import { GroupCpass, GroupGeneral, GroupLogin } from "./1-options-groups";
 
+export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
+    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
+    if (!maniAtoms) {
+        return null;
+    }
+
+    const [login, cpass] = maniAtoms;
+    if (!login && !cpass) {
+        return (
+            <div>
+                No forms. It can be a manifest to exclude website support (It has to be no fields not forms).
+            </div>
+        );
+    }
+
+    return (
+        <div className={optionsAllGroupsClasses}>
+            <OptionsContent maniAtoms={maniAtoms} />
+        </div>
+    );
+}
+
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
 
 function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
@@ -30,25 +52,3 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 }
 
 const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
-
-export function TabFormOptions({ fileUs }: { fileUs: FileUs; }) {
-    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
-    if (!maniAtoms) {
-        return null;
-    }
-
-    const [login, cpass] = maniAtoms;
-    if (!login && !cpass) {
-        return (
-            <div>
-                No forms. It can be a manifest to exclude website support (It has to be no fields not forms).
-            </div>
-        );
-    }
-
-    return (
-        <div className={optionsAllGroupsClasses}>
-            <OptionsContent maniAtoms={maniAtoms} />
-        </div>
-    );
-}
