@@ -6,7 +6,6 @@ import { SymbolCode } from "@/ui/icons";
 
 export function WizardPageHeader({ page }: { page: WizardPage; }) {
     const [title, explanation] = stepInfo[page];
-    const showSourceCode = useSnapshot(debugSettings.debugOnly).showCreateSourceCode;
     return (
         <div className="px-3 py-3 text-sm bg-muted/30 flex items-center justify-between gap-0.5">
 
@@ -15,14 +14,23 @@ export function WizardPageHeader({ page }: { page: WizardPage; }) {
                 <div className="text-xs text-foreground/50">{explanation}</div>
             </div>
 
-            {page === WizardPage.fields && showSourceCode && (
-                <Button
-                    className="1absolute right-4 top-0.5 active:scale-y-95 z-10" variant="outline"
-                    onClick={() => {}}
-                >
-                    <SymbolCode className="size-4" />
-                </Button>
+            {page === WizardPage.fields && (
+                <SourceCodeButton />
             )}
         </div>
     );
+}
+
+function SourceCodeButton() {
+    const { showCreateSrcCodeBtn, showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);
+    return (<>
+        {showCreateSrcCodeBtn && (
+            <Button
+                className="1absolute right-4 top-0.5 active:scale-y-95 z-10" variant="outline"
+                onClick={() => debugSettings.debugOnly.showCreateSrcCode = !showCreateSrcCode}
+            >
+                <SymbolCode className="size-4" />
+            </Button>
+        )}
+    </>);
 }

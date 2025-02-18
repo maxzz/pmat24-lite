@@ -13,9 +13,12 @@ export function BodyRawMani() {
     }
     return (<>
         <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
-            <div className="whitespace-pre">
-                <ManiEditorAllOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
-            </div>
+            WIP:
+            <br />
+            options
+            <br />
+            fields editor
+            <ManiEditorAllOptions fileUs={fileUs} />
         </ScrollArea>
     </>);
 }

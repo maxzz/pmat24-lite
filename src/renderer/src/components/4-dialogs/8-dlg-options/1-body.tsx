@@ -151,7 +151,7 @@ function AdvancedSettings() {
             </Label>
 
             <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={snapDebugOnly.showCreateSourceCode} onCheckedChange={(v) => liveDebugOnly.showCreateSourceCode = !!v} />
+                <Checkbox checked={snapDebugOnly.showCreateSrcCodeBtn} onCheckedChange={(v) => liveDebugOnly.showCreateSrcCodeBtn = !!v} />
                 Show source code button in the new manifest editor
             </Label>
 
