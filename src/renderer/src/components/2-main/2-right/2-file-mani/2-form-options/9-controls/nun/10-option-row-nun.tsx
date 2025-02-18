@@ -1,5 +1,5 @@
-import { InputHTMLAttributes } from "react";
-import { PrimitiveAtom, useAtom } from "jotai";
+import { type InputHTMLAttributes } from "react";
+import { type PrimitiveAtom, useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
@@ -9,16 +9,6 @@ export type OptionRowInputProps<T> = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
     accessAtom: T;
 };
-
-const optionRowInputClasses = "\
-px-2 py-1 h-6 \
-\
-text-mani-foreground bg-mani-background \
-\
-border-mani-border-muted border \
-\
-rounded-sm \
-outline-none";
 
 export function OptionRowInput<T extends PrimitiveAtom<string | number>>({ label, accessAtom, className, ...rest }: OptionRowInputProps<T>) {
     const [value, setValue] = useAtom(accessAtom);
@@ -52,3 +42,13 @@ export function OptionRowCheck<T extends PrimitiveAtom<boolean>>({ label, access
         />
     </>);
 }
+
+const optionRowInputClasses = "\
+px-2 py-1 h-6 \
+\
+text-mani-foreground bg-mani-background \
+\
+border-mani-border-muted border \
+\
+rounded-sm \
+outline-none";

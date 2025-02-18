@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 export type SelectNameValueItem = string | readonly [label: ReactNode, value: string];
@@ -12,11 +12,6 @@ type ExtPolicySelectUiProps = StringValueChangeProps & {
     items: SelectNameValueItem[];
     defaultLabel?: string;
 };
-
-const popupContentClasses = "\
-h-6 \
-text-primary-900 dark:text-primary-300 \
-bg-primary-100 dark:bg-primary-900";
 
 export function ExtPolicySelectUi({ items, defaultLabel, value, onValueChange }: ExtPolicySelectUiProps) {
     return (
@@ -44,3 +39,8 @@ export function ExtPolicySelectUi({ items, defaultLabel, value, onValueChange }:
         </Select>
     );
 }
+
+const popupContentClasses = "\
+h-6 \
+text-primary-900 dark:text-primary-300 \
+bg-primary-100 dark:bg-primary-900";

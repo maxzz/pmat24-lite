@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { FormIdx } from "@/store/manifest";

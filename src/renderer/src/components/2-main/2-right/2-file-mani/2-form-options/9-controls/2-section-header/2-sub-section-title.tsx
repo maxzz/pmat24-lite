@@ -1,8 +1,8 @@
 import { PrimitiveAtom, useAtom } from "jotai";
+import { useSnapshot } from "valtio";
+import { classNames } from "@/utils";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
-import { classNames } from "@/utils";
-import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { FormIdx } from "@/store/manifest";
 // import { SlidersButton } from "../3-sliders-button";
@@ -77,22 +77,6 @@ import { FormIdx } from "@/store/manifest";
     </div> 
 */}
 
-const sectionClasses = "\
-col-span-2 \
-\
-1first:mt-1.5 mt-1 1mb-2 1pb-1 \
-\
-1text-sm \
-font-normal \
-1text-mani-title \
-1bg-muted \
-1border-mani-title \
-border-border \
-1border-t \
-1border-b \
-flex items-center gap-1 \
-";
-
 export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
 
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -116,3 +100,19 @@ export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string
         </div>
     );
 }
+
+const sectionClasses = "\
+col-span-2 \
+\
+1first:mt-1.5 mt-1 1mb-2 1pb-1 \
+\
+1text-sm \
+font-normal \
+1text-mani-title \
+1bg-muted \
+1border-mani-title \
+border-border \
+1border-t \
+1border-b \
+flex items-center gap-1 \
+";

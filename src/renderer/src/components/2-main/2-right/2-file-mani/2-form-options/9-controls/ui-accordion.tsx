@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { a, useSpring } from '@react-spring/web';
 import { useMeasure } from 'react-use';
 import { classNames, disableHiddenChildren } from '@/utils';
