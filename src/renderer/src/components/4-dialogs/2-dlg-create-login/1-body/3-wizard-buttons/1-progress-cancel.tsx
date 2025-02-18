@@ -1,10 +1,12 @@
 import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "framer-motion";
 import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
 import { newManiCtx } from "../0-new-mani-ctx";
+import { napiBuildProgress } from "@/store/7-napi-atoms";
 
-export function ControlsScanProgressBar({ className }: { className?: string; }) {
+export function ProgressBarControlsScan({ className }: { className?: string; }) {
 
     const showProgressBar = useAtomValue(newManiCtx.showControlsScanProgressAtom);
 
@@ -16,7 +18,7 @@ export function ControlsScanProgressBar({ className }: { className?: string; }) 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9, transition: { delay: 0 } }}
-                    transition={{ duration: 0.7, delay: 2 }}
+                    transition={{ duration: 0.7, delay: .2 }}
                 >
                     Collecting controls...
                     <BarsLoader className="w-6 h-4 text-orange-500 [--barh:100%] [--framew:4px] [--speed:1s]" title="Refresh windows list" />
@@ -24,6 +26,8 @@ export function ControlsScanProgressBar({ className }: { className?: string; }) 
                     <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1}> {/* onClick={() => sendToMain({ type: 'cancel-detection' })} */}
                         Cancel
                     </Button>
+
+                    <BuildCounter />
                 </motion.div>
             )}
 
@@ -32,3 +36,13 @@ export function ControlsScanProgressBar({ className }: { className?: string; }) 
 }
 
 const cancelButtonClasses = "ml-2 text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
+
+function BuildCounter() {
+    const { buildCounter } = useSnapshot(napiBuildProgress);
+    if (buildCounter < 200) {
+        return null;
+    }
+    return (
+        <div className="text-xs text-foreground/50">{buildCounter}</div>
+    );
+}

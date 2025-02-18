@@ -25,11 +25,11 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                             return;
                         }
 
-                        //console.log(`--- collector 1: "${str}"`);
+                        // console.log(`--- collector 1: "${str}"`);
                         
                         const res: Exclude<ManifestForWindowCreatorResult, string> = JSON.parse(str || '{}');
 
-                        //console.log('---collector 2', res);
+                        // console.log('---collector 2', res);
 
                         if (mainStore.cancelDetection) {
                             collector.cancel();
@@ -45,6 +45,7 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                                 return;
                             }
 
+                            // console.log('m2r:detection-progress', res.progress);
                             mainToRenderer({ type: 'm2r:detection-progress', progress: res.progress });
                             return;
                         }

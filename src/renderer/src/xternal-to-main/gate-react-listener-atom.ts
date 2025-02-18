@@ -36,6 +36,7 @@ export const doFromMainAtom = atom(
             // napi
 
             case 'm2r:detection-progress': {
+                // console.log('m2r:detection-progress', data.progress);
                 napiBuildProgress.buildCounter = data.progress;
                 break;
             }
