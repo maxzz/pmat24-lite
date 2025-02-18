@@ -14,16 +14,6 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;
 };
 
-const rowLocalClasses = "\
-mx-1 py-px leading-6 \
-grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
-\
-text-foreground bg-background \
-hover:text-accent-foreground hover:bg-muted \
-cursor-pointer";
-
-const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
-
 function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
@@ -55,3 +45,13 @@ function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowPro
 }
 
 export const SingleRow = motion.create(forwardRef(SingleRowWRef));
+
+const rowLocalClasses = "\
+mx-1 py-px leading-6 \
+grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
+\
+text-foreground bg-background \
+hover:text-accent-foreground hover:bg-muted \
+cursor-pointer";
+
+const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;

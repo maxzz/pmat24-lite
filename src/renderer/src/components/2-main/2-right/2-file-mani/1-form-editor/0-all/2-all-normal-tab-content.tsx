@@ -1,8 +1,6 @@
 import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
 
-const labelClasses = "ml-2 mt-1 -mb-1 text-xs font-semibold select-none";
-
 export function NormalFormTabContent({ ctx }: { ctx: NFormContextProps; }) {
     const hasFields = !!ctx.nAllAtoms.normal.rowCtxs.length;
     return (
@@ -24,3 +22,5 @@ export function NormalFormTabContent({ ctx }: { ctx: NFormContextProps; }) {
         </div>
     );
 }
+
+const labelClasses = "ml-2 mt-1 -mb-1 text-xs font-semibold select-none";

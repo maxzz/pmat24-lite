@@ -9,8 +9,8 @@ import { ScrollArea } from "@/ui";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
 
-    const cb = useInitSelectedIdx(ctx.mAllAtoms.manual);
-    useEffect(() => { cb(); }, []);
+    const initCb = useInitSelectedIdx(ctx.mAllAtoms.manual);
+    useEffect(() => { initCb(); }, []);
 
     return (
         <div className={classNames("p-1 pr-0 h-full border-border border rounded flex flex-col space-y-1 select-none", focusWithinClasses, className)} {...rest}>
