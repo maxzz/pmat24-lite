@@ -1,14 +1,16 @@
+import { type ComponentPropsWithoutRef } from "react";
+import { classNames } from "@/utils";
 import { type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 
-export function ManualModeView({ ctx }: { ctx: MFormContextProps; }) {
-    return (<>
-        <div className={manualModeViewClasses}>
+export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+    return (
+        <div className={classNames(manualModeViewClasses, className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
         </div>
-    </>);
+    );
 }
 
 const manualModeViewClasses = "\
