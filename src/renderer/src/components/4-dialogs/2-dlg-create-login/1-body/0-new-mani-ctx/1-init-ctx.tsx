@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, type Setter } from "jotai";
 import { type NewManiCtx } from "./0-ctx";
 import { wizardFirstPage } from "./8-step-items-data";
 import { allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
@@ -24,3 +24,8 @@ export function create_DoInitNewManiCtxAtom() {
 }
 
 export type DoInitNewManiCtxAtom = ReturnType<typeof create_DoInitNewManiCtxAtom>;
+
+export function clearManiData(newManiCtx: NewManiCtx, set: Setter) {
+    set(newManiCtx.maniXmlAtom, undefined);
+    set(newManiCtx.fileUsAtom, undefined);
+}

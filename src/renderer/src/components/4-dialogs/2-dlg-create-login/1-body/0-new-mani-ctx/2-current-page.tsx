@@ -52,7 +52,9 @@ export function create_DoAdvancePageAtom() {
                     if (!move) {
                         return;
                     }
-                } else if (newPage === WizardPage.options) {
+                } else if (newPage === wizardLastPage) {
+                    //TODO: save
+                    //TODO: update loaded counters in the files list on the left
                 }
             }
 
