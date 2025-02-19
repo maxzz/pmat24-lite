@@ -22,43 +22,45 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
     }
 
     const maniXml = get(newManiCtx.maniXmlAtom);
+    if (maniXml) {
+        return true;
+    }
 
-    if (!maniXml) {
-        // 0. Claen up the context before parsing
-        clearManiCtxManiData(newManiCtx, set);
+    // 0. Claen up the context before parsing
+    clearManiCtxManiData(newManiCtx, set);
 
-        set(newManiCtx.showControlsScanProgressAtom, true);
+    set(newManiCtx.showControlsScanProgressAtom, true);
 
-        // 1. Get manifest as maniXml from the window
-        await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
-        const sawManiXml = get(sawManiXmlAtom);
+    // 1. Get manifest as maniXml from the window
+    await set(doGetWindowManiAtom, { hwnd: selectedApp.item.hwnd, wantXml: true });
+    const sawManiXml = get(sawManiXmlAtom);
 
-        set(newManiCtx.showControlsScanProgressAtom, false);
+    set(newManiCtx.showControlsScanProgressAtom, false);
 
-        // 2. Save maniXml to the context
-        if (!sawManiXml) {
-            set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.')); //TODO: you can define manifest content manually
-            return false;
-        }
+    // 2. Save maniXml to the context
+    if (!sawManiXml) {
+        set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.')); //TODO: you can define manifest content manually
+        return false;
+    }
 
-        set(newManiCtx.maniXmlAtom, sawManiXml);
+    set(newManiCtx.maniXmlAtom, sawManiXml);
+
+    // 3. Parse maniXml to fileUs
+    try {
+        const fileContent: FileContent = createFileContent(sawManiXml);
+        const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
         //TODO: check created manifest content manually checkbox
 
-        // 3. Parse maniXml to fileUs
-        try {
-            const fileContent: FileContent = createFileContent(sawManiXml);
-            const fileUs: FileUs = createFileUsFromFileContent(fileContent);
+        set(newManiCtx.fileUsAtom, fileUs);
+        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiCtx.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
+    } catch (error) {
+        clearManiCtxManiData(newManiCtx, set);
 
-            set(newManiCtx.fileUsAtom, fileUs);
-            set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiCtx.fileUsAtom as FileUsAtom)); // cast here to remove undefined
-        } catch (error) {
-            clearManiCtxManiData(newManiCtx, set);
-            const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
-            console.error(msg);
-            set(doAddNextToastIdAtom, toast.error(msg));
-            return false;
-        }
+        const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
+        console.error(msg);
+        set(doAddNextToastIdAtom, toast.error(msg));
+        return false;
     }
 
     return true;
