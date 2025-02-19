@@ -4,6 +4,7 @@ import { appSettings } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
 import { newManiCtx } from "../../../0-new-mani-ctx";
+import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 
 export function BodyNewMani() {
@@ -15,11 +16,7 @@ export function BodyNewMani() {
     }
     return (<>
         <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
-            WIP:
-            <br />
-            options
-            <br />
-            fields editor
+            <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
             <ManiEditorAllOptions fileUs={fileUs} />
         </ScrollArea>
     </>);
