@@ -18,6 +18,8 @@ export class NewManiCtx {
     appSelectedIdxAtom: AppSelectedIdxAtom;      // selected application index
     doRefreshAppsAtom: DoRefreshAppsAtom;        // refresh apps
 
+    createAsManualAtom: PA<boolean>;             // create new manifest manually
+
     maniXmlAtom: PA<string | undefined>;         // xml of the selected application
     fileUsAtom: PA<FileUs | undefined>;          // fileUs of the selected application
 
@@ -37,6 +39,8 @@ export class NewManiCtx {
 
         this.appSelectedIdxAtom = create_AppSelectedIdxAtom();
         this.doRefreshAppsAtom = create_DoRefreshAppsAtom();
+
+        this.createAsManualAtom = atom(false);
 
         this.maniXmlAtom = atom<string | undefined>(undefined);
         this.fileUsAtom = atom<FileUs | undefined>(undefined);

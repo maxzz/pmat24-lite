@@ -6,10 +6,15 @@ import { allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from 
 export function create_DoInitNewManiCtxAtom() {
     return atom(
         null,
-        (get, set, {ctx}: {ctx: NewManiCtx}) => {
+        (get, set, { ctx }: { ctx: NewManiCtx; }) => {
             set(ctx.pageAndDirectionAtom, [wizardFirstPage, 0]);
+
             set(ctx.appSelectedIdxAtom, -1);
+            set(ctx.createAsManualAtom, false);
+
             set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
+
+            clearManiCtxManiData(ctx, set);
 
             ctx.appsScrollPos.setTop(0);
 

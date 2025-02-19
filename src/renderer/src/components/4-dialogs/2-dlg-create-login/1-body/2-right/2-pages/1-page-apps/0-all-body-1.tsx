@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import { Checkbox, PreserveScrollArea } from "@/ui";
 import { newManiCtx, WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
@@ -5,6 +6,7 @@ import { AppsGrid } from "./1-apps-grid";
 import { ButtonReloadApps } from "./2-button-refresh-apps";
 
 export function Page1AppsBody() {
+    const [createAsManual, setCreateAsManual] = useAtom(newManiCtx.createAsManualAtom);
     return (
         <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
             <div className="flex items-center justify-between gap-2">
@@ -24,8 +26,8 @@ export function Page1AppsBody() {
                 </div>
             </div>
 
-            <div className="px-3 pb-3 flex items-center  gap-2">
-                <Checkbox className="" checked={true} />
+            <div className="px-3 pb-3 flex items-center gap-2">
+                <Checkbox checked={createAsManual} onCheckedChange={(v: boolean) => setCreateAsManual(v)} />
                 Define manifest content manually
             </div>
         </div>
