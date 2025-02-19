@@ -16,8 +16,7 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
     async function callUpdateAppsList() {
         if (refreshInProgress) {
-            console.error('updateApps - refresh disabled');
-            return;
+            return; // It's double protected already by button disabled state
         }
 
         setRefreshInProgress(true);
