@@ -25,7 +25,7 @@ export function create_DoInitNewManiCtxAtom() {
 
 export type DoInitNewManiCtxAtom = ReturnType<typeof create_DoInitNewManiCtxAtom>;
 
-export function clearManiData(newManiCtx: NewManiCtx, set: Setter) {
+export function clearManiCtxManiData(newManiCtx: NewManiCtx, set: Setter) {
     set(newManiCtx.maniXmlAtom, undefined);
     set(newManiCtx.fileUsAtom, undefined);
 }

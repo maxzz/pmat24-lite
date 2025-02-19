@@ -8,6 +8,7 @@ import { appSelectedAppAtom } from "./4-selected-app";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiCtx } from "./0-ctx";
+import { clearManiCtxManiData } from "./1-init-ctx";
 
 /**
  * Create new manifest and allow to move to the next page.
@@ -24,8 +25,7 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
 
     if (!maniXml) {
         // 0. Claen up the context before parsing
-        set(newManiCtx.maniXmlAtom, undefined);
-        set(newManiCtx.fileUsAtom, undefined);
+        clearManiCtxManiData(newManiCtx, set);
 
         set(newManiCtx.showControlsScanProgressAtom, true);
 
@@ -53,15 +53,12 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
             set(newManiCtx.fileUsAtom, fileUs);
             set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiCtx.fileUsAtom as FileUsAtom)); // cast here to remove undefined
         } catch (error) {
+            clearManiCtxManiData(newManiCtx, set);
             const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
             console.error(msg);
             set(doAddNextToastIdAtom, toast.error(msg));
             return false;
         }
-
-        // 4. done
-
-        console.log('sawManiXml', sawManiXml);
     }
 
     return true;
