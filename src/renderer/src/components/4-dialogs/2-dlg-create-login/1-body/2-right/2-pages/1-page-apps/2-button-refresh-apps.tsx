@@ -1,6 +1,6 @@
 import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
-import { classNames, errorToString, useAutoCleanupToast } from "@/utils";
+import { classNames, doAddNextToastIdAtom, errorToString } from "@/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/ui/shadcn";
 import { toast } from "sonner";
@@ -10,7 +10,7 @@ import { BarsLoader } from "@/ui";
 
 export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const doRefreshApps = useSetAtom(newManiCtx.doRefreshAppsAtom);
-    const setToastId = useAutoCleanupToast();
+    const setToastId = useSetAtom(doAddNextToastIdAtom);
 
     const [refreshEnabled, setRefreshEnabled] = useState(true);
 
@@ -34,19 +34,7 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
     return (
         <div className="flex items-center gap-3">
-            <AnimatePresence>
-                {!refreshEnabled &&
-                    <motion.div
-                        className="flex flex-col items-center"
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1.1, opacity: 1 }}
-                        exit={{ scale: 0.9, opacity: 0 }}
-                    >
-                        <span className="text-[.65rem]">Updating...</span>
-                        <BarsLoader className="w-6 h-4 text-sky-500 [--barh:5%] [--framew:1px]" title="Refresh windows list" />
-                    </motion.div>
-                }
-            </AnimatePresence>
+            <ProgressFeedback showProgress={refreshEnabled} />
 
             <Button
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
@@ -63,5 +51,23 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
                 {/* <IconRefresh className="size-3" title="Refresh windows list" /> */}
             </Button>
         </div>
+    );
+}
+
+function ProgressFeedback({ showProgress }: { showProgress: boolean; }) {
+    return (
+        <AnimatePresence>
+            {!showProgress && (
+                <motion.div
+                    className="flex flex-col items-center"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1.1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                >
+                    <span className="text-[.65rem]">Updating...</span>
+                    <BarsLoader className="w-6 h-4 text-sky-500 [--barh:5%] [--framew:1px]" title="Refresh windows list" />
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }
