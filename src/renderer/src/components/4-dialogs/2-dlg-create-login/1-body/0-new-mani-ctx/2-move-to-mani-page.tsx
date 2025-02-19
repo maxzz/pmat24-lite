@@ -6,7 +6,8 @@ import { appSelectedAppAtom } from "./4-selected-app";
 import { newManiCtx } from "./0-ctx";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
 import { type FileContent } from "@shared/ipc-types";
-import { type FileUs } from "@/store";
+import { type FileUsAtom, type FileUs } from "@/store";
+import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 
 /**
  * Create new manifest and allow to move to the next page.
@@ -50,6 +51,7 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
             const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
             set(newManiCtx.fileUsAtom, fileUs);
+            set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiCtx.fileUsAtom as FileUsAtom)); // to remove undefined
 
             console.log('fileUs', fileUs);
 

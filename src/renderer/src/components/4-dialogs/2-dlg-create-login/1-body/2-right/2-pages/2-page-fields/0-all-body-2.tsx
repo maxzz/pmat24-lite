@@ -3,7 +3,7 @@ import { debugSettings } from "@/store";
 import { WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { BodyRawXml } from "./1-body-xml";
-import { BodyRawMani } from "./2-body-mani";
+import { BodyNewMani } from "./2-body-mani";
 
 export function Page2FieldsBody() {
     const { showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);
@@ -15,7 +15,7 @@ export function Page2FieldsBody() {
                 <div className="absolute inset-0">
                     {showCreateSrcCode
                         ? <BodyRawXml />
-                        : <BodyRawMani />
+                        : <BodyNewMani />
                     }
                 </div>
             </div>
