@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { Checkbox, PreserveScrollArea } from "@/ui";
+import { Checkbox, Label, PreserveScrollArea } from "@/ui";
 import { newManiCtx, WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
@@ -26,10 +26,10 @@ export function Page1AppsBody() {
                 </div>
             </div>
 
-            <div className="px-3 pb-3 flex items-center gap-2">
+            <Label className="place-self-start px-3 pb-3 inline-flex items-center gap-2 cursor-pointer">
                 <Checkbox checked={createAsManual} onCheckedChange={(v: boolean) => setCreateAsManual(v)} />
                 Define manifest content manually
-            </div>
+            </Label>
         </div>
     );
 }
