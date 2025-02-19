@@ -23,7 +23,7 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
         setRefreshEnabled(false);
         try {
             await doRefreshApps();
-            setToastId(toast('Updated'));
+            setToastId(toast.info('Windows list updated'));
         } catch (error) {
             const msg = errorToString(error);
             console.error(`'updateApps' ${msg}`);
@@ -34,7 +34,7 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
 
     return (
         <div className="flex items-center gap-3">
-            <ProgressFeedback showProgress={refreshEnabled} />
+            <ProgressFeedback hideProgress={refreshEnabled} />
 
             <Button
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
@@ -54,10 +54,10 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     );
 }
 
-function ProgressFeedback({ showProgress }: { showProgress: boolean; }) {
+function ProgressFeedback({ hideProgress }: { hideProgress: boolean; }) {
     return (
         <AnimatePresence>
-            {!showProgress && (
+            {!hideProgress && (
                 <motion.div
                     className="flex flex-col items-center"
                     initial={{ scale: 0.9, opacity: 0 }}
