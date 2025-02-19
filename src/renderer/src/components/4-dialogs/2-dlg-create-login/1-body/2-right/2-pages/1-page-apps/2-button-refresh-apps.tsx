@@ -12,15 +12,15 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const doRefreshApps = useSetAtom(newManiCtx.doRefreshAppsAtom);
     const setToastId = useSetAtom(doAddNextToastIdAtom);
 
-    const [refreshEnabled, setRefreshEnabled] = useState(true);
+    const [refreshInProgress, setRefreshInProgress] = useState(false);
 
     async function callUpdateAppsList() {
-        if (!refreshEnabled) {
+        if (refreshInProgress) {
             console.error('updateApps - refresh disabled');
             return;
         }
 
-        setRefreshEnabled(false);
+        setRefreshInProgress(true);
         try {
             await doRefreshApps();
             setToastId(toast.info('Windows list updated'));
@@ -29,17 +29,17 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
             console.error(`'updateApps' ${msg}`);
             toast.error(`'updateApps' ${msg}`);
         }
-        setRefreshEnabled(true);
+        setRefreshInProgress(false);
     }
 
     return (
         <div className="flex items-center gap-3">
-            <ProgressFeedback hideProgress={refreshEnabled} />
+            <ProgressFeedback refreshInProgress={refreshInProgress} />
 
             <Button
                 className={classNames("self-end mr-3", className)} variant="outline" size="xs" tabIndex={-1}
                 onClick={callUpdateAppsList}
-                disabled={!refreshEnabled}
+                disabled={refreshInProgress}
                 title="Refresh window list"
             >
                 <motion.div
@@ -54,10 +54,10 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     );
 }
 
-function ProgressFeedback({ hideProgress }: { hideProgress: boolean; }) {
+function ProgressFeedback({ refreshInProgress }: { refreshInProgress: boolean; }) {
     return (
         <AnimatePresence>
-            {!hideProgress && (
+            {refreshInProgress && (
                 <motion.div
                     className="flex flex-col items-center"
                     initial={{ scale: 0.9, opacity: 0 }}
