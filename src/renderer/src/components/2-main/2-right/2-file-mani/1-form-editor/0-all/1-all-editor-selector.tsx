@@ -34,7 +34,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     if (formAtoms.normal) {
         const ctx: NFormContextProps = { maniAtoms, nAllAtoms: formAtoms as NFormAtoms, formIdx };
         return (
-            <NormalFormTabContent ctx={ctx} {...rest} />
+            <NormalFormTabContent ctx={ctx} />
         );
     }
 
