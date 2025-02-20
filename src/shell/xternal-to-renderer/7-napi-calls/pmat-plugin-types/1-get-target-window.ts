@@ -13,6 +13,6 @@ export type GetTargetWindowResult = {   // SAW - Second Active Window
     isBrowser: boolean;                 // True if the process is web browser, false otherwise.
 };
 
-export interface getTargetWindow {
+export interface GetTargetWindow {
     (getTargetWindowParams: string, cb: PluginDataCallback): void;
 }

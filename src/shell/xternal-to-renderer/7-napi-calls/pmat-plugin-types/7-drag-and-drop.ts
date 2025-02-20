@@ -20,6 +20,6 @@ export type DragAndDropResult = {
     status: 'progress' | 'done';        // TODO: status 'done' never returns
 } & TargetPosition;
 
-export interface dragAndDrop {
+export interface DragAndDrop {
     (DragAndDropParams: string, cb: PluginDataCallback): void;
 }

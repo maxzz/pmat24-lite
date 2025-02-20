@@ -1,5 +1,5 @@
 import { addon } from "./0-addon";
-import { type GetTlwScreenshotsParams } from "./pmat-plugin-types";
+import { type GetTlwInfoParams, type GetTlwScreenshotsParams } from "./pmat-plugin-types";
 
 /**
  * Get top-level Windows information
@@ -7,9 +7,10 @@ import { type GetTlwScreenshotsParams } from "./pmat-plugin-types";
 export async function getTlwInfos() {
     return new Promise<string>(
         (resolve, reject) => {
-            const params = '{}'; // TODO: params type definition is missing
+            const params: GetTlwInfoParams = {};
+            const paramsStr = JSON.stringify(params);
 
-            addon.getTopLevelWindowsInfo(params,
+            addon.getTopLevelWindowsInfo(paramsStr,
                 (err: string, data: string) => {
                     if (err) {
                         reject(err);

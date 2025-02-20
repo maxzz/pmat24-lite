@@ -8,7 +8,7 @@ export type TlwData = {
     caption: string;                    // "ipc-invoke.ts - electron-window-monitor - Visual Studio Code",
     classname: string;
     isBrowser: boolean;                 // True if the process is web browser, false otherwise.
-    data: Base64String;                 // image data in base64 format
+    data: Base64String;                 // base64 encoded image data
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
     format: ImageFormatType;            // "png" or "jpg"
@@ -30,6 +30,9 @@ export type TlwScreenshot = TlwData | TlwError; // Discriminated union of "data"
 
 // 1. Get a list of top-level windows
 
+export type GetTlwInfoParams = {        //TODO: for type GetTlwInfo param GetNumberOfTLWindowsParams was not defined
+};
+
 export type TlwInfo = {
     hwnd: string;
     classname: string;                  // like "Chrome_WidgetWin_1"; that will allow us sort out windows and show browser windows first
@@ -41,7 +44,7 @@ export type GetTlwInfoResult = {
     windows: TlwInfo[];
 };
 
-export interface getTopLevelWindowsInfo {
+export interface GetTlwInfos {
     (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
 }
 
@@ -55,6 +58,6 @@ export type GetTlwScreenshotsParams = {
 
 export type GetTlwScreenshotsResult = TlwScreenshot[];
 
-export interface getTopLevelWindowsScreenshots {
+export interface GetTlwScreenshots {
     (GetTLWScreenshotsParams: string, cb: PluginDataCallback): void;
 }
