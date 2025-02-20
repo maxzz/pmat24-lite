@@ -47,9 +47,7 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
 
     // 3. Parse maniXml to fileUs
     try {
-        const sawManiXmlResult = JSON.parse(sawManiXml || '{}') as ManifestCreationDataResult;
-
-        const fileContent: FileContent = createFileContent(sawManiXmlResult.xml);
+        const fileContent: FileContent = createFileContent(sawManiXml);
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
         //TODO: check created manifest content manually checkbox

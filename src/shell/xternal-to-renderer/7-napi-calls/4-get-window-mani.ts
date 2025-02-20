@@ -16,20 +16,9 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                         reject(err);
                         return;
                     }
-                    //console.log(`parse collector:\n>>>\n${str}\n<<<`);
 
                     try {
-                        const isFinalResultXml = wantXml && str.charAt(0) === '<'; // otherwise it's progress
-                        if (isFinalResultXml) {
-                            resolve(str);
-                            return;
-                        }
-
-                        // console.log(`--- collector 1: "${str}"`);
-                        
-                        const res: Exclude<ManifestForWindowCreatorResult, string> = JSON.parse(str || '{}');
-
-                        // console.log('---collector 2', res);
+                        const res: ManifestForWindowCreatorResult = JSON.parse(str || '{}');
 
                         if (mainStore.cancelDetection) {
                             collector.cancel();
@@ -38,20 +27,28 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                             return;
                         }
 
-                        if ('state' in res) {
+                        if (res.type === 'progress') {
                             if (mainStore.maxControls !== 0 && res.progress > mainStore.maxControls) {
                                 collector.cancel();
                                 reject(`>>>Too many controls (more then ${mainStore.maxControls})`);
                                 return;
                             }
 
-                            // console.log('m2r:detection-progress', res.progress);
                             mainToRenderer({ type: 'm2r:detection-progress', progress: res.progress });
                             return;
                         }
 
-                        resolve(str);
-                        //console.log('final:', JSON.stringify(res));
+                        if (res.type === 'error') {
+                            reject(`>>>${res.error}`);
+                            return;
+                        }
+
+                        if (res.type === 'data') {
+                            resolve(res.xml);
+                            return;
+                        }
+
+                        reject(`>>>Unknown result type: ${JSON.stringify(res)}`);
                     } catch (error) {
                         const msg = `>>>${error instanceof Error ? error.message : `${error}`}`;
                         reject(msg);
