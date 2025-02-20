@@ -1,6 +1,6 @@
 import { atom, Getter, Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
-import { type WindowControlsCollectFinal } from "@shared/ipc-types";
+import { type WindowControlsCollectResult } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { setLocalState } from "../3-do-get-controls";
@@ -8,7 +8,7 @@ import { doLoadFakeManiAtom, debugSettings } from "@/store/1-atoms";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
 export const sawManiXmlAtom = atom<string | undefined>(undefined);          // raw xml string from napi if called with wantXml
-export const sawManiAtom = atom<WindowControlsCollectFinal | null>(null);   // reply with controls and pool
+export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // reply with controls and pool
 
 export const doGetWindowManiAtom = atom(
     null,
@@ -51,7 +51,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
             console.log(`doGetWindowManiXmlAtom.set\n${res}`);
         } else {
-            const reply = JSON.parse(res || '{}') as WindowControlsCollectFinal;
+            const reply = JSON.parse(res || '{}') as WindowControlsCollectResult;
             const final = reply.pool && reply.controls?.length ? reply : null;
             set(sawManiAtom, final);
 

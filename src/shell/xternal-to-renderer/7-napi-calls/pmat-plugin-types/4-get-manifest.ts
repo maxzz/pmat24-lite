@@ -6,7 +6,23 @@ export type ManifestForWindowCreatorParams = {
     wantXml: boolean;
 };
 
-export type ManifestForWindowCreatorResult = WindowControlsCollectProgress | object | string;
+export type ManifestCreationDataResult = {
+    type: 'data';
+    xml: string;                   // string in xml or json format depending on ManifestForWindowCreatorParams.wantXml
+}
+export type ManifestCreationError = {
+    type: 'error';
+    error: BrowserExtErrors;
+}
+
+export type BrowserExtErrors = 
+    | 'noBrExt'                    // No extension detected
+    | 'obsoleteBrExt'              // Obsolete extension detected (DPAgent is OK but the extension has not replied)
+    | 'incompatiblePM'             // DPAgent has not replied
+    | 'noControls';                // Desktop app does not have any editable controls
+
+export type ManifestForWindowCreatorResult = WindowControlsCollectProgress | ManifestCreationError | ManifestCreationDataResult;
+
 
 export interface ManifestForWindowCreator {
     new(): ManifestForWindowCreator;
@@ -14,6 +30,6 @@ export interface ManifestForWindowCreator {
     cancel(): void;
 }
 
-export type ManifestForWindowCreatorFinalAfterParse =
-    | object    // TODO: define manifest fields
-    | string;   // xml string if started with '<' character
+// export type ManifestForWindowCreatorFinalAfterParse =
+//     | ManifestCreationError
+//     | string;   // xml string if started with '<' character

@@ -6,6 +6,8 @@ export type TlwData = {
     type: 'data';
     hwnd: string;                       // "000000000014103E", // hwnd should be string because int64 and js number types are different
     caption: string;                    // "ipc-invoke.ts - electron-window-monitor - Visual Studio Code",
+    classname: string;
+    isBrowser: boolean;                 // True if the process is web browser, false otherwise.
     data: Base64String;                 // image data in base64 format
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
@@ -16,6 +18,8 @@ export type TlwError = {
     type: 'error';
     hwnd: string;
     errorCode: TlwErrorCode;
+    classname: string;
+    caption: string
 };
 
 export type TlwErrorCode =              // not negative values, to avoid c++ to js conversion issues (long, short, etc)
@@ -30,6 +34,7 @@ export type TlwInfo = {
     hwnd: string;
     classname: string;                  // like "Chrome_WidgetWin_1"; that will allow us sort out windows and show browser windows first
     caption: string;                    // "ipc-invoke.ts - electron-window-monitor - Visual Studio Code",
+    isBrowser: boolean;                 // True if the process is web browser, false otherwise.
 };
 
 export type GetTlwInfoResult = {
@@ -37,7 +42,7 @@ export type GetTlwInfoResult = {
 };
 
 export interface getTopLevelWindowsInfo {
-    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void; // TODO: params type definition is missing. there is no params so define as an empty object
+    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
 }
 
 // 2. Get top-level window screenshots

@@ -7,16 +7,17 @@ export type WindowControlsCollectorCollectParams = {
 };
 
 export type WindowControlsCollectProgress = {
+    type: 'progress';
     state: 'start' | 'progress' | 'done';
     progress: number;
 };
 
-export type WindowControlsCollectFinal = {
+export type WindowControlsCollectResult = {
     pool: string;
     controls: string[];
 };
 
-export type WindowControlsCollectorCollectResult = WindowControlsCollectProgress | WindowControlsCollectFinal;
+export type WindowControlsCollectorCollectResult = WindowControlsCollectProgress | WindowControlsCollectResult;
 
 export interface WindowControlsCollector {
     new(): WindowControlsCollector;

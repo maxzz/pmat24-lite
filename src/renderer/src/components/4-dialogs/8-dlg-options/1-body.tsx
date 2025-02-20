@@ -3,7 +3,6 @@ import { appSettings, debugSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, Checkbox, Input, Label } from "@/ui";
 import { classNames } from "@/utils";
-import { c } from "vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
