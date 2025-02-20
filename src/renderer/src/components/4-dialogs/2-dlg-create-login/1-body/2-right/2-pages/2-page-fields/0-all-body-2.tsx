@@ -8,7 +8,7 @@ import { BodyNewMani } from "./2-body-mani";
 export function Page2FieldsBody() {
     const { showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);
     return (
-        <div className="h-full text-xs bg-sky-300 grid grid-rows-[auto,1fr,auto]">
+        <div className="h-full text-xs 1bg-sky-300 grid grid-rows-[auto,1fr,auto]">
             <WizardPageHeader page={WizardPage.fields} />
 
             <div className="relative size-full">

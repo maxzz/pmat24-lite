@@ -52,11 +52,11 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                     </TabsContent>
 
                     <TabsContent value="login" tabIndex={-1}>
-                        <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
+                        <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
                     <TabsContent value="cpass" tabIndex={-1}>
-                        <ManiEditorFormSelector fileUs={fileUs} formIdx={1} />
+                        <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
                 </ScrollArea>

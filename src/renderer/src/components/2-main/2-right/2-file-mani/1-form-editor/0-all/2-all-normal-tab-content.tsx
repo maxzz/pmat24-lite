@@ -6,12 +6,12 @@ import { FieldsGrid, TabSubmit } from "../1-normal";
 export function NormalFormTabContent({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFields = !!ctx.nAllAtoms.normal.rowCtxs.length;
     return (
-        <div className={classNames("mr-0.5 h-full flex flex-col", className)} {...rest}>
+        <div className={classNames("flex flex-col", className)} {...rest}>
 
             <div className={labelClasses}>
                 Form fields
             </div>
-            
+
             <FieldsGrid ctx={ctx} />
 
             {hasFields && (<>
