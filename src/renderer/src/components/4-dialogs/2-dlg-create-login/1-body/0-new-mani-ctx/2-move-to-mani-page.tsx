@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
-import { type FileContent } from "@shared/ipc-types";
+import { type ManifestCreationDataResult, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs } from "@/store";
 import { doGetWindowManiAtom, sawManiXmlAtom } from "@/store/7-napi-atoms";
 import { appSelectedAppAtom } from "./4-selected-app";
@@ -47,7 +47,9 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
 
     // 3. Parse maniXml to fileUs
     try {
-        const fileContent: FileContent = createFileContent(sawManiXml);
+        const sawManiXmlResult = JSON.parse(sawManiXml || '{}') as ManifestCreationDataResult;
+
+        const fileContent: FileContent = createFileContent(sawManiXmlResult.xml);
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
         //TODO: check created manifest content manually checkbox
