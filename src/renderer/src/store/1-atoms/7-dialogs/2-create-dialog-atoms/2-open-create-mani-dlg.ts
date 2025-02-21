@@ -1,4 +1,4 @@
-import { newManiCtx } from "@/components/4-dialogs/2-dlg-create-login/1-body/0-new-mani-ctx";
+import { newManiCtx } from "@/components/4-dialogs/2-dlg-create-login/0-new-mani-ctx";
 import { atom } from "jotai";
 
 // Former dialog as drawer atom

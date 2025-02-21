@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { debugSettings } from "@/store";
-import { WizardPage } from "../../../0-new-mani-ctx";
+import { WizardPage } from "../../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { BodyRawXml } from "./1-body-xml";
 import { BodyNewMani } from "./2-body-mani";

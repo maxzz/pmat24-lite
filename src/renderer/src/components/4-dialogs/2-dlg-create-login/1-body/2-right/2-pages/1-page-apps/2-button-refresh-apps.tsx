@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/ui/shadcn";
 import { toast } from "sonner";
 import { IconRefresh } from "@/ui/icons";
-import { newManiCtx } from "../../../0-new-mani-ctx";
+import { newManiCtx } from "../../../../0-new-mani-ctx";
 import { BarsLoader } from "@/ui";
 
 export function ButtonReloadApps({ className }: ComponentProps<"button">) {
