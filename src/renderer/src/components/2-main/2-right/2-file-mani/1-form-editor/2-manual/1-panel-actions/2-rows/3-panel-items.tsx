@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence } from "framer-motion";
 import { classNames } from "@/utils";
-import { rowParentActiveClasses } from "@/components/4-dialogs/4-field-catalog/3-items-grid/2-fld-cat-item-row";
+import { rowParentActiveClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
