@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { SecondPage, doOpenCreateDialogSecondAtom } from "@/store/1-atoms/7-dialogs";
 import * as D from "@/ui/shadcn/dialog";
 
-export function CreateManiSecondDialog() {
+export function DialogCreateManiSecondPage() {
     const [secondPageOpen, doOpenSecondPage] = useAtom(doOpenCreateDialogSecondAtom);
     if (!secondPageOpen) {
         return null;
