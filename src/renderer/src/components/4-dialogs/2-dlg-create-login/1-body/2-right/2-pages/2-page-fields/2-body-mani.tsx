@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
-import { newManiCtx } from "../../../../0-new-mani-ctx";
+import { newManiCtx } from "../../../0-new-mani-ctx";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 

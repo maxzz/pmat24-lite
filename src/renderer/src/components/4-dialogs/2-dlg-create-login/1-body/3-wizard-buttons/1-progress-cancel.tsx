@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
 import { R2MCalls } from "@/xternal-to-main";
-import { newManiCtx } from "../../0-new-mani-ctx";
+import { newManiCtx } from "../0-new-mani-ctx";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export function ProgressBarControlsScan({ className }: { className?: string; }) {

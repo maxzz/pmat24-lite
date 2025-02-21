@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
-import { newManiCtx } from "../../../../0-new-mani-ctx";
+import { newManiCtx } from "../../../0-new-mani-ctx";
 
 export function BodyRawXml() {
     const maniXml = useAtomValue(newManiCtx.maniXmlAtom);

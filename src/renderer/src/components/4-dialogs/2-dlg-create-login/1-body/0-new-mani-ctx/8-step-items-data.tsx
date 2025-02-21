@@ -1,4 +1,4 @@
-import { type StepItem } from "../1-body/8-create-ui/1-steps/9-types";
+import { type StepItem } from "../8-create-ui/1-steps/9-types";
 
 export enum WizardPage {
     apps,

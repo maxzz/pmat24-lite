@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { debugSettings } from "@/store";
-import { WizardPage, stepInfo } from "../../../0-new-mani-ctx";
+import { WizardPage, stepInfo } from "../../0-new-mani-ctx";
 import { Button } from "@/ui";
 import { SymbolCode } from "@/ui/icons";
 
