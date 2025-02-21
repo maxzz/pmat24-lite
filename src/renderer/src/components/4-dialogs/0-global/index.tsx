@@ -1,2 +1,2 @@
-export * from "./0-all";
-export * from "./1-global-shortcuts";
+export * from "./1-global-dialogs";
+export * from "./2-global-shortcuts";
