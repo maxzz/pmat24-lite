@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import * as Dr from "@ui/shadcn/drawer";
 import * as D from "@/ui/shadcn/dialog";
 import { doOpenCreateManiAtom } from "@/store/1-atoms/7-dialogs";
-import { WizardBody } from "../../2-dlg-w-screenshots/2-right/0-all-wizard";
+import { WizardBody } from "../2-right/0-all-wizard";
 
 export function DialogCreateManiV2_() {
     const [doOpenDrawer, setDoOpenDrawer] = useAtom(doOpenCreateManiAtom);
