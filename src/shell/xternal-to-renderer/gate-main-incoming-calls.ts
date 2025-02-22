@@ -54,6 +54,11 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
             break;
         }
 
+        case 'r2m:set-saw-mode': {
+            mainStore.sawModeIsOn = data.isOn;
+            break;
+        }
+
         // tests
         
         case 'r2m:file:load-test-manifests': {

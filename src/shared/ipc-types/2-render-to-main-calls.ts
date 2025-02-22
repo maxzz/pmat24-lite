@@ -47,6 +47,11 @@ export namespace R2M { // Main from Renderer
         rect: TargetClientRect;
     };
 
+    export type SetSawMode = {
+        type: 'r2m:set-saw-mode';
+        isOn: boolean;
+    };
+
     // tests
 
     export type LoadTestManifests = {   // will reply with 'm2r:loaded-files' from dialog
@@ -67,6 +72,7 @@ export namespace R2M { // Main from Renderer
         | SetNapiOptions
         | CancelDetection
         | HighlightRect
+        | SetSawMode
 
         | LoadManifestsDialog
         | StartTestFromMain
