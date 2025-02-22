@@ -3,7 +3,7 @@ import { R2M } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
 import { getElectronModulePaths, highlightRect } from "./7-napi-calls";
 import { mainToRenderer } from "./main-to-renderer";
-import { openFileDialogAndReply } from "./commands";
+import { openFileDialogAndReply, setSawMode } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";
 
 export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
@@ -56,6 +56,7 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
 
         case 'r2m:set-saw-mode': {
             mainStore.sawModeIsOn = data.isOn;
+            setSawMode(data.isOn);
             break;
         }
 

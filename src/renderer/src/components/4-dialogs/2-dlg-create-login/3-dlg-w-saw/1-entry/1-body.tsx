@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { hasMain } from "@/xternal-to-main";
+import { hasMain, sendToMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -12,6 +12,13 @@ export function DialogSawBody() {
 
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     useEffect(() => doDissmissNextToasts, []);
+
+    function startTest() {
+        if (!hasMain()) {
+            return;
+        }
+        sendToMain({ type: 'r2m:set-saw-mode', isOn: true });
+    }
 
     return (
         <div className="h-full flex flex-col">
@@ -39,6 +46,11 @@ export function DialogSawBody() {
             <div className="h-full grid grid-cols-[auto_1fr]">
                 {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBodyAnimation /> */}
+
+                <Button variant="ghost" size="sm" className="text-xs" onClick={() => startTest()}>
+                    <Cross2Icon className="size-4" />
+                </Button>
+                
             </div>
 
             {/* <WizardButtons className="py-3 border-t border-foreground/20" /> */}
