@@ -3,8 +3,9 @@ import { appSettings } from "@/store";
 import { TestOpenFiles } from "./8-1-test-open-files";
 import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
-import { TestCreateManifest } from "./7-1-create-mani";
-import { TestCreatewithDrawer } from "./7-2-create-mani-w-drawer";
+import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
+import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
+import { TestCreateWithSaw } from "./7-3-create-mani-w-saw";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
 // import { TestPolicyIcons } from "./8-3-test-policy-icons";
 
@@ -20,10 +21,13 @@ export function SectionHeader() {
             <div className="flex items-center gap-2">
                 {/* <TopMainDropdownMenu /> */}
 
-                <TestCreateManifest />
-                <TestCreatewithDrawer />
+                <TestCreateManiWithAppsList />
+                <TestCreateWithSaw />
+
                 <TestOpenFiles />
                 <TestOpenFieldCatalog />
+
+                <TestCreateWithSnapshots />
 
                 {/* <TestPolicyIcons /> */}
             </div>
