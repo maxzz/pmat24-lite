@@ -11,9 +11,6 @@ export function setSawMode(on: boolean): void {
         return;
     }
 
-    console.log('setSawMode:', on);
-
-
     if (on) {
         prevPos.pos = winApp.getPosition();
         prevPos.size = winApp.getSize();
