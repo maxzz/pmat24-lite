@@ -3,6 +3,7 @@ import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } 
 import { is } from '@electron-toolkit/utils';
 import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
 import icon from '../../../../resources/icon.png?asset'; // This is only for linux
+import { mainStore } from '@shell/store-main';
 
 const preloadPath = join(__dirname, '../preload/index.js');
 
@@ -43,7 +44,7 @@ export async function createWindow() {
     });
 
     winApp.on('close', () => {
-        winApp && saveIniFileOptions(winApp);
+        winApp && !mainStore.sawModeIsOn && saveIniFileOptions(winApp);
     });
 
     winApp.webContents.setWindowOpenHandler((details) => {
