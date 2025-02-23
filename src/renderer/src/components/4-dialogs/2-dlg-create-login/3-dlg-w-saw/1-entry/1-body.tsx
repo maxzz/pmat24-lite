@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
@@ -8,7 +8,8 @@ import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
 
 export function DialogSawBody() {
-    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
+    // const doOpen = useSetAtom(doOpenCreateManiSawAtom);
+    const [isOpen, doOpen] = useAtom(doOpenCreateManiSawAtom);
 
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     useEffect(() => doDissmissNextToasts, []);
@@ -17,7 +18,7 @@ export function DialogSawBody() {
         if (!hasMain()) {
             return;
         }
-        sendToMain({ type: 'r2m:set-saw-mode', isOn: true });
+        sendToMain({ type: 'r2m:set-saw-mode', isOn: !isOpen });
     }
 
     return (
