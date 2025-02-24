@@ -4,11 +4,10 @@ import { hasMain, sendToMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { EyeClosed, EyeIcon } from "lucide-react";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { sawModeAtom } from "../0-ctx";
-import { EyeClosed, EyeIcon } from "lucide-react";
-import { s } from "framer-motion/dist/types.d-6pKw1mTI";
 
 export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
@@ -46,7 +45,6 @@ export function DialogSawBody() {
 
                 <Button className="text-xs flex items-center gap-x-1" variant="ghost" size="sm" onClick={() => setSawOpen({ setOn: true, canceledByMain: false })}>
                     {sawOpen ? <EyeIcon className="size-4" /> : <EyeClosed className="size-4 -ml-1" />}
-                    {/* <Cross2Icon className="size-4" /> */}
                     {sawOpen ? 'Saw mode is on' : 'Saw mode is off'}
                 </Button>
 
