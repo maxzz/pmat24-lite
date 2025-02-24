@@ -7,11 +7,11 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { EyeClosed, EyeIcon } from "lucide-react";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
-import { sawModeAtom } from "../0-ctx";
+import { sawModeOnClientAtom } from "../0-ctx";
 
 export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
-    const [sawOpen, setSawOpen] = useAtom(sawModeAtom);
+    const [sawOpen, setSawOpen] = useAtom(sawModeOnClientAtom);
 
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     useEffect(() => doDissmissNextToasts, []);
@@ -43,7 +43,7 @@ export function DialogSawBody() {
                 {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBodyAnimation /> */}
 
-                <Button className="text-xs flex items-center gap-x-1" variant="ghost" size="sm" onClick={() => setSawOpen({ setOn: true, canceledByMain: false })}>
+                <Button className="text-xs flex items-center gap-x-1" variant="ghost" size="sm" onClick={() => setSawOpen({ turnOn: true, canceledByMain: false })}>
                     {sawOpen ? <EyeIcon className="size-4" /> : <EyeClosed className="size-4 -ml-1" />}
                     {sawOpen ? 'Saw mode is on' : 'Saw mode is off'}
                 </Button>
