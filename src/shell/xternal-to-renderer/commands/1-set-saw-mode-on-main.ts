@@ -10,19 +10,26 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean): voi
 
     if (on) {
         savedPos = getWindowRect(winApp);
+        
+        let newPos: Electron.Rectangle = { x: 0, y: 0, width: 300, height: 200, };
 
         const displays = screen.getAllDisplays();
-        const externalDisplay = displays.find((display) => {
-            return display.bounds.x !== 0 || display.bounds.y !== 0;
-        });
-
         const nearestDisplay = screen.getDisplayNearestPoint(savedPos);
         const matchingDisplay = screen.getDisplayMatching(savedPos);
 
-        console.log('\nsetSawMode on: \nsavedPos:', savedPos, '\ndisplays:', displays, '\nnearest:', nearestDisplay, '\nmatching:', matchingDisplay);
+        const newDisplay = matchingDisplay || nearestDisplay;
+        newPos.x = newDisplay.bounds.x + newDisplay.bounds.width / 2 - savedPos.width / 2;
+        newPos.y = newDisplay.bounds.y + newDisplay.bounds.height / 2 - savedPos.height / 2;
 
-        winApp.setPosition(0, 0);
-        winApp.setSize(300, 200);
+        // const newPos2 = screen.screenToDipRect(winApp, newPos);
+        const newPos2 = screen.dipToScreenRect(winApp, newPos);
+
+        // console.log('\nsetSawMode on:', '\ndisplays:', displays);
+        // console.log('\nsetSawMode on:', '\nnearest:', nearestDisplay);
+        console.log('\nsetSawMode on:', '\nmatching:', matchingDisplay);
+        console.log('\nsetSawMode on: \nsavedPos:', savedPos, '\nnewPos:', newPos2);
+
+        setWindowRect(winApp, newPos2);
         winApp.setAlwaysOnTop(true);
 
         mainStore.sawModeIsOn = true;
@@ -45,8 +52,8 @@ function getWindowRect(win: BrowserWindow): Electron.Rectangle {
 }
 
 function setWindowRect(win: BrowserWindow, rect: Electron.Rectangle) {
-    win.setPosition(rect.x, rect.y);
-    win.setSize(rect.width, rect.height);
+    win.setPosition(Math.round(rect.x), Math.round(rect.y));
+    win.setSize(Math.round(rect.width), Math.round(rect.height));
 }
 
 /*
