@@ -1,12 +1,12 @@
-import { winApp } from '@shell/start-main-window/main-window';
 import { mainStore } from '@shell/store-main';
+import { BrowserWindow } from 'electron';
 
 const prevPos: { pos: number[]; size: number[]; } = { // saved position and size before saw mode
     pos: [0, 0],
     size: [100, 300],
 };
 
-export function setSawMode(on: boolean): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean): void {
     if (!winApp) {
         return;
     }

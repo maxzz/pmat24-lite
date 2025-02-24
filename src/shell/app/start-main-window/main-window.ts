@@ -4,6 +4,8 @@ import { is } from '@electron-toolkit/utils';
 import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
 import icon from '../../../../resources/icon.png?asset'; // This is only for linux
 import { mainStore } from '@shell/store-main';
+import { mainToRenderer } from '../../xternal-to-renderer';
+import { setSawModeOnMain } from '../../xternal-to-renderer/commands';
 
 const preloadPath = join(__dirname, '../preload/index.js');
 
@@ -43,7 +45,13 @@ export async function createWindow() {
         winApp?.show();
     });
 
-    winApp.on('close', () => {
+    winApp.on('close', (e: Electron.Event) => {
+        if (mainStore.sawModeIsOn) {
+            e.preventDefault();
+            setSawModeOnMain(winApp, false);
+            mainToRenderer({ type: 'm2r:saw-mode-canceled' });
+            return;
+        }
         winApp && !mainStore.sawModeIsOn && saveIniFileOptions(winApp);
     });
 

@@ -33,6 +33,10 @@ export namespace M2R { // Main to Renderer
         progress: TargetPosition;
     };
 
+    export type SawModeCanceled = {
+        type: 'm2r:saw-mode-canceled';
+    };
+
     //
 
     export type FailedRawContent = {
@@ -53,6 +57,7 @@ export namespace M2R { // Main to Renderer
 
         | DetectionProgress
         | PositionProgress
+        | SawModeCanceled
         
         | FailedRawContent
         | LogMainToRenderer

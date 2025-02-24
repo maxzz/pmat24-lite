@@ -6,21 +6,14 @@ import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
+import { sawModeAtom } from "../0-ctx";
 
 export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
-    const [sawOpen, setSawOpen] = useState(false);
+    const [sawOpen, setSawOpen] = useAtom(sawModeAtom);
 
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     useEffect(() => doDissmissNextToasts, []);
-
-    function startTest() {
-        if (!hasMain()) {
-            return;
-        }
-        sendToMain({ type: 'r2m:set-saw-mode', isOn: !sawOpen });
-        setSawOpen(!sawOpen);
-    }
 
     return (
         <div className="h-full flex flex-col">
@@ -49,10 +42,12 @@ export function DialogSawBody() {
                 {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBodyAnimation /> */}
 
-                <Button variant="ghost" size="sm" className="text-xs" onClick={() => startTest()}>
+                <Button variant="ghost" size="sm" className="text-xs" onClick={() => setSawOpen({ setOn: true, canceledByMain: false })}>
                     <Cross2Icon className="size-4" />
                 </Button>
-                
+
+                {sawOpen ? 'Saw mode is on' : 'Saw mode is off'}
+
             </div>
 
             {/* <WizardButtons className="py-3 border-t border-foreground/20" /> */}
