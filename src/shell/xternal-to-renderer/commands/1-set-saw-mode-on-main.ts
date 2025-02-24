@@ -24,14 +24,14 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean): voi
         console.log('\nsetSawMode on:', '\nmatching:', matchingDisplay);
 
         const newDisplay = matchingDisplay || nearestDisplay;
-        newPos.x = newDisplay.bounds.x + newDisplay.bounds.width / 2 - savedPos.width / 2;
-        newPos.y = newDisplay.bounds.y + newDisplay.bounds.height / 2 - savedPos.height / 2;
+        newPos.x = newDisplay.bounds.x + newDisplay.bounds.width / 2 - newPos.width / 2;
+        newPos.y = newDisplay.bounds.y + newDisplay.bounds.height / 2 - newPos.height / 2;
 
-        console.log(`newDisplay.bounds.x: ${newDisplay.bounds.x} halfWidth: ${savedPos.width / 2} winHalfWidth: ${newPos.width / 2}`);
+        console.log(`display.bounds.x: ${newDisplay.bounds.x} screen.width/2: ${newDisplay.bounds.width / 2} win.width/2: ${newPos.width / 2}`);
        
         // const newPos2 = screen.screenToDipRect(winApp, newPos);
         const newPos2 = screen.dipToScreenRect(winApp, newPos);
-        console.log('\nsetSawMode on: \nsavedPos:', savedPos, '\nnewPos:', newPos, '\nnewPos2:', newPos2);
+        console.log('\nsavedPos:', savedPos, '\nnewPos:', newPos, '\nnewPos2:', newPos2);
         
         console.log('-------');
         const newPos3 = screen.screenToDipRect(winApp, newDisplay.bounds);
