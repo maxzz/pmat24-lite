@@ -5,7 +5,7 @@ import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "../../1-dlg-filter-files";
 import { classNames, cn } from "@/utils";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { DialogPortalProps } from "@radix-ui/react-dialog";
 
 const contentMainClasses = "!w-4/5 max-w-4xl";

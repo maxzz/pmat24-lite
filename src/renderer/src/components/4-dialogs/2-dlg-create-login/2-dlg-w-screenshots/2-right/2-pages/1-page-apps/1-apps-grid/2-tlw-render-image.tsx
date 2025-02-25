@@ -1,7 +1,7 @@
 import { type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { type TlwScreenshotInfo } from "@/store";
 import { type TlwData } from "@shared/ipc-types";
 import { CheckIcon } from "lucide-react";

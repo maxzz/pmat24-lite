@@ -4,7 +4,7 @@ import { Button } from "@/ui";
 import { IconClose, IconFilter } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 
 const inputClasses = "w-full px-2 h-7 text-xs bg-mani-background border-border border rounded-md";
 

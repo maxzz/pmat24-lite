@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { AnimatePresence, AnimationProps, motion, Transition } from "framer-motion";
+import { AnimatePresence, type AnimationProps, motion, type Transition } from "motion/react";
 import { doOpenSawOverlayAtom, isOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 
 export function MonitorOverlay() {

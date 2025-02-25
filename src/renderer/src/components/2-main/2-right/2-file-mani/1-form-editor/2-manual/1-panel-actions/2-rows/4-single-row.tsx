@@ -1,6 +1,6 @@
 import { forwardRef, Ref, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { type MFormCtx, type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
 import { R2MCalls } from "@/xternal-to-main";

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export function StepConnector({ step, currentStep }: { step: number; currentStep: number; }) {
     let status =

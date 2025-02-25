@@ -1,5 +1,5 @@
 import { ComponentProps } from "react"; // https://buildui.com/recipes/multistep-wizard#code
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export function Step({ step, currentStep }: { step: number; currentStep: number; }) {
     let status =

@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion, MotionConfig, type Transition } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig, type Transition } from "motion/react";
 import { showPropsAtom, type FceCtx } from "@/store";
 import { SelectedItemPropsBody } from "./1-props-body";
 import { classNames } from "@/utils";

@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { appSettings, filesAtom } from "@/store";
 import { ButtonFilesPicker } from "./2-button-files-picker";
 import { DontShowNext } from "./3-dont-show-next";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 import { TextHoverEffect } from "@/ui";
 import { IconHIDWoFrame } from "@/ui/icons";

@@ -1,7 +1,7 @@
 import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { classNames, doAddNextToastIdAtom, errorToString } from "@/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/ui/shadcn";
 import { toast } from "sonner";
 import { IconRefresh } from "@/ui/icons";

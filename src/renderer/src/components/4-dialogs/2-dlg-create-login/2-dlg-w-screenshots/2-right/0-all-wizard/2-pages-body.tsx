@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //tm: https://codesandbox.io/p/sandbox/framer-motion-image-gallery-forked-cr347p //https://motion-primitives.com/docs/popover
+import { AnimatePresence, motion, MotionConfig } from "motion/react"; //https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3 //tm: https://codesandbox.io/p/sandbox/framer-motion-image-gallery-forked-cr347p //https://motion-primitives.com/docs/popover
 import { newManiCtx, WizardPage } from "../../0-new-mani-ctx";
 import { Page1AppsBody } from "../2-pages/1-page-apps";
 import { Page2FieldsBody } from "../2-pages/2-page-fields";

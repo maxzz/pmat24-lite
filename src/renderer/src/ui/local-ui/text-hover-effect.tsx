@@ -1,6 +1,6 @@
 // "use client"; //https://github.com/RexanWONG/text-behind-image/blob/main/components/ui/text-hover-effect.tsx
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export function TextHoverEffect({ text, duration, }: { text: string; duration?: number; automatic?: boolean; }) {
     const svgRef = useRef<SVGSVGElement>(null);
