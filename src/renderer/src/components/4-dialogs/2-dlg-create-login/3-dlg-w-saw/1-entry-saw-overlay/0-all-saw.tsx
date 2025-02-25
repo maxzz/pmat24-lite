@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { doOpenCreateManiSawAtom } from "@/store/1-atoms/7-dialogs";
-import { DialogSawBody } from "./1-body";
+import { DialogSawBody } from "../2-entry-create-dlg/1-body";
 
 export function MonitorOverlay() {
     const [isOpen, setIsOpen] = useAtom(doOpenCreateManiSawAtom);
