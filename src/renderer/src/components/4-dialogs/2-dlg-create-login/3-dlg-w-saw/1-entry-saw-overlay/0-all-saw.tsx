@@ -1,14 +1,14 @@
-import { useAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenCreateManiSawAtom } from "@/store/1-atoms/7-dialogs";
-import { DialogSawBody } from "../2-entry-create-dlg/1-body";
+import { doOpenSawOverlayAtom, isOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 
 export function MonitorOverlay() {
-    const [isOpen, setIsOpen] = useAtom(doOpenCreateManiSawAtom);
+    const isOpen = useAtomValue(isOpenSawOverlayAtom);
+    const doOpen = useSetAtom(doOpenSawOverlayAtom);
     return (<>
-        <D.Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <D.Dialog open={isOpen} onOpenChange={doOpen}>
             <D.DialogContent className={dialogClasses} hiddenTitle="Create manifest" noClose>
-                <DialogSawBody />
+                123
             </D.DialogContent>
         </D.Dialog>
     </>);
