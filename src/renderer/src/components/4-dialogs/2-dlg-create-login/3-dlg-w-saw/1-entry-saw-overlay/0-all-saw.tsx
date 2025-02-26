@@ -50,3 +50,23 @@ const animationProps: AnimationProps = {
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.75 },
 };
+
+function useMonitoringOnOpen() {
+    const isOpen = useAtomValue(isOpenSawOverlayAtom);
+    const doMonitoring = useSetAtom(doMonitoringAtom);
+
+    const callback = useCallback(
+        () => {
+            console.log('Monitoring callback');
+        }, []
+    );
+
+    useEffect(
+        () => {
+            if (isOpen) {
+                doMonitoring({ doStart: true, callback });
+                return () => doMonitoring({ doStart: false });
+            }
+        }, [isOpen]
+    );
+}
