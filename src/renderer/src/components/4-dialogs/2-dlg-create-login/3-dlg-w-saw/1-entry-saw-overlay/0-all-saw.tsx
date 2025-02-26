@@ -10,22 +10,7 @@ export function MonitorOverlay() {
     const isOpen = useAtomValue(isOpenSawOverlayAtom);
     const doOpen = useSetAtom(doOpenSawOverlayAtom);
 
-    const doMonitoring = useSetAtom(doMonitoringAtom);
-
-    const callback = useCallback(
-        () => {
-            console.log('Monitoring callback');
-        }, []
-    );
-
-    useEffect(
-        () => {
-            if (isOpen) {
-                doMonitoring({ doStart: true, callback });
-                return () => doMonitoring({ doStart: false });
-            }
-        }, [isOpen]
-    );
+    useMonitoringOnOpen();
 
     return (<>
         <AnimatePresence>
