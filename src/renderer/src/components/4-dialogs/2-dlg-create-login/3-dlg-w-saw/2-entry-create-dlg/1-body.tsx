@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
-import { hasMain, sendToMain } from "@/xternal-to-main";
+import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { EyeClosed, EyeIcon } from "lucide-react";
-import { doDissmissNextToastsAtom } from "@/utils";
+import { useDissmissNextToasts } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { sawModeOnClientAtom } from "../0-ctx";
 
@@ -13,8 +12,7 @@ export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
     const [sawOpen, setSawOpen] = useAtom(sawModeOnClientAtom);
 
-    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
-    useEffect(() => doDissmissNextToasts, []);
+    useDissmissNextToasts();
 
     return (
         <div className="h-full flex flex-col">

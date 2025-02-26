@@ -1,4 +1,5 @@
-import { atom } from "jotai";
+import { useEffect } from "react";
+import { atom, useSetAtom } from "jotai";
 import { toast } from "sonner";
 
 const _nextToastIdAtom = atom<Array<string | number | undefined>>([]);
@@ -19,3 +20,8 @@ export const doDissmissNextToastsAtom = atom(
         set(_nextToastIdAtom, []);
     }
 );
+
+export function useDissmissNextToasts() {
+    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    useEffect(() => doDissmissNextToasts, []);
+}
