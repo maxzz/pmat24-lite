@@ -1,10 +1,10 @@
 import { Notification } from "electron";
-import { R2M } from "@shared/ipc-types";
+import { type R2M } from "@shared/ipc-types";
 import { mainStore } from "@shell/store-main";
-import { getElectronModulePaths, highlightRect } from "./7-napi-calls";
 import { mainToRenderer } from "./main-to-renderer";
-import { openFileDialogAndReply, setSawModeOnMain } from "./commands";
 import { winApp } from "@shell/start-main-window/main-window";
+import { getElectronModulePaths, highlightRect } from "./7-napi-calls";
+import { openFileDialogAndReply, setSawModeOnMain } from "./commands";
 
 export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
@@ -55,7 +55,7 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:set-saw-mode': {
-            setSawModeOnMain(winApp, data.isOn, data.rect);
+            setSawModeOnMain(winApp, data);
             break;
         }
 

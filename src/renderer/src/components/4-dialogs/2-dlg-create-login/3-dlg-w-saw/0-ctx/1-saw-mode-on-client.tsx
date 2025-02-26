@@ -18,7 +18,7 @@ export const sawModeOnClientAtom = atom(
             }
 
             if (hasMain()) {
-                sendToMain({ type: 'r2m:set-saw-mode', isOn: true });
+                sendToMain({ type: 'r2m:set-saw-mode', setOn: true });
                 set(_sawModeAtom, true);
             }
             return;

@@ -49,8 +49,8 @@ export namespace R2M { // Main from Renderer
 
     export type SetSawMode = {
         type: 'r2m:set-saw-mode';
-        isOn: boolean;
-        rect?: RectangleInt;
+        setOn: boolean;
+        rect?: RectangleInt; // This can be provided to override server side position and have the same size on client side.
     };
 
     // tests

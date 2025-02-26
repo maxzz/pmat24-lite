@@ -1,15 +1,15 @@
 import { mainStore } from '@shell/store-main';
 import { screen, BrowserWindow } from 'electron';
-import { type RectangleInt } from '@shared/ipc-types';
+import { type R2M, type RectangleInt } from '@shared/ipc-types';
 
 let savedPos: RectangleInt = { x: 0, y: 0, width: 100, height: 300, }; // saved position and size before saw mode
 
-export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean, rect: RectangleInt | undefined): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn: isOn, rect }: R2M.SetSawMode): void {
     if (!winApp) {
         return;
     }
 
-    if (on) {
+    if (isOn) {
         savedPos = getWindowRect(winApp);
 
         console.log('\nwindow rect:', savedPos, '\nbounds:', winApp.getBounds());
@@ -29,11 +29,11 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean, rect
         newPos.y = newDisplay.bounds.y + newDisplay.bounds.height / 2 - newPos.height / 2;
 
         console.log(`display.bounds.x: ${newDisplay.bounds.x} screen.width/2: ${newDisplay.bounds.width / 2} win.width/2: ${newPos.width / 2}`);
-       
+
         // const newPos2 = screen.screenToDipRect(winApp, newPos);
         const newPos2 = screen.dipToScreenRect(winApp, newPos);
         console.log('\nsavedPos:', savedPos, '\nnewPos:', newPos, '\nnewPos2:', newPos2);
-        
+
         console.log('-------');
         const newPos3 = screen.screenToDipRect(winApp, newDisplay.bounds);
         const newPos4 = screen.dipToScreenRect(winApp, newDisplay.bounds);
