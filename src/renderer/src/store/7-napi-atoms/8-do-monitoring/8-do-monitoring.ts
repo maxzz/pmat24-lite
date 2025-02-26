@@ -48,7 +48,10 @@ const timeoutId = {
 
 export const monitorCounterAtom = atom(-1); // How many seconds passed since the start of monitoring
 
-export function useMonitoring(callback: () => void) {
+/**
+ * Combines monitoring atom and clearing timeout on unmount
+ */
+export function useMonitoring(callback?: () => void) {
     const isMonitoring = useAtomValue(isMonitoringAtom);
     const setIsMonitoring = useSetAtom(doMonitoringAtom);
 
