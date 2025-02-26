@@ -2,6 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
+import { Cross2Icon } from "@radix-ui/react-icons";
 import { monitorCounterAtom, sawHandleAtom } from "@/store";
 
 export function MonitorOverlayBody() {
@@ -9,10 +10,19 @@ export function MonitorOverlayBody() {
     const sawHandle = useAtomValue(sawHandleAtom);
     return (
         <div className="mx-auto w-4/5 max-w-72 h-full text-sm grid place-items-center">
+
             <div className="relative boder-border border rounded-md">
 
-                <div className="px-3 py-3 w-full border-border border-b flex items-center justify-center">
+                <div className="relative px-3 py-3 w-full border-border border-b flex items-center justify-center">
                     Header
+
+                    <Button
+                        className="absolute 1py-4 right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
+                        onClick={() => { }}
+                    >
+                        <Cross2Icon className="size-4" />
+                    </Button>
+
                 </div>
 
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
