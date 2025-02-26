@@ -55,7 +55,7 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:set-saw-mode': {
-            setSawModeOnMain(winApp, data.isOn);
+            setSawModeOnMain(winApp, data.isOn, data.rect);
             break;
         }
 

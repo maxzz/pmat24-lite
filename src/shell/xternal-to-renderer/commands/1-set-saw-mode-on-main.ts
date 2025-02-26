@@ -1,9 +1,10 @@
 import { mainStore } from '@shell/store-main';
 import { screen, BrowserWindow } from 'electron';
+import { type RectangleInt } from '@shared/ipc-types';
 
-let savedPos: Electron.Rectangle = { x: 0, y: 0, width: 100, height: 300, }; // saved position and size before saw mode
+let savedPos: RectangleInt = { x: 0, y: 0, width: 100, height: 300, }; // saved position and size before saw mode
 
-export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean, rect: RectangleInt | undefined): void {
     if (!winApp) {
         return;
     }
@@ -13,7 +14,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, on: boolean): voi
 
         console.log('\nwindow rect:', savedPos, '\nbounds:', winApp.getBounds());
 
-        let newPos: Electron.Rectangle = { x: 0, y: 0, width: 300, height: 200, };
+        let newPos: RectangleInt = rect || { x: 0, y: 0, width: 340, height: 510, };
 
         const displays = screen.getAllDisplays();
         const nearestDisplay = screen.getDisplayNearestPoint(savedPos);

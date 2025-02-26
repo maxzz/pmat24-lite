@@ -1,7 +1,7 @@
 import { type TargetClientRect } from "@shared/ipc-types";
 
 export namespace R2M { // Main from Renderer
-    
+
     // menu, load files
 
     export type MenuCommand = {   // will reply with 'm2r:loaded-files' from dialog
@@ -50,6 +50,7 @@ export namespace R2M { // Main from Renderer
     export type SetSawMode = {
         type: 'r2m:set-saw-mode';
         isOn: boolean;
+        rect?: RectangleInt;
     };
 
     // tests
@@ -90,3 +91,10 @@ export namespace R2MParams {
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
     export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
 }
+
+export type RectangleInt = { //All nubers must be an integer. Docs: https://electronjs.org/docs/api/structures/rectangle
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+};
