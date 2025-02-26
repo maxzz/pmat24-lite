@@ -1,12 +1,8 @@
 import { useCallback, useEffect } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
-
-export const isMonitoringAtom = atom(
-    (get) => get(_isMonitoringAtom)
-);
+import { atom, useAtom } from "jotai";
 
 export const doMonitoringAtom = atom(
-    null,
+    (get) => get(_isMonitoringAtom),
     (get, set, { doStart, callback }: { doStart: boolean, callback?: Function; }) => {
         const isMonitoring = get(_isMonitoringAtom);
 
@@ -52,8 +48,7 @@ export const monitorCounterAtom = atom(-1); // How many seconds passed since the
  * Combines monitoring atom and clearing timeout on unmount
  */
 export function useMonitoring(callback?: () => void) {
-    const isMonitoring = useAtomValue(isMonitoringAtom);
-    const doMonitoring = useSetAtom(doMonitoringAtom);
+    const [isMonitoring, doMonitoring] = useAtom(doMonitoringAtom);
 
     useEffect(
         () => {
