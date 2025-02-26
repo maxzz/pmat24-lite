@@ -3,6 +3,7 @@ import { type AnimationProps, type Transition, AnimatePresence, motion } from "m
 import { doOpenSawOverlayAtom, isOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 import { doMonitoringAtom, monitorCounterAtom } from "@/store";
 import { useCallback, useEffect } from "react";
+import { Button, Checkbox, Label } from "@/ui";
 
 export function MonitorOverlay() {
 
@@ -36,21 +37,41 @@ export function MonitorOverlay() {
                     {...animationProps}
                     onClick={() => doOpen(false)}
                 >
-                    <div className="h-full text-sm grid grid-cols-3 place-content-center">
+                    <div className="h-full text-sm grid grid-cols-[1fr_2fr_1fr] place-content-center">
                         <div className="col-start-2 grid gap-y-4 text-center">
+
+                            <div className="">{monitorCounter}</div>
+
                             <div className="text-balance">
                                 Launch the program or browse to the Web site that
                                 contains the login screen for which you want to create a managed logon.
                             </div>
 
                             <div className="">
-                                Login screen detected: 123
+                                Login screen detected:
                             </div>
 
-                            <div className="">{monitorCounter}</div>
+                            <div className="">
+                                <div className="place-self-center size-24 border-border border rounded">
+                                </div>
+
+                                <div className="place-self-center">
+                                    App name
+                                </div>
+                            </div>
+
+                            <Label className="place-self-center flex items-center gap-2">
+                                <Checkbox className="size-4" />
+                                Set up a managed logon manually
+                            </Label>
+
+                            <div className="">To continue click the button below.</div>
+
+                            <Button className="place-self-center" variant="default" size="xs">
+                                Continue
+                            </Button>
 
                         </div>
-
                     </div>
                 </motion.div>
             )}
