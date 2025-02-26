@@ -4,7 +4,7 @@ import { type R2M, type RectangleInt } from '@shared/ipc-types';
 
 let savedPos: RectangleInt = { x: 0, y: 0, width: 100, height: 300, }; // saved position and size before saw mode
 
-export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: R2M.SetSawMode): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
         return;
     }
