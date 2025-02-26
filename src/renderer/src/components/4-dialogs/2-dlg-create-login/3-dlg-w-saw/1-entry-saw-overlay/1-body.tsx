@@ -1,11 +1,14 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { monitorCounterAtom, sawHandleAtom } from "@/store";
+import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom } from "@/store";
 
 export function MonitorOverlayBody() {
+
+    const doOpen = useSetAtom(doOpenSawOverlayAtom);
+    const doOpenCreateManiSaw = useSetAtom(doOpenCreateManiSawAtom);
 
     const sawHandle = useAtomValue(sawHandleAtom);
     return (
@@ -14,11 +17,11 @@ export function MonitorOverlayBody() {
             <div className="relative boder-border border rounded-md">
 
                 <div className="relative px-3 py-3 w-full border-border border-b flex items-center justify-center">
-                    Header
+                    Select application
 
                     <Button
                         className="absolute 1py-4 right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                        onClick={() => { }}
+                        onClick={() => doOpen(false)}
                     >
                         <Cross2Icon className="size-4" />
                     </Button>
@@ -57,7 +60,12 @@ export function MonitorOverlayBody() {
 
                     {/* <div className="">To continue click the button below.</div> */}
 
-                    <Button className="place-self-center" variant="default" size="xs">
+                    <Button className="place-self-center" variant="default" size="xs"
+                        onClick={() => {
+                            doOpen(false);
+                            doOpenCreateManiSaw(true);
+                        }}
+                    >
                         Continue
                     </Button>
                 </div>

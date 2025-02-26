@@ -12,7 +12,7 @@ export function MonitorOverlay() {
     return (<>
         <AnimatePresence>
             {isOpen && (
-                <motion.div className="fixed inset-0 bg-sky-300 z-[100]" {...animationProps} onClick={() => doOpen(false)}>
+                <motion.div className="fixed inset-0 bg-sky-300 z-[100]" {...animationProps} onClick={() => {}}>
                     <MonitorOverlayBody />
                 </motion.div>
             )}
