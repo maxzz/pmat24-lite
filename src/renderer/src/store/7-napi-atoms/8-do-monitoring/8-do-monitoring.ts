@@ -53,7 +53,7 @@ export const monitorCounterAtom = atom(-1); // How many seconds passed since the
  */
 export function useMonitoring(callback?: () => void) {
     const isMonitoring = useAtomValue(isMonitoringAtom);
-    const setIsMonitoring = useSetAtom(doMonitoringAtom);
+    const doMonitoring = useSetAtom(doMonitoringAtom);
 
     useEffect(
         () => {
@@ -65,11 +65,11 @@ export function useMonitoring(callback?: () => void) {
         }, [isMonitoring]
     );
 
-    const startStop = useCallback(
+    const toggleStartStop = useCallback(
         async function sendRequest() {
-            setIsMonitoring({ doStart: !isMonitoring, callback });
+            doMonitoring({ doStart: !isMonitoring, callback });
         }, [isMonitoring, callback]
     );
 
-    return [isMonitoring, startStop] as const;
+    return [isMonitoring, toggleStartStop] as const;
 }
