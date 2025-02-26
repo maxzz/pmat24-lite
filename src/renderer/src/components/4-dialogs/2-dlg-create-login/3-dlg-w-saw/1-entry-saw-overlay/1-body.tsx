@@ -1,9 +1,10 @@
 import { useAtomValue } from "jotai";
-import { monitorCounterAtom } from "@/store";
+import { monitorCounterAtom, sawHandleAtom } from "@/store";
 import { Button, Checkbox, Label } from "@/ui";
 
 export function MonitorOverlayBody() {
     const monitorCounter = useAtomValue(monitorCounterAtom);
+    const sawHandle = useAtomValue(sawHandleAtom);
     return (
         <div className="h-full text-sm grid grid-cols-[1fr_2fr_1fr] place-content-center">
             <div className="col-start-2 grid gap-y-4 text-center">
@@ -25,6 +26,7 @@ export function MonitorOverlayBody() {
 
                     <div className="place-self-center">
                         App name
+                        {sawHandle?.caption}
                     </div>
                 </div>
 
@@ -51,5 +53,3 @@ h-4/5 min-h-[60vh] max-h-[90vh] \
 rounded-md \
 data-[state=open]:[animation-duration:200ms] \
 ";
-
-//doOpenCreateManiSawAtom
