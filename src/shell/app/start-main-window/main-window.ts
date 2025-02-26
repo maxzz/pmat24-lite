@@ -48,7 +48,7 @@ export async function createWindow() {
     winApp.on('close', (e: Electron.Event) => {
         if (mainStore.sawModeIsOn) {
             e.preventDefault();
-            setSawModeOnMain(winApp, false);
+            setSawModeOnMain(winApp, { setOn: false });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
             return;
         }
