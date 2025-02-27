@@ -23,7 +23,7 @@ export const sawModeOnClientAtom = atom(
         } else {
             if (canceledByMain) {
                 // set(doOpenCreateManiSawAtom, false);
-                set(doOpenSawOverlayAtom, false);
+                set(doOpenSawOverlayAtom, false); //TODO: avoid this dependency, by ...
             } else if (hasMain()) {
                 sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
             }
@@ -33,7 +33,3 @@ export const sawModeOnClientAtom = atom(
 );
 
 const _sawModeAtom = atom<boolean>(false);
-
-export const isSawModeAtom = atom(
-    get => get(_sawModeAtom)
-);
