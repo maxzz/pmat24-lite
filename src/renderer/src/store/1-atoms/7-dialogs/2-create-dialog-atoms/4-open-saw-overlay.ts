@@ -4,11 +4,12 @@ import { atom } from "jotai";
 
 export const doOpenSawOverlayAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
-    (get, set, open: boolean) => {
-        if (open) {
+    (get, set, open: boolean | ((prev: boolean) => boolean)) => {
+        const valueOpen = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
+        if (valueOpen) {
             ;
         }
-        set(_doOpenSawOverlayAtom, open);
+        set(_doOpenSawOverlayAtom, valueOpen);
     }
 );
 
