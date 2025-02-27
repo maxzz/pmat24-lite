@@ -3,7 +3,7 @@ import { type M2R } from "../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
 import { napiBuildProgress, napiBuildState } from "@/store/7-napi-atoms";
 import { finalizeFileContent, setRootFromMainFileContents } from "./commands/10-invoke-load-files";
-import { sawModeOnClientAtom } from "@/components/4-dialogs";
+import { doCancelSawModeByMainAtom, sawModeOnClientAtom } from "@/components/4-dialogs";
 
 export const doFromMainAtom = atom(
     null,
@@ -50,7 +50,8 @@ export const doFromMainAtom = atom(
                 break;
             }
             case 'm2r:saw-mode-canceled': {
-                set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true });
+                // set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true });
+                set(doCancelSawModeByMainAtom);
                 break;
             }
 
