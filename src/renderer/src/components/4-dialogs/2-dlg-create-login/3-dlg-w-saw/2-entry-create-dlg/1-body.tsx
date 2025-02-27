@@ -10,8 +10,8 @@ import { sawModeOnClientAtom } from "../0-ctx";
 
 export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
-    const [sawOpen, setSawOpen] = useAtom(sawModeOnClientAtom);
-    doTurnOffSawModeOnClientAtom
+    const [isSawModeOn, setIsSawModeOn] = useAtom(sawModeOnClientAtom);
+
     useDissmissNextToasts();
 
     return (
@@ -43,13 +43,13 @@ export function DialogSawBody() {
 
                 <Button
                     className="text-xs flex items-center gap-x-1" variant="ghost" size="sm"
-                    onClick={() => setSawOpen({ turnOn: true, canceledByMain: false })}
+                    // onClick={() => setIsSawModeOn({ turnOn: true, canceledByMain: false })}
                 >
-                    {sawOpen
+                    {isSawModeOn
                         ? <EyeIcon className="size-4" />
                         : <EyeClosed className="size-4 -ml-1" />
                     }
-                    {sawOpen
+                    {isSawModeOn
                         ? 'Saw mode is on'
                         : 'Saw mode is off'
                     }
