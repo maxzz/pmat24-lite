@@ -4,12 +4,12 @@ import { classNames } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom } from "@/store";
-import { sawModeOnClientAtom } from "../0-ctx";
+import { doTurnOffSawModeOnClientAtom } from "../0-ctx";
 
 export function MonitorOverlayBody() {
 
     const doOpen = useSetAtom(doOpenSawOverlayAtom);
-    const [sawOpen, setSawOpen] = useAtom(sawModeOnClientAtom);
+    const doTurnOffSawModeOnClient = useSetAtom(doTurnOffSawModeOnClientAtom);
     const doOpenCreateManiSaw = useSetAtom(doOpenCreateManiSawAtom);
 
     return (
@@ -24,7 +24,7 @@ export function MonitorOverlayBody() {
                         className="absolute 1py-4 right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
                         onClick={() => {
                             doOpen(false);
-                            setSawOpen({ turnOn: false, canceledByMain: false });
+                            doTurnOffSawModeOnClient();
                         }}
                     >
                         <Cross2Icon className="size-4" />
@@ -52,7 +52,7 @@ export function MonitorOverlayBody() {
                     <Button className="place-self-center" variant="default" size="xs"
                         onClick={() => {
                             doOpen(false);
-                            setSawOpen({ turnOn: false, canceledByMain: false });
+                            doTurnOffSawModeOnClient();
                             doOpenCreateManiSaw(true);
                         }}
                     >
