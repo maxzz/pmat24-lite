@@ -2,8 +2,6 @@ import { atom } from "jotai";
 import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom } from "@/store";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 
-const _sawModeAtom = atom<boolean>(false);
-
 /**
  * @param canceledByMain - is set if app close button was pressed from main process
  */
@@ -32,4 +30,10 @@ export const sawModeOnClientAtom = atom(
             set(_sawModeAtom, false);
         }
     }
+);
+
+const _sawModeAtom = atom<boolean>(false);
+
+export const isSawModeAtom = atom(
+    get => get(_sawModeAtom)
 );
