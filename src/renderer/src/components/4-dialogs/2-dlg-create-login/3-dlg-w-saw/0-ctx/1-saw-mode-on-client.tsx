@@ -45,3 +45,10 @@ export const doTurnOffSawModeOnClientAtom = atom(
         set(sawModeOnClientAtom, { turnOn: false, canceledByMain: false, cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
+
+export const doCancelSawModeByMainAtom = atom(
+    null,
+    (get, set) => {
+        set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayAtom });
+    }
+);
