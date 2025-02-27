@@ -1,18 +1,21 @@
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
 import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 import { MonitorOverlayBody } from "./1-body";
-import { useMonitoringOnOpen } from "./8-use-monitoring-on-open";
+import { useMonitoringOnOpen } from "../0-ctx";
 
 export function MonitorOverlay() {
-    const [isOpen, doOpen] = useAtom(doOpenSawOverlayAtom);
+    const isOpen = useAtomValue(doOpenSawOverlayAtom);
 
     useMonitoringOnOpen();
 
     return (<>
         <AnimatePresence>
             {isOpen && (
-                <motion.div className="fixed inset-0 bg-sky-300 z-[100]" {...animationProps} onClick={() => {}}>
+                <motion.div
+                    className="fixed inset-0 bg-sky-300 z-[100]"
+                    {...animationProps}
+                >
                     <MonitorOverlayBody />
                 </motion.div>
             )}
