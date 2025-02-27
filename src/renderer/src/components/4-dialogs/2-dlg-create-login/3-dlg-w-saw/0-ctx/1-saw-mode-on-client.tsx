@@ -52,3 +52,5 @@ export const doCancelSawModeByMainAtom = atom(
         set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
+
+//TODO: get rect monitor is not working in main and fails to default and set mode id not set. Why?
