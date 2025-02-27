@@ -41,9 +41,18 @@ export function DialogSawBody() {
                 {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBodyAnimation /> */}
 
-                <Button className="text-xs flex items-center gap-x-1" variant="ghost" size="sm" onClick={() => setSawOpen({ turnOn: true, canceledByMain: false })}>
-                    {sawOpen ? <EyeIcon className="size-4" /> : <EyeClosed className="size-4 -ml-1" />}
-                    {sawOpen ? 'Saw mode is on' : 'Saw mode is off'}
+                <Button
+                    className="text-xs flex items-center gap-x-1" variant="ghost" size="sm"
+                    onClick={() => setSawOpen({ turnOn: true, canceledByMain: false })}
+                >
+                    {sawOpen
+                        ? <EyeIcon className="size-4" />
+                        : <EyeClosed className="size-4 -ml-1" />
+                    }
+                    {sawOpen
+                        ? 'Saw mode is on'
+                        : 'Saw mode is off'
+                    }
                 </Button>
 
             </div>

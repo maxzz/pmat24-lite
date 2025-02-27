@@ -1,16 +1,17 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom } from "@/store";
+import { sawModeOnClientAtom } from "../0-ctx";
 
 export function MonitorOverlayBody() {
 
     const doOpen = useSetAtom(doOpenSawOverlayAtom);
+    const [sawOpen, setSawOpen] = useAtom(sawModeOnClientAtom);
     const doOpenCreateManiSaw = useSetAtom(doOpenCreateManiSawAtom);
 
-    const sawHandle = useAtomValue(sawHandleAtom);
     return (
         <div className="mx-auto w-4/5 max-w-72 h-full text-sm grid place-items-center">
 
@@ -21,7 +22,10 @@ export function MonitorOverlayBody() {
 
                     <Button
                         className="absolute 1py-4 right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                        onClick={() => doOpen(false)}
+                        onClick={() => {
+                            doOpen(false);
+                            setSawOpen({ turnOn: false, canceledByMain: false });
+                        }}
                     >
                         <Cross2Icon className="size-4" />
                     </Button>
@@ -36,22 +40,7 @@ export function MonitorOverlayBody() {
                         contains the login screen for which you want to create a managed logon.
                     </div>
 
-                    {/* <div className="">
-                        Login screen detected:
-                    </div> */}
-                    <div className="-mt-4">
-                        Active application:
-                    </div>
-
-                    <div className="">
-                        <div className="place-self-center size-24 border-border border rounded">
-                        </div>
-
-                        <div className="place-self-center">
-                            App name
-                            {sawHandle?.caption}
-                        </div>
-                    </div>
+                    <CurrentApp />
 
                     <Label className="place-self-center flex items-center gap-2">
                         <Checkbox className="size-4" />
@@ -63,6 +52,7 @@ export function MonitorOverlayBody() {
                     <Button className="place-self-center" variant="default" size="xs"
                         onClick={() => {
                             doOpen(false);
+                            setSawOpen({ turnOn: false, canceledByMain: false });
                             doOpenCreateManiSaw(true);
                         }}
                     >
@@ -75,13 +65,25 @@ export function MonitorOverlayBody() {
     );
 }
 
-const dialogClasses = "\
-p-0 \
-!w-11/12 max-w-5xl \
-h-4/5 min-h-[60vh] max-h-[90vh] \
-rounded-md \
-data-[state=open]:[animation-duration:200ms] \
-";
+function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const sawHandle = useAtomValue(sawHandleAtom);
+    return (
+        <div className={classNames(className)} {...rest}>
+            {/* <div className=""> Login screen detected: </div> */}
+            <div className="">
+                Active application:
+            </div>
+
+            <div className="place-self-center size-24 border-border border rounded">
+            </div>
+
+            <div className="place-self-center">
+                App name
+                {sawHandle?.caption}
+            </div>
+        </div>
+    );
+}
 
 function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const monitorCounter = useAtomValue(monitorCounterAtom);
@@ -91,3 +93,11 @@ function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
         </div>
     );
 }
+
+const dialogClasses = "\
+p-0 \
+!w-11/12 max-w-5xl \
+h-4/5 min-h-[60vh] max-h-[90vh] \
+rounded-md \
+data-[state=open]:[animation-duration:200ms] \
+";
