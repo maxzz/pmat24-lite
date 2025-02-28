@@ -1,16 +1,16 @@
-import { useAtom, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { EyeClosed, EyeIcon } from "lucide-react";
-import { useDissmissNextToasts } from "@/utils";
+import { classNames, useDissmissNextToasts } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { sawModeOnClientAtom } from "../0-ctx";
+import { ComponentPropsWithoutRef } from "react";
 
 export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
-    const [isSawModeOn, setIsSawModeOn] = useAtom(sawModeOnClientAtom);
 
     useDissmissNextToasts();
 
@@ -41,23 +41,20 @@ export function DialogSawBody() {
                 {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
                 <PagesBodyAnimation /> */}
 
-                <Button
-                    className="text-xs flex items-center gap-x-1" variant="ghost" size="sm"
-                    // onClick={() => setIsSawModeOn({ turnOn: true, canceledByMain: false })}
-                >
-                    {isSawModeOn
-                        ? <EyeIcon className="size-4" />
-                        : <EyeClosed className="size-4 -ml-1" />
-                    }
-                    {isSawModeOn
-                        ? 'Saw mode is on'
-                        : 'Saw mode is off'
-                    }
-                </Button>
-
+                GRID
             </div>
 
             {/* <WizardButtons className="py-3 border-t border-foreground/20" /> */}
         </div>
     );
+}
+
+function SawModeDisplay({ className, ...rest }: ComponentPropsWithoutRef<'svg'>) {
+    const isSawModeOnClient = useAtomValue(sawModeOnClientAtom);
+    return (<>
+        {isSawModeOnClient
+            ? <EyeIcon className={classNames("size-4", className)} {...rest} />
+            : <EyeClosed className={classNames("size-4", className)} {...rest} />
+        }
+    </>);
 }
