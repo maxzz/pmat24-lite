@@ -1,5 +1,5 @@
 import { atom, PrimitiveAtom } from "jotai";
-import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom } from "@/store";
+import { doOpenSawOverlayAtom } from "@/store";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 
 /**
@@ -20,18 +20,22 @@ export const sawModeOnClientAtom = atom(
             if (hasMain()) {
                 sendToMain({ type: 'r2m:set-saw-mode', setOn: true });
             }
+
             set(_sawModeAtom, true);
-            return;
         } else {
-            if (canceledByMain) {
-                // set(doOpenCreateManiSawAtom, false);
-                // set(doOpenSawOverlayAtom, false); //TODO: avoid this dependency, by ...
-                if (cancelByMainAtom) {
-                    set(cancelByMainAtom, false);
-                }
-            } else if (hasMain()) {
-                sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
+            if (!isOn) {
+                return;
             }
+
+            if (canceledByMain) {
+                cancelByMainAtom && set(cancelByMainAtom, false);
+            }
+            else {
+                if (hasMain()) {
+                    sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
+                }
+            }
+
             set(_sawModeAtom, false);
         }
     }
