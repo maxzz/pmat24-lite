@@ -62,15 +62,9 @@ export function create_DoAdvancePageAtom() {
                         return;
                     }
 
-                    try {
-                        set(newManiCtx.showControlsScanProgressAtom, true);
-                        
-                        const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, get, set });
-                        if (!move) {
-                            return;
-                        }
-                    } finally {
-                        set(newManiCtx.showControlsScanProgressAtom, false);
+                    const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, showProgressAtom: newManiCtx.showControlsScanProgressAtom, get, set });
+                    if (!move) {
+                        return;
                     }
 
                 } else if (newPage === wizardLastPage) {

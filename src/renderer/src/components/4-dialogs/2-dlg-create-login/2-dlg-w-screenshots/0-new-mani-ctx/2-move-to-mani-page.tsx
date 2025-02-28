@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from "jotai";
+import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type FileContent } from "@shared/ipc-types";
@@ -9,23 +9,31 @@ import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiCtx } from "./0-ctx";
 import { ctxContent } from "./0-ctx-content";
 
+type MoveFromAppsToNextPageParams = {
+    hwnd: string;
+    showProgressAtom?: PA<boolean>; // show controls scan progress atom
+    get: Getter;
+    set: Setter;
+};
+
 /**
  * Create new manifest and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function moveFromAppsToNextPage({ hwnd, get, set }: { hwnd: string; get: Getter; set: Setter; }): Promise<boolean> {
+export async function moveFromAppsToNextPage({ hwnd, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     // 0. Claen up the context before parsing
     ctxContent.clear(set);
 
-    set(newManiCtx.showControlsScanProgressAtom, true);
-
     // 1. Get manifest as maniXml from the window
-    await set(doGetWindowManiAtom, { hwnd, wantXml: true });
-    const sawManiXml = get(sawManiXmlAtom);
-
-    set(newManiCtx.showControlsScanProgressAtom, false);
+    try {
+        showProgressAtom && set(showProgressAtom, true);
+        await set(doGetWindowManiAtom, { hwnd, wantXml: true });
+    } finally {
+        showProgressAtom && set(showProgressAtom, false);
+    }
 
     // 2. Save maniXml to the context
+    const sawManiXml = get(sawManiXmlAtom);
     if (!sawManiXml) {
         set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.')); //TODO: you can define manifest content manually
         return false;
