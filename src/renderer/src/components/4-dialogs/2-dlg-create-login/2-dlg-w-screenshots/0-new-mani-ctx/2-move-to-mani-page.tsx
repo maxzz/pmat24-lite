@@ -2,11 +2,9 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs } from "@/store";
-import { doGetWindowManiAtom, sawManiXmlAtom } from "@/store/7-napi-atoms";
-import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom } from "@/store";
+import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
-import { newManiCtx } from "./0-ctx";
 import { ctxContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
