@@ -2,7 +2,7 @@ import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
 import { napiBuildState } from "@/store/7-napi-atoms";
-import { ctxContent, moveFromAppsToNextPage } from "../../0-ctx-create-content";
+import { newManiContent, getXmlCreateFileUs } from "../../0-ctx-new-mani";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { newManiCtx } from "./0-ctx";
@@ -56,12 +56,12 @@ export function create_DoAdvancePageAtom() {
                         return false;
                     }
 
-                    const maniXml = get(ctxContent.maniXmlAtom); // Move beetwen pages freally in case if xml has been created already
+                    const maniXml = get(newManiContent.maniXmlAtom); // Move beetwen pages freally in case if xml has been created already
                     if (maniXml) {
                         return;
                     }
 
-                    const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, showProgressAtom: newManiCtx.showProgressAtom, get, set });
+                    const move = await getXmlCreateFileUs({ hwnd: selectedApp.item.hwnd, showProgressAtom: newManiCtx.showProgressAtom, get, set });
                     if (!move) {
                         return;
                     }

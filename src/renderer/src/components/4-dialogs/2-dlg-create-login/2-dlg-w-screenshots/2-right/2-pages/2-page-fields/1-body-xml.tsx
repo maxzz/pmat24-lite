@@ -3,11 +3,11 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
-import { ctxContent } from "@/components/4-dialogs/2-dlg-create-login";
+import { newManiContent } from "@/components/4-dialogs/2-dlg-create-login";
 
 export function BodyRawXml() {
 
-    const maniXml = useAtomValue(ctxContent.maniXmlAtom);
+    const maniXml = useAtomValue(newManiContent.maniXmlAtom);
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     
     return (<>

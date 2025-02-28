@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type TlwScreenshotInfo, allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 import { newManiCtx } from "./0-ctx";
-import { ctxContent } from "../../0-ctx-create-content";
+import { newManiContent } from "../../0-ctx-new-mani";
 
 export function create_DoRefreshAppsAtom() {
     return atom(
@@ -18,7 +18,7 @@ export function create_DoRefreshAppsAtom() {
             await set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
 
             // 3. clear previously detected content
-            ctxContent.clear(set);
+            newManiContent.clear(set);
 
             // 4. Find previously selected item in the new list
             if (currentItem) {

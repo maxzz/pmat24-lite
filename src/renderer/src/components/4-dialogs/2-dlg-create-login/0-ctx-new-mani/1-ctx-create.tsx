@@ -5,7 +5,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom } from "@/store";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
-import { ctxContent } from "./0-ctx-content";
+import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
     hwnd: string;
@@ -18,9 +18,9 @@ type MoveFromAppsToNextPageParams = {
  * Create new manifest and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function moveFromAppsToNextPage({ hwnd, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     // 0. Claen up the context before parsing
-    ctxContent.clear(set);
+    newManiContent.clear(set);
 
     // 1. Get manifest as maniXml from the window
     try {
@@ -37,7 +37,7 @@ export async function moveFromAppsToNextPage({ hwnd, showProgressAtom, get, set 
         return false;
     }
 
-    set(ctxContent.maniXmlAtom, sawManiXml);
+    set(newManiContent.maniXmlAtom, sawManiXml);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -46,10 +46,10 @@ export async function moveFromAppsToNextPage({ hwnd, showProgressAtom, get, set 
 
         //TODO: check created manifest content manually checkbox
 
-        set(ctxContent.fileUsAtom, fileUs);
-        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, ctxContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
+        set(newManiContent.fileUsAtom, fileUs);
+        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
     } catch (error) {
-        ctxContent.clear(set);
+        newManiContent.clear(set);
 
         const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
         console.error(msg);
