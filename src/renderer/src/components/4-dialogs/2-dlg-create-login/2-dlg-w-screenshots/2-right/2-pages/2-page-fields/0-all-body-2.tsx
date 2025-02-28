@@ -13,10 +13,12 @@ export function Page2FieldsBody() {
 
             <div className="relative size-full">
                 <div className="absolute inset-0">
+
                     {showCreateSrcCode
                         ? <BodyRawXml />
                         : <BodyNewMani />
                     }
+                    
                 </div>
             </div>
         </div>

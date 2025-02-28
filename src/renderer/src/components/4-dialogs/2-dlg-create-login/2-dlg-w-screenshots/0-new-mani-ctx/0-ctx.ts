@@ -6,8 +6,9 @@ import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
+import { CtxContent } from "./0-ctx-content";
 
-export class NewManiCtx {
+export class NewManiCtx implements CtxContent {
     doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
 
     currentPageAtom: Atom<WizardPage>;           // read only current page atom

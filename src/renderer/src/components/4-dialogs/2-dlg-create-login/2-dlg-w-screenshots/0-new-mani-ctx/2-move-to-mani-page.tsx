@@ -8,7 +8,7 @@ import { appSelectedAppAtom } from "./4-selected-app";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiCtx } from "./0-ctx";
-import { clearManiCtxManiData } from "./1-init-ctx";
+import { clearManiCtxManiData } from "./0-ctx-content";
 
 /**
  * Create new manifest and allow to move to the next page.
