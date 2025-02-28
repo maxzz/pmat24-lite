@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { napiBuildState } from "@/store/7-napi-atoms";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { moveFromAppsToNextPage } from "./2-move-to-mani-page";
+import { appSelectedAppAtom } from "./4-selected-app";
 
 // Page and direction
 
@@ -48,7 +49,13 @@ export function create_DoAdvancePageAtom() {
 
             if (next) {
                 if (newPage === WizardPage.fields) {
-                    const move = await moveFromAppsToNextPage(get, set);
+                    const selectedApp = get(appSelectedAppAtom);
+                    if (!selectedApp) {
+                        set(doAddNextToastIdAtom, toast.error('First, select the application window.'));
+                        return false;
+                    }
+
+                    const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, get, set });
                     if (!move) {
                         return;
                     }
