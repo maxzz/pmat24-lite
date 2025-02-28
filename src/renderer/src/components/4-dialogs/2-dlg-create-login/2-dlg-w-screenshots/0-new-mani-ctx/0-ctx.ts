@@ -1,14 +1,12 @@
 import { atom, type Atom, type PrimitiveAtom as PA } from "jotai";
 import { type PositionStorage, createVarStorage } from "@/ui";
-import { type FileUs } from "@/store";
 import { type WizardPage } from "./8-step-items-data";
 import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";
 import { type PageAndDirection, type DoAdvancePageAtom, create_CurrentPageAtom, create_PageAndDirectionAtom, create_DoAdvancePageAtom } from "./2-current-page";
 import { type AppSelectedIdxAtom, create_AppSelectedIdxAtom } from "./4-selected-app";
-import { CtxContent } from "./0-ctx-content";
 
-export class NewManiCtx implements CtxContent {
+export class NewManiCtx {
     doInitAtom: DoInitNewManiCtxAtom;            // init state of the context
 
     currentPageAtom: Atom<WizardPage>;           // read only current page atom
@@ -21,9 +19,6 @@ export class NewManiCtx implements CtxContent {
 
     createAsManualAtom: PA<boolean>;             // create new manifest manually
     createAsCpassAtom: PA<boolean>;              // create new manifest as password change
-
-    maniXmlAtom: PA<string | undefined>;         // xml of the selected application
-    fileUsAtom: PA<FileUs | undefined>;          // fileUs of the selected application
 
     showControlsScanProgressAtom: PA<boolean>;   // show window content detection progress bar
     
@@ -44,9 +39,6 @@ export class NewManiCtx implements CtxContent {
 
         this.createAsManualAtom = atom(false);
         this.createAsCpassAtom = atom(false);
-
-        this.maniXmlAtom = atom<string | undefined>(undefined);
-        this.fileUsAtom = atom<FileUs | undefined>(undefined);
 
         this.showControlsScanProgressAtom = atom(false);
     
