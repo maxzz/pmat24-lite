@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { allScreenshotAtom } from "@/store";
 import { newManiCtx } from "./0-ctx";
-import { ctxContent } from "./0-ctx-content";
+import { ctxContent } from "../../0-ctx-create-content";
 
 const _appSelectedIdxAtom = atom(0);
 

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { ScrollArea } from "@/ui/shadcn";
-import { ctxContent } from "../../../0-new-mani-ctx";
+import { ctxContent } from "@/components/4-dialogs/2-dlg-create-login";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 

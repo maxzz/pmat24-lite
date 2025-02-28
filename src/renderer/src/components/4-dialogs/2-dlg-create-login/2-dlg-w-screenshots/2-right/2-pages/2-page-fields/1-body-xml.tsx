@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
-import { ctxContent } from "../../../0-new-mani-ctx";
+import { ctxContent } from "@/components/4-dialogs/2-dlg-create-login";
 
 export function BodyRawXml() {
 
