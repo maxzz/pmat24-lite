@@ -1,8 +1,8 @@
-import { mainStore } from '@shell/store-main';
 import { screen, BrowserWindow } from 'electron';
 import { type R2M, type RectangleInt } from '@shared/ipc-types';
+import { mainStore } from '@shell/store-main';
 
-let savedPos: RectangleInt = { x: 0, y: 0, width: 100, height: 300, }; // saved position and size before saw mode
+let savedPos: RectangleInt = { x: 0, y: 0, width: 340, height: 510, }; // saved position and size before saw mode
 
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
@@ -11,46 +11,12 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: 
 
     if (setOn) {
         savedPos = getWindowRect(winApp);
-
-        console.log('\nwindow rect:', savedPos, '\nbounds:', winApp.getBounds());
-
-        let newPos: RectangleInt = rect || { x: 0, y: 0, width: 340, height: 510, };
-
-        const displays = screen.getAllDisplays();
-        const nearestDisplay = screen.getDisplayNearestPoint(savedPos);
-        const matchingDisplay = screen.getDisplayMatching(savedPos);
-
-        // console.log('\nsetSawMode on:', '\ndisplays:', displays);
-        // console.log('\nsetSawMode on:', '\nnearest:', nearestDisplay);
-        console.log('\nsetSawMode on:', '\nmatching:', matchingDisplay);
-
-        const newDisplay = matchingDisplay || nearestDisplay;
-        newPos.x = newDisplay.bounds.x + newDisplay.bounds.width / 2 - newPos.width / 2;
-        newPos.y = newDisplay.bounds.y + newDisplay.bounds.height / 2 - newPos.height / 2;
-
-        console.log(`display.bounds.x: ${newDisplay.bounds.x} screen.width/2: ${newDisplay.bounds.width / 2} win.width/2: ${newPos.width / 2}`);
-
-        // const newPos2 = screen.screenToDipRect(winApp, newPos);
-        const newPos2 = screen.dipToScreenRect(winApp, newPos);
-        console.log('\nsavedPos:', savedPos, '\nnewPos:', newPos, '\nnewPos2:', newPos2);
-
-        console.log('-------');
-        const newPos3 = screen.screenToDipRect(winApp, newDisplay.bounds);
-        const newPos4 = screen.dipToScreenRect(winApp, newDisplay.bounds);
-        console.log('\nsetSawMode on: \nnewPos3:', newPos3, '\nnewPos4:', newPos4);
-
-        setWindowRect(winApp, newPos);
+        setWindowRect(winApp, centerRect(savedPos, rect || { x: 0, y: 0, width: 340, height: 510, }));
         winApp.setAlwaysOnTop(true);
-
         mainStore.sawModeIsOn = true;
-        return;
     } else {
         mainStore.sawModeIsOn = false;
-
-        console.log('\nsetSawMode off prevPos:', savedPos);
-
         winApp.setAlwaysOnTop(false);
-
         setWindowRect(winApp, savedPos);
     }
 }
@@ -66,93 +32,12 @@ function setWindowRect(win: BrowserWindow, rect: Electron.Rectangle) {
     win.setSize(Math.round(rect.width), Math.round(rect.height));
 }
 
-/*
-setSawMode on:
-savedPos: { x: 2557, y: 34, width: 834, height: 939 }
-displays: [
-  {
-    accelerometerSupport: 'unknown',
-    bounds: { x: 0, y: 0, width: 2560, height: 1440 },
-    colorDepth: 24,
-    colorSpace: '{r:[0.6523, 0.3325], g:[0.2813, 0.6286], b:[0.1437, 0.0524], w:[0.3127, 0.3290]}, transfer:SRGB, matrix:RGB, range:FULL}',
-    depthPerComponent: 8,
-    detected: true,
-    displayFrequency: 30,
-    id: 1281159012,
-    internal: false,
-    label: 'BenQ PD3200U',
-    maximumCursorSize: { width: 0, height: 0 },
-    monochrome: false,
-    nativeOrigin: { x: 0, y: 0 },
-    rotation: 0,
-    scaleFactor: 1.5,
-    size: { width: 2560, height: 1440 },
-    workArea: { x: 0, y: 0, width: 2560, height: 1400 },
-    workAreaSize: { width: 2560, height: 1400 },
-    touchSupport: 'unknown'
-  },
-  {
-    accelerometerSupport: 'unknown',
-    bounds: { x: 2560, y: 0, width: 2560, height: 1440 },
-    colorDepth: 24,
-    colorSpace: '{r:[0.6523, 0.3325], g:[0.2813, 0.6286], b:[0.1437, 0.0524], w:[0.3127, 0.3290]}, transfer:SRGB, matrix:RGB, range:FULL}',
-    depthPerComponent: 8,
-    detected: true,
-    displayFrequency: 60,
-    id: 1021335772,
-    internal: false,
-    label: 'BenQ PD3200U',
-    maximumCursorSize: { width: 0, height: 0 },
-    monochrome: false,
-    nativeOrigin: { x: 2560, y: 0 },
-    rotation: 0,
-    scaleFactor: 1.5,
-    size: { width: 2560, height: 1440 },
-    workArea: { x: 2560, y: 0, width: 2560, height: 1400 },
-    workAreaSize: { width: 2560, height: 1400 },
-    touchSupport: 'unknown'
-  }
-]
-nearest: {
-  accelerometerSupport: 'unknown',
-  bounds: { x: 0, y: 0, width: 2560, height: 1440 },
-  colorDepth: 24,
-  colorSpace: '{r:[0.6523, 0.3325], g:[0.2813, 0.6286], b:[0.1437, 0.0524], w:[0.3127, 0.3290]}, transfer:SRGB, matrix:RGB, range:FULL}',
-  depthPerComponent: 8,
-  detected: true,
-  displayFrequency: 30,
-  id: 1281159012,
-  internal: false,
-  label: 'BenQ PD3200U',
-  maximumCursorSize: { width: 0, height: 0 },
-  monochrome: false,
-  nativeOrigin: { x: 0, y: 0 },
-  rotation: 0,
-  scaleFactor: 1.5,
-  size: { width: 2560, height: 1440 },
-  workArea: { x: 0, y: 0, width: 2560, height: 1400 },
-  workAreaSize: { width: 2560, height: 1400 },
-  touchSupport: 'unknown'
+function centerRect(currentRect: RectangleInt, rect: RectangleInt): RectangleInt {
+    const display = screen.getDisplayMatching(currentRect) || screen.getDisplayNearestPoint(currentRect);
+    return {
+        x: display.bounds.x + display.bounds.width / 2 - rect.width / 2,
+        y: display.bounds.y + display.bounds.height / 2 - rect.height / 2,
+        width: rect.width,
+        height: rect.height,
+    };
 }
-matching: {
-  accelerometerSupport: 'unknown',
-  bounds: { x: 2560, y: 0, width: 2560, height: 1440 },
-  colorDepth: 24,
-  colorSpace: '{r:[0.6523, 0.3325], g:[0.2813, 0.6286], b:[0.1437, 0.0524], w:[0.3127, 0.3290]}, transfer:SRGB, matrix:RGB, range:FULL}',
-  depthPerComponent: 8,
-  detected: true,
-  displayFrequency: 60,
-  id: 1021335772,
-  internal: false,
-  label: 'BenQ PD3200U',
-  maximumCursorSize: { width: 0, height: 0 },
-  monochrome: false,
-  nativeOrigin: { x: 2560, y: 0 },
-  rotation: 0,
-  scaleFactor: 1.5,
-  size: { width: 2560, height: 1440 },
-  workArea: { x: 2560, y: 0, width: 2560, height: 1400 },
-  workAreaSize: { width: 2560, height: 1400 },
-  touchSupport: 'unknown'
-}
-*/

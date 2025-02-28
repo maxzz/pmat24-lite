@@ -28,7 +28,7 @@ export const sawModeOnClientAtom = atom(
             }
 
             if (canceledByMain) {
-                cancelByMainAtom && set(cancelByMainAtom, false);
+                cancelByMainAtom && set(cancelByMainAtom, false); //TODO: Do we need to reset only if canceledByMain? Later.
             }
             else {
                 if (hasMain()) {
