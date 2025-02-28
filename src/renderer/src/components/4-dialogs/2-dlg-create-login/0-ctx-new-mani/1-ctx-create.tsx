@@ -15,7 +15,7 @@ type MoveFromAppsToNextPageParams = {
 };
 
 /**
- * Create new manifest and allow to move to the next page.
+ * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
 export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
