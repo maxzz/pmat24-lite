@@ -9,7 +9,7 @@ import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export function ProgressBarControlsScan({ className }: { className?: string; }) {
 
-    const showProgressBar = useAtomValue(newManiCtx.showControlsScanProgressAtom);
+    const showProgressBar = useAtomValue(newManiCtx.showProgressAtom);
 
     return (<>
         <AnimatePresence>

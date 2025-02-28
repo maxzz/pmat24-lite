@@ -20,7 +20,7 @@ export class NewManiCtx {
     createAsManualAtom: PA<boolean>;             // create new manifest manually
     createAsCpassAtom: PA<boolean>;              // create new manifest as password change
 
-    showControlsScanProgressAtom: PA<boolean>;   // show window content detection progress bar
+    showProgressAtom: PA<boolean>;               // show window content detection progress bar
     
     // UI state
     appsScrollPos: PositionStorage;              // scroll position of the apps grid
@@ -40,7 +40,7 @@ export class NewManiCtx {
         this.createAsManualAtom = atom(false);
         this.createAsCpassAtom = atom(false);
 
-        this.showControlsScanProgressAtom = atom(false);
+        this.showProgressAtom = atom(false);
     
         this.appsScrollPos = createVarStorage();
         this.lastSelectedHwnd = undefined; //TODO: not really good idea, because we need to scroll to the selected item as well. Not working yet.
