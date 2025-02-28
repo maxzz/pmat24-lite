@@ -1,14 +1,14 @@
 import { type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
-import { type ManifestCreationDataResult, type FileContent } from "@shared/ipc-types";
+import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs } from "@/store";
 import { doGetWindowManiAtom, sawManiXmlAtom } from "@/store/7-napi-atoms";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms/1-files/1-do-set-files/2-create-fileus";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiCtx } from "./0-ctx";
-import { clearManiCtxManiData } from "./0-ctx-content";
+import { ctxContent } from "./0-ctx-content";
 
 /**
  * Create new manifest and allow to move to the next page.
@@ -21,13 +21,13 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
         return false;
     }
 
-    const maniXml = get(newManiCtx.maniXmlAtom);
+    const maniXml = get(ctxContent.maniXmlAtom);
     if (maniXml) {
         return true;
     }
 
     // 0. Claen up the context before parsing
-    clearManiCtxManiData(newManiCtx, set);
+    ctxContent.clear(set);
 
     set(newManiCtx.showControlsScanProgressAtom, true);
 
@@ -43,7 +43,7 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
         return false;
     }
 
-    set(newManiCtx.maniXmlAtom, sawManiXml);
+    set(ctxContent.maniXmlAtom, sawManiXml);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -52,10 +52,10 @@ export async function moveFromAppsToNextPage(get: Getter, set: Setter): Promise<
 
         //TODO: check created manifest content manually checkbox
 
-        set(newManiCtx.fileUsAtom, fileUs);
-        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiCtx.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
+        set(ctxContent.fileUsAtom, fileUs);
+        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, ctxContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
     } catch (error) {
-        clearManiCtxManiData(newManiCtx, set);
+        ctxContent.clear(set);
 
         const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
         console.error(msg);

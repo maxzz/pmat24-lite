@@ -1,6 +1,6 @@
-import { atom, type Setter } from "jotai";
+import { type Setter, atom } from "jotai";
 import { type NewManiCtx } from "./0-ctx";
-import { clearManiCtxManiData } from "./0-ctx-content";
+import { ctxContent } from "./0-ctx-content";
 import { wizardFirstPage } from "./8-step-items-data";
 import { allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
@@ -15,7 +15,7 @@ export function create_DoInitNewManiCtxAtom() {
 
             set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
 
-            clearManiCtxManiData(ctx, set);
+            ctxContent.clear(set);
 
             ctx.appsScrollPos.setTop(0);
 

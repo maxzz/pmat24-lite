@@ -17,9 +17,4 @@ class CtxContentClass implements CtxContent {
     }
 };
 
-const ctxContent = new CtxContentClass();
-
-export function clearManiCtxManiData(ctxContent: CtxContent, set: Setter) {
-    set(ctxContent.maniXmlAtom, undefined);
-    set(ctxContent.fileUsAtom, undefined);
-}
+export const ctxContent = new CtxContentClass();

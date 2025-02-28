@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { allScreenshotAtom } from "@/store";
 import { newManiCtx } from "./0-ctx";
+import { ctxContent } from "./0-ctx-content";
 
 const _appSelectedIdxAtom = atom(0);
 
@@ -21,8 +22,7 @@ export function create_AppSelectedIdxAtom() {
 
             newManiCtx.lastSelectedHwnd = items[newIdx]?.item.hwnd;
 
-            set(newManiCtx.maniXmlAtom, undefined);
-            set(newManiCtx.fileUsAtom, undefined);
+            ctxContent.clear(set);
         }
     );
 }
