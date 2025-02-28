@@ -14,11 +14,6 @@ import { ctxContent } from "./0-ctx-content";
  * @returns true if move to the next page is allowed
  */
 export async function moveFromAppsToNextPage({ hwnd, get, set }: { hwnd: string; get: Getter; set: Setter; }): Promise<boolean> {
-    const maniXml = get(ctxContent.maniXmlAtom);
-    if (maniXml) {
-        return true;
-    }
-
     // 0. Claen up the context before parsing
     ctxContent.clear(set);
 

@@ -2,9 +2,11 @@ import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
 import { napiBuildState } from "@/store/7-napi-atoms";
-import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
+import { ctxContent } from "./0-ctx-content";
 import { moveFromAppsToNextPage } from "./2-move-to-mani-page";
 import { appSelectedAppAtom } from "./4-selected-app";
+import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
+import { newManiCtx } from "./0-ctx";
 
 // Page and direction
 
@@ -55,10 +57,22 @@ export function create_DoAdvancePageAtom() {
                         return false;
                     }
 
-                    const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, get, set });
-                    if (!move) {
+                    const maniXml = get(ctxContent.maniXmlAtom); // Move beetwen pages freally in case if xml has been created already
+                    if (maniXml) {
                         return;
                     }
+
+                    try {
+                        set(newManiCtx.showControlsScanProgressAtom, true);
+                        
+                        const move = await moveFromAppsToNextPage({ hwnd: selectedApp.item.hwnd, get, set });
+                        if (!move) {
+                            return;
+                        }
+                    } finally {
+                        set(newManiCtx.showControlsScanProgressAtom, false);
+                    }
+
                 } else if (newPage === wizardLastPage) {
                     //TODO: save
                     //TODO: update loaded counters in the files list on the left
