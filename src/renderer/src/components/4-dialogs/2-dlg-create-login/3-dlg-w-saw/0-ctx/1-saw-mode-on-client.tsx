@@ -30,10 +30,9 @@ export const sawModeOnClientAtom = atom(
             if (canceledByMain) {
                 cancelByMainAtom && set(cancelByMainAtom, false); //TODO: Do we need to reset only if canceledByMain? Later.
             }
-            else {
-                if (hasMain()) {
-                    sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
-                }
+
+            if (hasMain()) {
+                sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
             }
 
             set(_sawModeAtom, false);
@@ -46,7 +45,7 @@ const _sawModeAtom = atom<boolean>(false);
 export const doTurnOffSawModeOnClientAtom = atom(
     null,
     (get, set) => {
-        set(sawModeOnClientAtom, { turnOn: false, canceledByMain: false, cancelByMainAtom: doOpenSawOverlayAtom });
+        set(sawModeOnClientAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
 
