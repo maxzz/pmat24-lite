@@ -18,11 +18,17 @@ const iconsCache: IconsCache = new Map();
 export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
+        if (napiBuildState.buildRunning) {
+            return;
+        }
+        
         if (hasMain()) {
             doLiveIcon(hwnd, get, set);
         } else {
             doTestIcon(hwnd, get, set);
         }
+
+        napiBuildState.buildRunning = false;
     }
 );
 

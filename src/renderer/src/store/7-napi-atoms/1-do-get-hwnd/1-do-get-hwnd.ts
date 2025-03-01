@@ -5,6 +5,7 @@ import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { doGetWindowIconAtom } from "../2-do-get-icon";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
+import { napiBuildState } from "../9-napi-build-state";
 
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
@@ -20,11 +21,17 @@ export const doClearSawHandleAtom = atom(
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
+        if (napiBuildState.buildRunning) {
+            return;
+        }
+
         if (hasMain()) {
             doLiveHwnd(get, set);
         } else {
             doTestHwnd(get, set);
         }
+
+        napiBuildState.buildRunning = false;
     }
 );
 
