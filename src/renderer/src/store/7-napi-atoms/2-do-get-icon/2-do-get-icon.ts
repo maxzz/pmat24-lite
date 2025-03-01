@@ -69,14 +69,16 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
 }
 
 async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
-    const str = await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd);
-    set(sawIconStrAtom, str);
-    
-    const testHwnd = JSON.parse(str || '{}') as TestHwnd;
-    
-    const image = new Image();
-    image.src = `data:image/png;base64,${testHwnd.icon.data}`;
-    set(sawIconAtom, image);
+    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
+    set(sawIconStrAtom, JSON.stringify(testHwnd));
+
+    if (testHwnd?.icon?.data) {
+        const image = new Image();
+        image.src = `data:image/png;base64,${testHwnd.icon.data}`;
+        set(sawIconAtom, image);
+    } else {
+        set(sawIconAtom, null);
+    }
 }
 
 /* export const currentWindowIconAtom = atom(

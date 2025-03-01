@@ -65,11 +65,9 @@ async function doLiveHwnd(get: Getter, set: Setter) {
 }
 
 async function doTestHwnd(get: Getter, set: Setter) {
-    const str = await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd);
-    set(sawHandleStrAtom, str);
-    
-    const testHwnd = JSON.parse(str || '{}') as TestHwnd;
-    set(sawHandleAtom, testHwnd.hwnd);
+    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
+    set(sawHandleStrAtom, JSON.stringify(testHwnd));
+    set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
 // import { napiBuildStateAtom } from "../9-napi-build-state";
