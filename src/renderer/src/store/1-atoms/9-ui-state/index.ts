@@ -7,5 +7,5 @@ export * from "./01-busy-indicator";
 export * from "./02-total-files";
 export * from "./04-filters-search";
 
-export * from "./3-create-tests";
+export * from "./3-create-mani-tests-w-fetch";
 export * from "./0-state-debug";

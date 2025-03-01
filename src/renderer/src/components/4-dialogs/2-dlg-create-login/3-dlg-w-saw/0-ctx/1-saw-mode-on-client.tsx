@@ -2,6 +2,8 @@ import { atom, PrimitiveAtom } from "jotai";
 import { doOpenSawOverlayAtom } from "@/store";
 import { hasMain, sendToMain } from "@/xternal-to-main";
 
+const _sawModeAtom = atom<boolean>(false);
+
 /**
  * @param turnOn - is to set the mode on or off
  * @param canceledByMain - is set if app close button was pressed from main process
@@ -41,8 +43,6 @@ export const doSawModeOnClientAtom = atom(
 export const isSawModeOnClientAtom = atom(
     get => get(_sawModeAtom)
 );
-
-const _sawModeAtom = atom<boolean>(false);
 
 export const doTurnOffSawModeOnClientAtom = atom(
     null,
