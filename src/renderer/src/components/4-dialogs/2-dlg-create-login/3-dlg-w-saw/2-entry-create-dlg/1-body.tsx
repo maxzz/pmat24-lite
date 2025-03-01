@@ -6,7 +6,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { EyeClosed, EyeIcon } from "lucide-react";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
-import { sawModeOnClientAtom } from "../0-ctx";
+import { isSawModeOnClientAtom } from "../0-ctx";
 import { ComponentPropsWithoutRef } from "react";
 
 export function DialogSawBody() {
@@ -50,7 +50,7 @@ export function DialogSawBody() {
 }
 
 function SawModeDisplay({ className, ...rest }: ComponentPropsWithoutRef<'svg'>) {
-    const isSawModeOnClient = useAtomValue(sawModeOnClientAtom);
+    const isSawModeOnClient = useAtomValue(isSawModeOnClientAtom);
     return (<>
         {isSawModeOnClient
             ? <EyeIcon className={classNames("size-4", className)} {...rest} />

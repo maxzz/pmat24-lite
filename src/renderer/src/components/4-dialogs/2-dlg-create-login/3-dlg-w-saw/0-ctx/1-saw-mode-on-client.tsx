@@ -7,8 +7,8 @@ import { hasMain, sendToMain } from "@/xternal-to-main";
  * @param canceledByMain - is set if app close button was pressed from main process
  * @param cancelAtom - cancel will be set to false when mode is turnned off by main process
  */
-export const sawModeOnClientAtom = atom(
-    get => get(_sawModeAtom),
+export const doSawModeOnClientAtom = atom(
+    null,
     (get, set, { turnOn, canceledByMain, cancelByMainAtom }: { turnOn: boolean; canceledByMain: boolean; cancelByMainAtom?: PrimitiveAtom<boolean>; }) => {
         const isOn = get(_sawModeAtom);
 
@@ -27,9 +27,7 @@ export const sawModeOnClientAtom = atom(
                 return;
             }
 
-            if (canceledByMain) {
-                cancelByMainAtom && set(cancelByMainAtom, false); //TODO: Do we need to reset only if canceledByMain? Later.
-            }
+            canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
 
             if (hasMain()) {
                 sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
@@ -40,18 +38,22 @@ export const sawModeOnClientAtom = atom(
     }
 );
 
+export const isSawModeOnClientAtom = atom(
+    get => get(_sawModeAtom)
+);
+
 const _sawModeAtom = atom<boolean>(false);
 
 export const doTurnOffSawModeOnClientAtom = atom(
     null,
     (get, set) => {
-        set(sawModeOnClientAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: doOpenSawOverlayAtom });
+        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
 
 export const doCancelSawModeByMainAtom = atom(
     null,
     (get, set) => {
-        set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayAtom });
+        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
