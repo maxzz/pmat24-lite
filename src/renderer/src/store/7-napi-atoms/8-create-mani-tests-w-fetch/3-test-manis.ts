@@ -6,12 +6,6 @@ import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 
-const testManis: Record<TestManiEnum, string> = {
-    none: '',
-    win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
-    web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
-}
-
 export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum) => {
@@ -35,3 +29,9 @@ export const doLoadFakeManiAtom = atom(
         return rv;
     }
 );
+
+const testManis: Record<TestManiEnum, string> = {
+    none: '',
+    win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
+    web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+}

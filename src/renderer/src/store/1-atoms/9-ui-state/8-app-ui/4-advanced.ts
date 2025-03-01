@@ -4,6 +4,7 @@ export type UiAdvancedState = {     // Advanced UI settings
 
     testCreateAppsDelay: number;    // Delay before returning screenshots for testing in ms. 0 - no delay
     testCreateManiDelay: number;    // Delay before returning manifest for testing in ms. 0 - no delay
+    testCreateHwndDelay: number;    // Delay before returning hwnd and icon for testing in ms. 0 - no delay
 };
 
 export const defaultCreateDelay = 1000;
@@ -14,6 +15,7 @@ export const defaultUiAdvancedState: UiAdvancedState = {
 
     testCreateAppsDelay: defaultCreateDelay,
     testCreateManiDelay: defaultCreateDelay,
+    testCreateHwndDelay: defaultCreateDelay,
 };
 
 /*

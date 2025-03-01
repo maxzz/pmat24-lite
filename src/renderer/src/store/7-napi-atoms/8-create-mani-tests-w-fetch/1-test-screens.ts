@@ -1,17 +1,11 @@
 import { atom } from "jotai";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { delay, randomIntExclusive } from "@/utils";
-import { type TestScreenEnum } from "./9-types-of-tests";
 import { type TlwScreenshot } from "@shared/ipc-types";
+import { type TestScreenEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
-
-const testScreenIds: Record<TestScreenEnum, string> = {
-    none: '',
-    A: 'tests/25.01.16.25/TopLevelWindowsScreenshots.json',
-    B: 'tests/25.01.16.25/TopLevelWindowsScreenshots2many.json',
-};
 
 export const doLoadFakeScreensAtom = atom(
     null,
@@ -36,3 +30,9 @@ export const doLoadFakeScreensAtom = atom(
         return rv;
     }
 );
+
+const testScreenIds: Record<TestScreenEnum, string> = {
+    none: '',
+    A: 'tests/25.01.16.25/TopLevelWindowsScreenshots.json',
+    B: 'tests/25.01.16.25/TopLevelWindowsScreenshots2many.json',
+};
