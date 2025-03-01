@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { delay, randomIntExclusive } from "@/utils";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { type TlwScreenshot } from "@shared/ipc-types";
 import { type TestScreenEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
@@ -9,7 +9,8 @@ import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export const doLoadFakeScreensAtom = atom(
     null,
-    async (get, set, tsId: TestScreenEnum) => {
+    async (get, set, tsId: TestScreenEnum): Promise<TlwScreenshot[]> => {
+
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateAppsDelay);
         if (nDelay) {

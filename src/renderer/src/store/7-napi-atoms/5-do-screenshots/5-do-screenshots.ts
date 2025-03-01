@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import { uuid } from "../../manifest";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { hasMain, invokeMain } from "@/xternal-to-main";
+import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
-import { GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -70,14 +70,16 @@ async function doLiveScreenshots(width: number, set: Setter) {
 function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreenshot[]): TlwScreenshot[] {
     const rv: TlwScreenshot[] = []; //tlwInfos.forEach((tlwInfo, idx) => tlwInfo.hwnd.length < 16 && (tlwInfo.hwnd = `0x${tlwInfo.hwnd.substring(2).padStart(16, '0')}`)); // Fix error: 'Could not find 0x240852 in 0x0000000000240852'
 
-    tlwInfos.forEach(tlwInfo => {
-        const screenshotItem = screenshots.find(screenshot => screenshot.hwnd === tlwInfo.hwnd);
-        if (screenshotItem) {
-            rv.push(screenshotItem);
-        } else {
-            console.log(`%cMissing '${tlwInfo.hwnd}' in screenshots [${screenshots.map(screenshot => `'${screenshot.hwnd}'`).join(', ')}]`, 'color: red');
+    tlwInfos.forEach(
+        (tlwInfo) => {
+            const screenshotItem = screenshots.find(screenshot => screenshot.hwnd === tlwInfo.hwnd);
+            if (screenshotItem) {
+                rv.push(screenshotItem);
+            } else {
+                console.log(`%cMissing '${tlwInfo.hwnd}' in screenshots [${screenshots.map(screenshot => `'${screenshot.hwnd}'`).join(', ')}]`, 'color: red');
+            }
         }
-    });
+    );
 
     return rv;
 }

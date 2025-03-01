@@ -14,6 +14,10 @@ export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // r
 export const doGetWindowManiAtom = atom(
     null,
     async (get, set, params: { hwnd: string | undefined; wantXml: boolean; }): Promise<void> => {
+        if (napiBuildState.buildRunning) {
+            return;
+        }
+
         if (hasMain()) {
             await doLiveMani(params, get, set);
         } else {
@@ -26,10 +30,6 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
     try {
         if (!hwnd) {
             throw new Error('No hwnd');
-        }
-
-        if (napiBuildState.buildRunning) {
-            return;
         }
 
         // 1. call napi to get raw reply string

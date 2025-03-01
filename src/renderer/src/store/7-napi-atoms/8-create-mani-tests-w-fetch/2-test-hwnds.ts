@@ -9,7 +9,8 @@ import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export const doLoadFakeHwndAtom = atom(
     null,
-    async (get, set, tsId: TestHwndEnum) => {
+    async (get, set, tsId: TestHwndEnum): Promise<string> => {
+
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateHwndDelay);
         if (nDelay) {

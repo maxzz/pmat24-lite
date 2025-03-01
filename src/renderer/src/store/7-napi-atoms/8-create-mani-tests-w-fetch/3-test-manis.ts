@@ -8,7 +8,8 @@ import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export const doLoadFakeManiAtom = atom(
     null,
-    async (get, set, tsId: TestManiEnum) => {
+    async (get, set, tsId: TestManiEnum): Promise<string> => {
+        
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateManiDelay);
         if (nDelay) {
