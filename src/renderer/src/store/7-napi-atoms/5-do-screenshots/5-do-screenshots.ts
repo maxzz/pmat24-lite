@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { uuid } from "../../manifest";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { hasMain, invokeMain } from "@/xternal-to-main";
-import { doLoadFakeScreensAtom } from "../3-create-mani-tests-w-fetch";
+import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
 import { GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 
 export type TlwScreenshotInfo = {

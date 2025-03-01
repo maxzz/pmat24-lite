@@ -1,18 +1,18 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
-import { type TestManiEnum } from "./9-local-storage-debug-create";
+import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 
-const testHwnds: Record<TestManiEnum, string> = {
+const testManis: Record<TestManiEnum, string> = {
     none: '',
     win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
     web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
 }
 
-export const doLoadFakeHwndAtom = atom(
+export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum) => {
         // 1. Check if we need to delay
@@ -26,7 +26,7 @@ export const doLoadFakeHwndAtom = atom(
         }
 
         // 2. Get content
-        const fname = testHwnds[tsId];
+        const fname = testManis[tsId];
         if (!fname) {
             return '';
         }

@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { appSettings, debugSettings } from "@/store";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
-import { doLoadFakeManiAtom, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/3-create-mani-tests-w-fetch";
+import { doLoadFakeManiAtom, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 
 export function DebugButtons({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
