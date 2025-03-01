@@ -2,8 +2,8 @@ import { proxy, subscribe } from 'valtio';
 import { sendNapiOptions } from '@/xternal-to-main';
 import { mergeDefaultAndLoaded } from '@/utils';
 import { type DebugMonitorState, initialDebugMonitorState } from './2-local-storage-debug-monitor';
-import { type TestCreate, initialTestCreate } from './3-local-storage-debug-create';
-import { type DebugOnly, initialDebugOnly } from './4-local-storage-debug-only';
+import { type TestCreate, initialTestCreate } from '../../../7-napi-atoms/3-create-mani-tests-w-fetch/9-local-storage-debug-create';
+import { type DebugOnly, initialDebugOnly } from './3-local-storage-debug-only';
 
 const STORAGE_UI_KEY = 'pmat24-lite:ui';
 const STORAGE_UI_VER = 'v1';
