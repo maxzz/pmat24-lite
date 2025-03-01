@@ -34,14 +34,13 @@ export const doGetTargetHwndAtom = atom(
 
             const obj = JSON.parse(res || '{}') as GetTargetWindowResult;
             set(sawHandleAtom, obj);
+            //console.log('test-offline:hwnd\n', JSON.stringify(obj, null, 4));
 
             if (debugSettings.uiState.iconAutoUpdate) {
                 if (obj.hwnd) {
                     set(doGetWindowIconAtom, obj.hwnd);
                 }
             }
-
-            //console.log('doGetSawHandleAtom.set', JSON.stringify(obj, null, 4));
         } catch (error) {
             set(sawHandleStrAtom, '');
             set(sawHandleAtom, null);

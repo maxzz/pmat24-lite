@@ -37,11 +37,10 @@ export const doGetWindowIconAtom = atom(
                 const image = new Image();
                 image.src = `data:image/png;base64,${res.data}`;
                 set(sawIconAtom, image);
+                //console.log('test-offline:icon\n', JSON.stringify(res, null, 4));
             }
 
             napiBuildState.buildError = '';
-
-            //console.log('doGetSawIconAtom.set', JSON.stringify(str, null, 4));
         } catch (error) {
             set(sawIconStrAtom, '');
             set(sawIconAtom, null);
@@ -61,4 +60,4 @@ export const doGetWindowIconAtom = atom(
         }
     }
 )
- */
+*/
