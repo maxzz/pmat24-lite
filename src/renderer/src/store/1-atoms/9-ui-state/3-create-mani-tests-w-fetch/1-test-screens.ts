@@ -4,7 +4,7 @@ import { delay, randomIntExclusive } from "@/utils";
 import { type TestScreenEnum } from "../0-state-debug";
 import { type TlwScreenshot } from "@shared/ipc-types";
 import { hashedQueryAtom } from "./8-hashed-query";
-import { easyDelayInput } from "./3-easy-delay-input";
+import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 const testScreenIds: Record<TestScreenEnum, string> = {

@@ -3,7 +3,7 @@ import { appSettings } from "../0-all";
 import { delay, randomIntExclusive } from "@/utils";
 import { type TestManiEnum } from "../0-state-debug";
 import { hashedQueryAtom } from "./8-hashed-query";
-import { easyDelayInput } from "./3-easy-delay-input";
+import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 const testManis: Record<TestManiEnum, string> = {
