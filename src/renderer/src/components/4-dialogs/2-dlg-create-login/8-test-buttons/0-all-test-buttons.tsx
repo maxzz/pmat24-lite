@@ -4,13 +4,23 @@ import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { appSettings, debugSettings } from "@/store";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
-import { doLoadFakeManiAtom, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
+import { doLoadFakeManiAtom, testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
 
 export function DebugButtonsForScreenshots({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
         <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
             <RowScreenshots />
+            <RowContent />
+        </div>
+    );
+}
+
+export function DebugButtonsForSaw({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    return (
+        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
+            <RowHwns />
             <RowContent />
         </div>
     );
@@ -43,28 +53,55 @@ function RowScreenshots() {
     </>);
 }
 
+function RowHwns() {
+    const { hwnd } = useSnapshot(debugSettings.testCreate);
+    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We don't need to call this, but it will update the icon and the hwnd by monitoring
+    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    return (<>
+        hwnd:
+        <RadioGroup
+            className="grid-cols-subgrid col-span-4"
+            value={hwnd}
+            onValueChange={
+                (v) => {
+                    debugSettings.testCreate.hwnd = v as TestHwndEnum;
+                    doDissmissNextToasts();
+                    doUpdateHwndAndIcon();
+                }
+            }
+            tabIndex={-1}
+        >
+            <Label className={labelClasses}> <RadioGroupItem value={testHwnd.win32} /> {testHwnd.win32} </Label>
+            <Label className={labelClasses}> <RadioGroupItem value={testHwnd.web} /> {testHwnd.web} </Label>
+            <Label className={labelClasses}> <RadioGroupItem value={testHwnd.none} /> {testHwnd.none} </Label>
+
+            <DelayInput keyName={'testCreateHwndDelay'} />
+        </RadioGroup>
+    </>);
+}
+
 function RowContent() {
     const { mani } = useSnapshot(debugSettings.testCreate);
     const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     return (<>
-            content:
-            <RadioGroup
-                className="grid-cols-subgrid col-span-4"
-                value={mani}
-                onValueChange={(v) => {
-                    debugSettings.testCreate.mani = v as TestManiEnum;
-                    doDissmissNextToasts();
-                    doLoadFakeMani(v as TestManiEnum); //TODO: is this wright? is returns value and not uset it but it will be used after move to the next screen.
-                }}
-                tabIndex={-1}
-            >
-                <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
-                <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
-                <Label className={labelClasses}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
+        content:
+        <RadioGroup
+            className="grid-cols-subgrid col-span-4"
+            value={mani}
+            onValueChange={(v) => {
+                debugSettings.testCreate.mani = v as TestManiEnum;
+                doDissmissNextToasts();
+                doLoadFakeMani(v as TestManiEnum); //TODO: is this wright? is returns value and not uset it but it will be used after move to the next screen.
+            }}
+            tabIndex={-1}
+        >
+            <Label className={labelClasses}> <RadioGroupItem value={testMani.win32} /> {testMani.win32} </Label>
+            <Label className={labelClasses}> <RadioGroupItem value={testMani.web} /> {testMani.web} </Label>
+            <Label className={labelClasses}> <RadioGroupItem value={testMani.none} /> {testMani.none} </Label>
 
-                <DelayInput keyName={'testCreateManiDelay'} />
-            </RadioGroup>
+            <DelayInput keyName={'testCreateManiDelay'} />
+        </RadioGroup>
     </>);
 }
 
@@ -80,7 +117,7 @@ function DelayInput({ keyName }: { keyName: SettingsKey; }) {
     );
 }
 
-type SettingsKey = keyof Pick<typeof appSettings.appUi.uiAdvanced, 'testCreateAppsDelay' | 'testCreateManiDelay'>;
+type SettingsKey = keyof Pick<typeof appSettings.appUi.uiAdvanced, 'testCreateAppsDelay' | 'testCreateManiDelay' | 'testCreateHwndDelay'>;
 
 const labelClasses = "text-[.67rem] flex items-center gap-1";
 const inputClasses = "px-0.5 max-w-10 h-5 font-normal text-foreground bg-background outline-sky-500 -outline-offset-1 bordr-border border rounded";

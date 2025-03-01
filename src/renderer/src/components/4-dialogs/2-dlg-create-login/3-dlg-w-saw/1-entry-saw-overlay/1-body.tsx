@@ -6,6 +6,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom, sawIconAtom } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "../0-ctx";
 import { doMoveToSecondDlgAtom } from "../0-ctx/2-move-to-second-dlg";
+import { DebugButtonsForSaw } from "../../8-test-buttons";
 
 export function MonitorOverlayBody() {
 
@@ -16,6 +17,10 @@ export function MonitorOverlayBody() {
         <div className="mx-auto w-4/5 max-w-72 h-full text-sm grid place-items-center">
 
             <div className="relative boder-border border rounded-md">
+
+                <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
+                    <DebugButtonsForSaw className="scale-[.74] origin-left" />
+                </div>
 
                 <div className="relative px-3 py-3 w-full border-border border-b flex items-center justify-center">
                     Select application
