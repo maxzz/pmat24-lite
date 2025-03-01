@@ -1,7 +1,7 @@
 import { atom } from "jotai";
-import { appSettings } from "../0-all";
 import { delay, randomIntExclusive } from "@/utils";
-import { type TestManiEnum } from "../0-state-debug";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
+import { type TestManiEnum } from "@/store/1-atoms/9-ui-state";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
 import { napiBuildProgress } from "@/store/7-napi-atoms";

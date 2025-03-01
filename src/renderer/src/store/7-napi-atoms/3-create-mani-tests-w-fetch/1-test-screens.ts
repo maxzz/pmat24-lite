@@ -1,7 +1,7 @@
 import { atom } from "jotai";
-import { appSettings } from "../0-all";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { delay, randomIntExclusive } from "@/utils";
-import { type TestScreenEnum } from "../0-state-debug";
+import { type TestScreenEnum } from "@/store/1-atoms/9-ui-state";
 import { type TlwScreenshot } from "@shared/ipc-types";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";

@@ -4,7 +4,8 @@ import { type WindowControlsCollectResult } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
 import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
 import { setLocalState } from "../3-do-get-controls";
-import { doLoadFakeManiAtom, debugSettings } from "@/store/1-atoms";
+import { debugSettings } from "@/store/1-atoms";
+import { doLoadFakeManiAtom } from "../3-create-mani-tests-w-fetch";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
 export const sawManiXmlAtom = atom<string | undefined>(undefined);          // raw xml string from napi if called with wantXml
