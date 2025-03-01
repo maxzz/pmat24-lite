@@ -1,11 +1,11 @@
 import { proxy } from 'valtio';
 import { atomWithProxy } from 'jotai-valtio';
-import { TargetPosition } from '@shared/ipc-types';
+import { type TargetPosition } from '@shared/ipc-types';
 
-type NapiBuildState = {                         // state of Napi multistep build: icons, controls, manifest
-    buildRunning: boolean;                      // content check build is runnning
-    buildError: string;                         // error message if build failed
-    buildFailedBody: string;                    // raw string returned from main that failed to parse
+type NapiBuildState = {                         // State of Napi multistep build: icons, controls, manifest
+    buildRunning: boolean;                      // Content check build is runnning. Make shure there is no multiple calls at the same time or use counter as lock
+    buildError: string;                         // Error message if build failed
+    buildFailedBody: string;                    // Raw string returned from main that failed to parse
 };
 
 export const napiBuildState = proxy<NapiBuildState>({
@@ -19,9 +19,9 @@ export const napiBuildStateAtom = atomWithProxy(napiBuildState);
 //
 
 type NapiBuildProgress = {
-    buildCounter: number;                       // controls detection progress
-    lastProgress: number;                       // last number of build progress or 0
-    getPosProgress: TargetPosition | null;      // get window position progress
+    buildCounter: number;                       // Controls detection progress
+    lastProgress: number;                       // Last number of build progress or 0
+    getPosProgress: TargetPosition | null;      // Get window position progress
 };
 
 export const napiBuildProgress = proxy<NapiBuildProgress>({

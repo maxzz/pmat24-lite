@@ -6,6 +6,7 @@ import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
+import { napiBuildState } from "../9-napi-build-state";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -28,11 +29,17 @@ export const doSetScreenshotsAtom = atom(
     async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
         width = width || defaultScreenshotWidth;
 
+        if (napiBuildState.buildRunning) {
+            return;
+        }
+
         if (hasMain()) {
             await doLiveScreenshots(width, set);
         } else {
             await doTestScreenshots(get, set);
         }
+
+        napiBuildState.buildRunning = false;
     }
 );
 
