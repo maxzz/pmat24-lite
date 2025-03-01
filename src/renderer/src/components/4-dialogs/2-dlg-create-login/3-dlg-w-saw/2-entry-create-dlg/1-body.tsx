@@ -10,8 +10,8 @@ import { sawModeOnClientAtom } from "../0-ctx";
 import { ComponentPropsWithoutRef } from "react";
 
 export function DialogSawBody() {
-    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
 
+    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
     useDissmissNextToasts();
 
     return (
