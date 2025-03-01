@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { hasMain } from "@/xternal-to-main";
+import { doDissmissNextToastsAtom } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doDissmissNextToastsAtom } from "@/utils";
+import { hasMain } from "@/xternal-to-main";
 import { doOpenCreateManiAtom } from "@/store";
 import { LeftPanelProgress } from "../../8-create-ui";
-import { DebugButtons, WizardButtons } from "../../3-wizard-buttons";
+import { WizardButtons } from "../../3-wizard-buttons";
+import { DebugButtonsForScreenshots } from "../../../8-test-buttons";
 import { PagesBodyAnimation } from "./2-pages-body";
 
 export function WizardBody() {
@@ -27,7 +28,7 @@ export function WizardBody() {
 
                 {!hasMain() && (
                     <div className="absolute -left-[38px] -top-[14px] scale-[.74] bg-muted/50 rounded-tl-md border border-foreground/10">
-                        <DebugButtons />
+                        <DebugButtonsForScreenshots />
                     </div>
                 )}
 
