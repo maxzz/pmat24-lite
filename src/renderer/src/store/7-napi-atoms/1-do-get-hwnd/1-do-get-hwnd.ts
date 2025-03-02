@@ -11,14 +11,7 @@ export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
-    (get) => {
-        let rv = get(sawHandleAtom)?.caption || ''; //'Login - Tailwind UI and 2 more pages - Personal - Microsoft​ Edge'
-        rv = rv.replace(/ - Google Chrome$/g, '');
-        rv = rv.replace(/ - Microsoft.? Edge$/g, ''); // it has some hidden unicode symbol 'E2 80 8B' ("ZERO-WIDTH SPACE" character) afer 't' : " - Microsoft​ Edge'"
-        rv = rv.replace(/ - Personal$/g, '');
-        // return rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
-        return rv;
-    }
+    (get) => shortenCaption(get(sawHandleAtom)?.caption)
 );
 
 /**
@@ -31,13 +24,12 @@ export const sawHandleCaptionAtom = atom(
  */
 function shortenCaption(caption: string | undefined) {
     let rv = caption || '';
-    if (!rv) {
-        return rv;
+    if (rv) {
+        rv = rv.replace(/ - Google Chrome$/g, '');
+        rv = rv.replace(/ - Microsoft.? Edge$/g, '');
+        rv = rv.replace(/ - Personal$/g, '');
+        // rv = rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
     }
-    rv = rv.replace(/ - Google Chrome$/g, '');
-    rv = rv.replace(/ - Microsoft.? Edge$/g, '');
-    rv = rv.replace(/ - Personal$/g, '');
-    // rv = rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
     return rv;
 }
 
