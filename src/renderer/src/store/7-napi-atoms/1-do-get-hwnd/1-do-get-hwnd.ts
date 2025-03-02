@@ -10,16 +10,8 @@ import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetc
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
-// export const sawHandleCaptionAtom = atom(
-//     (get) => get(sawHandleAtom)?.caption || ''
-// );
-
 export const sawHandleCaptionAtom = atom(
-    (get) => {
-        const rv = get(sawHandleAtom)?.caption || '';
-        console.log('sawHandleCaptionAtom', rv);
-        return rv;
-    }
+    (get) => get(sawHandleAtom)?.caption || ''
 );
 
 export const doClearSawHandleAtom = atom(
@@ -86,11 +78,7 @@ async function doTestHwnd(get: Getter, set: Setter) {
 
     const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
     set(sawHandleStrAtom, JSON.stringify(testHwnd));
-    
-    const current = get(sawHandleAtom);
-    if (current?.hwnd !== testHwnd?.hwnd.hwnd) {
-        set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
-    }
+    set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
 let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
