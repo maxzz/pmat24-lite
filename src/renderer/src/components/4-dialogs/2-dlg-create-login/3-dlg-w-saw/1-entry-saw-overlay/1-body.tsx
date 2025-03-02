@@ -17,7 +17,7 @@ export function MonitorOverlayBody() {
             <DebugBorder>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
-                <div className="px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
+                <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
                     <div className="text-center text-balance">
                         Launch the program or browse to the Web site that
                         contains the login screen for which you want to create a managed logon.
@@ -42,33 +42,32 @@ export function MonitorOverlayBody() {
         </div>
     );
 }
-
+//TODO: icon update
+//TODO: app name text popup on update and multiline truncation
 function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    if (hasMain()) {
+        return (<div className="relative">{children}</div>);
+    }
     return (<>
-        {hasMain()
-            ? (<>{children}</>)
-            : (
-                <div className={classNames("relative border-border border rounded-md", className)} {...rest}>
-                    <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
-                        <DebugButtonsForSaw className="scale-[.74] origin-left" />
-                    </div>
+        <div className={classNames("relative w-[430px] h-[510px] border-border border rounded-md", className)} {...rest}>
+            <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
+                <DebugButtonsForSaw className="scale-[.74] origin-left" />
+            </div>
 
-                    <div className="relative px-3 py-3 w-full text-sm border-border border-b flex items-center justify-center">
-                        Select application
+            <div className="relative px-3 py-3 w-full text-sm border-border border-b flex items-center justify-center">
+                Select application
 
-                        <Button
-                            className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                            onClick={() => doMoveToSecondDlg({ cancel: true, hwnd: '' })}
-                        >
-                            <Cross2Icon className="size-4" />
-                        </Button>
-                    </div>
+                <Button
+                    className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
+                    onClick={() => doMoveToSecondDlg({ cancel: true, hwnd: '' })}
+                >
+                    <Cross2Icon className="size-4" />
+                </Button>
+            </div>
 
-                    {children}
-                </div>
-            )
-        }
+            {children}
+        </div>
     </>);
 }
 
