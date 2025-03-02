@@ -3,7 +3,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, ImageHolder, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom, sawIconAtom } from "@/store";
+import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "../0-ctx";
 import { doMoveToSecondDlgAtom } from "../0-ctx/2-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
@@ -13,7 +13,7 @@ export function MonitorOverlayBody() {
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     useDissmissNextToasts();
     return (
-        <div className="mx-auto w-4/5 max-w-72 h-full text-xs grid place-items-center">
+        <div className="mx-auto w-[380px] h-full text-xs grid place-items-center">
             <DebugBorder>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
@@ -44,13 +44,14 @@ export function MonitorOverlayBody() {
 }
 //TODO: icon update
 //TODO: app name text popup on update and multiline truncation
+//TODO: set window caption
 function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     if (hasMain()) {
-        return (<div className="relative">{children}</div>);
+        return (<div className="relative bg-sky-400/20">{children}</div>);
     }
     return (<>
-        <div className={classNames("relative w-[430px] h-[510px] border-border border rounded-md", className)} {...rest}>
+        <div className={classNames("relative bg-sky-400/20 border-border border rounded-md", className)} {...rest}>
             <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />
             </div>
@@ -72,7 +73,7 @@ function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<
 }
 
 function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const sawHandle = useAtomValue(sawHandleAtom);
+    const caption = useAtomValue(sawHandleCaptionAtom);
     const iconsLarge = true;
     return (
         <div className={classNames("w-full grid place-items-center", className)} {...rest}>
@@ -88,7 +89,7 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
             <div className="place-self-center">
                 {/* App name: */}
                 <div className="text-xs min-h-8">
-                    {sawHandle?.caption}
+                    {caption}
                 </div>
             </div>
         </div>
