@@ -18,8 +18,8 @@ export const sawHandleCaptionAtom = atom(
 export const doClearSawHandleAtom = atom(
     null,
     (get, set) => {
-        set(sawHandleAtom, null);
         set(sawHandleStrAtom, '');
+        set(sawHandleAtom, null);
     }
 );
 
@@ -82,14 +82,3 @@ async function doTestHwnd(get: Getter, set: Setter) {
 }
 
 let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
-
-// import { napiBuildStateAtom } from "../9-napi-build-state";
-// export const sawGetDisabledAtom = atom(
-//     (get) => {
-//         const { buildRunning } = get(napiBuildStateAtom);
-//         const secondActiveWindow = get(sawHandleAtom);
-//         const hwnd = secondActiveWindow?.hwnd;
-//         const isDisabled = !hwnd || buildRunning;
-//         return isDisabled;
-//     }
-// );
