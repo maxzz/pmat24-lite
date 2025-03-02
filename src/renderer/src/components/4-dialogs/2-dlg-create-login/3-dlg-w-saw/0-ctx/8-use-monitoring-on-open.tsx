@@ -1,8 +1,7 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringAtom, sawHandleAtom } from "@/store";
-import { hasMain } from "@/xternal-to-main";
 import { doSawModeOnClientAtom } from "./1-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
@@ -11,21 +10,12 @@ export function useMonitoringOnOpen() {
     const doSetSawModeOnClient = useSetAtom(doSawModeOnClientAtom);
 
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
-
-    const callback = useCallback(
-        () => {
-            if (hasMain()) {
-                doUpdateHwndAndIcon();
-            }
-
-            console.log('Monitoring callback');
-        }, []
-    );
+    // const callback = useCallback(() => { doUpdateHwndAndIcon(); console.log('Monitoring callback'); }, []);
 
     useEffect(
         () => {
             if (isOpen) {
-                doMonitoring({ doStart: true, callback });
+                doMonitoring({ doStart: true, callback: doUpdateHwndAndIcon });
                 doSetSawModeOnClient({ turnOn: true, canceledByMain: false });
 
                 return () => {
@@ -40,11 +30,7 @@ export const doUpdateHwndAndIconAtom = atom(
     null,
     async (get, set) => {
         await set(doGetTargetHwndAtom);
-
         const sawHandle = get(sawHandleAtom);
-
-        if (sawHandle?.hwnd) {
-            set(doGetWindowIconAtom, sawHandle.hwnd);
-        }
+        set(doGetWindowIconAtom, sawHandle?.hwnd);
     }
 );
