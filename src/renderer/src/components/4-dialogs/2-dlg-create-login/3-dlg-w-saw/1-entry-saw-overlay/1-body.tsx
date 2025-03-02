@@ -7,33 +7,14 @@ import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, monitorCounterAtom, sawH
 import { doTurnOffSawModeOnClientAtom } from "../0-ctx";
 import { doMoveToSecondDlgAtom } from "../0-ctx/2-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
+import { hasMain } from "@/xternal-to-main";
 
 export function MonitorOverlayBody() {
-
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     useDissmissNextToasts();
-
     return (
-        <div className="mx-auto w-4/5 max-w-72 h-full text-sm grid place-items-center">
-
-            <div className="relative boder-border border rounded-md">
-
-                <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
-                    <DebugButtonsForSaw className="scale-[.74] origin-left" />
-                </div>
-
-                <div className="relative px-3 py-3 w-full border-border border-b flex items-center justify-center">
-                    Select application
-
-                    <Button
-                        className="absolute 1py-4 right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                        onClick={() => doMoveToSecondDlg({ cancel: true, hwnd: '' })}
-                    >
-                        <Cross2Icon className="size-4" />
-                    </Button>
-
-                </div>
-
+        <div className="mx-auto w-4/5 max-w-72 h-full text-xs grid place-items-center">
+            <DebugBorder>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
                 <div className="px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
@@ -44,7 +25,7 @@ export function MonitorOverlayBody() {
 
                     <CurrentApp />
 
-                    <Label className="place-self-center flex items-center gap-2">
+                    <Label className="place-self-center text-xs flex items-center gap-2">
                         <Checkbox className="size-4" />
                         Set up a managed logon manually
                     </Label>
@@ -57,28 +38,56 @@ export function MonitorOverlayBody() {
                         Continue
                     </Button>
                 </div>
-
-            </div>
+            </DebugBorder>
         </div>
     );
 }
 
+function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    return (<>
+        {hasMain()
+            ? (<>{children}</>)
+            : (
+                <div className={classNames("relative border-border border rounded-md", className)} {...rest}>
+                    <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
+                        <DebugButtonsForSaw className="scale-[.74] origin-left" />
+                    </div>
+
+                    <div className="relative px-3 py-3 w-full text-sm border-border border-b flex items-center justify-center">
+                        Select application
+
+                        <Button
+                            className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
+                            onClick={() => doMoveToSecondDlg({ cancel: true, hwnd: '' })}
+                        >
+                            <Cross2Icon className="size-4" />
+                        </Button>
+                    </div>
+
+                    {children}
+                </div>
+            )
+        }
+    </>);
+}
+
 function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const sawHandle = useAtomValue(sawHandleAtom);
-    const iconsLarge = false;
+    const iconsLarge = true;
     return (
-        <div className={classNames(className)} {...rest}>
+        <div className={classNames("w-full grid place-items-center", className)} {...rest}>
             {/* <div className=""> Login screen detected: </div> */}
             <div className="">
                 Active application:
             </div>
 
-            <div className="place-self-center size-24 border-border border rounded grid place-items-center">
+            <div className="text-left 1place-self-center size-24 border-border border rounded grid place-items-center">
                 <ImageHolder className={iconsLarge ? "size-12" : "size-5"} imageAtom={sawIconAtom} />
             </div>
 
             <div className="place-self-center">
-                App name:
+                {/* App name: */}
                 <div className="text-xs min-h-8">
                     {sawHandle?.caption}
                 </div>
