@@ -10,43 +10,49 @@ import { DebugButtonsForSaw } from "../../8-test-buttons";
 import { hasMain } from "@/xternal-to-main";
 
 export function MonitorOverlayBody() {
-    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     useDissmissNextToasts();
     return (
-        <div className="mx-auto w-[380px] h-full text-xs grid place-items-center">
+        <div className="mx-auto w-[320px] h-full text-xs grid place-items-center">
             <DebugBorder>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
                 <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
-                    <div className="1text-center text-balance">
+                    <div className="1text-center 1text-balance">
                         Launch the program or browse to the Web site that
                         contains the login screen for which you want to create a managed logon.
                     </div>
 
                     <CurrentApp />
 
-                    <Label className="place-self-center text-xs flex items-center gap-2">
+                    <Label className="place-self-start text-xs flex items-center gap-2">
                         <Checkbox className="size-4" />
                         Set up a managed logon manually
                     </Label>
 
                     {/* <div className="">To continue click the button below.</div> */}
 
-                    <Button className="place-self-center" variant="default" size="xs"
-                        onClick={() => doMoveToSecondDlg({ cancel: false, hwnd: '' })}
-                    >
-                        Continue
-                    </Button>
+                    <ButtonContinue />
                 </div>
             </DebugBorder>
         </div>
     );
 }
 
-function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const caption = useAtomValue(sawHandleCaptionAtom);
+function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     return (
-        <div className={classNames("w-full grid place-items-center gap-2", className)} {...rest}>
+        <Button
+            className="place-self-center" variant="default" size="xs"
+            onClick={() => doMoveToSecondDlg({ cancel: false, hwnd: '' })}
+        >
+            Continue
+        </Button>
+    );
+}
+
+function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    return (
+        <div className={classNames("px-4 py-2 w-full 1w-4/5 border-border/30 border rounded-md grid place-items-center gap-2", className)} {...rest}>
             {/* <div className=""> Login screen detected: </div> */}
             <div className="">
                 Active application:
@@ -56,9 +62,16 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                 <ImageHolder className="size-full" imageAtom={sawIconAtom} />
             </div>
 
-            <div className="text-xs min-h-8">
-                {caption}
-            </div>
+            <CurrentAppCaption />
+        </div>
+    );
+}
+
+function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const caption = useAtomValue(sawHandleCaptionAtom);
+    return (
+        <div className="text-xs min-h-8">
+            {caption}
         </div>
     );
 }
@@ -68,15 +81,16 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     if (hasMain()) {
-        return (<div className="relative bg-sky-400/20">{children}</div>);
+        return (<div className={classNames("relative bg-sky-400/20", className)} {...rest}>{children}</div>);
     }
     return (<>
-        <div className={classNames("relative bg-sky-400/20 border-border border rounded-md", className)} {...rest}>
+        <div className={classNames("relative bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
+        
             <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />
             </div>
 
-            <div className="relative px-3 py-3 w-full text-sm border-border border-b flex items-center justify-center">
+            <div className="relative px-3 py-3 w-full text-sm border-border/30 border-b flex items-center justify-center">
                 Select application
 
                 <Button
