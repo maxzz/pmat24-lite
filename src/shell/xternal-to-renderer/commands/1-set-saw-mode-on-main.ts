@@ -2,7 +2,9 @@ import { screen, BrowserWindow } from 'electron';
 import { type R2M, type RectangleInt } from '@shared/ipc-types';
 import { mainStore } from '@shell/store-main';
 
-let savedPos: RectangleInt = { x: 0, y: 0, width: 340, height: 510, }; // saved position and size before saw mode
+const defaultRect: RectangleInt = { x: 0, y: 0, width: 420, height: 510, };
+
+let savedPos: RectangleInt = { ...defaultRect }; // saved position and size before saw mode
 
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
@@ -11,7 +13,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, rect }: 
 
     if (setOn) {
         savedPos = getWindowRect(winApp);
-        setWindowRect(winApp, centerRect(savedPos, rect || { x: 0, y: 0, width: 340, height: 510, }));
+        setWindowRect(winApp, centerRect(savedPos, rect || defaultRect));
         winApp.setAlwaysOnTop(true);
         mainStore.sawModeIsOn = true;
     } else {
