@@ -15,19 +15,21 @@ type IconsCache = Map<string, string>; // hwnd -> string with WindowIconGetterRe
 
 const iconsCache: IconsCache = new Map();
 
+export const doClearSawIconAtom = atom(
+    null,
+    (get, set) => {
+        set(sawIconStrAtom, '');
+        set(sawIconAtom, null);
+    }
+);
+
 export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
         if (isNapiLocked()) {
             return;
         }
-        
-        if (hasMain()) {
-            doLiveIcon(hwnd, get, set);
-        } else {
-            doTestIcon(hwnd, get, set);
-        }
-
+        hasMain() ? doLiveIcon(hwnd, get, set) : doTestIcon(hwnd, get, set);
         nonReactiveLock.locked = false;
     }
 );
@@ -35,7 +37,8 @@ export const doGetWindowIconAtom = atom(
 async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
     try {
         if (!hwnd) {
-            throw new Error('No hwnd');
+            set(doClearSawIconAtom);
+            return;
         }
 
         const cached = iconsCache.get(hwnd);
@@ -54,16 +57,12 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
             const image = new Image();
             image.src = `data:image/png;base64,${res.data}`;
             set(sawIconAtom, image);
-            //console.log('test-offline:icon\n', JSON.stringify(res, null, 4));
         }
 
         napiBuildState.buildError = '';
     } catch (error) {
-        set(sawIconStrAtom, '');
-        set(sawIconAtom, null);
-
+        set(doClearSawIconAtom);
         napiBuildState.buildError = getSubError(error);
-
         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
     }
 }
