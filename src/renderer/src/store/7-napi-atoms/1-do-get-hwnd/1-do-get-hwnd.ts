@@ -1,8 +1,9 @@
 import { atom, type Getter, type Setter } from "jotai";
+import { shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
-import { isNapiLocked, napiBuildState, nonReactiveLock } from "../9-napi-build-state";
+import { isNapiLocked, nonReactiveLock } from "../9-napi-build-state";
 import { doGetWindowIconAtom } from "../2-do-get-icon";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
@@ -11,27 +12,8 @@ export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
-    (get) => shortenCaption(get(sawHandleAtom)?.caption)
+    (get) => shortenWindowCaption(get(sawHandleAtom)?.caption)
 );
-
-/**
- * Shorten caption by removing browser name and flavor like:
- * "Login - Tailwind UI and 2 more pages - Personal - Microsoft​ Edge"
- * to 'Login - Tailwind UI and 2 more pages'
- * Note on Microsoft Edge: There is hidden unicode character 'E2 80 8B' ("ZERO-WIDTH SPACE") afer 't' : " - Microsoft​ Edge'"
- * @param caption 
- * @returns 
- */
-function shortenCaption(caption: string | undefined) {
-    let rv = caption || '';
-    if (rv) {
-        rv = rv.replace(/ - Google Chrome$/g, '');
-        rv = rv.replace(/ - Microsoft.? Edge$/g, '');
-        rv = rv.replace(/ - Personal$/g, '');
-        // rv = rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
-    }
-    return rv;
-}
 
 export const doClearSawHandleAtom = atom(
     null,

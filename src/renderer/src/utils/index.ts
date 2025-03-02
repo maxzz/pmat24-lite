@@ -6,6 +6,7 @@ export * from "./error-to-string";
 export * from "./numbers";
 export * from "./os-utils";
 export * from "./prepend-url-path";
+export * from "./shrten-windows-caption";
 export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
 export * from "./theme-apply";
