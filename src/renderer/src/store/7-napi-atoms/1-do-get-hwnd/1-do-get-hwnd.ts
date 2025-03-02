@@ -2,7 +2,7 @@ import { atom, type Getter, type Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
-import { napiBuildState, nonReactiveLock } from "../9-napi-build-state";
+import { isNapiLocked, napiBuildState, nonReactiveLock } from "../9-napi-build-state";
 import { doGetWindowIconAtom } from "../2-do-get-icon";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
@@ -21,10 +21,10 @@ export const doClearSawHandleAtom = atom(
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
-        if (nonReactiveLock.locked) {
+
+        if (isNapiLocked()) {
             return;
         }
-        nonReactiveLock.locked = true;
 
         if (hasMain()) {
             doLiveHwnd(get, set);

@@ -16,10 +16,6 @@ export const napiBuildState = proxy<NapiBuildState>({
 
 export const napiBuildStateAtom = atomWithProxy(napiBuildState);
 
-export const nonReactiveLock = {                // non-reactive reentrancy lock
-    locked: false,
-}; 
-
 //
 
 type NapiBuildProgress = {
@@ -33,3 +29,19 @@ export const napiBuildProgress = proxy<NapiBuildProgress>({
     lastProgress: 0,
     getPosProgress: null,
 });
+
+// Non-reactive Napi reentrancy lock
+
+export const nonReactiveLock = {
+    locked: false,
+};
+
+export function isNapiLocked(): boolean {
+    if (nonReactiveLock.locked) {
+        console.error('enterNonReactiveLock() lock is already locked');
+        return true;
+    }
+
+    nonReactiveLock.locked = true;
+    return false;
+}

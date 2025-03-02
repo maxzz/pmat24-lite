@@ -2,15 +2,14 @@ import { TargetClientRect } from "@shared/ipc-types";
 import { atom } from "jotai";
 import { sawHandleAtom } from "../1-do-get-hwnd";
 import { R2MCalls } from "@/xternal-to-main";
-import { nonReactiveLock } from "../9-napi-build-state";
+import { isNapiLocked, nonReactiveLock } from "../9-napi-build-state";
 
 export const doHighlightRectAtom = atom(
     null,
     (get, set, { hwnd, rect }: { hwnd?: string, rect: TargetClientRect | undefined; }) => {
-        if (nonReactiveLock.locked) {
+        if (isNapiLocked()) {
             return;
         }
-        nonReactiveLock.locked = true;
 
         if (!rect) {
             return;
