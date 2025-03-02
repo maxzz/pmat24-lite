@@ -42,9 +42,29 @@ export function MonitorOverlayBody() {
         </div>
     );
 }
-//TODO: icon update
+
+function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const caption = useAtomValue(sawHandleCaptionAtom);
+    return (
+        <div className={classNames("w-full grid place-items-center gap-2", className)} {...rest}>
+            {/* <div className=""> Login screen detected: </div> */}
+            <div className="">
+                Active application:
+            </div>
+
+            <div className="size-8 grid place-items-center">
+                <ImageHolder className="size-full" imageAtom={sawIconAtom} />
+            </div>
+
+            <div className="text-xs min-h-8">
+                {caption}
+            </div>
+        </div>
+    );
+}
+
 //TODO: app name text popup on update and multiline truncation
-//TODO: set window caption
+
 function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     if (hasMain()) {
@@ -70,30 +90,6 @@ function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<
             {children}
         </div>
     </>);
-}
-
-function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const caption = useAtomValue(sawHandleCaptionAtom);
-    const iconsLarge = true;
-    return (
-        <div className={classNames("w-full grid place-items-center", className)} {...rest}>
-            {/* <div className=""> Login screen detected: </div> */}
-            <div className="">
-                Active application:
-            </div>
-
-            <div className="text-left 1place-self-center size-24 border-border border rounded grid place-items-center">
-                <ImageHolder className={iconsLarge ? "size-12" : "size-5"} imageAtom={sawIconAtom} />
-            </div>
-
-            <div className="place-self-center">
-                {/* App name: */}
-                <div className="text-xs min-h-8">
-                    {caption}
-                </div>
-            </div>
-        </div>
-    );
 }
 
 function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {

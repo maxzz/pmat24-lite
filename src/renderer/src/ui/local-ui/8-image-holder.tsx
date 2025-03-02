@@ -1,7 +1,8 @@
 import { type HTMLAttributes, useRef, useEffect } from "react";
 import { type Atom, useAtomValue } from "jotai";
+import { classNames } from "@/utils";
 
-export function ImageHolder({ imageAtom, ...rest }: { imageAtom: Atom<HTMLImageElement | null>; } & HTMLAttributes<HTMLDivElement>) {
+export function ImageHolder({ imageAtom, className, ...rest }: { imageAtom: Atom<HTMLImageElement | null>; } & HTMLAttributes<HTMLDivElement>) {
     const refParent = useRef<HTMLDivElement>(null);
     const imageElm = useAtomValue(imageAtom);
 
@@ -25,7 +26,7 @@ export function ImageHolder({ imageAtom, ...rest }: { imageAtom: Atom<HTMLImageE
     }
 
     return (
-        <div ref={refParent} {...rest} />
+        <div ref={refParent} className={classNames("[&>img]:size-full", className)} {...rest} />
     );
 }
 

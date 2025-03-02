@@ -74,7 +74,6 @@ async function doTestHwnd(get: Getter, set: Setter) {
         return;
     }
     lastTestCreateHwnd = debugSettings.testCreate.hwnd;
-    console.log('doTestHwnd', debugSettings.testCreate.hwnd);
 
     const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
     set(sawHandleStrAtom, JSON.stringify(testHwnd));
