@@ -18,7 +18,7 @@ export function MonitorOverlayBody() {
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
                 <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
-                    <div className="text-center text-balance">
+                    <div className="1text-center text-balance">
                         Launch the program or browse to the Web site that
                         contains the login screen for which you want to create a managed logon.
                     </div>

@@ -11,8 +11,35 @@ export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
-    (get) => get(sawHandleAtom)?.caption || ''
+    (get) => {
+        let rv = get(sawHandleAtom)?.caption || ''; //'Login - Tailwind UI and 2 more pages - Personal - Microsoft​ Edge'
+        rv = rv.replace(/ - Google Chrome$/g, '');
+        rv = rv.replace(/ - Microsoft.? Edge$/g, ''); // it has some hidden unicode symbol 'E2 80 8B' ("ZERO-WIDTH SPACE" character) afer 't' : " - Microsoft​ Edge'"
+        rv = rv.replace(/ - Personal$/g, '');
+        // return rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
+        return rv;
+    }
 );
+
+/**
+ * Shorten caption by removing browser name and flavor like:
+ * "Login - Tailwind UI and 2 more pages - Personal - Microsoft​ Edge"
+ * to 'Login - Tailwind UI and 2 more pages'
+ * Note on Microsoft Edge: There is hidden unicode character 'E2 80 8B' ("ZERO-WIDTH SPACE") afer 't' : " - Microsoft​ Edge'"
+ * @param caption 
+ * @returns 
+ */
+function shortenCaption(caption: string | undefined) {
+    let rv = caption || '';
+    if (!rv) {
+        return rv;
+    }
+    rv = rv.replace(/ - Google Chrome$/g, '');
+    rv = rv.replace(/ - Microsoft.? Edge$/g, '');
+    rv = rv.replace(/ - Personal$/g, '');
+    // rv = rv.length > 30 ? `${rv.substring(0, 30)}...` : rv;
+    return rv;
+}
 
 export const doClearSawHandleAtom = atom(
     null,
