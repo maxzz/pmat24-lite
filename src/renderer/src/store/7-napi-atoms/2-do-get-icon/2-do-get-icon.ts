@@ -69,6 +69,11 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
 }
 
 async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
+    if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
+        return;
+    }
+    lastTestCreateHwnd = debugSettings.testCreate.hwnd;
+
     const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
     set(sawIconStrAtom, JSON.stringify(testHwnd));
 
@@ -80,6 +85,8 @@ async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
         set(sawIconAtom, null);
     }
 }
+
+let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
 
 /* export const currentWindowIconAtom = atom(
     (get) => {
