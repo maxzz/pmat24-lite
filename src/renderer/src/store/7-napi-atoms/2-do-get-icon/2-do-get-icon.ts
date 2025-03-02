@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { WindowIconGetterResult } from "@shared/ipc-types";
-import { napiBuildState } from "../9-napi-build-state";
+import { napiBuildState, nonReactiveLock } from "../9-napi-build-state";
 import { getSubError } from "@/utils";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
 import { debugSettings } from "@/store/1-atoms";
@@ -18,9 +18,10 @@ const iconsCache: IconsCache = new Map();
 export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
-        if (napiBuildState.buildRunning) {
+        if (nonReactiveLock.locked) {
             return;
         }
+        nonReactiveLock.locked = true;
         
         if (hasMain()) {
             doLiveIcon(hwnd, get, set);
@@ -28,7 +29,7 @@ export const doGetWindowIconAtom = atom(
             doTestIcon(hwnd, get, set);
         }
 
-        napiBuildState.buildRunning = false;
+        nonReactiveLock.locked = false;
     }
 );
 

@@ -16,6 +16,10 @@ export const napiBuildState = proxy<NapiBuildState>({
 
 export const napiBuildStateAtom = atomWithProxy(napiBuildState);
 
+export const nonReactiveLock = {                // non-reactive reentrancy lock
+    locked: false,
+}; 
+
 //
 
 type NapiBuildProgress = {
