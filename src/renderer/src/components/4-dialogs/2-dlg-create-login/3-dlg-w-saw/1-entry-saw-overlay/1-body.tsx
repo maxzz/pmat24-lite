@@ -18,14 +18,14 @@ export function MonitorOverlayBody() {
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
                 <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
-                    <div className="1text-center 1text-balance">
+                    <div className="1text-center 1text-balance select-none">
                         Launch the program or browse to the Web site that
                         contains the login screen for which you want to create a managed logon.
                     </div>
 
                     <CurrentApp />
 
-                    <Label className="place-self-start text-xs flex items-center gap-2">
+                    <Label className="place-self-start text-xs flex items-center gap-2 select-none">
                         <Checkbox className="size-4" />
                         Set up a managed logon manually
                     </Label>
@@ -53,7 +53,7 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
 
 function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-4 py-2 w-full 1w-4/5 border-border/30 border rounded-md grid place-items-center gap-2", className)} {...rest}>
+        <div className={classNames("px-4 py-2 w-full 1w-4/5 border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
             {/* <div className=""> Login screen detected: </div> */}
             <div className="">
                 Active application:
@@ -72,45 +72,45 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);
     console.log('CurrentAppCaption', caption);
-    
+
     return (
-    <div className="relative overflow-clip">
-        <AnimatePresence mode="wait">
-            <motion.div
-                className={classNames("w-full min-h-8 text-center line-clamp-2", className)}
-
-                key={caption}
-                // layoutDependency={caption}
-
-                initial={{ opacity: 0, y: -100, }}
-                animate={{ opacity: 1, y: 0, }}
-                exit={{ opacity: 0, y: 0, transition: { duration: 0 } }}
-                // transition={{ duration: 2 }}
-
-
-                // layoutId={caption}
-                // initial={{ opacity: 1, x: 100, }}
-                // animate={{ opacity: 1, x: 0, }}
-                // exit={{ opacity: 1, x: -100, }}
-                // transition: { delay: .2, duration: .2 }
-                title={caption} {...rest}
-            >
+        <div className="relative overflow-clip">
+            <AnimatePresence mode="wait">
                 <motion.div
-                // layoutDependency={caption}
+                    className={classNames("w-full min-h-8 text-center line-clamp-2", className)}
 
-                // key={caption}
-                // initial={{ opacity: 0, x: -100, }}
-                // animate={{ opacity: 1, x: 0, }}
-                // exit={{ opacity: 0, x: 100, }}
-                // transition={{ duration: 2 }}
+                    key={caption}
+                    // layoutDependency={caption}
+
+                    initial={{ opacity: 0, y: -100, }}
+                    animate={{ opacity: 1, y: 0, }}
+                    exit={{ opacity: 0, y: 0, transition: { duration: 0 } }}
+                    // transition={{ duration: 2 }}
+
+
+                    // layoutId={caption}
+                    // initial={{ opacity: 1, x: 100, }}
+                    // animate={{ opacity: 1, x: 0, }}
+                    // exit={{ opacity: 1, x: -100, }}
+                    // transition: { delay: .2, duration: .2 }
+                    title={caption} {...rest}
+                >
+                    <motion.div
+                    // layoutDependency={caption}
+
+                    // key={caption}
+                    // initial={{ opacity: 0, x: -100, }}
+                    // animate={{ opacity: 1, x: 0, }}
+                    // exit={{ opacity: 0, x: 100, }}
+                    // transition={{ duration: 2 }}
 
                     // layout="position"
-                >
+                    >
 
-                    {caption}
+                        {caption}
+                    </motion.div>
                 </motion.div>
-            </motion.div>
-        </AnimatePresence>
+            </AnimatePresence>
         </div>
     );
 }

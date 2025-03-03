@@ -3,14 +3,14 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { appSettings, debugSettings } from "@/store";
-import { Label, RadioGroup, RadioGroupItem } from "@/ui";
+import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { doLoadFakeManiAtom, testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
 
 export function DebugButtonsForScreenshots({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
+        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2 select-none", className)} {...rest}>
             <RowScreenshots />
             <RowContent />
         </div>
@@ -18,10 +18,17 @@ export function DebugButtonsForScreenshots({ className, ...rest }: ComponentProp
 }
 
 export function DebugButtonsForSaw({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const { dummyCaption } = useSnapshot(debugSettings.testCreate);
     return (
-        <div className={classNames("px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2", className)} {...rest}>
-            <RowHwns />
-            <RowContent />
+        <div className={classNames("grid grid-cols-[1fr,auto] gap-1 select-none", className)} {...rest}>
+            <div className="px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2">
+                <RowHwns />
+                <RowContent />
+            </div>
+            <label className="place-self-start py-1 flex items-center gap-2">
+                <Checkbox className="size-4" checked={dummyCaption} onCheckedChange={(v) => debugSettings.testCreate.dummyCaption = !!v} />
+                <span className="whitespace-nowrap" title="2 lines fake caption">fake caption</span>
+            </label>
         </div>
     );
 }
