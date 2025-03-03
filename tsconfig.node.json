@@ -5,7 +5,7 @@
         "src/shared/**/*",
         "electron.vite.config.*",
 
-        "src/shell/preload/**/*",
+        "src/shell/preload/index.ts",
         "src/renderer/src/vite-typescript/**/*",
 
         "src/renderer/src/xternal-to-main/**/*",
@@ -26,7 +26,7 @@
         "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
         "src/shell/xternal-to-renderer/main-to-renderer.ts",
         "src/shell/xternal-to-renderer/commands",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts"
     ],
     "compilerOptions": {
         "composite": true,
@@ -45,6 +45,7 @@
         "types": [
             "electron-vite/node",
             "@types/wicg-file-system-access",
+            "./src/shell/preload/tm-index.d.ts"
         ],
     },
 }
