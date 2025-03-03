@@ -13,7 +13,7 @@ import { hasMain } from "@/xternal-to-main";
 export function MonitorOverlayBody() {
     useDissmissNextToasts();
     return (
-        <div className="mx-auto w-[320px] h-full text-xs grid place-items-center">
+        <div className="mx-auto 1w-[320px] h-full text-xs grid place-items-center">
             <DebugBorder>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
@@ -59,7 +59,7 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                 Active application:
             </div>
 
-            <div className="size-8 grid place-items-center  select-none">
+            <div className="size-8 grid place-items-center select-none">
                 <ImageHolder className="size-full" imageAtom={sawIconAtom} />
                 {/* TODO: when tere is no icon, show a placeholder: Select application */}
             </div>
@@ -71,8 +71,6 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);
-    console.log('CurrentAppCaption', caption);
-
     return (
         <div className="relative overflow-clip">
             <AnimatePresence mode="wait">
@@ -123,7 +121,7 @@ function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<
         return (<div className={classNames("relative bg-sky-400/20", className)} {...rest}>{children}</div>);
     }
     return (<>
-        <div className={classNames("relative bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
+        <div className={classNames("relative w-[320px] bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
 
             <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />
