@@ -22,7 +22,7 @@ export const sawHandleCaptionAtom = atom(
             rv = '';
         } else 
         if (debugSettings.testCreate.hwnd === 'win32') {
-            rv = 'long_C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
+            rv = 'long name C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
         } else {
             rv = 'short name';
         }

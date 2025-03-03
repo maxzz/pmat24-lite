@@ -53,13 +53,13 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
 
 function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-4 py-2 w-full 1w-4/5 border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
+        <div className={classNames("px-4 py-2 w-full border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
             {/* <div className=""> Login screen detected: </div> */}
-            <div className="">
+            <div className="select-none">
                 Active application:
             </div>
 
-            <div className="size-8 grid place-items-center">
+            <div className="size-8 grid place-items-center  select-none">
                 <ImageHolder className="size-full" imageAtom={sawIconAtom} />
                 {/* TODO: when tere is no icon, show a placeholder: Select application */}
             </div>
@@ -82,7 +82,7 @@ function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<type
                     key={caption}
                     // layoutDependency={caption}
 
-                    initial={{ opacity: 0, y: -100, }}
+                    initial={{ opacity: 0, y: -5, }}
                     animate={{ opacity: 1, y: 0, }}
                     exit={{ opacity: 0, y: 0, transition: { duration: 0 } }}
                     // transition={{ duration: 2 }}
@@ -129,7 +129,7 @@ function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />
             </div>
 
-            <div className="relative px-3 py-3 w-full text-sm border-border/30 border-b flex items-center justify-center">
+            <div className="relative px-3 py-3 w-full text-sm border-border/30 border-b flex items-center justify-center select-none">
                 Select application
 
                 <Button
