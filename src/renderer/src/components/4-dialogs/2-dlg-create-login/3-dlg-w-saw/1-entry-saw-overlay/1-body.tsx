@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, ImageHolder, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -70,10 +70,47 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);
+    console.log('CurrentAppCaption', caption);
+    
     return (
-        <motion.div className={classNames("text-xs min-h-8 line-clamp-2", className)} layout="size" title={caption} {...rest}>
-            {caption}
-        </motion.div>
+    <div className="relative overflow-clip">
+        <AnimatePresence mode="wait">
+            <motion.div
+                className={classNames("w-full min-h-8 text-center line-clamp-2", className)}
+
+                key={caption}
+                // layoutDependency={caption}
+
+                initial={{ opacity: 0, y: -100, }}
+                animate={{ opacity: 1, y: 0, }}
+                exit={{ opacity: 0, y: 0, transition: { duration: 0 } }}
+                // transition={{ duration: 2 }}
+
+
+                // layoutId={caption}
+                // initial={{ opacity: 1, x: 100, }}
+                // animate={{ opacity: 1, x: 0, }}
+                // exit={{ opacity: 1, x: -100, }}
+                // transition: { delay: .2, duration: .2 }
+                title={caption} {...rest}
+            >
+                <motion.div
+                // layoutDependency={caption}
+
+                // key={caption}
+                // initial={{ opacity: 0, x: -100, }}
+                // animate={{ opacity: 1, x: 0, }}
+                // exit={{ opacity: 0, x: 100, }}
+                // transition={{ duration: 2 }}
+
+                    // layout="position"
+                >
+
+                    {caption}
+                </motion.div>
+            </motion.div>
+        </AnimatePresence>
+        </div>
     );
 }
 
