@@ -8,7 +8,7 @@ export function ImageHolder({ imageAtom, className, ...rest }: { imageAtom: Atom
 
     useEffect(
         () => {
-            if (!refParent.current) {
+            if (!refParent.current || !imageElm) {
                 return;
             }
 
@@ -28,9 +28,9 @@ export function ImageHolder({ imageAtom, className, ...rest }: { imageAtom: Atom
         }, [parent, imageElm]
     );
 
-    // if (!imageElm) {
-    //     return null;
-    // }
+    if (!imageElm) {
+        return <div className={classNames("bg-red-500", className)} {...rest}>Select application</div>;
+    }
 
     return (
         <div ref={refParent} className={classNames("[&>img]:size-full", className)} {...rest} />
