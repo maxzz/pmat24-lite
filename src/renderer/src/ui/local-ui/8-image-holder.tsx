@@ -8,22 +8,29 @@ export function ImageHolder({ imageAtom, className, ...rest }: { imageAtom: Atom
 
     useEffect(
         () => {
-            if (!refParent.current || !imageElm) {
+            if (!refParent.current) {
                 return;
             }
 
+            let elm: HTMLElement | HTMLDivElement | null = imageElm;
+
+            if (!elm) {
+                elm = document.createElement('div');
+                elm.innerText = 'Select application';
+            }
+
             const parent = refParent.current;
-            parent.appendChild(imageElm);
+            parent.appendChild(elm);
 
             return () => {
-                parent.removeChild(imageElm);
+                parent.removeChild(elm);
             };
-        }, [imageElm]
+        }, [parent, imageElm]
     );
 
-    if (!imageElm) {
-        return null;
-    }
+    // if (!imageElm) {
+    //     return null;
+    // }
 
     return (
         <div ref={refParent} className={classNames("[&>img]:size-full", className)} {...rest} />
