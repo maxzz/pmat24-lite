@@ -12,30 +12,22 @@ export function ImageHolder({ imageAtom, className, ...rest }: { imageAtom: Atom
                 return;
             }
 
-            let elm: HTMLElement | HTMLDivElement | null = imageElm;
-
-            if (!elm) {
-                elm = document.createElement('div');
-                elm.innerText = 'Select application';
-            }
-
             const parent = refParent.current;
-            parent.appendChild(elm);
+            parent.appendChild(imageElm);
 
             return () => {
-                parent.removeChild(elm);
+                parent.removeChild(imageElm);
             };
         }, [parent, imageElm]
     );
 
     if (!imageElm) {
-        return <div className={classNames("bg-red-500", className)} {...rest}>Select application</div>;
+        return null;
     }
 
     return (
-        <div ref={refParent} className={classNames("[&>img]:size-full", className)} {...rest} />
+        <div ref={refParent} className={classNames("size-full [&>img]:size-full", className)} {...rest} />
     );
 }
 
-//TODO: add icons cache
 //TODO: we need to get the website icon from the active tab for browser windows

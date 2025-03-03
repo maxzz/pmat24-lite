@@ -59,14 +59,29 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                 Active application:
             </div>
 
-            <div className="size-8 grid place-items-center select-none">
-                <ImageHolder className="size-full" imageAtom={sawIconAtom} />
-                {/* TODO: when tere is no icon, show a placeholder: Select application */}
-            </div>
+            <AppIcon />
 
             <CurrentAppCaption />
         </div>
     );
+}
+
+export function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const imageElm = useAtomValue(sawIconAtom);
+    return (<>
+        {imageElm
+            ? (
+                <div className={classNames("size-8 grid place-items-center select-none", className)} {...rest}>
+                    <ImageHolder imageAtom={sawIconAtom} />
+                </div>
+            )
+            : (
+                <div className={classNames("h-8 flex items-center justify-center select-none", className)} {...rest}>
+                    No application selected
+                </div>
+            )
+        }
+    </>);
 }
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
