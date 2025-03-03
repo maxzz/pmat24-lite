@@ -40,3 +40,11 @@ function BodyExitWoTransition() {
         {isOpen && <MonitorOverlayBody />}
     </>);
 }
+
+// const dialogClasses = "\
+// p-0 \
+// !w-11/12 max-w-5xl \
+// h-4/5 min-h-[60vh] max-h-[90vh] \
+// rounded-md \
+// data-[state=open]:[animation-duration:200ms] \
+// ";
