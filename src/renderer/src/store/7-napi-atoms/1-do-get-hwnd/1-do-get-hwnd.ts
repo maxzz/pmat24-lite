@@ -11,8 +11,20 @@ import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetc
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
+// export const sawHandleCaptionAtom = atom(
+//     (get) => shortenWindowCaption(get(sawHandleAtom)?.caption)
+// );
+
 export const sawHandleCaptionAtom = atom(
-    (get) => shortenWindowCaption(get(sawHandleAtom)?.caption)
+    (get) => {
+        let rv = get(sawHandleAtom)?.caption;
+        if (debugSettings.testCreate.hwnd === 'win32') {
+            rv = 'C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
+        } else {
+            rv = 'login';
+        }
+        return rv;
+    }
 );
 
 export const doClearSawHandleAtom = atom(

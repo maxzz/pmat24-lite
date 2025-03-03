@@ -1,5 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { motion } from "motion/react";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, ImageHolder, Label } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -67,12 +68,12 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     );
 }
 
-function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);
     return (
-        <div className="text-xs min-h-8">
+        <motion.div className={classNames("text-xs min-h-8 line-clamp-2", className)} layout="size" title={caption} {...rest}>
             {caption}
-        </div>
+        </motion.div>
     );
 }
 
@@ -85,7 +86,7 @@ function DebugBorder({ className, children, ...rest }: ComponentPropsWithoutRef<
     }
     return (<>
         <div className={classNames("relative bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
-        
+
             <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />
             </div>
