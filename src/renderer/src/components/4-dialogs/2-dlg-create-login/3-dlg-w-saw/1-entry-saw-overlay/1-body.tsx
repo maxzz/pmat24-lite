@@ -61,6 +61,7 @@ function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 
             <div className="size-8 grid place-items-center">
                 <ImageHolder className="size-full" imageAtom={sawIconAtom} />
+                {/* TODO: when tere is no icon, show a placeholder: Select application */}
             </div>
 
             <CurrentAppCaption />

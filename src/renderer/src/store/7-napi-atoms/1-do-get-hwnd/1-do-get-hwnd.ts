@@ -17,6 +17,10 @@ export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
     (get) => {
+        if (!debugSettings.testCreate.dummyCaption) {
+            return shortenWindowCaption(get(sawHandleAtom)?.caption);
+        }
+        
         let rv = get(sawHandleAtom)?.caption;
         if (debugSettings.testCreate.hwnd === 'none') {
             rv = '';
