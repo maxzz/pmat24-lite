@@ -1,10 +1,10 @@
 import { Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
-import { mainStore } from "@shell/store-main";
+import { mainStore } from "@shell/2-main-globals";
 import { mainToRenderer } from "./main-to-renderer";
-import { winApp } from "@shell/start-main-window/main-window";
-import { getElectronModulePaths, highlightRect } from "./7-napi-calls";
-import { openFileDialogAndReply, setSawModeOnMain } from "./commands";
+import { winApp } from "@shell/1-start-main-window/main-window";
+import { getElectronModulePaths, highlightRect } from "../7-napi-calls";
+import { openFileDialogAndReply, setSawModeOnMain } from "../2-commands";
 
 export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {

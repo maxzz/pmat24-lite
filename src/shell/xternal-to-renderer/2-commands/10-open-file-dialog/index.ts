@@ -1,6 +1,6 @@
 import { type BrowserWindow, dialog } from "electron";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
-import { mainToRenderer } from "../../main-to-renderer";
+import { mainToRenderer } from "../../1-gates/main-to-renderer";
 import { loadWin32FilesContent } from "./load-files";
 
 export async function openFileDialogAndReply(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {

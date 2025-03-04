@@ -3,9 +3,9 @@ import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } 
 import { is } from '@electron-toolkit/utils';
 import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
 import icon from '../../../../resources/icon.png?asset'; // This is only for linux
-import { mainStore } from '@shell/store-main';
+import { mainStore } from '@shell/2-main-globals';
 import { mainToRenderer } from '../../xternal-to-renderer';
-import { setSawModeOnMain } from '../../xternal-to-renderer/commands';
+import { setSawModeOnMain } from '../../xternal-to-renderer/2-commands';
 
 const preloadPath = join(__dirname, '../preload/index.js');
 
@@ -20,7 +20,7 @@ export async function createWindow() {
         // width: 900,
         // height: 670,
         show: false,
-        autoHideMenuBar: true,
+        autoHideMenuBar: false, // Hide menu bar. Use this to test zoom in/out
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
             preload: preloadPath,

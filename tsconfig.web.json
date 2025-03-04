@@ -14,11 +14,11 @@
         "src/shell/preload/*.d.ts",
 
         "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
-        "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
-        "src/shell/xternal-to-renderer/main-to-renderer.ts",
+        "src/shell/xternal-to-renderer/1-gates/gate-main-incoming-calls.ts",
+        "src/shell/xternal-to-renderer/1-gates/gate-main-incoming-invoke.ts",
+        "src/shell/xternal-to-renderer/1-gates/main-to-renderer.ts",
         "src/shell/xternal-to-renderer/commands",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts", "src/shell/xternal-to-renderer/2-commands/10-open-file-dialog", "src/shell/xternal-to-renderer/2-commands/1-set-saw-mode-on-main.ts", "src/shell/xternal-to-renderer/2-commands/index.ts",
     ],
     "compilerOptions": {
         "composite": true,

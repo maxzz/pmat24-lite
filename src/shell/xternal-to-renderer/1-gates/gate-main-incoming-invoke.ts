@@ -1,7 +1,7 @@
 import { R2MInvoke } from "@shared/ipc-types";
-import { loadWin32FilesContent } from "./commands/10-open-file-dialog/load-files";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "./7-napi-calls";
-import { getTlwInfos, getTlwScreenshots } from "./7-napi-calls/5-get-screenshots";
+import { loadWin32FilesContent } from "../2-commands/10-open-file-dialog/load-files";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "../7-napi-calls";
+import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshots";
 
 export async function invokeFromRendererToMain(data: R2MInvoke.AllInvokes): Promise<any> {
     switch (data.type) {

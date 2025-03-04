@@ -22,11 +22,9 @@
         // "src/renderer/src/xternal-to-main/ipc-renderer.ts",
 
         "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/gate-main-incoming-calls.ts",
-        "src/shell/xternal-to-renderer/gate-main-incoming-invoke.ts",
-        "src/shell/xternal-to-renderer/main-to-renderer.ts",
-        "src/shell/xternal-to-renderer/commands",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts"
+        "src/shell/xternal-to-renderer/1-gates",
+        "src/shell/xternal-to-renderer/2-commands",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
     ],
     "compilerOptions": {
         "composite": true,
