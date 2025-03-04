@@ -50,7 +50,7 @@ export namespace R2M { // Main from Renderer
     export type SetSawMode = {
         type: 'r2m:set-saw-mode';
         setOn: boolean;
-        rect?: RectangleInt; // This can be provided to override server side position and have the same size on client side.
+        size?: SizeInt; // This can be provided to override server side position and have the same size on client side.
     };
 
     // tests
@@ -91,6 +91,18 @@ export namespace R2MParams {
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
     export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
 }
+
+// Size, position, and bounds
+
+export type PointInt = { //All nubers must be an integer. Docs: https://electronjs.org/docs/api/structures/rectangle
+    x: number;
+    y: number;
+};
+
+export type SizeInt = { //All nubers must be an integer. Docs: https://electronjs.org/docs/api/structures/rectangle
+    width: number;
+    height: number;
+};
 
 export type RectangleInt = { //All nubers must be an integer. Docs: https://electronjs.org/docs/api/structures/rectangle
     x: number;

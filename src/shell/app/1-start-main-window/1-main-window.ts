@@ -59,6 +59,10 @@ export async function createWindow() {
         shell.openExternal(details.url);
         return { action: 'deny' };
     });
+
+    winApp.webContents.on('zoom-changed', (e, zoomDirection) => { // mouse wheel only
+        console.log(`zoom-changed dir:${zoomDirection}, zoomFactor:${winApp?.webContents.getZoomFactor()}, w x h:${winApp?.getBounds().width}x${winApp?.getBounds().height}`);
+    });
 }
 
 export function connect_MainWindowListeners() {

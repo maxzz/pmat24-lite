@@ -64,6 +64,16 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "node_modules/.pnpm/electron@34.3.0/node_modules/electron/electron.d.ts",
+			"bookmarks": [
+				{
+					"line": 16116,
+					"column": 25,
+					"label": ""
+				}
+			]
 		}
 	]
 }
