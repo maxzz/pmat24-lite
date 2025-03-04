@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
-import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom } from "@/store";
+import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./1-saw-mode-on-client";
 import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
 
@@ -9,10 +9,16 @@ export const showProgressAtom = atom(false);
 
 export const doMoveToSecondDlgAtom = atom(
     null,
-    async (get, set, { cancel, hwnd }: { cancel: boolean; hwnd: string; }) => {
+    async (get, set, { cancel }: { cancel: boolean; }) => {
         if (cancel) {
             set(doOpenSawOverlayAtom, false);
             set(doTurnOffSawModeOnClientAtom);
+            return;
+        }
+
+        const hwnd = get(sawHandleAtom)?.hwnd;
+        if (!hwnd) {
+            set(doAddNextToastIdAtom, toast.error('No application selected.'));
             return;
         }
 
@@ -31,3 +37,6 @@ export const doMoveToSecondDlgAtom = atom(
         set(doOpenCreateManiSawAtom, true);
     }
 );
+
+//TODO: stop timer before detecting the app conent by clicking continue button
+//TODO: show detection progress feedback

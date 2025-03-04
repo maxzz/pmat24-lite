@@ -25,7 +25,7 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
 
                 <Button
                     className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                    onClick={() => doMoveToSecondDlg({ cancel: true, hwnd: '' })}
+                    onClick={() => doMoveToSecondDlg({ cancel: true })}
                 >
                     <Cross2Icon className="size-4" />
                 </Button>

@@ -40,7 +40,7 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
     return (
         <Button
             className="place-self-center" variant="default" size="xs"
-            onClick={() => doMoveToSecondDlg({ cancel: false, hwnd: '' })}
+            onClick={() => doMoveToSecondDlg({ cancel: false })}
         >
             Continue
         </Button>

@@ -8,13 +8,12 @@ import { sawHandleCaptionAtom, sawIconAtom } from "@/store";
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
         <div className={classNames("px-4 py-2 w-full border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
-            {/* <div className=""> Login screen detected: </div> */}
+
             <div className="select-none">
                 Active application:
             </div>
 
             <AppIcon />
-
             <CurrentAppCaption />
         </div>
     );
