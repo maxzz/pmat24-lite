@@ -1,4 +1,4 @@
-import { IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from 'electron';
+import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
 // Custom APIs for renderer
