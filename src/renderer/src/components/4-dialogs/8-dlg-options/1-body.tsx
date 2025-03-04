@@ -154,6 +154,12 @@ function AdvancedSettings() {
                 Show source code button in the new manifest editor
             </Label>
 
+            <div className="text-[.67rem] text-foreground/50">
+                <div className="">zoom Ctrl+0 to 100%</div>
+                <div className="">zoom Ctrl+Shift+plus to zoom in</div>
+                <div className="">zoom Ctrl+minus to zoom out</div>
+            </div>
+
         </div>
     </>);
 }

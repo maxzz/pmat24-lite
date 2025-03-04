@@ -20,8 +20,8 @@ export const sawHandleCaptionAtom = atom(
         let rv = get(sawHandleAtom)?.caption;
         if (debugSettings.testCreate.hwnd === 'none') {
             rv = '';
-        } else 
-        if (debugSettings.testCreate.hwnd === 'win32') {
+        }
+        else if (debugSettings.testCreate.hwnd === 'win32') {
             rv = 'long name C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
         } else {
             rv = 'short name';
@@ -41,18 +41,10 @@ export const doClearSawHandleAtom = atom(
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
-
-        if (isNapiLocked()) {
-            return;
+        if (!isNapiLocked()) {
+            hasMain() ? doLiveHwnd(get, set) : doTestHwnd(get, set);
+            nonReactiveLock.locked = false;
         }
-
-        if (hasMain()) {
-            doLiveHwnd(get, set);
-        } else {
-            doTestHwnd(get, set);
-        }
-
-        nonReactiveLock.locked = false;
     }
 );
 

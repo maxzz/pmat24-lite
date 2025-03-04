@@ -20,7 +20,7 @@ export async function createWindow() {
         // width: 900,
         // height: 670,
         show: false,
-        autoHideMenuBar: false, // Hide menu bar. Use this to test zoom in/out
+        autoHideMenuBar: true, // Hide menu bar. Use this to test zoom in/out
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
             preload: preloadPath,

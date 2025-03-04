@@ -7,6 +7,7 @@ import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { doLoadFakeManiAtom, testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
+// import { webFrame } from "electron";
 
 export function DebugButtonsForScreenshots({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
@@ -26,7 +27,11 @@ export function DebugButtonsForSaw({ className, ...rest }: ComponentPropsWithout
                 <RowContent />
             </div>
             <label className="place-self-start py-1 flex items-center gap-2">
-                <Checkbox className="size-4" checked={dummyCaption} onCheckedChange={(v) => debugSettings.testCreate.dummyCaption = !!v} />
+                {/* <Checkbox className="size-4" checked={dummyCaption} onCheckedChange={(v) => debugSettings.testCreate.dummyCaption = !!v} /> */}
+                <Checkbox className="size-4" checked={dummyCaption} onCheckedChange={(v) => {
+                    // webFrame.setZoomFactor(!!v ? 2 : 1);
+                    debugSettings.testCreate.dummyCaption = !!v
+                    }} />
                 <span className="whitespace-nowrap" title="2 lines fake caption">fake caption</span>
             </label>
         </div>
