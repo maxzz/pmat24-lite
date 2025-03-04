@@ -12,32 +12,11 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         return;
     }
 
-    console.log(`zoomLevel:${winApp?.webContents.zoomLevel} zoomFactor:${winApp?.webContents.getZoomFactor()}, w x h:${winApp?.getBounds().width}x${winApp?.getBounds().height}`);
-    /*
-        zoomLevel:1.5 zoomFactor1.3145341380123985, w x h:350x330
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:1.5 zoomFactor1.3145341380123985, w x h:836x972
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:0 zoomFactor1, w x h:836x972
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:0 zoomFactor1, w x h:350x330
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:0 zoomFactor1, w x h:836x972
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:-1 zoomFactor0.8333333333333334, w x h:836x972
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:-1 zoomFactor0.8333333333333334, w x h:350x330
-        1-set-saw-mode-on-main.ts:15
-        zoomLevel:-1 zoomFactor0.8333333333333334, w x h:836x972    
-    */
-
     if (setOn) {
         savedRect = getWindowRect(winApp);
         savedTitle = winApp.getTitle();
 
-        const newSize = applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor());
-
-        setWindowRect(winApp, centerRect(savedRect, newSize));
+        setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
         winApp.setAlwaysOnTop(true);
         winApp.setTitle('PMAT - Select application');
 

@@ -1,7 +1,7 @@
 import { join } from "path";
-import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } from "electron";
+import { BrowserWindow, app, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
-import { loadIniFileOptions, saveIniFileOptions } from "./3-ini-file-options";
+import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { mainStore } from "@shell/2-main-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
@@ -11,14 +11,12 @@ const preloadPath = join(__dirname, "../preload/index.js");
 
 export let winApp: BrowserWindow | null;
 
-export async function createWindow() {
+export async function createMainWindow() {
     const iniFileOptions = loadIniFileOptions();
 
     // Create the browser window.
     winApp = new BrowserWindow({
         ...(iniFileOptions?.bounds),
-        // width: 900,
-        // height: 670,
         show: false,
         autoHideMenuBar: true, // Hide menu bar. Use this to test zoom in/out
         ...(process.platform === 'linux' ? { icon } : {}),
@@ -58,10 +56,6 @@ export async function createWindow() {
     winApp.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
         return { action: 'deny' };
-    });
-
-    winApp.webContents.on('zoom-changed', (e, zoomDirection) => { // mouse wheel only
-        console.log(`zoom-changed dir:${zoomDirection}, zoomFactor:${winApp?.webContents.getZoomFactor()}, w x h:${winApp?.getBounds().width}x${winApp?.getBounds().height}`);
     });
 }
 
