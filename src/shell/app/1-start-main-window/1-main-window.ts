@@ -1,7 +1,7 @@
 import { join } from "path";
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
-import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
+import { loadIniFileOptions, saveIniFileOptions } from "./3-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { mainStore } from "@shell/2-main-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";

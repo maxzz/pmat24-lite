@@ -1,5 +1,5 @@
 import { R2MInvoke } from "@shared/ipc-types";
-import { loadWin32FilesContent } from "../2-commands/10-open-file-dialog/load-files";
+import { loadWin32FilesContent } from "../2-commands/10-open-file-dialog/2-load-win32-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "../7-napi-calls";
 import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshots";
 

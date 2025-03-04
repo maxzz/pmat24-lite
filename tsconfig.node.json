@@ -1,31 +1,5 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-    "include": [
-        "src/shell/app/**/*",
-        "src/shared/**/*",
-        "electron.vite.config.*",
-
-        "src/shell/preload/index.ts",
-        "src/renderer/src/vite-typescript/**/*",
-
-        "src/renderer/src/xternal-to-main/**/*",
-        "src/renderer/src/store/**/*",
-        "src/renderer/src/components/**/*",
-        "src/renderer/src/ui/**/*",
-
-        // // "src/renderer/src/store/1-atoms/**/*",
-        // "src/renderer/src/xternal-to-main/index.ts",
-        // "src/renderer/src/xternal-to-main/index.ts",
-        // "src/renderer/src/xternal-to-main/commands",
-        // // "src/renderer/src/xternal-to-main/gate-react-listener-atom.ts",
-        // "src/renderer/src/xternal-to-main/ipc-react-listener.tsx",
-        // "src/renderer/src/xternal-to-main/ipc-renderer.ts",
-
-        "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/1-gates",
-        "src/shell/xternal-to-renderer/2-commands",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
-    ],
     "compilerOptions": {
         "composite": true,
         "noUnusedLocals": false,
@@ -46,4 +20,22 @@
             "./src/shell/preload/tm-index.d.ts"
         ],
     },
+    "include": [
+        "src/shell/app/**/*",
+        "src/shared/**/*",
+        "electron.vite.config.*",
+
+        "src/shell/preload/index.ts",
+        "src/renderer/src/vite-typescript/**/*",
+
+        "src/renderer/src/xternal-to-main/**/*",
+        "src/renderer/src/store/**/*",
+        "src/renderer/src/components/**/*",
+        "src/renderer/src/ui/**/*",
+
+        "src/shell/xternal-to-renderer/index.ts",
+        "src/shell/xternal-to-renderer/1-gates/**/*.ts",
+        "src/shell/xternal-to-renderer/2-commands/**/*.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
+    ],
 }

@@ -1,25 +1,5 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
-    "include": [
-        "src/shell/app/**/*",
-        "src/shared/**/*",
-        "electron.vite.config-browser.mts",
-
-        "src/renderer/src/vite-typescript/env.d.ts",
-        "src/renderer/src/vite-typescript/svg-icon-type.d.ts",
-        "src/renderer/src/vite-typescript/lib.es5.d.ts",
-
-        "src/renderer/src/**/*",
-        "src/renderer/src/**/*.tsx",
-        "src/shell/preload/*.d.ts",
-
-        "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/1-gates/gate-main-incoming-calls.ts",
-        "src/shell/xternal-to-renderer/1-gates/gate-main-incoming-invoke.ts",
-        "src/shell/xternal-to-renderer/1-gates/main-to-renderer.ts",
-        "src/shell/xternal-to-renderer/commands",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts", "src/shell/xternal-to-renderer/2-commands/10-open-file-dialog", "src/shell/xternal-to-renderer/2-commands/1-set-saw-mode-on-main.ts", "src/shell/xternal-to-renderer/2-commands/index.ts",
-    ],
     "compilerOptions": {
         "composite": true,
         "noUnusedLocals": false,
@@ -38,4 +18,22 @@
         "jsx": "react-jsx",
         "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
     },
+    "include": [
+        "src/shell/app/**/*",
+        "src/shared/**/*",
+        "electron.vite.config-browser.mts",
+
+        "src/renderer/src/vite-typescript/env.d.ts",
+        "src/renderer/src/vite-typescript/svg-icon-type.d.ts",
+        "src/renderer/src/vite-typescript/lib.es5.d.ts",
+
+        "src/renderer/src/**/*",
+        "src/renderer/src/**/*.tsx",
+        "src/shell/preload/*.d.ts",
+
+        "src/shell/xternal-to-renderer/index.ts",
+        "src/shell/xternal-to-renderer/1-gates/**/*.ts",
+        "src/shell/xternal-to-renderer/2-commands/**/*.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
+    ],
 }
