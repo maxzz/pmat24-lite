@@ -17,19 +17,17 @@ export const doMoveToSecondDlgAtom = atom(
         }
 
         // before close and open next dialog:
-        //TODO: no controls
-        set(doAddNextToastIdAtom, toast.error('There are no input controls in the window.'));
-        //TODO: manual mode
-        return;
 
-        set(doOpenSawOverlayAtom, false);
-        set(doTurnOffSawModeOnClientAtom);
+        //TODO: manual mode
 
         const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
         if (!move) {
+            set(doAddNextToastIdAtom, toast.info('There are no input controls in the window.'));
             return;
         }
 
+        set(doOpenSawOverlayAtom, false);
+        set(doTurnOffSawModeOnClientAtom);
         set(doOpenCreateManiSawAtom, true);
     }
 );

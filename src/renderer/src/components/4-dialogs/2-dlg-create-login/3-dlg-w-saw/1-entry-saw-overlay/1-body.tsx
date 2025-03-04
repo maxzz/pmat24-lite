@@ -9,7 +9,7 @@ import { DebugFrame, MonitorCounter } from "./3-debug-frame";
 export function MonitorOverlayBody() {
     useDissmissNextToasts();
     return (
-        <div className="mx-auto 1w-[320px] h-full text-xs grid place-items-center">
+        <div className="mx-auto h-full text-xs grid place-items-center">
             <DebugFrame>
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
 
