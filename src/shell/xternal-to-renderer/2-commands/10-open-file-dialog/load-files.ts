@@ -1,6 +1,6 @@
-import { basename, dirname, extname, join, normalize } from 'node:path';
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { type MainFileContent } from '@shared/ipc-types';
+import { basename, dirname, extname, join, normalize } from "node:path";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { type MainFileContent } from "@shared/ipc-types";
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(

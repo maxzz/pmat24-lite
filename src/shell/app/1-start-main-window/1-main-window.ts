@@ -1,13 +1,13 @@
-import { join } from 'path';
+import { join } from "path";
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent, app, ipcMain, shell } from "electron";
-import { is } from '@electron-toolkit/utils';
+import { is } from "@electron-toolkit/utils";
 import { loadIniFileOptions, saveIniFileOptions } from "./ini-file-options";
-import icon from '../../../../resources/icon.png?asset'; // This is only for linux
-import { mainStore } from '@shell/2-main-globals';
-import { mainToRenderer } from '../../xternal-to-renderer';
-import { setSawModeOnMain } from '../../xternal-to-renderer/2-commands';
+import icon from "../../../../resources/icon.png?asset"; // This is only for linux
+import { mainStore } from "@shell/2-main-globals";
+import { mainToRenderer } from "../../xternal-to-renderer";
+import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands";
 
-const preloadPath = join(__dirname, '../preload/index.js');
+const preloadPath = join(__dirname, "../preload/index.js");
 
 export let winApp: BrowserWindow | null;
 

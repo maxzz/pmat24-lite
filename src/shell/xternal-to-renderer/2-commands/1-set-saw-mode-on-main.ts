@@ -1,6 +1,6 @@
-import { screen, BrowserWindow } from 'electron';
-import { type R2M, type RectangleInt } from '@shared/ipc-types';
-import { mainStore } from '@shell/2-main-globals';
+import { screen, BrowserWindow } from "electron";
+import { type R2M, type RectangleInt } from "@shared/ipc-types";
+import { mainStore } from "@shell/2-main-globals";
 
 const defaultRect: RectangleInt = { x: 0, y: 0, width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls
 
