@@ -41,7 +41,7 @@ function ContentSelector() {
 
     if (staticText) {
         return (
-            <div className="h-full text-muted-foreground flex items-center justify-center">
+            <div className="h-full text-muted-foreground flex items-center justify-center select-none">
                 {staticText}
             </div>
         );

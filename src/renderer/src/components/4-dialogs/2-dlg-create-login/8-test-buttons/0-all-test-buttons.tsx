@@ -4,9 +4,10 @@ import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { appSettings, debugSettings } from "@/store";
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/ui";
-import { doLoadFakeManiAtom, testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
-import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
+import { testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
+// import { doLoadFakeManiAtom } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
+// import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
 
 export function DebugButtonsForScreenshots({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
@@ -62,8 +63,8 @@ function RowScreenshots() {
 
 function RowHwns() {
     const { hwnd } = useSnapshot(debugSettings.testCreate);
-    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We don't need to call this, but it will update the icon and the hwnd by monitoring
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    // const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We don't need to call this, but it will update the icon and the hwnd by monitoring
     return (<>
         hwnd:
         <RadioGroup
@@ -73,7 +74,7 @@ function RowHwns() {
                 (v) => {
                     debugSettings.testCreate.hwnd = v as TestHwndEnum;
                     doDissmissNextToasts();
-                    doUpdateHwndAndIcon();
+                    // doUpdateHwndAndIcon();
                 }
             }
             tabIndex={-1}
@@ -89,8 +90,8 @@ function RowHwns() {
 
 function RowContent() {
     const { mani } = useSnapshot(debugSettings.testCreate);
-    const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    // const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
     return (<>
         content:
         <RadioGroup
@@ -99,7 +100,7 @@ function RowContent() {
             onValueChange={(v) => {
                 debugSettings.testCreate.mani = v as TestManiEnum;
                 doDissmissNextToasts();
-                doLoadFakeMani(v as TestManiEnum); //TODO: is this wright? is returns value and not uset it but it will be used after move to the next screen.
+                // doLoadFakeMani(v as TestManiEnum); //TODO: is this wright? is returns value and not uset it but it will be used after move to the next screen.
             }}
             tabIndex={-1}
         >
