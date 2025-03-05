@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
-import { doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
+import { doMonitoringAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./1-saw-mode-on-client";
 import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
 
@@ -18,19 +18,23 @@ export const doMoveToSecondDlgAtom = atom(
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
-            set(doAddNextToastIdAtom, toast.error('No application selected.'));
+            set(doAddNextToastIdAtom, toast.info('No application selected.'));
             return;
         }
 
-        // before close and open next dialog:
+        // Before close and open the second dialog:
 
         //TODO: manual mode
 
+        set(doMonitoringAtom, { doStart: false });
+
         const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
         if (!move) {
-            set(doAddNextToastIdAtom, toast.info('There are no input controls in the window.'));
+            set(doMonitoringAtom, { doStart: true });
             return;
         }
+
+        // Continue on the second dialog
 
         set(doOpenSawOverlayAtom, false);
         set(doTurnOffSawModeOnClientAtom);

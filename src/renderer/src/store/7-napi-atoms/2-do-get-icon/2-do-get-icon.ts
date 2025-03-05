@@ -64,10 +64,10 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
 
 async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
-    if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
-        return;
-    }
-    lastTestCreateHwnd = debugSettings.testCreate.hwnd;
+    // if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
+    //     return;
+    // }
+    // lastTestCreateHwnd = debugSettings.testCreate.hwnd;
 
     const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
 
