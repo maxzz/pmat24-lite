@@ -17,8 +17,11 @@ export async function createMainWindow() {
     // Create the browser window.
     winApp = new BrowserWindow({
         ...(iniFileOptions?.bounds),
-        show: false,
-        autoHideMenuBar: true, // Hide menu bar. Use this to test zoom in/out
+        minWidth: 200,                  //TODO: this should be set after window created with count on zoomFactor
+        minHeight: 140,                 //TODO: this should be set after window created with count on zoomFactor
+        //frame: false,                   // OK to turn off caption bar with close button and window drag controls, but we are not ready for this yet
+        show: false,                    // Hide window on start
+        autoHideMenuBar: true,          // Hide menu bar. Use this to test zoom in/out
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
             preload: preloadPath,
