@@ -34,7 +34,7 @@ export function WelcomePage() {
                         exit={{ opacity: 0, scale: 0.9 }}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
-                            <div className="text-2xl font-extrabold opacity-30 scale-y-125" style={titleStyle}>
+                            <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
                                 {/* Password Manager Admin Tool */}
                                 Welcome to the Password Manager Admin Tool
                             </div>
@@ -43,7 +43,7 @@ export function WelcomePage() {
                                 <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
                             </div> */}
 
-                            <div className="text-xs text-balance">
+                            <div className="text-xs text-balance select-none">
                                 {allowHandleFiles
                                     ? "Open the file or folder containing the manifest files to start working with the application."
                                     : "Open the folder containing the manifest files to start working with the application."
