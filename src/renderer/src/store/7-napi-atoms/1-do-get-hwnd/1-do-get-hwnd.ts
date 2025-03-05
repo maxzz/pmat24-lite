@@ -89,4 +89,4 @@ async function doTestHwnd(get: Getter, set: Setter) {
     set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
-let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
+// let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';

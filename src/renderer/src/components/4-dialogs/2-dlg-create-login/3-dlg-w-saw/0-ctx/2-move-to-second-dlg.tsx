@@ -42,5 +42,6 @@ export const doMoveToSecondDlgAtom = atom(
     }
 );
 
-//TODO: stop timer before detecting the app conent by clicking continue button
 //TODO: show detection progress feedback
+//TODO: stop timer before detecting the app conent by clicking continue button - done
+//TODO: abort detection request if the user click dialog close button

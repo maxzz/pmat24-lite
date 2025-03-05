@@ -81,4 +81,4 @@ async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
     }
 }
 
-let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
+// let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
