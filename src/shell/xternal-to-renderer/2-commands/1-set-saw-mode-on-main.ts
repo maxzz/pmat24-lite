@@ -2,7 +2,7 @@ import { screen, BrowserWindow } from "electron";
 import { type SizeInt, type R2M, type RectangleInt } from "@shared/ipc-types";
 import { mainStore } from "@shell/2-main-globals";
 
-const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls
+const defaultSize: SizeInt = { width: 350, height: 350, }; // add extra height to the client area for the Windows border and controls
 
 const saved: { // saved state before saw mode
     rect: RectangleInt;
@@ -18,8 +18,8 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
     if (!winApp) {
         return;
     }
-
     winApp.hide();
+
     if (setOn) {
         mainStore.sawModeIsOn = true;
 
@@ -41,6 +41,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
 
         mainStore.sawModeIsOn = false;
     }
+    
     winApp.show();
 }
 
