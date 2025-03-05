@@ -13,30 +13,30 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         return;
     }
 
+    winApp.hide();
     if (setOn) {
-        winApp.hide();
-
+        mainStore.sawModeIsOn = true;
+        
         savedMaximized = winApp.isMaximized();
         savedMaximized && winApp.unmaximize();
 
         savedRect = getWindowRect(winApp);
         savedTitle = winApp.getTitle();
 
-        mainStore.sawModeIsOn = true;
-
         setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
 
-        winApp.show();
         winApp.setAlwaysOnTop(true);
         winApp.setTitle('PMAT - Select application');
     } else {
-        mainStore.sawModeIsOn = false;
         winApp.setAlwaysOnTop(false);
         winApp.setTitle(savedTitle);
 
         setWindowRect(winApp, savedRect);
-        // savedMaximized && winApp.maximize();
+        savedMaximized && winApp.maximize();
+
+        mainStore.sawModeIsOn = false;
     }
+    winApp.show();
 }
 
 function getWindowRect(win: BrowserWindow): Electron.Rectangle {
