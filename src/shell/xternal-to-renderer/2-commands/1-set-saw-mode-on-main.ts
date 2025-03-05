@@ -4,9 +4,15 @@ import { mainStore } from "@shell/2-main-globals";
 
 const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls
 
-let savedRect: RectangleInt = { x: 0, y: 0, ...defaultSize }; // saved position and size before saw mode
-let savedTitle: string = 'PMAT';
-let savedMaximized: boolean = false;
+const saved: { // saved state before saw mode
+    rect: RectangleInt;
+    title: string;
+    maximized: boolean;
+} = {
+    rect: { x: 0, y: 0, ...defaultSize },
+    title: 'PMAT',
+    maximized: false,
+};
 
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
@@ -16,23 +22,22 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
     winApp.hide();
     if (setOn) {
         mainStore.sawModeIsOn = true;
-        
-        savedMaximized = winApp.isMaximized();
-        savedMaximized && winApp.unmaximize();
 
-        savedRect = getWindowRect(winApp);
-        savedTitle = winApp.getTitle();
+        saved.maximized = winApp.isMaximized();
+        saved.maximized && winApp.unmaximize();
+        saved.rect = getWindowRect(winApp); // this call should go after unmaximize()
+        saved.title = winApp.getTitle();
 
-        setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
+        setWindowRect(winApp, centerRect(saved.rect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
 
         winApp.setAlwaysOnTop(true);
         winApp.setTitle('PMAT - Select application');
     } else {
         winApp.setAlwaysOnTop(false);
-        winApp.setTitle(savedTitle);
+        winApp.setTitle(saved.title);
 
-        setWindowRect(winApp, savedRect);
-        savedMaximized && winApp.maximize();
+        setWindowRect(winApp, saved.rect);
+        saved.maximized && winApp.maximize();
 
         mainStore.sawModeIsOn = false;
     }
