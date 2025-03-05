@@ -11,7 +11,7 @@ export type TlwData = {
     data: Base64String;                 // base64 encoded image data
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
-    format: ImageFormatType;            // "png" or "jpg"
+    imageFormat: ImageFormatType;       // "png" or "jpg"
 };
 
 export type TlwError = {

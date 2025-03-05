@@ -135,7 +135,7 @@ function addScreenshotsExtra(screenshots: TlwScreenshot[]): TlwScreenshotInfo[] 
         (item, idx) => {
             const newItem: TlwScreenshot = { ...item };
             if (newItem.type === 'data') {
-                newItem.data = `data:image/${newItem.format};base64,${newItem.data}`;
+                newItem.data = `data:image/${newItem.imageFormat};base64,${newItem.data}`;
             }
             const rv: TlwScreenshotInfo = {
                 item: newItem,
@@ -159,7 +159,7 @@ function printScreenshots(screenshots: TlwScreenshot[]) {
                 lines.push(`${idxStr}. type: ${item.type} hwnd: ${item.hwnd} errorCode: ${item.errorCode}`);
                 return;
             } else if (item.type === 'data') {
-                lines.push(`${idxStr}. hwnd:${item.hwnd} ${item.format} ${`${item.width}`.padStart(4, ' ')} x ${`${item.height}`.padEnd(4, ' ')} img:'${item.data?.substring(0, 7)}...' caption: '${item.caption}'`);
+                lines.push(`${idxStr}. hwnd:${item.hwnd} ${item.imageFormat} ${`${item.width}`.padStart(4, ' ')} x ${`${item.height}`.padEnd(4, ' ')} img:'${item.data?.substring(0, 7)}...' caption: '${item.caption}'`);
                 return;
             }
 
