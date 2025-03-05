@@ -19,14 +19,14 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
 
         mainStore.sawModeIsOn = true;
 
-        setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
-
-        if (winApp.isMaximized()) {
+        if (winApp.isMaximized()) { // this is better than then not have it but not perfect yet
             savedMaximized = true;
-            winApp.unmaximize();
+            // winApp.unmaximize();
         } else {
             savedMaximized = false;
         }
+
+        setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
 
         winApp.setAlwaysOnTop(true);
         winApp.setTitle('PMAT - Select application');
@@ -35,11 +35,11 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         winApp.setAlwaysOnTop(false);
         winApp.setTitle(savedTitle);
 
+        setWindowRect(winApp, savedRect);
+
         if (savedMaximized) {
             winApp.maximize();
         }
-
-        setWindowRect(winApp, savedRect);
     }
 }
 
