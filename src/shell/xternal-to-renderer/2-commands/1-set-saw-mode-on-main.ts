@@ -6,6 +6,7 @@ const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height t
 
 let savedRect: RectangleInt = { x: 0, y: 0, ...defaultSize }; // saved position and size before saw mode
 let savedTitle: string = 'PMAT';
+let savedMaximized: boolean = false;
 
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
@@ -16,15 +17,27 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         savedRect = getWindowRect(winApp);
         savedTitle = winApp.getTitle();
 
+        mainStore.sawModeIsOn = true;
+
         setWindowRect(winApp, centerRect(savedRect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
+
+        if (winApp.isMaximized()) {
+            savedMaximized = true;
+            winApp.unmaximize();
+        } else {
+            savedMaximized = false;
+        }
+
         winApp.setAlwaysOnTop(true);
         winApp.setTitle('PMAT - Select application');
-
-        mainStore.sawModeIsOn = true;
     } else {
         mainStore.sawModeIsOn = false;
         winApp.setAlwaysOnTop(false);
         winApp.setTitle(savedTitle);
+
+        if (savedMaximized) {
+            winApp.maximize();
+        }
 
         setWindowRect(winApp, savedRect);
     }
