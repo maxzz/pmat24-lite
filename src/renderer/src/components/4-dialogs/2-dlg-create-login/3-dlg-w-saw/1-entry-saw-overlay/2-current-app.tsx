@@ -49,18 +49,18 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     }
 
     return (<>
-        {imageElm
-            ? (
-                <div className={classNames("size-8", className)} {...rest}>
-                    <ImageHolder imageAtom={sawIconAtom} />
-                </div>
-            )
-            : (
-                <div className={classNames("h-8", className)} {...rest}>
-                    No application selected
-                </div>
-            )
-        }
+        <div className={classNames("relative h-8 grid grid-cols-[1fr,auto,1fr] gap-x-2", className)} {...rest}>
+            {imageElm
+                ? (
+                    <ImageHolder className="col-start-2 !size-8" imageAtom={sawIconAtom} />
+                )
+                : (
+                    <div className="col-span-3">
+                        No application selected
+                    </div>
+                )
+            }
+        </div>
     </>);
 }
 
