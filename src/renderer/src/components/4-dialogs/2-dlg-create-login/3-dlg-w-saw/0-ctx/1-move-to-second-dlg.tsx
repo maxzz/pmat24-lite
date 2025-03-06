@@ -2,10 +2,9 @@ import { atom } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { doMonitoringAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
-import { doTurnOffSawModeOnClientAtom } from "./1-saw-mode-on-client";
+import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
 import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
-
-export const showProgressAtom = atom(false);
+import { showProgressAtom } from "./0-all-atoms";
 
 export const doMoveToSecondDlgAtom = atom(
     null,

@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
-import { doMoveToSecondDlgAtom } from "../0-ctx/2-move-to-second-dlg";
+import { doMoveToSecondDlgAtom } from "../0-ctx/1-move-to-second-dlg";
 import { CurrentApp } from "./2-current-app";
 import { DebugFrame, MonitorCounter } from "./3-debug-frame";
 

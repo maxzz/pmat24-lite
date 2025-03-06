@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { monitorCounterAtom } from "@/store";
-import { doMoveToSecondDlgAtom } from "../0-ctx/2-move-to-second-dlg";
+import { doMoveToSecondDlgAtom } from "../0-ctx/1-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 import { hasMain } from "@/xternal-to-main";
 
