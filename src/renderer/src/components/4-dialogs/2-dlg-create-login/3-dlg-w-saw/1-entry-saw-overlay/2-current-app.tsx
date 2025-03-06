@@ -3,56 +3,41 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { sawHandleCaptionAtom, sawIconAtom } from "@/store";
+import { sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
 import { showProgressAtom } from "../0-ctx";
 import { Spinner } from "@/ui/icons";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
         <div className={classNames("px-4 py-2 w-full border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
-
             <div className="select-none">
                 Active application:
             </div>
-
-            {/* <div className="w-full relative select-none"> */}
-
-            {/* <div className={classNames("!absolute size-8", className)} {...rest}>
-                    <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
-                </div> */}
-
             <AppIcon className="grid place-items-center select-none" />
-            {/* <Button>Cancel</Button> */}
-            {/* </div> */}
-
             <CurrentAppCaption />
         </div>
     );
 }
 
 function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const hasHandle = useAtomValue(sawHandleAtom);
     const imageElm = useAtomValue(sawIconAtom);
-
     const showProgress = useAtomValue(showProgressAtom);
-    if (showProgress) {
-        return (
-            <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2", className)} {...rest}>
-                <DetectionProgress />
-            </div>
-        );
-    }
-
     return (<>
         <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2", className)} {...rest}>
-            {imageElm
-                ? (
-                    <ImageHolder className="col-start-2" imageAtom={sawIconAtom} />
-                )
-                : (
-                    <div className="col-span-3">
-                        No application selected
-                    </div>
-                )
+            {showProgress
+                ? <DetectionProgress />
+                : hasHandle
+                    ? imageElm
+                        ? <ImageHolder className="col-start-2" imageAtom={sawIconAtom} />
+                        : <div className="col-span-3">
+                            No icon
+                        </div>
+                    : (
+                        <div className="col-span-3">
+                            No application selected
+                        </div>
+                    )
             }
         </div>
     </>);
@@ -66,12 +51,14 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                 <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
             </div>
 
-            <Button className="text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow" variant="ghost" size="xs" tabIndex={-1}>
+            <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
                 Cancel
             </Button>
         </>)}
     </>);
 }
+
+const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);
