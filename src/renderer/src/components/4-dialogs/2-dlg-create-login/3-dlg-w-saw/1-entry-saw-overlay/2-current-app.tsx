@@ -30,11 +30,11 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                 : hasHandle
                     ? imageElm
                         ? <ImageHolder className="col-start-2" imageAtom={sawIconAtom} />
-                        : <div className="col-span-3">
+                        : <div className="col-span-full">
                             No icon
                         </div>
                     : (
-                        <div className="col-span-3">
+                        <div className="col-span-full">
                             No application selected
                         </div>
                     )
@@ -46,15 +46,17 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
 function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const showProgress = useAtomValue(showProgressAtom);
     return (<>
-        {showProgress && (<>
-            <div className={classNames("col-start-2")}>
-                <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
-            </div>
+        {showProgress && (
+            <div className="col-span-full grid grid-cols-subgrid">
+                <div className={classNames("col-start-2")}>
+                    <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
+                </div>
 
-            <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
-                Cancel
-            </Button>
-        </>)}
+                <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
+                    Cancel
+                </Button>
+            </div>
+        )}
     </>);
 }
 

@@ -4,7 +4,7 @@ import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { doMoveToSecondDlgAtom } from "../0-ctx";
 import { CurrentApp } from "./2-current-app";
-import { DebugFrame, MonitorCounter } from "./3-debug-frame";
+import { DebugFrame, MonitorCounter } from "./8-debug-frame";
 
 export function MonitorOverlayBody() {
     useDissmissNextToasts();
