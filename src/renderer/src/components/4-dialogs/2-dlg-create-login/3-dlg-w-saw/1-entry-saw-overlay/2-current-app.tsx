@@ -34,14 +34,14 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const imageElm = useAtomValue(sawIconAtom);
 
     const showProgress = useAtomValue(showProgressAtom);
-    if (!showProgress) {
+    if (showProgress) {
         return (
-            <div className={classNames("relative", className)} {...rest}>
-                <div className={classNames("size-8")}>
+            <div className={classNames("relative grid grid-cols-[1fr,auto,1fr] gap-x-2", className)} {...rest}>
+                <div className={classNames("col-start-2 size-8")}>
                     <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
                 </div>
 
-                <Button className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}>
+                <Button className="text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow" variant="ghost" size="xs" tabIndex={-1}>
                     Cancel
                 </Button>
             </div>

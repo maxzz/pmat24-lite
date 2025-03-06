@@ -23,6 +23,13 @@ export function MonitorOverlay() {
     </>);
 }
 
+function BodyExitWoTransition() {
+    const isOpen = useAtomValue(doOpenSawOverlayAtom);
+    return (<>
+        {isOpen && <MonitorOverlayBody />}
+    </>);
+}
+
 const animationTransition: Transition = {
     // type: "spring", stiffness: 500, damping: 50,
     duration: 0.2,
@@ -33,13 +40,6 @@ const animationProps: AnimationProps = {
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
 };
-
-function BodyExitWoTransition() {
-    const isOpen = useAtomValue(doOpenSawOverlayAtom);
-    return (<>
-        {isOpen && <MonitorOverlayBody />}
-    </>);
-}
 
 // const dialogClasses = "\
 // p-0 \

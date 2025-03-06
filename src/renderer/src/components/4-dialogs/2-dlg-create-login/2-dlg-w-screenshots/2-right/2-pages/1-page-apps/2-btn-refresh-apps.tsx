@@ -1,12 +1,12 @@
 import { useState, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { classNames, doAddNextToastIdAtom, errorToString } from "@/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "@/ui/shadcn";
 import { toast } from "sonner";
 import { IconRefresh } from "@/ui/icons";
+import { ProgressFeedback } from "./3-btn-refresh-progress";
 import { newManiCtx } from "../../../0-new-mani-ctx";
-import { BarsLoader } from "@/ui";
 
 export function ButtonReloadApps({ className }: ComponentProps<"button">) {
     const doRefreshApps = useSetAtom(newManiCtx.doRefreshAppsAtom);
@@ -41,32 +41,12 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
                 disabled={refreshInProgress}
                 title="Refresh window list"
             >
-                <motion.div
-                    layout
-                >
+                <motion.div layout>
                     <IconRefresh className="size-3" />
                 </motion.div>
 
                 {/* <IconRefresh className="size-3" title="Refresh windows list" /> */}
             </Button>
         </div>
-    );
-}
-
-function ProgressFeedback({ refreshInProgress }: { refreshInProgress: boolean; }) {
-    return (
-        <AnimatePresence>
-            {refreshInProgress && (
-                <motion.div
-                    className="flex flex-col items-center"
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1.1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                >
-                    <span className="text-[.65rem]">Updating...</span>
-                    <BarsLoader className="w-6 h-4 text-sky-500 [--barh:5%] [--framew:1px]" title="Refresh windows list" />
-                </motion.div>
-            )}
-        </AnimatePresence>
     );
 }

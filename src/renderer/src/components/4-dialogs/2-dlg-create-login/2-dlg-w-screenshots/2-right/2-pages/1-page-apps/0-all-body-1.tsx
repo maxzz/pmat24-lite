@@ -3,7 +3,7 @@ import { Checkbox, Label, PreserveScrollArea } from "@/ui";
 import { newManiCtx, WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";
-import { ButtonReloadApps } from "./2-button-refresh-apps";
+import { ButtonReloadApps } from "./2-btn-refresh-apps";
 
 export function Page1AppsBody() {
     const [createAsManual, setCreateAsManual] = useAtom(newManiCtx.createAsManualAtom);
