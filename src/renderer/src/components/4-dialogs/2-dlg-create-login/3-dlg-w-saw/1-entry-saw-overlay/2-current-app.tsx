@@ -15,15 +15,15 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
                 Active application:
             </div>
 
-            <div className="relative select-none">
+            {/* <div className="w-full relative select-none"> */}
 
-                {/* <div className={classNames("!absolute size-8", className)} {...rest}>
+            {/* <div className={classNames("!absolute size-8", className)} {...rest}>
                     <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
                 </div> */}
 
-                <AppIcon className="grid place-items-center select-none" />
-                {/* <Button>Cancel</Button> */}
-            </div>
+            <AppIcon className="grid place-items-center select-none" />
+            {/* <Button>Cancel</Button> */}
+            {/* </div> */}
 
             <CurrentAppCaption />
         </div>
@@ -34,10 +34,16 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const imageElm = useAtomValue(sawIconAtom);
 
     const showProgress = useAtomValue(showProgressAtom);
-    if (showProgress) {
+    if (!showProgress) {
         return (
-            <div className={classNames("size-8", className)} {...rest}>
-                <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
+            <div className={classNames("relative", className)} {...rest}>
+                <div className={classNames("size-8")}>
+                    <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
+                </div>
+
+                <Button className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}>
+                    Cancel
+                </Button>
             </div>
         );
     }
