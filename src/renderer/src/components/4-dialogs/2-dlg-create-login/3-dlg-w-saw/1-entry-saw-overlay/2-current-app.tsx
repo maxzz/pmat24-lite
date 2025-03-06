@@ -58,14 +58,14 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <div className="text-[.65rem]">
+                    <div className="min-w-6">
                         <BuildCounter />
                     </div>
 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.75 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 2, duration: .2 }}
+                        transition={{ delay: .2, duration: .2 }}
                     >
                         <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
                             Cancel
@@ -85,7 +85,7 @@ function BuildCounter() {
         return null;
     }
     return (
-        <div className="text-xs text-foreground/50">{buildCounter}</div>
+        <div className="text-[.65rem] text-foreground/50">{buildCounter}</div>
     );
 }
 
