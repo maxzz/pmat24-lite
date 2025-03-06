@@ -36,23 +36,17 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const showProgress = useAtomValue(showProgressAtom);
     if (showProgress) {
         return (
-            <div className={classNames("relative grid grid-cols-[1fr,auto,1fr] gap-x-2", className)} {...rest}>
-                <div className={classNames("col-start-2 size-8")}>
-                    <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
-                </div>
-
-                <Button className="text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow" variant="ghost" size="xs" tabIndex={-1}>
-                    Cancel
-                </Button>
+            <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2", className)} {...rest}>
+                <DetectionProgress />
             </div>
         );
     }
 
     return (<>
-        <div className={classNames("relative h-8 grid grid-cols-[1fr,auto,1fr] gap-x-2", className)} {...rest}>
+        <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2", className)} {...rest}>
             {imageElm
                 ? (
-                    <ImageHolder className="col-start-2 !size-8" imageAtom={sawIconAtom} />
+                    <ImageHolder className="col-start-2" imageAtom={sawIconAtom} />
                 )
                 : (
                     <div className="col-span-3">
@@ -61,6 +55,21 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                 )
             }
         </div>
+    </>);
+}
+
+function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const showProgress = useAtomValue(showProgressAtom);
+    return (<>
+        {showProgress && (<>
+            <div className={classNames("col-start-2")}>
+                <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
+            </div>
+
+            <Button className="text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow" variant="ghost" size="xs" tabIndex={-1}>
+                Cancel
+            </Button>
+        </>)}
     </>);
 }
 
