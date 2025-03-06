@@ -3,9 +3,10 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
+import { napiBuildProgress, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
 import { showProgressAtom } from "../0-ctx";
 import { Spinner } from "@/ui/icons";
+import { useSnapshot } from "valtio";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
@@ -47,17 +48,45 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
     const showProgress = useAtomValue(showProgressAtom);
     return (<>
         {showProgress && (
-            <div className="col-span-full grid grid-cols-subgrid">
+            <motion.div
+                className="col-span-full grid grid-cols-subgrid"
+            >
+                {/* <div className="col-start-1 text-[.65rem]">123</div> */}
+
                 <div className={classNames("col-start-2")}>
                     <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
                 </div>
 
-                <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
-                    Cancel
-                </Button>
-            </div>
-        )}
+                <div className="flex items-center gap-2">
+                    <div className="text-[.65rem]">
+                        <BuildCounter />
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.75 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 2, duration: .2 }}
+                    >
+                        <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
+                            Cancel
+                        </Button>
+                    </motion.div>
+                </div >
+
+            </motion.div>
+        )
+        }
     </>);
+}
+
+function BuildCounter() {
+    const { buildCounter } = useSnapshot(napiBuildProgress);
+    if (buildCounter < 200) {
+        return null;
+    }
+    return (
+        <div className="text-xs text-foreground/50">{buildCounter}</div>
+    );
 }
 
 const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
