@@ -2,8 +2,9 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
-import { ImageHolder } from "@/ui";
+import { Button, ImageHolder } from "@/ui";
 import { sawHandleCaptionAtom, sawIconAtom } from "@/store";
+import { Spinner } from "@/ui/icons";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
@@ -13,7 +14,14 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
                 Active application:
             </div>
 
-            <AppIcon />
+            <div className="relative select-none">
+                <div className={classNames("!absolute size-8", className)} {...rest}>
+                    <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
+                </div>
+                <AppIcon className="grid place-items-center select-none" />
+                <Button>Cancel</Button>
+            </div>
+
             <CurrentAppCaption />
         </div>
     );
@@ -24,12 +32,12 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (<>
         {imageElm
             ? (
-                <div className={classNames("size-8 grid place-items-center select-none", className)} {...rest}>
+                <div className={classNames("size-8", className)} {...rest}>
                     <ImageHolder imageAtom={sawIconAtom} />
                 </div>
             )
             : (
-                <div className={classNames("h-8 flex items-center justify-center select-none", className)} {...rest}>
+                <div className={classNames("h-8", className)} {...rest}>
                     No application selected
                 </div>
             )
