@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
 import { sawHandleCaptionAtom, sawIconAtom } from "@/store";
+import { showProgressAtom } from "../0-ctx";
 import { Spinner } from "@/ui/icons";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
@@ -15,11 +16,13 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
             </div>
 
             <div className="relative select-none">
-                <div className={classNames("!absolute size-8", className)} {...rest}>
+
+                {/* <div className={classNames("!absolute size-8", className)} {...rest}>
                     <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
-                </div>
+                </div> */}
+
                 <AppIcon className="grid place-items-center select-none" />
-                <Button>Cancel</Button>
+                {/* <Button>Cancel</Button> */}
             </div>
 
             <CurrentAppCaption />
@@ -29,6 +32,16 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
 
 function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const imageElm = useAtomValue(sawIconAtom);
+
+    const showProgress = useAtomValue(showProgressAtom);
+    if (showProgress) {
+        return (
+            <div className={classNames("size-8", className)} {...rest}>
+                <Spinner className="size-full bg-sky-300" blockClasses="bg-sky-600" />
+            </div>
+        );
+    }
+
     return (<>
         {imageElm
             ? (

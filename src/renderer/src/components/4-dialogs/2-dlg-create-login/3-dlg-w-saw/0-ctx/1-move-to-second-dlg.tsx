@@ -33,6 +33,7 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
+        return;
         // Continue on the second dialog
 
         set(doOpenSawOverlayAtom, false);
