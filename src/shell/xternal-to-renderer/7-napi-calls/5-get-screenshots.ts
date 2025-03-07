@@ -3,7 +3,7 @@ import { type GetTlwInfoParams, type GetTlwScreenshotsParams } from "./pmat-plug
 
 /**
  * Get top-level Windows information
- */
+*/
 export async function getTlwInfos() {
     return new Promise<string>(
         (resolve, reject) => {
@@ -22,16 +22,21 @@ export async function getTlwInfos() {
         }
     );
 }
-/*
-export async function test07_GetTopLevelWindowsInfo() {
-    let infos = await getTopLevelWindowsInfo();
-    return infos;
-}
-*/
 
 /**
  * Get top-level Windows screenshots
- */
+```
+export async function test08_GetTopLevelWindowsScreenshots(windowsInfos: TlwInfo[]) {
+    const sHWnds = windowsInfos.map(obj => `"${obj.hwnd}"`).join(',');
+    const desiredWidth = 300;
+    const imageFormat = "jpg"
+    const sParams = `{"hwnd":[${sHWnds}],"imageFormat":"${imageFormat}","width":${desiredWidth}}`;
+
+    let screenshots = await getTopLevelWindowsScreenshots(sParams);
+    fs.writeFileSync('TopLevelWindowsScreenshots.json', JSON.stringify(screenshots), 'utf8');
+}
+```
+*/
 export async function getTlwScreenshots(params: GetTlwScreenshotsParams): Promise<string> {
     return new Promise<string>(
         (resolve, reject) => {
@@ -50,16 +55,3 @@ export async function getTlwScreenshots(params: GetTlwScreenshotsParams): Promis
         }
     );
 }
-/*
-export async function test08_GetTopLevelWindowsScreenshots(windowsInfos: TlwInfo[]) {
-    const sHWnds = windowsInfos.map(obj => `"${obj.hwnd}"`).join(',');
-
-    const desiredWidth = 300;
-    const imageFormat = "jpg"
-    const sParams = `{"hwnd":[${sHWnds}],"imageFormat":"${imageFormat}","width":${desiredWidth}}`;
-
-    let screenshots = await getTopLevelWindowsScreenshots(sParams);
-
-    fs.writeFileSync('TopLevelWindowsScreenshots.json', JSON.stringify(screenshots), 'utf8');
-}
-*/

@@ -1,6 +1,5 @@
 import { addon } from "./0-addon";
-import { type WindowIconGetterParams, type ImageFormatType, type WindowIconGetter, type WindowIconGetterResult } from "./pmat-plugin-types";
-// import fs from "fs";
+import { type WindowIconGetterParams, type ImageFormatType, type WindowIconGetter } from "./pmat-plugin-types";
 
 let gWindowIconGetter: WindowIconGetter | null = null;
 
@@ -31,7 +30,9 @@ export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 
 }
 
 /*
-// import { Buffer } from "node:buffer";
+import fs from "fs";
+import { Buffer } from "node:buffer";
+import { type WindowIconGetterResult } from "./pmat-plugin-types";
 
 function saveIconFile(filename: string, data: string) {
     const obj = JSON.parse(data) as WindowIconGetterResult;

@@ -16,7 +16,6 @@ export function getWindowControls(hwnd: string): Promise<string> {
                         reject(err);
                         return;
                     }
-                    //console.log('plugin:', str);
 
                     try {
                         const res: WindowControlsCollectorCollectResult = JSON.parse(str);
@@ -41,23 +40,8 @@ export function getWindowControls(hwnd: string): Promise<string> {
                         }
 
                         resolve(str);
-                        //console.log('final:', JSON.stringify(res));
                     } catch (error) {
                         const msg = `>>>${error instanceof Error ? error.message : `${error}`}`;
-
-                        // const m = msg.match(/Bad escaped character in JSON at position (\d+)$/);
-
-                        // if (m) {
-                        //     const n = +m[1];
-                        //     const pos1 = Math.max(n - 20, 0);
-                        //     const s1 = str.substring(pos1, n - 1);
-                        //     const s2 = str.substring(n, n + 1);
-                        //     const s3 = str.substring(n + 1, n + 100);
-
-                        //     console.error(`tm: Bad JSON at pos ${n}:\n${pos1}-${n-1}:-->${s1}<--\n${n}-${n+1}:-->${s2}<--\n${n+1}-${n+100}:-->${s3}<--\n`);
-                        //     console.log('str\n', str);
-                        // }
-
                         reject(msg);
                         mainToRenderer({ type: 'm2r:failed-raw-content', body: str });
                     }

@@ -13,7 +13,7 @@ export function highlightRect(hwnd: string, rect: TargetClientRect): void {
     }
 
     const params: WindowControlHighlighterParams = { hwnd, rect };
-    const param = JSON.stringify(params);
+    const paramStr = JSON.stringify(params);
 
-    gWindowControlHighlighter.highlight(param);
+    gWindowControlHighlighter.highlight(paramStr);
 }

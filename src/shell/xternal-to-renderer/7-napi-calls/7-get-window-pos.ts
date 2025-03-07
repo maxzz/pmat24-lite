@@ -2,6 +2,9 @@ import { addon } from "./0-addon";
 import { type DragAndDropParams, type DragAndDropResult, type TargetPosition } from "./pmat-plugin-types";
 import { mainToRenderer } from "./9-external";
 
+/**
+ * Get position inside window by drag and drop for manual mode 'position' action.
+ */
 export function getWindowPos(hwnd: string): Promise<TargetPosition> {
     return new Promise<TargetPosition>(
         (resolve, reject) => {
