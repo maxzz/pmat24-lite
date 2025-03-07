@@ -12,6 +12,7 @@ export const doHighlightRectAtom = atom(
         }
 
         if (!rect) {
+            nonReactiveLock.locked = false;
             return;
         }
 

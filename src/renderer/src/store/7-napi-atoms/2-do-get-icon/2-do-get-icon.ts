@@ -22,7 +22,7 @@ export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
         if (!isNapiLocked()) {
-            hasMain() ? doLiveIcon(hwnd, get, set) : doTestIcon(hwnd, get, set);
+            hasMain() ? await doLiveIcon(hwnd, get, set) : await doTestIcon(hwnd, get, set);
             nonReactiveLock.locked = false;
         }
     }
