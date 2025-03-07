@@ -1,6 +1,6 @@
 import { screen, BrowserWindow } from "electron";
 import { type SizeInt, type R2M, type RectangleInt } from "@shared/ipc-types";
-import { mainStore } from "@shell/2-main-globals";
+import { electronState } from "@shell/2-electron-globals";
 
 const defaultSize: SizeInt = { width: 350, height: 350, }; // add extra height to the client area for the Windows border and controls
 
@@ -21,7 +21,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
     winApp.hide();
 
     if (setOn) {
-        mainStore.sawModeIsOn = true;
+        electronState.sawModeIsOn = true;
 
         saved.maximized = winApp.isMaximized();
         saved.maximized && winApp.unmaximize();
@@ -39,7 +39,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         setWindowRect(winApp, saved.rect);
         saved.maximized && winApp.maximize();
 
-        mainStore.sawModeIsOn = false;
+        electronState.sawModeIsOn = false;
     }
     
     winApp.show();

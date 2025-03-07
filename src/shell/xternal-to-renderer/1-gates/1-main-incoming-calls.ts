@@ -1,6 +1,6 @@
 import { Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
-import { mainStore } from "@shell/2-main-globals";
+import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-main-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
 import { getElectronModulePaths, highlightRect } from "../7-napi-calls";
@@ -42,11 +42,11 @@ export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> 
         // napi
 
         case 'r2m:set-napi-options': {
-            mainStore.maxControls = data.state.maxControls;
+            electronState.maxControls = data.state.maxControls;
             break;
         }
         case 'r2m:cancel-detection': {
-            mainStore.cancelDetection = true;
+            electronState.cancelDetection = true;
             break;
         }
         case 'r2m:highlight-rect': {

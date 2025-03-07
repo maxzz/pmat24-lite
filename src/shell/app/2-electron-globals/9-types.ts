@@ -1,10 +1,10 @@
-export type MainStore = {
+export type ElectronState = {
     maxControls: number;
     cancelDetection: boolean; // set by client and reset by main
     sawModeIsOn: boolean;
 }
 
-export const mainStore: MainStore = {
+export const electronState: ElectronState = {
     maxControls: 0,
     cancelDetection: false,
     sawModeIsOn: false,

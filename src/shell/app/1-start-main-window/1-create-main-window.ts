@@ -3,7 +3,7 @@ import { BrowserWindow, app, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
 import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
-import { mainStore } from "@shell/2-main-globals";
+import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands";
 
@@ -47,13 +47,13 @@ export async function createMainWindow() {
     });
 
     winApp.on('close', (e: Electron.Event) => {
-        if (mainStore.sawModeIsOn) {
+        if (electronState.sawModeIsOn) {
             e.preventDefault();
             setSawModeOnMain(winApp, { setOn: false });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
             return;
         }
-        winApp && !mainStore.sawModeIsOn && saveIniFileOptions(winApp);
+        winApp && !electronState.sawModeIsOn && saveIniFileOptions(winApp);
     });
 
     winApp.webContents.setWindowOpenHandler((details) => {
