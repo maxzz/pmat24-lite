@@ -4,7 +4,7 @@ import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
-import { napiBuildProgress, setBuildState } from "@/store/7-napi-atoms";
+import { napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
 
 export const doLoadFakeManiAtom = atom(
     null,
@@ -22,6 +22,11 @@ export const doLoadFakeManiAtom = atom(
         if (nDelay) {
             const nDelays = nDelay / 500;
             for (let i = 0; i < nDelays; i++) {
+                if (napiLock.canceled) {
+                    napiLock.canceled = false;
+                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+                    return '';
+                }
                 napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);
                 await delay(500);
             }

@@ -1,6 +1,7 @@
 import { proxy } from 'valtio';
 import { atomWithProxy } from 'jotai-valtio';
 import { type TargetPosition } from '@shared/ipc-types';
+import { hasMain, R2MCalls } from '@/xternal-to-main';
 
 type NapiBuildState = {                         // State of Napi multistep build: icons, controls, manifest
     buildRunning: boolean;                      // Content check build is runnning. Make shure there is no multiple calls at the same time or use counter as lock
@@ -54,6 +55,8 @@ export const napiLock = {
     },
     cancel() {
         this.canceled = true;
-        //TODO: make Napi call to cancel detection
+        if (hasMain()) {
+            R2MCalls.cancelDetection();
+        }
     },
 };

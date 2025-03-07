@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { napiBuildProgress, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
+import { napiBuildProgress, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
 import { showProgressAtom } from "../0-ctx";
 import { Spinner } from "@/ui/icons";
 import { useSnapshot } from "valtio";
@@ -51,8 +51,6 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
             <motion.div
                 className="col-span-full grid grid-cols-subgrid"
             >
-                {/* <div className="col-start-1 text-[.65rem]">123</div> */}
-
                 <div className={classNames("col-start-2")}>
                     <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
                 </div>
@@ -67,7 +65,7 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: .2, duration: .2 }}
                     >
-                        <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1}>
+                        <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => napiLock.cancel()}>
                             Cancel
                         </Button>
                     </motion.div>
@@ -85,7 +83,7 @@ function BuildCounter() {
         return null;
     }
     return (
-        <div className="text-[.65rem] text-foreground/50">{buildCounter}</div>
+        <div className="text-[.65rem] text-foreground/50" title="# of detected controls">{buildCounter}</div>
     );
 }
 

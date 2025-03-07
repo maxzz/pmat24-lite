@@ -5,7 +5,7 @@ import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
 import { R2MCalls } from "@/xternal-to-main";
 import { newManiCtx } from "../0-new-mani-ctx";
-import { napiBuildProgress } from "@/store/7-napi-atoms";
+import { napiBuildProgress, napiLock } from "@/store/7-napi-atoms";
 
 export function ProgressBarControlsScan({ className }: { className?: string; }) {
 
@@ -24,7 +24,7 @@ export function ProgressBarControlsScan({ className }: { className?: string; }) 
                     Collecting controls...
                     <BarsLoader className="w-6 h-4 text-orange-500 [--barh:100%] [--framew:4px] [--speed:1s]" title="Refresh windows list" />
 
-                    <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => R2MCalls.cancelDetection()}>
+                    <Button className={cancelButtonClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => napiLock.cancel()}>
                         Cancel
                     </Button>
 

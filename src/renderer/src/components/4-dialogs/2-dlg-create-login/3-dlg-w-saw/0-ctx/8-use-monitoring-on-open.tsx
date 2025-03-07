@@ -10,14 +10,13 @@ export function useMonitoringOnOpen() {
     const doSetSawModeOnClient = useSetAtom(doSawModeOnClientAtom);
 
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
-    // const callback = useCallback(() => { doUpdateHwndAndIcon(); console.log('Monitoring callback'); }, []);
 
     useEffect(
         () => {
             if (isOpen) {
                 doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
                 doSetSawModeOnClient({ turnOn: true, canceledByMain: false });
-
+                
                 return () => {
                     doMonitoringTimer({ doStart: false });
                 };
