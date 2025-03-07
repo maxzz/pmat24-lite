@@ -1,6 +1,6 @@
-import { napiBuildProgress, napiBuildState } from "../9-napi-build-state";
+import { napiBuildProgress, napiBuildState } from ".";
 
-type SetLocalStateParams = {
+type SetBuildStateParams = {
     progress?: number;          // controls detection progress
     lastProgress?: number;      // last number of build progress or 0
     isRunning?: boolean;        // content check build is runnning
@@ -8,7 +8,7 @@ type SetLocalStateParams = {
     failedBody?: string;        // raw string returned from main that failed to parse
 };
 
-export function setLocalState({ progress, lastProgress, isRunning, error, failedBody }: SetLocalStateParams) {
+export function setBuildState({ progress, lastProgress, isRunning, error, failedBody }: SetBuildStateParams) {
     progress !== undefined && (napiBuildProgress.buildCounter = progress);
     lastProgress !== undefined && (napiBuildProgress.lastProgress = lastProgress);
     isRunning !== undefined && (napiBuildState.buildRunning = isRunning);

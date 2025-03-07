@@ -2,8 +2,7 @@ import { atom, Getter, Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectResult } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { isNapiLocked, napiBuildProgress, napiBuildState, nonReactiveLock } from "../9-napi-build-state";
-import { setLocalState } from "../3-do-get-controls";
+import { isNapiLocked, napiBuildProgress, nonReactiveLock, setBuildState } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
@@ -36,13 +35,13 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         // 1. call napi to get raw reply string
 
-        setLocalState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
         const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
         const prev = get(sawManiStrAtom);
         if (prev === res) {
-            setLocalState({ progress: 0, isRunning: false, error: '' });
+            setBuildState({ progress: 0, isRunning: false, error: '' });
             return;
         }
         set(sawManiStrAtom, res);
@@ -61,11 +60,11 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
             console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
         }
 
-        setLocalState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
         set(sawManiStrAtom, '');
         set(sawManiAtom, null);
-        setLocalState({ progress: 0, isRunning: false, error: getSubError(error) });
+        setBuildState({ progress: 0, isRunning: false, error: getSubError(error) });
 
         console.error(`'doGetWindowManiAtom' ${error instanceof Error ? error.message : `${error}`}`);
     }

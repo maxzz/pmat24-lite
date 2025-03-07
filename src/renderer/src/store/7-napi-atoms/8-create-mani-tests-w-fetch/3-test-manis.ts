@@ -4,7 +4,7 @@ import { appSettings } from "@/store/1-atoms/9-ui-state/0-all";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
-import { napiBuildProgress, setLocalState } from "@/store/7-napi-atoms";
+import { napiBuildProgress, setBuildState } from "@/store/7-napi-atoms";
 
 export const doLoadFakeManiAtom = atom(
     null,
@@ -15,7 +15,7 @@ export const doLoadFakeManiAtom = atom(
             return '';
         }
 
-        setLocalState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
         
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateManiDelay);
@@ -30,7 +30,7 @@ export const doLoadFakeManiAtom = atom(
         // 2. Get content
         const rv = await get(hashedQueryAtom(fname)) as string; //console.log('doLoadFakeManiAtom', fname, cnt);
 
-        setLocalState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
 
         return rv;
     }
