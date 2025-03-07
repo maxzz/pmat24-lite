@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
-import { isNapiLocked, napiBuildState, nonReactiveLock } from "../9-napi-build-state";
+import { napiBuildState, nonReactiveLock } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { getSubError } from "@/utils";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
@@ -21,9 +21,9 @@ export const doClearSawIconAtom = atom(
 export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
-        if (!isNapiLocked()) {
+        if (!nonReactiveLock.isNapiLocked()) {
             hasMain() ? await doLiveIcon(hwnd, get, set) : await doTestIcon(hwnd, get, set);
-            nonReactiveLock.locked = false;
+            nonReactiveLock.unlock();
         }
     }
 );

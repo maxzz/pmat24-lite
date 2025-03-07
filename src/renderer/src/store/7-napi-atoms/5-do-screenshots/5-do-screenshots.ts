@@ -6,7 +6,7 @@ import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
-import { isNapiLocked, napiBuildState, nonReactiveLock } from "../9-napi-build-state";
+import { napiBuildState, nonReactiveLock } from "../9-napi-build-state";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -27,7 +27,7 @@ export const defaultScreenshotWidth = 400;
 export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
-        if (isNapiLocked()) {
+        if (nonReactiveLock.isNapiLocked()) {
             return;
         }
 
@@ -39,7 +39,7 @@ export const doSetScreenshotsAtom = atom(
             await doTestScreenshots(get, set);
         }
 
-        nonReactiveLock.locked = false;
+        nonReactiveLock.unlock();
     }
 );
 

@@ -30,8 +30,6 @@ export const napiBuildProgress = proxy<NapiBuildProgress>({
     getPosProgress: null,
 });
 
-// Non-reactive detection cancellation. This is cheked by fake loaders when there is no electron.
-
 export const nonReactiveDetection = {
     canceled: false,
 };
@@ -40,14 +38,33 @@ export const nonReactiveDetection = {
 
 export const nonReactiveLock = {
     locked: false,
+    canceled: false, // Non-reactive detection cancellation. This is cheked by fake loaders when there is no electron.
+
+    isNapiLocked(): boolean {
+        if (this.locked) {
+            console.error('Napi call lock is already locked');
+            return true;
+        }
+        this.locked = true;
+        this.canceled = false;
+        return false;
+    },
+    unlock() {
+        this.locked = false;
+    },
+    cancel() {
+        this.canceled = true;
+        //TODO: make Napi call to cancel detection
+    },
 };
 
-export function isNapiLocked(): boolean {
-    if (nonReactiveLock.locked) {
-        console.error('enterNonReactiveLock() lock is already locked');
-        return true;
-    }
+// export function isNapiLocked(): boolean {
+//     if (nonReactiveLock.locked) {
+//         console.error('enterNonReactiveLock() lock is already locked');
+//         return true;
+//     }
 
-    nonReactiveLock.locked = true;
-    return false;
-}
+//     nonReactiveLock.locked = true;
+//     return false;
+// }
+
