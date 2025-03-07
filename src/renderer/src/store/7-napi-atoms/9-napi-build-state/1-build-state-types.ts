@@ -36,35 +36,24 @@ export const nonReactiveDetection = {
 
 // Non-reactive Napi reentrancy lock
 
-export const nonReactiveLock = {
-    locked: false,
+export const napiLock = {
+    isLocked: false,
     canceled: false, // Non-reactive detection cancellation. This is cheked by fake loaders when there is no electron.
 
-    isNapiLocked(): boolean {
-        if (this.locked) {
+    locked(): boolean {
+        if (this.isLocked) {
             console.error('Napi call lock is already locked');
             return true;
         }
-        this.locked = true;
+        this.isLocked = true;
         this.canceled = false;
         return false;
     },
     unlock() {
-        this.locked = false;
+        this.isLocked = false;
     },
     cancel() {
         this.canceled = true;
         //TODO: make Napi call to cancel detection
     },
 };
-
-// export function isNapiLocked(): boolean {
-//     if (nonReactiveLock.locked) {
-//         console.error('enterNonReactiveLock() lock is already locked');
-//         return true;
-//     }
-
-//     nonReactiveLock.locked = true;
-//     return false;
-// }
-

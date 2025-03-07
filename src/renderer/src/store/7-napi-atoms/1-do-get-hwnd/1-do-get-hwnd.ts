@@ -3,7 +3,7 @@ import { shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
-import { nonReactiveLock } from "../9-napi-build-state";
+import { napiLock } from "../9-napi-build-state";
 import { doGetWindowIconAtom } from "../2-do-get-icon";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
@@ -42,9 +42,9 @@ export const doClearSawHandleAtom = atom(
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
-        if (!nonReactiveLock.isNapiLocked()) {
+        if (!napiLock.locked()) {
             hasMain() ? await doLiveHwnd(get, set) : await doTestHwnd(get, set);
-            nonReactiveLock.unlock();
+            napiLock.unlock();
         }
     }
 );

@@ -2,7 +2,7 @@ import { atom, Getter, Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectResult } from "@shared/ipc-types";
 import { getSubError } from "@/utils";
-import { napiBuildProgress, nonReactiveLock, setBuildState } from "../9-napi-build-state";
+import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
@@ -13,7 +13,7 @@ export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // r
 export const doGetWindowManiAtom = atom(
     null,
     async (get, set, params: { hwnd: string | undefined; wantXml: boolean; }): Promise<void> => {
-        if (nonReactiveLock.isNapiLocked()) {
+        if (napiLock.locked()) {
             return;
         }
 
@@ -23,7 +23,7 @@ export const doGetWindowManiAtom = atom(
             await doTestMani(params, get, set);
         }
 
-        nonReactiveLock.unlock();
+        napiLock.unlock();
     }
 );
 
