@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
-import { doMonitoringAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
+import { doMonitoringTimerAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
 import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
 import { showProgressAtom } from "./0-all-atoms";
@@ -25,11 +25,11 @@ export const doMoveToSecondDlgAtom = atom(
 
         //TODO: manual mode
 
-        set(doMonitoringAtom, { doStart: false });
+        set(doMonitoringTimerAtom, { doStart: false });
 
         const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
         if (!move) {
-            set(doMonitoringAtom, { doStart: true });
+            set(doMonitoringTimerAtom, { doStart: true });
             return;
         }
 

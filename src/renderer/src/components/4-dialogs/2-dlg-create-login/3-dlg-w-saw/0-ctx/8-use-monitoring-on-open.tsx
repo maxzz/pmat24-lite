@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
-import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringAtom, sawHandleAtom } from "@/store";
+import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringTimerAtom, sawHandleAtom } from "@/store";
 import { doSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
     const isOpen = useAtomValue(doOpenSawOverlayAtom);
-    const doMonitoring = useSetAtom(doMonitoringAtom);
+    const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
     const doSetSawModeOnClient = useSetAtom(doSawModeOnClientAtom);
 
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
@@ -15,11 +15,11 @@ export function useMonitoringOnOpen() {
     useEffect(
         () => {
             if (isOpen) {
-                doMonitoring({ doStart: true, callback: doUpdateHwndAndIcon });
+                doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
                 doSetSawModeOnClient({ turnOn: true, canceledByMain: false });
 
                 return () => {
-                    doMonitoring({ doStart: false });
+                    doMonitoringTimer({ doStart: false });
                 };
             }
         }, [isOpen]
