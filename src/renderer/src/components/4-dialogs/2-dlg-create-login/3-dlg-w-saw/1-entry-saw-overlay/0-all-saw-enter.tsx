@@ -12,10 +12,7 @@ export function MonitorOverlay() {
     return (<>
         <AnimatePresence>
             {isOpen && (
-                <motion.div
-                    className="fixed inset-0 1bg-background bg-sky-300 z-[100]"
-                    {...animationProps}
-                >
+                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
                     <BodyExitWoTransition />
                 </motion.div>
             )}

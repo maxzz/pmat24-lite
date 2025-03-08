@@ -40,8 +40,6 @@ function loadUiInitialState(): DebugState {
 }
 
 subscribe(debugSettings, () => {
-    // console.log('store ui  ', JSON.stringify(debugSettings, null, 2));
-
     sendNapiOptions();
     localStorage.setItem(STORAGE_UI_KEY, JSON.stringify({ [STORAGE_UI_VER]: debugSettings }));
 });

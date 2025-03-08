@@ -51,9 +51,14 @@ export const doTurnOffSawModeOnClientAtom = atom(
     }
 );
 
+/**
+ * This is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
+ */
 export const doCancelSawModeByMainAtom = atom(
     null,
     (get, set) => {
         set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayAtom });
     }
 );
+
+//TODO: check what we do on cancel from main.

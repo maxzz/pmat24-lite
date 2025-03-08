@@ -3,7 +3,6 @@ import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "motion/react";
 import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
-import { R2MCalls } from "@/xternal-to-main";
 import { newManiCtx } from "../0-new-mani-ctx";
 import { napiBuildProgress, napiLock } from "@/store/7-napi-atoms";
 
