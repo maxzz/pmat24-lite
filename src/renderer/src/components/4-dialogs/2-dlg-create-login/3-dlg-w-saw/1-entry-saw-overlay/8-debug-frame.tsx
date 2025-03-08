@@ -1,9 +1,8 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { monitorCounterAtom } from "@/store";
 import { doMoveToSecondDlgAtom } from "../0-ctx/1-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 import { hasMain } from "@/xternal-to-main";
@@ -11,6 +10,7 @@ import { hasMain } from "@/xternal-to-main";
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
 
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+
     if (hasMain()) {
         return (
             <div className={classNames("relative bg-muted/50 1bg-sky-400/20", className)} {...rest}>
@@ -40,13 +40,4 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
             {children}
         </div>
     </>);
-}
-
-export function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const monitorCounter = useAtomValue(monitorCounterAtom);
-    return (
-        <div className={classNames(className)} {...rest}>
-            {monitorCounter}s
-        </div>
-    );
 }

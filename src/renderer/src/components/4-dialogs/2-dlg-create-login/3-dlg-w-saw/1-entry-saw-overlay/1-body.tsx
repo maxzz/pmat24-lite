@@ -1,12 +1,12 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { useDissmissNextToasts } from "@/utils";
+import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
-import { napiBuildState } from "@/store";
+import { monitorCounterAtom, napiBuildState } from "@/store";
 import { doMoveToSecondDlgAtom } from "../0-ctx";
 import { CurrentApp } from "./2-current-app";
-import { DebugFrame, MonitorCounter } from "./8-debug-frame";
+import { DebugFrame } from "./8-debug-frame";
 
 export function MonitorOverlayBody() {
     useDissmissNextToasts();
@@ -48,5 +48,14 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
         >
             Continue
         </Button>
+    );
+}
+
+function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const monitorCounter = useAtomValue(monitorCounterAtom);
+    return (
+        <div className={classNames(className)} {...rest}>
+            {monitorCounter}s
+        </div>
     );
 }
