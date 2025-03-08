@@ -29,7 +29,3 @@ export const napiBuildProgress = proxy<NapiBuildProgress>({
     lastProgress: 0,
     getPosProgress: null,
 });
-
-export const nonReactiveDetection = {
-    canceled: false,
-};
