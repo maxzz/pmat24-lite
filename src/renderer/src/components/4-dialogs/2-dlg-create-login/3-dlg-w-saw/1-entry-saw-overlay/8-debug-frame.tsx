@@ -9,12 +9,18 @@ import { DebugButtonsForSaw } from "../../8-test-buttons";
 import { hasMain } from "@/xternal-to-main";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
+
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     if (hasMain()) {
-        return (<div className={classNames("relative bg-sky-400/20", className)} {...rest}>{children}</div>);
+        return (
+            <div className={classNames("relative bg-muted/50 1bg-sky-400/20", className)} {...rest}>
+                {children}
+            </div>
+        );
     }
+
     return (<>
-        <div className={classNames("relative w-[320px] bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
+        <div className={classNames("relative w-[320px] bg-muted/10 1bg-sky-400/20 border-border/30 border shadow rounded-md", className)} {...rest}>
 
             <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                 <DebugButtonsForSaw className="scale-[.74] origin-left" />

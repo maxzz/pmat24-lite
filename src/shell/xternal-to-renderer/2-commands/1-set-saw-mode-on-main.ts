@@ -2,18 +2,6 @@ import { screen, BrowserWindow } from "electron";
 import { type SizeInt, type R2M, type RectangleInt } from "@shared/ipc-types";
 import { electronState } from "@shell/2-electron-globals";
 
-const defaultSize: SizeInt = { width: 350, height: 350, }; // add extra height to the client area for the Windows border and controls
-
-const saved: { // saved state before saw mode
-    rect: RectangleInt;
-    title: string;
-    maximized: boolean;
-} = {
-    rect: { x: 0, y: 0, ...defaultSize },
-    title: 'PMAT',
-    maximized: false,
-};
-
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
         return;
@@ -44,6 +32,18 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
     
     winApp.show();
 }
+
+const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls, and toaster on top
+
+const saved: { // saved state before saw mode
+    rect: RectangleInt;
+    title: string;
+    maximized: boolean;
+} = {
+    rect: { x: 0, y: 0, ...defaultSize },
+    title: 'PMAT',
+    maximized: false,
+};
 
 function getWindowRect(win: BrowserWindow): Electron.Rectangle {
     const pos = win.getPosition();

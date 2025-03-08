@@ -10,7 +10,7 @@ import { useSnapshot } from "valtio";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-4 py-2 w-full border-border/30 border shadow rounded-md grid place-items-center gap-2", className)} {...rest}>
+        <div className={classNames("px-4 py-2 w-full bg-background 1bg-muted/50 border-border border shadow-inner rounded-md grid place-items-center gap-2", className)} {...rest}>
             <div className="select-none">
                 Active application:
             </div>
@@ -83,7 +83,9 @@ function BuildCounter() {
         return null;
     }
     return (
-        <div className="text-[.65rem] text-foreground/50" title="# of detected controls">{buildCounter}</div>
+        <div className="text-[.65rem] text-foreground/50" title="# of detected controls">
+            {buildCounter}
+        </div>
     );
 }
 
