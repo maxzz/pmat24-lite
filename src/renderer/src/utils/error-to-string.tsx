@@ -23,6 +23,6 @@ export function errorSubstring(error: unknown): { message: string; submessage: s
  * or return error message as is.
  */
 export function errorFromSubstring(error: unknown): string {
-    const message = errorToString(error);
-    return message.split('>>>').at(-1) || message;
+    const { message, submessage } = errorSubstring(error);
+    return submessage || message;
 }
