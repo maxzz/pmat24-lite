@@ -21,20 +21,22 @@ export const doClearSawIconAtom = atom(
 export const doGetWindowIconAtom = atom(
     null,
     async (get, set, hwnd: string | undefined): Promise<void> => {
-        if (!napiLock.locked()) {
-            hasMain() ? await doLiveIcon(hwnd, get, set) : await doTestIcon(hwnd, get, set);
-            napiLock.unlock();
-        }
-    }
-);
-
-async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
-    try {
         if (!hwnd) {
             set(doClearSawIconAtom);
             return;
         }
 
+        if (!napiLock.locked()) {
+            hasMain()
+                ? await doLiveIcon(hwnd, get, set)
+                : await doTestIcon(hwnd, get, set);
+            napiLock.unlock();
+        }
+    }
+);
+
+async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
+    try {
         const cached = iconsCache.get(hwnd);
 
         const str = cached ? cached : await invokeMain<string>({ type: 'r2mi:get-window-icon', hwnd });
@@ -63,7 +65,7 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
 
-async function doTestIcon(hwnd: string | undefined, get: Getter, set: Setter) {
+async function doTestIcon(hwnd: string, get: Getter, set: Setter) {
     // if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
     //     return;
     // }

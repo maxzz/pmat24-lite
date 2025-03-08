@@ -43,7 +43,9 @@ export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
         if (!napiLock.locked()) {
-            hasMain() ? await doLiveHwnd(get, set) : await doTestHwnd(get, set);
+            hasMain()
+                ? await doLiveHwnd(get, set)
+                : await doTestHwnd(get, set);
             napiLock.unlock();
         }
     }
