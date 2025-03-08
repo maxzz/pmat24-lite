@@ -13,8 +13,6 @@ export function MonitorOverlayBody() {
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
             <DebugFrame>
-                <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
-
                 <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
                     <div className="1text-center 1text-balance select-none">
                         Launch the program or browse to the Web site that
@@ -32,6 +30,8 @@ export function MonitorOverlayBody() {
 
                     <ButtonContinue />
                 </div>
+
+                <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>
     );
@@ -53,6 +53,9 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
 
 function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const monitorCounter = useAtomValue(monitorCounterAtom);
+    if (monitorCounter < 0) {
+        return null;
+    }
     return (
         <div className={classNames(className)} {...rest}>
             {monitorCounter}s
