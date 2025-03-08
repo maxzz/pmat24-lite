@@ -43,9 +43,18 @@ export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
         if (!napiLock.locked()) {
+
             hasMain()
                 ? await doLiveHwnd(get, set)
                 : await doTestHwnd(get, set);
+
+                const hwnd = get(sawHandleAtom)?.hwnd;
+                if (debugSettings.uiState.iconAutoUpdate) {
+                    if (hwnd) {
+                        set(doGetWindowIconAtom, hwnd);
+                    }
+                }
+
             napiLock.unlock();
         }
     }
@@ -66,13 +75,6 @@ async function doLiveHwnd(get: Getter, set: Setter) {
 
         const obj = JSON.parse(res || '{}') as GetTargetWindowResult;
         set(sawHandleAtom, obj);
-        //console.log('test-offline:hwnd\n', JSON.stringify(obj, null, 4));
-
-        if (debugSettings.uiState.iconAutoUpdate) {
-            if (obj.hwnd) {
-                set(doGetWindowIconAtom, obj.hwnd);
-            }
-        }
     } catch (error) {
         set(sawHandleStrAtom, '');
         set(sawHandleAtom, null);

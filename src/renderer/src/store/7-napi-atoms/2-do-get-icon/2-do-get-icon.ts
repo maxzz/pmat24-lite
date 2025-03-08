@@ -65,8 +65,7 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
 
-export function clearIconsCache() {
-    console.log('clearIconsCache');
+export function clearIconsCache() { // Clear icons cache on monitor dialog close
     iconsCache.clear();
 }
 

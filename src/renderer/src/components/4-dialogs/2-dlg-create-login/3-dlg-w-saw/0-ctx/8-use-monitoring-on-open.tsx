@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
-import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringTimerAtom, sawHandleAtom } from "@/store";
+import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringTimerAtom, napiLock, sawHandleAtom } from "@/store";
 import { doSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
@@ -16,7 +16,7 @@ export function useMonitoringOnOpen() {
             if (isOpen) {
                 doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
                 doSetSawModeOnClient({ turnOn: true, canceledByMain: false });
-                
+
                 return () => {
                     doMonitoringTimer({ doStart: false });
                 };
@@ -28,8 +28,10 @@ export function useMonitoringOnOpen() {
 export const doUpdateHwndAndIconAtom = atom(
     null,
     async (get, set) => {
-        await set(doGetTargetHwndAtom);
-        const sawHandle = get(sawHandleAtom);
-        set(doGetWindowIconAtom, sawHandle?.hwnd);
+        if (!napiLock.isLocked) { // Avoid attempt to get hwnd by timer when napi is locked
+            await set(doGetTargetHwndAtom);
+            const sawHandle = get(sawHandleAtom);
+            set(doGetWindowIconAtom, sawHandle?.hwnd);
+        }
     }
 );
