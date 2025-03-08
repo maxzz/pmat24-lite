@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useAtomValue } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
+import { clearIconsCache } from "@/store";
 import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
-import { MonitorOverlayBody } from "./1-body";
 import { useMonitoringOnOpen } from "../0-ctx";
+import { MonitorOverlayBody } from "./1-body";
 
 export function MonitorOverlay() {
     const isOpen = useAtomValue(doOpenSawOverlayAtom);
@@ -21,7 +23,10 @@ export function MonitorOverlay() {
 }
 
 function BodyExitWoTransition() {
+
     const isOpen = useAtomValue(doOpenSawOverlayAtom);
+    useEffect(() => () => { !isOpen && clearIconsCache(); }, [isOpen]); // clear icons cache on close
+
     return (<>
         {isOpen && <MonitorOverlayBody />}
     </>);

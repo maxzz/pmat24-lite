@@ -65,6 +65,11 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
 
+export function clearIconsCache() {
+    console.log('clearIconsCache');
+    iconsCache.clear();
+}
+
 async function doTestIcon(hwnd: string, get: Getter, set: Setter) {
     // if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
     //     return;
