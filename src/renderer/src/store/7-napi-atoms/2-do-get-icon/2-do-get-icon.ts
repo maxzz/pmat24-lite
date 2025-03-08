@@ -3,7 +3,7 @@ import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
 import { napiBuildState, napiLock } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
-import { getSubErrorMessage } from "@/utils";
+import { errorFromSubstring } from "@/utils";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
@@ -56,7 +56,7 @@ async function doLiveIcon(hwnd: string | undefined, get: Getter, set: Setter) {
         napiBuildState.buildError = '';
     } catch (error) {
         set(doClearSawIconAtom);
-        napiBuildState.buildError = getSubErrorMessage(error);
+        napiBuildState.buildError = errorFromSubstring(error);
         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
     }
 }

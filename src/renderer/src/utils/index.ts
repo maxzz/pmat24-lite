@@ -13,7 +13,6 @@ export * from "./theme-apply";
 export * from './merge-options';
 //export * from "./uuid"; // use it from manifest
 export * from "./valtio-array";
-export * from './x-sub-error';
 export * from "./console-styles";
 
 export * from "./util-hooks";
