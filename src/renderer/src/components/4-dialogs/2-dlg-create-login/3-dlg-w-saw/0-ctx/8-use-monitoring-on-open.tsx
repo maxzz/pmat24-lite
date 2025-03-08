@@ -25,7 +25,7 @@ export function useMonitoringOnOpen() {
     );
 }
 
-const doUpdateHwndAndIconAtom = atom(
+export const doUpdateHwndAndIconAtom = atom(
     null,
     async (get, set) => {
         await set(doGetTargetHwndAtom);

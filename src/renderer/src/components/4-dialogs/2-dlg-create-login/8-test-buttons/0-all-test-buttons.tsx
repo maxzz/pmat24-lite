@@ -6,8 +6,8 @@ import { appSettings, debugSettings } from "@/store";
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
 import { testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
+import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
 // import { doLoadFakeManiAtom } from "@/store/7-napi-atoms/8-create-mani-tests-w-fetch";
-// import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
 
 export function DebugButtonsForScreenshots({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
@@ -20,15 +20,28 @@ export function DebugButtonsForScreenshots({ className, ...rest }: ComponentProp
 
 export function DebugButtonsForSaw({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const { dummyCaption } = useSnapshot(debugSettings.testCreate);
+    const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
+    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // hwnd caption won't be updated by monitoring untill we force hwnd change
     return (
         <div className={classNames("grid grid-cols-[1fr,auto] gap-1 select-none", className)} {...rest}>
             <div className="px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2">
                 <RowHwns />
                 <RowContent />
             </div>
+
             <label className="place-self-start py-1 flex items-center gap-2">
-                <Checkbox className="size-4" checked={dummyCaption} onCheckedChange={(v) => debugSettings.testCreate.dummyCaption = !!v} />
-                <span className="whitespace-nowrap" title="2 lines fake caption">fake caption</span>
+                <Checkbox
+                    className="size-4"
+                    checked={dummyCaption}
+                    onCheckedChange={(v) => {
+                        debugSettings.testCreate.dummyCaption = !!v;
+                        doDissmissNextToasts();
+                        doUpdateHwndAndIcon();
+                    }}
+                />
+                <span className="whitespace-nowrap" title="2 lines fake caption">
+                    fake caption
+                </span>
             </label>
         </div>
     );
@@ -64,7 +77,7 @@ function RowScreenshots() {
 function RowHwns() {
     const { hwnd } = useSnapshot(debugSettings.testCreate);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
-    // const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We don't need to call this, but it will update the icon and the hwnd by monitoring
+    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We need to call this otherwise the chached value will be used
     return (<>
         hwnd:
         <RadioGroup
@@ -74,7 +87,7 @@ function RowHwns() {
                 (v) => {
                     debugSettings.testCreate.hwnd = v as TestHwndEnum;
                     doDissmissNextToasts();
-                    // doUpdateHwndAndIcon();
+                    doUpdateHwndAndIcon();
                 }
             }
             tabIndex={-1}
