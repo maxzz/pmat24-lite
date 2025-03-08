@@ -36,7 +36,7 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                         </div>
                     : (
                         <div className="col-span-full">
-                            No application selected
+                            No active application
                         </div>
                     )
             }

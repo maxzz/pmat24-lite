@@ -17,7 +17,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
-            set(doAddNextToastIdAtom, toast.info('No application selected.'));
+            set(doAddNextToastIdAtom, toast.info('No application for training', { position: "top-center" }));
             return;
         }
 

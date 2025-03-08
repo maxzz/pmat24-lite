@@ -33,7 +33,7 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     // 2. Save maniXml to the context
     const sawManiXml = get(sawManiXmlAtom);
     if (!sawManiXml) {
-        set(doAddNextToastIdAtom, toast.info('There are no input controls in the window.', { position: "top-center" })); //TODO: you can define manifest content manually
+        set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
         return false;
     }
 
