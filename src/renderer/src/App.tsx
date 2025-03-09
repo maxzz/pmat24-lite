@@ -57,3 +57,8 @@ export function App(): JSX.Element {
         //otherwise stack corruption will happen
     //build counter is not incremented for browser windows (win32 OK)
     //TODO: highlight application window rect; to unsure that it's the right window
+
+//03.08.25
+    //TODO: update .5sec and show even number only
+    //TODO: handle cancel detection error message
+    //TODO: fix global param uspadte icon automatically

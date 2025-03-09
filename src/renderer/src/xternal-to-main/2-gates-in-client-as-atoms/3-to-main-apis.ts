@@ -1,5 +1,5 @@
 import { R2MInvoke, R2M } from "@shared/ipc-types";
-import { worldStore } from "./ipc-react-listener";
+import { worldStore } from "./1-ipc-react-listener";
 
 // main process APIs
 
