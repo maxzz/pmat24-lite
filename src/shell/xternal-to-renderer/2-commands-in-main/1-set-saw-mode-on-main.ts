@@ -1,6 +1,7 @@
 import { screen, BrowserWindow } from "electron";
 import { type SizeInt, type R2M, type RectangleInt } from "@shared/ipc-types";
 import { electronState } from "@shell/2-electron-globals";
+import { applyZoom, centerRect, getWindowRect, setWindowRect } from "@shell/3-utils-main";
 
 export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: Omit<R2M.SetSawMode, 'type'>): void {
     if (!winApp) {
@@ -44,31 +45,3 @@ const saved: { // saved state before saw mode
     title: 'PMAT',
     maximized: false,
 };
-
-function getWindowRect(win: BrowserWindow): Electron.Rectangle {
-    const pos = win.getPosition();
-    const size = win.getSize();
-    return { x: pos[0], y: pos[1], width: size[0], height: size[1] };
-}
-
-function setWindowRect(win: BrowserWindow, rect: Electron.Rectangle) {
-    win.setPosition(Math.round(rect.x), Math.round(rect.y));
-    win.setSize(Math.round(rect.width), Math.round(rect.height));
-}
-
-function centerRect(currentRect: RectangleInt, size: SizeInt): RectangleInt {
-    const display = screen.getDisplayMatching(currentRect) || screen.getDisplayNearestPoint(currentRect);
-    return {
-        x: display.bounds.x + display.bounds.width / 2 - size.width / 2,
-        y: display.bounds.y + display.bounds.height / 2 - size.height / 2,
-        width: size.width,
-        height: size.height,
-    };
-}
-
-function applyZoom(size: SizeInt, zoomFactor: number): SizeInt {
-    return {
-        width: Math.round(size.width * zoomFactor),
-        height: Math.round(size.height * zoomFactor),
-    };
-}

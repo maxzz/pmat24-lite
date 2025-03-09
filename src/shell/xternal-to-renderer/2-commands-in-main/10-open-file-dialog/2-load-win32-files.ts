@@ -2,6 +2,36 @@ import { basename, dirname, extname, join, normalize } from "node:path";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { type MainFileContent } from "@shared/ipc-types";
 
+/**
+ * @returns MainFileContent casted to FileContent. They should be filled from renderer.
+ */
+export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): MainFileContent[] {
+
+    let rv: MainFileContent[] = [];
+    collectNamesRecursively(filenames, rv);
+
+    allowedExt && rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
+
+    rv.forEach(
+        (fileContent, idx) => { // read file content
+            fileContent.idx = idx;
+            if (fileContent.failed || fileContent.notOur) {
+                return;
+            }
+
+            try {
+                const fullName = join(fileContent.fpath!, fileContent.fname);
+                fileContent.raw = readFileSync(fullName).toString();
+            } catch (error) {
+                fileContent.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                fileContent.failed = true;
+            }
+        }
+    );
+
+    return rv;
+}
+
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
     (filenames || []).forEach(
         (filename) => {
@@ -28,7 +58,8 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                     newItem.fmodi = st.mtimeMs;
                     newItem.size = st.size;
                     rv.push(newItem);
-                } else if (st.isDirectory()) {
+                }
+                else if (st.isDirectory()) {
                     const entries = readdirSync(filename).map((entry) => join(filename, entry));
                     collectNamesRecursively(entries, rv);
                 }
@@ -44,34 +75,4 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
 function isAllowedExt(filename: string | undefined, allowedExt: string[]): boolean | undefined { // the same as in renderer
     const ext = extname(filename || '').replace('.', '').toLowerCase();
     return allowedExt.includes(ext);
-}
-
-/**
- * @returns MainFileContent casted to FileContent. They should be filled from renderer.
- */
-export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): MainFileContent[] {
-    
-    let rv: MainFileContent[] = [];
-    collectNamesRecursively(filenames, rv);
-
-    allowedExt && rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
-
-    rv.forEach(
-        (fileContent, idx) => { // read file content
-            fileContent.idx = idx;
-            if (fileContent.failed || fileContent.notOur) {
-                return;
-            }
-
-            try {
-                const fullName = join(fileContent.fpath!, fileContent.fname);
-                fileContent.raw = readFileSync(fullName).toString();
-            } catch (error) {
-                fileContent.raw = error instanceof Error ? error.message : JSON.stringify(error);
-                fileContent.failed = true;
-            }
-        }
-    );
-
-    return rv;
 }

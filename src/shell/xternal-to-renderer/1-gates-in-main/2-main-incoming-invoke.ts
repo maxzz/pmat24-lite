@@ -12,7 +12,7 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             return loadWin32FilesContent(data.filenames, data.allowedExt);
         }
         // case 'r2mi:load-files2': {
-        //     return loadFilesContent(data.filenames);
+        //     return loadWin32FilesContent(data.filenames);
         // }
 
         // napi
