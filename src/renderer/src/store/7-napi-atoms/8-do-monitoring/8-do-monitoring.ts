@@ -9,7 +9,7 @@ export const doMonitoringTimerAtom = atom(
         if (isMonitoring) {
             if (!doStart) {
                 set(_isMonitoringTimerAtom, false);
-                set(monitorCounterAtom, -1);
+                set(_monitorCounterAtom, -1);
                 timeoutId.clear();
             }
         } else {
@@ -17,14 +17,14 @@ export const doMonitoringTimerAtom = atom(
                 set(_isMonitoringTimerAtom, true);
                 timeoutId.clear();
 
+                set(_monitorCounterAtom, 1);
+                timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
+
                 function runTimeout() {
                     callback?.();
-                    set(monitorCounterAtom, get(monitorCounterAtom) + 1);
-                    timeoutId.id = setTimeout(runTimeout, 1000);
+                    set(_monitorCounterAtom, get(_monitorCounterAtom) + 1);
+                    timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
                 }
-
-                set(monitorCounterAtom, 1);
-                timeoutId.id = setTimeout(runTimeout, 1000);
             }
         }
     }
@@ -42,7 +42,13 @@ const timeoutId = {
     }
 };
 
-export const monitorCounterAtom = atom(-1); // How many seconds passed since the start of monitoring
+const _monitorCounterAtom = atom(-1); // How many seconds passed since the start of monitoring
+
+const timesPerSecond = 2;
+
+export const secondsCounterAtom = atom(
+    (get) => Math.ceil(get(_monitorCounterAtom) / timesPerSecond)
+);
 
 /**
  * Combines monitoring atom and clearing timeout on unmount

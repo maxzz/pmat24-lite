@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
-import { monitorCounterAtom, napiBuildState } from "@/store";
+import { secondsCounterAtom, napiBuildState } from "@/store";
 import { doMoveToSecondDlgAtom } from "../0-ctx";
 import { CurrentApp } from "./2-current-app";
 import { DebugFrame } from "./8-debug-frame";
@@ -52,7 +52,7 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
 }
 
 function MonitorCounter({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const monitorCounter = useAtomValue(monitorCounterAtom);
+    const monitorCounter = useAtomValue(secondsCounterAtom);
     if (monitorCounter < 0) {
         return null;
     }

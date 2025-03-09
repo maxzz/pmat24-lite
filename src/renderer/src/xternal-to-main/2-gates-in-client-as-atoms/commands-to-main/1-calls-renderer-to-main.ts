@@ -46,5 +46,4 @@ export namespace R2MCalls {
     export function startTestFromMain(): void {
         sendToMain({ type: 'r2m:test' });
     }
-
 }
