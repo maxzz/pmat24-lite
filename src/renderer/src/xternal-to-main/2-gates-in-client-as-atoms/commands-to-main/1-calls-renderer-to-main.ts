@@ -1,5 +1,5 @@
 import { type R2MParams, type TargetClientRect } from "@shared/ipc-types";
-import { sendToMain } from "../2-gates-in-client-as-atoms";
+import { sendToMain } from "../3-to-main-apis";
 
 export namespace R2MCalls {
 

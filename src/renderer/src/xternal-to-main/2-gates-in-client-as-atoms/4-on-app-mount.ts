@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { debugSettings } from "../../store/1-atoms/9-ui-state";
-import { R2MCalls } from "../commands";
+import { R2MCalls } from "./commands-to-main";
 
 // Initial state exchange with main process
 

@@ -1,6 +1,6 @@
 import { proxySet } from "valtio/utils";
 import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
-import { mainApi } from "../2-gates-in-client-as-atoms";
+import { mainApi } from "..";
 import { findShortestPathInFnames, setRootDir } from "@/store";
 import { uuid } from "@/store/manifest";
 import { toUnix } from "@/utils";
