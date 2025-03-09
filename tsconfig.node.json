@@ -34,8 +34,8 @@
         "src/renderer/src/ui/**/*",
 
         "src/shell/xternal-to-renderer/index.ts",
-        "src/shell/xternal-to-renderer/1-gates/**/*.ts",
-        "src/shell/xternal-to-renderer/2-commands/**/*.ts",
-        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts",
+        "src/shell/xternal-to-renderer/1-gates-in-main/**/*.ts",
+        "src/shell/xternal-to-renderer/2-commands-in-main/**/*.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/**/*.ts", 
     ],
 }

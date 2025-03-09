@@ -5,7 +5,7 @@ import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
-import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands";
+import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 
 const preloadPath = join(__dirname, "../preload/index.js");
 

@@ -1,9 +1,9 @@
 import { proxySet } from "valtio/utils";
-import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
-import { mainApi } from "..";
-import { findShortestPathInFnames, setRootDir } from "@/store";
-import { uuid } from "@/store/manifest";
 import { toUnix } from "@/utils";
+import { uuid } from "@/store/manifest";
+import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
+import { findShortestPathInFnames, setRootDir } from "@/store";
+import { mainApi } from "../3-to-main-apis";
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<FileContent[]> {
     const d: R2MInvoke.AllInvokes = {

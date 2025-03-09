@@ -1,1 +1,1 @@
-export * from "./1-gates";
+export * from "./1-gates-in-main";

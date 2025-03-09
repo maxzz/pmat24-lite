@@ -4,9 +4,9 @@ import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-main-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
 import { getElectronModulePaths, highlightRect } from "../7-napi-calls";
-import { openFileDialogAndReply, setSawModeOnMain } from "../2-commands";
+import { openFileDialogAndReply, setSawModeOnMain } from "../2-commands-in-main";
 
-export async function callFromRendererToMain(data: R2M.AllCalls): Promise<void> {
+export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
         case 'r2m:menu:command': {
             switch (data.what) {
