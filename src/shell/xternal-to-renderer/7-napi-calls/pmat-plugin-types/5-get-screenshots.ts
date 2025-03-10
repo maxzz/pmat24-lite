@@ -11,7 +11,7 @@ export type TlwData = {
     data: Base64String;                 // base64 encoded image data
     width: number;                      // image width in pixels
     height: number;                     // image height in pixels
-    format: ImageFormatType;            // "png" or "jpg"
+    imageFormat: ImageFormatType;       // "png" or "jpg"
 };
 
 export type TlwError = {
@@ -30,7 +30,7 @@ export type TlwScreenshot = TlwData | TlwError; // Discriminated union of "data"
 
 // 1. Get a list of top-level windows
 
-export type GetTlwInfoParams = {
+export type GetTlwInfoParams = {        //TODO: for type GetTlwInfo param GetNumberOfTLWindowsParams was not defined
 };
 
 export type TlwInfo = {
