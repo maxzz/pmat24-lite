@@ -4,7 +4,7 @@ import { type Base64String, type PluginDataCallback, type ImageFormatType } from
 
 export type WindowIconGetterParams = {
     hwnd: string;
-    imageFormat: ImageFormatType;
+    iconFormat: ImageFormatType;
 };
 
 export type WindowIconGetterResult = {

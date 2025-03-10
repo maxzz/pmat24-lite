@@ -9,13 +9,13 @@ export type ManifestForWindowCreatorParams = {
 export type ManifestCreationDataResult = {
     type: 'data';
     xml: string;                   // string in xml or json format depending on ManifestForWindowCreatorParams.wantXml
-};
-export type ManifestCreationError = { // TODO: This should not be here. It is returned from callback.  
+}
+export type ManifestCreationError = {
     type: 'error';
     error: BrowserExtErrors;
-};
+}
 
-export type BrowserExtErrors =
+export type BrowserExtErrors = 
     | 'noBrExt'                    // No extension detected
     | 'obsoleteBrExt'              // Obsolete extension detected (DPAgent is OK but the extension has not replied)
     | 'incompatiblePM'             // DPAgent has not replied
