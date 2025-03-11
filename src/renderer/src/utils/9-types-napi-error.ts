@@ -1,4 +1,4 @@
-// Server side version of NapiCallError
+// Client side version of NapiCallError
 
 export type NapiCallError =
     | 'unknown'             // Undefined '>>>', i.e. un-typed; happens during error split in splitTypedError()
@@ -43,14 +43,4 @@ export function splitTypedError(errorStr: string): TypedError {
 
 export function typedErrorToString(typedError: TypedError): string {
     return `typed: ${typedError.typed}${typedError.extra ? `, extra: ${typedError.extra}` : ''}`;
-}
-
-/**
- * Regular error to string
- */
-export function errorToString(error: unknown): string {
-    if (error instanceof Error) {
-        return error.message;
-    }
-    return `${error}`;
 }

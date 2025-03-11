@@ -52,7 +52,7 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                         reject(makeTypedError('build-wo-mani', `${JSON.stringify(res)}`));
                     } catch (error) {
                         reject(makeTypedError('unknown-error', errorToString(error)));
-                        mainToRenderer({ type: 'm2r:failed-raw-content', body: str }); //TODO: Do we need this? It's set to atom but not used by client
+                        mainToRenderer({ type: 'm2r:failed-raw-content', body: str }); // It's set to the client atom but not used by client
                     }
                 }
             );

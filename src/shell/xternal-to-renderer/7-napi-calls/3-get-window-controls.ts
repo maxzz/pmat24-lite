@@ -35,7 +35,6 @@ export function getWindowControls(hwnd: string): Promise<string> {
                                 return;
                             }
 
-                            //console.log('cb:', JSON.stringify(res));
                             mainToRenderer({ type: 'm2r:detection-progress', progress: res.progress });
                             return;
                         }
