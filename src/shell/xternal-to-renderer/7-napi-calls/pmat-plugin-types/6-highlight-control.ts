@@ -5,7 +5,7 @@ import { type TargetClientRect } from "./9-types";
 export type WindowControlHighlighterParams = {
     hwnd: string;                // Window handle. We get process name from this window handle to decide whether it is a browser or a desktop app.
     rect?: TargetClientRect;     // Used to highlight controls in desktop apps
-    accID?: number;              // Used to highlight controls in browsers
+    accId?: number;              // Used to highlight controls in browsers
 };
 
 /**
