@@ -1,6 +1,7 @@
 // Client side version of NapiCallError
 
 export type NapiCallError =
+    | ''                    // no error
     | 'unknown'             // Undefined '>>>', i.e. un-typed; happens during error split in splitTypedError()
     | 'unknown-error'       // Unknown error; see extra param for details; as usual from catch
     | 'build-error'         // Error during manifest build
@@ -19,7 +20,7 @@ export function makeTypedError(error: NapiCallError, extra?: string): string {
     return `>>>${error}`;
 }
 
-type TypedError = {
+export type TypedError = {
     typed: NapiCallError;
     extra: string | undefined;
 };

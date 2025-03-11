@@ -3,7 +3,7 @@ import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
 import { napiBuildState, napiLock } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
-import { errorFromSubstring, errorToString } from "@/utils";
+import { errorToString, splitTypedError, typedErrorToString } from "@/utils";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
@@ -55,12 +55,17 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
             set(sawIconAtom, image);
         }
 
-        napiBuildState.buildError = '';
+        napiBuildState.typedError = '';
+        napiBuildState.typedExtra = undefined;
     } catch (error) {
         set(doClearSawIconAtom);
-        napiBuildState.buildError = errorFromSubstring(error);
-        console.error(`'doGetWindowIconAtom' ${errorToString(error)}`);
-    }
+
+        const typedError = splitTypedError(errorToString(error));
+        napiBuildState.typedError = typedError.typed;
+        napiBuildState.typedExtra = typedError.extra;
+
+        console.error(`'doGetWindowIconAtom' ${typedErrorToString(typedError)}`);
+}
 }
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult

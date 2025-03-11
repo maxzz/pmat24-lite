@@ -1,7 +1,7 @@
 import { atom, Getter, Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectResult } from "@shared/ipc-types";
-import { errorFromSubstring, errorToString, splitTypedError } from "@/utils";
+import { errorToString, splitTypedError, typedErrorToString } from "@/utils";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
@@ -35,13 +35,13 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         // 1. call napi to get raw reply string
 
-        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: undefined, failedBody: '' });
 
         const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
         const prev = get(sawManiStrAtom);
         if (prev === res) {
-            setBuildState({ progress: 0, isRunning: false, error: '' });
+            setBuildState({ progress: 0, isRunning: false, error: undefined });
             return;
         }
         set(sawManiStrAtom, res);
@@ -60,17 +60,16 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
             console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
         }
 
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: undefined });
     } catch (error) {
         set(sawManiStrAtom, '');
         set(sawManiAtom, null);
         
-        const msg = errorToString(error);
-        const { typed, extra } = splitTypedError(msg);
+        const typedError = splitTypedError(errorToString(error));
 
-        setBuildState({ progress: 0, isRunning: false, error: typed });
+        setBuildState({ progress: 0, isRunning: false, error: typedError });
 
-        console.error(`'doGetWindowManiAtom' ${typed}${extra ? `: ${extra}` : ''}`);
+        console.error(`'doGetWindowManiAtom' ${typedErrorToString(typedError)}`);
     }
 }
 

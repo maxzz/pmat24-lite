@@ -15,7 +15,7 @@ export const doLoadFakeManiAtom = atom(
             return '';
         }
 
-        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: undefined, failedBody: '' });
         
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateManiDelay);
@@ -24,7 +24,7 @@ export const doLoadFakeManiAtom = atom(
             for (let i = 0; i < nDelays; i++) {
                 if (napiLock.canceled) {
                     napiLock.canceled = false;
-                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: undefined });
                     return '';
                 }
                 napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);
@@ -35,7 +35,7 @@ export const doLoadFakeManiAtom = atom(
         // 2. Get content
         const rv = await get(hashedQueryAtom(fname)) as string; //console.log('doLoadFakeManiAtom', fname, cnt);
 
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: undefined });
 
         return rv;
     }
