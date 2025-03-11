@@ -7,6 +7,7 @@ import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
 import { napiBuildState, napiLock } from "../9-napi-build-state";
+import { errorToString } from "@/utils";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -68,8 +69,8 @@ async function doLiveScreenshots(width: number, set: Setter) {
 
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
     } catch (error) {
-        console.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
-        toast.error(`'doCollectScreenshotsAtom' ${error instanceof Error ? error.message : `${error}`}`);
+        console.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
+        toast.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
         set(allScreenshotAtom, []);
     }
 }
@@ -118,8 +119,8 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
 
 //         setScreenshotsWithExtra(screenshots, set);
 //     } catch (error) {
-//         console.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
-//         toast.error(`'doGetWindowIconAtom' ${error instanceof Error ? error.message : `${error}`}`);
+//         console.error(`'doGetWindowIconAtom' ${errorToString(error)}`);
+//         toast.error(`'doGetWindowIconAtom' ${errorToString(error)}`);
 //         set(allScreenshotAtom, []);
 //     }
 // }

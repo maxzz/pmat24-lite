@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { shortenWindowCaption } from "@/utils";
+import { errorToString, shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
@@ -71,7 +71,7 @@ async function doLiveHwnd(get: Getter, set: Setter) {
     } catch (error) {
         set(sawHandleStrAtom, '');
         set(sawHandleAtom, null);
-        console.error(`'doGetTargetHwndAtom' ${error instanceof Error ? error.message : `${error}`}`);
+        console.error(`'doGetTargetHwndAtom' ${errorToString(error)}`);
     }
 }
 

@@ -3,7 +3,7 @@ import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
-import { errorFromSubstring } from "@/utils";
+import { errorFromSubstring, errorToString } from "@/utils";
 import { napiBuildProgress, napiBuildState, setBuildState } from "../9-napi-build-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
@@ -49,7 +49,7 @@ export const doGetWindowControlsAtom = atom(
 
             setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: errorFromSubstring(error) });
 
-            console.error(`'doGetWindowControlsAtom' ${error instanceof Error ? error.message : `${error}`}`);
+            console.error(`'doGetWindowControlsAtom' ${errorToString(error)}`);
         }
     }
 );

@@ -1,7 +1,7 @@
 import { atom, Getter, Setter } from "jotai";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectResult } from "@shared/ipc-types";
-import { errorFromSubstring } from "@/utils";
+import { errorFromSubstring, errorToString } from "@/utils";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
@@ -66,7 +66,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
         set(sawManiAtom, null);
         setBuildState({ progress: 0, isRunning: false, error: errorFromSubstring(error) });
 
-        console.error(`'doGetWindowManiAtom' ${error instanceof Error ? error.message : `${error}`}`);
+        console.error(`'doGetWindowManiAtom' ${errorToString(error)}`);
     }
 }
 
