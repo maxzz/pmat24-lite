@@ -1,5 +1,6 @@
 export type NapiCallError =
     | 'unknown-error'       // Unknown error; see extra param for details; as usual from catch
+    | 'build-error'         // Error during manifest build
     | 'build-wo-mani'       // Build done without manifest
     | 'canceled-by-user'    // Canceled by user
     | 'too-many-controls'   // Too many controls (more then ${mainStore.maxControls})

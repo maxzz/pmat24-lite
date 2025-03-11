@@ -40,7 +40,7 @@ export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
                         }
 
                         if (res.type === 'error') {
-                            reject(`>>>${res.error}`);
+                            reject(makeTypedError('build-error', `${res.error}`));
                             return;
                         }
 
