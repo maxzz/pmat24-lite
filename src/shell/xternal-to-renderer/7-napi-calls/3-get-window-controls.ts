@@ -1,6 +1,7 @@
 import { addon } from "./0-addon";
 import { type WindowControlsCollectorCollectResult, type WindowControlsCollectorCollectParams } from "./pmat-plugin-types";
 import { mainStore, mainToRenderer } from "./9-external";
+import { errorToString, makeTypedError } from "./9-types-napi-calls";
 
 export function getWindowControls(hwnd: string): Promise<string> {
     return new Promise<string>(
@@ -23,14 +24,14 @@ export function getWindowControls(hwnd: string): Promise<string> {
                         if (mainStore.cancelDetection) {
                             collector.cancel();
                             mainStore.cancelDetection = false;
-                            reject(`>>>Canceled by user`);
+                            reject(makeTypedError('canceled-by-user'));
                             return;
                         }
 
                         if ('state' in res) {
                             if (mainStore.maxControls !== 0 && res.progress > mainStore.maxControls) {
                                 collector.cancel();
-                                reject(`>>>Too many controls (more then ${mainStore.maxControls})`);
+                                reject(makeTypedError('too-many-controls', `more then ${mainStore.maxControls}`));
                                 return;
                             }
 
@@ -41,9 +42,8 @@ export function getWindowControls(hwnd: string): Promise<string> {
 
                         resolve(str);
                     } catch (error) {
-                        const msg = `>>>${error instanceof Error ? error.message : `${error}`}`;
-                        reject(msg);
-                        mainToRenderer({ type: 'm2r:failed-raw-content', body: str });
+                        reject(makeTypedError('unknown-error', errorToString(error)));
+                        mainToRenderer({ type: 'm2r:failed-raw-content', body: str }); //TODO: Do we need this? It's set to atom but not used by client
                     }
                 }
             );

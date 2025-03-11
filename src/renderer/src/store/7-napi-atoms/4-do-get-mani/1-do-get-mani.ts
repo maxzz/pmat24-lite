@@ -64,9 +64,10 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
     } catch (error) {
         set(sawManiStrAtom, '');
         set(sawManiAtom, null);
-        setBuildState({ progress: 0, isRunning: false, error: errorFromSubstring(error) });
+        const msg = errorFromSubstring(error);
+        setBuildState({ progress: 0, isRunning: false, error: msg });
 
-        console.error(`'doGetWindowManiAtom' ${errorToString(error)}`);
+        console.error(`'doGetWindowManiAtom' ${msg}`);
     }
 }
 
