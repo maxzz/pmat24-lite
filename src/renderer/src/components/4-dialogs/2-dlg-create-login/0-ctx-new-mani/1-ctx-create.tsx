@@ -36,24 +36,21 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
         const typedError = splitTypedError(napiBuildState.buildError);
 
         if (typedError.typed === 'canceled-by-user') {
-            //set(doAddNextToastIdAtom, toast.info('Canceled', { position: "top-center" })); // OK but no need to show toast
-            setBuildState({ error: '' });
+            showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
             return false;
         }
 
         if (typedError.typed === 'too-many-controls') {
-            set(doAddNextToastIdAtom, toast.info('Too many controls', { position: "top-center" }));
-            setBuildState({ error: '' });
+            showMessage({ set, message: 'Too many controls' });
             return false;
         }
 
         if (typedError.extra) {
-            set(doAddNextToastIdAtom, toast.error(typedError.extra, { position: "top-center" }));
-            setBuildState({ error: '' });
+            showMessage({ set, message: typedError.extra, isError: true });
             return false;
         }
 
-        set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
+        showMessage({ set, message: 'There are no input controls in the window' }); //TODO: add handle: you can define manifest content manually
         return false;
     }
 
@@ -71,11 +68,16 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     } catch (error) {
         newManiContent.clear(set);
 
-        const msg = `Cannot parse manifest content\n${errorToString(error)}`;
-        console.error(msg);
-        set(doAddNextToastIdAtom, toast.error(msg));
+        const message = `Cannot parse manifest content\n${errorToString(error)}`;
+        console.error(message);
+        showMessage({ set, message, isError: true });
         return false;
     }
 
     return true;
+}
+
+function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
+    set(doAddNextToastIdAtom, toast[isError ? 'error' : 'info'](message, { position: "top-center" }));
+    setBuildState({ error: '' });
 }
