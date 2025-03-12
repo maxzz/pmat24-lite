@@ -5,7 +5,7 @@ import { type DebugMonitorState, initialDebugMonitorState } from './2-local-stor
 import { type TestCreate, initialTestCreate } from '../../../7-napi-atoms/8-create-mani-tests-w-fetch/9-types-of-tests';
 import { type DebugOnly, initialDebugOnly } from './3-local-storage-debug-only';
 
-const STORAGE_UI_KEY = 'pmat24-lite:ui';
+const STORAGE_UI_KEY = 'pmat25:debug';
 const STORAGE_UI_VER = 'v1';
 
 type DebugState = {
@@ -26,17 +26,18 @@ export const debugSettings = proxy<DebugState>(loadUiInitialState());
 
 function loadUiInitialState(): DebugState {
     let storageUi: any;
+
     let storageUiStr = localStorage.getItem(STORAGE_UI_KEY);
     if (storageUiStr) {
         try {
             storageUi = JSON.parse(storageUiStr)?.[STORAGE_UI_VER];
         } catch (error) {
-            console.error('storageUi bad format');
+            console.error('bad storage:data');
         }
     }
 
-    const state = mergeDefaultAndLoaded({ defaults: initialDebugState, loaded: storageUi });
-    return state;
+    const rv = mergeDefaultAndLoaded({ defaults: initialDebugState, loaded: storageUi });
+    return rv;
 }
 
 subscribe(debugSettings, () => {

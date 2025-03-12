@@ -1,10 +1,12 @@
-import { themeApplyMode } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
 import { atomWithProxy } from "jotai-valtio";
-import { debounce, mergeConfigRecursively } from "@/utils";
-import { FileListSettings, defaultFileListSettings } from "../1-files-list";
-import { RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
-import { AppUISettings, defaultAppUISettings } from "../8-app-ui";
+import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
+import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
+import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
+import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
+
+const STORE_KEY = "pmat25-ui";
+const STORE_VER = 'v1';
 
 export type AppSettings = {
     appUi: AppUISettings;           // App UI settings: theme, divider, etc.
@@ -18,25 +20,22 @@ const defaultSettings: AppSettings = {
     right: defaultRightPanelSettings,
 };
 
-const STORE_KEY = "pmat24-lite-app-settings";
-const STORE_VER = 'v1';
-
 export const appSettings = proxy<AppSettings>(initialSettings());
 
 function initialSettings(): AppSettings {
-    let rv = defaultSettings;
+    let storageData = defaultSettings;
 
     const savedSettings = localStorage.getItem(STORE_KEY);
     if (savedSettings) {
         try {
-            rv = JSON.parse(savedSettings)?.[STORE_VER];
+            storageData = JSON.parse(savedSettings)?.[STORE_VER];
         } catch (error) {
-            console.error('storage bad format');
+            console.error('bad storage:ui');
         }
     }
 
-    const merged = mergeConfigRecursively(defaultSettings, rv);
-    return merged;
+    const rv = mergeConfigRecursively(defaultSettings, storageData);
+    return rv;
 }
 
 // Apply theme changes
