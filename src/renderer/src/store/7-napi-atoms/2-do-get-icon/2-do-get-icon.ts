@@ -5,6 +5,7 @@ import { type WindowIconGetterResult } from "@shared/ipc-types";
 import { napiBuildState, napiLock, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
+import { sawHandleAtom } from "../1-do-get-hwnd";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
 export const sawIconAtom = atom<HTMLImageElement | null>(null);
@@ -45,6 +46,8 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
             const image = new Image();
             image.src = `data:image/png;base64,${res.data}`;
             set(sawIconAtom, image);
+
+            //printToCreateTestData(get);
         }
 
         napiBuildState.buildError = '';
@@ -54,6 +57,12 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
         napiBuildState.buildError = errorToString(error);
         console.error(`'doGetWindowIconAtom' ${typedErrorToString(splitTypedError(napiBuildState.buildError))}`);
     }
+}
+
+function printToCreateTestData(get: Getter) {
+    const testHwnd = get(sawHandleAtom);
+    const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
+    console.log(`${JSON.stringify({ hwnd: testHwnd, icon: testIcon, }, null, 4)}`);
 }
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
