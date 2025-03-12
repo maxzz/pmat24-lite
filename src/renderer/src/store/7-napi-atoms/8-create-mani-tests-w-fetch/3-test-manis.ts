@@ -4,14 +4,13 @@ import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
-import { napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
+import { makeTypedError, napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
 
 export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum): Promise<string> => {
         const fname = testManis[tsId];
         if (!fname) {
-            console.error('no fname', tsId);
             return '';
         }
 
@@ -23,8 +22,7 @@ export const doLoadFakeManiAtom = atom(
             const nDelays = nDelay / 500;
             for (let i = 0; i < nDelays; i++) {
                 if (napiLock.canceled) {
-                    napiLock.canceled = false;
-                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: makeTypedError('canceled-by-user') });
                     return '';
                 }
                 napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);
