@@ -19,7 +19,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
-            set(doAddNextToastIdAtom, toast.info('No application for training', { position: "top-center" }));
+            set(doAddNextToastIdAtom, toast.info('No application', { position: "top-center" }));
             return;
         }
 
@@ -31,10 +31,6 @@ export const doMoveToSecondDlgAtom = atom(
 
         const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
         if (!move) {
-            // if (napiBuildState.buildError) {
-            //     toast.error(napiBuildState.buildError);
-            //     setBuildState({ error: '' });
-            // }
             set(doMonitoringTimerAtom, { doStart: true });
             return;
         }

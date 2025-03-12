@@ -36,19 +36,24 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
         const typedError = splitTypedError(napiBuildState.buildError);
 
         if (typedError.typed === 'canceled-by-user') {
-            // OK but no need to show toast
-            // set(doAddNextToastIdAtom, toast.info('Canceled', { position: "top-center" }));
+            //set(doAddNextToastIdAtom, toast.info('Canceled', { position: "top-center" })); // OK but no need to show toast
             setBuildState({ error: '' });
             return false;
         }
 
-        if (napiBuildState.buildError) {
-            set(doAddNextToastIdAtom, toast.error(napiBuildState.buildError, { position: "top-center" }));
+        if (typedError.typed === 'too-many-controls') {
+            set(doAddNextToastIdAtom, toast.info('Too many controls', { position: "top-center" }));
             setBuildState({ error: '' });
-        } else {
-            set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
+            return false;
         }
 
+        if (typedError.extra) {
+            set(doAddNextToastIdAtom, toast.error(typedError.extra, { position: "top-center" }));
+            setBuildState({ error: '' });
+            return false;
+        }
+
+        set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
         return false;
     }
 
@@ -66,7 +71,7 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     } catch (error) {
         newManiContent.clear(set);
 
-        const msg = `Cannot parse manifest content.\n${errorToString(error)}`;
+        const msg = `Cannot parse manifest content\n${errorToString(error)}`;
         console.error(msg);
         set(doAddNextToastIdAtom, toast.error(msg));
         return false;
