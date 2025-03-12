@@ -55,17 +55,13 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
             set(sawIconAtom, image);
         }
 
-        napiBuildState.typedError = '';
-        napiBuildState.typedExtra = undefined;
+        napiBuildState.buildError = '';
     } catch (error) {
         set(doClearSawIconAtom);
 
-        const typedError = splitTypedError(errorToString(error));
-        napiBuildState.typedError = typedError.typed;
-        napiBuildState.typedExtra = typedError.extra;
-
-        console.error(`'doGetWindowIconAtom' ${typedErrorToString(typedError)}`);
-}
+        napiBuildState.buildError = errorToString(error);
+        console.error(`'doGetWindowIconAtom' ${typedErrorToString(splitTypedError(napiBuildState.buildError))}`);
+    }
 }
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult

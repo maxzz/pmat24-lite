@@ -35,13 +35,13 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         // 1. call napi to get raw reply string
 
-        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: undefined, failedBody: '' });
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
         const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
 
         const prev = get(sawManiStrAtom);
         if (prev === res) {
-            setBuildState({ progress: 0, isRunning: false, error: undefined });
+            setBuildState({ progress: 0, isRunning: false, error: '' });
             return;
         }
         set(sawManiStrAtom, res);
@@ -60,16 +60,14 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
             console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
         }
 
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: undefined });
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
         set(sawManiStrAtom, '');
         set(sawManiAtom, null);
         
-        const typedError = splitTypedError(errorToString(error));
-
-        setBuildState({ progress: 0, isRunning: false, error: typedError });
-
-        console.error(`'doGetWindowManiAtom' ${typedErrorToString(typedError)}`);
+        const msg = errorToString(error);
+        setBuildState({ progress: 0, isRunning: false, error: msg });
+        console.error(`'doGetWindowManiAtom' ${typedErrorToString(splitTypedError(msg))}`);
     }
 }
 
