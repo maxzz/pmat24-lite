@@ -25,28 +25,19 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     // 1. Get manifest as maniXml from the window
     try {
         showProgressAtom && set(showProgressAtom, true);
+        
         await set(doGetWindowManiAtom, { hwnd, wantXml: true });
     } finally {
         showProgressAtom && set(showProgressAtom, false);
     }
 
+    //TODO: add handle: you can define manifest content manually
+    //TODO: check created manifest content manually checkbox
+
     // 2. Save maniXml to the context
     const sawManiXml = get(sawManiXmlAtom);
     if (!sawManiXml) {
-        const typedError = splitTypedError(napiBuildState.buildError);
-
-        if (typedError.typed === 'canceled-by-user') {
-            showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
-        }
-        else if (typedError.typed === 'too-many-controls') {
-            showMessage({ set, message: 'Too many controls' });
-        }
-        else if (typedError.extra) {
-            showMessage({ set, message: typedError.extra, isError: true });
-        } else {
-            showMessage({ set, message: 'There are no input controls in the window' }); //TODO: add handle: you can define manifest content manually
-        }
-
+        showReason(set);
         return false;
     }
 
@@ -57,10 +48,11 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
         const fileContent: FileContent = createFileContent(sawManiXml);
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
+        //TODO: add handle: you can define manifest content manually
         //TODO: check created manifest content manually checkbox
 
         set(newManiContent.fileUsAtom, fileUs);
-        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined, see previous line
+        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
     } catch (error) {
         newManiContent.clear(set);
 
@@ -73,7 +65,24 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     return true;
 }
 
+function showReason(set: Setter) {
+    const typedError = splitTypedError(napiBuildState.buildError);
+
+    if (typedError.typed === 'canceled-by-user') {
+        showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
+    }
+    else if (typedError.typed === 'too-many-controls') {
+        showMessage({ set, message: 'Too many controls' });
+    }
+    else if (typedError.extra) {
+        showMessage({ set, message: typedError.extra, isError: true });
+    } else {
+        showMessage({ set, message: 'There are no input controls in the window' });
+    }
+
+    setBuildState({ error: '' });
+}
+
 function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
     set(doAddNextToastIdAtom, toast[isError ? 'error' : 'info'](message, { position: "top-center" }));
-    setBuildState({ error: '' });
 }
