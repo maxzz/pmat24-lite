@@ -1,8 +1,8 @@
 import { atom, Getter, Setter } from "jotai";
+import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectResult } from "@shared/ipc-types";
-import { errorToString, splitTypedError, typedErrorToString } from "@/utils";
-import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
+import { napiBuildProgress, napiLock, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 

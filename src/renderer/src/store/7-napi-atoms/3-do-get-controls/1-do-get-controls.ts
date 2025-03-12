@@ -1,10 +1,10 @@
 import { atom } from "jotai";
+import { errorToString } from "@/utils";
 import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
-import { errorToString, splitTypedError, typedErrorToString } from "@/utils";
-import { napiBuildProgress, napiBuildState, setBuildState } from "../9-napi-build-state";
+import { napiBuildProgress, napiBuildState, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
 export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);        // reply with controls and pool

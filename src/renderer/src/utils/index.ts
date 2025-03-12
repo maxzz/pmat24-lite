@@ -16,5 +16,4 @@ export * from "./valtio-array";
 export * from "./console-styles";
 
 export * from "./util-hooks";
-export * from "./9-types-napi-error";
  

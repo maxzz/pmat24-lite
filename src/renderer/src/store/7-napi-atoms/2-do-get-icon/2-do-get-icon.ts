@@ -1,9 +1,9 @@
 import { atom, type Getter, type Setter } from "jotai";
+import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
-import { napiBuildState, napiLock } from "../9-napi-build-state";
+import { napiBuildState, napiLock, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
-import { errorToString, splitTypedError, typedErrorToString } from "@/utils";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
