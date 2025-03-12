@@ -31,10 +31,10 @@ export const doMoveToSecondDlgAtom = atom(
 
         const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
         if (!move) {
-            if (napiBuildState.buildError) {
-                toast.error(napiBuildState.buildError);
-                setBuildState({ error: '' });
-            }
+            // if (napiBuildState.buildError) {
+            //     toast.error(napiBuildState.buildError);
+            //     setBuildState({ error: '' });
+            // }
             set(doMonitoringTimerAtom, { doStart: true });
             return;
         }

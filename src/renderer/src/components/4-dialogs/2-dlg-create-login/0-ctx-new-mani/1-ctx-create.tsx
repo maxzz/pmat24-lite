@@ -2,7 +2,7 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError } from "@/store";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiContent } from "./0-ctx-content";
@@ -33,7 +33,22 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     // 2. Save maniXml to the context
     const sawManiXml = get(sawManiXmlAtom);
     if (!sawManiXml) {
-        set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
+        const typedError = splitTypedError(napiBuildState.buildError);
+
+        if (typedError.typed === 'canceled-by-user') {
+            // OK but no need to show toast
+            // set(doAddNextToastIdAtom, toast.info('Canceled', { position: "top-center" }));
+            setBuildState({ error: '' });
+            return false;
+        }
+
+        if (napiBuildState.buildError) {
+            set(doAddNextToastIdAtom, toast.error(napiBuildState.buildError, { position: "top-center" }));
+            setBuildState({ error: '' });
+        } else {
+            set(doAddNextToastIdAtom, toast.info('There are no input controls in the window', { position: "top-center" })); //TODO: you can define manifest content manually
+        }
+
         return false;
     }
 
