@@ -31,14 +31,6 @@ export const sawHandleCaptionAtom = atom(
     }
 );
 
-export const doClearSawHandleAtom = atom(
-    null,
-    (get, set) => {
-        set(sawHandleStrAtom, '');
-        set(sawHandleAtom, null);
-    }
-);
-
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
@@ -69,8 +61,7 @@ async function doLiveHwnd(get: Getter, set: Setter) {
         const obj = JSON.parse(res || '{}') as GetTargetWindowResult;
         set(sawHandleAtom, obj);
     } catch (error) {
-        set(sawHandleStrAtom, '');
-        set(sawHandleAtom, null);
+        set(doClearSawHandleAtom);
         console.error(`'doGetTargetHwndAtom' ${errorToString(error)}`);
     }
 }
@@ -87,3 +78,11 @@ async function doTestHwnd(get: Getter, set: Setter) {
 }
 
 // let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
+
+const doClearSawHandleAtom = atom(
+    null,
+    (get, set) => {
+        set(sawHandleStrAtom, '');
+        set(sawHandleAtom, null);
+    }
+);

@@ -44,12 +44,19 @@ export const doGetWindowControlsAtom = atom(
 
             console.log('doGetWindowControlsAtom', JSON.stringify(poolAndControls, null, 4));
         } catch (error) {
-            set(sawContentStrAtom, '');
-            set(sawContentAtom, null);
+            set(doClearWindowControlsAtom);
 
             const msg = errorToString(error);
             setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: msg });
             console.error(`'doGetWindowControlsAtom' ${typedErrorToString(splitTypedError(msg))}`);
         }
+    }
+);
+
+const doClearWindowControlsAtom = atom(
+    null,
+    (get, set) => {
+        set(sawContentStrAtom, '');
+        set(sawContentAtom, null);
     }
 );

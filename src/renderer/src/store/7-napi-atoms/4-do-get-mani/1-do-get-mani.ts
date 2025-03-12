@@ -62,8 +62,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
-        set(sawManiStrAtom, '');
-        set(sawManiAtom, null);
+        set(doClearManiAtom);
         
         const msg = errorToString(error);
         setBuildState({ progress: 0, isRunning: false, error: msg });
@@ -75,3 +74,12 @@ async function doTestMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
     const mani = await set(doLoadFakeManiAtom, debugSettings.testCreate.mani);
     set(sawManiXmlAtom, mani);
 }
+
+const doClearManiAtom = atom(
+    null,
+    (get, set) => {
+        set(sawManiStrAtom, '');
+        set(sawManiXmlAtom, undefined);
+        set(sawManiAtom, null);
+    }
+);
