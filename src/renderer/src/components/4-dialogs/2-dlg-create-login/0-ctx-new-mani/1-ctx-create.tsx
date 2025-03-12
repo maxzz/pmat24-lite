@@ -37,20 +37,16 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
 
         if (typedError.typed === 'canceled-by-user') {
             showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
-            return false;
         }
-
-        if (typedError.typed === 'too-many-controls') {
+        else if (typedError.typed === 'too-many-controls') {
             showMessage({ set, message: 'Too many controls' });
-            return false;
         }
-
-        if (typedError.extra) {
+        else if (typedError.extra) {
             showMessage({ set, message: typedError.extra, isError: true });
-            return false;
+        } else {
+            showMessage({ set, message: 'There are no input controls in the window' }); //TODO: add handle: you can define manifest content manually
         }
 
-        showMessage({ set, message: 'There are no input controls in the window' }); //TODO: add handle: you can define manifest content manually
         return false;
     }
 
