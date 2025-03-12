@@ -12,9 +12,9 @@ export function MonitorOverlay() {
     useMonitoringOnOpen();
 
     return (<>
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
             {isOpen && (
-                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
+                <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
                     <BodyExitWoTransition />
                 </motion.div>
             )}
@@ -38,7 +38,7 @@ const animationTransition: Transition = {
 };
 
 const animationProps: AnimationProps = {
-    initial: { opacity: 0, scale: 0.75 },
+    // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
 };
