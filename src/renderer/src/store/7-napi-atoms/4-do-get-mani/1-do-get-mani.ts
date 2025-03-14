@@ -37,7 +37,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
-        const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', hwnd, wantXml });
+        const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', params: { hwnd, wantXml, manual: false, passwordChange: false } });
 
         const prev = get(sawManiStrAtom);
         if (prev === res) {

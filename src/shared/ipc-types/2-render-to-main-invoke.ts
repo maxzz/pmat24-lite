@@ -1,4 +1,4 @@
-import { type GetTlwScreenshotsParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams } from "../../shell/xternal-to-renderer/7-napi-calls";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
@@ -37,8 +37,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     type GetSecondWindowMani = {
         type: 'r2mi:get-window-mani';
-        hwnd: string;
-        wantXml: boolean;
+        params: ManifestForWindowCreatorParams;
     };
 
     type GetWindowPos = {

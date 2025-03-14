@@ -34,7 +34,7 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             return res;
         }
         case 'r2mi:get-window-mani': {
-            const res = await getWindowMani(data.hwnd, data.wantXml);
+            const res = await getWindowMani(data.params);
             return res;
         }
         case 'r2mi:get-tlw-infos': {

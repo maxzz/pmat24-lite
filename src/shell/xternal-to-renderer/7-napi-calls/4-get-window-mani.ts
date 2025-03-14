@@ -3,10 +3,9 @@ import { type ManifestForWindowCreatorParams, type ManifestForWindowCreatorResul
 import { mainStore, mainToRenderer } from "./9-external";
 import { errorToString, makeTypedError } from "./9-types-napi-error";
 
-export function getWindowMani(hwnd: string, wantXml: boolean): Promise<string> {
+export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<string> {
     return new Promise<string>(
         (resolve, reject) => {
-            const params: ManifestForWindowCreatorParams = { hwnd, wantXml, };
             const param = JSON.stringify(params);
 
             const collector = new addon.ManifestForWindowCreator();
