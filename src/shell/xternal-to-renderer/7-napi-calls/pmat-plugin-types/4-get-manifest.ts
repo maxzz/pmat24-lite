@@ -5,6 +5,7 @@ export type ManifestForWindowCreatorParams = {
     hwnd: string;
     wantXml: boolean;
     manual: boolean;               // return window top-level match info without checking controls
+    passwordChange: boolean;       // create manifest for password change
 };
 
 export type ManifestCreationDataResult = {
