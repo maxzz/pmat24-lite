@@ -1,7 +1,7 @@
 import { atom, Getter, Setter } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
-import { type WindowControlsCollectResult } from "@shared/ipc-types";
+import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
@@ -12,7 +12,7 @@ export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // r
 
 export const doGetWindowManiAtom = atom(
     null,
-    async (get, set, params: { hwnd: string | undefined; wantXml: boolean; }): Promise<void> => {
+    async (get, set, params: ManifestForWindowCreatorParams): Promise<void> => {
         if (napiLock.locked()) {
             return;
         }
@@ -27,7 +27,7 @@ export const doGetWindowManiAtom = atom(
     }
 );
 
-async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml: boolean; }, get: Getter, set: Setter) {
+async function doLiveMani({ hwnd, wantXml, manual, passwordChange }: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
     try {
         if (!hwnd) {
             throw new Error('No hwnd');
@@ -37,7 +37,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
 
         setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
-        const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', params: { hwnd, wantXml, manual: false, passwordChange: false } });
+        const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', params: { hwnd, wantXml, manual, passwordChange } });
 
         const prev = get(sawManiStrAtom);
         if (prev === res) {
@@ -70,7 +70,7 @@ async function doLiveMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml
     }
 }
 
-async function doTestMani({ hwnd, wantXml }: { hwnd: string | undefined; wantXml: boolean; }, get: Getter, set: Setter) {
+async function doTestMani({ hwnd, wantXml }: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
     const mani = await set(doLoadFakeManiAtom, debugSettings.testCreate.mani);
     set(sawManiXmlAtom, mani);
 }
