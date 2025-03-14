@@ -1,5 +1,5 @@
 import { type PluginDataCallback } from "./9-types";
-import { type WindowControlsCollectProgress } from ".";
+import { type WindowControlsCollectProgress } from "./3-get-controls";
 
 export type ManifestForWindowCreatorParams = {
     hwnd: string;
