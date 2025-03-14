@@ -26,7 +26,7 @@ export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: M
     try {
         showProgressAtom && set(showProgressAtom, true);
         
-        await set(doGetWindowManiAtom, { hwnd, wantXml: true });
+        await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual: false, passwordChange: false });
     } finally {
         showProgressAtom && set(showProgressAtom, false);
     }
