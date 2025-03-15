@@ -29,7 +29,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const move = await getXmlCreateFileUs({ hwnd, showProgressAtom, get, set });
+        const move = await getXmlCreateFileUs({ params: { hwnd, manual: false, passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
         if (!move) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;

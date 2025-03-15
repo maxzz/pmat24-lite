@@ -1,14 +1,14 @@
 import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
-import { type FileContent } from "@shared/ipc-types";
+import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError } from "@/store";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
-    hwnd: string;
+    params: Omit<ManifestForWindowCreatorParams, 'wantXml'>;
     showProgressAtom?: PA<boolean>; // show controls scan progress atom
     get: Getter;
     set: Setter;
@@ -18,15 +18,15 @@ type MoveFromAppsToNextPageParams = {
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function getXmlCreateFileUs({ hwnd, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function getXmlCreateFileUs({ params: { hwnd, manual, passwordChange }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     // 0. Claen up the context before parsing
     newManiContent.clear(set);
 
     // 1. Get manifest as maniXml from the window
     try {
         showProgressAtom && set(showProgressAtom, true);
-        
-        await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual: false, passwordChange: false });
+
+        await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual, passwordChange, });
     } finally {
         showProgressAtom && set(showProgressAtom, false);
     }

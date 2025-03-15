@@ -61,7 +61,15 @@ export function create_DoAdvancePageAtom() {
                         return;
                     }
 
-                    const move = await getXmlCreateFileUs({ hwnd: selectedApp.item.hwnd, showProgressAtom: newManiCtx.showProgressAtom, get, set });
+                    const move = await getXmlCreateFileUs({
+                        params: {
+                            hwnd: selectedApp.item.hwnd,
+                            manual: false,
+                            passwordChange: false,
+                        },
+                        showProgressAtom: newManiCtx.showProgressAtom,
+                        get, set,
+                    });
                     if (!move) {
                         return;
                     }
