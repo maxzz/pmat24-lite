@@ -27,6 +27,7 @@ export type TestCreate = {
     screen: TestScreenEnum; // Test screenshots collection
     mani: TestManiEnum;     // New manifest test content
     dummyCaption: boolean;  // Test multiple windows caption. Test 2 line vs. 1 line caption
+    doCpass: boolean;       // Test creating change password manifest form
 };
 
 export const initialTestCreate: TestCreate = {
@@ -34,4 +35,5 @@ export const initialTestCreate: TestCreate = {
     screen: 'none',
     mani: 'none',
     dummyCaption: false,
+    doCpass: false,
 };

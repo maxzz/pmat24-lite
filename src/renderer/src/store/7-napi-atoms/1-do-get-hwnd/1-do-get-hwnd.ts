@@ -12,15 +12,17 @@ export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
     (get) => {
-        if (hasMain() || !debugSettings.testCreate.dummyCaption) {
+        const { dummyCaption, hwnd } = debugSettings.testCreate;
+
+        if (hasMain() || !dummyCaption) {
             return shortenWindowCaption(get(sawHandleAtom)?.caption);
         }
 
         let rv = get(sawHandleAtom)?.caption;
-        if (debugSettings.testCreate.hwnd === 'none') {
+        if (hwnd === 'none') {
             rv = '';
         }
-        else if (debugSettings.testCreate.hwnd === 'win32') {
+        else if (hwnd === 'win32') {
             rv = 'long name C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
             // rv = 'C:\\Users\\maxzz\\Desktop\\HID bugs\\89863\\temp-for-max\\DigitalPersona Templates Edge\\C\\copies-from-here';
         } else {

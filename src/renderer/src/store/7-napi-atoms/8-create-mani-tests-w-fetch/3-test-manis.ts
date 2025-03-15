@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
+import { debugSettings } from "@/store/1-atoms";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
@@ -9,13 +10,15 @@ import { makeTypedError, napiBuildProgress, napiLock, setBuildState } from "@/st
 export const doLoadFakeManiAtom = atom(
     null,
     async (get, set, tsId: TestManiEnum): Promise<string> => {
-        const fname = testManis[tsId];
+        const { doCpass } = debugSettings.testCreate;
+
+        const fname = doCpass ? testCpassFormManis[tsId] : testLoginFormManis[tsId];
         if (!fname) {
             return '';
         }
 
         setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
-        
+
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateManiDelay);
         if (nDelay) {
@@ -39,8 +42,14 @@ export const doLoadFakeManiAtom = atom(
     }
 );
 
-const testManis: Record<TestManiEnum, string> = {
+const testLoginFormManis: Record<TestManiEnum, string> = {
     none: '',
     win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
     web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
-}
+};
+
+const testCpassFormManis: Record<TestManiEnum, string> = {
+    none: '',
+    win32: 'tests/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
+    web: 'tests/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+};
