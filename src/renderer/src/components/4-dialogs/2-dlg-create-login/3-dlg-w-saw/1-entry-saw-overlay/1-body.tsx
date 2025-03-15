@@ -1,14 +1,15 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { secondsCounterAtom, napiBuildState } from "@/store";
-import { doMoveToSecondDlgAtom } from "../0-ctx";
+import { createManualManiAtom, doMoveToSecondDlgAtom } from "../0-ctx";
 import { CurrentApp } from "./2-current-app";
 import { DebugFrame } from "./8-debug-frame";
 
 export function MonitorOverlayBody() {
+    const [createManualMani, setCreateManualMani] = useAtom(createManualManiAtom);
     useDissmissNextToasts();
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
@@ -22,7 +23,7 @@ export function MonitorOverlayBody() {
                     <CurrentApp />
 
                     <Label className="place-self-start text-xs flex items-center gap-2 select-none">
-                        <Checkbox className="size-4" />
+                        <Checkbox className="size-4" checked={createManualMani} onCheckedChange={(v) => setCreateManualMani(!!v)} />
                         Set up a managed logon manually
                     </Label>
 

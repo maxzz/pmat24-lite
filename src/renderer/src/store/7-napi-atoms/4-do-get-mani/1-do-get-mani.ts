@@ -1,9 +1,9 @@
 import { atom, Getter, Setter } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
+import { debugSettings } from "@/store/1-atoms";
 import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
-import { debugSettings } from "@/store/1-atoms";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
@@ -56,8 +56,6 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
             const reply = JSON.parse(res || '{}') as WindowControlsCollectResult;
             const final = reply.pool && reply.controls?.length ? reply : null;
             set(sawManiAtom, final);
-
-            console.log('doGetWindowManiAtom.set', JSON.stringify(reply, null, 4));
         }
 
         setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
@@ -70,7 +68,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
     }
 }
 
-async function doTestMani({ hwnd, wantXml }: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
+async function doTestMani(params: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
     const mani = await set(doLoadFakeManiAtom, debugSettings.testCreate.mani);
     set(sawManiXmlAtom, mani);
 }
