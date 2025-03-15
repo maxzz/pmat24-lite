@@ -43,9 +43,11 @@ function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>)
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     return (
         <Button
-            className="place-self-center" variant="default" size="xs"
+            className="place-self-center active:scale-[.97]" variant="default" size="xs"
             disabled={isRunning}
-            onClick={() => doMoveToSecondDlg({ cancel: false })}
+            onClick={() => {
+                doMoveToSecondDlg({ cancel: false });
+            }}
         >
             Continue
         </Button>

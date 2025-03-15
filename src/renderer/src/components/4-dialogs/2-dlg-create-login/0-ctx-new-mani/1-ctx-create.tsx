@@ -43,6 +43,8 @@ export async function getXmlCreateFileUs({ params: { hwnd, manual, passwordChang
 
     set(newManiContent.maniXmlAtom, sawManiXml);
 
+    console.log(`%cNew mani:\n${sawManiXml}`, "color:dimgray");
+
     // 3. Parse maniXml to fileUs
     try {
         const fileContent: FileContent = createFileContent(sawManiXml);

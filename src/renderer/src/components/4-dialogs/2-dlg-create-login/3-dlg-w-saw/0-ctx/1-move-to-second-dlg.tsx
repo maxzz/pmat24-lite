@@ -35,7 +35,9 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
+        set(doMonitoringTimerAtom, { doStart: true });
         return;
+        
         // Continue on the second dialog
 
         set(doOpenSawOverlayAtom, false);

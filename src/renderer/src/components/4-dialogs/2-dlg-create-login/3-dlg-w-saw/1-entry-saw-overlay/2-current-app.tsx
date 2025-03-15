@@ -25,7 +25,7 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const imageElm = useAtomValue(sawIconAtom);
     const showProgress = useAtomValue(showProgressAtom);
     return (<>
-        <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2", className)} {...rest}>
+        <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2 select-none", className)} {...rest}>
             {showProgress
                 ? <DetectionProgress />
                 : hasHandle
@@ -52,7 +52,7 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                 className="col-span-full grid grid-cols-subgrid"
             >
                 <div className={classNames("col-start-2")}>
-                    <Spinner className="size-8 bg-sky-300" blockClasses="bg-sky-600" />
+                    <Spinner className="size-8 1bg-sky-300" blockClasses="bg-sky-600" />
                 </div>
 
                 <div className="flex items-center gap-2">
