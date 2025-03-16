@@ -3,7 +3,7 @@ import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { debugSettings } from "@/store/1-atoms";
 import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult } from "@shared/ipc-types";
-import { napiBuildProgress, napiLock, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
+import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
@@ -50,7 +50,6 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
 
         if (params.wantXml) {
             set(sawManiXmlAtom, res);
-
             printXmlResultData(res);
         } else {
             const reply = JSON.parse(res || '{}') as WindowControlsCollectResult;
@@ -61,10 +60,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
         setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
         set(doClearManiAtom);
-
-        const msg = errorToString(error);
-        setBuildState({ progress: 0, isRunning: false, error: msg });
-        //console.error(`'doGetWindowManiAtom' ${typedErrorToString(splitTypedError(msg))}`);
+        setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });
     }
 }
 
