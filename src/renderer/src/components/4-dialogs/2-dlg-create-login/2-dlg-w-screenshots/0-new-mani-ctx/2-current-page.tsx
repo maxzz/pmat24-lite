@@ -6,6 +6,7 @@ import { newManiContent, getXmlCreateFileUs } from "../../0-ctx-new-mani";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { newManiCtx } from "./0-ctx";
+import { createManualManiAtom } from "../../3-dlg-w-saw";
 
 // Page and direction
 
@@ -64,7 +65,7 @@ export function create_DoAdvancePageAtom() {
                     const move = await getXmlCreateFileUs({
                         params: {
                             hwnd: selectedApp.item.hwnd,
-                            manual: false,
+                            manual: get(createManualManiAtom),
                             passwordChange: false,
                         },
                         showProgressAtom: newManiCtx.showProgressAtom,

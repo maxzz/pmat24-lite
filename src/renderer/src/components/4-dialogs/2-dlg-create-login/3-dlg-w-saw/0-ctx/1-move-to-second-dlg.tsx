@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { doMonitoringTimerAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, napiBuildState, sawHandleAtom, setBuildState } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
 import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
-import { showProgressAtom } from "./0-all-atoms";
+import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
 
 export const doMoveToSecondDlgAtom = atom(
     null,
@@ -29,7 +29,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const move = await getXmlCreateFileUs({ params: { hwnd, manual: false, passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
+        const move = await getXmlCreateFileUs({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
         if (!move) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;
@@ -37,7 +37,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: true });
         return;
-        
+
         // Continue on the second dialog
 
         set(doOpenSawOverlayAtom, false);
