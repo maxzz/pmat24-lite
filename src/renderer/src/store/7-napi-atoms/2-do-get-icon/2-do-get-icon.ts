@@ -2,7 +2,7 @@ import { atom, type Getter, type Setter } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
-import { napiBuildState, napiLock, splitTypedError, typedErrorToString } from "../9-napi-build-state";
+import { napiBuildProgress, napiBuildState, napiLock, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/1-atoms";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 import { sawHandleAtom } from "../1-do-get-hwnd";
@@ -30,6 +30,8 @@ export const doGetWindowIconAtom = atom(
 
 async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
     try {
+        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
+        
         const cached = iconsCache.get(hwnd);
 
         const str = cached ? cached : await invokeMain<string>({ type: 'r2mi:get-window-icon', hwnd });
@@ -37,6 +39,8 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
         if (str && str !== cached) {
             iconsCache.set(hwnd, str);
         }
+
+        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
 
         const prev = get(sawIconStrAtom);
         if (prev !== str) {
@@ -54,11 +58,9 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
 
             printToCreateTestData(get);
         }
-
-        napiBuildState.buildError = '';
     } catch (error) {
         set(doClearSawIconAtom);
-        napiBuildState.buildError = errorToString(error);
+        setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });
 
         console.error(`'doGetWindowIconAtom' ${typedErrorToString(splitTypedError(napiBuildState.buildError))}`);
     }
