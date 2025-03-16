@@ -17,7 +17,7 @@ type MoveFromAppsToNextPageParams = {
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function getXmlCreateFileUs({ params: { hwnd, manual, passwordChange }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordChange }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     // 0. Claen up the context before parsing
     newManiContent.clear(set);
 

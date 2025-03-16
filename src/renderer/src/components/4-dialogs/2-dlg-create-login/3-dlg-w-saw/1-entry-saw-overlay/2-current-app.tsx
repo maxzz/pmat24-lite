@@ -26,7 +26,7 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const hasHandle = useAtomValue(sawHandleAtom);
     const imageElm = useAtomValue(sawIconAtom);
     const showProgress = useAtomValue(showProgressAtom);
-    return (<>
+    return (
         <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2 select-none", className)} {...rest}>
             {showProgress
                 ? <DetectionProgress />
@@ -43,7 +43,7 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
                     )
             }
         </div>
-    </>);
+    );
 }
 
 function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
@@ -72,8 +72,7 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                 </div >
 
             </motion.div>
-        )
-        }
+        )}
     </>);
 }
 

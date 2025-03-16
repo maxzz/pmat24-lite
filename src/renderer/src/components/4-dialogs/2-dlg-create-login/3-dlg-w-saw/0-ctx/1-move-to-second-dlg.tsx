@@ -3,7 +3,7 @@ import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { doMonitoringTimerAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, napiBuildState, sawHandleAtom, setBuildState } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
-import { getXmlCreateFileUs } from "../../0-ctx-new-mani";
+import { createFileUsFromNewXml } from "../../0-ctx-new-mani";
 import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
 
 export const doMoveToSecondDlgAtom = atom(
@@ -29,8 +29,8 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const move = await getXmlCreateFileUs({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
-        if (!move) {
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
+        if (!created) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;
         }
