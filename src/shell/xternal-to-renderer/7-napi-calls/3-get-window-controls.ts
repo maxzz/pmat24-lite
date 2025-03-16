@@ -24,14 +24,14 @@ export function getWindowControls(hwnd: string): Promise<string> {
                         if (mainStore.cancelDetection) {
                             collector.cancel();
                             mainStore.cancelDetection = false;
-                            reject(makeTypedError('canceled-by-user'));
+                            reject(makeTypedError({ error: 'canceled-by-user' }));
                             return;
                         }
 
                         if ('state' in res) {
                             if (mainStore.maxControls !== 0 && res.progress > mainStore.maxControls) {
                                 collector.cancel();
-                                reject(makeTypedError('too-many-controls', `more then ${mainStore.maxControls}`));
+                                reject(makeTypedError({ error: 'too-many-controls', extra: `more then ${mainStore.maxControls}` }));
                                 return;
                             }
 
@@ -41,7 +41,7 @@ export function getWindowControls(hwnd: string): Promise<string> {
 
                         resolve(str);
                     } catch (error) {
-                        reject(makeTypedError('unknown-error', errorToString(error)));
+                        reject(makeTypedError({ error: 'unknown-error', extra: errorToString(error) }));
                         mainToRenderer({ type: 'm2r:failed-raw-content', body: str }); //TODO: Do we need this? It's set to atom but not used by client
                     }
                 }

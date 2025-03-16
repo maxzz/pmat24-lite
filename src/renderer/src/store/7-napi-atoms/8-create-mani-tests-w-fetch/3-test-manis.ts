@@ -25,7 +25,7 @@ export const doLoadFakeManiAtom = atom(
             const nDelays = nDelay / 500;
             for (let i = 0; i < nDelays; i++) {
                 if (napiLock.canceled) {
-                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: makeTypedError('canceled-by-user') });
+                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: makeTypedError({ error: 'canceled-by-user' }) });
                     return '';
                 }
                 napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);

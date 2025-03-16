@@ -13,7 +13,7 @@ export type NapiCallError =
 /**
  * First part after '>>>' is error type, second part after ':::' is optional extra info.
  */
-export function makeTypedError(error: NapiCallError, extra?: string): string {
+export function makeTypedError({ error, extra }: { error: NapiCallError; extra?: string; }): string {
     if (extra) {
         return `>>>${error}:::${extra}`;
     }
