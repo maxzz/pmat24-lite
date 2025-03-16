@@ -8,6 +8,8 @@ import { classNames, useDissmissNextToasts } from "@/utils";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { isSawModeOnClientAtom } from "../0-ctx";
 import { ComponentPropsWithoutRef } from "react";
+import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
+import { WizardButtons } from "../../2-dlg-w-screenshots/3-wizard-buttons";
 
 export function DialogSawBody() {
 
@@ -37,14 +39,9 @@ export function DialogSawBody() {
                 </Button>
             </D.DialogHeader>
 
-            <div className="h-full grid 1grid-cols-[auto_1fr] place-items-center">
-                {/* <LeftPanelProgress className="p-4 bg-muted border-r border-foreground/20 justify-center" />
-                <PagesBodyAnimation /> */}
+            <Page2FieldsBody />
 
-                GRID
-            </div>
-
-            {/* <WizardButtons className="py-3 border-t border-foreground/20" /> */}
+            <WizardButtons className="py-3 border-t border-foreground/20" />
         </div>
     );
 }
