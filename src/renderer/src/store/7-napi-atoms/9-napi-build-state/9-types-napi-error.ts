@@ -1,4 +1,4 @@
-// Client side version of NapiCallError
+// Client side version of NapiCallError see also server version in ./src/shell/xternal-to-renderer/7-napi-calls/9-types-napi-error.ts
 
 export type NapiCallError =
     | ''                    // no error

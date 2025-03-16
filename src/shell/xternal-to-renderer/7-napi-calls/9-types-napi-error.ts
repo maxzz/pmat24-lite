@@ -1,4 +1,4 @@
-// Server side version of NapiCallError
+// Server side version of NapiCallError see also clinet version in ./src/renderer/src/store/7-napi-atoms/9-napi-build-state/9-types-napi-error.ts
 
 export type NapiCallError =
     | ''                    // no error
