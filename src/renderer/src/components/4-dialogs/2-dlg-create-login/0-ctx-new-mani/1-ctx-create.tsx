@@ -77,9 +77,9 @@ function showReason(set: Setter) {
         return;
     }
 
-    console.error(`'getXmlCreateFileUs' ${typedErrorToString(splitTypedError(errorToString(napiBuildState.buildError)))}`);
-
     const typedError = splitTypedError(napiBuildState.buildError);
+
+    console.error(`'getXmlCreateFileUs' ${typedErrorToString(typedError)}`);
 
     if (typedError.typed === 'canceled-by-user') {
         showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
