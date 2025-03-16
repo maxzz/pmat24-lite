@@ -87,7 +87,7 @@ function showReason(set: Setter) {
         showMessage({ set, message: 'Too many controls' });
     }
     else if (typedError.typed === 'build-error') {
-        showMessage({ set, message: typedError.extra === 'incompatiblePM' ? 'HID Password Manager extension is not installed' : 'Access error', isError: true });
+        showMessage({ set, message: getErrorSubMessage(typedError) });
     }
     else if (typedError.extra) {
         showMessage({ set, message: typedError.extra, isError: true });
@@ -99,10 +99,21 @@ function showReason(set: Setter) {
 }
 
 function getErrorSubMessage(error: TypedError): string {
-    if (error.sub === 'incompatiblePM') {
-        return 'HID Password Manager extension is not installed';
+    switch (error.sub) {
+        case 'incompatiblePM': {
+            return 'HID Password Manager is not installed';
+        }
+        case 'noBrExt': {
+            return 'HID Password Manager extension is not installed';
+        }
+        case 'obsoleteBrExt': {
+            return 'Update HID Password Manager extension';
+        }
+        case 'noControls':
+        default: {
+            return 'Cannot access application content';
+        }
     }
-    return 'Access error';
 }
 
 function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {

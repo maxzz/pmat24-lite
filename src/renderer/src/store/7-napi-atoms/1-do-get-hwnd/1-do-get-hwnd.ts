@@ -3,7 +3,7 @@ import { errorToString, shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
-import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
+import { napiLock } from "../9-napi-build-state";
 import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
 
@@ -48,11 +48,7 @@ export const doGetTargetHwndAtom = atom(
 
 async function doLiveHwnd(get: Getter, set: Setter) {
     try {
-        setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
-        
         const res = await invokeMain<string>({ type: 'r2mi:get-target-hwnd' });
-
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
 
         const prev = get(sawHandleStrAtom);
         if (prev === res) {
@@ -67,7 +63,7 @@ async function doLiveHwnd(get: Getter, set: Setter) {
         set(sawHandleAtom, obj);
     } catch (error) {
         set(doClearSawHandleAtom);
-        setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });
+        console.error(`'doGetTargetHwndAtom' ${errorToString(error)}`);
     }
 }
 
