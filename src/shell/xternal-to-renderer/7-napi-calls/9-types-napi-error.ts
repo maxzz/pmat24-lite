@@ -35,7 +35,7 @@ export function splitTypedError(errorStr: string): TypedError {
         };
     }
 
-    const parts = typed.split('...');
+    const parts = typed.split(':::');
     return {
         typed: parts[0] as NapiCallError,
         extra: parts[1],
