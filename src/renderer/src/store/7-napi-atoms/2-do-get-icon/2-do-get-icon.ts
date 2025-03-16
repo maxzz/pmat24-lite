@@ -43,11 +43,16 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
             set(sawIconStrAtom, str);
 
             const res = JSON.parse(str || '') as WindowIconGetterResult;
-            const image = new Image();
-            image.src = `data:image/png;base64,${res.data}`;
-            set(sawIconAtom, image);
 
-            //printToCreateTestData(get);
+            if (!res.data) {
+                set(sawIconAtom, null);
+            } else {
+                const image = new Image();
+                image.src = `data:image/png;base64,${res.data}`;
+                set(sawIconAtom, image);
+            }
+
+            printToCreateTestData(get);
         }
 
         napiBuildState.buildError = '';
@@ -62,7 +67,12 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
 function printToCreateTestData(get: Getter) {
     const testHwnd = get(sawHandleAtom);
     const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
-    console.log(`${JSON.stringify({ hwnd: testHwnd, icon: testIcon, }, null, 4)}`);
+    const final = {
+        hwnd: testHwnd,
+        icon: testIcon,
+    };
+    final.icon.data = `${final.icon.data?.substring(0, 40)}...`;
+    console.log(`${JSON.stringify(final, null, 4)}`);
 }
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
