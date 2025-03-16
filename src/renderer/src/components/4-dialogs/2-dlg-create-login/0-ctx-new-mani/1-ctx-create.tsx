@@ -102,7 +102,7 @@ function getErrorSubMessage(error: TypedError): string {
     if (error.sub === 'incompatiblePM') {
         return 'HID Password Manager extension is not installed';
     }
-    return '';
+    return 'Access error';
 }
 
 function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {

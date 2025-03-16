@@ -12,14 +12,23 @@ export type NapiCallError =
     | 'too-many-controls'   // Too many controls (more then ${mainStore.maxControls})
     ;
 
+type MakeTypedErrorParams =
+    | { error: NapiCallError; extra?: string; }
+    | { sub: BrowserExtErrors; }
+    ;
+
 /**
  * First part after '>>>' is error type, second part after ':::' is optional extra info.
  */
-export function makeTypedError({ error, extra }: { error: NapiCallError; extra?: string; }): string {
-    if (extra) {
-        return `>>>${error}:::${extra}`;
+export function makeTypedError(params: MakeTypedErrorParams): string {
+    if ('sub' in params) {
+        const error: NapiCallError = 'build-error';
+        return `>>>${error}:::${params.sub}`;
     }
-    return `>>>${error}`;
+    if (params.extra) {
+        return `>>>${params.error}:::${params.extra}`;
+    }
+    return `>>>${params.error}`;
 }
 
 export type TypedError = {

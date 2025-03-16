@@ -39,7 +39,7 @@ export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<s
                         }
 
                         if (res.type === 'error') {
-                            reject(makeTypedError({ error: 'build-error', extra: `${res.error}` }));
+                            reject(makeTypedError({ sub: res.error }));
                             return;
                         }
 
