@@ -57,13 +57,3 @@ export function splitTypedError(errorStr: string): TypedError {
 export function typedErrorToString(typedError: TypedError): string {
     return `typed: ${typedError.typed}${typedError.extra ? `, extra: ${typedError.extra}` : ''}`;
 }
-
-/**
- * Regular error to string
- */
-export function errorToString(error: unknown): string {
-    if (error instanceof Error) {
-        return error.message;
-    }
-    return `${error}`;
-}

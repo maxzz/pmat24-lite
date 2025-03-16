@@ -1,7 +1,8 @@
 import { addon } from "./0-addon";
-import { type ManifestForWindowCreatorParams, type ManifestForWindowCreatorResult } from "./pmat-plugin-types";
+import { errorToString } from "@shell/3-utils-main";
+import { makeTypedError } from "./9-types-napi-error";
 import { mainStore, mainToRenderer } from "./9-external";
-import { errorToString, makeTypedError } from "./9-types-napi-error";
+import { type ManifestForWindowCreatorParams, type ManifestForWindowCreatorResult } from "./pmat-plugin-types";
 
 export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<string> {
     return new Promise<string>(
