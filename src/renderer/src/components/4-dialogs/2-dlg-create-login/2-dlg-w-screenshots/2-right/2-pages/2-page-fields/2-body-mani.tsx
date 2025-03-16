@@ -9,13 +9,13 @@ export function BodyNewMani() {
     if (!fileUs) {
         return null;
     }
-    
-    console.log('BodyNewMani', fileUs);
-    
-    return (<>
+
+    console.log('New fileUs', fileUs);
+
+    return (
         <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
             <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
             <ManiEditorAllOptions fileUs={fileUs} />
         </ScrollArea>
-    </>);
+    );
 }

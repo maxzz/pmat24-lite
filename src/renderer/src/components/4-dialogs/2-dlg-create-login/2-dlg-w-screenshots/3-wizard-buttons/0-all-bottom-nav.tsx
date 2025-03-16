@@ -1,11 +1,11 @@
-import { type ComponentProps } from "react";
+import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { newManiCtx, wizardLastPage } from "../0-new-mani-ctx";
 import { ProgressBarControlsScan } from "./1-progress-cancel";
 
-export function WizardButtons({ className, ...rest }: ComponentProps<"div">) {
+export function WizardButtons({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
 
     const currentStep = useAtomValue(newManiCtx.currentPageAtom);
     const doAdvancePage = useSetAtom(newManiCtx.doAdvancePageAtom);

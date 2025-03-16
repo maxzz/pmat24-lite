@@ -9,7 +9,6 @@ import { doOpenCreateManiSawAtom } from "@/store";
 import { isSawModeOnClientAtom } from "../0-ctx";
 import { ComponentPropsWithoutRef } from "react";
 import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
-import { WizardButtons } from "../../2-dlg-w-screenshots/3-wizard-buttons";
 
 export function DialogSawBody() {
 
@@ -41,7 +40,22 @@ export function DialogSawBody() {
 
             <Page2FieldsBody />
 
-            <WizardButtons className="py-3 border-t border-foreground/20" />
+            <WizardButtonsSaw className="py-3 border-t border-foreground/20" />
+        </div>
+    );
+}
+
+function WizardButtonsSaw({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
+    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
+    return (
+        <div className={classNames("relative px-4 flex items-center justify-end gap-1", className)} {...rest}>
+            <Button
+                variant="default"
+                size="xs"
+                onClick={() => doOpen(false)} // always enabled to show toast as hint
+            >
+                Save
+            </Button>
         </div>
     );
 }
