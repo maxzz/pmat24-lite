@@ -1,5 +1,7 @@
 // Server side version of NapiCallError see also clinet version in ./src/renderer/src/store/7-napi-atoms/9-napi-build-state/9-types-napi-error.ts
 
+import { type BrowserExtErrors } from "./pmat-plugin-types";
+
 export type NapiCallError =
     | ''                    // no error
     | 'unknown'             // Undefined '>>>', i.e. un-typed; happens during error split in splitTypedError()
@@ -23,6 +25,7 @@ export function makeTypedError({ error, extra }: { error: NapiCallError; extra?:
 export type TypedError = {
     typed: NapiCallError;
     extra: string | undefined;
+    sub?: BrowserExtErrors; // error ruturned from ManifestForWindowCreatorResult as 'incompatiblePM' from '>>>build-error:::incompatiblePM'
 };
 
 export function splitTypedError(errorStr: string): TypedError {

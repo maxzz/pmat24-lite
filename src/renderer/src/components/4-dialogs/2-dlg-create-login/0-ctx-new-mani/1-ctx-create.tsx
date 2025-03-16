@@ -2,7 +2,7 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiContent } from "./0-ctx-content";
@@ -97,6 +97,13 @@ function showReason(set: Setter) {
     }
 
     setBuildState({ error: '' });
+}
+
+function getErrorSubMessage(error: TypedError): string {
+    if (error.sub === 'incompatiblePM') {
+        return 'HID Password Manager extension is not installed';
+    }
+    return '';
 }
 
 function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
