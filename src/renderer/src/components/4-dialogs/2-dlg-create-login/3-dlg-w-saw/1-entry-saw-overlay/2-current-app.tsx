@@ -20,6 +20,8 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
     );
 }
 
+//TODO: handle: no icon, no caption
+
 function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const hasHandle = useAtomValue(sawHandleAtom);
     const imageElm = useAtomValue(sawIconAtom);
@@ -48,9 +50,7 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
     const showProgress = useAtomValue(showProgressAtom);
     return (<>
         {showProgress && (
-            <motion.div
-                className="col-span-full grid grid-cols-subgrid"
-            >
+            <motion.div className="col-span-full grid grid-cols-subgrid">
                 <div className={classNames("col-start-2")}>
                     <Spinner className="size-8 1bg-sky-300" blockClasses="bg-sky-600" />
                 </div>
@@ -61,9 +61,9 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
                     </div>
 
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.75 }}
+                        initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: .2, duration: .2 }}
+                        transition={{ delay: 2, duration: .2 }}
                     >
                         <Button className={cancelBtnClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => napiLock.cancel()}>
                             Cancel
