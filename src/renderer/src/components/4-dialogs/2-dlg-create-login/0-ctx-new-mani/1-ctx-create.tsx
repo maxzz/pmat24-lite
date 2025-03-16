@@ -2,7 +2,7 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString } from "@/store";
 import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
 import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { newManiContent } from "./0-ctx-content";
@@ -27,6 +27,11 @@ export async function getXmlCreateFileUs({ params: { hwnd, manual, passwordChang
         showProgressAtom && set(showProgressAtom, true);
 
         await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual, passwordChange, });
+
+        if (napiBuildState.buildError) {
+            showReason(set);
+            return false;
+        }
     } finally {
         showProgressAtom && set(showProgressAtom, false);
     }
@@ -68,6 +73,12 @@ export async function getXmlCreateFileUs({ params: { hwnd, manual, passwordChang
 }
 
 function showReason(set: Setter) {
+    if (!napiBuildState.buildError) {
+        return;
+    }
+
+    console.error(`'getXmlCreateFileUs' ${typedErrorToString(splitTypedError(errorToString(napiBuildState.buildError)))}`);
+
     const typedError = splitTypedError(napiBuildState.buildError);
 
     if (typedError.typed === 'canceled-by-user') {
@@ -75,6 +86,9 @@ function showReason(set: Setter) {
     }
     else if (typedError.typed === 'too-many-controls') {
         showMessage({ set, message: 'Too many controls' });
+    }
+    else if (typedError.typed === 'build-error') {
+        showMessage({ set, message: typedError.extra || 'Access error', isError: true });
     }
     else if (typedError.extra) {
         showMessage({ set, message: typedError.extra, isError: true });
