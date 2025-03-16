@@ -88,7 +88,7 @@ function showReason(set: Setter) {
         showMessage({ set, message: 'Too many controls' });
     }
     else if (typedError.typed === 'build-error') {
-        showMessage({ set, message: typedError.extra || 'Access error', isError: true });
+        showMessage({ set, message: typedError.extra === 'incompatiblePM' ? 'HID Password Manager extension is not installed' : 'Access error', isError: true });
     }
     else if (typedError.extra) {
         showMessage({ set, message: typedError.extra, isError: true });
