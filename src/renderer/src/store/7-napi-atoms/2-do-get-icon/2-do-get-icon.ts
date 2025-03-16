@@ -58,21 +58,10 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
         napiBuildState.buildError = '';
     } catch (error) {
         set(doClearSawIconAtom);
-
         napiBuildState.buildError = errorToString(error);
+
         console.error(`'doGetWindowIconAtom' ${typedErrorToString(splitTypedError(napiBuildState.buildError))}`);
     }
-}
-
-function printToCreateTestData(get: Getter) {
-    const testHwnd = get(sawHandleAtom);
-    const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
-    const final = {
-        hwnd: testHwnd,
-        icon: testIcon,
-    };
-    final.icon.data = `${final.icon.data?.substring(0, 40)}...`;
-    console.log(`${JSON.stringify(final, null, 4)}`);
 }
 
 const iconsCache: Map<string, string> = new Map(); // hwnd -> string with WindowIconGetterResult
@@ -108,3 +97,17 @@ const doClearSawIconAtom = atom(
         set(sawIconAtom, null);
     }
 );
+
+/**
+ * Print hwnd and icon in format that can be used in tests.
+ */
+function printToCreateTestData(get: Getter) {
+    const testHwnd = get(sawHandleAtom);
+    const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
+    const final = {
+        hwnd: testHwnd,
+        icon: testIcon,
+    };
+    final.icon.data = final.icon.data ? `${final.icon.data.substring(0, 40)}...` : '';
+    console.log(`${JSON.stringify(final, null, 4)}`);
+}

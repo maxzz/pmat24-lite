@@ -4,7 +4,7 @@ import { invokeMain } from "@/xternal-to-main";
 import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
-import { napiBuildProgress, napiBuildState, setBuildState, splitTypedError, typedErrorToString } from "../9-napi-build-state";
+import { napiBuildProgress, napiBuildState, setBuildState } from "../9-napi-build-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
 export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);        // reply with controls and pool
@@ -42,13 +42,10 @@ export const doGetWindowControlsAtom = atom(
             set(sawContentAtom, final);
             setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
 
-            console.log('doGetWindowControlsAtom', JSON.stringify(poolAndControls, null, 4));
+            printControlsData(poolAndControls);
         } catch (error) {
             set(doClearWindowControlsAtom);
-
-            const msg = errorToString(error);
-            setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: msg });
-            console.error(`'doGetWindowControlsAtom' ${typedErrorToString(splitTypedError(msg))}`);
+            setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: errorToString(error) });
         }
     }
 );
@@ -60,3 +57,10 @@ const doClearWindowControlsAtom = atom(
         set(sawContentAtom, null);
     }
 );
+
+/**
+ * Print hwnd and icon in format that can be used in tests.
+ */
+function printControlsData(poolAndControls: WindowControlsCollectFinalAfterParse) {
+    console.log('doGetWindowControlsAtom', JSON.stringify(poolAndControls, null, 4));
+}
