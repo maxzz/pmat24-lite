@@ -23,7 +23,7 @@ type MakeTypedErrorParams =
 export function makeTypedError(params: MakeTypedErrorParams): string {
     if ('sub' in params) {
         const error: NapiCallError = 'build-error';
-        return `>>>${error}:::${params.sub}`;
+        return `>>>${error}:::${params.sub}:::`; // ::: at the end to distinguish from call with extra
     }
     if (params.extra) {
         return `>>>${params.error}:::${params.extra}`;
@@ -34,7 +34,7 @@ export function makeTypedError(params: MakeTypedErrorParams): string {
 export type TypedError = {
     typed: NapiCallError;
     extra: string | undefined;
-    sub?: BrowserExtErrors; // error ruturned from ManifestForWindowCreatorResult as 'incompatiblePM' from '>>>build-error:::incompatiblePM'
+    sub?: BrowserExtErrors | ''; // error ruturned from ManifestForWindowCreatorResult as 'incompatiblePM' from '>>>build-error:::incompatiblePM'
 };
 
 export function splitTypedError(errorStr: string): TypedError {
@@ -48,10 +48,19 @@ export function splitTypedError(errorStr: string): TypedError {
     }
 
     const parts = typed.split(':::');
-    return {
-        typed: parts[0] as NapiCallError,
-        extra: parts[1],
-    };
+    if (parts.length === 2) {
+        return {
+            typed: parts[0] as NapiCallError,
+            extra: parts[1],
+            sub: '',
+        };
+    } else {
+        return {
+            typed: parts[0] as NapiCallError,
+            extra: '',
+            sub: parts[1] as BrowserExtErrors,
+        };
+    }
 }
 
 export function typedErrorToString(typedError: TypedError): string {
