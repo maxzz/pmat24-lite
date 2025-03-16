@@ -3,8 +3,7 @@ import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
-import { createFileContent, createFileUsFromFileContent } from "@/store/1-atoms";
-import { createManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
+import { createFileContent, createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {

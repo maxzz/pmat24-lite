@@ -6,7 +6,7 @@ import { FieldTyp } from "@/store/manifest";
 /**
  * Select item by index
  */
-export const doSelectIdxAtom = atom(
+export const doSelectIdxFcAtom = atom(
     null,
     (get, set, { fceCtx, idx, doubleClick }: { fceCtx: FceCtx, idx: number, doubleClick: boolean; }): FceItem | undefined => {
 
@@ -93,6 +93,6 @@ export const doSetInitSelectedItemAtom = atom(null,
             shownItems.forEach((item) => item.editor.isSelectedInPicker = false); // deselect all
         }
 
-        set(doSelectIdxAtom, { fceCtx, idx, doubleClick: false });
+        set(doSelectIdxFcAtom, { fceCtx, idx, doubleClick: false });
     }
 );

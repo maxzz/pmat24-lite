@@ -1,6 +1,6 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { doSelectIdxAtom, type FceCtx } from "@/store";
+import { doSelectIdxFcAtom, type FceCtx } from "@/store";
 import { FldCatItemRow, rowParentActiveClasses } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
 
@@ -12,7 +12,7 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
 
     const filteredItems = useAtomValue(fceCtx.shownAtom); // so far no, need to update other places //OK: const filteredItems = useAtomValue(filteredItemsAtom)(fceCtx);
 
-    const doSelectIdx = useSetAtom(doSelectIdxAtom);
+    const doSelectIdxFc = useSetAtom(doSelectIdxFcAtom);
     const [focusGrid, setFocusGrid] = useAtom(fceCtx.focusGridAtom);
 
     const ref = useRef<HTMLDivElement | null>(null);
@@ -31,11 +31,11 @@ export function FldCatItemsBody({ fceCtx, className, ...rest }: FldCatItemsGridP
     );
 
     function onClick(idx: number) {
-        doSelectIdx({ fceCtx, idx, doubleClick: false });
+        doSelectIdxFc({ fceCtx, idx, doubleClick: false });
     }
 
     function onDoubleClick(idx: number) {
-        doSelectIdx({ fceCtx, idx, doubleClick: true });
+        doSelectIdxFc({ fceCtx, idx, doubleClick: true });
     }
 
     return (

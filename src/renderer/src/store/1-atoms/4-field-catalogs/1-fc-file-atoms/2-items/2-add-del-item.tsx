@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
 import { hasFileUsChange, setFileUsChangeFlag } from "../../../3-file-mani-atoms";
-import { doSelectIdxAtom } from "./1-do-set-selected";
+import { doSelectIdxFcAtom } from "./1-do-set-selected";
 import { removeLinksToFceItemAtom } from "./5-file-us-refs-to-fc";
 
 export const doAddItemAtom = atom(
@@ -20,7 +20,7 @@ export const doAddItemAtom = atom(
         newItem.beforeEdit.displayname = newName;
         newItem.fieldValue.displayname = newName;
 
-        set(doSelectIdxAtom, {fceCtx, idx: newIdx, doubleClick: false});
+        set(doSelectIdxFcAtom, {fceCtx, idx: newIdx, doubleClick: false});
         set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes
@@ -60,7 +60,7 @@ export const doDeleteSelectedItemAtom = atom(
 
         const newItem = newItems[newIdx];
 
-        set(doSelectIdxAtom, {fceCtx, idx: newIdx, doubleClick: false});
+        set(doSelectIdxFcAtom, {fceCtx, idx: newIdx, doubleClick: false});
         set(fceCtx.selectedItemAtom, newItem);
 
         // update file changes
