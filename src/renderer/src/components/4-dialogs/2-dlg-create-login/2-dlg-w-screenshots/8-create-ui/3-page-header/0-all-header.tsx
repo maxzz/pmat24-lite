@@ -1,8 +1,5 @@
-import { useSnapshot } from "valtio";
-import { debugSettings } from "@/store";
 import { WizardPage, stepInfo } from "../../0-new-mani-ctx";
-import { Button } from "@/ui";
-import { SymbolCode } from "@/ui/icons";
+import { ButtonSourceCode } from "./1-btn-source-code";
 
 export function WizardPageHeader({ page }: { page: WizardPage; }) {
     const [title, explanation] = stepInfo[page];
@@ -15,22 +12,8 @@ export function WizardPageHeader({ page }: { page: WizardPage; }) {
             </div>
 
             {page === WizardPage.fields && (
-                <SourceCodeButton />
+                <ButtonSourceCode />
             )}
         </div>
     );
-}
-
-function SourceCodeButton() {
-    const { showCreateSrcCodeBtn, showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);
-    return (<>
-        {showCreateSrcCodeBtn && (
-            <Button
-                className="1absolute right-4 top-0.5 active:scale-y-95 z-10" variant="outline"
-                onClick={() => debugSettings.debugOnly.showCreateSrcCode = !showCreateSrcCode}
-            >
-                <SymbolCode className="size-4" />
-            </Button>
-        )}
-    </>);
 }
