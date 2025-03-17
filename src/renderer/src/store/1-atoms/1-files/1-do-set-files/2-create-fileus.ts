@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
+import { buildManiMetaForms, createManualFormDetection, createManualFormFields, createManualFormOptions, createNewManualForm, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
 
 export function createNewFileContent(raw: string): FileContent {
     return {
@@ -54,8 +54,18 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
 
     try {
         const res = parseXMLFile(fileCnt.raw || '');
+
+        if (fileCnt.newFile) {
+            //TODO: create new mani field
+            //TODO: call createNewManualForm() here
+            const detection = createManualFormDetection({ caption: 'todo', dlg_class: 'todo', processname: 'todo', commandline: 'todo' });
+            const options = createManualFormOptions();
+            const fields = createManualFormFields();
+            const form = createNewManualForm({ detection, options, fields });
+        }
+
         rv.mani = res.mani;
-        rv.meta = buildManiMetaForms(res.mani);
+        rv.meta = buildManiMetaForms(res.mani?.forms);
         rv.fcat = res.fcat;
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
