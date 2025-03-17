@@ -6,7 +6,7 @@ import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
-import { WizardButtonsSaw } from "./2-btn-continue";
+import { DialogBottemButtons } from "./2-dlg-bottom-buttons";
 
 export function DialogSawBody() {
 
@@ -36,10 +36,10 @@ export function DialogSawBody() {
                 </Button>
             </D.DialogHeader>
 
-            <Page2FieldsBody />
+            {/* <Page2FieldsBody /> */}
             {/* <ContentEditorSelector /> */}
 
-            <WizardButtonsSaw className="py-3 border-t border-foreground/20" />
+            <DialogBottemButtons className="py-3 border-t border-foreground/20" />
         </div>
     );
 }

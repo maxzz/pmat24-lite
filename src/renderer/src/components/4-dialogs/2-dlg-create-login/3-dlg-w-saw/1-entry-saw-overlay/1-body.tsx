@@ -1,12 +1,12 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useSnapshot } from "valtio";
+import { useAtom, useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
-import { Button, Checkbox, Label } from "@/ui";
-import { secondsCounterAtom, napiBuildState } from "@/store";
-import { createManualManiAtom, doMoveToSecondDlgAtom } from "../0-ctx";
+import { Checkbox, Label } from "@/ui";
+import { secondsCounterAtom } from "@/store";
+import { createManualManiAtom } from "../0-ctx";
 import { CurrentApp } from "./2-current-app";
 import { DebugFrame } from "./8-debug-frame";
+import { ButtonContinue } from "./3-dlg-button-continue";
 
 export function MonitorOverlayBody() {
     const [createManualMani, setCreateManualMani] = useAtom(createManualManiAtom);
@@ -35,22 +35,6 @@ export function MonitorOverlayBody() {
                 <MonitorCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>
-    );
-}
-
-function ButtonContinue({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const isRunning = useSnapshot(napiBuildState).buildRunning;
-    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
-    return (
-        <Button
-            className="place-self-center active:scale-[.97]" variant="default" size="xs"
-            disabled={isRunning}
-            onClick={() => {
-                doMoveToSecondDlg({ cancel: false });
-            }}
-        >
-            Continue
-        </Button>
     );
 }
 

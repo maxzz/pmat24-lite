@@ -5,7 +5,7 @@ import { Button } from "@/ui";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { doSaveNewManiAtom } from "../0-ctx";
 
-export function WizardButtonsSaw({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
+export function DialogBottemButtons({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
     const doSaveNewMani = useSetAtom(doSaveNewManiAtom);
     return (
