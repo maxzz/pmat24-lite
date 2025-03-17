@@ -10,7 +10,7 @@ export function BodyNewMani() {
         return null;
     }
 
-    console.log('New fileUs', fileUs);
+    // console.log('New fileUs', fileUs);
 
     return (
         <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>

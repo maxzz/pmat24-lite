@@ -6,7 +6,6 @@ import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
 import { createManualManiAtom, useMonitoringOnOpen } from "../0-ctx";
 import { MonitorOverlayBody } from "./1-body";
 
-
 export function MonitorOverlay() {
     const isOpen = useAtomValue(doOpenSawOverlayAtom);
 

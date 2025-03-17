@@ -9,6 +9,7 @@ import { EyeClosed, EyeIcon } from "lucide-react";
 import { doOpenCreateManiSawAtom } from "@/store";
 import { doSaveNewManiAtom, isSawModeOnClientAtom } from "../0-ctx";
 import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
+import { ContentEditorSelector } from "../../7-mani-content-editor";
 
 export function DialogSawBody() {
 
@@ -39,6 +40,7 @@ export function DialogSawBody() {
             </D.DialogHeader>
 
             <Page2FieldsBody />
+            {/* <ContentEditorSelector /> */}
 
             <WizardButtonsSaw className="py-3 border-t border-foreground/20" />
         </div>

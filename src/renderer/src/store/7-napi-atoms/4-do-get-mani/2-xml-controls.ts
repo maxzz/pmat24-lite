@@ -25,6 +25,6 @@ function xmlToManifestAndMeta(cnt: string): XmlParseResult {
     return {
         mani: res.mani,
         fcat: res.fcat,
-        meta: buildManiMetaForms(res.mani),
+        meta: buildManiMetaForms(res.mani?.forms),
     }
 }

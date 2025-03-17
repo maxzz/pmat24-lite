@@ -15,7 +15,6 @@ export const doMoveToSecondDlgAtom = atom(
             setBuildState({ error: '' });
             return;
         }
-        console.log('doMoveToSecondDlgAtom', napiBuildState);
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
@@ -40,9 +39,9 @@ export const doMoveToSecondDlgAtom = atom(
 
         // Continue on the second dialog
 
+        set(doOpenCreateManiSawAtom, true);
         set(doOpenSawOverlayAtom, false);
         set(doTurnOffSawModeOnClientAtom);
-        set(doOpenCreateManiSawAtom, true);
     }
 );
 
