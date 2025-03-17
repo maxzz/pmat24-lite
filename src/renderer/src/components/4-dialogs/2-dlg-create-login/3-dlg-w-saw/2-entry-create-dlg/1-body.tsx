@@ -1,15 +1,12 @@
-import { type ComponentPropsWithoutRef } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { classNames, useDissmissNextToasts } from "@/utils";
+import { useSetAtom } from "jotai";
+import { useDissmissNextToasts } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { EyeClosed, EyeIcon } from "lucide-react";
 import { doOpenCreateManiSawAtom } from "@/store";
-import { doSaveNewManiAtom, isSawModeOnClientAtom } from "../0-ctx";
 import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
-import { ContentEditorSelector } from "../../7-mani-content-editor";
+import { WizardButtonsSaw } from "./2-btn-continue";
 
 export function DialogSawBody() {
 
@@ -45,35 +42,4 @@ export function DialogSawBody() {
             <WizardButtonsSaw className="py-3 border-t border-foreground/20" />
         </div>
     );
-}
-
-function WizardButtonsSaw({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
-    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
-    const doSaveNewMani = useSetAtom(doSaveNewManiAtom);
-    return (
-        <div className={classNames("relative px-4 flex items-center justify-end gap-1", className)} {...rest}>
-            <Button
-                variant="default"
-                size="xs"
-                onClick={async () => {
-                    const saved = await doSaveNewMani();
-                    if (saved) {
-                        doOpen(false);
-                    }
-                }} // always enabled to show toast as hint
-            >
-                Save
-            </Button>
-        </div>
-    );
-}
-
-function SawModeDisplay({ className, ...rest }: ComponentPropsWithoutRef<'svg'>) {
-    const isSawModeOnClient = useAtomValue(isSawModeOnClientAtom);
-    return (<>
-        {isSawModeOnClient
-            ? <EyeIcon className={classNames("size-4", className)} {...rest} />
-            : <EyeClosed className={classNames("size-4", className)} {...rest} />
-        }
-    </>);
 }
