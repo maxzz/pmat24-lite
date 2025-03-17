@@ -5,6 +5,16 @@ import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
+export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }): ManiAtoms {
+    const rv: any = [];
+    const maniAtoms = rv as ManiAtoms;
+
+    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
+    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
+
+    return rv;
+}
+
 function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms | undefined {
 
     const { fileUs, formIdx } = fileUsCtx;
@@ -28,16 +38,6 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
         options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
         fileUsCtx: fileUsCtx,
     };
-
-    return rv;
-}
-
-export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }): ManiAtoms {
-    const rv: any = [];
-    const maniAtoms = rv as ManiAtoms;
-
-    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
-    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
 
     return rv;
 }
