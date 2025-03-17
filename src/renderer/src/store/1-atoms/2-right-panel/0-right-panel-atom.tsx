@@ -35,7 +35,7 @@ export const doPreloadManiAtomsAtom = atom(null,
 
             if (fileUs.parsedSrc.mani) { // no need to preload fceAtoms they are always created when fc loaded
                 const maniAtoms = get(fileUs.maniAtomsAtom);
-                !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, fileUsAtom));
+                !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom }));
             }
         }
     }

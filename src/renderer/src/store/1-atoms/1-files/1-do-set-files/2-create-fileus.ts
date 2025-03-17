@@ -5,7 +5,7 @@ import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } fr
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
 import { buildManiMetaForms, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
 
-export function createFileContent(raw: string): FileContent {
+export function createNewFileContent(raw: string): FileContent {
     return {
         unid: uuid.asRelativeNumber(),
         idx: 0,

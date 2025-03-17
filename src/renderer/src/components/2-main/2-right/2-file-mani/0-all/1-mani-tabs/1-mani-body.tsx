@@ -29,7 +29,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
 
     useEffect(
         () => {
-            !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms(fileUs, fileUsAtom));
+            !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms({ fileUs, fileUsAtom }));
         }, [maniAtoms, fileUs, fileUsAtom]
     );
 

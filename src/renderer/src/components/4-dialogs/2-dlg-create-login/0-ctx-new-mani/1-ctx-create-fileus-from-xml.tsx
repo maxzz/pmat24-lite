@@ -3,7 +3,7 @@ import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
-import { createFileContent, createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
+import { createNewFileContent, createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
@@ -51,14 +51,14 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
 
     // 3. Parse maniXml to fileUs
     try {
-        const fileContent: FileContent = createFileContent(sawManiXml);
+        const fileContent: FileContent = createNewFileContent(sawManiXml);
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
         //TODO: add handle: you can define manifest content manually
         //TODO: check created manifest content manually checkbox
 
         set(newManiContent.fileUsAtom, fileUs);
-        set(fileUs.maniAtomsAtom, createManiAtoms(fileUs, newManiContent.fileUsAtom as FileUsAtom)); // cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
+        set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
     } catch (error) {
         newManiContent.clear(set);
 
