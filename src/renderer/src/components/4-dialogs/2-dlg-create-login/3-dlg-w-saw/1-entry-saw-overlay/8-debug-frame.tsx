@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doMoveToSecondDlgAtom } from "../0-ctx/1-move-to-second-dlg";
+import { doMoveToSecondDlgAtom } from "../0-ctx/1-do-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 import { hasMain } from "@/xternal-to-main";
 

@@ -50,7 +50,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
 
         if (params.wantXml) {
             set(sawManiXmlAtom, res);
-            printXmlResultData(res);
+            //printXmlResultData(res);
         } else {
             const reply = JSON.parse(res || '{}') as WindowControlsCollectResult;
             const final = reply.pool && reply.controls?.length ? reply : null;
@@ -62,10 +62,6 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
         set(doClearManiAtom);
         setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });
     }
-}
-
-function printXmlResultData(res: string | undefined) {
-    console.log(`doGetWindowManiXmlAtom\n${res}`);
 }
 
 async function doTestMani(params: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
@@ -81,3 +77,9 @@ const doClearManiAtom = atom(
         set(sawManiAtom, null);
     }
 );
+
+//
+
+function printXmlResultData(res: string | undefined) {
+    console.log(`doGetWindowManiXmlAtom\n${res}`);
+}
