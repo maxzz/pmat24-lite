@@ -28,6 +28,8 @@ export function useMonitoringOnOpen() {
 export const doUpdateHwndAndIconAtom = atom(
     null,
     async (get, set) => {
+        console.log('doUpdateHwndAndIconAtom monitoring');
+        
         if (!napiLock.isLocked) { // Avoid attempt to get hwnd by timer when napi is locked
             await set(doGetTargetHwndAtom);
             const sawHandle = get(sawHandleAtom);

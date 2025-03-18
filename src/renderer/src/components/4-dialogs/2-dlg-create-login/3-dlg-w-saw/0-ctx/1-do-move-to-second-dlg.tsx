@@ -28,7 +28,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom: showProgressAtom, get, set, });
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom, get, set, });
         if (!created) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;
@@ -40,8 +40,11 @@ export const doMoveToSecondDlgAtom = atom(
         // Continue on the second dialog
 
         set(doOpenCreateManiSawAtom, true);
-        set(doOpenSawOverlayAtom, false);
         set(doTurnOffSawModeOnClientAtom);
+        set(doOpenSawOverlayAtom, false);
+
+        console.log('All ready');
+        
     }
 );
 

@@ -1,6 +1,5 @@
 import { useSetAtom } from "jotai";
 import { useDissmissNextToasts } from "@/utils";
-import { hasMain } from "@/xternal-to-main";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -13,6 +12,8 @@ export function DialogSawBody() {
     const doOpen = useSetAtom(doOpenCreateManiSawAtom);
     useDissmissNextToasts();
 
+    console.log('DialogSawBody render');
+
     return (
         <div className="h-full flex flex-col">
             <D.DialogHeader className="relative text-base font-bold border-b border-foreground/20 flex items-center">
@@ -22,21 +23,12 @@ export function DialogSawBody() {
                     </div>
                 </D.DialogTitle>
 
-                {!hasMain() && (
-                    <div className="absolute -left-[38px] -top-[14px] scale-[.74] bg-muted/50 rounded-tl-md border border-foreground/10">
-                        {/* <DebugButtons /> */}
-                    </div>
-                )}
-
-                <Button
-                    className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                    onClick={() => doOpen(false)}
-                >
+                <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => doOpen(false)}>
                     <Cross2Icon className="size-4" />
                 </Button>
             </D.DialogHeader>
 
-            {/* <Page2FieldsBody /> */}
+            <Page2FieldsBody />
             {/* <ContentEditorSelector /> */}
 
             <DialogBottemButtons className="py-3 border-t border-foreground/20" />
