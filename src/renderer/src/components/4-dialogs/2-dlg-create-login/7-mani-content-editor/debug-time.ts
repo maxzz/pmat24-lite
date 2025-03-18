@@ -1,4 +1,8 @@
-export function precitionTime(): string {
+export function printPrecitionTime(title: string) {
+    console.log(`${title}: ${precitionTime()} >>> ${performance.now().toLocaleString('en-US', timeFormat)}`);
+}
+
+function precitionTime(): string {
     const timeStr = new Intl.DateTimeFormat("en-US", timeFormat).format(Date.now());
     return timeStr;
 }
