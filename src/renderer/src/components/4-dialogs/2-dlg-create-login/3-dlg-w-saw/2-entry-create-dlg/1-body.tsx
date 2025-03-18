@@ -4,8 +4,9 @@ import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenCreateManiSawAtom } from "@/store";
-import { Page2FieldsBody } from "../../2-dlg-w-screenshots/2-right/2-pages/2-page-fields";
 import { DialogBottemButtons } from "./2-dlg-bottom-buttons";
+import { ButtonSourceCode } from "../../2-dlg-w-screenshots/8-create-ui";
+import { ContentEditorSelector } from "../../7-mani-content-editor";
 
 export function DialogSawBody() {
 
@@ -28,10 +29,34 @@ export function DialogSawBody() {
                 </Button>
             </D.DialogHeader>
 
-            <Page2FieldsBody />
-            {/* <ContentEditorSelector /> */}
+            <SawNewManiBody />
 
             <DialogBottemButtons className="py-3 border-t border-foreground/20" />
+        </div>
+    );
+}
+
+export function SawNewManiBody() {
+    return (
+        <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,1fr,auto]">
+            <SawPageHeader />
+
+            <ContentEditorSelector />
+        </div>
+    );
+}
+
+export function SawPageHeader() {
+    const [title, explanation] = ['New manifest', 'Sellect the fields you want to use for the new manifest, submit method and other options.'];
+    return (
+        <div className="px-3 py-3 text-sm bg-muted/30 flex items-center justify-between gap-0.5">
+
+            <div className="flex flex-col gap-0.5">
+                <div className="text-xs font-semibold">{title}</div>
+                <div className="text-xs text-foreground/50">{explanation}</div>
+            </div>
+
+            <ButtonSourceCode />
         </div>
     );
 }
