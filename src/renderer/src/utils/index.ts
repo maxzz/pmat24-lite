@@ -1,5 +1,6 @@
 export * from "./classnames";
 export * from "./debounce";
+export * from "./debug-time";
 export * from "./delay";
 export * from "./disable-hidden-children";
 export * from "./error-to-string";
@@ -16,4 +17,3 @@ export * from "./valtio-array";
 export * from "./console-styles";
 
 export * from "./util-hooks";
- 

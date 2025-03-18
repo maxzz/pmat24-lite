@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { doAddNextToastIdAtom } from "@/utils";
+import { doAddNextToastIdAtom, printPrecitionTime } from "@/utils";
 import { toast } from "sonner";
 import { doMonitoringTimerAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, napiBuildState, sawHandleAtom, setBuildState } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
@@ -15,6 +15,8 @@ export const doMoveToSecondDlgAtom = atom(
             setBuildState({ error: '' });
             return;
         }
+
+        printPrecitionTime('doMoveToSecondDlgAtom 1');
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
@@ -43,8 +45,7 @@ export const doMoveToSecondDlgAtom = atom(
         set(doTurnOffSawModeOnClientAtom);
         set(doOpenSawOverlayAtom, false);
 
-        console.log('All ready');
-        
+        printPrecitionTime('doMoveToSecondDlgAtom 2');
     }
 );
 

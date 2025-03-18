@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { printPrecitionTime } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
 import { newManiContent } from "@/components/4-dialogs/2-dlg-create-login";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
@@ -11,6 +12,7 @@ export function BodyNewMani() {
     }
 
     // console.log('New fileUs', fileUs);
+    printPrecitionTime('BodyNewMani render');
 
     return (
         <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
