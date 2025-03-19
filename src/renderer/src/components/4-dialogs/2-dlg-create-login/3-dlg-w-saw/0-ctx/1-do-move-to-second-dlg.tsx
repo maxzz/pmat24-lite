@@ -12,7 +12,7 @@ export const doMoveToSecondDlgAtom = atom(
     async (get, set, { cancel }: { cancel: boolean; }): Promise<void> => {
         if (cancel) {
             R2MCalls.showHideWindow(false);
-            
+
             set(doOpenSawOverlayAtom, false);
             set(doTurnOffSawModeOnClientAtom);
             setBuildState({ error: '' });
@@ -46,9 +46,13 @@ export const doMoveToSecondDlgAtom = atom(
 
         // Continue on the second dialog
 
+        R2MCalls.showHideWindow(false);
+
         set(doOpenCreateManiSawAtom, true);
         set(doTurnOffSawModeOnClientAtom);
         set(doOpenSawOverlayAtom, false);
+
+        setTimeout(() => R2MCalls.showHideWindow(true), 500);
 
         printPrecitionTime('doMoveToSecondDlgAtom 2');
     }
