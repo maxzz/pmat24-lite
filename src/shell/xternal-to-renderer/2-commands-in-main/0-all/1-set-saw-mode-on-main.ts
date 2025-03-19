@@ -19,7 +19,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
 
         setWindowRect(winApp, centerRect(saved.rect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
 
-        winApp.setAlwaysOnTop(true);
+        winApp.setAlwaysOnTop(true, 'pop-up-menu');
         winApp.setTitle('PMAT - Select application');
     } else {
         winApp.setAlwaysOnTop(false);
