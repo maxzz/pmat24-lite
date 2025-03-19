@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.1
-        version: 3.0.1(electron@35.0.1)
+        version: 3.0.1(electron@35.0.2)
       '@electron-toolkit/utils':
         specifier: ^4.0.0
-        version: 4.0.0(electron@35.0.1)
+        version: 4.0.0(electron@35.0.2)
       browser-fs-access:
         specifier: ^0.35.0
         version: 0.35.0
@@ -133,8 +133,8 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1
       electron:
-        specifier: 35.0.1
-        version: 35.0.1
+        specifier: 35.0.2
+        version: 35.0.2
       electron-builder:
         specifier: ^25.1.8
         version: 25.1.8(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
@@ -1977,8 +1977,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@35.0.1:
-    resolution: {integrity: sha512-iQonj6lnPhqfqha2KXx6LzV1dnu6UPTCWK+b7f9Zvg828umGemi22DKbcJ3/q+Opn7iUVTWyqp9z1JQqkIi6OA==}
+  electron@35.0.2:
+    resolution: {integrity: sha512-jo8S4GfBpVIBDGitUrv+Vo/I/ZEEs6IvWprG2KJlxayYIKpufulbQaxDt78cC/79FwFo8MA0JOIwx/b9r5NRag==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -3716,17 +3716,17 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  '@electron-toolkit/preload@3.0.1(electron@35.0.1)':
+  '@electron-toolkit/preload@3.0.1(electron@35.0.2)':
     dependencies:
-      electron: 35.0.1
+      electron: 35.0.2
 
   '@electron-toolkit/tsconfig@1.0.1(@types/node@22.13.10)':
     dependencies:
       '@types/node': 22.13.10
 
-  '@electron-toolkit/utils@4.0.0(electron@35.0.1)':
+  '@electron-toolkit/utils@4.0.0(electron@35.0.2)':
     dependencies:
-      electron: 35.0.1
+      electron: 35.0.2
 
   '@electron/asar@3.2.18':
     dependencies:
@@ -5374,7 +5374,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@35.0.1:
+  electron@35.0.2:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.13.10
