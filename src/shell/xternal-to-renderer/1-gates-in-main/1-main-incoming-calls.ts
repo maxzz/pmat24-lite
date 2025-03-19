@@ -59,6 +59,11 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             break;
         }
 
+        case 'r2m:show-hide-window': {
+            data.showHide ? winApp?.show() : winApp?.hide();
+            break;
+        }
+
         // tests
         
         case 'r2m:file:load-test-manifests': {

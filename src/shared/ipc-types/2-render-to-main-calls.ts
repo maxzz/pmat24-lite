@@ -53,6 +53,11 @@ export namespace R2M { // Main from Renderer
         size?: SizeInt; // This can be provided to override server side position and have the same size on client side.
     };
 
+    export type ShowHideWindow = {
+        type: 'r2m:show-hide-window';
+        showHide: boolean;              // true - show, false - hide
+    };
+
     // tests
 
     export type LoadTestManifests = {   // will reply with 'm2r:loaded-files' from dialog
@@ -74,6 +79,7 @@ export namespace R2M { // Main from Renderer
         | CancelDetection
         | HighlightRect
         | SetSawMode
+        | ShowHideWindow
 
         | LoadManifestsDialog
         | StartTestFromMain
@@ -88,6 +94,8 @@ export namespace R2MParams {
     export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
     export type HighlightRect = Omit<R2M.HighlightRect, 'type'>;
+    export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;
+    export type ShowHideWindow = Omit<R2M.ShowHideWindow, 'type'>;
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
     export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
 }
