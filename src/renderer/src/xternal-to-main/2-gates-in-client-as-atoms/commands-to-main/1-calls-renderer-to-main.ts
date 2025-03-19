@@ -5,28 +5,28 @@ export namespace R2MCalls {
 
     // menu, load files
 
-    export function menuCommand(state: R2MParams.MenuCommand): void {
-        sendToMain({ type: 'r2m:menu:command', ...state });
+    export function menuCommand(params: R2MParams.MenuCommand): void {
+        sendToMain({ type: 'r2m:menu:command', ...params });
     }
 
-    export function loadManifestsDialog(state: R2MParams.LoadManifestsDialog): void {
-        sendToMain({ type: 'r2m:file:load-manifests-dialog', ...state });
+    export function loadManifestsDialog(params: R2MParams.LoadManifestsDialog): void {
+        sendToMain({ type: 'r2m:file:load-manifests-dialog', ...params });
     }
 
     // options, notify
 
-    export function darkMode(state: R2MParams.DarkMode): void {
-        sendToMain({ type: 'r2m:dark-mode', ...state });
+    export function darkMode(params: R2MParams.DarkMode): void {
+        sendToMain({ type: 'r2m:dark-mode', ...params });
     }
 
-    export function notify(message: R2MParams.NotifyMessage): void {
-        sendToMain({ type: 'r2m:notify', ...message });
+    export function notify(params: R2MParams.NotifyMessage): void {
+        sendToMain({ type: 'r2m:notify', ...params });
     }
 
     // napi
 
-    export function setNapiOptions(state: R2MParams.SetNapiOptions): void {
-        sendToMain({ type: 'r2m:set-napi-options', ...state });
+    export function setNapiOptions(params: R2MParams.SetNapiOptions): void {
+        sendToMain({ type: 'r2m:set-napi-options', ...params });
     }
 
     export function cancelDetection(): void {
