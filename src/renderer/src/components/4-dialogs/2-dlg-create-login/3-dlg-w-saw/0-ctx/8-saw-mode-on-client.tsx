@@ -4,6 +4,12 @@ import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 const _sawModeAtom = atom<boolean>(false);
 
+type DoSawModeOnClientAtomParams = {
+    turnOn: boolean;
+    canceledByMain: boolean;
+    cancelByMainAtom?: PrimitiveAtom<boolean>; // If call canceled by main process, this atom will be set to false.
+};
+
 /**
  * @param turnOn - is to set the mode on or off
  * @param canceledByMain - is set if app close button was pressed from main process
@@ -11,7 +17,7 @@ const _sawModeAtom = atom<boolean>(false);
  */
 export const doSawModeOnClientAtom = atom(
     null,
-    (get, set, { turnOn, canceledByMain, cancelByMainAtom }: { turnOn: boolean; canceledByMain: boolean; cancelByMainAtom?: PrimitiveAtom<boolean>; }) => {
+    (get, set, { turnOn, canceledByMain, cancelByMainAtom }: DoSawModeOnClientAtomParams) => {
         const isOn = get(_sawModeAtom);
 
         if (turnOn) {
@@ -19,9 +25,7 @@ export const doSawModeOnClientAtom = atom(
                 return;
             }
 
-            if (hasMain()) {
-                R2MCalls.setSawMode({ setOn: true });
-            }
+            R2MCalls.setSawMode({ setOn: true });
 
             set(_sawModeAtom, true);
         } else {
@@ -31,9 +35,7 @@ export const doSawModeOnClientAtom = atom(
 
             canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
 
-            if (hasMain()) {
-                R2MCalls.setSawMode({ setOn: false });
-            }
+            R2MCalls.setSawMode({ setOn: false });
 
             set(_sawModeAtom, false);
         }
