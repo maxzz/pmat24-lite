@@ -19,9 +19,9 @@ export const doSawModeOnClientAtom = atom(
                 return;
             }
 
-            // if (hasMain()) {
-            //     sendToMain({ type: 'r2m:set-saw-mode', setOn: true });
-            // }
+            if (hasMain()) {
+                sendToMain({ type: 'r2m:set-saw-mode', setOn: true });
+            }
 
             set(_sawModeAtom, true);
         } else {
@@ -31,9 +31,9 @@ export const doSawModeOnClientAtom = atom(
 
             canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
 
-            // if (hasMain()) {
-            //     sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
-            // }
+            if (hasMain()) {
+                sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
+            }
 
             set(_sawModeAtom, false);
         }

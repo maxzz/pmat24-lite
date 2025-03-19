@@ -7,7 +7,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
     if (!winApp) {
         return;
     }
-    winApp.hide();
+    // winApp.hide();
 
     if (setOn) {
         electronState.sawModeIsOn = true;
@@ -31,7 +31,7 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         electronState.sawModeIsOn = false;
     }
     
-    winApp.show();
+    // winApp.show();
 }
 
 const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls, and toaster on top
