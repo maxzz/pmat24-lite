@@ -5,14 +5,19 @@ import { doMonitoringTimerAtom, doOpenCreateManiSawAtom, doOpenSawOverlayAtom, n
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
 import { createFileUsFromNewXml } from "../../0-ctx-new-mani";
 import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
+import { R2MCalls } from "@/xternal-to-main";
 
 export const doMoveToSecondDlgAtom = atom(
     null,
     async (get, set, { cancel }: { cancel: boolean; }): Promise<void> => {
         if (cancel) {
+            R2MCalls.showHideWindow(false);
+            
             set(doOpenSawOverlayAtom, false);
             set(doTurnOffSawModeOnClientAtom);
             setBuildState({ error: '' });
+            
+            setTimeout(() => R2MCalls.showHideWindow(true), 500);
             return;
         }
 
