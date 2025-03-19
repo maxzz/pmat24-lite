@@ -13,7 +13,7 @@ export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // r
 export const doGetWindowManiAtom = atom(
     null,
     async (get, set, params: ManifestForWindowCreatorParams): Promise<void> => {
-        if (napiLock.locked()) {
+        if (napiLock.locked('mani')) {
             return;
         }
 

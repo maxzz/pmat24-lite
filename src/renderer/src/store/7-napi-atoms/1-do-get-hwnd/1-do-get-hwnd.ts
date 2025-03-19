@@ -35,7 +35,7 @@ export const sawHandleCaptionAtom = atom(
 export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
-        if (!napiLock.locked()) {
+        if (!napiLock.locked('hwnd')) {
 
             hasMain()
                 ? await doLiveHwnd(get, set)

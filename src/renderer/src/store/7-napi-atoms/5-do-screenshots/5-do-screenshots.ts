@@ -28,7 +28,7 @@ export const defaultScreenshotWidth = 400;
 export const doSetScreenshotsAtom = atom(
     null,
     async (get, set, { width }: { width: number | undefined; }): Promise<void> => {
-        if (napiLock.locked()) {
+        if (napiLock.locked('screenshot')) {
             return;
         }
 

@@ -19,7 +19,7 @@ export const doGetWindowIconAtom = atom(
             return;
         }
 
-        if (!napiLock.locked()) {
+        if (!napiLock.locked('icon')) {
             hasMain()
                 ? await doLiveIcon(hwnd, get, set)
                 : await doTestIcon(hwnd, get, set);

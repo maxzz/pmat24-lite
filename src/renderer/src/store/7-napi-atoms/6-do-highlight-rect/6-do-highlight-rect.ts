@@ -7,7 +7,7 @@ import { napiLock } from "../9-napi-build-state";
 export const doHighlightRectAtom = atom(
     null,
     (get, set, { hwnd, rect }: { hwnd?: string, rect: TargetClientRect | undefined; }) => {
-        if (napiLock.locked()) {
+        if (napiLock.locked('high')) {
             return;
         }
 

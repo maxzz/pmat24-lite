@@ -5,14 +5,16 @@ import { hasMain, R2MCalls } from '@/xternal-to-main';
 export const napiLock = {
     isLocked: false,
     canceled: false, // Non-reactive detection cancellation. This is cheked by fake loaders when there is no electron.
+    name: '',
 
-    locked(): boolean {
+    locked(name: string): boolean {
         if (this.isLocked) {
-            console.error('Napi call lock is already locked');
+            console.error(`Napi call lock is already locked with "${this.name}"`);
             return true;
         }
         this.isLocked = true;
         this.canceled = false;
+        this.name = name;
         return false;
     },
     unlock() {
