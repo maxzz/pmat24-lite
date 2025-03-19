@@ -37,6 +37,14 @@ export namespace R2MCalls {
         sendToMain({ type: 'r2m:highlight-rect', hwnd, rect });
     }
 
+    export function setSawMode(params: R2MParams.SetSawMode): void {
+        sendToMain({ type: 'r2m:set-saw-mode', ...params });
+    }
+
+    export function showHideWindow(showHide: boolean): void {
+        sendToMain({ type: 'r2m:show-hide-window', showHide });
+    }
+
     // tests
 
     export function loadTestManifests(): void {
