@@ -25,7 +25,7 @@ const doSawModeOnClientAtom = atom(
                 return;
             }
 
-            R2MCalls.setSawMode({ setOn: true });
+            R2MCalls.setSawModeOnMain({ setOn: true });
 
             set(_sawModeAtom, true);
         } else {
@@ -35,7 +35,7 @@ const doSawModeOnClientAtom = atom(
 
             canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
 
-            R2MCalls.setSawMode({ setOn: false });
+            R2MCalls.setSawModeOnMain({ setOn: false });
 
             set(_sawModeAtom, false);
         }

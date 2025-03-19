@@ -6,9 +6,9 @@ import { doTurnOnSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
     const isOpen = useAtomValue(doOpenSawOverlayAtom);
+
     const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
     const doTurnOnSawModeOnClient = useSetAtom(doTurnOnSawModeOnClientAtom);
-
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
 
     useEffect(
@@ -28,8 +28,6 @@ export function useMonitoringOnOpen() {
 export const doUpdateHwndAndIconAtom = atom(
     null,
     async (get, set) => {
-        console.log('doUpdateHwndAndIconAtom monitoring');
-        
         if (!napiLock.isLocked) { // Avoid attempt to get hwnd by timer when napi is locked
             await set(doGetTargetHwndAtom);
             const sawHandle = get(sawHandleAtom);
