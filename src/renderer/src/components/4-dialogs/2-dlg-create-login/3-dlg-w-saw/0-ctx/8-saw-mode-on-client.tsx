@@ -15,7 +15,7 @@ type DoSawModeOnClientAtomParams = {
  * @param canceledByMain - is set if app close button was pressed from main process
  * @param cancelAtom - cancel will be set to false when mode is turnned off by main process
  */
-export const doSawModeOnClientAtom = atom(
+const doSawModeOnClientAtom = atom(
     null,
     (get, set, { turnOn, canceledByMain, cancelByMainAtom }: DoSawModeOnClientAtomParams) => {
         const isOn = get(_sawModeAtom);
@@ -42,8 +42,15 @@ export const doSawModeOnClientAtom = atom(
     }
 );
 
-export const isSawModeOnClientAtom = atom(
+const isSawModeOnClientAtom = atom(
     get => get(_sawModeAtom)
+);
+
+export const doTurnOnSawModeOnClientAtom = atom(
+    null,
+    (get, set) => {
+        set(doSawModeOnClientAtom, { turnOn: true, canceledByMain: false });
+    }
 );
 
 export const doTurnOffSawModeOnClientAtom = atom(
