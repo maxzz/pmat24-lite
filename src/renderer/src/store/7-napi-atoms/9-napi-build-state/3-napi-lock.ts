@@ -7,7 +7,7 @@ export const napiLock = {
     canceled: false, // Non-reactive detection cancellation. This is cheked by fake loaders when there is no electron.
     name: '',
 
-    locked(name: string): boolean {
+    locked(name: string): boolean { // is it locked for napi call
         if (this.isLocked) {
             console.error(`Napi call lock is already locked with "${this.name}"`);
             return true;
@@ -19,6 +19,7 @@ export const napiLock = {
     },
     unlock() {
         this.isLocked = false;
+        this.name = '';
     },
     cancel() {
         this.canceled = true;
