@@ -1,6 +1,6 @@
 import { atom, PrimitiveAtom } from "jotai";
 import { doOpenSawOverlayAtom } from "@/store";
-import { hasMain, sendToMain } from "@/xternal-to-main";
+import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 const _sawModeAtom = atom<boolean>(false);
 
@@ -20,7 +20,7 @@ export const doSawModeOnClientAtom = atom(
             }
 
             if (hasMain()) {
-                sendToMain({ type: 'r2m:set-saw-mode', setOn: true });
+                R2MCalls.setSawMode({ setOn: true });
             }
 
             set(_sawModeAtom, true);
@@ -32,7 +32,7 @@ export const doSawModeOnClientAtom = atom(
             canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
 
             if (hasMain()) {
-                sendToMain({ type: 'r2m:set-saw-mode', setOn: false });
+                R2MCalls.setSawMode({ setOn: false });
             }
 
             set(_sawModeAtom, false);
