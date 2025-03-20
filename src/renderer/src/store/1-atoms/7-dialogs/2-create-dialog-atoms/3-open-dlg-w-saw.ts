@@ -2,7 +2,7 @@ import { atom } from "jotai";
 
 const _isDlgOpenAtom = atom(false);
 
-export const doOpenCreateManiSawAtom = atom(
+export const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),
     (get, set, open: boolean) => {
         if (open) {
@@ -11,5 +11,3 @@ export const doOpenCreateManiSawAtom = atom(
         set(_isDlgOpenAtom, open);
     }
 );
-
-

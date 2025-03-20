@@ -3,14 +3,14 @@ import { printPrecitionTime, useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doOpenCreateManiSawAtom } from "@/store";
+import { doOpenDlgNewManiSawAtom } from "@/store";
 import { DialogBottemButtons } from "./2-dlg-bottom-buttons";
 import { ButtonSourceCode } from "../../2-dlg-w-screenshots/8-create-ui";
 import { ContentEditorSelector } from "../../7-mani-content-editor";
 
 export function DialogSawBody() {
 
-    const doOpen = useSetAtom(doOpenCreateManiSawAtom);
+    const doOpenDlg = useSetAtom(doOpenDlgNewManiSawAtom);
     useDissmissNextToasts();
 
     printPrecitionTime('DialogSawBody render');
@@ -24,7 +24,7 @@ export function DialogSawBody() {
                     </div>
                 </D.DialogTitle>
 
-                <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => doOpen(false)}>
+                <Button className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1} onClick={() => doOpenDlg(false)}>
                     <Cross2Icon className="size-4" />
                 </Button>
             </D.DialogHeader>

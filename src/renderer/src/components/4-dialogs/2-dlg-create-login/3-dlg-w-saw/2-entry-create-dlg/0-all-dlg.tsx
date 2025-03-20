@@ -1,12 +1,12 @@
 import { useAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
-import { doOpenCreateManiSawAtom } from "@/store/1-atoms/7-dialogs";
+import { doOpenDlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
 import { DialogSawBody } from "./1-body";
 
 export function DialogCreateManiV3Saw() {
-    const [isOpen, setIsOpen] = useAtom(doOpenCreateManiSawAtom);
+    const [isDlgOpen, setIsDlgOpen] = useAtom(doOpenDlgNewManiSawAtom);
     return (<>
-        <D.Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <D.Dialog open={isDlgOpen} onOpenChange={setIsDlgOpen}>
             <D.DialogContent className={dialogClasses} hiddenTitle="Create manifest" noClose>
                 <DialogSawBody />
             </D.DialogContent>
