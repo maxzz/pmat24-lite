@@ -17,6 +17,7 @@ export function createNewFileContent(raw: string): FileContent {
         failed: false,
         notOur: false,
         newFile: true,
+        newAsManual: false,
         fromMain: hasMain(),
         webFsItem: null,
         changesSet: new Set(),
