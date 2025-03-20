@@ -3,6 +3,7 @@ import { appSettings, debugSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, Checkbox, Input, Label } from "@/ui";
 import { classNames } from "@/utils";
+import { labelBoldClasses, subClasses, rowClasses } from "./8-shared-classes";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
 
@@ -25,36 +26,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
             <div className="px-4 py-4 grid grid-cols-1 gap-6">
 
                 <div>
-                    <Label className={labelBoldClasses}>
-                        File list
-                    </Label>
-
-                    <div className={subClasses}>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => liveItems.showIndex = !!v} />
-                            Show file index
-                        </Label>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => liveItems.showIeMarker = !!v} />
-                            Show IE warning icon
-                        </Label>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => liveItems.showFname = !!v} />
-                            Show always file name
-                        </Label>
-                        <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
-                            <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => liveItems.showChosen = !!v} />
-                            Show user defined name instead of domain name
-                        </Label>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => liveItems.selectAsTrigger = !!v} />
-                            Select the same file will deselect it
-                        </Label>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => liveItems.selectEmptySpace = !!v} />
-                            Empty space click will deselect current item
-                        </Label>
-                    </div>
+                    <FileListSettings />
                 </div>
 
                 <div>
@@ -116,6 +88,43 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
     );
 }
 
+function FileListSettings() {
+    const snapItems = useSnapshot(appSettings.files).itemsState;
+    const liveItems = appSettings.files.itemsState;
+    return (<>
+        <Label className={labelBoldClasses}>
+            File list
+        </Label>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => liveItems.showIndex = !!v} />
+                Show file index
+            </Label>
+            <Label className={rowClasses}>
+                <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => liveItems.showIeMarker = !!v} />
+                Show IE warning icon
+            </Label>
+            <Label className={rowClasses}>
+                <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => liveItems.showFname = !!v} />
+                Show always file name
+            </Label>
+            <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
+                <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => liveItems.showChosen = !!v} />
+                Show user defined name instead of domain name
+            </Label>
+            <Label className={rowClasses}>
+                <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => liveItems.selectAsTrigger = !!v} />
+                Select the same file will deselect it
+            </Label>
+            <Label className={rowClasses}>
+                <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => liveItems.selectEmptySpace = !!v} />
+                Empty space click will deselect current item
+            </Label>
+        </div>
+    </>);
+}
+
 function AdvancedSettings() {
 
     const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
@@ -164,6 +173,4 @@ function AdvancedSettings() {
     </>);
 }
 
-const labelBoldClasses = "block mb-1 text-xs font-semibold";
-const subClasses = "py-1 flex flex-col gap-2";
-const rowClasses = "text-xs font-normal flex place-items-center gap-1.5 cursor-pointer";
+

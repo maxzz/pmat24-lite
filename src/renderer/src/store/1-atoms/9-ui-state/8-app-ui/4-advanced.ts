@@ -1,5 +1,6 @@
 export type UiAdvancedState = {     // Advanced UI settings
     allowHandleFiles: boolean;      // Allow opening of individual files (TBD: for electron renderer only?)
+    showFieldCatalog: boolean;      // Show field catalog
     showUiHeader: boolean;          // Show application main header and test controls (with quick access buttons)
 
     testCreateAppsDelay: number;    // Delay before returning screenshots for testing in ms. 0 - no delay
@@ -11,6 +12,7 @@ export const defaultCreateDelay = 1000;
 
 export const defaultUiAdvancedState: UiAdvancedState = {
     allowHandleFiles: false,
+    showFieldCatalog: false,
     showUiHeader: false,
 
     testCreateAppsDelay: defaultCreateDelay,
