@@ -4,7 +4,7 @@ import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconEnumWithWarning = {
     iconEnum: FormIconEnum;
-    uiOptShowIeWarnIcon?: boolean;
+    warn?: boolean; // has warning icon (former uiOptShowIeWarnIcon or hasBailOut)
 };
 
 export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): IconEnumWithWarning[] {
@@ -13,11 +13,13 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
     if (stats.isFCat) {
         return [{
             iconEnum: FormIconEnum.cat,
-            uiOptShowIeWarnIcon: false,
+            warn: false,
         }];
     }
 
     const rv: IconEnumWithWarning[] = [];
+
+    // 1. Login form
 
     const iconEnum = getFormIconEnum({
         isWeb: isFormWeb(meta?.[0]),
@@ -29,8 +31,10 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
 
     rv.push({
         iconEnum,
-        uiOptShowIeWarnIcon: hasBailOut,
+        warn: hasBailOut,
     });
+
+    // 2. CPass form
 
     if (meta?.[1]) {
         const iconEnum = getFormIconEnum({
@@ -43,9 +47,11 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
 
         rv.push({
             iconEnum,
-            uiOptShowIeWarnIcon: hasBailOut,
+            warn: hasBailOut,
         });
     }
+
+    //
 
     return rv;
 }

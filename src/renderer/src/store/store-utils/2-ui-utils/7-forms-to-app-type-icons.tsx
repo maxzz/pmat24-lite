@@ -6,44 +6,44 @@ import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 
 export function getRightHeaderIcons(fileUs: FileUs, uiOptShowIeWarnIcon: boolean): TreenIconComponent[] {
     if (fileUs.parsedSrc.stats.isFCat) {
-        return [formTypeToIcon([{ iconEnum: FormIconEnum.cat, uiOptShowIeWarnIcon: false }])];
+        return [formTypeToIcon([{ iconEnum: FormIconEnum.cat, warn: false }])];
     }
 
     if (!fileUs.parsedSrc.meta) {
         return [];
     }
 
-    const forms = fileUs.parsedSrc.meta.map(
-        (form) => {
-            if (!form) {
+    const metaForms = fileUs.parsedSrc.meta.map(
+        (metaForm) => {
+            if (!metaForm) {
                 return;
             }
 
-            const hasBailOut = isFormWhy(form);
-            const isWeb = isFormWeb(form);
-            const isManual = isFormManual(form);
-            const isIe = isAnyIe6(fileUs.parsedSrc.meta);
-
-            const iconEnum = getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon });
+            const iconEnum = getFormIconEnum({
+                isWeb: isFormWeb(metaForm),
+                isIe: isAnyIe6(fileUs.parsedSrc.meta),
+                isManual: isFormManual(metaForm),
+                uiOptShowIeWarnIcon,
+            });
+            const hasBailOut = isFormWhy(metaForm);
 
             const rv: IconEnumWithWarning = {
-                iconEnum: iconEnum,
-                uiOptShowIeWarnIcon: hasBailOut,
+                iconEnum,
+                warn: hasBailOut,
             };
-
             return rv;
         }
     ).filter(Boolean);
 
     const rv: TreenIconComponent[] = [];
 
-    const login = forms?.[0];
+    const login = metaForms?.[0];
     if (login) {
         rv.push(formTypeToIcon([login]));
     }
 
-    const cpass = forms?.[1];
-    if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.uiOptShowIeWarnIcon !== cpass.uiOptShowIeWarnIcon)) {
+    const cpass = metaForms?.[1];
+    if (login && cpass && (login.iconEnum !== cpass.iconEnum || login.warn !== cpass.warn)) {
         rv.push(formTypeToIcon([cpass]));
     }
 
