@@ -30,16 +30,11 @@ export function AppOptionsDialog() {
     );
 }
 
-const contentClasses = "\
-!left-[revert] !top-[revert] !translate-x-[revert] !translate-y-[revert] \
-inset-4 \
-w-full h-full \
-place-items-center \
-p-0 max-w-xl data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-4/5 max-w-xl data-[state=open]:[animation-duration:200ms]";
 
 function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
-        <div className="mx-4 min-h-56 1w-full 1h-full text-xs border sm:rounded-lg shadow-lg select-none">
+        <div className="min-h-56 text-xs select-none">
 
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
                 <div className="py-2">PMAT Options</div>
