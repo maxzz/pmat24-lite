@@ -52,7 +52,8 @@ const animationTransition: Transition = {
 const animationProps: AnimationProps = {
     // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
     animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
+    // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
+    exit: { opacity: 0, scale: 0.75, transition: { duration: 0 } },
 };
 
 // const dialogClasses = "\

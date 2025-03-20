@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { doAddNextToastIdAtom, printPrecitionTime } from "@/utils";
+import { delay, doAddNextToastIdAtom, printPrecitionTime } from "@/utils";
 import { toast } from "sonner";
 import { doMonitoringTimerAtom, doOpenDlgNewManiSawAtom, doOpenSawOverlayAtom, napiBuildState, sawHandleAtom, setBuildState } from "@/store";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
@@ -46,13 +46,14 @@ export const doMoveToSecondDlgAtom = atom(
 
         // Continue on the second dialog
 
-        R2MCalls.showHideWindow(false);
+        //R2MCalls.showHideWindow(false);
 
         set(doOpenSawOverlayAtom, false);
+        await delay(100);
         set(doTurnOffSawModeOnClientAtom);
         set(doOpenDlgNewManiSawAtom, true);
 
-        setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
+        //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
 
         printPrecitionTime('doMoveToSecondDlgAtom 2');
     }
