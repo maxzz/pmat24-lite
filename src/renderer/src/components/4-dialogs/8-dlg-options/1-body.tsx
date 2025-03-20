@@ -1,9 +1,9 @@
 import { useSnapshot } from "valtio";
+import { classNames } from "@/utils";
 import { appSettings, debugSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, Checkbox, Input, Label } from "@/ui";
-import { classNames } from "@/utils";
-import { labelBoldClasses, subClasses, rowClasses } from "./8-shared-classes";
+import { subClasses, rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
@@ -16,21 +16,21 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 
             <div className="px-4 py-4 grid grid-cols-1 gap-6">
 
-                <div>
+                <SectionTitle title="File list">
                     <FileListSettings />
-                </div>
+                </SectionTitle>
 
-                <div>
+                <SectionTitle title="UI/UX">
                     <UiUxSettings />
-                </div>
+                </SectionTitle>
 
-                <div>
+                <SectionTitle title="Dialog Password Policy">
                     <DialogPasswordPolicy />
-                </div>
+                </SectionTitle>
 
-                <div>
+                <SectionTitle title="Advanced settings">
                     <AdvancedSettings />
-                </div>
+                </SectionTitle>
             </div>
 
             <div className="py-2 boreder-border border-t text-center">
@@ -45,16 +45,7 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 function FileListSettings() {
     const snapItems = useSnapshot(appSettings.files).itemsState;
     const liveItems = appSettings.files.itemsState;
-
-    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
-    const liveUiGeneral = appSettings.appUi.uiGeneral;
-
-    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
-    return (<>
-        <Label className={labelBoldClasses}>
-            File list
-        </Label>
-
+    return (
         <div className={subClasses}>
             <Label className={rowClasses}>
                 <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => liveItems.showIndex = !!v} />
@@ -81,23 +72,13 @@ function FileListSettings() {
                 Empty space click will deselect current item
             </Label>
         </div>
-    </>);
+    );
 }
 
 function UiUxSettings() {
-    const snapItems = useSnapshot(appSettings.files).itemsState;
-    const liveItems = appSettings.files.itemsState;
-
     const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveUiGeneral = appSettings.appUi.uiGeneral;
-
-    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
-
     return (<>
-        <Label className={labelBoldClasses}>
-            UI/UX
-        </Label>
-
         <div className={subClasses}>
             <Label className={rowClasses}>
                 <Checkbox checked={showWelcome} onCheckedChange={(v) => liveUiGeneral.showWelcome = !!v} />
@@ -132,10 +113,6 @@ function UiUxSettings() {
 function DialogPasswordPolicy() {
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
     return (<>
-        <Label className={labelBoldClasses}>
-            Dialog Password Policy
-        </Label>
-
         <Label className={rowClasses}>
             Number of generated passwords
             <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
@@ -153,11 +130,7 @@ function AdvancedSettings() {
     const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
     const liveDebugOnly = debugSettings.debugOnly;
 
-    return (<>
-        <Label className={labelBoldClasses}>
-            Advanced settings
-        </Label>
-
+    return (
         <div className="grid grid-cols-2 gap-2 grid-flow-dense">
 
             <Label className={classNames("col-start-1", rowClasses)}>
@@ -187,7 +160,7 @@ function AdvancedSettings() {
             </div>
 
         </div>
-    </>);
+    );
 }
 
 
