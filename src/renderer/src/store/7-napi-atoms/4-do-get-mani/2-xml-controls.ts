@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
-import { sawManiXmlAtom } from "./1-do-get-mani";
+import { maniXmlStrAtom } from "./1-do-get-mani";
 
 export type XmlParseResult = {
     mani: Mani.Manifest | undefined;
@@ -10,7 +10,7 @@ export type XmlParseResult = {
 
 export const xmlControlsAtom = atom<XmlParseResult | null>(
     (get) => {
-        const sawManiXml = get(sawManiXmlAtom);
+        const sawManiXml = get(maniXmlStrAtom);
         if (!sawManiXml) {
             return null;
         }

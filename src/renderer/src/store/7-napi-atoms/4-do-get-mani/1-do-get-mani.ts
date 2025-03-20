@@ -6,7 +6,7 @@ import { type ManifestForWindowCreatorParams } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
-export const sawManiXmlAtom = atom<string | undefined>(undefined);   // raw unprocessed reply string from napi to compare with current
+export const maniXmlStrAtom = atom<string | undefined>(undefined);   // raw unprocessed reply string from napi to compare with current
 
 export const doGetWindowManiAtom = atom(
     null,
@@ -37,32 +37,24 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
 
         const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', params });
 
-        const prev = get(sawManiXmlAtom);
+        const prev = get(maniXmlStrAtom);
         if (prev === res) {
             setBuildState({ progress: 0, isRunning: false, error: '' });
             return;
         }
-        set(sawManiXmlAtom, res);
-        //printStrResultData(res);
+        set(maniXmlStrAtom, res); //printStrResultData(res);
 
         setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
-        set(doClearManiAtom);
+        set(maniXmlStrAtom, undefined);
         setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });
     }
 }
 
 async function doTestMani(params: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
     const mani = await set(doLoadFakeManiAtom, debugSettings.testCreate.mani);
-    set(sawManiXmlAtom, mani);
+    set(maniXmlStrAtom, mani);
 }
-
-const doClearManiAtom = atom(
-    null,
-    (get, set) => {
-        set(sawManiXmlAtom, undefined);
-    }
-);
 
 //
 

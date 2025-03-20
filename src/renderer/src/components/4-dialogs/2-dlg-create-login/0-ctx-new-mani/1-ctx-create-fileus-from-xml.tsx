@@ -2,7 +2,7 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, sawManiXmlAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
 import { createNewFileContent, createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 
@@ -39,7 +39,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     //TODO: check created manifest content manually checkbox
 
     // 2. Save maniXml to the context
-    const sawManiXml = get(sawManiXmlAtom);
+    const sawManiXml = get(maniXmlStrAtom);
     if (!sawManiXml) {
         showReason(set);
         return false;
