@@ -6,9 +6,8 @@ import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult }
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
-const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
+export const sawManiXmlAtom = atom<string | undefined>(undefined);   // raw unprocessed reply string from napi to compare with current
 const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // reply with controls and pool
-export const sawManiXmlAtom = atom<string | undefined>(undefined);   // raw xml string from napi if called with wantXml
 
 export const doGetWindowManiAtom = atom(
     null,
@@ -45,7 +44,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
             return;
         }
         set(sawManiXmlAtom, res);
-        //printXmlResultData(res);
+        //printStrResultData(res);
 
         // 2. parse reply string to get final reply
 
@@ -77,6 +76,6 @@ const doClearManiAtom = atom(
 
 //
 
-function printXmlResultData(res: string | undefined) {
+function printStrResultData(res: string | undefined) {
     console.log(`doGetWindowManiXmlAtom\n${res}`);
 }
