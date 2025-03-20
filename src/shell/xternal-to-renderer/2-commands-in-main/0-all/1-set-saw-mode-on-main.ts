@@ -22,11 +22,11 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         winApp.setAlwaysOnTop(true, 'pop-up-menu');
         winApp.setTitle('PMAT - Select application');
     } else {
-        winApp.setAlwaysOnTop(false);
-        winApp.setTitle(saved.title);
-
         setWindowRect(winApp, saved.rect);
         saved.maximized && winApp.maximize();
+
+        winApp.setAlwaysOnTop(false);
+        winApp.setTitle(saved.title);
 
         electronState.sawModeIsOn = false;
     }

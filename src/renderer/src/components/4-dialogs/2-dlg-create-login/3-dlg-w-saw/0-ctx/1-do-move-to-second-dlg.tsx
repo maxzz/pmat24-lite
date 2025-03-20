@@ -48,11 +48,11 @@ export const doMoveToSecondDlgAtom = atom(
 
         R2MCalls.showHideWindow(false);
 
-        set(doOpenDlgNewManiSawAtom, true);
-        set(doTurnOffSawModeOnClientAtom);
         set(doOpenSawOverlayAtom, false);
+        set(doTurnOffSawModeOnClientAtom);
+        set(doOpenDlgNewManiSawAtom, true);
 
-        setTimeout(() => R2MCalls.showHideWindow(true), 500); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
+        setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
 
         printPrecitionTime('doMoveToSecondDlgAtom 2');
     }
