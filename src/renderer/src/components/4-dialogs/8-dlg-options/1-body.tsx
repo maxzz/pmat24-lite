@@ -6,15 +6,6 @@ import { classNames } from "@/utils";
 import { labelBoldClasses, subClasses, rowClasses } from "./8-shared-classes";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
-
-    const snapItems = useSnapshot(appSettings.files).itemsState;
-    const liveItems = appSettings.files.itemsState;
-
-    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
-    const liveUiGeneral = appSettings.appUi.uiGeneral;
-
-    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
-
     return (
         <div className="min-h-56 text-xs select-none">
 
@@ -30,48 +21,11 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
                 </div>
 
                 <div>
-                    <Label className={labelBoldClasses}>
-                        UI/UX
-                    </Label>
-
-                    <div className={subClasses}>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={showWelcome} onCheckedChange={(v) => liveUiGeneral.showWelcome = !!v} />
-                            Show Welcome screen on start
-                        </Label>
-                    </div>
-
-                    <div className={subClasses}>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
-                            Show status bar
-                        </Label>
-                    </div>
-
-                    <div className={subClasses}>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
-                            Show quick access button to XML manifest content
-                        </Label>
-                    </div>
-
-                    <div className={subClasses}>
-                        <Label className={rowClasses}>
-                            <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
-                            Show manifest form option labels on the right side
-                        </Label>
-                    </div>
+                    <UiUxSettings />
                 </div>
 
                 <div>
-                    <Label className={labelBoldClasses}>
-                        Dialog Password Policy
-                    </Label>
-
-                    <Label className={rowClasses}>
-                        Number of generated passwords
-                        <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
-                    </Label>
+                    <DialogPasswordPolicy />
                 </div>
 
                 <div>
@@ -91,6 +45,11 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
 function FileListSettings() {
     const snapItems = useSnapshot(appSettings.files).itemsState;
     const liveItems = appSettings.files.itemsState;
+
+    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
+    const liveUiGeneral = appSettings.appUi.uiGeneral;
+
+    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
     return (<>
         <Label className={labelBoldClasses}>
             File list
@@ -125,8 +84,66 @@ function FileListSettings() {
     </>);
 }
 
-function AdvancedSettings() {
+function UiUxSettings() {
+    const snapItems = useSnapshot(appSettings.files).itemsState;
+    const liveItems = appSettings.files.itemsState;
 
+    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
+    const liveUiGeneral = appSettings.appUi.uiGeneral;
+
+    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
+
+    return (<>
+        <Label className={labelBoldClasses}>
+            UI/UX
+        </Label>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={showWelcome} onCheckedChange={(v) => liveUiGeneral.showWelcome = !!v} />
+                Show Welcome screen on start
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
+                Show status bar
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
+                Show quick access button to XML manifest content
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
+                Show manifest form option labels on the right side
+            </Label>
+        </div>
+    </>
+    );
+}
+
+function DialogPasswordPolicy() {
+    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
+    return (<>
+        <Label className={labelBoldClasses}>
+            Dialog Password Policy
+        </Label>
+
+        <Label className={rowClasses}>
+            Number of generated passwords
+            <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
+        </Label>
+    </>);
+}
+
+function AdvancedSettings() {
     const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
