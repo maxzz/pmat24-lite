@@ -59,10 +59,11 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
         if (fileCnt.newFile) {
             //TODO: create new mani field
             //TODO: call createNewManualForm() here
-            const detection = createManualFormDetection({ caption: 'todo', dlg_class: 'todo', processname: 'todo', commandline: 'todo' });
-            const options = createManualFormOptions();
-            const fields = createManualFormFields();
-            const form = createNewManualForm({ detection, options, fields });
+
+            // const detection = createManualFormDetection({ caption: 'todo', dlg_class: 'todo', processname: 'todo', commandline: 'todo' });
+            // const options = createManualFormOptions();
+            // const fields = createManualFormFields();
+            // const form = createNewManualForm({ detection, options, fields });
         }
 
         rv.mani = res.mani;

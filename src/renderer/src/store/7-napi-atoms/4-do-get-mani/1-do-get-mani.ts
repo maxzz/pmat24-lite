@@ -6,7 +6,7 @@ import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult }
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
-export const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
+const sawManiStrAtom = atom<string | undefined>('');                 // raw unprocessed reply string from napi to compare with current
 export const sawManiXmlAtom = atom<string | undefined>(undefined);          // raw xml string from napi if called with wantXml
 export const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // reply with controls and pool
 
