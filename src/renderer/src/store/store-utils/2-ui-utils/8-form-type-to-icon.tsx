@@ -17,12 +17,13 @@ type IconsTable = Record<FormIconEnum, { Icon: TreenIconComponent, normalClasses
 
 const normalClasses = "text-muted-foreground";
 const warningClasses = "text-red-500 fill-red-300 opacity-75";
+const warningIeClasses = "text-red-500 fill-red-300 opacity-75 [--dot-center-color:#ff1b1b]";
 
 const components: IconsTable = {
     [FormIconEnum.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses, warningClasses, },
     [FormIconEnum.win]: { Icon: SymbolAppWin,       /**/ normalClasses, warningClasses, },
     [FormIconEnum.man]: { Icon: SymbolManualMode,   /**/ normalClasses, warningClasses, },
-    [FormIconEnum.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses, warningClasses: "", },
+    [FormIconEnum.ie6]: { Icon: SymbolAppWebIeDot,  /**/ normalClasses, warningClasses: warningIeClasses, },
     [FormIconEnum.cat]: { Icon: SymbolCatalog,      /**/ normalClasses, warningClasses: "", },
 };
 

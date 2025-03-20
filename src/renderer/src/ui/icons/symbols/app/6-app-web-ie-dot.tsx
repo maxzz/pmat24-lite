@@ -5,7 +5,7 @@ export function SvgSymbolAppWebIeDot() { // copy of SvgSymbolAppWebChrome() with
     return (
         <symbol id="app-web-ie-dot" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="12" r="4" fill="#f86a6a" />
+            <circle cx="12" cy="12" r="4" fill="var(--dot-center-color, #f86a6a)" />
             <path d="M21.17 8H12" />
             <path d="M3.95 6.06 8.54 14" />
             <path d="M10.88 21.94 15.46 14" />
