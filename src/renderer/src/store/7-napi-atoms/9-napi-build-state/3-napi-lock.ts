@@ -1,4 +1,4 @@
-import { hasMain, R2MCalls } from '@/xternal-to-main';
+import { R2MCalls } from '@/xternal-to-main';
 
 // Non-reactive Napi reentrancy lock
 
@@ -23,8 +23,6 @@ export const napiLock = {
     },
     cancel() {
         this.canceled = true;
-        if (hasMain()) {
-            R2MCalls.cancelDetection();
-        }
+        R2MCalls.cancelDetection();
     },
 };

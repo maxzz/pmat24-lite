@@ -1,13 +1,12 @@
-import { atom, Getter, Setter } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMain } from "@/xternal-to-main";
 import { debugSettings } from "@/store/1-atoms";
-import { type ManifestForWindowCreatorParams, type WindowControlsCollectResult } from "@shared/ipc-types";
+import { type ManifestForWindowCreatorParams } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
 export const sawManiXmlAtom = atom<string | undefined>(undefined);   // raw unprocessed reply string from napi to compare with current
-const sawManiAtom = atom<WindowControlsCollectResult | null>(null);  // reply with controls and pool
 
 export const doGetWindowManiAtom = atom(
     null,
@@ -46,14 +45,6 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
         set(sawManiXmlAtom, res);
         //printStrResultData(res);
 
-        // 2. parse reply string to get final reply
-
-        if (!params.wantXml) {
-            const reply = JSON.parse(res || '{}') as WindowControlsCollectResult;
-            const final = reply.pool && reply.controls?.length ? reply : null;
-            set(sawManiAtom, final);
-        }
-
         setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
     } catch (error) {
         set(doClearManiAtom);
@@ -70,7 +61,6 @@ const doClearManiAtom = atom(
     null,
     (get, set) => {
         set(sawManiXmlAtom, undefined);
-        set(sawManiAtom, null);
     }
 );
 
