@@ -1,9 +1,10 @@
-import { useSnapshot } from "valtio";
-import { classNames } from "@/utils";
-import { appSettings, debugSettings } from "@/store";
 import * as D from "@/ui/shadcn/dialog";
-import { Button, Checkbox, Input, Label } from "@/ui";
-import { subClasses, rowClasses, SectionTitle } from "./8-shared-classes";
+import { Button } from "@/ui";
+import { FileListSettings } from "./2-settings-file-list";
+import { UiUxSettings } from "./3-settings-ux-ui";
+import { DialogPasswordPolicy } from "./4-settings-psw-policy";
+import { AdvancedSettings } from "./5-settings-advanced";
+import { SectionTitle } from "./8-shared-classes";
 
 export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
@@ -41,126 +42,3 @@ export function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => vo
         </div>
     );
 }
-
-function FileListSettings() {
-    const snapItems = useSnapshot(appSettings.files).itemsState;
-    const liveItems = appSettings.files.itemsState;
-    return (
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={snapItems.showIndex} onCheckedChange={(v) => liveItems.showIndex = !!v} />
-                Show file index
-            </Label>
-            <Label className={rowClasses}>
-                <Checkbox checked={snapItems.showIeMarker} onCheckedChange={(v) => liveItems.showIeMarker = !!v} />
-                Show IE warning icon
-            </Label>
-            <Label className={rowClasses}>
-                <Checkbox checked={snapItems.showFname} onCheckedChange={(v) => liveItems.showFname = !!v} />
-                Show always file name
-            </Label>
-            <Label className={classNames(rowClasses, snapItems.showFname && "opacity-30 pointer-events-none")}>
-                <Checkbox checked={snapItems.showChosen} onCheckedChange={(v) => liveItems.showChosen = !!v} />
-                Show user defined name instead of domain name
-            </Label>
-            <Label className={rowClasses}>
-                <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => liveItems.selectAsTrigger = !!v} />
-                Select the same file will deselect it
-            </Label>
-            <Label className={rowClasses}>
-                <Checkbox checked={snapItems.selectEmptySpace} onCheckedChange={(v) => liveItems.selectEmptySpace = !!v} />
-                Empty space click will deselect current item
-            </Label>
-        </div>
-    );
-}
-
-function UiUxSettings() {
-    const { showStatusbar, showOptOnRight, showWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
-    const liveUiGeneral = appSettings.appUi.uiGeneral;
-    return (<>
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showWelcome} onCheckedChange={(v) => liveUiGeneral.showWelcome = !!v} />
-                Show Welcome screen on start
-            </Label>
-        </div>
-
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
-                Show status bar
-            </Label>
-        </div>
-
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
-                Show quick access button to XML manifest content
-            </Label>
-        </div>
-
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
-                Show manifest form option labels on the right side
-            </Label>
-        </div>
-    </>
-    );
-}
-
-function DialogPasswordPolicy() {
-    const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
-    return (<>
-        <Label className={rowClasses}>
-            Number of generated passwords
-            <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
-        </Label>
-    </>);
-}
-
-function AdvancedSettings() {
-    const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
-    const liveUiAdvanced = appSettings.appUi.uiAdvanced;
-
-    const { showFldCat } = useSnapshot(appSettings.files.shownManis);
-    const liveFiles = appSettings.files;
-
-    const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
-    const liveDebugOnly = debugSettings.debugOnly;
-
-    return (
-        <div className="grid grid-cols-2 gap-2 grid-flow-dense">
-
-            <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
-                Allow opening of individual files
-            </Label>
-
-            <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={showFldCat} onCheckedChange={(v) => liveFiles.shownManis.showFldCat = !!v} />
-                Show field catalog files
-            </Label>
-
-            <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={showUiHeader} onCheckedChange={(v) => liveUiAdvanced.showUiHeader = !!v} />
-                Show application main header
-            </Label>
-
-            <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={snapDebugOnly.showCreateSrcCodeBtn} onCheckedChange={(v) => liveDebugOnly.showCreateSrcCodeBtn = !!v} />
-                Show source code button in the new manifest editor
-            </Label>
-
-            <div className="text-[.67rem] text-foreground/50">
-                <div className="">zoom Ctrl+0 to 100%</div>
-                <div className="">zoom Ctrl+Shift+plus to zoom in</div>
-                <div className="">zoom Ctrl+minus to zoom out</div>
-            </div>
-
-        </div>
-    );
-}
-
-
