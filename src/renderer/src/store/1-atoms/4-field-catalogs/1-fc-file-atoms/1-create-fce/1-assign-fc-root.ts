@@ -29,28 +29,12 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
 
     // 1. Find root field catalog
 
-    let rootFc: FileUs = undefined as unknown as FileUs;
-
     const rootPath = rootDir.rpath.toLowerCase();
 
-    const onlyFcs = fileUsItems.reduce(
-        (acc, fileUs) => {
-            if (fileUs.parsedSrc.stats.isFCat) {
-                const fpath = fileUs.fileCnt.fpath.toLowerCase();
-                const fname = fileUs.fileCnt.fname.toLowerCase();
+    let rootFc: FileUs | undefined = undefined as unknown as FileUs;
 
-                createFceAtomsInFileUs(fileUs);
 
-                const isRoot = fname === defaultFcName && fpath === rootPath;
-                if (isRoot) {
-                    rootFc = fileUs;
-                } else {
-                    acc[`${fpath}/${fname}`] = fileUs;
-                }
-            }
-            return acc;
-        }, {} as Record<string, FileUs>
-    );
+    rootFc = findRootFc(fileUsItems, rootPath);
 
     let newRootFc: FileUs | undefined;
 
@@ -77,4 +61,32 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
     setRootFcFileUs(rootFc);
 
     return newRootFc;
+}
+
+function findRootFc(fileUsItems: FileUs[], rootPath: string): FileUs | undefined {
+
+    // 1. Find root field catalog
+
+    let rootFc: FileUs = undefined as unknown as FileUs;
+
+    const onlyFcs = fileUsItems.reduce(
+        (acc, fileUs) => {
+            if (fileUs.parsedSrc.stats.isFCat) {
+                const fpath = fileUs.fileCnt.fpath.toLowerCase();
+                const fname = fileUs.fileCnt.fname.toLowerCase();
+
+                createFceAtomsInFileUs(fileUs);
+
+                const isRoot = fname === defaultFcName && fpath === rootPath;
+                if (isRoot) {
+                    rootFc = fileUs;
+                } else {
+                    acc[`${fpath}/${fname}`] = fileUs;
+                }
+            }
+            return acc;
+        }, {} as Record<string, FileUs>
+    );
+
+    return rootFc;
 }
