@@ -1,6 +1,8 @@
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store";
 import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
-import { TableHeader, fieldsGridClasses } from "./3-fields-header";
+import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
 export function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
 
@@ -20,8 +22,9 @@ function NoFields() {
 }
 
 function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
+    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
     return (
-        <div className={fieldsGridClasses}>
+        <div className={getFieldsGridClasses(showFieldCatalog)}>
             <TableHeader />
 
             {ctx.nAllAtoms.normal.rowCtxs.map(
