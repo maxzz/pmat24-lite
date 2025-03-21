@@ -5,7 +5,7 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses } from "./8-shared-classes";
 
 export function AdvancedSettings() {
-    const { allowHandleFiles, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { allowHandleFiles, showFieldCatalog, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
@@ -35,6 +35,11 @@ export function AdvancedSettings() {
             <Label className={classNames("col-start-2", rowClasses)}>
                 <Checkbox checked={snapDebugOnly.showCreateSrcCodeBtn} onCheckedChange={(v) => liveDebugOnly.showCreateSrcCodeBtn = !!v} />
                 Show source code button in the new manifest editor
+            </Label>
+
+            <Label className={classNames("col-start-2", rowClasses)}>
+                <Checkbox checked={showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} />
+                Show Field Catalog access
             </Label>
 
             <div className="text-[.67rem] text-foreground/50">
