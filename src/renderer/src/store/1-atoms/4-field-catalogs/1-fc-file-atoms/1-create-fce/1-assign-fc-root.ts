@@ -6,16 +6,26 @@ import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-ato
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
 
-export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter) {
+/**
+ * Assign root field catalog from fileUsItems.
+ * If the root field catalog is not among fileUsItems, it will be created and returned.
+ */
+export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter): FileUs | undefined {
+
+    let rv: FileUs | undefined
+
     if (fileUs) {
-        updateFceAtomsRefs(fileUs); //TODO: and update counters in all files if empty field catalog was created
+        rv = updateFceAtomsRefs(fileUs); //TODO: and update counters in all files if empty field catalog was created
     } else {
         setRootFcFileUs(undefined);
     }
+    
     set(doInitMruAtom);
+
+    return rv;
 }
 
-function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
+function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
 
     // 1. Find root field catalog
 
@@ -42,9 +52,11 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
         }, {} as Record<string, FileUs>
     );
 
+    let newRootFc: FileUs | undefined;
+
     if (!rootFc) {
         rootFc = createFileUsForNewFc();
-        fileUsItems.push(rootFc);
+        newRootFc = rootFc;
     }
 
     // 2. Assign FceAtoms ref to each fileUs
@@ -63,4 +75,6 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): void {
     }
 
     setRootFcFileUs(rootFc);
+
+    return newRootFc;
 }

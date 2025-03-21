@@ -92,7 +92,11 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        assignFcRoot(fileUsItems, get, set);
+        const newRootFc = assignFcRoot(fileUsItems, get, set);
+        if (newRootFc) {
+            fileUsItems.push(newRootFc);
+        }
+        
         sortFileUsItemsInPlace(fileUsItems);
 
         if (unsupported.length) {
