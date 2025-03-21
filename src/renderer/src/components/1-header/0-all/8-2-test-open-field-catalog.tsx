@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
-import { doOpenFceDlgAtom, hasRootFceAtoms, type FceDlgIn, type FceDlgOut } from "@/store";
+import { useSnapshot } from "valtio";
+import { appSettings, doOpenFceDlgAtom, hasRootFceAtoms, type FceDlgIn, type FceDlgOut } from "@/store";
 import { Button } from "@/ui";
 import { toast } from "sonner";
 
 export function TestOpenFieldCatalog() {
+    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
     const doOpenFieldCatalogDialog = useSetAtom(doOpenFceDlgAtom);
 
     const outDataAtom = useState(() => atom<FceDlgOut | null>(null))[0];
@@ -25,6 +27,10 @@ export function TestOpenFieldCatalog() {
             };
             doOpenFieldCatalogDialog({ inData });
         }
+    }
+
+    if (!showFieldCatalog) {
+        return null;
     }
 
     return (
