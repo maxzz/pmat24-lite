@@ -11,36 +11,30 @@ import { doInitMruAtom } from "../../3-fc-mru";
  * If the root field catalog is not among fileUsItems, it will be created and returned.
  */
 export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter): FileUs | undefined {
-
-    let rv: FileUs | undefined
+    let rv: FileUs | undefined;
 
     if (fileUs) {
         rv = updateFceAtomsRefs(fileUs); //TODO: and update counters in all files if empty field catalog was created
     } else {
         setRootFcFileUs(undefined);
     }
-    
+
     set(doInitMruAtom);
 
     return rv;
 }
 
 function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
+    let newlyCreatedFc: FileUs | undefined;
 
     // 1. Find root field catalog
 
     const rootPath = rootDir.rpath.toLowerCase();
 
-    let rootFc: FileUs | undefined = undefined as unknown as FileUs;
-
-
-    rootFc = findRootFc(fileUsItems, rootPath);
-
-    let newRootFc: FileUs | undefined;
-
+    let rootFc: FileUs | undefined = findRootFc(fileUsItems, rootPath);
     if (!rootFc) {
         rootFc = createFileUsForNewFc();
-        newRootFc = rootFc;
+        newlyCreatedFc = rootFc;
     }
 
     // 2. Assign FceAtoms ref to each fileUs
@@ -54,19 +48,21 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
         }
     );
 
+    // 3. Set root field catalog as master
+
     if (rootFc.fceAtomsForFcFile?.viewFceCtx) {
         rootFc.fceAtomsForFcFile.viewFceCtx.isMaster = true;
     }
 
     setRootFcFileUs(rootFc);
 
-    return newRootFc;
+    return newlyCreatedFc;
 }
 
+/**
+ * Find the root field catalog in fileUsItems.
+ */
 function findRootFc(fileUsItems: FileUs[], rootPath: string): FileUs | undefined {
-
-    // 1. Find root field catalog
-
     let rootFc: FileUs = undefined as unknown as FileUs;
 
     const onlyFcs = fileUsItems.reduce(
