@@ -4,7 +4,7 @@ import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "../../9-ui-state/04-filters-search";
-import { fileListOptionsAtom } from "@/store";
+import { optionsFilesProxyAtom } from "@/store";
 import { sortResult } from "./2-filtered-sort";
 
 export const filteredAtom = atom<FileUsAtom[]>(
@@ -16,9 +16,9 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         // 1. Filter
 
-        const fileListOptions = get(fileListOptionsAtom);
+        const optionsFileList = get(optionsFilesProxyAtom);
 
-        const { showNormal, showManual, showEmpty, showFldCat } = fileListOptions.shownManis; // fileListOptions is allready atomWithProxy
+        const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis; // fileListOptions is allready atomWithProxy
 
         const files = get(filesAtom);
 
@@ -58,7 +58,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         // 2. Sort
 
-        const { order, sortBy } = fileListOptions.sortOrder;
+        const { order, sortBy } = optionsFileList.sortOrder;
 
         sortResult(sortBy, order, rv, get);
 

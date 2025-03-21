@@ -56,5 +56,5 @@ subscribe(appSettings, saveDebounced);
 
 // Valtio state to Jotai atoms bridge
 
-export const fileListOptionsAtom = atomWithProxy<FileListSettings>(appSettings.files);
-export const appUiOptionsAtom = atomWithProxy<AppUISettings>(appSettings.appUi);
+export const optionsFilesProxyAtom = atomWithProxy<FileListSettings>(appSettings.files);
+export const optionsAppUiProxyAtom = atomWithProxy<AppUISettings>(appSettings.appUi);
