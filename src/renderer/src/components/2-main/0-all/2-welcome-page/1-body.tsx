@@ -34,21 +34,8 @@ export function WelcomePage() {
                         exit={{ opacity: 0, scale: 0.9 }}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
-                            <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
-                                {/* Password Manager Admin Tool */}
-                                Welcome to the Password Manager Admin Tool
-                            </div>
 
-                            {/* <div className="h-24 [--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]">
-                                <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
-                            </div> */}
-
-                            <div className="text-xs text-balance select-none">
-                                {allowHandleFiles
-                                    ? "Open the file or folder containing the manifest files to start working with the application."
-                                    : "Open the folder containing the manifest files to start working with the application."
-                                }
-                            </div>
+                            <PageHeroTitle allowHandleFiles={allowHandleFiles} />
 
                             {allowHandleFiles && <ButtonFilesPicker />}
                             <ButtonFilesPicker openAsFolder />
@@ -78,6 +65,26 @@ export function WelcomePage() {
             </AnimatePresence>
         </MotionConfig >
     );
+}
+
+function PageHeroTitle({allowHandleFiles}: { allowHandleFiles: boolean; }) {
+    return (<>
+        <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
+            {/* Password Manager Admin Tool */}
+            Welcome to the Password Manager Admin Tool
+        </div>
+
+        {/* <div className="h-24 [--yellow-500:#fff400] [--red-500:#ea3939] [--blue-500:#395eea] [--cyan-500:#39ead7]">
+            <TextHoverEffect text="Welcome to the Password Manager Admin Tool" duration={0.5} />
+        </div> */}
+
+        <div className="text-xs text-balance select-none">
+            {allowHandleFiles
+                ? "Open the file or folder containing the manifest files to start working with the application."
+                : "Open the folder containing the manifest files to start working with the application."
+            }
+        </div>
+    </>);
 }
 
 //TODO: add checkbox to hide welcome page next time
