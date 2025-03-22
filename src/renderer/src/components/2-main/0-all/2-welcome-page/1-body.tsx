@@ -21,7 +21,6 @@ export function WelcomePage() {
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
     const showWelcomePage = showWelcome && !files.length;
-    const hasRecent = false;
 
     return (
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
@@ -40,21 +39,9 @@ export function WelcomePage() {
                             {allowHandleFiles && <ButtonFilesPicker />}
                             <ButtonFilesPicker openAsFolder />
 
-                            {hasRecent && (
-                                <div className="text-xs space-y-1">
-                                    <div className="font-semibold">
-                                        Resently used folders:
-                                    </div>
-                                    <div className="">
-                                        Folder 1 (placeholder)
-                                    </div>
-                                    <div className="">
-                                        Folder 2 (placeholder)
-                                    </div>
-                                </div>
-                            )}
+                            <RecentFilesList />
 
-                            <IconHIDWoFrame className="absolute left-0.5 bottom-0 p-1.5 w-12 text-border rounded" />
+                            <IconHIDWoFrame className="absolute right-0.5 bottom-0 p-1.5 w-12 text-border rounded" />
 
                             {/* <ListViewDemo /> */}
 
@@ -67,7 +54,7 @@ export function WelcomePage() {
     );
 }
 
-function PageHeroTitle({allowHandleFiles}: { allowHandleFiles: boolean; }) {
+function PageHeroTitle({ allowHandleFiles }: { allowHandleFiles: boolean; }) {
     return (<>
         <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
             {/* Password Manager Admin Tool */}
@@ -86,6 +73,40 @@ function PageHeroTitle({allowHandleFiles}: { allowHandleFiles: boolean; }) {
         </div>
     </>);
 }
+
+function RecentFilesList() {
+    const hasRecent = false;
+    return (<>
+        {/* <div className="flex flex-col gap-1">
+            <div className="font-semibold">
+                Recently used folders:
+            </div>
+            <div className="flex flex-col gap-1">
+                <div className="">
+                    Folder 1 (placeholder)
+                </div>
+                <div className="">
+                    Folder 2 (placeholder)
+                </div>
+            </div>
+        </div> */}
+
+        {hasRecent && (
+            <div className="text-xs space-y-1">
+                <div className="font-semibold">
+                    Resently used folders:
+                </div>
+                <div className="">
+                    Folder 1 (placeholder)
+                </div>
+                <div className="">
+                    Folder 2 (placeholder)
+                </div>
+            </div>
+        )}
+    </>);
+}
+
 
 //TODO: add checkbox to hide welcome page next time
 //TODO: more explanation about how start working with the app
