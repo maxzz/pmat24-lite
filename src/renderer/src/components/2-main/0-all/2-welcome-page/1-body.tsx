@@ -8,13 +8,6 @@ import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 import { TextHoverEffect } from "@/ui";
 import { IconHIDWoFrame } from "@/ui/icons";
 
-const titleStyle = {
-    color: 'black',
-    WebkitTextFillColor: 'transparent',
-    WebkitTextStroke: '0.1px hsl(var(--foreground))',
-    WebkitFontSmoothing: 'antialiased',
-};
-
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
@@ -35,16 +28,10 @@ export function WelcomePage() {
                         <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
 
                             <PageHeroTitle allowHandleFiles={allowHandleFiles} />
-
-                            {allowHandleFiles && <ButtonFilesPicker />}
-                            <ButtonFilesPicker openAsFolder />
-
-                            <RecentFilesList />
-
+                            <OpenButtons />
                             <IconHIDWoFrame className="absolute right-0.5 bottom-0 p-1.5 w-12 text-border rounded" />
 
                             {/* <ListViewDemo /> */}
-
                             {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
                         </div>
                     </motion.div>
@@ -53,6 +40,13 @@ export function WelcomePage() {
         </MotionConfig >
     );
 }
+
+const titleStyle = {
+    color: 'black',
+    WebkitTextFillColor: 'transparent',
+    WebkitTextStroke: '0.1px hsl(var(--foreground))',
+    WebkitFontSmoothing: 'antialiased',
+};
 
 function PageHeroTitle({ allowHandleFiles }: { allowHandleFiles: boolean; }) {
     return (<>
@@ -71,6 +65,16 @@ function PageHeroTitle({ allowHandleFiles }: { allowHandleFiles: boolean; }) {
                 : "Open the folder containing the manifest files to start working with the application."
             }
         </div>
+    </>);
+}
+
+function OpenButtons() {
+    const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
+    return (<>
+        {allowHandleFiles && <ButtonFilesPicker />}
+        <ButtonFilesPicker openAsFolder />
+
+        <RecentFilesList />
     </>);
 }
 
