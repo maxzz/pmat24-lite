@@ -43,12 +43,17 @@ import { delay } from "@/utils";
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    async (get, set, deliveredFileContents: FileContent[]) => {
+    async (get, set, deliveredFileContents: FileContent[] | undefined) => {
         //printDelivered(deliveredFileContents);
 
-        if (deliveredFileContents.length > 100) {    // Allow fast cleaning, no files, no delay
-            busyIndicator.msg = 'Parsing...';   // TODO: all heavy stuff is already done in the main process, so it should be done earlier
-            await delay(100);                   // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+        const clearFiles = typeof deliveredFileContents === 'undefined';
+        if (!deliveredFileContents) {
+            deliveredFileContents = [];
+        }
+
+        if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
+            busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
+            await delay(100);                       // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
 
         set(rightPanelAtom, undefined);
@@ -92,11 +97,13 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        const newRootFc = assignFcRoot(fileUsItems, get, set);
-        if (newRootFc) {
-            fileUsItems.push(newRootFc);
+        if (!clearFiles) { // Don't create field catalog if we clear files
+            const newRootFc = assignFcRoot(fileUsItems, get, set);
+            if (newRootFc) {
+                fileUsItems.push(newRootFc);
+            }
         }
-        
+
         sortFileUsItemsInPlace(fileUsItems);
 
         if (unsupported.length) {
@@ -104,8 +111,9 @@ export const doSetDeliveredFilesAtom = atom(
         }
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
-        
-        set(doInitFileUsLinksToFcAtom, fileUsAtoms);
+
+        !clearFiles && set(doInitFileUsLinksToFcAtom, fileUsAtoms);
+
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
     }
