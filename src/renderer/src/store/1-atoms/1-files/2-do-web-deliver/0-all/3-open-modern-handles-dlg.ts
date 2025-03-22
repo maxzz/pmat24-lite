@@ -19,6 +19,7 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
             setRootDir({ rpath: shortest?.rpath || '', dir: shortest?.hadle, fromMain: false });
             return files;
         }
+        
     } else {                                                    // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
         setRootDir({ rpath: '', dir: undefined, fromMain: false });
