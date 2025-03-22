@@ -16,11 +16,9 @@ export function setRootDir({ rpath, dir, fromMain }: { rpath: string, dir: FileS
     rootDir.rpath = rpath;
     rootDir.hadle = dir;
     rootDir.fromMain = fromMain;
-
-    // console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
+    //printRootDir();
 }
 
-//TODO: MRU list
-// https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
-//      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
-//          https://github.com/jakearchibald/idb-keyval
+function printRootDir() {
+    console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
+}
