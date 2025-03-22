@@ -1,5 +1,6 @@
 import { type FileWithDirectoryAndFileHandle, type FileWithHandle, directoryOpen, fileOpen } from "browser-fs-access";
-import { findShortestPathModern, setRootDir } from "../3-root-dir";
+import { findShortestPathModern } from "@/store/store-utils";
+import { setRootDir } from "../3-root-dir";
 
 export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
     if (openAsFolder) {

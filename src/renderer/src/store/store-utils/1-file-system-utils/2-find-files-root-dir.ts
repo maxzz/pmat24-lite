@@ -1,5 +1,4 @@
 import { type FileWithDirectoryAndFileHandle } from "browser-fs-access";
-import { type RootDir } from "./1-set-root-dir";
 import { pathWithoutFilename } from "@/utils";
 
 // Legacy by filenames
@@ -27,7 +26,7 @@ export function fnamesToPaths(filenames: string[]): string[] {
 
 // Modern with FileWithDirectoryAndFileHandle
 
-export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]): RootDir | undefined {
+export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]) {
     if (!files.length) {
         return;
     }
@@ -50,7 +49,7 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
         }
     }
 
-    const rv: RootDir = {
+    const rv = {
         hadle: handle.directoryHandle,
         rpath: shortest,
         fromMain: false,
