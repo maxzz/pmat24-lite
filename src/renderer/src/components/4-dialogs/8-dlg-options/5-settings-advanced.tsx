@@ -5,7 +5,9 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses } from "./8-shared-classes";
 
 export function AdvancedSettings() {
+    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     const { allowHandleFiles, showFieldCatalog, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
+
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
@@ -13,6 +15,10 @@ export function AdvancedSettings() {
 
     const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
     const liveDebugOnly = debugSettings.debugOnly;
+
+    if (!debugAccess) {
+        return null;
+    }
 
     return (
         <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
