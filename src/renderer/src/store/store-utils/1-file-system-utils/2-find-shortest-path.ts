@@ -26,12 +26,12 @@ export function fnamesToPaths(filenames: string[]): string[] {
 
 // Modern with FileWithDirectoryAndFileHandle
 
-export type FindRootDirResult = {
+type FindShortestPathModernResult = {               // This is part of RootDir wo/ fromMain knowledge
     rpath: string;                                  // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
     hadle: FileSystemDirectoryHandle | undefined;   // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
 };
 
-export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]): FindRootDirResult | undefined {
+export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]): FindShortestPathModernResult | undefined {
     if (!files.length) {
         return;
     }
@@ -54,7 +54,7 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
         }
     }
 
-    const rv: FindRootDirResult = {
+    const rv: FindShortestPathModernResult = {
         hadle: handle.directoryHandle,
         rpath: shortest,
     };
