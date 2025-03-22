@@ -4,7 +4,7 @@ import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "../../9-ui-state/04-filters-search";
-import { optionsFilesProxyAtom } from "@/store";
+import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store";
 import { sortResult } from "./2-filtered-sort";
 
 export const filteredAtom = atom<FileUsAtom[]>(
@@ -17,8 +17,9 @@ export const filteredAtom = atom<FileUsAtom[]>(
         // 1. Filter
 
         const optionsFileList = get(optionsFilesProxyAtom);
+        const showFieldCatalog = get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
 
-        const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis; // fileListOptions is allready atomWithProxy
+        const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis;
 
         const files = get(filesAtom);
 
@@ -27,7 +28,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
                 const fileUs = get(fileAtom);
                 const { mani, meta, stats: { isFCat } } = fileUs.parsedSrc;
 
-                if (isFCat && !showFldCat) {
+                if (isFCat && (!showFldCat || !showFieldCatalog)) {
                     return false;
                 }
 
