@@ -2,9 +2,10 @@ import { atom } from "jotai";
 import { type FileWithHandle } from "browser-fs-access";
 import { type FileContent } from "@shared/ipc-types";
 import { hasMain } from "@/xternal-to-main";
+import { setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
-import { openModernHandlesDlg } from "./3-open-modern-handles-dlg";
+import { openModernHandlesDlg, OpenModernHandlesDlgResult } from "./3-open-modern-handles-dlg";
 
 // handle files drop for web and electron environments
 
@@ -61,7 +62,8 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
-            const files: FileWithHandle[] = await openModernHandlesDlg(openAsFolder);
+            const { files, root }: OpenModernHandlesDlgResult = await openModernHandlesDlg(openAsFolder);
+            setRootDir({ rpath: root.rpath, dir: root.hadle, fromMain: false });
             printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)

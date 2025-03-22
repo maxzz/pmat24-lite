@@ -1,8 +1,12 @@
 import { type FileWithDirectoryAndFileHandle, type FileWithHandle, directoryOpen, fileOpen } from "browser-fs-access";
-import { findShortestPathModern } from "@/store/store-utils";
-import { setRootDir } from "../../0-files-atom";
+import { findShortestPathModern, FindShortestPathModernResult } from "@/store/store-utils";
 
-export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileWithHandle[] | FileWithDirectoryAndFileHandle[]> {
+export type OpenModernHandlesDlgResult = {
+    files: FileWithHandle[] | FileWithDirectoryAndFileHandle[];
+    root: FindShortestPathModernResult; // Root dir. fromMain is always false in this case
+};
+
+export async function openModernHandlesDlg(openAsFolder: boolean): Promise<OpenModernHandlesDlgResult> {
     if (openAsFolder) {
         // directoryOpen() will return only files with dir handles if recursive is true or false and never return folders.
         // If folder is empty then array [FileSystemDirectoryHandle] with a single item.
@@ -11,19 +15,25 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<FileW
             await directoryOpen({ recursive: true, mode: 'readwrite' });
 
         if (isFileSystemDirectoryHandles(res)) {                // This is a folder with no files, so we will return an empty array
-            setRootDir({ rpath: res[0].name, dir: res[0], fromMain: false });
-            return [];
+            return {
+                files: [],
+                root: { rpath: res[0].name, hadle: res[0] },
+            };
         } else {                                                // Find the root folder handle
             const files: FileWithDirectoryAndFileHandle[] = res;
             const shortest = findShortestPathModern(files);
-            setRootDir({ rpath: shortest?.rpath || '', dir: shortest?.hadle, fromMain: false });
-            return files;
+            return {
+                files,
+                root: { rpath: shortest?.rpath || '', hadle: shortest?.hadle },
+            };
         }
-        
+
     } else {                                                    // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
-        setRootDir({ rpath: '', dir: undefined, fromMain: false });
-        return files;
+        return {
+            files,
+            root: { rpath: '', hadle: undefined },
+        };
     }
 }
 
