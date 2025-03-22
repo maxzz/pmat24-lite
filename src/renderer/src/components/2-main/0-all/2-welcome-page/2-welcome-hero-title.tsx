@@ -1,3 +1,5 @@
+import { TextHoverEffect } from "@/ui";
+
 const titleStyle = {
     color: 'black',
     WebkitTextFillColor: 'transparent',

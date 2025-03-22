@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { ButtonFilesPicker } from "@/components/2-main/0-all/2-welcome-page/3-button-files-picker";
+import { ButtonFilesPicker } from "@/components/2-main/0-all/2-welcome-page/4-button-files-picker";
 
 export function TestOpenFiles() {
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
