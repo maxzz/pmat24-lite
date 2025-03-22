@@ -34,37 +34,41 @@ const contentClasses = "p-0 !w-4/5 max-w-xl data-[state=open]:[animation-duratio
 
 function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
-        <div className="min-h-56 text-xs select-none">
-
+        <div className="min-h-56 text-xs select-none grid grid-rows-[auto,1fr,auto]">
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
                 <div className="py-2">PMAT Options</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-2 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
-            <div className="px-4 py-4 grid grid-cols-1 gap-6">
-
-                <SectionTitle title="File list">
-                    <FileListSettings />
-                </SectionTitle>
-
-                <SectionTitle title="UI/UX">
-                    <UiUxSettings />
-                </SectionTitle>
-
-                <SectionTitle title="Dialog Password Policy">
-                    <DialogPasswordPolicy />
-                </SectionTitle>
-
-                <SectionTitle title="Advanced settings">
-                    <AdvancedSettings />
-                </SectionTitle>
-            </div>
+            <DialogMiddleArea />
 
             <div className="py-2 boreder-border border-t text-center">
                 <Button variant="default" size={"sm"} onClick={() => setIsOpen(false)}>
                     Close
                 </Button>
             </div>
+        </div>
+    );
+}
+
+function DialogMiddleArea() {
+    return (
+        <div className="px-4 py-4 grid grid-cols-1 gap-6">
+            <SectionTitle title="File list">
+                <FileListSettings />
+            </SectionTitle>
+
+            <SectionTitle title="UI/UX">
+                <UiUxSettings />
+            </SectionTitle>
+
+            <SectionTitle title="Dialog Password Policy">
+                <DialogPasswordPolicy />
+            </SectionTitle>
+
+            <SectionTitle title="Advanced settings">
+                <AdvancedSettings />
+            </SectionTitle>
         </div>
     );
 }

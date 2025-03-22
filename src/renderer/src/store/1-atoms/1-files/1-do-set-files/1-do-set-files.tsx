@@ -47,9 +47,7 @@ export const doSetDeliveredFilesAtom = atom(
         //printDelivered(deliveredFileContents);
 
         const clearFiles = typeof deliveredFileContents === 'undefined';
-        if (!deliveredFileContents) {
-            deliveredFileContents = [];
-        }
+        deliveredFileContents = deliveredFileContents || [];
 
         if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
@@ -169,3 +167,11 @@ function unsupportedMsg(unsupported: FileUs[]) {
         // action: { label: 'Details', onClick: () => { console.log('Unsupported files:', unsupported); }, }
     });
 }
+
+//03.21.25
+    //TODO: switch to check folder instead of file list length
+    //TODO: rename menu 'clear file list' to close folder
+    //TBD: filter .dpn files?
+    //TODO: remove focus on main menu button on file list left panel <- probably not needed
+    //TODO: add 'super debug options' option
+    //TODO: add check for single field logins
