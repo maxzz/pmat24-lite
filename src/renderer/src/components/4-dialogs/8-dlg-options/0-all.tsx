@@ -42,9 +42,7 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 
             <div className="relative w-full h-full">
                 <div className="absolute inset-0">
-                    <ScrollArea className="h-full w-full overflow-auto">
-                        <DialogMiddleArea />
-                    </ScrollArea>
+                    <DialogMiddleArea />
                 </div>
             </div>
 
@@ -59,22 +57,26 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 
 function DialogMiddleArea() {
     return (
-        <div className="px-4 py-4 grid grid-cols-1 gap-6">
-            <SectionTitle title="File list">
-                <FileListSettings />
-            </SectionTitle>
+        <ScrollArea className="h-full w-full overflow-auto">
+            <div className="px-4 py-4 grid grid-cols-1 gap-6">
 
-            <SectionTitle title="UI/UX">
-                <UiUxSettings />
-            </SectionTitle>
+                <SectionTitle title="File list">
+                    <FileListSettings />
+                </SectionTitle>
 
-            <SectionTitle title="Dialog Password Policy">
-                <DialogPasswordPolicy />
-            </SectionTitle>
+                <SectionTitle title="UI/UX">
+                    <UiUxSettings />
+                </SectionTitle>
 
-            <SectionTitle title="Advanced settings">
-                <AdvancedSettings />
-            </SectionTitle>
-        </div>
+                <SectionTitle title="Dialog Password Policy">
+                    <DialogPasswordPolicy />
+                </SectionTitle>
+
+                <SectionTitle title="Advanced settings">
+                    <AdvancedSettings />
+                </SectionTitle>
+                
+            </div>
+        </ScrollArea>
     );
 }
