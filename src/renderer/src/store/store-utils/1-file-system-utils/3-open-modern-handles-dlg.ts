@@ -1,5 +1,5 @@
 import { type FileWithDirectoryAndFileHandle, type FileWithHandle, directoryOpen, fileOpen } from "browser-fs-access";
-import { findShortestPathModern, FindShortestPathModernResult } from "@/store/store-utils";
+import { findShortestPathModern, type FindShortestPathModernResult } from "./2-find-shortest-path";
 
 export type OpenModernHandlesDlgResult = {
     files: FileWithHandle[] | FileWithDirectoryAndFileHandle[];

@@ -1,10 +1,9 @@
 import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
-import { findShortestPathInFnames, textFileReaderPromisify } from "@/store/store-utils";
+import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
 import { electronGetPaths, invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
-import { isFileWithFileHandle, isFileWithDirectoryAndFileHandle } from "./3-open-modern-handles-dlg";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { setRootDir } from "../../0-files-atom";
 
