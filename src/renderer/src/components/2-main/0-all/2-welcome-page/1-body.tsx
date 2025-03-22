@@ -1,11 +1,11 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, filesAtom } from "@/store";
-import { DontShowNext } from "./6-dont-show-next";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
-import { IconHIDWoFrame } from "@/ui/icons";
+import { appSettings, filesAtom } from "@/store";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
+import { HIDLogoAnimation } from "./5-hid-logo-animation";
+import { DontShowNext } from "./6-dont-show-next";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
@@ -29,9 +29,9 @@ export function WelcomePage() {
 
                             <WelcomeHeroTitle allowHandleFiles={allowHandleFiles} />
                             <OpenButtons />
-                            <IconHIDWoFrame className="absolute right-0.5 bottom-0 p-1.5 w-12 text-border rounded" />
-
+                            <HIDLogoAnimation />
                             {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
+                            
                         </div>
                     </motion.div>
                 )}
