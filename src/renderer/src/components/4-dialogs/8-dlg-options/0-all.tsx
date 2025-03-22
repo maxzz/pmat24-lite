@@ -72,10 +72,7 @@ function DialogMiddleArea() {
                     <DialogPasswordPolicy />
                 </SectionTitle>
 
-                <SectionTitle title="Advanced settings">
-                    <AdvancedSettings />
-                </SectionTitle>
-                
+                <AdvancedSettings />
             </div>
         </ScrollArea>
     );
