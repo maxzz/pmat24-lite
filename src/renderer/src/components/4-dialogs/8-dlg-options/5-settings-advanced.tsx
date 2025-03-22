@@ -15,11 +15,16 @@ export function AdvancedSettings() {
     const liveDebugOnly = debugSettings.debugOnly;
 
     return (
-        <div className="grid grid-cols-2 gap-2 1grid-flow-dense">
+        <div className="grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
 
             <Label className={classNames("col-start-1", rowClasses)}>
                 <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
                 Allow opening of individual files
+            </Label>
+
+            <Label className={classNames("col-start-1", rowClasses)}>
+                <Checkbox checked={showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} />
+                Show Field Catalog access
             </Label>
 
             <Label className={classNames("col-start-1", rowClasses)}>
@@ -37,12 +42,7 @@ export function AdvancedSettings() {
                 Show source code button in the new manifest editor
             </Label>
 
-            <Label className={classNames("col-start-2", rowClasses)}>
-                <Checkbox checked={showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} />
-                Show Field Catalog access
-            </Label>
-
-            <div className="text-[.67rem] text-foreground/50">
+            <div className="col-start-1 text-[.67rem] text-foreground/50">
                 <div className="">zoom Ctrl+0 to 100%</div>
                 <div className="">zoom Ctrl+Shift+plus to zoom in</div>
                 <div className="">zoom Ctrl+minus to zoom out</div>
