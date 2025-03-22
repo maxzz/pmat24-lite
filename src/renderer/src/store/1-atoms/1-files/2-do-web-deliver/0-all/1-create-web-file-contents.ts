@@ -2,12 +2,11 @@ import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { findShortestPathInFnames } from "@/store/store-utils";
-import { invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
+import { electronGetPaths, invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { isFileWithFileHandle, isFileWithDirectoryAndFileHandle } from "./3-open-modern-handles-dlg";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 import { textFileReaderPromisify } from "./8-text-file-reader";
-import { electronGetPaths } from "./8-electron-get-paths";
 import { setRootDir } from "../../0-files-atom";
 
 type DropItem = {

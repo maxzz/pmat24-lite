@@ -5,9 +5,9 @@ import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "../../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
-import { rootDir } from "../../../1-files/2-do-web-deliver/3-root-dir";
-import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { finalizeFileContent } from "@/store/store-utils";
+import { rootDir } from "@/store/1-atoms/1-files/0-files-atom";
+import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
 import { createFceCtx } from "./3-create-fce-ctx";
 import { catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms/0-all/2-do-save-main-atom/2-pack/4-fc";
 
