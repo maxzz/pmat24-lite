@@ -8,6 +8,7 @@ export function L_PanelMenuTrigger() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
+
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost">
                     <IconMenuHamburger5 className="size-4 fill-current" />
@@ -17,6 +18,7 @@ export function L_PanelMenuTrigger() {
             <DropdownMenuContent className="min-w-48 text-xs" align="start">
                 <FilesMainMenuBody />
             </DropdownMenuContent>
+            
         </DropdownMenu>
     );
 }

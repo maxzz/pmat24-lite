@@ -172,8 +172,10 @@ function showUnsupportedFilesMsg(unsupported: FileUs[]) {
 
 //03.21.25
 //TODO: switch to check folder instead of file list length
-//TODO: rename menu 'clear file list' to close folder
-//TBD: filter .dpn files?
+//TODO: rename menu 'clear file list' to close folder - done
+//TBD: filter .dpn files? - done
 //TODO: remove focus on main menu button on file list left panel <- probably not needed
+
+//03.21.25
 //TODO: add 'super debug options' option
 //TODO: add check for single field logins

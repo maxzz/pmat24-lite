@@ -15,7 +15,7 @@ export function AdvancedSettings() {
     const liveDebugOnly = debugSettings.debugOnly;
 
     return (
-        <div className="grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
+        <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
 
             <Label className={classNames("col-start-1", rowClasses)}>
                 <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
