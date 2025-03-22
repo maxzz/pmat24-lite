@@ -62,7 +62,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             const { files, root }: OpenModernHandlesDlgResult = await openModernHandlesDlg(openAsFolder);
-            setRootDir({ rpath: root.rpath, dir: root.hadle, fromMain: false });
+            setRootDir({ rpath: root.rpath, handle: root.handle, fromMain: false });
 
             printFiles(files);
 

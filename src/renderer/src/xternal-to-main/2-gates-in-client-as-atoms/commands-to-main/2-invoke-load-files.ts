@@ -6,13 +6,13 @@ import { findShortestPathInFnames, setRootDir } from "@/store";
 import { mainApi } from "../3-to-main-apis";
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<FileContent[]> {
-    const d: R2MInvoke.AllInvokes = {
+    const params: R2MInvoke.AllInvokes = {
         type: 'r2mi:load-files',
         filenames,
         ...(allowedExt && { allowedExt }),
     };
 
-    const res = await mainApi?.invokeMain<R2MInvoke.AllInvokes, MainFileContent[]>(d);
+    const res = await mainApi?.invokeMain<R2MInvoke.AllInvokes, MainFileContent[]>(params);
     const rv = (res || []).map(finalizeFileContent);
     return rv;
 }
@@ -22,13 +22,20 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
  */
 export function finalizeFileContent(fileContent: MainFileContent): FileContent {
     const rv = fileContent as FileContent;
+
     rv.unid = uuid.asRelativeNumber();
     rv.changesSet = proxySet<string>();
     rv.fpath = toUnix(rv.fpath);
+
     return rv;
 }
 
 export function setRootFromMainFileContents(fileContents: FileContent[]): void {
     const rootPath = findShortestPathInFnames(fileContents.map((f) => f.fpath));
-    setRootDir({ rpath: rootPath, dir: undefined, fromMain: true });
+
+    setRootDir({
+        rpath: rootPath,
+        handle: undefined,
+        fromMain: true,
+    });
 }
