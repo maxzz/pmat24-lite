@@ -6,7 +6,7 @@ import { doDiscardFileUsAtom } from "./8-discard-file-us";
 /**
  * Delete single file
  */
-export const doDeleteFileUsAtom = atom(
+const doDeleteFileUsAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom) => {
         if (get(rightPanelAtom) === fileUsAtom) {
@@ -19,3 +19,5 @@ export const doDeleteFileUsAtom = atom(
         //TODO: remove file from filesAtom and File system
     }
 );
+
+//TODO: I think this is wrapper to doDiscardFileUsAtom and is not ready yet and should not be here: it has access to files and discards single file.
