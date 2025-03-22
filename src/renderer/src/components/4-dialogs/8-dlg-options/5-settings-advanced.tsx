@@ -27,8 +27,8 @@ export function AdvancedSettings() {
                 Show Field Catalog access
             </Label>
 
-            <Label className={classNames("col-start-1", rowClasses)}>
-                <Checkbox checked={showFldCat} onCheckedChange={(v) => liveFiles.shownManis.showFldCat = !!v} />
+            <Label className={classNames("col-start-1 has-[:disabled]:opacity-50", rowClasses)}>
+                <Checkbox checked={showFldCat && showFieldCatalog} onCheckedChange={(v) => liveFiles.shownManis.showFldCat = !!v} disabled={!showFieldCatalog} />
                 Show field catalog files
             </Label>
 
