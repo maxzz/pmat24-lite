@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
-import { Button } from "@/ui";
+import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "../1-dlg-filter-files";
 import { doOpenOptionsDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { FileListSettings } from "./2-settings-file-list";
@@ -30,17 +30,23 @@ export function AppOptionsDialog() {
     );
 }
 
-const contentClasses = "p-0 !w-4/5 max-w-xl data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-4/5 max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:[animation-duration:200ms]";
 
 function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
-        <div className="min-h-56 text-xs select-none grid grid-rows-[auto,1fr,auto]">
+        <div className="text-xs select-none grid grid-rows-[auto,1fr,auto]">
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
                 <div className="py-2">PMAT Options</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-2 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
-            <DialogMiddleArea />
+            <div className="relative w-full h-full">
+                <div className="absolute inset-0">
+                    <ScrollArea className="h-full w-full overflow-auto">
+                        <DialogMiddleArea />
+                    </ScrollArea>
+                </div>
+            </div>
 
             <div className="py-2 boreder-border border-t text-center">
                 <Button variant="default" size={"sm"} onClick={() => setIsOpen(false)}>

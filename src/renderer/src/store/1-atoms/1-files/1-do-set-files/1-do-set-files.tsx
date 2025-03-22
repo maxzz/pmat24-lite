@@ -104,9 +104,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         sortFileUsItemsInPlace(fileUsItems);
 
-        if (unsupported.length) {
-            unsupportedMsg(unsupported);
-        }
+        showUnsupportedFilesMsg(unsupported);
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
@@ -142,8 +140,12 @@ function printDelivered(deliveredFileContents: FileContent[]) {
     );
 }
 
-function unsupportedMsg(unsupported: FileUs[]) {
+function showUnsupportedFilesMsg(unsupported: FileUs[]) {
     //console.warn('Unsupported files:', unsupported);
+
+    if (!unsupported.length) {
+        return;
+    }
 
     const multiple = unsupported.length > 1;
     const verb = multiple ? 'are' : 'is';
@@ -169,9 +171,9 @@ function unsupportedMsg(unsupported: FileUs[]) {
 }
 
 //03.21.25
-    //TODO: switch to check folder instead of file list length
-    //TODO: rename menu 'clear file list' to close folder
-    //TBD: filter .dpn files?
-    //TODO: remove focus on main menu button on file list left panel <- probably not needed
-    //TODO: add 'super debug options' option
-    //TODO: add check for single field logins
+//TODO: switch to check folder instead of file list length
+//TODO: rename menu 'clear file list' to close folder
+//TBD: filter .dpn files?
+//TODO: remove focus on main menu button on file list left panel <- probably not needed
+//TODO: add 'super debug options' option
+//TODO: add check for single field logins
