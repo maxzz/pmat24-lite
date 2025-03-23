@@ -1,12 +1,8 @@
 import { proxy } from "valtio";
+import { type PmatFolder } from "./9-types";
+import { addToDirsMru } from "./3-mru-dirs";
 
-export type RootDir = {
-    rpath: string;                                  // For electron root path will be absolute path, for web it will be relative path of this folder or empty.
-    handle: FileSystemDirectoryHandle | undefined;  // For electron handle will be null, for web it will be FileSystemDirectoryHandle or null.
-    fromMain: boolean;                              // For electron it will be true, for web it will be false.
-};
-
-export const rootDir: RootDir = proxy<RootDir>({
+export const rootDir: PmatFolder = proxy<PmatFolder>({
     rpath: '',
     handle: undefined,
     fromMain: false,
@@ -14,13 +10,12 @@ export const rootDir: RootDir = proxy<RootDir>({
 
 // All entry points after operations for web and electron: file open; folder open; dnd files; dnd folder 
 
-export function setRootDir({ rpath, handle, fromMain }: { rpath: string, handle: FileSystemDirectoryHandle | undefined; fromMain: boolean; }): void {
+export function setRootDir(folder: PmatFolder): void {
+    const { rpath, handle, fromMain } = folder;
+
     rootDir.rpath = rpath;
     rootDir.handle = handle;
     rootDir.fromMain = fromMain;
-    //printRootDir();
-}
-
-function printRootDir() {
-    console.log('%c setRootDir ', 'background-color: magenta; color: white', rootDir);
+    
+    addToDirsMru(folder);
 }

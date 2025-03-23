@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { doClearFileContentAtom } from "@/store";
+import { doCloseRootDirAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui/shadcn";
 
 /**
@@ -9,7 +9,7 @@ import { DropdownMenuItem } from "@/ui/shadcn";
  * so history will be available when folder is closed.
  */
 export function MenuItem_CloseFolder() {
-    const doClearFileContent = useSetAtom(doClearFileContentAtom);
+    const doClearFileContent = useSetAtom(doCloseRootDirAtom);
     return (
         <DropdownMenuItem onClick={() => { doClearFileContent(); }}>
             Close Folder

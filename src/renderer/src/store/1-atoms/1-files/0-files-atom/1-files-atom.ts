@@ -1,10 +1,15 @@
 import { atom } from 'jotai';
-import type { FileUsAtom } from "@/store/store-types";
+import { type FileUsAtom } from "@/store/store-types";
 
 // Files
 
 export const filesAtom = atom<FileUsAtom[]>([]);
 
-// Root folder
+// UI has files
 
-export const rootFolderAtom = atom(''); // root folder path //TODO: add for web version folder handle
+const hasFilesAtom = atom(
+    (get) => {
+        const total = get(filesAtom);
+        return !!total.length;
+    }
+);
