@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
-import { appSettings, filesAtom } from "@/store";
+import { appSettings, filesAtom, rootDir } from "@/store";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
 import { HIDLogoAnimation } from "./5-hid-logo-animation";
@@ -12,7 +12,10 @@ export function WelcomePage() {
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
-    const showWelcomePage = showWelcome && !files.length;
+    const { rpath } = useSnapshot(rootDir);
+
+    // const showWelcomePage = showWelcome && !files.length;
+    const showWelcomePage = showWelcome && !rpath.length;
 
     return (
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
@@ -31,7 +34,7 @@ export function WelcomePage() {
                             <OpenButtons />
                             <HIDLogoAnimation />
                             {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
-                            
+
                         </div>
                     </motion.div>
                 )}
