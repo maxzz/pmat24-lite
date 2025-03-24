@@ -2,6 +2,7 @@ import { ref, snapshot, subscribe } from "valtio";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
+import { isPmatFolderEmpty } from "@/store";
 import { appSettings } from "../../9-ui-state/0-local-storage-app";
 
 export function addToDirsMru(folder: PmatFolder) {
@@ -18,7 +19,7 @@ export function addToDirsMru(folder: PmatFolder) {
  * @returns True if the list was updated.
  */
 function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
-    if (!folder.rpath || (!folder.handle && !folder.fromMain)) {
+    if (isPmatFolderEmpty(folder)) {
         return false;
     }
 

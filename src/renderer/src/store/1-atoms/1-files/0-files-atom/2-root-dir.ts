@@ -19,3 +19,11 @@ export function setRootDir(folder: PmatFolder): void {
     
     addToDirsMru(folder);
 }
+
+export function isRootDirEmpty(): boolean {
+    return isPmatFolderEmpty(rootDir);
+}
+
+export function isPmatFolderEmpty(folder: PmatFolder): boolean {
+    return !folder.rpath || (!folder.handle && !folder.fromMain);
+}

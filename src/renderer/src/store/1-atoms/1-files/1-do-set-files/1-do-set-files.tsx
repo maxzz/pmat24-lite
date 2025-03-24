@@ -5,7 +5,7 @@ import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
-import { filesAtom, rootDir } from "../0-files-atom";
+import { filesAtom, isRootDirEmpty } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { toast } from "sonner";
@@ -63,7 +63,7 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.empty = 0;
         totalManis.fc = 0;
 
-        if (!rootDir.rpath || (!rootDir.handle && !rootDir.fromMain)) { // block multiple files or folders
+        if (isRootDirEmpty()) { // block multiple files or folders
             deliveredFileContents = [];
             clearFiles = true;
             toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
