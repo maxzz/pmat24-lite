@@ -2,6 +2,7 @@ import { get, set } from "idb-keyval";
 import { type PmatFolder } from "./9-types";
 import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "../../9-ui-state/0-local-storage-app";
+import { subscribe } from "valtio";
 
 export function addToDirsMru(folder: PmatFolder) {
     try {
@@ -23,7 +24,7 @@ async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
         updateMruList(appSettings.appUi.mru.win, folder);
     } else {
         let items = await get<PmatFolder[]>('pmat25-mru-web') || [];
-        if(updateMruList(items, folder)) {
+        if (updateMruList(items, folder)) {
             set('pmat25-mru-web', items);
         }
     }
@@ -65,4 +66,14 @@ export async function getMruList(isWin: boolean = false): Promise<PmatFolder[]> 
 
 function printRootDir(folder: PmatFolder) {
     console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
+}
+
+// Initialize
+
+export async function initializeMruIndexDB() {
+    appSettings.appUi.mru.web = await get<PmatFolder[]>('pmat25-mru-web') || [];
+
+    subscribe(appSettings.appUi.mru, () => {
+        set('pmat25-mru-web', appSettings.appUi.mru.web);
+    });
 }
