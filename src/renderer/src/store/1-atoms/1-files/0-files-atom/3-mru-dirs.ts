@@ -12,10 +12,6 @@ export function addToDirsMru(folder: PmatFolder) {
     }
 }
 
-function printRootDir(folder: PmatFolder) {
-    console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
-}
-
 /**
  * MRU list
  * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
@@ -53,4 +49,20 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 
     items.unshift(folder);
     return true;
+}
+
+// get MRU List
+
+export async function getMruList(isWin: boolean = false): Promise<PmatFolder[]> {
+    if (isWin) {
+        return appSettings.appUi.mru.win;
+    } else {
+        return await get<PmatFolder[]>('pmat25-mru-web') || [];
+    }
+}
+
+//
+
+function printRootDir(folder: PmatFolder) {
+    console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
 }
