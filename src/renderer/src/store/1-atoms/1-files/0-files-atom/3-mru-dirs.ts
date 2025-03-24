@@ -24,44 +24,44 @@ function printRootDir(folder: PmatFolder) {
 async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
 
     if (!isWin) {
-        let currentList = await get<PmatFolder[]>('pmat25-mru-web');
-        if (currentList) {
-            const idx = currentList.findIndex((item) => item.rpath === folder.rpath);
+        let list = await get<PmatFolder[]>('pmat25-mru-web');
+        if (list) {
+            const idx = list.findIndex((item) => item.rpath === folder.rpath);
 
             if (idx === 0) {
                 return; // already in the list as first item
             } else if (idx >= 0) {
-                currentList.splice(idx, 1); // remove from the list at current position
+                list.splice(idx, 1); // remove from the list at current position
             }
 
-            if (currentList.length > 10) {
-                currentList.pop();
+            if (list.length > 10) {
+                list.pop();
             }
 
-            currentList.unshift(folder);
+            list.unshift(folder);
         } else {
-            currentList = [folder];
+            list = [folder];
         }
-        
-        set('pmat25-mru-web', currentList);
+
+        set('pmat25-mru-web', list);
         return;
+    } else {
+        const list = appSettings.appUi.mru.win;
+
+        // check if folder is already in the list
+        const idx = list.findIndex((item) => item.rpath === folder.rpath);
+
+        if (idx === 0) {
+            return; // already in the list as first item
+        } else if (idx >= 0) {
+            list.splice(idx, 1); // remove from the list at current position
+        }
+
+        if (list.length > 10) {
+            list.shift();
+        }
+
+        // add folder in front of the list
+        list.unshift(folder);
     }
-
-    const list = appSettings.appUi.mru.win;
-
-    // check if folder is already in the list
-    const idx = list.findIndex((item) => item.rpath === folder.rpath);
-
-    if (idx === 0) {
-        return; // already in the list as first item
-    } else if (idx >= 0) {
-        list.splice(idx, 1); // remove from the list at current position
-    }
-
-    if (list.length > 10) {
-        list.shift();
-    }
-
-    // add folder in front of the list
-    list.unshift(folder);
 }
