@@ -63,3 +63,13 @@ export const optionsAppUiProxyAtom = atomWithProxy<AppUISettings>(appSettings.ap
 // MRU
 
 initializeMruIndexDB();
+
+// App title
+
+export const defaultTitle = 'PMAT';
+
+export const appMainTitle = proxy({
+    title: defaultTitle,
+});
+
+//
