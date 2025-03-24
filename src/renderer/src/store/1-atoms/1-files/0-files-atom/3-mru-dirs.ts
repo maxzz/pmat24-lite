@@ -34,21 +34,21 @@ async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
  * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
  * @returns True if the list was updated.
  */
-function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
-    const idx = items.findIndex((item) => item.rpath === folder.rpath);
+function updateMruList(items: PmatFolder[], newFolder: PmatFolder): boolean {
+    const idx = items.findIndex((item) => item.rpath === newFolder.rpath);
 
-    if (idx === 0) {
-        return false; // already in the list as first item
+    if (idx === 0) { // already in the list as first item
+        return false;
     }
-    else if (idx >= 0) {
-        items.splice(idx, 1); // remove from the list at current position
+    else if (idx >= 0) { // remove from the list at current position
+        items.splice(idx, 1);
     }
 
     if (items.length > 10) {
         items.shift();
     }
 
-    items.unshift(folder);
+    items.unshift(newFolder);
     return true;
 }
 
@@ -62,18 +62,25 @@ export async function getMruList(isWin: boolean = false): Promise<PmatFolder[]> 
     }
 }
 
-//
-
-function printRootDir(folder: PmatFolder) {
-    console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
-}
-
 // Initialize
 
+/**
+ * No need to subscribe for electron. electron has no directory handles.
+ */
 export async function initializeMruIndexDB() {
     appSettings.appUi.mru.web = await get<PmatFolder[]>('pmat25-mru-web') || [];
+
+    if (hasMain()) {
+        return;
+    }
 
     subscribe(appSettings.appUi.mru, () => {
         set('pmat25-mru-web', appSettings.appUi.mru.web);
     });
+}
+
+//
+
+function printRootDir(folder: PmatFolder) {
+    console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
 }

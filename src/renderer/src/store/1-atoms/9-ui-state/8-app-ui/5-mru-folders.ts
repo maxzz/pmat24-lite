@@ -9,3 +9,7 @@ export const defaultMruLists: MruLists = {
     web: [],
     win: [],
 };
+
+//TODO:
+// Maybe it will be better to have separate lists for web and electron, because file
+// system directory handles are stored in indexedDB and electron just path strings are not.
