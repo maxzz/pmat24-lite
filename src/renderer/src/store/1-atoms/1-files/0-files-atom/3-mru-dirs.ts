@@ -1,32 +1,15 @@
-import { get, set } from "idb-keyval";
-import { type PmatFolder } from "./9-types";
-import { hasMain } from "@/xternal-to-main";
-import { appSettings } from "../../9-ui-state/0-local-storage-app";
 import { subscribe } from "valtio";
+import { get, set } from "idb-keyval";
+import { hasMain } from "@/xternal-to-main";
+import { type PmatFolder } from "./9-types";
+import { appSettings } from "../../9-ui-state/0-local-storage-app";
 
 export function addToDirsMru(folder: PmatFolder) {
     try {
-        asyncAddToDirsList(folder, hasMain());
+        updateMruList(appSettings.appUi.mru.folders, folder);
         printRootDir(folder);
     } catch (error) {
         console.error('addToDirsMru', error);
-    }
-}
-
-/**
- * MRU list
- * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
- *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
- *          https://github.com/jakearchibald/idb-keyval
- */
-async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
-    if (isWin) {
-        updateMruList(appSettings.appUi.mru.win, folder);
-    } else {
-        let items = await get<PmatFolder[]>('pmat25-mru-web') || [];
-        if (updateMruList(items, folder)) {
-            set('pmat25-mru-web', items);
-        }
     }
 }
 
@@ -52,30 +35,25 @@ function updateMruList(items: PmatFolder[], newFolder: PmatFolder): boolean {
     return true;
 }
 
-// get MRU List
-
-export async function getMruList(isWin: boolean = false): Promise<PmatFolder[]> {
-    if (isWin) {
-        return appSettings.appUi.mru.win;
-    } else {
-        return await get<PmatFolder[]>('pmat25-mru-web') || [];
-    }
-}
-
 // Initialize
 
 /**
  * No need to subscribe for electron. electron has no directory handles.
+ * 
+ * MRU list
+ * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
+ *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+ *          https://github.com/jakearchibald/idb-keyval
  */
 export async function initializeMruIndexDB() {
-    appSettings.appUi.mru.web = await get<PmatFolder[]>('pmat25-mru-web') || [];
-
     if (hasMain()) {
         return;
     }
+    
+    appSettings.appUi.mru.folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
 
     subscribe(appSettings.appUi.mru, () => {
-        set('pmat25-mru-web', appSettings.appUi.mru.web);
+        set('pmat25-mru-web', appSettings.appUi.mru.folders);
     });
 }
 
