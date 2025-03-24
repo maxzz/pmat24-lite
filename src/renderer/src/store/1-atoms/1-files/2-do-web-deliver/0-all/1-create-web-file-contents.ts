@@ -73,8 +73,10 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
     const rv = await loadFilesAndCreateFileContents(items);
 
-    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: getSingleFolderHandle(items), fromMain: false });
-    return rv;
+    const singleFolder = getSingleFolderHandle(items);
+
+    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: singleFolder, fromMain: false });
+    return singleFolder ? rv : [];
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
         const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
