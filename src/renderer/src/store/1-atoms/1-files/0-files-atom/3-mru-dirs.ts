@@ -1,4 +1,4 @@
-import { subscribe } from "valtio";
+import { snapshot, subscribe } from "valtio";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
@@ -49,11 +49,14 @@ export async function initializeMruIndexDB() {
     if (hasMain()) {
         return;
     }
-    
+
     appSettings.appUi.mru.folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
 
     subscribe(appSettings.appUi.mru, () => {
-        set('pmat25-mru-web', appSettings.appUi.mru.folders);
+        const snap = snapshot(appSettings.appUi.mru); // we loose handle type here and as result cannot restore handle from indexedDB
+
+        console.log('appSettings.appUi.mru', snap);
+        set('pmat25-mru-web', snap.folders);
     });
 }
 
