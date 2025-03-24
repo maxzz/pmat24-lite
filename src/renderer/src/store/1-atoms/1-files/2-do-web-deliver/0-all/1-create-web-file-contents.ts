@@ -73,11 +73,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
     const rv = await loadFilesAndCreateFileContents(items);
 
-    // Check if we drop single folder 
-    const parents = new Set(rv.map((item) => item.webFsItem?.parent));
-    const parentHandle = parents.size === 1 ? parents.values().next().value || undefined : undefined;
-
-    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: parentHandle, fromMain: false });
+    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: getSingleFolderHandle(items), fromMain: false });
     return rv;
 
     async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
@@ -102,6 +98,15 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         }
         return rv;
     }
+}
+
+/**
+ * Check if we drop a single folder and can get its handle.
+ */
+function getSingleFolderHandle(items: DropItem[]) {
+    const parents = new Set(items.map((item) => item.webFsItem?.parent));
+    const parentHandle = parents.size === 1 ? parents.values().next().value || undefined : undefined;
+    return parentHandle;
 }
 
 /**
@@ -158,6 +163,8 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
         return rv;
     }
 }
+
+//
 
 function printFnameFiles(filenames: string[], files: File[]) {
     console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta');

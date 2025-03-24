@@ -18,7 +18,7 @@ export function addToDirsMru(folder: PmatFolder) {
  * @returns True if the list was updated.
  */
 function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
-    if (!folder.rpath || (!folder.handle && !hasMain())) {
+    if (!folder.rpath || (!folder.handle && !folder.fromMain)) {
         return false;
     }
 
