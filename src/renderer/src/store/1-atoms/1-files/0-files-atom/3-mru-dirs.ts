@@ -1,6 +1,6 @@
 import { get, set } from "idb-keyval";
-import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
+import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "../../9-ui-state/0-local-storage-app";
 
 export function addToDirsMru(folder: PmatFolder) {
