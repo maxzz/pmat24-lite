@@ -2,12 +2,14 @@ import { ThemeMode } from "@/utils";
 import { DividerState, defaultDividerState } from "./1-divider";
 import { defaultUiGeneralState, UiGeneralState } from "./2-ui-general";
 import { defaultUiAdvancedState, UiAdvancedState } from "./4-advanced";
+import { MruLists, defaultMruLists } from "./5-mru-folders";
 
 export type AppUISettings = {
     theme: ThemeMode;
     divider: DividerState;
     uiGeneral: UiGeneralState;     
-    uiAdvanced: UiAdvancedState;   
+    uiAdvanced: UiAdvancedState;
+    mru: MruLists;   
 };
 
 export const defaultAppUISettings: AppUISettings = {
@@ -15,4 +17,5 @@ export const defaultAppUISettings: AppUISettings = {
     divider: defaultDividerState,
     uiGeneral: defaultUiGeneralState,
     uiAdvanced: defaultUiAdvancedState,
+    mru: defaultMruLists,
 };
