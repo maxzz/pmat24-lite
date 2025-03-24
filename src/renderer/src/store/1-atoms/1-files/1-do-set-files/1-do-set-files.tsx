@@ -5,7 +5,7 @@ import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { busyIndicator, totalManis } from "../../9-ui-state";
-import { filesAtom } from "../0-files-atom";
+import { filesAtom, rootDir } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { toast } from "sonner";
@@ -46,7 +46,7 @@ export const doSetDeliveredFilesAtom = atom(
     async (get, set, deliveredFileContents: FileContent[] | undefined) => {
         //printDelivered(deliveredFileContents);
 
-        const clearFiles = typeof deliveredFileContents === 'undefined';
+        let clearFiles = typeof deliveredFileContents === 'undefined';
         deliveredFileContents = deliveredFileContents || [];
 
         if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
@@ -62,6 +62,12 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.manual = 0;
         totalManis.empty = 0;
         totalManis.fc = 0;
+
+        if (!rootDir.rpath || (!rootDir.handle && !rootDir.fromMain)) { // block multiple files or folders
+            deliveredFileContents = [];
+            clearFiles = true;
+            toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
+        }
 
         const unsupported: FileUs[] = [];
 
