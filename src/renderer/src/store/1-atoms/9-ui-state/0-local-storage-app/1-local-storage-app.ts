@@ -69,7 +69,7 @@ initializeMruIndexDB();
 export const defaultTitle = 'PMAT';
 
 export const appMainTitle = proxy({
-    title: defaultTitle,
+    title: '',
 });
 
 //

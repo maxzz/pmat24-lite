@@ -51,15 +51,25 @@ export function getFilenameAndExt(filename: string): [string, string] {
 
 /**
  * Returns path from WebFileSysItem.path without the filename
- * @param path 
- * @returns 
  */
 export function pathWithoutFilename(path: string | undefined): string {
-    const rv = (path || '')
-        .replace(/^\//, '')
-        .split(/[\\\/]/);
+    const rv =
+        (path || '')
+            .replace(/^\//, '') // remove first slash
+            .split(/[\\\/]/);   // split by slashes
     rv.pop(); // remove filename as the last item
     return rv.join('/');
+}
+
+/**
+ * Returns the filename from path or last folder name
+ */
+export function filenameWithoutPath(path: string | undefined): string {
+    const rv =
+        (path || '')
+            .replace(/^\//, '') // remove first slash
+            .split(/[\\\/]/);   // split by slashes
+    return rv.pop() || '';
 }
 
 // -----------------------------

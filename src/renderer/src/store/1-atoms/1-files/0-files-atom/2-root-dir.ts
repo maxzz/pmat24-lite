@@ -1,6 +1,9 @@
 import { proxy } from "valtio";
+import { filenameWithoutPath } from "@/utils";
+import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./3-mru-dirs";
+import { appMainTitle } from "../../9-ui-state/0-local-storage-app";
 
 export const rootDir: PmatFolder = proxy<PmatFolder>({
     rpath: '',
@@ -16,6 +19,12 @@ export function setRootDir(folder: PmatFolder): void {
     rootDir.rpath = rpath;
     rootDir.handle = handle;
     rootDir.fromMain = fromMain;
+
+    if (hasMain()) {
+        appMainTitle.title = filenameWithoutPath(folder.rpath); //TODO: for multiple folders show 'multiple folders' or something else
+    } else {
+        appMainTitle.title = folder.rpath;
+    }
     
     addToDirsMru(folder);
 }
