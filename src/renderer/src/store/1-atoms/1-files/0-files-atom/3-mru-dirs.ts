@@ -7,7 +7,7 @@ import { appSettings } from "../../9-ui-state/0-local-storage-app";
 export function addToDirsMru(folder: PmatFolder) {
     try {
         updateMruList(appSettings.appUi.mru.folders, folder);
-        printRootDir(folder);
+        printRootDir(folder, 'setRootDir');
     } catch (error) {
         console.error('addToDirsMru', error);
     }
@@ -17,11 +17,22 @@ export function addToDirsMru(folder: PmatFolder) {
  * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
  * @returns True if the list was updated.
  */
-function updateMruList(items: PmatFolder[], newFolder: PmatFolder): boolean {
+function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
+    if (!folder.rpath || (!folder.handle && !hasMain())) {
+        return false;
+    }
+
+    const newFolder = ref(folder); // We'll loose the handle type wo/ ref and as result cannot restore handle from indexedDB
+
     const idx = items.findIndex((item) => item.rpath === newFolder.rpath);
 
     if (idx === 0) { // already in the list as first item
-        return false;
+        const replace = newFolder.handle && !items[0].handle; // It's kind of dangerous, we relly only on the last folder name.
+        if (replace) {
+            items.splice(idx, 1);
+        } else {
+            return false;
+        }
     }
     else if (idx >= 0) { // remove from the list at current position
         items.splice(idx, 1);
@@ -31,7 +42,7 @@ function updateMruList(items: PmatFolder[], newFolder: PmatFolder): boolean {
         items.shift();
     }
 
-    items.unshift(ref(newFolder));
+    items.unshift(newFolder);
     return true;
 }
 
@@ -53,17 +64,20 @@ export async function initializeMruIndexDB() {
     appSettings.appUi.mru.folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
 
     subscribe(appSettings.appUi.mru, () => {
-        const snap = snapshot(appSettings.appUi.mru); // we loose handle type here and as result cannot restore handle from indexedDB
+        const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
 
-        //TODO: unless we use array of refs, i.e. non reactive items
+        printMru(snapFoloders);
 
-        console.log('appSettings.appUi.mru', snap);
-        set('pmat25-mru-web', snap.folders);
+        set('pmat25-mru-web', snapFoloders);
     });
 }
 
 //
 
-function printRootDir(folder: PmatFolder) {
-    console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
+function printRootDir(folder: PmatFolder, title: string) {
+    console.log(`%c ${title} `, 'background-color: magenta; color: white', folder);
+}
+
+function printMru(folders: PmatFolder[]) {
+    folders.forEach((folder) => printRootDir(folder, 'MRU'));
 }
