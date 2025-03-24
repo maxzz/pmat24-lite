@@ -2,6 +2,7 @@ import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { appSettings } from "../../9-ui-state/0-local-storage-app";
+import { b } from "vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P";
 
 //TODO: MRU list
 // https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
@@ -22,44 +23,34 @@ function printRootDir(folder: PmatFolder) {
 }
 
 async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
-
     if (!isWin) {
-        let items = await get<PmatFolder[]>('pmat25-mru-web');
-        if (items) {
-            const idx = items.findIndex((item) => item.rpath === folder.rpath);
-
-            if (idx === 0) {
-                return; // already in the list as first item
-            } else if (idx >= 0) {
-                items.splice(idx, 1); // remove from the list at current position
-            }
-
-            if (items.length > 10) {
-                items.pop();
-            }
-
-            items.unshift(folder);
-        } else {
-            items = [folder];
+        let items = await get<PmatFolder[]>('pmat25-mru-web') || [];
+        if(updateMruList(items, folder)) {
+            set('pmat25-mru-web', items);
         }
-
-        set('pmat25-mru-web', items);
     } else {
-        const items = appSettings.appUi.mru.win;
-
-        const idx = items.findIndex((item) => item.rpath === folder.rpath);
-
-        if (idx === 0) {
-            return; // already in the list as first item
-        } else if (idx >= 0) {
-            items.splice(idx, 1); // remove from the list at current position
-        }
-
-        if (items.length > 10) {
-            items.shift();
-        }
-
-        // add folder in front of the list
-        items.unshift(folder);
+        updateMruList(appSettings.appUi.mru.win, folder);
     }
+}
+
+/**
+ * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
+ * @returns True if the list was updated.
+ */
+function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
+    const idx = items.findIndex((item) => item.rpath === folder.rpath);
+
+    if (idx === 0) {
+        return false; // already in the list as first item
+    }
+    else if (idx >= 0) {
+        items.splice(idx, 1); // remove from the list at current position
+    }
+
+    if (items.length > 10) {
+        items.shift();
+    }
+
+    items.unshift(folder);
+    return true;
 }
