@@ -24,44 +24,42 @@ function printRootDir(folder: PmatFolder) {
 async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
 
     if (!isWin) {
-        let list = await get<PmatFolder[]>('pmat25-mru-web');
-        if (list) {
-            const idx = list.findIndex((item) => item.rpath === folder.rpath);
+        let items = await get<PmatFolder[]>('pmat25-mru-web');
+        if (items) {
+            const idx = items.findIndex((item) => item.rpath === folder.rpath);
 
             if (idx === 0) {
                 return; // already in the list as first item
             } else if (idx >= 0) {
-                list.splice(idx, 1); // remove from the list at current position
+                items.splice(idx, 1); // remove from the list at current position
             }
 
-            if (list.length > 10) {
-                list.pop();
+            if (items.length > 10) {
+                items.pop();
             }
 
-            list.unshift(folder);
+            items.unshift(folder);
         } else {
-            list = [folder];
+            items = [folder];
         }
 
-        set('pmat25-mru-web', list);
-        return;
+        set('pmat25-mru-web', items);
     } else {
-        const list = appSettings.appUi.mru.win;
+        const items = appSettings.appUi.mru.win;
 
-        // check if folder is already in the list
-        const idx = list.findIndex((item) => item.rpath === folder.rpath);
+        const idx = items.findIndex((item) => item.rpath === folder.rpath);
 
         if (idx === 0) {
             return; // already in the list as first item
         } else if (idx >= 0) {
-            list.splice(idx, 1); // remove from the list at current position
+            items.splice(idx, 1); // remove from the list at current position
         }
 
-        if (list.length > 10) {
-            list.shift();
+        if (items.length > 10) {
+            items.shift();
         }
 
         // add folder in front of the list
-        list.unshift(folder);
+        items.unshift(folder);
     }
 }
