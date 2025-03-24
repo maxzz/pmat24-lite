@@ -1,4 +1,4 @@
-import { snapshot, subscribe } from "valtio";
+import { ref, snapshot, subscribe } from "valtio";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
@@ -31,7 +31,7 @@ function updateMruList(items: PmatFolder[], newFolder: PmatFolder): boolean {
         items.shift();
     }
 
-    items.unshift(newFolder);
+    items.unshift(ref(newFolder));
     return true;
 }
 
@@ -54,6 +54,8 @@ export async function initializeMruIndexDB() {
 
     subscribe(appSettings.appUi.mru, () => {
         const snap = snapshot(appSettings.appUi.mru); // we loose handle type here and as result cannot restore handle from indexedDB
+
+        //TODO: unless we use array of refs, i.e. non reactive items
 
         console.log('appSettings.appUi.mru', snap);
         set('pmat25-mru-web', snap.folders);
