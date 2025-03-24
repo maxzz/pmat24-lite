@@ -2,12 +2,6 @@ import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { appSettings } from "../../9-ui-state/0-local-storage-app";
-import { b } from "vite/dist/node/moduleRunnerTransport.d-CXw_Ws6P";
-
-//TODO: MRU list
-// https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
-//      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
-//          https://github.com/jakearchibald/idb-keyval
 
 export function addToDirsMru(folder: PmatFolder) {
     try {
@@ -22,14 +16,20 @@ function printRootDir(folder: PmatFolder) {
     console.log('%c setRootDir ', 'background-color: magenta; color: white', folder);
 }
 
+/**
+ * MRU list
+ * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
+ *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+ *          https://github.com/jakearchibald/idb-keyval
+ */
 async function asyncAddToDirsList(folder: PmatFolder, isWin: boolean = false) {
-    if (!isWin) {
+    if (isWin) {
+        updateMruList(appSettings.appUi.mru.win, folder);
+    } else {
         let items = await get<PmatFolder[]>('pmat25-mru-web') || [];
         if(updateMruList(items, folder)) {
             set('pmat25-mru-web', items);
         }
-    } else {
-        updateMruList(appSettings.appUi.mru.win, folder);
     }
 }
 
