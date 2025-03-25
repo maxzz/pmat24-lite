@@ -17,7 +17,7 @@ const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; /
 export function Row3FnameParts({ fname, fpath, large }: ParsedFnameParams) {
     const { container, sm, xs, lg: large1, l2: large2 } = partClasses;
 
-    const location = `Folder: ${fpath.length > 40 ? `${fpath.substring(0, 40)}...` : fpath}`;
+    const location = `Folder: ${fpath}`;
 
     const matchToParts = (fname || '').match(reFilenameMatch);
     if (!matchToParts) {
@@ -44,6 +44,9 @@ export function Row3FnameParts({ fname, fpath, large }: ParsedFnameParams) {
     );
 }
 
-//TODO: add tooltip with filename path
+//TODO: add tooltip with filename path - done
+    // const location = `Folder: ${fpath.length > 40 ? `${fpath.substring(0, 40)}...` : fpath}`; 
+    // TODO: add shorten path like 'name/.../last-part' for electron
+    
 //TODO: add button copy filename (with or without path) to clipboard
 //TODO: reveal filename in explorer
