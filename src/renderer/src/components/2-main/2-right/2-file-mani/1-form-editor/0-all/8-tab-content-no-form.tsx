@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/7-nun-dlg-w-screenshots/8-create-ui";
 
-export function NoFormTabContent({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
+export function TabContentNoForm({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
     const isCpass = formType === FormIdx.cpass;
     const label = !isCpass
