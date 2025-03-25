@@ -1,11 +1,11 @@
 import { type ComponentPropsWithoutRef } from "react";
+import { useAtomValue } from "jotai";
 import { type FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type MFormAtoms, type MFormContextProps, type NFormAtoms, type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
-import { NormalFormTabContent } from "./2-all-normal-tab-content";
-import { NoFormTabContent } from "./8-no-form-tab-content";
-import { useAtomValue } from "jotai";
-import { ManualFormTabContent } from "./3-all-manual-tab-content";
+import { NormalFormTabContent } from "./2-tab-content-normal";
+import { ManualFormTabContent } from "./3-tab-content-manual";
+import { NoFormTabContent } from "./8-tab-content-no-form";
 
 export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: FileUs; formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
