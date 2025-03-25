@@ -5,7 +5,7 @@ import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithF
 import { electronGetPaths, invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
-import { setRootDir } from "../../0-files-atom";
+import { PmatFolder, setRootDir } from "../../0-files-atom";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -160,6 +160,14 @@ export async function createFileContents_From_Main(files: File[]): Promise<FileC
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+        setRootFromMainFileContents(rv);
+        return rv;
+    }
+}
+
+export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<FileContent[] | undefined> {
+    if (folder.rpath) {
+        const rv: FileContent[] = await invokeLoadFiles([folder.rpath], pmAllowedToOpenExt);
         setRootFromMainFileContents(rv);
         return rv;
     }

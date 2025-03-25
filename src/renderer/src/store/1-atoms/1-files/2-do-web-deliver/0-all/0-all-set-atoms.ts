@@ -5,7 +5,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type OpenModernHandlesDlgResult, openModernHandlesDlg } from "@/store/store-utils";
 import { type PmatFolder, setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
-import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
+import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-create-web-file-contents";
 
 // handle files drop for web and electron environments
 
@@ -79,9 +79,20 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     }
 );
 
-export const doSetFilesFrom_MruItem_Atom = atom(
+export const doSetFilesFrom_MruFolder_Atom = atom(
     null,
     async (get, set, { folder }: { folder: PmatFolder; }) => {
+        console.log('doSetFilesFrom_MruFolder_Atom', folder);
+
+        if (folder.fromMain) {
+            setRootDir(folder);
+
+            const fileContents = await createFileContents_FromMru_Main(folder);
+            if (fileContents) {
+                set(doSetDeliveredFilesAtom, fileContents);
+            }
+        } else {
+        }
         
         // const fileContents = await createFileContents_From_Main([await getFileFromPath(fpath)]);
         // if (fileContents) {

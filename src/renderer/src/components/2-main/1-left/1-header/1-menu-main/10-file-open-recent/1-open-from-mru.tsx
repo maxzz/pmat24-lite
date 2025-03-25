@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { filenameWithoutPath } from "@/utils";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/ui/shadcn/dropdown-menu";
-import { type PmatFolder, appSettings, doSetFilesFrom_MruItem_Atom } from "@/store";
+import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -40,9 +40,9 @@ export function MenuItem_OpenRecent() {
 
 function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.rpath);
-    const doSetFilesFrom_MruItem = useSetAtom(doSetFilesFrom_MruItem_Atom);
+    const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <DropdownMenuItem title={folder.rpath} onClick={() => doSetFilesFrom_MruItem({ folder })}>
+        <DropdownMenuItem title={folder.rpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             {short}
         </DropdownMenuItem>
     );
