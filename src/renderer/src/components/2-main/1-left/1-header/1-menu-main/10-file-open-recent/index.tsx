@@ -1,1 +1,1 @@
-export * from "./2-open-from-mru";
+export * from "./1-open-from-mru";
