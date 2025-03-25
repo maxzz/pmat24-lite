@@ -1,8 +1,8 @@
+import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { filenameWithoutPath } from "@/utils";
-import { appSettings } from "@/store";
-import { notImplYet } from "@/ui";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/ui/shadcn/dropdown-menu";
+import { type PmatFolder, appSettings, doSetFilesFrom_MruItem_Atom } from "@/store";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -24,7 +24,7 @@ export function MenuItem_OpenRecent() {
                         : (<>
                             {folders.map(
                                 (folder, idx) => (
-                                    <MenuItem_MruItem fpath={folder.rpath} key={idx} />
+                                    <MenuItem_MruItem folder={folder} key={idx} />
                                 )
                             )}
                             <DropdownMenuSeparator />
@@ -38,10 +38,11 @@ export function MenuItem_OpenRecent() {
     );
 }
 
-function MenuItem_MruItem({ fpath }: { fpath: string; }) {
-    const short = filenameWithoutPath(fpath);
+function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
+    const short = filenameWithoutPath(folder.rpath);
+    const doSetFilesFrom_MruItem = useSetAtom(doSetFilesFrom_MruItem_Atom);
     return (
-        <DropdownMenuItem {...notImplYet} title={fpath}>
+        <DropdownMenuItem title={folder.rpath} onClick={() => doSetFilesFrom_MruItem({ folder })}>
             {short}
         </DropdownMenuItem>
     );

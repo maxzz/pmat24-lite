@@ -1,8 +1,9 @@
 import { atom } from "jotai";
+import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 import { type OpenModernHandlesDlgResult, openModernHandlesDlg } from "@/store/store-utils";
-import { setRootDir } from "../../0-files-atom";
+import { type PmatFolder, setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main } from "./1-create-web-file-contents";
 
@@ -73,11 +74,25 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
                 }
             }
         } catch (error) {
+            !errorToString(error).includes('user aborted') && console.error(error);
         }
     }
 );
 
+export const doSetFilesFrom_MruItem_Atom = atom(
+    null,
+    async (get, set, { folder }: { folder: PmatFolder; }) => {
+        
+        // const fileContents = await createFileContents_From_Main([await getFileFromPath(fpath)]);
+        // if (fileContents) {
+        //     set(doSetDeliveredFilesAtom, fileContents);
+        // }
+    }
+);
+
+//
+
 function printFiles(files: File[]) {
-    console.log('%cdoSetFilesFromModernDialogAtom', 'color: magenta');
+    console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
     files.forEach((f) => console.log(' ', f));
 }

@@ -13,7 +13,6 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     if (isFirefoxEntries) {
         const files: FileWithPath[] = await getFilesFromDataTransferItems(dataTransferItems);
         // printEntryFiles(files);
-        // console.log('Firefox entries detected');
 
         rv = files.map(
             (file) => new WebFsItem({
@@ -41,7 +40,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 }
 
 function printEntryFiles(handles: FileWithPath[]) {
-    console.log('%cEntryFiles:', 'color: saddlebrown');
+    console.log('%cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
