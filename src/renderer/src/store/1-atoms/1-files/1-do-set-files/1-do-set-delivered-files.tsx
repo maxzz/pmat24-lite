@@ -133,7 +133,7 @@ function sortFileUsItemsInPlace(items: FileUs[]) {
     items.forEach(
         (fileUs, idx) => fileUs.fileCnt.idx = idx
     );
-    //console.log('sortedFileUsItems', JSON.stringify(items.map((item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`), null, 2));
+    //printSorted(items);
 }
 
 function printDelivered(deliveredFileContents: FileContent[]) {
@@ -144,6 +144,13 @@ function printDelivered(deliveredFileContents: FileContent[]) {
             console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fileContent: fc });
         }
     );
+}
+
+function printSorted(items: FileUs[]) {
+    console.log('sortedFileUsItems',
+        JSON.stringify(items.map(
+            (item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`
+        ), null, 2));
 }
 
 function showUnsupportedFilesMsg(unsupported: FileUs[]) {
