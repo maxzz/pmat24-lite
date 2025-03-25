@@ -5,8 +5,8 @@ import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenDlgNewManiSawAtom } from "@/store";
 import { DialogBottemButtons } from "./2-dlg-bottom-buttons";
-import { ButtonSourceCode } from "../../2-dlg-w-screenshots/8-create-ui";
-import { ContentEditorSelector } from "../../7-mani-content-editor";
+import { ContentEditorSelector } from "../../2-mani-content-editor";
+import { ButtonSourceCode } from "../../7-nun-dlg-w-screenshots/8-create-ui";
 
 export function DialogSawBody() {
 

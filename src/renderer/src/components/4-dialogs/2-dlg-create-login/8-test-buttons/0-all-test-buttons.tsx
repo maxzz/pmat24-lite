@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
 import { debugSettings } from "@/store";
 import { Checkbox } from "@/ui";
-import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
+import { doUpdateHwndAndIconAtom } from "../1-dlg-w-saw/0-ctx";
 import { RowHwns } from "./1-row-hwnds";
 import { RowScreenshots } from "./2-row-screenshots";
 import { RowManiContent } from "./3-row-manis";

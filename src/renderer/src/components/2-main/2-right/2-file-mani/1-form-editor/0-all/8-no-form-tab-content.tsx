@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/2-dlg-w-screenshots/8-create-ui";
+import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/7-nun-dlg-w-screenshots/8-create-ui";
 
 export function NoFormTabContent({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 

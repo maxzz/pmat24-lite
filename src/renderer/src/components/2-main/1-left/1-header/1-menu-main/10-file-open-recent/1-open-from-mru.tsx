@@ -18,7 +18,7 @@ export function MenuItem_OpenRecent() {
                     {!folders.length
                         ? (
                             <DropdownMenuItem>
-                                No recent folders
+                                No recently opened folders
                             </DropdownMenuItem>
                         )
                         : (<>
@@ -39,10 +39,10 @@ export function MenuItem_OpenRecent() {
 }
 
 function MenuItem_MruItem({ fpath }: { fpath: string; }) {
-    const name = filenameWithoutPath(fpath);
+    const short = filenameWithoutPath(fpath);
     return (
         <DropdownMenuItem {...notImplYet} title={fpath}>
-            {name}
+            {short}
         </DropdownMenuItem>
     );
 }

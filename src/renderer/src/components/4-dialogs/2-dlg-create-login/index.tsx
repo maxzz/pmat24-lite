@@ -1,4 +1,4 @@
 export * from "./0-ctx-new-mani";
-export * from "./1-dlg-w-apps-list";
-export * from "./2-dlg-w-screenshots";
-export * from "./3-dlg-w-saw";
+export * from "./1-dlg-w-saw";
+export * from "./7-nun-dlg-w-screenshots";
+export * from "./8-nun-dlg-w-apps-list";

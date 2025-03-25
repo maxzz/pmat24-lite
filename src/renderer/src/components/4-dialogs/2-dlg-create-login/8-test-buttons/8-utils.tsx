@@ -1,12 +1,5 @@
-import { type ComponentPropsWithoutRef } from "react";
-import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { classNames, doDissmissNextToastsAtom } from "@/utils";
-import { appSettings, debugSettings } from "@/store";
-import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/ui";
-import { defaultScreenshotWidth, doSetScreenshotsAtom, testHwnd, TestHwndEnum, testMani, testScreen, type TestManiEnum, type TestScreenEnum } from "@/store/7-napi-atoms";
-import { doUpdateHwndAndIconAtom } from "../3-dlg-w-saw/0-ctx";
-// import { doLoadFakeManiAtom } from "@/store/7-napi-atoms";
+import { appSettings } from "@/store";
 
 export function DelayInput({ keyName }: { keyName: SettingsKey; }) {
     const value = useSnapshot(appSettings.appUi.uiAdvanced)[keyName];
