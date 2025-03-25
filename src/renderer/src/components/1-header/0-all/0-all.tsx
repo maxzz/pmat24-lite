@@ -6,6 +6,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
 import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
 import { TestCreateWithSaw } from "./7-3-create-mani-w-saw";
+import { TestCloseFolder } from "./7-4-close-folder";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
 // import { TestPolicyIcons } from "./8-3-test-policy-icons";
 
@@ -22,12 +23,14 @@ export function SectionHeader() {
                 {/* <TopMainDropdownMenu /> */}
 
                 <TestCreateManiWithAppsList />
-                <TestCreateWithSaw />
+                <TestCreateWithSnapshots />
 
-                <TestOpenFiles />
                 <TestOpenFieldCatalog />
 
-                <TestCreateWithSnapshots />
+                <TestOpenFiles />
+                <TestCloseFolder />
+
+                <TestCreateWithSaw />
 
                 {/* <TestPolicyIcons /> */}
             </div>
