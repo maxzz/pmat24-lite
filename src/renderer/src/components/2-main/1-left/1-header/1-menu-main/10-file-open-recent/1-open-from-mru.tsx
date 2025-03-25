@@ -9,7 +9,7 @@ export function MenuItem_OpenRecent() {
     return (
         <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-                Open Resent
+                Open Recent
             </DropdownMenuSubTrigger>
 
             <DropdownMenuPortal>
