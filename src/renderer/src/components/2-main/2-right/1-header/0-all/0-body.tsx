@@ -43,7 +43,7 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
                 <Row2Explanation fileUs={fileUs} />
             </div>
 
-            <Row3FnameParts fname={fileUs.fileCnt.fname} />
+            <Row3FnameParts fname={fileUs.fileCnt.fname} fpath={fileUs.fileCnt.fpath} />
         </div>
 
         <div className=" absolute right-0 top-0.5 flex items-center gap-2">

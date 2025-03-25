@@ -185,3 +185,6 @@ function showUnsupportedFilesMsg(unsupported: FileUs[]) {
 //03.21.25
 //TODO: add 'super debug options' option
 //TODO: add check for single field logins
+
+//03.24.25
+//TODO: test open multiple folders DND from electron

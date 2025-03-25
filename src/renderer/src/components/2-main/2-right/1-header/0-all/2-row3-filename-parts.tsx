@@ -1,5 +1,6 @@
 type ParsedFnameParams = {
     fname: string;
+    fpath: string;
     large?: boolean;
 };
 
@@ -13,14 +14,16 @@ const partClasses = {
 
 const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; //TODO: handle '{guid} + extra.dpm' filenames
 
-export function Row3FnameParts({ fname, large }: ParsedFnameParams) {
+export function Row3FnameParts({ fname, fpath, large }: ParsedFnameParams) {
     const { container, sm, xs, lg: large1, l2: large2 } = partClasses;
+
+    const location = `Folder: ${fpath.length > 40 ? `${fpath.substring(0, 40)}...` : fpath}`;
 
     const matchToParts = (fname || '').match(reFilenameMatch);
     if (!matchToParts) {
         return (
             <div className={container}>
-                <span className={sm}>
+                <span className={sm} title={location}>
                     {fname}
                 </span>
             </div>
@@ -30,7 +33,7 @@ export function Row3FnameParts({ fname, large }: ParsedFnameParams) {
     const lg = large ? large2 : large1;
 
     return (
-        <div className={container}>
+        <div className={container} title={location}>
             Filename:{' '}
             <span className={xs}>{'{'}</span>
             <span className={lg}>{matchToParts[1]}</span>
