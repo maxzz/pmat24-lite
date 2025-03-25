@@ -32,7 +32,9 @@ export function SectionHeader() {
 
                 <TestCreateWithSaw />
 
-                {/* <TestPolicyIcons /> */}
+                {/* <div className="w-full flex items-center gap-2">
+                    <TestPolicyIcons />
+                </div> */}
             </div>
 
             <ThemeSwitch />

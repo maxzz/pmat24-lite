@@ -9,6 +9,7 @@ import {
     MenuItem_FileExit,
 } from "../11-files";
 
+import { MenuItem_OpenRecent } from "../10-file-open-recent";
 import { MenuItem_Options } from "../20-options";
 import { MenuItem_FilterFiles } from "../1-filter-files";
 import { MenuItem_CloseFolder } from "../2-close-folder";
@@ -18,7 +19,8 @@ import { MenuItem_CloseFolder } from "../2-close-folder";
 export function FilesMainMenuBody() {
     return (<>
         <MenuItems_OpenFiles />
-        <MenuItem_CloseFolder />
+        {/* <MenuItem_CloseFolder /> */}
+        <MenuItem_OpenRecent />
         
         <DropdownMenuSeparator />
         <MenuItem_CreateMani />
