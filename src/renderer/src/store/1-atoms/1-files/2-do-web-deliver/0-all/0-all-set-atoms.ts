@@ -82,9 +82,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
 
 export const doSetFilesFrom_MruFolder_Atom = atom(
     null,
-    async (get, set, { folder }: { folder: PmatFolder; }) => {
-        console.log('doSetFilesFrom_MruFolder_Atom', folder);
-
+    async (get, set, { folder }: { folder: PmatFolder; }): Promise<void> => {
         if (hasMain() && folder.fromMain) {
             const fileContents = await createFileContents_FromMru_Main(folder);
             if (fileContents) {
@@ -92,11 +90,6 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
             }
         } else {
             try {
-                if (!folder.handle) {
-                    console.error('Mru folder has no handle', folder);
-                    return;
-                }
-
                 if (!verifyPermission({ handle: folder.handle, readWrite: true })) {
                     console.error('Mru folder handle permission denied', folder);
                     return;
@@ -113,7 +106,6 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 return;
             }
         }
-
         setRootDir(folder);
     }
 );
@@ -124,7 +116,12 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
  * @param readWrite - Whether to check for read and write permissions.
  * @returns - A promise that resolves to true if the user has granted permission, or false otherwise.
  */
-/*TODO: export*/ async function verifyPermission({ handle, readWrite }: { handle: FileSystemHandle; readWrite: boolean; }): Promise<boolean> {
+/*TODO: export*/ async function verifyPermission({ handle, readWrite }: { handle: FileSystemHandle | undefined; readWrite: boolean; }): Promise<boolean> {
+    if (!handle) {
+        console.error('handle is undefined');
+        return false;
+    }
+
     const options: FileSystemHandlePermissionDescriptor = {};
     if (readWrite) {
         options.mode = 'readwrite';
