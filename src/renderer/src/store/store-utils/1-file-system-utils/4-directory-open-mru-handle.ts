@@ -1,6 +1,6 @@
 import { directoryOpen, FileWithDirectoryAndFileHandle } from "browser-fs-access";
 
-export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, options: Partial<DirectoryOpenOptions> = {}) {
+export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, options: Partial<DirectoryOpenOptions> = {}): Promise<(FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]> {
     options.recursive = options.recursive || false;
     options.mode = options.mode || 'read';
 
@@ -50,9 +50,8 @@ async function getFilesRecurcively(
                 )
             );
         } else if (entry.kind === 'directory' && recursive && (!skipDirectory || !skipDirectory(entry))) {
-            const a = getFilesRecurcively(entry, recursive, nestedPath, skipDirectory);
             dirs.push(
-                a
+                getFilesRecurcively(entry, recursive, nestedPath, skipDirectory)
             );
         }
     }
