@@ -98,8 +98,13 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 return;
             }
             try {
-                folder.handle.queryPermission({ mode: 'readwrite' });
-                
+                if (await folder.handle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
+                    if ((await folder.handle.requestPermission({ mode: 'readwrite' })) !== 'granted') {
+                        console.error('Mru folder handle permission is not granted', folder);
+                        return;
+                    }
+                }
+
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
 
                 let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
