@@ -98,8 +98,9 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 return;
             }
             try {
-                if (await folder.handle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
-                    if ((await folder.handle.requestPermission({ mode: 'readwrite' })) !== 'granted') {
+                const options: FileSystemHandlePermissionDescriptor = { mode: 'readwrite' };
+                if (await folder.handle.queryPermission(options) !== 'granted') {
+                    if ((await folder.handle.requestPermission(options)) !== 'granted') {
                         console.error('Mru folder handle permission is not granted', folder);
                         return;
                     }
