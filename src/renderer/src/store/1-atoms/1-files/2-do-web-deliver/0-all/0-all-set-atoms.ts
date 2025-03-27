@@ -93,15 +93,16 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 set(doSetDeliveredFilesAtom, fileContents);
             }
         } else {
-            if (!folder.handle) {
-                console.error('Mru folder has no handle', folder);
-                return;
-            }
             try {
+                if (!folder.handle) {
+                    console.error('Mru folder has no handle', folder);
+                    return;
+                }
+    
                 const options: FileSystemHandlePermissionDescriptor = { mode: 'readwrite' };
                 if (await folder.handle.queryPermission(options) !== 'granted') {
                     if ((await folder.handle.requestPermission(options)) !== 'granted') {
-                        console.error('Mru folder handle permission is not granted', folder);
+                        console.error('Mru folder handle permission denied', folder);
                         return;
                     }
                 }
