@@ -2,10 +2,11 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
-import { type OpenModernHandlesDlgResult, openModernHandlesDlg } from "@/store/store-utils";
+import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg } from "@/store/store-utils";
 import { type PmatFolder, setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-create-web-file-contents";
+import { snapshot } from "valtio";
 
 // handle files drop for web and electron environments
 
@@ -92,12 +93,22 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 set(doSetDeliveredFilesAtom, fileContents);
             }
         } else {
+            if (!folder.handle) {
+                console.error('Mru folder has no handle', folder);
+                return;
+            }
+            const snapFolder = snapshot(folder) as PmatFolder;
+
+            setRootDir(snapFolder);
+
+            const files = filerDirectoryHandles(await openDirectoryHandle(snapFolder.handle as FileSystemDirectoryHandle, { recursive: true }));
+
+            let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+            if (filesCnt) {
+                set(doSetDeliveredFilesAtom, filesCnt);
+            }
         }
-        
-        // const fileContents = await createFileContents_From_Main([await getFileFromPath(fpath)]);
-        // if (fileContents) {
-        //     set(doSetDeliveredFilesAtom, fileContents);
-        // }
+       
     }
 );
 
