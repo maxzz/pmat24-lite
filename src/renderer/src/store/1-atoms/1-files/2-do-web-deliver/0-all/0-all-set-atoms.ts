@@ -85,7 +85,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
     async (get, set, { folder }: { folder: PmatFolder; }) => {
         console.log('doSetFilesFrom_MruFolder_Atom', folder);
 
-        if (folder.fromMain) {
+        if (hasMain() && folder.fromMain) {
             setRootDir(folder);
 
             const fileContents = await createFileContents_FromMru_Main(folder);
@@ -97,16 +97,23 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 console.error('Mru folder has no handle', folder);
                 return;
             }
-            setRootDir(folder);
+            try {
+                folder.handle.queryPermission({ mode: 'readwrite' });
+                
+                const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
 
-            const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
+                let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+                if (filesCnt) {
+                    set(doSetDeliveredFilesAtom, filesCnt);
+                }
 
-            let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-            if (filesCnt) {
-                set(doSetDeliveredFilesAtom, filesCnt);
+                setRootDir(folder);
+            } catch (error) {
+                console.error('Mru folder handle is invalid', folder);
+                return;
             }
         }
-       
+
     }
 );
 
