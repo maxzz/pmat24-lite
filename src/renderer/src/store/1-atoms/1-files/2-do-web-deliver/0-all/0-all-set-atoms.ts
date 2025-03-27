@@ -2,11 +2,10 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
-import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg } from "@/store/store-utils";
+import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, verifyPermission } from "@/store/store-utils";
 import { type PmatFolder, setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-create-web-file-contents";
-import { snapshot } from "valtio";
 
 // handle files drop for web and electron environments
 
@@ -90,6 +89,11 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
             }
         } else {
             try {
+                if (!folder.handle) {
+                    console.error('handle is undefined');
+                    return;
+                }
+
                 if (!verifyPermission({ handle: folder.handle, readWrite: true })) {
                     console.error('Mru folder handle permission denied', folder);
                     return;
@@ -109,37 +113,6 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         setRootDir(folder);
     }
 );
-
-/**
- * Verify that the user has granted permission to read and write to the file.
- * @param handle - The file or directory handle to verify.
- * @param readWrite - Whether to check for read and write permissions.
- * @returns - A promise that resolves to true if the user has granted permission, or false otherwise.
- */
-/*TODO: export*/ async function verifyPermission({ handle, readWrite }: { handle: FileSystemHandle | undefined; readWrite: boolean; }): Promise<boolean> {
-    if (!handle) {
-        console.error('handle is undefined');
-        return false;
-    }
-
-    const options: FileSystemHandlePermissionDescriptor = {};
-    if (readWrite) {
-        options.mode = 'readwrite';
-    }
-
-    // Check if permission was already granted. If so, return true.
-    if ((await handle.queryPermission(options)) === 'granted') {
-        return true;
-    }
-
-    // Request permission. If the user grants permission, return true.
-    if ((await handle.requestPermission(options)) === 'granted') {
-        return true;
-    }
-
-    // The user didn't grant permission, so return false.
-    return false;
-}
 
 //TODO: somehow 'ccopies-from-here' is not working first time and shows 'Opening multiple files or folders is not allowed. Drag and drop one folder.' and on second time OK.
 
