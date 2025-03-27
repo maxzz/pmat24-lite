@@ -97,11 +97,9 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 console.error('Mru folder has no handle', folder);
                 return;
             }
-            const snapFolder = snapshot(folder) as PmatFolder;
+            setRootDir(folder);
 
-            setRootDir(snapFolder);
-
-            const files = filerDirectoryHandles(await openDirectoryHandle(snapFolder.handle as FileSystemDirectoryHandle, { recursive: true }));
+            const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
 
             let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
             if (filesCnt) {
