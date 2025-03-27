@@ -1,16 +1,4 @@
-/*
-export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
-    return handle.kind === 'file';
-}
-
-export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
-    return handle.kind === 'directory';
-}
-*/
-
-/**
- * Entry type helpers --------------------------------------------------------------
- */
+// Entry API type helpers
 
 /**
  * Doing some type narrowing here. Maybe if the spec had a .kind
@@ -32,3 +20,15 @@ export function isEntryDirectory(input: FileSystemEntry): input is FileSystemDir
 export function isFsSupported(obj: any & Window): boolean {
     return typeof obj?.showDirectoryPicker === 'function';
 }
+
+// Modern API types
+
+/*
+export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
+    return handle.kind === 'file';
+}
+
+export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
+    return handle.kind === 'directory';
+}
+*/
