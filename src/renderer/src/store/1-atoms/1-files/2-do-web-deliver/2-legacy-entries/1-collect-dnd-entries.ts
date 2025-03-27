@@ -26,12 +26,6 @@ export async function getFilesFromDataTransferItems(dtFileItems: DataTransferIte
     return rv;
 }
 
-async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithPath> {
-    const file = await getFilePromisify(entry) as FileWithPath;
-    file.path = path;
-    return file;
-}
-
 async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGenerator<[string, FileWithPath], void, unknown> {
 
     let entries: FileSystemEntry[] = [];
@@ -54,4 +48,10 @@ async function* getEntriesRecursively(folder: FileSystemDirectoryEntry): AsyncGe
             }
         }
     }
+}
+
+async function getFileAccess(entry: FileSystemFileEntry, path: string): Promise<FileWithPath> {
+    const file = await getFilePromisify(entry) as FileWithPath;
+    file.path = path;
+    return file;
 }
