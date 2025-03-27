@@ -14,12 +14,12 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<OpenM
         const res: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[] =
             await directoryOpen({ recursive: true, mode: 'readwrite' });
 
-        if (isFileSystemDirectoryHandles(res)) {                // This is a folder with no files, so we will return an empty array
+        if (isFileSystemDirectoryHandles(res)) {    // This is a folder with no files, so array is single FileWithDirectoryAndFileHandle item
             return {
                 files: [],
                 root: { rpath: res[0].name, handle: res[0] },
             };
-        } else {                                                // Find the root folder handle
+        } else {                                    // Find the root folder handle
             const files: FileWithDirectoryAndFileHandle[] = res;
             const shortest = findShortestPathModern(files);
             return {
@@ -28,7 +28,7 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<OpenM
             };
         }
 
-    } else {                                                    // This will return files without dir handles only and skip folders.
+    } else {                                        // This will return files without dir handles only and skip folders.
         let files: FileWithHandle[] = await fileOpen({ multiple: true });
         return {
             files,
