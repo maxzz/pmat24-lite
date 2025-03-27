@@ -97,12 +97,9 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                     return;
                 }
 
-                const options: FileSystemHandlePermissionDescriptor = { mode: 'readwrite' };
-                if (await folder.handle.queryPermission(options) !== 'granted') {
-                    if ((await folder.handle.requestPermission(options)) !== 'granted') {
-                        console.error('Mru folder handle permission denied', folder);
-                        return;
-                    }
+                if (!verifyPermission({ handle: folder.handle, readWrite: true })) {
+                    console.error('Mru folder handle permission denied', folder);
+                    return;
                 }
 
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
@@ -127,7 +124,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
  * @param readWrite - Whether to check for read and write permissions.
  * @returns - A promise that resolves to true if the user has granted permission, or false otherwise.
  */
-/*TODO: export*/ async function verifyPermission(handle: FileSystemFileHandle, readWrite: boolean): Promise<boolean> {
+/*TODO: export*/ async function verifyPermission({ handle, readWrite }: { handle: FileSystemHandle; readWrite: boolean; }): Promise<boolean> {
     const options: FileSystemHandlePermissionDescriptor = {};
     if (readWrite) {
         options.mode = 'readwrite';
