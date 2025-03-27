@@ -1,5 +1,28 @@
 import { directoryOpen, FileWithDirectoryAndFileHandle } from "browser-fs-access";
 
+export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, options: Partial<DirectoryOpenOptions> = {}) {
+    options.recursive = options.recursive || false;
+    options.mode = options.mode || 'read';
+
+    // If the directory is empty, return an array with the handle.
+    if ((await (await handle.values()).next()).done) {
+        return [handle];
+    }
+    // Else, return an array of File objects.
+    return getFilesRecurcively(handle, options.recursive, undefined, options.skipDirectory);
+}
+
+//https://github.com/GoogleChromeLabs/browser-fs-access/blob/main/src/fs-access/directory-open.mjs
+type DirectoryOpenOptions = Parameters<typeof directoryOpen>[0];
+type SkipDirectory = (entry: FileSystemDirectoryEntry | FileSystemDirectoryHandle) => boolean; 
+
+// type SkipDirectory = DirectoryOpenOptions['skipDirectory']; //somehow not working?
+// type SkipDirectory2 = DirectoryOpenOptions["recursive"]; //somehow not working?
+// type aa = {
+//     bb?: boolean
+// }
+// type cc = aa['bb']; // OK
+
 async function getFilesRecurcively(
     dirHandle: FileSystemDirectoryHandle,
     recursive: boolean,
@@ -39,40 +62,3 @@ async function getFilesRecurcively(
         ...(await Promise.all(files))
     ];
 }
-
-// /**
-//  * https://github.com/GoogleChromeLabs/browser-fs-access/blob/main/src/fs-access/directory-open.mjs
-//  * Opens a directory from disk using the File System Access API.
-//  * @type { typeof import("../index").directoryOpen }
-//  */
-// export default async (options = {}) => {
-//     options.recursive = options.recursive || false;
-//     options.mode = options.mode || 'read';
-//     const handle = await window.showDirectoryPicker({
-//         id: options.id,
-//         startIn: options.startIn,
-//         mode: options.mode,
-//     });
-//     // If the directory is empty, return an array with the handle.
-//     if ((await (await handle.values()).next()).done) {
-//         return [handle];
-//     }
-//     // Else, return an array of File objects.
-//     return getFiles(handle, options.recursive, undefined, options.skipDirectory);
-// };
-
-type DirectoryOpenOptions = Parameters<typeof directoryOpen>[0];
-// type SkipDirectory = DirectoryOpenOptions['skipDirectory'];
-type SkipDirectory = (entry: FileSystemDirectoryEntry | FileSystemDirectoryHandle) => boolean;
-
-export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, options: Partial<DirectoryOpenOptions> = {}) {
-    options.recursive = options.recursive || false;
-    options.mode = options.mode || 'read';
-
-    // If the directory is empty, return an array with the handle.
-    if ((await (await handle.values()).next()).done) {
-        return [handle];
-    }
-    // Else, return an array of File objects.
-    return getFilesRecurcively(handle, options.recursive, undefined, options.skipDirectory);
-};
