@@ -177,8 +177,12 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
  * fpath with slash is a subfolder item, so we skip any subfolder items to find the root folder.
  */
 function getSingleFolderHandle(items: DropItem[]) {
-    const parents = new Set(items.map((item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.parent : undefined).filter(Boolean));
-    const parentHandle = parents.size === 1 ? parents.values().next().value || undefined : undefined;
+    const parentsSet = new Set(
+        items.map(
+            (item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.parent : undefined
+        ).filter(Boolean)
+    );
+    const parentHandle = parentsSet.size === 1 ? parentsSet.values().next().value || undefined : undefined;
     return parentHandle;
 }
 

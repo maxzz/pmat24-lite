@@ -13,11 +13,11 @@ export const doFromMainAtom = atom(
             // load files
 
             case 'm2r:loaded-files': {
-                const rv = data.filesCnt.map(finalizeFileContent);
+                const deliveredFileContents = data.filesCnt.map(finalizeFileContent);
 
                 //console.log('entryRoot75: 6 result from call to main from loadManifestsDialog() with sendToMain()');
 
-                set(doSetDeliveredFilesAtom, { deliveredFileContents: rv, root: getRootFromMainFileContents(rv) });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: getRootFromMainFileContents(deliveredFileContents) });
                 break;
             }
 
