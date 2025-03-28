@@ -4,7 +4,7 @@
  * @param readWrite - Whether to check for read and write permissions.
  * @returns - A promise that resolves to true if the user has granted permission, or false otherwise.
  */
-/*TODO: export*/ export async function verifyPermission({ handle, readWrite }: { handle: FileSystemHandle; readWrite: boolean; }): Promise<boolean> {
+/*TODO: export*/ export async function asyncVerifyPermission({ handle, readWrite }: { handle: FileSystemHandle; readWrite: boolean; }): Promise<boolean> {
     const options: FileSystemHandlePermissionDescriptor = {};
     if (readWrite) {
         options.mode = 'readwrite';

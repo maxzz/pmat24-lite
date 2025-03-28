@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
-import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, verifyPermission } from "@/store/store-utils";
+import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, asyncVerifyPermission } from "@/store/store-utils";
 import { type PmatFolder, setRootDir } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-create-web-file-contents";
@@ -94,7 +94,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                     return;
                 }
 
-                if (!verifyPermission({ handle: folder.handle, readWrite: true })) {
+                if (!await asyncVerifyPermission({ handle: folder.handle, readWrite: true })) {
                     console.error('Mru folder handle permission denied', folder);
                     return;
                 }
