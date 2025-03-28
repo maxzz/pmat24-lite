@@ -13,7 +13,14 @@ export const rootDir: PmatFolder = proxy<PmatFolder>({
 
 // All entry points after operations for web and electron: file open; folder open; dnd files; dnd folder 
 
-export function setRootDir(folder: PmatFolder): void {
+export function setRootDir(folder: PmatFolder | undefined): void {
+    if (!folder) {
+        rootDir.rpath = '';
+        rootDir.handle = undefined;
+        rootDir.fromMain = false;
+        return;
+    }
+
     const { rpath, handle, fromMain } = folder;
 
     rootDir.rpath = rpath;

@@ -85,6 +85,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         if (hasMain() && folder.fromMain) {
             const fileContents = await createFileContents_FromMru_Main(folder);
             if (fileContents) {
+                setRootDir(folder);
                 set(doSetDeliveredFilesAtom, fileContents);
             }
         } else {
@@ -103,14 +104,15 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
                 let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (filesCnt) {
+                    setRootDir(folder);
                     set(doSetDeliveredFilesAtom, filesCnt);
                 }
             } catch (error) {
                 console.error('Mru folder handle is invalid', folder);
+                setRootDir(undefined);
                 return;
             }
         }
-        setRootDir(folder);
     }
 );
 
@@ -122,5 +124,3 @@ function printFiles(files: File[]) {
     console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
     files.forEach((f) => console.log(' ', f));
 }
-
-//
