@@ -18,6 +18,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             const dropFiles: File[] = [...dataTransfer.files];
             if (dropFiles.length) {                            // avoid drop-and-drop drop without files
                 const res = await createFileContents_From_Main(dropFiles);
+
                 if (res?.deliveredFileContents?.length) {      // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
                 }
@@ -26,6 +27,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) {                // avoid drop-and-drop drop without files
                 const res = await createFileContents_WebAfterDnd(fileDataTransferItems);
+
                 if (res?.deliveredFileContents?.length) {      // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
                 }
@@ -44,18 +46,19 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
 
         if (hasMain()) {
             const res = await createFileContents_From_Main(files);
+            
             if (res?.deliveredFileContents) {
                 set(doSetDeliveredFilesAtom, res);
             }
         } else {
-            const fileContents = await createFileContents_WebAfterDlgOpen(files);
+            const deliveredFileContents = await createFileContents_WebAfterDlgOpen(files);
             const root = {
-                fpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
+                fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
                 handle: undefined,
                 fromMain: false,
             };
-            if (fileContents) {
-                set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents, root, });
+            if (deliveredFileContents) {
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, });
             }
         }
     }
@@ -69,8 +72,8 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
             printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
-                const fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents, root: { ...root, fromMain: false } });
+                const deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: { ...root, fromMain: false } });
             }
         } catch (error) {
             !errorToString(error).includes('user aborted') && console.error(error);
@@ -100,8 +103,8 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
                 printFiles(files);
 
-                let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents, root: folder });
+                let deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder });
 
             } catch (error) {
                 console.error('Mru folder handle is invalid', folder); // Don't call setRootDir(undefined); to keep already open folder or welcome screen

@@ -2,7 +2,7 @@ import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
-import { electronGetPaths, getRootFromMainFileContents, invokeLoadFiles } from "@/xternal-to-main";
+import { electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
@@ -27,19 +27,19 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     //printFnameFiles(fnames, files);
 
     if (fileAndNames.length) {
-        const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+        const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
         return {
-            deliveredFileContents: rv,
-            root: getRootFromMainFileContents(rv),
+            deliveredFileContents,
+            root: getRootFromFpath(deliveredFileContents),
         };
     }
 }
 
 export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {
     if (folder.fpath) {
-        const rv: FileContent[] = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
+        const deliveredFileContents: FileContent[] = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
         return {
-            deliveredFileContents: rv,
+            deliveredFileContents,
             root: folder,
         };
     }
