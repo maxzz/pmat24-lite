@@ -30,7 +30,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
         const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
         return {
             deliveredFileContents,
-            root: getRootFromFpath(deliveredFileContents),
+            root: getRootFromFpath({ files: deliveredFileContents, fromMain: true }),
         };
     }
 }
@@ -91,14 +91,15 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
 
-    const fileContents = await loadFilesAndCreateFileContents(dropItems);
-    const root = {
-        fpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
-        handle: getSingleFolderHandle(dropItems),
-        fromMain: false,
+    const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
+    return {
+        deliveredFileContents,
+        root: {
+            fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
+            handle: getSingleFolderHandle(dropItems),
+            fromMain: false,
+        }
     };
-
-    return { deliveredFileContents: fileContents, root };
 
     async function mapToDropItems(dndItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];

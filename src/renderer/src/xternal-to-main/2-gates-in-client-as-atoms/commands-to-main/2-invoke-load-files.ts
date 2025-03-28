@@ -30,12 +30,12 @@ export function finalizeFileContent(fileContent: MainFileContent): FileContent {
     return rv;
 }
 
-export function getRootFromFpath(files: { fpath: string; }[]): PmatFolder {
+export function getRootFromFpath({ files, fromMain }: { files: { fpath: string; }[]; fromMain: boolean; }): PmatFolder {
     const rootPath = findShortestPathInFnames(files.map((f) => f.fpath));
 
     return {
         fpath: rootPath,
         handle: undefined,
-        fromMain: true,
+        fromMain,
     };
 }
