@@ -1,4 +1,11 @@
+import { useSetAtom } from "jotai";
+import { useSnapshot } from "valtio";
+import { filenameWithoutPath } from "@/utils";
+import { Button } from "@/ui";
+import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
+
 export function RecentFilesList() {
+    const { folders } = useSnapshot(appSettings.appUi.mru);
     const hasRecent = true;
     return (<>
         {hasRecent && (
@@ -6,6 +13,13 @@ export function RecentFilesList() {
                 <div className="font-semibold">
                     Recent
                 </div>
+
+                {folders.map(
+                    (folder, idx) => (
+                        <FolderItem folder={folder} key={idx} />
+                    )
+                )}
+
                 <div className="">
                     Folder 1 (placeholder)
                 </div>
@@ -15,4 +29,16 @@ export function RecentFilesList() {
             </div>
         )}
     </>);
+}
+
+function FolderItem({ folder }: { folder: PmatFolder; }) {
+    const short = filenameWithoutPath(folder.fpath);
+    const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
+    return (
+        <div className="flex items-center gap-1">
+            <Button variant="ghost" className="text-xs" onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+                {short}
+            </Button>
+        </div>
+    );
 }
