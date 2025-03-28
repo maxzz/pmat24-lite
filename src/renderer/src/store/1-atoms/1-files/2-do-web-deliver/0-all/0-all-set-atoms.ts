@@ -64,13 +64,12 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             const { files, root }: OpenModernHandlesDlgResult = await openModernHandlesDlg(openAsFolder);
-            setRootDir({ rpath: root.rpath, handle: root.handle, fromMain: false });
-
             printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
                 let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (fileContents) {
+                    setRootDir({ ...root, fromMain: false });
                     set(doSetDeliveredFilesAtom, fileContents);
                 }
             }
