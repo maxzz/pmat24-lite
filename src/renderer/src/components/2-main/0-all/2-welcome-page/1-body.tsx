@@ -4,18 +4,18 @@ import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { appSettings, filesAtom, rootDir } from "@/store";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
-import { HIDLogoAnimation } from "./5-hid-logo-animation";
-import { DontShowNext } from "./6-dont-show-next";
+import { HIDLogoAnimation } from "./6-hid-logo-animation";
+import { DontShowNext } from "./7-nun-dont-show-next";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
-    const { fpath: rpath } = useSnapshot(rootDir);
+    const { fpath } = useSnapshot(rootDir);
 
     // const showWelcomePage = showWelcome && !files.length;
-    const showWelcomePage = showWelcome && !rpath.length;
+    const showWelcomePage = showWelcome && !fpath.length;
 
     return (
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
