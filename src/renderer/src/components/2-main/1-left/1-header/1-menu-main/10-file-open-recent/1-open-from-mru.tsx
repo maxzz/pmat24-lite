@@ -39,10 +39,10 @@ export function MenuItem_OpenRecent() {
 }
 
 function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
-    const short = filenameWithoutPath(folder.rpath);
+    const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <DropdownMenuItem title={folder.rpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+        <DropdownMenuItem title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             {short}
         </DropdownMenuItem>
     );

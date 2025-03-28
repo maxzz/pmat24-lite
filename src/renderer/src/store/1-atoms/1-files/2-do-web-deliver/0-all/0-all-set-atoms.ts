@@ -49,7 +49,11 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
             }
         } else {
             const fileContents = await createFileContents_WebAfterDlgOpen(files);
-            const root = { rpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)), handle: undefined, fromMain: false };
+            const root = {
+                fpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
+                handle: undefined,
+                fromMain: false,
+            };
             if (fileContents) {
                 set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents, root, });
             }

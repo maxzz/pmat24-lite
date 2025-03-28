@@ -36,8 +36,8 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
 }
 
 export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {
-    if (folder.rpath) {
-        const rv: FileContent[] = await invokeLoadFiles([folder.rpath], pmAllowedToOpenExt);
+    if (folder.fpath) {
+        const rv: FileContent[] = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
         return {
             deliveredFileContents: rv,
             root: folder,
@@ -93,7 +93,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
 
     const fileContents = await loadFilesAndCreateFileContents(dropItems);
     const root = {
-        rpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
+        fpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
         handle: getSingleFolderHandle(dropItems),
         fromMain: false,
     };

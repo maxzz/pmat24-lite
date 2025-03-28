@@ -25,7 +25,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 
     const newFolder = ref(folder); // We'll loose the handle type wo/ ref and as result cannot restore handle from indexedDB
 
-    const idx = items.findIndex((item) => item.rpath === newFolder.rpath);
+    const idx = items.findIndex((item) => item.fpath === newFolder.fpath);
 
     if (idx === 0) { // already in the list as first item
         const replace = newFolder.handle && !items[0].handle; // It's kind of dangerous, we relly only on the last folder name.

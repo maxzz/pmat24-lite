@@ -29,7 +29,7 @@ function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
 
     // 1. Find root field catalog
 
-    const rootPath = rootDir.rpath.toLowerCase();
+    const rootPath = rootDir.fpath.toLowerCase();
 
     let rootFc: FileUs | undefined = findRootFc(fileUsItems, rootPath);
     if (!rootFc) {

@@ -34,7 +34,7 @@ export function getRootFromMainFileContents(fileContents: FileContent[]): PmatFo
     const rootPath = findShortestPathInFnames(fileContents.map((f) => f.fpath));
 
     return {
-        rpath: rootPath,
+        fpath: rootPath,
         handle: undefined,
         fromMain: true,
     };

@@ -6,7 +6,7 @@ import { addToDirsMru } from "./3-mru-dirs";
 import { appMainTitle } from "../../9-ui-state/0-local-storage-app";
 
 export const rootDir: PmatFolder = proxy<PmatFolder>({
-    rpath: '',
+    fpath: '',
     handle: undefined,
     fromMain: false,
 });
@@ -15,29 +15,29 @@ export const rootDir: PmatFolder = proxy<PmatFolder>({
 
 export function setRootDir(folder: PmatFolder | undefined): void {
     if (!folder) {
-        rootDir.rpath = '';
+        rootDir.fpath = '';
         rootDir.handle = undefined;
         rootDir.fromMain = false;
         return;
     }
 
-    const { rpath, handle, fromMain } = folder;
+    const { fpath: rpath, handle, fromMain } = folder;
 
-    rootDir.rpath = rpath;
+    rootDir.fpath = rpath;
     rootDir.handle = handle;
     rootDir.fromMain = fromMain;
 
     if (hasMain()) {
-        appMainTitle.title = filenameWithoutPath(folder.rpath); //TODO: for multiple folders show 'multiple folders' or something else
+        appMainTitle.title = filenameWithoutPath(folder.fpath); //TODO: for multiple folders show 'multiple folders' or something else
     } else {
-        appMainTitle.title = folder.rpath;
+        appMainTitle.title = folder.fpath;
     }
     
     addToDirsMru(folder);
 }
 
 export function undefinedPmatFolder(): PmatFolder {
-    return { rpath: '', handle: undefined, fromMain: false };
+    return { fpath: '', handle: undefined, fromMain: false };
 }
 
 export function isRootDirEmpty(): boolean {
@@ -45,5 +45,5 @@ export function isRootDirEmpty(): boolean {
 }
 
 export function isPmatFolderEmpty(folder: PmatFolder): boolean {
-    return !folder.rpath || (!folder.handle && !folder.fromMain);
+    return !folder.fpath || (!folder.handle && !folder.fromMain);
 }

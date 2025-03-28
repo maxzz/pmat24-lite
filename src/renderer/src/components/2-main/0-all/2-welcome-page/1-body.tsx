@@ -12,7 +12,7 @@ export function WelcomePage() {
     const showWelcome = useSnapshot(appSettings.appUi.uiGeneral).showWelcome;
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
 
-    const { rpath } = useSnapshot(rootDir);
+    const { fpath: rpath } = useSnapshot(rootDir);
 
     // const showWelcomePage = showWelcome && !files.length;
     const showWelcomePage = showWelcome && !rpath.length;

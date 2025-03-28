@@ -13,7 +13,7 @@ import { catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms/0-al
 
 export function createFileUsForNewFc(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
-    fileCnt.fpath = rootDir.rpath;
+    fileCnt.fpath = rootDir.fpath;
     fileCnt.fname = defaultFcName;
 
     const rv: FileUs = {
