@@ -43,7 +43,7 @@ import { delay } from "@/utils";
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    async (get, set, deliveredFileContents: FileContent[] | undefined) => {
+    async (get, set, { deliveredFileContents }: { deliveredFileContents: FileContent[] | undefined; }) => {
         //printDelivered(deliveredFileContents);
 
         let clearFiles = typeof deliveredFileContents === 'undefined';

@@ -26,7 +26,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(            // used by DropItDoc onl
                     return;
                 }
 
-                set(doSetDeliveredFilesAtom, fileContents);
+                set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
             }
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
@@ -36,9 +36,9 @@ export const doSetFilesFrom_Dnd_Atom = atom(            // used by DropItDoc onl
                 if (!fileContents?.length) {                    // avoid drop-and-drop drop without files
                     return;
                 }
-        
+
                 setRootDir(root);
-                fileContents && set(doSetDeliveredFilesAtom, fileContents);
+                fileContents && set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
                 return;
             }
         }
@@ -62,7 +62,7 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
         }
 
         if (fileContents) {
-            set(doSetDeliveredFilesAtom, fileContents);
+            set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
         }
     }
 );
@@ -78,7 +78,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
                 let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (fileContents) {
                     setRootDir({ ...root, fromMain: false });
-                    set(doSetDeliveredFilesAtom, fileContents);
+                    set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
                 }
             }
         } catch (error) {
@@ -94,7 +94,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
             const fileContents = await createFileContents_FromMru_Main(folder);
             if (fileContents) {
                 setRootDir(folder);
-                set(doSetDeliveredFilesAtom, fileContents);
+                set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
             }
         } else {
             try {
@@ -113,7 +113,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (fileContents) {
                     setRootDir(folder);
-                    set(doSetDeliveredFilesAtom, fileContents);
+                    set(doSetDeliveredFilesAtom, { deliveredFileContents: fileContents });
                 }
             } catch (error) {
                 console.error('Mru folder handle is invalid', folder); // Don't call setRootDir(undefined); to keep already open folder or welcome screen

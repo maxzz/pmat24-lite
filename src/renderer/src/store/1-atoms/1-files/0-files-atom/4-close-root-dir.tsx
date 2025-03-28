@@ -5,7 +5,7 @@ import { setRootDir } from "@/store";
 export const doCloseRootDirAtom = atom(
     null,
     (get, set) => {
-        set(doSetDeliveredFilesAtom, undefined);
+        set(doSetDeliveredFilesAtom, { deliveredFileContents: undefined });
         setRootDir(undefined);
     }
 );
