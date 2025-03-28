@@ -5,7 +5,7 @@ export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, opt
     options.mode = options.mode || 'read';
 
     // If the directory is empty, return an array with the handle.
-    if ((await (await handle.values()).next()).done) {
+    if ((await handle.values().next()).done) {
         return [handle];
     }
     // Else, return an array of File objects.
