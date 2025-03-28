@@ -21,19 +21,27 @@ export const doSetFilesFrom_Dnd_Atom = atom(            // used by DropItDoc onl
             const dropFiles: File[] = [...dataTransfer.files];
             if (dropFiles.length) {                     // avoid drop-and-drop drop without files
                 fileContents = await createFileContents_From_Main(dropFiles);
+
+                if (!fileContents?.length) {                    // avoid drop-and-drop drop without files
+                    return;
+                }
+
+                set(doSetDeliveredFilesAtom, fileContents);
             }
         } else {
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) {         // avoid drop-and-drop drop without files
-                fileContents = await createFileContents_WebAfterDnd(fileDataTransferItems);
+                const { fileContents, root } = await createFileContents_WebAfterDnd(fileDataTransferItems);
+
+                if (!fileContents?.length) {                    // avoid drop-and-drop drop without files
+                    return;
+                }
+        
+                setRootDir(root);
+                fileContents && set(doSetDeliveredFilesAtom, fileContents);
+                return;
             }
         }
-
-        if (!fileContents?.length) {                    // avoid drop-and-drop drop without files
-            return;
-        }
-
-        fileContents && set(doSetDeliveredFilesAtom, fileContents);
     }
 );
 

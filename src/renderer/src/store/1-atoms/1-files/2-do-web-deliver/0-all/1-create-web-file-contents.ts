@@ -4,8 +4,8 @@ import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
 import { electronGetPaths, invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
+import { type PmatFolder } from "../../0-files-atom";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
-import { PmatFolder, setRootDir } from "../../0-files-atom";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -68,14 +68,19 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
+export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<{ fileContents: FileContent[], root: PmatFolder; }> {
 
     const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
-    const rv = await loadFilesAndCreateFileContents(dropItems);
+    
+    const fileContents = await loadFilesAndCreateFileContents(dropItems);
+    const root = {
+        rpath: findShortestPathInFnames(fileContents.map((item) => item.fpath)),
+        handle: getSingleFolderHandle(dropItems),
+        fromMain: false,
+    };
 
-    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: getSingleFolderHandle(dropItems), fromMain: false });
-    return rv;
+    return { fileContents, root, };
 
     async function mapToDropItems(dndItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
@@ -176,7 +181,7 @@ export async function createFileContents_FromMru_Main(folder: PmatFolder): Promi
 
 function printFnameFiles(filenames: string[], files: File[]) {
     console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta');
-    
+
     files.forEach((f, idx) => {
         console.log(' ', { f }, `"${filenames[idx]}"`);
     });
