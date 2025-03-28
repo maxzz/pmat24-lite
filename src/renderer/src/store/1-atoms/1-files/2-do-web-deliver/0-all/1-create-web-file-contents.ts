@@ -6,7 +6,7 @@ import { electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-t
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
-import { collectWebDndItems } from "./2-collect-web-dnd-items";
+import { collectWebDndItems } from "./8-collect-web-dnd-items";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -24,7 +24,7 @@ type DropItem = {
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
     const fileAndNames = electronGetPaths(files);
     const fnames = fileAndNames.map((item) => item[1]);
-    //printFnameFiles(fnames, files);
+    //printElectronFnameFiles(fnames, files);
 
     if (fileAndNames.length) {
         const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
@@ -189,8 +189,8 @@ function getSingleFolderHandle(items: DropItem[]) {
 
 //
 
-function printFnameFiles(filenames: string[], files: File[]) {
-    console.log('%cdoSetFilesFromLegacyDialogAtom electron', 'color: magenta');
+function printElectronFnameFiles(filenames: string[], files: File[]) {
+    console.log('%ccreateFileContents_From_Main', 'color: magenta');
 
     files.forEach((f, idx) => {
         console.log(' ', { f }, `"${filenames[idx]}"`);
