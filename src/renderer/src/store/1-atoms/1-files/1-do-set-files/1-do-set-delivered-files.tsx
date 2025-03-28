@@ -1,17 +1,24 @@
 import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
+import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
+import { busyIndicator, totalManis } from "../../9-ui-state";
 import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
-import { createFileUsFromFileContent } from "./2-create-fileus";
-import { busyIndicator, totalManis } from "../../9-ui-state";
-import { filesAtom, isRootDirEmpty } from "../0-files-atom";
 import { rightPanelAtom } from "../../2-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
+import { createFileUsFromFileContent } from "./2-create-fileus";
 import { toast } from "sonner";
 import { delay } from "@/utils";
 
+export type SetDeliveredFiles = {
+    deliveredFileContents: FileContent[] | undefined;
+    root: PmatFolder;
+};
+
 /**
+ * @param deliveredFileContents - files content populated from web or electron environments
+ * @param root - root folder from which the files were loaded; TBD: it's not set undefined if the root folder is empty?
  * File content is populated from web or electron environment:
 ```
 ┌───────────────────────────────────────────┬─────────────────────────────────────┐
@@ -43,11 +50,15 @@ import { delay } from "@/utils";
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    async (get, set, { deliveredFileContents }: { deliveredFileContents: FileContent[] | undefined; }) => {
+    async (get, set, { deliveredFileContents, root }: SetDeliveredFiles) => {
         //printDelivered(deliveredFileContents);
 
         let clearFiles = typeof deliveredFileContents === 'undefined';
         deliveredFileContents = deliveredFileContents || [];
+
+        if (!clearFiles) {
+            setRootDir(root);
+        }
 
         if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
