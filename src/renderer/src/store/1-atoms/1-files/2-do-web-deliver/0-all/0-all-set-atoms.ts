@@ -69,9 +69,9 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
             printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
-                let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                if (filesCnt) {
-                    set(doSetDeliveredFilesAtom, filesCnt);
+                let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+                if (fileContents) {
+                    set(doSetDeliveredFilesAtom, fileContents);
                 }
             }
         } catch (error) {
@@ -103,10 +103,10 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
                 printFiles(files);
 
-                let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                if (filesCnt) {
+                let fileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+                if (fileContents) {
                     setRootDir(folder);
-                    set(doSetDeliveredFilesAtom, filesCnt);
+                    set(doSetDeliveredFilesAtom, fileContents);
                 }
             } catch (error) {
                 console.error('Mru folder handle is invalid', folder); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
