@@ -70,15 +70,14 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
  */
 export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<FileContent[]> {
 
-    let items: DropItem[] = await mapToDropItems(fileDataTransferItems);
-    const rv = await loadFilesAndCreateFileContents(items);
+    const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
+    const dropItems: DropItem[] = await mapToDropItems(dndItems);
+    const rv = await loadFilesAndCreateFileContents(dropItems);
 
-    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: getSingleFolderHandle(items), fromMain: false });
+    setRootDir({ rpath: findShortestPathInFnames(rv.map((item) => item.fpath)), handle: getSingleFolderHandle(dropItems), fromMain: false });
     return rv;
 
-    async function mapToDropItems(fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
-        const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
-
+    async function mapToDropItems(dndItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
         try {
             rv = dndItems.map(
@@ -115,8 +114,8 @@ function getSingleFolderHandle(items: DropItem[]) {
  */
 export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise<FileContent[]> {
 
-    let items: DropItem[] = await mapToDropItems(files);
-    const rv = loadFilesAndCreateFileContents(items);
+    let dropItems: DropItem[] = await mapToDropItems(files);
+    const rv = loadFilesAndCreateFileContents(dropItems);
     return rv;
 
     async function mapToDropItems(files: File[]): Promise<DropItem[]> {

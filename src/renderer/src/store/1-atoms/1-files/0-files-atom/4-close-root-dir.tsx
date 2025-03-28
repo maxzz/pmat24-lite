@@ -6,11 +6,6 @@ export const doCloseRootDirAtom = atom(
     null,
     (get, set) => {
         set(doSetDeliveredFilesAtom, undefined);
-
-        setRootDir({
-            rpath: '',
-            handle: undefined,
-            fromMain: false,
-        });
+        setRootDir(undefined);
     }
 );
