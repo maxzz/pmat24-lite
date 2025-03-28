@@ -177,7 +177,7 @@ async function loadFilesAndCreateFileContents(dropItems: DropItem[]): Promise<Fi
  * Check if we drop a single folder and can get its handle.
  * fpath with slash is a subfolder item, so we skip any subfolder items to find the root folder.
  */
-function getSingleFolderHandle(items: DropItem[]) {
+function getSingleFolderHandle(items: DropItem[]): FileSystemDirectoryHandle | undefined {
     const parentsSet = new Set(
         items.map(
             (item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.parent : undefined

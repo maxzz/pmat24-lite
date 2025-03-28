@@ -6,7 +6,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, asyncVerifyPermission, findShortestPathInFnames } from "@/store/store-utils";
 import { type PmatFolder } from "../../0-files-atom";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
-import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-create-web-file-contents";
+import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-all-create-file-contents";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
@@ -46,7 +46,7 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
 
         if (hasMain()) {
             const res = await createFileContents_From_Main(files);
-            
+
             if (res?.deliveredFileContents) {
                 set(doSetDeliveredFilesAtom, res);
             }
