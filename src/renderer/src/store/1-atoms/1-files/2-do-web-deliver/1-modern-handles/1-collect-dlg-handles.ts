@@ -1,5 +1,5 @@
 import { type FileWithDirectoryAndFileHandle, type FileWithHandle, directoryOpen, fileOpen } from "browser-fs-access";
-import { findShortestPathModern, type FindShortestPathModernResult } from "./2-find-shortest-path";
+import { findShortestPathModern, type FindShortestPathModernResult } from "@/store/store-utils";
 
 export type OpenModernHandlesDlgResult = {
     files: FileWithHandle[] | FileWithDirectoryAndFileHandle[];
@@ -29,7 +29,7 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<OpenM
         }
 
     } else {                                        // This will return files without dir handles only and skip folders.
-        let files: FileWithHandle[] = await fileOpen({ multiple: true });
+        const files: FileWithHandle[] = await fileOpen({ multiple: true });
         return {
             files,
             root: { fpath: '', handle: undefined },

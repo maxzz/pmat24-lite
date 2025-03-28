@@ -1,4 +1,4 @@
-import { directoryOpen, FileWithDirectoryAndFileHandle } from "browser-fs-access";
+import { type FileWithDirectoryAndFileHandle, directoryOpen } from "browser-fs-access";
 
 export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, options: Partial<DirectoryOpenOptions> = {}): Promise<(FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]> {
     options.recursive = options.recursive || false;
@@ -15,13 +15,9 @@ export async function openDirectoryHandle(handle: FileSystemDirectoryHandle, opt
 //https://github.com/GoogleChromeLabs/browser-fs-access/blob/main/src/fs-access/directory-open.mjs
 type DirectoryOpenOptions = Parameters<typeof directoryOpen>[0];
 type SkipDirectory = (entry: FileSystemDirectoryEntry | FileSystemDirectoryHandle) => boolean; 
-
 // type SkipDirectory = DirectoryOpenOptions['skipDirectory']; //somehow not working?
 // type SkipDirectory2 = DirectoryOpenOptions["recursive"]; //somehow not working?
-// type aa = {
-//     bb?: boolean
-// }
-// type cc = aa['bb']; // OK
+// type aa = { bb?: boolean }; type cc = aa['bb']; // OK
 
 async function getFilesRecurcively(
     dirHandle: FileSystemDirectoryHandle,
@@ -29,6 +25,7 @@ async function getFilesRecurcively(
     path: string = dirHandle.name,
     skipDirectory?: SkipDirectory
 ): Promise<(FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]> {
+    
     const dirs: Promise<(FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]>[] = [];
     const files: Promise<FileWithDirectoryAndFileHandle>[] = [];
 

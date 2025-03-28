@@ -1,5 +1,5 @@
 import { WebFsItem } from "@shared/ipc-types";
-import { collectDndHandles, type DndHandle } from "../1-modern-handles";
+import { collectDndHandles, type DndHandle } from "./3-2-collect-dnd-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
 
 /**

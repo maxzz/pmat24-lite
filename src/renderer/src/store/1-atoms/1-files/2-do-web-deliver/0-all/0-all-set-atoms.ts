@@ -3,9 +3,10 @@ import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 import { type FileContent } from "@shared/ipc-types";
-import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, asyncVerifyPermission, findShortestPathInFnames } from "@/store/store-utils";
 import { type PmatFolder } from "../../0-files-atom";
+import { asyncVerifyPermission, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
+import { filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";
 import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-all-create-file-contents";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
