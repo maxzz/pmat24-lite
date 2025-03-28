@@ -36,6 +36,10 @@ export function setRootDir(folder: PmatFolder | undefined): void {
     addToDirsMru(folder);
 }
 
+export function undefinedPmatFolder(): PmatFolder {
+    return { rpath: '', handle: undefined, fromMain: false };
+}
+
 export function isRootDirEmpty(): boolean {
     return isPmatFolderEmpty(rootDir);
 }

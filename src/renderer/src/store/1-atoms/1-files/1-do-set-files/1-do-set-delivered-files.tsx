@@ -56,14 +56,12 @@ export const doSetDeliveredFilesAtom = atom(
         let clearFiles = typeof deliveredFileContents === 'undefined';
         deliveredFileContents = deliveredFileContents || [];
 
-        if (!clearFiles) {
-            setRootDir(root);
-        }
-
         if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
             busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
             await delay(100);                       // Delay to update busyIndicator UI (it's not shown if the process is too fast).
         }
+
+        setRootDir(root);
 
         set(rightPanelAtom, undefined);
         assignFcRoot(undefined, get, set);
