@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
+import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 import { type FileContent } from "@shared/ipc-types";
 import { type OpenModernHandlesDlgResult, filerDirectoryHandles, openDirectoryHandle, openModernHandlesDlg, asyncVerifyPermission } from "@/store/store-utils";
 import { type PmatFolder, setRootDir } from "../../0-files-atom";
@@ -96,11 +97,11 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 }
 
                 if (!await asyncVerifyPermission({ handle: folder.handle, readWrite: true })) {
-                    console.error('Mru folder handle permission denied', folder);
                     return;
                 }
 
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
+                printFiles(files);
 
                 let filesCnt: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 if (filesCnt) {
@@ -108,8 +109,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                     set(doSetDeliveredFilesAtom, filesCnt);
                 }
             } catch (error) {
-                console.error('Mru folder handle is invalid', folder);
-                setRootDir(undefined);
+                console.error('Mru folder handle is invalid', folder); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
                 return;
             }
         }
@@ -120,7 +120,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
 //
 
-function printFiles(files: File[]) {
+function printFiles(files: File[] | FileWithHandle[] | FileWithDirectoryAndFileHandle[]) {
     console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
     files.forEach((f) => console.log(' ', f));
 }
