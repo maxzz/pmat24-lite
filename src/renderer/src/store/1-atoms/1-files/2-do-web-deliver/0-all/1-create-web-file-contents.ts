@@ -2,9 +2,10 @@ import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
-import { electronGetPaths, invokeLoadFiles, setRootFromMainFileContents } from "@/xternal-to-main";
+import { electronGetPaths, getRootFromMainFileContents, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
+import { type SetDeliveredFiles } from "../../1-do-set-files";
 import { collectWebDndItems } from "./2-collect-web-dnd-items";
 
 type DropItem = {
@@ -20,23 +21,27 @@ type DropItem = {
  * Modern drag and drop and dialog operations are not supported due to electronGetPaths() limitations.
  * It should be File object not modified by JS.
  */
-export async function createFileContents_From_Main(files: File[]): Promise<FileContent[] | undefined> {
+export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
     const fileAndNames = electronGetPaths(files);
     const fnames = fileAndNames.map((item) => item[1]);
     //printFnameFiles(fnames, files);
 
     if (fileAndNames.length) {
         const rv: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
-        setRootFromMainFileContents(rv);
-        return rv;
+        return {
+            deliveredFileContents: rv,
+            root: getRootFromMainFileContents(rv),
+        };
     }
 }
 
-export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<FileContent[] | undefined> {
+export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {
     if (folder.rpath) {
         const rv: FileContent[] = await invokeLoadFiles([folder.rpath], pmAllowedToOpenExt);
-        setRootFromMainFileContents(rv);
-        return rv;
+        return {
+            deliveredFileContents: rv,
+            root: folder,
+        };
     }
 }
 
@@ -81,7 +86,7 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
 /**
  * Create FileContent items from web drag and drop operation
  */
-export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<{ fileContents: FileContent[], root: PmatFolder; }> {
+export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<SetDeliveredFiles> {
 
     const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
@@ -93,7 +98,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         fromMain: false,
     };
 
-    return { fileContents, root, };
+    return { deliveredFileContents: fileContents, root };
 
     async function mapToDropItems(dndItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
