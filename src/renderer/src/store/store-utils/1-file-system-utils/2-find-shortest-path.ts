@@ -1,4 +1,4 @@
-import { type FileWithDirectoryAndFileHandle } from "browser-fs-access";
+import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 import { pathWithoutFilename } from "@/utils";
 
 // Legacy by filenames
@@ -55,8 +55,24 @@ export function findShortestPathModern(files: FileWithDirectoryAndFileHandle[]):
     }
 
     const rv: FindShortestPathModernResult = {
-        handle: handle.directoryHandle,
         fpath: shortest,
+        handle: handle.directoryHandle,
     };
     return rv;
+}
+
+// File System utils
+
+export function filerDirectoryHandles(handles: (FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]): FileWithDirectoryAndFileHandle[] {
+    return handles.filter(
+        (entry) => (entry as FileSystemDirectoryHandle).kind !== 'directory'
+    ) as FileWithDirectoryAndFileHandle[];
+}
+
+export function isFileWithFileHandle(file: File): file is FileWithHandle {
+    return !!(file as FileWithDirectoryAndFileHandle).handle;
+}
+
+export function isFileWithDirectoryAndFileHandle(file: File): file is FileWithDirectoryAndFileHandle {
+    return !!(file as FileWithDirectoryAndFileHandle).directoryHandle;
 }

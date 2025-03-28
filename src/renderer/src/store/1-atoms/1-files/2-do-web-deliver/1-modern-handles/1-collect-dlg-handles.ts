@@ -40,11 +40,3 @@ export async function openModernHandlesDlg(openAsFolder: boolean): Promise<OpenM
 function isFileSystemDirectoryHandles(files: FileWithDirectoryAndFileHandle[] | FileSystemDirectoryHandle[]): files is FileSystemDirectoryHandle[] {
     return files.length === 1 && (files[0] as FileSystemDirectoryHandle).kind === 'directory';
 }
-
-export function isFileWithFileHandle(file: File): file is FileWithHandle {
-    return !!(file as FileWithDirectoryAndFileHandle).handle;
-}
-
-export function isFileWithDirectoryAndFileHandle(file: File): file is FileWithDirectoryAndFileHandle {
-    return !!(file as FileWithDirectoryAndFileHandle).directoryHandle;
-}

@@ -58,10 +58,3 @@ async function getFilesRecurcively(
         ...(await Promise.all(files))
     ];
 }
-
-export function filerDirectoryHandles(handles: (FileSystemDirectoryHandle | FileWithDirectoryAndFileHandle)[]): FileWithDirectoryAndFileHandle[] {
-    return handles.filter(
-        (entry) => (entry as FileSystemDirectoryHandle).kind !== 'directory'
-    ) as FileWithDirectoryAndFileHandle[];
-}
-

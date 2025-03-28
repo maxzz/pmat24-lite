@@ -1,12 +1,12 @@
 import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
-import { findShortestPathInFnames, textFileReaderPromisify } from "@/store/store-utils";
+import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
 import { electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
-import { collectWebDndItems, isFileWithDirectoryAndFileHandle, isFileWithFileHandle } from "../1-modern-handles";
+import { collectWebDndItems } from "../1-modern-handles";
 
 type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
