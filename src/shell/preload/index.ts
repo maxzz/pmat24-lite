@@ -1,5 +1,6 @@
 import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
+import { statSync } from 'fs';
 
 // Custom APIs for renderer
 const api: TmApi = {
@@ -21,7 +22,16 @@ const api: TmApi = {
 
     getPathForFile(file: File): string {
         try {
-            return webUtils.getPathForFile(file);
+            const filePath = webUtils.getPathForFile(file);
+            if (filePath) {
+                const stats = statSync(filePath);
+                console.log(`getPathForFile "${filePath}" isFile: ${stats.isFile()} isDirectory: ${stats.isDirectory()}`);
+
+                // if (stats.isFile()) {
+                //     return file.path;
+                // }
+            }
+            return filePath;
         } catch (error) {
             console.error(error); // no a file case
         }
