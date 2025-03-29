@@ -38,8 +38,9 @@ export function WelcomePage() {
                                     <RecentFilesList />
                                 </div>
                             </div>
-                            <HIDLogoAnimation />
+
                             {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
+                            <HIDLogoAnimation />
                         </div>
 
                     </motion.div>
