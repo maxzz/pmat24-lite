@@ -23,7 +23,7 @@ export function WelcomePage() {
             <AnimatePresence>
                 {showWelcomePage && (
                     <motion.div
-                        className="absolute inset-0 bg-muted grid grid-rows-[1fr,auto,1fr] z-[21]"
+                        className="absolute inset-0 bg-[hsl(210,10%,96%)] dark:bg-muted grid grid-rows-[1fr,auto,1fr] z-[21]"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}

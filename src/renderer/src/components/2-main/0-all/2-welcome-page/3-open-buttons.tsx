@@ -6,8 +6,8 @@ import { ButtonFilesPicker } from "./4-button-files-picker";
 export function OpenButtons() {
     const { allowHandleFiles } = useSnapshot(appSettings.appUi.uiAdvanced);
     return (<>
-        {allowHandleFiles && <ButtonFilesPicker />}
-        <ButtonFilesPicker openAsFolder />
+        {allowHandleFiles && <ButtonFilesPicker className="bg-background" />}
+        <ButtonFilesPicker openAsFolder className="bg-background" />
         {/* <ListViewDemo /> */}
     </>);
 }
