@@ -14,7 +14,7 @@ export function RecentFilesList() {
                     Recent
                 </div>
 
-                <div className="px-2 py-1 bg-foreground/5 border border-border rounded-md flex flex-col items-start">
+                <div className="px-2 py-1 bg-foreground/5 border border-foreground/10 rounded-md flex flex-col items-start">
                     {folders.map(
                         (folder, idx) => (
                             <FolderItem folder={folder} key={idx} />
@@ -30,11 +30,9 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <div className="flex items-center gap-1">
-            <Button variant="ghost" className="w-full text-xs" onClick={() => doSetFilesFrom_MruFolder({ folder })} title={folder.fpath}>
-                {short}
-            </Button>
-        </div>
+        <Button variant="ghost" className="justify-start w-full h-6 text-xs" onClick={() => doSetFilesFrom_MruFolder({ folder })} title={folder.fpath}>
+            {short}
+        </Button>
     );
 }
 
