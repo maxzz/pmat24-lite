@@ -39,5 +39,3 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
         </Button>
     );
 }
-
-//TODO: close folder button is broken

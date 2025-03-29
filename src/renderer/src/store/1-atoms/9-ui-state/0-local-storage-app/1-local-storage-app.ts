@@ -39,7 +39,20 @@ function initialSettings(): AppSettings {
     return rv;
 }
 
-clearMruFromLocalStorage();
+// MRU
+
+/**
+ * Call this function to initialize global settings before UI is rendered.
+ * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
+ * Do nothing just load module first and the rest will be done inside module load.
+ */
+function initializeAsyncSettings() {
+    console.log('initializeSettings');
+    clearMruFromLocalStorage();
+    initializeMruIndexDB(); // intentionally call async wo/ await
+}
+
+initializeAsyncSettings();
 
 // Apply theme changes
 
@@ -62,10 +75,6 @@ subscribe(appSettings, saveDebounced);
 export const optionsFilesProxyAtom = atomWithProxy<FileListSettings>(appSettings.files);
 export const optionsAppUiProxyAtom = atomWithProxy<AppUISettings>(appSettings.appUi);
 
-// MRU
-
-initializeMruIndexDB();
-
 // App title
 
 export const defaultTitle = 'PMAT';
@@ -75,13 +84,3 @@ export const appMainTitle = proxy({
 });
 
 //
-
-/**
- * Call this function to initialize global settings before UI is rendered.
- * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
- * Do nothing just load module first and the rest will be done inside module load.
- */
-export async function initializeSettings() {
-    console.log('initializeSettings');
-    await initializeMruIndexDB();
-}

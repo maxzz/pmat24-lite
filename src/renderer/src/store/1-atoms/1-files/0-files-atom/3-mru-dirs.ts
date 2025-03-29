@@ -76,7 +76,7 @@ export async function initializeMruIndexDB() {
     });
 }
 /**
- * For non electron app clear MRU list from localStorage and they will be loaded from indexDB with FileSystemDirectoryHandles.
+ * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
  * @returns 
  */
 export function clearMruFromLocalStorage() {
