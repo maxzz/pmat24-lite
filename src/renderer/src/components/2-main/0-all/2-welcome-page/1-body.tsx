@@ -7,6 +7,7 @@ import { OpenButtons } from "./3-open-buttons";
 import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 // import { DontShowNext } from "./7-nun-dont-show-next";
+// import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 
 export function WelcomePage() {
     const files = useAtomValue(filesAtom);
@@ -56,6 +57,7 @@ function CenterPart() {
         <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
             <WelcomeHeroTitle allowHandleFiles={allowHandleFiles} />
             <OpenButtons />
+            {/* <ListViewDemo /> */}
         </div>
     </>);
 }
