@@ -2,6 +2,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { Checkbox, Label } from "@/ui";
 import { subClasses, rowClasses } from "./8-shared-classes";
+import { classNames } from "@/utils";
 
 export function UiUxSettings() {
     const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
@@ -15,9 +16,9 @@ export function UiUxSettings() {
                 </Label>
             </div>
 
-            <div className={subClasses}>
+            <div className={classNames(subClasses, !showWelcome && "opacity-30 pointer-events-none")}>
                 <Label className={rowClasses}>
-                    <Checkbox checked={showWelcomeCheck} onCheckedChange={(v) => liveUiGeneral.showWelcomeCheck = !!v} />
+                    <Checkbox checked={showWelcome && showWelcomeCheck} onCheckedChange={(v) => liveUiGeneral.showWelcomeCheck = !!v} />
                     Show Welcome screen next time on start checkbox
                 </Label>
             </div>
@@ -32,15 +33,15 @@ export function UiUxSettings() {
 
         <div className={subClasses}>
             <Label className={rowClasses}>
-                <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
-                Show quick access button to XML manifest content
+                <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
+                Show manifest form option labels on the right side
             </Label>
         </div>
 
         <div className={subClasses}>
             <Label className={rowClasses}>
-                <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
-                Show manifest form option labels on the right side
+                <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
+                Show quick access button to XML manifest content
             </Label>
         </div>
     </>

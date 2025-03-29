@@ -5,12 +5,11 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function AdvancedSettings() {
-    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     const { allowHandleFiles, showFieldCatalog, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
-    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
-
-    const liveGeneral = appSettings.appUi.uiGeneral;
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
+
+    const { allowWelcome } = useSnapshot(appSettings.appUi.uiGeneral);
+    const liveGeneral = appSettings.appUi.uiGeneral;
 
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
     const liveFiles = appSettings.files;
@@ -18,6 +17,7 @@ export function AdvancedSettings() {
     const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
     const liveDebugOnly = debugSettings.debugOnly;
 
+    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     if (!debugAccess) {
         return null;
     }
