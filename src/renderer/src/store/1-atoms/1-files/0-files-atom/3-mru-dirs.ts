@@ -65,13 +65,9 @@ export async function initializeMruIndexDB() {
     const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
     appSettings.appUi.mru.folders = folders.map(ref);
 
-    console.log('initializeMruIndexDB', appSettings.appUi.mru.folders);
-
     subscribe(appSettings.appUi.mru, () => {
         const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-
-        printMru(snapFoloders);
-
+        // printMru(snapFoloders);
         set('pmat25-mru-web', snapFoloders);
     });
 }

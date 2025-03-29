@@ -88,8 +88,20 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
  */
 export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<SetDeliveredFiles> {
 
-    const dndItems = (await collectWebDndItems(fileDataTransferItems)).filter((item) => item.file);
+    const webFsItems = await collectWebDndItems(fileDataTransferItems);
+    const dndItems = webFsItems.filter((item) => item.file);
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
+
+    if (webFsItems.length === 1 && webFsItems[0]?.handle?.kind === 'directory') {
+        return {
+            deliveredFileContents: [],
+            root: {
+                fpath: webFsItems[0].path,
+                handle: webFsItems[0].handle,
+                fromMain: false,
+            }
+        };
+    }
 
     const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
     return {

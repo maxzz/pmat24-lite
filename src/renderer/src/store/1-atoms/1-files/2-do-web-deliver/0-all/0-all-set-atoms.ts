@@ -28,8 +28,9 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
             if (fileDataTransferItems.length) {                // avoid drop-and-drop drop without files
                 const res = await createFileContents_WebAfterDnd(fileDataTransferItems);
-
-                if (res?.deliveredFileContents?.length) {      // avoid drop-and-drop drop without files
+                const hasFolder = res?.root?.handle?.kind === 'directory';
+                
+                if (res?.deliveredFileContents?.length || hasFolder) { // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
                 }
             }
