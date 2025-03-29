@@ -4,6 +4,7 @@ import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { appSettings, filesAtom, rootDir } from "@/store";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
+import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 // import { DontShowNext } from "./7-nun-dont-show-next";
 
@@ -32,7 +33,13 @@ export function WelcomePage() {
                         </div>
 
                         <div className="row-start-3 absolute inset-0">
+                            <div className="p-2 size-full grid grid-cols-[1fr,auto,1fr]">
+                                <div className="col-start-2 place-self-end">
+                                    <RecentFilesList />
+                                </div>
+                            </div>
                             <HIDLogoAnimation />
+                            {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
                         </div>
 
                     </motion.div>
@@ -48,7 +55,6 @@ function CenterPart() {
         <div className="w-full h-full flex flex-col items-center justify-center gap-y-4">
             <WelcomeHeroTitle allowHandleFiles={allowHandleFiles} />
             <OpenButtons />
-            {/* <DontShowNext className="absolute left-0 bottom-0 p-2" /> */}
         </div>
     </>);
 }
