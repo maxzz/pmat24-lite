@@ -7,7 +7,9 @@ import { rowClasses, SectionTitle } from "./8-shared-classes";
 export function AdvancedSettings() {
     const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     const { allowHandleFiles, showFieldCatalog, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
 
+    const liveGeneral = appSettings.appUi.uiGeneral;
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { showFldCat } = useSnapshot(appSettings.files.shownManis);
@@ -23,6 +25,11 @@ export function AdvancedSettings() {
     return (
         <SectionTitle title="Hidden from the end user debug only">
             <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
+
+                <Label className={classNames("col-start-1", rowClasses)}>
+                    <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
+                    Allow Welcome screen to be turn off
+                </Label>
 
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
