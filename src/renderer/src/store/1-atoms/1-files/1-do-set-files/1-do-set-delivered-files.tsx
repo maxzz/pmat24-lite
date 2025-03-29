@@ -73,9 +73,9 @@ export const doSetDeliveredFilesAtom = atom(
         totalManis.fc = 0;
 
         if (isRootDirEmpty()) { // block multiple files or folders
+            !clearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
             deliveredFileContents = [];
             clearFiles = true;
-            toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
         }
 
         const unsupported: FileUs[] = [];
