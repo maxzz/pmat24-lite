@@ -47,9 +47,8 @@ function initialSettings(): AppSettings {
  * Do nothing just load module first and the rest will be done inside module load.
  */
 function initializeAsyncSettings() {
-    console.log('initializeSettings');
-    clearMruFromLocalStorage();
-    initializeMruIndexDB(); // intentionally call async wo/ await
+    clearMruFromLocalStorage();     // For non electron app clear MRU list from localStorage
+    initializeMruIndexDB();         // Intentionally call async wo/ await
 }
 
 initializeAsyncSettings();

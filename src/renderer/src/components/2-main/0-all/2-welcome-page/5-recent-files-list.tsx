@@ -7,8 +7,6 @@ import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/s
 export function RecentFilesList() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
     const hasRecent = !!folders.length;
-
-    console.log('%cRecentFilesList', 'color: magenta', folders);
     return (<>
         {hasRecent && (
             <div className="text-xs space-y-1">
@@ -29,8 +27,6 @@ export function RecentFilesList() {
 }
 
 function FolderItem({ folder }: { folder: PmatFolder; }) {
-    console.log('FolderItem', folder);
-
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (

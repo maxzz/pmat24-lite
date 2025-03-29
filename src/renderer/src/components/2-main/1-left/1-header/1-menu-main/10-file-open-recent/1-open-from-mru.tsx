@@ -6,8 +6,6 @@ import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/s
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
-    console.log('%cMenuItem_OpenRecent', 'color: magenta', folders);
-
     return (
         <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -41,8 +39,6 @@ export function MenuItem_OpenRecent() {
 }
 
 function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
-    console.log('MenuItem_MruItem', folder);
-
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
