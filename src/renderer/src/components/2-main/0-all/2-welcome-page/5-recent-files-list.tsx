@@ -6,7 +6,9 @@ import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/s
 
 export function RecentFilesList() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
-    const hasRecent = true;
+    const hasRecent = !!folders.length;
+
+    console.log('%cRecentFilesList', 'color: magenta', folders);
     return (<>
         {hasRecent && (
             <div className="text-xs space-y-1">
@@ -14,7 +16,7 @@ export function RecentFilesList() {
                     Recent
                 </div>
 
-                <div className="px-2 py-1 bg-foreground/5 border border-foreground/10 rounded-md flex flex-col items-start">
+                <div className="p-1 min-w-56 bg-foreground/5 border border-foreground/10 rounded-md flex flex-col items-start">
                     {folders.map(
                         (folder, idx) => (
                             <FolderItem folder={folder} key={idx} />
@@ -27,10 +29,12 @@ export function RecentFilesList() {
 }
 
 function FolderItem({ folder }: { folder: PmatFolder; }) {
+    console.log('FolderItem', folder);
+
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <Button variant="ghost" className="justify-start w-full h-6 text-xs" onClick={() => doSetFilesFrom_MruFolder({ folder })} title={folder.fpath}>
+        <Button variant="ghost" className="justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             {short}
         </Button>
     );

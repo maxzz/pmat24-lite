@@ -4,7 +4,7 @@ import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
 import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
-import { initializeMruIndexDB } from "../../1-files/0-files-atom/3-mru-dirs";
+import { clearMruFromLocalStorage, initializeMruIndexDB } from "../../1-files/0-files-atom/3-mru-dirs";
 
 const STORE_KEY = "pmat25-ui";
 const STORE_VER = 'v1';
@@ -38,6 +38,8 @@ function initialSettings(): AppSettings {
     const rv = mergeConfigRecursively(defaultSettings, storageData);
     return rv;
 }
+
+clearMruFromLocalStorage();
 
 // Apply theme changes
 
@@ -73,3 +75,13 @@ export const appMainTitle = proxy({
 });
 
 //
+
+/**
+ * Call this function to initialize global settings before UI is rendered.
+ * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
+ * Do nothing just load module first and the rest will be done inside module load.
+ */
+export async function initializeSettings() {
+    console.log('initializeSettings');
+    await initializeMruIndexDB();
+}

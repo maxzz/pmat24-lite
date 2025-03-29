@@ -65,6 +65,8 @@ export async function initializeMruIndexDB() {
     const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
     appSettings.appUi.mru.folders = folders.map(ref);
 
+    console.log('initializeMruIndexDB', appSettings.appUi.mru.folders);
+
     subscribe(appSettings.appUi.mru, () => {
         const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
 
@@ -72,6 +74,17 @@ export async function initializeMruIndexDB() {
 
         set('pmat25-mru-web', snapFoloders);
     });
+}
+/**
+ * For non electron app clear MRU list from localStorage and they will be loaded from indexDB with FileSystemDirectoryHandles.
+ * @returns 
+ */
+export function clearMruFromLocalStorage() {
+    if (hasMain()) {
+        return;
+    }
+
+    appSettings.appUi.mru.folders = [];
 }
 
 //
@@ -83,3 +96,5 @@ function printRootDir(folder: PmatFolder, title: string) {
 function printMru(folders: PmatFolder[]) {
     folders.forEach((folder) => printRootDir(folder, 'MRU'));
 }
+
+//TODO: load MRU UI with framer and remove UI shifting
