@@ -2,14 +2,13 @@ import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type ManiAtoms } from "../../../3-file-mani-atoms";
+import { type ManiAtoms, catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
 import { rootDir } from "@/store/1-atoms/1-files/0-files-atom";
-import { createParsedSrcForEmptyFce } from "../../../1-files/1-do-set-files/2-create-fileus";
+import { createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
 import { createFceCtx } from "./3-create-fce-ctx";
-import { catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms/0-all/2-do-save-main-atom/2-pack/4-fc";
 
 export function createFileUsForNewFc(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);

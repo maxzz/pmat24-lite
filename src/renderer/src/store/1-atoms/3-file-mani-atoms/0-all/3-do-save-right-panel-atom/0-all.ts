@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { rightPanelAtom } from "@/store/1-atoms/2-right-panel";
-import { doSaveOneAtom } from "../2-do-save-main-atom";
+import { doSaveOneAtom } from "../2-do-save-mani-atom";
 
 export const doSaveRightPanelFileAtom = atom(null,
     (get, set) => {

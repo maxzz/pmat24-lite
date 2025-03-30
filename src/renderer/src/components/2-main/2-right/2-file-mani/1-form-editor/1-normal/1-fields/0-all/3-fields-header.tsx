@@ -1,11 +1,12 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
+import { classNames } from "@/utils";
 
 export function getFieldsGridClasses(showFieldCatalog: boolean) {
     const colsClasses = showFieldCatalog
-        ? 'grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]'
-        : 'grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]';
-    return `p-2 grid ${colsClasses} items-center gap-[3px] text-foreground rounded-sm`;
+        ? "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]"
+        : "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]";
+    return classNames("p-2 grid items-center gap-[3px] text-foreground rounded-sm", colsClasses);
 };
 
 const headerClasses = "\
