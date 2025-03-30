@@ -80,7 +80,7 @@ async function doTestHwnd(get: Getter, set: Setter) {
 
 // let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
 
-const doClearSawHandleAtom = atom(
+export const doClearSawHandleAtom = atom(
     null,
     (get, set) => {
         set(sawHandleStrAtom, '');
