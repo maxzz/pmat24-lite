@@ -41,20 +41,18 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
         printElectronFnameFiles(fnames, files);
 
         const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
-        const root = getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
-        const isSingleFolder = filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
-        if (!deliveredFileContents.length && isSingleFolder) { // case empty folder
+        const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
+
+        if (droppedEmptyFolder) {
             return {
                 deliveredFileContents: [],
-                root: {
-                    fpath: filePathAndDirs[0][1],
-                    handle: undefined,
-                    fromMain: true,
-                },
+                root: { fpath: filePathAndDirs[0][1], handle: undefined, fromMain: true, },
                 noItemsJustDir: true,
             };
         }
+
+        const root = getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
         return {
             deliveredFileContents,
