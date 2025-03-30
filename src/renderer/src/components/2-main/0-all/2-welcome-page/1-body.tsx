@@ -29,6 +29,8 @@ export function WelcomePage() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                     >
+                        <HIDLogoAnimation className="row-start-1 absolute right-0.5 top-1 p-1.5 w-12" />
+
                         <div className="row-start-2 relative size-full">
                             <CenterPart />
                         </div>
@@ -43,8 +45,6 @@ export function WelcomePage() {
                             {showWelcomeCheck && (
                                 <DontShowNext className="absolute left-0 bottom-0 p-2" />
                             )}
-                            
-                            <HIDLogoAnimation />
                         </div>
 
                     </motion.div>
