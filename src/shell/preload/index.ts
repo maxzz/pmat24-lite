@@ -20,22 +20,15 @@ const api: TmApi = {
         ipcRenderer.on(channel, callback);
     },
 
-    getPathForFile(file: File): string {
+    getPathForFile(file: File): GetFilePathResult { //TODO: maybe make it as a regular invoke call for array of files to avoid load fs module?
         try {
             const filePath = webUtils.getPathForFile(file);
-            if (filePath) {
-                const stats = statSync(filePath);
-                console.log(`getPathForFile "${filePath}" isFile: ${stats.isFile()} isDirectory: ${stats.isDirectory()}`);
-
-                // if (stats.isFile()) {
-                //     return file.path;
-                // }
-            }
-            return filePath;
+            const isDirectory = filePath ? statSync(filePath).isDirectory() : false;
+            return { filePath, isDirectory };
         } catch (error) {
             console.error(error); // no a file case
         }
-        return '';
+        return { filePath: '', isDirectory: false };
     },
 };
 

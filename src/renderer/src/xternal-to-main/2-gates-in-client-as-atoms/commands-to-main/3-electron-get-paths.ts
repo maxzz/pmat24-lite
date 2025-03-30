@@ -1,12 +1,15 @@
-export type FileAndPath = [file: File, path: string];
+export type FilePathAndDir = [file: File, path: string, isDirectory: boolean];
 
 /**
  * electron filenames with external call to main process
  */
-export function electronGetPaths(files: File[]): readonly FileAndPath[] {
+export function electronGetPaths(files: File[]): readonly FilePathAndDir[] {
     const rv = [...files]
-        .map<FileAndPath>(
-            (file) => [file, tmApi.getPathForFile(file)]
+        .map<FilePathAndDir>(
+            (file) => {
+                const res = tmApi.getPathForFile(file);
+                return [file, res.filePath, res.isDirectory];
+            }
         )
         .filter((item) => !!item[1]);
     return rv;

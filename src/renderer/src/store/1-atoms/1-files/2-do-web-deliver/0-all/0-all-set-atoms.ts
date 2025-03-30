@@ -20,7 +20,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             if (dropFiles.length) {                            // avoid drop-and-drop drop without files
                 const res = await createFileContents_From_Main(dropFiles);
 
-                if (res?.deliveredFileContents?.length) {      // avoid drop-and-drop drop without files
+                if (res?.deliveredFileContents?.length || res?.noItemsJustDir) { // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
                 }
             }
@@ -29,7 +29,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             if (fileDataTransferItems.length) {                // avoid drop-and-drop drop without files
                 const res = await createFileContents_WebAfterDnd(fileDataTransferItems);
                 const hasFolder = res?.root?.handle?.kind === 'directory';
-                
+
                 if (res?.deliveredFileContents?.length || hasFolder) { // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
                 }
@@ -49,7 +49,7 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
         if (hasMain()) {
             const res = await createFileContents_From_Main(files);
 
-            if (res?.deliveredFileContents) {
+            if (res?.deliveredFileContents || res?.noItemsJustDir) {
                 set(doSetDeliveredFilesAtom, res);
             }
         } else {
