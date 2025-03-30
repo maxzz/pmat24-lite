@@ -2,7 +2,7 @@ import { proxySet } from "valtio/utils";
 import { uuid } from "@/store/manifest";
 import { isAllowedExt, pathWithoutFilename } from "@/utils";
 import { findShortestPathInFnames, isFileWithDirectoryAndFileHandle, isFileWithFileHandle, textFileReaderPromisify } from "@/store/store-utils";
-import { electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
+import { electronGetPaths, FilePathAndDir, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, WebFsItem, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
@@ -22,7 +22,7 @@ type DropItem = {
  * It should be File object not modified by JS.
  */
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
-    const filePathAndDirs = electronGetPaths(files);
+    const filePathAndDirs: readonly FilePathAndDir[] = electronGetPaths(files);
 
     // if (filePathAndDirs.length === 1 && filePathAndDirs[0][2]) { // filePathAndDirs[0][2] is true file is a directory
     //     return {
@@ -44,19 +44,14 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
 
         const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
 
-        if (droppedEmptyFolder) {
-            return {
-                deliveredFileContents: [],
-                root: { fpath: filePathAndDirs[0][1], handle: undefined, fromMain: true, },
-                noItemsJustDir: true,
-            };
-        }
-
-        const root = getRootFromFpath({ files: deliveredFileContents, fromMain: true });
+        const root = droppedEmptyFolder
+            ? { fpath: filePathAndDirs[0][1], handle: undefined, fromMain: true, }
+            : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
         return {
             deliveredFileContents,
             root,
+            noItemsJustDir: droppedEmptyFolder,
         };
     }
 }
