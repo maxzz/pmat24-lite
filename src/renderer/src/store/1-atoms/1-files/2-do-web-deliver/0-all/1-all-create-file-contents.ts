@@ -22,11 +22,24 @@ type DropItem = {
  * It should be File object not modified by JS.
  */
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
-    const fileAndNames = electronGetPaths(files);
-    const fnames = fileAndNames.map((item) => item[1]);
-    //printElectronFnameFiles(fnames, files);
+    const filePathAndDirs = electronGetPaths(files);
 
-    if (fileAndNames.length) {
+    if (filePathAndDirs.length === 1 && filePathAndDirs[0][2]) { // filePathAndDirs[0][2] is true file is a directory
+        return {
+            deliveredFileContents: [],
+            root: {
+                fpath: filePathAndDirs[0][1],
+                handle: undefined,
+                fromMain: true,
+            },
+            noItemsJustDir: true,
+        };
+    }
+
+    if (filePathAndDirs.length) {
+        const fnames = filePathAndDirs.map((item) => item[1]);
+        printElectronFnameFiles(fnames, files);
+
         const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
         return {
             deliveredFileContents,
