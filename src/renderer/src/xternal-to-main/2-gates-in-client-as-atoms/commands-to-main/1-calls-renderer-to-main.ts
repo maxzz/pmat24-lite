@@ -1,4 +1,4 @@
-import { type R2MParams, type TargetClientRect } from "@shared/ipc-types";
+import { type R2MParams } from "@shared/ipc-types";
 import { sendToMain } from "../3-to-main-apis";
 
 export namespace R2MCalls {
@@ -33,8 +33,8 @@ export namespace R2MCalls {
         sendToMain({ type: 'r2m:cancel-detection' });
     }
 
-    export function highlightRect(hwnd: string, rect: TargetClientRect): void {
-        sendToMain({ type: 'r2m:highlight-rect', hwnd, rect });
+    export function highlightField(params: R2MParams.HighlightRect): void {
+        sendToMain({ type: 'r2m:highlight-field', ...params });
     }
 
     export function setSawModeOnMain(params: R2MParams.SetSawMode): void {

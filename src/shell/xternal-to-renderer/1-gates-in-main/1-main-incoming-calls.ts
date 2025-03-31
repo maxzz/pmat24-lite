@@ -3,7 +3,7 @@ import { type R2M } from "@shared/ipc-types";
 import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-main-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
-import { getElectronModulePaths, highlightRect } from "../7-napi-calls";
+import { getElectronModulePaths, highlightField } from "../7-napi-calls";
 import { openFileDialogAndReply, setSawModeOnMain } from "../2-commands-in-main";
 
 export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> {
@@ -49,8 +49,8 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             electronState.cancelDetection = true;
             break;
         }
-        case 'r2m:highlight-rect': {
-            highlightRect(data.hwnd, data.rect);
+        case 'r2m:highlight-field': {
+            highlightField(data);
             break;
         }
 
