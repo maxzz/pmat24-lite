@@ -23,6 +23,11 @@ function NoFields() {
 
 function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
     const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
+
+    //highlightFieldAtom
+    //onblur={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
+    //onfocus={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
+    
     return (
         <div className={getFieldsGridClasses(showFieldCatalog)}>
             <TableHeader />
