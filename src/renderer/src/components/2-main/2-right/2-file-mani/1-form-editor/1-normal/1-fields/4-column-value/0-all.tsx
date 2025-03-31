@@ -1,13 +1,13 @@
-import { InputHTMLAttributes, useMemo } from "react";
-import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
-import { ValueAs, ValueLife } from "@/store/manifest";
+import { type ComponentPropsWithoutRef, useMemo } from "react";
+import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { classNames, turnOffAutoComplete } from "@/utils";
+import { type ValueLife,ValueAs } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
+import { inputRingClasses } from "@/ui/local-ui";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
-import { classNames, turnOffAutoComplete } from "@/utils";
-import { inputRingClasses } from "@/ui";
 
-type Column4_ValueProps = InputHTMLAttributes<HTMLInputElement> & {
+type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     useItAtom: PrimitiveAtom<boolean>;
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
@@ -27,7 +27,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     const disabled = parentDisabled || itselfDisabled;
 
     return (
-        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)} {...rest}>
+        <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)}>
             <input
                 className={classNames(inputClasses, showAsRefAndNotNon && inputAsRefClasses, disabled && "pointer-events-none")}
                 value={showInputText ? '' : inputText}
@@ -38,6 +38,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
                 disabled={disabled}
                 title={title}
                 {...turnOffAutoComplete}
+                {...rest}
             />
 
             {dropdownAllItems.length && !disabled && (
