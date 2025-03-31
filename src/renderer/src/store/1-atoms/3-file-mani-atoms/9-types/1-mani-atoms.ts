@@ -75,5 +75,5 @@ export type OnChangeProps = {
 
 export type HighlightCtx = { nFieldCtx?: NormalField.RowCtx, mFieldCtx?: ManualFieldState.Ctx; };
 
-export type NHighlightCtx = { nFieldCtx: NormalField.RowCtx; };     // Normal field highlight
-export type MHighlightCtx = { mFieldCtx: ManualFieldState.Ctx; };   // Manual field highlight
+export type NFieldHighlightCtx = { nFieldCtx?: NormalField.RowCtx; };     // Normal field highlight
+export type MFieldHighlightCtx = { mFieldCtx?: ManualFieldState.Ctx; };   // Manual field highlight
