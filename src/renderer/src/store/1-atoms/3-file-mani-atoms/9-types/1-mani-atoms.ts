@@ -73,4 +73,7 @@ export type OnChangeProps = {
 
 // Field highlight during manifest creation
 
-export type HighlightCtx = { nFieldCtx?: NormalField.RowCtx, mFieldCtx?: ManualFieldState.Ctx; }
+export type HighlightCtx = { nFieldCtx?: NormalField.RowCtx, mFieldCtx?: ManualFieldState.Ctx; };
+
+export type NHighlightCtx = { nFieldCtx: NormalField.RowCtx; };     // Normal field highlight
+export type MHighlightCtx = { mFieldCtx: ManualFieldState.Ctx; };   // Manual field highlight
