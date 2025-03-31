@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef, useMemo } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { type ValueLife,ValueAs } from "@/store/manifest";
+import { type ValueLife, ValueAs } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
@@ -12,9 +12,10 @@ type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
     parentDisabled?: boolean; // Container is disabled vs. input is disabled
+    onFocusBlur?: (focusOn: boolean) => void;
 };
 
-export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, ...rest }: Column4_ValueProps) {
+export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, onFocusBlur, className, ...rest }: Column4_ValueProps) {
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
@@ -33,7 +34,8 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
                 value={showInputText ? '' : inputText}
                 onChange={(event) => onSetText(event.target.value)}
                 onKeyDown={onSetKey}
-                onBlur={onBlur}
+                onFocus={() => onFocusBlur && onFocusBlur(true)}
+                onBlur={onBlurLocal}
                 readOnly={disabled}
                 disabled={disabled}
                 title={title}
@@ -60,9 +62,10 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
             setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: true, }));
     }
 
-    function onBlur() {
+    function onBlurLocal() {
         showAsRef && !inputText &&
             setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
+        onFocusBlur && onFocusBlur(false);
     }
 }
 

@@ -33,7 +33,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <Column4_Value
                     useItAtom={useItAtom}
                     valueLifeAtom={valueLifeAtom}
-                    choosevalue={""}
+                    choosevalue=""
                 />
             </InputLabel>
 
