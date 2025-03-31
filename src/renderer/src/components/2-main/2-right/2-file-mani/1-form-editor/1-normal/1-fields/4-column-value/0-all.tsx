@@ -1,7 +1,8 @@
 import { type ComponentPropsWithoutRef, useMemo } from "react";
-import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { type ValueLife, ValueAs } from "@/store/manifest";
+import { type HighlightCtx, highlightFieldAtom } from "@/store/1-atoms/3-file-mani-atoms";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
@@ -12,10 +13,11 @@ type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
     parentDisabled?: boolean; // Container is disabled vs. input is disabled
-    onFocusBlur?: (focusOn: boolean) => void;
+    highlightCtx?: HighlightCtx;
 };
 
-export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, onFocusBlur, className, ...rest }: Column4_ValueProps) {
+export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, highlightCtx, ...rest }: Column4_ValueProps) {
+    const highlightField = useSetAtom(highlightFieldAtom);
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
@@ -27,6 +29,12 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     const showAsRefAndNotNon = showAsRef && !valueLife.isNon;
     const disabled = parentDisabled || itselfDisabled;
 
+    function onFocusBlur(focusOn: boolean) {
+        if (highlightCtx) {
+            highlightField({...highlightCtx, focusOn});
+        }
+    }
+
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer", className)}>
             <input
@@ -34,7 +42,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
                 value={showInputText ? '' : inputText}
                 onChange={(event) => onSetText(event.target.value)}
                 onKeyDown={onSetKey}
-                onFocus={() => onFocusBlur && onFocusBlur(true)}
+                onFocus={() => onFocusBlur(true)}
                 onBlur={onBlurLocal}
                 readOnly={disabled}
                 disabled={disabled}
@@ -65,7 +73,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
     function onBlurLocal() {
         showAsRef && !inputText &&
             setValueLife((v) => ({ ...v, value: '', isRef: false, valueAs: ValueAs.askReuse, isNon: false, }));
-        onFocusBlur && onFocusBlur(false);
+        onFocusBlur(false);
     }
 }
 
