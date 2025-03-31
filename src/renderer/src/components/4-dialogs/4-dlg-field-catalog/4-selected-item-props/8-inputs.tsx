@@ -78,6 +78,7 @@ export function PropValue({ fceCtx, ...rest }: PropValueProps) {
             useItAtom={useItAtom}
             valueLifeAtom={valueLifeAtom}
             choosevalue=""
+            // highlightCtx={{ }} // there is no highlight for field catalog
             {...rest}
         />
     );

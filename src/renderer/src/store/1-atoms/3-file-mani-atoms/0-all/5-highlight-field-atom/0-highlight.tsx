@@ -8,6 +8,10 @@ import { sawHandleAtom } from "@/store/7-napi-atoms";
 export const highlightFieldAtom = atom(
     null,
     (get, set, { nFieldCtx, mFieldCtx, focusOn }: HighlightCtx & { focusOn: boolean; }) => {
+        if (!focusOn) { // No need so far blur events
+            return;
+        }
+
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
             console.log('highlightFieldAtom: no hwnd'); // temp trace
@@ -17,10 +21,10 @@ export const highlightFieldAtom = atom(
         if (nFieldCtx) {
             const metaField: Meta.Field = nFieldCtx.metaField;
             const path: Meta.Path = metaField.path;
-            const rectStr = path.loc; // "x y w h"
+            const rect = getFieldRect(path.loc); // "x y w h"
             const prIndex = metaField.pidx;
 
-            console.log(`highlightFieldAtom.normal: location "${rectStr}", prIndex: ${prIndex}, focusOn: ${focusOn}`);
+            console.log(`highlightFieldAtom.normal: location "${JSON.stringify(rect)}", prIndex: ${prIndex}, focusOn: ${focusOn}`);
             //TODO: highlight: it can be web or win32
         }
         else if (mFieldCtx?.type === 'pos') {
@@ -32,3 +36,21 @@ export const highlightFieldAtom = atom(
         }
     }
 );
+
+/**
+ * Get location of field in the form as the last items in locations string.
+ * @param loc - // "x y w h"
+ */
+function getFieldRect(loc: string | undefined): { x: number; y: number; w: number; h: number; } | undefined {
+    if (!loc) {
+        return undefined;
+    }
+
+    const allStr = loc.split('|').pop() || '';
+    if (!allStr) {
+        return undefined;
+    }
+
+    const [x, y, w, h] = allStr.split(' ').map(Number);
+    return { x, y, w, h };
+}
