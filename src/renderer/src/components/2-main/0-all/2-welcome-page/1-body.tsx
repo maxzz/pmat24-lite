@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { AnimatePresence, motion, MotionConfig } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 import { appSettings, filesAtom, rootDir } from "@/store";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
@@ -21,13 +21,13 @@ export function WelcomePage() {
     return (
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
 
-            <AnimatePresence>
+            {/* <AnimatePresence> */} {/* This page should go away immediately otherwise tree item selection will be blocked for some time */}
                 {showWelcomePage && (
                     <motion.div
                         className="absolute inset-0 bg-muted grid grid-rows-[1fr,auto,1fr] z-[21]"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
+                        // exit={{ opacity: 0, scale: 0.9 }}
                     >
                         <HIDLogoAnimation className="row-start-1 absolute right-0.5 top-1 p-1.5 w-12" />
 
@@ -49,7 +49,7 @@ export function WelcomePage() {
 
                     </motion.div>
                 )}
-            </AnimatePresence>
+            {/* </AnimatePresence> */}
         </MotionConfig >
     );
 }
