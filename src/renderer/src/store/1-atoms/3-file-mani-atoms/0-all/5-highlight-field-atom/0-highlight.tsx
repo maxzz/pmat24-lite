@@ -18,24 +18,24 @@ export const highlightFieldAtom = atom(
         if (nCtx) {
             const formIdx = nCtx.formIdx;
 
-            const row: NormalField.RowCtx = nCtx.nAllAtoms.normal.rowCtxs[fieldIdx];
-            if (row) {
-                const metaField: Meta.Field = row.metaField;
+            const fieldCtx: NormalField.RowCtx = nCtx.nAllAtoms.normal.rowCtxs[fieldIdx];
+            if (fieldCtx) {
+                const metaField: Meta.Field = fieldCtx.metaField;
                 const path: Meta.Path = metaField.path;
                 const rectStr = path.loc; // "x y w h"
                 console.log(`highlightFieldAtom normal field location "${rectStr}"`);
                 
-                //TODO: highlight
+                //TODO: highlight: it can be web or win32
             }
         } else if (mCtx) {
             const formIdx = mCtx.formIdx;
 
             const fileUs = mCtx.mAllAtoms.fileUsCtx.fileUs;
             
-            const ctx: ManualFieldState.Ctx = get(mCtx.mAllAtoms.manual.chunksAtom)[fieldIdx];
-            if (ctx?.type === 'pos') {
-                const x = get(ctx.xAtom);
-                const y = get(ctx.yAtom);
+            const fieldCtx: ManualFieldState.Ctx = get(mCtx.mAllAtoms.manual.chunksAtom)[fieldIdx];
+            if (fieldCtx?.type === 'pos') {
+                const x = get(fieldCtx.xAtom);
+                const y = get(fieldCtx.yAtom);
                 console.log(`highlightFieldAtom manual field location "${x} x ${y}"`);
                 
                 //TODO: highlight
