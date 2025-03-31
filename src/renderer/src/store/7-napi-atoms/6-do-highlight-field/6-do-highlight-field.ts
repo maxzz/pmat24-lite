@@ -3,7 +3,7 @@ import { atom } from "jotai";
 import { R2MCalls } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
 
-export const doHighlightRectAtom = atom(
+export const doHighlightFieldAtom = atom(
     null,
     (get, set, { hwnd, rect, accId }: { hwnd: string | undefined, rect?: TargetClientRect | undefined; accId?: number; }) => {
         if (!hwnd || (!rect && accId === undefined)) {
