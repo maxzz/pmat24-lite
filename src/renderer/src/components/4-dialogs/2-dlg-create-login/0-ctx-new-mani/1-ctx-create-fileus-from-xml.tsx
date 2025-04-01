@@ -48,7 +48,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
 
     // 3. Parse maniXml to fileUs
     try {
-        const fileContent: FileContent = createNewFileContent(sawManiXml, manual, passwordChange);
+        const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual, newAsCpass: passwordChange });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
 
         set(newManiContent.fileUsAtom, fileUs);
