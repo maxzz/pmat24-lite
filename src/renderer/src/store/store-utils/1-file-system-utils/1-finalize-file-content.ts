@@ -17,6 +17,7 @@ export function finalizeFileContent(fileContent: FileContent | null): FileConten
         notOur: fileContent?.notOur ?? false,
         newFile: fileContent?.newFile ?? true,
         newAsManual: fileContent?.newAsManual ?? false,
+        newAsCpass: fileContent?.newAsCpass ?? false,
         fromMain: fileContent?.fromMain ?? false,
 
         webFsItem: fileContent?.webFsItem || null,

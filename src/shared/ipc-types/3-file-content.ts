@@ -42,6 +42,7 @@ export type FileContent = {
     notOur: boolean;                    // load of file content was blocked by allowedExt list.
     newFile: boolean;                   // new file created in the editor and not saved yet to the file system.
     newAsManual: boolean;               // true only when Saw dialog has selected 'create as a manual manifest' and manifest created.
+    newAsCpass: boolean;                // true only when Saw dialog has selected 'create as a cpass manifest' and manifest created.
     fromMain: boolean;                  // electron: true if loaded from electron main process, and has full absolute path; can be stored in the main process
 
     webFsItem: WebFsItem | null;        // web: for files loaded without electron
