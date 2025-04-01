@@ -26,8 +26,6 @@ export function createNewFileContent(raw: string): FileContent {
 }
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
-    // console.log(`fileContent.fpath\n  "${fileContent.fpath}"\n  "${pathWithoutFilename(fileContent.fpath)}"`);
-
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 
     const rv: FileUs = {
