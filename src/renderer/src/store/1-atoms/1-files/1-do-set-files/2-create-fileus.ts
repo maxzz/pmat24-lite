@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
+import { buildManiMetaForms, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
@@ -36,13 +36,13 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
         const res = parseXMLFile(fileCnt.raw || '');
 
         if (fileCnt.newFile) {
-            //TODO: create new mani field
-            //TODO: call createNewManualForm() here
+            // we already have initial xml, so tweak it
+        }
 
-            // const detection = createManualFormDetection({ caption: 'todo', dlg_class: 'todo', processname: 'todo', commandline: 'todo' });
-            // const options = createManualFormOptions();
-            // const fields = createManualFormFields();
-            // const form = createNewManualForm({ detection, options, fields });
+        if (fileCnt.newAsManual) {
+        }
+
+        if (fileCnt.newAsCpass) {
         }
 
         rv.mani = res.mani;

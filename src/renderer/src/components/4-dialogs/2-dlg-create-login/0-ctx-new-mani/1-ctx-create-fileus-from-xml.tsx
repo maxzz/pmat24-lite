@@ -26,7 +26,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     try {
         showProgressAtom && set(showProgressAtom, true);
 
-        await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual, passwordChange, });
+        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange, wantXml: true, });
 
         if (napiBuildState.buildError) {
             showBuildErrorReason(set);
