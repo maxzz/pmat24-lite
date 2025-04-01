@@ -23,16 +23,16 @@ export const fieldHighlightAtom = atom(
         const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn };
 
         if (nFieldCtx) {
-            set(normalFieldHighlightAtom, { nFieldCtx, ...params });
+            set(normalFieldHighlightAtom, nFieldCtx, params);
         } else if (mFieldCtx) {
-            set(manualFieldHighlightAtom, { mFieldCtx, ...params });
+            set(manualFieldHighlightAtom, mFieldCtx, params);
         }
     }
 );
 
 const normalFieldHighlightAtom = atom(
     null,
-    (get, set, { hwnd, isBrowser, nFieldCtx, focusOn }: { hwnd: string; isBrowser: boolean; nFieldCtx: NormalField.RowCtx; focusOn: boolean; }) => {
+    (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn }: { hwnd: string; isBrowser: boolean; focusOn: boolean; }) => {
 
         const metaField: Meta.Field = nFieldCtx.metaField;
         const path: Meta.Path = metaField.path;
@@ -50,9 +50,9 @@ const normalFieldHighlightAtom = atom(
 
 const manualFieldHighlightAtom = atom(
     null,
-    (get, set, { hwnd, mFieldCtx, focusOn }: { hwnd: string; isBrowser: boolean; mFieldCtx: ManualFieldState.Ctx; focusOn: boolean; }) => {
+    (get, set, mFieldCtx: ManualFieldState.Ctx, { hwnd, focusOn }: { hwnd: string; isBrowser: boolean; focusOn: boolean; }) => {
 
-        if (mFieldCtx?.type === 'pos') {
+        if (mFieldCtx.type === 'pos') {
             const x = +get(mFieldCtx.xAtom).data;
             const y = +get(mFieldCtx.yAtom).data;
             const rect = { left: x, top: y, right: x + 10, bottom: y + 10 };
