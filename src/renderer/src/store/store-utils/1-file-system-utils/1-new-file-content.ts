@@ -1,9 +1,9 @@
 import { proxySet } from "valtio/utils";
+import { uuid } from "@/store/manifest";
 import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from "@shared/ipc-types";
-import { uuid } from "@/store/manifest";
 
-export function createNewFileContent(raw: string): FileContent {
+export function createNewFileContent(raw: string, newAsManual: boolean, newAsCpass: boolean): FileContent {
     return {
         unid: uuid.asRelativeNumber(),
         idx: 0,
@@ -15,8 +15,8 @@ export function createNewFileContent(raw: string): FileContent {
         failed: false,
         notOur: false,
         newFile: true,
-        newAsManual: false,
-        newAsCpass: false,
+        newAsManual,
+        newAsCpass,
         fromMain: hasMain(),
         webFsItem: null,
         changesSet: new Set(),

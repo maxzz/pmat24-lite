@@ -11,12 +11,12 @@ export const doMoveToSecondDlgAtom = atom(
     null,
     async (get, set, { cancel }: { cancel: boolean; }): Promise<void> => {
         if (cancel) {
-            R2MCalls.showHideWindow(false);
+            R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
 
             set(doOpenSawOverlayAtom, false);
             set(doTurnOffSawModeOnClientAtom);
             setBuildState({ error: '' });
-            
+
             setTimeout(() => R2MCalls.showHideWindow(true), 500);
             return;
         }
@@ -29,7 +29,15 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom, get, set, });
+        const created = await createFileUsFromNewXml({
+            params: {
+                hwnd,
+                manual: get(createManualManiAtom),
+                passwordChange: false,
+            },
+            showProgressAtom, get, set,
+        });
+        
         if (!created) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;

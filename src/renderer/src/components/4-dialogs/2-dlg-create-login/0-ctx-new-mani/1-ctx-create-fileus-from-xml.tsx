@@ -18,10 +18,11 @@ type MoveFromAppsToNextPageParams = {
  * @returns true if move to the next page is allowed
  */
 export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordChange }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+    
     // 0. Claen up the context before parsing
     newManiContent.clear(set);
 
-    // 1. Get manifest as maniXml from the window
+    // 1. Call Napi to get manifest as maniXml from the window
     try {
         showProgressAtom && set(showProgressAtom, true);
 
@@ -35,9 +36,6 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
         showProgressAtom && set(showProgressAtom, false);
     }
 
-    //TODO: add handle: you can define manifest content manually
-    //TODO: check created manifest content manually checkbox
-
     // 2. Save maniXml to the context
     const sawManiXml = get(maniXmlStrAtom);
     if (!sawManiXml) {
@@ -46,16 +44,12 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     }
 
     set(newManiContent.maniXmlAtom, sawManiXml);
-
-    console.log(`%cNew mani:\n${sawManiXml}`, "color:dimgray");
+    printNewMani(sawManiXml);
 
     // 3. Parse maniXml to fileUs
     try {
-        const fileContent: FileContent = createNewFileContent(sawManiXml);
+        const fileContent: FileContent = createNewFileContent(sawManiXml, manual, passwordChange);
         const fileUs: FileUs = createFileUsFromFileContent(fileContent);
-
-        //TODO: add handle: you can define manifest content manually
-        //TODO: check created manifest content manually checkbox
 
         set(newManiContent.fileUsAtom, fileUs);
         set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
@@ -69,6 +63,10 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     }
 
     return true;
+}
+
+function printNewMani(newMani: string) {
+    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
 }
 
 function showReason(set: Setter) {
