@@ -5,26 +5,6 @@ import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } fr
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
 import { buildManiMetaForms, createManualFormDetection, createManualFormFields, createManualFormOptions, createNewManualForm, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
 
-export function createNewFileContent(raw: string): FileContent {
-    return {
-        unid: uuid.asRelativeNumber(),
-        idx: 0,
-        fname: '',
-        fpath: '',
-        fmodi: 0,
-        size: 0,
-        raw,
-        failed: false,
-        notOur: false,
-        newFile: true,
-        newAsManual: false,
-        newAsCpass: false,
-        fromMain: hasMain(),
-        webFsItem: null,
-        changesSet: new Set(),
-    };
-}
-
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 

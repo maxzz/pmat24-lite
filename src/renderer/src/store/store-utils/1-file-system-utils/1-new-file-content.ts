@@ -1,6 +1,27 @@
 import { proxySet } from "valtio/utils";
+import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from "@shared/ipc-types";
 import { uuid } from "@/store/manifest";
+
+export function createNewFileContent(raw: string): FileContent {
+    return {
+        unid: uuid.asRelativeNumber(),
+        idx: 0,
+        fname: '',
+        fpath: '',
+        fmodi: 0,
+        size: 0,
+        raw,
+        failed: false,
+        notOur: false,
+        newFile: true,
+        newAsManual: false,
+        newAsCpass: false,
+        fromMain: hasMain(),
+        webFsItem: null,
+        changesSet: new Set(),
+    };
+}
 
 export function finalizeFileContent(fileContent: FileContent | null): FileContent {
     const rv: FileContent = {

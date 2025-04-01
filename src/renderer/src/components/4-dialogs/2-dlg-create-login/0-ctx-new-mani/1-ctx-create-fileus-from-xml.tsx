@@ -2,8 +2,8 @@ import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
 import { doAddNextToastIdAtom, errorToString } from "@/utils";
 import { toast } from "sonner";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
-import { createNewFileContent, createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError, createNewFileContent } from "@/store";
+import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
