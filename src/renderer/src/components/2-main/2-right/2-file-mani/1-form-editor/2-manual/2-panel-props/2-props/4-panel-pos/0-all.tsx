@@ -1,38 +1,10 @@
 import { useEffect } from "react";
-import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type RowInputState } from "@/ui";
 import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
-import { InputWTooltip, RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { buildState } from "./8-pos-build-state";
-//import { InputXY } from "./2-input-xy";
-
-// function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
-//     let n = parseInt(e.target.value);
-//     if (Number.isNaN(n)) {
-//         n = defValue;
-//     }
-//     return n;
-// }
-
-export function InputPos({ valueAtom, label }: { valueAtom: PrimitiveAtom<RowInputState>; label: string; }) {
-    const repeat = useAtomValue(valueAtom);
-    return (
-        <label className="flex flex-col gap-1">
-            <span>
-                {label}
-            </span>
-
-            <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputWTooltip stateAtom={valueAtom} asCheckbox={false} />
-
-                <span className="pt-0.5">
-                    px
-                </span>
-            </div>
-        </label>
-    );
-}
+import { InputPos } from "./2-Input-pos";
 
 export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
     const setPosValueX = useSetAtom(item.xAtom);
@@ -71,3 +43,4 @@ export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
 // TODO: zoom in/out buttons
 // TODO: button: select the click point
 // app preview or drag with client rects recalculation
+
