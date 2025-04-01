@@ -26,7 +26,7 @@ export function createNewFileContent(raw: string): FileContent {
 export function finalizeFileContent(fileContent: FileContent | null): FileContent {
     const rv: FileContent = {
         unid: uuid.asRelativeNumber(),
-        idx: fileContent?.idx ?? -1,
+        idx: fileContent?.idx ?? -1, //TODO: should be updated when file inserted to the tree
 
         fname: fileContent?.fname || '',
         fpath: fileContent?.fpath || '',

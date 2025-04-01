@@ -27,10 +27,6 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
-        // Before close and open the second dialog:
-
-        //TODO: manual mode
-
         set(doMonitoringTimerAtom, { doStart: false });
 
         const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), passwordChange: false }, showProgressAtom, get, set, });
@@ -38,9 +34,6 @@ export const doMoveToSecondDlgAtom = atom(
             set(doMonitoringTimerAtom, { doStart: true });
             return;
         }
-
-        // set(doMonitoringTimerAtom, { doStart: true });
-        // return;
 
         // Continue on the second dialog
 
@@ -56,5 +49,4 @@ export const doMoveToSecondDlgAtom = atom(
 );
 
 //TODO: show detection progress feedback
-//TODO: stop timer before detecting the app conent by clicking continue button - done
 //TODO: abort detection request if the user click dialog close button
