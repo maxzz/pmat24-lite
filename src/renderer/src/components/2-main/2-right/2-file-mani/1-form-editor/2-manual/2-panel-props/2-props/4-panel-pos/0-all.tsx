@@ -25,8 +25,8 @@ export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
 
     return (<>
         <div className="flex items-center space-x-2">
-            <InputPos valueAtom={item.xAtom} label="X" />
-            <InputPos valueAtom={item.yAtom} label="Y" />
+            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={{ mFieldCtx: item }} />
+            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={{ mFieldCtx: item }} />
 
             {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
                 <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}

@@ -1,6 +1,7 @@
-import { type PrimitiveAtom, useAtomValue } from "jotai";
+import { type PrimitiveAtom, useSetAtom } from "jotai";
+import { type RowInputState } from "@/ui";
+import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
 import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
-import type { RowInputState } from "@/ui";
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
@@ -11,8 +12,16 @@ import type { RowInputState } from "@/ui";
 //     return n;
 // }
 
-export function InputPos({ valueAtom, label }: { valueAtom: PrimitiveAtom<RowInputState>; label: string; }) {
-    const repeat = useAtomValue(valueAtom);
+export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: PrimitiveAtom<RowInputState>; label: string; highlightCtx?: FieldHighlightCtx; }) {
+
+    const doFieldHighlight = useSetAtom(fieldHighlightAtom);
+
+    function onFocusBlur(focusOn: boolean) {
+        if (highlightCtx) {
+            doFieldHighlight({ ...highlightCtx, focusOn });
+        }
+    }
+
     return (
         <label className="flex flex-col gap-1">
             <span>
@@ -20,7 +29,12 @@ export function InputPos({ valueAtom, label }: { valueAtom: PrimitiveAtom<RowInp
             </span>
 
             <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputWTooltip stateAtom={valueAtom} asCheckbox={false} />
+                <InputWTooltip
+                    stateAtom={valueAtom}
+                    asCheckbox={false}
+                    onFocus={() => onFocusBlur(true)}
+                    onBlur={() => onFocusBlur(false)}
+                />
 
                 <span className="pt-0.5">
                     px
