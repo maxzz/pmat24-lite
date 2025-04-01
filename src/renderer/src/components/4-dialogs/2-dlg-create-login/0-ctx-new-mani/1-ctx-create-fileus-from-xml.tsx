@@ -1,10 +1,10 @@
 import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
-import { doAddNextToastIdAtom, errorToString } from "@/utils";
-import { toast } from "sonner";
+import { errorToString } from "@/utils";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, setBuildState, splitTypedError, typedErrorToString, type TypedError, createNewFileContent } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
+import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml'>;
@@ -29,7 +29,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
         await set(doGetWindowManiAtom, { hwnd, wantXml: true, manual, passwordChange, });
 
         if (napiBuildState.buildError) {
-            showReason(set);
+            showBuildErrorReason(set);
             return false;
         }
     } finally {
@@ -39,7 +39,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     // 2. Save maniXml to the context
     const sawManiXml = get(maniXmlStrAtom);
     if (!sawManiXml) {
-        showReason(set);
+        showBuildErrorReason(set);
         return false;
     }
 
@@ -63,57 +63,4 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     }
 
     return true;
-}
-
-function printNewMani(newMani: string) {
-    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
-}
-
-function showReason(set: Setter) {
-    if (!napiBuildState.buildError) {
-        return;
-    }
-
-    const typedError = splitTypedError(napiBuildState.buildError);
-
-    console.error(`'getXmlCreateFileUs' ${typedErrorToString(typedError)}`);
-
-    if (typedError.typed === 'canceled-by-user') {
-        showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
-    }
-    else if (typedError.typed === 'too-many-controls') {
-        showMessage({ set, message: 'Too many controls' });
-    }
-    else if (typedError.typed === 'build-error') {
-        showMessage({ set, message: getErrorSubMessage(typedError) });
-    }
-    else if (typedError.extra) {
-        showMessage({ set, message: typedError.extra, isError: true });
-    } else {
-        showMessage({ set, message: 'There are no input controls in the window' });
-    }
-
-    setBuildState({ error: '' });
-}
-
-function getErrorSubMessage(error: TypedError): string {
-    switch (error.sub) {
-        case 'incompatiblePM': {
-            return 'HID Password Manager is not installed';
-        }
-        case 'noBrExt': {
-            return 'HID Password Manager extension is not installed';
-        }
-        case 'obsoleteBrExt': {
-            return 'Update HID Password Manager extension';
-        }
-        case 'noControls':
-        default: {
-            return 'Cannot access application content';
-        }
-    }
-}
-
-function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
-    set(doAddNextToastIdAtom, toast[isError ? 'error' : 'info'](message, { position: "top-center" }));
 }

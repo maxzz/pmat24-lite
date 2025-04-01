@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, createManualFormDetection, createManualFormFields, createManualFormOptions, createNewManualForm, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
+import { buildManiMetaForms, parseXMLFile, TimeUtils, uuid } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);

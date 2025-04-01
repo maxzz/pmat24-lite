@@ -48,3 +48,15 @@ export function finalizeFileContent(fileContent: FileContent | null): FileConten
     };
     return rv;
 }
+
+// TODO: if we need to create new manifest from scratch
+// import { createManualFormDetection, createManualFormFields, createManualFormOptions, createNewManualForm } from '@/store/manifest';
+// if (fileCnt.newFile) {
+//     //TODO: create new mani field
+//     //TODO: call createNewManualForm() here
+
+//     // const detection = createManualFormDetection({ caption: 'todo', dlg_class: 'todo', processname: 'todo', commandline: 'todo' });
+//     // const options = createManualFormOptions();
+//     // const fields = createManualFormFields();
+//     // const form = createNewManualForm({ detection, options, fields });
+// }
