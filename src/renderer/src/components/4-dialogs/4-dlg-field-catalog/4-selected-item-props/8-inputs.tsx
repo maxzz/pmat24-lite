@@ -1,7 +1,7 @@
 import { type ReactNode, type InputHTMLAttributes, HTMLAttributes } from "react";
 import { useAtom, type PrimitiveAtom } from "jotai";
 import { type FceCtx } from "@/store";
-import { Input, Label, Textarea } from "@/ui/shadcn";
+import { Input, Textarea } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value/0-all";
 import { inputRingClasses } from "@/ui";
@@ -78,7 +78,6 @@ export function PropValue({ fceCtx, ...rest }: PropValueProps) {
             useItAtom={useItAtom}
             valueLifeAtom={valueLifeAtom}
             choosevalue=""
-            // highlightCtx={{ }} // there is no highlight for field catalog
             {...rest}
         />
     );

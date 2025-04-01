@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef, useMemo } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { type ValueLife, ValueAs } from "@/store/manifest";
-import { type NFieldHighlightCtx, normalFieldHighlightAtom } from "@/store/1-atoms/3-file-mani-atoms";
+import { type FieldHighlightCtx, fieldHighlightAtom } from "@/store/1-atoms/3-file-mani-atoms";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
@@ -13,11 +13,11 @@ type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     valueLifeAtom: PrimitiveAtom<ValueLife>;
     choosevalue: string | undefined;
     parentDisabled?: boolean; // Container is disabled vs. input is disabled
-    highlightCtx?: NFieldHighlightCtx;
+    highlightCtx?: FieldHighlightCtx;
 };
 
 export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, highlightCtx, ...rest }: Column4_ValueProps) {
-    const highlightField = useSetAtom(normalFieldHighlightAtom);
+    const highlightField = useSetAtom(fieldHighlightAtom);
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);
@@ -31,7 +31,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
 
     function onFocusBlur(focusOn: boolean) {
         if (highlightCtx) {
-            highlightField({...highlightCtx, focusOn});
+            highlightField({ ...highlightCtx, focusOn });
         }
     }
 

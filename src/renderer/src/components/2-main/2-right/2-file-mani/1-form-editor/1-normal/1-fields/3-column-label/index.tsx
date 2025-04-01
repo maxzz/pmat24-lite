@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from 'react';
-import { PrimitiveAtom, useAtom, useAtomValue } from 'jotai';
+import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
+import { fieldHighlightAtom, type FieldHighlightCtx } from '@/store';
 
 const Column3_LabelClasses = "\
 px-2 py-3 h-7 \
@@ -23,16 +24,28 @@ rounded \
 type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
     valueAtom: PrimitiveAtom<string>;
+    highlightCtx?: FieldHighlightCtx;
 };
 
-export function Column3_Label({ useItAtom, valueAtom, className, ...rest }: Column3_LabelProps) {
+export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, ...rest }: Column3_LabelProps) {
     const [value, setValue] = useAtom(valueAtom);
     const useIt = useAtomValue(useItAtom);
+    
+    const highlightField = useSetAtom(fieldHighlightAtom);
+
+    function onFocusBlur(focusOn: boolean) {
+        if (highlightCtx) {
+            highlightField({ ...highlightCtx, focusOn });
+        }
+    }
+
     return (
         <input
             className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}
             value={value}
             onChange={(event) => setValue(event.target.value)}
+            onFocus={() => onFocusBlur(true)}
+            onBlur={() => onFocusBlur(false)}
             title={useIt ? "This is a label that appears next to an input field." : undefined}
             {...turnOffAutoComplete}
             {...rest}

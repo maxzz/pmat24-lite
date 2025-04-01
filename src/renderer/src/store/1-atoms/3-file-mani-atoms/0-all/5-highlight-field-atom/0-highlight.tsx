@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type Meta } from "@/store/manifest";
-import { type NFieldHighlightCtx, type MFieldHighlightCtx, type FieldHighlightCtx } from "../../9-types";
+import { type FieldHighlightCtx } from "../../9-types";
 import { doHighlightFieldAtom, sawHandleAtom } from "@/store/7-napi-atoms";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
 import { R2MParams } from "@shared/ipc-types";

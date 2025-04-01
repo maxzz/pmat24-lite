@@ -35,6 +35,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
         <Column3_Label
             useItAtom={useItAtom}
             valueAtom={labelAtom}
+            highlightCtx={{ nFieldCtx: rowCtx }}
             onClick={enableRow}
         />
 
@@ -42,7 +43,6 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
             useItAtom={useItAtom}
             valueLifeAtom={valueLifeAtom}
             choosevalue={maniField.choosevalue}
-            highlightCtx={{ nFieldCtx: rowCtx }}
             onClick={enableRow}
         />
 
