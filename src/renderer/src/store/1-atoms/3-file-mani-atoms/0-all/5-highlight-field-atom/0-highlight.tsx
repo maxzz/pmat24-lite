@@ -9,7 +9,7 @@ import { type ManualFieldState } from "../../2-manual-fields";
 
 export const fieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => {
+    (get, set, { nFieldCtx, mFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => {
         if (!focusOn) { // No need so far blur events
             return;
         }
@@ -19,68 +19,38 @@ export const fieldHighlightAtom = atom(
             console.log('normalFieldHighlightAtom: no hwndHandle'); // temp trace
             return;
         }
-        const hwnd = hwndHandle.hwnd;
-        const isBrower = hwndHandle.isBrowser;
+
+        const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn };
 
         if (nFieldCtx) {
-            const metaField: Meta.Field = nFieldCtx.metaField;
-            const path: Meta.Path = metaField.path;
-
-            const params: R2MParams.HighlightRect = {
-                hwnd,
-                rect: isBrower ? undefined : getFieldRect(path.loc),
-                accId: isBrower ? metaField.pidx : undefined,
-            };
-            set(doHighlightFieldAtom, params);
-
-            console.log(`normalFieldHighlightAtom.normal: isBrower: ${isBrower}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`);
+            set(normalFieldHighlightAtom, { nFieldCtx, ...params });
+        } else if (mFieldCtx) {
+            set(manualFieldHighlightAtom, { mFieldCtx, ...params });
         }
     }
 );
 
-export const normalFieldHighlightAtom = atom(
+const normalFieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, focusOn }: { nFieldCtx?: NormalField.RowCtx; } & { focusOn: boolean; }) => {
-        if (!focusOn) { // No need so far blur events
-            return;
-        }
+    (get, set, { hwnd, isBrowser, nFieldCtx, focusOn }: { hwnd: string; isBrowser: boolean; nFieldCtx: NormalField.RowCtx; focusOn: boolean; }) => {
 
-        const hwndHandle = get(sawHandleAtom);
-        if (!hwndHandle) {
-            console.log('normalFieldHighlightAtom: no hwndHandle'); // temp trace
-            return;
-        }
-        const hwnd = hwndHandle.hwnd;
-        const isBrower = hwndHandle.isBrowser;
+        const metaField: Meta.Field = nFieldCtx.metaField;
+        const path: Meta.Path = metaField.path;
 
-        if (nFieldCtx) {
-            const metaField: Meta.Field = nFieldCtx.metaField;
-            const path: Meta.Path = metaField.path;
+        const params: R2MParams.HighlightRect = {
+            hwnd,
+            rect: isBrowser ? undefined : getFieldRect(path.loc),
+            accId: isBrowser ? metaField.pidx : undefined,
+        };
+        set(doHighlightFieldAtom, params);
 
-            const params: R2MParams.HighlightRect = {
-                hwnd,
-                rect: isBrower ? undefined : getFieldRect(path.loc),
-                accId: isBrower ? metaField.pidx : undefined,
-            };
-            set(doHighlightFieldAtom, params);
-
-            console.log(`normalFieldHighlightAtom.normal: isBrower: ${isBrower}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`);
-        }
+        console.log(`normalFieldHighlightAtom.normal: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`);
     }
 );
 
-export const manualFieldHighlightAtom = atom(
+const manualFieldHighlightAtom = atom(
     null,
-    (get, set, { mFieldCtx, focusOn }: { mFieldCtx?: ManualFieldState.Ctx; } & { focusOn: boolean; }) => {
-        if (!focusOn) { // No need so far blur events
-            return;
-        }
-
-        const hwnd = get(sawHandleAtom)?.hwnd;
-        if (!hwnd) {
-            console.log('normalFieldHighlightAtom: no hwndHandle'); // temp trace
-            return;
-        }
+    (get, set, { hwnd, mFieldCtx, focusOn }: { hwnd: string; isBrowser: boolean; mFieldCtx: ManualFieldState.Ctx; focusOn: boolean; }) => {
 
         if (mFieldCtx?.type === 'pos') {
             const x = +get(mFieldCtx.xAtom).data;
