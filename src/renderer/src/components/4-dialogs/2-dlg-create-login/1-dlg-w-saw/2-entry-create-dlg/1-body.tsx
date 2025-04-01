@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { printPrecitionTime, useDissmissNextToasts } from "@/utils";
+import { useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -12,8 +12,6 @@ export function DialogSawBody() {
 
     const doOpenDlg = useSetAtom(doOpenDlgNewManiSawAtom);
     useDissmissNextToasts();
-
-    printPrecitionTime('DialogSawBody render');
 
     return (
         <div className="h-full flex flex-col">

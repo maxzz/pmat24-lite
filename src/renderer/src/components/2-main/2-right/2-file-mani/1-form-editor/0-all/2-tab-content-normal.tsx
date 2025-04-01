@@ -1,13 +1,10 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { classNames, printPrecitionTime } from "@/utils";
+import { classNames } from "@/utils";
 import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
 
 export function TabContentNormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFields = !!ctx.nAllAtoms.normal.rowCtxs.length;
-
-    printPrecitionTime('NormalFormTabContent render');
-
     return (
         <div className={classNames("flex flex-col", className)} {...rest}>
 
