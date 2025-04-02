@@ -10,7 +10,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: createParsedSrc(fileCnt),
+        parsedSrc: createParsedSrc(fileCnt, masterFileUs),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
@@ -24,7 +24,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
     return rv;
 }
 
-function createParsedSrc(fileCnt: FileContent): ParsedSrc {
+function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
     const rv: ParsedSrc = {
         mani: undefined,
         meta: undefined,
@@ -47,7 +47,7 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
                 if (loginForm) {
                     allFlavours.mani.forms[0] = createManualModeFormFrom(loginForm);
                 } else {
-                    
+
                 }
             }
         }
@@ -58,6 +58,14 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
         rv.mani = allFlavours.mani;
         rv.meta = buildManiMetaForms(allFlavours.mani?.forms);
         rv.fcat = allFlavours.fcat;
+
+        if (fileCnt.newAsManual) {
+            const loginMetaForm = rv.meta[0];
+            if (loginMetaForm) {
+                loginMetaForm.disp.isScript = true;
+            }
+        }
+        
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;

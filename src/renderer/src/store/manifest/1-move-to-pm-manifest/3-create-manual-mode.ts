@@ -18,3 +18,5 @@ export function createManualModeFormFrom(form: Mani.Form): Mani.Form {
 
     return rv;
 }
+
+//TODO: move it bacl to manifest package
