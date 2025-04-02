@@ -1,4 +1,4 @@
-export const menuContentClasses = "p-1 min-w-[14ch] text-sm \
+const menuContentClasses = "p-1 min-w-[14ch] text-sm \
 text-primary-800 \
 dark:text-primary-200 \
 \
