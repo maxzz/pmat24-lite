@@ -14,7 +14,7 @@ border-primary-500 \
 dark:border-primary-400 \
 dark:shadow-primary-500 \
 \
-border rounded shadow select-none";
+border rounded shadow select-none z-[52]"; // z-[52] to stay on top of the dialog
 
 export const menuItemClasses = "pr-3 py-1 rounded-sm outline-none \
 data-[highlighted]:text-primary-800 \

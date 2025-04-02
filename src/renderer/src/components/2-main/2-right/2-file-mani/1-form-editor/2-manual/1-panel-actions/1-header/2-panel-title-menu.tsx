@@ -16,7 +16,7 @@ export function MenuAddButton({ ctx }: { ctx: MFormContextProps; }) {
                 </button>
             </Menu.Trigger>
 
-            <Menu.Portal container={document.getElementById('portal')}>
+            <Menu.Portal /*container={document.getElementById('portal')}*/>
                 <Menu.Content className={menuContentClasses} sideOffset={1} alignOffset={-8} side="bottom" align="end">
                     <MenuRow ctx={ctx} type="kbd" />
                     <MenuRow ctx={ctx} type="pos" />
