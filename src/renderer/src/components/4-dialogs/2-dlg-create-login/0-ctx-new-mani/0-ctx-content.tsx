@@ -1,4 +1,4 @@
-import { type Setter, type PrimitiveAtom as PA, atom } from "jotai";
+import { type Setter, atom } from "jotai";
 import { type FileUs } from "@/store";
 import { type NewManiContentData } from "./9-types";
 

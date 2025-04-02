@@ -49,10 +49,11 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
     // 3. Parse maniXml to fileUs
     try {
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual, newAsCpass: passwordChange });
-        const fileUs: FileUs = createFileUsFromFileContent(fileContent);
+        const fileUs: FileUs = createFileUsFromFileContent(fileContent, newManiContent.fileUsMasterAtom);
 
         set(newManiContent.fileUsAtom, fileUs);
         set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
+        
     } catch (error) {
         newManiContent.clear(set);
 
