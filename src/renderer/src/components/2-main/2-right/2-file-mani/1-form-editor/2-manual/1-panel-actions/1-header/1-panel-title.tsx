@@ -1,10 +1,11 @@
+import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
+import { type CreateNewManualAction } from "../0-all/9-types";
 import { MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { ButtonActionsMenuAdd } from "./2-panel-title-menu";
-import { classNames } from "@/utils";
+import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
 
-export function PanelActionsTitle({ ctx }: { ctx: MFormContextProps; }) {
+export function PanelActionsTitle({ ctx, addNew }: { ctx: MFormContextProps; addNew: CreateNewManualAction; }) {
     const title = ctx.formIdx === FormIdx.login ? "Login actions" : "Password change actions"; // 'Fill in actions'
     return (
         <div className={classNames("-ml-1 -mt-1 pl-2", panelEditorTitleClasses)}>
@@ -13,7 +14,7 @@ export function PanelActionsTitle({ ctx }: { ctx: MFormContextProps; }) {
                 {title}
             </div>
 
-            <ButtonActionsMenuAdd ctx={ctx} />
+            <ButtonActionsMenuAdd addNew={addNew} />
         </div>
     );
 }

@@ -2,12 +2,13 @@ import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { IconAdd } from "@/ui/icons";
 import { type ChunkKey } from "@/store/manifest";
+import { type CreateNewManualAction } from "../0-all/9-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { focusClasses, menuItemClasses } from "../../8-manual-shared-styles";
 import { doCreateItemAtom, type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { RowColumnIcon, rowColumnName } from "../3-row-details";
 
-export function ButtonActionsMenuAdd({ ctx }: { ctx: MFormContextProps; }) {
+export function ButtonActionsMenuAdd({ addNew }: { addNew: CreateNewManualAction; }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -17,24 +18,23 @@ export function ButtonActionsMenuAdd({ ctx }: { ctx: MFormContextProps; }) {
             </DropdownMenuTrigger>
 
             <DropdownMenuPortal /*container={document.getElementById('portal')}*/>
-                <DropdownMenuContent className={"1z-[52]"} sideOffset={1} alignOffset={-8} side="bottom" align="end">
-                    <MenuRow ctx={ctx} type="kbd" />
-                    <MenuRow ctx={ctx} type="pos" />
-                    <MenuRow ctx={ctx} type="fld" />
-                    <MenuRow ctx={ctx} type="dly" />
+                <DropdownMenuContent sideOffset={1} alignOffset={-8} side="bottom" align="end">
+                    <MenuRow type="kbd" addNew={addNew} />
+                    <MenuRow type="pos" addNew={addNew} />
+                    <MenuRow type="fld" addNew={addNew} />
+                    <MenuRow type="dly" addNew={addNew} />
                 </DropdownMenuContent>
             </DropdownMenuPortal>
         </DropdownMenu>
     );
 }
 
-function MenuRow({ ctx, type, password }: { ctx: MFormContextProps; type: ChunkKey; password?: boolean; }) {
-    const doCreateItem = useSetAtom(doCreateItemAtom);
+function MenuRow({ type, password, addNew }: { type: ChunkKey; password?: boolean; addNew: CreateNewManualAction; }) {
     const dispName = rowColumnName(type);
     return (
         <DropdownMenuItem
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
-            onClick={() => doCreateItem(ctx.mAllAtoms.manual, type, !!password)}
+            onClick={() => addNew(type, !!password)}
         >
             <RowColumnIcon type={type} />
 
