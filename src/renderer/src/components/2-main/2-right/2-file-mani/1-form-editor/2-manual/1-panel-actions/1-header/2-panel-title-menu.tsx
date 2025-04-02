@@ -7,11 +7,11 @@ import { focusClasses, menuContentClasses, menuItemClasses } from "../../8-manua
 import { doCreateItemAtom, type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { RowColumnIcon, rowColumnName } from "../3-row-details";
 
-export function MenuAddButton({ ctx }: { ctx: MFormContextProps; }) {
+export function ButtonActionsMenuAdd({ ctx }: { ctx: MFormContextProps; }) {
     return (
         <Menu.Root>
             <Menu.Trigger asChild>
-                <button className={classNames(buttonClasses, focusClasses)}>
+                <button className={classNames(buttonClasses, focusClasses)} tabIndex={-1}>
                     <IconAdd className="size-3" />
                 </button>
             </Menu.Trigger>
