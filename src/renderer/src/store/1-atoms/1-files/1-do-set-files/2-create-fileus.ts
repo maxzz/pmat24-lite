@@ -46,8 +46,19 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
                 const loginForm = allFlavours.mani.forms[0];
                 if (loginForm) {
                     allFlavours.mani.forms[0] = createManualModeFormFrom(loginForm);
-                } else {
+                    
+                    //TODO: manual mode UI will fail if we don't have any fields
+                    //TODO: add field is not working at all
+                    allFlavours.mani.forms[0].fields.push({
+                        displayname: "Username",
+                        type: "edit",
+                        dbname: "{d63f92ba-ab9e-464e-bffb-a80d50862ee6}",
+                        path_ext: "[sn]2.0.field;",
+                        useit: true,
+                    });
 
+                } else {
+                    console.error('Cannot find login form');
                 }
             }
         }
@@ -59,13 +70,16 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
         rv.meta = buildManiMetaForms(allFlavours.mani?.forms);
         rv.fcat = allFlavours.fcat;
 
+        //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
         if (fileCnt.newAsManual) {
             const loginMetaForm = rv.meta[0];
             if (loginMetaForm) {
                 loginMetaForm.disp.isScript = true;
+            } else {
+                console.error('Cannot find login meta form');
             }
         }
-        
+
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;
