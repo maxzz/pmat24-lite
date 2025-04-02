@@ -1,4 +1,4 @@
-import { forwardRef, Ref, type HTMLAttributes } from "react";
+import { forwardRef, ForwardRefExoticComponent, Ref, RefAttributes, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { motion } from "motion/react";
 import { type MFormCtx, type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
@@ -44,7 +44,15 @@ function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowPro
     );
 }
 
-export const SingleRow = motion.create(forwardRef(SingleRowWRef));
+//type SingleRowRefType = typeof SingleRow;
+// type SingleRowRefType = ForwardRefExoticComponent<Omit<Parameters<typeof SingleRowWRef>, "ref"> & RefAttributes<HTMLDivElement>>;
+type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRef>[0] & RefAttributes<HTMLDivElement>>;
+
+// type Check = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>
+
+const cc: SingleRowRefType = forwardRef(SingleRowWRef);
+export const SingleRow: any = motion.create(cc);
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef));
 
 const rowLocalClasses = "\
 mx-1 py-px leading-6 \
