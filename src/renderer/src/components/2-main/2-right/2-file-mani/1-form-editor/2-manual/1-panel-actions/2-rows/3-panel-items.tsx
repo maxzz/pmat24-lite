@@ -1,3 +1,4 @@
+import { forwardRef, type Ref } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { classNames } from "@/utils";
@@ -6,7 +7,7 @@ import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapIt
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
 
-export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) {
+export function PanelActionsListWoRef({ ctx: ctxForm }: { ctx: MFormContextProps; }, ref: Ref<HTMLDivElement>) {
     const ctx = ctxForm.mAllAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
@@ -16,7 +17,7 @@ export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) 
     const swapItems = useSetAtom(doSwapItemsAtom);
 
     return (<>
-        <div className={classNames("min-h-10 outline-none", rowParentActiveClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
+        <div ref={ref} className={classNames("min-h-10 outline-none", rowParentActiveClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
 
             <AnimatePresence initial={false}>
                 {chunks.map(
@@ -52,3 +53,5 @@ export function PanelActionsList({ ctx: ctxForm }: { ctx: MFormContextProps; }) 
         </div>
     </>);
 }
+
+export const PanelActionsList = forwardRef(PanelActionsListWoRef);

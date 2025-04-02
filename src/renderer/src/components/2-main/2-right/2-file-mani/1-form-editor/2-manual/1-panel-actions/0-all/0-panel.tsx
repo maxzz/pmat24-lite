@@ -1,6 +1,6 @@
-import { type HTMLAttributes, useEffect } from "react";
+import { type HTMLAttributes, useEffect, useRef } from "react";
 import { useSetAtom } from "jotai";
-import { classNames } from "@/utils";
+import { classNames, delay } from "@/utils";
 import { ScrollArea } from "@/ui";
 import { type ChunkKey } from "@/store/manifest";
 import { type MFormContextProps, doCreateItemAtom } from "@/store/1-atoms/3-file-mani-atoms";
@@ -11,13 +11,20 @@ import { focusWithinClasses } from "../../8-manual-shared-styles";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
 
+    const listRef = useRef<HTMLDivElement>(null);
+
     const initCb = useInitSelectedIdx(ctx.mAllAtoms.manual);
     useEffect(() => { initCb(); }, []);
 
     const doCreateItem = useSetAtom(doCreateItemAtom);
 
-    function onCreateNewManual(type: ChunkKey, password: boolean) {
+    async function onCreateNewManual(type: ChunkKey, password: boolean) {
         doCreateItem(ctx.mAllAtoms.manual, type, password);
+        
+        await delay(500); // TODO: fix this temp hack
+        // console.log('onCreateNewManual', listRef.current);
+        
+        listRef.current?.focus();
     }
 
     return (
@@ -28,7 +35,7 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
             <div className="relative h-full">
                 <div className="absolute inset-0">
                     <ScrollArea className="pr-1 h-full">
-                        <PanelActionsList ctx={ctx} />
+                        <PanelActionsList ctx={ctx} ref={listRef} />
                     </ScrollArea>
                 </div>
             </div>
