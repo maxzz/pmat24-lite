@@ -5,7 +5,7 @@ import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } fr
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
 import { buildManiMetaForms, parseXMLFile, TimeUtils } from '@/store/manifest';
 
-export function createFileUsFromFileContent(fileContent: FileContent): FileUs {
+export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 
     const rv: FileUs = {

@@ -3,14 +3,14 @@ import { type FileUs } from "@/store";
 import { type NewManiContentData } from "./9-types";
 
 class NewManiContent implements NewManiContentData {
-    maniXmlAtom: PA<string | undefined> = atom<string | undefined>(undefined);
-    fileUsAtom: PA<FileUs | undefined> = atom<FileUs | undefined>(undefined);
-    fileUsMasterAtom: PA<FileUs | undefined> = atom<FileUs | undefined>(undefined);
+    maniXmlAtom = atom<string | undefined>(undefined);
+    fileUsAtom = atom<FileUs | undefined>(undefined);
+    fileUsMasterAtom: undefined;
 
     clear(set: Setter) {
         set(this.maniXmlAtom, undefined);
         set(this.fileUsAtom, undefined);
-        set(this.fileUsMasterAtom, undefined);
+        this.fileUsMasterAtom = undefined;
     }
 };
 
