@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, parseXMLFile, TimeUtils } from '@/store/manifest';
+import { buildManiMetaForms, createManualModeFormFrom, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
@@ -33,21 +33,31 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
     };
 
     try {
-        const res = parseXMLFile(fileCnt.raw || '');
+        const allFlavours = parseXMLFile(fileCnt.raw || '');
+
+        console.log('parseXMLFile res', allFlavours);
 
         if (fileCnt.newFile) {
-            // we already have initial xml, so tweak it
+            // we already have initial parsed xml, so tweak it
         }
 
         if (fileCnt.newAsManual) {
+            if (allFlavours.mani) {
+                const loginForm = allFlavours.mani.forms[0];
+                if (loginForm) {
+                    allFlavours.mani.forms[0] = createManualModeFormFrom(loginForm);
+                } else {
+                    
+                }
+            }
         }
 
         if (fileCnt.newAsCpass) {
         }
 
-        rv.mani = res.mani;
-        rv.meta = buildManiMetaForms(res.mani?.forms);
-        rv.fcat = res.fcat;
+        rv.mani = allFlavours.mani;
+        rv.meta = buildManiMetaForms(allFlavours.mani?.forms);
+        rv.fcat = allFlavours.fcat;
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;
@@ -56,7 +66,7 @@ function createParsedSrc(fileCnt: FileContent): ParsedSrc {
     }
 
     rv.stats = createFileUsStats(fileCnt, rv);
-    
+
     return rv;
 }
 
@@ -82,7 +92,7 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
         isFCat: !!parsedSrc.fcat,
         isFCatRoot: false,
         isCustomization: !parsedSrc.meta?.length && !!parsedSrc.mani?.options,
-        
+
         loginFormChooseNameAtom: atom(loginForm?.options?.choosename || ''),
 
         isSubFolder: isSubFolder,
@@ -91,6 +101,6 @@ function createFileUsStats(fileCnt: FileContent, parsedSrc: ParsedSrc): FileUsSt
         dateCreated: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.created),
         dateModified: TimeUtils.dpTimeToShow(parsedSrc.mani?.descriptor?.modified),
     };
-    
+
     return rv;
 }
