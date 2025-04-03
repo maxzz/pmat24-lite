@@ -16,10 +16,14 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
 const manualModeViewClasses = "\
 min-w-60 h-full min-h-0 \
 \
-grid grid-cols-1 grid-rows-[minmax(100px,_1fr),auto] \
+grid \
+grid-cols-1 \
+grid-rows-[minmax(100px,_1fr),auto] \
+\
 @[600px]:grid-cols-2 \
 @[600px]:gap-y-0 \
-gap-y-2 gap-x-1 \
+gap-y-2 \
+gap-x-1 \
 ";
 
 //TODO: check focus-within when added new item from the empty list

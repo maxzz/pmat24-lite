@@ -12,7 +12,7 @@ export function BodyNewMani() {
     }
 
     return (
-        <ScrollArea className="px-2 py-1 size-full" fullHeight fixedWidth horizontal>
+        <ScrollArea className="@container/tab-content px-2 py-1 size-full" fullHeight fixedWidth horizontal>
             <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
             <ManiEditorAllOptions fileUs={fileUs} />
         </ScrollArea>
