@@ -13,7 +13,7 @@
         "electron-updater": "^6.3.9",
         "jotai": "^2.12.2",
         "jotai-valtio": "^0.6.0",
-        "pm-manifest": "^1.2.78",
+        "pm-manifest": "^1.2.79",
         "pm-manifest-icons": "latest",
         "react-syntax-highlighter": "^15.6.1",
         "react-use": "^17.6.0",

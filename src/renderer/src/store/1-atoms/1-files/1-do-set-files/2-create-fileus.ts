@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, createManualModeFormFrom, parseXMLFile, TimeUtils } from '@/store/manifest';
+import { buildManiMetaForms, createNewManualFormFrom, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
@@ -45,7 +45,7 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
             if (allFlavours.mani) {
                 const loginForm = allFlavours.mani.forms[0];
                 if (loginForm) {
-                    allFlavours.mani.forms[0] = createManualModeFormFrom(loginForm);
+                    allFlavours.mani.forms[0] = createNewManualFormFrom(loginForm);
                     
                     //TODO: manual mode UI will fail if we don't have any fields
                     //TODO: add field is not working at all
