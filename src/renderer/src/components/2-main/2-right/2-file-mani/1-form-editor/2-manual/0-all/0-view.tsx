@@ -3,11 +3,11 @@ import { classNames } from "@/utils";
 import { type MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
-import { isNewManual } from "./1-is-new-manual";
+import { isNewManifest } from "../../0-all";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames(manualModeViewClasses, isNewManual(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
+        <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
         </div>

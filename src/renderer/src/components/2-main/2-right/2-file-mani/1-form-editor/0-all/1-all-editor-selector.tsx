@@ -5,7 +5,7 @@ import { type FileUs } from "@/store/store-types";
 import { type MFormAtoms, type MFormContextProps, type NFormAtoms, type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
 import { TabContentNormalForm } from "./2-tab-content-normal";
 import { TabContentManualForm } from "./3-tab-content-manual";
-import { TabContentNoForm } from "./8-tab-content-no-form";
+import { TabContentNoForm } from "./4-tab-content-no-form";
 
 export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: FileUs; formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
