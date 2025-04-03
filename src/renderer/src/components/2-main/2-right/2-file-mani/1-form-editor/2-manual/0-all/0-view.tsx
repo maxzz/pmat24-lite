@@ -6,7 +6,7 @@ import { ManualPanelProps } from "../2-panel-props";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames(manualModeViewClasses, !isNewManual(ctx) && "h-full", className)} {...rest}>
+        <div className={classNames(manualModeViewClasses, isNewManual(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
         </div>
