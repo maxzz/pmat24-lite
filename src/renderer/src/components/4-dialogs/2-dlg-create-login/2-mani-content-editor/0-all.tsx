@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { debugSettings } from "@/store";
-import { BodyRawXml } from "./1-body-xml";
-import { BodyNewMani } from "./2-body-mani";
+import { BodyNewMani } from "./1-body-mani";
+import { BodyRawXml } from "./2-body-xml";
 
 export function ContentEditorSelector() {
     const { showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);
