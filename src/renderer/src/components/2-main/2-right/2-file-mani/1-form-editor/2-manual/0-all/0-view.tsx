@@ -5,8 +5,15 @@ import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+
+    const fileUs = ctx.maniAtoms[ctx.formIdx]?.fileUsCtx?.fileUs;
+    if (!fileUs) {
+        return null;
+    }
+    const newManual = fileUs.fileCnt.newAsManual;
+    
     return (
-        <div className={classNames(manualModeViewClasses, className)} {...rest}>
+        <div className={classNames(manualModeViewClasses, !newManual && "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
         </div>
@@ -14,7 +21,7 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
 }
 
 const manualModeViewClasses = "\
-min-w-60 h-full min-h-0 \
+min-w-60 min-h-0 \
 \
 grid \
 grid-cols-1 \

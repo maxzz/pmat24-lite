@@ -36,7 +36,7 @@ export function DialogSawBody() {
 
 export function SawNewManiBody() {
     return (
-        <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,1fr,auto]">
+        <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,1fr]">
             <SawPageHeader />
 
             <ContentEditorSelector />
