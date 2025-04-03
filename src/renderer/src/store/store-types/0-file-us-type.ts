@@ -38,8 +38,11 @@ export type FileUs = {
     uiState: FileUsUiState;                         // local state atoms: is currnet; is selected
 
     maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>; // mani editor ui atoms; created when file selected at top level
+
     fceAtomsForFcFile: FceAtoms | undefined;        // for Fc file: Fce atoms or null for manifest files
     fceAtomsRefForMani: FceAtoms | undefined;       // for manifest: reference to FceAtoms of the root FC or null if from unmanaged folder (i.e. not root and not A/B/C subfolder) (Maybe later: of correcponding FC if applicable for sub-folder (now only main))
+
+    mainForCpassAtom: FileUsAtom | undefined;       // Defined when creating password change form
 };
 
 export type FileUsAtom = PrimitiveAtom<FileUs>;

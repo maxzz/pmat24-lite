@@ -9,6 +9,7 @@ import { finalizeFileContent } from "@/store/store-utils";
 import { rootDir } from "@/store/1-atoms/1-files/0-files-atom";
 import { createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
 import { createFceCtx } from "./3-create-fce-ctx";
+import { a } from "@react-spring/web";
 
 export function createFileUsForNewFc(): FileUs {
     const fileCnt: FileContent = finalizeFileContent(null);
@@ -26,6 +27,8 @@ export function createFileUsForNewFc(): FileUs {
 
         fceAtomsForFcFile: undefined,
         fceAtomsRefForMani: undefined,
+
+        mainForCpassAtom: undefined,
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });

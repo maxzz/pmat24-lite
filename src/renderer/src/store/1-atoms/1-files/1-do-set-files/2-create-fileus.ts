@@ -19,6 +19,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
 
         fceAtomsForFcFile: undefined,   // will be assigned later when all files are loaded
         fceAtomsRefForMani: undefined,  // will be assigned later when all files are loaded
+
+        mainForCpassAtom: undefined,
     };
 
     return rv;
