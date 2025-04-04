@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FileUsAtom } from "@/store";
+import { rightPanelAtom, type FileUsAtom } from "@/store";
 import { newManiContent } from "@/components/4-dialogs";
 
 // Open Saw monitor overlay atom
@@ -19,7 +19,12 @@ const _doOpenSawOverlayAtom = atom(false);
 
 export const doOpenSawOverlayForCpassAtom = atom(
     null,
-    (get, set, { mainForCpassAtom }: { mainForCpassAtom: FileUsAtom; }) => {
+    (get, set) => {
+        const mainForCpassAtom = get(rightPanelAtom);
+        if (!mainForCpassAtom) {
+            console.log('There is no mainForCpassAtom for password change form');
+            return;
+        }
         newManiContent.mainForCpassAtom = mainForCpassAtom;
         set(doOpenSawOverlayAtom, true);
     }
