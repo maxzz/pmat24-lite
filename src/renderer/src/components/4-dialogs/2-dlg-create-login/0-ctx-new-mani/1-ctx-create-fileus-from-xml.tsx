@@ -1,4 +1,4 @@
-import { type PrimitiveAtom as PA, type Getter, type Setter } from "jotai";
+import { type PrimitiveAtom as PA, type Getter, type Setter, atom } from "jotai";
 import { errorToString } from "@/utils";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent } from "@/store";
@@ -48,8 +48,11 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordC
 
     // 3. Parse maniXml to fileUs
     try {
+        const mainForCpassAtom = atom<FileUs | undefined>(undefined); // temp here: should be set from file where create password change form
+        const mainForCpass = get(mainForCpassAtom);
+
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual, newAsCpass: passwordChange });
-        const fileUs: FileUs = createFileUsFromFileContent(fileContent, newManiContent.fileUsMasterAtom);
+        const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
 
         set(newManiContent.fileUsAtom, fileUs);
         set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line

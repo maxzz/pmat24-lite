@@ -32,3 +32,6 @@ gap-x-1 \
 //TODO: remove frame; leave only line inbetween
 //TODO: scroll panels independently
 //TDOO: header is not part of the scroll
+
+//04.02.25
+    //TODO: label for the new manifest on the right option
