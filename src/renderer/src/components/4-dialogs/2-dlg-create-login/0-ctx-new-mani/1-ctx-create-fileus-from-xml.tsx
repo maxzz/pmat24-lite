@@ -22,13 +22,11 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     // 0. Claen up the context before parsing
     newManiContent.clear(set);
 
-    const passwordChange = !!newManiContent.mainForCpassAtom;
-
     // 1. Call Napi to get manifest as maniXml from the window
     try {
         showProgressAtom && set(showProgressAtom, true);
 
-        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange, wantXml: true, });
+        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.mainForCpassAtom, wantXml: true, });
 
         if (napiBuildState.buildError) {
             showBuildErrorReason(set);
