@@ -8,15 +8,17 @@ import { FormIdx } from "@/store/manifest";
 export const doOpenSawOverlayAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
     (get, set, open: boolean | ((prev: boolean) => boolean)) => {
-        const valueOpen = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
-        if (valueOpen) {
+        const value = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
+        if (value) {
             ;
         }
-        set(_doOpenSawOverlayAtom, valueOpen);
+        set(_doOpenSawOverlayAtom, value);
     }
 );
 
 const _doOpenSawOverlayAtom = atom(false);
+
+// Open Saw monitor overlay for password change form
 
 export const doOpenSawOverlayForCpassAtom = atom(
     null,

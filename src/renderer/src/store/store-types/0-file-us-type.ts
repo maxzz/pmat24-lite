@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type CatalogFile, type Mani, type Meta } from "../manifest";
+import { type Mani, type Meta, type CatalogFile } from "../manifest";
 import { type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/1-atoms/3-file-mani-atoms";
 import { type FceAtoms } from "../1-atoms/4-field-catalogs";
