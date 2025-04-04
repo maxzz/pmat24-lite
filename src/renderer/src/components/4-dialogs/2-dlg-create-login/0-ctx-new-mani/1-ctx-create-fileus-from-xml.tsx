@@ -7,7 +7,7 @@ import { newManiContent } from "./0-ctx-content";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 
 type MoveFromAppsToNextPageParams = {
-    params: Omit<ManifestForWindowCreatorParams, 'wantXml'>;
+    params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
     showProgressAtom?: PA<boolean>; // show controls scan progress atom
     get: Getter;
     set: Setter;
@@ -17,10 +17,12 @@ type MoveFromAppsToNextPageParams = {
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function createFileUsFromNewXml({ params: { hwnd, manual, passwordChange }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     
     // 0. Claen up the context before parsing
     newManiContent.clear(set);
+
+    const passwordChange = !!newManiContent.mainForCpassAtom;
 
     // 1. Call Napi to get manifest as maniXml from the window
     try {

@@ -62,15 +62,7 @@ export function create_DoAdvancePageAtom() {
                         return;
                     }
 
-                    const created = await createFileUsFromNewXml({
-                        params: {
-                            hwnd: selectedApp.item.hwnd,
-                            manual: get(createManualManiAtom),
-                            passwordChange: false,
-                        },
-                        showProgressAtom: newManiCtx.showProgressAtom,
-                        get, set,
-                    });
+                    const created = await createFileUsFromNewXml({ params: { hwnd: selectedApp.item.hwnd, manual: get(createManualManiAtom), }, showProgressAtom: newManiCtx.showProgressAtom, get, set, });
                     if (!created) {
                         return;
                     }
