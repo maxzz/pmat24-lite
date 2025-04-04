@@ -1,7 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpenSawOverlayAtom, doOpenSawOverlayForCpassAtom } from "@/store/1-atoms/7-dialogs";
-import { allowedToCreateCpassAtom, fileUsOfRightPanelAtom } from "@/store";
+import { allowedToCreateCpassAtom, doOpenSawOverlayAtom, doOpenSawOverlayForCpassAtom } from "@/store";
 
 export function TestCreateWithSaw() {
     const doOpen = useSetAtom(doOpenSawOverlayAtom);
