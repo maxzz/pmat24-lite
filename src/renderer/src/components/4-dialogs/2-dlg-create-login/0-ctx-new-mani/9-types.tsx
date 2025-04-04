@@ -1,8 +1,13 @@
 import { type PrimitiveAtom as PA } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store";
 
+/**
+ * mainForCpassAtom: 
+ *      Valid only before and during Saw monitor then fileUs.mainForCpassAtom will be used.
+ *      Set before open Saw monitor.
+ */
 export type NewManiContentData = {
     maniXmlAtom: PA<string | undefined>;        // new xml string of the selected application
     fileUsAtom: PA<FileUs | undefined>;         // new fileUs of the selected application
-    fileUsMasterAtom: FileUsAtom | undefined;   // fileUs to create password change form; valid only before and Saw monitor than fileUs memeber mainForCpassAtom will be used
+    mainForCpassAtom: FileUsAtom | undefined;   // fileUs to create password change form
 };
