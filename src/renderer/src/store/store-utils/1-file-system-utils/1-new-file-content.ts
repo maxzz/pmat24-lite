@@ -16,7 +16,6 @@ export function createNewFileContent({ raw, newAsManual, newAsCpass }: { raw: st
         notOur: false,
         newFile: true,
         newAsManual,
-        newAsCpass,
         fromMain: hasMain(),
         webFsItem: null,
         changesSet: new Set(),
@@ -38,7 +37,6 @@ export function finalizeFileContent(fileContent: FileContent | null): FileConten
         notOur: fileContent?.notOur ?? false,
         newFile: fileContent?.newFile ?? true,
         newAsManual: fileContent?.newAsManual ?? false,
-        newAsCpass: fileContent?.newAsCpass ?? false,
         fromMain: fileContent?.fromMain ?? false,
 
         webFsItem: fileContent?.webFsItem || null,

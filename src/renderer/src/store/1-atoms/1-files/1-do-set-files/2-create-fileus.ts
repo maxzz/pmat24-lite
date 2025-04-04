@@ -65,7 +65,8 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
             }
         }
 
-        if (fileCnt.newAsCpass) {
+        const newAsCpass = !!masterFileUs;
+        if (newAsCpass) {
         }
 
         rv.mani = allFlavours.mani;
