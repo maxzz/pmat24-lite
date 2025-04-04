@@ -1,4 +1,4 @@
-import { type PrimitiveAtom as PA, type Getter, type Setter, atom } from "jotai";
+import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
 import { errorToString } from "@/utils";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent } from "@/store";
@@ -53,7 +53,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         const mainForCpassAtom = atom<FileUs | undefined>(undefined); // temp here: should be set from file where create password change form
         const mainForCpass = get(mainForCpassAtom);
 
-        const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual, newAsCpass: passwordChange });
+        const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
 
         set(newManiContent.fileUsAtom, fileUs);
