@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { rightPanelAtom, type FileUsAtom } from "@/store";
 import { newManiContent } from "@/components/4-dialogs";
+import { FormIdx } from "@/store/manifest";
 
 // Open Saw monitor overlay atom
 
@@ -27,5 +28,31 @@ export const doOpenSawOverlayForCpassAtom = atom(
         }
         newManiContent.mainForCpassAtom = mainForCpassAtom;
         set(doOpenSawOverlayAtom, true);
+    }
+);
+
+export const allowedToCreateCpassAtom = atom(
+    (get) => {
+        const mainForCpassAtom = get(rightPanelAtom);
+        if (!mainForCpassAtom) {
+            return false;
+        }
+
+        const fileUs = get(mainForCpassAtom);
+
+        if (fileUs.parsedSrc.stats.isFCatRoot) {
+            return false;
+        }
+
+        const maniAtoms = get(fileUs.maniAtomsAtom);
+        if (!maniAtoms) {
+            return false;
+        }
+
+        if (maniAtoms[FormIdx.cpass]) {
+            return false;
+        }
+
+        return true;
     }
 );
