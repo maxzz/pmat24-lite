@@ -5,7 +5,7 @@ import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
 import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
-import { TestCreateWithSaw } from "./7-3-create-mani-w-saw";
+import { TestCreateWithSaw, TestCreateWithSawForCpass } from "./7-3-create-mani-w-saw";
 import { TestCloseFolder } from "./7-4-close-folder";
 import { L_PanelMenuTrigger } from "@/components/2-main/1-left/1-header/1-menu-main";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
@@ -23,8 +23,8 @@ export function SectionHeader() {
             <div className="flex items-center flex-wrap gap-2">
                 {/* <TopMainDropdownMenu /> */}
 
-                <TestCreateManiWithAppsList />
-                <TestCreateWithSnapshots />
+                {/* <TestCreateManiWithAppsList />
+                <TestCreateWithSnapshots /> */}
 
                 <TestOpenFieldCatalog />
 
@@ -32,6 +32,7 @@ export function SectionHeader() {
                 <TestCloseFolder />
 
                 <TestCreateWithSaw />
+                <TestCreateWithSawForCpass />
 
                 <L_PanelMenuTrigger />
 
