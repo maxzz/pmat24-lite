@@ -81,15 +81,15 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
             rv = await Promise.all(files.map(
                 async (file) => {
                     const webFsItem = new WebFsItem({
-                        file,
+                        legacyFile: file,
                         handle: isFileWithFileHandle(file) ? file.handle : null,
                         parent: isFileWithDirectoryAndFileHandle(file) ? file.directoryHandle : null,
-                        path: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
+                        legacyPath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
                     });
 
                     const rv: DropItem = {
                         fname: file.name,
-                        fpath: webFsItem.path,
+                        fpath: webFsItem.legacyPath,
                         fileWeb: file,
                         webFsItem: webFsItem,
                         notOur: false,
@@ -110,14 +110,14 @@ export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise
 export async function createFileContents_WebAfterDnd(fileDataTransferItems: DataTransferItem[]): Promise<SetDeliveredFiles> {
 
     const webFsItems = await collectWebDndItems(fileDataTransferItems);
-    const dndItems = webFsItems.filter((item) => item.file);
+    const dndItems = webFsItems.filter((item) => item.legacyFile);
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
 
     if (webFsItems.length === 1 && webFsItems[0]?.handle?.kind === 'directory') {
         return {
             deliveredFileContents: [],
             root: {
-                fpath: webFsItems[0].path,
+                fpath: webFsItems[0].legacyPath,
                 handle: webFsItems[0].handle,
                 fromMain: false,
             }
@@ -140,9 +140,9 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
             rv = dndItems.map(
                 (dndItem) => {
                     const rv: DropItem = {
-                        fname: dndItem.file!.name,
-                        fpath: dndItem.path,
-                        fileWeb: dndItem.file!,
+                        fname: dndItem.legacyFile!.name,
+                        fpath: dndItem.legacyPath,
+                        fileWeb: dndItem.legacyFile!,
                         webFsItem: dndItem,
                         notOur: false,
                     };

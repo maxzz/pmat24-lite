@@ -26,7 +26,7 @@ export const doSaveNewManiAtom = atom(
             fileUs.fileCnt.webFsItem = new WebFsItem({
                 parent: rootDir.handle,
                 handle: fileHandle,
-                path: rootDir.fpath,
+                legacyPath: rootDir.fpath,
             });
 
         }

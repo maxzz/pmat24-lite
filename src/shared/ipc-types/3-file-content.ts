@@ -1,26 +1,26 @@
 // WebFsItem exists only for item loaded without electron
 
 type WebFsItemParams = {
-    parent?: FileSystemDirectoryHandle | null;                          // FS handle of directory
-    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;   // FS handle of file
-    entry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;
-    file?: File | null;
-    path?: string;
+    parent?: FileSystemDirectoryHandle | null;                              // File system handle of directory
+    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;       // File system handle of file
+    legacyEntry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;    // legacy entry used in web drag and drop from Firefox
+    legacyFile?: File | null;                                               // legacy file used in web drag and drop from Firefox
+    legacyPath?: string;                                                    // legacy path used in web drag and drop from Firefox
 };
 
 export class WebFsItem {
     parent: FileSystemDirectoryHandle | null = null;
     handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
-    entry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
-    file: File | null = null;
-    path: string;
+    legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
+    legacyFile: File | null = null;
+    legacyPath: string;
     
-    constructor({ parent, handle, entry, file, path }: WebFsItemParams) {
+    constructor({ parent, handle, legacyEntry: entry, legacyFile: file, legacyPath: path }: WebFsItemParams) {
         this.parent = parent || null;
         this.handle = handle || null;
-        this.entry = entry || null;
-        this.file = file || null;
-        this.path = path || '';
+        this.legacyEntry = entry || null;
+        this.legacyFile = file || null;
+        this.legacyPath = path || '';
     }
 };
 
