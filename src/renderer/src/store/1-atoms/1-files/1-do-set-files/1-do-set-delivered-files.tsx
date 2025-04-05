@@ -14,7 +14,7 @@ import { delay } from "@/utils";
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;
     root: PmatFolder;
-    noItemsJustDir?: boolean; // to open empty folder
+    noItemsJustDir: boolean; // to allow to open an empty folder
 };
 
 /**

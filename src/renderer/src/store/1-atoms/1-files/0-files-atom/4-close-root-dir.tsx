@@ -5,6 +5,10 @@ import { undefinedPmatFolder } from "@/store";
 export const doCloseRootDirAtom = atom(
     null,
     (get, set) => {
-        set(doSetDeliveredFilesAtom, { deliveredFileContents: undefined, root: undefinedPmatFolder() });
+        set(doSetDeliveredFilesAtom, {
+            deliveredFileContents: undefined,
+            root: undefinedPmatFolder(),
+            noItemsJustDir: false,
+        });
     }
 );

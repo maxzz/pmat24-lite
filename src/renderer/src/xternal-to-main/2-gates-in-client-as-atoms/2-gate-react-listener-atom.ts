@@ -17,7 +17,7 @@ export const doFromMainAtom = atom(
 
                 //console.log('entryRoot75: 6 result from call to main from loadManifestsDialog() with sendToMain()');
 
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: getRootFromFpath({ files: deliveredFileContents, fromMain: true }) });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: getRootFromFpath({ files: deliveredFileContents, fromMain: true }), noItemsJustDir: false, });
                 break;
             }
 

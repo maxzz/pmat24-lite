@@ -24,18 +24,6 @@ type DropItem = {
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
     const filePathAndDirs: readonly FilePathAndDir[] = electronGetPaths(files);
 
-    // if (filePathAndDirs.length === 1 && filePathAndDirs[0][2]) { // filePathAndDirs[0][2] is true file is a directory
-    //     return {
-    //         deliveredFileContents: [],
-    //         root: {
-    //             fpath: filePathAndDirs[0][1],
-    //             handle: undefined,
-    //             fromMain: true,
-    //         },
-    //         noItemsJustDir: true,
-    //     };
-    // }
-
     if (filePathAndDirs.length) {
         const fnames = filePathAndDirs.map((item) => item[1]);
         printElectronFnameFiles(fnames, files);
@@ -67,6 +55,7 @@ export async function createFileContents_FromMru_Main(folder: PmatFolder): Promi
         return {
             deliveredFileContents,
             root: folder,
+            noItemsJustDir: false,
         };
     }
 }
@@ -125,7 +114,8 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
                 fpath: webFsItems[0].legacyPath,
                 handle: webFsItems[0].handle,
                 fromMain: false,
-            }
+            },
+            noItemsJustDir: false,
         };
     }
 
@@ -136,7 +126,8 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
             fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
             handle: getSingleFolderHandle(dropItems),
             fromMain: false,
-        }
+        },
+        noItemsJustDir: false,
     };
 
     async function mapToDropItems(webFsItems: WebFsItem[]): Promise<DropItem[]> {
