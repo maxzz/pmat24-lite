@@ -44,9 +44,14 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
 
         const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
 
-        const root = droppedEmptyFolder
-            ? { fpath: filePathAndDirs[0][1], handle: undefined, fromMain: true, }
-            : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
+        const root =
+            droppedEmptyFolder
+                ? {
+                    fpath: filePathAndDirs[0][1],
+                    handle: undefined,
+                    fromMain: true,
+                }
+                : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
         return {
             deliveredFileContents,
@@ -134,16 +139,16 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         }
     };
 
-    async function mapToDropItems(dndItems: WebFsItem[]): Promise<DropItem[]> {
+    async function mapToDropItems(webFsItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];
         try {
-            rv = dndItems.map(
-                (dndItem) => {
+            rv = webFsItems.map(
+                (webFsItem) => {
                     const rv: DropItem = {
-                        fname: dndItem.legacyFile!.name,
-                        fpath: dndItem.legacyPath,
-                        fileWeb: dndItem.legacyFile!,
-                        webFsItem: dndItem,
+                        fname: webFsItem.legacyFile!.name,
+                        fpath: webFsItem.legacyPath,
+                        fileWeb: webFsItem.legacyFile!,
+                        webFsItem: webFsItem,
                         notOur: false,
                     };
                     return rv;

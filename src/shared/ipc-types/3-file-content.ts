@@ -1,13 +1,13 @@
 export type FileContent = {
     unid: number;                       // unique number ID (as relative time from the start of the app). electron will not provide it, but it will be added in the renderer.
     idx: number;                        // index in the loaded list wo/ counting on filters, i.e. absolute index
-    
+
     fname: string;                      // basename as filename w/ extension but wo/ path
     fpath: string;                      // FileSystem path without filename (if file fromMain then path is real and w/ Windows backslashes)
     fmodi: number;                      // file.lastModified
     size: number;                       // file size
     raw: string;                        // file content as it was loaded or error message
-    
+
     failed: boolean;                    // if failed the 'raw' member has the error message.
     notOur: boolean;                    // load of file content was blocked by allowedExt list.
     newFile: boolean;                   // new file created in the editor and not saved yet to the file system.
@@ -30,9 +30,9 @@ export type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>; // main 
 type WebFsItemParams = {
     parent?: FileSystemDirectoryHandle | null;                              // File system handle of directory
     handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;       // File system handle of file
+    legacyPath?: string;                                                    // used during file items loading then FileContent.fpath will be used
     legacyEntry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;    // legacy entry used in web drag and drop from Firefox
     legacyFile?: File | null;                                               // legacy file used in web drag and drop from Firefox
-    legacyPath?: string;                                                    // used during file items loading then FileContent.fpath will be used
 };
 
 export class WebFsItem implements WebFsItemParams {
@@ -41,13 +41,13 @@ export class WebFsItem implements WebFsItemParams {
     legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
     legacyFile: File | null = null;
     legacyPath: string;
-    
-    constructor({ parent, handle, legacyEntry: entry, legacyFile: file, legacyPath: path }: WebFsItemParams) {
+
+    constructor({ parent, handle, legacyEntry, legacyFile, legacyPath }: WebFsItemParams) {
         this.parent = parent || null;
         this.handle = handle || null;
-        this.legacyEntry = entry || null;
-        this.legacyFile = file || null;
-        this.legacyPath = path || '';
+        this.legacyPath = legacyPath || '';
+        this.legacyEntry = legacyEntry || null;
+        this.legacyFile = legacyFile || null;
     }
 };
 
