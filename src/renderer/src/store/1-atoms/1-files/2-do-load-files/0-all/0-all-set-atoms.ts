@@ -7,7 +7,11 @@ import { type PmatFolder } from "../../0-files-atom";
 import { asyncVerifyPermission, filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";
-import { createFileContents_WebAfterDnd, createFileContents_WebAfterDlgOpen, createFileContents_From_Main, createFileContents_FromMru_Main } from "./1-all-create-file-contents";
+import { createFileContents_From_Main } from "./2-filecnt-from-main";
+import { createFileContents_FromMru_Main } from "./3-filecnt-from-main-mru";
+import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
+import { createFileContents_WebAfterDnd } from "./5-filecnt-from-web-dnd";
+
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
