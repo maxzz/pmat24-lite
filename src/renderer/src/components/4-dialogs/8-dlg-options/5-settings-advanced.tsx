@@ -37,7 +37,7 @@ export function AdvancedSettings() {
                     Show source code button in the new manifest editor
                 </Label>
 
-                <Label className={classNames("col-start-2", rowClasses)}>
+                <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
                     Allow Welcome screen to be turn off
                 </Label>
