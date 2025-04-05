@@ -23,40 +23,41 @@ type DropItem = {
  */
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
     const filePathAndDirs: readonly FilePathAndDir[] = electronGetPaths(files);
+    if (!filePathAndDirs.length) {
+        return;
+    }
 
-    if (filePathAndDirs.length) {
-        const fnames = filePathAndDirs.map((item) => item[1]);
-        printElectronFnameFiles(fnames, files);
+    const fnames = filePathAndDirs.map((item) => item[1]);
+    printElectronFnameFiles(fnames, files);
 
-        const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+    const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
 
-        const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
+    const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
 
-        const root =
-            droppedEmptyFolder
-                ? {
+    const rv: SetDeliveredFiles = {
+        root:
+            !droppedEmptyFolder
+                ? getRootFromFpath({ files: deliveredFileContents, fromMain: true })
+                : {
                     fpath: filePathAndDirs[0][1],
                     handle: undefined,
                     fromMain: true,
-                }
-                : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
-
-        return {
-            deliveredFileContents,
-            root,
-            noItemsJustDir: droppedEmptyFolder,
-        };
-    }
+                },
+        deliveredFileContents,
+        noItemsJustDir: droppedEmptyFolder,
+    };
+    return rv;
 }
 
 export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {
     if (folder.fpath) {
         const deliveredFileContents: FileContent[] = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
-        return {
-            deliveredFileContents,
+        const rv: SetDeliveredFiles = {
             root: folder,
+            deliveredFileContents,
             noItemsJustDir: false,
         };
+        return rv;
     }
 }
 
@@ -108,27 +109,29 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     const dropItems: DropItem[] = await mapToDropItems(dndItems);
 
     if (webFsItems.length === 1 && webFsItems[0]?.handle?.kind === 'directory') {
-        return {
-            deliveredFileContents: [],
+        const rv: SetDeliveredFiles = {
             root: {
                 fpath: webFsItems[0].legacyPath,
                 handle: webFsItems[0].handle,
                 fromMain: false,
             },
+            deliveredFileContents: [],
             noItemsJustDir: false,
         };
+        return rv;
     }
 
     const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
-    return {
-        deliveredFileContents,
+    const rv: SetDeliveredFiles = {
         root: {
             fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
             handle: getSingleFolderHandle(dropItems),
             fromMain: false,
         },
+        deliveredFileContents,
         noItemsJustDir: false,
     };
+    return rv;
 
     async function mapToDropItems(webFsItems: WebFsItem[]): Promise<DropItem[]> {
         let rv: DropItem[] = [];

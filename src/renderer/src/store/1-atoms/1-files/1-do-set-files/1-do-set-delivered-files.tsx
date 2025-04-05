@@ -12,8 +12,8 @@ import { toast } from "sonner";
 import { delay } from "@/utils";
 
 export type SetDeliveredFiles = {
-    deliveredFileContents: FileContent[] | undefined;
     root: PmatFolder;
+    deliveredFileContents: FileContent[] | undefined;
     noItemsJustDir: boolean; // to allow to open an empty folder
 };
 
