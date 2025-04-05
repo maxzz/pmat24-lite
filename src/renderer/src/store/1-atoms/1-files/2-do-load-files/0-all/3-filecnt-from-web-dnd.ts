@@ -12,7 +12,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
 
     const webFsItems = await collectWebDndItems(fileDataTransferItems);
     const dndItems = webFsItems.filter((item) => item.legacyFile);
-    const dropItems: DropItem[] = await mapToDropItems(dndItems);
+    const dropItems: DropItem[] = await mapToDropItems(dndItems, fileDataTransferItems);
 
     if (webFsItems.length === 1 && webFsItems[0]?.handle?.kind === 'directory') {
         const rv: SetDeliveredFiles = {
@@ -39,24 +39,25 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     };
     return rv;
 
-    async function mapToDropItems(webFsItems: WebFsItem[]): Promise<DropItem[]> {
-        let rv: DropItem[] = [];
-        try {
-            rv = webFsItems.map(
-                (webFsItem) => {
-                    const rv: DropItem = {
-                        fname: webFsItem.legacyFile!.name,
-                        fpath: webFsItem.legacyPath,
-                        fileWeb: webFsItem.legacyFile!,
-                        webFsItem: webFsItem,
-                        notOur: false,
-                    };
-                    return rv;
-                }
-            ).filter((dropItem) => !!dropItem);
-        } catch (error) {
-            console.error('cannot read from DataTransferItemList', fileDataTransferItems);
-        }
-        return rv;
+}
+
+async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
+    let rv: DropItem[] = [];
+    try {
+        rv = webFsItems.map(
+            (webFsItem) => {
+                const rv: DropItem = {
+                    fname: webFsItem.legacyFile!.name,
+                    fpath: webFsItem.legacyPath,
+                    fileWeb: webFsItem.legacyFile!,
+                    webFsItem: webFsItem,
+                    notOur: false,
+                };
+                return rv;
+            }
+        ).filter((dropItem) => !!dropItem);
+    } catch (error) {
+        console.error('cannot read from DataTransferItemList', fileDataTransferItems);
     }
+    return rv;
 }
