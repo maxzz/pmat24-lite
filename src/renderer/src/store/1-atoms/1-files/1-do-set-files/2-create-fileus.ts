@@ -3,7 +3,7 @@ import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, createNewManualFormFrom, parseXMLFile, TimeUtils } from '@/store/manifest';
+import { buildManiMetaForms, createGuid, createNewManualFormFrom, Mani, type Meta, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
@@ -24,6 +24,26 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
     };
 
     return rv;
+}
+
+function defaultManualFormFields(): Mani.Field[] {
+    return [
+        {
+            displayname: "Username",
+            type: "edit",
+            dbname: createGuid(),
+            path_ext: "[sn]2.0.field;",
+            useit: true,
+        },
+        {
+            displayname: "Password",
+            type: "edit",
+            password: true,
+            dbname: createGuid(),
+            path_ext: "[sn]2.1.field;",
+            useit: true,
+        },
+    ];
 }
 
 function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
@@ -51,13 +71,14 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
                     
                     //TODO: manual mode UI will fail if we don't have any fields
                     //TODO: add field is not working at all
-                    allFlavours.mani.forms[0].fields.push({
-                        displayname: "Username",
-                        type: "edit",
-                        dbname: "{d63f92ba-ab9e-464e-bffb-a80d50862ee6}",
-                        path_ext: "[sn]2.0.field;",
-                        useit: true,
-                    });
+                    // allFlavours.mani.forms[0].fields.push({
+                    //     displayname: "Username",
+                    //     type: "edit",
+                    //     dbname: "{d63f92ba-ab9e-464e-bffb-a80d50862ee6}",
+                    //     path_ext: "[sn]2.0.field;",
+                    //     useit: true,
+                    // });
+                    allFlavours.mani.forms[0].fields.push(...defaultManualFormFields());
 
                 } else {
                     console.error('Cannot find login form');
