@@ -54,7 +54,7 @@ async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: Da
                 };
                 return rv;
             }
-        ).filter((webFsItem) => !!webFsItem);
+        );
     } catch (error) {
         console.error('cannot read from DataTransferItemList', fileDataTransferItems);
     }
