@@ -1,33 +1,3 @@
-// WebFsItem exists only for item loaded without electron
-
-type WebFsItemParams = {
-    parent?: FileSystemDirectoryHandle | null;                              // File system handle of directory
-    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;       // File system handle of file
-    legacyEntry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;    // legacy entry used in web drag and drop from Firefox
-    legacyFile?: File | null;                                               // legacy file used in web drag and drop from Firefox
-    legacyPath?: string;                                                    // legacy path used in web drag and drop from Firefox
-};
-
-export class WebFsItem implements WebFsItemParams {
-    parent: FileSystemDirectoryHandle | null = null;
-    handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
-    legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
-    legacyFile: File | null = null;
-    legacyPath: string;
-    
-    constructor({ parent, handle, legacyEntry: entry, legacyFile: file, legacyPath: path }: WebFsItemParams) {
-        this.parent = parent || null;
-        this.handle = handle || null;
-        this.legacyEntry = entry || null;
-        this.legacyFile = file || null;
-        this.legacyPath = path || '';
-    }
-};
-
-export type ChangesSet = Set<string>;
-
-// FileContent
-
 export type FileContent = {
     unid: number;                       // unique number ID (as relative time from the start of the app). electron will not provide it, but it will be added in the renderer.
     idx: number;                        // index in the loaded list wo/ counting on filters, i.e. absolute index
@@ -55,7 +25,36 @@ export type FileContent = {
 
 export type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>; // main process does not fill unid and changesSet
 
+// WebFsItem exists only for item loaded without electron
+
+type WebFsItemParams = {
+    parent?: FileSystemDirectoryHandle | null;                              // File system handle of directory
+    handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;       // File system handle of file
+    legacyEntry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;    // legacy entry used in web drag and drop from Firefox
+    legacyFile?: File | null;                                               // legacy file used in web drag and drop from Firefox
+    legacyPath?: string;                                                    // used during file items loading then FileContent.fpath will be used
+};
+
+export class WebFsItem implements WebFsItemParams {
+    parent: FileSystemDirectoryHandle | null = null;
+    handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
+    legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
+    legacyFile: File | null = null;
+    legacyPath: string;
+    
+    constructor({ parent, handle, legacyEntry: entry, legacyFile: file, legacyPath: path }: WebFsItemParams) {
+        this.parent = parent || null;
+        this.handle = handle || null;
+        this.legacyEntry = entry || null;
+        this.legacyFile = file || null;
+        this.legacyPath = path || '';
+    }
+};
+
+export type ChangesSet = Set<string>;
+
+// Extensions
+
 export const pmAllowedToOpenExt = ['dpm', 'dpn'];
 export const pmExtensionMani = 'dpm';   // manifest file extension
 export const pmExtensionFc = 'dpn';     // field catalog file extension
-
