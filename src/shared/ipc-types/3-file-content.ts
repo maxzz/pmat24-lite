@@ -56,3 +56,6 @@ export type FileContent = {
 export type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>; // main process does not fill unid and changesSet
 
 export const pmAllowedToOpenExt = ['dpm', 'dpn'];
+export const pmExtensionMani = 'dpm';   // manifest file extension
+export const pmExtensionFc = 'dpn';     // field catalog file extension
+
