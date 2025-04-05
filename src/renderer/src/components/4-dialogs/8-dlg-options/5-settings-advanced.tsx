@@ -26,6 +26,7 @@ export function AdvancedSettings() {
         <SectionTitle title="Hidden from the end user debug only">
             <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
 
+                {/* 1 */}
 
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={showUiHeader} onCheckedChange={(v) => liveUiAdvanced.showUiHeader = !!v} />
@@ -42,6 +43,8 @@ export function AdvancedSettings() {
                     Allow Welcome screen to be turn off
                 </Label>
 
+                {/* 2 */}
+                
                 <Label className={classNames("col-start-2", rowClasses)}>
                     <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
                     Allow opening of individual files
