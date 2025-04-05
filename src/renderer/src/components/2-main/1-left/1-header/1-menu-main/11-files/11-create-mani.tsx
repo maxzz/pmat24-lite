@@ -1,11 +1,11 @@
 import { useSetAtom } from "jotai";
-import { doOpenSawOverlayAtom } from "@/store/1-atoms/7-dialogs";
+import { doOpenSawOverlayForLoginAtom } from "@/store/1-atoms/7-dialogs";
 import { shortcutNameCreate } from "@/components/4-dialogs/0-global";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 
 export function MenuItem_CreateMani() {
 
-    const doOpenCreateDialog = useSetAtom(doOpenSawOverlayAtom);
+    const doOpenCreateDialog = useSetAtom(doOpenSawOverlayForLoginAtom);
     
     return (<>
         <DropdownMenuItem onClick={() => doOpenCreateDialog(true)}>

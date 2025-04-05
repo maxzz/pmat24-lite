@@ -1,9 +1,9 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { allowedToCreateCpassAtom, doOpenSawOverlayAtom, doOpenSawOverlayForCpassAtom } from "@/store";
+import { allowedToCreateCpassAtom, doOpenSawOverlayForLoginAtom, doOpenSawOverlayForCpassAtom } from "@/store";
 
 export function TestCreateWithSaw() {
-    const doOpen = useSetAtom(doOpenSawOverlayAtom);
+    const doOpen = useSetAtom(doOpenSawOverlayForLoginAtom);
     return (
         <Button variant="outline" className="text-[.65rem]" onClick={() => doOpen(true)}>
             Create Saw...

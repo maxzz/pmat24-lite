@@ -5,11 +5,12 @@ import { FormIdx } from "@/store/manifest";
 
 // Open Saw monitor overlay atom
 
-export const doOpenSawOverlayAtom = atom(
+export const doOpenSawOverlayForLoginAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
     (get, set, open: boolean | ((prev: boolean) => boolean)) => {
         const value = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
         if (value) {
+            newManiContent.mainForCpassAtom = undefined;
             ;
         }
         set(_doOpenSawOverlayAtom, value);
@@ -29,7 +30,7 @@ export const doOpenSawOverlayForCpassAtom = atom(
             return;
         }
         newManiContent.mainForCpassAtom = mainForCpassAtom;
-        set(doOpenSawOverlayAtom, true);
+        set(doOpenSawOverlayForLoginAtom, true);
     }
 );
 

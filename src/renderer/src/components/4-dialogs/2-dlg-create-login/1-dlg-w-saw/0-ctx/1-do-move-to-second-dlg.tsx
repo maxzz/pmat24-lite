@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { R2MCalls } from "@/xternal-to-main";
-import { doMonitoringTimerAtom, doOpenDlgNewManiSawAtom, doOpenSawOverlayAtom, sawHandleAtom, setBuildState } from "@/store";
+import { doMonitoringTimerAtom, doOpenDlgNewManiSawAtom, doOpenSawOverlayForLoginAtom, sawHandleAtom, setBuildState } from "@/store";
 import { createFileUsFromNewXml } from "../../0-ctx-new-mani";
 import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
@@ -13,7 +13,7 @@ export const doMoveToSecondDlgAtom = atom(
         if (cancel) {
             R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
 
-            set(doOpenSawOverlayAtom, false);
+            set(doOpenSawOverlayForLoginAtom, false);
             set(doTurnOffSawModeOnClientAtom);
             setBuildState({ error: '' });
 
@@ -40,7 +40,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         //R2MCalls.showHideWindow(false);
 
-        set(doOpenSawOverlayAtom, false);
+        set(doOpenSawOverlayForLoginAtom, false);
         await delay(100);
         set(doTurnOffSawModeOnClientAtom);
         set(doOpenDlgNewManiSawAtom, true);
