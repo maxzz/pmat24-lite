@@ -1,9 +1,8 @@
 import { atom } from 'jotai';
-import { hasMain } from '@/xternal-to-main';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
-import { buildManiMetaForms, createGuid, createNewManualFormFrom, Mani, type Meta, parseXMLFile, TimeUtils } from '@/store/manifest';
+import { buildManiMetaForms, createNewManualFormFrom, defaultManualFormFields, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
@@ -24,26 +23,6 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
     };
 
     return rv;
-}
-
-function defaultManualFormFields(): Mani.Field[] {
-    return [
-        {
-            displayname: "Username",
-            type: "edit",
-            dbname: createGuid(),
-            path_ext: "[sn]2.0.field;",
-            useit: true,
-        },
-        {
-            displayname: "Password",
-            type: "edit",
-            password: true,
-            dbname: createGuid(),
-            path_ext: "[sn]2.1.field;",
-            useit: true,
-        },
-    ];
 }
 
 function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
