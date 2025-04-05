@@ -31,9 +31,9 @@ export type TestCreate = {
 };
 
 export const initialTestCreate: TestCreate = {
-    hwnd: 'none',
+    hwnd: 'win32',
     screen: 'none',
-    mani: 'none',
+    mani: 'win32',
     dummyCaption: false,
     doCpass: false,
 };

@@ -8,7 +8,7 @@ export type UiAdvancedState = {     // Advanced UI settings
     testCreateHwndDelay: number;    // Delay before returning hwnd and icon for testing in ms. 0 - no delay
 };
 
-export const defaultCreateDelay = 1000;
+export const defaultCreateDelay = 0;
 
 export const defaultUiAdvancedState: UiAdvancedState = {
     allowHandleFiles: false,
