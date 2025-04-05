@@ -1,4 +1,4 @@
-import { electronGetPaths, FilePathAndDir, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
+import { type FilePathAndDir, electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
 import { printElectronFnameFiles } from "./9-types";

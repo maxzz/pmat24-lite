@@ -1,17 +1,16 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
-import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { asyncVerifyPermission, filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";
-import { createFileContents_From_Main } from "./2-filecnt-from-main";
-import { createFileContents_FromMru_Main } from "./3-filecnt-from-main-mru";
+import { createFileContents_From_Main } from "./1-filecnt-from-main";
+import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
-import { createFileContents_WebAfterDnd } from "./5-filecnt-from-web-dnd";
-
+import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
+import { printFiles } from "./9-types";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
@@ -120,11 +119,4 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
     }
 );
 
-//TODO: somehow 'ccopies-from-here' is not working first time and shows 'Opening multiple files or folders is not allowed. Drag and drop one folder.' and on second time OK.
-
-//
-
-function printFiles(files: File[] | FileWithHandle[] | FileWithDirectoryAndFileHandle[]) {
-    console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
-    files?.forEach((f) => console.log(' ', f));
-}
+//TODO: somehow 'copies-from-here' is not working first time and shows 'Opening multiple files or folders is not allowed. Drag and drop one folder.' and on second time OK.

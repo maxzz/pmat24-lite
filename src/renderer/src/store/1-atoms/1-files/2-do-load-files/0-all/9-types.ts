@@ -1,4 +1,5 @@
 import { type WebFsItem } from "@shared/ipc-types";
+import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 
 export type DropItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
@@ -23,6 +24,11 @@ export function getSingleFolderHandle(items: DropItem[]): FileSystemDirectoryHan
 }
 
 //
+
+export function printFiles(files: File[] | FileWithHandle[] | FileWithDirectoryAndFileHandle[]) {
+    console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
+    files?.forEach((f) => console.log(' ', f));
+}
 
 export function printElectronFnameFiles(filenames: string[], files: File[]) {
     console.log('%ccreateFileContents_From_Main', 'color: magenta');
