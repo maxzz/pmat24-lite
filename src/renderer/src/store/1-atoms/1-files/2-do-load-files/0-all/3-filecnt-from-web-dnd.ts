@@ -1,5 +1,5 @@
 import { findShortestPathInFnames } from "@/store/store-utils";
-import { WebFsItem } from "@shared/ipc-types";
+import { type WebFsItem } from "@shared/ipc-types";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
 import { collectWebDndItems } from "../1-modern-handles";
 import { DropItem, getSingleFolderHandle } from "./9-types";
@@ -25,20 +25,19 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
             noItemsJustDir: false,
         };
         return rv;
+    } else {
+        const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
+        const rv: SetDeliveredFiles = {
+            root: {
+                fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
+                handle: getSingleFolderHandle(dropItems),
+                fromMain: false,
+            },
+            deliveredFileContents,
+            noItemsJustDir: false,
+        };
+        return rv;
     }
-
-    const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
-    const rv: SetDeliveredFiles = {
-        root: {
-            fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
-            handle: getSingleFolderHandle(dropItems),
-            fromMain: false,
-        },
-        deliveredFileContents,
-        noItemsJustDir: false,
-    };
-    return rv;
-
 }
 
 async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
@@ -55,7 +54,7 @@ async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: Da
                 };
                 return rv;
             }
-        ).filter((dropItem) => !!dropItem);
+        ).filter((webFsItem) => !!webFsItem);
     } catch (error) {
         console.error('cannot read from DataTransferItemList', fileDataTransferItems);
     }
