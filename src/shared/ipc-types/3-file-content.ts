@@ -8,7 +8,7 @@ type WebFsItemParams = {
     legacyPath?: string;                                                    // legacy path used in web drag and drop from Firefox
 };
 
-export class WebFsItem {
+export class WebFsItem implements WebFsItemParams {
     parent: FileSystemDirectoryHandle | null = null;
     handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
     legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
