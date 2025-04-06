@@ -1,4 +1,5 @@
 import { type FileMani, type Mani } from "@/store/manifest";
+import { getFilenameAndExt } from "@/utils";
 
 /**
  * Filter empty values from the object at the top level.
@@ -36,6 +37,16 @@ export function printXmlManiFile(xml: string) {
 
 function replaceInXml_NamesExt(xml: string) {
     return xml.replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+}
+
+/**
+ * Generate debug only filename
+ * @param fileName 
+ * @returns 
+ */
+export function debugTestFilename(fileName: string) {
+    const [name, ext] = getFilenameAndExt(fileName);
+    return `${name}.test.${ext}`;
 }
 
 /**

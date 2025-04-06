@@ -1,11 +1,9 @@
 import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
-import { getFilenameAndExt } from "@/utils";
+import { debugTestFilename } from "./8-save-utils";
 
 export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<boolean> {
     const blob = new Blob([content], { type: 'text/xml' });
-
-    const [name, ext] = getFilenameAndExt(fileName); fileName = `${name}.test.${ext}`; // Debug only name
 
     try {
         if (fileUs.fileCnt.fromMain) {

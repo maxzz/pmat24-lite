@@ -3,9 +3,13 @@ import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
-import { printXmlManiFile } from "./8-save-utils";
+import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 //import { fileDownload } from '@/utils/file-download';
 
+/**
+ * newFilename - is dangerous, it can overwrite existing file, create file outside root folder, have new extension, etc.
+ * It is better to show our popup dialog and ask user to enter new filename under our root folder with our extension.
+ */
 export const doSaveOneAtom = atom(
     null,
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
@@ -26,9 +30,10 @@ export const doSaveOneAtom = atom(
 
         /**/
         //TODO: newFilename
-        //TODO: each file may have no filename or name may already be taken by another file
 
-        const saved = await saveToFileSystem(fileUs, xml, newFilename || fileUs.fileCnt.fname);
+        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
+
+        const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
             //TODO: update member fileUs.contentToSave
             return;
