@@ -13,17 +13,17 @@ import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
  */
 export const doSaveOneAtom = atom(
     null,
-    async (get, set, fileUsAtom: FileUsAtom, newFilename?: string) => {
+    async (get, set, fileUsAtom: FileUsAtom, newFilename?: string): Promise<boolean> => {
         const fileUs = get(fileUsAtom);
 
         const changed = hasFileUsAnyChanges({ fileUs });
         if (!changed) {
-            return;
+            return false;
         }
 
         const xml = fileUsToXmlString(fileUsAtom, get, set);
         if (!xml) {
-            return;
+            return false;
         }
 
         printXmlManiFile(xml);
@@ -34,11 +34,11 @@ export const doSaveOneAtom = atom(
         const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
             toast.error(`Cannot save file ${fname}`);
-            return;
+            return false;
         }
 
         toast.error(`Cannot save file ${fname}`);
-        return;
+        return true;
 
         /** /
         if (newFilename) {
@@ -65,6 +65,8 @@ export const doSaveOneAtom = atom(
         //TODO: update values from file after successful save
         //TODO: update values from file after successful save
         /**/
+        
+        return true;
     }
 );
 
