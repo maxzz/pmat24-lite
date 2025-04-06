@@ -1,3 +1,4 @@
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileMani, type Mani } from "@/store/manifest";
 import { getFilenameAndExt } from "@/utils";
 
@@ -45,6 +46,9 @@ function replaceInXml_NamesExt(xml: string) {
  * @returns 
  */
 export function debugTestFilename(fileName: string) {
+    if (!appSettings.appUi.uiAdvanced.saveWDebugExt) {
+        return fileName;
+    }
     const [name, ext] = getFilenameAndExt(fileName);
     return `${name}.test.${ext}`;
 }

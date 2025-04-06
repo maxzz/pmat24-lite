@@ -1,14 +1,14 @@
 import { atom } from "jotai";
+import { toast } from "sonner";
 import { type FileUsAtom } from "@/store/store-types";
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
-//import { fileDownload } from '@/utils/file-download';
 
 /**
- * newFilename - is dangerous, it can overwrite existing file, create file outside root folder, have new extension, etc.
+ * newFilename - filename without path.
+ * It is dangerous, it can overwrite existing file, create file outside root folder, have new extension, etc.
  * It is better to show our popup dialog and ask user to enter new filename under our root folder with our extension.
  */
 export const doSaveOneAtom = atom(
@@ -29,19 +29,23 @@ export const doSaveOneAtom = atom(
         printXmlManiFile(xml);
         // return;
 
-        /**/
-        //TODO: newFilename
-
-        const fname = appSettings.appUi.uiAdvanced.saveWDebugExt ? debugTestFilename(newFilename || fileUs.fileCnt.fname): newFilename || fileUs.fileCnt.fname;
+        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
 
         const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
-            //TODO: update member fileUs.contentToSave
+            toast.error(`Cannot save file ${fname}`);
             return;
         }
 
+        toast.error(`Cannot save file ${fname}`);
+        return;
+
+        /** /
+        if (newFilename) {
+            fileUs.fileCnt.fname = newFilename; //TODO: update tree names maybe required
+        }
+
         // 2.
-        //fileDownload({ data: xml, filename: fileUs.fname, mime: 'text/plain;charset=utf-8' });
 
         console.log('saved', fileUs.fileCnt.fname);
 
@@ -72,3 +76,12 @@ export const doSaveOneAtom = atom(
 //TODO: The rest: the links between forms, etc.
 
 //TODO: Update number input to show shorter lines
+
+//TODO:
+// add member fileUs.contentToSave
+//      const saved = await saveToFileSystem(fileUs, xml, fname);
+//      if (!saved) {
+//          //TODO: update member fileUs.contentToSave
+//          return;
+//      }
+// or maybe not needed

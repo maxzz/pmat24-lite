@@ -1,4 +1,4 @@
-import { proxy } from "valtio";
+import { proxy, ref } from "valtio";
 import { filenameWithoutPath } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
@@ -24,7 +24,7 @@ export function setRootDir(folder: PmatFolder | undefined): void {
     const { fpath: rpath, handle, fromMain } = folder;
 
     rootDir.fpath = rpath;
-    rootDir.handle = handle;
+    rootDir.handle = handle ? ref(handle) : undefined;
     rootDir.fromMain = fromMain;
 
     if (hasMain()) {
