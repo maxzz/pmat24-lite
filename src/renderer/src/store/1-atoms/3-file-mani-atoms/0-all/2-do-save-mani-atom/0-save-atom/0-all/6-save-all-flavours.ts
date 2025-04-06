@@ -5,6 +5,33 @@ import { rightPanelAtom } from "@/store/1-atoms/2-right-panel";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { doSaveOneAtom } from "./0-all-save";
 
+export const doSaveRightPanelFileAtom = atom(null,
+    (get, set) => {
+        const fileUsAtom = get(rightPanelAtom);
+        if (!fileUsAtom) {
+            return;
+        }
+
+        set(doSaveOneAtom, fileUsAtom);
+    }
+);
+
+export const doSaveAllAtom = atom(null,
+    (get, set) => {
+        const files = get(filesAtom);
+
+        files.forEach(
+            (fileUsAtom) => {
+                const fileUs = get(fileUsAtom);
+
+                if (hasFileUsAnyChanges({ fileUs })) {
+                    set(doSaveOneAtom, fileUsAtom);
+                }
+            }
+        );
+    }
+);
+
 export const doSaveAsAtom = atom(null,
     (get, set, { fileUsAtom }: { fileUsAtom: FileUsAtom; }) => {
 
@@ -26,32 +53,5 @@ export const doSaveAsAtom = atom(null,
         set(doSaveOneAtom, fileUsAtom, newFilename);
 
         console.log('saved as', fileUs.fileCnt.fname);
-    }
-);
-
-export const doSaveAllAtom = atom(null,
-    (get, set) => {
-        const files = get(filesAtom);
-
-        files.forEach(
-            (fileUsAtom) => {
-                const fileUs = get(fileUsAtom);
-
-                if (hasFileUsAnyChanges({ fileUs })) {
-                    set(doSaveOneAtom, fileUsAtom);
-                }
-            }
-        );
-    }
-);
-
-export const doSaveRightPanelFileAtom = atom(null,
-    (get, set) => {
-        const fileUsAtom = get(rightPanelAtom);
-        if (!fileUsAtom) {
-            return;
-        }
-
-        set(doSaveOneAtom, fileUsAtom);
     }
 );
