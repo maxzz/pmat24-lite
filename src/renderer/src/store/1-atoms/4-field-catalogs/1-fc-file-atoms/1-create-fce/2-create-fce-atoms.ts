@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type ManiAtoms, catalogItemInFileToFceItemValue } from "../../../3-file-mani-atoms";
+import { type ManiAtoms, catalogItemInFileToFceItemValue } from "../../../2-file-mani-atoms";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";

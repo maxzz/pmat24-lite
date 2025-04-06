@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type MFormCtx } from "@/store/1-atoms/3-file-mani-atoms";
+import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { doSelectIdxAtom } from "./1-select-atoms";
 
 export const doDeleteItemAtom = atom(

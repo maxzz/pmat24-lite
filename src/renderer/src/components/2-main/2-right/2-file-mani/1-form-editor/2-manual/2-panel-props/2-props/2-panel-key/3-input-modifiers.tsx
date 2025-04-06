@@ -3,7 +3,7 @@ import { PrimitiveAtom, useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { type RowInputState } from "@/ui";
 import { InputSelectUi } from "../8-props-ui";
-import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { modifierKeys } from "@/store/manifest";
 
 type FrameProps = HTMLAttributes<HTMLDivElement> & {

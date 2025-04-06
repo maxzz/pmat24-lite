@@ -1,5 +1,5 @@
 import { useAtomValue, useAtom } from "jotai";
-import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
+import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {

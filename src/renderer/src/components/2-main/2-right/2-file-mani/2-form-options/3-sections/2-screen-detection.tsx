@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { type OFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
+import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
 
 export function Part2ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {

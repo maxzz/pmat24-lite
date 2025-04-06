@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
-import { type NFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
+import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
 
 export function TabContentNormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {

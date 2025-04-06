@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { createManiAtoms } from "../3-file-mani-atoms";
+import { createManiAtoms } from "../2-file-mani-atoms";
 
 export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
 

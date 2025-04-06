@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani, FieldTyp, type ValueLife } from "@/store/manifest";
-import { type NormalField, type FileUsCtx } from "@/store/1-atoms/3-file-mani-atoms";
+import { type NormalField, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
 import { inputRingClasses } from "@/ui";
 import { InputSelectUi } from "./1-dropdown";

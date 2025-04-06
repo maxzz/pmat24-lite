@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { buildState } from "./8-pos-build-state";
 import { InputPos } from "./2-Input-pos";

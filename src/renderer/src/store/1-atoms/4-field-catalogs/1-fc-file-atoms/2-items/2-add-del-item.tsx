@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
-import { hasFileUsChange, setFileUsChangeFlag } from "../../../3-file-mani-atoms";
+import { hasFileUsChange, setFileUsChangeFlag } from "../../../2-file-mani-atoms";
 import { doSelectIdxFcAtom } from "./1-do-set-selected";
 import { removeLinksToFceItemAtom } from "./5-file-us-refs-to-fc";
 

@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { type FceItem, appSettings } from "@/store";
-import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 import { InputLabel, ManualFieldPolicy, ManualFieldType } from "../8-props-ui";
 

@@ -3,10 +3,10 @@ import { useSetAtom } from "jotai";
 import { classNames, delay } from "@/utils";
 import { ScrollArea } from "@/ui";
 import { type ChunkKey } from "@/store/manifest";
-import { type MFormContextProps, doCreateItemAtom } from "@/store/1-atoms/3-file-mani-atoms";
+import { type MFormContextProps, doCreateItemAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
-import { useInitSelectedIdx } from "@/store/1-atoms/3-file-mani-atoms";
+import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
 
 export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {

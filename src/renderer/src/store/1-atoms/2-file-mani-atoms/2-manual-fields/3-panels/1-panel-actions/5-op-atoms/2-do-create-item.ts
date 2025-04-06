@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type ChunkKey } from "@/store/manifest";
-import { type MFormCtx } from "@/store/1-atoms/3-file-mani-atoms/9-types";
+import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { createScriptItem } from "../../../2-create-new-chunk";
 import { clamp } from "@/utils";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";

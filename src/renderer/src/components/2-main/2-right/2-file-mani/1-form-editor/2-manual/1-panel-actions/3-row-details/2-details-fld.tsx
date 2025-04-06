@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "pm-manifest";
-import type { ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import type { ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { detailKbdClasses } from "./1-details-key";
 
 export function DetailsFld({ item }: { item: ManualFieldState.CtxFld; }) {

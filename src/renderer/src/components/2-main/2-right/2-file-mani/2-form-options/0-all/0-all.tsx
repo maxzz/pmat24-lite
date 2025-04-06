@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type OFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
+import { type ManiAtoms, type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
 import { GroupCpass, GroupGeneral, GroupLogin } from "./1-options-groups";
 

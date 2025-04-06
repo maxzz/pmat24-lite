@@ -1,7 +1,7 @@
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type CreateNewManualAction } from "../0-all/9-types";
-import { MFormContextProps } from "@/store/1-atoms/3-file-mani-atoms";
+import { MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ButtonActionsMenuAdd } from "./2-panel-title-menu";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
 

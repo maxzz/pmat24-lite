@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { type ManualFieldState } from "@/store/1-atoms/3-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "./4-input-select-ui";
 import { FieldTyp, type OptionTextValue } from "@/store/manifest";
 

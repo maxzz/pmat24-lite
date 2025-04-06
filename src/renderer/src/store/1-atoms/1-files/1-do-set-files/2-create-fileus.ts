@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
 import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
-import { type ManiAtoms } from '@/store/1-atoms/3-file-mani-atoms';
+import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
 import { buildManiMetaForms, createNewManualFormFrom, defaultManualFormFields, parseXMLFile, TimeUtils } from '@/store/manifest';
 
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {

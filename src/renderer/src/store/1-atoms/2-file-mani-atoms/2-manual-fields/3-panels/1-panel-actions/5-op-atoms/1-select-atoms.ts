@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type MFormCtx } from "@/store/1-atoms/3-file-mani-atoms";
+import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { kbdToIndex } from "./b-kbd-to-index";
 
 /**

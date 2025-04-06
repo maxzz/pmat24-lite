@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { doResetOneAtom, doSaveOneAtom } from "@/store/1-atoms/3-file-mani-atoms";
+import { doResetOneAtom, doSaveOneAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { Button } from "@/ui";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 
