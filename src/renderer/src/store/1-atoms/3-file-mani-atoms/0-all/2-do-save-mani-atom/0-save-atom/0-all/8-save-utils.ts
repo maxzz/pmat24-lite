@@ -8,7 +8,7 @@ export function filterEmptyValues<T extends Record<string, any>>(obj: T): T | un
     const entries = Object
         .entries(obj)
         .filter(([key, value]) => !!value);
-        
+
     return entries.length ? Object.fromEntries(entries) as T : undefined;
 }
 
@@ -36,4 +36,26 @@ export function printXmlManiFile(xml: string) {
 
 function replaceInXml_NamesExt(xml: string) {
     return xml.replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+}
+
+/**
+ * Check if file with the given name exists in the parent directory.
+ * There is no check for subfolders, i.e. only direct children of the parent directory.
+ */
+export async function isFilenameExists(parent: FileSystemDirectoryHandle | null | undefined, filename: string): Promise<boolean> {
+    if (!parent) {
+        console.error('no parent directory');
+        return false;
+    }
+
+    try {
+        const fileHandle = await parent.getFileHandle(filename, { create: false });
+        if (fileHandle) {
+            return true;
+        }
+    } catch (error) {
+        console.error('isFilenameExists', error);
+    }
+
+    return false;
 }

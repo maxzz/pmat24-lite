@@ -1,12 +1,12 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { hasFileUsAnyChanges } from "../../../../9-types";
-import { filesAtom } from "@/store/1-atoms/1-files";
+import { hasFileUsAnyChanges } from "@/store/1-atoms/3-file-mani-atoms/9-types";
 import { rightPanelAtom } from "@/store/1-atoms/2-right-panel";
-import { doSaveOneAtom } from "../..";
+import { filesAtom } from "@/store/1-atoms/1-files";
+import { doSaveOneAtom } from "./0-all-save";
 
 export const doSaveAsAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom) => {
+    (get, set, { fileUsAtom }: { fileUsAtom: FileUsAtom; }) => {
 
         //TODO: get new filename
         const newFilename = 'newFilename';
@@ -28,8 +28,6 @@ export const doSaveAsAtom = atom(null,
         console.log('saved as', fileUs.fileCnt.fname);
     }
 );
-//TODO: submit editor
-//TODO: policy editor as part of fields editor
 
 export const doSaveAllAtom = atom(null,
     (get, set) => {
@@ -46,7 +44,6 @@ export const doSaveAllAtom = atom(null,
         );
     }
 );
-//TODO: file save/reset from atoms
 
 export const doSaveRightPanelFileAtom = atom(null,
     (get, set) => {

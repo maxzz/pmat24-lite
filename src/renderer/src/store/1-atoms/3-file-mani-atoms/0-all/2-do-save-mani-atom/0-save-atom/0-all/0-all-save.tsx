@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
-import { saveContentToFile } from "./2-save-to-file-system";
+import { saveContentToFile } from "./7-save-to-file-system";
 import { printXmlManiFile } from "./8-save-utils";
 //import { fileDownload } from '@/utils/file-download';
 
@@ -44,6 +44,8 @@ export const doSaveOneAtom = atom(
 
         // Update file content with new xml
         fileUs.fileCnt.raw = xml;
+
+        //TODO: update files tree. File can be save to the root folder, subfolder or any higher level folder.
 
         //TODO: check if we can save from web or electron
 

@@ -7,9 +7,9 @@ export function MenuItem_SaveCurrentAs() {
 
     const fileUsAtom = useAtomValue(rightPanelAtom);
     const doSaveOneAs = useSetAtom(doSaveAsAtom);
-    
+
     return (<>
-        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOneAs(fileUsAtom)} disabled={!fileUsAtom}>
+        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOneAs({ fileUsAtom })} disabled={!fileUsAtom}>
             Save As...
         </DropdownMenuItem>
     </>);
