@@ -5,7 +5,7 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function AdvancedSettings() {
-    const { allowHandleFiles, showFieldCatalog, showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { allowHandleFiles, showFieldCatalog, showUiHeader, saveWDebugExt } = useSnapshot(appSettings.appUi.uiAdvanced);
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { allowWelcome } = useSnapshot(appSettings.appUi.uiGeneral);
@@ -41,6 +41,11 @@ export function AdvancedSettings() {
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
                     Allow Welcome screen to be turn off
+                </Label>
+
+                <Label className={classNames("col-start-1", rowClasses)}>
+                    <Checkbox checked={saveWDebugExt} onCheckedChange={(v) => liveUiAdvanced.saveWDebugExt = !!v} />
+                    Save files with debug name as {'[name.test.ext]'}
                 </Label>
 
                 {/* 2 */}

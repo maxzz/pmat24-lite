@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
@@ -31,7 +32,7 @@ export const doSaveOneAtom = atom(
         /**/
         //TODO: newFilename
 
-        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
+        const fname = appSettings.appUi.uiAdvanced.saveWDebugExt ? debugTestFilename(newFilename || fileUs.fileCnt.fname): newFilename || fileUs.fileCnt.fname;
 
         const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
