@@ -39,17 +39,17 @@ export function AdvancedSettings() {
                 </Label>
 
                 <Label className={classNames("col-start-1", rowClasses)}>
-                    <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
-                    Allow Welcome screen to be turn off
-                </Label>
-
-                <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={saveWDebugExt} onCheckedChange={(v) => liveUiAdvanced.saveWDebugExt = !!v} />
                     Save files with debug name as {'[name.test.ext]'}
                 </Label>
 
                 {/* 2 */}
-                
+
+                <Label className={classNames("col-start-2", rowClasses)}>
+                    <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
+                    Allow Welcome screen to be turn off
+                </Label>
+
                 <Label className={classNames("col-start-2", rowClasses)}>
                     <Checkbox checked={allowHandleFiles} onCheckedChange={(v) => liveUiAdvanced.allowHandleFiles = !!v} />
                     Allow opening of individual files
@@ -65,10 +65,17 @@ export function AdvancedSettings() {
                     Show field catalog files
                 </Label>
 
-                <div className="col-start-1 col-span-2 text-[.65rem] leading-3 text-foreground/50">
+                {/* 3 */}
+                <div className="col-start-1 col-span-2 text-[.65rem] leading-3 text-foreground/50 flex gap-2">
+                    <div className="">zoom:</div>
+                    <div><span className="font-semibold">-</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+minus</span>     </div>
+                    <div><span className="font-semibold">100</span> <span className="px-1 bg-muted/40 border-border border rounded">ctrl+0</span>         </div>
+                    <div><span className="font-semibold">+</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+shift+plus</span></div>
+
+
+                    {/* <div>zoom Ctrl+minus to zoom out</div>
                     <div>zoom Ctrl+0 to 100%</div>
-                    <div>zoom Ctrl+Shift+plus to zoom in</div>
-                    <div>zoom Ctrl+minus to zoom out</div>
+                    <div>zoom Ctrl+Shift+plus to zoom in</div> */}
                 </div>
 
             </div>

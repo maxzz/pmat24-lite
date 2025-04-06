@@ -57,8 +57,8 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 
 function DialogMiddleArea() {
     return (
-        <ScrollArea className="h-full w-full overflow-auto">
-            <div className="px-4 py-4 grid grid-cols-1 gap-6">
+        <ScrollArea className="size-full overflow-auto" fullHeight>
+            <div className="size-full px-4 py-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
 
                 <SectionTitle title="File list">
                     <FileListSettings />
