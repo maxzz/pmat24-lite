@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
-import { saveContentToFile } from "./7-save-to-file-system";
+import { saveToFileSystem } from "./7-save-to-file-system";
 import { printXmlManiFile } from "./8-save-utils";
 //import { fileDownload } from '@/utils/file-download';
 
@@ -28,7 +28,7 @@ export const doSaveOneAtom = atom(
         //TODO: newFilename
         //TODO: each file may have no filename or name may already be taken by another file
 
-        const saved = await saveContentToFile(fileUs, xml, newFilename || fileUs.fileCnt.fname);
+        const saved = await saveToFileSystem(fileUs, xml, newFilename || fileUs.fileCnt.fname);
         if (!saved) {
             //TODO: update member fileUs.contentToSave
             return;
