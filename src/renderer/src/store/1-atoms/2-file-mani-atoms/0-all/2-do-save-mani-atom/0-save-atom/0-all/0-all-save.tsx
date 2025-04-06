@@ -16,7 +16,7 @@ export const doSaveOneAtom = atom(
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string): Promise<boolean> => {
         const fileUs = get(fileUsAtom);
 
-        const changed = hasFileUsAnyChanges({ fileUs });
+        const changed = hasFileUsAnyChanges({ fileUs }) || fileUs.fileCnt.newFile;
         if (!changed) {
             return false;
         }
@@ -29,6 +29,8 @@ export const doSaveOneAtom = atom(
         printXmlManiFile(xml);
         // return;
 
+        // 2. Save to file system
+
         const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
 
         const saved = await saveToFileSystem(fileUs, xml, fname);
@@ -37,20 +39,21 @@ export const doSaveOneAtom = atom(
             return false;
         }
 
-        toast.error(`Cannot save file ${fname}`);
-        return true;
+        // 3. Update internal file state after successful save
 
-        /** /
         if (newFilename) {
             fileUs.fileCnt.fname = newFilename; //TODO: update tree names maybe required
         }
 
-        // 2.
+        fileUs.fileCnt.newFile = false;
+        clearFileUsChanges({ fileUs });
 
+        toast.info(`File "${fname}" saved`);
+        return true;
+
+        /** /
         console.log('saved', fileUs.fileCnt.fname);
 
-        // Do this only after successful save:
-        clearFileUsChanges({ fileUs });
 
         // Update file content with new xml
         fileUs.fileCnt.raw = xml;
@@ -65,7 +68,7 @@ export const doSaveOneAtom = atom(
         //TODO: update values from file after successful save
         //TODO: update values from file after successful save
         /**/
-        
+
         return true;
     }
 );

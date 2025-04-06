@@ -24,6 +24,11 @@ export const doSaveNewManiAtom = atom(
         if (fileUs.fileCnt.fromMain) {
             console.log('Not implemented yet');
         } else {
+            if (!rootDir.handle) {
+                console.log('There is no rootDir.handle');
+                return false;
+            }
+
             const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
             
             fileUs.fileCnt.webFsItem = new WebFsItem({
