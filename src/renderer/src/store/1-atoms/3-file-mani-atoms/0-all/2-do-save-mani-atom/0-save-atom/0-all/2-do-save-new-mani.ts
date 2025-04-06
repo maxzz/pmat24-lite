@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { notImplYet } from "@/ui";
 import { createGuid } from "@/store/manifest";
-import { newManiContent } from "../../0-ctx-new-mani";
+import { newManiContent } from "@/components/4-dialogs";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { rootDir } from "@/store";
 
