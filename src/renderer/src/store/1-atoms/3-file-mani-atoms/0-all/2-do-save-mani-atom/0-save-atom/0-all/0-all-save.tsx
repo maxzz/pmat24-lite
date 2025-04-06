@@ -21,10 +21,10 @@ export const doSaveOneAtom = atom(
             return;
         }
 
-        //printXmlManiFile(xml);
-        return;
+        printXmlManiFile(xml);
+        // return;
 
-        /** /
+        /**/
         //TODO: newFilename
         //TODO: each file may have no filename or name may already be taken by another file
 

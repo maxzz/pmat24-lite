@@ -17,12 +17,11 @@ export const doSaveNewManiAtom = atom(
 
         fileUs.fileCnt.fname = fileUs.fileCnt.fname || `${createGuid()}.${pmExtensionMani}`;
 
-
-
         if (fileUs.fileCnt.fromMain) {
-
+            console.log('Not implemented yet');
         } else {
             const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
+            
             fileUs.fileCnt.webFsItem = new WebFsItem({
                 parent: rootDir.handle,
                 handle: fileHandle,
@@ -30,7 +29,6 @@ export const doSaveNewManiAtom = atom(
             });
 
         }
-
 
         return false;
     }

@@ -118,5 +118,3 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         }
     }
 );
-
-//TODO: somehow 'copies-from-here' is not working first time and shows 'Opening multiple files or folders is not allowed. Drag and drop one folder.' and on second time OK.
