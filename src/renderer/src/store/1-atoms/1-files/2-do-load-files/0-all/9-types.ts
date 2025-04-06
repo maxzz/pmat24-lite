@@ -1,7 +1,7 @@
 import { type WebFsItem } from "@shared/ipc-types";
 import { type FileWithHandle, type FileWithDirectoryAndFileHandle } from "browser-fs-access";
 
-export type DropItem = {
+export type OpenItem = {
     fname: string;                          // basename as filename w/ extension but wo/ path
     fpath: string;                          // file path without filename
     fileWeb: File;                          // web: File object from async entry.file() call
@@ -13,7 +13,7 @@ export type DropItem = {
  * Check if we drop a single folder and can get its handle.
  * fpath with slash is a subfolder item, so we skip any subfolder items to find the root folder.
  */
-export function getSingleFolderHandle(items: DropItem[]): FileSystemDirectoryHandle | undefined {
+export function getSingleFolderHandle(items: OpenItem[]): FileSystemDirectoryHandle | undefined {
     const parentsSet = new Set(
         items.map(
             (item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.parent : undefined

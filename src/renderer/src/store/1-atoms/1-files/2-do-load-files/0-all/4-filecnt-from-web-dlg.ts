@@ -1,7 +1,7 @@
 import { pathWithoutFilename } from "@/utils";
 import { isFileWithDirectoryAndFileHandle, isFileWithFileHandle } from "@/store/store-utils";
 import { type FileContent, WebFsItem } from "@shared/ipc-types";
-import { DropItem } from "./9-types";
+import { type OpenItem } from "./9-types";
 import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
 
 /**
@@ -9,14 +9,14 @@ import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
  */
 export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise<FileContent[]> {
 
-    let dropItems: DropItem[] = await mapToDropItems(files);
+    let dropItems: OpenItem[] = await mapToDropItems(files);
     const rv = loadFilesAndCreateFileContents(dropItems);
     return rv;
 
 }
 
-async function mapToDropItems(files: File[]): Promise<DropItem[]> {
-    let rv: DropItem[] = [];
+async function mapToDropItems(files: File[]): Promise<OpenItem[]> {
+    let rv: OpenItem[] = [];
     try {
         rv = await Promise.all(files.map(
             async (file) => {
@@ -27,7 +27,7 @@ async function mapToDropItems(files: File[]): Promise<DropItem[]> {
                     legacyPath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
                 });
 
-                const rv: DropItem = {
+                const rv: OpenItem = {
                     fname: file.name,
                     fpath: webFsItem.legacyPath,
                     fileWeb: file,

@@ -1,8 +1,8 @@
 import { findShortestPathInFnames } from "@/store/store-utils";
 import { type WebFsItem } from "@shared/ipc-types";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
+import { type OpenItem, getSingleFolderHandle } from "./9-types";
 import { collectWebDndItems } from "../1-modern-handles";
-import { DropItem, getSingleFolderHandle } from "./9-types";
 import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
 
 /**
@@ -12,7 +12,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
 
     const webFsItems = await collectWebDndItems(fileDataTransferItems);
     const dndItems = webFsItems.filter((item) => item.legacyFile);
-    const dropItems: DropItem[] = await mapToDropItems(dndItems, fileDataTransferItems);
+    const openItems: OpenItem[] = await mapToDropItems(dndItems, fileDataTransferItems);
 
     if (webFsItems.length === 1 && webFsItems[0]?.handle?.kind === 'directory') {
         const rv: SetDeliveredFiles = {
@@ -26,11 +26,11 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         };
         return rv;
     } else {
-        const deliveredFileContents = await loadFilesAndCreateFileContents(dropItems);
+        const deliveredFileContents = await loadFilesAndCreateFileContents(openItems);
         const rv: SetDeliveredFiles = {
             root: {
                 fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
-                handle: getSingleFolderHandle(dropItems),
+                handle: getSingleFolderHandle(openItems),
                 fromMain: false,
             },
             deliveredFileContents,
@@ -40,12 +40,12 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
     }
 }
 
-async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: DataTransferItem[]): Promise<DropItem[]> {
-    let rv: DropItem[] = [];
+async function mapToDropItems(webFsItems: WebFsItem[], fileDataTransferItems: DataTransferItem[]): Promise<OpenItem[]> {
+    let rv: OpenItem[] = [];
     try {
         rv = webFsItems.map(
             (webFsItem) => {
-                const rv: DropItem = {
+                const rv: OpenItem = {
                     fname: webFsItem.legacyFile!.name,
                     fpath: webFsItem.legacyPath,
                     fileWeb: webFsItem.legacyFile!,
