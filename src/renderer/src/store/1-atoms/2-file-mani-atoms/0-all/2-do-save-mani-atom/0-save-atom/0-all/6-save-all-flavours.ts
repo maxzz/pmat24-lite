@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { hasFileUsAnyChanges } from "@/store/1-atoms/3-file-mani-atoms/9-types";
-import { rightPanelAtom } from "@/store/1-atoms/2-right-panel";
+import { rightPanelAtom } from "@/store/1-atoms/3-right-panel";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { doSaveOneAtom } from "./0-all-save";
 

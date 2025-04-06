@@ -4,7 +4,7 @@ import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type FceItem } from "../../9-types";
 import { filesAtom } from "../../../1-files";
 import { getRootFceAtoms } from "../1-create-fce";
-import { doPreloadManiAtomsAtom } from "../../../2-right-panel";
+import { doPreloadManiAtomsAtom } from "../../../3-right-panel";
 import { type ManualFieldState, type NormalField } from "../../../3-file-mani-atoms";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem

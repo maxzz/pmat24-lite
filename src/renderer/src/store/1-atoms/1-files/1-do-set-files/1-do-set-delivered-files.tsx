@@ -5,7 +5,7 @@ import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-fil
 import { busyIndicator, totalManis } from "../../9-ui-state";
 import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
-import { rightPanelAtom } from "../../2-right-panel";
+import { rightPanelAtom } from "../../3-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 import { toast } from "sonner";
