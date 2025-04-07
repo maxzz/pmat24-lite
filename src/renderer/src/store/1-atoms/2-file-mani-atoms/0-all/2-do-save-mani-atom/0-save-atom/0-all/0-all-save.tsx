@@ -5,6 +5,8 @@ import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
+import { filesAtom } from "@/store/1-atoms/1-files";
+import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
 
 /**
  * newFilename - filename without path.
@@ -48,16 +50,19 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.newFile = false;
         clearFileUsChanges({ fileUs });
 
+        fileUs.fileCnt.raw = xml; // Update file content with new xml
+
+        updateTotalManis(fileUs);
+
+        const currentFiles = get(filesAtom);
+        currentFiles.push(fileUsAtom);
+        set(filesAtom, currentFiles);
+
         toast.info(`File "${fname}" saved`);
+        console.log('saved', fileUs.fileCnt.fname);
         return true;
 
         /** /
-        console.log('saved', fileUs.fileCnt.fname);
-
-
-        // Update file content with new xml
-        fileUs.fileCnt.raw = xml;
-
         //TODO: update files tree. File can be save to the root folder, subfolder or any higher level folder.
 
         //TODO: check if we can save from web or electron
