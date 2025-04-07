@@ -53,6 +53,46 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
  */
 const treeActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
+function handleSelectChange2(item: DataItemWState | undefined, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace }: {
+    data: DataItemWState[] | DataItemWState;
+    treeState: TreeState;
+    onSelectChange?: (item: DataItemWState | undefined) => void;
+    selectAsTrigger: boolean | undefined;
+    selectEmptySpace: boolean | undefined;
+}) {
+    if (item) {
+        const clickedNewItem = treeState.selectedId !== item.id;
+
+        if (selectAsTrigger) {
+            clickedNewItem && clearPrevSelectedState();
+            item.state.selected = clickedNewItem;
+            treeState.selectedId = clickedNewItem ? item.id : undefined;
+        } else {
+            if (!clickedNewItem) {
+                return;
+            }
+            clearPrevSelectedState();
+            item.state.selected = !item.state.selected;
+            treeState.selectedId = item.id;
+        }
+    } else {
+        if (!selectEmptySpace) {
+            return;
+        }
+        clearPrevSelectedState();
+        treeState.selectedId = undefined;
+    }
+
+    function clearPrevSelectedState() {
+        if (treeState.selectedId) {
+            const prevItem = findTreeItemById(data, treeState.selectedId);
+            prevItem && (prevItem.state.selected = false);
+        }
+    }
+
+    onSelectChange?.(item);
+}
+
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
     (props, ref) => {
         const {
@@ -87,6 +127,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
         const handleSelectChange = useCallback(
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
                 event.stopPropagation();
+                handleSelectChange2(item, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace });
 
                 if (item) {
                     const clickedNewItem = treeState.selectedId !== item.id;

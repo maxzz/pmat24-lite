@@ -32,8 +32,8 @@ export function FilesTree() {
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
-        const newAtom = treeItemToFileUs(item!)?.fileUsAtom;
-        setSelected({ newAtom })
+        const selectFileUsAtom = treeItemToFileUs(item!)?.fileUsAtom;
+        setSelected({ newAtom: selectFileUsAtom })
     }
 
     const TreeMemo = useMemo(
