@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { proxy, useSnapshot } from "valtio";
 import { TreeFileItem, appSettings, doTriggerRightPanelSelectedAtom, treeFilesAtom } from "@/store";
@@ -7,22 +7,15 @@ import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // W
 import { TreeItemRowRender } from "./2-tree-item";
 
 export function FilesTree() {
-    const {selectAsTrigger, selectEmptySpace} = useSnapshot(appSettings.files.itemsState);
+    const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
 
     const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
         const selectFileUsAtom = treeItemToFileUs(item!)?.fileUsAtom;
-        setSelected({ newAtom: selectFileUsAtom })
+        setSelected({ newAtom: selectFileUsAtom });
     }
-
-    // const [treeState] = useState(() => {
-    //     const uiState = proxy<TreeState>({
-    //         selectedId: undefined,
-    //     });
-    //     return uiState;
-    // });
 
     const treeState = useAtomValue(treeStateAtom);
 
@@ -81,10 +74,3 @@ const treeStateAtom = atom<TreeState>(() => {
         selectedId: undefined,
     });
 });
-
-// const [treeState] = useState(() => {
-//     const uiState = proxy<TreeState>({
-//         selectedId: undefined,
-//     });
-//     return uiState;
-// });
