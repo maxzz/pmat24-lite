@@ -50,13 +50,13 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.newFile = false;
         clearFileUsChanges({ fileUs });
 
-        fileUs.fileCnt.raw = xml; // Update file content with new xml
+        fileUs.fileCnt.raw = xml; // Update file content with new xml //TODO: somehow it's already there
 
         updateTotalManis(fileUs);
 
-        const currentFiles = get(filesAtom);
-        currentFiles.push(fileUsAtom);
-        set(filesAtom, currentFiles);
+        const currentFiles = [...get(filesAtom), fileUsAtom];
+        //currentFiles.push(fileUsAtom);
+        set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree
 
         toast.info(`File "${fname}" saved`);
         console.log('saved', fileUs.fileCnt.fname);
