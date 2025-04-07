@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { busyIndicator, totalManis } from "../../9-ui-state";
+import { busyIndicator, clearTotalManis, totalManis, updateTotalManis } from "../../9-ui-state";
 import { isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { rightPanelAtom } from "../../3-right-panel";
@@ -68,10 +68,7 @@ export const doSetDeliveredFilesAtom = atom(
         assignFcRoot(undefined, get, set);
         set(doDiscardAllFilesFileUsLinksAtom);
 
-        totalManis.normal = 0;
-        totalManis.manual = 0;
-        totalManis.empty = 0;
-        totalManis.fc = 0;
+        clearTotalManis();
 
         if (isRootDirEmpty()) { // block multiple files or folders
             !clearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
@@ -86,17 +83,7 @@ export const doSetDeliveredFilesAtom = atom(
             .map(
                 (deliveredFileContent: FileContent) => {
                     const newFileUs = createFileUsFromFileContent(deliveredFileContent);
-
-                    if (newFileUs.parsedSrc.fcat) {
-                        totalManis.fc++;
-                    } else if (isAnyEmpty(newFileUs.parsedSrc.meta)) {
-                        totalManis.empty++;
-                    } else if (isAnyManual(newFileUs.parsedSrc.meta)) {
-                        totalManis.manual++;
-                    } else {
-                        totalManis.normal++;
-                    }
-
+                    updateTotalManis(newFileUs);
                     return newFileUs;
                 }
             )
