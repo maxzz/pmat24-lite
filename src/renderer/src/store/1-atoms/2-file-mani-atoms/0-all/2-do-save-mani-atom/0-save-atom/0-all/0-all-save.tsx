@@ -7,6 +7,7 @@ import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
+import { doTriggerRightPanelSelectedAtom } from "@/store/1-atoms/3-right-panel";
 
 /**
  * newFilename - filename without path.
@@ -56,7 +57,9 @@ export const doSaveOneAtom = atom(
 
         const currentFiles = [...get(filesAtom), fileUsAtom];
         //currentFiles.push(fileUsAtom);
-        set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree
+        set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?)
+
+        set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
 
         toast.info(`File "${fname}" saved`);
         console.log('saved', fileUs.fileCnt.fname);
