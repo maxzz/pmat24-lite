@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { proxy, useSnapshot } from "valtio";
 import { TreeFileItem, appSettings, doTriggerRightPanelSelectedAtom, treeFilesAtom } from "@/store";
-import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
+import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState, TreeState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "./2-tree-item";
 
@@ -36,12 +36,20 @@ export function FilesTree() {
         setSelected({ newAtom: selectFileUsAtom })
     }
 
+    const [treeState] = useState(() => {
+        const uiState = proxy<TreeState>({
+            selectedId: undefined,
+        });
+        return uiState;
+    });
+
     const TreeMemo = useMemo(
         () => {
             const dataWithState = addStateToTreeItems(treeFiles);
             return (
                 <Tree
                     data={dataWithState}
+                    treeState={treeState}
                     className="w-full h-full outline-none"
                     scrollAreaProps={{ parentContentWidth: true, fixedWidth: true }}
                     IconTextRender={TreeItemRowRender}

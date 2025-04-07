@@ -29,6 +29,7 @@ export type TreeState = {
 type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
     & {
         data: T[] | T;
+        treeState: TreeState;
 
         onSelectChange?: (item: DataItemWState | undefined) => void;
         initialSelectedItemId?: string;
@@ -96,15 +97,8 @@ export function doTreeItemSelect(item: DataItemWState | undefined, { data, treeS
 export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDivElement>>(
     (props, ref) => {
         const {
-            data, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem,
+            data, treeState, initialSelectedItemId, onSelectChange, expandAll, IconTextRender, IconForFolder, IconForItem,
             arrowFirst, hideFolderIcon, selectAsTrigger, selectEmptySpace, scrollAreaProps, className, ...rest } = props;
-
-        const [treeState] = useState(() => {
-            const uiState = proxy<TreeState>({
-                selectedId: undefined,
-            });
-            return uiState;
-        });
 
         const iconTextRender = IconTextRender || TreeIconAndText;
 
