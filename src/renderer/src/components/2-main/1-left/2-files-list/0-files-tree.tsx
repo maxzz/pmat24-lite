@@ -9,7 +9,8 @@ import { TreeItemRowRender } from "./2-tree-item";
 export function FilesTree() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
 
-    const treeFiles = useAtomValue(treeFilesAtom);
+    const dataWithState = useAtomValue(dataWithStateAtom);
+    // const treeFiles = useAtomValue(treeFilesAtom);
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
@@ -21,7 +22,7 @@ export function FilesTree() {
 
     const TreeMemo = useMemo(
         () => {
-            const dataWithState = addStateToTreeItems(treeFiles);
+            // const dataWithState = addStateToTreeItems(treeFiles);
             return (
                 <Tree
                     data={dataWithState}
@@ -38,7 +39,8 @@ export function FilesTree() {
                     onSelectChange={onSelectChange}
                 />
             );
-        }, [treeFiles]
+        }, [dataWithState]
+        // }, [treeFiles]
     );
 
     return (
@@ -74,3 +76,10 @@ const treeStateAtom = atom<TreeState>(() => {
         selectedId: undefined,
     });
 });
+
+const dataWithStateAtom = atom<DataItemWState[]>(
+    (get) => {
+        const treeFiles = get(treeFilesAtom);
+        return addStateToTreeItems(treeFiles);
+    }
+);
