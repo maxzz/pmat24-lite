@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
-import { proxy, useSnapshot } from "valtio";
-import { TreeFileItem, appSettings, doTriggerRightPanelSelectedAtom, treeFilesAtom } from "@/store";
-import { Tree, DataItemWState, duplicateTree, walkItems, DataItemNavigation, DataItemCore, ItemState, TreeState } from "@ui/shadcn/tree";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useSnapshot } from "valtio";
+import { TreeFileItem, appSettings, doTriggerRightPanelSelectedAtom } from "@/store";
+import { Tree, DataItemWState, DataItemNavigation, DataItemCore, ItemState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "./2-tree-item";
+import { dataWithStateAtom, treeItemToFileUs, treeStateAtom } from "./1-tree-atoms";
 
 export function FilesTree() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
@@ -51,35 +52,3 @@ export function FilesTree() {
         </div>
     );
 }
-
-//type TreeItem = Prettify<ReturnType<typeof addStateToTreeItems>>;
-//const dataWithState = addStateToTreeItems(data);
-
-export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
-
-export function treeItemToFileUs(item: DataItemWState | DataItemNavigation<DataItemCore>): TreeFileItemWState {
-    return item as TreeFileItemWState;
-}
-
-function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWState[] {
-    const newTree = duplicateTree(data) as unknown as (TreeFileItem<ItemState>)[];
-
-    walkItems(newTree, (item) => {
-        item.state = proxy({ selected: false });
-    });
-
-    return newTree;
-}
-
-const treeStateAtom = atom<TreeState>(() => {
-    return proxy<TreeState>({
-        selectedId: undefined,
-    });
-});
-
-const dataWithStateAtom = atom<DataItemWState[]>(
-    (get) => {
-        const treeFiles = get(treeFilesAtom);
-        return addStateToTreeItems(treeFiles);
-    }
-);
