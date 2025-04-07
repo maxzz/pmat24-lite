@@ -22,7 +22,7 @@ type TreeIconOptions = {
     hideFolderIcon?: boolean;
 };
 
-type TreeState = {
+export type TreeState = {
     selectedId: string | number | undefined;
 };
 
@@ -53,7 +53,7 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
  */
 const treeActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
-function handleSelectChange2(item: DataItemWState | undefined, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace }: {
+export function doTreeItemSelect(item: DataItemWState | undefined, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace }: {
     data: DataItemWState[] | DataItemWState;
     treeState: TreeState;
     onSelectChange?: (item: DataItemWState | undefined) => void;
@@ -127,40 +127,8 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
         const handleSelectChange = useCallback(
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
                 event.stopPropagation();
-                handleSelectChange2(item, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace });
-
-                if (item) {
-                    const clickedNewItem = treeState.selectedId !== item.id;
-
-                    if (selectAsTrigger) {
-                        clickedNewItem && clearPrevSelectedState();
-                        item.state.selected = clickedNewItem;
-                        treeState.selectedId = clickedNewItem ? item.id : undefined;
-                    } else {
-                        if (!clickedNewItem) {
-                            return;
-                        }
-                        clearPrevSelectedState();
-                        item.state.selected = !item.state.selected;
-                        treeState.selectedId = item.id;
-                    }
-                } else {
-                    if (!selectEmptySpace) {
-                        return;
-                    }
-                    clearPrevSelectedState();
-                    treeState.selectedId = undefined;
-                }
-
-                function clearPrevSelectedState() {
-                    if (treeState.selectedId) {
-                        const prevItem = findTreeItemById(data, treeState.selectedId);
-                        prevItem && (prevItem.state.selected = false);
-                    }
-                }
-
-                onSelectChange?.(item);
-            }, [data, treeState, onSelectChange, selectAsTrigger]
+                doTreeItemSelect(item, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace });
+            }, [data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace]
         );
 
         const refRoot = useRef<HTMLDivElement | null>(null);
