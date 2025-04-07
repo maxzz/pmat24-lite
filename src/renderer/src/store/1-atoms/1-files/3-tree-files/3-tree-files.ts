@@ -13,16 +13,14 @@ export type TreeFileItem<T = {}> = Prettify<
     DataItemNavigation<DataItemCore & TreeFcntItem & T>
 >;
 
-export const treeFilesAtom = atom( // files to show in the tree
+export const treeFilesAtom = atom<TreeFileItem[]>( // files to show in the tree
     (get) => {
         const files = get(filteredAtom);
-
         if (!files.length) {
             return [];
         }
 
-        const optionsFileList = get(optionsFilesProxyAtom);
-        const uiOptShowIeWarnIcon = optionsFileList.itemsState.showIeMarker;
+        const itemsStateOptions = get(optionsFilesProxyAtom).itemsState;
 
         const filesTree: TreeFileItem[] = files.map(
             (fileUsAtom) => {
@@ -30,8 +28,8 @@ export const treeFilesAtom = atom( // files to show in the tree
 
                 const rv: TreeFileItem = {
                     id: fileUs.fileCnt.unid,
-                    name: getFileListItemDisplayText(fileUs, optionsFileList.itemsState, get),
-                    icon: formTypeToIcon(getFileListIconEnums(fileUs, uiOptShowIeWarnIcon)),
+                    name: getFileListItemDisplayText(fileUs, itemsStateOptions, get),
+                    icon: formTypeToIcon(getFileListIconEnums(fileUs, itemsStateOptions.showIeMarker)),
                     fileUsAtom,
                 };
 

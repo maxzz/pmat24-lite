@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { FileUs } from "@/store/store-types";
-import { type TreeFileItemWState } from "../1-tree-atoms";
+import { type TreeFileItemWState } from "../0-all/1-tree-atoms";
 import { classNames } from "@/utils";
 import { SymbolFire } from "@/ui/icons";
 
