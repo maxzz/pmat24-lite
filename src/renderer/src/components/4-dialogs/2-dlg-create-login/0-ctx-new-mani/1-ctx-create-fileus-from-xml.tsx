@@ -20,7 +20,7 @@ type MoveFromAppsToNextPageParams = {
 export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
     
     // 0. Claen up the context before parsing
-    newManiContent.clear(set);
+    newManiContent.init();
 
     // 1. Call Napi to get manifest as maniXml from the window
     try {
@@ -44,7 +44,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlAtom, sawManiXml);
-    printNewMani(sawManiXml);
+    //printNewMani(sawManiXml);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -58,7 +58,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
         
     } catch (error) {
-        newManiContent.clear(set);
+        newManiContent.init();
 
         const message = `Cannot parse manifest content\n${errorToString(error)}`;
         console.error(message);
