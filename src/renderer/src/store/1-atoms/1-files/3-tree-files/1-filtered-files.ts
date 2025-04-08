@@ -79,7 +79,7 @@ function printFilterFiles(files: FileUsAtom[], get: Getter) {
         (fileUsAtom) => {
             const fileUs = get(fileUsAtom);
             if (fileUs?.fileCnt) {
-                console.log('\t\t', fileUs.fileCnt.unid, fileUs.fileCnt.fname, { fileUs });
+                console.log('\t\t', fileUs.fileCnt.unid, fileUsAtom.toString(), fileUs.fileCnt.fname, { fileUs });
             } else {
                 console.error('\t\t: null', fileUs, fileUsAtom.toString());
             }

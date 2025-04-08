@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Getter, atom } from "jotai";
 import { toast } from "sonner";
 import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
@@ -8,6 +8,7 @@ import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doTriggerRightPanelSelectedAtom } from "@/store/1-atoms/3-right-panel";
+import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 
 /**
  * newFilename - filename without path.
@@ -29,7 +30,7 @@ export const doSaveOneAtom = atom(
             return false;
         }
 
-        printXmlManiFile(xml);
+        //printXmlManiFile(xml);
         // return;
 
         // 2. Save to file system
@@ -55,14 +56,21 @@ export const doSaveOneAtom = atom(
 
         updateTotalManis(fileUs);
 
+        console.log('⏱ saved before, fileCnt:', fileUs.fileCnt);
+        printFilesAtom('⏱ before', [...get(filesAtom)], get);
+
         const currentFiles = [...get(filesAtom), fileUsAtom];
         //currentFiles.push(fileUsAtom);
         set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?)
 
-        set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
+        
+        printFilesAtom('⏱ after', [...get(filesAtom)], get);
 
-        toast.info(`File "${fname}" saved`);
-        console.log('saved', fileUs.fileCnt.fname);
+        //set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
+        //set(doSelectFileUsTreeAtom, fileUsAtom);
+
+        // toast.info(`File "${fname}" saved`);
+        // console.log('saved', fileUs.fileCnt.fname);
         return true;
 
         /** /
@@ -80,6 +88,20 @@ export const doSaveOneAtom = atom(
         return true;
     }
 );
+
+function printFilesAtom(title: string, files: FileUsAtom[], get: Getter) {
+    console.log(title, files.length);
+    files.forEach(
+        (fileUsAtom) => {
+            const fileUs = get(fileUsAtom);
+            if (!fileUs?.fileCnt) {
+                console.error('\t\t: null', fileUs, fileUsAtom.toString());
+                return;
+            }
+            console.log('\t\t', fileUs.fileCnt.unid, fileUsAtom.toString(), fileUs.fileCnt.fname, { fileUs });
+        }
+    );
+}
 
 //TODO: validate - done
 //TODO: collect all data from all atoms - done
