@@ -56,5 +56,3 @@ export const doSelectFileUsTreeAtom = atom(
         }
     }
 );
-
-//TODO: index in files tree is not updated. why?

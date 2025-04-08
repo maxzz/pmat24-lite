@@ -50,6 +50,7 @@ export const doSaveOneAtom = atom(
             fileUs.fileCnt.fname = newFilename; //TODO: update tree names maybe required
         }
 
+        fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.newFile = false;
         clearFileUsChanges({ fileUs });
 
