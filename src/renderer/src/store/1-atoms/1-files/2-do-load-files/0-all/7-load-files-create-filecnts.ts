@@ -31,7 +31,6 @@ export async function loadFilesAndCreateFileContents(openItems: OpenItem[]): Pro
                 fromMain: false,
 
                 webFsItem: openItem.webFsItem,
-                webFile: openItem.fileWeb,
 
                 notOur: openItem.notOur,
                 failed: false,

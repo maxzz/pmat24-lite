@@ -40,7 +40,6 @@ export function finalizeFileContent(fileContent: FileContent | null): FileConten
         fromMain: fileContent?.fromMain ?? false,
 
         webFsItem: fileContent?.webFsItem || null,
-        webFile: fileContent?.webFile,
 
         changesSet: proxySet<string>(),
     };
