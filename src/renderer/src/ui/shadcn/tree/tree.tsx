@@ -12,6 +12,7 @@ import { folderBaseClasses, folderSelectedClasses, folderIconClasses, leafBaseCl
 export type ItemState = {
     state: {
         selected: boolean;
+        uuid: number;
     };
 };
 
@@ -140,6 +141,7 @@ export function doTreeItemSelect(item: DataItemWState | undefined, { data, treeS
             }
             clearPrevSelectedState();
             item.state.selected = !item.state.selected;
+            console.log(`🗿--- set selected = ${item.state.selected}, ${JSON.stringify({ state: item.state, id: item.id, name: item.name })}`);
             treeState.selectedId = item.id;
         }
     } else {
@@ -244,6 +246,8 @@ type LeafFolderProps = {
 const Leaf = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & LeafFolderProps>(
     ({ className, item, IconTextRender, Icon, ...rest }, ref) => {
         const { selected } = useSnapshot(item.state);
+        
+        console.log(`🗿  leaf-render selected = ${selected}, ${JSON.stringify({ state: item.state, id: item.id, name: item.name })}`);
         return (
             <div
                 ref={ref}

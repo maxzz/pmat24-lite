@@ -68,7 +68,9 @@ export const doSaveOneAtom = atom(
         //printFilesAtom('⏱ save after', [...get(filesAtom)], get);
 
         //set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
+        console.log('%cbefore select newly created file', 'color: magenta');
         set(doSelectFileUsTreeAtom, fileUsAtom);
+        console.log('%cselected newly created file', 'color: magenta');
 
         toast.info(`File "${fname}" saved`);
         console.log('saved', fileUs.fileCnt.fname);
