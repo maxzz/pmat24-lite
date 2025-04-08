@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, doTriggerRightPanelSelectedAtom } from "@/store";
@@ -18,10 +17,12 @@ export function FilesTreeView() {
         const selectFileUsAtom = treeItemToFileUs(item!)?.fileUsAtom;
         setSelected({ newAtom: selectFileUsAtom });
     }
+    
+    printTreeData(dataWithState);
 
-    const TreeMemo = useMemo(
-        () => {
-            return (
+    return (
+        <div className="relative w-full h-full">
+            <div className="absolute inset-px bottom-0.5 text-xs select-none">
                 <Tree
                     data={dataWithState}
                     treeState={treeState}
@@ -36,15 +37,16 @@ export function FilesTreeView() {
                     selectEmptySpace={selectEmptySpace}
                     onSelectChange={onSelectChange}
                 />
-            );
-        }, [dataWithState]
-    );
-
-    return (
-        <div className="relative w-full h-full">
-            <div className="absolute inset-px bottom-0.5 text-xs select-none">
-                {TreeMemo}
             </div>
         </div>
+    );
+}
+
+function printTreeData(data: DataItemWState[]) {
+    console.log('FilesTreeView:', data.length);
+    data.forEach(
+        (item) => {
+            console.log('printTreeData', item);
+        }
     );
 }
