@@ -18,7 +18,7 @@ export function FilesTreeView() {
         setSelected({ newAtom: selectFileUsAtom });
     }
     
-    printTreeData(dataWithState);
+    // printTreeData(dataWithState);
 
     return (
         <div className="relative w-full h-full">
@@ -43,10 +43,10 @@ export function FilesTreeView() {
 }
 
 function printTreeData(data: DataItemWState[]) {
-    console.log('FilesTreeView:', data.length);
+    console.log('FilesTreeView: length =', data.length);
     data.forEach(
         (item) => {
-            console.log('printTreeData', item);
+            console.log('\t\t', item);
         }
     );
 }

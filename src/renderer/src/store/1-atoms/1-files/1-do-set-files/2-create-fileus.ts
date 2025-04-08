@@ -36,7 +36,7 @@ function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc
     try {
         const allFlavours = parseXMLFile(fileCnt.raw || '');
 
-        console.log('parseXMLFile res', allFlavours);
+        //console.log('parseXMLFile res', allFlavours);
 
         if (fileCnt.newFile) {
             // we already have initial parsed xml, so tweak it

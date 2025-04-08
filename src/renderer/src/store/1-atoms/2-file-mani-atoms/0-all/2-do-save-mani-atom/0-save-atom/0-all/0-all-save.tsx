@@ -1,5 +1,6 @@
 import { type Getter, atom } from "jotai";
 import { toast } from "sonner";
+import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
@@ -56,21 +57,20 @@ export const doSaveOneAtom = atom(
 
         updateTotalManis(fileUs);
 
-        console.log('⏱ saved before, fileCnt:', fileUs.fileCnt);
-        printFilesAtom('⏱ before', [...get(filesAtom)], get);
+        //printFilesAtom('⏱ save before', [...get(filesAtom)], get, fileUs.fileCnt);
 
         const currentFiles = [...get(filesAtom), fileUsAtom];
         //currentFiles.push(fileUsAtom);
         set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?)
 
-        
-        printFilesAtom('⏱ after', [...get(filesAtom)], get);
+
+        //printFilesAtom('⏱ save after', [...get(filesAtom)], get);
 
         //set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
-        //set(doSelectFileUsTreeAtom, fileUsAtom);
+        set(doSelectFileUsTreeAtom, fileUsAtom);
 
-        // toast.info(`File "${fname}" saved`);
-        // console.log('saved', fileUs.fileCnt.fname);
+        toast.info(`File "${fname}" saved`);
+        console.log('saved', fileUs.fileCnt.fname);
         return true;
 
         /** /
@@ -89,8 +89,8 @@ export const doSaveOneAtom = atom(
     }
 );
 
-function printFilesAtom(title: string, files: FileUsAtom[], get: Getter) {
-    console.log(title, files.length);
+function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt?: FileContent) {
+    console.log(title, files.length, fileCnt ? { fileCnt } : '');
     files.forEach(
         (fileUsAtom) => {
             const fileUs = get(fileUsAtom);
