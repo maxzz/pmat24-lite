@@ -11,6 +11,7 @@ export const doSaveNewManiAtom = atom(
     null,
     async (get, set): Promise<boolean> => {
         // notImplYet.onClick();
+        
         const fileUs = get(newManiContent.fileUsAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');

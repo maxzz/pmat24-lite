@@ -57,7 +57,7 @@ function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: 
             newForm.fields = fields;
         }
 
-        printFields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
+        //printFields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
     }
 }
 

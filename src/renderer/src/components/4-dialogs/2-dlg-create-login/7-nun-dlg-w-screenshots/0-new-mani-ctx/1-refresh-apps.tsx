@@ -18,7 +18,7 @@ export function create_DoRefreshAppsAtom() {
             await set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
 
             // 3. clear previously detected content
-            newManiContent.clear(set);
+            newManiContent.init();
 
             // 4. Find previously selected item in the new list
             if (currentItem) {
