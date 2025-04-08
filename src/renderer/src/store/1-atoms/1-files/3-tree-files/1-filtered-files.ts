@@ -22,7 +22,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis;
 
         const files = get(filesAtom);
-        printFilterFiles(files, get);
+        //printFilterFiles(files, get);
 
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {

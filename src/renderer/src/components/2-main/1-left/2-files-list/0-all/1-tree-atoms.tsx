@@ -30,8 +30,6 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy({ selected: false });
     });
 
-    console.log('addStateToTreeItems', newTree);
-
     return newTree;
 }
 

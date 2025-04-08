@@ -15,7 +15,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     }
 
     const fnames = filePathAndDirs.map((item) => item[1]);
-    printElectronFnameFiles(fnames, files);
+    //printElectronFnameFiles(fnames, files);
 
     const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
 

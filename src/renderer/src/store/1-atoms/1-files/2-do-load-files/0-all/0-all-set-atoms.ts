@@ -74,7 +74,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
             const { files, root }: OpenModernHandlesDlgResult = await openModernHandlesDlg(openAsFolder);
-            printFiles(files);
+            //printFiles(files);
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
                 const deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
@@ -106,7 +106,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 }
 
                 const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
-                printFiles(files);
+                //printFiles(files);
 
                 let deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
                 set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
