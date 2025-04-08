@@ -1,19 +1,19 @@
 import { atom } from "jotai";
+import { delay } from "@/utils";
+import { toast } from "sonner";
+import { appSettings } from "../../9-ui-state/0-local-storage-app";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { busyIndicator, clearTotalManis, totalManis, updateTotalManis } from "../../9-ui-state";
-import { isAnyEmpty, isAnyManual } from "@/store/manifest";
+import { busyIndicator, clearTotalManis, updateTotalManis } from "../../9-ui-state";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { rightPanelAtom } from "../../3-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { createFileUsFromFileContent } from "./2-create-fileus";
-import { toast } from "sonner";
-import { delay } from "@/utils";
 
 export type SetDeliveredFiles = {
-    root: PmatFolder;
     deliveredFileContents: FileContent[] | undefined;
+    root: PmatFolder;
     noItemsJustDir: boolean; // to allow to open an empty folder
 };
 
@@ -51,7 +51,7 @@ export type SetDeliveredFiles = {
 */
 export const doSetDeliveredFilesAtom = atom(
     null,
-    async (get, set, { deliveredFileContents, root }: SetDeliveredFiles) => {
+    async (get, set, { root, deliveredFileContents }: SetDeliveredFiles) => {
         //printDelivered(deliveredFileContents);
 
         let clearFiles = typeof deliveredFileContents === 'undefined';
@@ -101,7 +101,7 @@ export const doSetDeliveredFilesAtom = atom(
         if (!clearFiles) { // Don't create field catalog if we clear files
             const newRootFc = assignFcRoot(fileUsItems, get, set);
             if (newRootFc) {
-                fileUsItems.push(newRootFc);
+                appSettings.files.shownManis.showFldCat && fileUsItems.push(newRootFc);
             }
         }
 
