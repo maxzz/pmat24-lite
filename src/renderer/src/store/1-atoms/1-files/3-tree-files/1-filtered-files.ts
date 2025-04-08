@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Getter, atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
@@ -22,10 +22,15 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis;
 
         const files = get(filesAtom);
+        printFilterFiles(files, get);
 
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {
                 const fileUs = get(fileAtom);
+                if (!fileUs?.parsedSrc) {
+                    console.error('fileUs.parsedSrc is null', fileUs);
+                    return false;
+                }
                 const { mani, meta, stats: { isFCat } } = fileUs.parsedSrc;
 
                 if (isFCat && (!showFldCat || !showFieldCatalog)) {
@@ -67,3 +72,17 @@ export const filteredAtom = atom<FileUsAtom[]>(
     }
 
 );
+
+function printFilterFiles(files: FileUsAtom[], get: Getter) {
+    console.log('before filter: lenght =', files.length);
+    files.forEach(
+        (fileUsAtom) => {
+            const fileUs = get(fileUsAtom);
+            if (fileUs?.fileCnt) {
+                console.log('\t\t', fileUs.fileCnt.unid, fileUs.fileCnt.fname, { fileUs });
+            } else {
+                console.error('\t\t: null', fileUs, fileUsAtom.toString());
+            }
+        }
+    );
+}
