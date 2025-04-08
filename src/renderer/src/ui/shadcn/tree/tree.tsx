@@ -1,11 +1,11 @@
-import { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, SyntheticEvent, forwardRef, useCallback, useMemo, useRef, useState } from "react";
-import { proxy, useSnapshot } from "valtio";
+import { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, SyntheticEvent, forwardRef, useCallback, useMemo, useRef } from "react";
+import { useSnapshot } from "valtio";
+import { classNames, cn } from "@/utils";
 import * as A from "@radix-ui/react-accordion";
 import { ScrollArea, ScrollAreaProps } from "@ui/shadcn/scroll-area";
-import useResizeObserver from "use-resize-observer";
 import { ChevronRight } from "lucide-react";
-import { classNames, cn } from "@/utils";
-import { DataItemNavigation, DataItemCore, TypeTreeFolder, TypeTreeFolderTrigger, TreenIconComponent } from "./shared/types";
+import useResizeObserver from "use-resize-observer";
+import { type DataItemNavigation, type DataItemCore, type TreenIconComponent, TypeTreeFolder, TypeTreeFolderTrigger } from "./shared/types";
 import { collectExpandedItemIds, findTreeItemById, getNextId } from "./shared/utils";
 import { folderBaseClasses, folderSelectedClasses, folderIconClasses, leafBaseClasses, leafSelectedClasses, leafIconClasses } from "./shared/classes";
 
