@@ -13,7 +13,7 @@ export const doSaveNewManiAtom = atom(
         // notImplYet.onClick();
         const fileUs = get(newManiContent.fileUsAtom);
         if (!fileUs) {
-            console.log('There is no fileUs for save');
+            console.error('There is no fileUs for save');
             return false;
         }
 
@@ -22,10 +22,10 @@ export const doSaveNewManiAtom = atom(
         fileUs.fileCnt.fname = fileUs.fileCnt.fname || `${createGuid()}.${pmExtensionMani}`;
 
         if (fileUs.fileCnt.fromMain) {
-            console.log('Not implemented yet');
+            console.error('Not implemented yet');
         } else {
             if (!rootDir.handle) {
-                console.log('There is no rootDir.handle');
+                console.error('There is no rootDir.handle');
                 return false;
             }
 

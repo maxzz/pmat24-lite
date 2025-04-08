@@ -8,8 +8,10 @@ class NewManiContent implements NewManiContentData {
     mainForCpassAtom: FileUsAtom | undefined = undefined;
 
     clear(set: Setter) {
-        set(this.maniXmlAtom, undefined);
-        set(this.fileUsAtom, undefined);
+        // set(this.maniXmlAtom, undefined);
+        // set(this.fileUsAtom, undefined);
+        this.maniXmlAtom = atom<string | undefined>(undefined);
+        this.fileUsAtom = atom<FileUs | undefined>(undefined);
     }
 };
 
