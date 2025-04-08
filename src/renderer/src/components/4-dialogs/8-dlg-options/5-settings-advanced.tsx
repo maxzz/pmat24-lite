@@ -11,7 +11,7 @@ export function AdvancedSettings() {
     const { allowWelcome } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveGeneral = appSettings.appUi.uiGeneral;
 
-    const { showFldCat } = useSnapshot(appSettings.files.shownManis);
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const liveFiles = appSettings.files;
 
     const snapDebugOnly = useSnapshot(debugSettings.debugOnly);
@@ -56,12 +56,12 @@ export function AdvancedSettings() {
                 </Label>
 
                 <Label className={classNames("col-start-2", rowClasses)}>
-                    <Checkbox checked={showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} />
-                    Show Field Catalog access
+                    <Checkbox checked={fcAllowed} onCheckedChange={(v) => liveFiles.shownManis.fcAllowed = !!v} />
+                    Field Catalog support allowed
                 </Label>
 
                 <Label className={classNames("col-start-2 has-[:disabled]:opacity-50", rowClasses)}>
-                    <Checkbox checked={showFldCat && showFieldCatalog} onCheckedChange={(v) => liveFiles.shownManis.showFldCat = !!v} disabled={!showFieldCatalog} />
+                    <Checkbox checked={fcAllowed && showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} disabled={!fcAllowed} />
                     Show field catalog files
                 </Label>
 
@@ -71,11 +71,6 @@ export function AdvancedSettings() {
                     <div><span className="font-semibold">-</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+minus</span>     </div>
                     <div><span className="font-semibold">100</span> <span className="px-1 bg-muted/40 border-border border rounded">ctrl+0</span>         </div>
                     <div><span className="font-semibold">+</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+shift+plus</span></div>
-
-
-                    {/* <div>zoom Ctrl+minus to zoom out</div>
-                    <div>zoom Ctrl+0 to 100%</div>
-                    <div>zoom Ctrl+Shift+plus to zoom in</div> */}
                 </div>
 
             </div>

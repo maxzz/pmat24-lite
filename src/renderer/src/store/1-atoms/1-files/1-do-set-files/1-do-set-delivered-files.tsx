@@ -101,7 +101,7 @@ export const doSetDeliveredFilesAtom = atom(
         if (!clearFiles) { // Don't create field catalog if we clear files
             const newRootFc = assignFcRoot(fileUsItems, get, set);
             if (newRootFc) {
-                appSettings.files.shownManis.showFldCat && fileUsItems.push(newRootFc);
+                appSettings.files.shownManis.fcAllowed && fileUsItems.push(newRootFc);
             }
         }
 

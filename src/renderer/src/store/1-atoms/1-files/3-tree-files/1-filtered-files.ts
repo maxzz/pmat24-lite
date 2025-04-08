@@ -19,7 +19,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const optionsFileList = get(optionsFilesProxyAtom);
         const showFieldCatalog = get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
 
-        const { showNormal, showManual, showEmpty, showFldCat } = optionsFileList.shownManis;
+        const { showNormal, showManual, showEmpty, fcAllowed: showFldCat } = optionsFileList.shownManis;
 
         const files = get(filesAtom);
         //printFilterFiles(files, get);
