@@ -5,7 +5,7 @@ import { textFileReaderPromisify } from "@/store/store-utils";
 import { type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type OpenItem } from "./9-types";
 
-export async function loadFilesAndCreateFileContents(openItems: OpenItem[]): Promise<FileContent[]> {
+export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): Promise<FileContent[]> {
     const rv: FileContent[] = [];
 
     openItems.forEach((openItem) => openItem.notOur = !isAllowedExt(openItem.fname, pmAllowedToOpenExt));

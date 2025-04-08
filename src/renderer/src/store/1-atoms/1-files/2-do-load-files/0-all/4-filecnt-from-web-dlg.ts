@@ -2,7 +2,7 @@ import { pathWithoutFilename } from "@/utils";
 import { isFileWithDirectoryAndFileHandle, isFileWithFileHandle } from "@/store/store-utils";
 import { type FileContent, WebFsItem } from "@shared/ipc-types";
 import { type OpenItem } from "./9-types";
-import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
+import { loadWebFilesAndCreateFileContents } from "./7-load-web-files-create-filecnts";
 
 /**
  * Create FileContent items from open file/directory web dialog
@@ -10,7 +10,7 @@ import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
 export async function createFileContents_WebAfterDlgOpen(files: File[]): Promise<FileContent[]> {
 
     let dropItems: OpenItem[] = await mapToDropItems(files);
-    const rv = loadFilesAndCreateFileContents(dropItems);
+    const rv = loadWebFilesAndCreateFileContents(dropItems);
     return rv;
 
 }

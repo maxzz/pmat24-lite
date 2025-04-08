@@ -3,7 +3,7 @@ import { type WebFsItem } from "@shared/ipc-types";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
 import { type OpenItem, getSingleFolderHandle } from "./9-types";
 import { collectWebDndItems } from "../1-modern-handles";
-import { loadFilesAndCreateFileContents } from "./7-load-files-create-filecnts";
+import { loadWebFilesAndCreateFileContents } from "./7-load-web-files-create-filecnts";
 
 /**
  * Create FileContent items from web drag and drop operation
@@ -26,7 +26,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
         };
         return rv;
     } else {
-        const deliveredFileContents = await loadFilesAndCreateFileContents(openItems);
+        const deliveredFileContents = await loadWebFilesAndCreateFileContents(openItems);
         const rv: SetDeliveredFiles = {
             root: {
                 fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
