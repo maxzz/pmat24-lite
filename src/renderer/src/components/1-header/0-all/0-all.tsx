@@ -18,6 +18,8 @@ export function SectionHeader() {
         return <div />;
     }
 
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+
     return (
         <div className="px-2 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between gap-x-4">
             <div className="flex items-center flex-wrap gap-2">
@@ -26,7 +28,7 @@ export function SectionHeader() {
                 {/* <TestCreateManiWithAppsList />
                 <TestCreateWithSnapshots /> */}
 
-                <TestOpenFieldCatalog />
+                {fcAllowed && <TestOpenFieldCatalog />}
 
                 <TestOpenFiles />
                 <TestCloseFolder />

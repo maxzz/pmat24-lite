@@ -6,7 +6,7 @@ export function TestCreateWithSaw() {
     const doOpen = useSetAtom(doOpenSawOverlayForLoginAtom);
     return (
         <Button variant="outline" className="text-[.65rem]" onClick={() => doOpen(true)}>
-            Create Saw...
+            Create New...
         </Button>
     );
 }
@@ -16,7 +16,7 @@ export function TestCreateWithSawForCpass() {
     const disabled = !useAtomValue(allowedToCreateCpassAtom);
     return (
         <Button variant="outline" className="text-[.65rem]" disabled={disabled} onClick={doOpen}>
-            Create Saw cpass...
+            Create New cpass...
         </Button>
     );
 }
