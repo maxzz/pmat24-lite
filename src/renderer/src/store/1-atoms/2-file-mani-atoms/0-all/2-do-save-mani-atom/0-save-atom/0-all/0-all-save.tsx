@@ -36,7 +36,7 @@ export const doSaveOneAtom = atom(
 
         // 2. Save to file system
 
-        const fname = newFilename ? debugTestFilename(newFilename) : fileUs.fileCnt.fname;
+        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
 
         const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
@@ -49,16 +49,18 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.raw = xml; // Update file content with new modified xml
-        fileUs.fileCnt.newFile = false;
         clearFileUsChanges({ fileUs });
 
         updateTotalManis(fileUs);
 
-        set(filesAtom, [...get(filesAtom), fileUsAtom]);
+        if (fileUs.fileCnt.newFile) {
+            set(filesAtom, [...get(filesAtom), fileUsAtom]);
 
-        finalNotification(fileUs);
+            setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
+            finalNotification(fileUs);
+        }
 
-        setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
+        fileUs.fileCnt.newFile = false;
         return true;
 
         /** /
