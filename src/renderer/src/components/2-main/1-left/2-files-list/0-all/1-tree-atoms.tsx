@@ -31,7 +31,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy({ selected: false, uuid: uuid.asRelativeNumber() });
     });
 
-    console.log('🌟 new proxies', newTree.map((item) => JSON.stringify({ name: item.id, state: item.state })).join('\n'));
+    // console.log('🌟 new proxies', newTree.map((item) => JSON.stringify({ name: item.id, state: item.state })).join('\n'));
     return newTree;
 }
 
