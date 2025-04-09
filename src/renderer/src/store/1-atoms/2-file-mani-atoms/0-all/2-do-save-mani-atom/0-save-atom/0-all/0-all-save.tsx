@@ -26,13 +26,13 @@ export const doSaveOneAtom = atom(
             return false;
         }
 
+        // 1. Create xml to be saved
+
         const xml = fileUsToXmlString(fileUsAtom, get, set);
         if (!xml) {
             return false;
         }
-
         //printXmlManiFile(xml);
-        // return;
 
         // 2. Save to file system
 
@@ -46,26 +46,15 @@ export const doSaveOneAtom = atom(
 
         // 3. Update internal file state after successful save
 
-        if (newFilename) {
-            fileUs.fileCnt.fname = newFilename; //TODO: update tree names maybe required
-        }
-
         fileUs.fileCnt.idx = get(filesAtom).length;
+        fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.newFile = false;
-        clearFileUsChanges({ fileUs });
-
         fileUs.fileCnt.raw = xml; // Update file content with new xml //TODO: somehow it's already there
+        clearFileUsChanges({ fileUs });
 
         updateTotalManis(fileUs);
 
-        //printFilesAtom('⏱ save before', [...get(filesAtom)], get, fileUs.fileCnt);
-
-        const currentFiles = [...get(filesAtom), fileUsAtom];
-        //currentFiles.push(fileUsAtom);
-        set(filesAtom, currentFiles); //TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?)
-
-
-        //printFilesAtom('⏱ save after', [...get(filesAtom)], get);
+        set(filesAtom, [...get(filesAtom), fileUsAtom]);
 
         if (appSettings.appUi.uiGeneral.notifyNewFile) {
             toast.info(`File "${fname}" saved`);
@@ -76,8 +65,6 @@ export const doSaveOneAtom = atom(
         return true;
 
         /** /
-        //TODO: update files tree. File can be save to the root folder, subfolder or any higher level folder.
-
         //TODO: check if we can save from web or electron
 
         //TODO: update values from file after successful save
@@ -109,10 +96,16 @@ function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt
 //TODO: collect all data from all atoms - done
 //TODO: submit editor - done
 //TODO: policy editor as part of fields editor - done
+//TODO: update files tree. File can be save to the root folder, subfolder or any higher level folder - done. Don't allow to save to the different folder.
+//TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?) - done
 
 //TODO: The rest: the links between forms, etc.
 
 //TODO: Update number input to show shorter lines
+
+//done:
+//printFilesAtom('⏱ save before', [...get(filesAtom)], get, fileUs.fileCnt);
+//printFilesAtom('⏱ save after', [...get(filesAtom)], get);
 
 //TODO:
 // add member fileUs.contentToSave

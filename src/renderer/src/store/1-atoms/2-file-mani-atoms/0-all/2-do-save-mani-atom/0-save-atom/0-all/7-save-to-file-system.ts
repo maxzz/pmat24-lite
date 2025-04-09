@@ -1,3 +1,4 @@
+import { rootDir } from "@/store";
 import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
 
@@ -12,7 +13,11 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             }
 
             const blob = new Blob([content], { type: 'text/xml' });
-            const handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
+            let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
+
+            if (fileName !== fileUs.fileCnt.fname) {
+                handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
+            }
 
             const fileSystemHandle = await fileSave(blob, { fileName }, handle);
             webFsItem.handle = fileSystemHandle;
