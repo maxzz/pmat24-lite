@@ -13,14 +13,22 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             }
 
             const blob = new Blob([content], { type: 'text/xml' });
+            
+            const needRename = fileName !== fileUs.fileCnt.fname;
             let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
+            let deletePrevName = needRename && handle;
 
-            if (fileName !== fileUs.fileCnt.fname) {
+            if (needRename) {
                 handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
             }
 
             const fileSystemHandle = await fileSave(blob, { fileName }, handle);
             webFsItem.handle = fileSystemHandle;
+
+            if (deletePrevName) {
+                await rootDir.handle?.removeEntry(fileUs.fileCnt.fname);
+            }
+
             return true;
         }
     } catch (error) {
