@@ -27,10 +27,6 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {
                 const fileUs = get(fileAtom);
-                if (!fileUs?.parsedSrc) {
-                    console.error('fileUs.parsedSrc is null', fileUs);
-                    return false;
-                }
                 const { mani, meta, stats: { isFCat } } = fileUs.parsedSrc;
 
                 if (isFCat && (!showFldCat || !showFieldCatalog)) {
@@ -65,7 +61,6 @@ export const filteredAtom = atom<FileUsAtom[]>(
         // 2. Sort
 
         const { order, sortBy } = optionsFileList.sortOrder;
-
         sortResult(sortBy, order, rv, get);
 
         return rv;

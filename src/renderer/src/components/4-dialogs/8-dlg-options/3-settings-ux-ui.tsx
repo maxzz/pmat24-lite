@@ -5,7 +5,7 @@ import { subClasses, rowClasses } from "./8-shared-classes";
 import { classNames } from "@/utils";
 
 export function UiUxSettings() {
-    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
+    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveUiGeneral = appSettings.appUi.uiGeneral;
     return (<>
         {allowWelcome && (<>
@@ -28,6 +28,13 @@ export function UiUxSettings() {
             <Label className={rowClasses}>
                 <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
                 Show status bar
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={notifyNewFile} onCheckedChange={(v) => liveUiGeneral.notifyNewFile = !!v} />
+                Show new file created notification
             </Label>
         </div>
 

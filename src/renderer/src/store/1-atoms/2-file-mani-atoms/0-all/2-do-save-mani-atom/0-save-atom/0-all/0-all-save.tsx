@@ -1,5 +1,6 @@
 import { type Getter, atom } from "jotai";
 import { toast } from "sonner";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
@@ -8,9 +9,7 @@ import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
-import { doTriggerRightPanelSelectedAtom } from "@/store/1-atoms/3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { delay } from "@/utils";
 
 /**
  * newFilename - filename without path.
@@ -68,7 +67,9 @@ export const doSaveOneAtom = atom(
 
         //printFilesAtom('⏱ save after', [...get(filesAtom)], get);
 
-        toast.info(`File "${fname}" saved`);
+        if (appSettings.appUi.uiGeneral.notifyNewFile) {
+            toast.info(`File "${fname}" saved`);
+        }
         console.log('saved', fileUs.fileCnt.fname);
 
         setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
