@@ -50,6 +50,9 @@ export function debugTestFilename(fileName: string) {
         return fileName;
     }
     const [name, ext] = getFilenameAndExt(fileName);
+    if (name.endsWith('.test')) { // if allready there, just return
+        return fileName;
+    }
     return `${name}.test.${ext}`;
 }
 

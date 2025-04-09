@@ -10,31 +10,29 @@ import { type FileUsAtom } from "@/store/store-types";
 export const doSaveNewManiAtom = atom(
     null,
     async (get, set): Promise<boolean> => {
-        // notImplYet.onClick();
-        
+        if (!rootDir.fpath) {
+            console.error('There is no rootDir.fpath');
+            return false;
+        }
+
         const fileUs = get(newManiContent.fileUsAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');
             return false;
         }
-
         const fileUsAtom = newManiContent.fileUsAtom as FileUsAtom;
 
-        fileUs.fileCnt.fname = fileUs.fileCnt.fname || `${createGuid()}.${pmExtensionMani}`;
+        fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
 
         if (fileUs.fileCnt.fromMain) {
+            notImplYet.onClick();
             console.error('Not implemented yet');
         } else {
-            if (!rootDir.handle) {
-                console.error('There is no rootDir.handle');
-                return false;
-            }
+            // const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
 
-            const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
-            
             fileUs.fileCnt.webFsItem = new WebFsItem({
                 parent: rootDir.handle,
-                handle: fileHandle,
+                handle: undefined, //fileHandle,
                 legacyPath: rootDir.fpath,
             });
 

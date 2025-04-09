@@ -1,6 +1,6 @@
-import { rootDir } from "@/store";
-import { type FileUs } from "@/store/store-types";
 import { fileSave } from "browser-fs-access";
+import { type FileUs } from "@/store/store-types";
+import { rootDir } from "@/store";
 
 export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<boolean> {
     try {
@@ -18,7 +18,7 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
             let deletePrevName = needRename && handle;
 
-            if (needRename) {
+            if (needRename || fileUs.fileCnt.newFile) {
                 handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
             }
 

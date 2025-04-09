@@ -2,12 +2,12 @@ import { type Getter, atom } from "jotai";
 import { toast } from "sonner";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom } from "@/store/store-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
-import { filesAtom } from "@/store/1-atoms/1-files";
+import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 
@@ -36,7 +36,7 @@ export const doSaveOneAtom = atom(
 
         // 2. Save to file system
 
-        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
+        const fname = newFilename ? debugTestFilename(newFilename) : fileUs.fileCnt.fname;
 
         const saved = await saveToFileSystem(fileUs, xml, fname);
         if (!saved) {
@@ -48,18 +48,15 @@ export const doSaveOneAtom = atom(
 
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
+        fileUs.fileCnt.raw = xml; // Update file content with new modified xml
         fileUs.fileCnt.newFile = false;
-        fileUs.fileCnt.raw = xml; // Update file content with new xml //TODO: somehow it's already there
         clearFileUsChanges({ fileUs });
 
         updateTotalManis(fileUs);
 
         set(filesAtom, [...get(filesAtom), fileUsAtom]);
 
-        if (appSettings.appUi.uiGeneral.notifyNewFile) {
-            toast.info(`File "${fname}" saved`);
-        }
-        console.log('saved', fileUs.fileCnt.fname);
+        finalNotification(fileUs);
 
         setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
         return true;
@@ -77,6 +74,13 @@ export const doSaveOneAtom = atom(
         return true;
     }
 );
+
+function finalNotification(fileUs: FileUs) {
+    if (appSettings.appUi.uiGeneral.notifyNewFile) {
+        toast.info(`File "${fileUs.fileCnt.fname}" saved`);
+    }
+    console.log('saved', fileUs.fileCnt.fname);
+}
 
 function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');
