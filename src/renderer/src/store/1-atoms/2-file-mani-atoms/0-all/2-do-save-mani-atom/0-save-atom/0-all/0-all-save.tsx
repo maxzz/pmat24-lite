@@ -10,6 +10,7 @@ import { filesAtom } from "@/store/1-atoms/1-files";
 import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doTriggerRightPanelSelectedAtom } from "@/store/1-atoms/3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
+import { delay } from "@/utils";
 
 /**
  * newFilename - filename without path.
@@ -69,7 +70,14 @@ export const doSaveOneAtom = atom(
 
         //set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }); // It's OK file is shown in the right panel but not selected in the tree
         console.log('%cbefore select newly created file', 'color: magenta');
-        set(doSelectFileUsTreeAtom, fileUsAtom);
+
+        // set(doSelectFileUsTreeAtom, fileUsAtom);
+
+        // delay(100);
+        // set(doSelectFileUsTreeAtom, fileUsAtom);
+
+        setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 0);
+        
         console.log('%cselected newly created file', 'color: magenta');
 
         toast.info(`File "${fname}" saved`);
