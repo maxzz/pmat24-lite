@@ -30,7 +30,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
-    // console.log('🌟 new proxies', newTree.map((item) => JSON.stringify({ name: item.id, state: item.state })).join('\n'));
+    printTreeItemsArray(newTree);
     return newTree;
 }
 
@@ -57,3 +57,8 @@ export const doSelectFileUsTreeAtom = atom(
         }
     }
 );
+
+function printTreeItemsArray(newTree: TreeFileItemWState[]) {
+    const all = `\n${newTree.map((item) => `    ${JSON.stringify({ name: item.id, state: item.state })}`).join('\n')}`;
+    console.log(`🌟 new proxies: ${newTree.length ? all : '[]'}`);
+}
