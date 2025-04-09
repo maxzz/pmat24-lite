@@ -12,7 +12,7 @@ import { folderBaseClasses, folderSelectedClasses, folderIconClasses, leafBaseCl
 export type ItemState = {
     state: {
         selected: boolean;
-        uuid: number;
+        //uuid5: number; // for debugging only
     };
 };
 

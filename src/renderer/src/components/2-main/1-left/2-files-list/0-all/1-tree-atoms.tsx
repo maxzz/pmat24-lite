@@ -2,7 +2,6 @@ import { atom } from "jotai";
 import { proxy } from "valtio";
 import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, type TreeFileItem, treeFilesAtom } from "@/store";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
-import { uuid } from "@/store/manifest";
 
 export const treeStateAtom = atom<TreeState>(() => {
     return proxy<TreeState>({
@@ -28,7 +27,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
     const newTree = duplicateTree(data) as unknown as TreeFileItemWState[];
 
     walkItems(newTree, (item) => {
-        item.state = proxy({ selected: false, uuid: uuid.asRelativeNumber() });
+        item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
     // console.log('🌟 new proxies', newTree.map((item) => JSON.stringify({ name: item.id, state: item.state })).join('\n'));
