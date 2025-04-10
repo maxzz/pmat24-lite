@@ -1,14 +1,22 @@
+import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { FileUs } from "@/store/store-types";
-import { type TreeFileItemWState } from "../0-all/1-tree-atoms";
 import { classNames } from "@/utils";
 import { SymbolFire } from "@/ui/icons";
+import { appSettings, getTreeItemDisplayText } from "@/store";
+import { type FileUs } from "@/store/store-types";
+import { type TreeFileItemWState } from "../0-all/1-tree-atoms";
 
+/**
+ * This is used by main files tree.
+ */
 export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileItemWState; }) {
 
     const changes = useSnapshot(fileUs.fileCnt.changesSet);
     const hasChanges = !!changes.size;
     const title = hasChanges ? "This file has changes" : undefined;
+
+    const chooseName = useAtomValue(fileUs.parsedSrc.stats.loginFormChooseNameAtom);
+    const displayText = getTreeItemDisplayText(fileUs, appSettings.files.itemsState, chooseName);
 
     return (<>
         {hasChanges && (
@@ -16,7 +24,7 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
         )}
 
         <div className={classNames("truncate", hasChanges && "text-orange-500 1font-semibold")} title={title}>
-            {item.name}
+            {displayText}
         </div>
     </>);
 }
