@@ -1,1 +1,1 @@
-export * from "./1-files-list";
+export * from "./1-filtered-files-list";

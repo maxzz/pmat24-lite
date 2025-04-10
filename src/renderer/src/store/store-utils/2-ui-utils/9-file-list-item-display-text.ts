@@ -14,3 +14,16 @@ export function getFileListItemDisplayText(fileUs: FileUs, options: FileListItem
 
     return name || fileUs.fileCnt.fname;
 }
+
+export function getTreeItemDisplayText(fileUs: FileUs, options: FileListItemsState, chooseName: string) {
+    const { showChosen, showFname } = options;
+
+    const name =
+        showFname
+            ? fileUs.fileCnt.fname
+            : showChosen
+                ? chooseName
+                : fileUs.parsedSrc.stats.loginFormDomain;
+
+    return name || fileUs.fileCnt.fname;
+}
