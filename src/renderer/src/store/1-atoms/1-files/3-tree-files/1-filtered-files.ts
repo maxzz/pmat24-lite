@@ -7,6 +7,9 @@ import { searchFilterData } from "../../9-ui-state/04-filters-search";
 import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store";
 import { sortResult } from "./2-filtered-sort";
 
+/**
+ * We don't filter items by filename, but by manifest content only.
+ */
 export const filteredAtom = atom<FileUsAtom[]>(
     (get) => {
         const { regex, winOnly, webOnly, whyOnly, capOnly, clsOnly } = createRegexByFilter(
@@ -63,6 +66,14 @@ export const filteredAtom = atom<FileUsAtom[]>(
         return rv;
     }
 
+);
+
+export const isFilterActiveAtom = atom(
+    (get) => {
+        const files = get(filesAtom);
+        const filtered = get(filteredAtom);
+        return files.length !== filtered.length;
+    }
 );
 
 function printFilterFiles(files: FileUsAtom[], get: Getter) {
