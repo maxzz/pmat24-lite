@@ -58,6 +58,8 @@ export const doSelectFileUsTreeAtom = atom(
     }
 );
 
+//
+
 function printTreeItemsArray(newTree: TreeFileItemWState[]) {
     const all = `\n${newTree.map((item) => `    ${JSON.stringify({ name: item.id, state: item.state })}`).join('\n')}`;
     console.log(`🌟 new proxies: ${newTree.length ? all : '[]'}`);
