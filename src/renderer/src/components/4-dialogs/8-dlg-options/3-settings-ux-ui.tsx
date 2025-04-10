@@ -3,6 +3,7 @@ import { appSettings } from "@/store";
 import { Checkbox, Label } from "@/ui";
 import { subClasses, rowClasses } from "./8-shared-classes";
 import { classNames } from "@/utils";
+import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 
 export function UiUxSettings() {
     const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile } = useSnapshot(appSettings.appUi.uiGeneral);
@@ -50,6 +51,13 @@ export function UiUxSettings() {
                 <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
                 Show quick access button to XML manifest content
             </Label>
+        </div>
+
+        <div className={subClasses}>
+            <div className={rowClasses}>
+                Theme
+                <ThemeSwitch className="self-start" />
+            </div>
         </div>
     </>
     );
