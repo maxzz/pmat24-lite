@@ -1,13 +1,17 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { rootDir, totalManis, treeFilesAtom } from "@/store";
+import { appSettings, filesAtom, rootDir, searchFilterData, totalManis } from "@/store";
 
 export function LoadedCounter() {
-    const treeFiles = useAtomValue(treeFilesAtom);
+
+    const files = useAtomValue(filesAtom);
     const dir = useSnapshot(rootDir);
+    const filterText = useAtomValue(searchFilterData.textAtom);
     const { normal, manual, empty, fc } = useSnapshot(totalManis);
 
-    if (!treeFiles?.length) {
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+
+    if (!files?.length) {
         return (
             <div className="text-[.65rem]">
                 {dir.fpath
@@ -18,9 +22,11 @@ export function LoadedCounter() {
         );
     }
 
-    const total = plural('Loaded:', treeFiles.length, true);
-    const subs = ` ( ${plural('normal:', normal)}, ${plural('manual:', manual)}, ${plural('empty:', empty)}, ${plural('field catalog:', fc)})`;
-    const final = `${total}${subs}`;
+    const total = plural('Loaded:', files.length, true);
+    const fieldCat = fcAllowed ? `, ${plural('field catalog:', fc)}` : '';
+    const subs = ` (${plural('normal:', normal)}, ${plural('manual:', manual)}, ${plural('empty:', empty)}${fieldCat})`;
+    const filter = filterText ? ` Filter: "${filterText}"` : '';
+    const final = `${total}${subs}${filter}`;
 
     return (
         <div className="text-[.65rem] leading-5 text-muted-foreground flex items-center gap-1 select-none">
