@@ -1,17 +1,22 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
+import * as D from "@/ui/shadcn";
+import { Button } from "@/ui/shadcn";
+import { IconFilter } from "@/ui/icons";
+import { isFilterActiveAtom } from "@/store";
 import { filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
 import { shortcutNameFilter } from "../../0-global/2-global-shortcuts";
-import { Button } from "@/ui/shadcn";
-import * as D from "@/ui/shadcn";
-import { IconFilter } from "@/ui/icons";
 import { DialogFilterBody } from "./2-body";
+import { classNames } from "@/utils";
 
 export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
 
 export function FilterFilesDialogTrigger() {
+
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
+    const isFilterActive = useAtomValue(isFilterActiveAtom);
+    
     return (<>
-        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
+        <Button className={classNames("flex-none", isFilterActive && "text-red-500")} variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
             <IconFilter className="p-px size-4" />
         </Button>
 
