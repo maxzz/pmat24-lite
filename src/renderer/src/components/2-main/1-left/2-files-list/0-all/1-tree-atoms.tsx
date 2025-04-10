@@ -30,7 +30,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
-    printTreeItemsArray(newTree);
+    //printTreeItemsArray(newTree);
     return newTree;
 }
 
@@ -44,16 +44,20 @@ export const doSelectFileUsTreeAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const treeFiles = get(dataWithStateAtom);
-        const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === fileUsAtom);
-
         const treeState = get(treeStateAtom);
         const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
-        if (treeItem) {
-            doTreeItemSelect(treeItem, { data: treeFiles, treeState, onSelectChange, selectAsTrigger, selectEmptySpace, });
-        }
 
-        function onSelectChange(item: DataItemWState | undefined) {
-            set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom });
+        const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === fileUsAtom);
+        if (treeItem) {
+            doTreeItemSelect(treeItem, {
+                data: treeFiles,
+                treeState,
+                selectAsTrigger,
+                selectEmptySpace,
+                onSelectChange: function onSelectChange(item: DataItemWState | undefined) {
+                    set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom });
+                },
+            });
         }
     }
 );
