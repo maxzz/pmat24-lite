@@ -8,16 +8,14 @@ import { shortcutNameFilter } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./2-body";
 import { classNames } from "@/utils";
 
-export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
-
 export function FilterFilesDialogTrigger() {
 
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     const isFilterActive = useAtomValue(isFilterActiveAtom);
     
     return (<>
-        <Button className={classNames("flex-none", isFilterActive && "text-red-500")} variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
-            <IconFilter className="p-px size-4" />
+        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} title={`Filter files ${shortcutNameFilter}`}>
+            <IconFilter className={classNames("p-px size-4", isFilterActive && "text-red-500 fill-red-300 dark:text-red-500/80 dark:fill-red-500/80")} />
         </Button>
 
         <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
@@ -33,6 +31,8 @@ export function FilterFilesDialogTrigger() {
         </D.Dialog>
     </>);
 }
+
+export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
 
 //TODO: multiple prefixes; now only one effective
 //TODO: add (15 last) prefixes history dropdown
