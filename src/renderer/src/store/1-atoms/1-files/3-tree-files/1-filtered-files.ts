@@ -16,10 +16,8 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         // 1. Filter
 
-        const optionsFileList = get(optionsFilesProxyAtom);
-        const showFieldCatalog = get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
-
-        const { showNormal, showManual, showEmpty, fcAllowed: showFldCat } = optionsFileList.shownManis;
+        const { shownManis: { showNormal, showManual, showEmpty, fcAllowed }, sortOrder: { order, sortBy } } = get(optionsFilesProxyAtom);
+        const skipFc = !fcAllowed || !get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
 
         const files = get(filesAtom);
         //printFilterFiles(files, get);
@@ -29,11 +27,11 @@ export const filteredAtom = atom<FileUsAtom[]>(
                 const fileUs = get(fileAtom);
                 const { mani, meta, stats: { isFCat } } = fileUs.parsedSrc;
 
-                if (isFCat && (!showFldCat || !showFieldCatalog)) {
+                if (!isFCat && !mani) {
                     return false;
                 }
 
-                if (!isFCat && !mani) {
+                if (isFCat && skipFc) {
                     return false;
                 }
 
@@ -60,7 +58,6 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         // 2. Sort
 
-        const { order, sortBy } = optionsFileList.sortOrder;
         sortResult(sortBy, order, rv, get);
 
         return rv;
