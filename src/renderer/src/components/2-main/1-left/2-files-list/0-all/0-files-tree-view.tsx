@@ -4,7 +4,7 @@ import { appSettings, doTriggerRightPanelSelectedAtom } from "@/store";
 import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "../2-tree-item";
-import { dataWithStateAtom, treeItemToFileUs, treeStateAtom } from "./1-tree-atoms";
+import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom } from "./1-tree-atoms";
 
 export function FilesTreeView() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
@@ -14,7 +14,7 @@ export function FilesTreeView() {
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
-        const selectFileUsAtom = treeItemToFileUs(item!)?.fileUsAtom;
+        const selectFileUsAtom = castTreeItemToFileUs(item!)?.fileUsAtom;
         setSelected({ newAtom: selectFileUsAtom });
     }
     
