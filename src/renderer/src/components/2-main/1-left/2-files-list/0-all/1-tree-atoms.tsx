@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, type TreeFileItem, treeFilesAtom } from "@/store";
+import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtom, type TreeFileItem, treeFilesAtom } from "@/store";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
 
 export const treeStateAtom = atom<TreeState>(() => {
@@ -30,7 +30,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
-    //printTreeItemsArray(newTree);
+    printTreeItemsArray(newTree);
     return newTree;
 }
 
@@ -52,13 +52,37 @@ export const doSelectFileUsTreeAtom = atom(
             doTreeItemSelect(treeItem, {
                 data: treeFiles,
                 treeState,
+                onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }),
                 selectAsTrigger,
                 selectEmptySpace,
-                onSelectChange: function onSelectChange(item: DataItemWState | undefined) {
-                    set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom });
-                },
             });
         }
+    }
+);
+
+export const doUpdateRightPanelSelectedAtom = atom(
+    null,
+    (get, set) => {
+        const rightPanelFileUsAtom = get(rightPanelAtom);
+
+        const treeFiles = get(dataWithStateAtom);
+        const treeState = get(treeStateAtom);
+        const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
+
+        const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === rightPanelFileUsAtom);
+        console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { ...treeItem, atom: treeItem?.fileUsAtom?.toString() });
+
+        if (treeItem) {
+            treeItem.state.selected = false;
+        }
+
+        doTreeItemSelect(treeItem, {
+            data: treeFiles,
+            treeState,
+            onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: rightPanelFileUsAtom }),
+            selectAsTrigger,
+            selectEmptySpace,
+        });
     }
 );
 
