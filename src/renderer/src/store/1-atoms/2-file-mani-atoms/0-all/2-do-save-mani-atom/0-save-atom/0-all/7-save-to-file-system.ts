@@ -7,10 +7,9 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
     try {
         if (fileUs.fileCnt.fromMain) {
 
-            //throw new Error('Save from main not implemented yet');
             const fullPath = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
             const errorText = await invokeMain({ type: 'r2mi:save-file', fileName: fullPath, content });
-            
+
             console.log(`saveToFileSystem: errorText: "${errorText}"`);
             return !errorText;
 
@@ -41,7 +40,6 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
         }
     } catch (error) {
         console.error('saveToFileSystem', error);
+        return false;
     }
-
-    return false;
 }

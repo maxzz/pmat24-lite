@@ -17,6 +17,8 @@ export async function saveFileInMain(fileName: string, content: string): Promise
         return `Cannot save file "${fileName}"`;
     }
 
+    //TODO: check 255 chars limit
+
     // 2. Write file
 
     try {
@@ -29,7 +31,7 @@ export async function saveFileInMain(fileName: string, content: string): Promise
         // await fs.promises.writeFile(fileName, content);
         return '';
     } catch (error) {
-        console.error('saveFile', error);
+        console.error('saveFileInMain', error);
         return `Cannot save file "${fileName}", error: ${error}`;
     }
 }
