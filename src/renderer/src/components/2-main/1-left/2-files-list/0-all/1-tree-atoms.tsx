@@ -30,7 +30,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
-    printTreeItemsArray('🌟 new proxies', newTree);
+    //printTreeItemsArray('🌟 new proxies', newTree);
     return newTree;
 }
 
@@ -70,16 +70,18 @@ export const doUpdateTreeSelectedByRightPanelAtom = atom(
         const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
 
         const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === rightPanelFileUsAtom);
-        console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { atom: treeItem?.fileUsAtom?.toString(), ...treeItem });
+        //console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { atom: treeItem?.fileUsAtom?.toString(), ...treeItem });
 
-        printTreeItemsArray('🌟🌟 proxies after', treeFiles);
+        //printTreeItemsArray('🌟🌟 proxies after', treeFiles);
 
         if (!treeItem) {
-            set(doTriggerRightPanelSelectedAtom, { newAtom: rightPanelFileUsAtom });
-            console.log('doUpdateRightPanelSelectedAtom: no treeItem');
+            treeState.selectedId = undefined;
+            set(doTriggerRightPanelSelectedAtom, { newAtom: undefined });
+            //console.log('doUpdateRightPanelSelectedAtom: no treeItem');
             
         } else {
-            console.log('doUpdateRightPanelSelectedAtom: treeItem', treeItem.fileUsAtom?.toString());
+            //console.log('doUpdateRightPanelSelectedAtom: treeItem', treeItem.fileUsAtom?.toString());
+
             if (treeState.selectedId === treeItem.id) {
                 treeState.selectedId = undefined;
             }
@@ -94,7 +96,7 @@ export const doUpdateTreeSelectedByRightPanelAtom = atom(
             });
         }
 
-        printTreeItemsArray('🌟🌟 proxies after', treeFiles);
+        //printTreeItemsArray('🌟🌟 proxies after', treeFiles);
     }
 );
 
