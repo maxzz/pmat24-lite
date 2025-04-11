@@ -38,9 +38,9 @@ export const doSaveOneAtom = atom(
 
         const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
 
-        const saved = await saveToFileSystem(fileUs, xml, fname);
-        if (!saved) {
-            toast.error(`Cannot save file ${fname}`);
+        const errorText = await saveToFileSystem(fileUs, xml, fname);
+        if (errorText) {
+            toast.error(`Cannot save file ${fname}.\n${errorText}`);
             return false;
         }
 
