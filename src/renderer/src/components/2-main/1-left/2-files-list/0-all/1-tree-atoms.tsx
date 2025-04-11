@@ -60,7 +60,7 @@ export const doSelectFileUsTreeAtom = atom(
     }
 );
 
-export const doUpdateRightPanelSelectedAtom = atom(
+export const doUpdateTreeSelectedByRightPanelAtom = atom(
     null,
     (get, set) => {
         const rightPanelFileUsAtom = get(rightPanelAtom);
@@ -101,6 +101,6 @@ export const doUpdateRightPanelSelectedAtom = atom(
 //
 
 function printTreeItemsArray(title: string, newTree: TreeFileItemWState[]) {
-    const all = `\n${newTree.map((item) => `    ${JSON.stringify({ name: item.id, state: item.state })}`).join('\n')}`;
+    const all = `\n${newTree.map((item) => `    ${JSON.stringify({ atom: item.fileUsAtom?.toString(), "tree.id": item.id, state: item.state })}`).join('\n')}`;
     console.log(`${title}: ${newTree.length ? all : '[]'}`);
 }
