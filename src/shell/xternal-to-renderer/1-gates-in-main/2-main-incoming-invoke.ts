@@ -12,9 +12,15 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         case 'r2mi:load-files': {
             return loadWin32FilesContent(data.filenames, data.allowedExt);
         }
-        // case 'r2mi:load-files2': {
-        //     return loadWin32FilesContent(data.filenames);
-        // }
+        // case 'r2mi:load-files2': { return loadWin32FilesContent(data.filenames); }
+
+        // save
+
+        case 'r2mi:save-file': {
+            const { fileName, content } = data;
+            const res = await saveFileFromMain(fileName, content);
+            return res;
+        }
 
         // napi
 
@@ -44,14 +50,6 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         }
         case "r2mi:get-tlw-screenshots": {
             const res = await getTlwScreenshots(data.tlwInfos);
-            return res;
-        }
-
-        //
-
-        case 'r2mi:save-file': {
-            const { fileName, content } = data;
-            const res = await saveFileFromMain(fileName, content);
             return res;
         }
 
