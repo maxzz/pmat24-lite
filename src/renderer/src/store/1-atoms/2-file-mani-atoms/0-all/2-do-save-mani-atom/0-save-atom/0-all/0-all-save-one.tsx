@@ -51,9 +51,9 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.raw = xml; // Update file content with new modified xml
         clearFileUsChanges({ fileUs });
 
-        updateTotalManis(fileUs);
-
         if (fileUs.fileCnt.newFile) {
+            updateTotalManis(fileUs);
+            
             set(filesAtom, [...get(filesAtom), fileUsAtom]);
 
             setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
