@@ -5,7 +5,7 @@ import { appSettings } from "../../9-ui-state/0-local-storage-app";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { busyIndicator, clearTotalManis, updateTotalManis } from "../../9-ui-state";
+import { busyIndicator, clearTotalManis, addToTotalManis } from "../../9-ui-state";
 import { doDiscardAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { rightPanelAtom } from "../../3-right-panel";
 import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
@@ -83,7 +83,7 @@ export const doSetDeliveredFilesAtom = atom(
             .map(
                 (deliveredFileContent: FileContent) => {
                     const newFileUs = createFileUsFromFileContent(deliveredFileContent);
-                    updateTotalManis(newFileUs);
+                    addToTotalManis(newFileUs);
                     return newFileUs;
                 }
             )

@@ -25,7 +25,7 @@ export function clearTotalManis() {
     totalManis.fc = 0;
 }
 
-export function updateTotalManis(fileUs: FileUs) {
+export function addToTotalManis(fileUs: FileUs) {
     const { fcat, meta } = fileUs.parsedSrc;
     if (fcat) {
         totalManis.fc++;

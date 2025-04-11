@@ -8,7 +8,7 @@ import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
-import { updateTotalManis } from "@/store/1-atoms/9-ui-state";
+import { addToTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 
 /**
@@ -52,27 +52,14 @@ export const doSaveOneAtom = atom(
         clearFileUsChanges({ fileUs });
 
         if (fileUs.fileCnt.newFile) {
-            updateTotalManis(fileUs);
-            
             set(filesAtom, [...get(filesAtom), fileUsAtom]);
+            addToTotalManis(fileUs);
 
             setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
             finalNotification(fileUs);
 
             fileUs.fileCnt.newFile = false;
         }
-
-        return true;
-
-        /** /
-        //TODO: check if we can save from web or electron
-
-        //TODO: update values from file after successful save
-        //TODO: update values from file after successful save
-        //TODO: update values from file after successful save
-        //TODO: update values from file after successful save
-        //TODO: update values from file after successful save
-        /**/
 
         return true;
     }
@@ -105,6 +92,7 @@ function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt
 //TODO: policy editor as part of fields editor - done
 //TODO: update files tree. File can be save to the root folder, subfolder or any higher level folder - done. Don't allow to save to the different folder.
 //TODO: we need to select the new file in the files tree if it's in the current filter (what if not? maybe reset filter? or show it regardless of the filter?) - done
+//TODO: check if we can save from web or electron - done
 
 //TODO: The rest: the links between forms, etc.
 
@@ -122,3 +110,5 @@ function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt
 //          return;
 //      }
 // or maybe not needed
+
+//TODO: update values from file after successful save
