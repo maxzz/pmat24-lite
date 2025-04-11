@@ -40,7 +40,7 @@ export const doSaveOneAtom = atom(
 
         const errorText = await saveToFileSystem(fileUs, xml, fname);
         if (errorText) {
-            toast.error(`Cannot save file ${fname}.\n${errorText}`);
+            toast.error(`Cannot save file ${fname}.\n${errorText}`, { duration: 5000 });
             return false;
         }
 

@@ -8,8 +8,8 @@ import { errorToString } from "@/utils";
  * Save file to the file system.
  * @param fileUs - fileUs
  * @param content - file content
- * @param - fileName filename wo/ path
- * @returns 
+ * @param fileName - filename wo/ path
+ * @returns error message or empty string
  */
 export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
     try {
@@ -17,8 +17,6 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
 
             const fullPath = `${fileUs.fileCnt.fpath}/${fileName}`;
             const errorText = await invokeMain<string>({ type: 'r2mi:save-file', fileName: fullPath, content });
-
-            console.log(`saveToFileSystem: errorText: "${errorText}"`);
             return errorText;
 
         } else {
