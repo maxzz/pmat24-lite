@@ -12,11 +12,21 @@ export function CurrentFilter() {
         return null;
     }
 
-    return (<>
-        <div className="font-light">Filter:</div>
-        <div className="ml-1 truncate">{text}</div>
+    function clearFilter() {
+        setText('');
+        setTimeout(() => doUpdateTreeSelectedByRightPanel(), 100);
+    }
 
-        <Button className="flex-none p-1 h-auto" size="xs" variant="ghost" onClick={() => { setText(''); setTimeout(() => doUpdateTreeSelectedByRightPanel(), 500); }}>
+    return (<>
+        <div className="font-light">
+            Filter:
+        </div>
+        
+        <div className="ml-1 truncate">
+            {text}
+        </div>
+
+        <Button className="flex-none p-1 h-auto" size="xs" variant="ghost" onClick={clearFilter}>
             <IconClose className="size-3" />
         </Button >
     </>);
