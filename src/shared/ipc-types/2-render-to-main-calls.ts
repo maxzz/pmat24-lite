@@ -4,14 +4,14 @@ export namespace R2M { // Main from Renderer
 
     // menu, load files
 
-    export type MenuCommand = {   // will reply with 'm2r:loaded-files' from dialog
+    export type MenuCommand = {         // will reply with 'm2r:loaded-files' from dialog
         type: 'r2m:menu:command';
         what: 'exit' | 'open-dev-tools';
     };
 
-    export type LoadManifestsDialog = {   // will reply with 'm2r:loaded-files' from dialog
+    export type LoadManifestsDialog = { // will reply with 'm2r:loaded-files' from dialog
         type: 'r2m:file:load-manifests-dialog';
-        openDirs?: boolean;
+        openDirs?: boolean;             // dir or file
     };
 
     // options, notify

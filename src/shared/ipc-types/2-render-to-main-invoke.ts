@@ -2,14 +2,14 @@ import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams } fro
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
-    // load
+    // load files
 
     type DoLoadfiles = {
         type: 'r2mi:load-files';
         filenames: string[];
         allowedExt?: string[];
     };
-
+    
     // type DoLoadfiles2 = {
     //     type: 'r2mi:load-files2';
     //     filenames: string[];
@@ -18,6 +18,14 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     //     type: 'r2mi:load-files3';
     //     filenames: string[];
     // };
+
+    // save file
+
+    type SaveFile = {
+        type: 'r2mi:save-file';
+        fileName: string;               // file name with path
+        content: string;
+    };
 
     // napi
 
@@ -54,11 +62,10 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         tlwInfos: GetTlwScreenshotsParams;
     };
 
-    //
-
     export type AllInvokes =
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
+        | SaveFile
 
         | GetSecondWindowHandle
         | GetSecondWindowContent
