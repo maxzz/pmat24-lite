@@ -26,7 +26,7 @@ export function CurrentFilter() {
             {text}
         </div>
 
-        <Button className="flex-none p-1 h-auto" size="xs" variant="ghost" onClick={clearFilter}>
+        <Button className="flex-none p-1 h-auto" size="xs" variant="ghost" tabIndex={-1} onClick={clearFilter}>
             <IconClose className="size-3" />
         </Button >
     </>);

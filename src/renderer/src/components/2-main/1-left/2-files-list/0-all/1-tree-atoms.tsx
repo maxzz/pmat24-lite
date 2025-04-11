@@ -77,11 +77,7 @@ export const doUpdateTreeSelectedByRightPanelAtom = atom(
         if (!treeItem) {
             treeState.selectedId = undefined;
             set(doTriggerRightPanelSelectedAtom, { newAtom: undefined });
-            //console.log('doUpdateRightPanelSelectedAtom: no treeItem');
-            
         } else {
-            //console.log('doUpdateRightPanelSelectedAtom: treeItem', treeItem.fileUsAtom?.toString());
-
             if (treeState.selectedId === treeItem.id) {
                 treeState.selectedId = undefined;
             }

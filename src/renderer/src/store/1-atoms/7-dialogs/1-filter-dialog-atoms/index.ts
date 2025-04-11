@@ -9,8 +9,6 @@ export const filterDialogOpenAtom = atom(
         return isOpen;
     },
     (_get, set, isOpen: boolean) => {
-        //console.log(`filterDialogOpenAtom ${isOpen ? 'open' : 'close'}`);
-
         !isOpen && setTimeout(() => set(doUpdateTreeSelectedByRightPanelAtom), 0); // Trigger when we close the filter dialog
         set(_filterDialogOpenAtom, isOpen);
     }
