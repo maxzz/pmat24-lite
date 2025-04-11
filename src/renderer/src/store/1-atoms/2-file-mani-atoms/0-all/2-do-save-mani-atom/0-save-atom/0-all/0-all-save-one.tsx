@@ -40,7 +40,15 @@ export const doSaveOneAtom = atom(
 
         const errorText = await saveToFileSystem(fileUs, xml, fname);
         if (errorText) {
-            toast.error(`Cannot save file ${fname}.\n${errorText}`, { duration: 5000 });
+            toast.error((<>
+                <div>
+                    Cannot save file ${fname}.
+                </div>
+                <div className="mt-4 text-[.6rem]">
+                    {`${errorText}`}
+                </div>
+            </>), { duration: 5000 }
+            );
             return false;
         }
 
@@ -111,4 +119,8 @@ function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt
 //      }
 // or maybe not needed
 
+//04.11.25
 //TODO: update values from file after successful save
+//TODO: delete file atom to delete login
+//TODO: delete password change
+//TODO: remove from new login options and leave only login name
