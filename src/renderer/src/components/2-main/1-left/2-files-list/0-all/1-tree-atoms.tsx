@@ -30,7 +30,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
     });
 
-    printTreeItemsArray(newTree);
+    printTreeItemsArray('🌟 new proxies', newTree);
     return newTree;
 }
 
@@ -70,25 +70,37 @@ export const doUpdateRightPanelSelectedAtom = atom(
         const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
 
         const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === rightPanelFileUsAtom);
-        console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { ...treeItem, atom: treeItem?.fileUsAtom?.toString() });
+        console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { atom: treeItem?.fileUsAtom?.toString(), ...treeItem });
 
-        if (treeItem) {
+        printTreeItemsArray('🌟🌟 proxies after', treeFiles);
+
+        if (!treeItem) {
+            set(doTriggerRightPanelSelectedAtom, { newAtom: rightPanelFileUsAtom });
+            console.log('doUpdateRightPanelSelectedAtom: no treeItem');
+            
+        } else {
+            console.log('doUpdateRightPanelSelectedAtom: treeItem', treeItem.fileUsAtom?.toString());
+            if (treeState.selectedId === treeItem.id) {
+                treeState.selectedId = undefined;
+            }
             treeItem.state.selected = false;
+
+            doTreeItemSelect(treeItem, {
+                data: treeFiles,
+                treeState,
+                onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: rightPanelFileUsAtom }),
+                selectAsTrigger,
+                selectEmptySpace,
+            });
         }
 
-        doTreeItemSelect(treeItem, {
-            data: treeFiles,
-            treeState,
-            onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: rightPanelFileUsAtom }),
-            selectAsTrigger,
-            selectEmptySpace,
-        });
+        printTreeItemsArray('🌟🌟 proxies after', treeFiles);
     }
 );
 
 //
 
-function printTreeItemsArray(newTree: TreeFileItemWState[]) {
+function printTreeItemsArray(title: string, newTree: TreeFileItemWState[]) {
     const all = `\n${newTree.map((item) => `    ${JSON.stringify({ name: item.id, state: item.state })}`).join('\n')}`;
-    console.log(`🌟 new proxies: ${newTree.length ? all : '[]'}`);
+    console.log(`${title}: ${newTree.length ? all : '[]'}`);
 }
