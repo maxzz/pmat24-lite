@@ -5,10 +5,10 @@ import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshot
 import { saveFileFromMain } from "../2-commands-in-main";
 
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
+
     switch (data.type) {
-        
         // load
-        
+
         case 'r2mi:load-files': {
             return loadWin32FilesContent(data.filenames, data.allowedExt);
         }

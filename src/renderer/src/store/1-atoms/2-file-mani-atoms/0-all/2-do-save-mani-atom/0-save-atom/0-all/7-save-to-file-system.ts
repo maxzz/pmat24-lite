@@ -1,11 +1,18 @@
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store";
+import { invokeMain } from "@/xternal-to-main";
 
 export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<boolean> {
     try {
         if (fileUs.fileCnt.fromMain) {
-            throw new Error('Save from main not implemented yet');
+
+            //throw new Error('Save from main not implemented yet');
+            
+            const errorText = await invokeMain({ type: 'r2mi:save-file', fileName: fileUs.fileCnt.fname, content });
+            console.log('saveToFileSystem', errorText);
+            return !errorText;
+
         } else {
             const webFsItem = fileUs.fileCnt.webFsItem;
             if (!webFsItem) {
@@ -13,7 +20,7 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             }
 
             const blob = new Blob([content], { type: 'text/xml' });
-            
+
             const needRename = fileName !== fileUs.fileCnt.fname;
             let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
             let deletePrevName = needRename && handle;

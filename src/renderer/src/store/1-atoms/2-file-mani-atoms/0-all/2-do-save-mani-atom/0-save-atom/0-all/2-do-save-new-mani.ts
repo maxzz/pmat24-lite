@@ -25,8 +25,8 @@ export const doSaveNewManiAtom = atom(
         fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
 
         if (fileUs.fileCnt.fromMain) {
-            notImplYet.onClick();
-            console.error('Not implemented yet');
+            // notImplYet.onClick();
+            // console.error('Not implemented yet');
         } else {
             // const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
 
