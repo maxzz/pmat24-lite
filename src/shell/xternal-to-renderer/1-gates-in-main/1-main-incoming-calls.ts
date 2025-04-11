@@ -38,7 +38,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             new Notification({ title: 'My Noti', body: data.message }).show();
             break;
         }
-        
+
         // napi
 
         case 'r2m:set-napi-options': {
@@ -65,7 +65,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
 
         // tests
-        
+
         case 'r2m:file:load-test-manifests': {
             openFileDialogAndReply(winApp);
             // const loadedFiles = await mainStore.loadTestManifests();
@@ -76,7 +76,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             mainToRenderer({ type: 'm2r:log', body: getElectronModulePaths() });
             break;
         }
-        
+
         default: {
             const really: never = data;
             throw new Error(`\nUnknown IPC-call: ${JSON.stringify(really)}\n`);
