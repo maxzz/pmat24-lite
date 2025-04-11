@@ -14,7 +14,7 @@ export async function saveFileInMain(fileName: string, content: string): Promise
 
     const fileDir = path.dirname(fileName || '');
     if (!fileDir || fileDir === '.') {
-        return `saveFileInMain: no dirname "${fileName}"`;
+        return `save wo/ dir`;
     }
 
     if (fileDir.length > 254) { // Windows max path length check
