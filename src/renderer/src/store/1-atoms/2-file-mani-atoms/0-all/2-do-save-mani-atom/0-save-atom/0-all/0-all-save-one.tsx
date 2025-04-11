@@ -58,9 +58,10 @@ export const doSaveOneAtom = atom(
 
             setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
             finalNotification(fileUs);
+
+            fileUs.fileCnt.newFile = false;
         }
 
-        fileUs.fileCnt.newFile = false;
         return true;
 
         /** /

@@ -22,6 +22,7 @@ export const doSaveNewManiAtom = atom(
         const fileUsAtom = newManiContent.fileUsAtom as FileUsAtom;
 
         fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
+        fileUs.fileCnt.fpath = rootDir.fpath;
 
         fileUs.fileCnt.webFsItem = new WebFsItem({
             handle: undefined,

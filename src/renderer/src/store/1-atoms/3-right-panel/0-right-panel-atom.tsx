@@ -6,8 +6,7 @@ export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
 
 export const doTriggerRightPanelSelectedAtom = atom(null,
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }) => {
-        const currentAtom = get(rightPanelAtom);
-
+        // const currentAtom = get(rightPanelAtom);
         // No need trigger logic here, it's done by the tree
         // if (currentAtom === newAtom) { // tree selection trigger logic is provided by the tree
         //     set(rightPanelAtom, undefined);
