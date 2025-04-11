@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { notImplYet } from "@/ui";
 import { createGuid } from "@/store/manifest";
 import { newManiContent } from "@/components/4-dialogs";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
@@ -24,22 +23,13 @@ export const doSaveNewManiAtom = atom(
 
         fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
 
-        if (fileUs.fileCnt.fromMain) {
-            // notImplYet.onClick();
-            // console.error('Not implemented yet');
-        } else {
-            // const fileHandle = await rootDir.handle?.getFileHandle(fileUs.fileCnt.fname, { create: true });
+        fileUs.fileCnt.webFsItem = new WebFsItem({
+            handle: undefined,
+            parent: rootDir.handle,
+            legacyPath: rootDir.fpath,
+        });
 
-            fileUs.fileCnt.webFsItem = new WebFsItem({
-                parent: rootDir.handle,
-                handle: undefined, //fileHandle,
-                legacyPath: rootDir.fpath,
-            });
-
-            const saved = await set(doSaveOneAtom, fileUsAtom);
-            return saved;
-        }
-
-        return false;
+        const saved = await set(doSaveOneAtom, fileUsAtom);
+        return saved;
     }
 );
