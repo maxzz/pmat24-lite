@@ -4,7 +4,7 @@ import { createGuid } from "@/store/manifest";
 import { newManiContent } from "@/components/4-dialogs";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { rootDir } from "@/store/1-atoms/1-files";
-import { doSaveOneAtom } from "./0-all-save";
+import { doSaveOneAtom } from "./0-all-save-one";
 import { type FileUsAtom } from "@/store/store-types";
 
 export const doSaveNewManiAtom = atom(
