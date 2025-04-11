@@ -2,28 +2,36 @@ import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store";
 import { invokeMain } from "@/xternal-to-main";
+import { errorToString } from "@/utils";
 
-export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<boolean> {
+/**
+ * Save file to the file system.
+ * @param fileUs - fileUs
+ * @param content - file content
+ * @param - fileName filename wo/ path
+ * @returns 
+ */
+export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
     try {
         if (fileUs.fileCnt.fromMain) {
 
-            const fullPath = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
-            const errorText = await invokeMain({ type: 'r2mi:save-file', fileName: fullPath, content });
+            const fullPath = `${fileUs.fileCnt.fpath}/${fileName}`;
+            const errorText = await invokeMain<string>({ type: 'r2mi:save-file', fileName: fullPath, content });
 
             console.log(`saveToFileSystem: errorText: "${errorText}"`);
-            return !errorText;
+            return errorText;
 
         } else {
             const webFsItem = fileUs.fileCnt.webFsItem;
             if (!webFsItem) {
-                throw new Error('Cannot save wo/ webFsItem');
+                return 'Cannot save wo/ webFsItem';
             }
 
             const blob = new Blob([content], { type: 'text/xml' });
 
             const needRename = fileName !== fileUs.fileCnt.fname;
             let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
-            let deletePrevName = needRename && handle;
+            // let deletePrevName = needRename && handle;
 
             if (needRename || fileUs.fileCnt.newFile) {
                 handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
@@ -36,10 +44,9 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             //     await rootDir.handle?.removeEntry(fileUs.fileCnt.fname);
             // }
 
-            return true;
+            return undefined;
         }
     } catch (error) {
-        console.error('saveToFileSystem', error);
-        return false;
+        return errorToString(error);
     }
 }
