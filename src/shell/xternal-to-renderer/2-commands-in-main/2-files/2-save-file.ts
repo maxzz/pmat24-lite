@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { errorToString } from '@shell/3-utils-main';
 
 /**
  * Save file from renderer in the main process.
@@ -13,11 +14,12 @@ export async function saveFileInMain(fileName: string, content: string): Promise
 
     const fileDir = path.dirname(fileName || '');
     if (!fileDir || fileDir === '.') {
-        console.error(`saveFile: no dirname "${fileName}"`);
-        return `Cannot save file "${fileName}"`;
+        return `saveFileInMain: no dirname "${fileName}"`;
     }
 
-    //TODO: check 255 chars limit
+    if (fileDir.length > 254) { // Windows max path length check
+        return `The filename "${fileName}" is too long (${fileName.length})`;
+    }
 
     // 2. Write file
 
@@ -26,12 +28,9 @@ export async function saveFileInMain(fileName: string, content: string): Promise
             await fs.promises.mkdir(fileDir, { recursive: true });
         }
 
-        console.log('saveFile', fileName, content);
-
-        // await fs.promises.writeFile(fileName, content);
+        await fs.promises.writeFile(fileName, content);
         return '';
     } catch (error) {
-        console.error('saveFileInMain', error);
-        return `Cannot save file "${fileName}", error: ${error}`;
+        return errorToString(error);
     }
 }
