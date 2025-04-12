@@ -41,6 +41,8 @@ function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
 export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
     let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
+        discardAllKeysValue(maniAtoms[0]);
+        discardAllKeysValue(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
     }
@@ -62,6 +64,19 @@ export function discardAllKeysValue(obj: {} | undefined | null) {
             obj[key] = undefined;
         }
     );
+}
+
+export function setDeepUndefined(obj: {} | undefined | null) {
+    if (!obj) {
+        return;
+    }
+    for (const key in obj) {
+        if (!!obj && typeof obj[key] === 'object') {
+            setDeepUndefined(obj[key]);
+        } else {
+            obj[key] = undefined;
+        }
+    }
 }
 
 //TODO: Omit<FceCtx, 'fceAtoms' | 'hasSelectedItemAtom'>
