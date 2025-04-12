@@ -7,7 +7,7 @@ import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
-import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
+import { filesAtom, updateFileUsAfterSaveOrResetAtom } from "@/store/1-atoms/1-files";
 import { addToTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 
@@ -28,11 +28,10 @@ export const doSaveOneAtom = atom(
 
         // 1. Create xml to be saved
 
-        const xml = fileUsToXmlString(fileUsAtom, get, set);
+        const xml = fileUsToXmlString(fileUsAtom, get, set); //printXmlManiFile(xml);
         if (!xml) {
             return false;
         }
-        //printXmlManiFile(xml);
 
         // 2. Save to file system
 
@@ -52,15 +51,16 @@ export const doSaveOneAtom = atom(
         clearFileUsChanges({ fileUs });
 
         //parse xml and so on...
+        set(updateFileUsAfterSaveOrResetAtom, fileUsAtom);
 
         if (fileUs.fileCnt.newFile) {
             set(filesAtom, [...get(filesAtom), fileUsAtom]);
             addToTotalManis(fileUs);
 
-            setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
+            fileUs.fileCnt.newFile = false;
             notificationFinal(fileUs);
 
-            fileUs.fileCnt.newFile = false;
+            setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
         }
 
         return true;

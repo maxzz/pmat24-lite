@@ -1,9 +1,15 @@
 import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
-import { type ParsedSrc, type FileUs, type FileUsStats, finalizeFileContent } from "@/store";
+import { type ParsedSrc, type FileUs, type FileUsAtom, type FileUsStats, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
 import { buildManiMetaForms, createNewManualFormFrom, defaultManualFormFields, parseXMLFile, TimeUtils } from '@/store/manifest';
 
+/**
+ * 
+ * @param fileContent 
+ * @param masterFileUs - file for password change
+ * @returns 
+ */
 export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 
@@ -23,6 +29,18 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
     };
 
     return rv;
+}
+
+export const updateFileUsAfterSaveOrResetAtom = atom(null,
+    (get, set, fileUsAtom: FileUsAtom) => {
+        const fileUs = get(fileUsAtom);
+        updateFileUsAfterSaveOrReset(fileUs);
+    }
+);
+
+function updateFileUsAfterSaveOrReset(fileUs: FileUs) {
+    fileUs.parsedSrc = createParsedSrc(fileUs.fileCnt, undefined);
+    //parse xml and so on...
 }
 
 function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
