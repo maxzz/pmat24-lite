@@ -51,7 +51,7 @@ export const doSaveOneAtom = atom(
         clearFileUsChanges({ fileUs });
 
         //parse xml and so on...
-        set(updateFileUsAfterSaveOrResetAtom, fileUsAtom);
+        set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, reset: false });
 
         if (fileUs.fileCnt.newFile) {
             set(filesAtom, [...get(filesAtom), fileUsAtom]);

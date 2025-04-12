@@ -3,7 +3,7 @@ import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
 import { defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
 
-export function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
+export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileContent; masterFileUs: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = {
         mani: undefined,
         meta: undefined,

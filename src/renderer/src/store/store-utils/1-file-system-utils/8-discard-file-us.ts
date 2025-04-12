@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { discardValues } from "@/utils";
+import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUs } from "@/store/store-types";
 import { type ManiAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
 
@@ -42,8 +42,8 @@ function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
 export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
     let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
-        discardValues(maniAtoms[0]);
-        discardValues(maniAtoms[1]);
+        discardValuesDeep(maniAtoms[0]);
+        discardValuesDeep(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
     }

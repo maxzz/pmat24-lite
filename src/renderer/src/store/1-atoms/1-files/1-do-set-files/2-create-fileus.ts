@@ -15,7 +15,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: createParsedSrc(fileCnt, masterFileUs),
+        parsedSrc: createParsedSrc({ fileCnt, masterFileUs }),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
