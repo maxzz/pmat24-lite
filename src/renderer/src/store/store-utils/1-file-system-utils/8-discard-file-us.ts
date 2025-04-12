@@ -3,16 +3,6 @@ import { type FileUs } from "@/store/store-types";
 import { type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
- * Discard FileUs links atom
- */
-export const doDiscardFileUsAtom = atom(
-    null,
-    (get, set, fileUs: FileUs) => {
-        discardFileUs(get, set, fileUs);
-    }
-);
-
-/**
  * Discard all array of FileUs atom
  */
 export const doDiscardAllFilesFileUsLinksAtom = atom(
@@ -22,13 +12,23 @@ export const doDiscardAllFilesFileUsLinksAtom = atom(
         all.forEach(
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
-                discardFileUs(get, set, fileUs);
+                discardFileUs(fileUs, get, set);
             }
         );
     }
 );
 
-function discardFileUs(get: Getter, set: Setter, fileUs: FileUs) {
+/**
+ * Discard FileUs links atom
+ */
+export const doDiscardFileUsAtom = atom(
+    null,
+    (get, set, fileUs: FileUs) => {
+        discardFileUs(fileUs, get, set);
+    }
+);
+
+function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
 
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
