@@ -31,8 +31,8 @@ export const doDiscardFileUsAtom = atom(
 function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
     discardFileUsManiAtoms(fileUs, get, set);
     discardFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
-    discardAllKeysValue(fileUs.fceAtomsForFcFile);
-    discardAllKeysValue(fileUs);
+    discardValues(fileUs.fceAtomsForFcFile);
+    discardValues(fileUs);
 }
 
 /**
@@ -41,21 +41,21 @@ function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
 export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
     let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
-        discardAllKeysValue(maniAtoms[0]);
-        discardAllKeysValue(maniAtoms[1]);
+        discardValues(maniAtoms[0]);
+        discardValues(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
     }
 }
 
 export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
-    discardAllKeysValue(fceCtx);
+    discardValues(fceCtx);
 }
 
 /**
- * just set all keys value to undefined at the top level
+ * Discard all keys value to undefined at the top level
  */
-export function discardAllKeysValue(obj: {} | undefined | null) {
+export function discardValues(obj: {} | undefined | null) {
     if (!obj) {
         return;
     }
@@ -66,13 +66,16 @@ export function discardAllKeysValue(obj: {} | undefined | null) {
     );
 }
 
-export function setDeepUndefined(obj: {} | undefined | null) {
+/**
+ * Discard all keys value to undefined deeply. They become undefined or null.
+ */
+export function discardValuesDeep(obj: {} | undefined | null) {
     if (!obj) {
         return;
     }
     for (const key in obj) {
         if (!!obj && typeof obj[key] === 'object') {
-            setDeepUndefined(obj[key]);
+            discardValuesDeep(obj[key]);
         } else {
             obj[key] = undefined;
         }
