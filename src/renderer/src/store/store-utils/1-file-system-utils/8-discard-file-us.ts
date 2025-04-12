@@ -1,6 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
+import { discardValues } from "@/utils";
 import { type FileUs } from "@/store/store-types";
-import { type FceCtx, filesAtom, ManiAtoms } from "@/store/1-atoms";
+import { type ManiAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
  * Discard all array of FileUs atom
@@ -51,48 +52,3 @@ export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter)
 export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
     discardValues(fceCtx);
 }
-
-/**
- * Discard all keys value to undefined at the top level
- */
-export function discardValues(obj: {} | undefined | null) {
-    if (!obj) {
-        return;
-    }
-    Object.keys(obj).forEach(
-        (key) => {
-            obj[key] = undefined;
-        }
-    );
-}
-
-/**
- * Discard all keys value to undefined deeply. They become undefined or null.
- */
-export function discardValuesDeep(obj: {} | undefined | null) {
-    if (!obj) {
-        return;
-    }
-    for (const key in obj) {
-        if (!!obj && typeof obj[key] === 'object') {
-            discardValuesDeep(obj[key]);
-        } else {
-            obj[key] = undefined;
-        }
-    }
-}
-
-//TODO: Omit<FceCtx, 'fceAtoms' | 'hasSelectedItemAtom'>
-
-// type TypeWiithUndefinedMembeRecurcive<T> = {
-//     [P in keyof T]: T[P] extends object ? TypeWiithUndefinedMembeRecurcive<T[P]> : T[P] | undefined;
-// };
-
-//type TypeWiithUndefinedMember<T, P extends keyof T> = Omit<T, P> & { [K in P]?: undefined };
-
-//[P in keyof T]: T[P] | undefined;
-
-// export function discardFceCtx(fceCtx: FceCtx) {
-//     fceCtx.fceAtoms = undefined;
-//     fceCtx.hasSelectedItemAtom = undefined;
-// }

@@ -3,6 +3,7 @@ export * from "./debounce";
 export * from "./debug-time";
 export * from "./delay";
 export * from "./disable-hidden-children";
+export * from "./discard-values";
 export * from "./error-to-string";
 export * from "./numbers";
 export * from "./os-utils";
