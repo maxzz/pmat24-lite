@@ -4,6 +4,10 @@ type Prettify<T> = {
 
 // Utility types
 
-type Mutable<T> = {
+type Writeable<T> = {
     -readonly [P in keyof T]: T[P];
+};
+
+type WriteableDeep<T> = {
+    -readonly [P in keyof T]: DeepWriteable<T[P]>
 };

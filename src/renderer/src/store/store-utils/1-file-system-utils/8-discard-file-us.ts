@@ -39,7 +39,7 @@ function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
  * This is used for reset and save operations
  */
 export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
-    let maniAtoms = get(fileUs.maniAtomsAtom) as Mutable<ManiAtoms> | undefined;
+    let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
