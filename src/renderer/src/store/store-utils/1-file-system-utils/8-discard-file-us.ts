@@ -1,6 +1,6 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type FceCtx, filesAtom } from "@/store/1-atoms";
+import { type FceCtx, filesAtom, ManiAtoms } from "@/store/1-atoms";
 
 /**
  * Discard all array of FileUs atom
@@ -29,18 +29,21 @@ export const doDiscardFileUsAtom = atom(
 );
 
 function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
-
-    const maniAtoms = get(fileUs.maniAtomsAtom);
-    if (maniAtoms) {
-        const login = maniAtoms[0];
-        const cpass = maniAtoms[1];
-
-        //TODO: break other links
-    }
-
+    discardFileUsManiAtoms(fileUs, get, set);
     discardFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardAllKeysValue(fileUs.fceAtomsForFcFile);
     discardAllKeysValue(fileUs);
+}
+
+/**
+ * This is used for reset and save operations
+ */
+export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
+    let maniAtoms = get(fileUs.maniAtomsAtom) as Mutable<ManiAtoms> | undefined;
+    if (maniAtoms) {
+        maniAtoms[0] = undefined;
+        maniAtoms[1] = undefined;
+    }
 }
 
 export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
@@ -48,7 +51,7 @@ export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
 }
 
 /**
- * just set all keys value to undefined
+ * just set all keys value to undefined at the top level
  */
 export function discardAllKeysValue(obj: {} | undefined | null) {
     if (!obj) {
