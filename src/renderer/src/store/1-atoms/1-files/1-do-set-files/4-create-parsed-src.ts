@@ -1,8 +1,7 @@
 import { atom } from 'jotai';
 import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
-import { defaultManualFormFields } from '@/store/manifest';
-import { parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@store/manifest';
+import { defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
 
 export function createParsedSrc(fileCnt: FileContent, masterFileUs?: FileUs): ParsedSrc {
     const rv: ParsedSrc = {

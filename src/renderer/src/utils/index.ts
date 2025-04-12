@@ -1,3 +1,4 @@
+export * from "./util-hooks";
 export * from "./classnames";
 export * from "./debounce";
 export * from "./debug-time";
@@ -13,8 +14,7 @@ export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
 export * from "./theme-apply";
 export * from './merge-options';
-//export * from "./uuid"; // use it from manifest
 export * from "./valtio-array";
+export * from "./verify-permission";
 export * from "./console-styles";
-
-export * from "./util-hooks";
+//export * from "./uuid"; // use it from manifest

@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { errorToString } from "@/utils";
+import { asyncVerifyPermission, errorToString } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
-import { asyncVerifyPermission, filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
+import { filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";
 import { createFileContents_From_Main } from "./1-filecnt-from-main";
