@@ -40,15 +40,7 @@ export const doSaveOneAtom = atom(
 
         const errorText = await saveToFileSystem(fileUs, xml, fname);
         if (errorText) {
-            toast.error((<>
-                <div>
-                    Cannot save file ${fname}.
-                </div>
-                <div className="mt-4 text-[.6rem]">
-                    {`${errorText}`}
-                </div>
-            </>), { duration: 5000 }
-            );
+            notificationError(fname, errorText);
             return false;
         }
 
@@ -59,12 +51,14 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.raw = xml; // Update file content with new modified xml
         clearFileUsChanges({ fileUs });
 
+        //parse xml and so on...
+
         if (fileUs.fileCnt.newFile) {
             set(filesAtom, [...get(filesAtom), fileUsAtom]);
             addToTotalManis(fileUs);
 
             setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
-            finalNotification(fileUs);
+            notificationFinal(fileUs);
 
             fileUs.fileCnt.newFile = false;
         }
@@ -73,7 +67,19 @@ export const doSaveOneAtom = atom(
     }
 );
 
-function finalNotification(fileUs: FileUs) {
+function notificationError(fname: string, errorText: string) {
+    toast.error((<>
+        <div>
+            Cannot save file ${fname}.
+        </div>
+        <div className="mt-4 text-[.6rem]">
+            {`${errorText}`}
+        </div>
+    </>), { duration: 5000 }
+    );
+}
+
+function notificationFinal(fileUs: FileUs) {
     if (appSettings.appUi.uiGeneral.notifyNewFile) {
         toast.info(`File "${fileUs.fileCnt.fname}" saved`);
     }
