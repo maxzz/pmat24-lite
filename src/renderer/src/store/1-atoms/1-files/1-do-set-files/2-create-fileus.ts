@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
-import { type FileUs, type FileUsAtom, finalizeFileContent } from "@/store";
+import { type FileUs, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
-import { createParsedSrc } from './3-create-parsed-src';
+import { createParsedSrc } from './4-create-parsed-src';
 
 /**
  * 
@@ -29,24 +29,4 @@ export function createFileUsFromFileContent(fileContent: FileContent, masterFile
     };
 
     return rv;
-}
-
-export const updateFileUsAfterSaveOrResetAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom) => {
-        const fileUs = get(fileUsAtom);
-
-        if (fileUs.parsedSrc.fcat) {
-            console.log('no update for FC');
-            return;
-        }
-
-        updateFileUsAfterSaveOrReset(fileUs);
-    }
-);
-
-function updateFileUsAfterSaveOrReset(fileUs: FileUs) {
-    fileUs.parsedSrc = createParsedSrc(fileUs.fileCnt, undefined);
-    //dispose maniAtoms
-    //create maniAtoms
-    //parse xml and so on...
 }
