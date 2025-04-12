@@ -2,6 +2,10 @@ import { type Getter, type Setter, atom } from "jotai";
 import { type FileUsAtom, type FileUs, discardFileUsManiAtoms, createManiAtoms } from '@/store';
 import { createParsedSrc } from './4-create-parsed-src';
 
+/**
+ * @parma fileUsAtom - fileUs to update
+ * @param reset - if thre is no reset original content then newly saved file content will be parsed
+ */
 export const updateFileUsAfterSaveOrResetAtom = atom(null,
     (get, set, { fileUsAtom, reset }: { fileUsAtom: FileUsAtom; reset: boolean; }) => {
         const fileUs = get(fileUsAtom);
@@ -16,7 +20,7 @@ export const updateFileUsAfterSaveOrResetAtom = atom(null,
 );
 
 function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, reset: boolean, get: Getter, set: Setter) {
-    if (reset) {
+    if (!reset) {
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, masterFileUs: undefined });
     }
 
