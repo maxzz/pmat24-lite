@@ -29,6 +29,16 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
     });
     const hasBailOut = isAnyWhy(meta);
 
+    if (hasBailOut) {
+        console.log("hasBailOut", {
+            isWeb: isFormWeb(meta?.[0]),
+            isIe: isFormIe6(meta?.[0]),
+            isManual: isFormManual(meta?.[0]),
+            uiOptShowIeWarnIcon,
+        });
+    }
+
+
     rv.push({
         iconEnum,
         warn: hasBailOut,
@@ -65,14 +75,14 @@ type GetFormIconEnumParams = {
 
 export function getFormIconEnum({ isWeb, isIe, isManual, uiOptShowIeWarnIcon }: GetFormIconEnumParams): FormIconEnum {
     const icon =
-        isWeb
-            ? isIe
-                ? uiOptShowIeWarnIcon
-                    ? FormIconEnum.ie6 // There are too many of them and we don't have a nice icon for them, but now it's an option from the Options dialog
+        isManual
+            ? FormIconEnum.man
+            : isWeb
+                ? isIe
+                    ? uiOptShowIeWarnIcon
+                        ? FormIconEnum.ie6 // There are too many of them and we don't have a nice icon for them, but now it's an option from the Options dialog
+                        : FormIconEnum.web
                     : FormIconEnum.web
-                : FormIconEnum.web
-            : isManual
-                ? FormIconEnum.man
                 : FormIconEnum.win;
     return icon;
 }
