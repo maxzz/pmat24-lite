@@ -9,7 +9,7 @@ import { ContentEditorSelector } from "../../2-mani-content-editor";
 import { ButtonSourceCode } from "../../7-nun-dlg-w-screenshots/8-create-ui";
 import { newManiContent } from "../../0-ctx-new-mani";
 import { FormIdx } from "@/store/manifest";
-import { RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { InputWTooltip, RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 
 export function DialogSawBody() {
 
@@ -41,9 +41,7 @@ export function SawNewManiBody() {
     return (
         <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,auto,1fr]">
             <SawPageHeader />
-
             <ManiName />
-
             <ContentEditorSelector />
         </div>
     );
@@ -70,13 +68,14 @@ function ManiName() {
 
     const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
 
-
-    return (<>
-        <RowInputWTitle
-            label="Managed login name"
-            stateAtom={nameAtom}
-        />
-    </>);
+    return (
+        <div className="px-3 pb-2 text-xs flex flex-col gap-1">
+            <div className="font-semibold">
+                Login name
+            </div>
+            <InputWTooltip stateAtom={nameAtom} />
+        </div>
+    );
 }
 
 export function SawPageHeader() {
