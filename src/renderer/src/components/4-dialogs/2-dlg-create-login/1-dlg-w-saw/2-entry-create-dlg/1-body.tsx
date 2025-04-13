@@ -6,9 +6,9 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenDlgNewManiSawAtom } from "@/store";
 import { DialogBottemButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
-import { ButtonSourceCode } from "../../7-nun-dlg-w-screenshots/8-create-ui";
 import { RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { ManiName } from "./3-mani-name";
+import { SawPageHeader } from "./2-saw-page-header";
 
 export function DialogSawBody() {
 
@@ -42,21 +42,6 @@ export function SawNewManiBody() {
             <SawPageHeader />
             <ManiName />
             <ContentEditorSelector />
-        </div>
-    );
-}
-
-export function SawPageHeader() {
-    const [title, explanation] = ['New manifest', 'Sellect the fields you want to use for the new manifest, submit method and other options.'];
-    return (
-        <div className="px-3 py-3 text-sm bg-muted/30 flex items-center justify-between gap-0.5">
-
-            <div className="flex flex-col gap-0.5">
-                <div className="text-xs font-semibold">{title}</div>
-                <div className="text-xs text-foreground/50">{explanation}</div>
-            </div>
-
-            <ButtonSourceCode />
         </div>
     );
 }
