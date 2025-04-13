@@ -1,15 +1,14 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doOpenDlgNewManiSawAtom, OFormContextProps } from "@/store";
-import { DialogBottemButtons } from "./2-dlg-bottom-buttons";
+import { doOpenDlgNewManiSawAtom } from "@/store";
+import { DialogBottemButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
 import { ButtonSourceCode } from "../../7-nun-dlg-w-screenshots/8-create-ui";
-import { newManiContent } from "../../0-ctx-new-mani";
-import { FormIdx } from "@/store/manifest";
-import { InputWTooltip, RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { RowInputWTitle } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { ManiName } from "./3-mani-name";
 
 export function DialogSawBody() {
 
@@ -43,37 +42,6 @@ export function SawNewManiBody() {
             <SawPageHeader />
             <ManiName />
             <ContentEditorSelector />
-        </div>
-    );
-}
-
-function ManiName() {
-    const fileUs = useAtomValue(newManiContent.fileUsAtom);
-    if (!fileUs) {
-        return null;
-    }
-
-
-    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
-    if (!maniAtoms) {
-        return null;
-    }
-
-    const [login, cpass] = maniAtoms;
-    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-
-    if (!loginCtx) {
-        return null;
-    }
-
-    const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
-
-    return (
-        <div className="px-3 pb-2 text-xs flex flex-col gap-1">
-            <div className="font-semibold">
-                Login name
-            </div>
-            <InputWTooltip stateAtom={nameAtom} />
         </div>
     );
 }
