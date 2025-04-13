@@ -22,7 +22,9 @@ export function OptionInputTooltipShell({ stateAtom, children, containerClasses,
 
                     <TooltipTrigger asChild>
                         <div>
-                            <Trigger error={state.error} />
+                            {/* <Trigger error={state.error} /> */}
+                            {Trigger ? <Trigger error={state.error} /> : <div className="">no trigger</div> }
+                            112233
                         </div>
                     </TooltipTrigger>
                 </div>
