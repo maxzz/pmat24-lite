@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 import { FormIdx } from "pm-manifest";
 import { newManiContent } from "../../0-ctx-new-mani";
 
-export function ManiName() {
+export function ManiLoginName() {
     const fileUs = useAtomValue(newManiContent.fileUsAtom);
     if (!fileUs) {
         return null;
