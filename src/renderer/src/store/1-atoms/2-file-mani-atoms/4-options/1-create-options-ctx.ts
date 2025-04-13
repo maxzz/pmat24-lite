@@ -24,9 +24,8 @@ export namespace OptionsState {
 }
 
 function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
-    const optionsAtoms: OptionsState.Atoms = maniAtoms[fileUsCtx.formIdx]!.options;
-
-    // if (nextValue.dirty) {
+    // const optionsAtoms: OptionsState.Atoms | undefined = maniAtoms[fileUsCtx.formIdx]?.options; // can be undefined after reset
+    // if (nextValue.dirty && optionsAtoms) {
     //     const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
     //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
     // }

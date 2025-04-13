@@ -20,13 +20,13 @@ export function OptionInputTooltipShell({ stateAtom, children, containerClasses,
                 <div className={classNames("relative w-full", containerClasses)}>
                     {children}
 
-                    <TooltipTrigger asChild>
+                    {/* <TooltipTrigger asChild>
                         <div>
-                            {/* <Trigger error={state.error} /> */}
-                            {Trigger ? <Trigger error={state.error} /> : <div className="">no trigger</div> }
-                            112233
+                            {/* <Trigger error={state.error} /> * /}
+                            {/* {Trigger ? <Trigger error={state.error} /> : <div className="">no trigger</div> } * /}
+                            <div className="">no trigger</div>
                         </div>
-                    </TooltipTrigger>
+                    </TooltipTrigger> */}
                 </div>
 
                 {state.error && state.touched && (
