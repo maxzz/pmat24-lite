@@ -16,7 +16,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
     const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
 
-    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
 
     function onSelectCatItem(item: FceItem | undefined) {
     }
@@ -46,7 +46,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
             onClick={enableRow}
         />
 
-        {showFieldCatalog && (
+        {fcAllowed && (
             <Column5_Catalog
                 rowCtx={rowCtx}
                 fileUsCtx={fileUsCtx}

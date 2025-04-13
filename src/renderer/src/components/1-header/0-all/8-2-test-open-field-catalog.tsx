@@ -6,7 +6,7 @@ import { Button } from "@/ui";
 import { toast } from "sonner";
 
 export function TestOpenFieldCatalog() {
-    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const doOpenFieldCatalogDialog = useSetAtom(doOpenFceDlgAtom);
 
     const outDataAtom = useState(() => atom<FceDlgOut | null>(null))[0];
@@ -29,7 +29,7 @@ export function TestOpenFieldCatalog() {
         }
     }
 
-    if (!showFieldCatalog) {
+    if (!fcAllowed) {
         return null;
     }
 

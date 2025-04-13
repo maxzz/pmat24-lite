@@ -25,8 +25,8 @@ const rowColumns = [
 ];
 
 export function TableHeader() {
-    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
-    const skipIdx = showFieldCatalog ? -1 : 4;
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    const skipIdx = fcAllowed ? -1 : 4;
     return (<>
         {rowColumns.map(
             ([title, hint], idx) => {

@@ -22,14 +22,14 @@ function NoFields() {
 }
 
 function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
-    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
 
     //highlightFieldAtom
     //onblur={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
     //onfocus={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
     
     return (
-        <div className={getFieldsGridClasses(showFieldCatalog)}>
+        <div className={getFieldsGridClasses(fcAllowed)}>
             <TableHeader />
 
             {ctx.nAllAtoms.normal.rowCtxs.map(
