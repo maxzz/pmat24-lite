@@ -5,8 +5,8 @@ import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-lo
 
 export function TabContentNoForm({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
-    const isCpass = formType === FormIdx.cpass;
-    const label = !isCpass
+    const thisIsCpass = formType === FormIdx.cpass;
+    const label = !thisIsCpass
         ? "No login form"
         : <><span className="font-semibold">No</span>{' '}password change form</>;
 
@@ -16,7 +16,7 @@ export function TabContentNoForm({ formType, className, ...rest }: { formType: F
                 {label}
             </div>
 
-            {isCpass && (
+            {thisIsCpass && (
                 <ButtonCreateFormSelector
                     triggerLabel="Create a password change form"
                     subLabel="How to create form"

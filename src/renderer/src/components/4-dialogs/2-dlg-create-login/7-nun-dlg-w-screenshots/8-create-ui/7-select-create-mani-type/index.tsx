@@ -8,14 +8,23 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/ui/shadcn/select";
+import { notImplYet } from "@/ui";
 
 export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLabel: string; subLabel?: string; }) {
+
     const [selected, setSelected] = useState('');
-    if (selected) {
-        return null;
+    // if (selected) {
+    //     return null;
+    // }
+
+    function onSelect(value: string) {
+        // console.log(value); 
+        // setSelected(value);
+        notImplYet.onClick();
     }
+
     return (
-        <Select onValueChange={(value) => { console.log(value); setSelected(value); }}>
+        <Select onValueChange={onSelect} value="">
             <SelectTrigger className="px-2 w-max text-xs font-semibold gap-1">
                 <SelectValue placeholder={triggerLabel} />
             </SelectTrigger>
@@ -23,7 +32,7 @@ export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLa
             <SelectContent align="center">
                 <SelectGroup>
                     {subLabel && <SelectLabel>{subLabel}</SelectLabel>}
-                    
+
                     <SelectItem className="text-xs" value="banana">Create from website or Windows application</SelectItem>
                     <SelectItem className="text-xs" value="blueberry">Define form manually for website</SelectItem>
                     <SelectItem className="text-xs" value="apple">Create manual mode (for Windows apps only)</SelectItem>
@@ -33,4 +42,4 @@ export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLa
     );
 }
 
-{/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */}
+{/* <ButtonCreateFormSelector triggerLabel="Create new manifest" /> */ }
