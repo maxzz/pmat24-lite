@@ -37,7 +37,7 @@ function BodyExitWoTransition() {
         return () => {
             !isOpen && clearIconsCache();
         };
-    }, [isOpen]); // clear icons cache on close
+    }, [isOpen]); // clear icons cache on close and reset manual checkbox
 
     return (<>
         {isOpen && <MonitorOverlayBody />}
