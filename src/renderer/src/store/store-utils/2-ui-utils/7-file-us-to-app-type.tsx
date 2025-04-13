@@ -29,16 +29,6 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
     });
     const hasBailOut = isAnyWhy(meta);
 
-    if (hasBailOut) {
-        console.log("hasBailOut", {
-            isWeb: isFormWeb(meta?.[0]),
-            isIe: isFormIe6(meta?.[0]),
-            isManual: isFormManual(meta?.[0]),
-            uiOptShowIeWarnIcon,
-        });
-    }
-
-
     rv.push({
         iconEnum,
         warn: hasBailOut,
