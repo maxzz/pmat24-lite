@@ -20,8 +20,8 @@ export const updateFileUsAfterSaveOrResetAtom = atom(null,
 );
 
 function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, reset: boolean, get: Getter, set: Setter) {
-    const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom;
-    const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
+    const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom; // This atom is used by tree
+    // const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
 
     if (!reset) {
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, masterFileUs: undefined });
@@ -32,7 +32,11 @@ function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, re
     const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
 
     if (treeNameAtom) {
-        currentName && set(treeNameAtom, currentName);
+        // currentName && set(treeNameAtom, currentName);
+
+        const loginForm = fileUs.parsedSrc.mani?.forms[0];
+        loginForm?.options?.choosename && set(treeNameAtom, loginForm?.options?.choosename);
+
         fileUs.parsedSrc.stats.loginFormChooseNameAtom = treeNameAtom;
     }
 
