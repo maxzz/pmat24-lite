@@ -7,8 +7,8 @@ import { InputLabel, ManualFieldPolicy, ManualFieldType } from "../8-props-ui";
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, labelAtom, valueLifeAtom } = item.rowCtx;
 
-    const { showFieldCatalog } = useSnapshot(appSettings.appUi.uiAdvanced);
-    const valueRowClasses = showFieldCatalog ? "grid grid-cols-[1fr,1fr,auto]" : "grid grid-cols-[1fr,auto]";
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    const valueRowClasses = fcAllowed ? "grid grid-cols-[1fr,1fr,auto]" : "grid grid-cols-[1fr,auto]";
 
     function onSelectCatItem(item: FceItem | undefined) {
         /*TODO:*/
@@ -38,7 +38,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 />
             </InputLabel>
 
-            {showFieldCatalog && (<>
+            {fcAllowed && (<>
                 <InputLabel label="Catalog" className="ml-2">
                     <Column5_Catalog
                         rowCtx={item.rowCtx}
