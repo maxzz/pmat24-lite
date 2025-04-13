@@ -3,11 +3,11 @@ import { type FileUsAtom, type FileUs, discardFileUsManiAtoms, createManiAtoms }
 import { createParsedSrc } from './4-create-parsed-src';
 
 /**
- * @parma fileUsAtom - fileUs to update
- * @param reset - if thre is no reset original content then newly saved file content will be parsed
+ * @param fileUsAtom - fileUs to update
+ * @param resetToPrev - if there is no reset to original content then newly saved file content will be parsed
  */
 export const updateFileUsAfterSaveOrResetAtom = atom(null,
-    (get, set, { fileUsAtom, reset }: { fileUsAtom: FileUsAtom; reset: boolean; }) => {
+    (get, set, { fileUsAtom, resetToPrev: reset }: { fileUsAtom: FileUsAtom; resetToPrev: boolean; }) => {
         const fileUs = get(fileUsAtom);
 
         if (fileUs.parsedSrc.fcat) {
@@ -20,11 +20,21 @@ export const updateFileUsAfterSaveOrResetAtom = atom(null,
 );
 
 function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, reset: boolean, get: Getter, set: Setter) {
+    const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom;
+    const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
+
     if (!reset) {
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, masterFileUs: undefined });
     }
 
     discardFileUsManiAtoms(fileUs, get, set);
 
-    set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom }));
+    const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
+
+    if (treeNameAtom) {
+        currentName && set(treeNameAtom, currentName);
+        fileUs.parsedSrc.stats.loginFormChooseNameAtom = treeNameAtom;
+    }
+
+    set(fileUs.maniAtomsAtom, newManiAtoms);
 }

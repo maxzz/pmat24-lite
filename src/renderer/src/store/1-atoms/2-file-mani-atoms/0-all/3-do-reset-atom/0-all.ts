@@ -42,6 +42,6 @@ function resetManifextTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter,
 }
 
 function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
-    set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, reset: true });
+    set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
     clearFileUsChanges({ fileUs });
 }
