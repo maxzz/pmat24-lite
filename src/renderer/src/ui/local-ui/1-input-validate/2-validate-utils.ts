@@ -3,7 +3,7 @@ export function validateNonEmpty(value: string): string {
 }
 
 export function validateManifestName(value: string): string {
-    return !!value ? '' : 'The manifest name cannot be empty.';
+    return !!value ? '' : 'The "Managed login name" field must not be empty.';
 }
 
 export function validateNumber(value: string): string {
