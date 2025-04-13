@@ -9,6 +9,20 @@ import { classNames } from "@/utils";
 
 export function BodyNewMani() {
 
+    const fileUs = useAtomValue(newManiContent.fileUsAtom);
+    if (!fileUs) {
+        return null;
+    }
+
+    return (
+        <ScrollArea className="@container/tab-content px-2 py-1 size-full" fullHeight fixedWidth horizontal>
+            <ManiEditorFormSelector fileUs={fileUs} formIdx={0} />
+        </ScrollArea>
+    );
+}
+
+function BodyNewManiOld() {
+
     const showOptOnRight = useSnapshot(appSettings.appUi.uiGeneral).showOptOnRight;
 
     const fileUs = useAtomValue(newManiContent.fileUsAtom);
