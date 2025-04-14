@@ -42,7 +42,7 @@
         "@react-spring/web": "^9.7.5",
         "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/forms": "^0.5.10",
-        "@types/node": "^22.14.0",
+        "@types/node": "^22.14.1",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "@types/wicg-file-system-access": "^2023.10.6",
@@ -65,7 +65,7 @@
         "tailwind-scrollbar": "^3.1.0",
         "tailwindcss": "^3.4.17",
         "typescript": "^5.8.3",
-        "vite": "^6.2.3"
+        "vite": "^6.2.6"
     },
     "scripts": {
         "dev": "electron-vite dev",
