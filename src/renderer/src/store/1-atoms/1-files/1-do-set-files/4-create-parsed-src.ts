@@ -12,32 +12,35 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
     };
 
     try {
-        const allFlavours = parseXMLFile(fileCnt.raw || '');
+        const maniOrFcat = parseXMLFile(fileCnt.raw || '');
 
-        //console.log('parseXMLFile res', allFlavours);
         if (fileCnt.newFile) {
-            // we already have initial parsed xml, so tweak it
-        }
+            const newAsCpass = !!masterFileUs;
+            if (newAsCpass) {
+            }
 
-        if (fileCnt.newAsManual) {
-            if (allFlavours.mani) {
-                const loginForm = allFlavours.mani.forms[0];
-                if (loginForm) {
-                    allFlavours.mani.forms[0] = createNewManualFormFrom(loginForm);
-                    allFlavours.mani.forms[0].fields.push(...defaultManualFormFields());
-                } else {
-                    console.error('Cannot find login form');
+            // We already have initial parsed xml, so tweak it
+
+            if (maniOrFcat.mani) {
+                if (fileCnt.newAsManual) {
+                    const loginForm = maniOrFcat.mani.forms[0];
+                    if (loginForm) {
+                        maniOrFcat.mani.forms[0] = createNewManualFormFrom(loginForm);
+                        maniOrFcat.mani.forms[0].fields.push(...defaultManualFormFields());
+                    } else {
+                        console.error('Cannot find login form');
+                    }
+                }
+
+                if (maniOrFcat.mani.forms.length > 1) {
+                    maniOrFcat.mani.forms.length = 1; // remove cpass form, but also we need recreate xml
                 }
             }
         }
 
-        const newAsCpass = !!masterFileUs;
-        if (newAsCpass) {
-        }
-
-        rv.mani = allFlavours.mani;
-        rv.meta = buildManiMetaForms(allFlavours.mani?.forms);
-        rv.fcat = allFlavours.fcat;
+        rv.mani = maniOrFcat.mani;
+        rv.meta = buildManiMetaForms(maniOrFcat.mani?.forms);
+        rv.fcat = maniOrFcat.fcat;
 
         //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
         if (fileCnt.newAsManual) {
