@@ -118,3 +118,6 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         }
     }
 );
+
+//04.13.25
+//TODO: from main - we cannot open empty folder
