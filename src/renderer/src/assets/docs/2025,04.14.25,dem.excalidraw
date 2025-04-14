@@ -1,0 +1,51 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "-lTo0YbG4Po_Guwuee6af",
+      "type": "text",
+      "x": 249.33322143554688,
+      "y": 138.66671752929688,
+      "width": 1001.29833984375,
+      "height": 1053,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#e9ecef",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a0",
+      "roundness": null,
+      "seed": 1697964768,
+      "version": 137,
+      "versionNonce": 1778043680,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1744644557260,
+      "link": null,
+      "locked": false,
+      "text": "        This is a preview of the upcoming new PMAT.\n        PMAT stands for Password Manager Administration Tool.\n        \n        What is this application for?\n                * In a nutshell, PMAT allows administrator to create and edit manifest files \n                        that contain information on how to perform logins using the HID Password Manager.\n                * The manifest file is the primary source of information \n                        on how to log into an application or website.\n                \n        Okay, now let's get into the details.\n                HID Password Manager supports administrator-managed logins and user-defined logins.\n                        * User-defined logins are managed by the user from the HID User Console.\n                        * User-defined logins used by the user to provide login information.\n                           The user can provide login details, but cannot change the managed login itself.\n                        * Administrator-managed logins are provided to the end user and cannot be changed by the user.\n\n                PMAT can create managed logins for Windows applications and websites.\n                PMAT can recognize the content of the selected window \n                        or allows administrator to define manually the login fields.\n                A managed PMAT login must have at least one login form and an optional password change form.\n                \n        UI:\n                * The PMAT window consists of a left part with a list of manifest files \n                        and a right part for displaying the contents of the selected manifest.\n                * The right side is different for a manifest form created in manual or normal mode.\n                * Next to any password field there is a button \n                        that allows you to open the policy dialog box for that field.\n                * Manifest options\n                        * Advanced extended policy\n                * Main menu\n                * Filter dialog\n                * Options dialog\n                * Footer for statistics on loaded files\n\n        * Uninstall application before installing the new version\n        * Compatibility at the file format level with the old PMAT\n\n        * Test apps and test predefined manifests\n",
+      "fontSize": 20,
+      "fontFamily": 6,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "        This is a preview of the upcoming new PMAT.\n        PMAT stands for Password Manager Administration Tool.\n        \n        What is this application for?\n                * In a nutshell, PMAT allows administrator to create and edit manifest files \n                        that contain information on how to perform logins using the HID Password Manager.\n                * The manifest file is the primary source of information \n                        on how to log into an application or website.\n                \n        Okay, now let's get into the details.\n                HID Password Manager supports administrator-managed logins and user-defined logins.\n                        * User-defined logins are managed by the user from the HID User Console.\n                        * User-defined logins used by the user to provide login information.\n                           The user can provide login details, but cannot change the managed login itself.\n                        * Administrator-managed logins are provided to the end user and cannot be changed by the user.\n\n                PMAT can create managed logins for Windows applications and websites.\n                PMAT can recognize the content of the selected window \n                        or allows administrator to define manually the login fields.\n                A managed PMAT login must have at least one login form and an optional password change form.\n                \n        UI:\n                * The PMAT window consists of a left part with a list of manifest files \n                        and a right part for displaying the contents of the selected manifest.\n                * The right side is different for a manifest form created in manual or normal mode.\n                * Next to any password field there is a button \n                        that allows you to open the policy dialog box for that field.\n                * Manifest options\n                        * Advanced extended policy\n                * Main menu\n                * Filter dialog\n                * Options dialog\n                * Footer for statistics on loaded files\n\n        * Uninstall application before installing the new version\n        * Compatibility at the file format level with the old PMAT\n\n        * Test apps and test predefined manifests\n",
+      "autoResize": true,
+      "lineHeight": 1.35
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
