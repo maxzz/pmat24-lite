@@ -1,5 +1,6 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
+import { hasMain, R2MCalls } from "@/xternal-to-main";
 import { doSetFilesFrom_ModernDlg_Atom } from "@/store";
 import { onClickToOpenFilesDialog } from "@/components/2-main/1-left/1-header/1-menu-main/11-files";
 
@@ -12,7 +13,11 @@ export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerPr
     const doSetFilesFromModernDialog = useSetAtom(doSetFilesFrom_ModernDlg_Atom);
 
     function onClick() {
-        onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)
+        if (hasMain()) {
+            R2MCalls.loadManifestsDialog({ openDirs: openAsFolder });
+        } else {
+            onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder);
+        }
     }
 
     return (
