@@ -5,7 +5,7 @@ import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-contro
 import { Part1General } from "../3-sections";
 import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";
 
-export function GroupGeneral({ ctx }: { ctx: OFormContextProps; }) {
+export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];
     const open = useAtomValue(openAtom);
     const { nameAtom } = ctx.oAllAtoms.options.p1General;
@@ -22,7 +22,7 @@ export function GroupGeneral({ ctx }: { ctx: OFormContextProps; }) {
     </>);
 }
 
-export function GroupLogin({ ctx }: { ctx: OFormContextProps; }) {
+export function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <OptionsDetection {...ctx} />
         <OptionsAuth {...ctx} />
@@ -31,7 +31,7 @@ export function GroupLogin({ ctx }: { ctx: OFormContextProps; }) {
     </>);
 }
 
-export function GroupCpass({ ctx }: { ctx: OFormContextProps; }) {
+export function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <OptionsDetection {...ctx} />
         <OptionsAuth {...ctx} />

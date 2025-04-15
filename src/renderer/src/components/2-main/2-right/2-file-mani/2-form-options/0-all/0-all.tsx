@@ -3,7 +3,7 @@ import { type FileUs } from "@/store/store-types";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
-import { GroupCpass, GroupGeneral, GroupLogin } from "./1-options-groups";
+import { GroupFormCpass, GroupManiGeneral, GroupFormLogin } from "./1-options-groups";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -36,17 +36,17 @@ function OptionsContent({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
 
     return (<>
-        {login && loginCtx && (<>
+        {loginCtx && (<>
             <SectionTitle label="Manifest options" />
-            <GroupGeneral ctx={loginCtx} />
+            <GroupManiGeneral ctx={loginCtx} />
 
             <SectionTitle label="Login form options" />
-            <GroupLogin ctx={loginCtx} />
+            <GroupFormLogin ctx={loginCtx} />
         </>)}
 
-        {cpass && cpassCtx && (<>
+        {cpassCtx && (<>
             <SectionTitle label="Password change form options" />
-            <GroupCpass ctx={cpassCtx} />
+            <GroupFormCpass ctx={cpassCtx} />
         </>)}
     </>);
 }
