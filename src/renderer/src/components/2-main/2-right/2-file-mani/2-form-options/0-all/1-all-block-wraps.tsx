@@ -2,10 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Part4ScreenDetection, Part2Authentication, Part3QL, Part5PasswordManagerIcon } from "../3-sections";
+import { Part4ScreenDetection, Part2Authentication, Part3QL, Part5PasswordManagerIcon } from "../1-blocks";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
-export function BlockAuth({ctx}:{ctx: OFormContextProps}) {
+export function BlockWrap_Auth({ ctx }: { ctx: OFormContextProps; }) {
     const name = "auth";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -19,7 +19,7 @@ export function BlockAuth({ctx}:{ctx: OFormContextProps}) {
     </>);
 }
 
-export function BlockDetection({ctx}:{ctx: OFormContextProps}) {
+export function BlockWrap_Detection({ ctx }: { ctx: OFormContextProps; }) {
     const name = "detection";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -33,7 +33,7 @@ export function BlockDetection({ctx}:{ctx: OFormContextProps}) {
     </>);
 }
 
-export function BlockQuicklink({ctx}:{ctx: OFormContextProps}) {
+export function BlockWrap_Quicklink({ ctx }: { ctx: OFormContextProps; }) {
     const name = "ql";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -47,7 +47,7 @@ export function BlockQuicklink({ctx}:{ctx: OFormContextProps}) {
     </>);
 }
 
-export function BlockIcon({ctx}:{ctx: OFormContextProps}) {
+export function BlockWrap_Icon({ ctx }: { ctx: OFormContextProps; }) {
     const name = "icon";
     const { formIdx, isWebAtom } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
