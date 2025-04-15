@@ -26,5 +26,3 @@ export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerPr
         </Button>
     );
 }
-
-//TODO: fix: 1. when welcome is shown; 2. load files; 3. clear files; 4. welcome is shown as split screen - done?
