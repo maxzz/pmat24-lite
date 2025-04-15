@@ -18,8 +18,8 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
             return;
         }
 
-        const filesCnt = loadWin32FilesContent(filePaths, pmAllowedToOpenExt);
-        mainToRenderer({ type: 'm2r:loaded-files', filesCnt });
+        const {filesCnt, emptyFolder} = loadWin32FilesContent(filePaths, pmAllowedToOpenExt);
+        mainToRenderer({ type: 'm2r:loaded-files', filesCnt, emptyFolder });
             
     } catch (error) {
         console.error(error);

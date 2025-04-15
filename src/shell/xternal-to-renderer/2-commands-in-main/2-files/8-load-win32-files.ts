@@ -5,7 +5,7 @@ import { type MainFileContent } from "@shared/ipc-types";
 /**
  * @returns MainFileContent casted to FileContent. They should be filled from renderer.
  */
-export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): MainFileContent[] {
+export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } {
 
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);
@@ -29,7 +29,14 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
         }
     );
 
-    return rv;
+    if (!rv.length && filenames.length === 1) {
+        const st = statSync(filenames[0]);
+        if (st.isDirectory()) {
+            return { filesCnt: rv, emptyFolder: filenames[0] };
+        }
+    }
+
+    return { filesCnt: rv, emptyFolder: '' };
 }
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {

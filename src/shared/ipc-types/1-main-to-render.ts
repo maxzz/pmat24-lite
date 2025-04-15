@@ -8,6 +8,7 @@ export namespace M2R { // Main to Renderer
     export type OpenedFiles = {
         type: 'm2r:loaded-files';
         filesCnt: MainFileContent[];
+        emptyFolder: string; // If call open folder and no files found then we retrun empty folder path
     };
 
     //
