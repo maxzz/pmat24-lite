@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
 
-export function Part2ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
+export function Part3ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
     const atoms = ctx.oAllAtoms.options;
     const isWeb = useAtomValue(atoms.isWebAtom);

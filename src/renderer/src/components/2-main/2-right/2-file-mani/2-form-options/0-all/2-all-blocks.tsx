@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
+import { Part3ScreenDetection, Part2Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
 export function BlockAuth(ctx: OFormContextProps) {
@@ -14,7 +14,7 @@ export function BlockAuth(ctx: OFormContextProps) {
         <OptionsSubSectionTitle label="Authentication" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part3Authentication ctx={ctx} />
+            <Part2Authentication ctx={ctx} />
         </UiAccordion>
     </>);
 }
@@ -28,7 +28,7 @@ export function BlockDetection(ctx: OFormContextProps) {
         <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part2ScreenDetection ctx={ctx} />
+            <Part3ScreenDetection ctx={ctx} />
         </UiAccordion>
     </>);
 }
