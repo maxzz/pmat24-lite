@@ -1,4 +1,5 @@
 import { ref, snapshot, subscribe } from "valtio";
+import { toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
@@ -22,6 +23,8 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
     if (isPmatFolderEmpty(folder)) {
         return false;
     }
+
+    folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
 
     const newFolder = ref(folder); // We'll loose the handle type wo/ ref and as result cannot restore handle from indexedDB
 
