@@ -10,8 +10,13 @@ type ButtonFilesPickerProps = {
 
 export function ButtonFilesPicker({ openAsFolder, ...rest }: ButtonFilesPickerProps) {
     const doSetFilesFromModernDialog = useSetAtom(doSetFilesFrom_ModernDlg_Atom);
+
+    function onClick() {
+        onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)
+    }
+
     return (
-        <Button onClick={() => onClickToOpenFilesDialog(doSetFilesFromModernDialog, openAsFolder)} {...rest}>
+        <Button onClick={onClick} {...rest}>
             {openAsFolder ? 'Open Folder...' : 'Open Files... (advanced)'}
         </Button>
     );
