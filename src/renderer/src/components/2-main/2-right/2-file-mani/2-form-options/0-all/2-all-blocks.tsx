@@ -5,21 +5,7 @@ import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Part2ScreenDetection, Part3Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
-export function OptionsDetection(ctx: OFormContextProps) {
-    const name = "detection";
-    const { formIdx } = ctx.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
-
-    return (<>
-        <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
-
-        <UiAccordion open={open}>
-            <Part2ScreenDetection ctx={ctx} />
-        </UiAccordion>
-    </>);
-}
-
-export function OptionsAuth(ctx: OFormContextProps) {
+export function BlockAuth(ctx: OFormContextProps) {
     const name = "auth";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -33,7 +19,21 @@ export function OptionsAuth(ctx: OFormContextProps) {
     </>);
 }
 
-export function OptionsQuicklink(ctx: OFormContextProps) {
+export function BlockDetection(ctx: OFormContextProps) {
+    const name = "detection";
+    const { formIdx } = ctx.oAllAtoms.options;
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+
+    return (<>
+        <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
+
+        <UiAccordion open={open}>
+            <Part2ScreenDetection ctx={ctx} />
+        </UiAccordion>
+    </>);
+}
+
+export function BlockQuicklink(ctx: OFormContextProps) {
     const name = "ql";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -47,7 +47,7 @@ export function OptionsQuicklink(ctx: OFormContextProps) {
     </>);
 }
 
-export function OptionsIcon(ctx: OFormContextProps) {
+export function BlockIcon(ctx: OFormContextProps) {
     const name = "icon";
     const { formIdx, isWebAtom } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];

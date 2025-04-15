@@ -3,7 +3,7 @@ import { atom, useAtomValue } from "jotai";
 import { RowInputAndButtonWTitle, ButtonSliders, UiAccordion } from "../9-controls";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Part1General } from "../3-sections";
-import { OptionsDetection, OptionsAuth, OptionsQuicklink, OptionsIcon } from "./4-options-common-parts";
+import { BlockDetection, BlockAuth, BlockQuicklink, BlockIcon } from "./2-all-blocks";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];
@@ -24,18 +24,18 @@ export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
 
 export function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
-        <OptionsAuth {...ctx} />
-        <OptionsDetection {...ctx} />
-        <OptionsQuicklink {...ctx} />
-        <OptionsIcon {...ctx} />
+        <BlockAuth {...ctx} />
+        <BlockDetection {...ctx} />
+        <BlockQuicklink {...ctx} />
+        <BlockIcon {...ctx} />
     </>);
 }
 
 export function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
-        <OptionsAuth {...ctx} />
-        <OptionsDetection {...ctx} />
-        <OptionsQuicklink {...ctx} />
-        <OptionsIcon {...ctx} />
+        <BlockAuth {...ctx} />
+        <BlockDetection {...ctx} />
+        <BlockQuicklink {...ctx} />
+        <BlockIcon {...ctx} />
     </>);
 }
