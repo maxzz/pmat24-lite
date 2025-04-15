@@ -2,7 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Part4ScreenDetection, Part2Authentication, Part3QL, Part5PasswordManagerIcon } from "../1-blocks";
+import { Part2Authentication } from "./2-2-authentication";
+import { Part3QL } from "./2-3-QL";
+import { Part4ScreenDetection } from "./2-4-screen-detection";
+import { Part5PasswordManagerIcon } from "./2-5-password-manager-icon";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
 export function BlockWrap_Auth({ ctx }: { ctx: OFormContextProps; }) {

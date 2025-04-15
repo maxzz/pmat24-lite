@@ -5,7 +5,7 @@ import { type FileUs } from "@/store/store-types";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ButtonSliders, RowInputAndButtonWTitle, SectionTitle, UiAccordion } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon } from "./1-all-block-wraps";
-import { Part1General } from "../1-blocks";
+import { Part1General } from "./2-1-general";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
