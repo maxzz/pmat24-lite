@@ -14,10 +14,12 @@ export const doFromMainAtom = atom(
 
             case 'm2r:loaded-files': {
                 const deliveredFileContents = data.filesCnt.map(finalizeFileContent);
+                const emptyFolder = data.emptyFolder;
+                const root = emptyFolder
+                    ? { fpath: emptyFolder, handle: undefined, fromMain: true }
+                    : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
-                //console.log('entryRoot75: 6 result from call to main from loadManifestsDialog() with sendToMain()');
-
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: getRootFromFpath({ files: deliveredFileContents, fromMain: true }), noItemsJustDir: false, });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: !!emptyFolder, });
                 break;
             }
 

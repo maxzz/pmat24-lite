@@ -4,7 +4,7 @@ export namespace R2M { // Main from Renderer
 
     // menu, load files
 
-    export type MenuCommand = {         // will reply with 'm2r:loaded-files' from dialog
+    export type MenuCommand = {
         type: 'r2m:menu:command';
         what: 'exit' | 'open-dev-tools';
     };
