@@ -29,14 +29,19 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
         }
     );
 
+    let emptyFolder = '';
+
     if (!rv.length && filenames.length === 1) {
-        const st = statSync(filenames[0]);
-        if (st.isDirectory()) {
-            return { filesCnt: rv, emptyFolder: filenames[0] };
+        try {
+            if (statSync(filenames[0]).isDirectory()) {
+                emptyFolder = filenames[0];
+            }
+        } catch (error) {
+            console.error(error); // this should be folder and will not happen
         }
     }
 
-    return { filesCnt: rv, emptyFolder: '' };
+    return { filesCnt: rv, emptyFolder };
 }
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
