@@ -22,7 +22,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             break;
         }
 
-        case 'r2m:file:load-manifests-dialog': {
+        case 'r2m:file:load-manifests-dialog': { // will reply with 'm2r:loaded-files'
             openFileDialogAndReply(winApp, { openDirs: data.openDirs });
             break;
         }

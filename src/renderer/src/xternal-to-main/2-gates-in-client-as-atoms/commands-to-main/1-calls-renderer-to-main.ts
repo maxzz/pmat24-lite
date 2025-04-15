@@ -10,7 +10,7 @@ export namespace R2MCalls {
     }
 
     export function loadManifestsDialog(params: R2MParams.LoadManifestsDialog): void {
-        sendToMain({ type: 'r2m:file:load-manifests-dialog', ...params });
+        sendToMain({ type: 'r2m:file:load-manifests-dialog', ...params }); // will reply with 'm2r:loaded-files'
     }
 
     // options, notify
