@@ -2,10 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Part3ScreenDetection, Part2Authentication, Part4QL, Part5PasswordManagerIcon } from "../3-sections";
+import { Part4ScreenDetection, Part2Authentication, Part3QL, Part5PasswordManagerIcon } from "../3-sections";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 
-export function BlockAuth(ctx: OFormContextProps) {
+export function BlockAuth({ctx}:{ctx: OFormContextProps}) {
     const name = "auth";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -19,7 +19,7 @@ export function BlockAuth(ctx: OFormContextProps) {
     </>);
 }
 
-export function BlockDetection(ctx: OFormContextProps) {
+export function BlockDetection({ctx}:{ctx: OFormContextProps}) {
     const name = "detection";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -28,12 +28,12 @@ export function BlockDetection(ctx: OFormContextProps) {
         <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part3ScreenDetection ctx={ctx} />
+            <Part4ScreenDetection ctx={ctx} />
         </UiAccordion>
     </>);
 }
 
-export function BlockQuicklink(ctx: OFormContextProps) {
+export function BlockQuicklink({ctx}:{ctx: OFormContextProps}) {
     const name = "ql";
     const { formIdx } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -42,12 +42,12 @@ export function BlockQuicklink(ctx: OFormContextProps) {
         <OptionsSubSectionTitle label="Quick link" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part4QL atoms={ctx.oAllAtoms.options} />
+            <Part3QL atoms={ctx.oAllAtoms.options} />
         </UiAccordion>
     </>);
 }
 
-export function BlockIcon(ctx: OFormContextProps) {
+export function BlockIcon({ctx}:{ctx: OFormContextProps}) {
     const name = "icon";
     const { formIdx, isWebAtom } = ctx.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];

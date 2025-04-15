@@ -1,7 +1,7 @@
 import { type OptionsState } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
 
-export function Part4QL({ atoms }: { atoms: OptionsState.Atoms; }) {
+export function Part3QL({ atoms }: { atoms: OptionsState.Atoms; }) {
 
     const { qNameAtom, qUrlAtom } = atoms.p4QL;
 

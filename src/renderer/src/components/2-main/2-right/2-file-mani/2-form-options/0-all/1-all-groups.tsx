@@ -24,18 +24,18 @@ export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
 
 export function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
-        <BlockAuth {...ctx} />
-        <BlockDetection {...ctx} />
-        <BlockQuicklink {...ctx} />
-        <BlockIcon {...ctx} />
+        <BlockAuth ctx={ctx} />
+        <BlockQuicklink ctx={ctx} />
+        <BlockDetection ctx={ctx} />
+        <BlockIcon ctx={ctx} />
     </>);
 }
 
 export function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
-        <BlockAuth {...ctx} />
-        <BlockDetection {...ctx} />
-        <BlockQuicklink {...ctx} />
-        <BlockIcon {...ctx} />
+        <BlockAuth ctx={ctx} />
+        <BlockQuicklink ctx={ctx} />
+        <BlockDetection ctx={ctx} />
+        <BlockIcon ctx={ctx} />
     </>);
 }
