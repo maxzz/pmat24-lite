@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { atom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { ButtonSliders, RowInputAndButtonWTitle, SectionTitle, UiAccordion } from "../9-controls";
-import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon } from "./1-all-block-wraps";
-import { Part1General } from "./2-1-general";
+import { SectionTitle } from "../9-controls";
+import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -44,23 +42,6 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
 }
 
 const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
-
-function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
-    const openAtom = useState(() => atom(false))[0];
-    const open = useAtomValue(openAtom);
-    const { nameAtom } = ctx.oAllAtoms.options.p1General;
-    return (<>
-        <RowInputAndButtonWTitle
-            label="Managed login name"
-            stateAtom={nameAtom}
-            button={<ButtonSliders openAtom={openAtom} />}
-        />
-
-        <UiAccordion open={open}>
-            <Part1General ctx={ctx} />
-        </UiAccordion>
-    </>);
-}
 
 function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>

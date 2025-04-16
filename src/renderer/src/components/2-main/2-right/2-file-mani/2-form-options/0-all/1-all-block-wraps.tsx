@@ -1,12 +1,31 @@
-import { useAtomValue } from "jotai";
+import { useState } from "react";
+import { atom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { Part1General } from "./2-1-general";
 import { Part2Authentication } from "./2-2-authentication";
 import { Part3QL } from "./2-3-QL";
 import { Part4ScreenDetection } from "./2-4-screen-detection";
 import { Part5PasswordManagerIcon } from "./2-5-password-manager-icon";
-import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
+import { ButtonSliders, OptionsSubSectionTitle, RowInputAndButtonWTitle, UiAccordion } from "../9-controls";
+
+export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
+    const openAtom = useState(() => atom(false))[0];
+    const open = useAtomValue(openAtom);
+    const { nameAtom } = ctx.oAllAtoms.options.p1General;
+    return (<>
+        <RowInputAndButtonWTitle
+            label="Managed login name"
+            stateAtom={nameAtom}
+            button={<ButtonSliders openAtom={openAtom} />}
+        />
+
+        <UiAccordion open={open}>
+            <Part1General ctx={ctx} />
+        </UiAccordion>
+    </>);
+}
 
 export function BlockWrap_Auth({ ctx }: { ctx: OFormContextProps; }) {
     const name = "auth";
