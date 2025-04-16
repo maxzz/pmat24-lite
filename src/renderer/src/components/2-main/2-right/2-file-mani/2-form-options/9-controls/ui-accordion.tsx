@@ -27,12 +27,12 @@ export function UiAccordion({ open, children }: { open: boolean, children: React
 
     useEffect(
         () => {
-            console.log(`%cuseEffect 1                 `, 'background-color: darkgreen; color: white', `firstRun=${firstRun.current} open=${open} height=${height}`);
+            // console.log(`%cuseEffect 1                 `, 'background-color: darkgreen; color: white', `firstRun=${firstRun.current} open=${open} height=${height}`);
             
-            // if (firstRun.current) {
+            if (firstRun.current) {
                 styles.height.set(height);
                 // console.log('%cuseEffect 2                 ', 'background-color: darkgreen; color: blue', `firstRun=${firstRun.current} open=${open} height=${height}`);
-            // }
+            }
         }, [height]
     );
 

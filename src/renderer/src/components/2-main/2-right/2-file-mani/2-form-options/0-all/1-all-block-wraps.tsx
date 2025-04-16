@@ -9,6 +9,7 @@ import { Block3_QL } from "./2-3-QL";
 import { Block4_ScreenDetection } from "./2-4-screen-detection";
 import { Block5_PMIcon } from "./2-5-pm-icon";
 import { ButtonSliders, OptionsSubSectionTitle, RowInputAndButtonWTitle, UiAccordion } from "../9-controls";
+import { UiAccordion2 } from "../9-controls/ui-accordion2";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];
@@ -49,9 +50,13 @@ export function BlockWrap_Detection({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
 
-        <UiAccordion open={open}>
+        {/* <UiAccordion open={open}>
             <Block4_ScreenDetection ctx={ctx} />
-        </UiAccordion>
+        </UiAccordion> */}
+
+        <UiAccordion2>
+            <Block4_ScreenDetection ctx={ctx} />
+        </UiAccordion2>
     </>);
 }
 
