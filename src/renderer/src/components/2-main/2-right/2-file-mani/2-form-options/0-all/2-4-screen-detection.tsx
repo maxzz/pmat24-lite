@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
+import { Fragment } from "react";
 
 export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
@@ -17,11 +18,11 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
     return (
         isWeb
-            ? (<>
+            ? (<Fragment key="web">
                 <RowInputWTitle stateAtom={ourlAtom} label="Original URL" />
                 <RowInputWTitle stateAtom={murlAtom} label="Match URL" />
-            </>)
-            : (<>
+            </Fragment>)
+            : (<Fragment key="not-web">
                 <RowInputWTitle stateAtom={captionAtom} label="Windows Caption" />
                 <RowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
@@ -31,6 +32,6 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
                 <RowInputWTitle stateAtom={processnameAtom} label="Process name" />
                 <RowInputWTitle stateAtom={commandlineAtom} label="Command line" />
-            </>)
+            </Fragment>)
     );
 }
