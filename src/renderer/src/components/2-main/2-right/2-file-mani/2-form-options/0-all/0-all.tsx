@@ -4,6 +4,7 @@ import { type FileUs } from "@/store/store-types";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
+import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -47,7 +48,8 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} />
-        <BlockWrap_Detection ctx={ctx} />
+        {/* <BlockWrap_Detection ctx={ctx} /> */}
+        <BlockWrap_Detection_Button ctx={ctx} />
         <BlockWrap_Icon ctx={ctx} />
     </>);
 }
@@ -56,7 +58,8 @@ function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} />
-        <BlockWrap_Detection ctx={ctx} />
+        {/* <BlockWrap_Detection ctx={ctx} /> */}
+        <BlockWrap_Detection_Button ctx={ctx} />
         <BlockWrap_Icon ctx={ctx} />
     </>);
 }

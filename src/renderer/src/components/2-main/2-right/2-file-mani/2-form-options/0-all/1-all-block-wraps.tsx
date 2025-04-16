@@ -42,24 +42,6 @@ export function BlockWrap_Auth({ ctx }: { ctx: OFormContextProps; }) {
     </>);
 }
 
-export function BlockWrap_Detection({ ctx }: { ctx: OFormContextProps; }) {
-    const name = "detection";
-    const { formIdx } = ctx.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
-
-    return (<>
-        <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
-
-        {/* <UiAccordion open={open}>
-            <Block4_ScreenDetection ctx={ctx} />
-        </UiAccordion> */}
-
-        <UiAccordion2>
-            <Block4_ScreenDetection ctx={ctx} />
-        </UiAccordion2>
-    </>);
-}
-
 export function BlockWrap_Quicklink({ ctx }: { ctx: OFormContextProps; }) {
     const name = "ql";
     const { formIdx } = ctx.oAllAtoms.options;
@@ -71,6 +53,24 @@ export function BlockWrap_Quicklink({ ctx }: { ctx: OFormContextProps; }) {
         <UiAccordion open={open}>
             <Block3_QL atoms={ctx.oAllAtoms.options} />
         </UiAccordion>
+    </>);
+}
+
+export function BlockWrap_Detection({ ctx }: { ctx: OFormContextProps; }) {
+    const name = "detection";
+    const { formIdx } = ctx.oAllAtoms.options;
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+
+    return (<>
+        <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
+
+        <UiAccordion open={open}>
+            <Block4_ScreenDetection ctx={ctx} />
+        </UiAccordion>
+
+        {/* <UiAccordion2>
+            <Block4_ScreenDetection ctx={ctx} />
+        </UiAccordion2> */}
     </>);
 }
 
