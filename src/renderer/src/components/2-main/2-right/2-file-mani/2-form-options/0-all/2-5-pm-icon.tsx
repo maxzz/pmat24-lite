@@ -1,7 +1,7 @@
 import { OptionsState } from "@/store/1-atoms/2-file-mani-atoms/4-options";
 import { RowInputWTitle } from "../9-controls";
 
-export function Part5PasswordManagerIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
+export function Block5_PMIcon({ atoms }: { atoms: OptionsState.Atoms; }) {
 
     const { idAtom, locAtom } = atoms.p5Icon;
 

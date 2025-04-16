@@ -3,7 +3,7 @@ import { RowInputWTitle } from "../9-controls";
 import { ExtPolicySelect } from "../9-controls/4-ext-policies/1-input-select";
 import { FormIdx } from "pm-manifest";
 
-export function Part2Authentication({ ctx }: { ctx: OFormContextProps; }) {
+export function Block2_Authentication({ ctx }: { ctx: OFormContextProps; }) {
 
     const { options } = ctx.oAllAtoms;
     const { aimAtom, lockAtom, auth_plAtom } = options.p3Auth;

@@ -1,7 +1,7 @@
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { RowInputWTitle } from "../9-controls";
 
-export function Part1General({ ctx }: { ctx: OFormContextProps; }) {
+export function Block1_General({ ctx }: { ctx: OFormContextProps; }) {
     const { descAtom, hintAtom, balloonAtom } = ctx.oAllAtoms.options.p1General;
     return (<>
         <RowInputWTitle stateAtom={descAtom} label="Description" />

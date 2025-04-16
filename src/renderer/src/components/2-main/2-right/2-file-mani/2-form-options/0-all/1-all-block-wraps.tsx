@@ -3,11 +3,11 @@ import { atom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Part1General } from "./2-1-general";
-import { Part2Authentication } from "./2-2-authentication";
-import { Part3QL } from "./2-3-QL";
-import { Part4ScreenDetection } from "./2-4-screen-detection";
-import { Part5PasswordManagerIcon } from "./2-5-password-manager-icon";
+import { Block1_General } from "./2-1-general";
+import { Block2_Authentication } from "./2-2-authentication";
+import { Block3_QL } from "./2-3-QL";
+import { Block4_ScreenDetection } from "./2-4-screen-detection";
+import { Block5_PMIcon } from "./2-5-pm-icon";
 import { ButtonSliders, OptionsSubSectionTitle, RowInputAndButtonWTitle, UiAccordion } from "../9-controls";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
@@ -22,7 +22,7 @@ export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
         />
 
         <UiAccordion open={open}>
-            <Part1General ctx={ctx} />
+            <Block1_General ctx={ctx} />
         </UiAccordion>
     </>);
 }
@@ -36,7 +36,7 @@ export function BlockWrap_Auth({ ctx }: { ctx: OFormContextProps; }) {
         <OptionsSubSectionTitle label="Authentication" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part2Authentication ctx={ctx} />
+            <Block2_Authentication ctx={ctx} />
         </UiAccordion>
     </>);
 }
@@ -50,7 +50,7 @@ export function BlockWrap_Detection({ ctx }: { ctx: OFormContextProps; }) {
         <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part4ScreenDetection ctx={ctx} />
+            <Block4_ScreenDetection ctx={ctx} />
         </UiAccordion>
     </>);
 }
@@ -64,7 +64,7 @@ export function BlockWrap_Quicklink({ ctx }: { ctx: OFormContextProps; }) {
         <OptionsSubSectionTitle label="Quick link" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part3QL atoms={ctx.oAllAtoms.options} />
+            <Block3_QL atoms={ctx.oAllAtoms.options} />
         </UiAccordion>
     </>);
 }
@@ -83,7 +83,7 @@ export function BlockWrap_Icon({ ctx }: { ctx: OFormContextProps; }) {
         <OptionsSubSectionTitle label="Password Manager Icon" formIdx={formIdx} name={name} />
 
         <UiAccordion open={open}>
-            <Part5PasswordManagerIcon atoms={ctx.oAllAtoms.options} />
+            <Block5_PMIcon atoms={ctx.oAllAtoms.options} />
         </UiAccordion>
     </>);
 }
