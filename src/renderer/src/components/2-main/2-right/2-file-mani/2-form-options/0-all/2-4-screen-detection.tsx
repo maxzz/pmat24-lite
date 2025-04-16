@@ -18,11 +18,11 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
     return (
         isWeb
-            ? (<Fragment key="web">
+            ? (<div key="web" className="contents">
                 <RowInputWTitle stateAtom={ourlAtom} label="Original URL" />
                 <RowInputWTitle stateAtom={murlAtom} label="Match URL" />
-            </Fragment>)
-            : (<Fragment key="not-web">
+            </div>)
+            : (<div key="not-web" className="contents">
                 <RowInputWTitle stateAtom={captionAtom} label="Windows Caption" />
                 <RowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
@@ -32,6 +32,6 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
                 <RowInputWTitle stateAtom={processnameAtom} label="Process name" />
                 <RowInputWTitle stateAtom={commandlineAtom} label="Command line" />
-            </Fragment>)
+            </div>)
     );
 }
