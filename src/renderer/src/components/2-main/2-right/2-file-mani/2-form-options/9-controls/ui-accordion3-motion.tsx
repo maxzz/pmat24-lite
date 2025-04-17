@@ -61,7 +61,7 @@ const paragraphs = [...Array(3)].map(() => {
     return [...Array(generateParagraphLength())].map(generateWordLength);
 });
 
-export const Word = ({ width }) => <div className="word inline-block h-4 bg-red-500 rounded" style={{ width }} />;
+export const Word = ({ width }) => <div className="word inline-block m-0.5 h-4 bg-green-500 rounded" style={{ width }} />;
 
 const Paragraph = ({ words }) => (
     <div className="paragraph mb-4 debug-black">
