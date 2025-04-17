@@ -3,6 +3,33 @@ import React, { createContext, useContext, useState, type ReactNode } from 'reac
 import { motion, AnimatePresence, type Transition, type Variants, type Variant, MotionConfig, } from 'motion/react';
 import { cn } from '@/utils';
 
+export type AccordionProps = {
+    children: ReactNode;
+    className?: string;
+    transition?: Transition;
+    variants?: { expanded: Variant; collapsed: Variant; };
+    expandedValue?: React.Key | null;
+    onValueChange?: (value: React.Key | null) => void;
+};
+
+export function Accordion({ children, className, transition, variants, expandedValue, onValueChange, }: AccordionProps) {
+    return (
+        <MotionConfig transition={transition}>
+            <div className={cn('relative', className)} aria-orientation='vertical'>
+                <AccordionProviderStateHolder
+                    variants={variants}
+                    expandedValue={expandedValue}
+                    onValueChange={onValueChange}
+                >
+                    {children}
+                </AccordionProviderStateHolder>
+            </div>
+        </MotionConfig>
+    );
+}
+
+// Context provider
+
 export type AccordionContextType = {
     expandedValue: React.Key | null;
     toggleItem: (value: React.Key) => void;
@@ -26,7 +53,7 @@ export type AccordionProviderProps = {
     onValueChange?: (value: React.Key | null) => void;
 };
 
-function AccordionProvider({ children, variants, expandedValue: externalExpandedValue, onValueChange, }: AccordionProviderProps) {
+function AccordionProviderStateHolder({ children, variants, expandedValue: externalExpandedValue, onValueChange, }: AccordionProviderProps) {
     const [internalExpandedValue, setInternalExpandedValue] = useState<React.Key | null>(null);
 
     const expandedValue = externalExpandedValue !== undefined
@@ -49,38 +76,15 @@ function AccordionProvider({ children, variants, expandedValue: externalExpanded
     );
 }
 
-export type AccordionProps = {
-    children: ReactNode;
-    className?: string;
-    transition?: Transition;
-    variants?: { expanded: Variant; collapsed: Variant; };
-    expandedValue?: React.Key | null;
-    onValueChange?: (value: React.Key | null) => void;
-};
+// AccordionItem
 
-function Accordion({ children, className, transition, variants, expandedValue, onValueChange, }: AccordionProps) {
-    return (
-        <MotionConfig transition={transition}>
-            <div className={cn('relative', className)} aria-orientation='vertical'>
-                <AccordionProvider
-                    variants={variants}
-                    expandedValue={expandedValue}
-                    onValueChange={onValueChange}
-                >
-                    {children}
-                </AccordionProvider>
-            </div>
-        </MotionConfig>
-    );
-}
-
-export type AccordionItemProps = {
+type AccordionItemProps = {
     value: React.Key;
     children: ReactNode;
     className?: string;
 };
 
-function AccordionItem({ value, children, className, }: AccordionItemProps) {
+export function AccordionItem({ value, children, className, }: AccordionItemProps) {
     const { expandedValue } = useAccordion();
     const isExpanded = value === expandedValue;
     return (
@@ -102,12 +106,14 @@ function AccordionItem({ value, children, className, }: AccordionItemProps) {
     );
 }
 
-export type AccordionTriggerProps = {
+// AccordionTrigger
+
+type AccordionTriggerProps = {
     children: ReactNode;
     className?: string;
 };
 
-function AccordionTrigger({ children, className, ...rest }: AccordionTriggerProps) {
+export function AccordionTrigger({ children, className, ...rest }: AccordionTriggerProps) {
     const { toggleItem, expandedValue } = useAccordion();
     const value = (rest as { value?: React.Key; }).value;
     const isExpanded = value === expandedValue;
@@ -124,12 +130,14 @@ function AccordionTrigger({ children, className, ...rest }: AccordionTriggerProp
     );
 }
 
-export type AccordionContentProps = {
+// AccordionContent
+
+type AccordionContentProps = {
     children: ReactNode;
     className?: string;
 };
 
-function AccordionContent({ children, className, ...rest }: AccordionContentProps) {
+export function AccordionContent({ children, className, ...rest }: AccordionContentProps) {
     const { expandedValue, variants } = useAccordion();
 
     const value = (rest as { value?: React.Key; }).value;
@@ -161,5 +169,3 @@ function AccordionContent({ children, className, ...rest }: AccordionContentProp
         </AnimatePresence>
     );
 }
-
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
