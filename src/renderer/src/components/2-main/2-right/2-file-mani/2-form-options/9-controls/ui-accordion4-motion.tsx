@@ -54,7 +54,7 @@ function Accordion({ children, multiple, defaultIndex }: { children: ReactNode; 
 
 function AccordionItem({ children }) {
     return (
-        <div className="AccordionItem rounded-lg overflow-hidden">{children}</div>
+        <div className="AccordionItem mb-5 bg-green-100 rounded-lg overflow-hidden">{children}</div>
     );
 }
 
@@ -62,7 +62,7 @@ function AccordionHeader({ children }) {
     const { isActive, index, onChangeIndex } = useAccordion();
     return (
         <motion.div
-            className={`AccordionHeader p-5 cursor-pointer ${isActive ? "active" : ""}`}
+            className={`AccordionHeader p-5 transition-colors duration-300 cursor-pointer ${isActive ? "active bg-green-500" : "bg-gray-100"}`}
             onClick={() => onChangeIndex(index)}
         >
             {children}
