@@ -7,8 +7,8 @@ export const UiAccordion3Example = () => {
     // sections to potentially be open simultaneously, they can all be given their own `useState`.
     const [expanded, setExpanded] = useState<false | number>(0);
 
-    return accordionIds.map((i) => (
-        <UiAccordion3 key={i} i={i} expanded={expanded} setExpanded={setExpanded}>
+    return accordionIds.map((idx) => (
+        <UiAccordion3 key={idx} idx={idx} expandedIdx={expanded} setExpandedIdx={setExpanded}>
             <ContentPlaceholder />
         </UiAccordion3>
     ));
@@ -16,10 +16,10 @@ export const UiAccordion3Example = () => {
 
 const accordionIds = [0, 1, 2, 3];
 
-//
+// Accordion
 
-export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number; expanded: number | false; setExpanded: (v: number | false) => void; children: ReactNode; }) {
-    const isOpen = i === expanded;
+export function UiAccordion3({ idx, expandedIdx, setExpandedIdx, children }: { idx: number; expandedIdx: number | false; setExpandedIdx: (v: number | false) => void; children: ReactNode; }) {
+    const isOpen = idx === expandedIdx;
 
     // By using `AnimatePresence` to mount and unmount the contents, we can animate
     // them in and out while also only rendering the contents of open accordions
@@ -28,9 +28,9 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
             className="p-2 rounded"
             initial={false}
             animate={{ backgroundColor: isOpen ? "#03ff74" : "#c4c4c4" }}
-            onClick={() => setExpanded(isOpen ? false : i)}
+            onClick={() => setExpandedIdx(isOpen ? false : idx)}
         >
-            header
+            Trigger
         </motion.header>
 
         <AnimatePresence initial={false}>
@@ -53,12 +53,11 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
     </>);
 }
 
-//
+// Demo content
 
 export function ContentPlaceholder() {
     return (
         <motion.div
-            className="content-placeholder"
             variants={{ collapsed: { scale: 0.8 }, open: { scale: 1 } }}
             transition={{ duration: 0.8 }}
         >
@@ -69,25 +68,32 @@ export function ContentPlaceholder() {
     );
 }
 
-//https://github.com/Popmotion/popmotion/blob/master/packages/popmotion/src/utils/mix.ts
-export const mix = (from: number, to: number, progress: number) => -progress * from + progress * to + from;
+export function Word({ width }: { width: number }) {
+    return <div className="inline-block m-0.5 h-4 bg-green-500 rounded" style={{ width }} />;
+}
 
+function Paragraph({ words }: { words: number[] }) {
+    return (
+        <div className="mb-4 debug-black">
+            {words.map(
+                (width) => (
+                    <Word width={width} />
+                ))
+            }
+        </div>
+    );
+}
+
+// Demo data
+
+const mix = (from: number, to: number, progress: number) => -progress * from + progress * to + from; //https://github.com/Popmotion/popmotion/blob/master/packages/popmotion/src/utils/mix.ts
 const randomInt = (min: number, max: number) => Math.round(mix(min, max, Math.random()));
 const generateParagraphLength = () => randomInt(5, 20);
 const generateWordLength = () => randomInt(20, 100);
 
 // Randomly generate some paragraphs of word lengths
-const paragraphs = [...Array(3)].map(() => {
-    return [...Array(generateParagraphLength())].map(generateWordLength);
-});
-
-export const Word = ({ width }) => <div className="word inline-block m-0.5 h-4 bg-green-500 rounded" style={{ width }} />;
-
-const Paragraph = ({ words }) => (
-    <div className="paragraph mb-4 debug-black">
-        {words.map(width => (
-            <Word width={width} />
-        ))}
-    </div>
+const paragraphs = [...Array(3)].map(
+    () => {
+        return [...Array(generateParagraphLength())].map(generateWordLength);
+    }
 );
-
