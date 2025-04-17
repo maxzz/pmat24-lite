@@ -68,11 +68,11 @@ export function ContentPlaceholder() {
     );
 }
 
-export function Word({ width }: { width: number }) {
+export function Word({ width }: { width: number; }) {
     return <div className="inline-block m-0.5 h-4 bg-green-500 rounded" style={{ width }} />;
 }
 
-function Paragraph({ words }: { words: number[] }) {
+function Paragraph({ words }: { words: number[]; }) {
     return (
         <div className="mb-4 debug-black">
             {words.map(
