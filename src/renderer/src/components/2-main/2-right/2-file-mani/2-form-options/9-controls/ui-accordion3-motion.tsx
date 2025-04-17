@@ -18,7 +18,7 @@ const accordionIds = [0, 1, 2, 3];
 
 // Accordion
 
-export function UiAccordion3({ idx, expandedIdx, setExpandedIdx, children }: { idx: number; expandedIdx: number | false; setExpandedIdx: (v: number | false) => void; children: ReactNode; }) {
+function UiAccordion3({ idx, expandedIdx, setExpandedIdx, children }: { idx: number; expandedIdx: number | false; setExpandedIdx: (v: number | false) => void; children: ReactNode; }) {
     const isOpen = idx === expandedIdx;
 
     // By using `AnimatePresence` to mount and unmount the contents, we can animate
@@ -55,7 +55,7 @@ export function UiAccordion3({ idx, expandedIdx, setExpandedIdx, children }: { i
 
 // Demo content
 
-export function ContentPlaceholder() {
+function ContentPlaceholder() {
     return (
         <motion.div
             variants={{ collapsed: { scale: 0.8 }, open: { scale: 1 } }}
@@ -68,7 +68,7 @@ export function ContentPlaceholder() {
     );
 }
 
-export function Word({ width }: { width: number; }) {
+function Word({ width }: { width: number; }) {
     return <div className="inline-block m-0.5 h-4 bg-green-500 rounded" style={{ width }} />;
 }
 

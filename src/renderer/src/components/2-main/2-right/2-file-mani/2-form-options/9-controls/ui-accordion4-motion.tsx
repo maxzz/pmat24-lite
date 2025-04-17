@@ -14,7 +14,7 @@ const useAccordion = () => useContext(AccordionContext);
 function Accordion({ children, multiple, defaultIndex }: { children: ReactNode; multiple?: boolean; defaultIndex?: number | number[]; }) {
     const [activeIndex, setActiveIndex] = useState<number | undefined | (number | undefined | number[] | undefined[])[]>(multiple ? [defaultIndex] : defaultIndex);
 
-    function onChangeIndex(index) {
+    function onChangeIndex(index: number) {
         setActiveIndex((currentActiveIndex) => {
             if (!multiple) {
                 return index === activeIndex ? -1 : index;
@@ -32,21 +32,24 @@ function Accordion({ children, multiple, defaultIndex }: { children: ReactNode; 
         });
     }
 
-    return Children.map(children, (child, index) => {
-        const isActive = multiple && Array.isArray(activeIndex)
-            ? activeIndex.includes(index)
-            : activeIndex === index;
-
-        return (
-            <AccordionContext.Provider value={{ isActive, index, onChangeIndex }}>
-                {child}
-            </AccordionContext.Provider>
-        );
-    });
+    return Children.map(children,
+        (child, index) => {
+            const isActive = multiple && Array.isArray(activeIndex)
+                ? activeIndex.includes(index)
+                : activeIndex === index;
+            return (
+                <AccordionContext.Provider value={{ isActive, index, onChangeIndex }}>
+                    {child}
+                </AccordionContext.Provider>
+            );
+        }
+    );
 }
 
 function AccordionItem({ children }) {
-    return <div className="AccordionItem">{children}</div>;
+    return (
+        <div className="AccordionItem">{children}</div>
+    );
 }
 
 function AccordionHeader({ children }) {
@@ -63,7 +66,6 @@ function AccordionHeader({ children }) {
 
 function AccordionPanel({ children }) {
     const { isActive } = useAccordion();
-
     return (
         <AnimatePresence initial={false}>
             {isActive && (

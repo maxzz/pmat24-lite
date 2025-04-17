@@ -8,6 +8,7 @@ import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "@/components/4-dialogs";
 import { UiAccordion3Example } from "../9-controls/ui-accordion3-motion";
+import { UiAccordion4Example } from "../9-controls/ui-accordion4-motion";
 
 export function BlockWrap_Detection_Button({ ctx }: { ctx: OFormContextProps; }) {
     const name = "detection";
@@ -78,7 +79,8 @@ function DialogMiddleArea({ ctx }: { ctx: OFormContextProps; }) {
     return (
         <ScrollArea className="size-full overflow-auto" fullHeight>
             <div className="size-full px-4 py-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
-                <UiAccordion3Example />
+                {/* <UiAccordion3Example /> */}
+                <UiAccordion4Example />
                 {/* <Block4_ScreenDetection ctx={ctx} /> */}
             </div>
         </ScrollArea>
