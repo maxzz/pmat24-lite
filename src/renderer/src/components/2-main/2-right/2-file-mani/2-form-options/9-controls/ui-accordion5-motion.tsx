@@ -1,7 +1,7 @@
-//'use client'; //https://github.com/maxzz/test-motion-primitives/blob/main/src/components/motion-ui/accordion.tsx
-import { createContext, useContext, useState, type ReactNode, type Key as ReactKey, Children, cloneElement, isValidElement } from 'react';
-import { motion, AnimatePresence, type Transition, type Variants, type Variant, MotionConfig, } from 'motion/react';
-import { classNames } from '@/utils';
+//"use client"; //https://github.com/maxzz/test-motion-primitives/blob/main/src/components/motion-ui/accordion.tsx
+import { createContext, useContext, useState, type ReactNode, type Key as ReactKey, Children, cloneElement, isValidElement } from "react";
+import { motion, AnimatePresence, type Transition, type Variants, type Variant, MotionConfig, } from "motion/react";
+import { classNames } from "@/utils";
 
 type AccordionProps = {
     children: ReactNode;
@@ -15,7 +15,7 @@ type AccordionProps = {
 export function Accordion({ children, className, transition, variants, expandedValue, onValueChange, }: AccordionProps) {
     return (
         <MotionConfig transition={transition}>
-            <div className={classNames('relative', className)} aria-orientation='vertical'>
+            <div className={classNames("relative", className)} aria-orientation="vertical">
                 <AccordionProviderStateHolder
                     variants={variants}
                     expandedValue={expandedValue}
@@ -93,7 +93,7 @@ export function AccordionContent({ children, className, ...rest }: AccordionCont
     const isExpanded = value === expandedValue;
 
     const BASE_VARIANTS: Variants = {
-        expanded: { height: 'auto', opacity: 1 },
+        expanded: { height: "auto", opacity: 1 },
         collapsed: { height: 0, opacity: 0 },
     };
 
@@ -106,9 +106,9 @@ export function AccordionContent({ children, className, ...rest }: AccordionCont
         <AnimatePresence initial={false}>
             {isExpanded && (
                 <motion.div
-                    initial='collapsed'
-                    animate='expanded'
-                    exit='collapsed'
+                    initial="collapsed"
+                    animate="expanded"
+                    exit="collapsed"
                     variants={combinedVariants}
                     className={className}
                 >
@@ -122,18 +122,18 @@ export function AccordionContent({ children, className, ...rest }: AccordionCont
 // AccordionTrigger
 
 type AccordionTriggerProps = {
+    value?: ReactKey;
     className?: string;
     children: ReactNode;
 };
 
-export function AccordionTrigger({ className, children, ...rest }: AccordionTriggerProps) {
+export function AccordionTrigger({ value, className, children, }: AccordionTriggerProps) {
     const { toggleItem, expandedValue } = useAccordion();
-    const value = (rest as { value?: ReactKey; }).value;
     const isExpanded = value === expandedValue;
     return (
         <button
-            type='button'
-            className={classNames('group', className)}
+            className={classNames("group", className)}
+            type="button"
             aria-expanded={isExpanded}
             {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
             onClick={() => value !== undefined && toggleItem(value)}
@@ -156,8 +156,8 @@ export function AccordionItem({ value, className, children, }: AccordionItemProp
     const isExpanded = value === expandedValue;
     return (
         <div
-            className={classNames('overflow-hidden', className)}
-            {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
+            className={classNames("overflow-hidden", className)}
+            {...(isExpanded ? { "data-expanded": "" } : { "data-closed": "" })}
         >
             {Children.map(children,
                 (child) => {
