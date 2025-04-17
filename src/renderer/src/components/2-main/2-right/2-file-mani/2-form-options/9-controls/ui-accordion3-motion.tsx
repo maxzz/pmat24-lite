@@ -12,7 +12,9 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
             <motion.header
                 initial={false}
                 animate={{ backgroundColor: isOpen ? "#FF0088" : "#0055FF" }}
-                onClick={() => setExpanded(isOpen ? false : i)} />
+                onClick={() => setExpanded(isOpen ? false : i)}
+            />
+
             <AnimatePresence initial={false}>
                 {isOpen && (
                     <motion.section
@@ -22,7 +24,7 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
                         exit="collapsed"
                         variants={{
                             open: { opacity: 1, height: "auto" },
-                            collapsed: { opacity: 0, height: 0 }
+                            collapsed: { opacity: 0, height: 0 },
                         }}
                         transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
                     >
@@ -37,9 +39,9 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
 export function ContentPlaceholder() {
     return (
         <motion.div
+            className="content-placeholder"
             variants={{ collapsed: { scale: 0.8 }, open: { scale: 1 } }}
             transition={{ duration: 0.8 }}
-            className="content-placeholder"
         >
             {paragraphs.map(words => (
                 <Paragraph words={words} />
@@ -49,10 +51,9 @@ export function ContentPlaceholder() {
 }
 
 //https://github.com/Popmotion/popmotion/blob/master/packages/popmotion/src/utils/mix.ts
-export const mix = (from: number, to: number, progress: number) =>
-    -progress * from + progress * to + from;
+export const mix = (from: number, to: number, progress: number) => -progress * from + progress * to + from;
 
-const randomInt = (min, max) => Math.round(mix(min, max, Math.random()));
+const randomInt = (min: number, max: number) => Math.round(mix(min, max, Math.random()));
 const generateParagraphLength = () => randomInt(5, 20);
 const generateWordLength = () => randomInt(20, 100);
 
@@ -72,6 +73,7 @@ const Paragraph = ({ words }) => (
 );
 
 //
+
 export const UiAccordion3Example = () => {
     // This approach is if you only want max one section open at a time. If you want multiple
     // sections to potentially be open simultaneously, they can all be given their own `useState`.
