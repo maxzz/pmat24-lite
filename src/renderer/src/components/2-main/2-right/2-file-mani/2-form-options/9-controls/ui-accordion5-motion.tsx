@@ -1,172 +1,65 @@
-//"use client"; //https://github.com/maxzz/test-motion-primitives/blob/main/src/components/motion-ui/accordion.tsx
-import { createContext, useContext, useState, type ReactNode, type Key as ReactKey, Children, cloneElement, isValidElement } from "react";
-import { motion, AnimatePresence, type Transition, type Variants, type Variant, MotionConfig, } from "motion/react";
-import { classNames } from "@/utils";
+//"use client"; //https://github.com/maxzz/test-motion-primitives/blob/main/src/assets/samples/FAQ%20Sections/1.tsx
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from './ui-accordion-motion';
+import { ChevronUp } from 'lucide-react';
 
-type AccordionProps = {
-    children: ReactNode;
-    className?: string;
-    transition?: Transition;
-    variants?: { expanded: Variant; collapsed: Variant; };
-    expandedValue?: ReactKey | null;
-    onValueChange?: (value: ReactKey | null) => void;
-};
-
-export function Accordion({ children, className, transition, variants, expandedValue, onValueChange, }: AccordionProps) {
+export function UiAccordion5Example() {
     return (
-        <MotionConfig transition={transition}>
-            <div className={classNames("relative", className)} aria-orientation="vertical">
-                <AccordionProviderStateHolder
-                    variants={variants}
-                    expandedValue={expandedValue}
-                    onValueChange={onValueChange}
-                >
-                    {children}
-                </AccordionProviderStateHolder>
+        <div className='relative mx-auto max-w-xl px-6 py-12'>
+
+            <div className='mb-10 text-left'>
+                <h2 className='mb-4 text-2xl font-medium text-zinc-900 dark:text-white'>
+                    Frequently asked questions
+                </h2>
+                <p className='text-base text-zinc-500 dark:text-zinc-400'>
+                    Here are some of the most common questions we receive from our users.
+                </p>
             </div>
-        </MotionConfig>
-    );
-}
 
-// Context provider
+            <Accordion
+                className='flex w-full flex-col divide-y divide-zinc-200 border-t border-zinc-200 dark:divide-zinc-700 dark:border-zinc-700'
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+                {demoContent.map(
+                    (item, idx) => (
+                        <AccordionItem value={item.value} className='py-4' key={idx}>
 
-type AccordionContextType = {
-    expandedValue: ReactKey | null;
-    toggleItem: (value: ReactKey) => void;
-    variants?: {
-        expanded: Variant;
-        collapsed: Variant;
-    };
-};
+                            <AccordionTrigger className='w-full text-left text-zinc-950 dark:text-zinc-50'>
+                                <div className='flex items-center justify-between'>
+                                    <div>{item.title}</div>
+                                    <ChevronUp className='size-4 -rotate-180 text-zinc-950 transition-transform duration-200 group-data-[expanded]:rotate-0 dark:text-zinc-50' />
+                                </div>
+                            </AccordionTrigger>
 
-const AccordionContext = createContext<AccordionContextType | undefined>(undefined);
+                            <AccordionContent>
+                                <p className='pt-2 text-zinc-500 dark:text-zinc-400'>
+                                    {item.content}
+                                </p>
+                            </AccordionContent>
 
-function useAccordion() {
-    const context = useContext(AccordionContext);
-    if (!context) {
-        throw new Error('useAccordion must be used within an AccordionProvider');
-    }
-    return context;
-}
-
-type AccordionProviderProps = {
-    children: ReactNode;
-    variants?: { expanded: Variant; collapsed: Variant; };
-    expandedValue?: ReactKey | null;
-    onValueChange?: (value: ReactKey | null) => void;
-};
-
-function AccordionProviderStateHolder({ children, variants, expandedValue: externalExpandedValue, onValueChange, }: AccordionProviderProps) {
-    const [internalExpandedValue, setInternalExpandedValue] = useState<ReactKey | null>(null);
-
-    const expandedValue = externalExpandedValue !== undefined
-        ? externalExpandedValue
-        : internalExpandedValue;
-
-    function toggleItem(value: ReactKey) {
-        const newValue = expandedValue === value ? null : value;
-        if (onValueChange) {
-            onValueChange(newValue);
-        } else {
-            setInternalExpandedValue(newValue);
-        }
-    }
-
-    return (
-        <AccordionContext.Provider value={{ expandedValue, toggleItem, variants }}>
-            {children}
-        </AccordionContext.Provider>
-    );
-}
-
-// AccordionContent
-
-type AccordionContentProps = {
-    children: ReactNode;
-    className?: string;
-};
-
-export function AccordionContent({ children, className, ...rest }: AccordionContentProps) {
-    const { expandedValue, variants } = useAccordion();
-
-    const value = (rest as { value?: ReactKey; }).value;
-    const isExpanded = value === expandedValue;
-
-    const BASE_VARIANTS: Variants = {
-        expanded: { height: "auto", opacity: 1 },
-        collapsed: { height: 0, opacity: 0 },
-    };
-
-    const combinedVariants = {
-        expanded: { ...BASE_VARIANTS.expanded, ...variants?.expanded },
-        collapsed: { ...BASE_VARIANTS.collapsed, ...variants?.collapsed },
-    };
-
-    return (
-        <AnimatePresence initial={false}>
-            {isExpanded && (
-                <motion.div
-                    initial="collapsed"
-                    animate="expanded"
-                    exit="collapsed"
-                    variants={combinedVariants}
-                    className={className}
-                >
-                    {children}
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
-}
-
-// AccordionTrigger
-
-type AccordionTriggerProps = {
-    value?: ReactKey;
-    className?: string;
-    children: ReactNode;
-};
-
-export function AccordionTrigger({ value, className, children, }: AccordionTriggerProps) {
-    const { toggleItem, expandedValue } = useAccordion();
-    const isExpanded = value === expandedValue;
-    return (
-        <button
-            className={classNames("group", className)}
-            type="button"
-            aria-expanded={isExpanded}
-            {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
-            onClick={() => value !== undefined && toggleItem(value)}
-        >
-            {children}
-        </button>
-    );
-}
-
-// AccordionItem
-
-type AccordionItemProps = {
-    value: ReactKey;
-    className?: string;
-    children: ReactNode;
-};
-
-export function AccordionItem({ value, className, children, }: AccordionItemProps) {
-    const { expandedValue } = useAccordion();
-    const isExpanded = value === expandedValue;
-    return (
-        <div
-            className={classNames("overflow-hidden", className)}
-            {...(isExpanded ? { "data-expanded": "" } : { "data-closed": "" })}
-        >
-            {Children.map(children,
-                (child) => {
-                    if (isValidElement(child)) {
-                        return cloneElement(child, { ...child.props, value, expanded: isExpanded, });
-                    }
-                    return child;
-                }
-            )}
+                        </AccordionItem>
+                    )
+                )}
+            </Accordion>
         </div>
     );
 }
+
+const demoContent = [
+    {
+        title: 'Getting Started',
+        value: 'getting-started',
+        content: 'Discover the fundamental concepts of Motion-Primitives. This section guides you through the installation process and provides an overview of how to integrate these components into your projects. Learn about the core functionalities and how to set up your first animation effectively.',
+    }, {
+        title: 'Animation Properties',
+        value: 'animation-properties',
+        content: 'Explore the comprehensive range of animation properties available in Motion-Primitives. Understand how to manipulate timing, easing, and delays to create smooth, dynamic animations. This segment also covers the customization of animations to fit the flow and style of your web applications.',
+    }, {
+        title: 'Advanced Usage',
+        value: 'advanced-usage',
+        content: 'Dive deeper into advanced techniques and features of Motion-Primitives. Learn about chaining animations, creating complex sequences, and utilizing motion sensors for interactive animations. Gain insights on how to leverage these advanced features to enhance user experience and engagement.',
+    }, {
+        title: 'Community and Support',
+        value: 'community-and-support',
+        content: 'Engage with the Motion-Primitives community to gain additional support and insight. Find out how to participate in discussions, contribute to the project, and access a wealth of shared knowledge and resources. Learn about upcoming features, best practices, and how to get help with your specific use cases.',
+    },
+];

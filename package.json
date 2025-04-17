@@ -46,7 +46,7 @@
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "@types/wicg-file-system-access": "^2023.10.6",
-        "@vitejs/plugin-react": "^4.4.0",
+        "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.21",
         "class-variance-authority": "^0.7.1",
         "electron": "35.0.2",
