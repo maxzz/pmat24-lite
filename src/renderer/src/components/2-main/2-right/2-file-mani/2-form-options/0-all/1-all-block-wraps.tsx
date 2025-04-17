@@ -9,7 +9,7 @@ import { Block3_QL } from "./2-3-QL";
 import { Block4_ScreenDetection } from "./2-4-screen-detection";
 import { Block5_PMIcon } from "./2-5-pm-icon";
 import { ButtonSliders, OptionsSubSectionTitle, RowInputAndButtonWTitle, UiAccordion } from "../9-controls";
-import { UiAccordion2 } from "../9-controls/ui-accordion2";
+import { UiAccordion2 } from "../9-controls/nun/ui-accordion2";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];

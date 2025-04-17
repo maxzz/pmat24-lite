@@ -7,9 +7,9 @@ import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "@/components/4-dialogs";
-import { UiAccordion3Example } from "../9-controls/ui-accordion3-motion";
-import { UiAccordion4Example } from "../9-controls/ui-accordion4-motion";
-import { UiAccordion5Example } from "../9-controls/ui-accordion5-motion";
+import { UiAccordion3Example } from "../9-controls/nun/ui-accordion3-motion";
+import { UiAccordion4Example } from "../9-controls/nun/ui-accordion4-motion";
+import { UiAccordion5Example } from "../9-controls/nun/ui-accordion5-motion";
 
 export function BlockWrap_Detection_Button({ ctx }: { ctx: OFormContextProps; }) {
     const name = "detection";
@@ -19,11 +19,10 @@ export function BlockWrap_Detection_Button({ ctx }: { ctx: OFormContextProps; })
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
 
     return (<>
-    <div className="col-span-1 w-full">
-        <Button variant="outline" size={"sm"} className="px-2 justify-start" onClick={() => doOpenOptionsDialog(true)}>Screen detection...</Button>
-    </div>
-
-
+        <div className="col-span-1 w-full">
+            <Button variant="outline" size={"sm"} className="px-2 justify-start" onClick={() => doOpenOptionsDialog(true)}>Screen detection...</Button>
+        </div>
+        
         <AppOptionsDialog ctx={ctx} />
     </>);
 }
