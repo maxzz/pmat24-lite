@@ -9,7 +9,13 @@ type AccordionContextType = {
 };
 
 const AccordionContext = createContext<AccordionContextType>({} as AccordionContextType);
-const useAccordion = () => useContext(AccordionContext);
+function useAccordion(): AccordionContextType {
+    const rv = useContext(AccordionContext);
+    if (!rv) {
+        throw new Error("useAccordion must be used within an Accordion");
+    }
+    return rv;
+}
 
 function Accordion({ children, multiple, defaultIndex }: { children: ReactNode; multiple?: boolean; defaultIndex?: number | number[]; }) {
     const [activeIndex, setActiveIndex] = useState<number | undefined | (number | undefined | number[] | undefined[])[]>(multiple ? [defaultIndex] : defaultIndex);
