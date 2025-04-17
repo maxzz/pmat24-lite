@@ -2,6 +2,22 @@ import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 //https://codesandbox.io/p/sandbox/framer-motion-accordion-qx958?file=%2Fsrc%2FContentPlaceholder.tsx%3A3%2C40
 
+export const UiAccordion3Example = () => {
+    // This approach is if you only want max one section open at a time. If you want multiple
+    // sections to potentially be open simultaneously, they can all be given their own `useState`.
+    const [expanded, setExpanded] = useState<false | number>(0);
+
+    return accordionIds.map((i) => (
+        <UiAccordion3 key={i} i={i} expanded={expanded} setExpanded={setExpanded}>
+            <ContentPlaceholder />
+        </UiAccordion3>
+    ));
+};
+
+const accordionIds = [0, 1, 2, 3];
+
+//
+
 export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number; expanded: number | false; setExpanded: (v: number | false) => void; children: ReactNode; }) {
     const isOpen = i === expanded;
 
@@ -36,6 +52,8 @@ export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number
         </AnimatePresence>
     </>);
 }
+
+//
 
 export function ContentPlaceholder() {
     return (
@@ -73,18 +91,3 @@ const Paragraph = ({ words }) => (
     </div>
 );
 
-//
-
-export const UiAccordion3Example = () => {
-    // This approach is if you only want max one section open at a time. If you want multiple
-    // sections to potentially be open simultaneously, they can all be given their own `useState`.
-    const [expanded, setExpanded] = useState<false | number>(0);
-
-    return accordionIds.map((i) => (
-        <UiAccordion3 key={i} i={i} expanded={expanded} setExpanded={setExpanded}>
-            <ContentPlaceholder />
-        </UiAccordion3>
-    ));
-};
-
-const accordionIds = [0, 1, 2, 3];
