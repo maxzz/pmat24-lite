@@ -2,6 +2,50 @@ import { Children, createContext, useContext, useState, type ReactNode } from "r
 import { AnimatePresence, motion } from "motion/react";
 //https://codesandbox.io/p/sandbox/framer-motion-accordion-yhixfe?file=%2Fsrc%2FApp.jsx%3A5%2C1-113%2C2
 
+export function UiAccordion4Example() {
+    return (
+        <section className="App">
+            <h2>collapsible</h2>
+            <Accordion>
+                {[...Array(2)].map(
+                    (_, i) => (
+                        <AccordionItem key={i}>
+                            <AccordionHeader>Accordion</AccordionHeader>
+                            <AccordionPanel>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quod
+                                explicabo, nam sapiente id nostrum ex, ab numquam, doloremque
+                                aspernatur quisquam illo! Officiis explicabo laborum incidunt
+                                corrupti provident esse eligendi.
+                            </AccordionPanel>
+                        </AccordionItem>
+                    )
+                )}
+            </Accordion>
+
+            <br />
+
+            <h2>multiple</h2>
+            <Accordion multiple>
+                {[...Array(2)].map(
+                    (_, i) => (
+                        <AccordionItem key={i}>
+                            <AccordionHeader>Accordion</AccordionHeader>
+                            <AccordionPanel>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quod
+                                explicabo, nam sapiente id nostrum ex, ab numquam, doloremque
+                                aspernatur quisquam illo! Officiis explicabo laborum incidunt
+                                corrupti provident esse eligendi.
+                            </AccordionPanel>
+                        </AccordionItem>
+                    )
+                )}
+            </Accordion>
+        </section>
+    );
+}
+
+// Accordion
+
 type AccordionContextType = {
     isActive: boolean;
     index: number;
@@ -52,23 +96,7 @@ function Accordion({ children, multiple, defaultIndex }: { children: ReactNode; 
     );
 }
 
-function AccordionItem({ children }) {
-    return (
-        <div className="AccordionItem mb-5 bg-green-100 rounded-lg overflow-hidden">{children}</div>
-    );
-}
-
-function AccordionHeader({ children }) {
-    const { isActive, index, onChangeIndex } = useAccordion();
-    return (
-        <motion.div
-            className={`AccordionHeader p-5 transition-colors duration-300 cursor-pointer ${isActive ? "active bg-green-500" : "bg-gray-100"}`}
-            onClick={() => onChangeIndex(index)}
-        >
-            {children}
-        </motion.div>
-    );
-}
+// AccordionItem
 
 function AccordionPanel({ children }) {
     const { isActive } = useAccordion();
@@ -90,44 +118,20 @@ function AccordionPanel({ children }) {
     );
 }
 
-export function UiAccordion4Example() {
+function AccordionHeader({ children }) {
+    const { isActive, index, onChangeIndex } = useAccordion();
     return (
-        <section className="App">
-            <h2>collapsible</h2>
-            <Accordion>
-                {[...Array(2)].map(
-                    (_, i) => (
-                        <AccordionItem key={i}>
-                            <AccordionHeader>Accordion</AccordionHeader>
-                            <AccordionPanel>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quod
-                                explicabo, nam sapiente id nostrum ex, ab numquam, doloremque
-                                aspernatur quisquam illo! Officiis explicabo laborum incidunt
-                                corrupti provident esse eligendi.
-                            </AccordionPanel>
-                        </AccordionItem>
-                    )
-                )}
-            </Accordion>
+        <motion.div
+            className={`AccordionHeader p-5 transition-colors duration-300 cursor-pointer ${isActive ? "active bg-green-500" : "bg-gray-100"}`}
+            onClick={() => onChangeIndex(index)}
+        >
+            {children}
+        </motion.div>
+    );
+}
 
-            <br />
-
-            <h2>multiple</h2>
-            <Accordion multiple>
-                {[...Array(2)].map(
-                    (_, i) => (
-                        <AccordionItem key={i}>
-                            <AccordionHeader>Accordion</AccordionHeader>
-                            <AccordionPanel>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quod
-                                explicabo, nam sapiente id nostrum ex, ab numquam, doloremque
-                                aspernatur quisquam illo! Officiis explicabo laborum incidunt
-                                corrupti provident esse eligendi.
-                            </AccordionPanel>
-                        </AccordionItem>
-                    )
-                )}
-            </Accordion>
-        </section>
+function AccordionItem({ children }) {
+    return (
+        <div className="AccordionItem mb-5 bg-green-100 rounded-lg overflow-hidden">{children}</div>
     );
 }
