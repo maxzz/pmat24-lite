@@ -2,38 +2,39 @@ import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 //https://codesandbox.io/p/sandbox/framer-motion-accordion-qx958?file=%2Fsrc%2FContentPlaceholder.tsx%3A3%2C40
 
-export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number; expanded: number | false; setExpanded: (v: number | false) => void; children?: ReactNode; }) {
+export function UiAccordion3({ i, expanded, setExpanded, children }: { i: number; expanded: number | false; setExpanded: (v: number | false) => void; children: ReactNode; }) {
     const isOpen = i === expanded;
 
     // By using `AnimatePresence` to mount and unmount the contents, we can animate
     // them in and out while also only rendering the contents of open accordions
-    return (
-        <>
-            <motion.header
-                initial={false}
-                animate={{ backgroundColor: isOpen ? "#FF0088" : "#0055FF" }}
-                onClick={() => setExpanded(isOpen ? false : i)}
-            />
+    return (<>
+        <motion.header
+            className="p-2 rounded"
+            initial={false}
+            animate={{ backgroundColor: isOpen ? "#03ff74" : "#c4c4c4" }}
+            onClick={() => setExpanded(isOpen ? false : i)}
+        >
+            header
+        </motion.header>
 
-            <AnimatePresence initial={false}>
-                {isOpen && (
-                    <motion.section
-                        key="content"
-                        initial="collapsed"
-                        animate="open"
-                        exit="collapsed"
-                        variants={{
-                            open: { opacity: 1, height: "auto" },
-                            collapsed: { opacity: 0, height: 0 },
-                        }}
-                        transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    >
-                        <ContentPlaceholder />
-                    </motion.section>
-                )}
-            </AnimatePresence>
-        </>
-    );
+        <AnimatePresence initial={false}>
+            {isOpen && (
+                <motion.section
+                    key="content"
+                    initial="collapsed"
+                    animate="open"
+                    exit="collapsed"
+                    variants={{
+                        open: { opacity: 1, height: "auto" },
+                        collapsed: { opacity: 0, height: 0 },
+                    }}
+                    transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+                >
+                    {children}
+                </motion.section>
+            )}
+        </AnimatePresence>
+    </>);
 }
 
 export function ContentPlaceholder() {
@@ -80,7 +81,9 @@ export const UiAccordion3Example = () => {
     const [expanded, setExpanded] = useState<false | number>(0);
 
     return accordionIds.map((i) => (
-        <UiAccordion3 key={i} i={i} expanded={expanded} setExpanded={setExpanded} />
+        <UiAccordion3 key={i} i={i} expanded={expanded} setExpanded={setExpanded}>
+            <ContentPlaceholder />
+        </UiAccordion3>
     ));
 };
 
