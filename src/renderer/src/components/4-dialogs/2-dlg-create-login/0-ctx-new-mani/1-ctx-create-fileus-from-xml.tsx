@@ -61,11 +61,12 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         if (mainForCpass) {
             const mainManiAtoms = get(mainForCpass.maniAtomsAtom);
-            const newManiAtoms = get(fileUs.maniAtomsAtom);
+            const createManiAtoms = get(fileUs.maniAtomsAtom);
 
-            if (mainManiAtoms && newManiAtoms) {
-                (mainManiAtoms as Writeable<ManiAtoms>)[FormIdx.cpass] = newManiAtoms[FormIdx.cpass];
-                set(mainForCpass.maniAtomsAtom, mainManiAtoms);
+            if (mainManiAtoms && createManiAtoms) {
+                // (mainManiAtoms as Writeable<ManiAtoms>)[FormIdx.cpass] = createManiAtoms[FormIdx.cpass];
+                const newManiAtoms: ManiAtoms = [mainManiAtoms[FormIdx.login], createManiAtoms[FormIdx.login]];
+                set(mainForCpass.maniAtomsAtom, newManiAtoms);
             }
 
             //TODO: tweak xml, now or later on save?

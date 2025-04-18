@@ -14,6 +14,8 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
         return null;
     }
 
+    //TODO: get it from maniAtoms[formIdx]
+    
     const metaForm = fileUs.parsedSrc.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
     if (!metaForm) {
         return <TabContentNoForm formType={formIdx} {...rest} />;
