@@ -63,6 +63,10 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
                 (mainManiAtoms as Writeable<ManiAtoms>)[FormIdx.cpass] = newManiAtoms[FormIdx.cpass];
                 set(mainForCpass.maniAtomsAtom, mainManiAtoms);
             }
+
+            //TODO: tweak xml, now or later on save?
+
+            return true;
         }
 
         set(newManiContent.fileUsAtom, fileUs);
