@@ -27,11 +27,7 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
         }
 
         const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms) {
-            return null;
-        }
-
-        const [login, cpass] = maniAtoms;
+        const login = maniAtoms?.[FormIdx.login];
         if (!login) {
             return null;
         }
