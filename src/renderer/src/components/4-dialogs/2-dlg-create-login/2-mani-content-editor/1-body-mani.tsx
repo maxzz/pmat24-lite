@@ -2,14 +2,14 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { ScrollArea } from "@/ui/shadcn";
 import { appSettings } from "@/store";
-import { newManiContent } from "@/components/4-dialogs/2-dlg-create-login";
+import { newManiFileUsAtom } from "@/components/4-dialogs/2-dlg-create-login";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { classNames } from "@/utils";
 
 export function BodyNewMani() {
 
-    const fileUs = newManiContent.newFileUsAtom && useAtomValue(newManiContent.newFileUsAtom);
+    const fileUs = useAtomValue(newManiFileUsAtom);
     if (!fileUs) {
         return null;
     }
@@ -25,7 +25,7 @@ function BodyNewManiOld() {
 
     const showOptOnRight = useSnapshot(appSettings.appUi.uiGeneral).showOptOnRight;
 
-    const fileUs = newManiContent.newFileUsAtom && useAtomValue(newManiContent.newFileUsAtom);
+    const fileUs = useAtomValue(newManiFileUsAtom);
     if (!fileUs) {
         return null;
     }

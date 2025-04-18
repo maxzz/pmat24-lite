@@ -17,8 +17,9 @@ class NewManiContent implements NewManiContentData {
 
 export const newManiContent = new NewManiContent();
 
-// New manifest fileUs atom
-
+/**
+ * New manifest fileUs atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.
+ */
 export const newManiFileUsAtom = atom<FileUs | undefined>(
     (get) => {
         if (!newManiContent.newFileUsAtom) {
@@ -28,15 +29,12 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
     }
 );
 
-// new manifest display name atom
-
+/**
+ * New manifest display name atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.
+ */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     (get) => {
-        if (!newManiContent.newFileUsAtom) {
-            return null;
-        }
-
-        const fileUs = get(newManiContent.newFileUsAtom);
+        const fileUs = get(newManiFileUsAtom);
         if (!fileUs) {
             return null;
         }

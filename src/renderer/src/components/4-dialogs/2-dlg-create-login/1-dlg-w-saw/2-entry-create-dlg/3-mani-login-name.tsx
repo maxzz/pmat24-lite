@@ -3,6 +3,7 @@ import { useAtomValue } from "jotai";
 import { newManiDispNameAtom } from "../../0-ctx-new-mani";
 
 export function ManiLoginName() {
+    
     const nameAtom = useAtomValue(newManiDispNameAtom);
     if (!nameAtom) {
         return null;
