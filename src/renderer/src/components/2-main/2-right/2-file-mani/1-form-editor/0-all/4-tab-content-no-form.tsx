@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/7-nun-dlg-w-screenshots/8-create-ui";
+import { ButtonCreateCpassForm, ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/7-nun-dlg-w-screenshots/8-create-ui";
 
 export function TabContentNoForm({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
@@ -16,11 +16,15 @@ export function TabContentNoForm({ formType, className, ...rest }: { formType: F
                 {label}
             </div>
 
-            {thisIsCpass && (
+            {/* {thisIsCpass && (
                 <ButtonCreateFormSelector
                     triggerLabel="Create a password change form"
                     subLabel="How to create form"
                 />
+            )} */}
+            
+            {thisIsCpass && (
+                <ButtonCreateCpassForm />
             )}
         </div>
     );
