@@ -22,7 +22,7 @@ export function TabContentNoForm({ formType, className, ...rest }: { formType: F
                     subLabel="How to create form"
                 />
             )} */}
-            
+
             {thisIsCpass && (
                 <ButtonCreateCpassForm />
             )}
