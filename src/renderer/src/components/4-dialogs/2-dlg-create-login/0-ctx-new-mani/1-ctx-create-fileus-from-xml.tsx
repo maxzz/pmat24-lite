@@ -54,9 +54,9 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
-        set(newManiContent.fileUsAtom, fileUs);
+        set(newManiContent.newFileUsAtom, fileUs);
 
-        const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
+        const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
         set(fileUs.maniAtomsAtom, maniAtoms);
 
         if (mainForCpass) {

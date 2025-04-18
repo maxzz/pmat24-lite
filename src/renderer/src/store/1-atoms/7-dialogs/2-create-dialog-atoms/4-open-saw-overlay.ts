@@ -1,18 +1,18 @@
 import { atom } from "jotai";
-import { rightPanelAtom, type FileUsAtom } from "@/store";
-import { newManiContent } from "@/components/4-dialogs";
 import { FormIdx } from "@/store/manifest";
+import { rightPanelAtom } from "@/store";
+import { newManiContent } from "@/components/4-dialogs";
 
 // Open Saw monitor overlay atom
 
 export const doOpenSawOverlayForLoginAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
-    (get, set, open: boolean | ((prev: boolean) => boolean)) => {
-        const value = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
-        if (value) {
+    (get, set, value: boolean | ((prev: boolean) => boolean)) => {
+        const open = typeof value === 'function' ? value(get(_doOpenSawOverlayAtom)) : value;
+        if (open) {
             newManiContent.maniForCpassAtom = undefined;
         }
-        set(_doOpenSawOverlayAtom, value);
+        set(_doOpenSawOverlayAtom, open);
     }
 );
 

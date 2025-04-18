@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
 
-export function TabContentNormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFields = !!ctx.nAllAtoms.normal.rowCtxs.length;
     return (
         <div className={classNames("flex flex-col", className)} {...rest}>

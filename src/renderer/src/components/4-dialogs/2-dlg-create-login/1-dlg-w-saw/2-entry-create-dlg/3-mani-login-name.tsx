@@ -5,7 +5,7 @@ import { FormIdx } from "pm-manifest";
 import { newManiContent } from "../../0-ctx-new-mani";
 
 export function ManiLoginName() {
-    const fileUs = useAtomValue(newManiContent.fileUsAtom);
+    const fileUs = useAtomValue(newManiContent.newFileUsAtom);
     if (!fileUs) {
         return null;
     }

@@ -8,6 +8,6 @@ import { type FileUs, type FileUsAtom } from "@/store";
  */
 export type NewManiContentData = {
     maniXmlAtom: PA<string | undefined>;        // new xml string of the selected application
-    fileUsAtom: PA<FileUs | undefined>;         // new fileUs of the selected application
+    newFileUsAtom: PA<FileUs | undefined>;      // new fileUs of the selected application
     maniForCpassAtom: FileUsAtom | undefined;   // fileUs to create password change form
 };

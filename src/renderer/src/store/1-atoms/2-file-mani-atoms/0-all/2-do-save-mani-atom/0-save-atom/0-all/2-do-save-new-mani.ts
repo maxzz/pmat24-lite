@@ -1,12 +1,27 @@
 import { atom } from "jotai";
 import { createGuid } from "@/store/manifest";
-import { newManiContent } from "@/components/4-dialogs";
-import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { rootDir } from "@/store/1-atoms/1-files";
-import { doSaveOneAtom } from "./0-all-save-one";
 import { type FileUsAtom } from "@/store/store-types";
+import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
+import { doSaveOneAtom } from "./0-all-save-one";
+import { newManiContent } from "@/components/4-dialogs";
+import { doClearSawHandleAtom } from "@/store/7-napi-atoms";
+import { doOpenDlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
 
-export const doSaveNewManiAtom = atom(
+export const doSaveNewManiTriggerAtom = atom(
+    null,
+    async (get, set) => {
+        const saved = await set(doSaveNewManiAtom);
+        if (saved) {
+            set(doOpenDlgNewManiSawAtom, false);
+            set(doClearSawHandleAtom); // Turn off fields highlight
+
+            //TODO: for password change form it wiil be different
+        }
+    }
+);
+
+const doSaveNewManiAtom = atom(
     null,
     async (get, set): Promise<boolean> => {
         if (!rootDir.fpath) {
@@ -19,12 +34,12 @@ export const doSaveNewManiAtom = atom(
             return true; // For password change form we don't need to save as new manifest
         }
 
-        const fileUs = get(newManiContent.fileUsAtom);
+        const fileUs = get(newManiContent.newFileUsAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');
             return false;
         }
-        const fileUsAtom = newManiContent.fileUsAtom as FileUsAtom;
+        const fileUsAtom = newManiContent.newFileUsAtom as FileUsAtom;
 
         fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
         fileUs.fileCnt.fpath = rootDir.fpath;

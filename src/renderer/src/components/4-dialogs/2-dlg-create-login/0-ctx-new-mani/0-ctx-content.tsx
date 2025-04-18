@@ -4,12 +4,12 @@ import { type NewManiContentData } from "./9-types";
 
 class NewManiContent implements NewManiContentData {
     maniXmlAtom = atom<string | undefined>(undefined);
-    fileUsAtom = atom<FileUs | undefined>(undefined);
+    newFileUsAtom = atom<FileUs | undefined>(undefined); //TODO: it's better to use FileUsAtom | undefined
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
     init() {
         this.maniXmlAtom = atom<string | undefined>(undefined);
-        this.fileUsAtom = atom<FileUs | undefined>(undefined);
+        this.newFileUsAtom = atom<FileUs | undefined>(undefined);
     }
 };
 
