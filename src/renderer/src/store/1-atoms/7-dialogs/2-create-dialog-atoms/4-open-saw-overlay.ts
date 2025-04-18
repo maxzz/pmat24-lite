@@ -29,7 +29,7 @@ export const doOpenSawOverlayForCpassAtom = atom(
             return;
         }
         newManiContent.mainForCpassAtom = mainForCpassAtom;
-        set(doOpenSawOverlayForLoginAtom, true);
+        set(_doOpenSawOverlayAtom, true);
     }
 );
 
