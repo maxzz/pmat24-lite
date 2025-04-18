@@ -1,7 +1,31 @@
 import { atom } from 'jotai';
 import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
-import { defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
+import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
+
+function tweakMani({ mani, masterFileUs, newAsManual }: { mani: Mani.Manifest; masterFileUs: FileUs | undefined; newAsManual: boolean; }): Mani.Manifest {
+
+    if (newAsManual) {
+        const loginForm = mani.forms[0];
+        if (loginForm) {
+            mani.forms[0] = createNewManualFormFrom(loginForm);
+            mani.forms[0].fields.push(...defaultManualFormFields());
+        } else {
+            console.error('Cannot find login form');
+        }
+    }
+
+    if (mani.forms.length > 1) {
+        mani.forms.length = 1; // remove cpass form, but also we need recreate xml
+    }
+
+    const newAsCpass = !!masterFileUs;
+    if (newAsCpass) {
+        //TODO:
+    }
+
+    return mani;
+}
 
 export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileContent; masterFileUs: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = {
@@ -12,38 +36,17 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
     };
 
     try {
-        const { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
+        let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        if (parsedMani) { // If we deal with manifest not field catalog
-            if (fileCnt.newFile) {
-                const newAsCpass = !!masterFileUs;
-                if (newAsCpass) {
-                    //TODO:
-                }
-
-                if (fileCnt.newAsManual) {
-                    const loginForm = parsedMani.forms[0];
-                    if (loginForm) {
-                        parsedMani.forms[0] = createNewManualFormFrom(loginForm);
-                        parsedMani.forms[0].fields.push(...defaultManualFormFields());
-                    } else {
-                        console.error('Cannot find login form');
-                    }
-                }
-
-                if (parsedMani.forms.length > 1) {
-                    parsedMani.forms.length = 1; // remove cpass form, but also we need recreate xml
-                }
-
-            }
+        if (parsedMani && fileCnt.newFile) { // If we deal with manifest not field catalog
+            parsedMani = tweakMani({ mani: parsedMani, masterFileUs, newAsManual: fileCnt.newAsManual });
         }
 
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
         rv.fcat = parsedFcat;
 
-        //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
-        if (fileCnt.newAsManual) {
+        if (fileCnt.newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
             const loginMetaForm = rv.meta[0];
             if (loginMetaForm) {
                 loginMetaForm.disp.isScript = true;
