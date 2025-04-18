@@ -12,7 +12,8 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
     };
 
     try {
-        const maniOrFcat = parseXMLFile(fileCnt.raw || '');
+        const parsedManiOrFcat = parseXMLFile(fileCnt.raw || '');
+        const parsedMani = parsedManiOrFcat.mani;
 
         if (fileCnt.newFile) {
             const newAsCpass = !!masterFileUs;
@@ -22,26 +23,26 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
 
             // We already have initial parsed xml, so tweak it
 
-            if (maniOrFcat.mani) {
+            if (parsedMani) {
                 if (fileCnt.newAsManual) {
-                    const loginForm = maniOrFcat.mani.forms[0];
+                    const loginForm = parsedMani.forms[0];
                     if (loginForm) {
-                        maniOrFcat.mani.forms[0] = createNewManualFormFrom(loginForm);
-                        maniOrFcat.mani.forms[0].fields.push(...defaultManualFormFields());
+                        parsedMani.forms[0] = createNewManualFormFrom(loginForm);
+                        parsedMani.forms[0].fields.push(...defaultManualFormFields());
                     } else {
                         console.error('Cannot find login form');
                     }
                 }
 
-                if (maniOrFcat.mani.forms.length > 1) {
-                    maniOrFcat.mani.forms.length = 1; // remove cpass form, but also we need recreate xml
+                if (parsedMani.forms.length > 1) {
+                    parsedMani.forms.length = 1; // remove cpass form, but also we need recreate xml
                 }
             }
         }
 
-        rv.mani = maniOrFcat.mani;
-        rv.meta = buildManiMetaForms(maniOrFcat.mani?.forms);
-        rv.fcat = maniOrFcat.fcat;
+        rv.mani = parsedMani;
+        rv.meta = buildManiMetaForms(parsedMani?.forms);
+        rv.fcat = parsedManiOrFcat.fcat;
 
         //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
         if (fileCnt.newAsManual) {
