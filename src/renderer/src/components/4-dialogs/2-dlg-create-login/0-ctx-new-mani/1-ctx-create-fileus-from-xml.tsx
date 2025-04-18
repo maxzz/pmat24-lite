@@ -48,14 +48,18 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 3. Parse maniXml to fileUs
     try {
-        const mainForCpassAtom = atom<FileUs | undefined>(undefined); // temp here: should be set from file where create password change form
-        const mainForCpass = get(mainForCpassAtom);
+        // const mainForCpassAtom = atom<FileUs | undefined>(undefined); // temp here: should be set from file where create password change form
+        // const mainForCpass = get(mainForCpassAtom);
+
+        const mainForCpass = newManiContent.mainForCpassAtom && get(newManiContent.mainForCpassAtom);
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
 
         set(newManiContent.fileUsAtom, fileUs);
-        set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom })); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
+        
+        const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
+        set(fileUs.maniAtomsAtom, maniAtoms);
         
     } catch (error) {
         newManiContent.init();
