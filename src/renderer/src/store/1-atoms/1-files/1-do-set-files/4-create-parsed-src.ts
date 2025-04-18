@@ -12,18 +12,15 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
     };
 
     try {
-        const parsedManiOrFcat = parseXMLFile(fileCnt.raw || '');
-        const parsedMani = parsedManiOrFcat.mani;
+        const { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        if (fileCnt.newFile) {
-            const newAsCpass = !!masterFileUs;
-            if (newAsCpass) {
-                //TODO:
-            }
+        if (parsedMani) { // If we deal with manifest not field catalog
+            if (fileCnt.newFile) {
+                const newAsCpass = !!masterFileUs;
+                if (newAsCpass) {
+                    //TODO:
+                }
 
-            // We already have initial parsed xml, so tweak it
-
-            if (parsedMani) {
                 if (fileCnt.newAsManual) {
                     const loginForm = parsedMani.forms[0];
                     if (loginForm) {
@@ -37,12 +34,13 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
                 if (parsedMani.forms.length > 1) {
                     parsedMani.forms.length = 1; // remove cpass form, but also we need recreate xml
                 }
+
             }
         }
 
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
-        rv.fcat = parsedManiOrFcat.fcat;
+        rv.fcat = parsedFcat;
 
         //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
         if (fileCnt.newAsManual) {
