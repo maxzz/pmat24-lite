@@ -30,7 +30,6 @@ export const doMoveToSecondDlgAtom = atom(
         set(doMonitoringTimerAtom, { doStart: false });
 
         const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), }, showProgressAtom, get, set, });
-
         if (!created) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;

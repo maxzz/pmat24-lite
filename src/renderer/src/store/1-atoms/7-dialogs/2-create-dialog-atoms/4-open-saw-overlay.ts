@@ -11,7 +11,6 @@ export const doOpenSawOverlayForLoginAtom = atom(
         const value = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
         if (value) {
             newManiContent.mainForCpassAtom = undefined;
-            ;
         }
         set(_doOpenSawOverlayAtom, value);
     }
