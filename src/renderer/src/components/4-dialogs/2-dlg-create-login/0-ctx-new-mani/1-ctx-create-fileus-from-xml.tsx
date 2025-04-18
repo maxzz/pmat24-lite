@@ -28,7 +28,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     try {
         showProgressAtom && set(showProgressAtom, true);
 
-        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.mainForCpassAtom, wantXml: true, });
+        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, });
 
         if (napiBuildState.buildError) {
             showBuildErrorReason(set);
@@ -50,7 +50,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 3. Parse maniXml to fileUs
     try {
-        const mainForCpass = newManiContent.mainForCpassAtom && get(newManiContent.mainForCpassAtom);
+        const mainForCpass = newManiContent.maniForCpassAtom && get(newManiContent.maniForCpassAtom);
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);

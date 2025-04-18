@@ -10,7 +10,7 @@ export const doOpenSawOverlayForLoginAtom = atom(
     (get, set, open: boolean | ((prev: boolean) => boolean)) => {
         const value = typeof open === 'function' ? open(get(_doOpenSawOverlayAtom)) : open;
         if (value) {
-            newManiContent.mainForCpassAtom = undefined;
+            newManiContent.maniForCpassAtom = undefined;
         }
         set(_doOpenSawOverlayAtom, value);
     }
@@ -28,7 +28,7 @@ export const doOpenSawOverlayForCpassAtom = atom(
             console.log('There is no mainForCpassAtom for password change form');
             return;
         }
-        newManiContent.mainForCpassAtom = mainForCpassAtom;
+        newManiContent.maniForCpassAtom = mainForCpassAtom;
         set(_doOpenSawOverlayAtom, true);
     }
 );

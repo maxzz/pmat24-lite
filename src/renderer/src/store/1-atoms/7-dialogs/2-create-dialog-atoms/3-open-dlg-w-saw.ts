@@ -7,7 +7,7 @@ export const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),
     (get, set, open: boolean) => {
         if (open) {
-            if (newManiContent.mainForCpassAtom) {
+            if (newManiContent.maniForCpassAtom) {
                 return;
             }
         }
