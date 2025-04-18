@@ -3,28 +3,25 @@ import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
 import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
 
-function tweakMani({ mani, masterFileUs, newAsManual }: { mani: Mani.Manifest; masterFileUs: FileUs | undefined; newAsManual: boolean; }): Mani.Manifest {
+function tweakNewMani({ parsedMani, masterFileUs, newAsManual }: { parsedMani: Mani.Manifest; masterFileUs: FileUs | undefined; newAsManual: boolean; }): void {
 
     if (newAsManual) {
-        const loginForm = mani.forms[0];
+        const loginForm = parsedMani.forms[0];
         if (loginForm) {
-            mani.forms[0] = createNewManualFormFrom(loginForm);
-            mani.forms[0].fields.push(...defaultManualFormFields());
+            parsedMani.forms[0] = createNewManualFormFrom(loginForm);
+            parsedMani.forms[0].fields.push(...defaultManualFormFields());
         } else {
             console.error('Cannot find login form');
         }
     }
 
-    if (mani.forms.length > 1) {
-        mani.forms.length = 1; // remove cpass form, but also we need recreate xml
+    if (parsedMani.forms.length > 1) {
+        parsedMani.forms.length = 1; // remove cpass form, but also we need re-create xml
     }
 
-    const newAsCpass = !!masterFileUs;
-    if (newAsCpass) {
+    if (masterFileUs) {
         //TODO:
     }
-
-    return mani;
 }
 
 export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileContent; masterFileUs: FileUs | undefined; }): ParsedSrc {
@@ -38,8 +35,8 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
     try {
         let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        if (parsedMani && fileCnt.newFile) { // If we deal with manifest not field catalog
-            parsedMani = tweakMani({ mani: parsedMani, masterFileUs, newAsManual: fileCnt.newAsManual });
+        if (parsedMani && fileCnt.newFile) {
+            tweakNewMani({ parsedMani, masterFileUs, newAsManual: fileCnt.newAsManual });
         }
 
         rv.mani = parsedMani;

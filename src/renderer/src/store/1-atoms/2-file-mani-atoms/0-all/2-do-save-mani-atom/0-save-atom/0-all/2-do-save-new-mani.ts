@@ -14,6 +14,11 @@ export const doSaveNewManiAtom = atom(
             return false;
         }
 
+        //TODO: if we switch to embedded new manifest into tree, save will be done differently
+        if (newManiContent.maniForCpassAtom) {
+            return true; // For password change form we don't need to save as new manifest
+        }
+
         const fileUs = get(newManiContent.fileUsAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');
