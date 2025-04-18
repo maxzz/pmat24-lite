@@ -9,7 +9,7 @@ import { classNames } from "@/utils";
 
 export function BodyNewMani() {
 
-    const fileUs = useAtomValue(newManiContent.newFileUsAtom);
+    const fileUs = newManiContent.newFileUsAtom && useAtomValue(newManiContent.newFileUsAtom);
     if (!fileUs) {
         return null;
     }
@@ -25,7 +25,7 @@ function BodyNewManiOld() {
 
     const showOptOnRight = useSnapshot(appSettings.appUi.uiGeneral).showOptOnRight;
 
-    const fileUs = useAtomValue(newManiContent.newFileUsAtom);
+    const fileUs = newManiContent.newFileUsAtom && useAtomValue(newManiContent.newFileUsAtom);
     if (!fileUs) {
         return null;
     }

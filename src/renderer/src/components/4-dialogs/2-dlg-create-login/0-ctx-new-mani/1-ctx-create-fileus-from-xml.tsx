@@ -5,7 +5,6 @@ import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napi
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
-import { m } from "motion/dist/react";
 import { FormIdx } from "@/store/manifest";
 
 type MoveFromAppsToNextPageParams = {
@@ -54,7 +53,8 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
-        set(newManiContent.newFileUsAtom, fileUs);
+        const newFileUsAtom = atom(fileUs);
+        newManiContent.newFileUsAtom = newFileUsAtom;
 
         const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
         set(fileUs.maniAtomsAtom, maniAtoms);

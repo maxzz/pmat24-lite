@@ -34,7 +34,7 @@ const doSaveNewManiAtom = atom(
             return true; // For password change form we don't need to save as new manifest
         }
 
-        const fileUs = get(newManiContent.newFileUsAtom);
+        const fileUs = newManiContent.newFileUsAtom && get(newManiContent.newFileUsAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');
             return false;

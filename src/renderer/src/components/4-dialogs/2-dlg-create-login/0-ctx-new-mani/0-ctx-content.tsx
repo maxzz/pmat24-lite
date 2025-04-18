@@ -6,21 +6,36 @@ import { FormIdx } from "@/store/manifest";
 
 class NewManiContent implements NewManiContentData {
     maniXmlAtom = atom<string | undefined>(undefined);
-    newFileUsAtom = atom<FileUs | undefined>(undefined); //TODO: it's better to use FileUsAtom | undefined
+    newFileUsAtom: FileUsAtom | undefined = undefined;
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
     init() {
         this.maniXmlAtom = atom<string | undefined>(undefined);
-        this.newFileUsAtom = atom<FileUs | undefined>(undefined);
+        this.newFileUsAtom = undefined;
     }
 };
 
 export const newManiContent = new NewManiContent();
 
-//
+// New manifest fileUs atom
+
+export const newManiFileUsAtom = atom<FileUs | undefined>(
+    (get) => {
+        if (!newManiContent.newFileUsAtom) {
+            return undefined;
+        }
+        return get(newManiContent.newFileUsAtom);
+    }
+);
+
+// new manifest display name atom
 
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     (get) => {
+        if (!newManiContent.newFileUsAtom) {
+            return null;
+        }
+
         const fileUs = get(newManiContent.newFileUsAtom);
         if (!fileUs) {
             return null;
