@@ -1,10 +1,12 @@
 import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
 import { errorToString } from "@/utils";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, ManiAtoms } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { newManiContent } from "./0-ctx-content";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
+import { m } from "motion/dist/react";
+import { FormIdx } from "@/store/manifest";
 
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
@@ -18,7 +20,7 @@ type MoveFromAppsToNextPageParams = {
  * @returns true if move to the next page is allowed
  */
 export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
-    
+
     // 0. Claen up the context before parsing
     newManiContent.init();
 
@@ -48,19 +50,26 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 3. Parse maniXml to fileUs
     try {
-        // const mainForCpassAtom = atom<FileUs | undefined>(undefined); // temp here: should be set from file where create password change form
-        // const mainForCpass = get(mainForCpassAtom);
-
         const mainForCpass = newManiContent.mainForCpassAtom && get(newManiContent.mainForCpassAtom);
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
 
+        if (mainForCpass) {
+            const mainManiAtoms = get(mainForCpass.maniAtomsAtom);
+            const newManiAtoms = get(fileUs.maniAtomsAtom);
+
+            if (mainManiAtoms && newManiAtoms) {
+                (mainManiAtoms as Writeable<ManiAtoms>)[FormIdx.cpass] = newManiAtoms[FormIdx.cpass];
+                set(mainForCpass.maniAtomsAtom, mainManiAtoms);
+            }
+        }
+
         set(newManiContent.fileUsAtom, fileUs);
-        
+
         const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.fileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
         set(fileUs.maniAtomsAtom, maniAtoms);
-        
+
     } catch (error) {
         newManiContent.init();
 
