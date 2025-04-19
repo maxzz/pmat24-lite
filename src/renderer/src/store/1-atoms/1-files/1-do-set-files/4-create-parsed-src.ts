@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
-import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
+import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm } from '@/store/manifest';
 
 function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: Mani.Manifest; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
 
@@ -21,7 +21,11 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: M
     }
 
     if (maniForCpass) {
-        //TODO:
+        if (!maniForCpass.parsedSrc.mani) {
+            throw new Error('No mani for cpass');
+        }
+        const firstForm = parsedMani.forms[0];
+        maniForCpass.parsedSrc.mani.forms[1] = firstForm;
     }
 }
 
@@ -43,6 +47,13 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
         rv.fcat = parsedFcat;
+
+        if (maniForCpass) {
+            if (!maniForCpass.parsedSrc.meta || !maniForCpass.parsedSrc.mani || !rv.mani) {
+                throw new Error('No mani for cpass');
+            }
+            rebuildMetaFormsWithCpassForm(maniForCpass.parsedSrc.meta, maniForCpass.parsedSrc.mani.forms, rv.mani.forms[0]);
+        }
 
         if (fileCnt.newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
             const loginMetaForm = rv.meta[0];
