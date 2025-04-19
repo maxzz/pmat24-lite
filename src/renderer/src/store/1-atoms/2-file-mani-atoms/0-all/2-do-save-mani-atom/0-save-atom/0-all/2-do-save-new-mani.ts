@@ -55,3 +55,6 @@ const doSaveNewManiAtom = atom(
         return saved;
     }
 );
+
+//04.12.25
+//TODO: if we edit file name we should update sort order and filter but when user click save or reset button (i.e. not on every name update).

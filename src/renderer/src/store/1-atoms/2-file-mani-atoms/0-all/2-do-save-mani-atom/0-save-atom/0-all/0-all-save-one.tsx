@@ -4,12 +4,13 @@ import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../../../9-types";
-import { fileUsToXmlString } from "./1-fileus-to-xml-string";
-import { saveToFileSystem } from "./7-save-to-file-system";
-import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
-import { filesAtom, updateFileUsAfterSaveOrResetAtom } from "@/store/1-atoms/1-files";
+import { filesAtom } from "@/store/1-atoms/1-files";
 import { addToTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
+import { fileUsToXmlString } from "./1-fileus-to-xml-string";
+import { updateFileUsAfterSaveOrResetAtom } from "./3-save-or-reset-fileus";
+import { saveToFileSystem } from "./7-save-to-file-system";
+import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 
 /**
  * newFilename - filename without path.

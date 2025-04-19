@@ -1,10 +1,10 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { resetManifest } from "./1-reset-manifest";
-import { fileUsChanges } from "../../9-types";
-//import { resetFc } from "./5-reset-fc";
 import { toast } from "sonner";
-import { updateFileUsAfterSaveOrResetAtom } from "@/store/1-atoms/1-files/1-do-set-files";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { fileUsChanges } from "../../9-types";
+import { updateFileUsAfterSaveOrResetAtom } from "../2-do-save-mani-atom/0-save-atom/0-all/3-save-or-reset-fileus";
+import { resetManifest } from "./1-reset-manifest";
+//import { resetFc } from "./5-reset-fc";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
@@ -45,6 +45,3 @@ function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter,
     set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
     fileUsChanges.clearAll({ fileUs });
 }
-
-//04.12.25
-//TODO: if we edit file name we should update sort order and filter but when user click save or reset button (i.e. not on every name update).
