@@ -1,11 +1,51 @@
 import { atom } from 'jotai';
 import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
-import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm } from '@/store/manifest';
+import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx } from '@/store/manifest';
+
+export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
+    const rv: ParsedSrc = { mani: undefined, meta: undefined, fcat: undefined, stats: {} as FileUsStats, }; // the real stats will be assigned after parsing content
+
+    try {
+        let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
+
+        if (parsedMani && fileCnt.newFile) {
+            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual: fileCnt.newAsManual });
+        }
+
+        rv.mani = parsedMani;
+        rv.meta = buildManiMetaForms(parsedMani?.forms);
+        rv.fcat = parsedFcat;
+
+        if (maniForCpass) {
+            const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
+            const newForm = rv.mani?.forms[FormIdx.login];
+            if (!existingMeta || !existingMani || !newForm) {
+                throw new Error('No mani for cpass');
+            }
+            rebuildMetaFormsWithCpassForm(existingMeta, existingMani.forms, newForm);
+        }
+
+        if (fileCnt.newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
+            const createdForm = maniForCpass ? maniForCpass.parsedSrc.meta?.[FormIdx.cpass] : rv.meta?.[FormIdx.login];
+            if (!createdForm) {
+                throw new Error('Cannot find meta form');
+            }
+            createdForm.disp.isScript = true;
+        }
+    } catch (error) {
+        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
+        fileCnt.raw = msg;
+        fileCnt.failed = true;
+        console.error(msg);
+    }
+
+    rv.stats = createFileUsStats(fileCnt, rv);
+    return rv;
+}
 
 function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: Mani.Manifest; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
-
-    if (parsedMani.forms.length > 1) { // remove cpass form, but also later we need re-create xml
+    if (parsedMani.forms.length > 1) { // remove cpass form (from test xml), but also later we need re-create xml
         parsedMani.forms.length = 1;
     }
 
@@ -27,53 +67,6 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: M
         const firstForm = parsedMani.forms[0];
         maniForCpass.parsedSrc.mani.forms[1] = firstForm;
     }
-}
-
-export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
-    const rv: ParsedSrc = {
-        mani: undefined,
-        meta: undefined,
-        fcat: undefined,
-        stats: {} as FileUsStats, // the real one will be assigned after parsing content
-    };
-
-    try {
-        let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
-
-        if (parsedMani && fileCnt.newFile) {
-            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual: fileCnt.newAsManual });
-        }
-
-        rv.mani = parsedMani;
-        rv.meta = buildManiMetaForms(parsedMani?.forms);
-        rv.fcat = parsedFcat;
-
-        if (maniForCpass) {
-            if (!maniForCpass.parsedSrc.meta || !maniForCpass.parsedSrc.mani || !rv.mani) {
-                throw new Error('No mani for cpass');
-            }
-            rebuildMetaFormsWithCpassForm(maniForCpass.parsedSrc.meta, maniForCpass.parsedSrc.mani.forms, rv.mani.forms[0]);
-        }
-
-        if (fileCnt.newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
-            const loginMetaForm = rv.meta[0];
-            if (loginMetaForm) {
-                loginMetaForm.disp.isScript = true;
-            } else {
-                console.error('Cannot find login meta form');
-            }
-        }
-
-    } catch (error) {
-        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
-        fileCnt.raw = msg;
-        fileCnt.failed = true;
-        console.error(msg);
-    }
-
-    rv.stats = createFileUsStats(fileCnt, rv);
-
-    return rv;
 }
 
 export function createParsedSrcForEmptyFce(fileCnt: FileContent): ParsedSrc {
