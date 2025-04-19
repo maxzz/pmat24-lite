@@ -10,7 +10,7 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     try {
         let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newFile, newAsManual });
+        tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile });
 
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
@@ -28,7 +28,7 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     return rv;
 }
 
-function tweakNewMani({ parsedMani, maniForCpass, newFile, newAsManual }: { parsedMani: Mani.Manifest | undefined; maniForCpass: FileUs | undefined; newFile: boolean; newAsManual: boolean; }): void {
+function tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile }: { parsedMani: Mani.Manifest | undefined; maniForCpass: FileUs | undefined; newAsManual: boolean; newFile: boolean; }): void {
     if (!parsedMani || !newFile) {
         return;
     }
