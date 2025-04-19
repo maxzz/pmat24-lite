@@ -8,20 +8,20 @@ export const allFileUsChanges = proxySet<string>();
 
 export const fileUsChanges = {
     set: setChangeFlag,
-    setCpass: setCpassChange,   // add or delete password change form change
+    setCpass: setCpassChange,   // added or deleted password change form change
     clearAll: clearAllChanges,
     hasChange: hasChange,
     hasAny: hasAnyChange,
 };
 
 function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
-    const set = fileUs.fileCnt.changesSet;
-    set[changed ? 'add' : 'delete'](changeName);
+    const changes = fileUs.fileCnt.changesSet;
+    changes[changed ? 'add' : 'delete'](changeName);
 
-    allFileUsChanges[set.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
+    allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
+    //printChanges(fileUs);
 
-    //console.log('Single File Changes:', JSON.stringify([...changes.keys()]));
-    return set;
+    return changes;
 }
 
 function setCpassChange({ fileUs }: { fileUs: FileUs; }, changed: boolean) {
@@ -39,4 +39,9 @@ function hasChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
 
 function hasAnyChange({ fileUs }: { fileUs: FileUs; }): boolean {
     return fileUs.fileCnt.changesSet.size > 0;
+}
+
+function printChanges(fileUs: FileUs) {
+    const changes: ChangesSet = fileUs.fileCnt.changesSet;
+    console.log('🚼 File Changes:', JSON.stringify([...changes.keys()]));
 }
