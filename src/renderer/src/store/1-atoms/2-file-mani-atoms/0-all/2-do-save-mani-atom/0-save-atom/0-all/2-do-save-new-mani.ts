@@ -51,6 +51,11 @@ const doSaveNewManiAtom = atom(
         });
 
         const saved = await set(doSaveOneAtom, fileUsAtom);
+
+        if (saved) {
+            newManiContent.newFileUsAtom = undefined; // preserve the new fileUsAtom from be disposed by newManiContent.init();
+        }
+
         return saved;
     }
 );
