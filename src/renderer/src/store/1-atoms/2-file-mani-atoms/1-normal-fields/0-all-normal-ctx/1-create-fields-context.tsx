@@ -1,8 +1,8 @@
 import { atom, type Getter, type Setter } from 'jotai';
+import { type OnValueChangeAny, debounce } from '@/utils';
 import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
 import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
-import { type OnChangeProps, setFileUsChangeFlag, type FileUsCtx, type ManiAtoms } from "../../9-types";
-import { type OnValueChangeAny, debounce } from '@/utils';
+import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
 
 export namespace NormalFieldsState {
 
@@ -51,7 +51,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
 
     const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);
-    const changes = setFileUsChangeFlag(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
+    const changes = fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 
     /** /
     const str1 = JSON.stringify(fromUi.policies, null, 2);

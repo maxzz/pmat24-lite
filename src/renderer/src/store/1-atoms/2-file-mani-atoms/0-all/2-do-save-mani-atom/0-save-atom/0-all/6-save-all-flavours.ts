@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { hasFileUsAnyChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { rightPanelAtom } from "@/store/1-atoms/3-right-panel";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { doSaveOneAtom } from "./0-all-save-one";
@@ -24,7 +24,7 @@ export const doSaveAllAtom = atom(null,
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
 
-                if (hasFileUsAnyChanges({ fileUs })) {
+                if (fileUsChanges.hasAny({ fileUs })) {
                     set(doSaveOneAtom, fileUsAtom);
                 }
             }
@@ -40,7 +40,7 @@ export const doSaveAsAtom = atom(null,
 
         const fileUs = get(fileUsAtom);
 
-        const changed = hasFileUsAnyChanges({ fileUs });
+        const changed = fileUsChanges.hasAny({ fileUs });
         if (!changed) {
             return;
         }

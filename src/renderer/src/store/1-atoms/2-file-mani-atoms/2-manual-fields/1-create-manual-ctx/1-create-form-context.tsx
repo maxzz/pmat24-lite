@@ -1,10 +1,10 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, setFileUsChangeFlag } from "../../9-types";
-import { type ManualFieldState, ManualFieldConv } from "../0-conv";
-import { parseForEditor } from "@/store/manifest";
-import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
-import { NormalFieldConv } from "../../1-normal-fields";
 import { atomWithCallback, debounce } from "@/utils";
+import { parseForEditor } from "@/store/manifest";
+import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
+import { type ManualFieldState, ManualFieldConv } from "../0-conv";
+import { NormalFieldConv } from "../../1-normal-fields";
+import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
 import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {
@@ -61,7 +61,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
         const newChunksStr = chunksToCompareString(chunks);
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
-        setFileUsChangeFlag(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+        fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
         // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
         return;
     }
@@ -78,7 +78,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
         set(nextValue.hasErrorAtom, isChunkInvalid(nextValue, get, set));
     }
 
-    setFileUsChangeFlag(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+    fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
     // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
 }
 

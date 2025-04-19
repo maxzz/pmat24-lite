@@ -1,6 +1,6 @@
-import { type FileUsCtx, type ManiAtoms, type OnChangeProps, setFileUsChangeFlag } from "../../9-types";
-import { SubmitConv, type SubmitFieldTypes } from "../2-submit/0-conv";
+import { type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
 import { debounce } from "@/utils";
+import { type SubmitFieldTypes, SubmitConv } from "../2-submit/0-conv";
 
 export namespace NormalSubmitState {
 
@@ -8,11 +8,11 @@ export namespace NormalSubmitState {
 
         const { fileUs, formIdx } = fileUsCtx;
         const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
-        const forAtoms = SubmitConv.forAtoms(metaForm)
+        const forAtoms = SubmitConv.forAtoms(metaForm);
 
         const onChange = ({ get, set }) => {
-            onChangeWithScopeDebounced({fileUsCtx, maniAtoms, get, set});
-        }
+            onChangeWithScopeDebounced({ fileUsCtx, maniAtoms, get, set });
+        };
 
         const rv: SubmitFieldTypes.Ctx = {
             ...SubmitConv.createAtoms(forAtoms, onChange),
@@ -25,7 +25,7 @@ export namespace NormalSubmitState {
     }
 }
 
-function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
+function onChangeWithScope({ fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
     if (!nomalFormAtoms) {
         return;
@@ -35,7 +35,7 @@ function onChangeWithScope({fileUsCtx, maniAtoms, get, set}: OnChangeProps) {
     const fromUi = SubmitConv.fromAtoms(atoms, get, set);
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
 
-    setFileUsChangeFlag(fileUsCtx, changed, `${fileUsCtx.formIdx?'c':'l'}-submit`);
+    fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-submit`);
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);

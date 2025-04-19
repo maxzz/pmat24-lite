@@ -2,7 +2,7 @@ import { type Getter, type Setter } from "jotai";
 import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";
-import { setFileUsChangeFlag, hasFileUsAnyChanges } from "@/store/1-atoms/2-file-mani-atoms";
+import { fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms";
 import { ConsoleStyles } from "@/utils";
 
 export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesProps, get: Getter, set: Setter) {
@@ -50,7 +50,7 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
     }
 
     if (changePrefix) {
-        setFileUsChangeFlag(fceCtx.fceAtoms, changed, `${changePrefix}-${uuid}`);
+        fileUsChanges.set(fceCtx.fceAtoms, changed, `${changePrefix}-${uuid}`);
         printItemChanges(selectedItem, ctx, changed, changePrefix, uuid);
     }
 }

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { clearFileUsChanges, hasFileUsAnyChanges } from "../../../../9-types";
+import { fileUsChanges } from "../../../../9-types";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
@@ -21,7 +21,7 @@ export const doSaveOneAtom = atom(
     async (get, set, fileUsAtom: FileUsAtom, newFilename?: string): Promise<boolean> => {
         const fileUs = get(fileUsAtom);
 
-        const changed = hasFileUsAnyChanges({ fileUs }) || fileUs.fileCnt.newFile;
+        const changed = fileUsChanges.hasAny({ fileUs }) || fileUs.fileCnt.newFile;
         if (!changed) {
             return false;
         }
@@ -48,7 +48,7 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.raw = xml; // Update file content with new modified xml
-        clearFileUsChanges({ fileUs });
+        fileUsChanges.clearAll({ fileUs });
 
         //parse xml and so on...
         set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });

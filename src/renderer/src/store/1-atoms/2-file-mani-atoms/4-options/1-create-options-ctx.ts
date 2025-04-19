@@ -1,8 +1,8 @@
 import { type OnChangeProps, type FileUsCtx, type ManiAtoms } from "../9-types";
 import { type FormOptionsState, FormOptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
-import { setFileUsChangeFlag } from "../9-types";
 import { type OnValueChange, debounce } from "@/utils";
+import { fileUsChanges } from "../9-types";
 
 export namespace OptionsState {
 
@@ -34,7 +34,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, nextValue.data);
     }
 
-    setFileUsChangeFlag(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
+    fileUsChanges.set(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 
     //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
 }

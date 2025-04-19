@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FceItem, type FceCtx } from "@/store";
 import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
-import { hasFileUsChange, setFileUsChangeFlag } from "../../../2-file-mani-atoms";
+import { fileUsChanges } from "../../../2-file-mani-atoms";
 import { doSelectIdxFcAtom } from "./1-do-set-selected";
 import { removeLinksToFceItemAtom } from "./5-file-us-refs-to-fc";
 
@@ -25,7 +25,7 @@ export const doAddItemAtom = atom(
 
         // update file changes
 
-        setFileUsChangeFlag(fceCtx.fceAtoms, true, `add-${newItem.fceMeta.uuid}`);
+        fileUsChanges.set(fceCtx.fceAtoms, true, `add-${newItem.fceMeta.uuid}`);
 
         return newItem;
     }
@@ -67,14 +67,14 @@ export const doDeleteSelectedItemAtom = atom(
 
         const uuid = currentfceItem.fceMeta.uuid;
 
-        if (hasFileUsChange(fceAtoms, `add-${uuid}`)) {
-            setFileUsChangeFlag(fceAtoms, false, `add-${uuid}`);
+        if (fileUsChanges.hasChange(fceAtoms, `add-${uuid}`)) {
+            fileUsChanges.set(fceAtoms, false, `add-${uuid}`);
 
-            setFileUsChangeFlag(fceAtoms, false, `name-${uuid}`);
-            setFileUsChangeFlag(fceAtoms, false, `note-${uuid}`);
-            setFileUsChangeFlag(fceAtoms, false, `life-${uuid}`);
+            fileUsChanges.set(fceAtoms, false, `name-${uuid}`);
+            fileUsChanges.set(fceAtoms, false, `note-${uuid}`);
+            fileUsChanges.set(fceAtoms, false, `life-${uuid}`);
         } else {
-            setFileUsChangeFlag(fceAtoms, true, `del-${uuid}`);
+            fileUsChanges.set(fceAtoms, true, `del-${uuid}`);
         }
     }
 );

@@ -15,8 +15,6 @@ export const doSaveNewManiTriggerAtom = atom(
         if (saved) {
             set(doOpenDlgNewManiSawAtom, false);
             set(doClearSawHandleAtom); // Turn off fields highlight
-
-            //TODO: for password change form it wiil be different
         }
     }
 );
@@ -51,11 +49,9 @@ const doSaveNewManiAtom = atom(
         });
 
         const saved = await set(doSaveOneAtom, fileUsAtom);
-
         if (saved) {
             newManiContent.newFileUsAtom = undefined; // preserve the new fileUsAtom from be disposed by newManiContent.init();
         }
-
         return saved;
     }
 );

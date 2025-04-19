@@ -8,7 +8,15 @@ export const allFileUsChanges = proxySet<string>();
 
 // fileUs changes
 
-export function setFileUsChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
+export const fileUsChanges = {
+    set: setFileUsChangeFlag,
+    setCpass: setFileUsCpassChange, // add or delete password change form change
+    clearAll: clearFileUsChanges,
+    hasChange: hasFileUsChange,
+    hasAny: hasFileUsAnyChanges,
+};
+
+function setFileUsChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
     const set = fileUs.fileCnt.changesSet;
     set[changed ? 'add' : 'delete'](changeName);
 
@@ -18,15 +26,19 @@ export function setFileUsChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: bo
     return set;
 }
 
-export function clearFileUsChanges({ fileUs }: { fileUs: FileUs; }) {
+function setFileUsCpassChange(fileUs: { fileUs: FileUs; }, changed: boolean) {
+    setFileUsChangeFlag(fileUs, changed, 'cpass');
+}
+
+function clearFileUsChanges({ fileUs }: { fileUs: FileUs; }) {
     fileUs.fileCnt.changesSet.clear();
     allFileUsChanges.delete(`${fileUs.fileCnt.unid}`);
 }
 
-export function hasFileUsChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
+function hasFileUsChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
     return fileUs.fileCnt.changesSet.has(name);
 }
 
-export function hasFileUsAnyChanges({ fileUs }: { fileUs: FileUs; }): boolean {
+function hasFileUsAnyChanges({ fileUs }: { fileUs: FileUs; }): boolean {
     return fileUs.fileCnt.changesSet.size > 0;
 }
