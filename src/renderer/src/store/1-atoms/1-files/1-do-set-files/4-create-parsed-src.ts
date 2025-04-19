@@ -10,32 +10,13 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     try {
         let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        if (parsedMani && newFile) {
-            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual });
-        }
+        tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newFile, newAsManual });
 
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
         rv.fcat = parsedFcat;
 
-        tweakNewCpassMeta({ newParsedSrc: rv, maniForCpass, newAsManual });
-
-        // if (maniForCpass) {
-        //     const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
-        //     const newForm = rv.mani?.forms[FormIdx.login];
-        //     if (!existingMeta || !existingMani || !newForm) {
-        //         throw new Error('No mani for cpass');
-        //     }
-        //     rebuildMetaFormsWithCpassForm(existingMeta, existingMani.forms, newForm);
-        // }
-
-        // if (newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
-        //     const createdForm = maniForCpass ? maniForCpass.parsedSrc.meta?.[FormIdx.cpass] : rv.meta?.[FormIdx.login];
-        //     if (!createdForm) {
-        //         throw new Error('Cannot find meta form');
-        //     }
-        //     createdForm.disp.isScript = true;
-        // }
+        tweakNewMeta({ newParsedSrc: rv, maniForCpass, newAsManual });
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;
@@ -47,7 +28,10 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     return rv;
 }
 
-function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: Mani.Manifest; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
+function tweakNewMani({ parsedMani, maniForCpass, newFile, newAsManual }: { parsedMani: Mani.Manifest | undefined; maniForCpass: FileUs | undefined; newFile: boolean; newAsManual: boolean; }): void {
+    if (!parsedMani || !newFile) {
+        return;
+    }
     if (parsedMani.forms.length > 1) { // remove cpass form (from test xml), but also later we need re-create xml
         parsedMani.forms.length = 1;
     }
@@ -71,7 +55,7 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: M
     }
 }
 
-function tweakNewCpassMeta({ newParsedSrc, maniForCpass, newAsManual }: { newParsedSrc: ParsedSrc; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
+function tweakNewMeta({ newParsedSrc, maniForCpass, newAsManual }: { newParsedSrc: ParsedSrc; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
     if (maniForCpass) {
         const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
         const newForm = newParsedSrc.mani?.forms[FormIdx.login];
