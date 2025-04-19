@@ -6,14 +6,14 @@ import { type ManiAtoms, type AnyFormAtoms, type FceCtx, filesAtom } from "@/sto
 /**
  * Discard all array of FileUs atom
  */
-export const doDiscardAllFilesFileUsLinksAtom = atom(
+export const doDisposeAllFilesFileUsLinksAtom = atom(
     null,
     (get, set) => {
         const all = get(filesAtom);
         all.forEach(
             (fileUsAtom) => {
                 const fileUs = get(fileUsAtom);
-                discardFileUs(fileUs, get, set);
+                disposeFileUs(fileUs, get, set);
             }
         );
     }
@@ -22,26 +22,26 @@ export const doDiscardAllFilesFileUsLinksAtom = atom(
 /**
  * Discard FileUs links atom
  */
-export const doDiscardFileUsAtom = atom(
+export const doDisposeFileUsAtom = atom(
     null,
     (get, set, fileUs: FileUs | undefined) => {
-        fileUs && discardFileUs(fileUs, get, set);
+        fileUs && disposeFileUs(fileUs, get, set);
     }
 );
 
 /**
  * Discard FileUs links atom
  */
-export const doDiscardFileUsAtomAtom = atom(
+export const doDisposeFileUsAtomAtom = atom(
     null,
-    (get, set, fileUs: FileUsAtom | undefined) => {
-        fileUs && discardFileUs(get(fileUs), get, set);
+    (get, set, fileUsAtom: FileUsAtom | undefined) => {
+        fileUsAtom && disposeFileUs(get(fileUsAtom), get, set);
     }
 );
 
-function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
-    discardFileUsManiAtoms(fileUs, get, set);
-    discardFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
+function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
+    disposeFileUsManiAtoms(fileUs, get, set);
+    disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
     discardValues(fileUs);
 }
@@ -49,17 +49,17 @@ function discardFileUs(fileUs: FileUs, get: Getter, set: Setter) {
 /**
  * This is used for reset and save operations
  */
-export function discardFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
+export function disposeFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
     let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
-        discardFormAtoms(maniAtoms[0]);
-        discardFormAtoms(maniAtoms[1]);
+        disposeFormAtoms(maniAtoms[0]);
+        disposeFormAtoms(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
     }
 }
 
-function discardFormAtoms(formAtoms: AnyFormAtoms | undefined) {
+function disposeFormAtoms(formAtoms: AnyFormAtoms | undefined) {
     if (formAtoms) {
         discardValues(formAtoms.normal);
         discardValues(formAtoms.manual);
@@ -71,6 +71,6 @@ function discardFormAtoms(formAtoms: AnyFormAtoms | undefined) {
     }
 }
 
-export function discardFceCtx(fceCtx: FceCtx | undefined | null) {
+export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
     discardValues(fceCtx);
 }

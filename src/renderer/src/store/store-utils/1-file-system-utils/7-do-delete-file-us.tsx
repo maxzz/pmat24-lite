@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { rightPanelAtom } from "@/store/1-atoms";
-import { doDiscardFileUsAtom } from "./8-discard-file-us";
+import { doDisposeFileUsAtom } from "./8-dispose-file-us";
 
 /**
  * Delete single file
@@ -14,7 +14,7 @@ const doDeleteFileUsAtom = atom(
         }
 
         const fileUs = get(fileUsAtom);
-        set(doDiscardFileUsAtom, fileUs);
+        set(doDisposeFileUsAtom, fileUs);
 
         //TODO: remove file from filesAtom and File system
     }

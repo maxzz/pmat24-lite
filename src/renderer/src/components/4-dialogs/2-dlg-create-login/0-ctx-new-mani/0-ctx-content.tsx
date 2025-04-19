@@ -1,6 +1,6 @@
 import { type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
-import { type FileUsAtom, type FileUs, type OFormContextProps, doDiscardFileUsAtomAtom } from "@/store";
+import { type FileUsAtom, type FileUs, type OFormContextProps, doDisposeFileUsAtomAtom } from "@/store";
 import { type NewManiContentData } from "./9-types";
 import { FormIdx } from "@/store/manifest";
 
@@ -11,7 +11,7 @@ class NewManiContent implements NewManiContentData {
 
     init(set: Setter) {
         this.maniXmlAtom = atom<string | undefined>(undefined);
-        set(doDiscardFileUsAtomAtom, newManiContent.newFileUsAtom);
+        set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom);
         this.newFileUsAtom = undefined;
     }
 };

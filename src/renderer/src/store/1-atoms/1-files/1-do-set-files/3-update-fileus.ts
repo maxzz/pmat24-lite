@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { type FileUsAtom, type FileUs, discardFileUsManiAtoms, createManiAtoms } from '@/store';
+import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms } from '@/store';
 import { createParsedSrc } from './4-create-parsed-src';
 
 /**
@@ -27,7 +27,7 @@ function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, re
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, maniForCpass: undefined });
     }
 
-    discardFileUsManiAtoms(fileUs, get, set);
+    disposeFileUsManiAtoms(fileUs, get, set);
 
     const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
 

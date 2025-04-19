@@ -1,5 +1,5 @@
 /**
- * Discard all keys value to undefined at the top level
+ * Discard all keys value to undefined at the top level to break cross references.
  */
 export function discardValues(obj: {} | undefined | null) {
     if (!obj) {
