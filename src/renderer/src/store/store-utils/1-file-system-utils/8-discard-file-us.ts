@@ -1,6 +1,6 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
-import { type FileUs } from "@/store/store-types";
+import { FileUsAtom, type FileUs } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
@@ -24,8 +24,18 @@ export const doDiscardAllFilesFileUsLinksAtom = atom(
  */
 export const doDiscardFileUsAtom = atom(
     null,
-    (get, set, fileUs: FileUs) => {
-        discardFileUs(fileUs, get, set);
+    (get, set, fileUs: FileUs | undefined) => {
+        fileUs && discardFileUs(fileUs, get, set);
+    }
+);
+
+/**
+ * Discard FileUs links atom
+ */
+export const doDiscardFileUsAtomAtom = atom(
+    null,
+    (get, set, fileUs: FileUsAtom | undefined) => {
+        fileUs && discardFileUs(get(fileUs), get, set);
     }
 );
 

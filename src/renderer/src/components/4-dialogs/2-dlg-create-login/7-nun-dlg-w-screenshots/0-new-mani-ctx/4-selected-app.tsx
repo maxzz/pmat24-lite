@@ -22,7 +22,7 @@ export function create_AppSelectedIdxAtom() {
 
             newManiCtx.lastSelectedHwnd = items[newIdx]?.item.hwnd;
 
-            newManiContent.init();
+            newManiContent.init(set);
         }
     );
 }

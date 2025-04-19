@@ -15,7 +15,7 @@ export function create_DoInitNewManiCtxAtom() {
 
             set(doSetScreenshotsAtom, { width: defaultScreenshotWidth });
 
-            newManiContent.init();
+            newManiContent.init(set);
 
             ctx.appsScrollPos.setTop(0);
 
