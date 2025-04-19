@@ -53,25 +53,22 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
-        const newFileUsAtom = atom(fileUs);
+        const newFileUsAtom: FileUsAtom = atom(fileUs);
+
         newManiContent.newFileUsAtom = newFileUsAtom;
 
-        const maniAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom as FileUsAtom }); // Cast here to remove undefined type from newManiContent.fileUsAtom, see previous line
-        set(fileUs.maniAtomsAtom, maniAtoms);
+        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom});
 
         if (mainForCpass) {
-            const mainManiAtoms = get(mainForCpass.maniAtomsAtom);
-            const createManiAtoms = get(fileUs.maniAtomsAtom);
+            const cpassManiAtoms = get(mainForCpass.maniAtomsAtom);
 
-            if (mainManiAtoms && createManiAtoms) {
-                // (mainManiAtoms as Writeable<ManiAtoms>)[FormIdx.cpass] = createManiAtoms[FormIdx.cpass];
-                const newManiAtoms: ManiAtoms = [mainManiAtoms[FormIdx.login], createManiAtoms[FormIdx.login]];
-                set(mainForCpass.maniAtomsAtom, newManiAtoms);
+            if (cpassManiAtoms && createdManiAtoms) {
+                set(mainForCpass.maniAtomsAtom, [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]]);
             }
 
             //TODO: tweak xml, now or later on save?
-
-            return true;
+        } else {
+            set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
         return true;
