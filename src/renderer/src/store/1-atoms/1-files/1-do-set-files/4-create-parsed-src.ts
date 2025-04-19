@@ -5,34 +5,37 @@ import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFr
 
 export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = { mani: undefined, meta: undefined, fcat: undefined, stats: {} as FileUsStats, }; // the real stats will be assigned after parsing content
+    const { newFile, newAsManual } = fileCnt;
 
     try {
         let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
-        if (parsedMani && fileCnt.newFile) {
-            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual: fileCnt.newAsManual });
+        if (parsedMani && newFile) {
+            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual });
         }
 
         rv.mani = parsedMani;
         rv.meta = buildManiMetaForms(parsedMani?.forms);
         rv.fcat = parsedFcat;
 
-        if (maniForCpass) {
-            const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
-            const newForm = rv.mani?.forms[FormIdx.login];
-            if (!existingMeta || !existingMani || !newForm) {
-                throw new Error('No mani for cpass');
-            }
-            rebuildMetaFormsWithCpassForm(existingMeta, existingMani.forms, newForm);
-        }
+        tweakNewCpassMeta({ newParsedSrc: rv, maniForCpass, newAsManual });
 
-        if (fileCnt.newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
-            const createdForm = maniForCpass ? maniForCpass.parsedSrc.meta?.[FormIdx.cpass] : rv.meta?.[FormIdx.login];
-            if (!createdForm) {
-                throw new Error('Cannot find meta form');
-            }
-            createdForm.disp.isScript = true;
-        }
+        // if (maniForCpass) {
+        //     const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
+        //     const newForm = rv.mani?.forms[FormIdx.login];
+        //     if (!existingMeta || !existingMani || !newForm) {
+        //         throw new Error('No mani for cpass');
+        //     }
+        //     rebuildMetaFormsWithCpassForm(existingMeta, existingMani.forms, newForm);
+        // }
+
+        // if (newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
+        //     const createdForm = maniForCpass ? maniForCpass.parsedSrc.meta?.[FormIdx.cpass] : rv.meta?.[FormIdx.login];
+        //     if (!createdForm) {
+        //         throw new Error('Cannot find meta form');
+        //     }
+        //     createdForm.disp.isScript = true;
+        // }
     } catch (error) {
         const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
         fileCnt.raw = msg;
@@ -55,9 +58,8 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: M
     }
 
     if (newAsManual) {
-        const newForm = createNewManualFormFrom(loginForm);
-        newForm.fields = defaultManualFormFields();
-        parsedMani.forms[0] = newForm;
+        parsedMani.forms[0] = createNewManualFormFrom(loginForm);
+        parsedMani.forms[0].fields = defaultManualFormFields();
     }
 
     if (maniForCpass) {
@@ -66,6 +68,25 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: M
         }
         const firstForm = parsedMani.forms[0];
         maniForCpass.parsedSrc.mani.forms[1] = firstForm;
+    }
+}
+
+function tweakNewCpassMeta({ newParsedSrc, maniForCpass, newAsManual }: { newParsedSrc: ParsedSrc; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
+    if (maniForCpass) {
+        const { mani: existingMani, meta: existingMeta } = maniForCpass.parsedSrc;
+        const newForm = newParsedSrc.mani?.forms[FormIdx.login];
+        if (!existingMeta || !existingMani || !newForm) {
+            throw new Error('No mani for cpass');
+        }
+        rebuildMetaFormsWithCpassForm(existingMeta, existingMani.forms, newForm);
+    }
+
+    if (newAsManual) { //TODO: we don't need this if we add some predefined fields, which maybe not bad idea
+        const createdForm = maniForCpass ? maniForCpass.parsedSrc.meta?.[FormIdx.cpass] : newParsedSrc.meta?.[FormIdx.login];
+        if (!createdForm) {
+            throw new Error('Cannot find meta form');
+        }
+        createdForm.disp.isScript = true;
     }
 }
 
