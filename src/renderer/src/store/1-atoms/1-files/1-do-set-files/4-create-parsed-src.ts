@@ -5,18 +5,19 @@ import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFr
 
 function tweakNewMani({ parsedMani, masterFileUs, newAsManual }: { parsedMani: Mani.Manifest; masterFileUs: FileUs | undefined; newAsManual: boolean; }): void {
 
-    if (newAsManual) {
-        const loginForm = parsedMani.forms[0];
-        if (loginForm) {
-            parsedMani.forms[0] = createNewManualFormFrom(loginForm);
-            parsedMani.forms[0].fields.push(...defaultManualFormFields());
-        } else {
-            console.error('Cannot find login form');
-        }
+    if (parsedMani.forms.length > 1) { // remove cpass form, but also later we need re-create xml
+        parsedMani.forms.length = 1;
     }
 
-    if (parsedMani.forms.length > 1) {
-        parsedMani.forms.length = 1; // remove cpass form, but also we need re-create xml
+    const loginForm = parsedMani.forms[0];
+    if (!loginForm) {
+        throw new Error('No app detection part');
+    }
+
+    if (newAsManual) {
+        const newForm = createNewManualFormFrom(loginForm);
+        newForm.fields = defaultManualFormFields();
+        parsedMani.forms[0] = newForm;
     }
 
     if (masterFileUs) {
