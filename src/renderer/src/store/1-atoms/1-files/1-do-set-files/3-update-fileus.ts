@@ -24,7 +24,7 @@ function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, re
     // const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
 
     if (!reset) {
-        fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, masterFileUs: undefined });
+        fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, maniForCpass: undefined });
     }
 
     discardFileUsManiAtoms(fileUs, get, set);

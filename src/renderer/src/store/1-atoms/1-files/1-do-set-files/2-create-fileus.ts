@@ -7,15 +7,15 @@ import { createParsedSrc } from './4-create-parsed-src';
 /**
  * 
  * @param fileContent 
- * @param masterFileUs - file for password change
+ * @param maniForCpass - file for password change
  * @returns new fileUs
  */
-export function createFileUsFromFileContent(fileContent: FileContent, masterFileUs?: FileUs): FileUs {
+export function createFileUsFromFileContent(fileContent: FileContent, maniForCpass?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 
     const rv: FileUs = {
         fileCnt,
-        parsedSrc: createParsedSrc({ fileCnt, masterFileUs }),
+        parsedSrc: createParsedSrc({ fileCnt, maniForCpass }),
         uiState: {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),

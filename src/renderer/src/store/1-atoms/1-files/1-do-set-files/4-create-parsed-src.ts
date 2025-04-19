@@ -3,7 +3,7 @@ import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
 import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils } from '@/store/manifest';
 
-function tweakNewMani({ parsedMani, masterFileUs, newAsManual }: { parsedMani: Mani.Manifest; masterFileUs: FileUs | undefined; newAsManual: boolean; }): void {
+function tweakNewMani({ parsedMani, maniForCpass, newAsManual }: { parsedMani: Mani.Manifest; maniForCpass: FileUs | undefined; newAsManual: boolean; }): void {
 
     if (parsedMani.forms.length > 1) { // remove cpass form, but also later we need re-create xml
         parsedMani.forms.length = 1;
@@ -20,12 +20,12 @@ function tweakNewMani({ parsedMani, masterFileUs, newAsManual }: { parsedMani: M
         parsedMani.forms[0] = newForm;
     }
 
-    if (masterFileUs) {
+    if (maniForCpass) {
         //TODO:
     }
 }
 
-export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileContent; masterFileUs: FileUs | undefined; }): ParsedSrc {
+export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = {
         mani: undefined,
         meta: undefined,
@@ -37,7 +37,7 @@ export function createParsedSrc({ fileCnt, masterFileUs }: { fileCnt: FileConten
         let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
 
         if (parsedMani && fileCnt.newFile) {
-            tweakNewMani({ parsedMani, masterFileUs, newAsManual: fileCnt.newAsManual });
+            tweakNewMani({ parsedMani, maniForCpass: maniForCpass, newAsManual: fileCnt.newAsManual });
         }
 
         rv.mani = parsedMani;
