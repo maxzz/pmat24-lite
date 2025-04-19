@@ -10,7 +10,7 @@ import { fceItemValueToCatalogItemInFile } from "../../2-pack";
 
 export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     const fileUs = get(fileUsAtom);
-    
+
     let res: ConvertToXmlStringResult | undefined;
 
     if (fileUs.fceAtomsForFcFile) {
@@ -19,9 +19,10 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Sett
     } else {
         // Manifest
         const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (maniAtoms) {
-            res = getManiContentText(fileUs, maniAtoms, get, set);
+        if (!maniAtoms) {
+            throw new Error('No maniAtoms');
         }
+        res = getManiContentText(fileUs, maniAtoms, get, set);
     }
 
     if (res) {
