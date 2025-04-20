@@ -1,7 +1,6 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { rightPanelAtom } from "@/store";
-import { newManiContent } from "@/components/4-dialogs";
+import { newManiContent, rightPanelAtom } from "@/store";
 
 // Open Saw monitor overlay atom
 

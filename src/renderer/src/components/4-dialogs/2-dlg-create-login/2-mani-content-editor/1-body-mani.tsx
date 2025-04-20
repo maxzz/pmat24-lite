@@ -1,8 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { ScrollArea } from "@/ui/shadcn";
-import { appSettings } from "@/store";
-import { newManiFileUsAtom } from "@/components/4-dialogs/2-dlg-create-login";
+import { appSettings, newManiFileUsAtom } from "@/store";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { classNames } from "@/utils";

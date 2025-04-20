@@ -2,12 +2,12 @@ import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai"
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, ManiAtoms, fileUsChanges } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
-import { fileUsToXmlString } from "@/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/0-all/1-fileus-to-xml-string";
-import { printXmlManiFile } from "@/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/0-all/8-save-utils";
+import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/0-all/1-fileus-to-xml-string";
+import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/0-all/8-save-utils";
 
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;

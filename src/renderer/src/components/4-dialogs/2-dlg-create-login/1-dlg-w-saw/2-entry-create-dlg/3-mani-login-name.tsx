@@ -1,6 +1,6 @@
-import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { useAtomValue } from "jotai";
-import { newManiDispNameAtom } from "../../0-ctx-new-mani";
+import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { newManiDispNameAtom } from "@/store";
 
 export function ManiLoginName() {
     

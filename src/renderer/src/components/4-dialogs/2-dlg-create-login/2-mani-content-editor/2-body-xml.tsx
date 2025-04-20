@@ -1,9 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings, newManiContent } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
-import { newManiContent } from "@/components/4-dialogs/2-dlg-create-login";
 
 export function BodyRawXml() {
 

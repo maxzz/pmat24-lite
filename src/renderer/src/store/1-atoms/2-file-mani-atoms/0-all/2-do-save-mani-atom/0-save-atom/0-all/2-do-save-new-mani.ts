@@ -4,7 +4,7 @@ import { rootDir } from "@/store/1-atoms/1-files";
 import { type FileUsAtom } from "@/store/store-types";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { doSaveOneAtom } from "./0-all-save-one";
-import { newManiContent } from "@/components/4-dialogs";
+import { newManiContent } from "@/store";
 import { doClearSawHandleAtom } from "@/store/7-napi-atoms";
 import { doOpenDlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
 

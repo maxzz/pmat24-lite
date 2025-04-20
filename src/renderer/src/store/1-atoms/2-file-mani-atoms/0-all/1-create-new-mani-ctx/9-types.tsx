@@ -1,5 +1,5 @@
 import { type PrimitiveAtom as PA } from "jotai";
-import { type FileUsAtom } from "@/store";
+import { type FileUsAtom } from "@/store/store-types";
 
 /**
  * @member maniForCpassAtom -

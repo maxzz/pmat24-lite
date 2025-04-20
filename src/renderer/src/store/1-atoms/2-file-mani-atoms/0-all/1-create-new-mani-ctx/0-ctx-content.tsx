@@ -1,8 +1,10 @@
 import { type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
-import { type FileUsAtom, type FileUs, type OFormContextProps, doDisposeFileUsAtomAtom } from "@/store";
-import { type NewManiContentType } from "./9-types";
 import { FormIdx } from "@/store/manifest";
+import { type FileUsAtom, type FileUs  } from "@/store/store-types";
+import { type NewManiContentType } from "./9-types";
+import { type OFormContextProps } from "../../9-types";
+import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { newManiContent } from "@/components/4-dialogs";
+import { newManiContent } from "@/store";
 
 const _isDlgOpenAtom = atom(false);
 
