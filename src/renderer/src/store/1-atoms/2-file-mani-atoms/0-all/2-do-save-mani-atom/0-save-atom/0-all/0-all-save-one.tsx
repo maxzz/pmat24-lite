@@ -29,7 +29,7 @@ export const doSaveOneAtom = atom(
 
         // 1. Create xml to be saved
 
-        const xml = fileUsToXmlString(fileUsAtom, get, set); //printXmlManiFile(xml);
+        const xml = fileUsToXmlString(fileUsAtom, true, get, set); //printXmlManiFile(xml);
         if (!xml) {
             return false;
         }
@@ -49,6 +49,7 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.rawLoaded = xml; // Update file content with new modified xml
+        fileUs.fileCnt.rawCpass = undefined; // TODO: it should be reactive
         fileUsChanges.clearAll({ fileUs });
 
         //parse xml and so on...

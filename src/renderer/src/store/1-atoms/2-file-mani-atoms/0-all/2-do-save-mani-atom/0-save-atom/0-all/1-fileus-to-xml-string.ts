@@ -8,13 +8,17 @@ import { filterEmptyValues } from "./8-save-utils";
 import { fceItemValueToCatalogItemInFile } from "../../2-pack";
 import { printTestManifest } from "./8-save-utils";
 
-export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
+/**
+ * @param validate - validation is ommited when we get xml after cpass created
+ * @returns xml string or undefined if validation failed
+ */
+export function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, get: Getter, set: Setter): string | undefined {
     const fileUs = get(fileUsAtom);
 
     let res: ConvertToXmlStringResult | undefined =
         fileUs.fceAtomsForFcFile
-            ? getFcContentText(fileUs.fceAtomsForFcFile, get, set)
-            : getManiContentText(fileUs, get(fileUs.maniAtomsAtom), get, set);
+            ? getFcContentText(fileUs.fceAtomsForFcFile, validate, get, set)
+            : getManiContentText(fileUs, get(fileUs.maniAtomsAtom), validate, get, set);
     if (!res) {
         return;
     }
@@ -29,12 +33,12 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Sett
     return xml;
 }
 
-function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, validate: boolean, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
     if (!maniAtoms) {
         throw new Error('No maniAtoms');
     }
 
-    if (stopIfInvalidAny(maniAtoms, get, set)) {
+    if (validate && stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }
 
@@ -51,7 +55,7 @@ function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, get: Ge
     return rv;
 }
 
-function getFcContentText(fceAtoms: FceAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getFcContentText(fceAtoms: FceAtoms, validate: boolean, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
     const aboutId = get(fceAtoms.aboutAtom);
     const items = get(fceAtoms.allAtom);
 

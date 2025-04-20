@@ -48,7 +48,7 @@ function ContentSelector() {
     }
 
     if (activeView === RightPanelViewType.xml) {
-        return <Body_Xml text={fileUs?.fileCnt.rawLoaded || ''} />;
+        return <Body_Xml text={fileUs?.fileCnt.rawCpass || fileUs?.fileCnt.rawLoaded || ''} />;
     }
 
     return (

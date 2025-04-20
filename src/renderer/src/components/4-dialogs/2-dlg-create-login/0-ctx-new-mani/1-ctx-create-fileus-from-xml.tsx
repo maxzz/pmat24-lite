@@ -6,6 +6,8 @@ import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napi
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
+import { fileUsToXmlString } from "@/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/0-all/1-fileus-to-xml-string";
+import { printXmlManiFile } from "@/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/0-all/8-save-utils";
 
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
@@ -65,6 +67,11 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             if (cpassManiAtoms && createdManiAtoms) {
                 set(mainForCpass.maniAtomsAtom, [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]]);
                 fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
+
+                if (newManiContent.maniForCpassAtom) {
+                    const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
+                    mainForCpass.fileCnt.rawCpass = xml;
+                }
             }
 
             //TODO: tweak xml, now or later on save?
@@ -84,7 +91,8 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 }
 
 //04.19.25
-//TODO: update xml after save
+//TODO: update xml after cpass created - done
 //TODO: password change form has duplicated fields
 //TODO: delete file at least for debug version
 //TODO: displayname="Forgot your Password?" is stored as button instead of checkbox
+//TODO: update modified date after save
