@@ -4,7 +4,7 @@ import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
-import { filterEmptyValues } from "./3-filter-empty-values";
+import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
 
 export function packManifest(packParams: PackManifestDataParams) {
@@ -71,7 +71,7 @@ function printFields(label: string, fields: Mani.Field[], keepEmptyvalues?: bool
             ? fields
             : fields.map(
                 (field) => {
-                    const f = filterEmptyValues({ ...field });
+                    const f = filterOneLevelEmptyValues({ ...field });
                     delete f?.path_ext;
                     return f;
                 }

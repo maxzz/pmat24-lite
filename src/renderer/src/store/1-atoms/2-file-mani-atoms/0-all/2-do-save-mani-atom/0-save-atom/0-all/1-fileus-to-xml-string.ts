@@ -3,7 +3,7 @@ import { type FileUs, type FileUsAtom, type FceAtoms, } from "@/store";
 import { type ManiAtoms } from "../../../../9-types";
 import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, showError } from "@/store/manifest";
 import { stopIfInvalidAny } from "../../1-stop-if-validation-failed";
-import { fceItemValueToCatalogItemInFile, filterEmptyValues, packManifest, toManiFileFormat } from "../../2-pack";
+import { fceItemValueToCatalogItemInFile, filterOneLevelEmptyValues, packManifest, toManiFileFormat } from "../../2-pack";
 import { printTestManifest } from "./8-save-utils";
 
 /**
@@ -59,7 +59,7 @@ function getFcContentText(fceAtoms: FceAtoms, validate: boolean, get: Getter, se
 
     const root: CatalogFile.Root = {
         descriptor: { id: aboutId || createGuid() },
-        names: items.map(item => filterEmptyValues(fceItemValueToCatalogItemInFile(item.fieldValue))).filter(Boolean),
+        names: items.map(item => filterOneLevelEmptyValues(fceItemValueToCatalogItemInFile(item.fieldValue))).filter(Boolean),
     };
 
     const rv = convertToXmlString({ fc: root });

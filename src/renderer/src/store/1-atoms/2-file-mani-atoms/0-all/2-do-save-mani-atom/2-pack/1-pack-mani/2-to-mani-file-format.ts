@@ -1,5 +1,5 @@
 import { FormIdx, type FileMani, type Mani } from "@/store/manifest";
-import { filterEmptyValues } from "./3-filter-empty-values";
+import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
 //TODO: order is wrong
 
@@ -19,7 +19,7 @@ function convertForm(form: Mani.Form, idx: number): FileMani.Form {
         options: convertFormOptions(form.options),
         fields: form.fields.map(convertField),
     };
-    rv = filterEmptyValues(rv)!;
+    rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
 
@@ -28,7 +28,7 @@ function convertFormDetection(detection: Mani.Detection): FileMani.Detection {
         ...detection as FileMani.Detection,
         ...(detection.web_checkurl && { web_checkurl: '1' }),
     };
-    rv = filterEmptyValues(rv)!;
+    rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
 
@@ -41,13 +41,13 @@ function convertFormOptions(options: Mani.Options): FileMani.Options {
     if (rv.balooncount === '3') {
         delete rv.balooncount;
     }
-    return filterEmptyValues(rv)!;
+    return filterOneLevelEmptyValues(rv)!;
 }
 
 function convertField(field: Mani.Field): FileMani.Field {
     let rv: FileMani.Field = {
         ...field as FileMani.Field,
     };
-    rv = filterEmptyValues(rv)!;
+    rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
