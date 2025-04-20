@@ -20,6 +20,7 @@ export function filterEmptyValues<T extends Record<string, any>>(obj: T): T | un
 export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
 
     const rv = { ...newMani };
+    rv.forms = newMani.forms ? [...newMani.forms] as typeof newMani.forms : undefined;
 
     if (rv.forms?.[0]?.detection.names_ext) {
         rv.forms[0].detection = { ...rv.forms[0].detection };
@@ -36,12 +37,12 @@ export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Man
 /**
  * Print shorten xml for debugging.
  */
-export function printXmlManiFile(xml: string) {
-    console.log('%c🚀 ~ xml:\n', 'color: magenta', replaceInXml_NamesExt(xml));
+export function printXmlManiFile(xml: string | undefined) {
+    console.log('%c🚀 ~ xml:\n', 'color: magenta', replaceInXml_NamesExt(xml || '""'));
 }
 
-function replaceInXml_NamesExt(xml: string) {
-    return xml.replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+function replaceInXml_NamesExt(xml: string | undefined) {
+    return (xml || '').replace(/names_ext="[^"]+"/g, 'names_ext="..."');
 }
 
 /**
