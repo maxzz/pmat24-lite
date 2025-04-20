@@ -3,18 +3,6 @@ import { type FileMani, type Mani } from "@/store/manifest";
 import { getFilenameAndExt } from "@/utils";
 
 /**
- * Filter empty values from the object at the top level.
- * If the object is empty, return undefined.
- */
-export function filterEmptyValues<T extends Record<string, any>>(obj: T): T | undefined {
-    const entries = Object
-        .entries(obj)
-        .filter(([key, value]) => !!value);
-
-    return entries.length ? Object.fromEntries(entries) as T : undefined;
-}
-
-/**
  * Print shorten manifest for debugging without destructing the original manifest.
  */
 export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
