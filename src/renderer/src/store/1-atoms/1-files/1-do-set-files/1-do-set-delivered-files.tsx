@@ -91,7 +91,7 @@ export const doSetDeliveredFilesAtom = atom(
                 (fileUs) => {
                     const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
                     if (notUs) {
-                        fileUs.fileCnt.failed && console.error(fileUs.fileCnt.raw);
+                        fileUs.fileCnt.failed && console.error(fileUs.fileCnt.rawLoaded);
                         unsupported.push(fileUs);
                     }
                     return !notUs;

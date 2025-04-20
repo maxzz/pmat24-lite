@@ -8,7 +8,7 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     const { newFile, newAsManual } = fileCnt;
 
     try {
-        let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.raw || '');
+        let { mani: parsedMani, fcat: parsedFcat } = parseXMLFile(fileCnt.rawLoaded || '');
 
         tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile });
 
@@ -18,8 +18,8 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
 
         tweakNewMeta({ newParsedSrc: rv, maniForCpass, newAsManual });
     } catch (error) {
-        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.raw}`;
-        fileCnt.raw = msg;
+        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.rawLoaded}`;
+        fileCnt.rawLoaded = msg;
         fileCnt.failed = true;
         console.error(msg);
     }

@@ -6,7 +6,7 @@ export type FileContent = {
     fpath: string;                      // FileSystem path without filename (if file fromMain then path is real and w/ Windows backslashes)
     fmodi: number;                      // file.lastModified
     size: number;                       // file size
-    raw: string;                        // file content as it was loaded or error message
+    rawLoaded: string;                  // file content as it was loaded or error message
 
     failed: boolean;                    // if failed the 'raw' member has the error message.
     notOur: boolean;                    // load of file content was blocked by allowedExt list.

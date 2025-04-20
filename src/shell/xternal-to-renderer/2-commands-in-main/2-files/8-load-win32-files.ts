@@ -21,9 +21,9 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
 
             try {
                 const fullName = join(fileContent.fpath!, fileContent.fname);
-                fileContent.raw = readFileSync(fullName).toString();
+                fileContent.rawLoaded = readFileSync(fullName).toString();
             } catch (error) {
-                fileContent.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                fileContent.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
                 fileContent.failed = true;
             }
         }
@@ -55,7 +55,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                 fpath: dirname(filename),
                 fmodi: 0,
                 size: 0,
-                raw: '',
+                rawLoaded: '',
                 failed: false,
                 notOur: false,
                 newFile: false,
@@ -77,7 +77,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                     collectNamesRecursively(entries, rv);
                 }
             } catch (error) {
-                newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
                 newItem.failed = true;
                 rv.push(newItem);
             }

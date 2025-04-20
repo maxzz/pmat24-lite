@@ -35,7 +35,7 @@ function ContentSelector() {
             ? 'No file selected'
             : fileUs.parsedSrc.stats.isFCatRoot // it can be just created file
                 ? undefined
-                : !fileUs.fileCnt.raw
+                : !fileUs.fileCnt.rawLoaded
                     ? 'Not supported format'
                     : undefined;
 
@@ -48,7 +48,7 @@ function ContentSelector() {
     }
 
     if (activeView === RightPanelViewType.xml) {
-        return <Body_Xml text={fileUs?.fileCnt.raw || ''} />;
+        return <Body_Xml text={fileUs?.fileCnt.rawLoaded || ''} />;
     }
 
     return (

@@ -24,7 +24,7 @@ export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): 
                 fpath: openItem.fpath,
                 fmodi: openItem.fileWeb.lastModified,
                 size: openItem.fileWeb.size,
-                raw: '',
+                rawLoaded: '',
 
                 newFile: false,
                 newAsManual: false,
@@ -39,9 +39,9 @@ export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): 
             };
 
             try {
-                newItem.raw = openItem.notOur ? '' : await textFileReaderPromisify(openItem.fileWeb);
+                newItem.rawLoaded = openItem.notOur ? '' : await textFileReaderPromisify(openItem.fileWeb);
             } catch (error) {
-                newItem.raw = error instanceof Error ? error.message : JSON.stringify(error);
+                newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
                 newItem.failed = true;
             }
 

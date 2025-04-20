@@ -16,7 +16,7 @@ function saveFileUsToFs(fileUs: FileUs, get: Getter, set: Setter) {
     
     const filePath = `${fileCnt.fpath}/${fileCnt.fname}`;
 
-    const cnt = fileCnt.raw; //TODO: get content from fileUs
+    const cnt = fileCnt.rawLoaded; //TODO: get content from fileUs
 
     console.log('saveFileToFs', filePath, cnt);
 

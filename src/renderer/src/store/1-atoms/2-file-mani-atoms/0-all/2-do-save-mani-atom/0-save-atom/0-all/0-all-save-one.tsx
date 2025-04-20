@@ -48,7 +48,7 @@ export const doSaveOneAtom = atom(
 
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
-        fileUs.fileCnt.raw = xml; // Update file content with new modified xml
+        fileUs.fileCnt.rawLoaded = xml; // Update file content with new modified xml
         fileUsChanges.clearAll({ fileUs });
 
         //parse xml and so on...

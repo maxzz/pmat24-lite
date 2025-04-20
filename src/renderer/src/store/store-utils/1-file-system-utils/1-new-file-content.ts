@@ -11,7 +11,7 @@ export function createNewFileContent({ raw, newAsManual }: { raw: string; newAsM
         fpath: '',
         fmodi: 0,
         size: 0,
-        raw,
+        rawLoaded: raw,
         failed: false,
         notOur: false,
         newFile: true,
@@ -31,7 +31,7 @@ export function finalizeFileContent(fileContent: FileContent | null): FileConten
         fpath: fileContent?.fpath || '',
         fmodi: fileContent?.fmodi || 0,
         size: fileContent?.size || 0,
-        raw: fileContent?.raw || '',
+        rawLoaded: fileContent?.rawLoaded || '',
 
         failed: fileContent?.failed ?? false,
         notOur: fileContent?.notOur ?? false,
