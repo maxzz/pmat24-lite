@@ -15,18 +15,22 @@ export function filterEmptyValues<T extends Record<string, any>>(obj: T): T | un
 }
 
 /**
- * Print shorten manifest for debugging.
+ * Print shorten manifest for debugging without destructing the original manifest.
  */
 export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
 
-    if (newMani.forms?.[0]?.detection.names_ext) {
-        newMani.forms[0].detection.names_ext = "...";
+    const rv = { ...newMani };
+
+    if (rv.forms?.[0]?.detection.names_ext) {
+        rv.forms[0].detection = { ...rv.forms[0].detection };
+        rv.forms[0].detection.names_ext = "...";
     }
-    if (newMani.forms?.[1]?.detection.names_ext) {
-        newMani.forms[1].detection.names_ext = "...";
+    if (rv.forms?.[1]?.detection.names_ext) {
+        rv.forms[1].detection = { ...rv.forms[1].detection };
+        rv.forms[1].detection.names_ext = "...";
     }
 
-    console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(newMani, null, 2));
+    console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(rv, null, 2));
 }
 
 /**
