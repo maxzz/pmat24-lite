@@ -1,11 +1,11 @@
 import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
 import { errorToString } from "@/utils";
-import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, ManiAtoms } from "@/store";
-import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
-import { newManiContent } from "./0-ctx-content";
-import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { FormIdx } from "@/store/manifest";
+import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, ManiAtoms, fileUsChanges } from "@/store";
+import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
+import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
+import { newManiContent } from "./0-ctx-content";
 
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
@@ -57,13 +57,14 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         newManiContent.newFileUsAtom = newFileUsAtom;
 
-        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom});
+        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newManiContent.newFileUsAtom });
 
         if (mainForCpass) {
             const cpassManiAtoms = get(mainForCpass.maniAtomsAtom);
 
             if (cpassManiAtoms && createdManiAtoms) {
                 set(mainForCpass.maniAtomsAtom, [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]]);
+                fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
             }
 
             //TODO: tweak xml, now or later on save?
