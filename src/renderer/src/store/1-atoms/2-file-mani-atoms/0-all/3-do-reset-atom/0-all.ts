@@ -19,18 +19,12 @@ export const doResetOneAtom = atom(null,
         } else {
             resetManifextTake2(fileUsAtom, fileUs, get, set);
         }
-
-        //console.log('reset', fileUs.fileCnt.fname);
     }
 );
 
-function resetFieldCatalog(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
-    toast.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
-    /*
-    // Good but deprecated (see notes inside resetFc()):
-    resetFc(fileUs, fileUsAtom, get, set);
-    clearFileUsChanges({ fileUs });
-    */
+function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+    set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
+    fileUsChanges.clearAll({ fileUs });
 }
 
 function resetManifextTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
@@ -41,7 +35,11 @@ function resetManifextTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter,
     }
 }
 
-function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
-    set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
-    fileUsChanges.clearAll({ fileUs });
+function resetFieldCatalog(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+    toast.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
+    /*
+    // Good but deprecated (see notes inside resetFc()):
+    resetFc(fileUs, fileUsAtom, get, set);
+    clearFileUsChanges({ fileUs });
+    */
 }

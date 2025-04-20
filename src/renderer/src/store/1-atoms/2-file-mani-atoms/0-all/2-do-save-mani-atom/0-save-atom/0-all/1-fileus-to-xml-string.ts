@@ -6,57 +6,48 @@ import { stopIfInvalidAny } from "../../1-stop-if-validation-failed";
 import { packManifest, toManiFileFormat } from "../1-pack-mani";
 import { filterEmptyValues } from "./8-save-utils";
 import { fceItemValueToCatalogItemInFile } from "../../2-pack";
-// import { printTestManifest } from "./8-save-utils";
+import { printTestManifest } from "./8-save-utils";
 
 export function fileUsToXmlString(fileUsAtom: FileUsAtom, get: Getter, set: Setter): string | undefined {
     const fileUs = get(fileUsAtom);
 
-    let res: ConvertToXmlStringResult | undefined;
-
-    if (fileUs.fceAtomsForFcFile) {
-        // FC
-        res = getFcContentText(fileUs.fceAtomsForFcFile, get, set);
-    } else {
-        // Manifest
-        const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms) {
-            throw new Error('No maniAtoms');
-        }
-        res = getManiContentText(fileUs, maniAtoms, get, set);
+    let res: ConvertToXmlStringResult | undefined =
+        fileUs.fceAtomsForFcFile
+            ? getFcContentText(fileUs.fceAtomsForFcFile, get, set)
+            : getManiContentText(fileUs, get(fileUs.maniAtomsAtom), get, set);
+    if (!res) {
+        return;
     }
 
-    if (res) {
-        const { xml, error } = res;
-
-        if (error || !xml) {
-            console.error('Error converting to xml', error);
-            showError({ error });
-            return;
-        }
-
-        //console.log('%c---------new xml from converted---------', 'color: green', `\n${xml}`);
-        return xml;
+    const { xml, error } = res;
+    if (error || !xml) {
+        console.error('Error converting to xml', error);
+        showError({ error });
+        return;
     }
+
+    return xml;
 }
 
-function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+    if (!maniAtoms) {
+        throw new Error('No maniAtoms');
+    }
+
     if (stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }
 
     // Now validation done
 
-    const newMani: Partial<Mani.Manifest> = {
-        forms: [],
-    };
+    const newMani: Partial<Mani.Manifest> = { forms: [], };
 
     packManifest({ fileUs, maniAtoms, newMani, get, set });
 
     const root: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: root });
 
-    // if (rv.xml) { printTestManifest(fileMani4Xml); printTestManifest(newMani); }
-
+    //printResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
     return rv;
 }
 
@@ -71,4 +62,11 @@ function getFcContentText(fceAtoms: FceAtoms, get: Getter, set: Setter): Convert
 
     const rv = convertToXmlString({ fc: root });
     return rv;
+}
+
+function printXmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
+    if (xml) {
+        printTestManifest(inFileFormat);
+        printTestManifest(inManiFormat);
+    }
 }
