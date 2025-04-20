@@ -8,7 +8,7 @@ import { filesAtom } from "@/store/1-atoms/1-files";
 import { addToTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 import { fileUsToXmlString } from "./1-fileus-to-xml-string";
-import { updateFileUsAfterSaveOrResetAtom } from "./3-save-or-reset-fileus";
+import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
 
@@ -52,7 +52,7 @@ export const doSaveOneAtom = atom(
         fileUsChanges.clearAll({ fileUs });
 
         //parse xml and so on...
-        set(updateFileUsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });
+        set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });
 
         if (fileUs.fileCnt.newFile) {
             set(filesAtom, [...get(filesAtom), fileUsAtom]);

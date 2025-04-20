@@ -5,7 +5,7 @@ import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, 
  * @param fileUsAtom - fileUs to update
  * @param resetToPrev - if there is no reset to original content then newly saved file content will be parsed
  */
-export const updateFileUsAfterSaveOrResetAtom = atom(null,
+export const updateManiAtomsAfterSaveOrResetAtom = atom(null,
     (get, set, { fileUsAtom, resetToPrev: reset }: { fileUsAtom: FileUsAtom; resetToPrev: boolean; }) => {
         const fileUs = get(fileUsAtom);
 
@@ -14,11 +14,11 @@ export const updateFileUsAfterSaveOrResetAtom = atom(null,
             return;
         }
 
-        updateFileUsAfterSaveOrReset(fileUsAtom, fileUs, reset, get, set);
+        updateManiAtomsAfterSaveOrReset(fileUsAtom, fileUs, reset, get, set);
     }
 );
 
-function updateFileUsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, reset: boolean, get: Getter, set: Setter) {
+function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, reset: boolean, get: Getter, set: Setter) {
     const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom; // This atom is used by tree
     // const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
 
