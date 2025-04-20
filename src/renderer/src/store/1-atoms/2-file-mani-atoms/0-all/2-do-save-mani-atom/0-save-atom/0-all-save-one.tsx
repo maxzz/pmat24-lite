@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { fileUsChanges } from "../../../../9-types";
+import { fileUsChanges } from "../../../9-types";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { addToTotalManis } from "@/store/1-atoms/9-ui-state";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
