@@ -28,6 +28,7 @@ export function createFileUsForNewFc(): FileUs {
         fceAtomsRefForMani: undefined,
 
         mainForCpassAtom: undefined,
+        rawCpassAtom: atom<string | undefined>(undefined),
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });

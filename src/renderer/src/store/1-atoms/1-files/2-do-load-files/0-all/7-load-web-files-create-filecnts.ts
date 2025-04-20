@@ -25,7 +25,6 @@ export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): 
                 fmodi: openItem.fileWeb.lastModified,
                 size: openItem.fileWeb.size,
                 rawLoaded: '',
-                rawCpass: undefined,
 
                 newFile: false,
                 newAsManual: false,

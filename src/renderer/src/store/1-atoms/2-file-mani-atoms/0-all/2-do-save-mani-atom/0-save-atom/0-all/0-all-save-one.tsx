@@ -49,7 +49,7 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.idx = get(filesAtom).length;
         fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.rawLoaded = xml; // Update file content with new modified xml
-        fileUs.fileCnt.rawCpass = undefined; // TODO: it should be reactive
+        set(fileUs.rawCpassAtom, undefined);
         fileUsChanges.clearAll({ fileUs });
 
         //parse xml and so on...

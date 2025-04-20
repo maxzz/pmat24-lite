@@ -70,7 +70,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
                 if (newManiContent.maniForCpassAtom) {
                     const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
-                    mainForCpass.fileCnt.rawCpass = xml;
+                    set(mainForCpass.rawCpassAtom, xml);
                 }
             }
 

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { RightPanelViewType, appSettings, fileUsOfRightPanelAtom } from "@/store";
+import { type FileUs, RightPanelViewType, appSettings, fileUsOfRightPanelAtom } from "@/store";
 import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-middle/shared-classes";
 import { R_PanelHeaderBody } from "../1-header";
 import { ManiBody } from "../2-file-mani";
@@ -48,7 +48,11 @@ function ContentSelector() {
     }
 
     if (activeView === RightPanelViewType.xml) {
-        return <Body_Xml text={fileUs?.fileCnt.rawCpass || fileUs?.fileCnt.rawLoaded || ''} />;
+        return (
+            fileUs
+                ? <BodyXmlGuarded fileUs={fileUs} />
+                : <Body_Xml text="" />
+        );
     }
 
     return (
@@ -56,4 +60,9 @@ function ContentSelector() {
             ? <Body_Cat />
             : <ManiBody />
     );
+}
+
+function BodyXmlGuarded({ fileUs }: { fileUs: FileUs; }) {
+    const rawCpass = useAtomValue(fileUs.rawCpassAtom);
+    return <Body_Xml text={rawCpass || fileUs?.fileCnt.rawLoaded || ''} />;
 }

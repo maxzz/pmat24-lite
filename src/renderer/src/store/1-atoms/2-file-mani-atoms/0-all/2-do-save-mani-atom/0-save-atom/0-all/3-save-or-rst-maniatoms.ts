@@ -24,7 +24,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     if (!reset) {
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, maniForCpass: undefined });
-        fileUs.fileCnt.rawCpass = undefined;
+        set(fileUs.rawCpassAtom, undefined);
     }
 
     disposeFileUsManiAtoms(fileUs, get, set);

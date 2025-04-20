@@ -43,6 +43,7 @@ export type FileUs = {
     fceAtomsRefForMani: FceAtoms | undefined;       // for manifest: reference to FceAtoms of the root FC or null if from unmanaged folder (i.e. not root and not A/B/C subfolder) (Maybe later: of correcponding FC if applicable for sub-folder (now only main))
 
     mainForCpassAtom: FileUsAtom | undefined;       // Defined when creating password change form
+    rawCpassAtom: PA<string | undefined>;           // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
 };
 
 export type FileUsAtom = PA<FileUs>;

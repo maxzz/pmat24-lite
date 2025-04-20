@@ -26,6 +26,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
         fceAtomsRefForMani: undefined,  // will be assigned later when all files are loaded
 
         mainForCpassAtom: undefined,
+        rawCpassAtom: atom<string | undefined>(undefined),
     };
 
     return rv;

@@ -7,7 +7,6 @@ export type FileContent = {
     fmodi: number;                      // file.lastModified
     size: number;                       // file size
     rawLoaded: string;                  // file content as it was loaded or error message
-    rawCpass: string | undefined;       // file content for 2 forms after password change created but before save (exists only before cpass saved)
 
     failed: boolean;                    // if failed the 'raw' member has the error message.
     notOur: boolean;                    // load of file content was blocked by allowedExt list.

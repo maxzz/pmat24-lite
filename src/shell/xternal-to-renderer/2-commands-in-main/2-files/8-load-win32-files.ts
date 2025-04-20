@@ -56,7 +56,6 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
                 fmodi: 0,
                 size: 0,
                 rawLoaded: '',
-                rawCpass: undefined,
                 failed: false,
                 notOur: false,
                 newFile: false,
