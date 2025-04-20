@@ -38,20 +38,20 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     }
 
     // 2. Save maniXml to the context
-    const sawManiXml = get(maniXmlStrAtom);
-    if (!sawManiXml) {
+    const sawManiXmlStr = get(maniXmlStrAtom);
+    if (!sawManiXmlStr) {
         showBuildErrorReason(set);
         return false;
     }
 
-    set(newManiContent.maniXmlAtom, sawManiXml);
+    set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
     //printNewMani(sawManiXml);
 
     // 3. Parse maniXml to fileUs
     try {
         const mainForCpass = newManiContent.maniForCpassAtom && get(newManiContent.maniForCpassAtom);
 
-        const fileContent: FileContent = createNewFileContent({ raw: sawManiXml, newAsManual: manual });
+        const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
         const newFileUsAtom: FileUsAtom = atom(fileUs);
 
@@ -82,3 +82,9 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         return false;
     }
 }
+
+//04.19.25
+//TODO: update xml after save
+//TODO: password change form has duplicated fields
+//TODO: delete file at least for debug version
+//TODO: displayname="Forgot your Password?" is stored as button instead of checkbox

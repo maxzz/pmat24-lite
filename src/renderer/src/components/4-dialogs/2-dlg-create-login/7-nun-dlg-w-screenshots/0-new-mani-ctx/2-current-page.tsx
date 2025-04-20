@@ -57,7 +57,7 @@ export function create_DoAdvancePageAtom() {
                         return false;
                     }
 
-                    const maniXml = get(newManiContent.maniXmlAtom); // Move beetwen pages freally in case if xml has been created already
+                    const maniXml = get(newManiContent.maniXmlStrAtom); // Move beetwen pages freally in case if xml has been created already
                     if (maniXml) {
                         return;
                     }

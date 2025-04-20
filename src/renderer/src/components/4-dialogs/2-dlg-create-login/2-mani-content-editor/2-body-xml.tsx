@@ -7,7 +7,7 @@ import { newManiContent } from "@/components/4-dialogs/2-dlg-create-login";
 
 export function BodyRawXml() {
 
-    const maniXml = useAtomValue(newManiContent.maniXmlAtom);
+    const maniXml = useAtomValue(newManiContent.maniXmlStrAtom);
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     
     return (<>

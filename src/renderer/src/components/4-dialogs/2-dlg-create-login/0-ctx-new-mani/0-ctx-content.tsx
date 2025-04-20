@@ -1,16 +1,16 @@
 import { type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
 import { type FileUsAtom, type FileUs, type OFormContextProps, doDisposeFileUsAtomAtom } from "@/store";
-import { type NewManiContentData } from "./9-types";
+import { type NewManiContentType } from "./9-types";
 import { FormIdx } from "@/store/manifest";
 
-class NewManiContent implements NewManiContentData {
-    maniXmlAtom = atom<string | undefined>(undefined);
+class NewManiContent implements NewManiContentType {
+    maniXmlStrAtom = atom<string | undefined>(undefined);
     newFileUsAtom: FileUsAtom | undefined = undefined;
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
     init(set: Setter) {
-        this.maniXmlAtom = atom<string | undefined>(undefined);
+        this.maniXmlStrAtom = atom<string | undefined>(undefined);
         set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom);
         this.newFileUsAtom = undefined;
     }
