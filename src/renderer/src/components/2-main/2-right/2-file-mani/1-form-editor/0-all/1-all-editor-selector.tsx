@@ -14,28 +14,20 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
         return null;
     }
 
-    //TODO: get it from maniAtoms[formIdx]
-    //TODO: update form changed after add password change form
-
-    const metaForm = fileUs.parsedSrc.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
-    if (!metaForm) {
+    const formManiAtoms = maniAtoms[formIdx];
+    if (!formManiAtoms) {
         return <TabContent_NoForm formType={formIdx} {...rest} />;
     }
 
-    const formAtoms = maniAtoms[formIdx];
-    if (!formAtoms) {
-        return null;
-    }
-
-    if (formAtoms.manual) {
-        const ctx: MFormContextProps = { maniAtoms, mAllAtoms: formAtoms as MFormAtoms, formIdx };
+    if (formManiAtoms.manual) {
+        const ctx: MFormContextProps = { maniAtoms, mAllAtoms: formManiAtoms as MFormAtoms, formIdx };
         return (
             <TabContent_ManualForm ctx={ctx} {...rest} />
         );
     }
 
-    if (formAtoms.normal) {
-        const ctx: NFormContextProps = { maniAtoms, nAllAtoms: formAtoms as NFormAtoms, formIdx };
+    if (formManiAtoms.normal) {
+        const ctx: NFormContextProps = { maniAtoms, nAllAtoms: formManiAtoms as NFormAtoms, formIdx };
         return (
             <TabContent_NormalForm ctx={ctx} />
         );
