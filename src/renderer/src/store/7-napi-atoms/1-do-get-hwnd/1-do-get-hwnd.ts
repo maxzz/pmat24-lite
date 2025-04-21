@@ -1,6 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { errorToString, shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { type R2MInvoke } from "@shared/ipc-types";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { napiLock } from "../9-napi-build-state";
@@ -46,9 +47,14 @@ export const doGetTargetHwndAtom = atom(
     }
 );
 
+function invokeMainTyped2<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
+    return invokeMainTyped<R2MInvoke.InvokeResult<TInvoke>>(data);
+}
+
 async function doLiveHwnd(get: Getter, set: Setter) {
     try {
-        const res = await invokeMainTyped<string>({ type: 'r2mi:get-target-hwnd' });
+        const res = await invokeMainTyped2({ type: 'r2mi:get-target-hwnd' });
+        // const res = await invokeMainTyped<string>({ type: 'r2mi:get-target-hwnd' });
 
         const prev = get(sawHandleStrAtom);
         if (prev === res) {

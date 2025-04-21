@@ -9,7 +9,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         filenames: string[];
         allowedExt?: string[];
     };
-    
+
     // type DoLoadfiles2 = {
     //     type: 'r2mi:load-files2';
     //     filenames: string[];
@@ -93,4 +93,33 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetTlwInfos
         | GetTlwScreenshots
         ;
+
+    export type InvokeResult<T extends R2MInvoke.AllInvokes> =
+        T extends DoLoadfiles
+        ? string
+        : T extends SaveFile
+        ? string
+        : T extends Deletefile
+        ? string
+        : T extends FileExists
+        ? string
+        : T extends GetUniqueFilename
+        ? string
+
+        : T extends GetSecondWindowHandle
+        ? string
+        : T extends GetSecondWindowContent
+        ? string
+        : T extends GetSecondWindowIcon
+        ? string
+        : T extends GetSecondWindowMani
+        ? string
+        : T extends GetWindowPos
+        ? string
+        : T extends GetTlwInfos
+        ? string
+        : T extends GetTlwScreenshots
+        ? string
+
+        : never;
 }

@@ -13,14 +13,21 @@ export function hasMain(): boolean {
 
 mainApi?.setCbCallFromMain((_event: unknown, data: unknown) => worldStore.update(data));
 
-// call
-
+/**
+ * Call main process API.
+ * The result of calls without main are ignored.
+ */
 export function sendToMainTyped(data: R2M.AllCalls): void {
     mainApi?.callMain(data);
 }
 
-// invoke
-
-export async function invokeMainTyped<TResult>(data: R2MInvoke.AllInvokes): Promise<TResult | undefined> {
-    return mainApi?.invokeMain<R2MInvoke.AllInvokes, TResult>(data);
+/**
+ * Invoke main process API.
+ * The result of calls without main can be ignored, but the result of invoke is always expected.
+ */
+export async function invokeMainTyped<TResult>(data: R2MInvoke.AllInvokes): Promise<TResult> {
+    if (!mainApi) {
+        throw new Error('No mainApi');
+    }
+    return mainApi.invokeMain<R2MInvoke.AllInvokes, TResult>(data);
 }
