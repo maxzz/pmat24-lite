@@ -7,7 +7,7 @@ import { doCancelSawModeByMainAtom } from "@/components/4-dialogs";
 
 export const doFromMainAtom = atom(
     null,
-    (get, set, data: M2R.AllTypes) => {
+    (get, set, data: M2R.AllTypes): void => {
         switch (data.type) {
 
             // load files
