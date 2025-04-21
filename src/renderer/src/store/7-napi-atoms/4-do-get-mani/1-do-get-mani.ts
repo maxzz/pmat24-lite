@@ -1,6 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { errorToString } from "@/utils";
-import { hasMain, invokeMain } from "@/xternal-to-main";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { debugSettings } from "@/store/1-atoms";
 import { type ManifestForWindowCreatorParams } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
@@ -35,7 +35,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
 
         setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
-        const res = await invokeMain<string>({ type: 'r2mi:get-window-mani', params });
+        const res = await invokeMainTyped<string>({ type: 'r2mi:get-window-mani', params });
 
         const prev = get(maniXmlStrAtom);
         if (prev === res) {

@@ -1,7 +1,7 @@
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store";
-import { invokeMain } from "@/xternal-to-main";
+import { invokeMainTyped } from "@/xternal-to-main";
 import { errorToString } from "@/utils";
 
 /**
@@ -16,7 +16,7 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
         if (fileUs.fileCnt.fromMain) {
 
             const fullPath = `${fileUs.fileCnt.fpath}/${fileName}`;
-            const errorText = await invokeMain<string>({ type: 'r2mi:save-file', fileName: fullPath, content });
+            const errorText = await invokeMainTyped<string>({ type: 'r2mi:save-file', fileName: fullPath, content });
             return errorText;
 
         } else {

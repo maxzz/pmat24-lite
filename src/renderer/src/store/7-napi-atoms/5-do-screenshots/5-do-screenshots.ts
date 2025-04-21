@@ -3,7 +3,7 @@ import { proxy } from "valtio";
 import { toast } from "sonner";
 import { uuid } from "../../manifest";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
-import { hasMain, invokeMain } from "@/xternal-to-main";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
 import { napiBuildState, napiLock } from "../9-napi-build-state";
@@ -47,7 +47,7 @@ export const doSetScreenshotsAtom = atom(
 async function doLiveScreenshots(width: number, set: Setter) {
     try {
         // 1. get all tlw infos
-        const infosStr = await invokeMain<string>({ type: 'r2mi:get-tlw-infos' });
+        const infosStr = await invokeMainTyped<string>({ type: 'r2mi:get-tlw-infos' });
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
 
@@ -60,7 +60,7 @@ async function doLiveScreenshots(width: number, set: Setter) {
         };
 
         // 2. get all tlw screenshots
-        const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+        const res = await invokeMainTyped<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
         let screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
         screenshots = correlateScreenshotsOrder(infos, screenshots);
