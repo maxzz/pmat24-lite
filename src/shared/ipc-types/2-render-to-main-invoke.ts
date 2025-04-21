@@ -27,6 +27,21 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         content: string;
     };
 
+    type Deletefile = {
+        type: 'r2mi:delete-file';
+        fileName: string;
+    };
+
+    type FileExists = {
+        type: 'r2mi:file-exists';
+        fileName: string;
+    };
+
+    type GetUniqueFilename = {
+        type: 'r2mi:get-unique-filename';
+        fileName: string;
+    };
+
     // napi
 
     type GetSecondWindowHandle = {
@@ -66,6 +81,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
         | SaveFile
+        | Deletefile
+        | FileExists
+        | GetUniqueFilename
 
         | GetSecondWindowHandle
         | GetSecondWindowContent
