@@ -2,9 +2,9 @@ import { type Getter, type Setter, atom } from "jotai";
 import { toast } from "sonner";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../9-types";
-import { updateManiAtomsAfterSaveOrResetAtom } from "../2-do-save-mani-atom/0-save-atom/3-save-or-rst-maniatoms";
-import { resetManifest } from "./1-reset-manifest";
-//import { resetFc } from "./5-reset-fc";
+import { updateManiAtomsAfterSaveOrResetAtom } from "../2-do-save-mani-atom/0-save-atom";
+import { resetManifest } from "./nun/1-reset-manifest";
+//import { resetFc } from "./nun/5-reset-fc";
 
 export const doResetOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {

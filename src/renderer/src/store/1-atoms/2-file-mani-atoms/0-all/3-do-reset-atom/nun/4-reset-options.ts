@@ -1,6 +1,6 @@
-import { type ResetManifestCtx } from "./9-types";
-import { type FormOptionsState, FormOptionsConv } from "../../4-options";
-import { FileUsCtx } from "../../9-types";
+import { type ResetManifestCtx } from "./../9-types";
+import { type FormOptionsState, FormOptionsConv } from "../../../4-options";
+import { FileUsCtx } from "../../../9-types";
 import { FormIdx } from "@/store/manifest";
 
 export function resetFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, ctx: ResetManifestCtx) {
