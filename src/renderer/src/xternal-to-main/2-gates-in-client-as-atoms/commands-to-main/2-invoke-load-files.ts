@@ -2,7 +2,6 @@ import { proxySet } from "valtio/utils";
 import { toUnix } from "@/utils";
 import { uuid } from "@/store/manifest";
 import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
-import { findShortestPathInFnames, PmatFolder } from "@/store";
 import { invokeMainTyped } from "../3-to-main-apis";
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<FileContent[]> {
@@ -28,14 +27,4 @@ export function finalizeFileContent(fileContent: MainFileContent): FileContent {
     rv.fpath = toUnix(rv.fpath);
 
     return rv;
-}
-
-export function getRootFromFpath({ files, fromMain }: { files: { fpath: string; }[]; fromMain: boolean; }): PmatFolder {
-    const rootPath = findShortestPathInFnames(files.map((f) => f.fpath));
-
-    return {
-        fpath: rootPath,
-        handle: undefined,
-        fromMain,
-    };
 }
