@@ -31,3 +31,7 @@ export async function invokeMainTyped<TResult>(data: R2MInvoke.AllInvokes): Prom
     }
     return mainApi.invokeMain<R2MInvoke.AllInvokes, TResult>(data);
 }
+
+function invokeMainTyped2<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
+    return invokeMainTyped<R2MInvoke.InvokeResult<TInvoke>>(data);
+}

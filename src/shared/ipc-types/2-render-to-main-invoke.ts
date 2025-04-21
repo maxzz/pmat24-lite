@@ -95,30 +95,30 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ;
 
     export type InvokeResult<T extends R2MInvoke.AllInvokes> =
-        T extends DoLoadfiles
+        T extends DoLoadfiles               //'r2mi:load-files'
         ? string
-        : T extends SaveFile
+        : T extends SaveFile                 //'r2mi:save-file'
         ? string
-        : T extends Deletefile
+        : T extends Deletefile               //'r2mi:delete-file'
         ? string
-        : T extends FileExists
+        : T extends FileExists               //'r2mi:file-exists'
         ? string
-        : T extends GetUniqueFilename
+        : T extends GetUniqueFilename        //'r2mi:get-unique-filename'
         ? string
 
-        : T extends GetSecondWindowHandle
+        : T extends GetSecondWindowHandle    //'r2mi:get-target-hwnd'
         ? string
-        : T extends GetSecondWindowContent
+        : T extends GetSecondWindowContent   //'r2mi:get-window-controls'
         ? string
-        : T extends GetSecondWindowIcon
+        : T extends GetSecondWindowIcon      //'r2mi:get-window-icon'
         ? string
-        : T extends GetSecondWindowMani
+        : T extends GetSecondWindowMani      //'r2mi:get-window-mani'
         ? string
-        : T extends GetWindowPos
+        : T extends GetWindowPos             //'r2mi:get-window-pos'
         ? string
-        : T extends GetTlwInfos
+        : T extends GetTlwInfos              //'r2mi:get-tlw-infos'
         ? string
-        : T extends GetTlwScreenshots
+        : T extends GetTlwScreenshots        //'r2mi:get-tlw-screenshots'
         ? string
 
         : never;
