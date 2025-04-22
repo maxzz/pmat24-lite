@@ -43,6 +43,11 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         fileName: string;
     };
 
+    type RevealInExplorer = {
+        type: 'r2mi:reveal-in-explorer';
+        fpath: string;  // full path to file or folder
+    };
+
     // napi
 
     type GetSecondWindowHandle = {
@@ -85,6 +90,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | Deletefile
         | FileExists
         | GetUniqueFilename
+        | RevealInExplorer
 
         | GetSecondWindowHandle
         | GetSecondWindowContent
@@ -122,6 +128,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
             newFilename: string;
             error: string;
         }
+
+        : T extends RevealInExplorer         //'r2mi:reveal-in-explorer'cc
+        ? EmptyOkOrError
 
         // napi
 

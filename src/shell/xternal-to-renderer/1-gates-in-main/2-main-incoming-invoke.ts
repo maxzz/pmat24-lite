@@ -2,7 +2,7 @@ import { R2MInvoke } from "@shared/ipc-types";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "../7-napi-calls";
 import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshots";
-import { existsFileInMain, deleteFileInMain, generateUniqueFilename, saveFileInMain } from "../2-commands-in-main/2-files";
+import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 
 // export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
@@ -35,6 +35,12 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         case 'r2mi:get-unique-filename': {
             const { fileName } = data;
             const res = await generateUniqueFilename(fileName);
+            return res;
+        }
+
+        case 'r2mi:reveal-in-explorer': {
+            const { fpath } = data;
+            const res = revealInExplorer(fpath);
             return res;
         }
 
