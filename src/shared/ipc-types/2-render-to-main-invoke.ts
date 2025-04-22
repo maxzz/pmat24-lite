@@ -98,7 +98,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     type EmptyOkOrError = string | undefined;
 
     export type InvokeResult<T extends R2MInvoke.AllInvokes> =
-        T extends DoLoadfiles               //'r2mi:load-files'cc
+        T['type'] extends 'r2mi:load-files'               //'r2mi:load-files'cc
         ? MainFileContent[]
 
         : T extends SaveFile                 //'r2mi:save-file'cc

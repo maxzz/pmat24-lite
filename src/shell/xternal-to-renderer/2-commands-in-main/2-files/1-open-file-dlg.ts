@@ -13,14 +13,14 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
             title: what.openDirs ? 'Open Folder' : 'Open Files',
             properties: [what.openDirs ? 'openDirectory' : 'openFile', 'multiSelections'],
         });
-        
+
         if (canceled) {
             return;
         }
 
-        const {filesCnt, emptyFolder} = loadWin32FilesContent(filePaths, pmAllowedToOpenExt);
+        const { filesCnt, emptyFolder } = loadWin32FilesContent(filePaths, pmAllowedToOpenExt);
         mainToRenderer({ type: 'm2r:loaded-files', filesCnt, emptyFolder });
-            
+
     } catch (error) {
         console.error(error);
     }
