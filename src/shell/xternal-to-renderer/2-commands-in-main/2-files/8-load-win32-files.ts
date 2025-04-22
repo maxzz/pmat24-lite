@@ -3,7 +3,11 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { type MainFileContent } from "@shared/ipc-types";
 
 /**
- * @returns MainFileContent casted to FileContent. They should be filled from renderer.
+ * @param filenames - filenames with path
+ * @param allowedExt - allowed extensions
+ * @returns { filesCnt: MainFileContent[]; emptyFolder: string; } - 
+ *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
+ *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
 export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } {
 
