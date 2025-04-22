@@ -17,7 +17,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     const fnames = filePathAndDirs.map((item) => item[1]);
     //printElectronFnameFiles(fnames, files);
 
-    const deliveredFileContents: FileContent[] = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+    const { filesCnt: deliveredFileContents, emptyFolder } = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
 
     const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
 
