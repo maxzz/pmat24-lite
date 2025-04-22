@@ -25,13 +25,9 @@ export function sendToMainTyped(data: R2M.AllCalls): void {
  * Invoke main process API.
  * The result of calls without main can be ignored, but the result of invoke is always expected.
  */
-export async function invokeMainTyped<TResult>(data: R2MInvoke.AllInvokes): Promise<TResult> {
+export async function invokeMainTyped<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
     if (!mainApi) {
         throw new Error('No mainApi');
     }
-    return mainApi.invokeMain<R2MInvoke.AllInvokes, TResult>(data);
-}
-
-function invokeMainTyped2<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
-    return invokeMainTyped<R2MInvoke.InvokeResult<TInvoke>>(data);
+    return mainApi.invokeMain<R2MInvoke.AllInvokes, R2MInvoke.InvokeResult<TInvoke>>(data);
 }

@@ -35,7 +35,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
 
         setBuildState({ progress: 0, lastProgress: 0, isRunning: true, error: '', failedBody: '' });
 
-        const res = await invokeMainTyped<string>({ type: 'r2mi:get-window-mani', params });
+        const res = await invokeMainTyped({ type: 'r2mi:get-window-mani', params });
 
         const prev = get(maniXmlStrAtom);
         if (prev === res) {

@@ -11,7 +11,7 @@ export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]
         ...(allowedExt && { allowedExt }),
     };
 
-    const res = await invokeMainTyped<MainFileContent[]>(params);
+    const res = await invokeMainTyped(params);
     const rv = (res || []).map(finalizeFileContent);
     return rv;
 }

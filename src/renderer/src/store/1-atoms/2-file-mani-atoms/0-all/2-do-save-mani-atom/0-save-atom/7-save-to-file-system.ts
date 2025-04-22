@@ -16,7 +16,7 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
         if (fileUs.fileCnt.fromMain) {
 
             const fullPath = `${fileUs.fileCnt.fpath}/${fileName}`;
-            const errorText = await invokeMainTyped<string>({ type: 'r2mi:save-file', fileName: fullPath, content });
+            const errorText = await invokeMainTyped({ type: 'r2mi:save-file', fileName: fullPath, content });
             return errorText;
 
         } else {

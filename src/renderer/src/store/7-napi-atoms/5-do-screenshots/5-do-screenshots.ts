@@ -47,7 +47,7 @@ export const doSetScreenshotsAtom = atom(
 async function doLiveScreenshots(width: number, set: Setter) {
     try {
         // 1. get all tlw infos
-        const infosStr = await invokeMainTyped<string>({ type: 'r2mi:get-tlw-infos' });
+        const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
         const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
         const hwnds = infos.map(obj => obj.hwnd);
 
@@ -60,7 +60,7 @@ async function doLiveScreenshots(width: number, set: Setter) {
         };
 
         // 2. get all tlw screenshots
-        const res = await invokeMainTyped<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+        const res = await invokeMainTyped({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
         let screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
         screenshots = correlateScreenshotsOrder(infos, screenshots);
@@ -114,7 +114,7 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
 //             width: width || 300,
 //         };
 
-//         const res = await invokeMain<string>({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
+//         const res = await invokeMain({ type: 'r2mi:get-tlw-screenshots', tlwInfos });
 //         const screenshots = JSON.parse(res || '{}') as TlwScreenshot[];
 
 //         setScreenshotsWithExtra(screenshots, set);

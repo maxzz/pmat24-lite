@@ -47,14 +47,9 @@ export const doGetTargetHwndAtom = atom(
     }
 );
 
-function invokeMainTyped2<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
-    return invokeMainTyped<R2MInvoke.InvokeResult<TInvoke>>(data);
-}
-
 async function doLiveHwnd(get: Getter, set: Setter) {
     try {
-        const res = await invokeMainTyped2({ type: 'r2mi:get-target-hwnd' });
-        // const res = await invokeMainTyped<string>({ type: 'r2mi:get-target-hwnd' });
+        const res = await invokeMainTyped({ type: 'r2mi:get-target-hwnd' });
 
         const prev = get(sawHandleStrAtom);
         if (prev === res) {
