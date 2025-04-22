@@ -4,7 +4,12 @@ import { uuid } from "@/store/manifest";
 import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
 import { invokeMainTyped } from "../3-to-main-apis";
 
-export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: FileContent[]; emptyFolder: string; }> {
+export type InvokeLoadFilesResult = {
+    filesCnt: FileContent[];
+    emptyFolder: string;
+};
+
+export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<InvokeLoadFilesResult> {
     const params: R2MInvoke.AllInvokes = {
         type: 'r2mi:load-files',
         filenames,

@@ -4,7 +4,7 @@ import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWind
 import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshots";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, saveFileInMain } from "../2-commands-in-main/2-files";
 
-//export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
+// export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
 
     switch (data.type) {
