@@ -104,55 +104,55 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     type EmptyOkOrError = string | undefined;
 
     export type InvokeResult<T extends R2MInvoke.AllInvokes> =
-        T extends DoLoadfiles                //'r2mi:load-files'cc
-        // T['type'] extends 'r2mi:load-files'               //'r2mi:load-files'cc // This is OK but not for now
+        T extends DoLoadfiles                //'r2mi:load-files'
+        // T['type'] extends 'r2mi:load-files'               //'r2mi:load-files' // This is OK but not for now
         ? {
             filesCnt: MainFileContent[];
             emptyFolder: string;
         }
 
-        : T extends SaveFile                 //'r2mi:save-file'cc
+        : T extends SaveFile                 //'r2mi:save-file'
         ? EmptyOkOrError
 
         : T extends Deletefile               //'r2mi:delete-file'
         ? EmptyOkOrError
 
-        : T extends FileExists               //'r2mi:file-exists'cc
+        : T extends FileExists               //'r2mi:file-exists'
         ? {
             exists: boolean;
             error: string;
         }
 
-        : T extends GetUniqueFilename        //'r2mi:get-unique-filename'cc
+        : T extends GetUniqueFilename        //'r2mi:get-unique-filename'
         ? {
             newFilename: string;
             error: string;
         }
 
-        : T extends RevealInExplorer         //'r2mi:reveal-in-explorer'cc
+        : T extends RevealInExplorer         //'r2mi:reveal-in-explorer'
         ? EmptyOkOrError
 
         // napi
 
-        : T extends GetSecondWindowHandle    //'r2mi:get-target-hwnd'cc
+        : T extends GetSecondWindowHandle    //'r2mi:get-target-hwnd'
         ? string
 
-        : T extends GetSecondWindowContent   //'r2mi:get-window-controls'cc
+        : T extends GetSecondWindowContent   //'r2mi:get-window-controls'
         ? string
 
-        : T extends GetSecondWindowIcon      //'r2mi:get-window-icon'cc
+        : T extends GetSecondWindowIcon      //'r2mi:get-window-icon'
         ? string
 
-        : T extends GetSecondWindowMani      //'r2mi:get-window-mani'cc
+        : T extends GetSecondWindowMani      //'r2mi:get-window-mani'
         ? string
 
         : T extends GetWindowPos             //'r2mi:get-window-pos'
         ? TargetPosition
 
-        : T extends GetTlwInfos              //'r2mi:get-tlw-infos'cc
+        : T extends GetTlwInfos              //'r2mi:get-tlw-infos'
         ? string
 
-        : T extends GetTlwScreenshots        //'r2mi:get-tlw-screenshots'cc
+        : T extends GetTlwScreenshots        //'r2mi:get-tlw-screenshots'
         ? string
 
         : never;
