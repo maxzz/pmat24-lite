@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 
-export const deleteFileUsAtom = atom(null,
+export const doDeleteFileUsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         // const fileUs = get(fileUsAtom);
         // if (!fileUs) {

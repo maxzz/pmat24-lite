@@ -1,8 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose, DialogFooter, DialogTrigger } from '@/ui/shadcn/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose, DialogFooter } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doOpenConfirmDeleteDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
-// import { doDeleteFileUsAtom } from '@/store/1-atoms/2-file-mani-atoms';
+import { doDeleteFileUsAtom, doOpenConfirmDeleteDialogAtom, fileUsOfRightPanelAtom } from '@/store';
 
 export function ConfirmDeleteFileDialog() {
     const [confirmDialogOpen, doOpenConfirmDeleteDialog] = useAtom(doOpenConfirmDeleteDialogAtom);
@@ -27,16 +26,16 @@ function DialogBody() {
         return null;
     }
 
-    // const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
+    const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     return (
         <div className="">
             <DialogDescription>
-                Are you sure you want to delete the file?
+                Are you sure you want to delete the manifest file?
             </DialogDescription>
 
             <DialogFooter>
                 <DialogClose asChild>
-                    <Button color="red" variant="outline">
+                    <Button color="red" variant="outline" >
                         Delete
                     </Button>
                 </DialogClose>
