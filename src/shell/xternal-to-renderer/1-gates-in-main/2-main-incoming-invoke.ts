@@ -11,68 +11,69 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         // files
 
         case 'r2mi:load-files': {
-            return loadWin32FilesContent(data.filenames, data.allowedExt);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.DoLoadfiles> = loadWin32FilesContent(data.filenames, data.allowedExt)
+            return rv;
         }
 
         case 'r2mi:save-file': {
             const { fileName, content } = data;
-            const res = await saveFileInMain(fileName, content);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.SaveFile> = await saveFileInMain(fileName, content);
+            return rv;
         }
 
         case 'r2mi:delete-file': {
             const { fileName } = data;
-            const res = await deleteFileInMain(fileName);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.Deletefile> = await deleteFileInMain(fileName);
+            return rv;
         }
 
         case 'r2mi:file-exists': {
             const { fileName } = data;
-            const res = await existsFileInMain(fileName);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.FileExists> = await existsFileInMain(fileName);
+            return rv;
         }
 
         case 'r2mi:get-unique-filename': {
             const { fileName } = data;
-            const res = await generateUniqueFilename(fileName);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetUniqueFilename> = await generateUniqueFilename(fileName);
+            return rv;
         }
 
         case 'r2mi:reveal-in-explorer': {
             const { fpath } = data;
-            const res = revealInExplorer(fpath);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.RevealInExplorer> = await revealInExplorer(fpath);
+            return rv;
         }
 
         // napi
 
         case 'r2mi:get-target-hwnd': {
-            const res = await getTargetHwnd();
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowHandle> = await getTargetHwnd();
+            return rv;
         }
         case 'r2mi:get-window-controls': {
-            const res = await getWindowControls(data.hwnd);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowContent> = await getWindowControls(data.hwnd);
+            return rv;
         }
         case 'r2mi:get-window-icon': {
-            const res = await getWindowIcon(data.hwnd);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowIcon> = await getWindowIcon(data.hwnd);
+            return rv;
         }
         case 'r2mi:get-window-pos': {
-            const res = await getWindowPos(data.hwnd);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowPos> = await getWindowPos(data.hwnd);
+            return rv;
         }
         case 'r2mi:get-window-mani': {
-            const res = await getWindowMani(data.params);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowMani> = await getWindowMani(data.params);
+            return rv;
         }
         case 'r2mi:get-tlw-infos': {
-            const res = await getTlwInfos();
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetTlwInfos> = await getTlwInfos();
+            return rv;
         }
         case "r2mi:get-tlw-screenshots": {
-            const res = await getTlwScreenshots(data.tlwInfos);
-            return res;
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetTlwScreenshots> = await getTlwScreenshots(data.tlwInfos);
+            return rv;
         }
 
         default: {
