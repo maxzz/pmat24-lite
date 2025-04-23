@@ -1,11 +1,11 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // load files
 
-    type DoLoadfiles = {
+    export type DoLoadfiles = {
         type: 'r2mi:load-files';
         filenames: string[];
         allowedExt?: string[];
@@ -22,63 +22,63 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // save file
 
-    type SaveFile = {
+    export type SaveFile = {
         type: 'r2mi:save-file';
         fileName: string;               // file name with path
         content: string;
     };
 
-    type Deletefile = {
+    export type Deletefile = {
         type: 'r2mi:delete-file';
         fileName: string;
     };
 
-    type FileExists = {
+    export type FileExists = {
         type: 'r2mi:file-exists';
         fileName: string;
     };
 
-    type GetUniqueFilename = {
+    export type GetUniqueFilename = {
         type: 'r2mi:get-unique-filename';
         fileName: string;
     };
 
-    type RevealInExplorer = {
+    export type RevealInExplorer = {
         type: 'r2mi:reveal-in-explorer';
         fpath: string;  // full path to file or folder
     };
 
     // napi
 
-    type GetSecondWindowHandle = {
+    export type GetSecondWindowHandle = {
         type: 'r2mi:get-target-hwnd';
     };
 
-    type GetSecondWindowContent = {
+    export type GetSecondWindowContent = {
         type: 'r2mi:get-window-controls';
         hwnd: string;
     };
 
-    type GetSecondWindowIcon = {
+    export type GetSecondWindowIcon = {
         type: 'r2mi:get-window-icon';
         hwnd: string;
     };
 
-    type GetSecondWindowMani = {
+    export type GetSecondWindowMani = {
         type: 'r2mi:get-window-mani';
         params: ManifestForWindowCreatorParams;
     };
 
-    type GetWindowPos = {
+    export type GetWindowPos = {
         type: 'r2mi:get-window-pos';
         hwnd: string;
     };
 
-    type GetTlwInfos = {
+    export type GetTlwInfos = {
         type: 'r2mi:get-tlw-infos';
     };
 
-    type GetTlwScreenshots = {
+    export type GetTlwScreenshots = {
         type: 'r2mi:get-tlw-screenshots';
         tlwInfos: GetTlwScreenshotsParams;
     };
@@ -147,7 +147,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : T extends GetWindowPos             //'r2mi:get-window-pos'
-        ? string
+        ? TargetPosition
 
         : T extends GetTlwInfos              //'r2mi:get-tlw-infos'cc
         ? string
