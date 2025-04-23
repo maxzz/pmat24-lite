@@ -1,5 +1,5 @@
-import fs from 'fs';
 import path from 'path';
+import fs from 'fs';
 import { errorToString } from '@shell/3-utils-main';
 
 /**
