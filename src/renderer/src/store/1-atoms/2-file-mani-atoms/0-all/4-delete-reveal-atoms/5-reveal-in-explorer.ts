@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 
-export const revealInExplorerAtom = atom(null,
+export const doRevealInExplorerAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
 
         if (!hasMain()) {
