@@ -4,3 +4,6 @@ export * from "./15-save-current";
 export * from "./16-save-current-as";
 export * from "./17-save-all";
 export * from "./19-file-exit";
+export * from "./21-delete-current";
+export * from "./22-reveal-in-explorer";
+

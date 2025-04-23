@@ -2,6 +2,8 @@ import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import {
     MenuItems_OpenFiles,
     MenuItem_CreateMani,
+    MenuItem_DeleteCurrent,
+    MenuItem_RevealInExplorerCurrent,
     MenuItem_SaveCurrent,
     // MenuItem_SaveCurrentAs,
     MenuItem_SaveAll,
@@ -10,7 +12,6 @@ import {
 import { MenuItem_OpenRecent } from "../10-file-open-recent";
 import { MenuItem_Options } from "../20-options";
 import { MenuItem_FilterFiles } from "../1-filter-files";
-import { MenuItem_RevealInExplorerCurrent } from "../11-files/22-reveal-in-explorer";
 import { hasMain } from "@/xternal-to-main";
 //import { MenuItem_CloseFolder } from "../2-close-folder";
 //import { PreferencesSubMenu } from "./2-nun-preferences-sub-munu";
@@ -23,6 +24,7 @@ export function FilesMainMenuBody() {
         
         <DropdownMenuSeparator />
         <MenuItem_CreateMani />
+        <MenuItem_DeleteCurrent />
         {hasMain() && <MenuItem_RevealInExplorerCurrent />}
 
         <DropdownMenuSeparator />
