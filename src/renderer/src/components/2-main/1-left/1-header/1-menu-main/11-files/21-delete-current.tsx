@@ -11,7 +11,6 @@ export function MenuItem_DeleteCurrent() {
     return (
         <DropdownMenuItem onClick={() => fileUsAtom && doOpenConfirmDeleteDialog(true)} disabled={!fileUsAtom}>
             Delete
-            <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameSave}</DropdownMenuShortcut>
         </DropdownMenuItem>
     );
 }
