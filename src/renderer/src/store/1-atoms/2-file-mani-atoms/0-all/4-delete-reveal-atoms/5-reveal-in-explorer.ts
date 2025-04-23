@@ -1,0 +1,27 @@
+import { atom } from "jotai";
+import { type FileUsAtom } from "@/store/store-types";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+
+export const revealInExplorerAtom = atom(null,
+    async (get, set, fileUsAtom: FileUsAtom) => {
+
+        if (!hasMain()) {
+            console.error('No mainApi');
+            return;
+        }
+
+        const fileUs = get(fileUsAtom);
+        const fpath = fileUs?.fileCnt.fpath;
+        const fname = fileUs?.fileCnt.fname;
+        if (!fpath || !fname) {
+            console.error('No fpath or fname', fileUs);
+            return;
+        }
+
+        const fullPath = `${fpath}/${fname}`;
+        const res = await invokeMainTyped({ type: 'r2mi:reveal-in-explorer', fpath: fullPath });
+        if (res) {
+            console.error('Reveal error', res);
+        }
+    }
+);
