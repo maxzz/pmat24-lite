@@ -34,10 +34,11 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: str
 
     useEffect(
         () => {
-            document.addEventListener('keydown', handleKeyDown);
+            const abortController = new AbortController();
+            document.addEventListener('keydown', handleKeyDown,  { signal: abortController.signal });
 
             return () => {
-                document.removeEventListener('keydown', handleKeyDown);
+                abortController.abort();
                 timer && clearTimeout(timer);
             };
         }, [handleKeyDown, timer]
@@ -84,10 +85,11 @@ export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, on
                 }
             }
 
-            window.addEventListener('keydown', handleKeyDown);
+            const abortController = new AbortController();
+            window.addEventListener('keydown', handleKeyDown, { signal: abortController.signal });
 
             return () => {
-                window.removeEventListener('keydown', handleKeyDown);
+                abortController.abort();
                 timer && clearTimeout(timer);
             };
         }, [keys, onSuccess, onFail, timeout, timer, firstKeyPressed]
@@ -160,9 +162,10 @@ const DoubleShortcut3: React.FC<DoubleShortcutProps> = ({ firstKey, secondKey, o
                 setFirstKeyPressed(false);
             };
 
-            window.addEventListener('blur', handleBlur);
+            const abortController = new AbortController();
+            window.addEventListener('blur', handleBlur, { signal: abortController.signal });
             return () => {
-                window.removeEventListener('blur', handleBlur);
+                abortController.abort();
             };
         }, []
     );
