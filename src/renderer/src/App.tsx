@@ -62,3 +62,6 @@ export function App(): JSX.Element {
     //TODO: update .5sec and show even number only
     //TODO: handle cancel detection error message
     //TODO: fix global param uspadte icon automatically
+    
+//04.23.25
+    //TODO: check before close event if any unsaved changes

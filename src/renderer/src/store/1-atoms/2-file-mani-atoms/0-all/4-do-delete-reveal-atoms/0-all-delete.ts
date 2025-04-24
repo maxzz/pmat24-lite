@@ -13,6 +13,13 @@ export const doDeleteFileUsAtom = atom(null,
             return;
         }
 
+        // find file in files tree
+        const files = get(filesAtom);
+        if (files.indexOf(fileUsAtom) === -1) {
+            console.error('not in filesAtom', fileUs);
+            return;
+        }
+
         // delete phisical file from file system
         const res = await deleteFileFromFileSystem(fileUs);
         if (res) {
@@ -21,13 +28,7 @@ export const doDeleteFileUsAtom = atom(null,
         }
 
         // remove from files tree
-        const files = get(filesAtom);
-        if (files.indexOf(fileUsAtom) === -1) {
-            console.error('not in filesAtom', fileUs);
-            return;
-        }
-
-        const newFiles = files.filter((fileUsAtom) => fileUsAtom !== fileUsAtom);
+        const newFiles = files.filter((item) => item !== fileUsAtom);
         set(filesAtom, newFiles);
 
         // update counters
@@ -42,11 +43,9 @@ export const doDeleteFileUsAtom = atom(null,
 );
 
 async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefined> {
-
     if (fileUs.fileCnt.newFile) { // new file is not saved to file system yet
         return undefined;
     }
-
     try {
         if (hasMain()) {
             const fullName = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
