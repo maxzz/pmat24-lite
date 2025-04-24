@@ -16,9 +16,9 @@ export function ConfirmDeleteFileDialog() {
                 hiddenTitle="Delete file?"
                 noClose
             >
-                <DialogHeader className="relative px-4 text-base font-bold border-border border-b flex items-start">
-                    <div className="py-2">Delete file?</div>
-                    <DialogCloseButton className="right-1 -top-0.5 p-2 hover:text-white hover:bg-red-500" tabIndex={-1} onClick={() => doOpenConfirmDeleteDialog(false)} />
+                <DialogHeader className="relative px-4 py-2 text-sm font-bold border-border border-b flex items-start">
+                    <div className="">Delete file?</div>
+                    <DialogCloseButton className="right-1.5 -top-0.5 p-2 hover:text-white hover:bg-[#f00]" tabIndex={-1} onClick={() => doOpenConfirmDeleteDialog(false)} />
                 </DialogHeader>
 
                 {/* <DialogTitle>Delete file?</DialogTitle> */}
@@ -29,7 +29,7 @@ export function ConfirmDeleteFileDialog() {
     );
 }
 
-const contentClasses = "p-0 pb-4 data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody() {
 
@@ -42,11 +42,11 @@ function DialogBody() {
 
     return (
         <div className="px-4">
-            <DialogDescription>
+            <DialogDescription className="pt-2 pb-2">
                 Are you sure you want to delete the manifest file?
             </DialogDescription>
 
-            <DialogFooter className="">
+            <DialogFooter className="py-4">
                 <DialogClose asChild>
                     <Button variant="outline">
                     {/* <Button variant="outline" onClick={() => doDeleteFileUs(rightPanel)}> */}
