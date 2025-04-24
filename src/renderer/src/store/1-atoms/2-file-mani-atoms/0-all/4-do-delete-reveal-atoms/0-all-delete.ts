@@ -3,11 +3,20 @@ import { type FileUsAtom } from "@/store/store-types";
 import { type FileUs, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { errorToString } from "@/utils";
+import { toast } from "sonner";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
         if (!fileUs || fileUs.parsedSrc.stats.isFCat) {
+            return;
+        }
+
+        // delete phisical file from file system
+        const res = await deleteFileFromFileSystem(fileUs);
+        if (res) {
+            toast.error(res);
             return;
         }
 
@@ -21,8 +30,6 @@ export const doDeleteFileUsAtom = atom(null,
         const newFiles = files.filter((fileUsAtom) => fileUsAtom !== fileUsAtom);
         set(filesAtom, newFiles);
 
-        await deleteFileFromFileSystem(fileUs);
-
         removeFromTotalManis(fileUs);
 
         // dispose fields
@@ -33,12 +40,7 @@ export const doDeleteFileUsAtom = atom(null,
     }
 );
 
-export const deleteCpassFromFileUsAtom = atom(null,
-    (get, set, cpassUsAtom: FileUsAtom) => {
-    }
-);
-
-async function deleteFileFromFileSystem(fileUs: FileUs) {
+async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefined> {
     // delete file from file system
     if (!fileUs.fileCnt.newFile) { // new file is not saved to file system yet
         try {
@@ -57,6 +59,12 @@ async function deleteFileFromFileSystem(fileUs: FileUs) {
             }
         } catch (error) {
             console.error('Delete error', error);
+            return errorToString(error);
         }
     }
 }
+
+export const deleteCpassFromFileUsAtom = atom(null,
+    (get, set, cpassUsAtom: FileUsAtom) => {
+    }
+);
