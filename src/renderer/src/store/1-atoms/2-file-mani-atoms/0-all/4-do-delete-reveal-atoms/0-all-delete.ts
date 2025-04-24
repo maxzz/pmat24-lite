@@ -1,9 +1,10 @@
 import { atom } from "jotai";
+import { errorToString } from "@/utils";
+import { FormIdx } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
-import { type FileUs, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
+import { type FileUs, ManiAtoms, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { errorToString } from "@/utils";
 import { toast } from "sonner";
 
 export const doDeleteFileUsAtom = atom(null,
@@ -36,6 +37,8 @@ export const doDeleteFileUsAtom = atom(null,
 
         //right panel
         set(rightPanelAtom, undefined);
+
+        fileUsChanges.clearAll({ fileUs });
 
         // 3.3. dispose edit atoms, after all done to avoid UI updates
         set(doDisposeFileUsAtomAtom, fileUsAtom);
