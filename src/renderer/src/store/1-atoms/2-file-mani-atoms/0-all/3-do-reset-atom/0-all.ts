@@ -24,14 +24,14 @@ export const doResetOneAtom = atom(null,
 
 function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
     set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
-    fileUsChanges.clearAll({ fileUs });
+    fileUsChanges.setUnchanged({ fileUs });
 }
 
 function resetManifextTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
         resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
-        fileUsChanges.clearAll({ fileUs });
+        fileUsChanges.setUnchanged({ fileUs });
     }
 }
 

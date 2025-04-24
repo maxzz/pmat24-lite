@@ -50,7 +50,7 @@ export const doSaveOneAtom = atom(
         fileUs.fileCnt.fname = fname;
         fileUs.fileCnt.rawLoaded = xml; // Update file content with new modified xml
         set(fileUs.rawCpassAtom, undefined);
-        fileUsChanges.clearAll({ fileUs });
+        fileUsChanges.setUnchanged({ fileUs });
 
         //parse xml and so on...
         set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });

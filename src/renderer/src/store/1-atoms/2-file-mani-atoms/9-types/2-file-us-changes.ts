@@ -8,8 +8,8 @@ export const allFileUsChanges = proxySet<string>();
 
 export const fileUsChanges = {
     set: setChangeFlag,
-    setCpass: setCpassChange,   // added or deleted password change form change
-    clearAll: clearAllChanges,
+    setCpass: setCpassChange,       // added or deleted password change form change
+    setUnchanged: clearAllChanges,  // clear file all changes
     hasChange: hasChange,
     hasAny: hasAnyChange,
 };
