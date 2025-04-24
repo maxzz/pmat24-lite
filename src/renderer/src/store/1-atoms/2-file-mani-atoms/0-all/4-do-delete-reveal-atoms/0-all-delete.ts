@@ -13,32 +13,32 @@ export const doDeleteFileUsAtom = atom(null,
             return;
         }
 
-        // find file in files tree
+        // 1. find file in files tree
         const files = get(filesAtom);
         if (files.indexOf(fileUsAtom) === -1) {
             console.error('not in filesAtom', fileUs);
             return;
         }
 
-        // delete phisical file from file system
+        // 2. delete phisical file from file system
         const res = await deleteFileFromFileSystem(fileUs);
         if (res) {
             toast.error(`Cannot delete file: ${res}`);
             return;
         }
 
-        // remove from files tree
+        // 3.1. remove from files tree
         const newFiles = files.filter((item) => item !== fileUsAtom);
         set(filesAtom, newFiles);
 
-        // update counters
+        // 3.2. update counters
         removeFromTotalManis(fileUs);
-
-        // dispose fields
-        set(doDisposeFileUsAtomAtom, fileUsAtom);
 
         //right panel
         set(rightPanelAtom, undefined);
+
+        // 3.3. dispose edit atoms, after all done to avoid UI updates
+        set(doDisposeFileUsAtomAtom, fileUsAtom);
     }
 );
 
@@ -67,6 +67,6 @@ async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefi
 }
 
 export const deleteCpassFromFileUsAtom = atom(null,
-    (get, set, cpassUsAtom: FileUsAtom) => {
+    (get, set, fileUsAtom: FileUsAtom) => {
     }
 );
