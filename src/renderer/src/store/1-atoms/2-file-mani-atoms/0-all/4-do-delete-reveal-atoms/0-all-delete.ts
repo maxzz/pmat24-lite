@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { addToTotalManis, filesAtom, rightPanelAtom } from "@/store";
+import { filesAtom, removeFromTotalManis, rightPanelAtom } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 
 export const doDeleteFileUsAtom = atom(null,
@@ -20,27 +20,17 @@ export const doDeleteFileUsAtom = atom(null,
         const newFiles = files.filter((fileUsAtom) => fileUsAtom !== fileUsAtom);
         set(filesAtom, newFiles);
 
-        if (fileUs.fileCnt.newFile) {
-            
-            addToTotalManis(fileUs);
+        if (!fileUs.fileCnt.newFile) {
+            //TODO: delete file from file system    
         }
+
+        removeFromTotalManis(fileUs);
 
         // dispose fields
         set(doDisposeFileUsAtomAtom, fileUsAtom);
-        
+
         //right panel
         set(rightPanelAtom, undefined);
-
-        //TODO: delete file from file system
-        //TODO: check if field catalog
-
-        // set(fileUs.maniAtomsAtom, null);
-        // set(fileUs.fceAtomsForFcFile, null);
-        // set(fileUs.rawCpassAtom, null);
-
-        // const fileUss = get(filesAtom);
-        // fileUss.splice(fileUss.indexOf(fileUsAtom), 1);
-        // set(filesAtom, fileUss);
     }
 );
 
