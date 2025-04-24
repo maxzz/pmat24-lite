@@ -44,6 +44,9 @@ export function isRootDirEmpty(): boolean {
     return isPmatFolderEmpty(rootDir);
 }
 
+/**
+ * Empty is when path is empty or we are in browser and there is no handle.
+ */
 export function isPmatFolderEmpty(folder: PmatFolder): boolean {
-    return !folder.fpath || (!folder.handle && !folder.fromMain);
+    return !folder.fpath || (!folder.fromMain && !folder.handle);
 }
