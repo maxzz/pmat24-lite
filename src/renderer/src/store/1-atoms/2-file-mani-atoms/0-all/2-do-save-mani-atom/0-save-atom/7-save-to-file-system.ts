@@ -38,9 +38,7 @@ export async function saveToFileSystem(fileUs: FileUs, content: string, fileName
             const fileSystemHandle = await fileSave(blob, { fileName }, handle);
             webFsItem.handle = fileSystemHandle;
 
-            // if (deletePrevName) {
-            //     await rootDir.handle?.removeEntry(fileUs.fileCnt.fname);
-            // }
+            // if (deletePrevName) { await rootDir.handle?.removeEntry(fileUs.fileCnt.fname); }
 
             return undefined;
         }
