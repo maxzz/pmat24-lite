@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose, DialogFooter } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doDeleteFileUsAtom, doOpenConfirmDeleteDialogAtom, doRevealInExplorerAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { doDeleteFileUsAtom, doOpenConfirmDeleteDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
 
 export function ConfirmDeleteFileDialog() {
     const [confirmDialogOpen, doOpenConfirmDeleteDialog] = useAtom(doOpenConfirmDeleteDialogAtom);
@@ -29,8 +29,7 @@ function DialogBody() {
     }
 
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
-    const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
-    
+
     return (
         <div className="">
             <DialogDescription>
@@ -39,13 +38,13 @@ function DialogBody() {
 
             <DialogFooter>
                 <DialogClose asChild>
-                    <Button color="red" variant="outline" onClick={() => doRevealInExplorer(rightPanel)}>
+                    <Button variant="outline" onClick={() => doDeleteFileUs(rightPanel)}>
                         Delete
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
-                    <Button color="red" variant="default">
+                    <Button variant="default">
                         Cancel
                     </Button>
                 </DialogClose>

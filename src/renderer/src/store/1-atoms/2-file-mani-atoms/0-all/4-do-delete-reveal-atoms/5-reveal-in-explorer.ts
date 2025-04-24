@@ -6,7 +6,7 @@ export const doRevealInExplorerAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
 
         if (!hasMain()) {
-            console.error('No mainApi');
+            console.log('No mainApi');
             return;
         }
 
