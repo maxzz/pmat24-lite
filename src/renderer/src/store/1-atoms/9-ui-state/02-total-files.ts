@@ -37,3 +37,16 @@ export function addToTotalManis(fileUs: FileUs) {
         totalManis.normal++;
     }
 }
+
+export function removeFromTotalManis(fileUs: FileUs) {
+    const { fcat, meta } = fileUs.parsedSrc;
+    if (fcat) {
+        totalManis.fc--;
+    } else if (isAnyEmpty(meta)) {
+        totalManis.empty--;
+    } else if (isAnyManual(meta)) {
+        totalManis.manual--;
+    } else {
+        totalManis.normal--;
+    }
+}
