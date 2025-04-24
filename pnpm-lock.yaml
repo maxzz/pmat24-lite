@@ -27,8 +27,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0(jotai@2.12.2(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
       pm-manifest:
-        specifier: ^1.2.80
-        version: 1.2.80
+        specifier: ^1.2.81
+        version: 1.2.81
       pm-manifest-icons:
         specifier: latest
         version: 1.0.3(react@18.3.1)
@@ -1873,6 +1873,10 @@ packages:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
 
+  detect-libc@2.0.4:
+    resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
+    engines: {node: '>=8'}
+
   detect-node-es@1.1.0:
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
 
@@ -2819,8 +2823,8 @@ packages:
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
 
-  pm-manifest@1.2.80:
-    resolution: {integrity: sha512-P2I7e5h5VCkFp6sX+iboAg5HdTEXokFsoTE0WjazMWHL6R4zwHUlWXyjqSfuB6aX6KHLzr5H/wze6wcfDw+tjQ==}
+  pm-manifest@1.2.81:
+    resolution: {integrity: sha512-P/I2e+YuHnJxjK/Q96ai2vVZbI7ucPIVf6FYHD986Z2vxgs6cclhI1h+bqJmuBpw7v6bF0T39EwhQE0LzScKfg==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -3796,7 +3800,7 @@ snapshots:
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
       debug: 4.4.0
-      detect-libc: 2.0.3
+      detect-libc: 2.0.4
       fs-extra: 10.1.0
       got: 11.8.6
       node-abi: 3.74.0
@@ -5338,6 +5342,8 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
+  detect-libc@2.0.4: {}
+
   detect-node-es@1.1.0: {}
 
   detect-node@2.1.0:
@@ -6384,7 +6390,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  pm-manifest@1.2.80:
+  pm-manifest@1.2.81:
     dependencies:
       '@types/uuid': 10.0.0
       fast-xml-parser: 4.5.0
