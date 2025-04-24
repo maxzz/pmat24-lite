@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'; // GAI: react global double shortcut key component
 
-export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [string, string]; onMatch: () => void; timeout?: number }) => {
+export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [string, string]; onMatch: () => void; timeout?: number; }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
     const handleKeyDown = useCallback(
-        (event) => {
+        (event: KeyboardEvent) => {
             const newPressedKeys = [...pressedKeys, event.key];
             setPressedKeys(newPressedKeys);
 
@@ -16,10 +16,9 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [st
                 setPressedKeys([]);
                 timer && clearTimeout(timer);
                 setTimer(null);
-            } else if (newPressedKeys.length < keys.length) {
-                if (timer) {
-                    clearTimeout(timer);
-                }
+            }
+            else if (newPressedKeys.length < keys.length) {
+                timer && clearTimeout(timer);
                 setTimer(
                     setTimeout(() => {
                         setPressedKeys([]);
@@ -31,15 +30,15 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [st
         [keys, onMatch, timer, timeout, pressedKeys]
     );
 
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyDown);
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            if (timer) {
-                clearTimeout(timer);
-            }
-        };
-    }, [handleKeyDown, timer]);
+    useEffect(
+        () => {
+            document.addEventListener('keydown', handleKeyDown);
+            return () => {
+                document.removeEventListener('keydown', handleKeyDown);
+                timer && clearTimeout(timer);
+            };
+        }, [handleKeyDown, timer]
+    );
 
     return null;
 };
@@ -59,7 +58,7 @@ export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, on
 
     useEffect(
         () => {
-            const handleKeyDown = (event: KeyboardEvent) => {
+            function handleKeyDown(event: KeyboardEvent) {
                 if (event.key === keys[0] && firstKeyPressed === null) {
                     setFirstKeyPressed(event.key);
                     const newTimer = setTimeout(
@@ -69,23 +68,23 @@ export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, on
                         }, timeout
                     );
                     setTimer(newTimer);
-                } else if (event.key === keys[1] && firstKeyPressed === keys[0]) {
+                }
+                else if (event.key === keys[1] && firstKeyPressed === keys[0]) {
                     clearTimeout(timer as NodeJS.Timeout);
                     setFirstKeyPressed(null);
                     onSuccess();
-                } else if (event.key !== keys[0] && event.key !== keys[1]) {
+                }
+                else if (event.key !== keys[0] && event.key !== keys[1]) {
                     setFirstKeyPressed(null);
                     clearTimeout(timer as NodeJS.Timeout);
                 }
-            };
+            }
 
             window.addEventListener('keydown', handleKeyDown);
 
             return () => {
                 window.removeEventListener('keydown', handleKeyDown);
-                if (timer) {
-                    clearTimeout(timer);
-                }
+                timer && clearTimeout(timer);
             };
         }, [keys, onSuccess, onFail, timeout, timer, firstKeyPressed]
     );
@@ -93,22 +92,93 @@ export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, on
     return null;
 };
 
-/*
-import React from 'react';
+/** /
+//import React from 'react';
 import DoubleKeyShortcut from './DoubleKeyShortcut';
 
 const MyComponent = () => {
-  const handleShortcutMatch = () => {
-    alert('Ctrl + K pressed!');
-  };
-
-  return (
-    <div>
-      <DoubleKeyShortcut keys={['Control', 'k']} onMatch={handleShortcutMatch} />
-      {/* Rest of your component * /}
-      </div>
+    function handleShortcutMatch() {
+        alert('Ctrl + K pressed!');
+    }
+    return (
+        <div>
+            <DoubleKeyShortcut keys={['Control', 'k']} onMatch={handleShortcutMatch} />
+            // Rest of your component
+        </div>
     );
-  };
-  
-  export default MyComponent;
-*/
+};
+
+export default MyComponent;
+/**/
+
+/** /
+//import React, { useEffect, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+
+interface DoubleShortcutProps {
+    firstKey: string;
+    secondKey: string;
+    onDoubleShortcut: () => void;
+}
+
+const DoubleShortcut3: React.FC<DoubleShortcutProps> = ({ firstKey, secondKey, onDoubleShortcut,
+}) => {
+    const [firstKeyPressed, setFirstKeyPressed] = useState(false);
+
+    // Handler for the first key press
+    useHotkeys(
+        firstKey,
+        () => {
+            setFirstKeyPressed(true);
+        },
+        [firstKey],
+    );
+
+    // Handler for the second key press, check for the first key being pressed.
+    useHotkeys(
+        secondKey,
+        () => {
+            if (firstKeyPressed) {
+                onDoubleShortcut();
+                setFirstKeyPressed(false); // Reset state
+            }
+            else {
+                setFirstKeyPressed(false); // Reset the first key state even if second key was hit without first key.
+            }
+        },
+        [secondKey, firstKeyPressed, onDoubleShortcut],
+    );
+
+    // Reset state when focus is lost from window
+    useEffect(() => {
+        const handleBlur = () => {
+            setFirstKeyPressed(false);
+        };
+
+        window.addEventListener('blur', handleBlur);
+        return () => {
+            window.removeEventListener('blur', handleBlur);
+        };
+    }, []);
+
+    return null; // This component doesn't render anything visually.
+};
+
+import DoubleShortcut from './DoubleShortcut';
+
+function App() {
+    function handleMyDoubleShortcut() {
+        console.log('My double shortcut triggered!');
+    }
+    return (
+        <div>
+            <DoubleShortcut
+                firstKey="ctrl+a"
+                secondKey="ctrl+b"
+                onDoubleShortcut={handleMyDoubleShortcut}
+            />
+            // Your other app components
+        </div>
+    );
+}
+/**/
