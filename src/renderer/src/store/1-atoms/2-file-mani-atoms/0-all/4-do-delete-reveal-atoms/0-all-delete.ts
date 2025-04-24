@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { type FileUs, ManiAtoms, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
@@ -35,12 +35,13 @@ export const doDeleteFileUsAtom = atom(null,
         // 3.2. update counters
         removeFromTotalManis(fileUs);
 
-        //right panel
+        // 3.3. clear right panel
         set(rightPanelAtom, undefined);
 
-        fileUsChanges.clearAll({ fileUs });
+        // 3.4. clear file changes
+        fileUsChanges.setUnchanged({ fileUs });
 
-        // 3.3. dispose edit atoms, after all done to avoid UI updates
+        // 4. dispose edit atoms, after all done to avoid UI updates
         set(doDisposeFileUsAtomAtom, fileUsAtom);
     }
 );
@@ -71,5 +72,25 @@ async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefi
 
 export const deleteCpassFromFileUsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
+        const fileUs = get(fileUsAtom);
+        if (!fileUs || fileUs.parsedSrc.stats.isFCat || !fileUs.parsedSrc.mani || !fileUs.parsedSrc.meta) {
+            return;
+        }
+
+        // get maniAtoms
+        const maniAtoms = get(fileUs.maniAtomsAtom);
+        if (!maniAtoms?.[FormIdx.cpass]) {
+            return;
+        }
+
+        // update parsedSrc meta and mani forms
+        rebuildMetaFormsWithoutCpassForm(fileUs.parsedSrc.meta, fileUs.parsedSrc.mani.forms);
+
+        // update maniAtoms
+        const newManiAtoms: ManiAtoms = [maniAtoms[FormIdx.login], undefined];
+        set(fileUs.maniAtomsAtom, newManiAtoms);
+
+        // set file changed
+        fileUsChanges.setCpass({ fileUs }, true);
     }
 );
