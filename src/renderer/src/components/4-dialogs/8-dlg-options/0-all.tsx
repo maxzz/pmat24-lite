@@ -34,7 +34,7 @@ const contentClasses = "p-0 !w-4/5 max-w-xl h-4/5 min-h-56 max-h-[700px] data-[s
 
 function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
-        <div className="text-xs select-none grid grid-rows-[auto,1fr,auto]">
+        <div className="text-xs select-none grid grid-rows-[auto,1fr,auto] gap-4">
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
                 <div className="py-2">PMAT Options</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-2 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
@@ -57,8 +57,8 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 
 function DialogMiddleArea() {
     return (
-        <ScrollArea className="size-full overflow-auto" fullHeight>
-            <div className="size-full px-4 py-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
+        <ScrollArea className="size-full" fullHeight>
+            <div className="size-full px-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
 
                 <SectionTitle title="File list">
                     <FileListSettings />
