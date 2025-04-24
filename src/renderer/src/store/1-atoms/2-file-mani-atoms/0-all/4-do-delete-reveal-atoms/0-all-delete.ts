@@ -16,11 +16,11 @@ export const doDeleteFileUsAtom = atom(null,
         // delete phisical file from file system
         const res = await deleteFileFromFileSystem(fileUs);
         if (res) {
-            toast.error(res);
+            toast.error(`Cannot delete file: ${res}`);
             return;
         }
 
-        // files tree
+        // remove from files tree
         const files = get(filesAtom);
         if (files.indexOf(fileUsAtom) === -1) {
             console.error('not in filesAtom', fileUs);
@@ -30,6 +30,7 @@ export const doDeleteFileUsAtom = atom(null,
         const newFiles = files.filter((fileUsAtom) => fileUsAtom !== fileUsAtom);
         set(filesAtom, newFiles);
 
+        // update counters
         removeFromTotalManis(fileUs);
 
         // dispose fields
@@ -41,26 +42,28 @@ export const doDeleteFileUsAtom = atom(null,
 );
 
 async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefined> {
-    // delete file from file system
-    if (!fileUs.fileCnt.newFile) { // new file is not saved to file system yet
-        try {
-            if (hasMain()) {
-                const fullName = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
-                const res = await invokeMainTyped({ type: 'r2mi:delete-file', fileName: fullName });
-                if (res) {
-                    console.error('Delete error', res);
-                }
-            } else {
-                if (!rootDir.handle) {
-                    console.error('No rootDir.handle');
-                    return;
-                }
-                await rootDir.handle.removeEntry(fileUs.fileCnt.fname);
+
+    if (fileUs.fileCnt.newFile) { // new file is not saved to file system yet
+        return undefined;
+    }
+
+    try {
+        if (hasMain()) {
+            const fullName = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
+            const res = await invokeMainTyped({ type: 'r2mi:delete-file', fileName: fullName });
+            if (res) {
+                console.error('Delete error', res);
             }
-        } catch (error) {
-            console.error('Delete error', error);
-            return errorToString(error);
+        } else {
+            if (!rootDir.handle) {
+                console.error('No rootDir.handle');
+                return;
+            }
+            await rootDir.handle.removeEntry(fileUs.fileCnt.fname);
         }
+    } catch (error) {
+        console.error('Delete error', error);
+        return errorToString(error);
     }
 }
 
