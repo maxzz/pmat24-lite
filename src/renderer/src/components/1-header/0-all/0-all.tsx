@@ -6,7 +6,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { TestCreateWithSaw, TestCreateWithSawForCpass } from "./7-3-create-mani-w-saw";
 import { TestCloseFolder } from "./7-4-close-folder";
 import { L_PanelMenuTrigger } from "@/components/2-main/1-left/1-header/1-menu-main";
-import { TestDeleteFile } from "./8-3-test-delete-file";
+import { TestDeleteCpass, TestDeleteFile } from "./8-3-test-delete-file";
 // import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
 // import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
@@ -34,12 +34,13 @@ export function SectionHeader() {
                 <TestOpenFiles />
                 <TestCloseFolder />
 
+                <L_PanelMenuTrigger />
+
                 <TestCreateWithSaw />
                 <TestCreateWithSawForCpass />
 
-                <L_PanelMenuTrigger />
-
                 <TestDeleteFile />
+                <TestDeleteCpass />
 
                 {/* <div className="w-full flex items-center gap-2">
                     <TestPolicyIcons />

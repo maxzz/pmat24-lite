@@ -18,7 +18,7 @@ export function TestCreateWithSawForCpass() {
     const disabled = !useAtomValue(allowedToCreateCpassAtom);
     return (
         <Button variant="outline" className="text-[.65rem]" disabled={disabled} onClick={doOpen}>
-            Create New cpass...
+            Create cpass...
         </Button>
     );
 }
