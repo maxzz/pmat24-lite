@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'; // GAI: react global double shortcut key component
 
-export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [string, string]; onMatch: () => void; timeout?: number; }) => {
+export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: string[]; onMatch: () => void; timeout?: number; }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
@@ -20,10 +20,12 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [st
             else if (newPressedKeys.length < keys.length) {
                 timer && clearTimeout(timer);
                 setTimer(
-                    setTimeout(() => {
-                        setPressedKeys([]);
-                        setTimer(null);
-                    }, timeout)
+                    setTimeout(
+                        () => {
+                            setPressedKeys([]);
+                            setTimer(null);
+                        }, timeout
+                    )
                 );
             }
         },
@@ -33,6 +35,7 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: [st
     useEffect(
         () => {
             document.addEventListener('keydown', handleKeyDown);
+
             return () => {
                 document.removeEventListener('keydown', handleKeyDown);
                 timer && clearTimeout(timer);
@@ -54,29 +57,30 @@ interface DoubleKeyShortcutProps {
 
 export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, onSuccess, onFail, timeout = 2000 }) => {
     const [firstKeyPressed, setFirstKeyPressed] = useState<string | null>(null);
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(
         () => {
             function handleKeyDown(event: KeyboardEvent) {
                 if (event.key === keys[0] && firstKeyPressed === null) {
                     setFirstKeyPressed(event.key);
-                    const newTimer = setTimeout(
-                        () => {
-                            setFirstKeyPressed(null);
-                            onFail?.();
-                        }, timeout
+                    setTimer(
+                        setTimeout(
+                            () => {
+                                setFirstKeyPressed(null);
+                                onFail?.();
+                            }, timeout
+                        )
                     );
-                    setTimer(newTimer);
                 }
                 else if (event.key === keys[1] && firstKeyPressed === keys[0]) {
-                    clearTimeout(timer as NodeJS.Timeout);
+                    timer && clearTimeout(timer);
                     setFirstKeyPressed(null);
                     onSuccess();
                 }
                 else if (event.key !== keys[0] && event.key !== keys[1]) {
                     setFirstKeyPressed(null);
-                    clearTimeout(timer as NodeJS.Timeout);
+                    timer && clearTimeout(timer);
                 }
             }
 
@@ -150,16 +154,18 @@ const DoubleShortcut3: React.FC<DoubleShortcutProps> = ({ firstKey, secondKey, o
     );
 
     // Reset state when focus is lost from window
-    useEffect(() => {
-        const handleBlur = () => {
-            setFirstKeyPressed(false);
-        };
+    useEffect(
+        () => {
+            const handleBlur = () => {
+                setFirstKeyPressed(false);
+            };
 
-        window.addEventListener('blur', handleBlur);
-        return () => {
-            window.removeEventListener('blur', handleBlur);
-        };
-    }, []);
+            window.addEventListener('blur', handleBlur);
+            return () => {
+                window.removeEventListener('blur', handleBlur);
+            };
+        }, []
+    );
 
     return null; // This component doesn't render anything visually.
 };
