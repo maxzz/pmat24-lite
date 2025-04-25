@@ -1,7 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { doRevealInExplorerAtom, rightPanelAtom } from "@/store";
-import { shortcutNameSave } from "@/components/4-dialogs/0-global";
-import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
+import { DropdownMenuItem } from "@/ui";
 
 export function MenuItem_RevealInExplorerCurrent() {
 
@@ -11,7 +10,6 @@ export function MenuItem_RevealInExplorerCurrent() {
     return (
         <DropdownMenuItem onClick={() => fileUsAtom && doRevealInExplorer(fileUsAtom)} disabled={!fileUsAtom}>
             Reveal in File Explorer
-            <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameSave}</DropdownMenuShortcut>
         </DropdownMenuItem>
     );
 }

@@ -4,7 +4,7 @@ import { Button } from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
 import { isFilterActiveAtom } from "@/store";
 import { filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
-import { shortcutNameFilter } from "../../0-global/2-global-shortcuts";
+import { appShortcuts } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./2-body";
 import { classNames } from "@/utils";
 
@@ -14,7 +14,7 @@ export function FilterFilesDialogTrigger() {
     const isFilterActive = useAtomValue(isFilterActiveAtom);
 
     return (<>
-        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} tabIndex={-1} title={`Filter files ${shortcutNameFilter}`}>
+        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} tabIndex={-1} title={`Filter files ${appShortcuts.openFilter.text}`}>
             <IconFilter className={classNames("p-px size-4", isFilterActive && filterActiveIconClasses)} />
         </Button>
 

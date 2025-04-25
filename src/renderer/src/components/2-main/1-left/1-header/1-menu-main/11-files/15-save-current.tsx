@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { rightPanelAtom } from "@/store";
 import { doSaveOneAtom } from "@/store/1-atoms/2-file-mani-atoms";
-import { shortcutNameSave } from "@/components/4-dialogs/0-global";
+import { appShortcuts } from "@/components/4-dialogs/0-global";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 
 export function MenuItem_SaveCurrent() {
@@ -12,9 +12,7 @@ export function MenuItem_SaveCurrent() {
     return (<>
         <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne(fileUsAtom)} disabled={!fileUsAtom}>
             Save
-            <DropdownMenuShortcut className={menuShortcutClasses}>{shortcutNameSave}</DropdownMenuShortcut>
+            <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.saveOne.text}</DropdownMenuShortcut>
         </DropdownMenuItem>
     </>);
 }
-
-//TODO: add shortcut Ctrl+S
