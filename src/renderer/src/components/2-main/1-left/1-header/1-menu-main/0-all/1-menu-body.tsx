@@ -24,13 +24,13 @@ export function FilesMainMenuBody() {
         
         <DropdownMenuSeparator />
         <MenuItem_CreateMani />
+        <MenuItem_SaveCurrent />
+        <MenuItem_SaveAll />
+        {/* <MenuItem_SaveCurrentAs /> */}
+
+        {/* <DropdownMenuSeparator /> */}
         <MenuItem_DeleteCurrent />
         {hasMain() && <MenuItem_RevealInExplorerCurrent />}
-
-        <DropdownMenuSeparator />
-        <MenuItem_SaveCurrent />
-        {/* <MenuItem_SaveCurrentAs /> */}
-        <MenuItem_SaveAll />
 
         <DropdownMenuSeparator />
         <MenuItem_FilterFiles />

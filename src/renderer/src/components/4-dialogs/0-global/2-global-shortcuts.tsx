@@ -89,10 +89,3 @@ const useKeyNew = () => {
         }, [useMemoHandler]
     );
 };
-
-//04.24.25
-//TODO: replace all shortcutNameSettings... with shortcuts - done
-//TODO: check hasMain() and remove all shortcuts or dissable them - done
-//TODO: if there is no key in event then skip event handlers check immediately - done
-
-//TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector

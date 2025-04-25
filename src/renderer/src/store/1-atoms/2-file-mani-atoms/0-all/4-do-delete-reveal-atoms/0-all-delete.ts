@@ -94,3 +94,5 @@ export const deleteCpassFromFileUsAtom = atom(null,
         fileUsChanges.setCpass({ fileUs }, true);
     }
 );
+
+//TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
