@@ -28,35 +28,29 @@ export function AppGlobalShortcuts() {
     return null;
 }
 
-//export const shortcutNameSettings /**/ = hasMain() ? "Ctrl+," : "";                         // Open settings dialog
-//export const shortcutNameFilter   /**/ = hasMain() ? "Ctrl+F" : "Ctrl+Shift+F";             // Filter manifest list
-//export const shortcutNameCreate   /**/ = hasMain() ? "Ctrl+N" : "";                         // Create new manifest
-//export const shortcutNameSave     /**/ = hasMain() ? "Ctrl+S" : "Ctrl+Alt+S";               // Save current manifest. Ctrl+S is already taken by browser
-//export const shortcutNameSaveAll  /**/ = hasMain() ? "Ctrl+Shift+S" : "";                   // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
-
 type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg';
 type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
 export const appShortcuts: Record<ShortcustKey, Shortcut> = {
-    openOptions: {
-        text: 'Ctrl+,',
-        is: (event) => event.ctrlKey && event.key === ',',
+    openOptions: {                                          // Open settings dialog
+        text: hasMain() ? "Ctrl+," : "",
+        is: hasMain() ? (event) => event.ctrlKey && event.key === ',' : () => false,
     },
-    openFilter: {
-        text: 'Ctrl+F',
-        is: (event) => event.ctrlKey && event.key === 'f',
+    openFilter: {                                           // Filter manifest list
+        text: hasMain() ? "Ctrl+F" : "Ctrl+Shift+F",
+        is: hasMain() ? (event) => event.ctrlKey && event.key === 'f' : (event) => event.ctrlKey && event.shiftKey && event.key === 'f',
     },
-    openCreate: {
-        text: 'Alt+N',
-        is: (event) => event.altKey && event.key === 'n',
+    openCreate: {                                           // Create new manifest
+        text: hasMain() ? "Alt+N" : "Ctrl+N",
+        is: hasMain() ? (event) => event.altKey && event.key === 'n' : (event) => event.ctrlKey && event.key === 'n',
     },
-    saveOne: {
-        text: 'Ctrl+S',
-        is: (event) => event.ctrlKey && event.key === 's',
+    saveOne: {                                              // Save current manifest. Ctrl+S is already taken by browser
+        text: hasMain() ? "Ctrl+S" : "Ctrl+Alt+S",
+        is: hasMain() ? (event) => event.ctrlKey && event.key === 's' : (event) => event.ctrlKey && event.altKey && event.key === 's',
     },
-    saveAll: {
-        text: 'Alt+S',
-        is: (event) => event.altKey && event.key === 's',
+    saveAll: {                                              // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
+        text: hasMain() ? "Alt+S" : "Ctrl+Shift+S",
+        is: hasMain() ? (event) => event.altKey && event.key === 's' : (event) => event.ctrlKey && event.shiftKey && event.key === 's',
     },
     toggleDbg: {
         text: 'Ctrl+Alt+Shift+D',
@@ -96,6 +90,9 @@ const useKeyNew = () => {
     );
 };
 
-//TODO: replace all shortcutNameSettings... with shortcuts
-//TODO: check hasMain() and remove all shortcuts or dissable them
+//04.24.25
+//TODO: replace all shortcutNameSettings... with shortcuts - done
+//TODO: check hasMain() and remove all shortcuts or dissable them - done
+//TODO: if there is no key in event then skip event handlers check immediately - done
+
 //TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
