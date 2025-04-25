@@ -15,12 +15,12 @@ export function AppGlobalShortcuts() {
     const doSaveAll = useSetAtom(doSaveAllAtom);
 
     useEffect(() => {
-        appShortcuts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
-        appShortcuts.openFilterDialog.action = () => doOpenFilterDialog(true);
-        appShortcuts.openCreateDialog.action = () => doOpenCreateDialog(true);
-        appShortcuts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
+        appShortcuts.openOptions.action = () => doOpenOptionsDialog(true);
+        appShortcuts.openFilter.action = () => doOpenFilterDialog(true);
+        appShortcuts.openCreate.action = () => doOpenCreateDialog(true);
+        appShortcuts.saveOne.action = () => doSaveOneIfNotNull();
         appShortcuts.saveAll.action = () => doSaveAll();
-        appShortcuts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+        appShortcuts.toggleDbg.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
     }, []);
 
     useKeyNew();
@@ -34,23 +34,23 @@ export const shortcutNameCreate   /**/ = hasMain() ? "Ctrl+N" : "";             
 export const shortcutNameSave     /**/ = hasMain() ? "Ctrl+S" : "Ctrl+Alt+S";               // Save current manifest. Ctrl+S is already taken by browser
 export const shortcutNameSaveAll  /**/ = hasMain() ? "Ctrl+Shift+S" : "";                   // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
 
-type ShortcustKey = 'openOptionsDialog' | 'openFilterDialog' | 'openCreateDialog' | 'saveOneIfNotNull' | 'saveAll' | 'toggleDebug';
+type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg';
 type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
 const appShortcuts: Record<ShortcustKey, Shortcut> = {
-    openOptionsDialog: {
+    openOptions: {
         text: 'Ctrl+,',
         is: (event) => event.ctrlKey && event.key === ',',
     },
-    openFilterDialog: {
+    openFilter: {
         text: 'Ctrl+F',
         is: (event) => event.ctrlKey && event.key === 'f',
     },
-    openCreateDialog: {
+    openCreate: {
         text: 'Alt+N',
         is: (event) => event.altKey && event.key === 'n',
     },
-    saveOneIfNotNull: {
+    saveOne: {
         text: 'Ctrl+S',
         is: (event) => event.ctrlKey && event.key === 's',
     },
@@ -58,7 +58,7 @@ const appShortcuts: Record<ShortcustKey, Shortcut> = {
         text: 'Alt+S',
         is: (event) => event.altKey && event.key === 's',
     },
-    toggleDebug: {
+    toggleDbg: {
         text: 'Ctrl+Alt+Shift+D',
         is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
     },
@@ -76,10 +76,6 @@ const useKeyNew = () => {
             if (blankKeys.includes(event.key)) {
                 return;
             }
-            
-            // if (event.key === 'Control' || event.key === 'Alt' || event.key === 'Shift') {
-            //     return;
-            // }
 
             const [key, shortcut] = (Object.entries(appShortcuts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
             if (key && shortcut?.action) {
