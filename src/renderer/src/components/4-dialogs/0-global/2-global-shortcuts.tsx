@@ -33,16 +33,16 @@ type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: 
 
 export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     openOptions: {                                          // Open settings dialog
-        text: hasMain() ? "Ctrl+," : "",
-        is: hasMain() ? (event) => event.ctrlKey && event.key === ',' : () => false,
+        text: "Ctrl+,",
+        is: (event) => event.ctrlKey && event.key === ',',  // or return () => false
     },
     openFilter: {                                           // Filter manifest list
         text: hasMain() ? "Ctrl+F" : "Ctrl+Shift+F",
-        is: hasMain() ? (event) => event.ctrlKey && event.key === 'f' : (event) => event.ctrlKey && event.shiftKey && event.key === 'f',
+        is: hasMain() ? (event) => event.ctrlKey && event.key === 'f' : (event) => event.ctrlKey && event.shiftKey && event.key === 'F',
     },
     openCreate: {                                           // Create new manifest
-        text: hasMain() ? "Alt+N" : "Ctrl+N",
-        is: hasMain() ? (event) => event.altKey && event.key === 'n' : (event) => event.ctrlKey && event.key === 'n',
+        text: hasMain() ? "Ctrl+N" : "Alt+N",
+        is: hasMain() ? (event) => event.ctrlKey && event.key === 'n' : (event) => event.altKey && event.key === 'n',
     },
     saveOne: {                                              // Save current manifest. Ctrl+S is already taken by browser
         text: hasMain() ? "Ctrl+S" : "Ctrl+Alt+S",
@@ -50,7 +50,7 @@ export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     },
     saveAll: {                                              // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
         text: hasMain() ? "Alt+S" : "Ctrl+Shift+S",
-        is: hasMain() ? (event) => event.altKey && event.key === 's' : (event) => event.ctrlKey && event.shiftKey && event.key === 's',
+        is: hasMain() ? (event) => event.altKey && event.key === 's' : (event) => event.ctrlKey && event.shiftKey && event.key === 'S',
     },
     toggleDbg: {
         text: 'Ctrl+Alt+Shift+D',
