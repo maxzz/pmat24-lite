@@ -64,12 +64,22 @@ const appShortcuts: Record<ShortcustKey, Shortcut> = {
     },
 };
 
+const blankKeys = ['Control', 'Alt', 'Shift'];
+
 const useKeyNew = () => {
     const useMemoHandler = useCallback(
         (event: KeyboardEvent) => {
             if (isRootDirEmpty()) {
                 return;
             }
+
+            if (blankKeys.includes(event.key)) {
+                return;
+            }
+            
+            // if (event.key === 'Control' || event.key === 'Alt' || event.key === 'Shift') {
+            //     return;
+            // }
 
             const [key, shortcut] = (Object.entries(appShortcuts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
             if (key && shortcut?.action) {
