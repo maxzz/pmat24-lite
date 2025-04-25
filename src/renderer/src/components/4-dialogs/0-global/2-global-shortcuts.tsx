@@ -16,7 +16,11 @@ export const shortcutNameSaveAll  /**/ = hasMain() ? "Ctrl+Shift+S" : "";       
 type ShortcustKey = 'openOptionsDialog' | 'openFilterDialog' | 'openCreateDialog' | 'saveOneIfNotNull' | 'saveAll' | 'toggleDebug';
 type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
-const shortcusts: Record<ShortcustKey, Shortcut> = {
+//TODO: replace all shortcutNameSettings... with shortcuts
+//TODO: check hasMain() and remove all shortcuts or dissable them
+//TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
+
+const shortcuts: Record<ShortcustKey, Shortcut> = {
     openOptionsDialog: {
         text: 'Ctrl+,',
         is: (event) => event.ctrlKey && event.key === ',',
@@ -43,22 +47,14 @@ const shortcusts: Record<ShortcustKey, Shortcut> = {
     },
 };
 
-const useKeyNew = (key: (event: KeyboardEvent) => boolean, fn: (event: KeyboardEvent) => void,) => {
-    // const useMemoHandler = useMemo(
-    //     () => {
-    //         const predicate: KeyPredicate = createKeyPredicate(key);
-    //         const handler: Handler = (handlerEvent) => {
-    //             if (predicate(handlerEvent)) {
-    //                 return fn(handlerEvent);
-    //             }
-    //         };
-    //         return handler;
-    //     }, deps
-    // );
-
+const useKeyNew = () => {
     const useMemoHandler = useCallback(
         (event: KeyboardEvent) => {
-            const [key, shortcut] = (Object.entries(shortcusts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
+            if (isRootDirEmpty()) {
+                return;
+            }
+
+            const [key, shortcut] = (Object.entries(shortcuts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
             if (key && shortcut?.action) {
                 event.preventDefault();
                 shortcut?.action(event, key);
@@ -73,7 +69,7 @@ const useKeyNew = (key: (event: KeyboardEvent) => boolean, fn: (event: KeyboardE
             return () => {
                 controller.abort();
             };
-        }, []
+        }, [useMemoHandler]
     );
 };
 
@@ -85,28 +81,18 @@ export function AppGlobalShortcuts() {
     const doSaveAll = useSetAtom(doSaveAllAtom);
 
     useEffect(() => {
-        shortcusts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
-        shortcusts.openFilterDialog.action = () => doOpenFilterDialog(true);
-        shortcusts.openCreateDialog.action = () => doOpenCreateDialog(true);
-        shortcusts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
-        shortcusts.saveAll.action = () => doSaveAll();
-        shortcusts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+        shortcuts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
+        shortcuts.openFilterDialog.action = () => doOpenFilterDialog(true);
+        shortcuts.openCreateDialog.action = () => doOpenCreateDialog(true);
+        shortcuts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
+        shortcuts.saveAll.action = () => doSaveAll();
+        shortcuts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
     }, []);
 
 
-    useKey(
-        (event: KeyboardEvent) => {
-            // const shortcut = shortcusts[event.key as keyof typeof shortcusts];
-            // if (shortcut) {
-            //     event.preventDefault();
-            //     shortcut.action?.();
-            // }
-            return false;
-        },
-        (event) => {
-        }
-    );
+    useKeyNew();
 
+    /*
 
     // Ctrl+,
     useKey((event) => event.ctrlKey && event.key === ',', (event) => {
@@ -152,6 +138,7 @@ export function AppGlobalShortcuts() {
 
     // Ctrl+1 // temporary for debbuging quick access
     // useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
+    */
 
     return null;
 }
