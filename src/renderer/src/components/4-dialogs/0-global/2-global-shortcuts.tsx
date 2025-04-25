@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { useKey } from "react-use";
 import { isRootDirEmpty } from "@/store";
@@ -13,39 +13,68 @@ export const shortcutNameCreate   /**/ = hasMain() ? "Ctrl+N" : "";             
 export const shortcutNameSave     /**/ = hasMain() ? "Ctrl+S" : "Ctrl+Alt+S";               // Save current manifest. Ctrl+S is already taken by browser
 export const shortcutNameSaveAll  /**/ = hasMain() ? "Ctrl+Shift+S" : "";                   // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
 
-type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: () => void; };
+type ShortcustKey = 'openOptionsDialog' | 'openFilterDialog' | 'openCreateDialog' | 'saveOneIfNotNull' | 'saveAll' | 'toggleDebug';
+type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
-const shortcustKeys: Record<string, Shortcut> = {
+const shortcusts: Record<ShortcustKey, Shortcut> = {
     openOptionsDialog: {
         text: 'Ctrl+,',
         is: (event) => event.ctrlKey && event.key === ',',
-        action: () => doOpenOptionsDialog(true),
     },
     openFilterDialog: {
         text: 'Ctrl+F',
         is: (event) => event.ctrlKey && event.key === 'f',
-        action: () => doOpenFilterDialog(true),
     },
     openCreateDialog: {
         text: 'Alt+N',
         is: (event) => event.altKey && event.key === 'n',
-        action: () => doOpenCreateDialog(true),
     },
     saveOneIfNotNull: {
         text: 'Ctrl+S',
         is: (event) => event.ctrlKey && event.key === 's',
-        action: () => doSaveOneIfNotNull(),
     },
     saveAll: {
         text: 'Alt+S',
         is: (event) => event.altKey && event.key === 's',
-        action: () => doSaveAll(),
     },
     toggleDebug: {
         text: 'Ctrl+Alt+Shift+D',
         is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
-        action: () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess,
     },
+};
+
+const useKeyNew = (key: (event: KeyboardEvent) => boolean, fn: (event: KeyboardEvent) => void,) => {
+    // const useMemoHandler = useMemo(
+    //     () => {
+    //         const predicate: KeyPredicate = createKeyPredicate(key);
+    //         const handler: Handler = (handlerEvent) => {
+    //             if (predicate(handlerEvent)) {
+    //                 return fn(handlerEvent);
+    //             }
+    //         };
+    //         return handler;
+    //     }, deps
+    // );
+
+    const useMemoHandler = useCallback(
+        (event: KeyboardEvent) => {
+            const [key, shortcut] = (Object.entries(shortcusts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
+            if (key && shortcut?.action) {
+                event.preventDefault();
+                shortcut?.action(event, key);
+            }
+        }, []
+    );
+
+    useEffect(
+        () => {
+            const controller = new AbortController();
+            document.addEventListener('keydown', useMemoHandler, { signal: controller.signal });
+            return () => {
+                controller.abort();
+            };
+        }, []
+    );
 };
 
 export function AppGlobalShortcuts() {
@@ -56,128 +85,73 @@ export function AppGlobalShortcuts() {
     const doSaveAll = useSetAtom(doSaveAllAtom);
 
     useEffect(() => {
-        shortcustKeys.openOptionsDialog.action = () => doOpenOptionsDialog(true);
-        shortcustKeys.openFilterDialog.action = () => doOpenFilterDialog(true);
-        shortcustKeys.openCreateDialog.action = () => doOpenCreateDialog(true);
-        shortcustKeys.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
-        shortcustKeys.saveAll.action = () => doSaveAll();
-        shortcustKeys.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+        shortcusts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
+        shortcusts.openFilterDialog.action = () => doOpenFilterDialog(true);
+        shortcusts.openCreateDialog.action = () => doOpenCreateDialog(true);
+        shortcusts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
+        shortcusts.saveAll.action = () => doSaveAll();
+        shortcusts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
     }, []);
 
-//     const shortcustKeys: Record<string, Shortcut> = useMemo(() => {
-//         return const shortcustKeys: Record<string, Shortcut> = {
-//             openOptionsDialog: {
-//                 text: 'Ctrl+,',
-//                 is: (event) => event.ctrlKey && event.key === ',',
-//                 action: () => doOpenOptionsDialog(true),
-//             },
-//             openFilterDialog: {
-//                 text: 'Ctrl+F',
-//                 is: (event) => event.ctrlKey && event.key === 'f',
-//                 action: () => doOpenFilterDialog(true),
-//             },
-//             openCreateDialog: {
-//                 text: 'Alt+N',
-//                 is: (event) => event.altKey && event.key === 'n',
-//                 action: () => doOpenCreateDialog(true),
-//             },
-//             saveOneIfNotNull: {
-//                 text: 'Ctrl+S',
-//                 is: (event) => event.ctrlKey && event.key === 's',
-//                 action: () => doSaveOneIfNotNull(),
-//             },
-//             saveAll: {
-//                 text: 'Alt+S',
-//                 is: (event) => event.altKey && event.key === 's',
-//                 action: () => doSaveAll(),
-//             },
-//             toggleDebug: {
-//                 text: 'Ctrl+Alt+Shift+D',
-//                 is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
-//                 action: () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess,
-//             },
-//         };
+
+    useKey(
+        (event: KeyboardEvent) => {
+            // const shortcut = shortcusts[event.key as keyof typeof shortcusts];
+            // if (shortcut) {
+            //     event.preventDefault();
+            //     shortcut.action?.();
+            // }
+            return false;
+        },
+        (event) => {
+        }
+    );
 
 
+    // Ctrl+,
+    useKey((event) => event.ctrlKey && event.key === ',', (event) => {
+        if (!isRootDirEmpty()) {
+            event.preventDefault(); doOpenOptionsDialog(true);
+        }
+    });
 
-//         return {
-//             {
-//             text: 'Ctrl+,',
-//                 is: (event) => event.ctrlKey && event.key === ',',
-//                     action: () => doOpenOptionsDialog(true),
-//             },
-//         {
-//             text: 'Ctrl+F',
-//                 is: (event) => event.ctrlKey && event.key === 'f',
-//                     action: () => doOpenFilterDialog(true),
-//             },
-//         {
-//             text: 'Alt+N',
-//                 is: (event) => event.altKey && event.key === 'n',
-//                     action: () => doOpenCreateDialog(true),
-//             },
-//         {
-//             text: 'Ctrl+S',
-//                 is: (event) => event.ctrlKey && event.key === 's',
-//                     action: () => doSaveOneIfNotNull(),
-//             },
-//         {
-//             text: 'Alt+S',
-//                 is: (event) => event.altKey && event.key === 's',
-//                     action: () => doSaveAll(),
-//             },
-//         {
-//             text: 'Ctrl+Alt+Shift+D',
-//                 is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
-//                     action: () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess,
-//             },
-//     };
-// }, []);
+    // Ctrl+F
+    useKey((event) => event.ctrlKey && event.key === 'f', (event) => {
+        if (!isRootDirEmpty()) {
+            event.preventDefault(); doOpenFilterDialog(true);
+        }
+    });
 
-// Ctrl+,
-useKey((event) => event.ctrlKey && event.key === ',', (event) => {
-    if (!isRootDirEmpty()) {
-        event.preventDefault(); doOpenOptionsDialog(true);
-    }
-});
+    // Atl+N note: Ctrl ans Shift are taken by the browser
+    useKey((event) => event.altKey && event.key === 'n', (event) => {
+        if (!isRootDirEmpty()) {
+            event.preventDefault(); doOpenCreateDialog(true);
+        }
+    });
 
-// Ctrl+F
-useKey((event) => event.ctrlKey && event.key === 'f', (event) => {
-    if (!isRootDirEmpty()) {
-        event.preventDefault(); doOpenFilterDialog(true);
-    }
-});
+    // Ctrl+S
+    useKey((event) => event.ctrlKey && event.key === 's', (event) => {
+        if (!isRootDirEmpty()) {
+            event.preventDefault(); doSaveOneIfNotNull();
+        }
+    });
 
-// Atl+N note: Ctrl ans Shift are taken by the browser
-useKey((event) => event.altKey && event.key === 'n', (event) => {
-    if (!isRootDirEmpty()) {
-        event.preventDefault(); doOpenCreateDialog(true);
-    }
-});
+    // Alt+S
+    useKey((event) => event.altKey && event.key === 's', (event) => {
+        if (!isRootDirEmpty()) {
+            event.preventDefault(); doSaveAll();
+        }
+    });
 
-// Ctrl+S
-useKey((event) => event.ctrlKey && event.key === 's', (event) => {
-    if (!isRootDirEmpty()) {
-        event.preventDefault(); doSaveOneIfNotNull();
-    }
-});
+    // Ctrl+Alt+Shift+D
+    useKey((event) => event.ctrlKey && event.altKey && event.key === 'D', (event) => {
+        if (!isRootDirEmpty()) { //TODO: this should be dialog options open
+            event.preventDefault(); debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+        }
+    });
 
-// Alt+S
-useKey((event) => event.altKey && event.key === 's', (event) => {
-    if (!isRootDirEmpty()) {
-        event.preventDefault(); doSaveAll();
-    }
-});
+    // Ctrl+1 // temporary for debbuging quick access
+    // useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
 
-// Ctrl+Alt+Shift+D
-useKey((event) => event.ctrlKey && event.altKey && event.key === 'D', (event) => {
-    if (!isRootDirEmpty()) { //TODO: this should be dialog options open
-        event.preventDefault(); debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
-    }
-});
-
-// Ctrl+1 // temporary for debbuging quick access
-// useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
-
-return null;
+    return null;
 }
