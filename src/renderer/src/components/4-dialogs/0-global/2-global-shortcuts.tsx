@@ -7,6 +7,27 @@ import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/1-atoms/2-file-
 import { doOpenOptionsDialogAtom, doOpenSawOverlayForLoginAtom, filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
 import { hasMain } from "@/xternal-to-main";
 
+export function AppGlobalShortcuts() {
+    const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
+    const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
+    const doOpenCreateDialog = useSetAtom(doOpenSawOverlayForLoginAtom);
+    const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
+    const doSaveAll = useSetAtom(doSaveAllAtom);
+
+    useEffect(() => {
+        appShortcuts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
+        appShortcuts.openFilterDialog.action = () => doOpenFilterDialog(true);
+        appShortcuts.openCreateDialog.action = () => doOpenCreateDialog(true);
+        appShortcuts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
+        appShortcuts.saveAll.action = () => doSaveAll();
+        appShortcuts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+    }, []);
+
+    useKeyNew();
+
+    return null;
+}
+
 export const shortcutNameSettings /**/ = hasMain() ? "Ctrl+," : "";                         // Open settings dialog
 export const shortcutNameFilter   /**/ = hasMain() ? "Ctrl+F" : "Ctrl+Shift+F";             // Filter manifest list
 export const shortcutNameCreate   /**/ = hasMain() ? "Ctrl+N" : "";                         // Create new manifest
@@ -16,11 +37,7 @@ export const shortcutNameSaveAll  /**/ = hasMain() ? "Ctrl+Shift+S" : "";       
 type ShortcustKey = 'openOptionsDialog' | 'openFilterDialog' | 'openCreateDialog' | 'saveOneIfNotNull' | 'saveAll' | 'toggleDebug';
 type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
-//TODO: replace all shortcutNameSettings... with shortcuts
-//TODO: check hasMain() and remove all shortcuts or dissable them
-//TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
-
-const shortcuts: Record<ShortcustKey, Shortcut> = {
+const appShortcuts: Record<ShortcustKey, Shortcut> = {
     openOptionsDialog: {
         text: 'Ctrl+,',
         is: (event) => event.ctrlKey && event.key === ',',
@@ -54,7 +71,7 @@ const useKeyNew = () => {
                 return;
             }
 
-            const [key, shortcut] = (Object.entries(shortcuts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
+            const [key, shortcut] = (Object.entries(appShortcuts).find(([_key, value]) => value.is(event)) || []) as [ShortcustKey, Shortcut];
             if (key && shortcut?.action) {
                 event.preventDefault();
                 shortcut?.action(event, key);
@@ -73,72 +90,6 @@ const useKeyNew = () => {
     );
 };
 
-export function AppGlobalShortcuts() {
-    const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
-    const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
-    const doOpenCreateDialog = useSetAtom(doOpenSawOverlayForLoginAtom);
-    const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
-    const doSaveAll = useSetAtom(doSaveAllAtom);
-
-    useEffect(() => {
-        shortcuts.openOptionsDialog.action = () => doOpenOptionsDialog(true);
-        shortcuts.openFilterDialog.action = () => doOpenFilterDialog(true);
-        shortcuts.openCreateDialog.action = () => doOpenCreateDialog(true);
-        shortcuts.saveOneIfNotNull.action = () => doSaveOneIfNotNull();
-        shortcuts.saveAll.action = () => doSaveAll();
-        shortcuts.toggleDebug.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
-    }, []);
-
-
-    useKeyNew();
-
-    /*
-
-    // Ctrl+,
-    useKey((event) => event.ctrlKey && event.key === ',', (event) => {
-        if (!isRootDirEmpty()) {
-            event.preventDefault(); doOpenOptionsDialog(true);
-        }
-    });
-
-    // Ctrl+F
-    useKey((event) => event.ctrlKey && event.key === 'f', (event) => {
-        if (!isRootDirEmpty()) {
-            event.preventDefault(); doOpenFilterDialog(true);
-        }
-    });
-
-    // Atl+N note: Ctrl ans Shift are taken by the browser
-    useKey((event) => event.altKey && event.key === 'n', (event) => {
-        if (!isRootDirEmpty()) {
-            event.preventDefault(); doOpenCreateDialog(true);
-        }
-    });
-
-    // Ctrl+S
-    useKey((event) => event.ctrlKey && event.key === 's', (event) => {
-        if (!isRootDirEmpty()) {
-            event.preventDefault(); doSaveOneIfNotNull();
-        }
-    });
-
-    // Alt+S
-    useKey((event) => event.altKey && event.key === 's', (event) => {
-        if (!isRootDirEmpty()) {
-            event.preventDefault(); doSaveAll();
-        }
-    });
-
-    // Ctrl+Alt+Shift+D
-    useKey((event) => event.ctrlKey && event.altKey && event.key === 'D', (event) => {
-        if (!isRootDirEmpty()) { //TODO: this should be dialog options open
-            event.preventDefault(); debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
-        }
-    });
-
-    // Ctrl+1 // temporary for debbuging quick access
-    // useKey((event) => event.altKey && event.key === '2', (event) => { event.preventDefault(); doOpenCreateDialog(true); });
-    */
-
-    return null;
-}
+//TODO: replace all shortcutNameSettings... with shortcuts
+//TODO: check hasMain() and remove all shortcuts or dissable them
+//TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
