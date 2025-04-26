@@ -47,6 +47,7 @@ export function disposeFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter)
         disposeFormAtoms(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
+        set(fileUs.maniAtomsAtom, null);
     }
 }
 
@@ -77,8 +78,15 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter,
         console.trace(`🏀🏀🏀🏀🏀🏀 disposeFileUsAtom: ${fileUsAtom.toString()}, fileUs=null`);
         return;
     }
-    
-    console.trace(`🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom: ${fileUsAtom.toString()}, uuid:${fileUs.fileCnt.unid}`, { fileUs });
+
+    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom:%c${fileUsAtom.toString()}, %cuuid:${fileUs.fileCnt.unid}`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
+        { fileUs }
+    );
+    console.trace();
+    console.groupEnd();
 }
 
 function printDisposeManiAtoms(fileUs: FileUs | undefined, get: Getter, set: Setter) {
@@ -87,5 +95,7 @@ function printDisposeManiAtoms(fileUs: FileUs | undefined, get: Getter, set: Set
         return;
     }
 
-    console.trace(`🏀🏀🏀 disposeManiAtoms: ${fileUs.fileCnt.unid}`, { fileUs });
+    console.groupCollapsed(`🏀 disposeManiAtoms: uuid:${fileUs.fileCnt.unid}`, { fileUs });
+    console.trace();
+    console.groupEnd();
 }
