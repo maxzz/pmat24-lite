@@ -1,7 +1,7 @@
-import { type Setter, type PrimitiveAtom, atom } from "jotai";
+import { type Getter, type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
 import { FormIdx } from "@/store/manifest";
-import { type FileUsAtom, type FileUs  } from "@/store/store-types";
+import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { type OFormContextProps } from "../../9-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
@@ -15,6 +15,8 @@ class NewManiContent implements NewManiContentType {
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
         set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom);
         this.newFileUsAtom = undefined;
+        
+        printNewManiCtxInit();
     }
 };
 
@@ -37,8 +39,10 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
  */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     (get) => {
+        printNewManiCtx('🎈 new mani display name: ', get);
+
         const fileUs = get(newManiFileUsAtom);
-        if (!fileUs) {
+        if (!fileUs || !fileUs.maniAtomsAtom) {
             return null;
         }
 
@@ -54,3 +58,32 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
         return nameAtom;
     },
 );
+
+function printNewManiCtxInit() {
+    console.groupCollapsed(
+        `%c🎈 Init new mani ctx: newManiFileUsAtom:%c${newManiFileUsAtom ? newManiFileUsAtom.toString() : null} %c`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: forestgreen',
+        'font-weight: normal; color: gray',
+    );
+    console.trace();
+    console.groupEnd();
+}
+
+function printNewManiCtx(title: string, get: Getter) {
+    const fileUs = get(newManiFileUsAtom);
+    if (!fileUs) {
+        console.trace(`${title}newManiCtx: null`);
+        return;
+    }
+
+    console.groupCollapsed(
+        `%c${title}newManiCtx: new fileUsAtom:%c${newManiFileUsAtom} %cuuid:${fileUs.fileCnt?.unid}`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: forestgreen',
+        'font-weight: normal; color: gray',
+        { fileUs }
+    );
+    console.trace();
+    console.groupEnd();
+}

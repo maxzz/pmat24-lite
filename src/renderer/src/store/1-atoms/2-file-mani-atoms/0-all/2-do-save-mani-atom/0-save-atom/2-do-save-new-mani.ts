@@ -50,11 +50,23 @@ const doSaveNewManiAtom = atom(
 
         const saved = await set(doSaveOneAtom, fileUsAtom);
         if (saved) {
+            printAtomSaved(fileUsAtom);
             newManiContent.newFileUsAtom = undefined; // preserve the new fileUsAtom from be disposed by newManiContent.init();
         }
         return saved;
     }
 );
+
+function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
+    console.groupCollapsed(
+        `%c🗿 Save: new fileUsAtom:%c${fileUsAtom?.toString()} %c`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
+    );
+    console.trace();
+    console.groupEnd();
+}
 
 //04.12.25
 //TODO: if we edit file name we should update sort order and filter but when user click save or reset button (i.e. not on every name update).
