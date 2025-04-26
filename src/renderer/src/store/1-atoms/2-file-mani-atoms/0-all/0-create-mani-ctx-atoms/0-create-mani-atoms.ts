@@ -6,6 +6,8 @@ import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
 export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }): ManiAtoms {
+    printCreateManiAtoms(fileUs, fileUsAtom);
+
     const rv: any = [];
     const maniAtoms = rv as ManiAtoms;
 
@@ -40,4 +42,16 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     };
 
     return rv;
+}
+
+function printCreateManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom) {
+    console.groupCollapsed(
+        `%c🗿 createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
+         { fileUs }
+        );
+    console.trace();
+    console.groupEnd();
 }

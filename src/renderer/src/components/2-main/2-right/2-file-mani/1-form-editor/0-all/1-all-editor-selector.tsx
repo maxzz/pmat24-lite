@@ -8,8 +8,7 @@ import { TabContent_ManualForm } from "./3-tab-content-manual";
 import { TabContent_NoForm } from "./4-tab-content-no-form";
 
 export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: FileUs; formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
-
-    console.log(`🗿 ManiEditorFormSelector: formIdx=${formIdx} maniAtomsAtom:${fileUs.maniAtomsAtom.toString()}`, { fileUs });
+    printFormEditor(fileUs, formIdx);
 
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
     if (!maniAtoms) {
@@ -36,4 +35,16 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     }
 
     return null;
+}
+
+function printFormEditor(fileUs: FileUs, formIdx: FormIdx) {
+    console.groupCollapsed(
+        `%c🗿 ManiEditorFormSelector: formIdx=${formIdx} maniAtomsAtom:%c${fileUs.maniAtomsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; color: gray',
+        { fileUs }
+    );
+    console.trace();
+    console.groupEnd();
 }
