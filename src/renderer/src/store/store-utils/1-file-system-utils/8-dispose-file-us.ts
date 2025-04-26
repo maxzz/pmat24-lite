@@ -32,7 +32,7 @@ function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
     disposeFileUsManiAtoms(fileUs, get, set);
     disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
-    discardValues(fileUs);
+    //discardValues(fileUs); <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
 }
 
 /**
