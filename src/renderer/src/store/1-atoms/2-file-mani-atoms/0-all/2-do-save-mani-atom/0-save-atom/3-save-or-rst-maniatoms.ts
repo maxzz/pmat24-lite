@@ -30,8 +30,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     set(fileUs.rawCpassAtom, undefined);
 
-    disposeFileUsManiAtoms(fileUs, get, set);
-
+    const savedManiAtomsAtom = fileUs.maniAtomsAtom;
     const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
 
     if (treeNameAtom) {
@@ -44,4 +43,6 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
     }
 
     set(fileUs.maniAtomsAtom, newManiAtoms);
+
+    disposeFileUsManiAtoms(savedManiAtomsAtom, get, set); // after new atom set dispose old one
 }

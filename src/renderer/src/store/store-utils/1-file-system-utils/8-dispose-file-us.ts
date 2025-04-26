@@ -1,6 +1,6 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { type PrimitiveAtom, type Getter, type Setter, atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
-import { FileUsAtom, type FileUs } from "@/store/store-types";
+import { type FileUsAtom, type FileUs, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
@@ -29,7 +29,9 @@ export const doDisposeFileUsAtomAtom = atom(
 );
 
 function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
-    disposeFileUsManiAtoms(fileUs, get, set);
+    //printDisposeManiAtoms(fileUs, get, set);
+
+    disposeFileUsManiAtoms(fileUs.maniAtomsAtom, get, set);
     disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
     //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
@@ -43,23 +45,21 @@ function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
     const savedManiAtoms = fileUs.maniAtomsAtom;
     const savedRawCpassAtom = fileUs.rawCpassAtom;
     discardValues(fileUs);
-    fileUs.maniAtomsAtom = savedManiAtoms;
-    fileUs.rawCpassAtom = savedRawCpassAtom;
+    fileUs.maniAtomsAtom = savedManiAtoms; // should be atom(null)
+    fileUs.rawCpassAtom = savedRawCpassAtom; // should be atom(null)
 }
 
 /**
  * This is used for reset and save operations
  */
-export function disposeFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
-    printDisposeManiAtoms(fileUs, get, set);
-
-    let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
+export function disposeFileUsManiAtoms(maniAtomsAtom: ManiAtomsAtom, get: Getter, set: Setter) {
+    let maniAtoms = get(maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
         disposeFormAtoms(maniAtoms[0]);
         disposeFormAtoms(maniAtoms[1]);
         maniAtoms[0] = undefined;
         maniAtoms[1] = undefined;
-        set(fileUs.maniAtomsAtom, null);
+        set(maniAtomsAtom, null);
     }
 }
 
