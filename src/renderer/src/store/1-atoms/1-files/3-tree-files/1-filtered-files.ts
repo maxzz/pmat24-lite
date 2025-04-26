@@ -77,7 +77,7 @@ export const isFilterActiveAtom = atom(
 );
 
 function printFilterFiles(files: FileUsAtom[], get: Getter) {
-    console.log(`All files before filter: lenght=${files.length}`);
+    console.log(`%c All files before filter: lenght=${files.length} `, 'background-color: green; color: white');
     files.forEach(
         (fileUsAtom) => {
             const fileUs = get(fileUsAtom);

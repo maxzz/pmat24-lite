@@ -3,8 +3,8 @@ import { useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
-import { appSettings, rightPanelAtom } from "@/store";
-import { FileUsAtom } from "@/store/store-types";
+import { type FileUs, appSettings, rightPanelAtom } from "@/store";
+import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManiEditorFormSelector } from "../../1-form-editor";
 import { ManiEditorAllOptions } from "../../2-form-options/0-all/0-all";
@@ -32,6 +32,8 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
             !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms({ fileUs, fileUsAtom }));
         }, [maniAtoms, fileUs, fileUsAtom]
     );
+
+    printManiBodyFileUsAtom(fileUsAtom, fileUs);
 
     if (!maniAtoms) { // console.log('maniAtoms not ready yet but will be on the next render');
         return null;
@@ -71,3 +73,14 @@ const refClasses = "\
 flex-1 mt-1 size-full min-h-0 max-w-4xl \
 overflow-hidden";
 // border-muted-foreground/20 border rounded \
+
+function printManiBodyFileUsAtom(fileUsAtom: FileUsAtom | undefined, fileUs: FileUs | undefined) {
+    console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'} %cuuid:${fileUs?.fileCnt?.unid}`,
+        fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
+        { fileUs }
+    );
+    console.trace();
+    console.groupEnd();
+}
