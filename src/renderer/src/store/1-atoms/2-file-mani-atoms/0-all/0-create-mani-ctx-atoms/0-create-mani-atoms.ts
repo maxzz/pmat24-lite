@@ -6,14 +6,13 @@ import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
 export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }): ManiAtoms {
-    printCreateManiAtoms(fileUs, fileUsAtom);
-
     const rv: any = [];
     const maniAtoms = rv as ManiAtoms;
 
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
 
+    printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
     return rv;
 }
 
@@ -44,14 +43,14 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     return rv;
 }
 
-function printCreateManiAtoms(fileUs: FileUs, fileUsAtom: FileUsAtom) {
+function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
     console.groupCollapsed(
-        `%c🗿 createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
+        `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
         'font-weight: normal; color: gray',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
-         { fileUs }
-        );
+        { fileUs, maniAtoms }
+    );
     console.trace();
     console.groupEnd();
 }
