@@ -22,12 +22,12 @@ export const doDisposeAllFilesFileUsLinksAtom = atom(
 /**
  * Discard FileUs links atom
  */
-export const doDisposeFileUsAtom = atom(
-    null,
-    (get, set, fileUs: FileUs | undefined) => {
-        fileUs && disposeFileUs(fileUs, get, set);
-    }
-);
+// export const doDisposeFileUsAtom = atom(
+//     null,
+//     (get, set, fileUs: FileUs | undefined) => {
+//         fileUs && disposeFileUs(fileUs, get, set);
+//     }
+// );
 
 /**
  * Discard FileUs links atom
@@ -35,11 +35,13 @@ export const doDisposeFileUsAtom = atom(
 export const doDisposeFileUsAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
+        console.trace('🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom', fileUsAtom?.toString(), { fileUsAtom: fileUsAtom ? get(fileUsAtom): undefined });
         fileUsAtom && disposeFileUs(get(fileUsAtom), get, set);
     }
 );
 
 function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
+    console.trace('🏀🏀🏀 doDisposeFileUsAtom', fileUs.fileCnt.unid, { fileUs });
     disposeFileUsManiAtoms(fileUs, get, set);
     disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
