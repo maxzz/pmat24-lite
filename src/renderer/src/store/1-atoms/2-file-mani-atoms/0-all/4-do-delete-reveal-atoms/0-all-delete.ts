@@ -42,6 +42,7 @@ export const doDeleteFileUsAtom = atom(null,
         fileUsChanges.setUnchanged({ fileUs });
 
         // 4. dispose edit atoms, after all done to avoid UI updates
+        printDeleteFile(fileUsAtom);
         set(doDisposeFileUsAtomAtom, fileUsAtom);
     }
 );
@@ -94,6 +95,12 @@ export const deleteCpassFromFileUsAtom = atom(null,
         fileUsChanges.setCpass({ fileUs }, true);
     }
 );
+
+function printDeleteFile(fileUsAtom: FileUsAtom | undefined) {
+    console.groupCollapsed(`🛑 deleteFile: ${fileUsAtom ? fileUsAtom.toString() : 'null'}`);
+    console.trace();
+    console.groupEnd();
+}
 
 //TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
 //TODO: from empty folder create manifest, for win32, save, delete, create. continue -> crash in ManiEditorFormSelector

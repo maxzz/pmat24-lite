@@ -82,7 +82,12 @@ function printFilterFiles(files: FileUsAtom[], get: Getter) {
         (fileUsAtom) => {
             const fileUs = get(fileUsAtom);
             if (fileUs?.fileCnt) {
-                console.log(`\t\t${fileUsAtom.toString()} uuid:${fileUs.fileCnt.unid} fname:"${fileUs.fileCnt.fname}"`, { fileUs });
+                console.log(
+                    `\t\ttreeAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid} fname:"${fileUs.fileCnt.fname}"`,
+                    'font-weight: normal; color: magenta',
+                    'font-weight: normal; color: gray',
+                    { fileUs }
+                );
             } else {
                 console.error(`\t\t: null${fileUsAtom.toString()}`, { fileUs });
             }

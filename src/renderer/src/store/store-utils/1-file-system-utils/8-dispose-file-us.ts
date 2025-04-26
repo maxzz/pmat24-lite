@@ -68,19 +68,10 @@ export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
 }
 
 function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter, set: Setter) {
-    if (!fileUsAtom) {
-        console.trace('🏀🏀🏀🏀🏀🏀 disposeFileUsAtom: null atom');
-        return;
-    }
+    const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
 
-    const fileUs = get(fileUsAtom);
-    if (!fileUs) {
-        console.trace(`🏀🏀🏀🏀🏀🏀 disposeFileUsAtom: ${fileUsAtom.toString()}, fileUs=null`);
-        return;
-    }
-
-    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom:%c${fileUsAtom.toString()}, %cuuid:${fileUs.fileCnt.unid}`,
-        'font-weight: normal; color: gray',
+    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'}, %cuuid:${fileUs?.fileCnt?.unid}`,
+        fileUsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
         { fileUs }
@@ -91,11 +82,11 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter,
 
 function printDisposeManiAtoms(fileUs: FileUs | undefined, get: Getter, set: Setter) {
     if (!fileUs) {
-        console.trace('🏀🏀🏀 disposeManiAtoms: null');
+        console.trace('🏀🏀🏀 dispose maniAtoms: null');
         return;
     }
 
-    console.groupCollapsed(`🏀 disposeManiAtoms: uuid:${fileUs.fileCnt.unid}`, { fileUs });
+    console.groupCollapsed(`🏀 dispose maniAtoms: uuid:${fileUs.fileCnt.unid}`, { fileUs });
     console.trace();
     console.groupEnd();
 }
