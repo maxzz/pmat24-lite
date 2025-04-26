@@ -32,7 +32,19 @@ function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
     disposeFileUsManiAtoms(fileUs, get, set);
     disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
-    //discardValues(fileUs); <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
+    //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
+
+    setTimeout(() => { // <- This is not working
+        discardValues(fileUs);
+    }, 100);
+}
+
+function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
+    const savedManiAtoms = fileUs.maniAtomsAtom;
+    const savedRawCpassAtom = fileUs.rawCpassAtom;
+    discardValues(fileUs);
+    fileUs.maniAtomsAtom = savedManiAtoms;
+    fileUs.rawCpassAtom = savedRawCpassAtom;
 }
 
 /**
