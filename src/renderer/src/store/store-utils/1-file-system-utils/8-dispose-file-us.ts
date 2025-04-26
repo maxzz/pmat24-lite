@@ -11,10 +11,7 @@ export const doDisposeAllFilesFileUsLinksAtom = atom(
     (get, set) => {
         const all = get(filesAtom);
         all.forEach(
-            (fileUsAtom) => {
-                const fileUs = get(fileUsAtom);
-                disposeFileUs(fileUs, get, set);
-            }
+            (fileUsAtom) => set(doDisposeFileUsAtomAtom, fileUsAtom)
         );
     }
 );
@@ -22,26 +19,16 @@ export const doDisposeAllFilesFileUsLinksAtom = atom(
 /**
  * Discard FileUs links atom
  */
-// export const doDisposeFileUsAtom = atom(
-//     null,
-//     (get, set, fileUs: FileUs | undefined) => {
-//         fileUs && disposeFileUs(fileUs, get, set);
-//     }
-// );
-
-/**
- * Discard FileUs links atom
- */
 export const doDisposeFileUsAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
-        console.trace('🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom', fileUsAtom?.toString(), { fileUsAtom: fileUsAtom ? get(fileUsAtom): undefined });
+        printDisposeFileUsAtom(fileUsAtom, get, set);
+
         fileUsAtom && disposeFileUs(get(fileUsAtom), get, set);
     }
 );
 
 function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
-    console.trace('🏀🏀🏀 doDisposeFileUsAtom', fileUs.fileCnt.unid, { fileUs });
     disposeFileUsManiAtoms(fileUs, get, set);
     disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
     discardValues(fileUs.fceAtomsForFcFile);
@@ -52,6 +39,8 @@ function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
  * This is used for reset and save operations
  */
 export function disposeFileUsManiAtoms(fileUs: FileUs, get: Getter, set: Setter) {
+    printDisposeManiAtoms(fileUs, get, set);
+
     let maniAtoms = get(fileUs.maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
         disposeFormAtoms(maniAtoms[0]);
@@ -75,4 +64,28 @@ function disposeFormAtoms(formAtoms: AnyFormAtoms | undefined) {
 
 export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
     discardValues(fceCtx);
+}
+
+function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter, set: Setter) {
+    if (!fileUsAtom) {
+        console.trace('🏀🏀🏀🏀🏀🏀 disposeFileUsAtom: null atom');
+        return;
+    }
+
+    const fileUs = get(fileUsAtom);
+    if (!fileUs) {
+        console.trace(`🏀🏀🏀🏀🏀🏀 disposeFileUsAtom: ${fileUsAtom.toString()}, fileUs=null`);
+        return;
+    }
+    
+    console.trace(`🏀🏀🏀🏀🏀🏀 doDisposeFileUsAtom: ${fileUsAtom.toString()}, uuid:${fileUs.fileCnt.unid}`, { fileUs });
+}
+
+function printDisposeManiAtoms(fileUs: FileUs | undefined, get: Getter, set: Setter) {
+    if (!fileUs) {
+        console.trace('🏀🏀🏀 disposeManiAtoms: null');
+        return;
+    }
+
+    console.trace(`🏀🏀🏀 disposeManiAtoms: ${fileUs.fileCnt.unid}`, { fileUs });
 }
