@@ -96,3 +96,7 @@ export const deleteCpassFromFileUsAtom = atom(null,
 );
 
 //TODO: from empty folder create manifest, delete manifest, create manifest, save -> crash in ManiEditorFormSelector
+//TODO: from empty folder create manifest, for win32, save, delete, create. continue -> crash in ManiEditorFormSelector
+//TODO: from empty folder create manifest, for explorer -> crash in ManiEditorFormSelector
+//TODO: from empty folder create manifest, wo/ fields, save -> we have indicator unsaved, but file not exists
+//TODO: after deleted the last create new will fail
