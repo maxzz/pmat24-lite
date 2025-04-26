@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc } from '@/store';
+import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom } from '@/store';
 
 /**
  * @param fileUsAtom - fileUs to update
@@ -44,5 +44,6 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     set(fileUs.maniAtomsAtom, newManiAtoms);
 
+    printDisposeManiAtomsAtom(savedManiAtomsAtom, get, set);
     disposeFileUsManiAtoms(savedManiAtomsAtom, get, set); // after new atom set dispose old one
 }

@@ -24,22 +24,22 @@ export const doDisposeFileUsAtomAtom = atom(
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
         printDisposeFileUsAtom(fileUsAtom, get, set);
 
-        fileUsAtom && disposeFileUs(get(fileUsAtom), get, set);
+        if (!fileUsAtom) {
+            return;
+        }
+
+        const fileUs = get(fileUsAtom);
+
+        disposeFileUsManiAtoms(fileUs.maniAtomsAtom, get, set);
+        disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
+        discardValues(fileUs.fceAtomsForFcFile);
+        //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
+    
+        setTimeout(() => { // <- This is not working
+            discardValues(fileUs);
+        }, 100);
     }
 );
-
-function disposeFileUs(fileUs: FileUs, get: Getter, set: Setter) {
-    //printDisposeManiAtoms(fileUs, get, set);
-
-    disposeFileUsManiAtoms(fileUs.maniAtomsAtom, get, set);
-    disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
-    discardValues(fileUs.fceAtomsForFcFile);
-    //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
-
-    setTimeout(() => { // <- This is not working
-        discardValues(fileUs);
-    }, 100);
-}
 
 function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
     const savedManiAtoms = fileUs.maniAtomsAtom;
@@ -92,13 +92,14 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter,
     console.groupEnd();
 }
 
-function printDisposeManiAtoms(fileUs: FileUs | undefined, get: Getter, set: Setter) {
-    if (!fileUs) {
-        console.trace('🏀🏀🏀 dispose maniAtoms: null');
-        return;
-    }
-
-    console.groupCollapsed(`🏀 dispose maniAtoms: uuid:${fileUs.fileCnt.unid}`, { fileUs });
+export function printDisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined, get: Getter, set: Setter) {
+    const atomStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
+    console.groupCollapsed(
+        `%c🏀 dispose maniAtomsAtom:%c ${atomStr}%c`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; color: gray',
+    );
     console.trace();
     console.groupEnd();
 }
