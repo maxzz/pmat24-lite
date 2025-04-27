@@ -1,4 +1,5 @@
-import { type Getter, type Setter } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
 import { setRootFcFileUs } from "./0-root-fce";
@@ -23,6 +24,20 @@ export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Set
 
     return rv;
 }
+
+export const doAddFcToLoadedAtom = atom(
+    null,
+    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
+        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog if it was created?
+            return;
+        }
+
+        const newRootFc = assignFcRoot(fileUsItems, get, set);
+        if (newRootFc) {
+            fileUsItems.push(newRootFc);
+        }
+    }
+);
 
 function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
     let newlyCreatedFc: FileUs | undefined;

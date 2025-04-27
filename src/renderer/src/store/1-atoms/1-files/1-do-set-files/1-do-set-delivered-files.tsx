@@ -1,14 +1,13 @@
 import { atom } from "jotai";
 import { delay } from "@/utils";
 import { toast } from "sonner";
-import { appSettings } from "../../9-ui-state/0-local-storage-app";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
 import { busyIndicator, clearTotalManis, addToTotalManis } from "../../9-ui-state";
 import { doDisposeAllFilesFileUsLinksAtom } from "@/store/store-utils";
 import { rightPanelAtom } from "../../3-right-panel";
-import { assignFcRoot, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
+import { assignFcRoot, doAddFcToLoadedAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 
 export type SetDeliveredFiles = {
@@ -106,24 +105,10 @@ export const doSetDeliveredFilesAtom = atom(
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
         set(filesAtom, fileUsAtoms);
-        
+
         set(doInitFileUsLinksToFcAtom, { fileUsAtoms, clearFiles });
 
         busyIndicator.msg = '';
-    }
-);
-
-const doAddFcToLoadedAtom = atom(
-    null,
-    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
-        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog if it was created?
-            return;
-        }
-
-        const newRootFc = assignFcRoot(fileUsItems, get, set);
-        if (newRootFc) {
-            fileUsItems.push(newRootFc);
-        }
     }
 );
 
