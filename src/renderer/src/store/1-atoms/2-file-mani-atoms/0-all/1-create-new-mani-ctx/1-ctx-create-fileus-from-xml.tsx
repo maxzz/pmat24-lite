@@ -2,7 +2,7 @@ import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai"
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges, doInitNewManiContentAtom } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges, doInitNewManiContentAtom, ManiAtoms } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
@@ -59,25 +59,25 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom });
 
-        if (mainForCpass) {
+        if (mainForCpass && newManiContent.maniForCpassAtom) {
             const cpassManiAtoms = get(mainForCpass.maniAtomsAtom);
-
-            if (cpassManiAtoms && createdManiAtoms) {
-                set(mainForCpass.maniAtomsAtom, [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]]);
-                fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
-
-                if (newManiContent.maniForCpassAtom) {
-                    const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
-                    set(mainForCpass.rawCpassAtom, xml);
-                }
+            if (!cpassManiAtoms) {
+                throw new Error('cpass wo/ ManiAtoms');
             }
+
+            const newManiAtoms: ManiAtoms = [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]];
+            set(mainForCpass.maniAtomsAtom, newManiAtoms);
+            fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
+
+            const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
+            set(mainForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
         } else {
             set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
-        set(newManiContent.newFileUsAtomAtom, newFileUsAtom);
+        set(newManiContent.newFileUsAtomAtom, mainForCpass ? undefined : newFileUsAtom);
 
         printNewFileUsCreated(newFileUsAtom, get);
         return true;

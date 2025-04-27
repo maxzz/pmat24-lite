@@ -16,7 +16,7 @@ class NewManiContent implements NewManiContentType {
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
 
         if (get(this.newFileUsAtomAtom)) {
-            throw new Error('newFileUsAtomAtom hsould be undefined');
+            throw new Error('newFileUsAtomAtom should be undefined');
             // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
             //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
         }
