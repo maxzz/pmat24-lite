@@ -4,7 +4,6 @@ import { FormIdx } from "@/store/manifest";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { type OFormContextProps } from "../../9-types";
-import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);
@@ -15,13 +14,23 @@ class NewManiContent implements NewManiContentType {
         printNewManiCtxInit(get);
 
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        set(this.newFileUsAtomAtom, undefined);
 
-        //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
+        if (get(this.newFileUsAtomAtom)) {
+            throw new Error('newFileUsAtomAtom hsould be undefined');
+            // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
+            //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
+        }
+        set(this.newFileUsAtomAtom, undefined);
     }
 };
 
 export const newManiContent = new NewManiContent();
+
+export const doInitNewManiContentAtom = atom(null,
+    (get, set) => {
+        newManiContent.init(get, set);
+    }
+);
 
 /**
  * New manifest fileUs atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.

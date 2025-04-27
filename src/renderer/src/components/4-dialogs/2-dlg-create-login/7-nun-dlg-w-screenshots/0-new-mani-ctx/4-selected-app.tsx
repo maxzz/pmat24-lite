@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { allScreenshotAtom, newManiContent } from "@/store";
+import { allScreenshotAtom, doInitNewManiContentAtom } from "@/store";
 import { newManiCtx } from "./0-ctx";
 
 const _appSelectedIdxAtom = atom(0);
@@ -21,7 +21,7 @@ export function create_AppSelectedIdxAtom() {
 
             newManiCtx.lastSelectedHwnd = items[newIdx]?.item.hwnd;
 
-            newManiContent.init(get, set);
+            set(doInitNewManiContentAtom);
         }
     );
 }

@@ -8,7 +8,6 @@ import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-
 import { printManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
 
 export function BodyNewMani() {
-
     const fileUs = useAtomValue(newManiFileUsAtom);
     if (!fileUs) {
         return null;
@@ -24,7 +23,6 @@ export function BodyNewMani() {
 }
 
 function BodyNewManiOld() {
-
     const showOptOnRight = useSnapshot(appSettings.appUi.uiGeneral).showOptOnRight;
 
     const fileUs = useAtomValue(newManiFileUsAtom);

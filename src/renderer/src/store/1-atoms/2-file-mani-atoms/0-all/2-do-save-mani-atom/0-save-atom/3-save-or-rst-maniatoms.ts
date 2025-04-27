@@ -19,9 +19,6 @@ export const updateManiAtomsAfterSaveOrResetAtom = atom(null,
 );
 
 function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, resetToPrev: boolean, get: Getter, set: Setter) {
-    const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom; // This atom is used by tree
-    // const currentName = treeNameAtom ? get(treeNameAtom) : undefined;
-
     const cpassWasAdded = !!get(fileUs.rawCpassAtom);
 
     if (!resetToPrev || cpassWasAdded) {
@@ -33,12 +30,10 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
     const savedManiAtoms = get(fileUs.maniAtomsAtom); //TODO: it should be not atom but values
     const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
 
+    const treeNameAtom = fileUs.parsedSrc.stats.loginFormChooseNameAtom; // This atom is used by tree
     if (treeNameAtom) {
-        // currentName && set(treeNameAtom, currentName);
-
         const loginForm = fileUs.parsedSrc.mani?.forms[0];
         loginForm?.options?.choosename && set(treeNameAtom, loginForm?.options?.choosename);
-
         fileUs.parsedSrc.stats.loginFormChooseNameAtom = treeNameAtom;
     }
 

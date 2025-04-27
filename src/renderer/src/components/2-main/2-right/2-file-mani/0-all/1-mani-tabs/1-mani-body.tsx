@@ -75,7 +75,7 @@ overflow-hidden";
 // border-muted-foreground/20 border rounded \
 
 export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined) {
-    console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'} %cuuid:${fileUs?.fileCnt?.unid}`,
+    console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'} %c`,
         fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',

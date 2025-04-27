@@ -2,7 +2,7 @@ import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai"
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges, doInitNewManiContentAtom } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
@@ -23,7 +23,7 @@ type MoveFromAppsToNextPageParams = {
 export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
 
     // 0. Claen up the context before parsing
-    newManiContent.init(get, set);
+    set(doInitNewManiContentAtom);
 
     // 1. Call Napi to get manifest as maniXml from the window
     try {
@@ -82,7 +82,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         printNewFileUsCreated(newFileUsAtom, get);
         return true;
     } catch (error) {
-        newManiContent.init(get, set);
+        set(doInitNewManiContentAtom);
 
         const message = `Cannot parse manifest content\n${errorToString(error)}`;
         console.error(message);

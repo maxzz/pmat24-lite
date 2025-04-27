@@ -28,15 +28,15 @@ export const doDeleteFileUsAtom = atom(null,
             return;
         }
 
-        // 3.1. remove from files tree
+        // 3.1. clear right panel
+        set(rightPanelAtom, undefined);
+
+        // 3.2. remove from files tree
         const newFiles = files.filter((item) => item !== fileUsAtom);
         set(filesAtom, newFiles);
 
-        // 3.2. update counters
+        // 3.3. update counters
         removeFromTotalManis(fileUs);
-
-        // 3.3. clear right panel
-        set(rightPanelAtom, undefined);
 
         // 3.4. clear file changes
         fileUsChanges.setUnchanged({ fileUs });
@@ -97,7 +97,7 @@ export const deleteCpassFromFileUsAtom = atom(null,
 );
 
 function printDeleteFile(fileUsAtom: FileUsAtom | undefined) {
-    console.groupCollapsed(`🛑 deleteFile: ${fileUsAtom ? fileUsAtom.toString() : 'null'}`);
+    console.groupCollapsed(`🛑🛑🛑 deleteFile: ${fileUsAtom ? fileUsAtom.toString() : 'null'}`);
     console.trace();
     console.groupEnd();
 }
