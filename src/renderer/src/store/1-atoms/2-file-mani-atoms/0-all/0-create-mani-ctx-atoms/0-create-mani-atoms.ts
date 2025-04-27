@@ -12,7 +12,7 @@ export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUs
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
 
-    printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
+    //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
     return rv;
 }
 
