@@ -46,7 +46,7 @@ function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
     const savedRawCpassAtom = fileUs.rawCpassAtom;
     discardValues(fileUs);
     fileUs.maniAtomsAtom = savedManiAtoms; // should be atom(null)
-    fileUs.rawCpassAtom = savedRawCpassAtom; // should be atom(null)
+    fileUs.rawCpassAtom = savedRawCpassAtom; // should be atom(null) // TODO: it should be not cpass but mani name atom
 }
 
 /**

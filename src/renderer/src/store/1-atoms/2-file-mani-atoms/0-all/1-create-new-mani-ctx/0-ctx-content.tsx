@@ -12,11 +12,11 @@ class NewManiContent implements NewManiContentType {
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
     init(set: Setter) {
+        printNewManiCtxInit();
+
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
         set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom);
         this.newFileUsAtom = undefined;
-
-        printNewManiCtxInit();
     }
 };
 
@@ -62,8 +62,8 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
 function printNewManiCtxInit() {
     const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
     console.groupCollapsed(
-        `%c🎈🎈🎈 newManiCtx.init: new fileUsAtom:%c ${atomStr} %c`,
-        'font-weight: normal; color: gray',
+        `%c🎈🎈🎈 newMani.ctx.init: new fileUsAtom:%c ${atomStr} %c`,
+        'font-weight: normal; background-color: limegreen; color: white',
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: gray',
     );
@@ -75,7 +75,7 @@ function printNewManiCtx(get: Getter) {
     const fileUs = newManiContent.newFileUsAtom && get(newManiContent.newFileUsAtom);
     const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
     console.groupCollapsed(
-        `%c🎈newManiCtx.name: new fileUsAtom:%c ${atomStr} %cuuid:${fileUs?.fileCnt?.unid}`,
+        `%c🎈newMani.ctx.name: new fileUsAtom:%c ${atomStr} %cuuid:${fileUs?.fileCnt?.unid}`,
         'font-weight: normal; color: gray',
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: gray',

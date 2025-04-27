@@ -30,7 +30,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     set(fileUs.rawCpassAtom, undefined);
 
-    const savedManiAtomsAtom = fileUs.maniAtomsAtom;
+    const savedManiAtomsAtom = fileUs.maniAtomsAtom; //TODO: it should be not atom but values
     const newManiAtoms = createManiAtoms({ fileUs, fileUsAtom });
 
     if (treeNameAtom) {
