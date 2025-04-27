@@ -30,11 +30,13 @@ export const doDisposeFileUsAtomAtom = atom(
 
         const fileUs = get(fileUsAtom);
 
-        disposeFileUsManiAtoms(fileUs.maniAtomsAtom, get, set);
+        disposeFileUsManiAtoms(get(fileUs.maniAtomsAtom));
+        set(fileUs.maniAtomsAtom, null);
+
         disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
         discardValues(fileUs.fceAtomsForFcFile);
         //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
-    
+
         setTimeout(() => { // <- This is not working
             discardValues(fileUs);
         }, 100);
@@ -52,7 +54,20 @@ function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
 /**
  * This is used for reset and save operations
  */
-export function disposeFileUsManiAtoms(maniAtomsAtom: ManiAtomsAtom, get: Getter, set: Setter) {
+export function disposeFileUsManiAtoms(maniAtoms: ManiAtoms | null) {
+    let localManiAtoms = maniAtoms as Writeable<ManiAtoms> | null;
+    if (localManiAtoms) {
+        disposeFormAtoms(localManiAtoms[0]);
+        disposeFormAtoms(localManiAtoms[1]);
+        localManiAtoms[0] = undefined;
+        localManiAtoms[1] = undefined;
+    }
+}
+
+/**
+ * This is used for reset and save operations
+ */
+export function disposeFileUsManiAtoms2(maniAtomsAtom: ManiAtomsAtom, get: Getter, set: Setter) {
     let maniAtoms = get(maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
     if (maniAtoms) {
         disposeFormAtoms(maniAtoms[0]);
@@ -82,7 +97,7 @@ export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
 function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter, set: Setter) {
     const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
 
-    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'}, %cuuid:${fileUs?.fileCnt?.unid}`,
+    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString() : 'null'}, %cuuid:${fileUs?.fileCnt?.unid}`,
         fileUsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
