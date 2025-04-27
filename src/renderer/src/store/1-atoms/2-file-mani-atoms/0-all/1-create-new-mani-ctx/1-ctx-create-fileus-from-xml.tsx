@@ -79,7 +79,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
-        printNewFileUsCreated(newFileUsAtom);
+        printNewFileUsCreated(newFileUsAtom, get);
         return true;
     } catch (error) {
         newManiContent.init(set);
@@ -91,10 +91,16 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     }
 }
 
-function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined) {
+function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, get: Getter) {
+    const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';
+    const fileUs = fileUsAtom ? get(fileUsAtom) : null;
+    const maniAtomsAtom = fileUs?.maniAtomsAtom;
+    const maniAtomsStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
     console.groupCollapsed(
-        `%c 🛠 new.fileUs.created: %c ${fileUsAtom ? fileUsAtom.toString() : 'null'}%c`,
-        'font-weight: normal; background-color: darkcyan; color: lavender',
+        `%c 🛠🛠🛠🛠🛠🛠🛠🛠🛠🛠 new.fileUs.created: %c ${atomStr}%c maniAtoms: %c${maniAtomsStr}%c`,
+        'font-weight: normal; background-color: darkcyan; color: cyan',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',
     );
