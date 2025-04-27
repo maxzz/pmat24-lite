@@ -11,8 +11,9 @@ export const doOpenDlgNewManiSawAtom = atom(
                 return;
             }
         } else {
-            set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
-            newManiContent.newFileUsAtom = undefined;
+            const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+            set(newManiContent.newFileUsAtomAtom, undefined);
+            set(doDisposeFileUsAtomAtom, newFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
         }
         set(_isDlgOpenAtom, open);
     }

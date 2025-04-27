@@ -8,15 +8,16 @@ import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);
-    newFileUsAtom: FileUsAtom | undefined = undefined;
+    newFileUsAtomAtom = atom<FileUsAtom | undefined>(undefined);
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
-    init(set: Setter) {
-        printNewManiCtxInit();
+    init(get: Getter, set: Setter) {
+        printNewManiCtxInit(get);
 
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
+        set(this.newFileUsAtomAtom, undefined);
+
         //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
-        this.newFileUsAtom = undefined;
     }
 };
 
@@ -27,10 +28,11 @@ export const newManiContent = new NewManiContent();
  */
 export const newManiFileUsAtom = atom<FileUs | undefined>(
     (get) => {
-        if (!newManiContent.newFileUsAtom) {
+        const newFileUsAtom = get(newManiContent.newFileUsAtomAtom);
+        if (!newFileUsAtom) {
             return undefined;
         }
-        return get(newManiContent.newFileUsAtom);
+        return get(newFileUsAtom);
     }
 );
 
@@ -39,7 +41,7 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
  */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     (get) => {
-        printNewManiCtx();
+        printNewManiCtx(get);
 
         const fileUs = get(newManiFileUsAtom);
         if (!fileUs || !fileUs.maniAtomsAtom) {
@@ -59,8 +61,8 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     },
 );
 
-function printNewManiCtxInit() {
-    const newAtom = newManiContent.newFileUsAtom;
+function printNewManiCtxInit(get: Getter) {
+    const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
         `%c🎈🎈🎈 newMani.ctx.init: new fileUsAtom:%c ${atomStr}%c (if OK then it should be null)`,
@@ -72,8 +74,8 @@ function printNewManiCtxInit() {
     console.groupEnd();
 }
 
-function printNewManiCtx() {
-    const newAtom = newManiContent.newFileUsAtom;
+function printNewManiCtx(get: Getter) {
+    const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
         `%cnewMani.ctx.mani-name access: fileUsAtom%c ${atomStr} %c`,

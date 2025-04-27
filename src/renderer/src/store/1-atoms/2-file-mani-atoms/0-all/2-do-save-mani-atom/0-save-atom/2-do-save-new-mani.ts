@@ -32,12 +32,12 @@ const doSaveNewManiAtom = atom(
             return true; // For password change form we don't need to save as new manifest
         }
 
-        const fileUs = newManiContent.newFileUsAtom && get(newManiContent.newFileUsAtom);
+        const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+        const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
             console.error('There is no fileUs for save');
             return false;
         }
-        const fileUsAtom = newManiContent.newFileUsAtom as FileUsAtom;
 
         fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
         fileUs.fileCnt.fpath = rootDir.fpath;
@@ -48,10 +48,10 @@ const doSaveNewManiAtom = atom(
             legacyPath: rootDir.fpath,
         });
 
-        const saved = await set(doSaveOneAtom, fileUsAtom);
+        const saved = await set(doSaveOneAtom, newFileUsAtomAtom);
         if (saved) {
-            printAtomSaved(fileUsAtom);
-            newManiContent.newFileUsAtom = undefined; // preserve the new fileUsAtom from be disposed by newManiContent.init();
+            printAtomSaved(newFileUsAtomAtom);
+            set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
         }
         return saved;
     }

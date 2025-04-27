@@ -7,7 +7,7 @@ import { type FileUsAtom } from "@/store/store-types";
  *    will be used.Set before open Saw monitor.
  */
 export type NewManiContentType = {
-    maniXmlStrAtom: PA<string | undefined>;     // New xml string of the selected application
-    newFileUsAtom: FileUsAtom | undefined;      // New fileUs of the selected application
-    maniForCpassAtom: FileUsAtom | undefined;   // Master fileUs atom to embed password change form into
+    maniXmlStrAtom: PA<string | undefined>;         // New xml string of the selected application
+    newFileUsAtomAtom: PA<FileUsAtom | undefined>;  // New fileUs of the selected application
+    maniForCpassAtom: FileUsAtom | undefined;       // Master fileUs atom to embed password change form into
 };

@@ -21,7 +21,7 @@ export function create_AppSelectedIdxAtom() {
 
             newManiCtx.lastSelectedHwnd = items[newIdx]?.item.hwnd;
 
-            newManiContent.init(set);
+            newManiContent.init(get, set);
         }
     );
 }
