@@ -39,7 +39,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
 
 function printFormEditor(fileUs: FileUs, formIdx: FormIdx) {
     console.groupCollapsed(
-        `%c🗿 ManiEditorFormSelector: formIdx=${formIdx} maniAtomsAtom:%c${fileUs.maniAtomsAtom?.toString()} %cuuid:${fileUs.fileCnt?.unid}`,
+        `%c💎             ManiEditorFormSelector: formIdx=${formIdx} maniAtomsAtom:%c${fileUs.maniAtomsAtom?.toString()} %cuuid:${fileUs.fileCnt?.unid}`,
         fileUs.maniAtomsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',

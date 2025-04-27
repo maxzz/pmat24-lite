@@ -11,3 +11,7 @@ type Writeable<T> = {
 type WriteableDeep<T> = {
     -readonly [P in keyof T]: DeepWriteable<T[P]>
 };
+
+// Jotai unexposed types (somehow they are not exported but should be)
+
+type SetStateAction<Value> = Value | ((prev: Value) => Value);

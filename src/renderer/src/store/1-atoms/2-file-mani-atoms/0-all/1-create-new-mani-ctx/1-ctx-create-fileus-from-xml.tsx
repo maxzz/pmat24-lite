@@ -79,6 +79,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
+        printNewFileUsCreated(newFileUsAtom);
         return true;
     } catch (error) {
         newManiContent.init(set);
@@ -88,6 +89,17 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         showMessage({ set, message, isError: true });
         return false;
     }
+}
+
+function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined) {
+    console.groupCollapsed(
+        `%c 🛠 newFileUs.created: %c ${fileUsAtom ? fileUsAtom.toString() : 'null'}%c`,
+        'font-weight: normal; background-color: darkcyan; color: lavender',
+        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; color: gray',
+    );
+    console.trace();
+    console.groupEnd();
 }
 
 //04.19.25

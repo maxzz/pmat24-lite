@@ -34,11 +34,11 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
 
 /**
  * For non-debug version return: atom<ManiAtoms | null>(null)
- * @returns 
  */
 export function createManiAtomsTraceAtom(initial: ManiAtoms | null): PrimitiveAtom<ManiAtoms | null> {
     const base = atom<ManiAtoms | null>(initial);
-    type SetStateAction<Value> = Value | ((prev: Value) => Value);
+    printBaseManiAtomsCreated(base);
+
     const rv = atom(
         (get) => {
             const rv = get(base);
@@ -49,13 +49,25 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): PrimitiveAt
             set(base, value);
         }
     );
+
     return rv;
+}
+
+function printBaseManiAtomsCreated(maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>) {
+    console.groupCollapsed(
+        `%c 🛠 fileUs.maniAtoms.created: %c ${maniAtomsAtom.toString()}%c`,
+        'font-weight: normal; background-color: darkcyan; color: lavender',
+        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; color: gray',
+    );
+    console.trace();
+    console.groupEnd();
 }
 
 function printManiAtomsSet(maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>, maniAtoms: ManiAtoms | null) {
     console.groupCollapsed(
-        `%c⛓⛓⛓ set.maniAtoms: %c${maniAtomsAtom.toString()}%c`,
-        'background: midnightblue; color: white', 
+        `%c 🛠 fileUs.maniAtoms.set: %c ${maniAtomsAtom.toString()}%c`,
+        'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',
         { maniAtoms }
