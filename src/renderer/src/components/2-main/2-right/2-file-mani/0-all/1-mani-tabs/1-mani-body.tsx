@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import { type Atom, useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
@@ -74,7 +74,7 @@ flex-1 mt-1 size-full min-h-0 max-w-4xl \
 overflow-hidden";
 // border-muted-foreground/20 border rounded \
 
-function printManiBodyFileUsAtom(fileUsAtom: FileUsAtom | undefined, fileUs: FileUs | undefined) {
+export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined) {
     console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'} %cuuid:${fileUs?.fileCnt?.unid}`,
         fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',

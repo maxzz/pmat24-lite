@@ -1,10 +1,11 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
 import { appSettings, newManiFileUsAtom } from "@/store";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
-import { classNames } from "@/utils";
+import { printManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
 
 export function BodyNewMani() {
 
@@ -12,6 +13,8 @@ export function BodyNewMani() {
     if (!fileUs) {
         return null;
     }
+
+    printManiBodyFileUsAtom(newManiFileUsAtom, fileUs);
 
     return (
         <ScrollArea className="@container/tab-content px-2 py-1 size-full" fullHeight fixedWidth horizontal>
