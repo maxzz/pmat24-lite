@@ -79,7 +79,7 @@ export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fi
         fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
-        { fileUs }
+        // { fileUs }
     );
     console.trace();
     console.groupEnd();

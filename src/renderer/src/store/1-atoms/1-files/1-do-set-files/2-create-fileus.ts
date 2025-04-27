@@ -36,8 +36,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
  * For non-debug version return: atom<ManiAtoms | null>(null)
  */
 export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAtom {
-    const base = atom<ManiAtoms | null>(initial);
-    printBaseManiAtomsCreated(base);
+    const base = atom<ManiAtoms | null>(initial); // initial is null always
+    //printBaseManiAtomsCreated(base);
 
     const rv = atom(
         (get) => {
@@ -55,7 +55,7 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAt
 
 function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
-        `%c 🛠 created.maniAtoms internalBaseAtom.%c${maniAtomsAtom.toString()} %c`,
+        `%c 🛠 created.maniAtoms:%c[${maniAtomsAtom.toString()}].base %c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; color: gray',
@@ -65,14 +65,18 @@ function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
 }
 
 function printManiAtomsSet(baseAtomsAtom: ManiAtomsAtom, maniAtoms: ManiAtoms | null, maniAtomsAtom: ManiAtomsAtom) {
+    const fileUsAtom = maniAtoms?.[0]?.fileUsCtx?.fileUsAtom;
+    const fileUs = maniAtoms?.[0]?.fileUsCtx?.fileUs;
     console.groupCollapsed(
-        `%c 🛠     set.maniAtoms internalBaseAtom.%c${baseAtomsAtom.toString()},%c maniAtomsAtom:%c${maniAtomsAtom.toString()}%c`,
+        `%c 🛠     set.maniAtoms:[%c${baseAtomsAtom.toString()}] %c fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString() : 'null'},%c maniAtomsAtom:%c${maniAtomsAtom.toString()}%c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; background-color: darkcyan; color: lavender',
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',
-        { maniAtoms }
+        { maniAtoms, fileUs }
     );
     console.trace();
     console.groupEnd();
