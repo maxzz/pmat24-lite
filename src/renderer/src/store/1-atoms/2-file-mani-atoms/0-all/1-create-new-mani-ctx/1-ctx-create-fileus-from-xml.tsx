@@ -97,8 +97,8 @@ function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, get: Getter) 
     const maniAtomsAtom = fileUs?.maniAtomsAtom;
     const maniAtomsStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
     console.groupCollapsed(
-        `%c 🛠🛠🛠🛠🛠🛠🛠🛠🛠🛠 new.fileUs.created: %c ${atomStr}%c, maniAtomsAtoms:%c${maniAtomsStr}%c`,
-        'font-weight: normal; background-color: darkcyan; color: cyan',
+        `%c ⭐⭐⭐⭐⭐⭐⭐  created.new fileUsAtom:%c${atomStr}%c, maniAtomsAtoms:%c${maniAtomsStr}%c`,
+        'font-weight: semibold; background-color: lightgoldenrodyellow; color: forestgreen',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',

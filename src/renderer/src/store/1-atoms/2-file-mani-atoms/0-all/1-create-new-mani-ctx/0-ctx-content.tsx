@@ -11,15 +11,15 @@ class NewManiContent implements NewManiContentType {
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
     init(get: Getter, set: Setter) {
-        printNewManiCtxInit(get);
-
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-
+        
+        // printNewManiCtxInit(get);
         if (get(this.newFileUsAtomAtom)) {
             throw new Error('newFileUsAtomAtom should be undefined');
             // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
             //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
         }
+
         set(this.newFileUsAtomAtom, undefined);
     }
 };
@@ -87,7 +87,7 @@ function printNewManiCtx(get: Getter) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
-        `%cnewMani.ctx.mani-name access: fileUsAtom%c ${atomStr} %c`,
+        `%c  newMani.ctx.mani-name access: fileUsAtom%c${atomStr} %c`,
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray'
@@ -95,3 +95,7 @@ function printNewManiCtx(get: Getter) {
     console.trace();
     console.groupEnd();
 }
+
+//04.27.25
+//TODO: where from atom49 is coming on first create?
+//TODO: add option open last folder at startup
