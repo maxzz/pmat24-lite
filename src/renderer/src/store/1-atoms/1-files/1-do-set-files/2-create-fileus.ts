@@ -1,6 +1,6 @@
-import { type PrimitiveAtom, atom } from 'jotai';
+import { atom } from 'jotai';
 import { type FileContent } from '@shared/ipc-types';
-import { type FileUs, finalizeFileContent } from "@/store";
+import { type FileUs, type ManiAtomsAtom, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
 import { createParsedSrc } from './4-create-parsed-src';
 
@@ -35,7 +35,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
 /**
  * For non-debug version return: atom<ManiAtoms | null>(null)
  */
-export function createManiAtomsTraceAtom(initial: ManiAtoms | null): PrimitiveAtom<ManiAtoms | null> {
+export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAtom {
     const base = atom<ManiAtoms | null>(initial);
     printBaseManiAtomsCreated(base);
 
@@ -45,7 +45,7 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): PrimitiveAt
             return rv;
         },
         (get, set, value: SetStateAction<ManiAtoms | null>) => {
-            printManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null);
+            printManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null, rv);
             set(base, value);
         }
     );
@@ -53,7 +53,7 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): PrimitiveAt
     return rv;
 }
 
-function printBaseManiAtomsCreated(maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>) {
+function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
         `%c 🛠 created.maniAtoms internalBaseAtom: %c ${maniAtomsAtom.toString()}%c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
@@ -64,10 +64,12 @@ function printBaseManiAtomsCreated(maniAtomsAtom: PrimitiveAtom<ManiAtoms | null
     console.groupEnd();
 }
 
-function printManiAtomsSet(maniAtomsAtom: PrimitiveAtom<ManiAtoms | null>, maniAtoms: ManiAtoms | null) {
+function printManiAtomsSet(baseAtomsAtom: ManiAtomsAtom, maniAtoms: ManiAtoms | null, maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
-        `%c 🛠     set.maniAtoms internalBaseAtom: %c ${maniAtomsAtom.toString()}%c`,
+        `%c 🛠     set.maniAtoms internalBaseAtom: %c ${baseAtomsAtom.toString()}%c, maniAtoms: %c${maniAtomsAtom.toString()}%c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
+        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',
         { maniAtoms }

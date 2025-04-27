@@ -72,14 +72,12 @@ function printNewManiCtxInit() {
 }
 
 function printNewManiCtx(get: Getter) {
-    const fileUs = newManiContent.newFileUsAtom && get(newManiContent.newFileUsAtom);
     const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
     console.groupCollapsed(
-        `%c🎈newMani.ctx.name: new fileUsAtom:%c ${atomStr} %cuuid:${fileUs?.fileCnt?.unid}`,
-        'font-weight: normal; color: gray',
+        `%cnewMani.ctx.mani-name access: fileUsAtom%c ${atomStr} %c`,
         'font-weight: normal; color: forestgreen',
-        'font-weight: normal; color: gray',
-        { fileUs }
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray'
     );
     console.trace();
     console.groupEnd();
