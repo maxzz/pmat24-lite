@@ -93,7 +93,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
 function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined) {
     console.groupCollapsed(
-        `%c 🛠 newFileUs.created: %c ${fileUsAtom ? fileUsAtom.toString() : 'null'}%c`,
+        `%c 🛠 new.fileUs.created: %c ${fileUsAtom ? fileUsAtom.toString() : 'null'}%c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',

@@ -98,10 +98,11 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        if (!clearFiles) { // Don't create field catalog if we clear files
+        const fcSupported = appSettings.files.shownManis.fcAllowed;
+        if (!clearFiles && fcSupported) { // Don't create field catalog if we clear files
             const newRootFc = assignFcRoot(fileUsItems, get, set);
             if (newRootFc) {
-                appSettings.files.shownManis.fcAllowed && fileUsItems.push(newRootFc);
+                fileUsItems.push(newRootFc);
             }
         }
 
@@ -111,7 +112,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
 
-        !clearFiles && set(doInitFileUsLinksToFcAtom, fileUsAtoms);
+        !clearFiles && fcSupported && set(doInitFileUsLinksToFcAtom, fileUsAtoms);
 
         set(filesAtom, fileUsAtoms);
         busyIndicator.msg = '';
