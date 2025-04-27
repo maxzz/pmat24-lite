@@ -15,7 +15,7 @@ class NewManiContent implements NewManiContentType {
         printNewManiCtxInit();
 
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom);
+        set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
         this.newFileUsAtom = undefined;
     }
 };
@@ -39,7 +39,7 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
  */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
     (get) => {
-        printNewManiCtx(get);
+        printNewManiCtx();
 
         const fileUs = get(newManiFileUsAtom);
         if (!fileUs || !fileUs.maniAtomsAtom) {
@@ -62,8 +62,8 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
 function printNewManiCtxInit() {
     const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
     console.groupCollapsed(
-        `%c🎈🎈🎈 newMani.ctx.init: new fileUsAtom:%c ${atomStr} %c`,
-        'font-weight: normal; background-color: limegreen; color: white',
+        `%c🎈🎈🎈 newMani.ctx.init: new fileUsAtom:%c ${atomStr}%c (if OK then it should be null)`,
+        newManiContent.newFileUsAtom ? 'font-weight: normal; background-color: red; color: white' : 'font-weight: normal; background-color: limegreen; color: darkgreen',
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: gray',
     );
@@ -71,7 +71,7 @@ function printNewManiCtxInit() {
     console.groupEnd();
 }
 
-function printNewManiCtx(get: Getter) {
+function printNewManiCtx() {
     const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
     console.groupCollapsed(
         `%cnewMani.ctx.mani-name access: fileUsAtom%c ${atomStr} %c`,

@@ -96,11 +96,14 @@ export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
 
 function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter, set: Setter) {
     const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
+    const fileUsStr = fileUsAtom ? fileUsAtom.toString() : 'null';
+    const maniStr = fileUs?.maniAtomsAtom ? fileUs.maniAtomsAtom.toString() : 'null';
 
-    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString() : 'null'}, %cuuid:${fileUs?.fileCnt?.unid}`,
+    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsStr}, %cmaniAtomsAtom:%c${maniStr}`,
         fileUsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
+        'font-weight: normal; color: darkmagenta',
         { fileUs }
     );
     console.trace();

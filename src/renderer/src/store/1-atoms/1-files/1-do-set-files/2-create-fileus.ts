@@ -55,9 +55,9 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAt
 
 function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
-        `%c 🛠 created.maniAtoms internalBaseAtom: %c ${maniAtomsAtom.toString()}%c`,
+        `%c 🛠 created.maniAtoms internalBaseAtom.%c${maniAtomsAtom.toString()} %c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
-        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; color: gray',
     );
     console.trace();
@@ -66,9 +66,9 @@ function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
 
 function printManiAtomsSet(baseAtomsAtom: ManiAtomsAtom, maniAtoms: ManiAtoms | null, maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
-        `%c 🛠     set.maniAtoms internalBaseAtom: %c ${baseAtomsAtom.toString()}%c, maniAtoms: %c${maniAtomsAtom.toString()}%c`,
+        `%c 🛠     set.maniAtoms internalBaseAtom.%c${baseAtomsAtom.toString()},%c maniAtomsAtom:%c${maniAtomsAtom.toString()}%c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
-        'font-weight: normal; color: darkmagenta',
+        'font-weight: normal; background-color: darkcyan; color: lavender',
         'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',
