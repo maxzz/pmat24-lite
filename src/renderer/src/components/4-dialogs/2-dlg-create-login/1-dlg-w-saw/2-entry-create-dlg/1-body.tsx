@@ -4,7 +4,7 @@ import { Button } from "@/ui";
 import * as D from "@/ui/shadcn/dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenDlgNewManiSawAtom } from "@/store";
-import { DialogBottemButtons } from "./4-dlg-bottom-buttons";
+import { DialogBottomButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
 import { ManiLoginName } from "./3-mani-login-name";
 import { SawPageHeader } from "./2-saw-page-header";
@@ -34,7 +34,7 @@ export function DialogSawBody() {
                 <ContentEditorSelector />
             </div>
 
-            <DialogBottemButtons className="py-3 border-t border-foreground/20" />
+            <DialogBottomButtons className="py-3 border-t border-foreground/20" />
         </div>
     );
 }

@@ -15,7 +15,7 @@ class NewManiContent implements NewManiContentType {
         printNewManiCtxInit();
 
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
+        //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
         this.newFileUsAtom = undefined;
     }
 };
@@ -60,10 +60,11 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
 );
 
 function printNewManiCtxInit() {
-    const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
+    const newAtom = newManiContent.newFileUsAtom;
+    const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
         `%c🎈🎈🎈 newMani.ctx.init: new fileUsAtom:%c ${atomStr}%c (if OK then it should be null)`,
-        newManiContent.newFileUsAtom ? 'font-weight: normal; background-color: red; color: white' : 'font-weight: normal; background-color: limegreen; color: darkgreen',
+        newAtom ? 'font-weight: normal; background-color: red; color: white' : 'font-weight: normal; background-color: limegreen; color: darkgreen',
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: gray',
     );
@@ -72,7 +73,8 @@ function printNewManiCtxInit() {
 }
 
 function printNewManiCtx() {
-    const atomStr = newManiContent.newFileUsAtom ? newManiContent.newFileUsAtom.toString() : null;
+    const newAtom = newManiContent.newFileUsAtom;
+    const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
         `%cnewMani.ctx.mani-name access: fileUsAtom%c ${atomStr} %c`,
         'font-weight: normal; color: forestgreen',

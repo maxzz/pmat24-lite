@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { newManiContent } from "@/store";
+import { doDisposeFileUsAtomAtom, newManiContent } from "@/store";
 
 const _isDlgOpenAtom = atom(false);
 
@@ -7,9 +7,12 @@ export const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),
     (get, set, open: boolean) => {
         if (open) {
-            if (newManiContent.maniForCpassAtom) {
+            if (newManiContent.maniForCpassAtom) { // cpass dialog is embedded, so don't open dialog
                 return;
             }
+        } else {
+            set(doDisposeFileUsAtomAtom, newManiContent.newFileUsAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
+            newManiContent.newFileUsAtom = undefined;
         }
         set(_isDlgOpenAtom, open);
     }
