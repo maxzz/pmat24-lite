@@ -7,11 +7,34 @@ import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-ato
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
 
+export const doClearFcRootAtom = atom(
+    null,
+    (get, set) => {
+        if (appSettings.files.shownManis.fcAllowed) { // If fcAllowed is changed then app reboot required
+            assignFcRoot(undefined, get, set);
+        }
+    }
+);
+
+export const doAddFcToLoadedAtom = atom(
+    null,
+    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
+        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files.
+            return;
+        }
+
+        const newRootFc = assignFcRoot(fileUsItems, get, set);
+        if (newRootFc) {
+            fileUsItems.push(newRootFc);
+        }
+    }
+);
+
 /**
  * Assign root field catalog from fileUsItems.
  * If the root field catalog is not among fileUsItems, it will be created and returned.
  */
-export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter): FileUs | undefined {
+function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter): FileUs | undefined {
     let rv: FileUs | undefined;
 
     if (fileUs) {
@@ -24,20 +47,6 @@ export function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Set
 
     return rv;
 }
-
-export const doAddFcToLoadedAtom = atom(
-    null,
-    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
-        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog if it was created?
-            return;
-        }
-
-        const newRootFc = assignFcRoot(fileUsItems, get, set);
-        if (newRootFc) {
-            fileUsItems.push(newRootFc);
-        }
-    }
-);
 
 function updateFceAtomsRefs(fileUsItems: FileUs[]): FileUs | undefined {
     let newlyCreatedFc: FileUs | undefined;
