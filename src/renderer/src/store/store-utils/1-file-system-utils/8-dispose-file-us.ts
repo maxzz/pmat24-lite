@@ -99,7 +99,7 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter,
     const fileUsStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const maniStr = fileUs?.maniAtomsAtom ? fileUs.maniAtomsAtom.toString() : 'null';
 
-    console.groupCollapsed(`%c🏀🏀🏀🏀🏀🏀 dispose fileUsAtom:%c${fileUsStr}, %cmaniAtomsAtom:%c${maniStr}`,
+    console.groupCollapsed(`%c🏀🏀🏀 dispose fileUsAtom:%c${fileUsStr}, %cmaniAtomsAtom:%c${maniStr}`,
         fileUsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
