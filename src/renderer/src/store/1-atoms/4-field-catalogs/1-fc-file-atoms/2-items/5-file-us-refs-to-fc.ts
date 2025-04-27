@@ -6,6 +6,7 @@ import { filesAtom } from "../../../1-files";
 import { getRootFceAtoms } from "../1-create-fce";
 import { doPreloadManiAtomsAtom } from "../../../3-right-panel";
 import { type ManualFieldState, type NormalField } from "../../../2-file-mani-atoms";
+import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
 
 type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
 
@@ -13,8 +14,8 @@ type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
  * Create maniAtoms for fileUs if needed and then assign field catalog refs to maniAtoms
  */
 export const doInitFileUsLinksToFcAtom = atom(null,
-    (get, set, fileUsAtoms: FileUsAtom[]) => {
-        if (!fileUsAtoms) {
+    (get, set, { fileUsAtoms, clearFiles }: { fileUsAtoms: FileUsAtom[]; clearFiles: boolean; }) => {
+        if (!fileUsAtoms.length || clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog links if it was created?
             return;
         }
 

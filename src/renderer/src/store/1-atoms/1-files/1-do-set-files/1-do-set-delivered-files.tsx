@@ -98,24 +98,32 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        const fcSupported = appSettings.files.shownManis.fcAllowed;
-        if (!clearFiles && fcSupported) { // Don't create field catalog if we clear files
-            const newRootFc = assignFcRoot(fileUsItems, get, set);
-            if (newRootFc) {
-                fileUsItems.push(newRootFc);
-            }
-        }
+        set(doAddFcToLoadedAtom, { fileUsItems, clearFiles });
 
         sortFileUsItemsInPlace(fileUsItems);
 
         showUnsupportedFilesMsg(unsupported);
 
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
-
-        !clearFiles && fcSupported && set(doInitFileUsLinksToFcAtom, fileUsAtoms);
-
         set(filesAtom, fileUsAtoms);
+        
+        set(doInitFileUsLinksToFcAtom, { fileUsAtoms, clearFiles });
+
         busyIndicator.msg = '';
+    }
+);
+
+const doAddFcToLoadedAtom = atom(
+    null,
+    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
+        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog if it was created?
+            return;
+        }
+
+        const newRootFc = assignFcRoot(fileUsItems, get, set);
+        if (newRootFc) {
+            fileUsItems.push(newRootFc);
+        }
     }
 );
 
