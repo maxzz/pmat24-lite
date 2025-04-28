@@ -5,9 +5,7 @@ import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
 import { createParsedSrc } from './4-create-parsed-src';
 
 /**
- * 
- * @param fileContent 
- * @param maniForCpass - file for password change
+ * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs
  * @returns new fileUs
  */
 export function createFileUsFromFileContent(fileContent: FileContent, maniForCpass?: FileUs): FileUs {

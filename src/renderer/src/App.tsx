@@ -33,39 +33,40 @@ export function App(): JSX.Element {
 //TODO: save pictures previews in separate folder
 
 //12.09.24, files
-    //TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
-    //TODO: add option to show only root and A/B/C folder and ignore other sub-folders
+//    //TODO: combine file icons in separated by slash if forms are mixed (manual and normal)
+//    //TODO: add option to show only root and A/B/C folder and ignore other sub-folders
 
 //12.11.24, field catalog
-    //TODO: buttons are not stored in field catalog
-    //TODO: buttons should not have dbname (it is useless, they don't have state to save)
+//    //TODO: buttons are not stored in field catalog
+//    //TODO: buttons should not have dbname (it is useless, they don't have state to save)
 
 //12.14.25, create new manifest
-    //src/shell/xternal-to-renderer/7-napi-calls/4-get-window-mani.ts
-    //TODO: define ManifestForWindowCreatorResult when result is object
-    //TODO: error handling
-    //TODO: test screenshots get/update for many open chrome windows and get content for active window with many other windows opened and controls
+//    //src/shell/xternal-to-renderer/7-napi-calls/4-get-window-mani.ts
+//    //TODO: define ManifestForWindowCreatorResult when result is object
+//    //TODO: error handling
+//    //TODO: test screenshots get/update for many open chrome windows and get content for active window with many other windows opened and controls
 
 //12.15.25, scroll position
-    //TODO: preserve scroll position - partially done
-    //TODO: prevent dialog from closing when clicking outside of the dialog
+//    //TODO: preserve scroll position - partially done
+//    //TODO: prevent dialog from closing when clicking outside of the dialog
 
-    //TODO: when open mani chrome windows update sometimes goes forever - provide feedback to user and cancel the update button
+//    //TODO: when open mani chrome windows update sometimes goes forever - provide feedback to user and cancel the update button
 
 //12.17.25, screenshot timeout
-    //ocasionally the screenshot is not taken and the timeout is reached, we need to have cancel the detection and re-entrance should be blocked on server side as well
-        //otherwise stack corruption will happen
-    //build counter is not incremented for browser windows (win32 OK)
-    //TODO: highlight application window rect; to unsure that it's the right window
+//    //ocasionally the screenshot is not taken and the timeout is reached, we need to have cancel the detection and re-entrance should be blocked on server side as well
+//        //otherwise stack corruption will happen
+//    //build counter is not incremented for browser windows (win32 OK)
+//    //TODO: highlight application window rect; to unsure that it's the right window
 
 //03.08.25
-    //TODO: update .5sec and show even number only
-    //TODO: handle cancel detection error message
-    //TODO: fix global param uspadte icon automatically
+//    //TODO: update .5sec and show even number only
+//    //TODO: handle cancel detection error message
+//    //TODO: fix global param uspadte icon automatically
     
 //04.23.25
-    //TODO: check before close event if any unsaved changes
+//    //TODO: check before close event if any unsaved changes
 
-    //04.27.25
-//TODO: where from atom49 is coming on first create? - done; (this is derived atom from newManiContent.newFileUsAtomAtom)
-//TODO: add option open last folder at startup
+//04.27.25
+//    //TODO: where from atom49 is coming on first create? - done; (this is derived atom from newManiContent.newFileUsAtomAtom)
+//    //TODO: UI option: add option open last folder at startup
+//    //TODO: UI option: window monitor w/ electron should have 4 corner buttons for quick navigation with pressed state; keep this as an option
