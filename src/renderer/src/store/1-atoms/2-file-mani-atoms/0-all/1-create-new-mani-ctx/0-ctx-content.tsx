@@ -3,7 +3,7 @@ import { type RowInputState } from "@/ui";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
-import { type OFormContextProps } from "../../9-types";
+import { type ManiAtoms, type OFormContextProps } from "../../9-types";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);
@@ -12,7 +12,7 @@ class NewManiContent implements NewManiContentType {
 
     init(get: Getter, set: Setter) {
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        
+
         // printNewManiCtxInit(get);
         if (get(this.newFileUsAtomAtom)) {
             throw new Error('newFileUsAtomAtom should be undefined');
@@ -48,27 +48,45 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
 /**
  * New manifest display name atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.
  */
-export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | null>(
+export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined>(
     (get) => {
         printNewManiCtx(get);
 
         const fileUs = get(newManiFileUsAtom);
         if (!fileUs || !fileUs.maniAtomsAtom) {
-            return null;
+            return;
         }
 
-        const maniAtoms = get(fileUs.maniAtomsAtom);
-        const login = maniAtoms?.[FormIdx.login];
-        if (!login) {
-            return null;
-        }
+        const maniNameAtom = getManiNameAtom(get(fileUs.maniAtomsAtom));
+        return maniNameAtom;
 
-        const loginCtx: OFormContextProps | undefined = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-        const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
-
-        return nameAtom;
+        // const maniAtoms = get(fileUs.maniAtomsAtom);
+        // const login = maniAtoms?.[FormIdx.login];
+        // if (!login) {
+        //     return;
+        // }
+        // const loginCtx: OFormContextProps | undefined = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
+        // const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
+        // return nameAtom;
     },
 );
+
+/**
+ * The same as `get(fileUs.maniAtomsAtom)?.[FormIdx.login]?.options.p1General.nameAtom`
+ * ```
+ * const maniAtoms = get(fileUs.maniAtomsAtom);
+ * const login = maniAtoms?.[FormIdx.login];
+ * if (!login) {
+ *     return null;
+ * }
+ * const loginCtx: OFormContextProps | undefined = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
+ * const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
+ * ```
+ */
+function getManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowInputState> | undefined {
+    const rv = maniAtoms?.[FormIdx.login]?.options.p1General?.nameAtom;
+    return rv;
+}
 
 function printNewManiCtxInit(get: Getter) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
