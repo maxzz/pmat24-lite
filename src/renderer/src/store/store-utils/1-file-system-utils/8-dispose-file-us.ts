@@ -37,9 +37,11 @@ export const doDisposeFileUsAtomAtom = atom(
         discardValues(fileUs.fceAtomsForFcFile);
         //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
 
-        setTimeout(() => { // <- This is not working
-            discardValues(fileUs);
-        }, 100);
+        // setTimeout(() => { // <- This is not working
+        //     discardValues(fileUs);
+        // }, 100);
+
+        discardValues(fileUs);
     }
 );
 
