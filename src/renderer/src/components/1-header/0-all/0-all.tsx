@@ -7,6 +7,7 @@ import { TestCreateWithSaw, TestCreateWithSawForCpass } from "./7-3-create-mani-
 import { TestCloseFolder } from "./7-4-close-folder";
 import { L_PanelMenuTrigger } from "@/components/2-main/1-left/1-header/1-menu-main";
 import { TestDeleteCpass, TestDeleteFile } from "./8-3-test-delete-file";
+import { TestManiName } from "./8-4-test-mani-name";
 // import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
 // import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
 // import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
@@ -41,6 +42,8 @@ export function SectionHeader() {
 
                 <TestDeleteFile />
                 <TestDeleteCpass />
+
+                <TestManiName />
 
                 {/* <div className="w-full flex items-center gap-2">
                     <TestPolicyIcons />
