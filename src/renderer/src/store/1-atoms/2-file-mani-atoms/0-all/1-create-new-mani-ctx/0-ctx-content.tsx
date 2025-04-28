@@ -32,7 +32,7 @@ export const doInitNewManiContentAtom = atom(null,
 );
 
 /**
- * New manifest fileUs atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.
+ * New manifest fileUs atom.
  */
 export const newManiFileUsAtom = atom<FileUs | undefined>(
     (get) => {
@@ -45,7 +45,7 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
 );
 
 /**
- * New manifest display name atom. This is non-reactive atom, just to use it in UI when FileUs atom was created.
+ * New manifest display name atom. This is non-reactive field to atom, just to use it in UI when new FileUs atom created.
  */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined>(
     (get) => {

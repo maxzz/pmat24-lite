@@ -1,7 +1,8 @@
-import { type PrimitiveAtom } from "jotai";
+import { atom, type PrimitiveAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type RowInputState } from "@/ui";
-import { type ManiAtoms } from "@/store";
+import { type ManiAtoms } from "../../9-types";
+import { type FileUsAtom } from "@/store/store-types";
 
 /**
  * The same as `get(fileUs.maniAtomsAtom)?.[FormIdx.login]?.options.p1General.nameAtom`
@@ -19,3 +20,16 @@ export function getManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowI
     const rv = maniAtoms?.[FormIdx.login]?.options.p1General?.nameAtom;
     return rv;
 }
+
+export const getManiDispNameAtomAtom = atom(
+    null,
+    (get, set, fileUsAtom: FileUsAtom | undefined): PrimitiveAtom<RowInputState> | undefined => {
+        const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
+        if (!fileUs || !fileUs.maniAtomsAtom) {
+            return;
+        }
+
+        const rv = getManiNameAtom(get(fileUs.maniAtomsAtom));
+        return rv;
+    },
+);
