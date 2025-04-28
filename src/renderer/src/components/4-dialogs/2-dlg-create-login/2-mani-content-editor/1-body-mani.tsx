@@ -13,7 +13,7 @@ export function BodyNewMani() {
         return null;
     }
 
-    printManiBodyFileUsAtom(newManiFileUsAtom, fileUs);
+    printManiBodyFileUsAtom(newManiFileUsAtom, fileUs, ' (this is derived atom from newManiContent.newFileUsAtomAtom)');
 
     return (
         <ScrollArea className="@container/tab-content px-2 py-1 size-full" fullHeight fixedWidth horizontal>

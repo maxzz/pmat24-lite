@@ -74,11 +74,12 @@ flex-1 mt-1 size-full min-h-0 max-w-4xl \
 overflow-hidden";
 // border-muted-foreground/20 border rounded \
 
-export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined) {
-    console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString(): 'null'} %c`,
+export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined, suffix?: string) {
+    const fileUsStr = fileUsAtom?.toString() || 'null';
+    console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsStr} %c${suffix || ''}`,
         fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
-        'font-weight: normal; color: gray',
+        'font-weight: normal; color: gray; font-size: 0.6rem',
         // { fileUs }
     );
     console.trace();

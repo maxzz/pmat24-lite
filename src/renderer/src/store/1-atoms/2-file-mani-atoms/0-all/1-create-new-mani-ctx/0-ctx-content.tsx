@@ -95,7 +95,3 @@ function printNewManiCtx(get: Getter) {
     console.trace();
     console.groupEnd();
 }
-
-//04.27.25
-//TODO: where from atom49 is coming on first create?
-//TODO: add option open last folder at startup

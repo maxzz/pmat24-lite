@@ -65,3 +65,7 @@ export function App(): JSX.Element {
     
 //04.23.25
     //TODO: check before close event if any unsaved changes
+
+    //04.27.25
+//TODO: where from atom49 is coming on first create? - done; (this is derived atom from newManiContent.newFileUsAtomAtom)
+//TODO: add option open last folder at startup
