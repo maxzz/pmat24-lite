@@ -2,18 +2,25 @@ import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doOpenManiNameDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { doOpenManiNameDialog2Atom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
 import { Input } from '@/ui';
 
 export function ManiNameDialog() {
 
-    const [openManiNameDialog, doOpenManiNameDialog] = useAtom(doOpenManiNameDialogAtom);
-    if (!openManiNameDialog) {
+    const [openManiNameDialog2, doOpenManiNameDialog2] = useAtom(doOpenManiNameDialog2Atom);
+    if (!openManiNameDialog2) {
         return null;
     }
 
+    const { resolve } = openManiNameDialog2;
+
+    function onDlgClose() {
+        resolve(false);
+        doOpenManiNameDialog2(undefined);
+    }
+
     return (
-        <Dialog open={openManiNameDialog} onOpenChange={() => doOpenManiNameDialog(false)}>
+        <Dialog open={!!openManiNameDialog2} onOpenChange={() => onDlgClose()}>
             <DialogContent
                 className={contentClasses}
                 hiddenTitle="New manifest name"
@@ -23,7 +30,7 @@ export function ManiNameDialog() {
                     <div>
                         New manifest name
                     </div>
-                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => doOpenManiNameDialog(false)} />
+                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose()} />
                 </DialogHeader>
 
                 <DialogBody />
