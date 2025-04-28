@@ -14,7 +14,7 @@ export function ManiNameDialog() {
         <Dialog open={openManiNameDialog} onOpenChange={() => doOpenManiNameDialog(false)}>
             <DialogContent
                 className={contentClasses}
-                hiddenTitle="Delete file?"
+                hiddenTitle="New manifest name"
                 noClose
             >
                 <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
