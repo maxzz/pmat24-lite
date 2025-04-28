@@ -3,8 +3,6 @@ import { FileUsAtom, rightPanelAtom } from "@/store";
 
 export const doOpenConfirmDeleteDialogAtom = atom(false);
 
-export const doOpenManiNameDialogAtom = atom(false);
-
 type ManiNameData = {
     // fileUsAtom: FileUsAtom;     // fileUs to rename
     // nextAtom: Atom<() => void>; // atom to call when valid name is set (not empty, maybe unique or auto numbered)
@@ -21,10 +19,7 @@ export const doVerifyNameBeforeSaveAtom = atom(
             return;
         }
 
-        //set(doOpenManiNameDialogAtom, true);
-
         const resolveName = new Promise<boolean>((resolve) => {
-            set(doOpenManiNameDialogAtom, true);
             set(doOpenManiNameDialog2Atom, {
                 // fileUsAtom: fileUsAtom,
                 resolve,
@@ -33,10 +28,6 @@ export const doVerifyNameBeforeSaveAtom = atom(
 
         const ok = await resolveName;
         console.log('------------------ok ----------------', ok);
-
-        // set(doOpenManiNameDialog2Atom, undefined);
-
-        //set(doOpenManiNameDialogAtom, false);
 
         return resolveName;
     }

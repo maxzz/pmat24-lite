@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpenManiNameDialogAtom, doVerifyNameBeforeSaveAtom, fileUsOfRightPanelAtom, rightPanelAtom } from "@/store";
+import { doVerifyNameBeforeSaveAtom, fileUsOfRightPanelAtom, rightPanelAtom } from "@/store";
 
 export function TestManiName() {
     const doVerifyNameBeforeSave = useSetAtom(doVerifyNameBeforeSaveAtom);
