@@ -8,7 +8,7 @@ export const doOpenManiNameDialogAtom = atom(false);
 type ManiNameData = {
     // fileUsAtom: FileUsAtom;     // fileUs to rename
     // nextAtom: Atom<() => void>; // atom to call when valid name is set (not empty, maybe unique or auto numbered)
-    resolve: (ok: boolean) => void; // atom to call when valid name is set (not empty, maybe unique or auto numbered)
+    resolve: (ok: boolean) => void; // ok or cancel
 };
 
 export const doOpenManiNameDialog2Atom = atom<ManiNameData | undefined>(undefined); // TODO: show only if name is invalid
@@ -32,8 +32,9 @@ export const doVerifyNameBeforeSaveAtom = atom(
         });
 
         const ok = await resolveName;
+        console.log('------------------ok ----------------', ok);
 
-        set(doOpenManiNameDialog2Atom, undefined);
+        // set(doOpenManiNameDialog2Atom, undefined);
 
         //set(doOpenManiNameDialogAtom, false);
 
