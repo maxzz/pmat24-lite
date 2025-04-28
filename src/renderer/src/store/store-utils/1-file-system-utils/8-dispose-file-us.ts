@@ -1,12 +1,12 @@
-import { type PrimitiveAtom, type Getter, type Setter, atom } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
-import { type FileUsAtom, type FileUs, type ManiAtomsAtom } from "@/store/store-types";
+import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
  * Discard all array of FileUs atom
  */
-export const doDisposeAllFilesFileUsLinksAtom = atom(
+export const doDisposeAllFilesAtomAtom = atom(
     null,
     (get, set) => {
         const all = get(filesAtom);
@@ -35,23 +35,9 @@ export const doDisposeFileUsAtomAtom = atom(
 
         disposeFceCtx(fileUs.fceAtomsForFcFile?.viewFceCtx);
         discardValues(fileUs.fceAtomsForFcFile);
-        //discardValues(fileUs); // <- this was the root cause of the crash. Bottom line: don't discard atom members of fileUs
-
-        // setTimeout(() => { // <- This is not working
-        //     discardValues(fileUs);
-        // }, 100);
-
         discardValues(fileUs);
     }
 );
-
-function discardFileUsTopLevel(fileUs: FileUs, get: Getter, set: Setter) {
-    const savedManiAtoms = fileUs.maniAtomsAtom;
-    const savedRawCpassAtom = fileUs.rawCpassAtom;
-    discardValues(fileUs);
-    fileUs.maniAtomsAtom = savedManiAtoms; // should be atom(null)
-    fileUs.rawCpassAtom = savedRawCpassAtom; // should be atom(null) // TODO: it should be not cpass but mani name atom
-}
 
 /**
  * This is used for reset and save operations
@@ -63,20 +49,6 @@ export function disposeFileUsManiAtoms(maniAtoms: ManiAtoms | null) {
         disposeFormAtoms(localManiAtoms[1]);
         localManiAtoms[0] = undefined;
         localManiAtoms[1] = undefined;
-    }
-}
-
-/**
- * This is used for reset and save operations
- */
-export function disposeFileUsManiAtoms2(maniAtomsAtom: ManiAtomsAtom, get: Getter, set: Setter) {
-    let maniAtoms = get(maniAtomsAtom) as Writeable<ManiAtoms> | undefined;
-    if (maniAtoms) {
-        disposeFormAtoms(maniAtoms[0]);
-        disposeFormAtoms(maniAtoms[1]);
-        maniAtoms[0] = undefined;
-        maniAtoms[1] = undefined;
-        set(maniAtomsAtom, null);
     }
 }
 
