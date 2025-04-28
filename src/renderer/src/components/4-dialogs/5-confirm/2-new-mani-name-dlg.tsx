@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
 import { doOpenManiNameDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { Input } from '@/ui';
 
 export function ManiNameDialog() {
 
@@ -31,32 +33,39 @@ export function ManiNameDialog() {
     );
 }
 
-const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody() {
 
-    const rightPanel = useAtomValue(rightPanelAtom);
-    const fileUs = useAtomValue(fileUsOfRightPanelAtom);
-    if (!fileUs || !rightPanel) {
-        return null;
-    }
+    // const rightPanel = useAtomValue(rightPanelAtom);
+    // const fileUs = useAtomValue(fileUsOfRightPanelAtom);
+    // if (!fileUs || !rightPanel) {
+    //     return null;
+    // }
+
+    const [name, setName] = useState('');
 
     return (
         <div className="px-4">
-            <DialogDescription className="pt-2 pb-2">
-                
+            <DialogDescription className="pt-4 pb-2 text-xs text-foreground">
+                Please provide a name for the manifest. This name will be used in the list of manifests in the left pane.
             </DialogDescription>
+
+            <div className="pb-3 text-xs">
+                Manifest name
+                <Input className="w-full h-8 text-xs" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
 
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     {/* <Button variant="outline"> */}
-                    <Button variant="outline" onClick={() => {}}>
-                        Delete
+                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => { }}>
+                        OK
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
-                    <Button variant="default">
+                    <Button variant="outline">
                         Cancel
                     </Button>
                 </DialogClose>

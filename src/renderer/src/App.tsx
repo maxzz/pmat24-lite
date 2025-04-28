@@ -68,5 +68,6 @@ export function App(): JSX.Element {
 
 //04.27.25
 //    //TODO: where from atom49 is coming on first create? - done; (this is derived atom from newManiContent.newFileUsAtomAtom)
+//    //TODO: bug: filter dialog is shown over create new manifest dialog
 //    //TODO: UI option: add option open last folder at startup
 //    //TODO: UI option: window monitor w/ electron should have 4 corner buttons for quick navigation with pressed state; keep this as an option
