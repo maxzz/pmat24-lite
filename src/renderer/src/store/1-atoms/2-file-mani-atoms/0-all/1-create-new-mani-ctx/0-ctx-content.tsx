@@ -1,9 +1,8 @@
 import { type Getter, type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
-import { FormIdx } from "@/store/manifest";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
-import { type ManiAtoms, type OFormContextProps } from "../../9-types";
+import { getManiNameAtom } from "../../4-options";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);
@@ -57,36 +56,10 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined
             return;
         }
 
-        const maniNameAtom = getManiNameAtom(get(fileUs.maniAtomsAtom));
-        return maniNameAtom;
-
-        // const maniAtoms = get(fileUs.maniAtomsAtom);
-        // const login = maniAtoms?.[FormIdx.login];
-        // if (!login) {
-        //     return;
-        // }
-        // const loginCtx: OFormContextProps | undefined = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-        // const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
-        // return nameAtom;
+        const rv = getManiNameAtom(get(fileUs.maniAtomsAtom));
+        return rv;
     },
 );
-
-/**
- * The same as `get(fileUs.maniAtomsAtom)?.[FormIdx.login]?.options.p1General.nameAtom`
- * ```
- * const maniAtoms = get(fileUs.maniAtomsAtom);
- * const login = maniAtoms?.[FormIdx.login];
- * if (!login) {
- *     return null;
- * }
- * const loginCtx: OFormContextProps | undefined = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
- * const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
- * ```
- */
-function getManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowInputState> | undefined {
-    const rv = maniAtoms?.[FormIdx.login]?.options.p1General?.nameAtom;
-    return rv;
-}
 
 function printNewManiCtxInit(get: Getter) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
