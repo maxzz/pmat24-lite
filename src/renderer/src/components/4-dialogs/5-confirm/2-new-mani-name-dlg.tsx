@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doOpenManiNameDialog2Atom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { doOpenManiNameDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
 import { Input } from '@/ui';
 
 export function ManiNameDialog() {
 
-    const [openManiNameDialog2, doOpenManiNameDialog2] = useAtom(doOpenManiNameDialog2Atom);
+    const [openManiNameDialog2, doOpenManiNameDialog2] = useAtom(doOpenManiNameDialogAtom);
     if (!openManiNameDialog2) {
         return null;
     }
 
-    const { resolve } = openManiNameDialog2;
+    const { resolve, fileUsAtom } = openManiNameDialog2;
 
     function onDlgClose(ok: boolean) {
         resolve(ok);
