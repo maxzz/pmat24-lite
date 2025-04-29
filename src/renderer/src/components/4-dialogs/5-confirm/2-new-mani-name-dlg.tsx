@@ -48,8 +48,9 @@ const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration
 function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; onDlgClose: (ok: boolean) => void; }) {
 
     const { nameAtom } = maniNameData;
+    const name = useAtomValue(nameAtom);
 
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
 
     return (
         <div className="px-4">
@@ -67,7 +68,7 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     {/* <Button variant="outline"> */}
-                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
+                    <Button className="min-w-14" variant="default" disabled={!name.data} onClick={() => onDlgClose(true)}>
                         OK
                     </Button>
                 </DialogClose>
