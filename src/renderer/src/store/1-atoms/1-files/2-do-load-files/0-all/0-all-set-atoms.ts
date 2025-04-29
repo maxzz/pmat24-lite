@@ -112,7 +112,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
                 set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
 
             } catch (error) {
-                console.error('Mru folder handle is invalid', folder); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
+                console.error('Mru folder handle is invalid', folder, error); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
                 return;
             }
         }
@@ -121,3 +121,11 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
 //04.13.25
 //TODO: from main - we cannot open empty folder; temp solution use drag and drop
+
+//04.29.25
+//TODO:
+// From line 108 to line 115 catched error:
+// Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false} 
+// NotFoundError: A requested file or directory could not be found at the time an operation was processed. {code: 8, name: 'NotFoundError', message: 'A requested file or directory could not be found at the time an operation was processed.'}
+//
+// We need to show error message and remove from MRU list
