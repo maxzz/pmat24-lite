@@ -51,6 +51,11 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
     //     return null;
     // }
 
+    const fileUs = useAtomValue(maniNameData.fileUsAtom);
+    if (!fileUs|| !fileUs.maniAtomsAtom) {
+        return null;
+    }
+
     const [name, setName] = useState('');
 
     return (
