@@ -1,14 +1,10 @@
-import { useState } from 'react';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
 import { doOpenManiNameDialogAtom, type ManiNameData } from '@/store';
-import { Input } from '@/ui';
-import { ManiLoginName } from '../2-dlg-create-login';
 import { InputWTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
 
 export function ManiNameDialog() {
-
     const [openManiNameDialog, doOpenManiNameDialog] = useAtom(doOpenManiNameDialogAtom);
     if (!openManiNameDialog) {
         return null;
@@ -48,9 +44,7 @@ const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration
 function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; onDlgClose: (ok: boolean) => void; }) {
 
     const { nameAtom } = maniNameData;
-    const name = useAtomValue(nameAtom);
-
-    // const [name, setName] = useState('');
+    const { data: name } = useAtomValue(nameAtom);
 
     return (
         <div className="px-4">
@@ -60,15 +54,12 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
 
             <div className="pb-3 text-xs">
                 Manifest name
-                {/* <ManiLoginName nameAtom={nameAtom} /> */}
-                {/* <Input className="w-full h-8 text-xs" value={name} onChange={(e) => setName(e.target.value)} /> */}
                 <InputWTooltip stateAtom={nameAtom} />
             </div>
 
             <DialogFooter className="py-4">
                 <DialogClose asChild>
-                    {/* <Button variant="outline"> */}
-                    <Button className="min-w-14" variant="default" disabled={!name.data} onClick={() => onDlgClose(true)}>
+                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
                         OK
                     </Button>
                 </DialogClose>
