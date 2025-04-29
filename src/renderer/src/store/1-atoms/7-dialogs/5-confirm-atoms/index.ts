@@ -1,11 +1,12 @@
-import { Atom, atom } from "jotai";
-import { FileUsAtom, rightPanelAtom } from "@/store";
+import { atom } from "jotai";
+import { FileUsAtom } from "@/store";
 
 export const doOpenConfirmDeleteDialogAtom = atom(false);
 
+// New manifest name
+
 type ManiNameData = {
-    // fileUsAtom: FileUsAtom;     // fileUs to rename
-    // nextAtom: Atom<() => void>; // atom to call when valid name is set (not empty, maybe unique or auto numbered)
+    fileUsAtom: FileUsAtom;         // fileUs to rename
     resolve: (ok: boolean) => void; // ok or cancel
 };
 
@@ -13,15 +14,14 @@ export const doOpenManiNameDialog2Atom = atom<ManiNameData | undefined>(undefine
 
 export const doVerifyNameBeforeSaveAtom = atom(
     null,
-    async (get, set) => {
-        const fileUsAtom = get(rightPanelAtom);
+    async (get, set, fileUsAtom: FileUsAtom) => {
         if (!fileUsAtom) {
             return;
         }
 
         const resolveName = new Promise<boolean>((resolve) => {
             set(doOpenManiNameDialog2Atom, {
-                // fileUsAtom: fileUsAtom,
+                fileUsAtom: fileUsAtom,
                 resolve,
             });
         });

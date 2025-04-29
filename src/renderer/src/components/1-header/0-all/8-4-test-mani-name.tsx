@@ -6,7 +6,7 @@ export function TestManiName() {
     const doVerifyNameBeforeSave = useSetAtom(doVerifyNameBeforeSaveAtom);
     const rightPanel = useAtomValue(rightPanelAtom);
     return (
-        <Button className="text-[.65rem]" disabled={!rightPanel} onClick={() => doVerifyNameBeforeSave()}>
+        <Button className="text-[.65rem]" disabled={!rightPanel} onClick={() => rightPanel && doVerifyNameBeforeSave(rightPanel)}>
             Name...
         </Button>
     );
