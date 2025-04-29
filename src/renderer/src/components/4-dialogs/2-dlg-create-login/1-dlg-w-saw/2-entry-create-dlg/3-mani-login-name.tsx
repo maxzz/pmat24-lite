@@ -1,10 +1,9 @@
-import { useAtomValue } from "jotai";
+import { type PrimitiveAtom, useAtomValue } from "jotai";
+import { type RowInputState } from "@/ui";
 import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { newManiDispNameAtom } from "@/store";
 
-export function ManiLoginName() {
-    
-    const nameAtom = useAtomValue(newManiDispNameAtom);
+export function ManiLoginName({ nameAtom }: { nameAtom: PrimitiveAtom<RowInputState> | undefined; }) {
     if (!nameAtom) {
         return null;
     }
@@ -16,5 +15,16 @@ export function ManiLoginName() {
             </div>
             <InputWTooltip stateAtom={nameAtom} />
         </div>
+    );
+}
+
+export function ManiLoginNameGuarded() {
+    const nameAtom = useAtomValue(newManiDispNameAtom);
+    if (!nameAtom) {
+        return null;
+    }
+
+    return (
+        <ManiLoginName nameAtom={nameAtom} />
     );
 }

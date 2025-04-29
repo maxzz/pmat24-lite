@@ -6,7 +6,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { doOpenDlgNewManiSawAtom } from "@/store";
 import { DialogBottomButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
-import { ManiLoginName } from "./3-mani-login-name";
+import { ManiLoginNameGuarded } from "./3-mani-login-name";
 import { SawPageHeader } from "./2-saw-page-header";
 
 export function DialogSawBody() {
@@ -30,7 +30,7 @@ export function DialogSawBody() {
 
             <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,auto,1fr]">
                 <SawPageHeader />
-                <ManiLoginName />
+                <ManiLoginNameGuarded />
                 <ContentEditorSelector />
             </div>
 
