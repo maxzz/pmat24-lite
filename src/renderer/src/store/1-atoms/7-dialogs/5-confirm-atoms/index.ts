@@ -5,7 +5,7 @@ export const doOpenConfirmDeleteDialogAtom = atom(false);
 
 // New manifest name
 
-type ManiNameData = {
+export type ManiNameData = {
     fileUsAtom: FileUsAtom;         // fileUs to rename
     resolve: (ok: boolean) => void; // ok or cancel
 };

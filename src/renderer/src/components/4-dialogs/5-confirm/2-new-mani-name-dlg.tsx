@@ -2,25 +2,26 @@ import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doOpenManiNameDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { doOpenManiNameDialogAtom, type ManiNameData } from '@/store';
 import { Input } from '@/ui';
 
 export function ManiNameDialog() {
 
-    const [openManiNameDialog2, doOpenManiNameDialog2] = useAtom(doOpenManiNameDialogAtom);
-    if (!openManiNameDialog2) {
+    const [openManiNameDialog, doOpenManiNameDialog] = useAtom(doOpenManiNameDialogAtom);
+    if (!openManiNameDialog) {
         return null;
     }
 
-    const { resolve, fileUsAtom } = openManiNameDialog2;
-
     function onDlgClose(ok: boolean) {
-        resolve(ok);
-        doOpenManiNameDialog2(undefined);
+        if (!openManiNameDialog) {
+            throw new Error('no.in.data');
+        }
+        doOpenManiNameDialog(undefined);
+        openManiNameDialog.resolve(ok);
     }
 
     return (
-        <Dialog open={!!openManiNameDialog2} onOpenChange={() => onDlgClose(false)}>
+        <Dialog open={!!openManiNameDialog} onOpenChange={() => onDlgClose(false)}>
             <DialogContent
                 className={contentClasses}
                 hiddenTitle="New manifest name"
@@ -33,7 +34,7 @@ export function ManiNameDialog() {
                     <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
                 </DialogHeader>
 
-                <DialogBody resolve={resolve} />
+                <DialogBody maniNameData={openManiNameDialog} onDlgClose={onDlgClose} />
 
             </DialogContent>
         </Dialog>
@@ -42,7 +43,7 @@ export function ManiNameDialog() {
 
 const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
-function DialogBody({resolve}: { resolve: (ok: boolean) => void; }) {
+function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; onDlgClose: (ok: boolean) => void; }) {
 
     // const rightPanel = useAtomValue(rightPanelAtom);
     // const fileUs = useAtomValue(fileUsOfRightPanelAtom);
@@ -66,13 +67,13 @@ function DialogBody({resolve}: { resolve: (ok: boolean) => void; }) {
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     {/* <Button variant="outline"> */}
-                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => resolve(true)}>
+                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
                         OK
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
-                    <Button variant="outline" onClick={() => resolve(false)}>
+                    <Button variant="outline" onClick={() => onDlgClose(false)}>
                         Cancel
                     </Button>
                 </DialogClose>
