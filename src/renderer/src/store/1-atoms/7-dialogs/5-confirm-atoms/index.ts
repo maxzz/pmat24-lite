@@ -14,9 +14,9 @@ export const doOpenManiNameDialog2Atom = atom<ManiNameData | undefined>(undefine
 
 export const doVerifyNameBeforeSaveAtom = atom(
     null,
-    async (get, set, fileUsAtom: FileUsAtom) => {
+    async (get, set, fileUsAtom: FileUsAtom): Promise<boolean> => {
         if (!fileUsAtom) {
-            return;
+            return false;
         }
 
         const resolveName = new Promise<boolean>((resolve) => {
@@ -27,8 +27,6 @@ export const doVerifyNameBeforeSaveAtom = atom(
         });
 
         const ok = await resolveName;
-        console.log('------------------ok ----------------', ok);
-
-        return resolveName;
+        return ok;
     }
 );
