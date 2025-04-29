@@ -4,6 +4,8 @@ import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, Di
 import { Button } from '@/ui/shadcn/button';
 import { doOpenManiNameDialogAtom, type ManiNameData } from '@/store';
 import { Input } from '@/ui';
+import { ManiLoginName } from '../2-dlg-create-login';
+import { InputWTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
 
 export function ManiNameDialog() {
 
@@ -45,16 +47,7 @@ const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration
 
 function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; onDlgClose: (ok: boolean) => void; }) {
 
-    // const rightPanel = useAtomValue(rightPanelAtom);
-    // const fileUs = useAtomValue(fileUsOfRightPanelAtom);
-    // if (!fileUs || !rightPanel) {
-    //     return null;
-    // }
-
-    const fileUs = useAtomValue(maniNameData.fileUsAtom);
-    if (!fileUs|| !fileUs.maniAtomsAtom) {
-        return null;
-    }
+    const { nameAtom } = maniNameData;
 
     const [name, setName] = useState('');
 
@@ -66,7 +59,9 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
 
             <div className="pb-3 text-xs">
                 Manifest name
-                <Input className="w-full h-8 text-xs" value={name} onChange={(e) => setName(e.target.value)} />
+                {/* <ManiLoginName nameAtom={nameAtom} /> */}
+                {/* <Input className="w-full h-8 text-xs" value={name} onChange={(e) => setName(e.target.value)} /> */}
+                <InputWTooltip stateAtom={nameAtom} />
             </div>
 
             <DialogFooter className="py-4">
