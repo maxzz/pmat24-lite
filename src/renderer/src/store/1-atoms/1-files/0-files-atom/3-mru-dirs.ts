@@ -97,3 +97,6 @@ function printMru(folders: PmatFolder[]) {
 }
 
 //TODO: load MRU UI with framer and remove UI shifting
+
+//04.29.25
+//TODO: check if folder exists in electron version

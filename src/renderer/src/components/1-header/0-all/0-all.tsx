@@ -15,12 +15,12 @@ import { TestManiName } from "./8-4-test-mani-name";
 
 export function SectionHeader() {
 
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
     if (!showUiHeader) {
         return <div />;
     }
-
-    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
 
     return (
         <div className="px-2 py-2 bg-muted/20 border-border/50 border-b flex items-center justify-between gap-x-4">
