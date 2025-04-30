@@ -72,5 +72,3 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
         </div>
     );
 }
-
-//TODO: confirmation dialog: default button is the first one. This is not good UX

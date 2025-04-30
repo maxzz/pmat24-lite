@@ -6,3 +6,10 @@ export const confirmDeleteMessages: ConfirmationMessages = {
     buttonOk: 'Delete',
     buttonCancel: 'Cancel',
 };
+
+export const confirmRemoveNewMruItemMessages: ConfirmationMessages = {
+    title: 'Folder does not exist',
+    message: 'Remove this folder from the most recently used list?',
+    buttonOk: 'Remove',
+    buttonCancel: 'Cancel',
+};

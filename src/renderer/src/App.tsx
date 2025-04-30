@@ -71,3 +71,8 @@ export function App(): JSX.Element {
 //    //TODO: bug: filter dialog is shown over create new manifest dialog
 //    //TODO: UI option: add option open last folder at startup
 //    //TODO: UI option: window monitor w/ electron should have 4 corner buttons for quick navigation with pressed state; keep this as an option
+
+//04.29.25
+//    //TODO: bug: confirmation dialog: default button is the first one. This is not good UX
+//    //TODO: bug: check if folder exists in electron version
+//    //TODO: load MRU UI with framer and remove UI shifting - done
