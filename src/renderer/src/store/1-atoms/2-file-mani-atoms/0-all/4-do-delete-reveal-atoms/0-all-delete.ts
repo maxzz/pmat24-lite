@@ -1,11 +1,12 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
-import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
-import { type FileUsAtom } from "@/store/store-types";
-import { type ConfirmatiionData, type FileUs, ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtomAtom, rootDir } from "@/store";
-import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { toast } from "sonner";
+import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { type FileUsAtom } from "@/store/store-types";
+import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
+import { type ConfirmatiionData, type FileUs, type ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtomAtom, rootDir } from "@/store";
+import { confirmDeleteMessages } from "@/components/4-dialogs/5-confirm";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -24,6 +25,7 @@ export const doDeleteFileUsAtom = atom(null,
         // 2. confirm delete
         const resolve = new Promise<boolean>((resolve) => {
             const confirmDialogOpen: ConfirmatiionData = {
+                ui: confirmDeleteMessages,
                 resolve,
             };
             set(doOpenConfirmDialogAtom, confirmDialogOpen);

@@ -1,9 +1,12 @@
-import { atom, type PrimitiveAtom } from "jotai";
-import { type FileUsAtom } from "@/store/store-types";
-import { type RowInputState } from "@/ui";
-import { getManiDispNameAtomAtom } from "../../2-file-mani-atoms";
+import { atom } from "jotai";
+
+export type ConfirmatiionMessages = {
+    title: string;
+    message: string;
+};
 
 export type ConfirmatiionData = {
+    ui: ConfirmatiionMessages;
     resolve: (ok: boolean) => void;             // ok or cancel
 };
 

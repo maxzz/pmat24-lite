@@ -1,7 +1,12 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { type ConfirmatiionData, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
+import { type ConfirmatiionData, type ConfirmatiionMessages as ConfirmationMessages, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
+
+export const confirmDeleteMessages: ConfirmationMessages = {
+    title: 'Delete file?',
+    message: 'Are you sure you want to delete the manifest file?',
+};
 
 export function ConfirmDeleteFileDialog() {
 
