@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
-import { type FileUs, ManiAtoms, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
+import { type ConfirmatiionData, type FileUs, ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { toast } from "sonner";
@@ -21,27 +21,39 @@ export const doDeleteFileUsAtom = atom(null,
             return;
         }
 
-        // 2. delete phisical file from file system
+        // 2. confirm delete
+        const resolve = new Promise<boolean>((resolve) => {
+            const confirmDialogOpen: ConfirmatiionData = {
+                resolve,
+            };
+            set(doOpenConfirmDialogAtom, confirmDialogOpen);
+        });
+        const ok = await resolve;
+        if (!ok) {
+            return;
+        }
+
+        // 3. delete phisical file from file system
         const res = await deleteFileFromFileSystem(fileUs);
         if (res) {
             toast.error(`Cannot delete file: ${res}`);
             return;
         }
 
-        // 3.1. clear right panel
+        // 4.1. clear right panel
         set(rightPanelAtom, undefined);
 
-        // 3.2. remove from files tree
+        // 4.2. remove from files tree
         const newFiles = files.filter((item) => item !== fileUsAtom);
         set(filesAtom, newFiles);
 
-        // 3.3. update counters
+        // 4.3. update counters
         removeFromTotalManis(fileUs);
 
-        // 3.4. clear file changes
+        // 4.4. clear file changes
         fileUsChanges.setUnchanged({ fileUs });
 
-        // 4. dispose edit atoms, after all done to avoid UI updates
+        // 5. dispose edit atoms, after all done to avoid UI updates
         printDeleteFile(fileUsAtom);
         set(doDisposeFileUsAtomAtom, fileUsAtom);
     }

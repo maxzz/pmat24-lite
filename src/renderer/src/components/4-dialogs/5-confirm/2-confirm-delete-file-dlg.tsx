@@ -1,17 +1,25 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { doDeleteFileUsAtom, doOpenConfirmDeleteDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { type ConfirmatiionData, doDeleteFileUsAtom, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
 
 export function ConfirmDeleteFileDialog() {
 
-    const [confirmDialogOpen, doOpenConfirmDeleteDialog] = useAtom(doOpenConfirmDeleteDialogAtom);
+    const [confirmDialogOpen, doOpenConfirmDeleteDialog] = useAtom(doOpenConfirmDialogAtom);
     if (!confirmDialogOpen) {
         return null;
     }
 
+    function onDlgClose(ok: boolean) {
+        if (!confirmDialogOpen) {
+            throw new Error('no.in.data');
+        }
+        doOpenConfirmDeleteDialog(undefined);
+        confirmDialogOpen.resolve(ok);
+    }
+
     return (
-        <Dialog open={confirmDialogOpen} onOpenChange={() => doOpenConfirmDeleteDialog(false)}>
+        <Dialog open={!!confirmDialogOpen} onOpenChange={() => onDlgClose(false)}>
             <DialogContent
                 className={contentClasses}
                 hiddenTitle="Delete file?"
@@ -21,10 +29,10 @@ export function ConfirmDeleteFileDialog() {
                     <div>
                         Delete file?
                     </div>
-                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => doOpenConfirmDeleteDialog(false)} />
+                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
                 </DialogHeader>
 
-                <DialogBody />
+                <DialogBody confirmDialogOpen={confirmDialogOpen} onDlgClose={onDlgClose} />
 
             </DialogContent>
         </Dialog>
@@ -33,7 +41,7 @@ export function ConfirmDeleteFileDialog() {
 
 const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms]";
 
-function DialogBody() {
+function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmatiionData; onDlgClose: (ok: boolean) => void; }) {
 
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const rightPanel = useAtomValue(rightPanelAtom);
@@ -51,13 +59,14 @@ function DialogBody() {
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     {/* <Button variant="outline"> */}
-                    <Button variant="outline" onClick={() => doDeleteFileUs(rightPanel)}>
+                    {/* <Button variant="outline" onClick={() => doDeleteFileUs(rightPanel)}> */}
+                    <Button variant="outline" onClick={() => onDlgClose(true)}>
                         Delete
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
-                    <Button variant="default">
+                    <Button variant="default" onClick={() => onDlgClose(false)}>
                         Cancel
                     </Button>
                 </DialogClose>

@@ -1,13 +1,13 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { doOpenConfirmDeleteDialogAtom, rightPanelAtom } from "@/store";
+import { doDeleteFileUsAtom, rightPanelAtom } from "@/store";
 
 export function MenuItem_DeleteCurrent() {
-    const fileUsAtom = useAtomValue(rightPanelAtom);
-    const doOpenConfirmDeleteDialog = useSetAtom(doOpenConfirmDeleteDialogAtom);
+    const currentAtom = useAtomValue(rightPanelAtom);
+    const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
 
     return (
-        <DropdownMenuItem onClick={() => fileUsAtom && doOpenConfirmDeleteDialog(true)} disabled={!fileUsAtom}>
+        <DropdownMenuItem disabled={!currentAtom} onClick={() => currentAtom && doDeleteFileUs(currentAtom)}>
             Delete...
         </DropdownMenuItem>
     );
