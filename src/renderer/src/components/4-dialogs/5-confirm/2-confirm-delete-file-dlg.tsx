@@ -6,6 +6,8 @@ import { type ConfirmatiionData, type ConfirmatiionMessages as ConfirmationMessa
 export const confirmDeleteMessages: ConfirmationMessages = {
     title: 'Delete file?',
     message: 'Are you sure you want to delete the manifest file?',
+    buttonOk: 'Delete',
+    buttonCancel: 'Cancel',
 };
 
 export function ConfirmDeleteFileDialog() {
@@ -27,12 +29,12 @@ export function ConfirmDeleteFileDialog() {
         <Dialog open={!!confirmDialogOpen} onOpenChange={() => onDlgClose(false)}>
             <DialogContent
                 className={contentClasses}
-                hiddenTitle="Delete file?"
+                hiddenTitle={confirmDeleteMessages.title}
                 noClose
             >
                 <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
                     <div>
-                        Delete file?
+                        {confirmDeleteMessages.title}
                     </div>
                     <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
                 </DialogHeader>
@@ -57,19 +59,19 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
     return (
         <div className="px-4">
             <DialogDescription className="pt-2 pb-2">
-                Are you sure you want to delete the manifest file?
+                {confirmDeleteMessages.message}
             </DialogDescription>
 
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     <Button variant="outline" onClick={() => onDlgClose(true)}>
-                        Delete
+                        {confirmDeleteMessages.buttonOk}
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
                     <Button variant="default" onClick={() => onDlgClose(false)}>
-                        Cancel
+                        {confirmDeleteMessages.buttonCancel}
                     </Button>
                 </DialogClose>
 
