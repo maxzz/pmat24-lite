@@ -3,8 +3,8 @@ import { Button } from "@/ui";
 import { doDeleteFileUsAtom, fileUsOfRightPanelAtom, rightPanelAtom } from "@/store";
 
 export function TestDeleteFile() {
-    const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const currentAtom = useAtomValue(rightPanelAtom);
+    const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     return (
         <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doDeleteFileUs(currentAtom)}>
             Delete...
