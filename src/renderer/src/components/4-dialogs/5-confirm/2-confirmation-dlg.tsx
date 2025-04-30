@@ -3,43 +3,36 @@ import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, Di
 import { Button } from '@/ui/shadcn/button';
 import { type ConfirmatiionData, type ConfirmatiionMessages as ConfirmationMessages, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
 
-export const confirmDeleteMessages: ConfirmationMessages = {
-    title: 'Delete file?',
-    message: 'Are you sure you want to delete the manifest file?',
-    buttonOk: 'Delete',
-    buttonCancel: 'Cancel',
-};
-
 export function ConfirmDeleteFileDialog() {
 
-    const [confirmDialogOpen, doOpenConfirmDeleteDialog] = useAtom(doOpenConfirmDialogAtom);
-    if (!confirmDialogOpen) {
+    const [confirmData, doCloseDialog] = useAtom(doOpenConfirmDialogAtom);
+    if (!confirmData) {
         return null;
     }
 
     function onDlgClose(ok: boolean) {
-        if (!confirmDialogOpen) {
+        if (!confirmData) {
             throw new Error('no.in.data');
         }
-        doOpenConfirmDeleteDialog(undefined);
-        confirmDialogOpen.resolve(ok);
+        doCloseDialog(undefined);
+        confirmData.resolve(ok);
     }
 
     return (
-        <Dialog open={!!confirmDialogOpen} onOpenChange={() => onDlgClose(false)}>
+        <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
             <DialogContent
                 className={contentClasses}
-                hiddenTitle={confirmDeleteMessages.title}
+                hiddenTitle={confirmData.ui.title}
                 noClose
             >
                 <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
                     <div>
-                        {confirmDeleteMessages.title}
+                        {confirmData.ui.title}
                     </div>
                     <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
                 </DialogHeader>
 
-                <DialogBody confirmDialogOpen={confirmDialogOpen} onDlgClose={onDlgClose} />
+                <DialogBody confirmDialogOpen={confirmData} onDlgClose={onDlgClose} />
 
             </DialogContent>
         </Dialog>
@@ -59,19 +52,19 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
     return (
         <div className="px-4">
             <DialogDescription className="pt-2 pb-2">
-                {confirmDeleteMessages.message}
+                {confirmDialogOpen.ui.message}
             </DialogDescription>
 
             <DialogFooter className="py-4">
                 <DialogClose asChild>
                     <Button variant="outline" onClick={() => onDlgClose(true)}>
-                        {confirmDeleteMessages.buttonOk}
+                        {confirmDialogOpen.ui.buttonOk}
                     </Button>
                 </DialogClose>
 
                 <DialogClose asChild>
                     <Button variant="default" onClick={() => onDlgClose(false)}>
-                        {confirmDeleteMessages.buttonCancel}
+                        {confirmDialogOpen.ui.buttonCancel}
                     </Button>
                 </DialogClose>
 
@@ -79,3 +72,12 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
         </div>
     );
 }
+
+//TODO: confirmation dialog: default button is the first one. This is not good UX
+
+export const confirmDeleteMessages: ConfirmationMessages = {
+    title: 'Delete file?',
+    message: 'Are you sure you want to delete the manifest file?',
+    buttonOk: 'Delete',
+    buttonCancel: 'Cancel',
+};
