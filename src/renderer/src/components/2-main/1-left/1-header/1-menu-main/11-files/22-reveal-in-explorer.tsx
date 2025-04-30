@@ -1,10 +1,10 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { doRevealInExplorerAtom, rightPanelAtom } from "@/store";
+import { doRevealInExplorerAtom, rightPanelAtomAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
 
 export function MenuItem_RevealInExplorerCurrent() {
 
-    const fileUsAtom = useAtomValue(rightPanelAtom);
+    const fileUsAtom = useAtomValue(rightPanelAtomAtom);
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
 
     return (

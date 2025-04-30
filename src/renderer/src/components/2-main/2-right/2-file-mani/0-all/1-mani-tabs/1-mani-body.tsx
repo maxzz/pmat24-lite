@@ -3,7 +3,7 @@ import { type Atom, useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
-import { type FileUs, appSettings, rightPanelAtom } from "@/store";
+import { type FileUs, appSettings, rightPanelAtomAtom } from "@/store";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManiEditorFormSelector } from "../../1-form-editor";
@@ -11,7 +11,7 @@ import { ManiEditorAllOptions } from "../../2-form-options/0-all/0-all";
 import { ManiTabsList } from "./2-mani-tabs-list";
 
 export function ManiBody() {
-    const fileUsAtom = useAtomValue(rightPanelAtom);
+    const fileUsAtom = useAtomValue(rightPanelAtomAtom);
     if (!fileUsAtom) {
         return null;
     }

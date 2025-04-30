@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
-import { type ConfirmatiionData, type FileUs, ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtom, rootDir } from "@/store";
+import { type ConfirmatiionData, type FileUs, ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtomAtom, rootDir } from "@/store";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { toast } from "sonner";
@@ -41,7 +41,7 @@ export const doDeleteFileUsAtom = atom(null,
         }
 
         // 4.1. clear right panel
-        set(rightPanelAtom, undefined);
+        set(rightPanelAtomAtom, undefined);
 
         // 4.2. remove from files tree
         const newFiles = files.filter((item) => item !== fileUsAtom);

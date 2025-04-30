@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { rightPanelAtom, fileUsOfRightPanelAtom, type FileUs, type FileUsAtom } from "@/store";
+import { rightPanelAtomAtom, fileUsOfRightPanelAtom, type FileUs, type FileUsAtom } from "@/store";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all-header";
 import { Row1ChooseName } from "./1-row1-title-with-file-us";
 import { Row2AppIcons } from "./2-row2-1-file-icons";
@@ -11,7 +11,7 @@ import { ToolbarSelector } from "../3-mini-toolbar/0-all";
 
 export function R_PanelHeaderBody() {
 
-    const fileUsAtom = useAtomValue(rightPanelAtom);
+    const fileUsAtom = useAtomValue(rightPanelAtomAtom);
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
 
     if (!fileUsAtom || !fileUs) {

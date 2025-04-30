@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtom, type TreeFileItem, treeFilesAtom } from "@/store";
+import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtomAtom, type TreeFileItem, treeFilesAtom } from "@/store";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
 
 export const treeStateAtom = atom<TreeState>(() => {
@@ -63,7 +63,7 @@ export const doSelectFileUsTreeAtom = atom(
 export const doUpdateTreeSelectedByRightPanelAtom = atom(
     null,
     (get, set) => {
-        const rightPanelFileUsAtom = get(rightPanelAtom);
+        const rightPanelFileUsAtom = get(rightPanelAtomAtom);
 
         const treeFiles = get(dataWithStateAtom);
         const treeState = get(treeStateAtom);

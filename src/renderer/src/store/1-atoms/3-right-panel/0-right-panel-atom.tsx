@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "../2-file-mani-atoms";
 
-export const rightPanelAtom = atom<FileUsAtom | undefined>(undefined);
+export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);
 
 export const doTriggerRightPanelSelectedAtom = atom(null,
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }) => {
@@ -14,13 +14,13 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
         // }
 
         set(doPreloadManiAtomsAtom, newAtom);
-        set(rightPanelAtom, newAtom);
+        set(rightPanelAtomAtom, newAtom);
     }
 );
 
 export const fileUsOfRightPanelAtom = atom(
     (get) => {
-        const selectedAtom = get(rightPanelAtom);
+        const selectedAtom = get(rightPanelAtomAtom);
         return selectedAtom ? get(selectedAtom) : undefined;
     },
 );

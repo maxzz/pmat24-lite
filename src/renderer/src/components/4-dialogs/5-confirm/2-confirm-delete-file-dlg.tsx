@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { type ConfirmatiionData, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtom } from '@/store';
+import { type ConfirmatiionData, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
 
 export function ConfirmDeleteFileDialog() {
 
@@ -43,7 +43,7 @@ const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms
 
 function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmatiionData; onDlgClose: (ok: boolean) => void; }) {
 
-    const rightPanel = useAtomValue(rightPanelAtom);
+    const rightPanel = useAtomValue(rightPanelAtomAtom);
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
     if (!fileUs || !rightPanel) {
         return null;

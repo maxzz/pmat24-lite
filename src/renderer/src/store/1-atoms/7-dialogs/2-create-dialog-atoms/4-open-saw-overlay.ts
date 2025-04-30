@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { newManiContent, rightPanelAtom } from "@/store";
+import { newManiContent, rightPanelAtomAtom } from "@/store";
 
 // Open Saw monitor overlay atom
 
@@ -22,7 +22,7 @@ const _doOpenSawOverlayAtom = atom(false);
 export const doOpenSawOverlayForCpassAtom = atom(
     null,
     (get, set) => {
-        const mainForCpassAtom = get(rightPanelAtom);
+        const mainForCpassAtom = get(rightPanelAtomAtom);
         if (!mainForCpassAtom) {
             console.log('There is no mainForCpassAtom for password change form');
             return;
@@ -34,7 +34,7 @@ export const doOpenSawOverlayForCpassAtom = atom(
 
 export const allowedToCreateCpassAtom = atom(
     (get) => {
-        const mainForCpassAtom = get(rightPanelAtom);
+        const mainForCpassAtom = get(rightPanelAtomAtom);
         if (!mainForCpassAtom) {
             return false;
         }

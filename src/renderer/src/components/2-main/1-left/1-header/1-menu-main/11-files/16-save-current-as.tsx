@@ -1,11 +1,11 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { rightPanelAtom } from "@/store";
+import { rightPanelAtomAtom } from "@/store";
 import { doSaveAsAtom } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function MenuItem_SaveCurrentAs() {
 
-    const fileUsAtom = useAtomValue(rightPanelAtom);
+    const fileUsAtom = useAtomValue(rightPanelAtomAtom);
     const doSaveOneAs = useSetAtom(doSaveAsAtom);
 
     return (<>

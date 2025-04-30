@@ -1,9 +1,9 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doDeleteFileUsAtom, fileUsOfRightPanelAtom, rightPanelAtom } from "@/store";
+import { doDeleteFileUsAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from "@/store";
 
 export function TestDeleteFile() {
-    const currentAtom = useAtomValue(rightPanelAtom);
+    const currentAtom = useAtomValue(rightPanelAtomAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     return (
         <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doDeleteFileUs(currentAtom)}>
