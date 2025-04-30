@@ -4,9 +4,9 @@ import { doVerifyManiNameAtom, rightPanelAtomAtom } from "@/store";
 
 export function TestManiName() {
     const doVerifyNameBeforeSave = useSetAtom(doVerifyManiNameAtom);
-    const rightPanel = useAtomValue(rightPanelAtomAtom);
+    const currentAtom = useAtomValue(rightPanelAtomAtom);
     return (
-        <Button className="text-[.65rem]" disabled={!rightPanel} onClick={() => rightPanel && doVerifyNameBeforeSave(rightPanel)}>
+        <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doVerifyNameBeforeSave(currentAtom)}>
             Name...
         </Button>
     );

@@ -20,8 +20,8 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
 
 export const fileUsOfRightPanelAtom = atom(
     (get) => {
-        const selectedAtom = get(rightPanelAtomAtom);
-        return selectedAtom ? get(selectedAtom) : undefined;
+        const currentAtom = get(rightPanelAtomAtom);
+        return currentAtom ? get(currentAtom) : undefined;
     },
 );
 

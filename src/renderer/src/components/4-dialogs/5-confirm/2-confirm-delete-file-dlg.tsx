@@ -43,9 +43,9 @@ const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms
 
 function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmatiionData; onDlgClose: (ok: boolean) => void; }) {
 
-    const rightPanel = useAtomValue(rightPanelAtomAtom);
+    const rightPanelAtom = useAtomValue(rightPanelAtomAtom);
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
-    if (!fileUs || !rightPanel) {
+    if (!fileUs || !rightPanelAtom) {
         return null;
     }
 
