@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
-import { type ConfirmatiionData, type ConfirmatiionMessages as ConfirmationMessages, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
+import { type ConfirmationData, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
 
 export function ConfirmDeleteFileDialog() {
 
@@ -41,7 +41,7 @@ export function ConfirmDeleteFileDialog() {
 
 const contentClasses = "p-0 max-w-sm data-[state=open]:[animation-duration:200ms]";
 
-function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmatiionData; onDlgClose: (ok: boolean) => void; }) {
+function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
 
     const rightPanelAtom = useAtomValue(rightPanelAtomAtom);
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
@@ -74,10 +74,3 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
 }
 
 //TODO: confirmation dialog: default button is the first one. This is not good UX
-
-export const confirmDeleteMessages: ConfirmationMessages = {
-    title: 'Delete file?',
-    message: 'Are you sure you want to delete the manifest file?',
-    buttonOk: 'Delete',
-    buttonCancel: 'Cancel',
-};
