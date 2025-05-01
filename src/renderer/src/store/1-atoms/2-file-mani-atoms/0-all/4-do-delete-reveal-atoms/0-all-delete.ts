@@ -85,7 +85,7 @@ async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefi
     }
 }
 
-export const deleteCpassFromFileUsAtom = atom(null,
+export const doDeleteCpassFromFileUsAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
         if (!fileUs || fileUs.parsedSrc.stats.isFCat || !fileUs.parsedSrc.mani || !fileUs.parsedSrc.meta) {

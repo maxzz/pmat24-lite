@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { deleteCpassFromFileUsAtom, doDeleteFileUsAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from "@/store";
+import { doDeleteCpassFromFileUsAtom, doDeleteFileUsAtom, fileUsOfRightPanelAtom, getCpassFileUsAtom, rightPanelAtomAtom } from "@/store";
 
 export function TestDeleteFile() {
     const currentAtom = useAtomValue(rightPanelAtomAtom);
@@ -13,12 +13,10 @@ export function TestDeleteFile() {
 }
 
 export function TestDeleteCpass() {
-    const doOpenConfirmDeleteDialog = useSetAtom(deleteCpassFromFileUsAtom);
-    const currentAtom = useAtomValue(rightPanelAtomAtom);
-    const currentFileUs = useAtomValue(fileUsOfRightPanelAtom);
-    const disabled = !currentAtom || !currentFileUs || currentFileUs.parsedSrc.stats.isFCat || currentFileUs.parsedSrc.mani?.forms?.length !== 2;
+    const currentAtomWithCpass = useAtomValue(getCpassFileUsAtom);
+    const doDeleteCpassFromFileUs = useSetAtom(doDeleteCpassFromFileUsAtom);
     return (
-        <Button className="text-[.65rem]" disabled={disabled} onClick={() => currentAtom && doOpenConfirmDeleteDialog(currentAtom)}>
+        <Button className="text-[.65rem]" disabled={!!currentAtomWithCpass} onClick={() => currentAtomWithCpass && doDeleteCpassFromFileUs(currentAtomWithCpass)}>
             Delete Cpass...
         </Button>
     );
