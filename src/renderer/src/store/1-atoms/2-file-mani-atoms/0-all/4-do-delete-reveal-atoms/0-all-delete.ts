@@ -6,7 +6,7 @@ import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileUsAtom } from "@/store/store-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { type ConfirmationData, type FileUs, type ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtomAtom, rootDir } from "@/store";
-import { confirmDeleteMessages } from "@/components/4-dialogs/5-confirm";
+import { confirmDeleteCpassMessages, confirmDeleteMessages } from "@/components/4-dialogs/5-confirm";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -24,11 +24,11 @@ export const doDeleteFileUsAtom = atom(null,
 
         // 2. confirm delete
         const resolve = new Promise<boolean>((resolve) => {
-            const confirmDialogOpen: ConfirmationData = {
+            const confirmationData: ConfirmationData = {
                 ui: confirmDeleteMessages,
                 resolve,
             };
-            set(doOpenConfirmDialogAtom, confirmDialogOpen);
+            set(doOpenConfirmDialogAtom, confirmationData);
         });
         const ok = await resolve;
         if (!ok) {
@@ -86,7 +86,7 @@ async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefi
 }
 
 export const doDeleteCpassFromFileUsAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom) => {
+    async (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
         if (!fileUs || fileUs.parsedSrc.stats.isFCat || !fileUs.parsedSrc.mani || !fileUs.parsedSrc.meta) {
             return;
@@ -95,6 +95,18 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
         // get maniAtoms
         const maniAtoms = get(fileUs.maniAtomsAtom);
         if (!maniAtoms?.[FormIdx.cpass]) {
+            return;
+        }
+
+        const resolve = new Promise<boolean>((resolve) => {
+            const confirmationData: ConfirmationData = {
+                ui: confirmDeleteCpassMessages,
+                resolve,
+            };
+            set(doOpenConfirmDialogAtom, confirmationData);
+        });
+        const ok = await resolve;
+        if (!ok) {
             return;
         }
 

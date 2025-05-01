@@ -7,6 +7,13 @@ export const confirmDeleteMessages: ConfirmationMessages = {
     buttonCancel: 'Cancel',
 };
 
+export const confirmDeleteCpassMessages: ConfirmationMessages = {
+    title: 'Delete passwword change?',
+    message: 'Are you sure you want to delete the password change form?',
+    buttonOk: 'Delete',
+    buttonCancel: 'Cancel',
+};
+
 /**
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.
