@@ -11,6 +11,9 @@ import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
 import { printFiles } from "./9-types";
+import { doOpenConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { confirmRemoveFromMruMessages } from "@/components/4-dialogs/5-confirm";
+import { removeFromDirsMru } from "../../0-files-atom/4-mru-dirs";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
@@ -89,31 +92,42 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
 export const doSetFilesFrom_MruFolder_Atom = atom(
     null,
     async (get, set, { folder }: { folder: PmatFolder; }): Promise<void> => {
-        if (hasMain() && folder.fromMain) {
+
+        if (hasMain()) {
+            //TODO: check if folder exists
             const res = await createFileContents_FromMru_Main(folder);
             if (res?.deliveredFileContents) {
                 set(doSetDeliveredFilesAtom, res);
             }
-        } else {
-            try {
-                if (!folder.handle) {
-                    console.error('handle is undefined');
-                    return;
-                }
+            return;
+        }
 
-                if (!await asyncVerifyPermission({ handle: folder.handle, readWrite: true })) {
-                    return;
-                }
-
-                const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
-                //printFiles(files);
-
-                let deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
-
-            } catch (error) {
-                console.error('Mru folder handle is invalid', folder, error); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
+        // 2. Non electron version
+        try {
+            if (!folder.handle) {
+                console.error('handle is undefined');
                 return;
+            }
+
+            if (!await asyncVerifyPermission({ handle: folder.handle, readWrite: true })) {
+                return;
+            }
+
+            const files = filerDirectoryHandles(await openDirectoryHandle(folder.handle, { recursive: true }));
+            //printFiles(files);
+
+            let deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
+            set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
+
+        } catch (error) {
+            console.error('Mru folder handle is invalid', folder, error); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
+
+            const resolveRemoveFromMru = new Promise<boolean>((resolve) => {
+                set(doOpenConfirmDialogAtom, { ui: confirmRemoveFromMruMessages, resolve });
+            });
+            const ok = await resolveRemoveFromMru;
+            if (ok) {
+                removeFromDirsMru(folder);
             }
         }
     }
@@ -124,8 +138,11 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
 //04.29.25
 //TODO:
-// From line 108 to line 115 catched error:
-// Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false} 
+// From line 116 catched error:
+// Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false}
 // NotFoundError: A requested file or directory could not be found at the time an operation was processed. {code: 8, name: 'NotFoundError', message: 'A requested file or directory could not be found at the time an operation was processed.'}
 //
 // We need to show error message and remove from MRU list
+
+//04.30.25
+//TODO: if folder is missing then we need to show error message and remove from MRU list: with and without hasMain()

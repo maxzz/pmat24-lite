@@ -1,26 +1,26 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { toUnix } from "@/utils";
+import { errorToString, toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
+import { appSettings } from "../../9-ui-state/0-local-storage-app";
 import { type PmatFolder } from "./9-types";
 import { isPmatFolderEmpty } from "@/store";
-import { appSettings } from "../../9-ui-state/0-local-storage-app";
 
 export function addToDirsMru(folder: PmatFolder) {
     try {
         updateMruList(appSettings.appUi.mru.folders, folder);
         printRootDir(folder, 'setRootDir');
     } catch (error) {
-        console.error('addToDirsMru', error);
+        console.error(errorToString(error));
     }
 }
 
-export function deleteFromDirsMru(folder: PmatFolder) {
+export function removeFromDirsMru(folder: PmatFolder) {
     try {
         deleteFromMruList(appSettings.appUi.mru.folders, folder);
         printMruList(appSettings.appUi.mru.folders);
     } catch (error) {
-        console.error('deleteFromDirsMru', error);
+        console.error(errorToString(error));
     }
 }
 

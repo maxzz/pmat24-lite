@@ -20,9 +20,9 @@ export const confirmDeleteCpassMessages: ConfirmationMessages = {
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.
  */
-export const confirmRemoveNewMruItemMessages: ConfirmationMessages = {
+export const confirmRemoveFromMruMessages: ConfirmationMessages = {
     title: 'Folder does not exist',
-    message: 'Remove this item from the most recently used list?',
+    message: 'Do you want to remove this name from the most recently used list?',
     buttonOk: 'Remove',
     buttonCancel: 'Cancel',
     isDafaultOk: true,
