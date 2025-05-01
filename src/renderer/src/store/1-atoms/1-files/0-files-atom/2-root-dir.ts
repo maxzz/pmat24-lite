@@ -2,7 +2,7 @@ import { proxy, ref } from "valtio";
 import { filenameWithoutPath } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
-import { addToDirsMru } from "./3-mru-dirs";
+import { addToDirsMru } from "./4-mru-dirs";
 import { appMainTitle } from "../../9-ui-state/0-local-storage-app";
 
 export const rootDir: PmatFolder = proxy<PmatFolder>({

@@ -15,6 +15,15 @@ export function addToDirsMru(folder: PmatFolder) {
     }
 }
 
+export function deleteFromDirsMru(folder: PmatFolder) {
+    try {
+        deleteFromMruList(appSettings.appUi.mru.folders, folder);
+        printMruList(appSettings.appUi.mru.folders);
+    } catch (error) {
+        console.error('deleteFromDirsMru', error);
+    }
+}
+
 /**
  * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
  * @returns True if the list was updated.
@@ -26,7 +35,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 
     folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
 
-    const newFolder = ref(folder); // We'll loose the handle type wo/ ref and as result cannot restore handle from indexedDB
+    const newFolder = ref(folder); // It should be ref() otherwise we'll loose the handle type and as result won't be able to restore handle from indexedDB
 
     const idx = items.findIndex((item) => item.fpath === newFolder.fpath);
 
@@ -48,6 +57,22 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 
     items.unshift(newFolder);
     return true;
+}
+
+function deleteFromMruList(items: PmatFolder[], folder: PmatFolder): boolean {
+    if (isPmatFolderEmpty(folder)) {
+        return false;
+    }
+
+    folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
+
+    const idx = items.findIndex((item) => item.fpath === folder.fpath);
+    if (idx >= 0) {
+        items.splice(idx, 1);
+        return true;
+    }
+
+    return false;
 }
 
 // Initialize
@@ -80,28 +105,27 @@ async function initializeMruIndexDB() {
 
     subscribe(appSettings.appUi.mru, () => {
         const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-        // printMru(snapFoloders);
+        //printMruList(snapFoloders);
         set('pmat25-mru-web', snapFoloders);
     });
 }
+
 /**
  * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
  * @returns 
  */
 function clearMruFromLocalStorage() {
-    if (hasMain()) {
-        return;
+    if (!hasMain()) {
+        appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
     }
-
-    appSettings.appUi.mru.folders = [];
 }
 
-//
+// Utilities
 
 function printRootDir(folder: PmatFolder, title: string) {
     console.log(`%c ${title} `, 'background-color: magenta; color: white', folder);
 }
 
-function printMru(folders: PmatFolder[]) {
+function printMruList(folders: PmatFolder[]) {
     folders.forEach((folder) => printRootDir(folder, 'MRU'));
 }
