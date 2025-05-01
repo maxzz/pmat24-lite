@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { FormIdx } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "../2-file-mani-atoms";
 
@@ -35,8 +36,8 @@ export const getCpassFileUsAtom = atom(
         if (!fileUs || fileUs.parsedSrc.stats.isFCat) {
             return undefined;
         }
-        const disabled = fileUs.parsedSrc.mani?.forms?.length !== 2;
-        return disabled ? undefined : currentAtom;
+        const maniAtoms = get(fileUs.maniAtomsAtom);
+        return maniAtoms?.[FormIdx.cpass] && currentAtom;
     },
 );
 
