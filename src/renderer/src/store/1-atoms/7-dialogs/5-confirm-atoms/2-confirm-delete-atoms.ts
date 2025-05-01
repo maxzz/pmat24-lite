@@ -19,7 +19,7 @@ export const doOpenConfirmDialogAtom = atom<ConfirmationData | undefined>(undefi
 //     const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui: confirmRemoveFromMruMessages, resolve })));
 // }
 
-export const doConfirmDialogAtom = atom(
+export const doAsyncConfirmDialogAtom = atom(
     null,
     async (get, set, ui: ConfirmationMessages): Promise<boolean> => {
         const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui, resolve })));
