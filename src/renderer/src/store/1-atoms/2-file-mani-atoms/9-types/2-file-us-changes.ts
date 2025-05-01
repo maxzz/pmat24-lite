@@ -10,9 +10,12 @@ export const fileUsChanges = {
     set: setChangeFlag,
     setCpass: setCpassChange,       // added or deleted password change form change
     setUnchanged: clearAllChanges,  // clear file all changes
-    hasChange: hasChange,
-    hasAny: hasAnyChange,
+    hasAny: hasAnyChange,           // has any changes
+    hasChange,                      // has change by name
+    hasCpassChange,                 // added or deleted password change form change
 };
+
+// Set/clear changes
 
 function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, changeName: string): ChangesSet {
     const changes = fileUs.fileCnt.changesSet;
@@ -33,13 +36,21 @@ function clearAllChanges({ fileUs }: { fileUs: FileUs; }) {
     allFileUsChanges.delete(`${fileUs.fileCnt.unid}`);
 }
 
-function hasChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
-    return fileUs.fileCnt.changesSet.has(name);
-}
+// Changes check
 
 function hasAnyChange({ fileUs }: { fileUs: FileUs; }): boolean {
     return fileUs.fileCnt.changesSet.size > 0;
 }
+
+function hasChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
+    return fileUs.fileCnt.changesSet.has(name);
+}
+
+function hasCpassChange({ fileUs }: { fileUs: FileUs; }): boolean {
+    return hasChange({ fileUs }, 'cpass');
+}
+
+// Utilities
 
 function printChanges(fileUs: FileUs) {
     const changes: ChangesSet = fileUs.fileCnt.changesSet;
