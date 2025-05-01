@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom } from '@/store';
+import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom, fileUsChanges } from '@/store';
 
 /**
  * @param fileUsAtom - fileUs to update
@@ -19,9 +19,9 @@ export const updateManiAtomsAfterSaveOrResetAtom = atom(null,
 );
 
 function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, resetToPrev: boolean, get: Getter, set: Setter) {
-    const cpassWasAdded = !!get(fileUs.rawCpassAtom);
+    const cpassChanged = fileUsChanges.hasCpassChange({ fileUs });
 
-    if (!resetToPrev || cpassWasAdded) {
+    if (!resetToPrev || cpassChanged) {
         fileUs.parsedSrc = createParsedSrc({ fileCnt: fileUs.fileCnt, maniForCpass: undefined });
     }
 

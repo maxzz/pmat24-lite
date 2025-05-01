@@ -17,17 +17,17 @@ export const doResetOneAtom = atom(null,
         if (fileUs.fceAtomsForFcFile) {
             resetFieldCatalog(fileUsAtom, fileUs, get, set);
         } else {
-            resetManifextTake2(fileUsAtom, fileUs, get, set);
+            resetManifestTake2(fileUsAtom, fileUs, get, set);
         }
     }
 );
 
-function resetManifextTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+function resetManifestTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
     set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
     fileUsChanges.setUnchanged({ fileUs });
 }
 
-function resetManifextTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+function resetManifestTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
         resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
