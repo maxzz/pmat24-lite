@@ -1,26 +1,25 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { type FileUsAtom } from "@/store/store-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "../2-file-mani-atoms";
 
 export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);
 
+/**
+ * set tree item to render in the right panel
+ */
 export const doTriggerRightPanelSelectedAtom = atom(null,
-    (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }) => {
-        // const currentAtom = get(rightPanelAtom);
-        // No need trigger logic here, it's done by the tree
-        // if (currentAtom === newAtom) { // tree selection trigger logic is provided by the tree
-        //     set(rightPanelAtom, undefined);
-        //     return;
-        // }
-
+    (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }): void => {
         set(doPreloadManiAtomsAtom, newAtom);
         set(rightPanelAtomAtom, newAtom);
     }
 );
 
+/**
+ * Get access to the fileUsAtom of the right panel item.
+ */
 export const fileUsOfRightPanelAtom = atom(
-    (get) => {
+    (get): FileUs | undefined => {
         const currentAtom = get(rightPanelAtomAtom);
         return currentAtom ? get(currentAtom) : undefined;
     },
@@ -45,7 +44,7 @@ export const getCpassFileUsAtom = atom(
  * Preload mani/fce atoms for the right panel item
  */
 export const doPreloadManiAtomsAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom | undefined) => {
+    (get, set, fileUsAtom: FileUsAtom | undefined): void => {
         if (fileUsAtom) {
             const fileUs = get(fileUsAtom);
 
