@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue } from 'jotai';
-import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
 import { doOpenManiNameDialogAtom, type ManiNameData } from '@/store';
 import { InputWTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
@@ -58,18 +58,13 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
             </div>
 
             <DialogFooter className="py-4">
-                <DialogClose asChild>
-                    <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
-                        OK
-                    </Button>
-                </DialogClose>
+                <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
+                    OK
+                </Button>
 
-                <DialogClose asChild>
-                    <Button variant="outline" onClick={() => onDlgClose(false)}>
-                        Cancel
-                    </Button>
-                </DialogClose>
-
+                <Button variant="outline" onClick={() => onDlgClose(false)}>
+                    Cancel
+                </Button>
             </DialogFooter>
         </div>
     );
