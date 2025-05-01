@@ -120,12 +120,9 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
             set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
 
         } catch (error) {
-            console.error('Mru folder handle is invalid', folder, error); // Don't call setRootDir(undefined); to keep already open folder or welcome screen
+            console.log('MRU.item.invalid', folder, error); // we don't call setRootDir(undefined); here to keep already open folder or welcome screen
 
-            const resolveRemoveFromMru = new Promise<boolean>((resolve) => {
-                set(doOpenConfirmDialogAtom, { ui: confirmRemoveFromMruMessages, resolve });
-            });
-            const ok = await resolveRemoveFromMru;
+            const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui: confirmRemoveFromMruMessages, resolve })));
             if (ok) {
                 removeFromDirsMru(folder);
             }

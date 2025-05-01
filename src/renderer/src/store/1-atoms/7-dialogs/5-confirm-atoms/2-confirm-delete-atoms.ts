@@ -14,3 +14,15 @@ export type ConfirmationData = {
 };
 
 export const doOpenConfirmDialogAtom = atom<ConfirmationData | undefined>(undefined);
+
+// export async function doConfirmDialog(data: ConfirmationData) {
+//     const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui: confirmRemoveFromMruMessages, resolve })));
+// }
+
+export const doConfirmDialogAtom = atom(
+    null,
+    async (get, set, ui: ConfirmationMessages): Promise<boolean> => {
+        const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui, resolve })));
+        return ok;
+    }
+);
