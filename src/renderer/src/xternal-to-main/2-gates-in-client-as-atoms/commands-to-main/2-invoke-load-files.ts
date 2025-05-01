@@ -1,7 +1,7 @@
 import { proxySet } from "valtio/utils";
 import { toUnix } from "@/utils";
 import { uuid } from "@/store/manifest";
-import { type R2MInvoke, type FileContent, type MainFileContent } from "@shared/ipc-types";
+import { type FileContent, type MainFileContent } from "@shared/ipc-types";
 import { invokeMainTyped } from "../3-to-main-apis";
 
 export type InvokeLoadFilesResult = {
@@ -10,13 +10,8 @@ export type InvokeLoadFilesResult = {
 };
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<InvokeLoadFilesResult> {
-    const params: R2MInvoke.AllInvokes = {
-        type: 'r2mi:load-files',
-        filenames,
-        ...(allowedExt && { allowedExt }),
-    };
-
-    const { filesCnt, emptyFolder } = await invokeMainTyped(params);
+    const { filesCnt, emptyFolder } = await invokeMainTyped({ type: 'r2mi:load-files', filenames, ...(allowedExt && { allowedExt }), });
+    
     const rv: { filesCnt: FileContent[]; emptyFolder: string; } = { 
         filesCnt: (filesCnt || []).map(finalizeFileContent), 
         emptyFolder,

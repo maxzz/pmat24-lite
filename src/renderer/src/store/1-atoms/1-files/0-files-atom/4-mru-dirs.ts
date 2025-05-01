@@ -17,7 +17,7 @@ export function addToDirsMru(folder: PmatFolder) {
 
 export function removeFromDirsMru(folder: PmatFolder) {
     try {
-        deleteFromMruList(appSettings.appUi.mru.folders, folder);
+        removeMruListItem(appSettings.appUi.mru.folders, folder);
         printMruList(appSettings.appUi.mru.folders);
     } catch (error) {
         console.error(errorToString(error));
@@ -59,7 +59,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
     return true;
 }
 
-function deleteFromMruList(items: PmatFolder[], folder: PmatFolder): boolean {
+function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
     if (isPmatFolderEmpty(folder)) {
         return false;
     }

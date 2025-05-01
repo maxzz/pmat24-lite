@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { asyncVerifyPermission, errorToString } from "@/utils";
-import { hasMain } from "@/xternal-to-main";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder } from "../../0-files-atom";
 import { filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
@@ -89,11 +89,24 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     }
 );
 
+//05.01.25
+//TODO: check if folder/folder exists in all cases when we delete, save, open file (especially wo/ electron)
+//TODO: make check for file exists as a separate atom
+
 export const doSetFilesFrom_MruFolder_Atom = atom(
     null,
     async (get, set, { folder }: { folder: PmatFolder; }): Promise<void> => {
 
         if (hasMain()) {
+            const { exists } = await invokeMainTyped({ type: 'r2mi:file-exists', fileName: folder.fpath });
+            if (!exists) {
+                const ok = await set(doAsyncConfirmDialogAtom, confirmRemoveFromMruMessages);
+                if (ok) {
+                    removeFromDirsMru(folder);
+                }
+                return;
+            }
+
             //TODO: check if folder exists
             const res = await createFileContents_FromMru_Main(folder);
             if (res?.deliveredFileContents) {
