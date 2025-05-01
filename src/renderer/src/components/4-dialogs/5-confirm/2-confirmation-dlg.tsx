@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue } from 'jotai';
-import { Dialog, DialogContent, DialogDescription, DialogClose, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 import { Button } from '@/ui/shadcn/button';
 import { type ConfirmationData, doOpenConfirmDialogAtom, fileUsOfRightPanelAtom, rightPanelAtomAtom } from '@/store';
 
@@ -56,18 +56,13 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
             </DialogDescription>
 
             <DialogFooter className="py-4">
-                <DialogClose asChild>
-                    <Button variant="outline" onClick={() => onDlgClose(true)}>
-                        {confirmDialogOpen.ui.buttonOk}
-                    </Button>
-                </DialogClose>
+                <Button variant="outline" onClick={() => onDlgClose(true)}>
+                    {confirmDialogOpen.ui.buttonOk}
+                </Button>
 
-                <DialogClose asChild>
-                    <Button variant="default" onClick={() => onDlgClose(false)}>
-                        {confirmDialogOpen.ui.buttonCancel}
-                    </Button>
-                </DialogClose>
-
+                <Button variant="default" onClick={() => onDlgClose(false)}>
+                    {confirmDialogOpen.ui.buttonCancel}
+                </Button>
             </DialogFooter>
         </div>
     );
