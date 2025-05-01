@@ -26,6 +26,21 @@ export const fileUsOfRightPanelAtom = atom(
 );
 
 /**
+ * Return fileUsAtom if file has cpass form. Use it for cpass add/delete buttons.
+ */
+export const getCpassFileUsAtom = atom(
+    (get): FileUsAtom | undefined => {
+        const currentAtom = get(rightPanelAtomAtom);
+        const fileUs = currentAtom && get(currentAtom);
+        if (!fileUs || fileUs.parsedSrc.stats.isFCat) {
+            return undefined;
+        }
+        const disabled = fileUs.parsedSrc.mani?.forms?.length !== 2;
+        return disabled ? undefined : currentAtom;
+    },
+);
+
+/**
  * Preload mani/fce atoms for the right panel item
  */
 export const doPreloadManiAtomsAtom = atom(null,
