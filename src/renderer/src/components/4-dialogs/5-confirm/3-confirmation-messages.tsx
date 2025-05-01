@@ -8,7 +8,7 @@ export const confirmDeleteMessages: ConfirmationMessages = {
 };
 
 export const confirmDeleteCpassMessages: ConfirmationMessages = {
-    title: 'Delete passwword change?',
+    title: 'Delete password change form?',
     message: 'Are you sure you want to delete the password change form?',
     buttonOk: 'Delete',
     buttonCancel: 'Cancel',
