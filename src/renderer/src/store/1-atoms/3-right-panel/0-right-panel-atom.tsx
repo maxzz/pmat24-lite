@@ -16,6 +16,22 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
 );
 
 /**
+ * Preload mani/fce atoms for the right panel item
+ */
+export const doPreloadManiAtomsAtom = atom(null,
+    (get, set, fileUsAtom: FileUsAtom | undefined): void => {
+        if (fileUsAtom) {
+            const fileUs = get(fileUsAtom);
+
+            if (fileUs.parsedSrc.mani) { // no need to preload fceAtoms they are always created when fc loaded
+                const maniAtoms = get(fileUs.maniAtomsAtom);
+                !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom }));
+            }
+        }
+    }
+);
+
+/**
  * Get access to the fileUsAtom of the right panel item.
  */
 export const fileUsOfRightPanelAtom = atom(
@@ -38,20 +54,4 @@ export const getCpassFileUsAtom = atom(
         const maniAtoms = get(fileUs.maniAtomsAtom);
         return maniAtoms?.[FormIdx.cpass] && currentAtom;
     },
-);
-
-/**
- * Preload mani/fce atoms for the right panel item
- */
-export const doPreloadManiAtomsAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom | undefined): void => {
-        if (fileUsAtom) {
-            const fileUs = get(fileUsAtom);
-
-            if (fileUs.parsedSrc.mani) { // no need to preload fceAtoms they are always created when fc loaded
-                const maniAtoms = get(fileUs.maniAtomsAtom);
-                !maniAtoms && set(fileUs.maniAtomsAtom, createManiAtoms({ fileUs, fileUsAtom }));
-            }
-        }
-    }
 );
