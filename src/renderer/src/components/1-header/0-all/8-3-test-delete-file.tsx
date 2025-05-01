@@ -16,7 +16,7 @@ export function TestDeleteCpass() {
     const currentAtomWithCpass = useAtomValue(getCpassFileUsAtom);
     const doDeleteCpassFromFileUs = useSetAtom(doDeleteCpassFromFileUsAtom);
     return (
-        <Button className="text-[.65rem]" disabled={!!currentAtomWithCpass} onClick={() => currentAtomWithCpass && doDeleteCpassFromFileUs(currentAtomWithCpass)}>
+        <Button className="text-[.65rem]" disabled={!currentAtomWithCpass} onClick={() => currentAtomWithCpass && doDeleteCpassFromFileUs(currentAtomWithCpass)}>
             Delete Cpass...
         </Button>
     );

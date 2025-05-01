@@ -1,6 +1,6 @@
 import { type EditorField, type FormIdx } from "@/store/manifest";
 import { type NFormCtx } from "../../../9-types";
-import { type ResetManifestCtx } from "./../9-types";
+import { type ResetManifestCtx } from "./9-types";
 import { NormalFieldConv, SubmitConv, type SubmitFieldTypes } from "../../../1-normal-fields";
 
 export function resetNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, ctx: ResetManifestCtx) {
