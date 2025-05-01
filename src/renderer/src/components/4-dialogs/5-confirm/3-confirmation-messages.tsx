@@ -5,6 +5,7 @@ export const confirmDeleteMessages: ConfirmationMessages = {
     message: 'Are you sure you want to delete the manifest file?',
     buttonOk: 'Delete',
     buttonCancel: 'Cancel',
+    isDafaultOk: false,
 };
 
 export const confirmDeleteCpassMessages: ConfirmationMessages = {
@@ -12,6 +13,7 @@ export const confirmDeleteCpassMessages: ConfirmationMessages = {
     message: 'Are you sure you want to delete the password change form?',
     buttonOk: 'Delete',
     buttonCancel: 'Cancel',
+    isDafaultOk: false,
 };
 
 /**
@@ -23,4 +25,5 @@ export const confirmRemoveNewMruItemMessages: ConfirmationMessages = {
     message: 'Remove this item from the most recently used list?',
     buttonOk: 'Remove',
     buttonCancel: 'Cancel',
+    isDafaultOk: true,
 };

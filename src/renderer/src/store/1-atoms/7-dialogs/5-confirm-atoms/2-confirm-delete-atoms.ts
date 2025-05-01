@@ -5,6 +5,7 @@ export type ConfirmationMessages = {
     message: string;
     buttonOk: string,
     buttonCancel: string,
+    isDafaultOk: boolean;                       // if true then buttonOk is default otherwise buttonCancel
 };
 
 export type ConfirmationData = {
