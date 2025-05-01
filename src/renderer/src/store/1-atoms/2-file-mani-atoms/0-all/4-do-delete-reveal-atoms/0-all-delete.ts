@@ -3,10 +3,14 @@ import { errorToString } from "@/utils";
 import { toast } from "sonner";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { type FileUsAtom } from "@/store/store-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { removeFromTotalManis } from "@/store/1-atoms/9-ui-state";
+import { fileUsChanges, type ManiAtoms } from "../../9-types";
+import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { type ConfirmationData, type FileUs, type ManiAtoms, doOpenConfirmDialogAtom, fileUsChanges, filesAtom, removeFromTotalManis, rightPanelAtomAtom, rootDir } from "@/store";
 import { confirmDeleteCpassMessages, confirmDeleteMessages } from "@/components/4-dialogs/5-confirm";
+import { doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -23,14 +27,7 @@ export const doDeleteFileUsAtom = atom(null,
         }
 
         // 2. confirm delete
-        const resolve = new Promise<boolean>((resolve) => {
-            const confirmationData: ConfirmationData = {
-                ui: confirmDeleteMessages,
-                resolve,
-            };
-            set(doOpenConfirmDialogAtom, confirmationData);
-        });
-        const ok = await resolve;
+        const ok = await set(doAsyncConfirmDialogAtom, confirmDeleteMessages);
         if (!ok) {
             return;
         }
@@ -98,14 +95,7 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
             return;
         }
 
-        const resolve = new Promise<boolean>((resolve) => {
-            const confirmationData: ConfirmationData = {
-                ui: confirmDeleteCpassMessages,
-                resolve,
-            };
-            set(doOpenConfirmDialogAtom, confirmationData);
-        });
-        const ok = await resolve;
+        const ok = await set(doAsyncConfirmDialogAtom, confirmDeleteCpassMessages);
         if (!ok) {
             return;
         }
