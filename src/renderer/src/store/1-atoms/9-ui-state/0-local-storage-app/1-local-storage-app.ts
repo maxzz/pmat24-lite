@@ -4,7 +4,7 @@ import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
 import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
-import { clearMruFromLocalStorage, initializeMruIndexDB } from "../../1-files/0-files-atom/3-mru-dirs";
+import { initializeMru } from "../../1-files/0-files-atom/3-mru-dirs";
 
 const STORE_KEY = "pmat25-ui";
 const STORE_VER = 'v1';
@@ -41,14 +41,8 @@ function initialSettings(): AppSettings {
 
 // MRU
 
-/**
- * Call this function to initialize global settings before UI is rendered.
- * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
- * Do nothing just load module first and the rest will be done inside module load.
- */
 function initializeAsyncSettings() {
-    clearMruFromLocalStorage();     // For non electron app clear MRU list from localStorage
-    initializeMruIndexDB();         // Intentionally call async wo/ await
+    initializeMru();
 }
 
 initializeAsyncSettings();

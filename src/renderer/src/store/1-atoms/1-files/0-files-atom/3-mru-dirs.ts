@@ -53,6 +53,16 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 // Initialize
 
 /**
+ * Call this function to initialize global settings before UI is rendered.
+ * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
+ * Do nothing just load module first and the rest will be done inside module load.
+ */
+export function initializeMru() {
+    clearMruFromLocalStorage();     // For non electron app clear MRU list from localStorage
+    initializeMruIndexDB();         // Intentionally call async wo/ await
+}
+
+/**
  * No need to subscribe for electron. electron has no directory handles.
  * 
  * MRU list
@@ -60,7 +70,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
  *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
  *          https://github.com/jakearchibald/idb-keyval
  */
-export async function initializeMruIndexDB() {
+async function initializeMruIndexDB() {
     if (hasMain()) {
         return;
     }
@@ -78,7 +88,7 @@ export async function initializeMruIndexDB() {
  * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
  * @returns 
  */
-export function clearMruFromLocalStorage() {
+function clearMruFromLocalStorage() {
     if (hasMain()) {
         return;
     }
