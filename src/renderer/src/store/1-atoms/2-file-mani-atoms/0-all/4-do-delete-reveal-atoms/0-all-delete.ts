@@ -8,8 +8,7 @@ import { removeFromTotalManis } from "@/store/1-atoms/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "../../9-types";
 import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { confirmDeleteCpassMessages, confirmDeleteMessages } from "@/components/4-dialogs/5-confirm";
-import { doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
 
 export const doDeleteFileUsAtom = atom(null,
