@@ -1,6 +1,7 @@
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { defineConfig, type PluginOption, type UserConfig } from 'vite';
+import { type PluginOption, type UserConfig } from 'vite';
+import { type ElectronViteConfig, defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -12,8 +13,8 @@ function absPath(path: string) {
     return resolve(__dirnameEsm, path);
 }
 
-export default defineConfig((): UserConfig => { // https://vitejs.dev/config
-    return {
+export default defineConfig((): ElectronViteConfig => { // https://vitejs.dev/config
+    const rv = {
         base: '',
         root: absPath('src/renderer'),
         publicDir: absPath('public'),
@@ -32,6 +33,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
         },
 
         plugins: [
+            externalizeDepsPlugin(),
             react(),
             visualizer({
                 filename: 'visualization.html',
@@ -47,6 +49,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
 
         server: { port: 3000, },
     };
+    return { main: rv };
 });
 
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
