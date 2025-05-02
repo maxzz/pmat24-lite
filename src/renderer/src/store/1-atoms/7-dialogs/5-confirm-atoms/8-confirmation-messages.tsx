@@ -1,4 +1,7 @@
-import { type ConfirmationMessages as ConfirmationMessages } from '@/store';
+import { atom } from 'jotai';
+import { type ConfirmationMessages, doAsyncConfirmDialogAtom } from './2-confirm-delete-atoms';
+import { removeFromDirsMru } from '../../1-files/0-files-atom/4-mru-dirs';
+import { type PmatFolder } from '../../1-files';
 
 export const confirmDeleteMessages: ConfirmationMessages = {
     title: 'Delete file?',
@@ -27,3 +30,12 @@ export const confirmRemoveFromMruMessages: ConfirmationMessages = {
     buttonCancel: 'Cancel',
     isDafaultOk: true,
 };
+
+export const asyncUdpateMruAtom = atom(null,
+    async (get, set, folder: PmatFolder) => {
+        const ok = await set(doAsyncConfirmDialogAtom, confirmRemoveFromMruMessages);
+        if (ok) {
+            removeFromDirsMru(folder);
+        }
+    }
+);

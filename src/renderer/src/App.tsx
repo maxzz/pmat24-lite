@@ -76,3 +76,10 @@ export function App(): JSX.Element {
 //    //TODO: bug: confirmation dialog: default button is the first one. This is not good UX
 //    //TODO: bug: check if folder exists in electron version
 //    //TODO: load MRU UI with framer and remove UI shifting - done
+
+//05.01.25
+//TODO: check if folder/folder exists in all cases when we:
+//      delete (we don't have delete folder, delete file if folder not exist: we show good message and after restore folder we delete file wo/ any problems),
+//      save (if folder not exist then create folder then it will be created and saved),
+//      open file (especially wo/ electron)
+//TODO: make check for file exists as a separate atom

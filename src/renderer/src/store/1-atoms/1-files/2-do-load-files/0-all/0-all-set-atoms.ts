@@ -88,10 +88,6 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
     }
 );
 
-//05.01.25
-//TODO: check if folder/folder exists in all cases when we delete, save, open file (especially wo/ electron)
-//TODO: make check for file exists as a separate atom
-
 export const doSetFilesFrom_MruFolder_Atom = atom(
     null,
     async (get, set, { folder }: { folder: PmatFolder; }): Promise<void> => {
