@@ -7,8 +7,8 @@ export function HIDLogoAnimation({ className, ...rest }: ComponentPropsWithoutRe
     return (
         <motion.div
             className={classNames("", className)}
-            initial={{ opacity: 0, scale: 0.2, x: 1000 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.2, y: -100 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", delay: 3, stiffness: 35, }}
             {...rest}
