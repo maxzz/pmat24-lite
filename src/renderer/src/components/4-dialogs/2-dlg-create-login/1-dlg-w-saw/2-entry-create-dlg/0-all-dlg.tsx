@@ -11,6 +11,11 @@ import { SawPageHeader } from "./2-saw-page-header";
 
 export function DialogCreateManiV3Saw() {
     const [isDlgOpen, setIsDlgOpen] = useAtom(doOpenDlgNewManiSawAtom);
+    
+    // if (!isDlgOpen) { //TOD: It should not be mounted all the time and animated with framer-motion, but we need to disconnect radix-ui animations.
+    //     return null;
+    // }
+
     return (
         <D.Dialog open={isDlgOpen} onOpenChange={setIsDlgOpen}>
             <D.DialogContent className={dialogClasses} overlayClasses="bg-background/10 backdrop-blur-[1px]" hiddenTitle="Create manifest" noClose>
@@ -19,21 +24,6 @@ export function DialogCreateManiV3Saw() {
         </D.Dialog>
     );
 }
-
-const dialogClasses = "\
-p-0 \
-!w-11/12 max-w-5xl \
-h-4/5 min-h-[60vh] max-h-[90vh] \
-rounded-md \
-data-[state=open]:[animation-duration:0ms] \
-";
-// const dialogClasses = "\
-// p-0 \
-// !w-11/12 max-w-5xl \
-// h-4/5 min-h-[60vh] max-h-[90vh] \
-// rounded-md \
-// data-[state=open]:[animation-duration:200ms] \
-// ";
 
 function DialogSawBody() {
 
@@ -64,5 +54,20 @@ function DialogSawBody() {
         </div>
     );
 }
+
+const dialogClasses = "\
+p-0 \
+!w-11/12 max-w-5xl \
+h-4/5 min-h-[60vh] max-h-[90vh] \
+rounded-md \
+data-[state=open]:[animation-duration:0ms] \
+";
+// const dialogClasses = "\
+// p-0 \
+// !w-11/12 max-w-5xl \
+// h-4/5 min-h-[60vh] max-h-[90vh] \
+// rounded-md \
+// data-[state=open]:[animation-duration:200ms] \
+// ";
 
 const closeButtonClasses = "absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500";
