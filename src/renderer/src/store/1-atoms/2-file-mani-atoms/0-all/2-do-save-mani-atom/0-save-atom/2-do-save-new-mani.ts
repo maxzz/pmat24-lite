@@ -60,7 +60,7 @@ const doSaveNewManiAtom = atom(
 function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
     console.groupCollapsed(
         `%c🗿 Save: new fileUsAtom:%c${fileUsAtom?.toString()} %c`,
-        'font-weight: normal; color: gray',
+        'font-weight: normal; background-color: limegreen; color: darkgreen',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
     );

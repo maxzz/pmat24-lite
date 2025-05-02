@@ -78,7 +78,7 @@ function printNewManiCtx(get: Getter) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
-        `%c  newMani.ctx.mani-name access: fileUsAtom%c${atomStr} %c`,
+        `%c  newMani.ctx.mani-name access: fileUsAtom:%c${atomStr} %c`,
         'font-weight: normal; color: forestgreen',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray'
