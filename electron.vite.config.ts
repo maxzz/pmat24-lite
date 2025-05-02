@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react';
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
 
-console.log(`------- electron.vite.config-browser.mts: __dirname = "${__dirnameEsm}"`);
+console.log(`------- electron.vite.config.mts: __dirname = "${__dirnameEsm}"`);
 
 function absPath(path: string) {
     return resolve(__dirnameEsm, path);

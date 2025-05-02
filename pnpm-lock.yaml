@@ -14,39 +14,9 @@ importers:
       '@electron-toolkit/utils':
         specifier: ^4.0.0
         version: 4.0.0(electron@36.1.0)
-      browser-fs-access:
-        specifier: ^0.37.0
-        version: 0.37.0
       electron-updater:
         specifier: ^6.6.2
         version: 6.6.2
-      jotai:
-        specifier: ^2.12.2
-        version: 2.12.2(@types/react@18.3.18)(react@18.3.1)
-      jotai-valtio:
-        specifier: ^0.6.0
-        version: 0.6.0(jotai@2.12.2(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
-      pm-manifest:
-        specifier: ^1.2.81
-        version: 1.2.81
-      pm-manifest-icons:
-        specifier: latest
-        version: 1.0.3(react@18.3.1)
-      react-syntax-highlighter:
-        specifier: ^15.6.1
-        version: 15.6.1(react@18.3.1)
-      react-use:
-        specifier: ^17.6.0
-        version: 17.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      use-resize-observer:
-        specifier: ^9.1.0
-        version: 9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      valtio:
-        specifier: ^2.1.4
-        version: 2.1.4(@types/react@18.3.18)(react@18.3.1)
-      vaul:
-        specifier: ^1.1.2
-        version: 1.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
@@ -126,6 +96,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.3)
+      browser-fs-access:
+        specifier: ^0.37.0
+        version: 0.37.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -141,12 +114,24 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      jotai:
+        specifier: ^2.12.2
+        version: 2.12.2(@types/react@18.3.18)(react@18.3.1)
+      jotai-valtio:
+        specifier: ^0.6.0
+        version: 0.6.0(jotai@2.12.2(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
       lucide-react:
         specifier: ^0.507.0
         version: 0.507.0(react@18.3.1)
       motion:
         specifier: ^12.5.0
         version: 12.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      pm-manifest:
+        specifier: ^1.2.81
+        version: 1.2.81
+      pm-manifest-icons:
+        specifier: latest
+        version: 1.0.3(react@18.3.1)
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -159,6 +144,12 @@ importers:
       react-resizable-panels:
         specifier: ^2.1.7
         version: 2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-syntax-highlighter:
+        specifier: ^15.6.1
+        version: 15.6.1(react@18.3.1)
+      react-use:
+        specifier: ^17.6.0
+        version: 17.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rollup-plugin-visualizer:
         specifier: ^5.14.0
         version: 5.14.0(rollup@4.40.1)
@@ -177,6 +168,15 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      use-resize-observer:
+        specifier: ^9.1.0
+        version: 9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      valtio:
+        specifier: ^2.1.4
+        version: 2.1.4(@types/react@18.3.18)(react@18.3.1)
+      vaul:
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       vite:
         specifier: ^6.3.4
         version: 6.3.4(@types/node@22.15.3)(jiti@2.4.2)(yaml@2.7.1)
