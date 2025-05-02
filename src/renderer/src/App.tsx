@@ -77,6 +77,23 @@ export function App(): JSX.Element {
 //    //TODO: bug: check if folder exists in electron version
 //    //TODO: load MRU UI with framer and remove UI shifting - done
 
+//04.13.25
+//TODO: from main - we cannot open empty folder; temp solution use drag and drop - done?
+//src/renderer/src/store/1-atoms/1-files/2-do-load-files/0-all/0-all-set-atoms.ts
+
+//04.29.25
+//TODO: - done
+// From line 116 catched error:
+// Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false}
+// NotFoundError: A requested file or directory could not be found at the time an operation was processed. {code: 8, name: 'NotFoundError', message: 'A requested file or directory could not be found at the time an operation was processed.'}
+//
+// We need to show error message and remove from MRU list
+//src/renderer/src/store/1-atoms/1-files/2-do-load-files/0-all/0-all-set-atoms.ts
+
+//04.30.25
+//TODO: if folder is missing then we need to show error message and remove from MRU list: with and without hasMain() - done
+//src/renderer/src/store/1-atoms/1-files/2-do-load-files/0-all/0-all-set-atoms.ts
+
 //05.01.25
 //TODO: check if folder/folder exists in all cases when we:
 //      delete (we don't have delete folder, delete file if folder not exist: we show good message and after restore folder we delete file wo/ any problems),

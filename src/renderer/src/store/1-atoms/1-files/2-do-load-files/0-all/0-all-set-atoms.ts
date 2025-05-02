@@ -130,17 +130,3 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         }
     }
 );
-
-//04.13.25
-//TODO: from main - we cannot open empty folder; temp solution use drag and drop - done?
-
-//04.29.25
-//TODO: - done
-// From line 116 catched error:
-// Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false}
-// NotFoundError: A requested file or directory could not be found at the time an operation was processed. {code: 8, name: 'NotFoundError', message: 'A requested file or directory could not be found at the time an operation was processed.'}
-//
-// We need to show error message and remove from MRU list
-
-//04.30.25
-//TODO: if folder is missing then we need to show error message and remove from MRU list: with and without hasMain() - done
