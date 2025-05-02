@@ -1,11 +1,15 @@
-import { join, resolve } from 'path';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig, type PluginOption, type UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
-//console.log('------ electron.vite.config-browser.ts:__dirname =', __dirname);
+
+const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
+
+console.log(`------- electron.vite.config-browser.mts: __dirname = "${__dirnameEsm}"`);
 
 function absPath(path: string) {
-    return resolve(__dirname, path);
+    return resolve(__dirnameEsm, path);
 }
 
 export default defineConfig((): UserConfig => { // https://vitejs.dev/config
