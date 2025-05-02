@@ -11,7 +11,7 @@ import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
 import { printFiles } from "./9-types";
-import { confirmRemoveFromMruMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { asyncUdpateMruAtom, confirmRemoveFromMruMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { removeFromDirsMru } from "../../0-files-atom/4-mru-dirs";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
@@ -95,10 +95,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         if (hasMain()) {
             const { exists } = await invokeMainTyped({ type: 'r2mi:file-exists', fileName: folder.fpath });
             if (!exists) {
-                const ok = await set(doAsyncConfirmDialogAtom, confirmRemoveFromMruMessages);
-                if (ok) {
-                    removeFromDirsMru(folder);
-                }
+                await set(asyncUdpateMruAtom, folder);
                 return;
             }
 
@@ -129,20 +126,16 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
         } catch (error) {
             console.log('MRU.item.invalid', folder, error); // we don't call setRootDir(undefined); here to keep already open folder or welcome screen
-
-            const ok = await set(doAsyncConfirmDialogAtom, confirmRemoveFromMruMessages);
-            if (ok) {
-                removeFromDirsMru(folder);
-            }
+            await set(asyncUdpateMruAtom, folder);
         }
     }
 );
 
 //04.13.25
-//TODO: from main - we cannot open empty folder; temp solution use drag and drop
+//TODO: from main - we cannot open empty folder; temp solution use drag and drop - done?
 
 //04.29.25
-//TODO:
+//TODO: - done
 // From line 116 catched error:
 // Mru folder handle is invalid {fpath: '111', handle: FileSystemDirectoryHandle, fromMain: false}
 // NotFoundError: A requested file or directory could not be found at the time an operation was processed. {code: 8, name: 'NotFoundError', message: 'A requested file or directory could not be found at the time an operation was processed.'}
@@ -150,4 +143,4 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 // We need to show error message and remove from MRU list
 
 //04.30.25
-//TODO: if folder is missing then we need to show error message and remove from MRU list: with and without hasMain()
+//TODO: if folder is missing then we need to show error message and remove from MRU list: with and without hasMain() - done
