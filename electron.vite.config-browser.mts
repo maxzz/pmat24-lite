@@ -4,22 +4,26 @@ import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 //console.log('------ electron.vite.config-browser.ts:__dirname =', __dirname);
 
+function absPath(path: string) {
+    return resolve(__dirname, path);
+}
+
 export default defineConfig((): UserConfig => { // https://vitejs.dev/config
     return {
         base: '',
-        root: resolve(__dirname, 'src/renderer'),
-        publicDir: resolve(__dirname, 'public'),
-        // build: { rollupOptions: { input: resolve(__dirname, 'src/renderer/index.html'), }, },
+        root: absPath('src/renderer'),
+        publicDir: absPath('public'),
+        // build: { rollupOptions: { input: absPath('src/renderer/index.html'), }, },
 
         resolve: {
             alias: {
-                "@shared": resolve(__dirname, 'src/shared'),
-                '@electron': resolve(__dirname, 'src/electron/app'),
-                "@shell": resolve(__dirname, 'src/shell/app'),
+                "@shared": absPath('src/shared'),
+                '@electron': absPath('src/electron/app'),
+                "@shell": absPath('src/shell/app'),
 
-                '@': resolve(__dirname, 'src/renderer/src'),
-                '@ui': resolve(__dirname, 'src/renderer/src/ui'),
-                '@renderer': resolve(__dirname, 'src/renderer/src'),
+                '@': absPath('src/renderer/src'),
+                '@ui': absPath('src/renderer/src/ui'),
+                '@renderer': absPath('src/renderer/src'),
             }
         },
 
