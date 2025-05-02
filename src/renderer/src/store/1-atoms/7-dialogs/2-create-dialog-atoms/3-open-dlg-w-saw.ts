@@ -11,10 +11,12 @@ export const doOpenDlgNewManiSawAtom = atom(
                 return;
             }
         } else {
-            const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+            const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
             set(newManiContent.newFileUsAtomAtom, undefined);
-            set(doDisposeFileUsAtomAtom, newFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
+            
+            set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
         }
+
         set(_isDlgOpenAtom, open);
     }
 );
