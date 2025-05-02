@@ -22,6 +22,7 @@ export function ConfirmDeleteFileDialog() {
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
             <DialogContent
                 className={contentClasses}
+                overlayClasses="bg-background/10 backdrop-blur-[1px]"
                 hiddenTitle={confirmData.ui.title}
                 noClose
             >

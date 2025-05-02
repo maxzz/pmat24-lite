@@ -7,7 +7,7 @@ export function DialogCreateManiV3Saw() {
     const [isDlgOpen, setIsDlgOpen] = useAtom(doOpenDlgNewManiSawAtom);
     return (<>
         <D.Dialog open={isDlgOpen} onOpenChange={setIsDlgOpen}>
-            <D.DialogContent className={dialogClasses} hiddenTitle="Create manifest" noClose>
+            <D.DialogContent className={dialogClasses} overlayClasses="bg-background/10 backdrop-blur-[1px]" hiddenTitle="Create manifest" noClose>
                 <DialogSawBody />
             </D.DialogContent>
         </D.Dialog>
