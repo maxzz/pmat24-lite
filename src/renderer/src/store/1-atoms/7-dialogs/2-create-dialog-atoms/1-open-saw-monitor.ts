@@ -2,11 +2,11 @@ import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { newManiContent, rightPanelAtomAtom } from "@/store";
 
-// Open Saw monitor overlay atom
+// Open Saw monitor dialog
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
-export const doOpen_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, true));
-export const doClose_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, false));
+export const open_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, true));
+export const close_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, false));
 
 const doOpenCloseSawMonitorAtom = atom(
     (get) => null,
@@ -19,10 +19,9 @@ const doOpenCloseSawMonitorAtom = atom(
     }
 );
 
-const _sawMonitorOpenAtom = atom(false);
-
-// Open Saw monitor overlay for password change form
-
+/**
+ * Open Saw monitor overlay for password change form
+ */
 export const doOpen_SawMonitorForCpassAtom = atom(
     null,
     (get, set) => {
@@ -36,6 +35,10 @@ export const doOpen_SawMonitorForCpassAtom = atom(
         set(_sawMonitorOpenAtom, true);
     }
 );
+
+const _sawMonitorOpenAtom = atom(false);
+
+// Utility
 
 export const allowedToCreateCpassAtom = atom(
     (get) => {

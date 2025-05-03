@@ -7,8 +7,8 @@ import { createManualManiAtom, useMonitoringOnOpen } from "../0-ctx";
 import { MonitorOverlayBody } from "./1-body";
 
 export function MonitorOverlay() {
-    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
 
+    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
     useMonitoringOnOpen();
 
     return (<>

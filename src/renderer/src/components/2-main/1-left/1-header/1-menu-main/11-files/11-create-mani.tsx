@@ -1,12 +1,12 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
-import { doOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
+import { open_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
 import { rootDir } from "@/store";
 
 export function MenuItem_CreateMani() {
-    const openDlg = useSetAtom(doOpen_SawMonitorAtom);
+    const openDlg = useSetAtom(open_SawMonitorAtom);
     const disabled = !useSnapshot(rootDir).fpath;
     return (<>
         <DropdownMenuItem onClick={openDlg} disabled={disabled}>

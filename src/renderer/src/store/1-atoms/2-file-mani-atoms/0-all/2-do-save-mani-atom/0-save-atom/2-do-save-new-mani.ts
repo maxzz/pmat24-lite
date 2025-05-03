@@ -6,14 +6,14 @@ import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { doSaveOneAtom } from "./0-all-save-one";
 import { newManiContent } from "@/store";
 import { doClearSawHandleAtom } from "@/store/7-napi-atoms";
-import { doClose_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";
+import { close_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";
 
 export const doSaveNewManiTriggerAtom = atom(
     null,
     async (get, set) => {
         const saved = await set(doSaveNewManiAtom);
         if (saved) {
-            set(doClose_NewManiDlgAtom);
+            set(close_NewManiDlgAtom);
             set(doClearSawHandleAtom); // Turn off fields highlight
         }
     }
