@@ -4,32 +4,22 @@ import { newManiContent, rightPanelAtomAtom } from "@/store";
 
 // Open Saw monitor overlay atom
 
-export const isOpen_SawMonitorAtom = atom(
-    (get) => get(_doOpenSawOverlayAtom),
-);
+export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
+export const doOpen_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, true));
+export const doClose_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, false));
 
-export const doOpen_SawMonitorAtom = atom(
+const doOpenCloseSawMonitorAtom = atom(
     (get) => null,
-    (get, set) => set(doOpenSawOverlayForLoginAtom, true)
-);
-
-export const doClose_SawMonitorAtom = atom(
-    (get) => null,
-    (get, set) => set(doOpenSawOverlayForLoginAtom, false)
-);
-
-const doOpenSawOverlayForLoginAtom = atom(
-    (get) => get(_doOpenSawOverlayAtom),
     (get, set, value: boolean | ((prev: boolean) => boolean)) => {
-        const doOpen = typeof value === 'function' ? value(get(_doOpenSawOverlayAtom)) : value;
+        const doOpen = typeof value === 'function' ? value(get(_sawMonitorOpenAtom)) : value;
         if (doOpen) {
             newManiContent.maniForCpassAtom = undefined;
         }
-        set(_doOpenSawOverlayAtom, doOpen);
+        set(_sawMonitorOpenAtom, doOpen);
     }
 );
 
-const _doOpenSawOverlayAtom = atom(false);
+const _sawMonitorOpenAtom = atom(false);
 
 // Open Saw monitor overlay for password change form
 
@@ -41,8 +31,9 @@ export const doOpenSawOverlayForCpassAtom = atom(
             console.log('There is no mainForCpassAtom for password change form');
             return;
         }
+
         newManiContent.maniForCpassAtom = mainForCpassAtom;
-        set(_doOpenSawOverlayAtom, true);
+        set(_sawMonitorOpenAtom, true);
     }
 );
 
@@ -54,17 +45,12 @@ export const allowedToCreateCpassAtom = atom(
         }
 
         const fileUs = get(mainForCpassAtom);
-
         if (fileUs.parsedSrc.stats.isFCatRoot) {
             return false;
         }
 
         const maniAtoms = get(fileUs.maniAtomsAtom);
-        if (!maniAtoms) {
-            return false;
-        }
-
-        if (maniAtoms[FormIdx.cpass]) {
+        if (!maniAtoms || maniAtoms[FormIdx.cpass]) {
             return false;
         }
 
