@@ -49,7 +49,9 @@ export default defineConfig((): ElectronViteConfig => { // https://vitejs.dev/co
 
         server: { port: 3000, },
     };
-    return { main: rv };
+    return {
+        renderer: rv,
+    };
 });
 
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
