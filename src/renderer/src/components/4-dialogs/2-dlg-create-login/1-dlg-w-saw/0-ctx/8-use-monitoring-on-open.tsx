@@ -5,7 +5,7 @@ import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringTimerAtom, napiLo
 import { doTurnOnSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
-    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
+    const isMonitorDlgOpen = useAtomValue(isOpen_SawMonitorAtom);
 
     const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
     const doTurnOnSawModeOnClient = useSetAtom(doTurnOnSawModeOnClientAtom);
@@ -13,7 +13,7 @@ export function useMonitoringOnOpen() {
 
     useEffect(
         () => {
-            if (isOpen) {
+            if (isMonitorDlgOpen) {
                 doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
                 doTurnOnSawModeOnClient();
 
@@ -21,7 +21,7 @@ export function useMonitoringOnOpen() {
                     doMonitoringTimer({ doStart: false });
                 };
             }
-        }, [isOpen]
+        }, [isMonitorDlgOpen]
     );
 }
 
