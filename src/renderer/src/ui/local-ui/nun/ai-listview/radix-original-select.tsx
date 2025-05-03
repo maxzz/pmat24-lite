@@ -75,10 +75,10 @@ const [SelectNativeOptionsProvider, useSelectNativeOptionsContext] = createSelec
 interface SelectProps {
     children?: React.ReactNode;
     value?: string;
-    defaultValue?: string;
+    defaultValue: string;
     onValueChange?(value: string): void;
     open?: boolean;
-    defaultOpen?: boolean;
+    defaultOpen: boolean;
     onOpenChange?(open: boolean): void;
     dir?: Direction;
     name?: string;
