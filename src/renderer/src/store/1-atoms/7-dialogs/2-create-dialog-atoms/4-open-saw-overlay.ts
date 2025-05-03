@@ -4,14 +4,28 @@ import { newManiContent, rightPanelAtomAtom } from "@/store";
 
 // Open Saw monitor overlay atom
 
+export const isOpen_SawMonitorAtom = atom(
+    (get) => get(_doOpenSawOverlayAtom),
+);
+
+export const doOpen_SawMonitorAtom = atom(
+    (get) => null,
+    (get, set) => set(doOpenSawOverlayForLoginAtom, true)
+);
+
+export const doClose_SawMonitorAtom = atom(
+    (get) => null,
+    (get, set) => set(doOpenSawOverlayForLoginAtom, false)
+);
+
 export const doOpenSawOverlayForLoginAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
     (get, set, value: boolean | ((prev: boolean) => boolean)) => {
-        const open = typeof value === 'function' ? value(get(_doOpenSawOverlayAtom)) : value;
-        if (open) {
+        const doOpen = typeof value === 'function' ? value(get(_doOpenSawOverlayAtom)) : value;
+        if (doOpen) {
             newManiContent.maniForCpassAtom = undefined;
         }
-        set(_doOpenSawOverlayAtom, open);
+        set(_doOpenSawOverlayAtom, doOpen);
     }
 );
 

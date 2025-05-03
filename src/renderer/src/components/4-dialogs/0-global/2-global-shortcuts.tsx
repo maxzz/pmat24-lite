@@ -4,20 +4,20 @@ import { useKey } from "react-use";
 import { isRootDirEmpty } from "@/store";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/1-atoms/2-file-mani-atoms";
-import { doOpenOptionsDialogAtom, doOpenSawOverlayForLoginAtom, filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
+import { doOpenOptionsDialogAtom, doOpen_SawMonitorAtom, filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
 import { hasMain } from "@/xternal-to-main";
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
     const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
-    const doOpenCreateDialog = useSetAtom(doOpenSawOverlayForLoginAtom);
+    const doOpen_SawMonitor = useSetAtom(doOpen_SawMonitorAtom);
     const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
 
     useEffect(() => {
         appShortcuts.openOptions.action = () => doOpenOptionsDialog(true);
         appShortcuts.openFilter.action = () => doOpenFilterDialog(true);
-        appShortcuts.openCreate.action = () => doOpenCreateDialog(true);
+        appShortcuts.openCreate.action = () => doOpen_SawMonitor();
         appShortcuts.saveOne.action = () => doSaveOneIfNotNull();
         appShortcuts.saveAll.action = () => doSaveAll();
         appShortcuts.toggleDbg.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;

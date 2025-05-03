@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { doOpenSawOverlayForLoginAtom } from "@/store/1-atoms/7-dialogs";
+import { isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, doMonitoringTimerAtom, napiLock, sawHandleAtom } from "@/store";
 import { doTurnOnSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
 export function useMonitoringOnOpen() {
-    const isOpen = useAtomValue(doOpenSawOverlayForLoginAtom);
+    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
 
     const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
     const doTurnOnSawModeOnClient = useSetAtom(doTurnOnSawModeOnClientAtom);

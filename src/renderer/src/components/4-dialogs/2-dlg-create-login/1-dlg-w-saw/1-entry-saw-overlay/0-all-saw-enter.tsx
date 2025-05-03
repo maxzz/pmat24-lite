@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
 import { clearIconsCache } from "@/store";
-import { doOpenSawOverlayForLoginAtom } from "@/store/1-atoms/7-dialogs";
+import { isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { createManualManiAtom, useMonitoringOnOpen } from "../0-ctx";
 import { MonitorOverlayBody } from "./1-body";
 
 export function MonitorOverlay() {
-    const isOpen = useAtomValue(doOpenSawOverlayForLoginAtom);
+    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
 
     useMonitoringOnOpen();
 
@@ -24,7 +24,7 @@ export function MonitorOverlay() {
 
 function BodyExitWoTransition() {
 
-    const isOpen = useAtomValue(doOpenSawOverlayForLoginAtom);
+    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
     const createManualMani = useSetAtom(createManualManiAtom);
 
     useEffect(() => {
