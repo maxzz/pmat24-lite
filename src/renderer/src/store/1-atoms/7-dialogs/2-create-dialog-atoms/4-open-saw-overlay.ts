@@ -18,7 +18,7 @@ export const doClose_SawMonitorAtom = atom(
     (get, set) => set(doOpenSawOverlayForLoginAtom, false)
 );
 
-export const doOpenSawOverlayForLoginAtom = atom(
+const doOpenSawOverlayForLoginAtom = atom(
     (get) => get(_doOpenSawOverlayAtom),
     (get, set, value: boolean | ((prev: boolean) => boolean)) => {
         const doOpen = typeof value === 'function' ? value(get(_doOpenSawOverlayAtom)) : value;

@@ -1,5 +1,5 @@
 import { atom, PrimitiveAtom } from "jotai";
-import { doOpenSawOverlayForLoginAtom } from "@/store";
+import { doClose_SawMonitorAtom } from "@/store";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 const _sawModeAtom = atom<boolean>(false);
@@ -7,7 +7,7 @@ const _sawModeAtom = atom<boolean>(false);
 type DoSawModeOnClientAtomParams = {
     turnOn: boolean;
     canceledByMain: boolean;
-    cancelByMainAtom?: PrimitiveAtom<boolean>; // If call canceled by main process, this atom will be set to false.
+    cancelByMainAtom?: PrimitiveAtom<void>; // If call canceled by main process, this atom will be set to false.
 };
 
 /**
@@ -32,7 +32,7 @@ const doSawModeOnClientAtom = atom(
                 return;
             }
 
-            canceledByMain && cancelByMainAtom && set(cancelByMainAtom, false);
+            canceledByMain && cancelByMainAtom && set(cancelByMainAtom);
 
             R2MCalls.setSawModeOnMain({ setOn: false });
             set(_sawModeAtom, false);
@@ -54,7 +54,7 @@ export const doTurnOnSawModeOnClientAtom = atom(
 export const doTurnOffSawModeOnClientAtom = atom(
     null,
     (get, set) => {
-        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: doOpenSawOverlayForLoginAtom });
+        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: doClose_SawMonitorAtom });
     }
 );
 
@@ -64,7 +64,7 @@ export const doTurnOffSawModeOnClientAtom = atom(
 export const doCancelSawModeByMainAtom = atom(
     null,
     (get, set) => {
-        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doOpenSawOverlayForLoginAtom });
+        set(doSawModeOnClientAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: doClose_SawMonitorAtom });
     }
 );
 
