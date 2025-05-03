@@ -23,7 +23,7 @@ const _sawMonitorOpenAtom = atom(false);
 
 // Open Saw monitor overlay for password change form
 
-export const doOpenSawOverlayForCpassAtom = atom(
+export const doOpen_SawMonitorForCpassAtom = atom(
     null,
     (get, set) => {
         const mainForCpassAtom = get(rightPanelAtomAtom);
