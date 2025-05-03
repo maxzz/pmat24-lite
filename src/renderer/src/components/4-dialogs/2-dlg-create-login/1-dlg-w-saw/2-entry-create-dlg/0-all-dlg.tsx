@@ -1,23 +1,24 @@
-import { useAtom, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doOpenDlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
+import { doClose_DlgNewManiSawAtom, isOpen_DlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
 import { DialogBottomButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
 import { ManiLoginNameGuarded } from "./3-mani-login-name";
 import { SawPageHeader } from "./2-saw-page-header";
 
 export function DialogCreateManiV3Saw() {
-    const [isDlgOpen, setIsDlgOpen] = useAtom(doOpenDlgNewManiSawAtom);
+    const isOpenDlg = useAtomValue(isOpen_DlgNewManiSawAtom);
+    const doCloseDlg = useSetAtom(doClose_DlgNewManiSawAtom);
     
     // if (!isDlgOpen) { //TOD: It should not be mounted all the time and animated with framer-motion, but we need to disconnect radix-ui animations.
     //     return null;
     // }
 
     return (
-        <D.Dialog open={isDlgOpen} onOpenChange={setIsDlgOpen}>
+        <D.Dialog open={isOpenDlg} onOpenChange={doCloseDlg}>
             <D.DialogContent className={dialogClasses} overlayClasses="bg-background/10 backdrop-blur-[1px]" hiddenTitle="Create manifest" noClose>
                 <DialogSawBody />
             </D.DialogContent>
@@ -27,7 +28,7 @@ export function DialogCreateManiV3Saw() {
 
 function DialogSawBody() {
 
-    const doOpenDlg = useSetAtom(doOpenDlgNewManiSawAtom);
+    const doCloseDlg = useSetAtom(doClose_DlgNewManiSawAtom);
     useDissmissNextToasts();
 
     return (
@@ -39,7 +40,7 @@ function DialogSawBody() {
                     </div>
                 </D.DialogTitle>
 
-                <Button className={closeButtonClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => doOpenDlg(false)}>
+                <Button className={closeButtonClasses} variant="ghost" size="xs" tabIndex={-1} onClick={doCloseDlg}>
                     <Cross2Icon className="size-4" />
                 </Button>
             </D.DialogHeader>

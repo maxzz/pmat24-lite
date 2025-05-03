@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { R2MCalls } from "@/xternal-to-main";
-import { createFileUsFromNewXml, doMonitoringTimerAtom, doOpenDlgNewManiSawAtom, doClose_SawMonitorAtom, sawHandleAtom, setBuildState } from "@/store";
+import { createFileUsFromNewXml, doMonitoringTimerAtom, doOpen_DlgNewManiSawAtom, doClose_SawMonitorAtom, sawHandleAtom, setBuildState } from "@/store";
 import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
 import { doTurnOffSawModeOnClientAtom } from "./8-saw-mode-on-client";
 
@@ -41,7 +41,7 @@ export const doMoveToSecondDlgAtom = atom(
         set(doClose_SawMonitorAtom);
         await delay(100);
         set(doTurnOffSawModeOnClientAtom);
-        set(doOpenDlgNewManiSawAtom, true);
+        set(doOpen_DlgNewManiSawAtom);
 
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
     }

@@ -5,7 +5,7 @@ export const isOpen_DlgNewManiSawAtom = atom((get) => get(_isDlgOpenAtom));
 export const doOpen_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, true));
 export const doClose_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, false));
 
-export const doOpenDlgNewManiSawAtom = atom(
+const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),
     (get, set, open: boolean) => {
         if (open) {
