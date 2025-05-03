@@ -4,14 +4,14 @@ import { type AnimationProps, type Transition, AnimatePresence, motion } from "m
 import { clearIconsCache } from "@/store";
 import { isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { createManualManiAtom, useMonitoringOnOpen } from "../0-ctx";
-import { MonitorOverlayBody } from "./1-body";
+import { SawMonitorDlgBody } from "./1-body";
 
-export function MonitorOverlay() {
+export function DialogSawMonitor() {
 
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
     useMonitoringOnOpen();
 
-    return (<>
+    return (
         <AnimatePresence initial={false}>
             {isOpen && (
                 <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
@@ -19,7 +19,7 @@ export function MonitorOverlay() {
                 </motion.div>
             )}
         </AnimatePresence>
-    </>);
+    );
 }
 
 function BodyExitWoTransition() {
@@ -33,14 +33,14 @@ function BodyExitWoTransition() {
             createManualMani(false);
         }
 
-        // deinitialize
+        // deinitialize. clear icons cache on close and reset manual checkbox
         return () => {
             !isOpen && clearIconsCache();
         };
-    }, [isOpen]); // clear icons cache on close and reset manual checkbox
+    }, [isOpen]);
 
     return (<>
-        {isOpen && <MonitorOverlayBody />}
+        {isOpen && <SawMonitorDlgBody />}
     </>);
 }
 

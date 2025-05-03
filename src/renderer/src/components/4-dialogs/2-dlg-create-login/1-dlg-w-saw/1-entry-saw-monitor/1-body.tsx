@@ -8,7 +8,7 @@ import { CurrentApp } from "./2-current-app";
 import { DebugFrame } from "./8-debug-frame";
 import { ButtonContinue } from "./3-dlg-button-continue";
 
-export function MonitorOverlayBody() {
+export function SawMonitorDlgBody() {
     const [createManualMani, setCreateManualMani] = useAtom(createManualManiAtom);
     useDissmissNextToasts();
     return (
@@ -28,7 +28,6 @@ export function MonitorOverlayBody() {
                     </Label>
 
                     {/* <div className="">To continue click the button below.</div> */}
-
                     <ButtonContinue />
                 </div>
 
