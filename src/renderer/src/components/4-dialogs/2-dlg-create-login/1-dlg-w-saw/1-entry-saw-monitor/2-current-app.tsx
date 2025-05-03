@@ -3,8 +3,7 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { napiBuildProgress, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom } from "@/store";
-import { showProgressAtom } from "../0-ctx";
+import { napiBuildProgress, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
 import { Spinner } from "@/ui/icons";
 import { useSnapshot } from "valtio";
 

@@ -2,11 +2,10 @@ import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
 import { napiBuildState } from "@/store/7-napi-atoms";
-import { createFileUsFromNewXml, newManiContent } from "@/store";
+import { createFileUsFromNewXml, createManualManiAtom, newManiContent } from "@/store";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { newManiCtx } from "./0-ctx";
-import { createManualManiAtom } from "../../1-dlg-w-saw";
 
 // Page and direction
 

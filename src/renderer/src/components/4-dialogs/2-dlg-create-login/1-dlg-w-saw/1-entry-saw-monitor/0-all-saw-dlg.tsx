@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
-import { clearIconsCache } from "@/store";
-import { isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
-import { createManualManiAtom, useMonitoringOnOpen } from "../0-ctx";
+import { createManualManiAtom, isOpen_SawMonitorAtom, useMonitoringOnOpen } from "@/store/1-atoms/7-dialogs";
+import { clearIconsCache } from "@/store/7-napi-atoms";
 import { SawMonitorDlgBody } from "./1-body";
 
 export function DialogSawMonitor() {

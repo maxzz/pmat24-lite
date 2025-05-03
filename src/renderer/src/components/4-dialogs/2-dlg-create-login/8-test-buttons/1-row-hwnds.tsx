@@ -1,10 +1,9 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { doDissmissNextToastsAtom } from "@/utils";
-import { debugSettings } from "@/store";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { testHwnd, TestHwndEnum } from "@/store/7-napi-atoms";
-import { doUpdateHwndAndIconAtom } from "../1-dlg-w-saw/0-ctx";
+import { debugSettings, doUpdateHwndAndIconAtom } from "@/store";
 import { labelClasses, DelayInput } from "./8-utils";
 
 export function RowHwns() {

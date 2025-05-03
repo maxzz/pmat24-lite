@@ -2,8 +2,8 @@ import { atom } from "jotai";
 import { type M2R } from "../../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
 import { napiBuildProgress, napiBuildState } from "@/store/7-napi-atoms";
+import { cancelSawMonitorSizeSmallAtom } from "@/store/1-atoms/7-dialogs";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
-import { cancelSawMonitorSizeSmallAtom } from "@/components/4-dialogs";
 
 export const doFromMainAtom = atom(
     null,

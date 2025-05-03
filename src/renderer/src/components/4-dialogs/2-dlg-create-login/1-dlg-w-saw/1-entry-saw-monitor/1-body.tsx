@@ -2,10 +2,10 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Checkbox, Label } from "@/ui";
-import { secondsCounterAtom } from "@/store";
-import { createManualManiAtom } from "../0-ctx";
-import { CurrentApp } from "./2-current-app";
+import { secondsCounterAtom } from "@/store/7-napi-atoms";
+import { createManualManiAtom } from "@/store/1-atoms/7-dialogs";
 import { DebugFrame } from "./8-debug-frame";
+import { CurrentApp } from "./2-current-app";
 import { ButtonContinue } from "./3-dlg-button-continue";
 
 export function SawMonitorDlgBody() {
