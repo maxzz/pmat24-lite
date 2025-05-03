@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { doDisposeFileUsAtomAtom, newManiContent } from "@/store";
 
-export const isOpen_DlgNewManiSawAtom = atom((get) => get(_isDlgOpenAtom));
-export const doOpen_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, true));
-export const doClose_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, false));
+export const isOpen_NewManiDlgAtom = atom((get) => get(_isDlgOpenAtom));
+export const doOpen_NewManiDlgAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, true));
+export const doClose_NewManiDlgAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, false));
 
 const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),

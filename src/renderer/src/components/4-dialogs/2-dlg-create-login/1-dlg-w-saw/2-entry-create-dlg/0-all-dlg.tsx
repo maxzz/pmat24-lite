@@ -3,15 +3,15 @@ import { useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { doClose_DlgNewManiSawAtom, isOpen_DlgNewManiSawAtom } from "@/store/1-atoms/7-dialogs";
+import { doClose_NewManiDlgAtom, isOpen_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";
 import { DialogBottomButtons } from "./4-dlg-bottom-buttons";
 import { ContentEditorSelector } from "../../2-mani-content-editor";
 import { ManiLoginNameGuarded } from "./3-mani-login-name";
 import { SawPageHeader } from "./2-saw-page-header";
 
 export function DialogCreateManiV3Saw() {
-    const isDlgOpen = useAtomValue(isOpen_DlgNewManiSawAtom);
-    const closeDlg = useSetAtom(doClose_DlgNewManiSawAtom);
+    const isDlgOpen = useAtomValue(isOpen_NewManiDlgAtom);
+    const closeDlg = useSetAtom(doClose_NewManiDlgAtom);
     
     // if (!isDlgOpen) { //TOD: It should not be mounted all the time and animated with framer-motion, but we need to disconnect radix-ui animations.
     //     return null;
@@ -28,7 +28,7 @@ export function DialogCreateManiV3Saw() {
 
 function DialogSawBody() {
 
-    const closeDlg = useSetAtom(doClose_DlgNewManiSawAtom);
+    const closeDlg = useSetAtom(doClose_NewManiDlgAtom);
     useDissmissNextToasts();
 
     return (
