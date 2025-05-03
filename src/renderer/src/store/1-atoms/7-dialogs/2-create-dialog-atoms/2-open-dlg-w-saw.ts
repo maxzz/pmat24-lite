@@ -1,7 +1,9 @@
 import { atom } from "jotai";
 import { doDisposeFileUsAtomAtom, newManiContent } from "@/store";
 
-const _isDlgOpenAtom = atom(false);
+export const isOpen_DlgNewManiSawAtom = atom((get) => get(_isDlgOpenAtom));
+export const doOpen_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, true));
+export const doClose_DlgNewManiSawAtom = atom(() => null, (get, set) => set(doOpenDlgNewManiSawAtom, false));
 
 export const doOpenDlgNewManiSawAtom = atom(
     (get) => get(_isDlgOpenAtom),
@@ -13,10 +15,12 @@ export const doOpenDlgNewManiSawAtom = atom(
         } else {
             const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
             set(newManiContent.newFileUsAtomAtom, undefined);
-            
+
             set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
         }
 
         set(_isDlgOpenAtom, open);
     }
 );
+
+const _isDlgOpenAtom = atom(false);
