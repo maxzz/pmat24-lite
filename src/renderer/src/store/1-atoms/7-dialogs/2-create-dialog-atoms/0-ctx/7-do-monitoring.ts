@@ -4,39 +4,44 @@ import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
 import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } from "@/store/7-napi-atoms";
 
-export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: true }));
-export const stopMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: false }));
+export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { willStart: true }));
+export const stopMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { willStart: false }));
 
 const doMonitoringTimerAtom = atom(
     (get) => null,
-    (get, set, { doStart, callback }: { doStart: boolean, callback?: Function; }) => {
-        const isMonitoring = get(_isMonitoringTimerAtom);
+    (get, set, { willStart }: { willStart: boolean; }) => {
+        const nowMonitoring = get(_nowMonitoringAtom);
 
-        if (isMonitoring) {
-            if (!doStart) {
-                set(_isMonitoringTimerAtom, false);
-                set(_monitorCounterAtom, -1);
-                timeoutId.clear();
+        if (nowMonitoring) {
+            if (willStart) {
+                return;
             }
+
+            set(_nowMonitoringAtom, false);
+            set(_monitorCounterAtom, -1);
+            timeoutId.clear();
+
         } else {
-            if (doStart) {
-                set(_isMonitoringTimerAtom, true);
-                timeoutId.clear();
+            if (!willStart) {
+                return;
+            }
 
-                set(_monitorCounterAtom, 1);
+            set(_nowMonitoringAtom, true);
+            timeoutId.clear();
+
+            set(_monitorCounterAtom, 1);
+            timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
+
+            function runTimeout() {
+                set(doUpdateHwndAndIconAtom);
+                set(_monitorCounterAtom, get(_monitorCounterAtom) + 1);
                 timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
-
-                function runTimeout() {
-                    callback?.();
-                    set(_monitorCounterAtom, get(_monitorCounterAtom) + 1);
-                    timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
-                }
             }
         }
     }
 );
 
-const _isMonitoringTimerAtom = atom(false);
+const _nowMonitoringAtom = atom(false);
 
 const timeoutId = {
     id: undefined as undefined | ReturnType<typeof setTimeout>,
@@ -61,23 +66,25 @@ export const secondsCounterAtom = atom(
 export function useMonitoringOnOpen() {
     const isMonitorDlgOpen = useAtomValue(isOpen_SawMonitorAtom);
 
-    const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
-    const doTurnOnSawModeOnClient = useSetAtom(setSawMonitorSizeSmallAtom);
-    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
+    const startMonitorTimer = useSetAtom(startMonitorTimerAtom);
+    const stopMonitorTimer = useSetAtom(stopMonitorTimerAtom);
+    const setSawMonitorSizeSmall = useSetAtom(setSawMonitorSizeSmallAtom);
 
     useEffect(
         () => {
             if (isMonitorDlgOpen) {
-                doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
-                doTurnOnSawModeOnClient();
+                startMonitorTimer();
+                setSawMonitorSizeSmall();
 
                 return () => {
-                    doMonitoringTimer({ doStart: false });
+                    stopMonitorTimer();
                 };
             }
         }, [isMonitorDlgOpen]
     );
 }
+
+//
 
 export const doUpdateHwndAndIconAtom = atom(
     null,
@@ -94,22 +101,22 @@ export const doUpdateHwndAndIconAtom = atom(
  * Combines monitoring atom and clearing timeout on unmount
  */
 function useMonitoringTimer(callback?: () => void) {
-    const isMonitoring = useAtomValue(_isMonitoringTimerAtom);
+    const nowMonitoring = useAtomValue(_nowMonitoringAtom);
     const doMonitoring = useSetAtom(doMonitoringTimerAtom);
 
     useEffect(
         () => {
-            if (isMonitoring) {
+            if (nowMonitoring) {
                 return () => timeoutId.clear();
             }
-        }, [isMonitoring]
+        }, [nowMonitoring]
     );
 
     const toggleStartStop = useCallback(
         async function sendRequest() {
-            doMonitoring({ doStart: !isMonitoring, callback });
-        }, [isMonitoring, callback]
+            doMonitoring({ willStart: !nowMonitoring });
+        }, [nowMonitoring, callback]
     );
 
-    return [isMonitoring, toggleStartStop] as const;
+    return [nowMonitoring, toggleStartStop] as const;
 }
