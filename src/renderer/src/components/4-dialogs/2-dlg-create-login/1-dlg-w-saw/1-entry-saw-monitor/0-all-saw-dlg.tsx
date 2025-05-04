@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
-import { createManualManiCheckboxAtom, isOpen_SawMonitorAtom, useMonitoringOnOpen } from "@/store/1-atoms/7-dialogs";
+import { createManualManiCheckboxAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { SawMonitorDlgBody } from "./1-body";
 
 export function DialogSawMonitor() {
 
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
-    useMonitoringOnOpen();
 
     return (
         <AnimatePresence initial={false}>

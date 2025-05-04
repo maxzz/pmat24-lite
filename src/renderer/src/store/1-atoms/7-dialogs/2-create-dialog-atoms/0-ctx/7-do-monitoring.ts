@@ -1,7 +1,4 @@
-import { useEffect } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
-import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
-import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
+import { atom } from "jotai";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } from "@/store/7-napi-atoms";
 
 export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { willStart: true }));
@@ -19,8 +16,7 @@ const doMonitoringTimerAtom = atom(
 
             timeoutId.clearTimeout();
             set(_nowMonitoringAtom, false);
-            set(_monitorCounterAtom, -1);
-
+            set(_monitorCountAtom, -1);
         } else {
             if (!willStart) {
                 return;
@@ -28,20 +24,26 @@ const doMonitoringTimerAtom = atom(
 
             timeoutId.clearTimeout();
             set(_nowMonitoringAtom, true);
-            set(_monitorCounterAtom, 1);
+            set(_monitorCountAtom, 1);
 
             timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
 
             function runTimeout() {
                 set(doUpdateHwndAndIconAtom);
-                set(_monitorCounterAtom, get(_monitorCounterAtom) + 1);
+                set(_monitorCountAtom, get(_monitorCountAtom) + 1);
                 timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
             }
         }
     }
 );
 
+export const secondsCounterAtom = atom(
+    (get) => Math.ceil(get(_monitorCountAtom) / timesPerSecond)
+);
+
 const _nowMonitoringAtom = atom(false);
+const _monitorCountAtom = atom(-1); // How many seconds passed since the start of monitoring
+const timesPerSecond = 2;
 
 const timeoutId = {
     id: undefined as undefined | ReturnType<typeof setTimeout>,
@@ -52,37 +54,6 @@ const timeoutId = {
         }
     }
 };
-
-const _monitorCounterAtom = atom(-1); // How many seconds passed since the start of monitoring
-
-const timesPerSecond = 2;
-
-export const secondsCounterAtom = atom(
-    (get) => Math.ceil(get(_monitorCounterAtom) / timesPerSecond)
-);
-
-//
-
-export function useMonitoringOnOpen() {
-    const isMonitorDlgOpen = useAtomValue(isOpen_SawMonitorAtom);
-
-    const startMonitorTimer = useSetAtom(startMonitorTimerAtom);
-    const stopMonitorTimer = useSetAtom(stopMonitorTimerAtom);
-    const setSawMonitorSizeSmall = useSetAtom(setSawMonitorSizeSmallAtom);
-
-    useEffect(
-        () => {
-            if (isMonitorDlgOpen) {
-                startMonitorTimer();
-                setSawMonitorSizeSmall();
-
-                return () => {
-                    stopMonitorTimer();
-                };
-            }
-        }, [isMonitorDlgOpen]
-    );
-}
 
 //
 

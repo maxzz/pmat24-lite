@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { newManiContent, rightPanelAtomAtom } from "@/store";
+import { rightPanelAtomAtom } from "../../3-right-panel";
+import { newManiContent } from "../../2-file-mani-atoms";
+import { setSawMonitorSizeSmallAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 // Open Saw monitor dialog
 
@@ -16,6 +18,16 @@ const doOpenCloseSawMonitorAtom = atom(
             newManiContent.maniForCpassAtom = undefined;
         }
         set(_sawMonitorOpenAtom, doOpen);
+        onChange();
+
+        function onChange() {
+            if (doOpen) {
+                set(startMonitorTimerAtom);
+                set(setSawMonitorSizeSmallAtom);
+            } else {
+                set(stopMonitorTimerAtom);
+            }
+        }
     }
 );
 
