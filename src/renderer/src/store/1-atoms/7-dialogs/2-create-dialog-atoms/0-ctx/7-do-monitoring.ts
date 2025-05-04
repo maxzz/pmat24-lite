@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
 import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } from "@/store/7-napi-atoms";
@@ -7,8 +7,8 @@ import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } fro
 export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: true }));
 export const stopMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: false }));
 
-export const doMonitoringTimerAtom = atom(
-    (get) => get(_isMonitoringTimerAtom),
+const doMonitoringTimerAtom = atom(
+    (get) => null,
     (get, set, { doStart, callback }: { doStart: boolean, callback?: Function; }) => {
         const isMonitoring = get(_isMonitoringTimerAtom);
 
@@ -94,14 +94,13 @@ export const doUpdateHwndAndIconAtom = atom(
  * Combines monitoring atom and clearing timeout on unmount
  */
 function useMonitoringTimer(callback?: () => void) {
-    const [isMonitoring, doMonitoring] = useAtom(doMonitoringTimerAtom);
+    const isMonitoring = useAtomValue(_isMonitoringTimerAtom);
+    const doMonitoring = useSetAtom(doMonitoringTimerAtom);
 
     useEffect(
         () => {
             if (isMonitoring) {
-                return () => {
-                    timeoutId.clear();
-                };
+                return () => timeoutId.clear();
             }
         }, [isMonitoring]
     );
@@ -114,4 +113,3 @@ function useMonitoringTimer(callback?: () => void) {
 
     return [isMonitoring, toggleStartStop] as const;
 }
-
