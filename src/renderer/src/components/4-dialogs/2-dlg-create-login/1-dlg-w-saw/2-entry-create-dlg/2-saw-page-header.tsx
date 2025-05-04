@@ -1,4 +1,4 @@
-import { ButtonSourceCode } from "../../7-nun-dlg-w-screenshots/8-create-ui";
+import { ButtonSourceCode } from "../../x-1-nun-dlg-w-screenshots/8-create-ui";
 
 export function SawPageHeader() {
     const [title, explanation] = ['New manifest', 'Sellect the fields you want to use for the new manifest, submit method and other options.'];

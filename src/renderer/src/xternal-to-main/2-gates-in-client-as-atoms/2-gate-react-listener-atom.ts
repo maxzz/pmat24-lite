@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type M2R } from "../../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
 import { napiBuildProgress, napiBuildState } from "@/store/7-napi-atoms";
-import { cancelSawMonitorSizeSmallAtom } from "@/store/1-atoms/7-dialogs";
+import { cancelSizeSmall_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
 
 export const doFromMainAtom = atom(
@@ -52,7 +52,7 @@ export const doFromMainAtom = atom(
             }
             case 'm2r:saw-mode-canceled': {
                 // set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true });
-                set(cancelSawMonitorSizeSmallAtom);
+                set(cancelSizeSmall_SawMonitorAtom);
                 break;
             }
 

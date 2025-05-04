@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { useKey } from "react-use";
 import { isRootDirEmpty } from "@/store";
 import { debugSettings } from "@/store/1-atoms/9-ui-state";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/1-atoms/2-file-mani-atoms";

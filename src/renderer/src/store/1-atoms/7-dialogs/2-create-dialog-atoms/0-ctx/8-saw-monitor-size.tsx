@@ -4,9 +4,9 @@ import { close_SawMonitorAtom } from "@/store";
 
 // doCancelSawModeByMainAtom is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
 
-export const cancelSawMonitorSizeSmallAtom = atom(null, (get, set) => set(setSawMonitorWindowSizeAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: close_SawMonitorAtom }));
-export const setSawMonitorSizeSmallAtom = atom(null, (get, set) => set(setSawMonitorWindowSizeAtom, { turnOn: true, canceledByMain: false }));
-export const setSawMonitorSizeNormalAtom = atom(null, (get, set) => set(setSawMonitorWindowSizeAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: close_SawMonitorAtom }));
+export const cancelSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: close_SawMonitorAtom }));
+export const setSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: true, canceledByMain: false }));
+export const setSizeNormal_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: close_SawMonitorAtom }));
 
 // Implementation
 
@@ -16,7 +16,7 @@ type DoSawModeOnClientAtomParams = {
     cancelByMainAtom?: PrimitiveAtom<void>; // Cancel will be set to false when mode is turnned off by main process
 };
 
-const setSawMonitorWindowSizeAtom = atom(
+const setWindowSize_SawMonitorAtom = atom(
     null,
     (get, set, { turnOn, canceledByMain, cancelByMainAtom }: DoSawModeOnClientAtomParams) => {
         const isOn = get(_sawModeStateAtom);

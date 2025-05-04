@@ -1,3 +1,3 @@
 export * from "./1-dlg-w-saw";
-export * from "./7-nun-dlg-w-screenshots";
-export * from "./8-nun-dlg-w-apps-list";
+export * from "./x-1-nun-dlg-w-screenshots";
+export * from "./x-2-nun-dlg-w-apps-list";
