@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
-import { createManualManiCheckboxAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
-import { clearIconsCache } from "@/store/7-napi-atoms";
+import { isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { SawMonitorDlgBody } from "./1-body";
 
 export function DialogSawMonitor() {
@@ -13,33 +11,13 @@ export function DialogSawMonitor() {
         <AnimatePresence initial={false}>
             {isOpen && (
                 <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
-                    <BodyExitWoTransition />
+                    {isOpen && (
+                        <SawMonitorDlgBody />
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>
     );
-}
-
-function BodyExitWoTransition() {
-
-    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
-    const createManualManiCheckbox = useSetAtom(createManualManiCheckboxAtom);
-
-    useEffect(() => {
-        // initialize
-        if (isOpen) {
-            createManualManiCheckbox(false);
-        }
-
-        // deinitialize. clear icons cache on close and reset manual checkbox
-        return () => {
-            !isOpen && clearIconsCache();
-        };
-    }, [isOpen]);
-
-    return (<>
-        {isOpen && <SawMonitorDlgBody />}
-    </>);
 }
 
 const animationTransition: Transition = {
