@@ -6,7 +6,7 @@ import { sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml } from "@/store/1-atoms/2-file-mani-atoms";
 import { close_SawMonitorAtom } from "../1-open-saw-monitor";
 import { open_NewManiDlgAtom } from "../2-open-new-mani-dlg";
-import { createManualManiCheckboxAtom, showProgressAtom } from "./0-all-atoms";
+import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-all-atoms";
 import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-do-monitoring";
 import { setSawMonitorSizeNormalAtom } from "./8-saw-monitor-size";
 
@@ -32,7 +32,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(stopMonitorTimerAtom);
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiCheckboxAtom), }, showProgressAtom, get, set, });
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(checkboxCreateManualModeAtom), }, showProgressAtom, get, set, });
         if (!created) {
             set(startMonitorTimerAtom);
             return;

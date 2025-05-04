@@ -3,7 +3,7 @@ import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { newManiContent } from "../../2-file-mani-atoms";
-import { createManualManiCheckboxAtom, setSawMonitorSizeSmallAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
+import { checkboxCreateManualModeAtom, setSawMonitorSizeSmallAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 // Open Saw monitor dialog
 
@@ -23,7 +23,7 @@ const doOpenCloseSawMonitorAtom = atom(
 
         function onChange() {
             if (doOpen) {
-                set(createManualManiCheckboxAtom, false);
+                set(checkboxCreateManualModeAtom, false);
                 set(startMonitorTimerAtom);
                 set(setSawMonitorSizeSmallAtom);
             } else {
