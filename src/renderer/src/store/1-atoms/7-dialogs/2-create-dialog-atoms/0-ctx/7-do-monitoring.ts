@@ -4,6 +4,9 @@ import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
 import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
 import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } from "@/store/7-napi-atoms";
 
+export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: true }));
+export const stopMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { doStart: false }));
+
 export const doMonitoringTimerAtom = atom(
     (get) => get(_isMonitoringTimerAtom),
     (get, set, { doStart, callback }: { doStart: boolean, callback?: Function; }) => {
@@ -53,31 +56,6 @@ export const secondsCounterAtom = atom(
     (get) => Math.ceil(get(_monitorCounterAtom) / timesPerSecond)
 );
 
-/**
- * Combines monitoring atom and clearing timeout on unmount
- */
-function useMonitoringTimer(callback?: () => void) {
-    const [isMonitoring, doMonitoring] = useAtom(doMonitoringTimerAtom);
-
-    useEffect(
-        () => {
-            if (isMonitoring) {
-                return () => {
-                    timeoutId.clear();
-                };
-            }
-        }, [isMonitoring]
-    );
-
-    const toggleStartStop = useCallback(
-        async function sendRequest() {
-            doMonitoring({ doStart: !isMonitoring, callback });
-        }, [isMonitoring, callback]
-    );
-
-    return [isMonitoring, toggleStartStop] as const;
-}
-
 //
 
 export function useMonitoringOnOpen() {
@@ -111,3 +89,29 @@ export const doUpdateHwndAndIconAtom = atom(
         }
     }
 );
+
+/**
+ * Combines monitoring atom and clearing timeout on unmount
+ */
+function useMonitoringTimer(callback?: () => void) {
+    const [isMonitoring, doMonitoring] = useAtom(doMonitoringTimerAtom);
+
+    useEffect(
+        () => {
+            if (isMonitoring) {
+                return () => {
+                    timeoutId.clear();
+                };
+            }
+        }, [isMonitoring]
+    );
+
+    const toggleStartStop = useCallback(
+        async function sendRequest() {
+            doMonitoring({ doStart: !isMonitoring, callback });
+        }, [isMonitoring, callback]
+    );
+
+    return [isMonitoring, toggleStartStop] as const;
+}
+
