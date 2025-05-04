@@ -17,7 +17,6 @@ asarUnpack:
 win:
   executableName: pmat24
   icon: resources/icon.png
-  forceCodeSigning: false
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
