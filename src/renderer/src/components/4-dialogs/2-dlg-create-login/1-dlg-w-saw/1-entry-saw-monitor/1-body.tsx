@@ -3,13 +3,13 @@ import { useAtom, useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import { Checkbox, Label } from "@/ui";
 import { secondsCounterAtom } from "@/store/7-napi-atoms";
-import { createManualManiAtom } from "@/store/1-atoms/7-dialogs";
+import { createManualManiCheckboxAtom } from "@/store/1-atoms/7-dialogs";
 import { DebugFrame } from "./8-debug-frame";
 import { CurrentApp } from "./2-current-app";
 import { ButtonContinue } from "./3-dlg-button-continue";
 
 export function SawMonitorDlgBody() {
-    const [createManualMani, setCreateManualMani] = useAtom(createManualManiAtom);
+    const [createManualManiCheckbox, setCreateManualManiCheckbox] = useAtom(createManualManiCheckboxAtom);
     useDissmissNextToasts();
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
@@ -23,7 +23,7 @@ export function SawMonitorDlgBody() {
                     <CurrentApp />
 
                     <Label className="place-self-start text-xs flex items-center gap-2 select-none">
-                        <Checkbox className="size-4" checked={createManualMani} onCheckedChange={(v) => setCreateManualMani(!!v)} />
+                        <Checkbox className="size-4" checked={createManualManiCheckbox} onCheckedChange={(v) => setCreateManualManiCheckbox(!!v)} />
                         Set up a managed logon manually
                     </Label>
 

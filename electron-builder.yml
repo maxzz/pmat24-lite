@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: pmat24
+productName: pmat25
 directories:
   buildResources: build
   output: release/${version}
@@ -15,7 +15,7 @@ asarUnpack:
   - resources/**/*
   - out/plugins/**/*
 win:
-  executableName: pmat24
+  executableName: pmat25
   icon: resources/icon.png
 nsis:
   artifactName: ${name}-${version}-setup.${ext}

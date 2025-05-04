@@ -3,7 +3,7 @@ import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { R2MCalls } from "@/xternal-to-main";
 import { createFileUsFromNewXml, doMonitoringTimerAtom, open_NewManiDlgAtom, close_SawMonitorAtom, sawHandleAtom, setBuildState } from "@/store";
-import { createManualManiAtom, showProgressAtom } from "./0-all-atoms";
+import { createManualManiCheckboxAtom, showProgressAtom } from "./0-all-atoms";
 import { setSawMonitorSizeNormalAtom } from "./8-saw-monitor-size";
 
 export const doMoveToSecondDlgAtom = atom(
@@ -28,7 +28,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(doMonitoringTimerAtom, { doStart: false });
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiAtom), }, showProgressAtom, get, set, });
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(createManualManiCheckboxAtom), }, showProgressAtom, get, set, });
         if (!created) {
             set(doMonitoringTimerAtom, { doStart: true });
             return;

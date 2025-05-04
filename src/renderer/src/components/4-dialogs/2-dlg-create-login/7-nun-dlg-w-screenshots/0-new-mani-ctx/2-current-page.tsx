@@ -2,7 +2,7 @@ import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
 import { napiBuildState } from "@/store/7-napi-atoms";
-import { createFileUsFromNewXml, createManualManiAtom, newManiContent } from "@/store";
+import { createFileUsFromNewXml, createManualManiCheckboxAtom, newManiContent } from "@/store";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { newManiCtx } from "./0-ctx";
@@ -61,7 +61,7 @@ export function create_DoAdvancePageAtom() {
                         return;
                     }
 
-                    const created = await createFileUsFromNewXml({ params: { hwnd: selectedApp.item.hwnd, manual: get(createManualManiAtom), }, showProgressAtom: newManiCtx.showProgressAtom, get, set, });
+                    const created = await createFileUsFromNewXml({ params: { hwnd: selectedApp.item.hwnd, manual: get(createManualManiCheckboxAtom), }, showProgressAtom: newManiCtx.showProgressAtom, get, set, });
                     if (!created) {
                         return;
                     }
