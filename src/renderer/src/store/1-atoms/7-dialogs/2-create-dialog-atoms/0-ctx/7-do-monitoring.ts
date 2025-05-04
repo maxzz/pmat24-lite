@@ -1,5 +1,8 @@
 import { useCallback, useEffect } from "react";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
+import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
+import { doGetTargetHwndAtom, doGetWindowIconAtom, napiLock, sawHandleAtom } from "@/store/7-napi-atoms";
 
 export const doMonitoringTimerAtom = atom(
     (get) => get(_isMonitoringTimerAtom),
@@ -53,7 +56,7 @@ export const secondsCounterAtom = atom(
 /**
  * Combines monitoring atom and clearing timeout on unmount
  */
-export function useMonitoringTimer(callback?: () => void) {
+function useMonitoringTimer(callback?: () => void) {
     const [isMonitoring, doMonitoring] = useAtom(doMonitoringTimerAtom);
 
     useEffect(
@@ -74,3 +77,37 @@ export function useMonitoringTimer(callback?: () => void) {
 
     return [isMonitoring, toggleStartStop] as const;
 }
+
+//
+
+export function useMonitoringOnOpen() {
+    const isMonitorDlgOpen = useAtomValue(isOpen_SawMonitorAtom);
+
+    const doMonitoringTimer = useSetAtom(doMonitoringTimerAtom);
+    const doTurnOnSawModeOnClient = useSetAtom(setSawMonitorSizeSmallAtom);
+    const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom);
+
+    useEffect(
+        () => {
+            if (isMonitorDlgOpen) {
+                doMonitoringTimer({ doStart: true, callback: doUpdateHwndAndIcon });
+                doTurnOnSawModeOnClient();
+
+                return () => {
+                    doMonitoringTimer({ doStart: false });
+                };
+            }
+        }, [isMonitorDlgOpen]
+    );
+}
+
+export const doUpdateHwndAndIconAtom = atom(
+    null,
+    async (get, set) => {
+        if (!napiLock.isLocked) { // Avoid attempt to get hwnd by timer when napi is locked
+            await set(doGetTargetHwndAtom);
+            const sawHandle = get(sawHandleAtom);
+            set(doGetWindowIconAtom, sawHandle?.hwnd);
+        }
+    }
+);
