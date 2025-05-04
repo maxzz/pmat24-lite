@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { isOpen_SawMonitorAtom } from "../1-open-saw-monitor";
 import { setSawMonitorSizeSmallAtom } from "./8-saw-monitor-size";
@@ -17,19 +17,19 @@ const doMonitoringTimerAtom = atom(
                 return;
             }
 
+            timeoutId.clearTimeout();
             set(_nowMonitoringAtom, false);
             set(_monitorCounterAtom, -1);
-            timeoutId.clear();
 
         } else {
             if (!willStart) {
                 return;
             }
 
+            timeoutId.clearTimeout();
             set(_nowMonitoringAtom, true);
-            timeoutId.clear();
-
             set(_monitorCounterAtom, 1);
+
             timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
 
             function runTimeout() {
@@ -45,7 +45,7 @@ const _nowMonitoringAtom = atom(false);
 
 const timeoutId = {
     id: undefined as undefined | ReturnType<typeof setTimeout>,
-    clear() {
+    clearTimeout() {
         if (this.id) {
             clearTimeout(this.id);
             this.id = undefined;
@@ -96,27 +96,3 @@ export const doUpdateHwndAndIconAtom = atom(
         }
     }
 );
-
-/**
- * Combines monitoring atom and clearing timeout on unmount
- */
-function useMonitoringTimer(callback?: () => void) {
-    const nowMonitoring = useAtomValue(_nowMonitoringAtom);
-    const doMonitoring = useSetAtom(doMonitoringTimerAtom);
-
-    useEffect(
-        () => {
-            if (nowMonitoring) {
-                return () => timeoutId.clear();
-            }
-        }, [nowMonitoring]
-    );
-
-    const toggleStartStop = useCallback(
-        async function sendRequest() {
-            doMonitoring({ willStart: !nowMonitoring });
-        }, [nowMonitoring, callback]
-    );
-
-    return [nowMonitoring, toggleStartStop] as const;
-}
