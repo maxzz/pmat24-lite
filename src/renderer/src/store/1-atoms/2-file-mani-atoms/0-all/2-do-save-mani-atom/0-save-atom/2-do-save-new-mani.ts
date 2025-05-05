@@ -3,7 +3,7 @@ import { createGuid } from "@/store/manifest";
 import { rootDir } from "@/store/1-atoms/1-files";
 import { type FileUsAtom } from "@/store/store-types";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
-import { doSaveOneAtom } from "./0-all-save-one";
+import { doSaveOneAtom } from "./1-do-save-one";
 import { newManiContent } from "@/store";
 import { doClearSawHandleAtom } from "@/store/7-napi-atoms";
 import { close_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";

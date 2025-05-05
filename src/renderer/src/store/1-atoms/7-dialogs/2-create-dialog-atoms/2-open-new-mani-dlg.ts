@@ -14,11 +14,11 @@ const doOpenDlgNewManiSawAtom = atom(
             if (newManiContent.maniForCpassAtom) { // cpass dialog is embedded, so don't open dialog
                 return;
             }
+            
+            const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
         } else {
             const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
             set(newManiContent.newFileUsAtomAtom, undefined);
-
-            const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
 
             set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
         }

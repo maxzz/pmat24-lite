@@ -6,7 +6,7 @@ import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napi
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
-import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/1-fileus-to-xml-string";
+import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/8-save-utils";
 
 type MoveFromAppsToNextPageParams = {
