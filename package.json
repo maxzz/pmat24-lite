@@ -69,7 +69,7 @@
     },
     "scripts": {
         "dev": "electron-vite dev",
-        "web": "set NODE_OPTIONS=--trace-warnings && vite --config electron.vite.config-browser.mts",
+        "web": "vite --config electron.vite.config-browser.mts",
         "....................................................................................1": ".......................................................",
         "build": "pnpm run typecheck && electron-vite build",
         "preview": "electron-vite preview",

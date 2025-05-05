@@ -35,6 +35,7 @@
             "type": "chrome",
             "webRoot": "${workspaceFolder}/src/renderer",
             "timeout": 60000,
+            "runtimeArgs": ["--trace-warnings"],
         }
     ],
     "compounds": [
