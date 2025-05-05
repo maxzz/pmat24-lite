@@ -9,7 +9,7 @@ import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list"
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "./7-save-to-file-system";
-import { debugTestFilename, printXmlManiFile } from "./8-save-utils";
+import { debugTestFilename, notificationNewSaved, notificationSaveError, printXmlManiFile } from "./8-save-utils";
 
 /**
  * newFilename - filename without path.
@@ -39,7 +39,7 @@ export const doSaveOneAtom = atom(
 
         const errorText = await saveToFileSystem(fileUs, xml, fname);
         if (errorText) {
-            notificationError(fname, errorText);
+            notificationSaveError(fname, errorText);
             return false;
         }
 
@@ -59,7 +59,7 @@ export const doSaveOneAtom = atom(
             addToTotalManis(fileUs);
 
             fileUs.fileCnt.newFile = false;
-            notificationFinal(fileUs);
+            notificationNewSaved(fileUs);
 
             setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
         }
@@ -67,25 +67,6 @@ export const doSaveOneAtom = atom(
         return true;
     }
 );
-
-function notificationError(fname: string, errorText: string) {
-    toast.error((<>
-        <div>
-            Cannot save file ${fname}.
-        </div>
-        <div className="mt-4 text-[.6rem]">
-            {`${errorText}`}
-        </div>
-    </>), { duration: 5000 }
-    );
-}
-
-function notificationFinal(fileUs: FileUs) {
-    if (appSettings.appUi.uiGeneral.notifyNewFile) {
-        toast.info(`File "${fileUs.fileCnt.fname}" saved`);
-    }
-    console.log('saved', fileUs.fileCnt.fname);
-}
 
 function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');
