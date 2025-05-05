@@ -1,11 +1,11 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
+import { appSettings } from "@/store/1-atoms/9-ui-state";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
-import { setRootFcFileUs } from "./0-root-fce";
-import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-atoms";
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
+import { setRootFcFileUs } from "./0-root-fce";
+import { createFceAtomsInFileUs, createFileUsForNewFc } from "./2-create-fce-atoms";
 
 export const doClearFcRootAtom = atom(
     null,

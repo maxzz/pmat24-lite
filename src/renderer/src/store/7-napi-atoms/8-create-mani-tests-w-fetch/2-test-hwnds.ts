@@ -1,11 +1,11 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
+import { appSettings } from "@/store/1-atoms/9-ui-state";
+import { napiBuildProgress } from "@/store/7-napi-atoms";
 import { type GetTargetWindowResult, type WindowIconGetterResult } from "@shared/ipc-types";
 import { type TestHwndEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
-import { napiBuildProgress } from "@/store/7-napi-atoms";
 
 export const doLoadFakeHwndAtom = atom(
     null,

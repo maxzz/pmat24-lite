@@ -1,11 +1,10 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
-import { debugSettings } from "@/store/1-atoms";
+import { appSettings, debugSettings } from "@/store/1-atoms/9-ui-state";
+import { makeTypedError, napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
-import { makeTypedError, napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
 
 export const doLoadFakeManiAtom = atom(
     null,

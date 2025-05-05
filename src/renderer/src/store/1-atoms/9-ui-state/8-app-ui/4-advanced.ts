@@ -8,6 +8,8 @@ export type UiAdvancedState = {     // Advanced UI settings
     testCreateHwndDelay: number;    // Delay before returning hwnd and icon for testing in ms. 0 - no delay
 
     saveWDebugExt: boolean;         // Save files with debug <filename.test.ext>
+
+    noNewManiDlg: boolean;          // Do not show new manifest in external dialog, and add it to the tree immediately like cpass
 };
 
 export const defaultCreateDelay = 0;
@@ -22,6 +24,7 @@ export const defaultUiAdvancedState: UiAdvancedState = {
     testCreateHwndDelay: defaultCreateDelay,
 
     saveWDebugExt: false,
+    noNewManiDlg: true,
 };
 
 /*

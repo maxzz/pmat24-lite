@@ -1,6 +1,0 @@
-{
-    "name": "electron-react24",
-    "version": "1.0.0",
-    "main": "./out/main/index.js",
-    "type": "module"
-}

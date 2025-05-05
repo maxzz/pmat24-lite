@@ -1,4 +1,4 @@
-import { appSettings } from "@/store/1-atoms/9-ui-state/0-local-storage-app";
+import { appSettings } from "@/store/1-atoms/9-ui-state";
 import { type FileMani, type Mani } from "@/store/manifest";
 import { getFilenameAndExt } from "@/utils";
 
