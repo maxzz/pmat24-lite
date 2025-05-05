@@ -69,7 +69,7 @@
     },
     "scripts": {
         "dev": "electron-vite dev",
-        "web": "vite --config electron.vite.config-browser.mts",
+        "web": "set NODE_OPTIONS=--trace-warnings && vite --config electron.vite.config-browser.mts",
         "....................................................................................1": ".......................................................",
         "build": "pnpm run typecheck && electron-vite build",
         "preview": "electron-vite preview",
@@ -86,6 +86,6 @@
         "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
         "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
-        "....................................................................................5": "not-uused-now"
+        "....................................................................................5": "......................................................."
     }
 }
