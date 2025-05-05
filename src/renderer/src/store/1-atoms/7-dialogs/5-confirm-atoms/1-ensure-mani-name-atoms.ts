@@ -11,7 +11,7 @@ export type ManiNameData = {
     resolve: (ok: boolean) => void;             // ok or cancel
 };
 
-export const doOpenManiNameDialogAtom = atom<ManiNameData | undefined>(undefined); // TODO: show only if name is invalid
+export const maniNameDlgDataAtom = atom<ManiNameData | undefined>(undefined); // TODO: show only if name is invalid
 
 /**
  * Verify new manifest name before save manifest.
@@ -29,8 +29,8 @@ export const doVerifyManiNameAtom = atom(
         }
 
         const resolveName = new Promise<boolean>((resolve) => {
-            set(doOpenManiNameDialogAtom, {
-                fileUsAtom: fileUsAtom,
+            set(maniNameDlgDataAtom, {
+                fileUsAtom,
                 nameAtom,
                 resolve,
             });

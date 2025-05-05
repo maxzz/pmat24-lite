@@ -1,34 +1,33 @@
 import { useAtom, useAtomValue } from 'jotai';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
-import { Button } from '@/ui/shadcn/button';
-import { doOpenManiNameDialogAtom, type ManiNameData } from '@/store';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton, Button } from '@/ui/shadcn';
 import { InputWTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
+import { type ManiNameData, maniNameDlgDataAtom } from '@/store';
 
 export function ManiNameDialog() {
-    const [openManiNameDialog, doOpenManiNameDialog] = useAtom(doOpenManiNameDialogAtom);
-    if (!openManiNameDialog) {
+    const [maniNameDlgData, setManiNameDlgData] = useAtom(maniNameDlgDataAtom);
+    if (!maniNameDlgData) {
         return null;
     }
 
-    function onDlgClose(ok: boolean) {
-        if (!openManiNameDialog) {
+    function onCloseDlg(ok: boolean) {
+        if (!maniNameDlgData) {
             throw new Error('no.in.data');
         }
-        doOpenManiNameDialog(undefined);
-        openManiNameDialog.resolve(ok);
+        setManiNameDlgData(undefined);
+        maniNameDlgData.resolve(ok);
     }
 
     return (
-        <Dialog open={!!openManiNameDialog} onOpenChange={() => onDlgClose(false)}>
+        <Dialog open={!!maniNameDlgData} onOpenChange={() => onCloseDlg(false)}>
             <DialogContent className={contentClasses} hiddenTitle="New manifest name" noClose>
                 <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
                     <div>
                         New manifest name
                     </div>
-                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
+                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onCloseDlg(false)} />
                 </DialogHeader>
 
-                <DialogBody maniNameData={openManiNameDialog} onDlgClose={onDlgClose} />
+                <DialogBody maniNameData={maniNameDlgData} onCloseDlg={onCloseDlg} />
 
             </DialogContent>
         </Dialog>
@@ -37,7 +36,7 @@ export function ManiNameDialog() {
 
 const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
-function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; onDlgClose: (ok: boolean) => void; }) {
+function DialogBody({ maniNameData, onCloseDlg }: { maniNameData: ManiNameData; onCloseDlg: (ok: boolean) => void; }) {
 
     const { nameAtom } = maniNameData;
     const { data: name } = useAtomValue(nameAtom);
@@ -54,11 +53,11 @@ function DialogBody({ maniNameData, onDlgClose }: { maniNameData: ManiNameData; 
             </div>
 
             <DialogFooter className="py-4">
-                <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onDlgClose(true)}>
+                <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onCloseDlg(true)}>
                     OK
                 </Button>
 
-                <Button variant="outline" onClick={() => onDlgClose(false)}>
+                <Button variant="outline" onClick={() => onCloseDlg(false)}>
                     Cancel
                 </Button>
             </DialogFooter>
