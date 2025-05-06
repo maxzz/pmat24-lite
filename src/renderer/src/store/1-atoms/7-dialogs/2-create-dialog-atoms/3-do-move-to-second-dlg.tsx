@@ -30,9 +30,11 @@ export const doMoveToSecondDlgAtom = atom(
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
-            set(doAddNextToastIdAtom, toast.info('No application', { position: "top-center" }));
+            set(doAddNextToastIdAtom, toast.info('No application selected', { position: "top-center" }));
             return;
         }
+
+        // 1.1. Check if can create new valid manifest
 
         set(stopMonitorTimerAtom);
 
@@ -42,7 +44,7 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
-        // Continue on the second dialog
+        // 1.2. Close Saw monitor dialog
 
         //R2MCalls.showHideWindow(false);
         set(close_SawMonitorAtom);
@@ -50,36 +52,42 @@ export const doMoveToSecondDlgAtom = atom(
         set(setSizeNormal_SawMonitorAtom);
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
 
-        // 2.
+        // 2. Show dialog
 
         const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
 
-        const noNeedDialog = noNewManiDlg || !!newManiContent.maniForCpassAtom;
+        const inlineEditor = noNewManiDlg || !!newManiContent.maniForCpassAtom;
 
-        const endedByOk = noNeedDialog || await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
-        if (!endedByOk) {
-            newManiContent.disposeActive(get, set);
+        if (!inlineEditor) {
+            const endedByOk = await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
+            if (!endedByOk) {
+                newManiContent.disposeActive(get, set);
+                set(close_NewManiDlgAtom);
+                return;
+            }
+
+            // 3. Save after dialog
+
+            const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+            const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
+            if (!fileUs) {
+                throw new Error('no.fileUs');
+            }
+
+            const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
+            if (!saved) {
+                return;
+            }
+
+            printAtomSaved(newFileUsAtomAtom);
+
+            set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
+
             set(close_NewManiDlgAtom);
-            return;
+            set(doClearSawHandleAtom); // Turn off fields highlight
+        } else {
+
         }
-
-        const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
-        const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
-        if (!fileUs) {
-            throw new Error('no.fileUs');
-        }
-
-        const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
-        if (!saved) {
-            return;
-        }
-
-        printAtomSaved(newFileUsAtomAtom);
-
-        set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-
-        set(close_NewManiDlgAtom);
-        set(doClearSawHandleAtom); // Turn off fields highlight
     }
 );
 
