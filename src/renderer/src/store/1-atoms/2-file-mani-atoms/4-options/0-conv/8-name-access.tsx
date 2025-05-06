@@ -16,7 +16,7 @@ import { type FileUsAtom } from "@/store/store-types";
  * const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
  * ```
  */
-export function getManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowInputState> | undefined {
+export function linkToManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowInputState> | undefined {
     const rv = maniAtoms?.[FormIdx.login]?.options.p1General?.nameAtom;
     return rv;
 }
@@ -24,12 +24,8 @@ export function getManiNameAtom(maniAtoms: ManiAtoms | null): PrimitiveAtom<RowI
 export const getManiDispNameAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined): PrimitiveAtom<RowInputState> | undefined => {
-        const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
-        if (!fileUs || !fileUs.maniAtomsAtom) {
-            return;
-        }
-
-        const rv = getManiNameAtom(get(fileUs.maniAtomsAtom));
+        const fileUs = fileUsAtom && get(fileUsAtom);
+        const rv = fileUs?.maniAtomsAtom && linkToManiNameAtom(get(fileUs.maniAtomsAtom));
         return rv;
     },
 );

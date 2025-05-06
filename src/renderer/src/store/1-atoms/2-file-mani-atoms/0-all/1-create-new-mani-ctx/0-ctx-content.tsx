@@ -3,7 +3,7 @@ import { type RowInputState } from "@/ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { getManiNameAtom } from "../../4-options";
+import { linkToManiNameAtom } from "../../4-options";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);
@@ -22,6 +22,7 @@ class NewManiContent implements NewManiContentType {
 
         set(this.newFileUsAtomAtom, undefined);
     }
+
     disposeActive(get: Getter, set: Setter) {
         const atomToAtom = get(newManiContent.newFileUsAtomAtom);
         set(newManiContent.newFileUsAtomAtom, undefined);
@@ -58,11 +59,7 @@ export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined
         printNewManiCtx(get);
 
         const fileUs = get(newManiFileUsAtom);
-        if (!fileUs || !fileUs.maniAtomsAtom) {
-            return;
-        }
-
-        const rv = getManiNameAtom(get(fileUs.maniAtomsAtom));
+        const rv = fileUs?.maniAtomsAtom && linkToManiNameAtom(get(fileUs.maniAtomsAtom));
         return rv;
     },
 );

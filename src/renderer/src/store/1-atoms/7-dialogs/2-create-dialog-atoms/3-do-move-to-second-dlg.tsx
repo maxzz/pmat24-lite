@@ -5,6 +5,7 @@ import { appSettings } from "../../9-ui-state";
 import { R2MCalls } from "@/xternal-to-main";
 import { createGuid } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { rootDir } from "../../1-files";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, doSaveOneAtom, newManiContent } from "@/store/1-atoms/2-file-mani-atoms";
@@ -13,8 +14,6 @@ import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-
 import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-ctx/0-all-atoms";
 import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx/7-do-monitoring";
 import { setSizeNormal_SawMonitorAtom } from "./0-ctx/8-saw-monitor-size";
-
-import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 
 export const doMoveToSecondDlgAtom = atom(
     null,
@@ -51,15 +50,19 @@ export const doMoveToSecondDlgAtom = atom(
 
         // Continue on the second dialog
 
-        const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
-
         //R2MCalls.showHideWindow(false);
 
         set(close_SawMonitorAtom);
         await delay(100);
         set(setSizeNormal_SawMonitorAtom);
 
-        const endedByOk = newManiContent.maniForCpassAtom ? true : await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
+        // 2.
+
+        const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
+
+        const noNeedDialog = noNewManiDlg || !!newManiContent.maniForCpassAtom;
+
+        const endedByOk = noNeedDialog || await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
         if (!endedByOk) {
             newManiContent.disposeActive(get, set);
             set(close_NewManiDlgAtom);
