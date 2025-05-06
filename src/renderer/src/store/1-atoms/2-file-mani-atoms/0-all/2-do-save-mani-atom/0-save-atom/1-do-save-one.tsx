@@ -53,17 +53,6 @@ export const doSaveOneAtom = atom(
 
         //parse xml and so on...
         set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });
-
-        if (fileUs.fileCnt.newFile) {
-            set(filesAtom, [...get(filesAtom), fileUsAtom]);
-            addToTotalManis(fileUs);
-
-            fileUs.fileCnt.newFile = false;
-            notificationNewSaved(fileUs);
-
-            setTimeout(() => set(doSelectFileUsTreeAtom, fileUsAtom), 500); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
-        }
-
         return true;
     }
 );

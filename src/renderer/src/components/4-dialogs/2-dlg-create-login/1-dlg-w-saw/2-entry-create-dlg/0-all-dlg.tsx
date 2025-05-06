@@ -11,14 +11,12 @@ import { ComponentPropsWithoutRef } from "react";
 
 export function DialogCreateManiV3Saw() {
     const dataToOpen: NewManiDlgData | undefined = useAtomValue(dataToOpen_NewManiDlgAtom);
-    
-    // if (!isDlgOpen) { //TODO: It should not be mounted all the time and animated with framer-motion, but we need to disconnect radix-ui animations.
-    //     return null;
-    // }
-
     if (!dataToOpen) {
         return null;
     }
+    // if (!isDlgOpen) { //TODO: It should not be mounted all the time and animated with framer-motion, but we need to disconnect radix-ui animations.
+    //     return null;
+    // }
 
     function onCloseDlg(ok: boolean) {
         if (!dataToOpen) {
@@ -37,9 +35,7 @@ export function DialogCreateManiV3Saw() {
 }
 
 function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
-
     useDissmissNextToasts();
-
     return (
         <div className="h-full flex flex-col">
             <D.DialogHeader className="relative text-base font-bold border-b border-foreground/20 flex items-center">
