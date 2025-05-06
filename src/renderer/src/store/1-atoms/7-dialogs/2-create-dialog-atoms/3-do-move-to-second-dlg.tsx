@@ -7,7 +7,7 @@ import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, doSaveOneAtom, newManiContent } from "@/store/1-atoms/2-file-mani-atoms";
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";
-import { close_NewManiDlgAtom, open_NewManiDlgAtom } from "./2-open-new-mani-dlg";
+import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
 import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-ctx/0-all-atoms";
 import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx/7-do-monitoring";
 import { setSizeNormal_SawMonitorAtom } from "./0-ctx/8-saw-monitor-size";
@@ -51,30 +51,27 @@ export const doMoveToSecondDlgAtom = atom(
 
         // Continue on the second dialog
 
+        const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
+
         //R2MCalls.showHideWindow(false);
 
         set(close_SawMonitorAtom);
         await delay(100);
         set(setSizeNormal_SawMonitorAtom);
 
-        const resolve = new Promise<boolean>((resolve) => { set(open_NewManiDlgAtom, { resolve, }); });
-        const ok = await resolve;
-
-
-        const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
-
-        const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
-        set(newManiContent.newFileUsAtomAtom, undefined);
-        currentFileUsAtomAtom && set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
-
-
-        if (!ok) {
+        const endedByOk = newManiContent.maniForCpassAtom ? true : await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
+        if (!endedByOk) {
+            const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+            set(newManiContent.newFileUsAtomAtom, undefined);
+            currentFileUsAtomAtom && set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
             return;
         }
 
         const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
+            set(newManiContent.newFileUsAtomAtom, undefined);
             console.error('no.fileUs');
             return;
         }
