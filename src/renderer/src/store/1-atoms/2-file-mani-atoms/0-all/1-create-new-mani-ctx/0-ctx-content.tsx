@@ -2,6 +2,7 @@ import { type Getter, type Setter, type PrimitiveAtom, atom } from "jotai";
 import { type RowInputState } from "@/ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
+import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { getManiNameAtom } from "../../4-options";
 
 class NewManiContent implements NewManiContentType {
@@ -20,6 +21,11 @@ class NewManiContent implements NewManiContentType {
         }
 
         set(this.newFileUsAtomAtom, undefined);
+    }
+    disposeActive(get: Getter, set: Setter) {
+        const atomToAtom = get(newManiContent.newFileUsAtomAtom);
+        set(newManiContent.newFileUsAtomAtom, undefined);
+        atomToAtom && set(doDisposeFileUsAtomAtom, atomToAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
     }
 };
 

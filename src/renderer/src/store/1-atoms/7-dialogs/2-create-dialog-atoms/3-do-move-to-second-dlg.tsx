@@ -1,9 +1,11 @@
-import { atom, Getter, Setter } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { appSettings } from "../../9-ui-state";
 import { R2MCalls } from "@/xternal-to-main";
-import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
+import { createGuid } from "@/store/manifest";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { rootDir } from "../../1-files";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, doSaveOneAtom, newManiContent } from "@/store/1-atoms/2-file-mani-atoms";
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";
@@ -11,10 +13,8 @@ import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-
 import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-ctx/0-all-atoms";
 import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx/7-do-monitoring";
 import { setSizeNormal_SawMonitorAtom } from "./0-ctx/8-saw-monitor-size";
-import { FileUs, FileUsAtom } from "@/store/store-types";
-import { createGuid } from "pm-manifest";
+
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
-import { rootDir } from "../../1-files";
 
 export const doMoveToSecondDlgAtom = atom(
     null,
@@ -61,22 +61,17 @@ export const doMoveToSecondDlgAtom = atom(
 
         const endedByOk = newManiContent.maniForCpassAtom ? true : await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
         if (!endedByOk) {
-            const currentFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
-            set(newManiContent.newFileUsAtomAtom, undefined);
-            currentFileUsAtomAtom && set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
+            newManiContent.disposeActive(get, set);
+            set(close_NewManiDlgAtom);
             return;
         }
 
         const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
-
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
-            set(newManiContent.newFileUsAtomAtom, undefined);
-            console.error('no.fileUs');
-            return;
+            throw new Error('no.fileUs');
         }
 
-        // set(doSaveNewManiTriggerAtom);
         const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
         if (saved) {
             printAtomSaved(newFileUsAtomAtom);
@@ -86,12 +81,6 @@ export const doMoveToSecondDlgAtom = atom(
             set(close_NewManiDlgAtom);
             set(doClearSawHandleAtom); // Turn off fields highlight
         }
-
-
-        // const doSaveNewManiTrigger = useSetAtom(doSaveNewManiTriggerAtom);
-        {/* <Button variant="default" size="xs" onClick={doSaveNewManiTrigger}> */}
-
-        //set(open_NewManiDlgAtom);
 
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
     }

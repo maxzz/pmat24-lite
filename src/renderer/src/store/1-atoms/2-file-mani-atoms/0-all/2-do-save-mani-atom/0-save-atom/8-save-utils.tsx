@@ -1,7 +1,7 @@
 import { appSettings } from "@/store/1-atoms/9-ui-state";
 import { getFilenameAndExt } from "@/utils";
 import { toast } from "sonner";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { type FileUs } from "@/store/store-types";
 import { type FileMani, type Mani } from "@/store/manifest";
 
 export function notificationSaveError(fname: string, errorText: string) {
@@ -25,8 +25,6 @@ export function notificationNewSaved(fileUs: FileUs) {
 
 /**
  * Generate debug only filename
- * @param fileName 
- * @returns 
  */
 export function debugTestFilename(fileName: string) {
     if (!appSettings.appUi.uiAdvanced.saveWDebugExt) {
@@ -48,7 +46,6 @@ export async function isFilenameExists(parent: FileSystemDirectoryHandle | null 
         console.error('no parent directory');
         return false;
     }
-
     try {
         const fileHandle = await parent.getFileHandle(filename, { create: false });
         if (fileHandle) {
@@ -57,32 +54,10 @@ export async function isFilenameExists(parent: FileSystemDirectoryHandle | null 
     } catch (error) {
         console.error('isFilenameExists', error);
     }
-
     return false;
 }
 
 // Print utilities
-
-/**
- * Print shorten manifest for debugging without destructing the original manifest.
- */
-export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
-
-    const rv = { ...newMani };
-
-    if (rv.forms?.[0]?.detection.names_ext) {
-        rv.forms[0] = { ...rv.forms[0] };
-        rv.forms[0].detection = { ...rv.forms[0].detection };
-        rv.forms[0].detection.names_ext = "...";
-    }
-    if (rv.forms?.[1]?.detection.names_ext) {
-        rv.forms[1] = { ...rv.forms[1] };
-        rv.forms[1].detection = { ...rv.forms[1].detection };
-        rv.forms[1].detection.names_ext = "...";
-    }
-
-    console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(rv, null, 2));
-}
 
 /**
  * Print shorten xml for debugging.
@@ -93,4 +68,22 @@ export function printXmlManiFile(xml: string | undefined) {
 
 function replaceInXml_NamesExt(xml: string | undefined) {
     return (xml || '').replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+}
+
+/**
+ * Print shorten manifest for debugging without destructing the original manifest.
+ */
+export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
+    const rv = { ...newMani };
+    if (rv.forms?.[0]?.detection.names_ext) {
+        rv.forms[0] = { ...rv.forms[0] };
+        rv.forms[0].detection = { ...rv.forms[0].detection };
+        rv.forms[0].detection.names_ext = "...";
+    }
+    if (rv.forms?.[1]?.detection.names_ext) {
+        rv.forms[1] = { ...rv.forms[1] };
+        rv.forms[1].detection = { ...rv.forms[1].detection };
+        rv.forms[1].detection.names_ext = "...";
+    }
+    console.log('%cnew manifest\n', 'color: magenta', JSON.stringify(rv, null, 2));
 }
