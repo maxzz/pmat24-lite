@@ -72,20 +72,6 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
-        set(doSaveNewManiTriggerAtom);
-        // const doSaveNewManiTrigger = useSetAtom(doSaveNewManiTriggerAtom);
-        {/* <Button variant="default" size="xs" onClick={doSaveNewManiTrigger}> */}
-
-        //set(open_NewManiDlgAtom);
-
-        //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
-    }
-);
-
-export const doSaveNewManiTriggerAtom = atom(
-    null,
-    async (get, set): Promise<void> => {
-
         const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
@@ -93,8 +79,8 @@ export const doSaveNewManiTriggerAtom = atom(
             return;
         }
 
+        // set(doSaveNewManiTriggerAtom);
         const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
-
         if (saved) {
             printAtomSaved(newFileUsAtomAtom);
 
@@ -103,6 +89,14 @@ export const doSaveNewManiTriggerAtom = atom(
             set(close_NewManiDlgAtom);
             set(doClearSawHandleAtom); // Turn off fields highlight
         }
+
+
+        // const doSaveNewManiTrigger = useSetAtom(doSaveNewManiTriggerAtom);
+        {/* <Button variant="default" size="xs" onClick={doSaveNewManiTrigger}> */}
+
+        //set(open_NewManiDlgAtom);
+
+        //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
     }
 );
 
