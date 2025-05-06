@@ -38,6 +38,11 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(stopMonitorTimerAtom);
 
+        if (!rootDir.fpath) {
+            console.error('no.rootDir.fpath');
+            return;
+        }
+
         const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(checkboxCreateManualModeAtom), }, showProgressAtom, get, set, });
         if (!created) {
             set(startMonitorTimerAtom);
@@ -63,7 +68,6 @@ export const doMoveToSecondDlgAtom = atom(
         currentFileUsAtomAtom && set(doDisposeFileUsAtomAtom, currentFileUsAtomAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
 
 
-
         if (!ok) {
             return;
         }
@@ -81,10 +85,6 @@ export const doMoveToSecondDlgAtom = atom(
 export const doSaveNewManiTriggerAtom = atom(
     null,
     async (get, set): Promise<void> => {
-        if (!rootDir.fpath) {
-            console.error('no.rootDir.fpath');
-            return;
-        }
 
         const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
