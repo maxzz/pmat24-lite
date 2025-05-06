@@ -1,42 +1,32 @@
 import { type Setter, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
-import { rightPanelAtomAtom } from "../../3-right-panel";
+import { sureRootDir } from "../../1-files";
 import { newManiContent } from "../../2-file-mani-atoms";
+import { rightPanelAtomAtom } from "../../3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
-import { rootDir, sureRootDir } from "../../1-files";
-
-// Open Saw monitor dialog
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
-export const open_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, true));
-export const close_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, false));
+export const open_SawMonitorAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
+export const open_SawMonitorForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
+export const close_SawMonitorAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
 
-/**
- * Open Saw monitor overlay for password change form
- */
-export const open_SawMonitorForCpassAtom = atom(
+const doOpenCloseAtom = atom(
     null,
-    (get, set) => {
-        const mainForCpassAtom = get(rightPanelAtomAtom);
-        if (!mainForCpassAtom) {
-            console.log('There is no mainForCpassAtom for password change form');
-            return;
+    (get, set, { doOpen, asCpass }: { doOpen: boolean; asCpass: boolean; }) => {
+        sureRootDir();
+
+        if (doOpen) {
+            if (asCpass) {
+                newManiContent.maniForCpassAtom = get(rightPanelAtomAtom);
+                if (!newManiContent.maniForCpassAtom) {
+                    throw new Error('no.mainForCpassAtom');
+                }
+            } else {
+                newManiContent.maniForCpassAtom = undefined;
+            }
         }
-        sureRootDir();
 
-        newManiContent.maniForCpassAtom = mainForCpassAtom;
-        onOpenChange(true, set);
-        set(_sawMonitorOpenAtom, true);
-    }
-);
-
-const doOpenCloseSawMonitorAtom = atom(
-    null,
-    (get, set, doOpen: boolean) => {
-        sureRootDir();
-
-        doOpen && (newManiContent.maniForCpassAtom = undefined);
         onOpenChange(doOpen, set);
         set(_sawMonitorOpenAtom, doOpen);
     }
