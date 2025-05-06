@@ -30,10 +30,8 @@ export const doOpen_SawMonitorForCpassAtom = atom(
 );
 
 const doOpenCloseSawMonitorAtom = atom(
-    (get) => null,
-    (get, set, value: boolean | ((prev: boolean) => boolean)) => {
-        const doOpen = typeof value === 'function' ? value(get(_sawMonitorOpenAtom)) : value;
-        
+    null,
+    (get, set, doOpen: boolean) => {
         doOpen && (newManiContent.maniForCpassAtom = undefined);
         onOpenChange(doOpen, set);
         set(_sawMonitorOpenAtom, doOpen);
