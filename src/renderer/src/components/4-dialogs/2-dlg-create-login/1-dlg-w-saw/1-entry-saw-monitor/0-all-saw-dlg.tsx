@@ -1,10 +1,11 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import { useDissmissNextToasts } from "@/utils";
+import { Button, Checkbox, Label } from "@/ui";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
-import { Checkbox, Label } from "@/ui";
-import { checkboxCreateManualModeAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
+import { napiBuildState } from "@/store/7-napi-atoms";
+import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { CurrentApp } from "./1-current-app";
-import { ButtonContinue } from "./3-dlg-button-continue";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
 
@@ -48,6 +49,16 @@ function SawMonitorDlgBody() {
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>
+    );
+}
+
+function ButtonContinue() {
+    const isRunning = useSnapshot(napiBuildState).buildRunning;
+    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    return (
+        <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={isRunning} onClick={() => doMoveToSecondDlg({ cancel: false })}>
+            Continue
+        </Button>
     );
 }
 
