@@ -12,14 +12,10 @@ class NewManiContent implements NewManiContentType {
 
     init(get: Getter, set: Setter) {
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-
-        // printNewManiCtxInit(get);
+        //printNewManiCtxInit(get);
         if (get(this.newFileUsAtomAtom)) {
-            throw new Error('newFileUsAtomAtom should be undefined');
-            // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
-            //set(doDisposeFileUsAtomAtom, this.newFileUsAtom); // This is wrong, the previuos operation should clean up the fileUsAtom. If atom is taken then it's not disposed, if not then it should be disposed.
+            throw new Error('newFileUsAtomAtom should be undefined'); // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
         }
-
         set(this.newFileUsAtomAtom, undefined);
     }
 
@@ -32,11 +28,7 @@ class NewManiContent implements NewManiContentType {
 
 export const newManiContent = new NewManiContent();
 
-export const doInitNewManiContentAtom = atom(null,
-    (get, set) => {
-        newManiContent.init(get, set);
-    }
-);
+export const doInitNewManiContentAtom = atom(null, (get, set) => newManiContent.init(get, set));
 
 /**
  * New manifest fileUs atom.
@@ -44,10 +36,7 @@ export const doInitNewManiContentAtom = atom(null,
 export const newManiFileUsAtom = atom<FileUs | undefined>(
     (get) => {
         const newFileUsAtom = get(newManiContent.newFileUsAtomAtom);
-        if (!newFileUsAtom) {
-            return undefined;
-        }
-        return get(newFileUsAtom);
+        return newFileUsAtom && get(newFileUsAtom);
     }
 );
 
@@ -56,8 +45,7 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
  */
 export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined>(
     (get) => {
-        printNewManiCtx(get);
-
+        //printNewManiCtx(get);
         const fileUs = get(newManiFileUsAtom);
         const rv = fileUs?.maniAtomsAtom && linkToManiNameAtom(get(fileUs.maniAtomsAtom));
         return rv;
