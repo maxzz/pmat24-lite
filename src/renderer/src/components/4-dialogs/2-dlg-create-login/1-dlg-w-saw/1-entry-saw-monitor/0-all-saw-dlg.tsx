@@ -42,7 +42,6 @@ function SawMonitorDlgBody() {
                         Set up a managed logon manually
                     </Label>
 
-                    {/* <div className="">To continue click the button below.</div> */}
                     <ButtonContinue />
                 </div>
 
