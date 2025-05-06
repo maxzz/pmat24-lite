@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtomAtom, type TreeFileItem, treeFilesAtom } from "@/store";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
+import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtomAtom, type TreeFileItem, treeFilesAtom } from "@/store";
 
 export const treeStateAtom = atom<TreeState>(() => {
     return proxy<TreeState>({
@@ -48,14 +48,21 @@ export const doSelectFileUsTreeAtom = atom(
         const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
 
         const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === fileUsAtom);
+
         if (treeItem) {
-            doTreeItemSelect(treeItem, {
-                data: treeFiles,
-                treeState,
-                onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }),
-                selectAsTrigger,
-                selectEmptySpace,
-            });
+            setTimeout(
+                () => {
+                    doTreeItemSelect(treeItem, {
+                        data: treeFiles,
+                        treeState,
+                        onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }),
+                        selectAsTrigger,
+                        selectEmptySpace,
+                    });
+                }, 500
+            ); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
+        } else {
+            console.error('not.in.tree');
         }
     }
 );

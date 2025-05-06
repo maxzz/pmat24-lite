@@ -1,15 +1,12 @@
 import { type Getter, atom } from "jotai";
-import { toast } from "sonner";
-import { addToTotalManis, appSettings } from "@/store/1-atoms/9-ui-state";
 import { type FileContent } from "@shared/ipc-types";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../../9-types";
 import { filesAtom } from "@/store/1-atoms/1-files";
-import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "./7-save-to-file-system";
-import { debugTestFilename, notificationNewSaved, notificationSaveError, printXmlManiFile } from "./8-save-utils";
+import { debugTestFilename, notificationSaveError } from "./8-save-utils";
 
 /**
  * newFilename - filename without path.
