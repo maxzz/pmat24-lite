@@ -4,7 +4,7 @@ import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";
-import { ContentEditorSelector } from "../../2-mani-content-editor";
+import { NewManiContentEditorSelector } from "../../2-mani-content-editor";
 import { SawPageHeader } from "./2-saw-page-header";
 import { ManiLoginNameGuarded } from "./3-mani-login-name";
 import { ComponentPropsWithoutRef } from "react";
@@ -53,7 +53,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
             <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,auto,1fr]">
                 <SawPageHeader />
                 <ManiLoginNameGuarded />
-                <ContentEditorSelector />
+                <NewManiContentEditorSelector />
             </div>
 
             <DialogBottomButtons className="py-3 border-t border-foreground/20" onCloseDlg={onCloseDlg} />

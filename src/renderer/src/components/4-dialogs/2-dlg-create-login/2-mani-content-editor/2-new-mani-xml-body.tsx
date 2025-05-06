@@ -4,7 +4,7 @@ import { appSettings, newManiContent } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
 
-export function BodyRawXml() {
+export function NewManiContentRawXmlBody() {
 
     const maniXml = useAtomValue(newManiContent.maniXmlStrAtom);
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);

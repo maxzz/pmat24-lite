@@ -7,7 +7,7 @@ import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { printManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
 
-export function BodyNewMani() {
+export function NewManiContentBody() {
     const fileUs = useAtomValue(newManiFileUsAtom);
     if (!fileUs) {
         return null;
