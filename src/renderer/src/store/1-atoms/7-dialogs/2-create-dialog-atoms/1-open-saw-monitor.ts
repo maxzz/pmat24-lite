@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Setter, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
@@ -10,29 +10,6 @@ import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitor
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
 export const open_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, true));
 export const close_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenCloseSawMonitorAtom, false));
-
-const doOpenCloseSawMonitorAtom = atom(
-    (get) => null,
-    (get, set, value: boolean | ((prev: boolean) => boolean)) => {
-        const doOpen = typeof value === 'function' ? value(get(_sawMonitorOpenAtom)) : value;
-        if (doOpen) {
-            newManiContent.maniForCpassAtom = undefined;
-        }
-        set(_sawMonitorOpenAtom, doOpen);
-        onChange();
-
-        function onChange() {
-            if (doOpen) {
-                set(checkboxCreateManualModeAtom, false);
-                set(startMonitorTimerAtom);
-                set(setSizeSmall_SawMonitorAtom);
-            } else {
-                set(stopMonitorTimerAtom);
-                clearIconsCache();
-            }
-        }
-    }
-);
 
 /**
  * Open Saw monitor overlay for password change form
@@ -47,9 +24,32 @@ export const doOpen_SawMonitorForCpassAtom = atom(
         }
 
         newManiContent.maniForCpassAtom = mainForCpassAtom;
+        onOpenChange(true, set);
         set(_sawMonitorOpenAtom, true);
     }
 );
+
+const doOpenCloseSawMonitorAtom = atom(
+    (get) => null,
+    (get, set, value: boolean | ((prev: boolean) => boolean)) => {
+        const doOpen = typeof value === 'function' ? value(get(_sawMonitorOpenAtom)) : value;
+        
+        doOpen && (newManiContent.maniForCpassAtom = undefined);
+        onOpenChange(doOpen, set);
+        set(_sawMonitorOpenAtom, doOpen);
+    }
+);
+
+function onOpenChange(doOpen: boolean, set: Setter) {
+    if (doOpen) {
+        set(checkboxCreateManualModeAtom, false);
+        set(startMonitorTimerAtom);
+        set(setSizeSmall_SawMonitorAtom);
+    } else {
+        set(stopMonitorTimerAtom);
+        clearIconsCache();
+    }
+}
 
 const _sawMonitorOpenAtom = atom(false);
 
