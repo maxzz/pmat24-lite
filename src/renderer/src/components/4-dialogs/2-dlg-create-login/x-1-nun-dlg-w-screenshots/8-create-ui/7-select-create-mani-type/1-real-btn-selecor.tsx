@@ -1,11 +1,11 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpen_SawMonitorForCpassAtom } from "@/store";
+import { open_SawMonitorForCpassAtom } from "@/store";
 
 export function ButtonCreateCpassForm() {
-    const doOpenSawOverlayForCpass = useSetAtom(doOpen_SawMonitorForCpassAtom);
+    const openDlg = useSetAtom(open_SawMonitorForCpassAtom);
     return (
-        <Button variant="outline" size="xs" className="px-2 w-max justify-start" onClick={() => doOpenSawOverlayForCpass()}>
+        <Button variant="outline" size="xs" className="px-2 w-max justify-start" onClick={openDlg}>
             Create password change form
         </Button>
     );

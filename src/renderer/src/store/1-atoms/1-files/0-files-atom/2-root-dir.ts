@@ -50,3 +50,10 @@ export function isRootDirEmpty(): boolean {
 export function isPmatFolderEmpty(folder: PmatFolder): boolean {
     return !folder.fpath || (!folder.fromMain && !folder.handle);
 }
+
+export function sureRootDir(): string {
+    if (!rootDir.fpath) {
+        throw new Error('no.rootDir.fpath');
+    }
+    return rootDir.fpath;
+}

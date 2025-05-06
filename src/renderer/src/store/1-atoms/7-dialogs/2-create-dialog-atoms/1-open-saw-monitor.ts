@@ -4,6 +4,7 @@ import { clearIconsCache } from "@/store/7-napi-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { newManiContent } from "../../2-file-mani-atoms";
 import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
+import { rootDir, sureRootDir } from "../../1-files";
 
 // Open Saw monitor dialog
 
@@ -14,7 +15,7 @@ export const close_SawMonitorAtom = atom(() => null, (get, set) => set(doOpenClo
 /**
  * Open Saw monitor overlay for password change form
  */
-export const doOpen_SawMonitorForCpassAtom = atom(
+export const open_SawMonitorForCpassAtom = atom(
     null,
     (get, set) => {
         const mainForCpassAtom = get(rightPanelAtomAtom);
@@ -22,6 +23,7 @@ export const doOpen_SawMonitorForCpassAtom = atom(
             console.log('There is no mainForCpassAtom for password change form');
             return;
         }
+        sureRootDir();
 
         newManiContent.maniForCpassAtom = mainForCpassAtom;
         onOpenChange(true, set);
@@ -32,6 +34,8 @@ export const doOpen_SawMonitorForCpassAtom = atom(
 const doOpenCloseSawMonitorAtom = atom(
     null,
     (get, set, doOpen: boolean) => {
+        sureRootDir();
+
         doOpen && (newManiContent.maniForCpassAtom = undefined);
         onOpenChange(doOpen, set);
         set(_sawMonitorOpenAtom, doOpen);
