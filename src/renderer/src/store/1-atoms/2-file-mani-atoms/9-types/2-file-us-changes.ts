@@ -8,6 +8,7 @@ export const allFileUsChanges = proxySet<string>();
 
 export const fileUsChanges = {
     set: setChangeFlag,
+    setNewLogin: setNewLoginChange, // new login form created. cannot be removed by user. Only delete or save (will reset this flag)
     setCpass: setCpassChange,       // added or deleted password change form change
     setUnchanged: clearAllChanges,  // clear file all changes
     hasAny: hasAnyChange,           // has any changes
@@ -25,6 +26,10 @@ function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, change
     //printChanges(fileUs);
 
     return changes;
+}
+
+function setNewLoginChange({ fileUs }: { fileUs: FileUs; }) {
+    setChangeFlag({ fileUs }, true, 'login');
 }
 
 function setCpassChange({ fileUs }: { fileUs: FileUs; }, changed: boolean) {

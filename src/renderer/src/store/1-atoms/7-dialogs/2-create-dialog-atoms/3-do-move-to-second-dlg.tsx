@@ -80,18 +80,23 @@ export const doMoveToSecondDlgAtom = atom(
             }
         } else {
             initFileUsFname(fileUs, makingCpass);
-            //fileUsChanges..setUnchanged({ fileUs });
+            fileUsChanges.setNewLogin({ fileUs });
         }
 
         addToFilesTree(newFileUsAtomAtom, fileUs, makingCpass, get, set);
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
         set(close_NewManiDlgAtom);
-        set(doClearSawHandleAtom); // Turn off fields highlight
+        set(doClearSawHandleAtom); // Turn off fields highlight //TODO: this should be done differently for inline editor
 
         printAtomSaved(newFileUsAtomAtom);
     }
 );
+
+//TODO: reset for new login should remove it from the tree
+//TODO: reset button should be discard instead of reset
+//TODO: manifest name before save should be updated with dialog
+//TODO: highlight fields should be turned off but when?
 
 function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
     if (makingCpass) {
