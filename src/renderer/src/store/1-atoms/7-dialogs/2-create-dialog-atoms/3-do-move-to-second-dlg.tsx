@@ -9,7 +9,7 @@ import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { filesAtom, rootDir } from "../../1-files";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
-import { createFileUsFromNewXml, doSaveOneAtom, newManiContent, notificationNewSaved } from "@/store/1-atoms/2-file-mani-atoms";
+import { createFileUsFromNewXml, doSaveOneAtom, fileUsChanges, newManiContent, notificationNewSaved } from "@/store/1-atoms/2-file-mani-atoms";
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";
 import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
 import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-ctx/0-all-atoms";
@@ -65,7 +65,7 @@ export const doMoveToSecondDlgAtom = atom(
         }
 
         if (!inlineEditor) {
-            const endedByOk = await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
+            const endedByOk = await asyncExecuteNewManiDlg(set);
             if (!endedByOk) {
                 newManiContent.disposeActive(get, set);
                 set(close_NewManiDlgAtom);
@@ -78,26 +78,24 @@ export const doMoveToSecondDlgAtom = atom(
             if (!saved) {
                 return;
             }
-
-            addToFilesTree(newFileUsAtomAtom, fileUs, get, set);
-
-            printAtomSaved(newFileUsAtomAtom);
-
-            set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-
-            set(close_NewManiDlgAtom);
-            set(doClearSawHandleAtom); // Turn off fields highlight
         } else {
-
             initFileUsFname(fileUs, makingCpass);
-
+            //fileUsChanges..setUnchanged({ fileUs });
         }
+
+        addToFilesTree(newFileUsAtomAtom, fileUs, makingCpass, get, set);
+
+        set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
+        set(close_NewManiDlgAtom);
+        set(doClearSawHandleAtom); // Turn off fields highlight
+
+        printAtomSaved(newFileUsAtomAtom);
     }
 );
 
 function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
     if (makingCpass) {
-        return; // For password change form we don't need to save as new manifest
+        return;
     }
 
     fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
@@ -110,16 +108,17 @@ function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
     });
 }
 
-function addToFilesTree(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter): void {
-    if (fileUs.fileCnt.newFile) {
-        set(filesAtom, [...get(filesAtom), fileUsAtom]);
-        addToTotalManis(fileUs);
-
-        set(doSelectFileUsTreeAtom, fileUsAtom);
-
-        fileUs.fileCnt.newFile = false;
-        notificationNewSaved(fileUs);
+function addToFilesTree(fileUsAtom: FileUsAtom, fileUs: FileUs, makingCpass: boolean, get: Getter, set: Setter): void {
+    if (makingCpass) {
+        return;
     }
+
+    set(filesAtom, [...get(filesAtom), fileUsAtom]);
+    addToTotalManis(fileUs);
+
+    set(doSelectFileUsTreeAtom, fileUsAtom);
+
+    notificationNewSaved(fileUs);
 }
 
 function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
