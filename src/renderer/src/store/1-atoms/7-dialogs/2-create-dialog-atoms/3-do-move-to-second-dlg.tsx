@@ -55,8 +55,14 @@ export const doMoveToSecondDlgAtom = atom(
         // 2. Show dialog
 
         const { noNewManiDlg } = appSettings.appUi.uiAdvanced;
+        const makingCpass = !!newManiContent.maniForCpassAtom;
+        const inlineEditor = noNewManiDlg || makingCpass;
 
-        const inlineEditor = noNewManiDlg || !!newManiContent.maniForCpassAtom;
+        const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+        const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
+        if (!fileUs) {
+            throw new Error('no.fileUs');
+        }
 
         if (!inlineEditor) {
             const endedByOk = await asyncExecuteNewManiDlg(set); // cpass dialog is embedded, so don't open dialog
@@ -66,35 +72,33 @@ export const doMoveToSecondDlgAtom = atom(
                 return;
             }
 
-            // 3. Save after dialog
+            if (!makingCpass) { //TODO: does not make any sense since we already check inlineEditor
 
-            const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
-            const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
-            if (!fileUs) {
-                throw new Error('no.fileUs');
+                // 3. Save after dialog
+
+                const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
+                if (!saved) {
+                    return;
+                }
+
+                printAtomSaved(newFileUsAtomAtom);
+
+                set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
+
+                set(close_NewManiDlgAtom);
+                set(doClearSawHandleAtom); // Turn off fields highlight
             }
-
-            const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
-            if (!saved) {
-                return;
-            }
-
-            printAtomSaved(newFileUsAtomAtom);
-
-            set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-
-            set(close_NewManiDlgAtom);
-            set(doClearSawHandleAtom); // Turn off fields highlight
         } else {
+
+            initFileUsFname(fileUs, makingCpass);
 
         }
     }
 );
 
-async function asyncSaveNewMani(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter): Promise<boolean> {
-    //TODO: if we switch to embedded new manifest into tree, save will be done differently
-    if (newManiContent.maniForCpassAtom) {
-        return true; // For password change form we don't need to save as new manifest
+function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
+    if (makingCpass) {
+        return; // For password change form we don't need to save as new manifest
     }
 
     fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
@@ -105,12 +109,9 @@ async function asyncSaveNewMani(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Get
         parent: rootDir.handle,
         legacyPath: rootDir.fpath,
     });
+}
 
-    const saved = await set(doSaveOneAtom, fileUsAtom);
-    if (!saved) {
-        return false;
-    }
-
+function addToFilesTree(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter): void {
     if (fileUs.fileCnt.newFile) {
         set(filesAtom, [...get(filesAtom), fileUsAtom]);
         addToTotalManis(fileUs);
@@ -119,6 +120,19 @@ async function asyncSaveNewMani(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Get
 
         fileUs.fileCnt.newFile = false;
         notificationNewSaved(fileUs);
+    }
+}
+
+async function asyncSaveNewMani(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter): Promise<boolean> {
+    if (newManiContent.maniForCpassAtom) {
+        return true; // For password change form we don't need to save as new manifest
+    }
+
+    initFileUsFname(fileUs, !!newManiContent.maniForCpassAtom);
+
+    const saved = await set(doSaveOneAtom, fileUsAtom);
+    if (saved) {
+        addToFilesTree(fileUsAtom, fileUs, get, set);
     }
 
     return saved;
