@@ -72,22 +72,21 @@ export const doMoveToSecondDlgAtom = atom(
                 return;
             }
 
-            if (!makingCpass) { //TODO: does not make any sense since we already check inlineEditor
+            initFileUsFname(fileUs, false);
 
-                // 3. Save after dialog
-
-                const saved = await asyncSaveNewMani(newFileUsAtomAtom, fileUs, get, set);
-                if (!saved) {
-                    return;
-                }
-
-                printAtomSaved(newFileUsAtomAtom);
-
-                set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-
-                set(close_NewManiDlgAtom);
-                set(doClearSawHandleAtom); // Turn off fields highlight
+            const saved = await set(doSaveOneAtom, newFileUsAtomAtom);
+            if (!saved) {
+                return;
             }
+
+            addToFilesTree(newFileUsAtomAtom, fileUs, get, set);
+
+            printAtomSaved(newFileUsAtomAtom);
+
+            set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
+
+            set(close_NewManiDlgAtom);
+            set(doClearSawHandleAtom); // Turn off fields highlight
         } else {
 
             initFileUsFname(fileUs, makingCpass);
@@ -121,21 +120,6 @@ function addToFilesTree(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set
         fileUs.fileCnt.newFile = false;
         notificationNewSaved(fileUs);
     }
-}
-
-async function asyncSaveNewMani(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter): Promise<boolean> {
-    if (newManiContent.maniForCpassAtom) {
-        return true; // For password change form we don't need to save as new manifest
-    }
-
-    initFileUsFname(fileUs, !!newManiContent.maniForCpassAtom);
-
-    const saved = await set(doSaveOneAtom, fileUsAtom);
-    if (saved) {
-        addToFilesTree(fileUsAtom, fileUs, get, set);
-    }
-
-    return saved;
 }
 
 function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
