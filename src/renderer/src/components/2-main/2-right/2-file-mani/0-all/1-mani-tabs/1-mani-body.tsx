@@ -20,15 +20,15 @@ export function ManiBody() {
     );
 }
 
-type TabValues = 'options' | 'login' | 'cpass';
+type ManiTabValue = 'options' | 'login' | 'cpass';
 
-const tabvalues: Record<TabValues, TabValues> = {
+const maniTabValues: Record<ManiTabValue, ManiTabValue> = {
     options: 'options',
     login: 'login',
     cpass: 'cpass',
 };
 
-function setActiveTab(tab: TabValues) {
+function setManiActiveTab(tab: ManiTabValue) {
     appSettings.right.mani.activeTab = tab;
 }
 
@@ -61,15 +61,15 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
             <div ref={ref} className={refClasses}>
                 <ScrollArea style={{ width, height }} horizontal fullHeight>
 
-                    <TabsContent value={tabvalues.options} tabIndex={-1}>
+                    <TabsContent value={maniTabValues.options} tabIndex={-1}>
                         <ManiEditorAllOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
                     </TabsContent>
 
-                    <TabsContent value={tabvalues.login} tabIndex={-1}>
+                    <TabsContent value={maniTabValues.login} tabIndex={-1}>
                         <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
-                    <TabsContent value={tabvalues.cpass} tabIndex={-1}>
+                    <TabsContent value={maniTabValues.cpass} tabIndex={-1}>
                         <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
