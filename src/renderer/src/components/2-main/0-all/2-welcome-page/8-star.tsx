@@ -1,7 +1,8 @@
 import { classNames } from "@/utils";
+import { c } from "vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
 interface StarProps extends React.SVGProps<SVGSVGElement> {
-    smallRayLength?: number; // 0 to 1, relative to big ray length
+    smallRayLength?: number;
     className?: string;
 }
 /**
@@ -21,8 +22,32 @@ interface StarProps extends React.SVGProps<SVGSVGElement> {
  * ```
  */
 export function Star({ smallRayLength = 0.5, className, ...props }: StarProps) {
-    // Calculate points for 8-pointed star
-    const bigRayLength = 50; // Base length for big rays
+    const bigRayLength = 50;
+    const points = generateStar({ bigRayLength, smallRayLength });
+    return (
+        <svg
+            viewBox={viewBox(bigRayLength)}
+            className={classNames("", className)}
+            {...props}
+        >
+            <polygon
+                points={points}
+                fill="currentColor" />
+        </svg>
+    );
+}
+
+function viewBox(bigRayLength: number): string {
+    return `0 0 ${bigRayLength * 2} ${bigRayLength * 2}`;
+}
+
+/**
+ * Calculate points for 8-pointed star
+ * @param bigRayLength - Base length for big rays
+ * @param smallRayLength - The length of small rays relative to big rays (0 to 1)
+ * @returns 
+ */
+function generateStar({ bigRayLength = 50, smallRayLength = 0.5}: { bigRayLength?: number; smallRayLength?: number; }) {
     const small = bigRayLength * smallRayLength;
 
     // Points starting from top, going clockwise
@@ -35,15 +60,5 @@ export function Star({ smallRayLength = 0.5, className, ...props }: StarProps) {
         ([x, y]) => `${x + bigRayLength},${y + bigRayLength}`
     ).join(' ');
 
-    return (
-        <svg
-            viewBox={`0 0 ${bigRayLength * 2} ${bigRayLength * 2}`}
-            className={classNames("", className)}
-            {...props}
-        >
-            <polygon
-                points={points}
-                fill="currentColor" />
-        </svg>
-    );
+    return points;
 }
