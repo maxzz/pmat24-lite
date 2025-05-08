@@ -59,7 +59,15 @@ export const doMoveToSecondDlgAtom = atom(
         const makingCpass = !!newManiContent.maniForCpassAtom;
         const inlineEditor = noNewManiDlg || makingCpass;
 
-        const newFileUsAtomAtom = get(newManiContent.newFileUsAtomAtom);
+        // let fileUs2: FileUs | undefined;
+        // let newFileUsAtomAtom: FileUsAtom | undefined;
+        // if (newManiContent.maniForCpassAtom) {
+        //     fileUs2 = get(newManiContent.maniForCpassAtom);
+        // } else {
+        //     fileUs2 = newFileUsAtomAtom && get(newFileUsAtomAtom);
+        // }
+
+        const newFileUsAtomAtom = newManiContent.maniForCpassAtom || get(newManiContent.newFileUsAtomAtom);
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
             throw new Error('no.fileUs');
@@ -82,7 +90,6 @@ export const doMoveToSecondDlgAtom = atom(
         } else {
             initFileUsFname({ fileUs, makingCpass });
             fileUsChanges.setNewLogin({ fileUs });
-            setManiActiveTab(makingCpass ? 'cpass' : 'login');
         }
 
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
@@ -90,6 +97,7 @@ export const doMoveToSecondDlgAtom = atom(
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
         set(close_NewManiDlgAtom);
         set(doClearSawHandleAtom); // Turn off fields highlight //TODO: this should be done differently for inline editor
+        setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
         printAtomSaved(newFileUsAtomAtom);
     }
