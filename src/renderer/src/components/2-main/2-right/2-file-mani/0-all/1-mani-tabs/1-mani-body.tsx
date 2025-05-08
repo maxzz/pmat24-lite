@@ -55,7 +55,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => appSettings.right.mani.activeTab = value}>
+        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => setManiActiveTab(value as ManiTabValue)}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div ref={ref} className={refClasses}>
