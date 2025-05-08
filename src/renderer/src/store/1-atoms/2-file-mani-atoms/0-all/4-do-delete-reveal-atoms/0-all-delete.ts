@@ -109,7 +109,6 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
         // set file changed
         const state = fileUsChanges.hasCpassChange({ fileUs }) ? false : true; // if cpass was added then set as unchanged
         fileUsChanges.setCpass({ fileUs }, state);
-        // fileUsChanges.setCpass({ fileUs }, true);
 
         setManiActiveTab('options');
     }

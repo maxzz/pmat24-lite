@@ -79,6 +79,8 @@ export const doMoveToSecondDlgAtom = atom(
             if (!saved) {
                 return;
             }
+
+            set(close_NewManiDlgAtom);
         } else {
             initFileUsFname({ fileUs, makingCpass });
             makingCpass ? fileUsChanges.setCpass({ fileUs }, true) : fileUsChanges.setNewLogin({ fileUs });
@@ -87,7 +89,6 @@ export const doMoveToSecondDlgAtom = atom(
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-        set(close_NewManiDlgAtom);
         set(doClearSawHandleAtom); // Turn off fields highlight //TODO: this should be done differently for inline editor
         setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
@@ -95,12 +96,14 @@ export const doMoveToSecondDlgAtom = atom(
     }
 );
 
+//05.07.25
 //TODO: reset for new login should remove it from the tree - done
 //TODO: reset button should be discard instead of reset - done
 //TODO: manifest name before save should be updated with dialog
 //TODO: highlight fields should be turned off but when?
-//TODO: create cpass should be switch tab to cpass
-//TODO: delete cpass should be switch tab to login or options
+//TODO: create cpass should be switch tab to cpass - done
+//TODO: delete cpass should be switch tab to login or options - done
+//TODO: close folder did not clear all file changes
 
 function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass: boolean; }): void {
     if (makingCpass) {
