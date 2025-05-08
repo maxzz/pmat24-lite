@@ -1,7 +1,9 @@
 import { type ComponentPropsWithoutRef } from "react";
+import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { ButtonCreateCpassForm, ButtonCreateFormSelector } from "@/components/4-dialogs/2-dlg-create-login/x-1-nun-dlg-w-screenshots/8-create-ui";
+import { Button } from "@/ui";
+import { open_SawMonitorForCpassAtom } from "@/store";
 
 export function TabContent_NoForm({ formType, className, ...rest }: { formType: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
 
@@ -27,5 +29,14 @@ export function TabContent_NoForm({ formType, className, ...rest }: { formType: 
                 <ButtonCreateCpassForm />
             )}
         </div>
+    );
+}
+
+function ButtonCreateCpassForm() {
+    const openDlg = useSetAtom(open_SawMonitorForCpassAtom);
+    return (
+        <Button variant="default" size="xs" className="px-2 w-max justify-start" onClick={openDlg}>
+            Create password change form
+        </Button>
     );
 }
