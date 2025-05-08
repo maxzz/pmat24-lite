@@ -6,6 +6,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
 import { busyIndicator, clearTotalManis, addToTotalManis } from "../../9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
+import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { createFileUsFromFileContent } from "./2-create-fileus";
@@ -66,6 +67,7 @@ export const doSetDeliveredFilesAtom = atom(
         set(rightPanelAtomAtom, undefined);
         set(doClearFcRootAtom);
         set(doDisposeAllFilesAtomAtom);
+        allFileUsChanges.clear();
 
         clearTotalManis();
 
