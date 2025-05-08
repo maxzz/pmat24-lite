@@ -7,6 +7,7 @@ import { createGuid } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { filesAtom, rootDir } from "../../1-files";
+import { setManiActiveTab } from "../../3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, doSaveOneAtom, fileUsChanges, newManiContent, notificationNewSaved } from "@/store/1-atoms/2-file-mani-atoms";
@@ -48,7 +49,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         //R2MCalls.showHideWindow(false);
         set(close_SawMonitorAtom);
-        await delay(100);
+        //await delay(100);
         set(setSizeNormal_SawMonitorAtom);
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
 
@@ -81,6 +82,7 @@ export const doMoveToSecondDlgAtom = atom(
         } else {
             initFileUsFname({ fileUs, makingCpass });
             fileUsChanges.setNewLogin({ fileUs });
+            setManiActiveTab(makingCpass ? 'cpass' : 'login');
         }
 
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
