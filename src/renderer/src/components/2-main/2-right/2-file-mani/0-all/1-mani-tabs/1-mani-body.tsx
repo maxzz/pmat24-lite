@@ -3,7 +3,7 @@ import { type Atom, useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
-import { type FileUs, appSettings, rightPanelAtomAtom } from "@/store";
+import { type FileUs, type ManiTabValue, appSettings, maniTabValue, rightPanelAtomAtom, setManiActiveTab } from "@/store";
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManiEditorFormSelector } from "../../1-form-editor";
@@ -18,18 +18,6 @@ export function ManiBody() {
     return (
         <ManiBodyGuarded fileUsAtom={fileUsAtom} />
     );
-}
-
-type ManiTabValue = 'options' | 'login' | 'cpass';
-
-const maniTabValue: Record<ManiTabValue, ManiTabValue> = {
-    options: 'options',
-    login: 'login',
-    cpass: 'cpass',
-};
-
-function setManiActiveTab(tab: ManiTabValue) {
-    appSettings.right.mani.activeTab = tab;
 }
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {

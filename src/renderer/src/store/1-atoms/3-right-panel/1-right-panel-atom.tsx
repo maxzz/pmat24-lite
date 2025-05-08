@@ -8,7 +8,8 @@ export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);
 /**
  * set tree item to render in the right panel
  */
-export const doTriggerRightPanelSelectedAtom = atom(null,
+export const doTriggerRightPanelSelectedAtom = atom(
+    null,
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }): void => {
         set(doPreloadManiAtomsAtom, newAtom);
         set(rightPanelAtomAtom, newAtom);
@@ -18,7 +19,8 @@ export const doTriggerRightPanelSelectedAtom = atom(null,
 /**
  * Preload mani/fce atoms for the right panel item
  */
-export const doPreloadManiAtomsAtom = atom(null,
+export const doPreloadManiAtomsAtom = atom(
+    null,
     (get, set, fileUsAtom: FileUsAtom | undefined): void => {
         if (fileUsAtom) {
             const fileUs = get(fileUsAtom);
