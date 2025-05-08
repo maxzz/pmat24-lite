@@ -59,14 +59,6 @@ export const doMoveToSecondDlgAtom = atom(
         const makingCpass = !!newManiContent.maniForCpassAtom;
         const inlineEditor = noNewManiDlg || makingCpass;
 
-        // let fileUs2: FileUs | undefined;
-        // let newFileUsAtomAtom: FileUsAtom | undefined;
-        // if (newManiContent.maniForCpassAtom) {
-        //     fileUs2 = get(newManiContent.maniForCpassAtom);
-        // } else {
-        //     fileUs2 = newFileUsAtomAtom && get(newFileUsAtomAtom);
-        // }
-
         const newFileUsAtomAtom = newManiContent.maniForCpassAtom || get(newManiContent.newFileUsAtomAtom);
         const fileUs = newFileUsAtomAtom && get(newFileUsAtomAtom);
         if (!fileUs) {
@@ -89,7 +81,7 @@ export const doMoveToSecondDlgAtom = atom(
             }
         } else {
             initFileUsFname({ fileUs, makingCpass });
-            fileUsChanges.setNewLogin({ fileUs });
+            makingCpass ? fileUsChanges.setCpass({ fileUs }, true) : fileUsChanges.setNewLogin({ fileUs });
         }
 
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
