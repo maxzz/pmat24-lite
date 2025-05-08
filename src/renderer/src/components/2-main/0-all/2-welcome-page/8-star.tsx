@@ -1,10 +1,8 @@
+import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
-import { c } from "vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
-interface StarProps extends React.SVGProps<SVGSVGElement> {
-    smallRayLength?: number;
-    className?: string;
-}
+type StarProps = {};
+
 /**
  * ```md
  * Features:
@@ -21,15 +19,15 @@ interface StarProps extends React.SVGProps<SVGSVGElement> {
  *      * Maintains aspect ratio when resized
  * ```
  */
-export function Star({ className, ...props }: StarProps) {
+export function Star({ className, ...rest }: StarProps & ComponentPropsWithoutRef<'svg'>) {
     const bigRayLength = 50;
-    const points1 = generateStar({ center: 50, bigRayLength, smallRayLength: 0.3 });
-    const points2 = generateStar({ center: 50, bigRayLength, smallRayLength: 0.1 });
+    const points1 = generateStar({ center: bigRayLength, bigRayLength, smallRayLength: 0.3 });
+    const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
     return (
         <svg
             viewBox={viewBox(bigRayLength)}
             className={classNames("", className)}
-            // {...props}
+            {...rest}
         >
             <polygon
                 className="rotate-45 origin-center fill-blue-300"
@@ -63,7 +61,7 @@ function generateStar({ center, bigRayLength = 50, smallRayLength = 0.5 }: { cen
         [0, bigRayLength],  /**/[-small, small],  /**/ // S big // SW small
         [-bigRayLength, 0], /**/[-small, -small], /**/ // W big // NW small
     ].map(
-        ([x, y]) => `${x + bigRayLength},${y + bigRayLength}`
+        ([x, y]) => `${x + center},${y + center}`
     ).join(' ');
 
     return points;

@@ -55,7 +55,7 @@ function CenterPart() {
             <WelcomeHeroTitle allowHandleFiles={allowHandleFiles} />
             <OpenButtons />
             {/* <ListViewDemo /> */}
-            <Star className="w-24 h-24 text-blue-500" smallRayLength={0.3} />
+            <Star className="w-24 h-24 text-blue-500" />
         </div>
     </>);
 }
