@@ -1,5 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
+import { motion } from "motion/react";
 
 type StarProps = {};
 
@@ -19,16 +20,12 @@ type StarProps = {};
  *      * Maintains aspect ratio when resized
  * ```
  */
-export function Star({ className, ...rest }: StarProps & ComponentPropsWithoutRef<'svg'>) {
+export function Star(props: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
     const bigRayLength = 50;
-    const points1 = generateStar({ center: bigRayLength, bigRayLength, smallRayLength: 0.3 });
+    const points1 = generateStar({ center: bigRayLength, bigRayLength: 50, smallRayLength: 0.3 });
     const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
     return (
-        <svg
-            viewBox={viewBox(bigRayLength)}
-            className={classNames("", className)}
-            {...rest}
-        >
+        <motion.svg viewBox={viewBox(bigRayLength)} {...props}>
             <polygon
                 className="rotate-45 origin-center fill-blue-300"
                 points={points2}
@@ -37,7 +34,7 @@ export function Star({ className, ...rest }: StarProps & ComponentPropsWithoutRe
                 points={points1}
                 fill="currentColor"
             />
-        </svg>
+        </motion.svg>
     );
 }
 

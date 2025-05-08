@@ -1,7 +1,7 @@
+import { type ComponentPropsWithoutRef } from "react";
+import { classNames } from "@/utils";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { IconHIDWFrame, IconHIDWoFrame } from "@/ui/icons";
-import { ComponentPropsWithoutRef } from "react";
-import { classNames } from "@/utils";
 
 export function HIDLogoAnimation({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     return (
