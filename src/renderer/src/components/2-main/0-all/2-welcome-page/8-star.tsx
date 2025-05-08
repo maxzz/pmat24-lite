@@ -21,18 +21,24 @@ interface StarProps extends React.SVGProps<SVGSVGElement> {
  *      * Maintains aspect ratio when resized
  * ```
  */
-export function Star({ smallRayLength = 0.5, className, ...props }: StarProps) {
+export function Star({ className, ...props }: StarProps) {
     const bigRayLength = 50;
-    const points = generateStar({ bigRayLength, smallRayLength });
+    const points1 = generateStar({ center: 50, bigRayLength, smallRayLength: 0.3 });
+    const points2 = generateStar({ center: 50, bigRayLength, smallRayLength: 0.1 });
     return (
         <svg
             viewBox={viewBox(bigRayLength)}
             className={classNames("", className)}
-            {...props}
+            // {...props}
         >
             <polygon
-                points={points}
-                fill="currentColor" />
+                className="rotate-45 origin-center fill-blue-300"
+                points={points2}
+            />
+            <polygon
+                points={points1}
+                fill="currentColor"
+            />
         </svg>
     );
 }
@@ -47,15 +53,15 @@ function viewBox(bigRayLength: number): string {
  * @param smallRayLength - The length of small rays relative to big rays (0 to 1)
  * @returns 
  */
-function generateStar({ bigRayLength = 50, smallRayLength = 0.5}: { bigRayLength?: number; smallRayLength?: number; }) {
+function generateStar({ center, bigRayLength = 50, smallRayLength = 0.5 }: { center: number; bigRayLength?: number; smallRayLength?: number; }) {
     const small = bigRayLength * smallRayLength;
 
     // Points starting from top, going clockwise
     const points = [
-        [0, -bigRayLength], /**/ [small, -small],  /**/ // N big // NE small
-        [bigRayLength, 0],  /**/ [small, small],   /**/ // E big // SE small
-        [0, bigRayLength],  /**/ [-small, small],  /**/ // S big // SW small
-        [-bigRayLength, 0], /**/ [-small, -small], /**/ // W big // NW small
+        [0, -bigRayLength], /**/[small, -small],  /**/ // N big // NE small
+        [bigRayLength, 0],  /**/[small, small],   /**/ // E big // SE small
+        [0, bigRayLength],  /**/[-small, small],  /**/ // S big // SW small
+        [-bigRayLength, 0], /**/[-small, -small], /**/ // W big // NW small
     ].map(
         ([x, y]) => `${x + bigRayLength},${y + bigRayLength}`
     ).join(' ');
