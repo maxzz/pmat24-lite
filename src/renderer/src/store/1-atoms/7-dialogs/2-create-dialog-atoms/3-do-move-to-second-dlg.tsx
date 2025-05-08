@@ -93,8 +93,8 @@ export const doMoveToSecondDlgAtom = atom(
     }
 );
 
-//TODO: reset for new login should remove it from the tree
-//TODO: reset button should be discard instead of reset
+//TODO: reset for new login should remove it from the tree - done
+//TODO: reset button should be discard instead of reset - done
 //TODO: manifest name before save should be updated with dialog
 //TODO: highlight fields should be turned off but when?
 
