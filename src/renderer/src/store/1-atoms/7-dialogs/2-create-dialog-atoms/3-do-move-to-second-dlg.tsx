@@ -72,18 +72,18 @@ export const doMoveToSecondDlgAtom = atom(
                 return;
             }
 
-            initFileUsFname(fileUs, false);
+            initFileUsFname({ fileUs, makingCpass: false });
 
             const saved = await set(doSaveOneAtom, newFileUsAtomAtom);
             if (!saved) {
                 return;
             }
         } else {
-            initFileUsFname(fileUs, makingCpass);
+            initFileUsFname({ fileUs, makingCpass });
             fileUsChanges.setNewLogin({ fileUs });
         }
 
-        addToFilesTree(newFileUsAtomAtom, fileUs, makingCpass, get, set);
+        addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
         set(close_NewManiDlgAtom);
@@ -98,7 +98,7 @@ export const doMoveToSecondDlgAtom = atom(
 //TODO: manifest name before save should be updated with dialog
 //TODO: highlight fields should be turned off but when?
 
-function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
+function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass: boolean; }): void {
     if (makingCpass) {
         return;
     }
@@ -113,7 +113,7 @@ function initFileUsFname(fileUs: FileUs, makingCpass: boolean): void {
     });
 }
 
-function addToFilesTree(fileUsAtom: FileUsAtom, fileUs: FileUs, makingCpass: boolean, get: Getter, set: Setter): void {
+function addToFilesTree({ fileUsAtom, fileUs, makingCpass, get, set }: { fileUsAtom: FileUsAtom; fileUs: FileUs; makingCpass: boolean; get: Getter; set: Setter; }): void {
     if (makingCpass) {
         return;
     }
