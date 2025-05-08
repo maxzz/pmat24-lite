@@ -20,6 +20,14 @@ export function ManiBody() {
     );
 }
 
+const tabValues = ['options', 'login', 'cpass'] as const;
+
+type TabValues = typeof tabValues[number];
+
+function setActiveTab(tab: TabValues) {
+    appSettings.right.mani.activeTab = tab;
+}
+
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const { ref, width, height } = useResizeObserver();
     const activeTab = useSnapshot(appSettings).right.mani.activeTab;

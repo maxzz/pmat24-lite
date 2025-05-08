@@ -97,6 +97,8 @@ export const doMoveToSecondDlgAtom = atom(
 //TODO: reset button should be discard instead of reset - done
 //TODO: manifest name before save should be updated with dialog
 //TODO: highlight fields should be turned off but when?
+//TODO: create cpass should be switch tab to cpass
+//TODO: delete cpass should be switch tab to login or options
 
 function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass: boolean; }): void {
     if (makingCpass) {
