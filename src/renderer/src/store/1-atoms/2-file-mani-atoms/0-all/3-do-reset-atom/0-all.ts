@@ -6,7 +6,7 @@ import { updateManiAtomsAfterSaveOrResetAtom } from "../2-do-save-mani-atom/0-sa
 import { resetManifest } from "./nun/1-reset-manifest";
 //import { resetFc } from "./nun/5-reset-fc";
 
-export const doResetOneAtom = atom(null,
+export const doResetOrDiscardOneAtom = atom(null,
     (get, set, fileUsAtom: FileUsAtom) => {
         const fileUs = get(fileUsAtom);
 
