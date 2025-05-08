@@ -22,7 +22,7 @@ export function ManiBody() {
 
 type ManiTabValue = 'options' | 'login' | 'cpass';
 
-const maniTabValues: Record<ManiTabValue, ManiTabValue> = {
+const maniTabValue: Record<ManiTabValue, ManiTabValue> = {
     options: 'options',
     login: 'login',
     cpass: 'cpass',
@@ -61,15 +61,15 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
             <div ref={ref} className={refClasses}>
                 <ScrollArea style={{ width, height }} horizontal fullHeight>
 
-                    <TabsContent value={maniTabValues.options} tabIndex={-1}>
+                    <TabsContent value={maniTabValue.options} tabIndex={-1}>
                         <ManiEditorAllOptions fileUs={fileUs} /* key={fileUsAtom.toString()} */ />
                     </TabsContent>
 
-                    <TabsContent value={maniTabValues.login} tabIndex={-1}>
+                    <TabsContent value={maniTabValue.login} tabIndex={-1}>
                         <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
-                    <TabsContent value={maniTabValues.cpass} tabIndex={-1}>
+                    <TabsContent value={maniTabValue.cpass} tabIndex={-1}>
                         <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
