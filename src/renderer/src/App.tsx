@@ -102,10 +102,10 @@ export function App(): JSX.Element {
 //TODO: make check for file exists as a separate atom
 
 //05.07.25 //src/renderer/src/store/1-atoms/7-dialogs/2-create-dialog-atoms/3-do-move-to-second-dlg.tsx
-//TODO: reset for new login should remove it from the tree - done
-//TODO: reset button should be discard instead of reset - done
 //TODO: manifest name before save should be updated with dialog
 //TODO: highlight fields should be turned off but when?
+//TODO: reset for new login should remove it from the tree - done
+//TODO: reset button should be discard instead of reset - done
 //TODO: create cpass should be switch tab to cpass - done
 //TODO: delete cpass should be switch tab to login or options - done
-//TODO: close folder did not clear all file changes
+//TODO: close folder did not clear all file changes - done
