@@ -1,6 +1,6 @@
-import { type ComponentPropsWithoutRef } from "react";
+import { useEffect, type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
-import { motion } from "motion/react";
+import { motion, useAnimate } from "motion/react";
 
 type StarProps = {};
 
@@ -24,13 +24,31 @@ export function Star(props: StarProps & ComponentPropsWithoutRef<typeof motion.s
     const bigRayLength = 50;
     const points1 = generateStar({ center: bigRayLength, bigRayLength: 50, smallRayLength: 0.3 });
     const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
+    const [scope, animate] = useAnimate();
+
+    function sequence() {
+        animate([
+            ['.pts1', { scale: 0.7 }, { delay: 0.1 }],
+            ['.pts2', { scale: 0.7 }, { duration: 2 }],
+            ['.pts1', { scale: 1 }],
+            ['.pts2', { scale: 1 }],
+        ]);
+    }
+
+    useEffect(
+        () => {
+            sequence();
+        }, []
+    );
+
     return (
-        <motion.svg viewBox={viewBox(bigRayLength)} {...props}>
+        <motion.svg ref={scope} viewBox={viewBox(bigRayLength)} {...props}>
             <polygon
-                className="rotate-45 origin-center fill-blue-300"
+                className="pts2 rotate-45 origin-center fill-blue-300"
                 points={points2}
             />
             <polygon
+                className="pts1"
                 points={points1}
                 fill="currentColor"
             />
