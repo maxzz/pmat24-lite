@@ -32,13 +32,13 @@ export function Star({ smallRayLength = 0.5, className, ...props }: StarProps) {
         [0, bigRayLength],  /**/ [-small, small],  /**/ // S big // SW small
         [-bigRayLength, 0], /**/ [-small, -small], /**/ // W big // NW small
     ].map(
-        ([x, y]) => `${x + 50},${y + 50}`
+        ([x, y]) => `${x + bigRayLength},${y + bigRayLength}`
     ).join(' ');
 
     return (
         <svg
-            viewBox="0 0 100 100"
-            className={classNames("w-6 h-6", className)}
+            viewBox={`0 0 ${bigRayLength * 2} ${bigRayLength * 2}`}
+            className={classNames("", className)}
             {...props}
         >
             <polygon
