@@ -9,7 +9,7 @@ import { fileUsChanges, type ManiAtoms } from "../../9-types";
 import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
-import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
+import { rightPanelAtomAtom, setManiActiveTab } from "@/store/1-atoms/3-right-panel";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -108,6 +108,8 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
 
         // set file changed
         fileUsChanges.setCpass({ fileUs }, true);
+
+        setManiActiveTab('options');
     }
 );
 
