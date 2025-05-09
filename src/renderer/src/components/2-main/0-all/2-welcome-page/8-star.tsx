@@ -1,6 +1,7 @@
-import { useEffect, type ComponentPropsWithoutRef } from "react";
+import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { motion, useAnimate } from "motion/react";
+import { Button } from "@/ui";
 
 type StarProps = {};
 
@@ -80,4 +81,23 @@ function generateStar({ center, bigRayLength = 50, smallRayLength = 0.5 }: { cen
     ).join(' ');
 
     return points;
+}
+
+export function StarTest({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+    const [render, setRender] = useState(false);
+    useEffect(
+        () => {
+            setTimeout(() => setRender(true), 1000);
+        }, []
+    );
+    return (
+        <div className={classNames("absolute right-32 top-48 grid place-items-center z-50", className)} {...rest}>
+            <div className="relative mt-64">
+                <Button className="absolute top-0 -right-24 active:scale-95" onClick={() => setRender(v => !!v)}>
+                    Test
+                </Button>
+                <Star className="w-24 h-24 text-blue-500" />
+            </div>
+        </div>
+    );
 }

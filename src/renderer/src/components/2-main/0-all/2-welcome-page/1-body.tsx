@@ -7,7 +7,7 @@ import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./7-nun-dont-show-next";
 // import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
-import { Star } from "./8-star";
+import { Star, StarTest } from "./8-star";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -42,6 +42,9 @@ export function WelcomePage() {
                         )}
                     </div>
 
+                    {/* <Star className="w-24 h-24 text-blue-500" /> */}
+                    <StarTest />
+
                 </motion.div>
             )}
         </MotionConfig >
@@ -55,7 +58,6 @@ function CenterPart() {
             <WelcomeHeroTitle allowHandleFiles={allowHandleFiles} />
             <OpenButtons />
             {/* <ListViewDemo /> */}
-            <Star className="w-24 h-24 text-blue-500" />
         </div>
     </>);
 }
