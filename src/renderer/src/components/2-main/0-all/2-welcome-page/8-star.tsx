@@ -93,8 +93,8 @@ export function StarTest({ className, ...rest }: ComponentPropsWithoutRef<'div'>
     return (
         <div className={classNames("absolute right-32 top-48 grid place-items-center z-50", className)} {...rest}>
             <div className="relative mt-64">
-                <Button className="absolute top-0 -right-24 active:scale-95" onClick={() => setRender(v => !!v)}>
-                    Test
+                <Button className="absolute top-0 -right-24 active:scale-95" onClick={() => setRender(v => !v)}>
+                    Rerender ({render ? "y" : "n"})
                 </Button>
                 <Star className="w-24 h-24 text-blue-500" />
             </div>
