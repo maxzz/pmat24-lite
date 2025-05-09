@@ -33,10 +33,12 @@ export function Star({ start, ...rest }: StarProps & ComponentPropsWithoutRef<ty
         animate([
             [scope.current, { opacity: 1, }],
             ['.pts-b', { scale: 0.7, }],
-            ['.pts-g', { scale: 0.2, rotateZ: 45, }, { duration: .02 }],
-            ['.pts-g', { scale: 1, rotateZ: 45, }],
-            ['.pts-g', { scale: 0.1, rotateZ: 45 }],
-            ['.pts-b', { scale: 1, }, { delay: 0.2 }],
+            
+            ['.pts-g', { scale: 0.2, rotateZ: 45, }, { duration: .02, type: 'spring', bounce: 0.2, }],
+            ['.pts-g', { scale: 1, }],
+            ['.pts-g', { scale: 0.1 }],
+
+            ['.pts-b', { scale: 1, }],
             [scope.current, { opacity: 0, }],
         ]);
     }
@@ -50,11 +52,11 @@ export function Star({ start, ...rest }: StarProps & ComponentPropsWithoutRef<ty
     return (
         <motion.svg ref={scope} viewBox={viewBox(bigRayLength)} {...rest}>
             <polygon
-                className="pts-g rotate-45 origin-center fill-green-300"
+                className="pts-g fill-orange-300 origin-center"
                 points={points2}
             />
             <polygon
-                className="pts-b fill-blue-500"
+                className="pts-b fill-orange-500"
                 points={points1}
             />
         </motion.svg>
