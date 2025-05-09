@@ -23,7 +23,7 @@ let i = 0;
  *      * Maintains aspect ratio when resized
  * ```
  */
-export function Star({start, ...rest}: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
+export function Star({ start, ...rest }: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
     const bigRayLength = 50;
     const points1 = generateStar({ center: bigRayLength, bigRayLength: 50, smallRayLength: 0.3 });
     const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
@@ -31,10 +31,10 @@ export function Star({start, ...rest}: StarProps & ComponentPropsWithoutRef<type
 
     function sequence() {
         animate([
-            ['.pts1', { scale: 0.7 }, { delay: 0.1 }],
-            ['.pts2', { scale: 0.7 }, { duration: 2 }],
-            ['.pts1', { scale: 1 }],
-            ['.pts2', { scale: 1 }],
+            ['.pts-b', { scale: 0.7, }, { delay: 0.1 }],
+            ['.pts-g', { scale: 0.7, rotateZ: 45, }, { duration: .2 }],
+            ['.pts-g', { scale: 1, rotateZ: 0 }],
+            ['.pts-b', { scale: 1, }, { delay: 0.2 }],
         ]);
     }
 
@@ -48,11 +48,11 @@ export function Star({start, ...rest}: StarProps & ComponentPropsWithoutRef<type
     return (
         <motion.svg ref={scope} viewBox={viewBox(bigRayLength)} {...rest}>
             <polygon
-                className="pts2 rotate-45 origin-center fill-blue-300"
+                className="pts-g rotate-45 origin-center fill-green-300"
                 points={points2}
             />
             <polygon
-                className="pts1"
+                className="pts-b"
                 points={points1}
                 fill="currentColor"
             />
