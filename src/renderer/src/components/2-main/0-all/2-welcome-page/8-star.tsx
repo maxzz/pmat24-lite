@@ -6,7 +6,7 @@ import { Button } from "@/ui";
 type StarProps = {
     start: boolean;
 };
-let i = 0;
+
 /**
  * ```md
  * Features:
@@ -31,16 +31,18 @@ export function Star({ start, ...rest }: StarProps & ComponentPropsWithoutRef<ty
 
     function sequence() {
         animate([
-            ['.pts-b', { scale: 0.7, }, { delay: 0.1 }],
-            ['.pts-g', { scale: 0.7, rotateZ: 45, }, { duration: .2 }],
-            ['.pts-g', { scale: 1, rotateZ: 0 }],
+            [scope.current, { opacity: 1, }],
+            ['.pts-b', { scale: 0.7, }],
+            ['.pts-g', { scale: 0.2, rotateZ: 45, }, { duration: .02 }],
+            ['.pts-g', { scale: 1, rotateZ: 45, }],
+            ['.pts-g', { scale: 0.1, rotateZ: 45 }],
             ['.pts-b', { scale: 1, }, { delay: 0.2 }],
+            [scope.current, { opacity: 0, }],
         ]);
     }
 
     useEffect(
         () => {
-            console.log('render', ++i);
             sequence();
         }, [start]
     );
@@ -52,9 +54,8 @@ export function Star({ start, ...rest }: StarProps & ComponentPropsWithoutRef<ty
                 points={points2}
             />
             <polygon
-                className="pts-b"
+                className="pts-b fill-blue-500"
                 points={points1}
-                fill="currentColor"
             />
         </motion.svg>
     );
@@ -99,7 +100,7 @@ export function StarTest({ className, ...rest }: ComponentPropsWithoutRef<'div'>
                 <Button className="absolute top-0 -right-24 active:scale-95" onClick={() => setRender(v => !v)}>
                     Rerender ({render ? "y" : "n"})
                 </Button>
-                <Star className="w-24 h-24 text-blue-500" start={render} />
+                <Star className="w-12 h-12" start={render} />
             </div>
         </div>
     );
