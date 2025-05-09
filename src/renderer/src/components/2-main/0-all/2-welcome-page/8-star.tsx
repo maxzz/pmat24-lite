@@ -3,8 +3,10 @@ import { classNames } from "@/utils";
 import { motion, useAnimate } from "motion/react";
 import { Button } from "@/ui";
 
-type StarProps = {};
-
+type StarProps = {
+    start: boolean;
+};
+let i = 0;
 /**
  * ```md
  * Features:
@@ -21,7 +23,7 @@ type StarProps = {};
  *      * Maintains aspect ratio when resized
  * ```
  */
-export function Star(props: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
+export function Star({start, ...rest}: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
     const bigRayLength = 50;
     const points1 = generateStar({ center: bigRayLength, bigRayLength: 50, smallRayLength: 0.3 });
     const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
@@ -38,12 +40,13 @@ export function Star(props: StarProps & ComponentPropsWithoutRef<typeof motion.s
 
     useEffect(
         () => {
+            console.log('render', ++i);
             sequence();
-        }, []
+        }, [start]
     );
 
     return (
-        <motion.svg ref={scope} viewBox={viewBox(bigRayLength)} {...props}>
+        <motion.svg ref={scope} viewBox={viewBox(bigRayLength)} {...rest}>
             <polygon
                 className="pts2 rotate-45 origin-center fill-blue-300"
                 points={points2}
@@ -96,7 +99,7 @@ export function StarTest({ className, ...rest }: ComponentPropsWithoutRef<'div'>
                 <Button className="absolute top-0 -right-24 active:scale-95" onClick={() => setRender(v => !v)}>
                     Rerender ({render ? "y" : "n"})
                 </Button>
-                <Star className="w-24 h-24 text-blue-500" />
+                <Star className="w-24 h-24 text-blue-500" start={render} />
             </div>
         </div>
     );
