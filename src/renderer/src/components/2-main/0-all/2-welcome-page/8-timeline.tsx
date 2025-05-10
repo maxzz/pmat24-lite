@@ -1,6 +1,7 @@
 import { type DependencyList, useRef, useEffect } from "react";
 import { type DOMKeyframesDefinition, type ElementOrSelector, type AnimationOptions, useAnimate } from "motion/react";
 import { delay } from "@/utils";
+import { on } from "events";
 
 type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptions | undefined)?,];
 
@@ -11,19 +12,24 @@ let gGeneration = 0;
 export const useMotionTimeline = (keyframes: Animation[], count: number = 1, deps?: DependencyList) => {
     const mounted = useRef(true);
     const [scope, animate] = useAnimate();
+    const once = useRef(true);
 
-    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps));
+    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps), once);
 
     useEffect(
         () => {
             mounted.current = true;
+            if (once.current) {
+                once.current = false;
+                return;
+            }
 
-            console.log('-------------------------- deps', JSON.stringify(deps));
+            console.log('-------------------------- deps', JSON.stringify(deps), once);
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
             // printAnimationLines(keyframes);
-            printAnimation(keyframes, gGeneration++);
+            printAnimation(keyframes, ++gGeneration);
 
-            handleAnimate();
+            handleAnimate(gGeneration);
 
             return () => {
                 mounted.current = false;
@@ -31,10 +37,10 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         }, deps || []
     );
 
-    async function handleAnimate() {
+    async function handleAnimate(generation: number) {
         for (let loopCount = 0; loopCount < count; loopCount++) {
             for (const animation of keyframes) {
-                console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
+                console.log(`%ctop ${generation}:${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
                 if (!mounted.current) {
                     return;
                 }
