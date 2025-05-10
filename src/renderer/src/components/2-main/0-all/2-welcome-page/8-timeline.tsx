@@ -1,7 +1,6 @@
 import { type DependencyList, useRef, useEffect } from "react";
 import { type DOMKeyframesDefinition, type ElementOrSelector, type AnimationOptions, useAnimate } from "motion/react";
 import { delay } from "@/utils";
-import { on } from "events";
 
 type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptions | undefined)?,];
 
@@ -14,7 +13,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     const [scope, animate] = useAnimate();
     const once = useRef(true);
 
-    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps), once);
+    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps), {once: once.current});
 
     useEffect(
         () => {
@@ -24,7 +23,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
                 return;
             }
 
-            console.log('-------------------------- deps', JSON.stringify(deps), once);
+            console.log('-------------------------- useEffect', JSON.stringify(deps), {once: once.current});
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
             // printAnimationLines(keyframes);
             printAnimation(keyframes, ++gGeneration);
@@ -38,15 +37,18 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     );
 
     async function handleAnimate(generation: number) {
+        console.log('-------------------------- handleAnimate', JSON.stringify(deps), {once: once.current});
+
         for (let loopCount = 0; loopCount < count; loopCount++) {
             for (const animation of keyframes) {
-                console.log(`%ctop ${generation}:${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
+                //console.log(`%ctop ${generation}:${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
+                console.log(`%ctop ${printAnimationRecursive(animation, generation)}`, 'color: blue');
                 if (!mounted.current) {
                     return;
                 }
                 // console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
                 //await processAnimation(animation);
-                await delay(100);
+                // await delay(100);
             }
         }
     }

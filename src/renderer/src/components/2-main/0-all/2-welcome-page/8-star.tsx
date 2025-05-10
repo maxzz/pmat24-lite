@@ -150,7 +150,7 @@ export function Star2({ start, ...rest }: StarProps2 & ComponentPropsWithoutRef<
 */
         ],
         // Infinity
-        2,
+        1,
         [start]
     );
 
