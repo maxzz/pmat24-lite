@@ -1,11 +1,11 @@
-import { useRef, useEffect } from "react";
+import { type DependencyList, useRef, useEffect } from "react";
 import { type DOMKeyframesDefinition, type ElementOrSelector, AnimationOptions, useAnimate } from "motion/react";
 
 type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptions | undefined)?,];
 
 type Animation = AnimateParams | Animation[];
 
-export const useMotionTimeline = (keyframes: Animation[], count: number = 1) => {
+export const useMotionTimeline = (keyframes: Animation[], count: number = 1, deps?: DependencyList) => {
     const mounted = useRef(true);
 
     const [scope, animate] = useAnimate();
@@ -18,7 +18,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1) => 
         return () => {
             mounted.current = false;
         };
-    }, []);
+    }, deps || []);
 
     const processAnimation = async (animation: Animation) => {
         // If list of animations, run all concurrently

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
+import { type DependencyList, useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { motion, MotionConfig, useAnimate } from "motion/react";
 import { Button } from "@/ui";
@@ -6,6 +6,7 @@ import { useMotionTimeline } from "./8-timeline";
 
 type StarProps = {
     start: boolean;
+    deps?: DependencyList;
 };
 
 /**
@@ -136,7 +137,8 @@ export function Star2({ start, ...rest }: StarProps & ComponentPropsWithoutRef<t
             // [".root", { opacity: 0, }],
         ],
         // Infinity
-        2
+        2,
+        [start]
     );
 
     return (
