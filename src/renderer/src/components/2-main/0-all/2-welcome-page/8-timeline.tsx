@@ -1,5 +1,6 @@
 import { type DependencyList, useRef, useEffect } from "react";
 import { type DOMKeyframesDefinition, type ElementOrSelector, type AnimationOptions, useAnimate } from "motion/react";
+import { delay } from "@/utils";
 
 type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptions | undefined)?,];
 
@@ -9,13 +10,16 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     const mounted = useRef(true);
     const [scope, animate] = useAnimate();
 
+    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps));
+
     useEffect(
         () => {
             mounted.current = true;
 
             console.log("--------------------------");
-            console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes)}`);
-            
+            //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
+            printAnimation(keyframes);
+
             handleAnimate();
 
             return () => {
@@ -27,11 +31,13 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     async function handleAnimate() {
         for (let loopCount = 0; loopCount < count; loopCount++) {
             for (const animation of keyframes) {
+                console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
                 if (!mounted.current) {
                     return;
                 }
-                console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
-                await processAnimation(animation);
+                // console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
+                //await processAnimation(animation);
+                await delay(100);
             }
         }
     }
@@ -43,7 +49,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
             await Promise.all((animation as Animation[]).map(
                 async (a: Animation): Promise<void> => {
                     //console.log(`arr ${' '.repeat(level * 2)}${JSON.stringify(a)}`);
-                    
+
                     await processAnimation(a as Animation, level);
                 }
             ));
@@ -51,10 +57,28 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         } else {
             // else run the single animation
             console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
-            
+
             await animate(...(animation as AnimateParams));
         }
     }
 
     return scope;
 };
+
+function printAnimation(animation: Animation, level = 0) {
+    if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
+        console.log(`${' '.repeat(level * 2)}[`);
+        level++;
+        
+        (animation as Animation[]).forEach(
+            (a: Animation): void => {
+                printAnimation(a as Animation, level);
+            }
+        );
+        level--;
+        console.log(`${' '.repeat(level * 2)}],`);
+    } else {
+        // else run the single animation
+        console.log(`${' '.repeat(level * 2)}${JSON.stringify(animation)},`);
+    }
+}
