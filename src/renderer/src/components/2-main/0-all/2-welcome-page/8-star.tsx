@@ -2,6 +2,7 @@ import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { motion, MotionConfig, useAnimate } from "motion/react";
 import { Button } from "@/ui";
+import { useMotionTimeline } from "./8-timeline";
 
 type StarProps = {
     start: boolean;
@@ -105,7 +106,45 @@ export function StarTest({ className, ...rest }: ComponentPropsWithoutRef<'div'>
                     Rerender ({render ? "y" : "n"})
                 </Button>
                 <Star className="w-12 h-12" start={render} />
+                <Star2 className="w-12 h-12" start={render} />
             </div>
         </div>
+    );
+}
+
+export function Star2({ start, ...rest }: StarProps & ComponentPropsWithoutRef<typeof motion.svg>) {
+    const bigRayLength = 50;
+    const points1 = generateStar({ center: bigRayLength, bigRayLength: 50, smallRayLength: 0.3 });
+    const points2 = generateStar({ center: bigRayLength, bigRayLength: 70, smallRayLength: 0.1 });
+
+    const scope = useMotionTimeline(
+        [
+            [".root", { opacity: 1, }],
+            ['.pts-b', { scale: 0.7, }],
+
+            ['.pts-g', { scale: 0.2, rotateZ: 45, }, { duration: .02, type: 'spring', bounce: 0.2, }],
+            ['.pts-g', { scale: 1, }],
+            ['.pts-g', { scale: 0.1 }],
+
+            ['.pts-b', { scale: 1, }],
+            [".root", { opacity: 0, }],
+        ],
+        2
+    );
+
+
+    return (
+        <MotionConfig transition={{ duration: 2.5 }}>
+            <motion.svg ref={scope} className="root" viewBox={viewBox(bigRayLength)} {...rest}>
+                <polygon
+                    className="pts-g fill-orange-300 origin-center"
+                    points={points2}
+                />
+                <polygon
+                    className="pts-b fill-orange-500"
+                    points={points1}
+                />
+            </motion.svg>
+        </MotionConfig>
     );
 }
