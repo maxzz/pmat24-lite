@@ -1,5 +1,5 @@
 import { type DependencyList, useRef, useEffect } from "react";
-import { type DOMKeyframesDefinition, type ElementOrSelector, AnimationOptions, useAnimate } from "motion/react";
+import { type DOMKeyframesDefinition, type ElementOrSelector, type AnimationOptions, useAnimate } from "motion/react";
 
 type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptions | undefined)?,];
 
@@ -20,7 +20,18 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         };
     }, deps || []);
 
-    const processAnimation = async (animation: Animation) => {
+    async function handleAnimate() {
+        for (let i = 0; i < count; i++) {
+            for (const animation of keyframes) {
+                if (!mounted.current) {
+                    return;
+                }
+                await processAnimation(animation);
+            }
+        }
+    }
+
+    async function processAnimation(animation: Animation) {
         // If list of animations, run all concurrently
         if (Array.isArray(animation[0])) {
             await Promise.all(
@@ -32,16 +43,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
             // Else run the single animation
             await animate(...(animation as AnimateParams));
         }
-    };
-
-    const handleAnimate = async () => {
-        for (let i = 0; i < count; i++) {
-            for (const animation of keyframes) {
-                if (!mounted.current) return;
-                await processAnimation(animation);
-            }
-        }
-    };
+    }
 
     return scope;
 };
