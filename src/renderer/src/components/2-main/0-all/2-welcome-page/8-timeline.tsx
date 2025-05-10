@@ -14,6 +14,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
             mounted.current = true;
 
             console.log("--------------------------");
+            console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes)}`);
             
             handleAnimate();
 
@@ -24,11 +25,12 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     );
 
     async function handleAnimate() {
-        for (let i = 0; i < count; i++) {
+        for (let loopCount = 0; loopCount < count; loopCount++) {
             for (const animation of keyframes) {
                 if (!mounted.current) {
                     return;
                 }
+                console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
                 await processAnimation(animation);
             }
         }
@@ -37,13 +39,15 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     async function processAnimation(animation: Animation, level = 0) {
         // Check if array of animations or a single animation were the first array item is selector
         if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
+            level++;
             await Promise.all((animation as Animation[]).map(
                 async (a: Animation): Promise<void> => {
-                    console.log(`arr${' '.repeat(level * 2)}${JSON.stringify(a)}`);
+                    //console.log(`arr ${' '.repeat(level * 2)}${JSON.stringify(a)}`);
                     
-                    await processAnimation(a as Animation, level++);
+                    await processAnimation(a as Animation, level);
                 }
             ));
+            level--;
         } else {
             // else run the single animation
             console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);

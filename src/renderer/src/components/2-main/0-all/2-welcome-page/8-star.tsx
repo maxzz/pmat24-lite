@@ -120,6 +120,12 @@ export function Star2({ start, ...rest }: StarProps & ComponentPropsWithoutRef<t
 
     const scope = useMotionTimeline(
         [
+            [
+                ['.pts-g', { scale: 0.2, rotateZ: 45, }, { duration: .02, type: 'spring', bounce: 0.2, }],
+                ['.pts-g', { scale: 1, }],
+                ['.pts-g', { scale: 0.1 }],
+            ],
+
             // [".root", { opacity: 1, }],
             ['.pts-b', { opacity: 1, }],
             ['.pts-g', { opacity: 1, }],
