@@ -18,7 +18,8 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
 
             console.log("--------------------------");
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
-            printAnimation(keyframes);
+            // printAnimation(keyframes);
+            console.log(printAnimationRecursive(keyframes));
 
             handleAnimate();
 
@@ -81,4 +82,24 @@ function printAnimation(animation: Animation, level = 0) {
         // else run the single animation
         console.log(`${' '.repeat(level * 2)}${JSON.stringify(animation)},`);
     }
+}
+
+function printAnimationRecursive(animation: Animation, level = 0): string {
+    const res: string[] = [];
+    if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
+        res.push(`${' '.repeat(level * 2)}[`);
+        level++;
+        
+        (animation as Animation[]).forEach(
+            (a: Animation): void => {
+                res.push(printAnimationRecursive(a as Animation, level));
+            }
+        );
+        level--;
+        res.push(`${' '.repeat(level * 2)}],`);
+    } else {
+        // else run the single animation
+        res.push(`${' '.repeat(level * 2)}${JSON.stringify(animation)},`);
+    }
+    return res.join('\n');
 }
