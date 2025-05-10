@@ -6,6 +6,8 @@ type AnimateParams = [ElementOrSelector, DOMKeyframesDefinition, (AnimationOptio
 
 type Animation = AnimateParams | Animation[];
 
+let gGeneration = 0;
+
 export const useMotionTimeline = (keyframes: Animation[], count: number = 1, deps?: DependencyList) => {
     const mounted = useRef(true);
     const [scope, animate] = useAnimate();
@@ -16,10 +18,10 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         () => {
             mounted.current = true;
 
-            console.log("--------------------------");
+            console.log('-------------------------- deps', JSON.stringify(deps));
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
-            // printAnimation(keyframes);
-            console.log(printAnimationRecursive(keyframes));
+            // printAnimationLines(keyframes);
+            printAnimation(keyframes, gGeneration++);
 
             handleAnimate();
 
@@ -66,14 +68,14 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     return scope;
 };
 
-function printAnimation(animation: Animation, level = 0) {
+function printAnimationLines(animation: Animation, level = 0) {
     if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
         console.log(`${' '.repeat(level * 2)}[`);
         level++;
-        
+
         (animation as Animation[]).forEach(
             (a: Animation): void => {
-                printAnimation(a as Animation, level);
+                printAnimationLines(a as Animation, level);
             }
         );
         level--;
@@ -84,22 +86,26 @@ function printAnimation(animation: Animation, level = 0) {
     }
 }
 
-function printAnimationRecursive(animation: Animation, level = 0): string {
+function printAnimationRecursive(animation: Animation, generation: number, level = 0): string {
     const res: string[] = [];
     if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
         res.push(`${' '.repeat(level * 2)}[`);
         level++;
-        
+
         (animation as Animation[]).forEach(
             (a: Animation): void => {
-                res.push(printAnimationRecursive(a as Animation, level));
+                res.push(printAnimationRecursive(a as Animation, generation, level));
             }
         );
         level--;
         res.push(`${' '.repeat(level * 2)}],`);
     } else {
         // else run the single animation
-        res.push(`${' '.repeat(level * 2)}${JSON.stringify(animation)},`);
+        res.push(`${' '.repeat(level * 2)}${generation}:${JSON.stringify(animation)},`);
     }
     return res.join('\n');
+}
+
+function printAnimation(keyframes: Animation, generation: number) {
+    console.log(printAnimationRecursive(keyframes, generation));
 }
