@@ -34,19 +34,19 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         }
     }
 
-    async function processAnimation(animation: Animation) {
-        // If list of animations, run all concurrently
-        if (Array.isArray(animation[0])) {
+    async function processAnimation(animation: Animation, level = 0) {
+        // Check if array of animations or a single animation were the first array item is selector
+        if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
             await Promise.all((animation as Animation[]).map(
                 async (a: Animation): Promise<void> => {
-                    console.log("    sub", JSON.stringify(a));
+                    console.log(`arr${' '.repeat(level * 2)}${JSON.stringify(a)}`);
                     
-                    await processAnimation(a as Animation);
+                    await processAnimation(a as Animation, level++);
                 }
             ));
         } else {
-            // Else run the single animation
-            console.log("start animation", JSON.stringify(animation));
+            // else run the single animation
+            console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
             
             await animate(...(animation as AnimateParams));
         }
