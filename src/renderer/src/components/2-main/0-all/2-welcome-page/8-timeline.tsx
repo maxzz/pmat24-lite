@@ -41,19 +41,18 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
 
         for (let loopCount = 0; loopCount < count; loopCount++) {
             for (const animation of keyframes) {
-                //console.log(`%ctop ${generation}:${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
-                console.log(`%ctop ${printAnimationRecursive(animation, generation)}`, 'color: blue');
+                console.log(`%ctop %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: blue');
                 if (!mounted.current) {
                     return;
                 }
                 // console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
-                //await processAnimation(animation);
+                await processAnimation(animation, generation);
                 // await delay(100);
             }
         }
     }
 
-    async function processAnimation(animation: Animation, level = 0) {
+    async function processAnimation(animation: Animation, generation: number, level = 0) {
         // Check if array of animations or a single animation were the first array item is selector
         if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
             level++;
@@ -61,13 +60,14 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
                 async (a: Animation): Promise<void> => {
                     //console.log(`arr ${' '.repeat(level * 2)}${JSON.stringify(a)}`);
 
-                    await processAnimation(a as Animation, level);
+                    await processAnimation(a as Animation, generation, level);
                 }
             ));
             level--;
         } else {
             // else run the single animation
-            console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
+            //console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
+            console.log(`%csub %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
 
             await animate(...(animation as AnimateParams));
         }
