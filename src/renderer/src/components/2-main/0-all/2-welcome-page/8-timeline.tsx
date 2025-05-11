@@ -54,7 +54,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
                 await processAnimation(animation, generation);
                 //await delay(100);
             }
-            
+
             console.log(`%c Loop end ${loopCount} `, 'background-color: chocolate; color: white; font-size:0.5rem');
         }
     }
@@ -64,28 +64,30 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
             level++;
 
-            // await Promise.all((animation as Animation[]).map(
-            const anis = Promise.all((animation as Animation[]).map(
+            await Promise.all((animation as Animation[]).map(
+                // const anis = Promise.all((animation as Animation[]).map(
                 async (a: Animation) => {
                     //console.log(`arr ${' '.repeat(level * 2)}${JSON.stringify(a)}`);
 
                     // await processAnimation(a as Animation, generation, level);
-                    return processAnimation(a as Animation, generation, level);
+                    const ani = processAnimation(a as Animation, generation, level);
+                    return ani;
                 }
             ));
             console.log('%cPromise.all done', 'background-color: maroon; color: white; font-size:0.5rem');
-           
+
             level--;
-            return anis;
+            // return anis;
         } else {
             // else run the single animation
             //console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
             console.log(`%csub %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
 
-            //await animate(...(animation as AnimateParams)); // await animate did not return from promise
-            const ani = animate(...(animation as AnimateParams)); // await animate did not return from promise
+            const aa = await animate(...(animation as AnimateParams)); // await animate did not return from promise
+            // await animate(...(animation as AnimateParams)); // await animate did not return from promise
+            // const ani = animate(...(animation as AnimateParams)); // await animate did not return from promise
             console.log('%cAnimation done', 'color: green; font-size:0.5rem');
-            return ani;
+            // return ani;
         }
     }
 
