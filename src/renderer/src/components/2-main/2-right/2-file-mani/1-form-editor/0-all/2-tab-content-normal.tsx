@@ -2,6 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
+import { TestAccordionVariant } from "@/ui/motion-primitives";
 
 export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFields = !!ctx.nAllAtoms.normal.rowCtxs.length;
@@ -27,7 +28,8 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
             </div>
 
             <FormDetection ctx={ctx} />
-            
+            <TestAccordionVariant />
+
         </div>
     );
 }

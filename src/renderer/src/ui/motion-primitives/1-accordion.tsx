@@ -1,4 +1,4 @@
-//'use client'; //https://motion-primitives.com/docs/accordion
+'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { classNames } from '@/utils';
 import { type Transition, type Variants, type Variant, motion, AnimatePresence, MotionConfig, } from 'motion/react';
