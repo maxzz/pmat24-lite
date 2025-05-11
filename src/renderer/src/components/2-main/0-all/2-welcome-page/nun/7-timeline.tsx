@@ -51,7 +51,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
                     return;
                 }
                 // console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
-                await processAnimation(animation, generation);
+                await processAnimation(animation, generation); //TODO: this is the main problem - it's not awaited
                 //await delay(100);
             }
 

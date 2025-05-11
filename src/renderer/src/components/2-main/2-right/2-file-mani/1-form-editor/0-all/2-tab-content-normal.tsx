@@ -21,8 +21,38 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
 
                 <TabSubmit ctx={ctx} />
             </>)}
+
+            <div className={labelClasses}>
+                Screen detection
+            </div>
+
+            <FormDetection ctx={ctx} />
+            
         </div>
     );
 }
 
 const labelClasses = "ml-2 mt-1 -mb-1 text-xs font-semibold select-none";
+
+function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
+    return (<>
+        <div className="ml-1 p-1 1flex items-center gap-1 select-none">
+            {ctx.nAllAtoms.options.formIdx
+                ? <DetectionBodyForWeb ctx={ctx} />
+                : <DetectionBodyForWin32 ctx={ctx} />
+            }
+        </div>
+    </>);
+}
+
+function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
+    return (<>
+    123
+    </>);
+}
+
+function DetectionBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
+    return (<>
+        456
+    </>);
+}

@@ -36,6 +36,8 @@ export function setRootDir(folder: PmatFolder | undefined): void {
     addToDirsMru(folder);
 }
 
+// Utilities
+
 export function undefinedPmatFolder(): PmatFolder {
     return { fpath: '', handle: undefined, fromMain: false };
 }
