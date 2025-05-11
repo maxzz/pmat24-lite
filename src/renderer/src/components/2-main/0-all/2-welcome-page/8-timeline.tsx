@@ -9,24 +9,27 @@ type Animation = AnimateParams | Animation[];
 let gGeneration = 0;
 
 export const useMotionTimeline = (keyframes: Animation[], count: number = 1, deps?: DependencyList) => {
-    const mounted = useRef(true);
     const [scope, animate] = useAnimate();
-    const once = useRef(true);
+    const mounted = useRef(true);
+    const first = useRef(true);
 
-    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps), {once: once.current});
+    console.log('++++++++++++++++++++++++++++++++++ deps', JSON.stringify(deps), { first: first.current, count });
 
     useEffect(
         () => {
             mounted.current = true;
-            if (once.current) {
-                once.current = false;
+            if (first.current) {
+                first.current = false;
+                console.log('%cskip by once', 'color: red');
                 return;
             }
 
-            console.log('-------------------------- useEffect', JSON.stringify(deps), {once: once.current});
+            gGeneration++;
+
+            console.log('-------------------------- useEffect', JSON.stringify(deps), { first: first.current, count });
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
             // printAnimationLines(keyframes);
-            printAnimation(keyframes, ++gGeneration);
+            printAnimation(keyframes, gGeneration);
 
             handleAnimate(gGeneration);
 
@@ -37,9 +40,11 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     );
 
     async function handleAnimate(generation: number) {
-        console.log('-------------------------- handleAnimate', JSON.stringify(deps), {once: once.current});
+        console.log(`-------------------------- handleAnimate: generation:${generation}`, JSON.stringify(deps), { first: first.current, count });
 
         for (let loopCount = 0; loopCount < count; loopCount++) {
+            console.log(`%c Loop ${loopCount} `, 'background-color: chocolate; color: white; font-size:0.5rem');
+
             for (const animation of keyframes) {
                 console.log(`%ctop %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: blue');
                 if (!mounted.current) {
@@ -47,8 +52,10 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
                 }
                 // console.log(`%ctop ${' '.repeat(0)}${JSON.stringify(animation)}`, 'color: red');
                 await processAnimation(animation, generation);
-                // await delay(100);
+                //await delay(100);
             }
+            
+            console.log(`%c Loop end ${loopCount} `, 'background-color: chocolate; color: white; font-size:0.5rem');
         }
     }
 
@@ -69,7 +76,8 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
             //console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
             console.log(`%csub %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
 
-            await animate(...(animation as AnimateParams));
+            await animate(...(animation as AnimateParams)); // await animate did not return from promise
+            console.log('%cAnimation done', 'color: green');
         }
     }
 
