@@ -7,7 +7,7 @@ import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./7-nun-dont-show-next";
 // import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
-import { Star, StarTest } from "./8-star";
+import { StarTest } from "./nun/1-star-test";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -42,8 +42,7 @@ export function WelcomePage() {
                         )}
                     </div>
 
-                    {/* <Star className="w-24 h-24 text-blue-500" /> */}
-                    <StarTest />
+                    {/* <StarTest /> */}
 
                 </motion.div>
             )}
