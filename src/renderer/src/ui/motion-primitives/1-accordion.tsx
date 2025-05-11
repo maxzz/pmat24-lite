@@ -13,7 +13,7 @@ export type AccordionContextType = {
 
 const AccordionContext = createContext<AccordionContextType | undefined>(undefined);
 
-function useAccordion() {
+export function useAccordion() {
     const context = useContext(AccordionContext);
     if (!context) {
         throw new Error('useAccordion must be used within an AccordionProvider');
@@ -83,6 +83,11 @@ type AccordionItemProps = {
     className?: string;
 };
 
+export type AccordionItemAugmentedProps = {
+    value: React.Key;
+    expanded: boolean;
+};
+
 export function AccordionItem({ value, children, className }: AccordionItemProps) {
     const { expandedValue } = useAccordion();
     const isExpanded = value === expandedValue;
@@ -91,7 +96,7 @@ export function AccordionItem({ value, children, className }: AccordionItemProps
             {React.Children.map(children,
                 (child) => {
                     if (React.isValidElement(child)) {
-                        return React.cloneElement(child, { ...child.props, value, expanded: isExpanded, });
+                        return React.cloneElement(child, { ...child.props, value, expanded: isExpanded, } as AccordionItemAugmentedProps);
                     }
                     return child;
                 }
@@ -104,7 +109,7 @@ type AccordionTriggerProps = { children: ReactNode; className?: string; };
 
 export function AccordionTrigger({ children, className, ...rest }: AccordionTriggerProps) {
     const { toggleItem, expandedValue } = useAccordion();
-    const value = (rest as { value?: React.Key; }).value;
+    const value = (rest as AccordionItemAugmentedProps).value;
     const isExpanded = value === expandedValue;
     return (
         <button

@@ -6,8 +6,10 @@ import { FormIdx } from '@/store/manifest';
 import { Button } from '../shadcn';
 import { classNames } from '@/utils';
 import { SymbolChevronDown } from '../icons';
+import { useCallback } from 'react';
 
-export function AccordionWithTrigger() {
+export function AccordionWithTrigger({ formIdx, name }: { formIdx: number; name: string; }) {
+    const [open, toggleOpen] = useAccordionState({ formIdx, name });
     return (
         <Accordion
             className='flex w-full flex-col'
@@ -22,14 +24,19 @@ export function AccordionWithTrigger() {
                     scale: 0.7,
                 },
             }}
+            expandedValue={open ? name : undefined}
+            onValueChange={toggleOpen}
         >
-            <AccordionItem value='getting-started' className='py-2'>
+            <AccordionItem value={name} className='py-2'>
                 <AccordionTrigger className={triggerClasses}>
                     <div className='flex items-center'>
                         {ChevronRightIcon}
                         <div className={triggerTextClasses}>
-                            How do I start with Motion-Primitives?
+                            Screen detection
                         </div>
+                        <SymbolChevronDown
+                            className={classNames("size-4 text-muted-foreground", open ? "rotate-0 transition-transform" : "-rotate-90 transition-transform")}
+                        />
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className={contentClasses}>
@@ -53,10 +60,22 @@ const textClasses = 'pl-6 pr-2 text-zinc-500 dark:text-zinc-400';
 
 const ChevronRightIcon = <ChevronRight className='h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:rotate-90 dark:text-zinc-50' />;
 
+function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }) {
+    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+
+    const toggleOpen = useCallback(
+        () => {
+            appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
+        }, [formIdx, name]
+    );
+
+    return [open, toggleOpen];
+}
+
 export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
 
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
-    
+
     function toggleOpen() {
         appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
     }
