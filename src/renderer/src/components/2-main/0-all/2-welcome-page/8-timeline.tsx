@@ -63,21 +63,29 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         // Check if array of animations or a single animation were the first array item is selector
         if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
             level++;
-            await Promise.all((animation as Animation[]).map(
-                async (a: Animation): Promise<void> => {
+
+            // await Promise.all((animation as Animation[]).map(
+            const anis = Promise.all((animation as Animation[]).map(
+                async (a: Animation) => {
                     //console.log(`arr ${' '.repeat(level * 2)}${JSON.stringify(a)}`);
 
-                    await processAnimation(a as Animation, generation, level);
+                    // await processAnimation(a as Animation, generation, level);
+                    return processAnimation(a as Animation, generation, level);
                 }
             ));
+            console.log('%cPromise.all done', 'background-color: maroon; color: white; font-size:0.5rem');
+           
             level--;
+            return anis;
         } else {
             // else run the single animation
             //console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
             console.log(`%csub %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
 
-            await animate(...(animation as AnimateParams)); // await animate did not return from promise
-            console.log('%cAnimation done', 'color: green');
+            //await animate(...(animation as AnimateParams)); // await animate did not return from promise
+            const ani = animate(...(animation as AnimateParams)); // await animate did not return from promise
+            console.log('%cAnimation done', 'color: green; font-size:0.5rem');
+            return ani;
         }
     }
 
