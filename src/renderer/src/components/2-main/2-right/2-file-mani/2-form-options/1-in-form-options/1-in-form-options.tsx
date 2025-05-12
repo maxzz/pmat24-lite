@@ -11,7 +11,7 @@ export function InFormOptions({ ctx, className, ...rest }: { ctx: NFormContextPr
         return null;
     }
     return (
-        <div className={classNames("ml-2 mr-2 mt-1 text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
+        <div className={classNames("text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
             <div className="font-semibold">
                 Additional options
             </div>

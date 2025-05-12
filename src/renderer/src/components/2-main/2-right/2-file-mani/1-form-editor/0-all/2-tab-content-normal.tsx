@@ -23,7 +23,7 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
                 <TabSubmit ctx={ctx} />
             </>)}
 
-            <InFormOptions ctx={ctx} />
+            <InFormOptions className="ml-2 mr-2 mt-1" ctx={ctx} />
         </div>
     );
 }
