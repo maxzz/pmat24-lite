@@ -1,4 +1,4 @@
-import { ReactNode, useCallback } from 'react';
+import { type AriaAttributes, type ReactNode, useCallback } from 'react';
 import { useSnapshot } from 'valtio';
 import { classNames } from '@/utils';
 import { Accordion, AccordionItem, AccordionContent, useAccordion, AccordionItemAugmentedProps } from './1-accordion'; //https://motion-primitives.com/docs/accordion
@@ -6,7 +6,7 @@ import { Button } from '../shadcn';
 import { SymbolChevronDown } from '../icons';
 import { appSettings } from '@/store';
 
-export function AccordionWithTrigger({ label, formIdx, name, children }: { label: ReactNode; formIdx: number; name: string; children: ReactNode; }) {
+export function AccordionWithTrigger({ truggerText, formIdx, name, children }: { truggerText: ReactNode; formIdx: number; name: string; children: ReactNode; }) {
     const [open, toggleOpen] = useAccordionState({ formIdx, name });
     return (
         <Accordion
@@ -20,8 +20,8 @@ export function AccordionWithTrigger({ label, formIdx, name, children }: { label
             onValueChange={toggleOpen}
         >
             <AccordionItem value={name}>
-                <AccordionTrigger className={triggerClasses}>
-                    {label}
+                <AccordionTrigger>
+                    {truggerText}
                 </AccordionTrigger>
 
                 <AccordionContent className={contentClasses}>
@@ -33,13 +33,15 @@ export function AccordionWithTrigger({ label, formIdx, name, children }: { label
     );
 }
 
-function AccordionTrigger({ children, className, ...rest }: { children: ReactNode; className?: string; }) {
+function AccordionTrigger({ children, ...rest }: { children: ReactNode; }) {
     const { toggleItem, expandedValue } = useAccordion();
     const value = (rest as AccordionItemAugmentedProps).value;
     const isExpanded = value === expandedValue;
     return (
         <Button
-            className={classNames("w-full", sectionButtonClasses)} aria-expanded={isExpanded} {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
+            className={sectionTriggerClasses} 
+            {...ariaExpandedAttrs(isExpanded)}
+            // aria-expanded={isExpanded} {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
             onClick={() => value !== undefined && toggleItem(value)}
         >
             <div className="w-full text-start">
@@ -63,6 +65,12 @@ function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }
     return [open, toggleOpen] as const;
 }
 
-const triggerClasses = 'w-full py-0.5 text-left text-zinc-950 dark:text-zinc-50';
+function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
+    return {
+        'aria-expanded': isExpanded,
+        ...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' }),
+    };
+}
+
+const sectionTriggerClasses = "mt-1 w-full font-normal border-border flex items-center gap-1";
 const contentClasses = 'origin-left';
-const sectionButtonClasses = "mt-1 font-normal border-border flex items-center gap-1";
