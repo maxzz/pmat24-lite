@@ -11,7 +11,13 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
-            <InFormOptions ctx={ctx} />
+            <div>
+                <div className={sectionLabelClasses}>
+                    Additional options
+                </div>
+
+                <InFormOptions ctx={ctx} />
+            </div>
         </div>
     );
 }
@@ -29,6 +35,8 @@ gap-y-2 \
 gap-x-1 \
 ";
 
+const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
+
 //TODO: check focus-within when added new item from the empty list
 
 //TODO: remove frame; leave only line inbetween
@@ -36,4 +44,4 @@ gap-x-1 \
 //TDOO: header is not part of the scroll
 
 //04.02.25
-    //TODO: label for the new manifest on the right option
+//TODO: label for the new manifest on the right option

@@ -4,19 +4,7 @@ import { classNames } from "@/utils";
 import { FormOptionsAndFileUsCtxAtoms, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 
-export function FormDetection({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
-    const isWeb = useAtomValue(ctx.options.isWebAtom);
-    return (
-        <div className="ml-1 p-1 1flex items-center gap-1 select-none">
-            {isWeb
-                ? <DetectionBodyForWeb ctx={ctx} />
-                : <DetectionBodyForWin32 ctx={ctx} />
-            }
-        </div>
-    );
-}
-
-function DetectionBodyForWeb({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
+export function DetectionBodyForWeb({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
     const formIdx = ctx.options.formIdx;
     return (
         <AccordionWithTrigger formIdx={formIdx} name='form-detection' truggerText="Screen detection">
@@ -30,7 +18,7 @@ function DetectionBodyForWeb({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
     );
 }
 
-function DetectionBodyForWin32({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
+export function DetectionBodyForWin32({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
     return (<>
         win32
     </>);
