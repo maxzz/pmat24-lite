@@ -5,28 +5,28 @@ import { type FormOptionsAndFileUsCtxAtoms, type MFormContextProps, type NFormCo
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { WebDetectionContenty, W32DetectionContent } from "./2-detection-content";
 
-export function InFormOptionsNormal({ ctx, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const sectionLabelClasses = "ml-2 mr-2 mt-1 1-mb-1 text-xs font-semibold select-none";
+export function InFormOptionsNormal({ ctx, className, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={sectionLabelClasses}>
-            Additional options
-            <InFormOptionsGuard ctx={ctx} />
-        </div>
-    );
-}
-
-export function InFormOptionsManual({ ctx, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
-    return (
-        <div>
-            <div className={sectionLabelClasses}>
+        <div className={classNames("ml-2 mr-2 mt-1 text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
+            <div className="font-semibold">
                 Additional options
             </div>
-
             <InFormOptionsGuard ctx={ctx} />
         </div>
     );
 }
+
+// export function InFormOptionsManual({ ctx, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+//     return (
+//         <div>
+//             <div className="mt-2 mr-2 1-mb-1 text-xs font-semibold select-none">
+//                 Additional options
+//             </div>
+
+//             <InFormOptionsGuard ctx={ctx} />
+//         </div>
+//     );
+// }
 
 function InFormOptionsGuard({ ctx, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const formOptions = ctx.maniAtoms?.[ctx.formIdx];
