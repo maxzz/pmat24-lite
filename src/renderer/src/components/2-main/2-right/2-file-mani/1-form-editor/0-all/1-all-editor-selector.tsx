@@ -17,7 +17,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
 
     const formManiAtoms = maniAtoms[formIdx];
     if (!formManiAtoms) {
-        return <TabContent_NoForm formType={formIdx} {...rest} />;
+        return <TabContent_NoForm formIdx={formIdx} {...rest} />;
     }
 
     if (formManiAtoms.manual) {
