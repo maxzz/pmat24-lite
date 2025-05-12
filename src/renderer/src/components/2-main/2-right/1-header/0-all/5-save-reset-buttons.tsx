@@ -4,8 +4,6 @@ import { doResetOrDiscardOneAtom, doSaveOneAtom } from "@/store/1-atoms/2-file-m
 import { Button } from "@/ui";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 
-const saveButtonClasses = "text-background bg-orange-400 hover:bg-orange-500 active:scale-[.97]";
-
 export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom }) {
     const doSaveOne = useSetAtom(doSaveOneAtom);
     const doReset = useSetAtom(doResetOrDiscardOneAtom);
@@ -27,3 +25,5 @@ export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileU
         </Button>
     </>);
 }
+
+const saveButtonClasses = "text-background bg-orange-400 hover:bg-orange-500 active:scale-[.97]";

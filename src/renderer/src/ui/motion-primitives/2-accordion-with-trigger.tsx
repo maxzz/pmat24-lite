@@ -10,7 +10,7 @@ export function AccordionWithTrigger({ truggerText, formIdx, name, children }: {
     const [open, toggleOpen] = useAccordionState({ formIdx, name });
     return (
         <Accordion
-            className="flex w-full flex-col"
+            className="w-full flex flex-col"
             transition={{ type: "spring", stiffness: 120, damping: 20 }}
             variants={{
                 expanded: { opacity: 1, scale: 1, },
@@ -39,14 +39,23 @@ function AccordionTrigger({ children, ...rest }: { children: ReactNode; }) {
     const isExpanded = value === expandedValue;
     return (
         <Button className={sectionTriggerClasses} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)}>
-            <div className="w-full text-start">
-                {children}
-            </div>
-
-            <SymbolChevronDown className={classNames("size-4 text-muted-foreground", isExpanded ? "rotate-0 transition-transform" : "-rotate-90 transition-transform")} />
+            {children}
+            <SymbolChevronDown className={classNames("size-4 text-muted-foreground transition-transform", isExpanded ? "rotate-0" : "-rotate-90")} />
         </Button>
     );
 }
+
+function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
+    return {
+        "aria-expanded": isExpanded,
+        ...(isExpanded ? { "data-expanded": '' } : { "data-closed": '' }),
+    };
+}
+
+const sectionTriggerClasses = "w-full flex items-center justify-between gap-1";
+const contentClasses = "origin-left";
+
+// Utilities
 
 function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }) {
     const open: boolean = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
@@ -59,13 +68,3 @@ function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }
 
     return [open, toggleOpen] as const;
 }
-
-function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
-    return {
-        "aria-expanded": isExpanded,
-        ...(isExpanded ? { "data-expanded": '' } : { "data-closed": '' }),
-    };
-}
-
-const sectionTriggerClasses = "mt-1 w-full font-normal border-border flex items-center gap-1";
-const contentClasses = "origin-left";
