@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldsGrid, TabSubmit } from "../1-normal";
-import { FormDetection } from "../../2-form-options";
+import { FormDetection, InFormOptions } from "../../2-form-options";
 
 export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFieldsNeedSubmit = !!ctx.nAllAtoms.normal.rowCtxs.length;
@@ -12,7 +12,7 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
             <div className={sectionLabelClasses}>
                 Form fields
             </div>
-
+            
             <FieldsGrid ctx={ctx} />
 
             {hasFieldsNeedSubmit && (<>
@@ -27,7 +27,7 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
                 Screen detection
             </div> */}
 
-            <FormDetection ctx={ctx} />
+            <InFormOptions ctx={ctx} />
         </div>
     );
 }
