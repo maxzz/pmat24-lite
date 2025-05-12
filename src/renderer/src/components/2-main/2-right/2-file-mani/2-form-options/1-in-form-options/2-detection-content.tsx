@@ -22,4 +22,4 @@ export function W32DetectionContent({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms
     </>);
 }
 
-const textClasses = 'pl-6 pr-2';
+const textClasses = 'pl-6 pr-2 font-normal';

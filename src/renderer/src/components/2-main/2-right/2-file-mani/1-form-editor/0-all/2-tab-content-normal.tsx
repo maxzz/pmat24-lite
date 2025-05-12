@@ -25,11 +25,12 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
 
             <div className={sectionLabelClasses}>
                 Additional options
+                <InFormOptions ctx={ctx} />
             </div>
 
-            <InFormOptions ctx={ctx} />
+            
         </div>
     );
 }
 
-const sectionLabelClasses = "ml-2 mt-1 1-mb-1 text-xs font-semibold select-none";
+const sectionLabelClasses = "ml-2 mr-2 mt-1 1-mb-1 text-xs font-semibold select-none";
