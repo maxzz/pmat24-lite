@@ -42,12 +42,16 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
     );
 }
 
-function AccordionTrigger({ children, className, ...rest }: { children: ReactNode; } & ComponentPropsWithoutRef<"button">) {
-    const { toggleItem, expandedValue } = useAccordion();
-    const value = (rest as AccordionItemAugmentedProps).value;
-    const isExpanded = value === expandedValue;
+function AccordionTrigger({ children, className, ...rest }: { children: ReactNode; className?: string; } & ComponentPropsWithoutRef<"button">) {
+    // const { toggleItem, expandedValue } = useAccordion();
+    // const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
+    // const value = (rest as AccordionItemAugmentedProps).value;
+    // const isExpanded = value === expandedValue;
+    
+    const { toggleItem } = useAccordion();
+    const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
     return (
-        <Button className={classNames(triggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...rest}>
+        <Button className={classNames(triggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...restAsProps}>
             {children}
             <SymbolChevronDown className={classNames("size-4 text-muted-foreground transition-transform", isExpanded ? "rotate-0" : "-rotate-90")} />
         </Button>
