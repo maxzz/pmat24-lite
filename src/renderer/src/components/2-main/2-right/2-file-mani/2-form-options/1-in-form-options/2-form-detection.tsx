@@ -1,11 +1,11 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { FormOptionsAndFileUsCtxAtoms, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 
-export function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
-    const isWeb = useAtomValue(ctx.nAllAtoms.options.isWebAtom);
+export function FormDetection({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
+    const isWeb = useAtomValue(ctx.options.isWebAtom);
     return (
         <div className="ml-1 p-1 1flex items-center gap-1 select-none">
             {isWeb
@@ -16,8 +16,8 @@ export function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
     );
 }
 
-function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
-    const formIdx = ctx.nAllAtoms.options.formIdx;
+function DetectionBodyForWeb({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
+    const formIdx = ctx.options.formIdx;
     return (
         <AccordionWithTrigger formIdx={formIdx} name='form-detection' truggerText="Screen detection">
             <p className={textClasses}>
@@ -30,7 +30,7 @@ function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
     );
 }
 
-function DetectionBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
+function DetectionBodyForWin32({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
     return (<>
         win32
     </>);

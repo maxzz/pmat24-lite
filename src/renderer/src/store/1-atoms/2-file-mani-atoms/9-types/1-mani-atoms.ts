@@ -22,7 +22,7 @@ export type MFormCtx = ManualEditorTypes.Ctx;
 
 //
 
-type FormOptionsAndFileUsCtxAtoms = {
+export type FormOptionsAndFileUsCtxAtoms = {
     fileUsCtx: FileUsCtx;
     options: OptionsState.Atoms;
 };
