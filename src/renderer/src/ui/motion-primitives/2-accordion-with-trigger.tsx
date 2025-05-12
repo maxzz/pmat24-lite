@@ -6,7 +6,16 @@ import { Button } from "../shadcn";
 import { SymbolChevronDown } from "../icons";
 import { appSettings } from "@/store";
 
-export function AccordionWithTrigger({ triggerText, formIdx, name, children }: { triggerText: ReactNode; formIdx: number; name: string; children: ReactNode; }) {
+type AccordionWithTriggerProps = {
+    triggerText: ReactNode;
+    formIdx: number;
+    name: string;
+    children: ReactNode;
+    triggerClasses?: string;
+    contentClasses?: string;
+};
+
+export function AccordionWithTrigger({ triggerText, formIdx, name, children, triggerClasses, contentClasses }: AccordionWithTriggerProps) {
     const [open, toggleOpen] = useAccordionState({ formIdx, name });
     return (
         <Accordion
@@ -20,11 +29,11 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children }: {
             onValueChange={toggleOpen}
         >
             <AccordionItem value={name}>
-                <AccordionTrigger>
+                <AccordionTrigger className={triggerClasses}>
                     {triggerText}
                 </AccordionTrigger>
 
-                <AccordionContent className={contentClasses}>
+                <AccordionContent className={classNames("origin-left", contentClasses)}>
                     {children}
                 </AccordionContent>
             </AccordionItem>
@@ -33,12 +42,12 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children }: {
     );
 }
 
-function AccordionTrigger({ children, ...rest }: { children: ReactNode; } & ComponentPropsWithoutRef<"button">) {
+function AccordionTrigger({ children, className, ...rest }: { children: ReactNode; } & ComponentPropsWithoutRef<"button">) {
     const { toggleItem, expandedValue } = useAccordion();
     const value = (rest as AccordionItemAugmentedProps).value;
     const isExpanded = value === expandedValue;
     return (
-        <Button className={sectionTriggerClasses} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)}>
+        <Button className={classNames(triggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...rest}>
             {children}
             <SymbolChevronDown className={classNames("size-4 text-muted-foreground transition-transform", isExpanded ? "rotate-0" : "-rotate-90")} />
         </Button>
@@ -52,8 +61,7 @@ function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
     };
 }
 
-const sectionTriggerClasses = "w-full flex items-center justify-between gap-1";
-const contentClasses = "origin-left";
+const triggerClasses = "w-full flex items-center justify-between gap-1";
 
 // Utilities
 
