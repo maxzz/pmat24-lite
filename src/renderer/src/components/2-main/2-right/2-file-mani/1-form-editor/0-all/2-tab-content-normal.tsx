@@ -23,15 +23,13 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
                 <TabSubmit ctx={ctx} />
             </>)}
 
-            <div className={labelClasses}>
+            {/* <div className={labelClasses}>
                 Screen detection
-            </div>
+            </div> */}
 
             <FormDetection ctx={ctx} />
-            
-            <TestAccordionVariant />
-            <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' />
 
+            {/* <TestAccordionVariant /> */}
         </div>
     );
 }
@@ -51,12 +49,12 @@ function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
 
 function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
     return (<>
-    123
+        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' />
     </>);
 }
 
 function DetectionBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
     return (<>
-        456
+        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' />
     </>);
 }

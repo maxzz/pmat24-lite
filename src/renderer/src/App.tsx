@@ -109,3 +109,9 @@ export function App(): JSX.Element {
 //TODO: create cpass should be switch tab to cpass - done
 //TODO: delete cpass should be switch tab to login or options - done
 //TODO: close folder did not clear all file changes - done
+
+//05.11.25
+//TODO: input instead of h-7 should be h-6 and py-3 replace to py-1
+//TODO: double click on tree item should show dialog to rename
+//TODO: right click on tree item should context menu with rename and delete
+//TODO: show tree item checkboxe for test mode

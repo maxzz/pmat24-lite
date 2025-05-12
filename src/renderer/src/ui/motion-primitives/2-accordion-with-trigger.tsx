@@ -1,12 +1,12 @@
 import { useSnapshot } from 'valtio';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from './1-accordion'; //https://motion-primitives.com/docs/accordion
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, useAccordion, AccordionItemAugmentedProps, } from './1-accordion'; //https://motion-primitives.com/docs/accordion
 import { ChevronRight } from 'lucide-react';
 import { appSettings } from '@/store';
 import { FormIdx } from '@/store/manifest';
 import { Button } from '../shadcn';
 import { classNames } from '@/utils';
 import { SymbolChevronDown } from '../icons';
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 export function AccordionWithTrigger({ formIdx, name }: { formIdx: number; name: string; }) {
     const [open, toggleOpen] = useAccordionState({ formIdx, name });
@@ -28,8 +28,8 @@ export function AccordionWithTrigger({ formIdx, name }: { formIdx: number; name:
             onValueChange={toggleOpen}
         >
             <AccordionItem value={name} className='py-2'>
-                <AccordionTrigger className={triggerClasses}>
-                    <div className='flex items-center'>
+                <AccordionTrigger2 className={triggerClasses} label='Screen detection'>
+                    {/* <div className='flex items-center'>
                         {ChevronRightIcon}
                         <div className={triggerTextClasses}>
                             Screen detection
@@ -37,8 +37,9 @@ export function AccordionWithTrigger({ formIdx, name }: { formIdx: number; name:
                         <SymbolChevronDown
                             className={classNames("size-4 text-muted-foreground", open ? "rotate-0 transition-transform" : "-rotate-90 transition-transform")}
                         />
-                    </div>
-                </AccordionTrigger>
+                    </div> */}
+
+                </AccordionTrigger2>
                 <AccordionContent className={contentClasses}>
                     <p className={textClasses}>
                         Kick off your experience by setting up Motion-Primitives. This
@@ -70,6 +71,36 @@ function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }
     );
 
     return [open, toggleOpen];
+}
+
+type AccordionTriggerProps = { label: string, children?: ReactNode; className?: string; };
+
+export function AccordionTrigger2({ label, children, className, ...rest }: AccordionTriggerProps) {
+    const { toggleItem, expandedValue } = useAccordion();
+    const value = (rest as AccordionItemAugmentedProps).value;
+    const isExpanded = value === expandedValue;
+    return (<>
+        <Button className={classNames("w-full mr-0.5", sectionClasses)} onClick={() => value !== undefined && toggleItem(value)}>
+
+            <div className="w-full text-start">
+                {label}
+            </div>
+
+            <SymbolChevronDown
+                className={classNames("size-4 text-muted-foreground", isExpanded ? "rotate-0 transition-transform" : "-rotate-90 transition-transform")}
+            />
+        </Button>
+
+        {/* <button
+            className={classNames('group', className)}
+            type='button'
+            aria-expanded={isExpanded}
+            {...(isExpanded ? { 'data-expanded': '' } : { 'data-closed': '' })}
+            onClick={() => value !== undefined && toggleItem(value)}
+        >
+            {children}
+        </button> */}
+    </>);
 }
 
 export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
