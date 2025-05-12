@@ -49,12 +49,21 @@ function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
 
 function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
     return (<>
-        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' />
+        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' label="Screen detection">
+            <p className={textClasses}>
+                Kick off your experience by setting up Motion-Primitives. This
+                section covers the basics of installation and how to add animations
+                to your projects. You’ll get familiar with the initial setup and the
+                core features quickly.
+            </p>
+        </AccordionWithTrigger>
     </>);
 }
 
 function DetectionBodyForWin32({ ctx }: { ctx: NFormContextProps; }) {
     return (<>
-        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' />
+        456
     </>);
 }
+
+const textClasses = 'pl-6 pr-2 text-zinc-500 dark:text-zinc-400';
