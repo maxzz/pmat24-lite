@@ -4,14 +4,14 @@ import { type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
-import { InFormOptionsNormal } from "../../../2-form-options";
+import { InFormOptions } from "../../../2-form-options";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
-            <InFormOptionsNormal ctx={ctx} />
+            <InFormOptions ctx={ctx} />
         </div>
     );
 }
