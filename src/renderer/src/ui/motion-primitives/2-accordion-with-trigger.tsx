@@ -47,11 +47,11 @@ function AccordionTrigger({ children, className, ...rest }: { children: ReactNod
     // const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
     // const value = (rest as AccordionItemAugmentedProps).value;
     // const isExpanded = value === expandedValue;
-    
+
     const { toggleItem } = useAccordion();
     const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
     return (
-        <Button className={classNames(triggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...restAsProps}>
+        <Button className={classNames(localTriggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...restAsProps}>
             {children}
             <SymbolChevronDown className={classNames("size-4 text-muted-foreground transition-transform", isExpanded ? "rotate-0" : "-rotate-90")} />
         </Button>
@@ -65,7 +65,7 @@ function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
     };
 }
 
-const triggerClasses = "w-full flex items-center justify-between gap-1";
+const localTriggerClasses = "w-full flex items-center justify-between gap-1";
 
 // Utilities
 

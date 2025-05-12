@@ -6,35 +6,29 @@ import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { WebDetectionContenty, W32DetectionContent } from "./2-detection-content";
 
 export function InFormOptions({ ctx, className, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+    const formOptionsCtx = ctx.maniAtoms?.[ctx.formIdx];
+    if (!formOptionsCtx) {
+        return null;
+    }
     return (
         <div className={classNames("ml-2 mr-2 mt-1 text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
             <div className="font-semibold">
                 Additional options
             </div>
-            <InFormOptionsGuard ctx={ctx} />
+
+            <FormDetection formOptionsCtx={formOptionsCtx} />
         </div>
     );
 }
 
-function InFormOptionsGuard({ ctx, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const formOptions = ctx.maniAtoms?.[ctx.formIdx];
-    if (!formOptions) {
-        return null;
-    }
-
+function FormDetection({ formOptionsCtx }: { formOptionsCtx: FormOptionsAndFileUsCtxAtoms; }) {
+    const isWeb = useAtomValue(formOptionsCtx.options.isWebAtom);
+    const formIdx = formOptionsCtx.options.formIdx;
     return (
-        <FormDetection ctx={formOptions} {...rest} />
-    );
-}
-
-function FormDetection({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
-    const isWeb = useAtomValue(ctx.options.isWebAtom);
-    const formIdx = ctx.options.formIdx;
-    return (
-        <AccordionWithTrigger formIdx={formIdx} name='form-detection' triggerText="Screen detection">
+        <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             {isWeb
-                ? <WebDetectionContenty ctx={ctx} />
-                : <W32DetectionContent ctx={ctx} />
+                ? <WebDetectionContenty ctx={formOptionsCtx} />
+                : <W32DetectionContent ctx={formOptionsCtx} />
             }
         </AccordionWithTrigger>
     );
