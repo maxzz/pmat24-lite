@@ -17,8 +17,9 @@ export function FormDetection({ ctx }: { ctx: NFormContextProps; }) {
 }
 
 function DetectionBodyForWeb({ ctx }: { ctx: NFormContextProps; }) {
+    const formIdx = ctx.nAllAtoms.options.formIdx;
     return (
-        <AccordionWithTrigger formIdx={ctx.nAllAtoms.options.formIdx} name='form-detection' truggerText="Screen detection">
+        <AccordionWithTrigger formIdx={formIdx} name='form-detection' truggerText="Screen detection">
             <p className={textClasses}>
                 Kick off your experience by setting up Motion-Primitives. This
                 section covers the basics of installation and how to add animations
