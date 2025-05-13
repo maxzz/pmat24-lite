@@ -1,7 +1,7 @@
 import { L_PanelHeader } from "../1-header/0-all-header";
 import { FilesTreeView } from "../2-files-list";
 import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-middle/shared-classes";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from "@/ui/shadcn";
 
 export function PanelA() {
     return (
@@ -17,6 +17,7 @@ export function PanelA() {
                             </div>
                         </ContextMenuTrigger>
                         <ContextMenuContent>
+                            <ContextMenuLabel>File</ContextMenuLabel>
                             <ContextMenuItem>Reveal in File Explorer</ContextMenuItem>
                             <ContextMenuItem>Delete</ContextMenuItem>
                             <ContextMenuItem>Rename</ContextMenuItem>
@@ -42,3 +43,6 @@ export function PanelA() {
 //         </div>
 //     );
 // }
+
+//05.12.25
+//TODO: get tree item under cursor and show context menu
