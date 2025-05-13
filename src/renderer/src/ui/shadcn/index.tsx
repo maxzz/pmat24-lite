@@ -2,6 +2,7 @@ export * from "./accordion";
 export * from "./button";
 export * from "./checkbox";
 export * from "./collapsible";
+export * from "./context-menu";
 export * from "./dialog";
 export * from "./drawer";
 export * from "./dropdown-menu";
