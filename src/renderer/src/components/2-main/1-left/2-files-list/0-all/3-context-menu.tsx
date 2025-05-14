@@ -4,27 +4,32 @@ import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, Con
 import { doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom } from "@/store";
 
 export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
+
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
+
     function onRename() {
         //TODO: get atom from tree item and
         //TODO: click may happen on different tree item, i.e. not only on selected one
         //currentAtom && doVerifyNameBeforeSave(currentAtom)
         console.log('onRename');
     }
+
     function onDelete() {
         //TODO: get atom from tree item and
         //TODO: click may happen on different tree item, i.e. not only on selected one
         //currentAtom && doDeleteFileUs(currentAtom)
         console.log('onDelete');
     }
+    
     function onRevealInExplorer() {
         //TODO: get atom from tree item and
         //TODO: click may happen on different tree item, i.e. not only on selected one
         //fileUsAtom && doRevealInExplorer(fileUsAtom)
         console.log('onRevealInExplorer');
     }
+
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>
