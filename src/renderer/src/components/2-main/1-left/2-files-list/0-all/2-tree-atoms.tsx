@@ -41,7 +41,7 @@ export function castTreeItemToFileUs(item: DataItemWState | DataItemNavigation<D
 
 export const getFileUsAtomBuIdAtom = atom(
     null,
-    (get, set, id: number): FileUsAtom | undefined => {
+    (get, set, id: string | number | undefined): FileUsAtom | undefined => {
         const treeFiles = get(dataWithStateAtom);
         const treeItem = treeFiles.find((treeFile) => treeFile.id === id);
         return treeItem?.fileUsAtom;
