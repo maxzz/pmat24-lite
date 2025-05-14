@@ -81,7 +81,9 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
 
         const handleSelectChange = useCallback(
             (event: SyntheticEvent<any>, item: DataItemWState | undefined) => {
-                event.stopPropagation();
+                if (event.type !== 'contextmenu') {
+                    event.stopPropagation();
+                }
                 doTreeItemSelect(item, { data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace });
             }, [data, treeState, onSelectChange, selectAsTrigger, selectEmptySpace]
         );
@@ -212,7 +214,9 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                                         <Leaf
                                             item={item}
                                             IconTextRender={IconTextRender}
-                                            onClick={(e) => handleSelectChange(e, item)}
+                                            onClick={(e) => {console.log('onClick', e); handleSelectChange(e, item)}}
+                                            onContextMenu={(e) => {console.log('onContextMenu', e); handleSelectChange(e, item)}}
+                                            onDoubleClick={(e) => console.log('onDoubleClick', e)}
                                             Icon={IconForItem}
                                         />
                                     )}
