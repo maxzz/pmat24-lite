@@ -17,10 +17,10 @@ export function PanelA() {
                             </div>
                         </ContextMenuTrigger>
                         <ContextMenuContent>
-                            <ContextMenuLabel>File</ContextMenuLabel>
-                            <ContextMenuItem>Reveal in File Explorer</ContextMenuItem>
-                            <ContextMenuItem>Delete</ContextMenuItem>
-                            <ContextMenuItem>Rename</ContextMenuItem>
+                            <ContextMenuLabel className="text-xs">File</ContextMenuLabel>
+                            <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
+                            <ContextMenuItem className="text-xs">Delete</ContextMenuItem>
+                            <ContextMenuItem className="text-xs">Rename</ContextMenuItem>
                         </ContextMenuContent>
 
                     </ContextMenu>
