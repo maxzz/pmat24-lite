@@ -10,20 +10,9 @@ export function PanelA() {
                 <div className={panel3Classes}>
                     <L_PanelHeader />
 
-                    <ContextMenu>
-                        <ContextMenuTrigger asChild>
-                            <div className="">
-                                <FilesTreeView />
-                            </div>
-                        </ContextMenuTrigger>
-                        <ContextMenuContent>
-                            <ContextMenuLabel className="text-xs">File</ContextMenuLabel>
-                            <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
-                            <ContextMenuItem className="text-xs">Delete</ContextMenuItem>
-                            <ContextMenuItem className="text-xs">Rename</ContextMenuItem>
-                        </ContextMenuContent>
-
-                    </ContextMenu>
+                    <FilesTreeViewcontextMenu>
+                        <FilesTreeView />
+                    </FilesTreeViewcontextMenu>
                 </div>
             </div>
         </div>
@@ -46,3 +35,21 @@ export function PanelA() {
 
 //05.12.25
 //TODO: get tree item under cursor and show context menu
+
+function FilesTreeViewcontextMenu({children}: { children: React.ReactNode; }) {
+    return (
+        <ContextMenu>
+            <ContextMenuTrigger asChild>
+                <div className="">
+                    {children}
+                </div>
+            </ContextMenuTrigger>
+            <ContextMenuContent>
+                <ContextMenuLabel className="text-xs">File</ContextMenuLabel>
+                <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
+                <ContextMenuItem className="text-xs">Delete</ContextMenuItem>
+                <ContextMenuItem className="text-xs">Rename</ContextMenuItem>
+            </ContextMenuContent>
+        </ContextMenu>
+    );
+}
