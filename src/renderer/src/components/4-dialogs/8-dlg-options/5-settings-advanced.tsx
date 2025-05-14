@@ -49,7 +49,7 @@ export function AdvancedSettings() {
                 </Label>
 
                 <Label className={classNames("col-start-1", rowClasses)}>
-                    <Checkbox checked={!useTreeCtxMenu} onCheckedChange={(v) => liveUiAdvanced.useTreeCtxMenu = !v} />
+                    <Checkbox checked={useTreeCtxMenu} onCheckedChange={(v) => liveUiAdvanced.useTreeCtxMenu = !!v} />
                     Use context menu for tree items
                 </Label>
 
