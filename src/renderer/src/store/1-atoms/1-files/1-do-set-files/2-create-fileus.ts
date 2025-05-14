@@ -43,7 +43,7 @@ export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAt
             return rv;
         },
         (get, set, value: SetStateAction<ManiAtoms | null>) => {
-            printManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null, rv);
+            //printManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null, rv);
             set(base, value);
         }
     );
