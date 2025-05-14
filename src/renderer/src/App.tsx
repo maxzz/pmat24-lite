@@ -123,3 +123,10 @@ export function App(): JSX.Element {
 
 //05.12.25
 //TODO: get tree item under cursor and show context menu
+
+//05.14.25
+//TODO: const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom); 
+// // Add custom dialog title for rename 
+// // update dialog overlay blur 
+// // smaller size
+// // add more fields to rename dialog

@@ -4,6 +4,7 @@ import { useSnapshot } from "valtio";
 import { hasMain } from "@/xternal-to-main";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
 import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom, rightPanelAtomGetterAtom } from "@/store";
+import { toast } from "sonner";
 
 export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
     const { useTreeCtxMenu } = useSnapshot(appSettings.appUi.uiAdvanced);
@@ -28,32 +29,37 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
 function ContextItems() {
     const rightPanelAtomGetter = useSetAtom(rightPanelAtomGetterAtom);
 
-    const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
+    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
-    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom); // Add custom dialog title for rename // update dialog overlay blur // smaller size
+    const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
 
     function onRename() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom && renameFileUsAtom(currentAtom);
+        currentAtom ? renameFileUsAtom(currentAtom) : toastError();
     }
 
     function onDelete() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom && doDeleteFileUs(currentAtom);
+        currentAtom ? doDeleteFileUs(currentAtom) : toastError();
     }
 
     function onRevealInExplorer() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom && doRevealInExplorer(currentAtom);
+        currentAtom ? doRevealInExplorer(currentAtom) : toastError();
     }
 
     return (<>
         {/* <ContextMenuLabel className="text-xs">File name</ContextMenuLabel> */}
 
+        <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>
+        <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
+        
         {hasMain() && (
             <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
         )}
-        <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
-        <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>
     </>);
+}
+
+function toastError() {
+    toast.error('No file selected', { position: "top-center" });
 }
