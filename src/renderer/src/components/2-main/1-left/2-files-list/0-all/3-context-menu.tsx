@@ -1,16 +1,15 @@
 import { type ReactNode } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from "@/ui/shadcn";
-import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom, rightPanelAtomAtom, rightPanelAtomGetterAtom } from "@/store";
+import { hasMain } from "@/xternal-to-main";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
+import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom, rightPanelAtomGetterAtom } from "@/store";
 
 export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
-
     const { useTreeCtxMenu } = useSnapshot(appSettings.appUi.uiAdvanced);
     if (!useTreeCtxMenu) {
         return <>{children}</>;
     }
-
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>
@@ -31,30 +30,29 @@ function ContextItems() {
 
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
-    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom); // Add custom dialog title for rename // update dialog overlay blur
+    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom); // Add custom dialog title for rename // update dialog overlay blur // smaller size
 
     function onRename() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom && renameFileUsAtom(currentAtom)
+        currentAtom && renameFileUsAtom(currentAtom);
     }
 
     function onDelete() {
-        //TODO: get atom from tree item and
-        //TODO: click may happen on different tree item, i.e. not only on selected one
-        //currentAtom && doDeleteFileUs(currentAtom)
-        console.log('onDelete');
+        const currentAtom = rightPanelAtomGetter();
+        currentAtom && doDeleteFileUs(currentAtom);
     }
 
     function onRevealInExplorer() {
-        //TODO: get atom from tree item and
-        //TODO: click may happen on different tree item, i.e. not only on selected one
-        //fileUsAtom && doRevealInExplorer(fileUsAtom)
-        console.log('onRevealInExplorer');
+        const currentAtom = rightPanelAtomGetter();
+        currentAtom && doRevealInExplorer(currentAtom);
     }
 
     return (<>
-        <ContextMenuLabel className="text-xs">File name</ContextMenuLabel>
-        <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
+        {/* <ContextMenuLabel className="text-xs">File name</ContextMenuLabel> */}
+
+        {hasMain() && (
+            <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
+        )}
         <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
         <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>
     </>);
