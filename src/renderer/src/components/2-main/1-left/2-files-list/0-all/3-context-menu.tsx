@@ -1,9 +1,10 @@
 import { type ReactNode } from "react";
 import { useSetAtom } from "jotai";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from "@/ui/shadcn";
-import { doDeleteFileUsAtom, doVerifyManiNameAtom } from "@/store";
+import { doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom } from "@/store";
 
 export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
+    const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
     function onRename() {
@@ -18,6 +19,12 @@ export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
         //currentAtom && doDeleteFileUs(currentAtom)
         console.log('onDelete');
     }
+    function onRevealInExplorer() {
+        //TODO: get atom from tree item and
+        //TODO: click may happen on different tree item, i.e. not only on selected one
+        //fileUsAtom && doRevealInExplorer(fileUsAtom)
+        console.log('onRevealInExplorer');
+    }
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>
@@ -26,7 +33,7 @@ export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
                 </div>
             </ContextMenuTrigger>
             <ContextMenuContent>
-                <ContextMenuLabel className="text-xs">File</ContextMenuLabel>
+                <ContextMenuLabel className="text-xs">File name</ContextMenuLabel>
                 <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
                 <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
                 <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>

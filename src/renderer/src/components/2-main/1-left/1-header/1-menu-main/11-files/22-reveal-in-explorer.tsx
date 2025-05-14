@@ -8,7 +8,7 @@ export function MenuItem_RevealInExplorerCurrent() {
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
 
     return (
-        <DropdownMenuItem onClick={() => fileUsAtom && doRevealInExplorer(fileUsAtom)} disabled={!fileUsAtom}>
+        <DropdownMenuItem disabled={!fileUsAtom} onClick={() => fileUsAtom && doRevealInExplorer(fileUsAtom)}>
             Reveal in File Explorer
         </DropdownMenuItem>
     );
