@@ -6,6 +6,7 @@ export * from "./delay";
 export * from "./disable-hidden-children";
 export * from "./discard-values";
 export * from "./error-to-string";
+export * from "./image-to-blob";
 export * from "./numbers";
 export * from "./os-utils";
 export * from "./prepend-url-path";
