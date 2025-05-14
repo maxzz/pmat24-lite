@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
 import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtomAtom, type TreeFileItem, treeFilesAtom } from "@/store";
+import { c, F } from "vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
 export const treeStateAtom = atom<TreeState>(() => {
     return proxy<TreeState>({
@@ -37,6 +38,15 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
 export function castTreeItemToFileUs(item: DataItemWState | DataItemNavigation<DataItemCore>): TreeFileItemWState {
     return item as TreeFileItemWState;
 }
+
+export const getFileUsAtomBuIdAtom = atom(
+    null,
+    (get, set, id: number): FileUsAtom | undefined => {
+        const treeFiles = get(dataWithStateAtom);
+        const treeItem = treeFiles.find((treeFile) => treeFile.id === id);
+        return treeItem?.fileUsAtom;
+    }
+);
 
 // Set selected item
 
