@@ -1,13 +1,19 @@
 import { type ReactNode } from "react";
 import { useSetAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuTrigger } from "@/ui/shadcn";
-import { doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom } from "@/store";
+import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom } from "@/store";
 
-export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
+export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
 
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
+
+    const { useTreeCtxMenu } = useSnapshot(appSettings.appUi.uiAdvanced);
+    if (!useTreeCtxMenu) {
+        return <>{children}</>;
+    }
 
     function onRename() {
         //TODO: get atom from tree item and
@@ -22,7 +28,7 @@ export function FilesTreeViewcontextMenu({children}: { children: ReactNode; }) {
         //currentAtom && doDeleteFileUs(currentAtom)
         console.log('onDelete');
     }
-    
+
     function onRevealInExplorer() {
         //TODO: get atom from tree item and
         //TODO: click may happen on different tree item, i.e. not only on selected one
