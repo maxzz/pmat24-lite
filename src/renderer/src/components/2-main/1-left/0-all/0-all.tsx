@@ -17,17 +17,3 @@ export function PanelA() {
         </div>
     );
 }
-
-// export function PanelA() {
-//     return (
-//         <div className={`${panel1Classes} pr-0`}>
-//             <div className={`${panel2Classes} rounded-l`}>
-//                 <div className={panel3Classes}>
-//                     <L_PanelHeader />
-
-//                     <FilesTreeView />
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
