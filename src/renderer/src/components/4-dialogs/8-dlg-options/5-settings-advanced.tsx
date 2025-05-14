@@ -5,7 +5,7 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function AdvancedSettings() {
-    const { allowHandleFiles, noNewManiDlg, showFieldCatalog, showUiHeader, saveWDebugExt } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { allowHandleFiles, noNewManiDlg, useTreeCtxMenu, showFieldCatalog, showUiHeader, saveWDebugExt } = useSnapshot(appSettings.appUi.uiAdvanced);
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { allowWelcome } = useSnapshot(appSettings.appUi.uiGeneral);
@@ -46,6 +46,11 @@ export function AdvancedSettings() {
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={!noNewManiDlg} onCheckedChange={(v) => liveUiAdvanced.noNewManiDlg = !v} />
                     Use dialog to create new manifest
+                </Label>
+
+                <Label className={classNames("col-start-1", rowClasses)}>
+                    <Checkbox checked={!useTreeCtxMenu} onCheckedChange={(v) => liveUiAdvanced.useTreeCtxMenu = !v} />
+                    Use context menu for tree items
                 </Label>
 
                 {/* 2 */}
