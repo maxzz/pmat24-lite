@@ -44,7 +44,9 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
                 </div>
             </ContextMenuTrigger>
 
-            <ContextMenuContent>
+            {/* <ContextMenuContent className="abc data-[state=closed]:duration-0 data-[state=closed]:[animation-name=none]"> */}
+            <ContextMenuContent className="abc data-[state=closed]:![animation:none]">
+            {/* <ContextMenuContent className="abc data-[state=open]:![animation:none]"> */}
                 <ContextMenuLabel className="text-xs">File name</ContextMenuLabel>
                 <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
                 <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
