@@ -6,6 +6,16 @@ import { createManiAtoms } from "../2-file-mani-atoms";
 export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);
 
 /**
+ * Non reactive getter for right panel atom
+ */
+export const rightPanelAtomGetterAtom = atom(
+    null,
+    (get): FileUsAtom | undefined => {
+        return get(rightPanelAtomAtom);
+    }
+);
+
+/**
  * set tree item to render in the right panel
  */
 export const doTriggerRightPanelSelectedAtom = atom(
