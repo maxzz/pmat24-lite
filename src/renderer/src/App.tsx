@@ -120,3 +120,6 @@ export function App(): JSX.Element {
 //TODO: show wait animation (sometimes there is a big delay before file is saved) //src/renderer/src/components/2-main/2-right/1-header/0-all/5-save-reset-buttons.tsx
 //TODO: show confetti animation after create new manifest (and add option to disable it) //src/renderer/src/components/4-dialogs/2-dlg-create-login/1-dlg-w-saw/2-entry-create-dlg/0-all-dlg.tsx
 //TODO: make useAccordionState({ formIdx, name }: { formIdx: number; name: string; }) generic with formIdx just name //src/renderer/src/ui/motion-primitives/2-accordion-with-trigger.tsx
+
+//05.12.25
+//TODO: get tree item under cursor and show context menu

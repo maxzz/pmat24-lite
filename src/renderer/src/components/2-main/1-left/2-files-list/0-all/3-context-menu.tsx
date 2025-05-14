@@ -39,10 +39,11 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>
-                <div className="">
+                <div>
                     {children}
                 </div>
             </ContextMenuTrigger>
+
             <ContextMenuContent>
                 <ContextMenuLabel className="text-xs">File name</ContextMenuLabel>
                 <ContextMenuItem className="text-xs">Reveal in File Explorer</ContextMenuItem>
@@ -52,6 +53,3 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
         </ContextMenu>
     );
 }
-
-//05.12.25
-//TODO: get tree item under cursor and show context menu
