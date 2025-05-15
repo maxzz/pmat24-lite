@@ -39,7 +39,7 @@ export function castTreeItemToFileUs(item: DataItemWState | DataItemNavigation<D
     return item as TreeFileItemWState;
 }
 
-export const getFileUsAtomBuIdAtom = atom(
+export const getFileUsAtomBuIdAtom = atom( // Non-reactive access to atom by treeItem.id (mostly to the right panel atom)
     null,
     (get, set, id: string | number | undefined): FileUsAtom | undefined => {
         const treeFiles = get(dataWithStateAtom);
