@@ -11,7 +11,13 @@ export function App(): JSX.Element {
 
         <div 
             className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden"
-            onContextMenu={(e) => e.preventDefault()}
+            onContextMenu={(e) => {
+                const active = document.activeElement;
+                if (active?.tagName === 'INPUT') {
+                    return;
+                }
+                e.preventDefault()
+            }}
         > {/* debug-screens */}
             <SectionHeader />
             <SectionMain />
