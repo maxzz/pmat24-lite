@@ -13,8 +13,9 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
         {hasRecent && (
             <motion.div
                 className="text-xs space-y-1"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0, y: 1000 }}
+                animate={{ opacity: 1, scale: [0.3, 2, 0.3, 1], y: 0 }}
+                transition={{ duration: .2, ease: "anticipate" }}
                 {...rest}
             >
                 <div>

@@ -5,7 +5,7 @@ import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
 import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
-import { DontShowNext } from "./7-nun-dont-show-next";
+import { DontShowNext } from "./nun/27-nun-dont-show-next";
 // import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 import { StarTest } from "./nun/1-star-test";
 
@@ -43,7 +43,6 @@ export function WelcomePage() {
                     </div>
 
                     {/* <StarTest /> */}
-
                 </motion.div>
             )}
         </MotionConfig >
