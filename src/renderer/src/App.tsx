@@ -1,3 +1,4 @@
+import { type MouseEvent } from "react";
 import { SectionHeader } from "./components/1-header";
 import { SectionMain } from "./components/2-main";
 import { SectionFooter } from "./components/3-footer";
@@ -9,16 +10,7 @@ export function App(): JSX.Element {
         <UISymbolDefs />
         {/* <SpyAllIcons includeSvgSymbols /> */}
 
-        <div 
-            className="h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden"
-            onContextMenu={(e) => {
-                const active = document.activeElement;
-                if (active?.tagName === 'INPUT') {
-                    return;
-                }
-                e.preventDefault()
-            }}
-        > {/* debug-screens */}
+        <div className={topClasses} onContextMenu={preventContextMenu}>
             <SectionHeader />
             <SectionMain />
             <SectionFooter />
@@ -27,6 +19,16 @@ export function App(): JSX.Element {
         <AppGlobals />
     </>);
 }
+
+function preventContextMenu(e: MouseEvent<HTMLDivElement>) {
+    const active = document.activeElement;
+    if (active?.tagName === 'INPUT') {
+        return;
+    }
+    e.preventDefault();
+}
+
+const topClasses = "h-screen text-sm text-foreground bg-background grid grid-rows-[auto,1fr,auto] overflow-hidden"; {/* debug-screens */}
 
 //TODO: add version request from main and DpAgent
 //TODO: beforeunload handler to save changed files
@@ -139,4 +141,5 @@ export function App(): JSX.Element {
 // // update dialog overlay blur 
 // // smaller size
 // // add more fields to rename dialog
-//TODO: blcok global context menu and add option to allow it
+//TODO: block global context menu and add option to allow it - done
+//TODO: block global context menu for input fields in a specific way, i.e. remove 'inspect element' option
