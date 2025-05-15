@@ -214,9 +214,8 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps & HTMLAttributes<HTMLD
                                         <Leaf
                                             item={item}
                                             IconTextRender={IconTextRender}
-                                            onClick={(e) => { console.log('onClick', { e, item }); handleSelectChange(e, item); }}
-                                            onContextMenu={(e) => { console.log('onContextMenu', { e, item }); handleSelectChange(e, item); }}
-                                            // onDoubleClick={(e) => console.log('onDoubleClick', { e, item })}
+                                            onClick={(e) => handleSelectChange(e, item)}
+                                            onContextMenu={(e) => handleSelectChange(e, item)}
                                             Icon={IconForItem}
                                         />
                                     )}

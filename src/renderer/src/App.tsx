@@ -130,3 +130,4 @@ export function App(): JSX.Element {
 // // update dialog overlay blur 
 // // smaller size
 // // add more fields to rename dialog
+//TODO: blcok global context menu and add option to allow it

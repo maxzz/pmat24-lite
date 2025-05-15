@@ -19,7 +19,7 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
                 </div>
             </ContextMenuTrigger>
 
-            <ContextMenuContent className="data-[state=closed]:![animation:none]">
+            <ContextMenuContent className="data-[state=closed]:![animation:none]"> {/* data-... will fix wrong position of the context menu bug */}
                 <ContextItems />
             </ContextMenuContent>
         </ContextMenu>
