@@ -1,8 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
-import { doTriggerRightPanelSelectedAtom, type FileUsAtom, optionsFilesProxyAtom, rightPanelAtomAtom, type TreeFileItem, treeFilesAtom } from "@/store";
-import { c, F } from "vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
+import { type FileUsAtom, type TreeFileItem, doTriggerRightPanelSelectedAtom, optionsFilesProxyAtom, rightPanelAtomAtom, treeFilesAtom } from "@/store";
 
 export const treeStateAtom = atom<TreeState>(() => {
     return proxy<TreeState>({

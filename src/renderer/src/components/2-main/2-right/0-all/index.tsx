@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { type FileUs, RightPanelViewType, appSettings, fileUsOfRightPanelAtom } from "@/store";
-import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-middle/shared-classes";
+import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-shared-classes";
 import { R_PanelHeaderBody } from "../1-header";
 import { ManiBody } from "../2-file-mani";
 import { Body_Cat } from "../3-file-cat";
