@@ -23,7 +23,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const skipFc = !fcAllowed || !get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
 
         const files = get(filesAtom);
-        printFilterFiles(files, get);
+        //printFilterFiles(files, get);
 
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {

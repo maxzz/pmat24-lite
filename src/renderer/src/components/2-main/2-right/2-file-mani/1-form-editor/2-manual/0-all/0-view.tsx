@@ -11,7 +11,7 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" ctx={ctx} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
-            <InFormOptions className="mb-1" ctx={ctx} />
+            <InFormOptions className="mb-1" n_mCtx={ctx} />
         </div>
     );
 }

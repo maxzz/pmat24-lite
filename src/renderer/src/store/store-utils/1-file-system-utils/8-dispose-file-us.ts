@@ -22,7 +22,7 @@ export const doDisposeAllFilesAtomAtom = atom(
 export const doDisposeFileUsAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
-        printDisposeFileUsAtom(fileUsAtom, get, set);
+        //printDisposeFileUsAtom(fileUsAtom, get, set);
 
         if (!fileUsAtom) {
             return;

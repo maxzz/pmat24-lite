@@ -1,34 +1,35 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { type FormOptionsAndFileUsCtxAtoms, type MFormContextProps, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormContextProps, type MFormContextProps, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { WebDetectionContenty, W32DetectionContent } from "./2-detection-content";
 
-export function InFormOptions({ ctx, className, ...rest }: { ctx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const formOptionsCtx = ctx.maniAtoms?.[ctx.formIdx];
+export function InFormOptions({ n_mCtx, className, ...rest }: { n_mCtx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+    const formOptionsCtx = n_mCtx.maniAtoms?.[n_mCtx.formIdx];
     if (!formOptionsCtx) {
         return null;
     }
+    const ctx: OFormContextProps = { maniAtoms: n_mCtx.maniAtoms, oAllAtoms: formOptionsCtx, formIdx: n_mCtx.formIdx };
     return (
         <div className={classNames("text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
             <div className="font-semibold">
                 Additional options
             </div>
 
-            <FormDetection formOptionsCtx={formOptionsCtx} />
+            <FormDetection ctx={ctx} />
         </div>
     );
 }
 
-function FormDetection({ formOptionsCtx }: { formOptionsCtx: FormOptionsAndFileUsCtxAtoms; }) {
-    const isWeb = useAtomValue(formOptionsCtx.options.isWebAtom);
-    const formIdx = formOptionsCtx.options.formIdx;
+function FormDetection({ ctx }: { ctx: OFormContextProps; }) {
+    const isWeb = useAtomValue(ctx.oAllAtoms.options.isWebAtom);
+    const formIdx = ctx.oAllAtoms.options.formIdx;
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             {isWeb
-                ? <WebDetectionContenty ctx={formOptionsCtx} />
-                : <W32DetectionContent ctx={formOptionsCtx} />
+                ? <WebDetectionContenty ctx={ctx.oAllAtoms} />
+                : <W32DetectionContent ctx={ctx.oAllAtoms} />
             }
         </AccordionWithTrigger>
     );
