@@ -10,6 +10,7 @@ export type UiAdvancedState = {     // Advanced UI settings
     saveWDebugExt: boolean;         // Save files with debug <filename.test.ext>
     noNewManiDlg: boolean;          // Do not show new manifest in external dialog, and add it to the tree immediately like cpass
     useTreeCtxMenu: boolean;        // Use context menu for tree items
+    blockGlobalCtxMenu: boolean;    // Block global context menu
 };
 
 export const defaultCreateDelay = 0;
@@ -26,6 +27,7 @@ export const defaultUiAdvancedState: UiAdvancedState = {
     saveWDebugExt: false,
     noNewManiDlg: true,
     useTreeCtxMenu: true,
+    blockGlobalCtxMenu: true,
 };
 
 /*
