@@ -124,3 +124,4 @@ export function App(): JSX.Element {
 // // add more fields to rename dialog
 //TODO: block global context menu and add option to allow it - done
 //TODO: block global context menu for input fields in a specific way, i.e. remove 'inspect element' option
+//  //https://github.com/sindresorhus/electron-context-menu/blob/main/index.js#L219
