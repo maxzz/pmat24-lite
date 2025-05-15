@@ -1,11 +1,11 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { FormOptionsAndFileUsCtxAtoms, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { FormOptionsAndFileUsCtxAtoms, OFormContextProps, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 
-export function WebDetectionContenty({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
-    const formIdx = ctx.options.formIdx;
+export function WebDetectionContenty({ ctx }: { ctx: OFormContextProps; }) {
+    const formIdx = ctx.oAllAtoms.options.formIdx;
     return (
         <p className={textClasses}>
             Kick off your experience by setting up Motion-Primitives. This
@@ -16,7 +16,7 @@ export function WebDetectionContenty({ ctx }: { ctx: FormOptionsAndFileUsCtxAtom
     );
 }
 
-export function W32DetectionContent({ ctx }: { ctx: FormOptionsAndFileUsCtxAtoms; }) {
+export function W32DetectionContent({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         win32
     </>);

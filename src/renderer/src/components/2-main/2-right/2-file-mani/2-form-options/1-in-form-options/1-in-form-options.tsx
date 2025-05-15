@@ -28,8 +28,8 @@ function FormDetection({ ctx }: { ctx: OFormContextProps; }) {
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             {isWeb
-                ? <WebDetectionContenty ctx={ctx.oAllAtoms} />
-                : <W32DetectionContent ctx={ctx.oAllAtoms} />
+                ? <WebDetectionContenty ctx={ctx} />
+                : <W32DetectionContent ctx={ctx} />
             }
         </AccordionWithTrigger>
     );
