@@ -1,5 +1,7 @@
-import { OptionInputTooltipShell, OptionCheckbox, OptionString, type OptionInputWTypeProps } from "@/ui";
-import { TooltipTrigger } from "./3-tooltip-trigger";
+import { type ComponentPropsWithoutRef } from "react";
+import { classNames } from "@/utils";
+import { SymbolWarning } from "@/ui/icons";
+import { type OptionInputWTypeProps, OptionInputTooltipShell, OptionCheckbox, OptionString } from "@/ui";
 
 export function InputWTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
@@ -11,3 +13,13 @@ export function InputWTooltip({ stateAtom, asCheckbox, containerClasses, ...rest
         </OptionInputTooltipShell>
     );
 }
+
+function TooltipTrigger({ error, className }: { error: string | undefined; } & ComponentPropsWithoutRef<'svg'>) {
+    return (<>
+        {error && (
+            <SymbolWarning className={classNames(SymbolWarningClasses, className)} />
+        )}
+    </>);
+}
+
+const SymbolWarningClasses = "absolute mt-px mr-px right-3 top-1/2 transform -translate-y-1/2 size-4 text-red-500/90";
