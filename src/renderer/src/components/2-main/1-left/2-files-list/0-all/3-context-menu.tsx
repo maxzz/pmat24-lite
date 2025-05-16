@@ -29,13 +29,13 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
 function ContextItems() {
     const rightPanelAtomGetter = useSetAtom(rightPanelAtomGetterAtom);
 
-    const renameFileUsAtom = useSetAtom(doManiNameDlgAtom);
+    const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
 
     function onRename() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom ? renameFileUsAtom(currentAtom) : toastError();
+        currentAtom ? doManiNameDlg(currentAtom) : toastError();
     }
 
     function onDelete() {

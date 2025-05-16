@@ -3,10 +3,10 @@ import { Button } from "@/ui";
 import { doManiNameDlgAtom, rightPanelAtomAtom } from "@/store";
 
 export function TestManiName() {
-    const doVerifyNameBeforeSave = useSetAtom(doManiNameDlgAtom);
+    const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
     const currentAtom = useAtomValue(rightPanelAtomAtom);
     return (
-        <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doVerifyNameBeforeSave(currentAtom)}>
+        <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doManiNameDlg(currentAtom)}>
             Name...
         </Button>
     );

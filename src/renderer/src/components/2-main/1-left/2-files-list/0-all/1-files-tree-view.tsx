@@ -14,7 +14,7 @@ export function FilesTreeView() {
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     const getFileUsAtomBuId = useSetAtom(getFileUsAtomBuIdAtom);
-    const renameFileUsAtom = useSetAtom(doManiNameDlgAtom);
+    const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
         const selectFileUsAtom = castTreeItemToFileUs(item!)?.fileUsAtom;
@@ -23,7 +23,7 @@ export function FilesTreeView() {
 
     function onDoubleClick() {
         const selected = getFileUsAtomBuId(treeState.selectedId);
-        selected && renameFileUsAtom(selected);
+        selected && doManiNameDlg(selected);
     }
 
     // printTreeData(dataWithState);
