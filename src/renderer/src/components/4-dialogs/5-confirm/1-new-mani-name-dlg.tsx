@@ -27,7 +27,7 @@ export function ManiNameDialog() {
     );
 }
 
-const contentClasses = "p-0 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 w-72 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ maniNameData, onCloseDlg }: { maniNameData: ManiNameData; onCloseDlg: (ok: boolean) => void; }) {
 
@@ -40,7 +40,7 @@ function DialogBody({ maniNameData, onCloseDlg }: { maniNameData: ManiNameData; 
                 Please provide a name for the manifest. This name will be used in the list of manifests in the left pane.
             </DialogDescription>
 
-            <div className="pb-3 text-xs">
+            <div className="pb-3 text-xs flex flex-col gap-0.5">
                 Manifest name
                 <InputOrCheckWithTooltip stateAtom={nameAtom} />
             </div>
