@@ -1,5 +1,8 @@
-import { type OptionInputWTypeProps, TooltipShellWithErrorIcon, OptionAsCheckbox, OptionAsString } from "@/ui";
+import { type OptionInputWTypeProps } from "./9-types";
 import { SymbolWarning } from "@/ui/icons";
+import { TooltipShellWithErrorIcon } from "./2-option-input-tooltip-shell";
+import { OptionAsCheckbox } from "./6-option-checkbox";
+import { OptionAsString } from "./5-option-string";
 
 export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
