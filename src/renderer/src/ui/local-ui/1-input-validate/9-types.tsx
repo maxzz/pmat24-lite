@@ -19,19 +19,21 @@ export type RowInputState = {
     //uuid: number;                         //TODO: This may simplify validation
 };
 
-export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
-export type RowInputStateAtoms = Record<string, RowInputStateAtom>;
-
-export type OnValueStateChange = (state: RowInputState) => void; // value and value vilidation information
-
 export type OptionInputProps =
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
+    & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
+    & {
         stateAtom: RowInputStateAtom;
         onValueStateChange?: OnValueStateChange;
     };
 
 export type OptionInputWTypeProps =
-    OptionInputProps & {
+    & OptionInputProps
+    & {
         asCheckbox?: boolean;
         containerClasses?: string;
     };
+
+export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
+export type RowInputStateAtoms = Record<string, RowInputStateAtom>;
+
+export type OnValueStateChange = (state: RowInputState) => void; // value and value vilidation information

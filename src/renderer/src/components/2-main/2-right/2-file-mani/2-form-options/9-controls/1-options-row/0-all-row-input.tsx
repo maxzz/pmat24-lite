@@ -4,11 +4,7 @@ import { InputWTooltip } from "./2-input-w-tooltip";
 
 // Row with input
 
-type RowInputWLabelProps = OptionInputWTypeProps & {
-    label: string;
-};
-
-export function RowInputWTitle({ label, ...rest }: RowInputWLabelProps) {
+export function RowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <TitleWChildren label={label}>
             <InputWTooltip {...rest} />
@@ -18,11 +14,7 @@ export function RowInputWTitle({ label, ...rest }: RowInputWLabelProps) {
 
 // Row with input and button
 
-type RowInputAndButtonWLabelProps = RowInputWLabelProps & {
-    button: ReactNode;
-};
-
-export function RowInputAndButtonWTitle({ label, button, ...rest }: RowInputAndButtonWLabelProps) {
+export function RowInputAndButtonWTitle({ label, button, ...rest }: { label: string; button: ReactNode; } & OptionInputWTypeProps) {
     return (
         <TitleWChildren label={label}>
             <div className="w-full flex items-center justify-between gap-1">
