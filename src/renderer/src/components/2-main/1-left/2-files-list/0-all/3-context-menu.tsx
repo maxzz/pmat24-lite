@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { hasMain } from "@/xternal-to-main";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
-import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doVerifyManiNameAtom, rightPanelAtomGetterAtom } from "@/store";
+import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, rightPanelAtomGetterAtom } from "@/store";
 import { toast } from "sonner";
 
 export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
@@ -29,7 +29,7 @@ export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; })
 function ContextItems() {
     const rightPanelAtomGetter = useSetAtom(rightPanelAtomGetterAtom);
 
-    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
+    const renameFileUsAtom = useSetAtom(doManiNameDlgAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
 

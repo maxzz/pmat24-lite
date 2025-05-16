@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, doTriggerRightPanelSelectedAtom, doVerifyManiNameAtom } from "@/store";
+import { appSettings, doTriggerRightPanelSelectedAtom, doManiNameDlgAtom } from "@/store";
 import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "../2-tree-item";
@@ -14,7 +14,7 @@ export function FilesTreeView() {
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
     const getFileUsAtomBuId = useSetAtom(getFileUsAtomBuIdAtom);
-    const renameFileUsAtom = useSetAtom(doVerifyManiNameAtom);
+    const renameFileUsAtom = useSetAtom(doManiNameDlgAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
         const selectFileUsAtom = castTreeItemToFileUs(item!)?.fileUsAtom;

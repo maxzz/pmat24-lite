@@ -15,9 +15,9 @@ export type ManiNameData = {
 export const maniNameDlgDataAtom = atom<ManiNameData | undefined>(undefined); // TODO: show only if name is invalid
 
 /**
- * Verify new manifest name before save manifest.
+ * Rename or confirm the name of the manifest.
  */
-export const doVerifyManiNameAtom = atom(
+export const doManiNameDlgAtom = atom(
     null,
     async (get, set, fileUsAtom: FileUsAtom): Promise<boolean> => {
         if (!fileUsAtom) {
