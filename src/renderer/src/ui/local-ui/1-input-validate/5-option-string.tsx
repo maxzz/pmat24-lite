@@ -3,16 +3,6 @@ import { type OptionInputProps, type RowInputState } from "./9-types";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
 
-const optionInputClasses = "\
-px-2 py-1 h-7 w-full \
-\
-text-mani-foreground font-normal bg-mani-background \
-\
-border-mani-border-muted border \
-\
-rounded-sm \
-outline-none";
-
 export function OptionAsString({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
@@ -58,3 +48,13 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, ...re
         />
     );
 }
+
+const optionInputClasses = "\
+px-2 py-1 h-7 w-full \
+\
+text-mani-foreground font-normal bg-mani-background \
+\
+border-mani-border-muted border \
+\
+rounded-sm \
+outline-none";

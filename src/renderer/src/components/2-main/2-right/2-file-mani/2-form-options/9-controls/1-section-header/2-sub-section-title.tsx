@@ -1,10 +1,10 @@
 import { PrimitiveAtom, useAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
+import { FormIdx } from "@/store/manifest";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
 import { appSettings } from "@/store";
-import { FormIdx } from "@/store/manifest";
 // import { SlidersButton } from "../3-sliders-button";
 
 // const sectionClasses0 = "\

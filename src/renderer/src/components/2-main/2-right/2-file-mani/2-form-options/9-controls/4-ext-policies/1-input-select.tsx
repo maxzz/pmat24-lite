@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
-import { ChildrenWithLabel } from "../1-options-row";
+import { ChildrenWithLabel } from "../2-options-row";
 import { type SelectNameValueItem, ExtPolicySelectUi } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
 

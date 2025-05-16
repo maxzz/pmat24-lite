@@ -3,5 +3,5 @@ export * from "./1-input-or-check-w-tooltip";
 export * from "./2-option-input-tooltip-shell";
 export * from "./5-option-string";
 export * from "./6-option-checkbox";
-export * from "./7-create-helpers";
-export * from "./8-validate-utils";
+export * from "./7-validate-utils";
+export * from "./8-create-helpers";
