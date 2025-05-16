@@ -18,7 +18,7 @@ export const maniNameDlgDataAtom = atom((get) => get(_maniNameDlgDataAtom));
 
 export const maniNameDlgCloseAtom = atom(
     null,
-    async (get, set, ok: boolean) => {
+    (get, set, ok: boolean) => {
         const data = get(_maniNameDlgDataAtom);
         if (!data) {
             throw new Error('no.in.data');

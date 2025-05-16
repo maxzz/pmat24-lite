@@ -12,14 +12,10 @@ export function ManiNameDialog() {
         return null;
     }
 
-    function onCloseDlg(ok: boolean) {
-        maniNameDlgClose(ok);
-    }
-
     return (
-        <Dialog open={!!dlgData} onOpenChange={() => onCloseDlg(false)}>
-            <DialogTitleHeader title="New manifest name" className={contentClasses} onDlgClose={onCloseDlg}>
-                <DialogBody dlgData={dlgData} onCloseDlg={onCloseDlg} />
+        <Dialog open={!!dlgData} onOpenChange={() => maniNameDlgClose(false)}>
+            <DialogTitleHeader title="New manifest name" className={contentClasses} onDlgClose={maniNameDlgClose}>
+                <DialogBody dlgData={dlgData} onCloseDlg={maniNameDlgClose} />
             </DialogTitleHeader>
         </Dialog>
     );
