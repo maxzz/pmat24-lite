@@ -4,7 +4,7 @@ import { appSettings, doTriggerRightPanelSelectedAtom, doManiNameDlgAtom } from 
 import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "../2-tree-item";
-import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomBuIdAtom } from "./2-tree-atoms";
+import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-atoms";
 
 export function FilesTreeView() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
@@ -13,7 +13,7 @@ export function FilesTreeView() {
     const dataWithState = useAtomValue(dataWithStateAtom);
     const setSelected = useSetAtom(doTriggerRightPanelSelectedAtom);
 
-    const getFileUsAtomBuId = useSetAtom(getFileUsAtomBuIdAtom);
+    const getFileUsAtomById = useSetAtom(getFileUsAtomByIdAtom);
     const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
 
     function onSelectChange(item: DataItemWState | undefined) {
@@ -22,7 +22,7 @@ export function FilesTreeView() {
     }
 
     function onDoubleClick() {
-        const selected = getFileUsAtomBuId(treeState.selectedId);
+        const selected = getFileUsAtomById(treeState.selectedId);
         selected && doManiNameDlg(selected);
     }
 
