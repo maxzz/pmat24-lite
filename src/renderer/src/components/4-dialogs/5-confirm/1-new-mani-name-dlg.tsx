@@ -3,11 +3,12 @@ import { Dialog, DialogDescription, DialogFooter, Button } from '@/ui/shadcn';
 import { InputOrCheckWithTooltip } from "@/ui/local-ui";
 import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from '@/store';
 import { DialogTitleHeader } from './3-dialog-title-header';
+import { useKey } from 'react-use';
 
 export function ManiNameDialog() {
     const maniNameDlgClose = useSetAtom(maniNameDlgCloseAtom);
     const dlgData = useAtomValue(maniNameDlgDataAtom);
-    
+
     if (!dlgData) {
         return null;
     }
@@ -24,9 +25,15 @@ export function ManiNameDialog() {
 const contentClasses = "p-0 w-72 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onCloseDlg: (ok: boolean) => void; }) {
-
     const { nameAtom } = dlgData;
     const { data: name } = useAtomValue(nameAtom);
+
+    useKey('Enter', () => {
+        const active = document.activeElement;
+        if (active?.matches('input')) {
+            onCloseDlg(true);
+        }
+    });
 
     return (
         <div className="px-4">
