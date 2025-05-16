@@ -8,6 +8,7 @@ import { getManiDispNameAtomAtom } from "../../2-file-mani-atoms";
 export type ManiNameData = {
     fileUsAtom: FileUsAtom;                     // fileUs to rename
     nameAtom: PrimitiveAtom<RowInputState>;     // new name
+    startName: string;                          // name when dialog was opened to restore on cancel
     resolve: (ok: boolean) => void;             // ok or cancel
 };
 
@@ -32,6 +33,7 @@ export const doVerifyManiNameAtom = atom(
             set(maniNameDlgDataAtom, {
                 fileUsAtom,
                 nameAtom,
+                startName: get(nameAtom).data,
                 resolve,
             });
         });
