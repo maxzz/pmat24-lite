@@ -23,11 +23,7 @@ export const maniNameDlgCloseAtom = atom(
         if (!data) {
             throw new Error('no.in.data');
         }
-
-        if (!ok) {
-            set(data.nameAtom, (v) => ({ ...v, data: data.startName, error: undefined, touched: false }));
-        }
-
+        
         set(_maniNameDlgDataAtom, undefined);
         data.resolve(ok);
     }
@@ -48,16 +44,22 @@ export const doManiNameDlgAtom = atom(
             return false;
         }
 
-        const resolveName = new Promise<boolean>((resolve) => {
-            set(_maniNameDlgDataAtom, {
-                fileUsAtom,
-                nameAtom,
-                startName: get(nameAtom).data,
-                resolve,
-            });
-        });
+        const data: Omit<ManiNameDlgData, 'resolve'> = {
+            fileUsAtom,
+            nameAtom,
+            startName: get(nameAtom).data,
+        };
 
+        const resolveName = new Promise<boolean>((resolve) => {
+            set(_maniNameDlgDataAtom, { ...data, resolve, });
+        });
+        
         const ok = await resolveName;
+
+        if (!ok) {
+            set(data.nameAtom, (v) => ({ ...v, data: data.startName, error: undefined, touched: false }));
+        }
+
         return ok;
     }
 );
