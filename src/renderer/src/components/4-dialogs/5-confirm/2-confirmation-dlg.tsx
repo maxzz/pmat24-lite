@@ -20,9 +20,9 @@ export function ConfirmDeleteFileDialog() {
 
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
-            <DialogContentWrapper title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
+            <DialogTitleHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
                 <DialogBody confirmDialogOpen={confirmData} onDlgClose={onDlgClose} />
-            </DialogContentWrapper>
+            </DialogTitleHeader>
         </Dialog>
     );
 }
@@ -50,7 +50,7 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
     );
 }
 
-function DialogContentWrapper({ title, className, children, onDlgClose }: { title: string; className: string; children: React.ReactNode; onDlgClose: (ok: boolean) => void; }) {
+function DialogTitleHeader({ title, className, children, onDlgClose }: { title: string; className: string; children: React.ReactNode; onDlgClose: (ok: boolean) => void; }) {
     return (
         <DialogContent
             className={className}
