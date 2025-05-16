@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { type OptionInputWTypeProps } from "@/ui";
-import { InputOrCheckWithTooltip } from "./2-input-w-tooltip";
+import { InputOrCheckWithTooltip } from "./2-input-or-check-w-tooltip";
 
 // Row with input
 

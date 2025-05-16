@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { type OptionInputProps } from "./9-types";
 import { classNames } from "@/utils";
 
-export function OptionCheckbox({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
+export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {

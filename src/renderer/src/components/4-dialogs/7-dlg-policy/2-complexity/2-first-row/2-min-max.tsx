@@ -1,9 +1,9 @@
 import { type HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
-import { type PolicyDlgTypes, updateExplanationAtom } from "../../0-all";
-import { TooltipShellWithErrorIcon, OptionString } from "@/ui";
-import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
+import { SymbolWarning } from "@/ui/icons";
+import { TooltipShellWithErrorIcon, OptionAsString } from "@/ui";
+import { type PolicyDlgTypes, updateExplanationAtom } from "../../0-all";
 
 function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
     return (<>
@@ -26,7 +26,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                 </div>
 
                 <TooltipShellWithErrorIcon stateAtom={dlgUiCtx.minLenAtom} Trigger={MinMaxTrigger}>
-                    <OptionString
+                    <OptionAsString
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.minLenAtom}
                         onValueStateChange={updateExplanation}
@@ -38,7 +38,7 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
                 </div>
 
                 <TooltipShellWithErrorIcon stateAtom={dlgUiCtx.maxLenAtom} Trigger={MinMaxTrigger}>
-                    <OptionString
+                    <OptionAsString
                         className="px-2 h-8 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.maxLenAtom}
                         onValueStateChange={updateExplanation}
