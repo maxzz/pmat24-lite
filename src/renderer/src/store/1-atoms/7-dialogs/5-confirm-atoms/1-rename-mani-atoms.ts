@@ -3,8 +3,6 @@ import { type FileUsAtom } from "@/store/store-types";
 import { type RowInputState } from "@/ui";
 import { getManiDispNameAtomAtom } from "../../2-file-mani-atoms";
 
-// New manifest name
-
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;                     // fileUs to rename
     nameAtom: PrimitiveAtom<RowInputState>;     // new name
@@ -29,9 +27,6 @@ export const maniNameDlgCloseAtom = atom(
     }
 );
 
-/**
- * Rename or confirm the name of the manifest.
- */
 export const doManiNameDlgAtom = atom(
     null,
     async (get, set, fileUsAtom: FileUsAtom): Promise<boolean> => {
@@ -57,7 +52,7 @@ export const doManiNameDlgAtom = atom(
         const ok = await resolveName;
 
         if (!ok) {
-            set(data.nameAtom, (v) => ({ ...v, data: data.startName, error: undefined, touched: false }));
+            set(data.nameAtom, (v) => ({ ...v, data: data.startName, error: undefined, touched: false, dirty: false }));
         }
 
         return ok;
