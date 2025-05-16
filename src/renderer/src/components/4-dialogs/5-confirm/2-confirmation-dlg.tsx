@@ -20,22 +20,9 @@ export function ConfirmDeleteFileDialog() {
 
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
-            <DialogContent
-                className={contentClasses}
-                overlayClasses="bg-background/10 backdrop-blur-[1px]"
-                hiddenTitle={confirmData.ui.title}
-                noClose
-            >
-                <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
-                    <div>
-                        {confirmData.ui.title}
-                    </div>
-                    <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
-                </DialogHeader>
-
+            <DialogContentWrapper title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
                 <DialogBody confirmDialogOpen={confirmData} onDlgClose={onDlgClose} />
-
-            </DialogContent>
+            </DialogContentWrapper>
         </Dialog>
     );
 }
