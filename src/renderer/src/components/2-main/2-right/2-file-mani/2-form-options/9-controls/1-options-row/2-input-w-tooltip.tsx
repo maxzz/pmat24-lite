@@ -1,16 +1,16 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { SymbolWarning } from "@/ui/icons";
-import { type OptionInputWTypeProps, OptionInputTooltipShell, OptionCheckbox, OptionString } from "@/ui";
+import { type OptionInputWTypeProps, TooltipShellWithErrorIcon, OptionCheckbox, OptionString } from "@/ui";
 
 export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
-        <OptionInputTooltipShell stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
+        <TooltipShellWithErrorIcon stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
             {asCheckbox
                 ? <OptionCheckbox stateAtom={stateAtom} {...rest} />
                 : <OptionString stateAtom={stateAtom} {...rest} />
             }
-        </OptionInputTooltipShell>
+        </TooltipShellWithErrorIcon>
     );
 }
 
