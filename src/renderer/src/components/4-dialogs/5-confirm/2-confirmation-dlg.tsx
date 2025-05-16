@@ -4,7 +4,6 @@ import { type ConfirmationData, doOpenConfirmDialogAtom } from '@/store';
 import { DialogTitleHeader } from './3-dialog-title-header';
 
 export function ConfirmDeleteFileDialog() {
-
     const [confirmData, doCloseDialog] = useAtom(doOpenConfirmDialogAtom);
     if (!confirmData) {
         return null;
