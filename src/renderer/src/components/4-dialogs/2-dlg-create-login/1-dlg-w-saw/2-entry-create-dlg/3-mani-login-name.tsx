@@ -1,6 +1,6 @@
 import { type PrimitiveAtom, useAtomValue } from "jotai";
 import { type RowInputState } from "@/ui";
-import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { InputOrCheckWithTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 import { newManiDispNameAtom } from "@/store";
 
 export function ManiLoginNameGuarded() {
@@ -19,7 +19,7 @@ function ManiLoginName({ nameAtom }: { nameAtom: PrimitiveAtom<RowInputState>; }
             <div className="font-semibold">
                 Login name
             </div>
-            <InputWTooltip stateAtom={nameAtom} />
+            <InputOrCheckWithTooltip stateAtom={nameAtom} />
         </div>
     );
 }

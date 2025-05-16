@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton, Button } from '@/ui/shadcn';
-import { InputWTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
+import { InputOrCheckWithTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
 import { type ManiNameData, maniNameDlgDataAtom } from '@/store';
 
 export function ManiNameDialog() {
@@ -49,7 +49,7 @@ function DialogBody({ maniNameData, onCloseDlg }: { maniNameData: ManiNameData; 
 
             <div className="pb-3 text-xs">
                 Manifest name
-                <InputWTooltip stateAtom={nameAtom} />
+                <InputOrCheckWithTooltip stateAtom={nameAtom} />
             </div>
 
             <DialogFooter className="py-4">

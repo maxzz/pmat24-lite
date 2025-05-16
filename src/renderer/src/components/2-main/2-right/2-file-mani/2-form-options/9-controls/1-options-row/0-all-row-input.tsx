@@ -1,14 +1,14 @@
 import { type ReactNode } from "react";
 import { type OptionInputWTypeProps } from "@/ui";
-import { InputWTooltip } from "./2-input-w-tooltip";
+import { InputOrCheckWithTooltip } from "./2-input-w-tooltip";
 
 // Row with input
 
 export function RowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <TitleWChildren label={label}>
-            <InputWTooltip {...rest} />
-        </TitleWChildren>
+        <ChildrenWithLabel label={label}>
+            <InputOrCheckWithTooltip {...rest} />
+        </ChildrenWithLabel>
     );
 }
 
@@ -16,18 +16,18 @@ export function RowInputWTitle({ label, ...rest }: { label: string; } & OptionIn
 
 export function RowInputAndButtonWTitle({ label, button, ...rest }: { label: string; button: ReactNode; } & OptionInputWTypeProps) {
     return (
-        <TitleWChildren label={label}>
+        <ChildrenWithLabel label={label}>
             <div className="w-full flex items-center justify-between gap-1">
-                <InputWTooltip {...rest} />
+                <InputOrCheckWithTooltip {...rest} />
                 {button}
             </div>
-        </TitleWChildren>
+        </ChildrenWithLabel>
     );
 }
 
 // Row with children
 
-export function TitleWChildren({ label, children }: { label: string; children: ReactNode; }) {
+export function ChildrenWithLabel({ label, children }: { label: string; children: ReactNode; }) {
     return (
         <div className={"col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center"}>
             <div className="font-light text-end">

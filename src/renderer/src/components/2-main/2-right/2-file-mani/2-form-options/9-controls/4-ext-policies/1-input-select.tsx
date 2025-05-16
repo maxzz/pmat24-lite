@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
-import { TitleWChildren } from "../1-options-row";
+import { ChildrenWithLabel } from "../1-options-row";
 import { type SelectNameValueItem, ExtPolicySelectUi } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
 
@@ -17,13 +17,13 @@ export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, 
     }
 
     return (
-        <TitleWChildren label="Extended authentication policy">
+        <ChildrenWithLabel label="Extended authentication policy">
             <ExtPolicySelectUi
                 items={tokenReactNodes}
                 value={state.data || '0'}
                 onValueChange={onChange} {...rest}
             />
-        </TitleWChildren>
+        </ChildrenWithLabel>
     );
 }
 

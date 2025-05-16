@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { SymbolWarning } from "@/ui/icons";
 import { type OptionInputWTypeProps, OptionInputTooltipShell, OptionCheckbox, OptionString } from "@/ui";
 
-export function InputWTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
         <OptionInputTooltipShell stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
             {asCheckbox

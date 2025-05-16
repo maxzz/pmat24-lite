@@ -1,7 +1,7 @@
 import { type PrimitiveAtom, useSetAtom } from "jotai";
 import { type RowInputState } from "@/ui";
 import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
-import { InputWTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { InputOrCheckWithTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
@@ -29,7 +29,7 @@ export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: Primit
             </span>
 
             <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputWTooltip
+                <InputOrCheckWithTooltip
                     stateAtom={valueAtom}
                     asCheckbox={false}
                     onFocus={() => onFocusBlur(true)}
