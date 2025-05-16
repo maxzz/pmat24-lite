@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogCloseButton, Button } from '@/ui/shadcn';
-import { InputOrCheckWithTooltip } from '@/components/2-main/2-right/2-file-mani/2-form-options/9-controls';
+import { InputOrCheckWithTooltip } from "@/ui/local-ui";
 import { type ManiNameData, maniNameDlgDataAtom } from '@/store';
 
 export function ManiNameDialog() {

@@ -1,7 +1,7 @@
 import { type PrimitiveAtom, useSetAtom } from "jotai";
-import { type RowInputState } from "@/ui";
 import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
-import { InputOrCheckWithTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
+
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {

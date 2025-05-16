@@ -1,7 +1,6 @@
 import { type PrimitiveAtom } from "jotai";
-import { type RowInputState } from "@/ui";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputOrCheckWithTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
 
 export function InputDelay({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
     return (

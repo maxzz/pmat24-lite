@@ -1,7 +1,6 @@
 import { type PrimitiveAtom, useAtomValue } from "jotai";
-import { type RowInputState } from "@/ui";
 import { pluralWord, toNumberWDefault1 } from "@/utils";
-import { InputOrCheckWithTooltip } from "@/components/2-main/2-right/2-file-mani/2-form-options/9-controls";
+import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
 
 export function InputRepeat({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
     const repeat = useAtomValue(valueAtom);
