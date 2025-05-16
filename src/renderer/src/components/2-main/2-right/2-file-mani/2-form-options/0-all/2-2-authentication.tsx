@@ -1,7 +1,6 @@
+import { FormIdx } from "@/store/manifest";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { RowInputWTitle } from "../9-controls";
-import { ExtPolicySelect } from "../9-controls/4-ext-policies/1-input-select";
-import { FormIdx } from "pm-manifest";
+import { ExtPolicySelect, RowInputWTitle } from "../9-controls";
 
 export function Block2_Authentication({ ctx }: { ctx: OFormContextProps; }) {
 

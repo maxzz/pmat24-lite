@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
 import { TitleWChildren } from "../1-options-row";
-import { ExtPolicySelectUi, type SelectNameValueItem } from "./2-ext-policy-select-ui";
+import { type SelectNameValueItem, ExtPolicySelectUi } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
 
 export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
