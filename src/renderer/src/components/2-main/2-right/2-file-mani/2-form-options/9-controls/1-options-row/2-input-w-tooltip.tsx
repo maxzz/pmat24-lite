@@ -14,10 +14,10 @@ export function InputWTooltip({ stateAtom, asCheckbox, containerClasses, ...rest
     );
 }
 
-function TooltipTrigger({ error, className }: { error: string | undefined; } & ComponentPropsWithoutRef<'svg'>) {
+function TooltipTrigger({ error }: { error: string | undefined; }) {
     return (<>
         {error && (
-            <SymbolWarning className={classNames(SymbolWarningClasses, className)} />
+            <SymbolWarning className={SymbolWarningClasses} />
         )}
     </>);
 }
