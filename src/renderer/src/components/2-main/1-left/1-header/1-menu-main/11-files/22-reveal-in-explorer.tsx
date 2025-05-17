@@ -1,4 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
+import { toast } from "sonner";
 import { doGetFileUsPathAtom, doRevealInExplorerAtom, rightPanelAtomAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
 import { hasMain } from "@/xternal-to-main";
@@ -11,22 +12,28 @@ export function MenuItem_RevealInExplorerCurrent() {
 
     function revealInExplorer() {
         if (!fileUsAtom) {
-            console.error('no.fileUsAtom');
+            toastError();
             return;
         }
         if (hasMain()) {
             doRevealInExplorer(fileUsAtom);
         } else {
-            const fullPath = doGetFileUsPath(fileUsAtom);
-            if (fullPath) {
-                navigator.clipboard.writeText(fullPath);
+            const { fpath, fname } = doGetFileUsPath(fileUsAtom) || {};
+            if (fname) {
+                navigator.clipboard.writeText(fname);
+            } else {
+                toastError('The filename is not set');
             }
         }
     }
 
     return (
         <DropdownMenuItem disabled={!fileUsAtom} onClick={revealInExplorer}>
-            {hasMain() ? 'Reveal in File Explorer' : 'Copy Relative Path'}
+            {hasMain() ? 'Reveal in File Explorer' : 'Copy Relative File Name'} {/* 'Copy Relative Path' */}
         </DropdownMenuItem>
     );
+}
+
+function toastError(msg: string = 'No file selected') {
+    toast.error(msg, { position: "top-center" });
 }

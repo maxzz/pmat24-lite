@@ -27,16 +27,10 @@ export const doRevealInExplorerAtom = atom(null,
 );
 
 export const doGetFileUsPathAtom = atom(null,
-    (get, set, fileUsAtom: FileUsAtom): string | undefined => {
+    (get, set, fileUsAtom: FileUsAtom): { fpath: string; fname: string; } | undefined => {
         const fileUs = fileUsAtom && get(fileUsAtom);
         const fpath = fileUs?.fileCnt.fpath || '';
-        const fname = fileUs?.fileCnt.fname;
-        if (!fname) {
-            console.error('No fpath or fname', fileUs);
-            return;
-        }
-
-        const fullPath = `${fpath}/${fname}`;
-        return fullPath;
+        const fname = fileUs?.fileCnt.fname || '';
+        return { fpath, fname };
     }
 );

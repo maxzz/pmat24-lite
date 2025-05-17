@@ -6,7 +6,7 @@ import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } 
 import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, rightPanelAtomGetterAtom, doGetFileUsPathAtom } from "@/store";
 import { toast } from "sonner";
 
-export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
+export function FilesTreeViewContextMenu({ children }: { children: ReactNode; }) {
     const { useTreeCtxMenu } = useSnapshot(appSettings.appUi.uiAdvanced);
     if (!useTreeCtxMenu) {
         return <>{children}</>;
@@ -55,12 +55,12 @@ function ContextItems() {
             toastError();
             return;
         }
-        const fullPath = doGetFileUsPath(currentAtom);
-        if (!fullPath) {
+        const { fpath, fname } = doGetFileUsPath(currentAtom) || {};
+        if (!fname) {
             toastError('The filename is not set');
             return;
         }
-        navigator.clipboard.writeText(fullPath);
+        navigator.clipboard.writeText(fname);
     }
 
     return (<>
@@ -74,7 +74,8 @@ function ContextItems() {
                 <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
             )
             : (
-                <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy Relative Path</ContextMenuItem>
+                // <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy Relative Path</ContextMenuItem>
+                <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy File Name</ContextMenuItem>
             )
         }
     </>);
