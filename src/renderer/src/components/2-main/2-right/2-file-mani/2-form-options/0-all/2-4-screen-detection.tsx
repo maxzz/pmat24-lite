@@ -22,7 +22,7 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
                 <RowInputWTitle stateAtom={murlAtom} label="Match URL" />
             </>)
             : (<>
-                <RowInputWTitle stateAtom={captionAtom} label="Windows Caption" />
+                <RowInputWTitle stateAtom={captionAtom} label="Windows caption" />
                 <RowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
                 <RowInputWTitle stateAtom={dlg_classAtom} label="Window class name" />
