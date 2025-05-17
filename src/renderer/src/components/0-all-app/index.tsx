@@ -18,10 +18,13 @@ function preventContextMenu(e: MouseEvent<HTMLDivElement>) {
     if (!appSettings.appUi.uiAdvanced.blockGlobalCtxMenu) {
         return;
     }
-    const active = document.activeElement;
-    if (active?.tagName === 'INPUT') {
-        return;
-    }
+
+    // fro now let's block all context menus
+    // const active = document.activeElement;
+    // if (active?.tagName === 'INPUT') {
+    //     return;
+    // }
+
     e.preventDefault();
 }
 

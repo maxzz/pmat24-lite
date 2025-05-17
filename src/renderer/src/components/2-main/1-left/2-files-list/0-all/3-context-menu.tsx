@@ -74,7 +74,6 @@ function ContextItems() {
                 <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
             )
             : (
-                // <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy Relative Path</ContextMenuItem>
                 <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy File Name</ContextMenuItem>
             )
         }

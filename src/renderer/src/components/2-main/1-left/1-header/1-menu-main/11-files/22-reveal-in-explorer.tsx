@@ -29,7 +29,7 @@ export function MenuItem_RevealInExplorerCurrent() {
 
     return (
         <DropdownMenuItem disabled={!fileUsAtom} onClick={revealInExplorer}>
-            {hasMain() ? 'Reveal in File Explorer' : 'Copy Relative File Name'} {/* 'Copy Relative Path' */}
+            {hasMain() ? 'Reveal in File Explorer' : 'Copy File Name'}
         </DropdownMenuItem>
     );
 }
