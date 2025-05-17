@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { hasMain } from "@/xternal-to-main";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
-import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, rightPanelAtomGetterAtom } from "@/store";
+import { appSettings, doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, rightPanelAtomGetterAtom, doGetFileUsPathAtom } from "@/store";
 import { toast } from "sonner";
 
 export function FilesTreeViewcontextMenu({ children }: { children: ReactNode; }) {
@@ -32,6 +32,7 @@ function ContextItems() {
     const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     const doRevealInExplorer = useSetAtom(doRevealInExplorerAtom);
+    const doGetFileUsPath = useSetAtom(doGetFileUsPathAtom);
 
     function onRename() {
         const currentAtom = rightPanelAtomGetter();
@@ -48,18 +49,37 @@ function ContextItems() {
         currentAtom ? doRevealInExplorer(currentAtom) : toastError();
     }
 
+    function onCopyPath() {
+        const currentAtom = rightPanelAtomGetter();
+        if (!currentAtom) {
+            toastError();
+            return;
+        }
+        const fullPath = doGetFileUsPath(currentAtom);
+        if (!fullPath) {
+            toastError('The filename is not set');
+            return;
+        }
+        navigator.clipboard.writeText(fullPath);
+    }
+
     return (<>
         {/* <ContextMenuLabel className="text-xs">File name</ContextMenuLabel> */}
 
         <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>
         <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
-        
-        {hasMain() && (
-            <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
-        )}
+
+        {hasMain() ?
+            (
+                <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
+            )
+            : (
+                <ContextMenuItem className="text-xs" onClick={onCopyPath}>Copy Relative Path</ContextMenuItem>
+            )
+        }
     </>);
 }
 
-function toastError() {
-    toast.error('No file selected', { position: "top-center" });
+function toastError(msg: string = 'No file selected') {
+    toast.error(msg, { position: "top-center" });
 }
