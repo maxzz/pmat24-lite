@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
-import { FilesMainMenuBody } from "../../2-main/1-left/1-header/1-menu-main/0-all/1-menu-body";
+import { FilesMainMenuBody } from "../2-main/1-left/1-header/1-menu-main/0-all/1-menu-body";
 
 export function TopMainDropdownMenu() {
     const [menuOpen, setMenuOpen] = useState(false);
