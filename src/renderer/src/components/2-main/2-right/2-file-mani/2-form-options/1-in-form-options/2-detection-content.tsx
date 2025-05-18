@@ -4,10 +4,6 @@ import { InFormRowInputWTitle } from "./3-in-form-controls";
 export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
     const {
         ourlAtom, murlAtom,
-        captionAtom,
-        monitorAtom,
-        dlg_tabAtom, dlg_classAtom, dlg_checkexeAtom,
-        processnameAtom, commandlineAtom,
     } = ctx.oAllAtoms.options.p2Detect;
     return (
         <div className={textClasses}>
@@ -19,15 +15,13 @@ export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
 
 export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     const {
-        ourlAtom, murlAtom,
         captionAtom,
         monitorAtom,
         dlg_tabAtom, dlg_classAtom, dlg_checkexeAtom,
         processnameAtom, commandlineAtom,
     } = ctx.oAllAtoms.options.p2Detect;
     return (
-        <div>
-            win32
+        <div className={textClasses}>
             <InFormRowInputWTitle stateAtom={captionAtom} label="Windows caption" />
             <InFormRowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
@@ -41,4 +35,4 @@ export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
-const textClasses = 'pl-6 pr-2 font-normal';
+const textClasses = '1pl-6 1pr-2 1font-normal';
