@@ -21,10 +21,7 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
         <Accordion
             className="w-full flex flex-col"
             transition={{ type: "spring", stiffness: 420, damping: 40 }}
-            variants={{
-                expanded: { opacity: 1, scale: 1, },
-                collapsed: { opacity: 0, scale: 1, },
-            }}
+            variants={variants}
             expandedValue={open ? name : undefined}
             onValueChange={toggleOpen}
         >
@@ -43,13 +40,8 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
 }
 
 function AccordionTrigger({ children, className, ...rest }: { children: ReactNode; className?: string; } & ComponentPropsWithoutRef<"button">) {
-    // const { toggleItem, expandedValue } = useAccordion();
-    // const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
-    // const value = (rest as AccordionItemAugmentedProps).value;
-    // const isExpanded = value === expandedValue;
-
-    const { toggleItem } = useAccordion();
     const { value, expanded: isExpanded, ...restAsProps } = rest as AccordionItemAugmentedProps;
+    const { toggleItem } = useAccordion();
     return (
         <Button className={classNames(localTriggerClasses, className)} {...ariaExpandedAttrs(isExpanded)} onClick={() => value !== undefined && toggleItem(value)} {...restAsProps}>
             {children}
@@ -64,6 +56,11 @@ function ariaExpandedAttrs(isExpanded: boolean): AriaAttributes {
         ...(isExpanded ? { "data-expanded": '' } : { "data-closed": '' }),
     };
 }
+
+const variants = {
+    expanded: { opacity: 1, scale: 1, },
+    collapsed: { opacity: 0, scale: 1, },
+};
 
 const localTriggerClasses = "w-full flex items-center justify-between gap-1";
 

@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from 'jotai';
 import { atomWithCallback } from '@/utils';
 import { type FormOptionsState } from "./9-types";
-import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNumber } from "@/ui";
+import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNumber } from "@/ui";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
@@ -18,7 +18,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             unkAttrsAtom: createAtomForInput(p1General.unkAttrs, onChange('unkAttrs')),
         },
         p2Detect: {
-            captionAtom: createAtomForInput(p2Detect.caption, onChange('caption')),
+            captionAtom: createAtomForInput(p2Detect.caption, onChange('caption'), { validate: validateNonEmpty }), // validateNonEmpty just for testing purposes of error state
             variablecaptionAtom: createAtomForInput(p2Detect.variablecaption, onChange('variablecaption')),
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
