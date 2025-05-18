@@ -32,7 +32,7 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, ...rest }: OptionInpu
 
             {asCheckbox
                 ? <OptionAsCheckbox stateAtom={stateAtom} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} className={hasError ? 'outline-offset-[-2px] outline-red-500/70' : ''} {...rest} />
+                : <OptionAsString stateAtom={stateAtom} className={hasError ? 'outline-offset-[0px] outline-red-500' : ''} {...rest} />
             }
 
             <AnimatePresence initial={false}>

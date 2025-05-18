@@ -23,14 +23,13 @@ export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     return (
         <div className={textClasses}>
             <InFormRowInputWTitle stateAtom={captionAtom} label="Windows caption" />
-            <InFormRowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
-
             <InFormRowInputWTitle stateAtom={dlg_classAtom} label="Window class name" />
             <InFormRowInputWTitle stateAtom={dlg_tabAtom} label="Window tab" />
-            <InFormRowInputWTitle stateAtom={dlg_checkexeAtom} label="Tab executable" />
+            {/* <InFormRowInputWTitle stateAtom={dlg_checkexeAtom} label="Tab executable" /> */}
+            <InFormRowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
-            <InFormRowInputWTitle stateAtom={processnameAtom} label="Process name" />
-            <InFormRowInputWTitle stateAtom={commandlineAtom} label="Command line" />
+            {/* <InFormRowInputWTitle stateAtom={processnameAtom} label="Process name" /> */}
+            {/* <InFormRowInputWTitle stateAtom={commandlineAtom} label="Command line" /> */}
         </div>
     );
 }
