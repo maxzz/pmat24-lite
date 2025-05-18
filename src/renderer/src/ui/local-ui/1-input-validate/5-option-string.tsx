@@ -42,6 +42,9 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, ...re
             value={state.data}
             onChange={onChange}
             onBlur={onBlur}
+            // {data.error 'aria-invalid'}
+            // {...{ 'aria-invalid': !!state.error }}
+            {...state.error && { 'aria-invalid': true }}
             {...turnOffAutoComplete}
             {...rest}
             // type="number" min={0} max={99999} step={1}
