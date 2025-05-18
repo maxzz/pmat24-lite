@@ -20,10 +20,10 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
     return (
         <Accordion
             className="w-full flex flex-col"
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            transition={{ type: "spring", stiffness: 420, damping: 40 }}
             variants={{
                 expanded: { opacity: 1, scale: 1, },
-                collapsed: { opacity: 0, scale: 0.7, },
+                collapsed: { opacity: 0, scale: 1, },
             }}
             expandedValue={open ? name : undefined}
             onValueChange={toggleOpen}
@@ -33,7 +33,7 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
                     {triggerText}
                 </AccordionTrigger>
 
-                <AccordionContent className={classNames("origin-left", contentClasses)}>
+                <AccordionContent className={classNames("origin-top", contentClasses)}>
                     {children}
                 </AccordionContent>
             </AccordionItem>
