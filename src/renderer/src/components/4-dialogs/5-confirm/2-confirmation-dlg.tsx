@@ -36,7 +36,7 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
                 {message}
             </DialogDescription>
 
-            <DialogFooter className="py-4">
+            <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
                     {buttonOk}
                 </Button>

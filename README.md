@@ -70,3 +70,5 @@ This is phone edit test
     set NODE_TLS_REJECT_UNAUTHORIZED=0
     ```
   * and turn off Cloudflare Warp before running the build
+
+  * ```set VITE_CJS_IGNORE_WARNING=true && p web```
