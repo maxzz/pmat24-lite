@@ -1,7 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { OptionAsCheckbox, OptionAsString, type RowInputStateAtom, type OptionInputWTypeProps } from "@/ui/local-ui";
+import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString } from "@/ui/local-ui";
 
 export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
@@ -14,7 +14,7 @@ export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & Op
 function InFormChildrenWithLabel({ label, children }: { label: string; children: ReactNode; }) {
     return (
         <div className="col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center">
-            <div className="font-light text-end">
+            <div className="font-light">
                 {label}
             </div>
 
@@ -25,6 +25,7 @@ function InFormChildrenWithLabel({ label, children }: { label: string; children:
 
 function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
+    const hasError = state.error && state.touched;
     return (<>
         <div className="">
 
@@ -33,11 +34,9 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, ...rest }: OptionInpu
                 : <OptionAsString stateAtom={stateAtom} {...rest} />
             }
 
-            {state.error && state.touched && (
-                <div className="">
-                    error
-                    {/* <Trigger error={state.error} /> */}
-                    {/* {Trigger ? <Trigger error={state.error} /> : <div className="">no trigger</div> } */}
+            {hasError && (
+                <div className="text-[0.65rem] text-red-500">
+                    {state.error}
                 </div>
             )}
 
