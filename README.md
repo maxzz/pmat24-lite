@@ -62,3 +62,11 @@ This is phone edit test
         "....................................................................................5": "not-uused-now"
     }
 </div>
+
+## build
+  * in case of electron error: "RequestError: self-signed certificate in certificate chain" add to user env variable
+
+    ```bash
+    set NODE_TLS_REJECT_UNAUTHORIZED=0
+    ```
+  * and turn off Cloudflare Warp before running the build
