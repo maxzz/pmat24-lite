@@ -7,7 +7,7 @@ export function validateNonEmptyWithMessage(message: string): (value: string) =>
 }
 
 export function validateManifestName(value: string): string {
-    return !!value ? '' : 'The "Managed login name" field must not be empty.';
+    return !!value ? '' : 'The managed login name must not be empty.';
 }
 
 export function validateNumber(value: string): string {

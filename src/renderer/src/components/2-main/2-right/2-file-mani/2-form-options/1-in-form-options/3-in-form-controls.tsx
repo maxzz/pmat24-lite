@@ -14,7 +14,7 @@ export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & Op
 
 function InFormChildrenWithLabel({ label, children }: { label: string; children: ReactNode; }) {
     return (
-        <div className="col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center">
+        <div className="col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center gap-0.5">
             <div className="font-light">
                 {label}
             </div>
