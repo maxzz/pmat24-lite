@@ -1,10 +1,6 @@
-import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
-import { classNames } from "@/utils";
-import { FormOptionsAndFileUsCtxAtoms, type OFormContextProps, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { AccordionWithTrigger } from "@/ui/motion-primitives";
+import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { InFormRowInputWTitle } from "./3-in-form-controls";
-// import { Block4_ScreenDetection } from "../0-all/2-4-screen-detection";
 
 export function WebDetectionContenty({ ctx }: { ctx: OFormContextProps; }) {
     const formIdx = ctx.oAllAtoms.options.formIdx;
@@ -39,8 +35,8 @@ function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
         processnameAtom, commandlineAtom,
     } = atoms.p2Detect;
 
-    return (
-        isWeb
+    return (<>
+        {isWeb
             ? (<>
                 <InFormRowInputWTitle stateAtom={ourlAtom} label="Original URL" />
                 <InFormRowInputWTitle stateAtom={murlAtom} label="Match URL" />
@@ -56,5 +52,6 @@ function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
                 <InFormRowInputWTitle stateAtom={processnameAtom} label="Process name" />
                 <InFormRowInputWTitle stateAtom={commandlineAtom} label="Command line" />
             </>)
-    );
+        }
+    </>);
 }
