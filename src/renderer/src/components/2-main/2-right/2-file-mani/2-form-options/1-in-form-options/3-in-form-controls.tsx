@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
+import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString } from "@/ui/local-ui";
 
 export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
@@ -31,15 +32,22 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, ...rest }: OptionInpu
 
             {asCheckbox
                 ? <OptionAsCheckbox stateAtom={stateAtom} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} {...rest} />
+                : <OptionAsString stateAtom={stateAtom} className={hasError ? 'outline-offset-[-2px] outline-red-500/70' : ''} {...rest} />
             }
 
-            {hasError && (
-                <div className="text-[0.65rem] text-red-500">
-                    {state.error}
-                </div>
-            )}
+            <AnimatePresence initial={false}>
+                {hasError && (
+                    <motion.div className="text-[0.65rem] text-red-500" variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                        {state.error}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
         </div>
     </>);
 }
+
+const variants: Variants = {
+    expanded: { height: 'auto', opacity: 1 },
+    collapsed: { height: 0, opacity: 0 },
+};

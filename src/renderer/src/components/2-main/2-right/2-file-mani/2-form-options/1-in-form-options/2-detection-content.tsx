@@ -35,4 +35,4 @@ export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
-const textClasses = '1pl-6 1pr-2 1font-normal';
+const textClasses = 'pl-4 pr-4 1font-normal';

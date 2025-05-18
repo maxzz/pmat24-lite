@@ -135,11 +135,6 @@ export function AccordionContent({ children, className, ...rest }: AccordionCont
     const value = (rest as { value?: React.Key; }).value;
     const isExpanded = value === expandedValue;
 
-    const BASE_VARIANTS: Variants = {
-        expanded: { height: 'auto', opacity: 1 },
-        collapsed: { height: 0, opacity: 0 },
-    };
-
     const combinedVariants = {
         expanded: { ...BASE_VARIANTS.expanded, ...variants?.expanded },
         collapsed: { ...BASE_VARIANTS.collapsed, ...variants?.collapsed },
@@ -148,16 +143,15 @@ export function AccordionContent({ children, className, ...rest }: AccordionCont
     return (
         <AnimatePresence initial={false}>
             {isExpanded && (
-                <motion.div
-                    initial='collapsed'
-                    animate='expanded'
-                    exit='collapsed'
-                    variants={combinedVariants}
-                    className={className}
-                >
+                <motion.div className={className} variants={combinedVariants} initial="collapsed" animate="expanded" exit="collapsed">
                     {children}
                 </motion.div>
             )}
         </AnimatePresence>
     );
 }
+
+const BASE_VARIANTS: Variants = {
+    expanded: { height: 'auto', opacity: 1 },
+    collapsed: { height: 0, opacity: 0 },
+};
