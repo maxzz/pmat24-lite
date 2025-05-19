@@ -125,3 +125,10 @@ export function App(): JSX.Element {
 //TODO: block global context menu and add option to allow it - done
 //TODO: block global context menu for input fields in a specific way, i.e. remove 'inspect element' option
 //  //https://github.com/sindresorhus/electron-context-menu/blob/main/index.js#L219
+
+//05.18.25
+//PROBLEM: no scroll bar in tree view when loading a lot of files
+//PROBLEM: dialog buttons on small screens are looking weird
+//PROBLEM: build production fails to load with error: Children on undefined...: react_production_min.Children = { map: S, forEach: function(a2, b2, e2) {
+//PROBLEM: Uncaught Error: no.in.data when open rename dialog first time
+//PROBLEM: 
