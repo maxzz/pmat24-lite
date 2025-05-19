@@ -71,7 +71,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // }
     console.log(`manualChunks: ${id}`);
     
-    if (id.includes("react-dom") || id === "react") {
+    if (id.includes("react-dom") || id.includes("react@")) {
         return "vendor-dom";
     }
     // if (id.includes("react-")) {
