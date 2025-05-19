@@ -43,6 +43,7 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
 
             <InFormRowInputWTitle label="Managed login name" stateAtom={nameAtom} />
 
+            {/* TODO: 'flex-row justify-end gap-2' should not be here. something is wrong with tailwind cjs */}
             <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onCloseDlg(true)}>
                     OK
