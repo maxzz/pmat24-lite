@@ -78,7 +78,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     if (id.includes("fast-xml-parser")) {
         return "rare";
     }
-    if (id.includes("node_modules")) {
-        return "vendor";
-    }
+    // if (id.includes("node_modules")) {
+    //     return "vendor";
+    // }
 }
