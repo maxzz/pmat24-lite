@@ -66,9 +66,6 @@ export default defineConfig({
 });
 
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
-    if (id.includes("node_modules")) {
-        return "vendor";
-    }
     if (id.includes("react-dom")) {
         return "vendor-dom";
     }
@@ -80,5 +77,8 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     }
     if (id.includes("fast-xml-parser")) {
         return "rare";
+    }
+    if (id.includes("node_modules")) {
+        return "vendor";
     }
 }
