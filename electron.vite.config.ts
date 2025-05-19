@@ -66,7 +66,10 @@ export default defineConfig({
 });
 
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
-    if (id.includes("react-dom")) {
+    // if (id.includes("react-dom")) {
+    //     return "vendor-dom";
+    // }
+    if (id.includes("react-")) {
         return "vendor-dom";
     }
     if (id.includes("@radix-ui")) {
