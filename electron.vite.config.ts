@@ -69,7 +69,8 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // if (id.includes("react-dom")) {
     //     return "vendor-dom";
     // }
-    console.log(`manualChunks: ${id}`);
+    
+    //console.log(`chunks: ${id}`);
     
     // if (id.includes("react-dom") || id.includes("react@")) {
     //     return "vendor-dom";
@@ -87,9 +88,9 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
         return "rare";
     }
 
-    if (id.includes("react-")) {
-        return "vendor-dom";
-    }
+    // if (id.includes("react-")) {
+    //     return "vendor-dom";
+    // }
 
     // if (id.includes("node_modules")) {
     //     return "vendor";
