@@ -49,6 +49,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
     };
 });
 
+//TODO: the same problem: no React.Children when run 'p build:web' and 'p build:web:preview'
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
     // const dd = [
     //     "@babel/runtime",
@@ -57,6 +58,8 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     //     "prismjs",
     //     "refractor",
     // ]
+
+    //console.log(`chunks: ${id}`);
 
     if (id.includes("react-dom")) {
         return "vendor-dom";
