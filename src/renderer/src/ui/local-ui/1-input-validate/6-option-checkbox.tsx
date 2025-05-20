@@ -36,7 +36,7 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...
 
     return (
         <input
-            className={classNames("place-self-center size-4 dark-checkbox", className)}
+            className={classNames("size-4 dark-checkbox", className)}
             type="checkbox"
             checked={state.data === '1'}
             onChange={onChange}

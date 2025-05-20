@@ -28,22 +28,18 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, ...rest }: OptionInpu
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     return (<>
-        <div className="">
+        {asCheckbox
+            ? <OptionAsCheckbox stateAtom={stateAtom} {...rest} />
+            : <OptionAsString stateAtom={stateAtom} className={hasError ? 'outline-offset-[0px] outline-red-500' : ''} {...rest} />
+        }
 
-            {asCheckbox
-                ? <OptionAsCheckbox stateAtom={stateAtom} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} className={hasError ? 'outline-offset-[0px] outline-red-500' : ''} {...rest} />
-            }
-
-            <AnimatePresence initial={false}>
-                {hasError && (
-                    <motion.div className="text-[0.65rem] text-red-500" variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
-                        {state.error}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-        </div>
+        <AnimatePresence initial={false}>
+            {hasError && (
+                <motion.div className="text-[0.65rem] text-red-500" variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                    {state.error}
+                </motion.div>
+            )}
+        </AnimatePresence>
     </>);
 }
 
