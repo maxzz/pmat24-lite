@@ -20,7 +20,10 @@ export type RowInputState = {
 };
 
 export type OptionInputProps =
-    & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
+    & Pick<InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'onFocus' | 'onBlur'> // & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
+    & {
+        className?: string;
+    }
     & {
         stateAtom: RowInputStateAtom;
         onValueStateChange?: OnValueStateChange;
