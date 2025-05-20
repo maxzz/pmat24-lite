@@ -1,4 +1,4 @@
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useKey } from 'react-use';
 import { Dialog, DialogDescription, DialogFooter, Button } from '@/ui/shadcn';
 import { InFormRowInputWTitle } from '@/components/2-main/2-right/2-file-mani/2-form-options';
@@ -26,12 +26,15 @@ const contentClasses = "p-0 !w-72 rounded-lg max-w-sm gap-0 data-[state=open]:[a
 
 function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onCloseDlg: (ok: boolean) => void; }) {
     const { nameAtom } = dlgData;
-    const { data: name, error } = useAtomValue(nameAtom);
+    const [{ data: name, error }, setNameData] = useAtom(nameAtom);
 
     useKey('Enter', () => {
         const active = document.activeElement as HTMLInputElement;
-        if (active?.matches('input') && active.ariaInvalid !== 'true') {
+        const isValid = active?.matches('input') && active.ariaInvalid !== 'true';
+        if (isValid) {
             onCloseDlg(true);
+        } else {
+            setNameData((v) => ({ ...v, touched: true }));
         }
     });
 
