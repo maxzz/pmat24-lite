@@ -22,7 +22,7 @@ export function ManiNameDialog() {
     );
 }
 
-const contentClasses = "p-0 w-72 max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-72 rounded-lg max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onCloseDlg: (ok: boolean) => void; }) {
     const { nameAtom } = dlgData;
@@ -44,7 +44,7 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
             <InFormRowInputWTitle label="Managed login name" stateAtom={nameAtom} />
 
             {/* TODO: 'flex-row justify-end gap-2' should not be here. something is wrong with tailwind cjs */}
-            <DialogFooter className="py-4">
+            <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onCloseDlg(true)}>
                     OK
                 </Button>
