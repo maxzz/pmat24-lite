@@ -1,6 +1,5 @@
-import { type PrimitiveAtom } from "jotai";
 import { type OnValueChange, atomWithCallback } from "@/utils";
-import { type RowInputState } from "./9-types";
+import { type RowInputState, type RowInputStateAtom } from "./9-types";
 
 export type OnChangeValueWithUpdateName<T = any> = (updateName: string) => OnValueChange<T>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
@@ -57,12 +56,12 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
     return rv;
 }
 
-export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): PrimitiveAtom<RowInputState> {
+export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): RowInputStateAtom {
     const initialData = dataForStateAtom(value, more);
     const rv = atomWithCallback(initialData, onChange);
     return rv;
 }
 
-export function createAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): PrimitiveAtom<RowInputState> {
+export function createAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): RowInputStateAtom {
     return createAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
 }

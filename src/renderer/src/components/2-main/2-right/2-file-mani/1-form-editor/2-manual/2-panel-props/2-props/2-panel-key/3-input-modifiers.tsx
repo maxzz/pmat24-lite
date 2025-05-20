@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { PrimitiveAtom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { classNames } from "@/utils";
-import { type RowInputState } from "@/ui";
+import { type RowInputStateAtom } from "@/ui";
 import { InputSelectUi } from "../8-props-ui";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { modifierKeys } from "@/store/manifest";
@@ -37,7 +37,7 @@ export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
     );
 }
 
-function Modifier({ label, valueAtom }: { label: string; valueAtom: PrimitiveAtom<RowInputState>; }) {
+function Modifier({ label, valueAtom }: { label: string; valueAtom: RowInputStateAtom; }) {
     const [modifier, setModifier] = useAtom(valueAtom);
     return (
         <div className={classNames("flex-1 max-w-36 flex items-center @[190px]/modifier:flex-col @[190px]/modifier:gap-y-px gap-x-2")}>

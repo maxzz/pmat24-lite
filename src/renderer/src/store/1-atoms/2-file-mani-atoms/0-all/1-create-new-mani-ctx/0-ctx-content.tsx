@@ -1,5 +1,5 @@
-import { type Getter, type Setter, type PrimitiveAtom, atom } from "jotai";
-import { type RowInputState } from "@/ui";
+import { type Getter, type Setter, atom } from "jotai";
+import { type RowInputStateAtom } from "@/ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
@@ -43,7 +43,7 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
 /**
  * New manifest display name atom. This is non-reactive field to atom, just to use it in UI when new FileUs atom created.
  */
-export const newManiDispNameAtom = atom<PrimitiveAtom<RowInputState> | undefined>(
+export const newManiDispNameAtom = atom<RowInputStateAtom | undefined>(
     (get) => {
         //printNewManiCtx(get);
         const fileUs = get(newManiFileUsAtom);

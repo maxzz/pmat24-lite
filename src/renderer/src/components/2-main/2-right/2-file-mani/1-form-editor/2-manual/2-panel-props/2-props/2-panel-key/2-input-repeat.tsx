@@ -1,8 +1,8 @@
-import { type PrimitiveAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { pluralWord, toNumberWDefault1 } from "@/utils";
-import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
 
-export function InputRepeat({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
+export function InputRepeat({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
     const repeat = useAtomValue(valueAtom);
     return (
         <label className="flex flex-col gap-1">

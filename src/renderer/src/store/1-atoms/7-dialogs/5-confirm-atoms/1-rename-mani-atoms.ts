@@ -1,13 +1,13 @@
-import { type PrimitiveAtom, atom } from "jotai";
+import { atom } from "jotai";
+import { type RowInputStateAtom } from "@/ui";
 import { type FileUsAtom } from "@/store/store-types";
-import { type RowInputState } from "@/ui";
 import { getManiDispNameAtomAtom } from "../../2-file-mani-atoms";
 
 export type ManiNameDlgData = {
-    fileUsAtom: FileUsAtom;                     // fileUs to rename
-    nameAtom: PrimitiveAtom<RowInputState>;     // new name
-    startName: string;                          // name when dialog was opened to restore on cancel
-    resolve: (ok: boolean) => void;             // ok or cancel
+    fileUsAtom: FileUsAtom;             // fileUs to rename
+    nameAtom: RowInputStateAtom;        // new name
+    startName: string;                  // name when dialog was opened to restore on cancel
+    resolve: (ok: boolean) => void;     // ok or cancel
 };
 
 const _maniNameDlgDataAtom = atom<ManiNameDlgData | undefined>(undefined); // TODO: show only if name is invalid

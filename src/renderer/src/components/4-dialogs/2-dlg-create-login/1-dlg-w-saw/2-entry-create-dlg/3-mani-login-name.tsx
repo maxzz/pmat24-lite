@@ -1,5 +1,5 @@
-import { type PrimitiveAtom, useAtomValue } from "jotai";
-import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { useAtomValue } from "jotai";
+import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
 import { newManiDispNameAtom } from "@/store";
 
 export function ManiLoginNameGuarded() {
@@ -12,7 +12,7 @@ export function ManiLoginNameGuarded() {
     );
 }
 
-function ManiLoginName({ nameAtom }: { nameAtom: PrimitiveAtom<RowInputState>; }) {
+function ManiLoginName({ nameAtom }: { nameAtom: RowInputStateAtom; }) {
     return (
         <div className="px-3 pb-2 text-xs flex flex-col gap-1">
             <div className="font-semibold">

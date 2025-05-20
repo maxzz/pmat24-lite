@@ -1,8 +1,7 @@
-import { type PrimitiveAtom } from "jotai";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { type RowInputState, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
 
-export function InputDelay({ valueAtom }: { valueAtom: PrimitiveAtom<RowInputState>; }) {
+export function InputDelay({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
     return (
         <label className="flex flex-col gap-0.5">
             <span>
