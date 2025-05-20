@@ -36,7 +36,6 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
                 {message}
             </DialogDescription>
 
-            {/* TODO: 'flex-row justify-end gap-2' should not be here. something is wrong with tailwind cjs */}
             <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
                     {buttonOk}
