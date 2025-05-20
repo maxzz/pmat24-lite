@@ -39,7 +39,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
     return (
         <textarea
             className={classNames(optionInputClasses, inputRingClasses /*, value.error && "ring-1 ring-red-500/70"*/, className)}
-            style={{ 'field-sizing': 'content' } as React.CSSProperties}
+            style={{ 'fieldSizing': 'content' } as React.CSSProperties}
             value={state.data}
             onChange={onChange}
             onBlur={onBlur}
@@ -51,7 +51,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
 }
 
 const optionInputClasses = "\
-px-2 py-1 h-7 w-full \
+px-2 py-1 min-h-7 w-full resize-none \
 \
 text-mani-foreground font-normal bg-mani-background \
 \

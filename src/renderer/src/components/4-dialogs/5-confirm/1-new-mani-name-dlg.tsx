@@ -44,7 +44,7 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
                 Please provide a name for the manifest. This name will be used in the list of manifests in the left pane.
             </DialogDescription>
 
-            <InFormRowInputWTitle label="Managed login name" stateAtom={nameAtom} />
+            <InFormRowInputWTitle label="Managed login name" stateAtom={nameAtom} asTextarea />
 
             <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onCloseDlg(true)}>
