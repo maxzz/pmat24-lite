@@ -31,7 +31,7 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className
         {asCheckbox
             ? <OptionAsCheckbox stateAtom={stateAtom} className={className} {...rest} />
             : asTextarea
-                ? <OptionAsTextarea stateAtom={stateAtom} {...rest} />
+                ? <OptionAsTextarea stateAtom={stateAtom} className={className} {...rest} />
                 : <OptionAsString stateAtom={stateAtom} className={classNames(hasError && 'outline-offset-[0px] outline-red-500', className)} {...rest} />
         }
 

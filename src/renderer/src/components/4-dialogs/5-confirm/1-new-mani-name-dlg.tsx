@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useKey } from 'react-use';
 import { Dialog, DialogDescription, DialogFooter, Button } from '@/ui/shadcn';
-import { InFormRowInputWTitle } from '@/components/2-main/2-right/2-file-mani/2-form-options';
+import { InFormRowInputWTitle } from '@/ui/local-ui';
 import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from '@/store';
 import { DialogTitleHeader } from './3-dialog-title-header';
 

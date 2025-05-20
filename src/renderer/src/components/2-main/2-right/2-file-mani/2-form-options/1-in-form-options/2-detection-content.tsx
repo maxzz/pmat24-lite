@@ -1,5 +1,6 @@
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { InFormRowInputWTitle } from "./3-in-form-controls";
+import { InFormRowInputWTitle } from "@/ui/local-ui";
+
 
 export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
     const { ourlAtom, murlAtom, } = ctx.oAllAtoms.options.p2Detect;
