@@ -2,9 +2,7 @@ import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { InFormRowInputWTitle } from "./3-in-form-controls";
 
 export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
-    const {
-        ourlAtom, murlAtom,
-    } = ctx.oAllAtoms.options.p2Detect;
+    const { ourlAtom, murlAtom, } = ctx.oAllAtoms.options.p2Detect;
     return (
         <div className={textClasses}>
             <InFormRowInputWTitle stateAtom={ourlAtom} label="Original URL" />
@@ -14,17 +12,12 @@ export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
 }
 
 export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
-    const {
-        captionAtom,
-        monitorAtom,
-        dlg_tabAtom, dlg_classAtom, dlg_checkexeAtom,
-        processnameAtom, commandlineAtom,
-    } = ctx.oAllAtoms.options.p2Detect;
+    const { captionAtom, monitorAtom, dlg_classAtom, } = ctx.oAllAtoms.options.p2Detect; // dlg_tabAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom,
     return (
         <div className={textClasses}>
             <InFormRowInputWTitle stateAtom={captionAtom} label="Windows caption" />
             <InFormRowInputWTitle stateAtom={dlg_classAtom} label="Window class name" />
-            <InFormRowInputWTitle stateAtom={dlg_tabAtom} label="Window tab" />
+            {/* <InFormRowInputWTitle stateAtom={dlg_tabAtom} label="Window tab" /> */}
             {/* <InFormRowInputWTitle stateAtom={dlg_checkexeAtom} label="Tab executable" /> */}
             <InFormRowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
