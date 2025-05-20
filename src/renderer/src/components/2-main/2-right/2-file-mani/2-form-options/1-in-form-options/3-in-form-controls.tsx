@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
-import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString } from "@/ui/local-ui";
+import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 
 export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
@@ -24,13 +24,15 @@ function InFormChildrenWithLabel({ label, children }: { label: string; children:
     );
 }
 
-function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, className, ...rest }: OptionInputWTypeProps) {
+function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     return (<>
         {asCheckbox
             ? <OptionAsCheckbox stateAtom={stateAtom} className={className} {...rest} />
-            : <OptionAsString stateAtom={stateAtom} className={classNames(hasError && 'outline-offset-[0px] outline-red-500', className)} {...rest} />
+            : asTextarea
+                ? <OptionAsTextarea stateAtom={stateAtom} {...rest} />
+                : <OptionAsString stateAtom={stateAtom} className={classNames(hasError && 'outline-offset-[0px] outline-red-500', className)} {...rest} />
         }
 
         <AnimatePresence initial={false}>

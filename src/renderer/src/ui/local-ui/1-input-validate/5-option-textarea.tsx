@@ -39,6 +39,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
     return (
         <textarea
             className={classNames(optionInputClasses, inputRingClasses /*, value.error && "ring-1 ring-red-500/70"*/, className)}
+            style={{ 'field-sizing': 'content' } as React.CSSProperties}
             value={state.data}
             onChange={onChange}
             onBlur={onBlur}

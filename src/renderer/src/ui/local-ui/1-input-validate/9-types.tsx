@@ -6,7 +6,7 @@ export type RowInputStateOptions = {
 };
 
 export type RowInputState = {
-    type: 'string' | 'number' | 'boolean';
+    type: 'string' | 'textarea' | 'number' | 'boolean';
     data: string;
     initialData: string;
     dirty: boolean;                         // True if the value has been changed
@@ -33,6 +33,7 @@ export type OptionInputWTypeProps =
     & OptionInputProps
     & {
         asCheckbox?: boolean;
+        asTextarea?: boolean;
         containerClasses?: string;
     };
 

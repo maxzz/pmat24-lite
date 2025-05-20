@@ -1,15 +1,18 @@
 import { type OptionInputWTypeProps } from "./9-types";
 import { SymbolWarning } from "@/ui/icons";
 import { TooltipShellWithErrorIcon } from "./2-option-input-tooltip-shell";
-import { OptionAsCheckbox } from "./6-option-checkbox";
 import { OptionAsString } from "./4-option-string";
+import { OptionAsTextarea } from "./5-option-textarea";
+import { OptionAsCheckbox } from "./6-option-checkbox";
 
-export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, containerClasses, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, asTextarea, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
         <TooltipShellWithErrorIcon stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
             {asCheckbox
                 ? <OptionAsCheckbox stateAtom={stateAtom} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} {...rest} />
+                : asTextarea
+                    ? <OptionAsTextarea stateAtom={stateAtom} {...rest} />
+                    : <OptionAsString stateAtom={stateAtom} {...rest} />
             }
         </TooltipShellWithErrorIcon>
     );
