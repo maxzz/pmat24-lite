@@ -127,8 +127,7 @@ export function App(): JSX.Element {
 //  //https://github.com/sindresorhus/electron-context-menu/blob/main/index.js#L219
 
 //05.18.25
-//PROBLEM: no scroll bar in tree view when loading a lot of files
-//PROBLEM: dialog buttons on small screens are looking weird
-//PROBLEM: build production fails to load with error: Children on undefined...: react_production_min.Children = { map: S, forEach: function(a2, b2, e2) {
+//PROBLEM: no scroll bar in tree view when loading a lot of files - done, it's appeares only on hover
+//PROBLEM: dialog buttons on small screens are looking weird - done, it's CSS break points
+//PROBLEM: build production fails to load with error: Children on undefined...: react_production_min.Children = { map: S, forEach: function(a2, b2, e2) { - done at least temporary
 //PROBLEM: Uncaught Error: no.in.data when open rename dialog first time
-//PROBLEM: 
