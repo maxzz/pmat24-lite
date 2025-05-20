@@ -19,7 +19,7 @@ export const maniNameDlgCloseAtom = atom(
     (get, set, ok: boolean) => {
         const data = get(_maniNameDlgDataAtom);
         if (!data) {
-            throw new Error('no.in.data');
+            return;
         }
         
         set(_maniNameDlgDataAtom, undefined);
