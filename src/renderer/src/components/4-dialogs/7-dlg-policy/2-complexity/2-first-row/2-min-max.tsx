@@ -5,14 +5,6 @@ import { SymbolWarning } from "@/ui/icons";
 import { TooltipShellWithErrorIcon, OptionAsString } from "@/ui";
 import { type PolicyDlgTypes, updateExplanationAtom } from "../../0-all";
 
-function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
-    return (<>
-        {error && (
-            <SymbolWarning className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)} />
-        )}
-    </>);
-}
-
 export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const doUpdateExplanation = useSetAtom(updateExplanationAtom);
     const updateExplanation = () => doUpdateExplanation({ dlgUiCtx });
@@ -47,4 +39,12 @@ export function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
             </div>
         </div>
     );
+}
+
+function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { error: string | undefined; }) {
+    return (<>
+        {error && (
+            <SymbolWarning className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)} />
+        )}
+    </>);
 }
