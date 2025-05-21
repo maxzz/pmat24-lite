@@ -54,10 +54,10 @@ export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) 
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" className="min-w-16" onClick={() => closeDlg(true)}>OK</Button>
-            <Button size="sm" className="min-w-16" onClick={() => closeDlg(false)}>Cancel</Button>
+            <Button size="xs" className="min-w-16" onClick={() => closeDlg(true)}>OK</Button>
+            <Button size="xs" className="min-w-16" onClick={() => closeDlg(false)}>Cancel</Button>
         </div>
     </>);
 }
 
-const sectionClasses = "text-sm font-bold border-gray-500 border-b";
+const sectionClasses = "text-xs font-semibold border-gray-500/50 border-b";

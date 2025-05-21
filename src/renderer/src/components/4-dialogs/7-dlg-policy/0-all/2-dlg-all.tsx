@@ -53,7 +53,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
     return (
         <Dialog open={isOpen} onOpenChange={() => closeDlg(false)} modal>
 
-            <DialogContent className="px-6 py-4 max-w-[500px] text-xs select-none" modal withScroll noClose>
+            <DialogContent className={contentClasses} modal withScroll noClose>
                 <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
                 
                 <DialogCloseButton className="p-2 top-3 hover:text-white hover:bg-red-500 hover:opacity-100 active:scale-[.97] focus:ring-0 transition-colors" tabIndex={-1} />
@@ -62,3 +62,6 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
         </Dialog>
     );
 }
+
+// const contentClasses = "p-0 !w-72 rounded-lg max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "px-4 py-4 w-fit min-w-[400px] max-w-[500px] text-xs select-none";
