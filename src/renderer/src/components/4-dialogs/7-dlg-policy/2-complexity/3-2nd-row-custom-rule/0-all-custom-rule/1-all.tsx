@@ -1,13 +1,13 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, updateExplanationAtom } from "../../../0-all";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
-import { ButtonTestArea } from "../6-btn-test/2-button-test-area";
-import { AccordionSingle } from "../3-accordion";
-import { TestAreaBody } from "../../3-3rd-row-test-area/1-body";
-import { ButtonRulesHelp } from "../4-btn-help/1-all";
-import { ButtonMenuAdd } from "../3-btn-add-menu/1-all";
+import { type PolicyDlgTypes, updateExplanationAtom } from "../../../0-all";
 import { ButtonErrorInfo } from "../2-btn-error-info";
+import { ButtonMenuAddTemplatePart } from "../3-btn-add-menu-template-part/1-all";
+import { TestAreaBody } from "../../3-3rd-row-test-area";
+import { ButtonRulesHelp } from "../4-btn-explanation/1-all";
+import { ButtonTestArea } from "../5-btn-show-test-area-trigger/2-button-test-area";
+import { AccordionSingle } from "../3-accordion";
 
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
@@ -24,7 +24,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
 
                         <div className="absolute right-0.5 flex items-center gap-0.5">
                             <ButtonErrorInfo dlgUiCtx={dlgUiCtx} />
-                            <ButtonMenuAdd dlgUiCtx={dlgUiCtx} />
+                            <ButtonMenuAddTemplatePart dlgUiCtx={dlgUiCtx} />
                             <ButtonRulesHelp />
                             <ButtonTestArea />
                         </div>

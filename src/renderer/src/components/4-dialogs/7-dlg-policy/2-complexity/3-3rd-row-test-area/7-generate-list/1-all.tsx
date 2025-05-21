@@ -1,5 +1,5 @@
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
-import { generateListAtom } from "../../0-all";
+import { generateListAtom } from "../../../0-all";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
 import { GeneratedListBody, copyToClipboard } from "./3-generated-list-body";
 import { IconCopy } from "@/ui/icons";

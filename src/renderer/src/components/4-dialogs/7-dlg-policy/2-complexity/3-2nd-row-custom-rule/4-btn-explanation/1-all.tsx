@@ -3,8 +3,8 @@ import { Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPor
 import { classNames } from "@/utils";
 import { Button, PopoverTrigger } from "@/ui";
 import { SymbolCross } from "@/ui/icons";
-import { inlineButtonClasses } from "../6-btn-test/2-button-test-area";
-import { helpRules } from "./9-rules-text";
+import { inlineButtonClasses } from "../8-inline-styles";
+import { helpRules } from "./9-explanation-rules-text";
 
 export function ButtonRulesHelp() {
     return (

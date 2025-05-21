@@ -2,7 +2,7 @@ import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
 import { type PolicyDlgTypes, generateAtom, generateListAtom } from "../../0-all";
 import { Button } from "@/ui";
-import { ButtonGeneratedList } from "../7-generate-list/1-all";
+import { ButtonGeneratedList } from "./7-generate-list/1-all";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 
@@ -17,7 +17,7 @@ export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUi
     return (
         <div>
             <Button
-                className={localButtonClasses} variant="outline" size="sm" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`}
+                className={localButtonClasses} variant="outline" size="xs" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`}
                 onClick={(e) => {
                     if (e.ctrlKey) {
                         generateList({ dlgUiCtx: dlgUiCtx });

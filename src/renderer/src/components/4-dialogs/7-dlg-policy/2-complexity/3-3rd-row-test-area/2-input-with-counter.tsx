@@ -3,7 +3,7 @@ import { type PolicyDlgTypes, verifyAtom } from "../../0-all";
 import { Input } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
-const localInputClasses = "h-8 text-mani-foreground bg-mani-background border-mani-border-muted";
+const localInputClasses = "h-7 text-mani-foreground bg-mani-background border-mani-border-muted";
 
 export function InputWithCounter({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const [testPassword, setTestPassword] = useAtom(dlgUiCtx.testPasswordAtom);

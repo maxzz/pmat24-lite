@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { GenerateListItem } from "../../0-all";
+import { GenerateListItem } from "../../../0-all";
 
 export function GeneratedListBody({ generatedList }: { generatedList: GenerateListItem[]; }) {
     return (

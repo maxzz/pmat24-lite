@@ -3,7 +3,7 @@ import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, P
 import { type PolicyDlgTypes } from "../../../0-all";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { inlineButtonClasses } from "../6-btn-test/2-button-test-area";
+import { inlineButtonClasses } from "../8-inline-styles";
 import { ErrorInfo } from "../../3-3rd-row-test-area/4-rule-explanation";
 
 export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
