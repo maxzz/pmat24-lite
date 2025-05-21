@@ -10,8 +10,12 @@ export type GenerateListItem = {
 
 const _generateListAtom = atom<GenerateListItem[]>([]);
 
-export const doGenerateListAtom = atom(
+export const getGenerateListAtom = atom(
     (get) => get(_generateListAtom),
+);
+
+export const doGenerateListAtom = atom(
+    (get) => null,
     (get, set, { dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) => {
         const { parser, customAtom } = dlgUiCtx;
 
