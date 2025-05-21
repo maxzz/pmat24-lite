@@ -4,8 +4,19 @@ import { type Mani } from "@/store/manifest";
 import { Dialog, DialogCloseButton, DialogContent } from "@/ui";
 import { createUiAtoms, onChangeWithScopeDebounced } from "./0-create-ui-atoms";
 import { PolicyEditorBody } from "./3-dlg-body";
-import { doClosePolicyDlgAtom } from "./1-close-atom";
+import { doClosePolicyDlgAtom } from "./1-do-close-dlg-atom";
 import { updateExplanationAtom } from "./1-util-atoms";
+
+export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
+    const isOpen = useAtomValue(openAtom);
+    if (!isOpen) {
+        return null;
+    }
+
+    return (
+        <PolicyEditorDlgIsOpen openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />
+    );
+}
 
 type PolicyEditorNewDlgProps = {
     openAtom: PrimitiveAtom<boolean>;
@@ -15,13 +26,13 @@ type PolicyEditorNewDlgProps = {
 
 function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const isOpen = useAtomValue(openAtom);
-    const policies = useAtomValue(policiesAtom);
-
-    const doUpdateExplanation = useSetAtom(updateExplanationAtom);
     const doClosePolicyDlg = useSetAtom(doClosePolicyDlgAtom);
 
-    function closeWithOk(byOkButton: boolean) {
-        doClosePolicyDlg({ dlgUiCtx, policiesAtom, openAtom, toastIdAtom, byOkButton });
+    const policies = useAtomValue(policiesAtom);
+    const doUpdateExplanation = useSetAtom(updateExplanationAtom);
+
+    function closeDlg(ok: boolean) {
+        doClosePolicyDlg({ dlgUiCtx, policiesAtom, openAtom, toastIdAtom, byOkButton: ok });
     }
 
     const dlgUiCtx = useMemo(
@@ -40,30 +51,14 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
     );
 
     return (
-        <Dialog open={isOpen} onOpenChange={() => closeWithOk(false)} modal>
+        <Dialog open={isOpen} onOpenChange={() => closeDlg(false)} modal>
 
-            <DialogContent
-                className="px-6 py-4 max-w-[500px] text-xs select-none"
-                modal
-                withScroll
-                noClose
-            > {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
-                <PolicyEditorBody dlgUiCtx={dlgUiCtx} doCloseWithOk={closeWithOk} />
+            <DialogContent className="px-6 py-4 max-w-[500px] text-xs select-none" modal withScroll noClose>
+                <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
                 
                 <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
             </DialogContent>
 
         </Dialog>
-    );
-}
-
-export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
-    const isOpen = useAtomValue(openAtom);
-    if (!isOpen) {
-        return null;
-    }
-
-    return (
-        <PolicyEditorDlgIsOpen openAtom={openAtom} toastIdAtom={toastIdAtom} policiesAtom={policiesAtom} />
     );
 }

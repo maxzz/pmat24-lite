@@ -10,12 +10,10 @@ import { classNames } from "@/utils";
 
 type PolicyEditorBodyProps = {
     dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
-    doCloseWithOk: (ok: boolean) => void;
+    closeDlg: (ok: boolean) => void;
 };
 
-const sectionClasses = "text-sm font-bold border-gray-500 border-b";
-
-export function PolicyEditorBody({ dlgUiCtx, doCloseWithOk }: PolicyEditorBodyProps) {
+export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) {
     const [enabled, setEnabled] = useAtom(dlgUiCtx.enabledAtom);
     return (<>
         <DialogHeader
@@ -56,8 +54,10 @@ export function PolicyEditorBody({ dlgUiCtx, doCloseWithOk }: PolicyEditorBodyPr
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-x-2">
-            <Button size="sm" className="min-w-16" onClick={() => doCloseWithOk(true)}>OK</Button>
-            <Button size="sm" className="min-w-16" onClick={() => doCloseWithOk(false)}>Cancel</Button>
+            <Button size="sm" className="min-w-16" onClick={() => closeDlg(true)}>OK</Button>
+            <Button size="sm" className="min-w-16" onClick={() => closeDlg(false)}>Cancel</Button>
         </div>
     </>);
 }
+
+const sectionClasses = "text-sm font-bold border-gray-500 border-b";
