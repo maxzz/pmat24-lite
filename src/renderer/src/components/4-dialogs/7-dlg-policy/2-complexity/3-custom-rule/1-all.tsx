@@ -9,26 +9,6 @@ import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 import { ButtonErrorInfo } from "../6-error-info";
 
-function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
-
-    const [custom, setCustom] = useAtom(dlgUiCtx.customAtom);
-    const updateExplanation = useSetAtom(updateExplanationAtom);
-
-    function onChange(value: string) {
-        updateExplanation({ dlgUiCtx: dlgUiCtx, custom: value });
-        setCustom(value);
-    }
-
-    return (
-        <Input
-            className="pr-28 h-8 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
-            value={custom}
-            onChange={(e) => onChange(e.target.value)}
-            {...turnOffAutoComplete}
-        />
-    );
-}
-
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
     return (
@@ -39,10 +19,10 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                         Custom rule
                     </div>
 
-                    <div className={classNames("relative h-8 flex items-center justify-between space-x-2")}>
+                    <div className={classNames("relative h-7 flex items-center justify-between space-x-2")}>
                         <CustomRuleInput dlgUiCtx={dlgUiCtx} />
 
-                        <div className="absolute right-1 flex items-center gap-1">
+                        <div className="absolute right-0.5 flex items-center gap-0.5">
                             <ButtonErrorInfo dlgUiCtx={dlgUiCtx} />
                             <ButtonMenuAdd dlgUiCtx={dlgUiCtx} />
                             <ButtonRulesHelp />
@@ -58,5 +38,25 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                 </AccordionSingle>
             )}
         </div>
+    );
+}
+
+function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+
+    const [custom, setCustom] = useAtom(dlgUiCtx.customAtom);
+    const updateExplanation = useSetAtom(updateExplanationAtom);
+
+    function onChange(value: string) {
+        updateExplanation({ dlgUiCtx: dlgUiCtx, custom: value });
+        setCustom(value);
+    }
+
+    return (
+        <Input
+            className="pr-28 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
+            value={custom}
+            onChange={(e) => onChange(e.target.value)}
+            {...turnOffAutoComplete}
+        />
     );
 }

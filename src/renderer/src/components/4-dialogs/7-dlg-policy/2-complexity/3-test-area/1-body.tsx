@@ -12,7 +12,7 @@ export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
             </div>
 
             <div className="mt-4">Test password</div>
-            <div className="h-8 flex items-center space-x-2">
+            <div className="h-7 flex items-center space-x-2">
                 <InputWithCounter dlgUiCtx={dlgUiCtx} />
                 <ButtonGenerate dlgUiCtx={dlgUiCtx} />
             </div>

@@ -8,11 +8,13 @@ import { SymbolWarning } from "@/ui/icons";
 
 export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
-        <div className="flex items-center justify-between gap-4">
+        <div className="">
+            <div className="flex items-center justify-between gap-4">
 
-            <RuleSelect dlgUiCtx={dlgUiCtx} />
-            <MinMaxInputs dlgUiCtx={dlgUiCtx} />
+                <RuleSelect dlgUiCtx={dlgUiCtx} />
+                <MinMaxInputs dlgUiCtx={dlgUiCtx} />
 
+            </div>
         </div>
     );
 }
