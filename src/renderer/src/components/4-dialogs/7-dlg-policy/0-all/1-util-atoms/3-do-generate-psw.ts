@@ -1,9 +1,10 @@
 import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
 import { generatePswByRules } from "@/store/manifest/3-policy-io";
-import { verifyAtom } from "./2-verify-psw";
+import { doVerifyPswAtom } from "./2-do-verify-psw";
 
-export const generateAtom = atom(null,
+export const doGeneratePswAtom = atom(
+    null,
     (get, set, { dlgUiCtx, prevPsw = '' }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; prevPsw?: string; }) => {
         const { parser, customAtom, errorTextAtom, testPasswordAtom } = dlgUiCtx;
 
@@ -16,6 +17,6 @@ export const generateAtom = atom(null,
         const psw = generatePswByRules(parser.rulesAndMeta, parser.rulesAndMeta.noRepeat, prevPsw);
         set(testPasswordAtom, psw);
 
-        set(verifyAtom, { dlgUiCtx: dlgUiCtx, psw, prevPsw });
+        set(doVerifyPswAtom, { dlgUiCtx, psw, prevPsw });
     }
 );

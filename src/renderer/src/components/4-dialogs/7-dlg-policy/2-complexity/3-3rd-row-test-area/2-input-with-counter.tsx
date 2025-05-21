@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, verifyAtom } from "../../0-all";
+import { type PolicyDlgTypes, doVerifyPswAtom } from "../../0-all";
 import { Input } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
@@ -8,7 +8,7 @@ const localInputClasses = "h-7 text-mani-foreground bg-mani-background border-ma
 export function InputWithCounter({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const [testPassword, setTestPassword] = useAtom(dlgUiCtx.testPasswordAtom);
     const testVerified = useAtomValue(dlgUiCtx.testVerifiedAtom);
-    const doVerify = useSetAtom(verifyAtom);
+    const doVerify = useSetAtom(doVerifyPswAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;

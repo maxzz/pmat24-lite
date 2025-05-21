@@ -1,13 +1,13 @@
 import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps, DropdownMenuTrigger } from "@/ui";
-import { type PolicyDlgTypes, updateExplanationAtom } from "../../../0-all";
+import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
 import { inlineButtonClasses } from "../8-inline-styles";
 
 export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     const setCustom = useSetAtom(dlgUiCtx.customAtom);
-    const updateExplanation = useSetAtom(updateExplanationAtom);
+    const updateExplanation = useSetAtom(doUpdateExplanationAtom);
 
     function applyRule(idx: number) {
         setCustom((prev) => {

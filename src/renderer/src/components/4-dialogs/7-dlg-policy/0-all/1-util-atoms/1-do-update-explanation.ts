@@ -2,10 +2,11 @@ import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
 import { parserErrorToString } from "@/store/manifest/3-policy-io";
 import { checkRulesBoundsForGenerate, getCustomRuleExplanation } from "@/store/manifest/3-policy-io";
-import { verifyAtom } from "./2-verify-psw";
-import { checkBoundsRange, checkMinMax } from "./8-check-fns";
+import { doVerifyPswAtom } from "./2-do-verify-psw";
+import { checkBoundsRange, checkMinMax } from "./8-utility-check-fns";
 
-export const updateExplanationAtom = atom(null,
+export const doUpdateExplanationAtom = atom(
+    null,
     (get, set, { dlgUiCtx, custom }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; custom?: string | undefined; }) => {
         const { customAtom, parser, minLenAtom, maxLenAtom, explanationAtom, errorTextAtom, testVerifiedAtom } = dlgUiCtx;
         try {
@@ -31,7 +32,7 @@ export const updateExplanationAtom = atom(null,
             const explanation = final.join('\n');
             set(explanationAtom, explanation);
 
-            set(verifyAtom, { dlgUiCtx: dlgUiCtx });
+            set(doVerifyPswAtom, { dlgUiCtx: dlgUiCtx });
 
             if (custom) {
                 const bounds = checkRulesBoundsForGenerate(parser.rulesAndMeta);

@@ -1,12 +1,12 @@
 import { PrimitiveAtom, useAtom, useAtomValue } from "jotai";
-import { generateListAtom } from "../../../0-all";
+import { doGenerateListAtom } from "../../../0-all";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
 import { GeneratedListBody, copyToClipboard } from "./3-generated-list-body";
 import { IconCopy } from "@/ui/icons";
 
 export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
     const [open, setOpen] = useAtom(openAtom);
-    const generatedList = useAtomValue(generateListAtom);
+    const generatedList = useAtomValue(doGenerateListAtom);
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>

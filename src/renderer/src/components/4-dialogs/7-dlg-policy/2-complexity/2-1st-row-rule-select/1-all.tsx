@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, updateExplanationAtom, PolicyDlgConv } from "../../0-all";
+import { type PolicyDlgTypes, doUpdateExplanationAtom, PolicyDlgConv } from "../../0-all";
 import { Dropdown5, Label } from "@/ui";
 import { TooltipShellWithErrorIcon, OptionAsString } from "@/ui";
 import { HTMLAttributes } from "react";
@@ -47,7 +47,7 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 }
 
 function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
-    const doUpdateExplanation = useSetAtom(updateExplanationAtom);
+    const doUpdateExplanation = useSetAtom(doUpdateExplanationAtom);
     const updateExplanation = () => doUpdateExplanation({ dlgUiCtx });
     return (
         <div className="text-xs space-y-1">

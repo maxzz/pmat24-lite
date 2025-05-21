@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
-import { type PolicyDlgTypes, updateExplanationAtom } from "../../../0-all";
+import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
 import { ButtonErrorInfo } from "../2-btn-error-info";
 import { ButtonMenuAddTemplatePart } from "../3-btn-add-menu-template-part/1-all";
 import { TestAreaBody } from "../../3-3rd-row-test-area";
@@ -44,7 +44,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
 function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     const [custom, setCustom] = useAtom(dlgUiCtx.customAtom);
-    const updateExplanation = useSetAtom(updateExplanationAtom);
+    const updateExplanation = useSetAtom(doUpdateExplanationAtom);
 
     function onChange(value: string) {
         updateExplanation({ dlgUiCtx: dlgUiCtx, custom: value });

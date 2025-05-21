@@ -2,7 +2,7 @@ import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
 import { Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { toast } from "sonner";
-import { updateExplanationAtom } from "./1-util-atoms";
+import { doUpdateExplanationAtom } from "./1-util-atoms";
 
 type DoClosePolicyDlgAtomCtx = {
     dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
@@ -74,7 +74,7 @@ function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePoli
     values.errorText = '';
     PolicyDlgConv.valuesToAtoms(values, dlgUiCtx, get, set);
 
-    set(updateExplanationAtom, { dlgUiCtx: dlgUiCtx, custom: values.custom });
+    set(doUpdateExplanationAtom, { dlgUiCtx: dlgUiCtx, custom: values.custom });
 
     dlgUiCtx.changed = false;
 }

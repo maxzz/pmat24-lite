@@ -1,30 +1,32 @@
 import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, generateAtom, generateListAtom } from "../../0-all";
-import { Button } from "@/ui";
-import { ButtonGeneratedList } from "./7-generate-list/1-all";
 import { useSnapshot } from "valtio";
+import { Button } from "@/ui";
 import { appSettings } from "@/store";
+import { type PolicyDlgTypes, doGeneratePswAtom, doGenerateListAtom } from "../../0-all";
+import { ButtonGeneratedList } from "./7-generate-list/1-all";
 
 export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
-    const openGeneratedListAtom = useState(() => atom(false))[0];
-    const generateList = useSetAtom(generateListAtom);
-    const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
     const nToGenerate = useSnapshot(appSettings).right.mani.nToGenerate;
-    const doGenerate = useSetAtom(generateAtom);
+
+    const openGeneratedListAtom = useState(() => atom(false))[0];
+    const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
+
+    const generateList = useSetAtom(doGenerateListAtom);
+    const doGenerate = useSetAtom(doGeneratePswAtom);
+
+    function onClick(e: React.MouseEvent<HTMLButtonElement>) {
+        if (e.ctrlKey) {
+            generateList({ dlgUiCtx: dlgUiCtx });
+            setOpenGeneratedList(true);
+        } else {
+            doGenerate({ dlgUiCtx: dlgUiCtx });
+        }
+    }
+
     return (
         <div>
-            <Button
-                className={localButtonClasses} variant="outline" size="xs" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`}
-                onClick={(e) => {
-                    if (e.ctrlKey) {
-                        generateList({ dlgUiCtx: dlgUiCtx });
-                        setOpenGeneratedList(true);
-                    } else {
-                        doGenerate({ dlgUiCtx: dlgUiCtx });
-                    }
-                }}
-            >
+            <Button className={localButtonClasses} variant="outline" size="xs" title={`Generate test password. Ctrl+Click to generate ${nToGenerate} passwords.`} onClick={onClick}>
                 Generate
             </Button>
 

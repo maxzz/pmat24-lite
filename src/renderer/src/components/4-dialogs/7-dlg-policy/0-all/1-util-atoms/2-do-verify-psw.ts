@@ -2,7 +2,8 @@ import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
 import { verifyPassword } from "@/store/manifest/3-policy-io";
 
-export const verifyAtom = atom(null,
+export const doVerifyPswAtom = atom(
+    null,
     (get, set, { dlgUiCtx, psw, prevPsw = '' }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; psw?: string | undefined; prevPsw?: string; }) => {
         const { parser, testPasswordAtom, testVerifiedAtom } = dlgUiCtx;
 
