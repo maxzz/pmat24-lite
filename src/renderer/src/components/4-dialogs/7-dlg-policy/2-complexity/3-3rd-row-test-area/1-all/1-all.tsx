@@ -5,14 +5,14 @@ import { ButtonGenerate } from "../3-button-generate";
 
 export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
-        <div className="relative mt-4 px-4 pt-3 pb-1 border-border border rounded flex flex-col gap-0.5">
+        <div className="relative mt-4 px-2 pt-3 pb-1 border-border border rounded flex flex-col gap-0.5">
 
-            <div className="absolute left-0 -top-[9px] font-semibold">
-                Test area
+            <div className="absolute left-0 -top-[9px]">
+                Custom rule test area
             </div>
 
-            <div className="mt-4">Test password</div>
-            <div className="h-7 flex items-center space-x-2">
+            <div className="mt-1">Test password</div>
+            <div className="h-7 flex items-center gap-x-1">
                 <InputWithCounter dlgUiCtx={dlgUiCtx} />
                 <ButtonGenerate dlgUiCtx={dlgUiCtx} />
             </div>

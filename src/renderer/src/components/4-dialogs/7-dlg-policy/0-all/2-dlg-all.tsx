@@ -56,7 +56,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
             <DialogContent className="px-6 py-4 max-w-[500px] text-xs select-none" modal withScroll noClose>
                 <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
                 
-                <DialogCloseButton className="p-2 top-3 hover:bg-muted active:scale-[.97] focus:ring-0" tabIndex={-1} />
+                <DialogCloseButton className="p-2 top-3 hover:text-white hover:bg-red-500 hover:opacity-100 active:scale-[.97] focus:ring-0 transition-colors" tabIndex={-1} />
             </DialogContent>
 
         </Dialog>
