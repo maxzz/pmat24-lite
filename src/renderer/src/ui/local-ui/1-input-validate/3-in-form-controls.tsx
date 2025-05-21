@@ -1,4 +1,3 @@
-import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
@@ -6,20 +5,12 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 
 export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <InFormChildrenWithLabel label={label}>
-            <InputOrCheckWithErrorMsg {...rest} />
-        </InFormChildrenWithLabel>
-    );
-}
-
-function InFormChildrenWithLabel({ label, children }: { label: string; children: ReactNode; }) {
-    return (
         <div className="col-span-2 py-1 text-xs grid gap-0.5">
             <div className="font-light">
                 {label}
             </div>
 
-            {children}
+            <InputOrCheckWithErrorMsg {...rest} />
         </div>
     );
 }
@@ -35,7 +26,7 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className
                 ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
                 : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
         }
-        
+
         <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
     </>);
 }
