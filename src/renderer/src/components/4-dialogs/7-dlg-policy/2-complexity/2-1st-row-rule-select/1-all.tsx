@@ -1,6 +1,6 @@
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { type PolicyDlgTypes, doUpdateExplanationAtom, PolicyDlgConv } from "../../0-all";
-import { Dropdown5, Label } from "@/ui";
+import { Dropdown5, InputErrorPopupMessage, Label, OptionInputWTypeProps } from "@/ui";
 import { TooltipShellWithErrorIcon, OptionAsString } from "@/ui";
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
@@ -35,7 +35,7 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     }
 
     return (
-        <div className="flex-1 space-y-1">
+        <div className="flex-1 gap-y-1">
             <div>
                 Password complexity rule
             </div>
@@ -48,9 +48,11 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
 function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const doUpdateExplanation = useSetAtom(doUpdateExplanationAtom);
-    const updateExplanation = () => doUpdateExplanation({ dlgUiCtx });
+    function updateExplanation() {
+        return doUpdateExplanation({ dlgUiCtx });
+    }
     return (
-        <div className="text-xs space-y-1">
+        <div className="text-xs gap-y-1">
             <div className="">Password length</div>
 
             <div className="flex items-center gap-x-1">
@@ -88,4 +90,65 @@ function MinMaxTrigger({ error, className }: HTMLAttributes<SVGSVGElement> & { e
             <SymbolWarning className={classNames("absolute right-0.5 top-2 transform -translate-y-1/2 size-3 text-red-500/90", className)} />
         )}
     </>);
+}
+
+function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
+    const state = useAtomValue(stateAtom);
+    const hasError = state.error && state.touched;
+    const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    return (<>
+        <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
+        <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
+    </>);
+}
+
+function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
+    const doUpdateExplanation = useSetAtom(doUpdateExplanationAtom);
+
+    function updateExplanation() {
+        return doUpdateExplanation({ dlgUiCtx });
+    }
+
+    const minAtom = dlgUiCtx.minLenAtom;
+    const maxAtom = dlgUiCtx.maxLenAtom;
+
+    const minState = useAtomValue(minAtom);
+    const maxState = useAtomValue(maxAtom);
+    const hasErrorMin = minState.error && minState.touched;
+    const hasErrorMax = maxState.error && maxState.touched;
+    const hasError = hasErrorMin || hasErrorMax;
+    const errorMinClasses = classNames(hasErrorMin && 'outline-offset-[0px] outline-red-500', "text-xs");
+    const errorMaxClasses = classNames(hasErrorMax && 'outline-offset-[0px] outline-red-500', "text-xs");
+
+    return (
+        <div className="text-xs gap-y-1">
+            <div className="">Password length</div>
+
+            <div className="flex items-center gap-x-1">
+                <div>
+                    min
+                </div>
+
+                <InputOrCheckWithErrorMsg stateAtom={minAtom}>
+                    {/* <OptionAsString
+                        className="px-2 h-7 text-xs max-w-[6ch]"
+                        stateAtom={dlgUiCtx.minLenAtom}
+                        onValueStateChange={updateExplanation}
+                    /> */}
+                </InputOrCheckWithErrorMsg>
+
+                <div>
+                    max
+                </div>
+
+                <InputOrCheckWithErrorMsg stateAtom={maxAtom}>
+                    {/* <OptionAsString
+                        className="px-2 h-7 text-xs max-w-[6ch]"
+                        stateAtom={dlgUiCtx.maxLenAtom}
+                        onValueStateChange={updateExplanation}
+                    /> */}
+                </InputOrCheckWithErrorMsg>
+            </div>
+        </div>
+    );
 }
