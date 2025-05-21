@@ -3,31 +3,35 @@ import { GenNPasswordsItem } from "../../../0-all";
 
 export function GeneratedListBody({ generatedList }: { generatedList: GenNPasswordsItem[]; }) {
     return (
-        <div className="mb-4 px-4 grid grid-cols-[auto,auto,auto,auto] gap-x-2 gap-y-0.5">
-            {generatedList.map((item, idx) => {
-                const first = `${idx + 1}`.padStart(2, ' ');
-                const colorClasses = `select-none ${item.ok ? "text-green-500" : "text-red-500"}`;
-                const numberClasses = "text-[0.65rem] text-end text-muted-foreground select-none";
-                return (
-                    <Fragment key={idx}>
-                        <div className={colorClasses} title={titleResult}>
-                            {item.ok ? '✔' : '✖'}
-                        </div>
+        <div className="mb-4 mx-auto px-4 w-fit grid grid-cols-[auto,auto,auto,auto] gap-x-2 gap-y-0.5">
+            {generatedList.map(
+                (item, idx) => {
+                    const testResultClasses = `text-center select-none ${item.ok ? "text-green-500" : "text-red-500"}`;
+                    const idxClasses = "text-[0.65rem] text-end text-muted-foreground select-none";
+                    const idxStr = `${idx + 1}`.padStart(2, ' ');
+                    const lenStr = `${item.psw.length}`.padStart(2, ' ');
 
-                        <div className={numberClasses} title={titleIndex}>
-                            {first}
-                        </div>
+                    return (
+                        <Fragment key={idx}>
+                            <div className={testResultClasses} title={titleResult}>
+                                {item.ok ? '✔' : '✖'}
+                            </div>
 
-                        <div className="font-mono" title={titleGeneratedPassword}>
-                            {item.psw}
-                        </div>
+                            <div className={idxClasses} title={titleIndex}>
+                                {idxStr}
+                            </div>
 
-                        <div className={numberClasses} title={titlePasswordLength}>
-                            {`${item.psw.length}`.padStart(2, ' ')}
-                        </div>
-                    </Fragment>
-                );
-            })}
+                            <div className="font-mono" title={titleGeneratedPassword}>
+                                {item.psw}
+                            </div>
+
+                            <div className={idxClasses} title={titlePasswordLength}>
+                                {lenStr}
+                            </div>
+                        </Fragment>
+                    );
+                })
+            }
         </div>
     );
 }

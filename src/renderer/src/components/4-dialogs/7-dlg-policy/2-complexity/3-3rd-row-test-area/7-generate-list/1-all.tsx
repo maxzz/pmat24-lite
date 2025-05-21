@@ -28,23 +28,24 @@ function ListBody({ open }: { open: boolean; }) {
     const getGenNPasswordsList = useAtomValue(getGenNPasswordsListAtom);
     return (
         <div className="text-xs">
-            <div className="p-4 text-base text-center bg-muted rounded-t select-none overflow-hidden">
+            <div className="p-2 text-xs font-semibold text-center bg-muted rounded-t select-none overflow-hidden">
                 {getGenNPasswordsList.length} generated passwords
             </div>
 
-            <ScrollArea className="my-2 h-64" fullHeight>
+            <ScrollArea className="my-2 h-64" fullHeight horizontal>
                 {open && (
                     <GeneratedListBody generatedList={getGenNPasswordsList} />
                 )}
             </ScrollArea>
 
-            <div className="text-base text-center bg-muted rounded-b select-none overflow-hidden">
+            <div className="text-center bg-muted rounded-b select-none overflow-hidden">
                 <Button
-                    className="w-full h-10 border-0 rounded-t-none active:scale-90"
+                    className="w-full h-8 border-0 rounded-t-none active:scale-90"
                     title="Copy all generated passwords to clipboard"
                     onClick={() => copyToClipboard(getGenNPasswordsList)}
                 >
                     <IconCopy className="size-4" />
+                    Copy
                 </Button>
             </div>
 

@@ -3,17 +3,16 @@ import { type PolicyDlgTypes, doVerifyPswAtom } from "../../0-all";
 import { Input } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 
-const localInputClasses = "h-7 text-mani-foreground bg-mani-background border-mani-border-muted";
-
 export function InputWithCounter({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const [testPassword, setTestPassword] = useAtom(dlgUiCtx.testPasswordAtom);
+
     const testVerified = useAtomValue(dlgUiCtx.testVerifiedAtom);
-    const doVerify = useSetAtom(doVerifyPswAtom);
+    const doVerifyPsw = useSetAtom(doVerifyPswAtom);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setTestPassword(value);
-        doVerify({ dlgUiCtx: dlgUiCtx });
+        doVerifyPsw({ dlgUiCtx: dlgUiCtx });
     }
 
     return (
@@ -21,19 +20,21 @@ export function InputWithCounter({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Policy
             <Input className={localInputClasses} value={testPassword} onChange={onChange} {...turnOffAutoComplete} />
 
             {testPassword && (
-                <div className="absolute right-2 top-0.5 flex items-center gap-2">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
 
                     {testVerified && (
-                        <div className={classNames(testVerified === '0' ? "text-red-500" : "text-green-500")}>
+                        <div className={classNames("text-[0.65rem]", testVerified === '0' ? "text-red-500" : "text-green-500")}>
                             {testVerified === '0' ? 'Invalid' : 'Valid'}
                         </div>
                     )}
 
-                    <div className="text-muted-foreground">
-                        {testPassword.length}
+                    <div className="whitespace-pre text-[0.65rem] font-mono text-muted-foreground">
+                        {`${testPassword.length}`.padStart(3, ' ')}
                     </div>
                 </div>
             )}
         </div>
     );
 }
+
+const localInputClasses = "pr-16 h-7 text-xs text-mani-foreground bg-mani-background border-mani-border-muted";
