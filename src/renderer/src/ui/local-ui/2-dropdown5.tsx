@@ -35,7 +35,7 @@ rounded select-none cursor-default \
 flex items-center";
 
 const triggerClasses = "\
-p-2 h-8 \
+px-2 py-1 h-7 \
 text-mani-foreground bg-mani-background border-mani-border-muted border \
 flex items-center justify-between space-x-1 \
 rounded";

@@ -1,7 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
 import { type PolicyDlgTypes, updateExplanationAtom, PolicyDlgConv } from "../../0-all";
-
-import { NunDropdown } from "../../9-constrols";
 import { Dropdown5, Label } from "@/ui";
 import { TooltipShellWithErrorIcon, OptionAsString } from "@/ui";
 import { HTMLAttributes } from "react";
@@ -60,7 +58,7 @@ function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
                 <TooltipShellWithErrorIcon stateAtom={dlgUiCtx.minLenAtom} Trigger={MinMaxTrigger}>
                     <OptionAsString
-                        className="px-2 h-8 text-xs max-w-[6ch]"
+                        className="px-2 h-7 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.minLenAtom}
                         onValueStateChange={updateExplanation}
                     />
@@ -72,7 +70,7 @@ function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
                 <TooltipShellWithErrorIcon stateAtom={dlgUiCtx.maxLenAtom} Trigger={MinMaxTrigger}>
                     <OptionAsString
-                        className="px-2 h-8 text-xs max-w-[6ch]"
+                        className="px-2 h-7 text-xs max-w-[6ch]"
                         stateAtom={dlgUiCtx.maxLenAtom}
                         onValueStateChange={updateExplanation}
                     />
