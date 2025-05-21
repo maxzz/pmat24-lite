@@ -3,18 +3,18 @@ import { type PolicyDlgTypes } from "../0-conv";
 import { generatePswByRules, verifyPassword } from "@/store/manifest/3-policy-io";
 import { appSettings } from "@/store";
 
-export type GenerateListItem = {
+export type GenNPasswordsItem = {
     ok: boolean;
     psw: string;
 };
 
-const _generateListAtom = atom<GenerateListItem[]>([]);
+const _generateListAtom = atom<GenNPasswordsItem[]>([]);
 
-export const getGenerateListAtom = atom(
+export const getGenNPasswordsListAtom = atom(
     (get) => get(_generateListAtom),
 );
 
-export const doGenerateListAtom = atom(
+export const doGenNPasswordsAtom = atom(
     (get) => null,
     (get, set, { dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) => {
         const { parser, customAtom } = dlgUiCtx;
@@ -26,7 +26,7 @@ export const doGenerateListAtom = atom(
         }
 
         const prevPsw = '';
-        const arr: GenerateListItem[] = [];
+        const arr: GenNPasswordsItem[] = [];
 
         const nToGenerate = appSettings.right.mani.nToGenerate;
         let total = !nToGenerate || isNaN(nToGenerate) ? 50 : nToGenerate;

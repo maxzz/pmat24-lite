@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import { GenerateListItem } from "../../../0-all";
+import { GenNPasswordsItem } from "../../../0-all";
 
-export function GeneratedListBody({ generatedList }: { generatedList: GenerateListItem[]; }) {
+export function GeneratedListBody({ generatedList }: { generatedList: GenNPasswordsItem[]; }) {
     return (
         <div className="mb-4 px-4 grid grid-cols-[auto,auto,auto,auto] gap-x-2 gap-y-0.5">
             {generatedList.map((item, idx) => {
@@ -37,7 +37,7 @@ const titleIndex = "index";
 const titleGeneratedPassword = "generated password";
 const titlePasswordLength = "password length";
 
-export function copyToClipboard(generatedList: GenerateListItem[]) {
+export function copyToClipboard(generatedList: GenNPasswordsItem[]) {
     const text = generatedList.map(
         (item, idx) => `${`${idx + 1}`.padStart(3, ' ')}. ${item.ok ? '✔' : '✖'} ${item.psw}`
     ).join('\n');

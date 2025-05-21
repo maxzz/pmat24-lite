@@ -3,24 +3,24 @@ import { atom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { appSettings } from "@/store";
-import { type PolicyDlgTypes, doGeneratePswAtom, doGenerateListAtom } from "../../0-all";
+import { type PolicyDlgTypes, doGeneratePswAtom, doGenNPasswordsAtom } from "../../0-all";
 import { ButtonGeneratedList } from "./7-generate-list/1-all";
 
 export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const nToGenerate = useSnapshot(appSettings).right.mani.nToGenerate;
 
-    const openGeneratedListAtom = useState(() => atom(false))[0];
-    const setOpenGeneratedList = useSetAtom(openGeneratedListAtom);
+    const openPopupGenNPasswordsAtom = useState(() => atom(false))[0];
+    const doOpenPopupGenNPasswords = useSetAtom(openPopupGenNPasswordsAtom);
 
-    const generateList = useSetAtom(doGenerateListAtom);
-    const doGenerate = useSetAtom(doGeneratePswAtom);
+    const doGenNPasswords = useSetAtom(doGenNPasswordsAtom);
+    const doGeneratePsw = useSetAtom(doGeneratePswAtom);
 
     function onClick(e: React.MouseEvent<HTMLButtonElement>) {
         if (e.ctrlKey) {
-            generateList({ dlgUiCtx: dlgUiCtx });
-            setOpenGeneratedList(true);
+            doGenNPasswords({ dlgUiCtx: dlgUiCtx });
+            doOpenPopupGenNPasswords(true);
         } else {
-            doGenerate({ dlgUiCtx: dlgUiCtx });
+            doGeneratePsw({ dlgUiCtx: dlgUiCtx });
         }
     }
 
@@ -30,7 +30,7 @@ export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUi
                 Generate
             </Button>
 
-            <ButtonGeneratedList openAtom={openGeneratedListAtom} />
+            <ButtonGeneratedList openAtom={openPopupGenNPasswordsAtom} />
         </div>
     );
 }

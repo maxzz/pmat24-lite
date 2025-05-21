@@ -1,12 +1,11 @@
 import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
 import { IconCopy } from "@/ui/icons";
-import { getGenerateListAtom } from "../../../0-all";
+import { getGenNPasswordsListAtom } from "../../../0-all";
 import { GeneratedListBody, copyToClipboard } from "./3-generated-list-body";
 
 export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<boolean>; }) {
     const [open, setOpen] = useAtom(openAtom);
-    const generatedList = useAtomValue(getGenerateListAtom);
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -16,34 +15,40 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
             <PopoverPortal>
                 <PopoverContent className="relative mx-4 p-0 w-auto min-w-52 text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
-                    <div className="text-xs">
-                        <div className="p-4 text-base text-center bg-muted rounded-t select-none overflow-hidden">
-                            {generatedList.length} generated passwords
-                        </div>
-
-                        <ScrollArea className="my-2 h-64" fullHeight>
-                            {open && (
-                                <GeneratedListBody generatedList={generatedList} />
-                            )}
-                        </ScrollArea>
-
-                        <div className="text-base text-center bg-muted rounded-b select-none overflow-hidden">
-                            <Button
-                                className="w-full h-10 border-0 rounded-t-none active:scale-90"
-                                title="Copy all generated passwords to clipboard"
-                                onClick={() => copyToClipboard(generatedList)}
-                            >
-                                <IconCopy className="size-4" />
-                            </Button>
-                        </div>
-
-                    </div>
-
+                    <ListBody open={open} />
                     <PopoverArrorWoBottom className="fill-muted stroke-border" />
+
                 </PopoverContent>
             </PopoverPortal>
-
         </Popover>
+    );
+}
+
+function ListBody({ open }: { open: boolean; }) {
+    const getGenNPasswordsList = useAtomValue(getGenNPasswordsListAtom);
+    return (
+        <div className="text-xs">
+            <div className="p-4 text-base text-center bg-muted rounded-t select-none overflow-hidden">
+                {getGenNPasswordsList.length} generated passwords
+            </div>
+
+            <ScrollArea className="my-2 h-64" fullHeight>
+                {open && (
+                    <GeneratedListBody generatedList={getGenNPasswordsList} />
+                )}
+            </ScrollArea>
+
+            <div className="text-base text-center bg-muted rounded-b select-none overflow-hidden">
+                <Button
+                    className="w-full h-10 border-0 rounded-t-none active:scale-90"
+                    title="Copy all generated passwords to clipboard"
+                    onClick={() => copyToClipboard(getGenNPasswordsList)}
+                >
+                    <IconCopy className="size-4" />
+                </Button>
+            </div>
+
+        </div>
     );
 }
 
