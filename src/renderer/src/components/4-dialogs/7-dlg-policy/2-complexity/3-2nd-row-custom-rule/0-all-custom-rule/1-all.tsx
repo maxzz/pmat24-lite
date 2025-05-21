@@ -53,7 +53,7 @@ function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }
 
     return (
         <Input
-            className="pr-28 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
+            className="pr-48 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
             value={custom}
             onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}

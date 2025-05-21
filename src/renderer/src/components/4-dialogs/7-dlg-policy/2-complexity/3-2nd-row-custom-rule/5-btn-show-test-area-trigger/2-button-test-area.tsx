@@ -10,7 +10,7 @@ export function ButtonTestArea() {
     const { openTestArea } = useSnapshot(open);
     return (
         <Button
-            className={classNames(inlineButtonClasses, "px-2 space-x-0.5")}
+            className={classNames(inlineButtonClasses, "px-1 space-x-0.5")}
             size="xs"
             onClick={() => open.openTestArea = !open.openTestArea}
         >

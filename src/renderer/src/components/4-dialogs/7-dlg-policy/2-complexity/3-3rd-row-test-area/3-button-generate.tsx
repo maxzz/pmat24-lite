@@ -6,8 +6,6 @@ import { ButtonGeneratedList } from "./7-generate-list/1-all";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 
-const localButtonClasses = "active:scale-[.97]";
-
 export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const openGeneratedListAtom = useState(() => atom(false))[0];
     const generateList = useSetAtom(generateListAtom);
@@ -34,3 +32,5 @@ export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUi
         </div>
     );
 }
+
+const localButtonClasses = "px-1 active:scale-[.97]";

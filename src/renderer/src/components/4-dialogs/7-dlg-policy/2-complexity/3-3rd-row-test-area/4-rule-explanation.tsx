@@ -11,7 +11,7 @@ export function RuleExplanation({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
         <div className="mt-2">
             {explanation && (<>
                 <div className="pb-1">
-                    Explanation of the complexity of the generated password. Password should consist of
+                    Explanation of test password complexity. Password should consist of
                 </div>
 
                 <div className="pl-4 text-xs grid grid-cols-[auto,1fr] gap-x-2">
