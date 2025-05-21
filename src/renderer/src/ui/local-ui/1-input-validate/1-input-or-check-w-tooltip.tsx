@@ -36,7 +36,7 @@ type TooltipShellWithErrorIconProps = {
     containerClasses?: string;
 };
 
-function TooltipShellWithErrorIcon({ stateAtom, children, containerClasses, Trigger }: TooltipShellWithErrorIconProps) {
+export function TooltipShellWithErrorIcon({ stateAtom, children, containerClasses, Trigger }: TooltipShellWithErrorIconProps) {
     const [openTooltip, setOpenTooltip] = useState(false);
     const state = useAtomValue(stateAtom);
     return (

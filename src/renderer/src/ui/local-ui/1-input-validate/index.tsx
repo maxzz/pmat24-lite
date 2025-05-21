@@ -1,6 +1,5 @@
 export * from "./9-types";
 export * from "./1-input-or-check-w-tooltip";
-export * from "./2-option-input-tooltip-shell";
 export * from "./3-in-form-controls";
 export * from "./4-option-string";
 export * from "./5-option-textarea";
