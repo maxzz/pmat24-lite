@@ -6,8 +6,8 @@ export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
     const { ourlAtom, murlAtom, } = ctx.oAllAtoms.options.p2Detect;
     return (
         <div className={textClasses}>
-            <InFormRowInputWTitle stateAtom={ourlAtom} label="Original URL" />
-            <InFormRowInputWTitle stateAtom={murlAtom} label="Match URL" />
+            <InFormRowInputWTitle stateAtom={ourlAtom} label="Original URL (readonly)" asTextarea readOnly />
+            <InFormRowInputWTitle stateAtom={murlAtom} label="Match URL" asTextarea />
         </div>
     );
 }

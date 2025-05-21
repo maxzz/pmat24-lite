@@ -43,7 +43,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     const hasChanges = false;
 
     return (
-        <Tabs className="p-1 h-full flex flex-col" value={activeTab} onValueChange={(value) => setManiActiveTab(value as ManiTabValue)}>
+        <Tabs className="p-1 pr-0 h-full flex flex-col" value={activeTab} onValueChange={(value) => setManiActiveTab(value as ManiTabValue)}>
             <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
 
             <div ref={ref} className={refClasses}>
@@ -54,11 +54,11 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
                     </TabsContent>
 
                     <TabsContent value={maniTabValue.login} tabIndex={-1}>
-                        <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={0} />
+                        <ManiEditorFormSelector className="mr-0.5 pr-4 h-full" fileUs={fileUs} formIdx={0} />
                     </TabsContent>
 
                     <TabsContent value={maniTabValue.cpass} tabIndex={-1}>
-                        <ManiEditorFormSelector className="mr-0.5 h-full" fileUs={fileUs} formIdx={1} />
+                        <ManiEditorFormSelector className="mr-0.5 pr-4 h-full" fileUs={fileUs} formIdx={1} />
                     </TabsContent>
 
                 </ScrollArea>
