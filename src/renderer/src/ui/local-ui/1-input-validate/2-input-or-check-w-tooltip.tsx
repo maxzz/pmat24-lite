@@ -7,8 +7,27 @@ import { OptionAsString } from "./4-option-string";
 import { OptionAsTextarea } from "./5-option-textarea";
 import { OptionAsCheckbox } from "./6-option-checkbox";
 import { type RowInputStateAtom, Tooltip, TooltipContent, TooltipPortal, TooltipProvider } from "@/ui";
+import { InputErrorPopupMessage } from "./1-in-form-controls";
 
-export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, asTextarea, containerClasses, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, asTextarea, className, containerClasses, ...rest }: OptionInputWTypeProps) {
+    const state = useAtomValue(stateAtom);
+    const hasError = state.error && state.touched;
+    const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    return (
+        <div className={classNames("relative w-full", containerClasses)}>
+            {asCheckbox
+                ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
+                : asTextarea
+                    ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
+                    : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
+            }
+
+            <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
+        </div>
+    );
+}
+
+function InputOrCheckWithTooltipOld({ stateAtom, asCheckbox, asTextarea, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
         <TooltipShellWithErrorIcon stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
             {asCheckbox
