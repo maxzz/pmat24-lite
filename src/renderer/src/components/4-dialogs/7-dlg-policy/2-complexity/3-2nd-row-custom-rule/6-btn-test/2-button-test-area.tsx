@@ -15,7 +15,9 @@ export function ButtonTestArea() {
             size="xs"
             onClick={() => open.openTestArea = !open.openTestArea}
         >
-            <span>Test area</span>
+            <span>
+                Test area
+            </span>
             <SymbolChevronDown className={classNames("size-3 transition-all", openTestArea && "rotate-180")} />
         </Button>
     );

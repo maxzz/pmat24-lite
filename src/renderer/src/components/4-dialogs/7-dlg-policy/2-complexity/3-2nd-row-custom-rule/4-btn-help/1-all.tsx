@@ -1,7 +1,10 @@
+import { Fragment } from "react";
 import { Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, ScrollArea } from "@/ui";
+import { classNames } from "@/utils";
+import { Button, PopoverTrigger } from "@/ui";
 import { SymbolCross } from "@/ui/icons";
-import { HelpTrigger } from "./2-button-trigger";
-import { RulesHelpBody } from "./3-body";
+import { inlineButtonClasses } from "../6-btn-test/2-button-test-area";
+import { helpRules } from "./9-rules-text";
 
 export function ButtonRulesHelp() {
     return (
@@ -30,5 +33,33 @@ export function ButtonRulesHelp() {
             </PopoverPortal>
 
         </Popover>
+    );
+}
+
+function HelpTrigger() {
+    return (
+        <PopoverTrigger asChild>
+            <Button className={classNames(inlineButtonClasses, "aspect-square")} size="sm" tabIndex={-1} title="Explanation">
+                ?
+            </Button>
+        </PopoverTrigger>
+    );
+}
+
+function RulesHelpBody() {
+    return (
+        <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
+            {helpRules.map((rule, idx) => (
+                <Fragment key={idx}>
+                    <div className="text-center font-bold">
+                        {rule.c1}
+                    </div>
+
+                    <div className="mr-3">
+                        {rule.c2}
+                    </div>
+                </Fragment>
+            ))}
+        </div>
     );
 }

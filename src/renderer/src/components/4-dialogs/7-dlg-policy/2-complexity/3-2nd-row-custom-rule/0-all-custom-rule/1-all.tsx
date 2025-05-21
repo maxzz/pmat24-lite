@@ -1,13 +1,13 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, updateExplanationAtom } from "../../0-all";
+import { type PolicyDlgTypes, updateExplanationAtom } from "../../../0-all";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
-import { ButtonTestArea } from "./2-button-test-area";
-import { AccordionSingle } from "./3-accordion";
-import { TestAreaBody } from "../3-3rd-row-test-area/1-body";
-import { ButtonRulesHelp } from "../4-help/1-all";
-import { ButtonMenuAdd } from "../5-add-menu/1-all";
-import { ButtonErrorInfo } from "../6-error-info";
+import { ButtonTestArea } from "../6-btn-test/2-button-test-area";
+import { AccordionSingle } from "../3-accordion";
+import { TestAreaBody } from "../../3-3rd-row-test-area/1-body";
+import { ButtonRulesHelp } from "../4-btn-help/1-all";
+import { ButtonMenuAdd } from "../3-btn-add-menu/1-all";
+import { ButtonErrorInfo } from "../2-btn-error-info";
 
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
