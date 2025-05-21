@@ -35,15 +35,20 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className
                 ? <OptionAsTextarea stateAtom={stateAtom} className={textClasses} {...rest} />
                 : <OptionAsString stateAtom={stateAtom} className={textClasses} {...rest} />
         }
+        <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
+    </>);
+}
 
+export function InputErrorPopupMessage({ hasError, error }: { hasError: boolean; error: string | undefined; }) {
+    return (
         <AnimatePresence initial={false}>
             {hasError && (
                 <motion.div className="text-[0.65rem] text-red-500" variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
-                    {state.error}
+                    {error}
                 </motion.div>
             )}
         </AnimatePresence>
-    </>);
+    );
 }
 
 const variants: Variants = {
