@@ -39,8 +39,8 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
             <div>
                 Password complexity rule
             </div>
-            <Label className="flex-1 text-xs flex flex-col 1items-center">
-                <Dropdown5 items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
+            <Label className="flex-1 text-xs">
+                <Dropdown5 items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} className="min-h-7 h-auto" />
             </Label>
         </div>
     );
@@ -53,7 +53,7 @@ function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
         <div className="text-xs space-y-1">
             <div className="">Password length</div>
 
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-x-1">
                 <div>
                     min
                 </div>

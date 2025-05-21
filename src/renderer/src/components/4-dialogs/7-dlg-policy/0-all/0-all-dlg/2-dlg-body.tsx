@@ -27,7 +27,7 @@ export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) 
                     Enable password policy
                 </Check>
 
-                <div className={classNames("flex flex-col space-y-4", !enabled && "opacity-10 pointer-events-none")}>
+                <div className={classNames("flex flex-col gap-y-4", !enabled && "opacity-10 pointer-events-none")}>
 
                     <div>
                         <h2 className={sectionClasses}> {/* Predefined or Custom rule */}
@@ -62,5 +62,5 @@ export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) 
     );
 }
 
-const contentClasses = "p-0 pb-2 w-fit min-w-[420px] max-w-[500px] text-xs gap-1 select-none";
+const contentClasses = "p-0 pb-2 w-fit min-w-[440px] max-w-[500px] text-xs gap-1 select-none";
 const sectionClasses = "text-xs font-semibold border-gray-500/50 border-b";
