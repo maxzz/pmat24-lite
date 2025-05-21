@@ -1,6 +1,6 @@
 import { type PolicyDlgTypes } from "../0-all";
-import { FirstRowSection } from "./2-first-row/1-all";
-import { CustomRuleSection } from "./3-custom-rule/1-all";
+import { FirstRowSection } from "./2-1st-row/1-all";
+import { CustomRuleSection } from "./3-2nd-row-custom-rule/1-all";
 
 export function SectionRuleTypes({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (

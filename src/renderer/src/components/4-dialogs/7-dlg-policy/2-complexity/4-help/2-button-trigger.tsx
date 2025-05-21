@@ -1,5 +1,5 @@
 import { Button, PopoverTrigger } from "@/ui";
-import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
+import { inlineButtonClasses } from "../3-2nd-row-custom-rule/2-button-test-area";
 import { classNames } from "@/utils";
 
 export function HelpTrigger() {

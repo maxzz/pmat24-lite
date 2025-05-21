@@ -3,8 +3,8 @@ import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, P
 import { type PolicyDlgTypes } from "../../0-all";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { inlineButtonClasses } from "../3-custom-rule/2-button-test-area";
-import { ErrorInfo } from "../3-test-area/4-rule-explanation";
+import { inlineButtonClasses } from "../3-2nd-row-custom-rule/2-button-test-area";
+import { ErrorInfo } from "../3-3rd-row-test-area/4-rule-explanation";
 
 function ErrorInfoTrigger() {
     return (

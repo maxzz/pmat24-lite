@@ -4,7 +4,7 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
 import { ButtonTestArea } from "./2-button-test-area";
 import { AccordionSingle } from "./3-accordion";
-import { TestAreaBody } from "../3-test-area/1-body";
+import { TestAreaBody } from "../3-3rd-row-test-area/1-body";
 import { ButtonRulesHelp } from "../4-help/1-all";
 import { ButtonMenuAdd } from "../5-add-menu/1-all";
 import { ButtonErrorInfo } from "../6-error-info";
