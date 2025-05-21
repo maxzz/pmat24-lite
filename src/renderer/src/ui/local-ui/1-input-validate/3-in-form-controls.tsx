@@ -27,14 +27,15 @@ function InFormChildrenWithLabel({ label, children }: { label: string; children:
 function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
-    const textClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
     return (<>
         {asCheckbox
-            ? <OptionAsCheckbox stateAtom={stateAtom} className={className} {...rest} />
+            ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
             : asTextarea
-                ? <OptionAsTextarea stateAtom={stateAtom} className={textClasses} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} className={textClasses} {...rest} />
+                ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
+                : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
         }
+        
         <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
     </>);
 }
