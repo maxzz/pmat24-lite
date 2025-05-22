@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { RowInputWTitle } from "../9-controls";
+import { RowInputWTitle2Cols } from "../9-controls";
 
 export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
@@ -18,19 +18,19 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
     return (
         isWeb
             ? (<>
-                <RowInputWTitle stateAtom={ourlAtom} label="Original URL" />
-                <RowInputWTitle stateAtom={murlAtom} label="Match URL" />
+                <RowInputWTitle2Cols stateAtom={ourlAtom} label="Original URL" />
+                <RowInputWTitle2Cols stateAtom={murlAtom} label="Match URL" />
             </>)
             : (<>
-                <RowInputWTitle stateAtom={captionAtom} label="Windows caption" />
-                <RowInputWTitle stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
+                <RowInputWTitle2Cols stateAtom={captionAtom} label="Windows caption" />
+                <RowInputWTitle2Cols stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
-                <RowInputWTitle stateAtom={dlg_classAtom} label="Window class name" />
-                <RowInputWTitle stateAtom={dlg_tabAtom} label="Window tab" />
-                <RowInputWTitle stateAtom={dlg_checkexeAtom} label="Tab executable" />
+                <RowInputWTitle2Cols stateAtom={dlg_classAtom} label="Window class name" />
+                <RowInputWTitle2Cols stateAtom={dlg_tabAtom} label="Window tab" />
+                <RowInputWTitle2Cols stateAtom={dlg_checkexeAtom} label="Tab executable" />
 
-                <RowInputWTitle stateAtom={processnameAtom} label="Process name" />
-                <RowInputWTitle stateAtom={commandlineAtom} label="Command line" />
+                <RowInputWTitle2Cols stateAtom={processnameAtom} label="Process name" />
+                <RowInputWTitle2Cols stateAtom={commandlineAtom} label="Command line" />
             </>)
     );
 }

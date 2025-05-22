@@ -1,6 +1,6 @@
 import { FormIdx } from "@/store/manifest";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { ChildrenWithLabel, ExtPolicySelect, RowInputWTitle } from "../9-controls";
+import { ChildrenWithLabel2Cols, ExtPolicySelect, RowInputWTitle2Cols } from "../9-controls";
 
 export function Block2_Authentication({ ctx }: { ctx: OFormContextProps; }) {
     const { options } = ctx.oAllAtoms;
@@ -8,13 +8,13 @@ export function Block2_Authentication({ ctx }: { ctx: OFormContextProps; }) {
     const isLogin = options.formIdx === FormIdx.login;
 
     return (<>
-        <RowInputWTitle stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
-        <RowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
+        <RowInputWTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
+        <RowInputWTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
 
         {isLogin && (
-            <ChildrenWithLabel label="Extended authentication policy">
+            <ChildrenWithLabel2Cols label="Extended authentication policy">
                 <ExtPolicySelect stateAtom={auth_plAtom} />
-            </ChildrenWithLabel>
+            </ChildrenWithLabel2Cols>
         )}
     </>);
 }

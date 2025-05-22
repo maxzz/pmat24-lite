@@ -5,30 +5,30 @@ import { InputOrCheckWithErrorMsg, type OptionInputWTypeProps } from "@/ui/local
 
 // Row with input
 
-export function RowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function RowInputWTitle2Cols({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <ChildrenWithLabel label={label}>
-            <InputOrCheckWithTooltip {...rest} />
-        </ChildrenWithLabel>
+        <ChildrenWithLabel2Cols label={label}>
+            <InputOrCheckWithTooltip2Cols {...rest} />
+        </ChildrenWithLabel2Cols>
     );
 }
 
 // Row with input and button
 
-export function RowInputAndButtonWTitle({ label, button, ...rest }: { label: string; button: ReactNode; } & OptionInputWTypeProps) {
+export function RowInputAndButtonWTitle2Cols({ label, button, ...rest }: { label: string; button: ReactNode; } & OptionInputWTypeProps) {
     return (
-        <ChildrenWithLabel label={label}>
+        <ChildrenWithLabel2Cols label={label}>
             <div className="w-full flex items-center justify-between gap-1">
-                <InputOrCheckWithTooltip {...rest} />
+                <InputOrCheckWithTooltip2Cols {...rest} />
                 {button}
             </div>
-        </ChildrenWithLabel>
+        </ChildrenWithLabel2Cols>
     );
 }
 
 // Row with children
 
-export function ChildrenWithLabel({ label, children }: { label: string; children: ReactNode; }) {
+export function ChildrenWithLabel2Cols({ label, children }: { label: string; children: ReactNode; }) {
     return (
         <div className="col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center">
             <div className="font-light text-end">
@@ -40,10 +40,10 @@ export function ChildrenWithLabel({ label, children }: { label: string; children
     );
 }
 
-function InputOrCheckWithTooltip({ stateAtom, /*asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
+function InputOrCheckWithTooltip2Cols({ stateAtom, /*asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     return (
-        <div className={classNames("relative w-full", containerClasses)}>
+        <div className={classNames("relative w-full", containerClasses)}> {/* TODO: do we need this div? it was for icon tooltip, but now we have popup line */}
             <InputOrCheckWithErrorMsg stateAtom={stateAtom} {...rest} />
         </div>
     );
