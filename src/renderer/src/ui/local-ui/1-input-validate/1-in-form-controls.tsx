@@ -15,7 +15,7 @@ export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & Op
     );
 }
 
-function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);

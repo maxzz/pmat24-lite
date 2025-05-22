@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { pluralWord, toNumberWDefault1 } from "@/utils";
-import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 export function InputRepeat({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
     const repeat = useAtomValue(valueAtom);
@@ -11,7 +11,9 @@ export function InputRepeat({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
             </span>
 
             <div className="max-w-[70px] flex items-center gap-1" title="Number of times to repeat this key">
-                <InputOrCheckWithTooltip stateAtom={valueAtom} asCheckbox={false} />
+                <div>
+                    <InputOrCheckWithErrorMsg stateAtom={valueAtom} />
+                </div>
 
                 <span className="pt-0.5">
                     {`${pluralWord(toNumberWDefault1(repeat.data), 'time')}`}

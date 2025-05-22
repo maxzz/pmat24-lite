@@ -8,7 +8,7 @@ import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChange
 export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
-    const validateOptions = { validate: validateNumber, options: { initialValidate: true } };
+    const validateNumberOptions = { validate: validateNumber, options: { initialValidate: true } };
 
     switch (chunk.type) {
         case "kbd": {
@@ -45,9 +45,9 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
-            const xData = dataForStateAtom(chunk.x, validateOptions);
-            const yData = dataForStateAtom(chunk.y, validateOptions);
-            const resData = dataForStateAtom(chunk.res, validateOptions);
+            const xData = dataForStateAtom(chunk.x, validateNumberOptions);
+            const yData = dataForStateAtom(chunk.y, validateNumberOptions);
+            const resData = dataForStateAtom(chunk.res, validateNumberOptions);
 
             const chunkData = {
                 xAtom: atomWithCallback(xData, onScopedChange('pos-x')),
@@ -73,7 +73,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 };
             };
 
-            const nData = dataForStateAtom(chunk.n, validateOptions);
+            const nData = dataForStateAtom(chunk.n, validateNumberOptions);
 
             const chunkData = {
                 nAtom: atomWithCallback(nData, onScopedChange('dly-dly')),

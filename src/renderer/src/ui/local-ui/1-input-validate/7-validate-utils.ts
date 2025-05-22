@@ -11,7 +11,7 @@ export function validateManifestName(value: string): string {
 }
 
 export function validateNumber(value: string): string {
-    const num = +value;
+    const num = parseInt(value);
     if (isNaN(num)) {
         return 'Value must be a number.';
     }

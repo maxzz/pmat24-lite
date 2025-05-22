@@ -1,5 +1,5 @@
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 export function InputDelay({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
     return (
@@ -9,7 +9,10 @@ export function InputDelay({ valueAtom }: { valueAtom: RowInputStateAtom; }) {
             </span>
 
             <div className="max-w-24 flex items-center gap-1" title="Delay in millisecond before performing the next action">
-                <InputOrCheckWithTooltip stateAtom={valueAtom} asCheckbox={false} />
+
+                <div>
+                    <InputOrCheckWithErrorMsg stateAtom={valueAtom} />
+                </div>
 
                 <span>
                     ms
