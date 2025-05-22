@@ -1,11 +1,12 @@
+import { type ChangeEvent, type FocusEvent } from "react";
 import { useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { type OptionInputProps } from "./9-types";
 
-export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
+export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, onBlur, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
         const value = e.target.checked ? '1' : '';
         setState(
             (prev) => {
@@ -20,7 +21,7 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...
         );
     }
 
-    function onBlur() {
+    function onLocalBlur(e: FocusEvent<HTMLInputElement>) {
         setState(
             (prev) => {
                 const rv = {
@@ -32,6 +33,7 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...
                 return rv;
             }
         );
+        onBlur?.(e);
     }
 
     return (
@@ -40,7 +42,7 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, ...
             type="checkbox"
             checked={state.data === '1'}
             onChange={onChange}
-            onBlur={onBlur}
+            onBlur={onLocalBlur}
             {...rest}
         />
     );

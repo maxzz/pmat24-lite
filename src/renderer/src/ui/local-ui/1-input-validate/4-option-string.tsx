@@ -1,12 +1,13 @@
+import { type ChangeEvent, type FocusEvent } from "react";
 import { useAtom } from "jotai";
-import { type OptionInputProps, type RowInputState } from "./9-types";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
+import { type OptionInputProps, type RowInputState } from "./9-types";
 
-export function OptionAsString({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
+export function OptionAsString({ stateAtom, className, onValueStateChange, onBlur, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
         setState(
             (prev) => {
                 const value = e.target.value;
@@ -22,7 +23,7 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, ...re
         );
     }
 
-    function onBlur() {
+    function onLocalBlur(e: FocusEvent<HTMLInputElement>) {
         setState(
             (prev) => {
                 const rv: RowInputState = {
@@ -34,6 +35,7 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, ...re
                 return rv;
             }
         );
+        onBlur?.(e);
     }
 
     return (
@@ -41,7 +43,7 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, ...re
             className={classNames(optionInputClasses, inputRingClasses /*, value.error && "ring-1 ring-red-500/70"*/, className)}
             value={state.data}
             onChange={onChange}
-            onBlur={onBlur}
+            onBlur={onLocalBlur}
             {...state.error && { 'aria-invalid': true }}
             {...turnOffAutoComplete}
             {...rest}

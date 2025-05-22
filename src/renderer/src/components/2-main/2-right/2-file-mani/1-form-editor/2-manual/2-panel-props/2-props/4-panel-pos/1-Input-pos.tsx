@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
-import { type RowInputStateAtom, InputOrCheckWithErrorMsg, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
@@ -27,12 +27,14 @@ export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInp
             </span>
 
             <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputOrCheckWithErrorMsg
-                    stateAtom={valueAtom}
-                    asCheckbox={false}
-                    onFocus={() => onFocusBlur(true)}
-                    onBlur={() => onFocusBlur(false)}
-                />
+                <div>
+                    <InputOrCheckWithErrorMsg
+                        stateAtom={valueAtom}
+                        asCheckbox={false}
+                        onFocus={() => onFocusBlur(true)}
+                        onBlur={() => onFocusBlur(false)}
+                    />
+                </div>
 
                 <span className="pt-0.5">
                     px

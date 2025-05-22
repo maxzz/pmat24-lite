@@ -1,12 +1,13 @@
+import { type ChangeEvent, type FocusEvent } from "react";
 import { useAtom } from "jotai";
-import { type OptionInputProps, type RowInputState } from "./9-types";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { inputRingClasses } from "@/ui";
+import { type OptionInputProps, type RowInputState } from "./9-types";
 
-export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...rest }: OptionInputProps) {
+export function OptionAsTextarea({ stateAtom, className, onValueStateChange, onBlur, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
-    function onChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    function onChange(e: ChangeEvent<HTMLTextAreaElement>) {
         setState(
             (prev) => {
                 const value = e.target.value;
@@ -22,7 +23,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
         );
     }
 
-    function onBlur() {
+    function onLocalBlur(e: FocusEvent<HTMLTextAreaElement>) {
         setState(
             (prev) => {
                 const rv: RowInputState = {
@@ -34,6 +35,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
                 return rv;
             }
         );
+        onBlur?.(e);
     }
 
     return (
@@ -42,7 +44,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, ...
             style={{ 'fieldSizing': 'content' } as React.CSSProperties}
             value={state.data}
             onChange={onChange}
-            onBlur={onBlur}
+            onBlur={onLocalBlur}
             {...state.error && { 'aria-invalid': true }}
             {...turnOffAutoComplete}
             {...rest}
