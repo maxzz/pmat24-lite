@@ -12,7 +12,7 @@ export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
             <div className="flex items-center justify-between gap-4">
 
                 <RuleSelect dlgUiCtx={dlgUiCtx} />
-                <MinMaxInputs dlgUiCtx={dlgUiCtx} />
+                <MinMaxInputs2 dlgUiCtx={dlgUiCtx} />
 
             </div>
         </div>
@@ -116,9 +116,8 @@ function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) 
     const maxState = useAtomValue(maxAtom);
     const hasErrorMin = minState.error && minState.touched;
     const hasErrorMax = maxState.error && maxState.touched;
-    const hasError = hasErrorMin || hasErrorMax;
-    const errorMinClasses = classNames(hasErrorMin && 'outline-offset-[0px] outline-red-500', "text-xs");
-    const errorMaxClasses = classNames(hasErrorMax && 'outline-offset-[0px] outline-red-500', "text-xs");
+    const errorMinClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMin && 'outline-offset-[0px] outline-red-500', "text-xs");
+    const errorMaxClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMax && 'outline-offset-[0px] outline-red-500', "text-xs");
 
     return (
         <div className="text-xs gap-y-1">
@@ -128,26 +127,13 @@ function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) 
                 <div>
                     min
                 </div>
-
-                <InputOrCheckWithErrorMsg stateAtom={minAtom}>
-                    {/* <OptionAsString
-                        className="px-2 h-7 text-xs max-w-[6ch]"
-                        stateAtom={dlgUiCtx.minLenAtom}
-                        onValueStateChange={updateExplanation}
-                    /> */}
-                </InputOrCheckWithErrorMsg>
+                <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
 
                 <div>
                     max
                 </div>
+                <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
 
-                <InputOrCheckWithErrorMsg stateAtom={maxAtom}>
-                    {/* <OptionAsString
-                        className="px-2 h-7 text-xs max-w-[6ch]"
-                        stateAtom={dlgUiCtx.maxLenAtom}
-                        onValueStateChange={updateExplanation}
-                    /> */}
-                </InputOrCheckWithErrorMsg>
             </div>
         </div>
     );
