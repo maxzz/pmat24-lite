@@ -14,20 +14,20 @@ export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
                 style={{
                     gridTemplateAreas:
                         "\
-                    'r11 r12 r12' \
-                    'r21 r22 r23' \
-                    'r33 r33 r33' \
+                    'r11 r12' \
+                    'r21 r22' \
+                    'r33 r33' \
                     "
                 }}
             >
-                <div className="" style={{ gridArea: 'r11' }}>
+                <div className="pb-0.5" style={{ gridArea: 'r11' }}>
                     Password complexity rule
                 </div>
                 <div className="" style={{ gridArea: 'r12' }}>
                     Password length
                 </div>
 
-                <div className="" style={{ gridArea: 'r21' }}>
+                <div className="pr-4" style={{ gridArea: 'r21' }}>
                     <RuleSelect dlgUiCtx={dlgUiCtx} />
                 </div>
                 {/* <div className="" style={{ gridArea: 'r22' }}>
@@ -160,9 +160,6 @@ function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) 
             <div className="flex items-center gap-1" style={{ gridArea: 'r22' }}>
                 min
                 <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
-            </div>
-
-            <div className="flex items-center gap-1" style={{ gridArea: 'r23' }}>
                 max
                 <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
             </div>
