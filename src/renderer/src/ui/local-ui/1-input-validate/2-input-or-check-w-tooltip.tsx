@@ -1,32 +1,34 @@
-import { type FC, type ReactNode, useState } from "react";
+// import { type FC, type ReactNode, useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { type OptionInputWTypeProps } from "./9-types";
-import { SymbolWarning } from "@/ui/icons";
-import { OptionAsString } from "./4-option-string";
-import { OptionAsTextarea } from "./5-option-textarea";
-import { OptionAsCheckbox } from "./6-option-checkbox";
-import { type RowInputStateAtom, Tooltip, TooltipContent, TooltipPortal, TooltipProvider } from "@/ui";
-import { InputErrorPopupMessage } from "./1-in-form-controls";
+// import { SymbolWarning } from "@/ui/icons";
+// import { OptionAsString } from "./4-option-string";
+// import { OptionAsTextarea } from "./5-option-textarea";
+// import { OptionAsCheckbox } from "./6-option-checkbox";
+// import { type RowInputStateAtom, Tooltip, TooltipContent, TooltipPortal, TooltipProvider } from "@/ui";
+// import { InputErrorPopupMessage } from "./1-in-form-controls";
+import { InputOrCheckWithErrorMsg } from "./1-in-form-controls";
 
-export function InputOrCheckWithTooltip({ stateAtom, asCheckbox, asTextarea, className, containerClasses, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithTooltip({ stateAtom, /*asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
-    const hasError = state.error && state.touched;
-    const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    // const hasError = state.error && state.touched;
+    // const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
     return (
         <div className={classNames("relative w-full", containerClasses)}>
-            {asCheckbox
+            <InputOrCheckWithErrorMsg stateAtom={stateAtom} {...rest} />
+            {/* {asCheckbox
                 ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
                 : asTextarea
                     ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
                     : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
             }
 
-            <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
+            <InputErrorPopupMessage hasError={!!hasError} error={state.error} /> */}
         </div>
     );
 }
-
+/*
 function InputOrCheckWithTooltipOld({ stateAtom, asCheckbox, asTextarea, containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
         <TooltipShellWithErrorIcon stateAtom={stateAtom} Trigger={TooltipTrigger} containerClasses={containerClasses}>
@@ -71,11 +73,11 @@ export function TooltipShellWithErrorIcon({ stateAtom, children, containerClasse
                             {/* {Trigger ? <Trigger error={state.error} /> : <div className="">no trigger</div> } * /}
                             <div className="">no trigger</div>
                         </div>
-                    </TooltipTrigger> */}
+                    </TooltipTrigger> * /}
                 </div>
 
                 {state.error && state.touched && (
-                    <TooltipPortal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning */}
+                    <TooltipPortal> {/* container={document.getElementById('portal')} // dialog from select portal will throw warning * /}
                         <TooltipContent align="end" sideOffset={-2}>
                             {state.error}
                         </TooltipContent>
@@ -86,3 +88,4 @@ export function TooltipShellWithErrorIcon({ stateAtom, children, containerClasse
         </TooltipProvider>
     );
 }
+*/

@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { type RowInputStateAtom, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 import { newManiDispNameAtom } from "@/store";
 
 export function ManiLoginNameGuarded() {
@@ -18,7 +18,7 @@ function ManiLoginName({ nameAtom }: { nameAtom: RowInputStateAtom; }) {
             <div className="font-semibold">
                 Login name
             </div>
-            <InputOrCheckWithTooltip stateAtom={nameAtom} />
+            <InputOrCheckWithErrorMsg stateAtom={nameAtom} />
         </div>
     );
 }
