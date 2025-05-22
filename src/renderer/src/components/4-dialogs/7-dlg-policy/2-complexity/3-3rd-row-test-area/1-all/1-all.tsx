@@ -24,3 +24,5 @@ export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
         </div>
     );
 }
+
+//TODO: we show if generated password is valid or not, but we need to show how strong it is as well

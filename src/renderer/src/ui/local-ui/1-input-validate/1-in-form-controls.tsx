@@ -31,7 +31,7 @@ function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className
     </>);
 }
 
-export function InputErrorPopupMessage({ hasError, error }: { hasError: boolean; error: string | undefined; }) {
+export function InputErrorPopupMessage({ hasError, error }: { hasError: boolean | undefined | ''; error: string | undefined; }) {
     return (
         <AnimatePresence initial={false}>
             {hasError && (

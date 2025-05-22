@@ -19,7 +19,7 @@ export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) 
         <DialogTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg}>
             <div className="px-4 pb-2 grid gap-4">
 
-                <div className="text-xs text-foreground">
+                <div className="text-xs font-light text-foreground">
                     Specify password complexity, history and generation requirements.
                 </div>
 

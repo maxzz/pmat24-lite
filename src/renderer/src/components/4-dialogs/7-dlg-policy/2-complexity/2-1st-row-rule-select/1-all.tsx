@@ -56,23 +56,23 @@ function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     const minState = useAtomValue(minAtom);
     const maxState = useAtomValue(maxAtom);
-    const hasErrorMin = minState.error && minState.touched;
-    const hasErrorMax = maxState.error && maxState.touched;
-    const hasError = hasErrorMin || hasErrorMax;
-    const errorMsg = minState.error || maxState.error;
-    const errorMinClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMin && 'outline-offset-[0px] outline-red-500', "text-xs");
-    const errorMaxClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMax && 'outline-offset-[0px] outline-red-500', "text-xs");
+    const hasErrorMin = !!(minState.error && minState.touched);
+    const hasErrorMax = !!(maxState.error && maxState.touched);
+    
+    function errorClasses(hasError: boolean) {
+        return classNames("px-2 h-7 text-xs max-w-[6ch]", hasError && 'outline-offset-[0px] outline-red-500', "text-xs");
+    }
 
     return (<>
         <div className="flex items-center gap-1" style={{ gridArea: 'r22' }}>
             min
-            <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
+            <OptionAsString stateAtom={minAtom} className={errorClasses(hasErrorMin)} onValueStateChange={updateExplanation} />
             max
-            <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
+            <OptionAsString stateAtom={maxAtom} className={errorClasses(hasErrorMax)} onValueStateChange={updateExplanation} />
         </div>
 
         <div style={{ gridArea: 'r33' }}>
-            <InputErrorPopupMessage hasError={!!hasError} error={errorMsg} />
+            <InputErrorPopupMessage hasError={hasErrorMin || hasErrorMax} error={minState.error || maxState.error} />
         </div>
     </>);
 }

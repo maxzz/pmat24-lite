@@ -15,7 +15,7 @@ export function DialogTitleHeader({ title, className, children, onDlgClose }: Di
             hiddenTitle={title}
             noClose
         >
-            <DialogHeader className="relative pl-4 pr-2 py-2 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
+            <DialogHeader className="relative pl-4 pr-2 py-1 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
                 <div>
                     {title}
                 </div>
