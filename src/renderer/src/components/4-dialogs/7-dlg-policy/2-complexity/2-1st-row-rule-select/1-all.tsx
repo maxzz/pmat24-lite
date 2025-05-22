@@ -10,25 +10,33 @@ export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
     return (
         <div className="">
             <div
-                className="grid"
-                style={{ gridTemplateAreas: 
-                    "\
+                className="grid grid-cols-[1fr_auto_auto] gap-x-2"
+                style={{
+                    gridTemplateAreas:
+                        "\
                     'r11 r12 r12' \
                     'r21 r22 r23' \
                     'r33 r33 r33' \
-                    " 
+                    "
                 }}
             >
-                <div className="" style={{ gridArea: 'r11' }}>l1</div>
-                <div className="" style={{ gridArea: 'r12' }}>l1</div>
-                <div className="" style={{ gridArea: 'r21' }}>1
+                <div className="" style={{ gridArea: 'r11' }}>
+                    Password complexity rule
+                </div>
+                <div className="" style={{ gridArea: 'r12' }}>
+                    Password length
+                </div>
+
+                <div className="" style={{ gridArea: 'r21' }}>
                     <RuleSelect dlgUiCtx={dlgUiCtx} />
                 </div>
-                <div className="" style={{ gridArea: 'r22' }}>2</div>
-                <div className="" style={{ gridArea: 'r23' }}>3
-                    <MinMaxInputs2 dlgUiCtx={dlgUiCtx} />
-                </div>
-                <div className="" style={{ gridArea: 'r33' }}>e2</div>
+                {/* <div className="" style={{ gridArea: 'r22' }}>
+                    2
+                </div> */}
+
+                <MinMaxInputs2 dlgUiCtx={dlgUiCtx} />
+
+                {/* <div className="" style={{ gridArea: 'r33' }}>e2</div> */}
             </div>
 
             {/* <div className="flex items-center justify-between gap-4">
@@ -41,7 +49,7 @@ export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
     );
 }
 
-function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; } ) {
+function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     const setIsCustom = useSetAtom(dlgUiCtx.isCustomAtom);
     const [selected, setSelected] = useAtom(dlgUiCtx.constrainSetAtom);
@@ -57,14 +65,14 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; } ) {
     }
 
     return (
-        <div className="flex-1 gap-y-1">
-            <div>
-                Password complexity rule
-            </div>
-            <Label className="flex-1 text-xs">
-                <Dropdown5 items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} className="min-h-7 h-auto" />
-            </Label>
-        </div>
+        // <div className="flex-1 gap-y-1">
+        //     <div>
+        //         Password complexity rule
+        //     </div>
+        <Label className="flex-1 text-xs">
+            <Dropdown5 items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} className="min-h-7 h-auto" />
+        </Label>
+        // </div>
     );
 }
 
@@ -146,23 +154,25 @@ function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) 
     return (
         <>
             {/* <div className="text-xs gap-y-1"> */}
-                <div style={{ gridArea: 'r13' }} className="">Password length</div>
+            {/* <div style={{ gridArea: 'r13' }} className="">Password length</div> */}
 
-                <div className="flex items-center gap-x-1">
-                    <div style={{ gridArea: 'r23' }}>
-                        min
-                    </div>
-                    <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
+            {/* <div className="flex items-center gap-x-1"> */}
+            <div className="flex items-center gap-1" style={{ gridArea: 'r22' }}>
+                min
+                <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
+            </div>
 
-                    <div>
-                        max
-                    </div>
-                    <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
+            <div className="flex items-center gap-1" style={{ gridArea: 'r23' }}>
+                max
+                <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
+            </div>
 
-                </div>
+            {/* </div> */}
             {/* </div> */}
 
-            <InputErrorPopupMessage hasError={!!hasError} error={errorMsg} />
+            <div style={{ gridArea: 'r33' }}>
+                <InputErrorPopupMessage hasError={!!hasError} error={errorMsg} />
+            </div>
         </>
     );
 }
