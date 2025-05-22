@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
-import { ChildrenWithLabel } from "../2-options-row";
 import { type SelectNameValueItem, ExtPolicySelectUi } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
 
@@ -17,13 +16,11 @@ export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, 
     }
 
     return (
-        <ChildrenWithLabel label="Extended authentication policy">
-            <ExtPolicySelectUi
-                items={tokenReactNodes}
-                value={state.data || '0'}
-                onValueChange={onChange} {...rest}
-            />
-        </ChildrenWithLabel>
+        <ExtPolicySelectUi
+            items={tokenReactNodes}
+            value={state.data || '0'}
+            onValueChange={onChange} {...rest}
+        />
     );
 }
 
@@ -33,7 +30,9 @@ const tokenReactNodes: SelectNameValueItem[] = extPolicyTokens.map(
         return [
             (
                 <div className="flex items-center">
-                    {Icon && <Icon key={idx} className="mr-1 size-6" />}
+                    {Icon && (
+                        <Icon key={idx} className="mr-1 size-6" />
+                    )}
                     {token.displayName}
                 </div>
             ),

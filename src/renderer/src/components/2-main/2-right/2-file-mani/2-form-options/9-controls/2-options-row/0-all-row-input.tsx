@@ -1,5 +1,7 @@
 import { type ReactNode } from "react";
-import { type OptionInputWTypeProps, InputOrCheckWithTooltip } from "@/ui/local-ui";
+import { useAtomValue } from "jotai";
+import { classNames } from "@/utils";
+import { InputOrCheckWithErrorMsg, type OptionInputWTypeProps } from "@/ui/local-ui";
 
 // Row with input
 
@@ -37,5 +39,15 @@ export function ChildrenWithLabel({ label, children }: { label: string; children
         </div>
     );
 }
+
+function InputOrCheckWithTooltip({ stateAtom, /*asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
+    const state = useAtomValue(stateAtom);
+    return (
+        <div className={classNames("relative w-full", containerClasses)}>
+            <InputOrCheckWithErrorMsg stateAtom={stateAtom} {...rest} />
+        </div>
+    );
+}
+
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";
