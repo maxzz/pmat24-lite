@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
-import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
 import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
+import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {

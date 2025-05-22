@@ -20,7 +20,7 @@ import { PositionIcon } from "./3-target-pos-dnd";
 export function InputXY({ item }: { item: ManualFieldState.CtxPos }) {
     return (
         <div className="!mt-6 space-y-2">
-            <div className="">
+            <div>
                 Click on the preview window below to select the click point.
             </div>
 
