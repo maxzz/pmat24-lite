@@ -116,25 +116,31 @@ function MinMaxInputs2({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) 
     const maxState = useAtomValue(maxAtom);
     const hasErrorMin = minState.error && minState.touched;
     const hasErrorMax = maxState.error && maxState.touched;
+    const hasError = hasErrorMin || hasErrorMax;
+    const errorMsg = minState.error || maxState.error;
     const errorMinClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMin && 'outline-offset-[0px] outline-red-500', "text-xs");
     const errorMaxClasses = classNames("px-2 h-7 text-xs max-w-[6ch]", hasErrorMax && 'outline-offset-[0px] outline-red-500', "text-xs");
 
     return (
-        <div className="text-xs gap-y-1">
-            <div className="">Password length</div>
+        <>
+            <div className="text-xs gap-y-1">
+                <div className="">Password length</div>
 
-            <div className="flex items-center gap-x-1">
-                <div>
-                    min
+                <div className="flex items-center gap-x-1">
+                    <div>
+                        min
+                    </div>
+                    <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
+
+                    <div>
+                        max
+                    </div>
+                    <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
+
                 </div>
-                <OptionAsString stateAtom={minAtom} className={errorMinClasses} onValueStateChange={updateExplanation} />
-
-                <div>
-                    max
-                </div>
-                <OptionAsString stateAtom={maxAtom} className={errorMaxClasses} onValueStateChange={updateExplanation} />
-
             </div>
-        </div>
+
+            <InputErrorPopupMessage hasError={!!hasError} error={errorMsg} />
+        </>
     );
 }
