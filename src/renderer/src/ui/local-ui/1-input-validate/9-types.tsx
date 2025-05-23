@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes } from 'react';
+import { type ReactNode, type InputHTMLAttributes } from 'react';
 import { type PrimitiveAtom } from 'jotai';
 
 export type RowInputStateOptions = {
@@ -35,6 +35,7 @@ export type OptionInputWTypeProps =
         asCheckbox?: boolean;
         asTextarea?: boolean;
         containerClasses?: string;
+        children?: ReactNode;
     };
 
 export type RowInputStateAtom = PrimitiveAtom<RowInputState>;

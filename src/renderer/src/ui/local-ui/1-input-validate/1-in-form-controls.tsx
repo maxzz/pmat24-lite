@@ -3,9 +3,9 @@ import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 
-export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InFormRowInputWTitle({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <div className="col-span-2 py-1 text-xs grid gap-0.5">
+        <div className={classNames("col-span-2 py-1 text-xs grid gap-0.5", containerClasses)}>
             <div className="font-light">
                 {label}
             </div>
@@ -15,17 +15,21 @@ export function InFormRowInputWTitle({ label, ...rest }: { label: string; } & Op
     );
 }
 
-export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, children, className, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
     return (<>
-        {asCheckbox
-            ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
-            : asTextarea
-                ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
-        }
+        {children
+            ? children
+            : (<>
+                {asCheckbox
+                    ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
+                    : asTextarea
+                        ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
+                        : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
+                }
+            </>)}
 
         <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
     </>);
