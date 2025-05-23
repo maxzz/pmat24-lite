@@ -8,7 +8,8 @@ import { InputOrCheckWithErrorMsg, type OptionInputWTypeProps } from "@/ui/local
 export function RowInputWTitle2Cols({ label, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <ChildrenWithLabel2Cols label={label}>
-            <InputOrCheckWithTooltip2Cols {...rest} />
+            {/* <InputOrCheckWithTooltip2Cols {...rest} /> */}
+            <InputOrCheckWithErrorMsg {...rest} />
         </ChildrenWithLabel2Cols>
     );
 }
@@ -19,7 +20,8 @@ export function RowInputAndButtonWTitle2Cols({ label, button, ...rest }: { label
     return (
         <ChildrenWithLabel2Cols label={label}>
             <div className="w-full flex items-center justify-between gap-1">
-                <InputOrCheckWithTooltip2Cols {...rest} />
+                {/* <InputOrCheckWithTooltip2Cols {...rest} /> */}
+                <InputOrCheckWithErrorMsg {...rest} />
                 {button}
             </div>
         </ChildrenWithLabel2Cols>
@@ -40,11 +42,10 @@ export function ChildrenWithLabel2Cols({ label, children }: { label: string; chi
     );
 }
 
-function InputOrCheckWithTooltip2Cols({ stateAtom, /*asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
-    const state = useAtomValue(stateAtom);
+function InputOrCheckWithTooltip2Cols({ /*stateAtom, asCheckbox, asTextarea, className,*/ containerClasses, ...rest }: OptionInputWTypeProps) {
     return (
         <div className={classNames("relative w-full", containerClasses)}> {/* TODO: do we need this div? it was for icon tooltip, but now we have popup line */}
-            <InputOrCheckWithErrorMsg stateAtom={stateAtom} {...rest} />
+            <InputOrCheckWithErrorMsg {...rest} />
         </div>
     );
 }

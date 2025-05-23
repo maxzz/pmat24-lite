@@ -29,8 +29,8 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className={optionsAllGroupsClasses}>
             {loginCtx && (<>
-                {/* <SectionTitle label="Manifest options" /> */}
-                {/* <GroupManiGeneral ctx={loginCtx} /> */}
+                <SectionTitle label="Manifest options" />
+                <GroupManiGeneral ctx={loginCtx} />
 
                 {/* <SectionTitle label="Login form options" /> */}
                 <GroupFormLogin ctx={loginCtx} />
