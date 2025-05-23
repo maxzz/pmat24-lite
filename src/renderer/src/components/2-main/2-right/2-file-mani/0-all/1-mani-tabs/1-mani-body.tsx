@@ -7,7 +7,7 @@ import { type FileUs, type ManiTabValue, appSettings, maniTabValue, rightPanelAt
 import { type FileUsAtom } from "@/store/store-types";
 import { createManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManiEditorFormSelector } from "../../1-form-editor";
-import { ManiEditorAllOptions } from "../../2-form-options/0-all/0-all";
+import { ManiEditorAllOptions } from "../../2-form-options";
 import { ManiTabsList } from "./2-mani-tabs-list";
 
 export function ManiBody() {
