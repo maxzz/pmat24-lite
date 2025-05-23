@@ -13,19 +13,6 @@ export function RowInputWTitle2Cols({ label, ...rest }: { label: string; } & Opt
     );
 }
 
-// Row with input and button
-
-export function RowInputAndButtonWTitle2Cols({ label, button, ...rest }: { label: string; button: ReactNode; } & OptionInputWTypeProps) {
-    return (
-        <ChildrenWithLabel2Cols label={label}>
-            <div className="w-full flex items-center justify-between gap-1">
-                <InputOrCheckWithErrorMsg {...rest} />
-                {button}
-            </div>
-        </ChildrenWithLabel2Cols>
-    );
-}
-
 // Row with children
 
 export function ChildrenWithLabel2Cols({ label, children }: { label: string; children: ReactNode; }) {
