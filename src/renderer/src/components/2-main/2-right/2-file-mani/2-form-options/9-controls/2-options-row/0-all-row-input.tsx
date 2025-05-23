@@ -2,15 +2,14 @@ import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { formRow2ColsChildrenClasses, formRow2ColsChildrenLabelClasses, FormRowChildren, InputOrCheckWithErrorMsg, type OptionInputWTypeProps } from "@/ui/local-ui";
-import { c } from "vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
 // Row with input
 
 export function RowInputWTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <ChildrenWithLabel2Cols label={label} containerClasses={containerClasses}>
+        <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
             <InputOrCheckWithErrorMsg {...rest} />
-        </ChildrenWithLabel2Cols>
+        </FormRowChildren>
     );
 }
 
