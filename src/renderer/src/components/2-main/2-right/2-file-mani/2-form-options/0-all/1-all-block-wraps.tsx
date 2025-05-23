@@ -8,19 +8,27 @@ import { Block2_Authentication } from "./2-2-authentication";
 import { Block3_QL } from "./2-3-QL";
 import { Block4_ScreenDetection } from "./2-4-screen-detection";
 import { Block5_PMIcon } from "./2-5-pm-icon";
-import { ButtonSliders, OptionsSubSectionTitle, RowInputAndButtonWTitle2Cols, UiAccordion } from "../9-controls";
+import { ButtonSliders, ChildrenWithLabel2Cols, OptionsSubSectionTitle, RowInputAndButtonWTitle2Cols, UiAccordion } from "../9-controls";
 import { UiAccordion2 } from "../9-controls/nun/ui-accordion2";
+import { InputOrCheckWithErrorMsg } from "@/ui";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];
     const open = useAtomValue(openAtom);
     const { nameAtom } = ctx.oAllAtoms.options.p1General;
     return (<>
-        <RowInputAndButtonWTitle2Cols
+        <ChildrenWithLabel2Cols label="Managed login name">
+            <div className="w-full flex items-center justify-between gap-1">
+                <InputOrCheckWithErrorMsg stateAtom={nameAtom} />
+                <ButtonSliders openAtom={openAtom} />
+            </div>
+        </ChildrenWithLabel2Cols>
+
+        {/* <RowInputAndButtonWTitle2Cols
             label="Managed login name"
             stateAtom={nameAtom}
             button={<ButtonSliders openAtom={openAtom} />}
-        />
+        /> */}
 
         <UiAccordion open={open}>
             <Block1_General ctx={ctx} />
