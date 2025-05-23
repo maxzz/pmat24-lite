@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { SectionTitle } from "../9-controls";
+import { ExtPolicySelect, SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
 import { InFormRowInputWTitle } from "@/ui/local-ui";
@@ -54,14 +54,14 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     
         <InFormRowInputWTitle stateAtom={nameAtom} label="Managed login name" />
 
-        <InFormRowInputWTitle stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
-        <InFormRowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
+        <InFormRowInputWTitle stateAtom={aimAtom} label="Authenticate immediately" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
+        <InFormRowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
 
         <InFormRowInputWTitle stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
 
-        {/* <ChildrenWithLabel2Cols label="Extended authentication policy">
+        <InFormRowInputWTitle stateAtom={auth_plAtom} label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
-        </ChildrenWithLabel2Cols> */}
+        </InFormRowInputWTitle>
 
         {/* <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} /> */}
