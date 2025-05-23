@@ -28,4 +28,14 @@ export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
+export function PMIcon_W32({ ctx }: { ctx: OFormContextProps; }) {
+    const { idAtom, locAtom } = ctx.oAllAtoms.options.p5Icon;
+    return (
+        <div className={textClasses}>
+            <InFormRowInputWTitle stateAtom={idAtom} label="Location ID" />
+            <InFormRowInputWTitle stateAtom={locAtom} label="Location" />
+        </div>
+    );
+}
+
 const textClasses = 'pl-6';

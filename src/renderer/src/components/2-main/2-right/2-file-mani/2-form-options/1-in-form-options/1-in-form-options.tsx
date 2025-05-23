@@ -3,8 +3,7 @@ import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { type OFormContextProps, type MFormContextProps, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { DetectionContent_Web, DetectionContent_W32 } from "./2-in-form-detection-content";
-import { Block5_PMIcon } from "../0-all/2-5-pm-icon";
+import { DetectionContent_Web, DetectionContent_W32, PMIcon_W32 } from "./2-in-form-detection-content";
 
 export function InFormOptions({ n_mCtx, className, ...rest }: { n_mCtx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const formOptionsCtx = n_mCtx.maniAtoms?.[n_mCtx.formIdx];
@@ -58,7 +57,7 @@ function FormW32Icon({ ctx }: { ctx: OFormContextProps; }) {
     }
     return (
         <AccordionWithTrigger name='form-icon' formIdx={formIdx} triggerText="Password Manager Icon">
-            <Block5_PMIcon atoms={ctx.oAllAtoms.options} />
+            <PMIcon_W32 ctx={ctx} />
         </AccordionWithTrigger>
     );
 }
