@@ -5,6 +5,8 @@ import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
+import { InFormRowInputWTitle } from "@/ui/local-ui";
+import { ManiLoginNameGuarded } from "@/components/4-dialogs";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -27,10 +29,10 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className={optionsAllGroupsClasses}>
             {loginCtx && (<>
-                <SectionTitle label="Manifest options" />
-                <GroupManiGeneral ctx={loginCtx} />
+                {/* <SectionTitle label="Manifest options" /> */}
+                {/* <GroupManiGeneral ctx={loginCtx} /> */}
 
-                <SectionTitle label="Login form options" />
+                {/* <SectionTitle label="Login form options" /> */}
                 <GroupFormLogin ctx={loginCtx} />
             </>)}
 
@@ -45,9 +47,24 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
 const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
 
 function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
+    const { options } = ctx.oAllAtoms;
+    const { nameAtom, balloonAtom } = options.p1General;
+    const { aimAtom, lockAtom, auth_plAtom } = options.p3Auth;
     return (<>
-        <BlockWrap_Auth ctx={ctx} />
-        <BlockWrap_Quicklink ctx={ctx} />
+    
+        <InFormRowInputWTitle stateAtom={nameAtom} label="Managed login name" />
+
+        <InFormRowInputWTitle stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
+        <InFormRowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
+
+        <InFormRowInputWTitle stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
+
+        {/* <ChildrenWithLabel2Cols label="Extended authentication policy">
+            <ExtPolicySelect stateAtom={auth_plAtom} />
+        </ChildrenWithLabel2Cols> */}
+
+        {/* <BlockWrap_Auth ctx={ctx} />
+        <BlockWrap_Quicklink ctx={ctx} /> */}
         {/* <BlockWrap_Detection ctx={ctx} /> */}
         {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
         {/* <BlockWrap_Icon ctx={ctx} /> */}
