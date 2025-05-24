@@ -5,7 +5,7 @@ import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect, SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
-import { InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
+import { ChildrenWithLabel2Cols, InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
 import { ManiLoginNameGuarded } from "@/components/4-dialogs";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
@@ -29,8 +29,8 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className={optionsAllGroupsClasses}>
             {loginCtx && (<>
-                <SectionTitle label="Manifest options" />
-                <GroupManiGeneral ctx={loginCtx} />
+                {/* <SectionTitle label="Manifest options" /> */}
+                {/* <GroupManiGeneral ctx={loginCtx} /> */}
 
                 {/* <SectionTitle label="Login form options" /> */}
                 <GroupFormLogin ctx={loginCtx} />
@@ -51,14 +51,14 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     const { nameAtom, balloonAtom } = options.p1General;
     const { aimAtom, lockAtom, auth_plAtom } = options.p3Auth;
     return (<>
-        <InputWithTitle2Rows stateAtom={nameAtom} label="Managed login name" />
+        <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" />
 
         <InputWithTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
         <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
 
-        <InputWithTitle2Cols stateAtom={auth_plAtom} label="Extended authentication policy">
+        <ChildrenWithLabel2Cols label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
-        </InputWithTitle2Cols>
+        </ChildrenWithLabel2Cols>
 
         <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
 
