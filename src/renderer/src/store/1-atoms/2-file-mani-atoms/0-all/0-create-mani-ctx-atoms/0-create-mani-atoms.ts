@@ -2,7 +2,7 @@ import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCtx, type NFormCtx, type FileUsCtx, type AnyFormAtoms, type ManiAtoms, type FormFields } from "../../9-types";
-import { NormalField, NormalModeState } from "../../1-normal-fields";
+import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
@@ -46,8 +46,8 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
 }
 
 function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
-    console.log('createFormFieldsAtom', normal, manual);
-    
+    console.log('%c🥑 createFormFieldsAtom', 'color: magenta', normal, manual);
+
     const rv = atom<FormFields>(
         (get) => {
             let fields: FormFields | undefined;

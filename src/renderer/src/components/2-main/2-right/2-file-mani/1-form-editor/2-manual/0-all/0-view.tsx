@@ -9,7 +9,7 @@ import { atom, useAtomValue } from "jotai";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const formFields = useAtomValue(ctx.fieldsAtom);
-    console.log('%cformFields', 'background-color: red; color: white', formFields);
+    console.log('%c render formFields', 'background-color: green; color: white', formFields);
     
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
