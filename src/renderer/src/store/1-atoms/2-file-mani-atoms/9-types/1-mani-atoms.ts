@@ -51,14 +51,16 @@ export type ManiAtoms = readonly [login: AnyFormAtoms | undefined, cpass: AnyFor
 
 export type NFormContextProps = {           // To access normal form fields and submit
     maniAtoms: ManiAtoms;
-    nAllAtoms: NFormAtoms;
     formIdx: FormIdx;
+    nAllAtoms: NFormAtoms;
+    fieldsAtom: Atom<FormFields>;           // Reactive fields in normal form (they are never changed)
 };
 
 export type MFormContextProps = {           // To access manual form fields
     maniAtoms: ManiAtoms;
-    mAllAtoms: MFormAtoms;
     formIdx: FormIdx;
+    mAllAtoms: MFormAtoms;
+    fieldsAtom: Atom<FormFields>;           // Reactive fields in manual form (updated when chunks are changed)
 };
 
 export type OFormContextProps = {           // To access form options
