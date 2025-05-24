@@ -48,6 +48,7 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} />
+
         {/* <BlockWrap_Detection ctx={ctx} /> */}
         {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
         {/* <BlockWrap_Icon ctx={ctx} /> */}
@@ -58,6 +59,7 @@ function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
     return (<>
         <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} />
+        
         {/* <BlockWrap_Detection ctx={ctx} /> */}
         {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
         {/* <BlockWrap_Icon ctx={ctx} /> */}

@@ -15,7 +15,7 @@ export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { 
 export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
-            <InputOrCheckWithErrorMsg errorClasses="col-start-2 text-[0.65rem]" {...rest} />
+            <InputOrCheckWithErrorMsg {...rest} />
         </FormRowChildren>
     );
 }
@@ -23,14 +23,14 @@ export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { labe
 export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={label2RowsClasses}>
-            <InputOrCheckWithErrorMsg {...rest} />
+            <InputOrCheckWithErrorMsg twoRows {...rest} />
         </FormRowChildren>
     );
 }
 
 // Row input with error message
 
-export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, errorClasses, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, twoRows, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     const errorInputClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
@@ -42,7 +42,7 @@ export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, cl
                 : <OptionAsString stateAtom={stateAtom} className={errorInputClasses} {...rest} />
         }
 
-        <InputErrorPopupMessage hasError={!!hasError} error={state.error} errorClasses={errorClasses} />
+        <InputErrorPopupMessage hasError={!!hasError} error={state.error} errorClasses={twoRows ? '' : "col-start-2"} />
     </>);
 }
 
@@ -50,7 +50,7 @@ export function InputErrorPopupMessage({ hasError, error, errorClasses }: { hasE
     return (
         <AnimatePresence initial={false}>
             {hasError && (
-                <motion.div className={classNames("text-red-500", errorClasses)} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                <motion.div className={classNames("text-[0.65rem] text-red-500", errorClasses)} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
                     {error}
                 </motion.div>
             )}

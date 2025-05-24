@@ -7,7 +7,7 @@ import { InFormOptions } from "../../2-form-options";
 export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFieldsNeedSubmit = !!ctx.nAllAtoms.normal.rowCtxs.length;
     return (
-        <div className={classNames("flex flex-col", className)} {...rest}>
+        <div className={classNames("pr-1 flex flex-col", className)} {...rest}>
 
             <div className={sectionLabelClasses}>
                 Form fields
