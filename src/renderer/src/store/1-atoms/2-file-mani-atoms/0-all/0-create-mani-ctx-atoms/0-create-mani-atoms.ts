@@ -46,6 +46,8 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
 }
 
 function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
+    console.log('createFormFieldsAtom', normal, manual);
+    
     const rv = atom<FormFields>(
         (get) => {
             let fields: FormFields | undefined;
@@ -57,6 +59,7 @@ function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | u
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
+                                console.log('    accessing fld', chunk.rowCtx.fromFile.dbname);
                                 return chunk.rowCtx;
                             }
                         }
