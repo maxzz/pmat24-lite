@@ -5,7 +5,7 @@ import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect, SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
-import { InFormRowInputWTitle } from "@/ui/local-ui";
+import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { ManiLoginNameGuarded } from "@/components/4-dialogs";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
@@ -52,16 +52,16 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
     const { aimAtom, lockAtom, auth_plAtom } = options.p3Auth;
     return (<>
     
-        <InFormRowInputWTitle stateAtom={nameAtom} label="Managed login name" />
+        <InputWithTitle2Rows stateAtom={nameAtom} label="Managed login name" />
 
-        <InFormRowInputWTitle stateAtom={aimAtom} label="Authenticate immediately" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
-        <InFormRowInputWTitle stateAtom={lockAtom} label="Lock out login fields" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
+        <InputWithTitle2Rows stateAtom={aimAtom} label="Authenticate immediately" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
+        <InputWithTitle2Rows stateAtom={lockAtom} label="Lock out login fields" asCheckbox containerClasses="grid-cols-[max-content_auto] gap-2" />
 
-        <InFormRowInputWTitle stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
+        <InputWithTitle2Rows stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
 
-        <InFormRowInputWTitle stateAtom={auth_plAtom} label="Extended authentication policy">
+        <InputWithTitle2Rows stateAtom={auth_plAtom} label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
-        </InFormRowInputWTitle>
+        </InputWithTitle2Rows>
 
         {/* <BlockWrap_Auth ctx={ctx} />
         <BlockWrap_Quicklink ctx={ctx} /> */}

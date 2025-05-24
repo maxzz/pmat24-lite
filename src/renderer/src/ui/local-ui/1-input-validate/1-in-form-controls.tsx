@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 
-export function InFormRowInputWTitle({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(formRow1ColsChildrenClasses, containerClasses)} labelClasses={formRow1ColsChildrenLabelClasses}>
             <InputOrCheckWithErrorMsg {...rest} />
@@ -12,7 +12,7 @@ export function InFormRowInputWTitle({ label, containerClasses, ...rest }: { lab
     );
 }
 
-export function RowInputWTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
             <InputOrCheckWithErrorMsg {...rest} />
