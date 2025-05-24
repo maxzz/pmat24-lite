@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCtx, type NFormCtx, type FileUsCtx, type AnyFormAtoms, type ManiAtoms, type FormFields } from "../../9-types";
@@ -55,4 +55,28 @@ function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms:
     );
     console.trace();
     console.groupEnd();
+}
+
+function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
+    const rv = atom<FormFields>(
+        (get) => {
+            let fields: FormFields | undefined;
+            if (normal) {
+                fields = normal.rowCtxs;
+            }
+            if (manual) {
+                fields = get(manual.chunksAtom)
+                    .map(
+                        (chunk) => {
+                            if (chunk.type === 'fld') {
+                                return chunk.rowCtx;
+                            }
+                        }
+                    )
+                    .filter(Boolean);
+            }
+            return fields || [];
+        }
+    );
+    return rv;
 }
