@@ -12,7 +12,7 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
             <div className={sectionLabelClasses}>
                 Form fields
             </div>
-            
+
             <InFormBlockFields ctx={ctx} />
 
             {hasFieldsNeedSubmit && (<>
@@ -23,7 +23,13 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
                 <InFormBlockSubmit ctx={ctx} />
             </>)}
 
-            <InFormBlockOptions className="pl-2 pr-2 pt-1" n_mCtx={ctx} />
+            <div className={classNames("text-xs flex flex-col items-start gap-1 select-none", className)} {...rest}>
+                <div className="font-semibold">
+                    Additional options
+                </div>
+
+                <InFormBlockOptions className="pl-2 pr-2 pt-1" n_mCtx={ctx} />
+            </div>
         </div>
     );
 }
