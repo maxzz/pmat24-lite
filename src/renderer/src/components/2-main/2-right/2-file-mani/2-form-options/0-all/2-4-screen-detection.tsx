@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { RowInputWTitle2Cols } from "../9-controls";
+import { InputWithTitle2Cols } from "@/ui/local-ui";
 
 export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
 
@@ -18,19 +18,19 @@ export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
     return (
         isWeb
             ? (<>
-                <RowInputWTitle2Cols stateAtom={ourlAtom} label="Original URL" />
-                <RowInputWTitle2Cols stateAtom={murlAtom} label="Match URL" />
+                <InputWithTitle2Cols stateAtom={ourlAtom} label="Original URL" />
+                <InputWithTitle2Cols stateAtom={murlAtom} label="Match URL" />
             </>)
             : (<>
-                <RowInputWTitle2Cols stateAtom={captionAtom} label="Windows caption" />
-                <RowInputWTitle2Cols stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
+                <InputWithTitle2Cols stateAtom={captionAtom} label="Windows caption" />
+                <InputWithTitle2Cols stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
 
-                <RowInputWTitle2Cols stateAtom={dlg_classAtom} label="Window class name" />
-                <RowInputWTitle2Cols stateAtom={dlg_tabAtom} label="Window tab" />
-                <RowInputWTitle2Cols stateAtom={dlg_checkexeAtom} label="Tab executable" />
+                <InputWithTitle2Cols stateAtom={dlg_classAtom} label="Window class name" />
+                <InputWithTitle2Cols stateAtom={dlg_tabAtom} label="Window tab" />
+                <InputWithTitle2Cols stateAtom={dlg_checkexeAtom} label="Tab executable" />
 
-                <RowInputWTitle2Cols stateAtom={processnameAtom} label="Process name" />
-                <RowInputWTitle2Cols stateAtom={commandlineAtom} label="Command line" />
+                <InputWithTitle2Cols stateAtom={processnameAtom} label="Process name" />
+                <InputWithTitle2Cols stateAtom={commandlineAtom} label="Command line" />
             </>)
     );
 }

@@ -6,7 +6,7 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 
 export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(formRow1ColsChildrenClasses, containerClasses)} labelClasses={formRow1ColsChildrenLabelClasses}>
+        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={label2RowsClasses}>
             <InputOrCheckWithErrorMsg {...rest} />
         </FormRowChildren>
     );
@@ -14,7 +14,7 @@ export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { labe
 
 export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
+        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             <InputOrCheckWithErrorMsg {...rest} />
         </FormRowChildren>
     );
@@ -22,7 +22,7 @@ export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { labe
 
 export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: string; children: ReactNode; containerClasses?: string; }) {
     return (
-        <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
+        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             {children}
         </FormRowChildren>
     );
@@ -81,10 +81,10 @@ export function FormRowChildren({ label, children, className, labelClasses }: { 
     );
 }
 
-export const formRow1ColsChildrenClasses = "col-span-2 py-1 text-xs grid gap-0.5";
-export const formRow1ColsChildrenLabelClasses = "font-light";
+const children2RowsClasses = "col-span-2 py-1 text-xs grid gap-0.5";
+const label2RowsClasses = "font-light";
 
-export const formRow2ColsChildrenClasses = "col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center";
-export const formRow2ColsChildrenLabelClasses = "font-light text-end";
+const children2ColsClasses = "col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center";
+const label2ColsClasses = "font-light text-end";
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";

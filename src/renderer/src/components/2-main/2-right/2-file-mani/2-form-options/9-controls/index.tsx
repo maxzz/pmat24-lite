@@ -1,5 +1,4 @@
 export * from "./1-section-header";
-export * from "./2-options-row";
 export * from "./3-button-sliders";
 export * from "./4-ext-policies";
 export * from "./ui-accordion";
