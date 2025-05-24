@@ -9,9 +9,19 @@ import { InFormBlockOptions } from "../../../2-form-options";
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
+            
             <ManualPanelActions className="@container/actions" ctx={ctx} />
+            
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
-            <InFormBlockOptions className="mb-1" n_mCtx={ctx} />
+            
+            <div className="font-semibold">
+                Additional options
+            </div>
+
+            <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
+                <InFormBlockOptions n_m_ctx={ctx} />
+            </div>
+            
         </div>
     );
 }

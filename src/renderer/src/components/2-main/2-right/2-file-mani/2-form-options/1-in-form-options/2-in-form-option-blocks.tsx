@@ -1,7 +1,6 @@
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 
-
 export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
     const { ourlAtom, murlAtom, } = ctx.oAllAtoms.options.p2Detect;
     return (
@@ -38,4 +37,4 @@ export function PMIcon_W32({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
-const textClasses = 'pl-6';
+const textClasses = "pl-6 pr-0.5";

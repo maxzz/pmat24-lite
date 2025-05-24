@@ -14,14 +14,12 @@ export function PanelPropsTitle({ type }: { type: ChunkKey; }) {
 function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
     const dispName = rowColumnName(type);
     return (<>
-        <div>
-            <span className="text-xs font-light">
-                Action{' '}
+        <div className="text-xs font-light">
+            Action{' '}
+            <span className="font-semibold opacity-50">
+                {dispName}
             </span>
-            {dispName}
-            <span className="text-xs font-light">
-                {' '}properties
-            </span>
+            {' '}properties
         </div>
 
         <div className="opacity-50">

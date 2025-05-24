@@ -21,7 +21,7 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
     async function onCreateNewManual(type: ChunkKey, password: boolean) {
         doCreateItem(ctx.mAllAtoms.manual, type, password);
         
-        await delay(500); // TODO: fix this temp hack
+        await delay(500); // TODO: fix this temp hack for the focus
         // console.log('onCreateNewManual', listRef.current);
         
         listRef.current?.focus();
@@ -34,9 +34,11 @@ export function ManualPanelActions({ ctx, className, ...rest }: { ctx: MFormCont
 
             <div className="relative h-full">
                 <div className="absolute inset-0">
+
                     <ScrollArea className="pr-1 h-full">
                         <PanelActionsList ctx={ctx} ref={listRef} />
                     </ScrollArea>
+
                 </div>
             </div>
         </div>
