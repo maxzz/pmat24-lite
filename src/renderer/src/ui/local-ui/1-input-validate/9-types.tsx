@@ -35,7 +35,7 @@ export type OptionInputWTypeProps =
         asCheckbox?: boolean;
         asTextarea?: boolean;
         containerClasses?: string;
-        children?: ReactNode;
+        errorClasses?: string;
     };
 
 export type RowInputStateAtom = PrimitiveAtom<RowInputState>;

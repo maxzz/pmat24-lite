@@ -4,22 +4,6 @@ import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 
-export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
-    return (
-        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={label2RowsClasses}>
-            <InputOrCheckWithErrorMsg {...rest} />
-        </FormRowChildren>
-    );
-}
-
-export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
-    return (
-        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
-            <InputOrCheckWithErrorMsg {...rest} />
-        </FormRowChildren>
-    );
-}
-
 export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: string; children: ReactNode; containerClasses?: string; }) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
@@ -28,33 +12,45 @@ export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { 
     );
 }
 
+export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+    return (
+        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
+            <InputOrCheckWithErrorMsg errorClasses="col-start-2 text-[0.65rem]" {...rest} />
+        </FormRowChildren>
+    );
+}
+
+export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+    return (
+        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={label2RowsClasses}>
+            <InputOrCheckWithErrorMsg {...rest} />
+        </FormRowChildren>
+    );
+}
+
 // Row input with error message
 
-export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, children, className, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, errorClasses, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
-    const errorClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    const errorInputClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
     return (<>
-        {children
-            ? children
-            : (<>
-                {asCheckbox
-                    ? <OptionAsCheckbox stateAtom={stateAtom} className={errorClasses} {...rest} />
-                    : asTextarea
-                        ? <OptionAsTextarea stateAtom={stateAtom} className={errorClasses} {...rest} />
-                        : <OptionAsString stateAtom={stateAtom} className={errorClasses} {...rest} />
-                }
-            </>)}
+        {asCheckbox
+            ? <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+            : asTextarea
+                ? <OptionAsTextarea stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+                : <OptionAsString stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+        }
 
-        <InputErrorPopupMessage hasError={!!hasError} error={state.error} />
+        <InputErrorPopupMessage hasError={!!hasError} error={state.error} errorClasses={errorClasses} />
     </>);
 }
 
-export function InputErrorPopupMessage({ hasError, error }: { hasError: boolean | undefined | ''; error: string | undefined; }) {
+export function InputErrorPopupMessage({ hasError, error, errorClasses }: { hasError: boolean | undefined | ''; error: string | undefined; errorClasses?: string; }) {
     return (
         <AnimatePresence initial={false}>
             {hasError && (
-                <motion.div className="text-[0.65rem] text-red-500" variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                <motion.div className={classNames("text-red-500", errorClasses)} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
                     {error}
                 </motion.div>
             )}
@@ -67,7 +63,7 @@ const variants: Variants = {
     collapsed: { height: 0, opacity: 0 },
 };
 
-// Row with children
+// Row with children simle DOM layout
 
 export function FormRowChildren({ label, children, className, labelClasses }: { label: string; children: ReactNode; className?: string; labelClasses?: string; }) {
     return (
