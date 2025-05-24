@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from 'jotai';
+import { type PrimitiveAtom as PA, type Getter, type Setter } from 'jotai';
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FormIdx } from '@/store/manifest';
 import { type SubmitFieldTypes, type NormalField } from '../1-normal-fields';
@@ -27,10 +27,15 @@ export type FormOptionsAndFileUsCtxAtoms = {
     options: OptionsState.Atoms;
 };
 
+export type FormFields = NormalField.RowCtx[];
+
 export type AnyFormAtoms = Prettify<
     & {
         normal?: NFormCtx;                  // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
         manual?: MFormCtx;                  // If form is not manual then it'll dummy empty []
+    }
+    & {
+        formFieldsAtom: PA<FormFields>;     // Fields in normal or manual form (maybe enough just passwords?)
     }
     & FormOptionsAndFileUsCtxAtoms
 >;
