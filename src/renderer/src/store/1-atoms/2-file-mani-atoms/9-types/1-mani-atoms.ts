@@ -1,4 +1,4 @@
-import { type PrimitiveAtom as PA, type Getter, type Setter } from 'jotai';
+import { type Atom, type Getter, type Setter } from 'jotai';
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FormIdx } from '@/store/manifest';
 import { type SubmitFieldTypes, type NormalField } from '../1-normal-fields';
@@ -35,7 +35,7 @@ export type AnyFormAtoms = Prettify<
         manual?: MFormCtx;                  // If form is not manual then it'll dummy empty []
     }
     & {
-        formFieldsAtom: PA<FormFields>;     // Fields in normal or manual form (maybe enough just passwords?)
+        formFieldsAtom: Atom<FormFields>;   // Fields in normal or manual form (maybe enough just passwords?)
     }
     & FormOptionsAndFileUsCtxAtoms
 >;

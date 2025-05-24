@@ -37,24 +37,12 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     const rv: AnyFormAtoms = {
         normal,
         manual,
-        formFieldsAtom: atom<FormFields>([]),
+        formFieldsAtom: createFormFieldsAtom(normal, manual),
         options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
         fileUsCtx: fileUsCtx,
     };
 
     return rv;
-}
-
-function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
-    console.groupCollapsed(
-        `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
-        'font-weight: normal; color: gray',
-        'font-weight: normal; color: magenta',
-        'font-weight: normal; color: gray',
-        { fileUs, maniAtoms }
-    );
-    console.trace();
-    console.groupEnd();
 }
 
 function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
@@ -79,4 +67,16 @@ function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | u
         }
     );
     return rv;
+}
+
+function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
+    console.groupCollapsed(
+        `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
+        'font-weight: normal; color: gray',
+        'font-weight: normal; color: magenta',
+        'font-weight: normal; color: gray',
+        { fileUs, maniAtoms }
+    );
+    console.trace();
+    console.groupEnd();
 }
