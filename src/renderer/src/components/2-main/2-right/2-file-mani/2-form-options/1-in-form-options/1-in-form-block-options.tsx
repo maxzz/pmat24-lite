@@ -5,7 +5,7 @@ import { type OFormContextProps, type MFormContextProps, type NFormContextProps 
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { DetectionContent_Web, DetectionContent_W32, PMIcon_W32 } from "./2-in-form-option-blocks";
 
-export function InFormOptions({ n_mCtx, className, ...rest }: { n_mCtx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+export function InFormBlockOptions({ n_mCtx, className, ...rest }: { n_mCtx: NFormContextProps | MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const formOptionsCtx = n_mCtx.maniAtoms?.[n_mCtx.formIdx];
     if (!formOptionsCtx) {
         return null;

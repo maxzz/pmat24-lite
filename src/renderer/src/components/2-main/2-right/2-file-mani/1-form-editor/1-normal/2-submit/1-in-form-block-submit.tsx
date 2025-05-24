@@ -2,7 +2,7 @@ import { useAtomValue, useAtom } from "jotai";
 import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
-export function TabSubmit({ ctx }: { ctx: NFormContextProps; }) {
+export function InFormBlockSubmit({ ctx }: { ctx: NFormContextProps; }) {
     const isWeb = ctx.nAllAtoms.normal.submitCtx.isWeb;
     return (
         <div className="ml-1 p-1 1flex items-center gap-1 select-none">
