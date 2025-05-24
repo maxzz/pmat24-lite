@@ -5,8 +5,16 @@ import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
+import { atom, useAtomValue } from "jotai";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+    const formFieldsAtom = ctx.maniAtoms?.[ctx.formIdx]?.formFieldsAtom;
+    if (!formFieldsAtom) {
+        throw new Error('formFieldsAtom is not defined'); //This was checked by form selector
+    }
+    const formFields = useAtomValue(formFieldsAtom);
+    console.log('%cformFields', 'background-color: red; color: white', formFields);
+    
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             
