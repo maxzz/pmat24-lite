@@ -131,3 +131,8 @@ export function App(): JSX.Element {
 //PROBLEM: dialog buttons on small screens are looking weird - done, it's CSS break points
 //PROBLEM: build production fails to load with error: Children on undefined...: react_production_min.Children = { map: S, forEach: function(a2, b2, e2) { - done at least temporary
 //PROBLEM: Uncaught Error: no.in.data when open rename dialog first time
+
+//05.24.25
+//TODO: password change: add column ref from login form; if ref is set then list options are 'Ask-Reuse' and 'Write-Only'
+//TODO: password change: remove column Policy
+//TODO: password change: don't show text fields and add button show/hide text fields; maybe text field should go to 'Screen Detection' block

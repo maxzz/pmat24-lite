@@ -17,4 +17,4 @@ export namespace ManualEditorTypes {
 }
 
 //TODO: Array of atoms for each script chunk
-//TODO: where is guuid? for NormalField.FieldAtoms - OK
+//TODO: where is guid? for NormalField.FieldAtoms - OK

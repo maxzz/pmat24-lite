@@ -31,7 +31,7 @@ export namespace ManualFieldState {
     export type CtxFld = Prettify<CtxExtra & {
         type: 'fld';
         rowCtx: NormalField.RowCtx;
-        original: EditorDataForFld;
+        original: EditorDataForFld;             // this was used only by field catalog to check if field is from field catalog
     }>;
 
     export type Ctx = CtxKbd | CtxPos | CtxDly | CtxFld;
