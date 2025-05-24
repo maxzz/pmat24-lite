@@ -12,6 +12,24 @@ export function InFormRowInputWTitle({ label, containerClasses, ...rest }: { lab
     );
 }
 
+export function RowInputWTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+    return (
+        <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
+            <InputOrCheckWithErrorMsg {...rest} />
+        </FormRowChildren>
+    );
+}
+
+export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: string; children: ReactNode; containerClasses?: string; }) {
+    return (
+        <FormRowChildren label={label} className={classNames(formRow2ColsChildrenClasses, containerClasses)} labelClasses={formRow2ColsChildrenLabelClasses}>
+            {children}
+        </FormRowChildren>
+    );
+}
+
+// Row input with error message
+
 export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, children, className, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
@@ -68,3 +86,5 @@ export const formRow1ColsChildrenLabelClasses = "font-light";
 
 export const formRow2ColsChildrenClasses = "col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center";
 export const formRow2ColsChildrenLabelClasses = "font-light text-end";
+
+export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";

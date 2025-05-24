@@ -1,6 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { ChildrenWithLabel2Cols, ExtPolicySelect, RowInputWTitle2Cols } from "../9-controls";
+import { ChildrenWithLabel2Cols, RowInputWTitle2Cols } from "@/ui/local-ui";
+import { ExtPolicySelect} from "../9-controls";
 
 export function Block2_Authentication({ ctx }: { ctx: OFormContextProps; }) {
     const { options } = ctx.oAllAtoms;

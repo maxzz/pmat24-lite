@@ -8,9 +8,9 @@ import { Block2_Authentication } from "./2-2-authentication";
 import { Block3_QL } from "./2-3-QL";
 import { Block4_ScreenDetection } from "./2-4-screen-detection";
 import { Block5_PMIcon } from "./2-5-pm-icon";
-import { ButtonSliders, ChildrenWithLabel2Cols, OptionsSubSectionTitle, UiAccordion } from "../9-controls";
+import { ButtonSliders, OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 import { UiAccordion2 } from "../9-controls/nun/ui-accordion2";
-import { InputOrCheckWithErrorMsg } from "@/ui";
+import { ChildrenWithLabel2Cols, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 export function GroupManiGeneral({ ctx }: { ctx: OFormContextProps; }) {
     const openAtom = useState(() => atom(false))[0];

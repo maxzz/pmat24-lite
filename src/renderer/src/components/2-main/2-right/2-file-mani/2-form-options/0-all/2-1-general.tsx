@@ -1,5 +1,5 @@
 import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { RowInputWTitle2Cols } from "../9-controls";
+import { RowInputWTitle2Cols } from "@/ui/local-ui";
 
 export function Block1_General({ ctx }: { ctx: OFormContextProps; }) {
     const { descAtom, hintAtom, balloonAtom } = ctx.oAllAtoms.options.p1General;
