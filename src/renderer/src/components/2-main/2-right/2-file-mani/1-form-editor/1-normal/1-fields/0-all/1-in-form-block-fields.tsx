@@ -4,13 +4,12 @@ import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
-export function FieldsGrid({ ctx }: { ctx: NFormContextProps; }) {
-
+export function InFormBlockFields({ ctx }: { ctx: NFormContextProps; }) {
     if (!ctx.nAllAtoms.normal.rowCtxs.length) {
         return <NoFields />;
-    } else {
-        return <FieldsGridBody ctx={ctx} />;
     }
+
+    return <FieldsGridBody ctx={ctx} />;
 }
 
 function NoFields() {
@@ -27,7 +26,7 @@ function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
     //highlightFieldAtom
     //onblur={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
     //onfocus={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
-    
+
     return (
         <div className={getFieldsGridClasses(fcAllowed)}>
             <TableHeader />

@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
 import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { FieldsGrid, InFormBlockSubmit } from "../1-normal";
+import { InFormBlockFields, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
 
 export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
@@ -13,7 +13,7 @@ export function TabContent_NormalForm({ ctx, className, ...rest }: { ctx: NFormC
                 Form fields
             </div>
             
-            <FieldsGrid ctx={ctx} />
+            <InFormBlockFields ctx={ctx} />
 
             {hasFieldsNeedSubmit && (<>
                 <div className={sectionLabelClasses}>
