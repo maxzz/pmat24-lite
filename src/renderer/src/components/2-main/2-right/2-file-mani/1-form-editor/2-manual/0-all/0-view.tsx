@@ -8,11 +8,7 @@ import { InFormBlockOptions } from "../../../2-form-options";
 import { atom, useAtomValue } from "jotai";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const formFieldsAtom = ctx.maniAtoms?.[ctx.formIdx]?.formFieldsAtom;
-    if (!formFieldsAtom) {
-        throw new Error('formFieldsAtom is not defined'); //This was checked by form selector
-    }
-    const formFields = useAtomValue(formFieldsAtom);
+    const formFields = useAtomValue(ctx.fieldsAtom);
     console.log('%cformFields', 'background-color: red; color: white', formFields);
     
     return (
