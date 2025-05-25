@@ -13,6 +13,9 @@ export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUs
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
     rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
 
+    rv.push(rv[0].fieldsAtom);
+    rv.push(rv[1].fieldsAtom);
+
     //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
     return rv;
 }

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FieldTyp, Mani } from "@/store/manifest";
+import { FieldTyp, FormIdx, Mani } from "@/store/manifest";
 import { appSettings } from "@/store/1-atoms/9-ui-state";
 import { filesAtom } from "../../../1-files";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
@@ -39,7 +39,9 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                     return;
                 }
 
-                for (const form of maniAtoms) {
+                for (const formIdx of [FormIdx.login, FormIdx.cpass]) {
+                    const form = maniAtoms[formIdx];
+
                     if (form?.normal) {
                         const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
 
@@ -75,6 +77,43 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                         }
                     }
                 }//for
+
+                // for (const form of maniAtoms) {
+                //     if (form?.normal) {
+                //         const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
+
+                //         for (const field of fields) {
+                //             if (field.metaField.ftyp === FieldTyp.button || field.metaField.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
+                //                 continue;
+                //             }
+
+                //             const fceItem = fcQuickMap.get(field.fromFile.dbname);
+                //             if (fceItem) {
+                //                 set(field.fromFcAtom, fceItem);
+                //             } else {
+                //                 field.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
+                //             }
+                //             // printFceItem(fceItem, fileUs, field.fromFile.dbname);
+                //         }
+                //     }
+                //     else if (form?.manual) {
+                //         const chunks: ManualFieldState.Ctx[] = get(form?.manual.chunksAtom);
+
+                //         for (const chunk of chunks) {
+                //             if (chunk.type !== 'fld' || chunk.original.field.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
+                //                 continue;
+                //             }
+
+                //             const fceItem = fcQuickMap.get(chunk.rowCtx.fromFile.dbname);
+                //             if (fceItem) {
+                //                 set(chunk.rowCtx.fromFcAtom, fceItem);
+                //             } else {
+                //                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
+                //             }
+                //             // printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
+                //         }
+                //     }
+                // }//for
             }
         );
     }
@@ -99,7 +138,12 @@ export const removeLinksToFceItemAtom = atom(null,
                 continue;
             }
 
-            for (const form of maniAtoms) {
+            for (const formIdx of [FormIdx.login, FormIdx.cpass]) {
+                const form = maniAtoms[formIdx];
+                // if (!form) {
+                //     continue;
+                // }
+
                 if (form?.normal) {
                     const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
 
@@ -128,6 +172,36 @@ export const removeLinksToFceItemAtom = atom(null,
                     }
                 }
             }//for
+
+            // for (const form of maniAtoms) {
+            //     if (form?.normal) {
+            //         const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
+
+            //         for (const field of fields) {
+            //             if (field.metaField.ftyp === FieldTyp.button) {
+            //                 continue;
+            //             }
+
+            //             if (get(field.fromFcAtom) === fceItem) {
+            //                 set(field.fromFcAtom, undefined);
+            //                 field.metaField.mani.rfieldform = Mani.FORMNAME.noname;
+            //             }
+            //         }
+            //     } else if (form?.manual) {
+            //         const chunks: ManualFieldState.Ctx[] = get(form?.manual.chunksAtom);
+
+            //         for (const chunk of chunks) {
+            //             if (chunk.type !== 'fld') {
+            //                 continue;
+            //             }
+
+            //             if (get(chunk.rowCtx.fromFcAtom) === fceItem) {
+            //                 set(chunk.rowCtx.fromFcAtom, undefined);
+            //                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.noname;
+            //             }
+            //         }
+            //     }
+            // }//for
         }
     }
 );

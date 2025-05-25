@@ -65,7 +65,10 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
                 throw new Error('cpass wo/ ManiAtoms');
             }
 
-            const newManiAtoms: ManiAtoms = [cpassManiAtoms[FormIdx.login], createdManiAtoms[FormIdx.login]];
+            const loginForm = cpassManiAtoms[FormIdx.login];
+            const cpassForm = createdManiAtoms[FormIdx.login];
+
+            const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.formFieldsAtom, cpassForm?.formFieldsAtom];
             set(mainForCpass.maniAtomsAtom, newManiAtoms);
             fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
 

@@ -103,7 +103,8 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
         rebuildMetaFormsWithoutCpassForm(fileUs.parsedSrc.meta, fileUs.parsedSrc.mani.forms);
 
         // update maniAtoms
-        const newManiAtoms: ManiAtoms = [maniAtoms[FormIdx.login], undefined];
+        const loginForm = maniAtoms[FormIdx.login];
+        const newManiAtoms: ManiAtoms = [loginForm, undefined, loginForm?.formFieldsAtom, undefined];
         set(fileUs.maniAtomsAtom, newManiAtoms);
 
         // set file changed
