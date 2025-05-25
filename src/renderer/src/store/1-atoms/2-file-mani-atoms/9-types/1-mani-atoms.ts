@@ -45,7 +45,15 @@ export type MFormAtoms = Prettify<{ manual: MFormCtx; } & FormOptionsAndFileUsCt
 
 //
 
-export type ManiAtoms = readonly [login: AnyFormAtoms | undefined, cpass: AnyFormAtoms | undefined];
+export const loginFieldsIdx = 2;
+export const cpassFieldsIdx = 3;
+
+export type ManiAtoms = readonly [
+    login: AnyFormAtoms | undefined,
+    cpass: AnyFormAtoms | undefined,
+    loginFields: Atom<FormFields> | undefined,
+    cpassFields: Atom<FormFields> | undefined
+];
 
 //
 
