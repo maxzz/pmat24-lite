@@ -29,7 +29,8 @@ export function createFileUsForNewFc(): FileUs {
 
         mainForCpassAtom: undefined,
         rawCpassAtom: atom<string | undefined>(undefined),
-        hwndAtom: atom<GetTargetWindowResult | null>(null),
+        hwndLoginAtom: atom<GetTargetWindowResult | null>(null),
+        hwndCpassAtom: atom<GetTargetWindowResult | null>(null),
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });

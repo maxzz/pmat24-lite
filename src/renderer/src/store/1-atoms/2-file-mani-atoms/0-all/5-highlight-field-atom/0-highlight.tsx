@@ -17,7 +17,7 @@ export const doFieldHighlightAtom = atom(
 
         const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog (unless we create a separate atom for new manifest).
 
-        const hwndHandle = currentFileUs && get(currentFileUs.hwndAtom);
+        const hwndHandle = currentFileUs && get(currentFileUs.hwndLoginAtom);
         if (!hwndHandle) {
             console.log('temp. doFieldHighlightAtom: no hwnd'); // temp trace
             return;
