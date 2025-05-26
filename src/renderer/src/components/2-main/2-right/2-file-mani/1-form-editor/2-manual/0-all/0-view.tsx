@@ -1,15 +1,18 @@
 import { useEffect, type ComponentPropsWithoutRef } from "react";
-import { useAtomValue } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { cpassFieldsIdx, loginFieldsIdx, type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FormFields, type ManiAtoms, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx, NormalField } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
+import { FormIdx } from "@/store/manifest";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
     const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
     const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
+
+    const doPrintFields = useSetAtom(doPrintFieldsAtom);
 
     useEffect(
         () => {
@@ -37,6 +40,27 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
         </div>
     );
 }
+
+const doPrintFieldsAtom = atom(
+    null, 
+    (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FormFields; }): void => {
+        console.log(`%c ${label} ------------`, 'background-color: magenta; color: white', `${formIdx ? 'cpass' : 'login'}`);
+
+        for (const field of fields) {
+            console.log('%c              field', `background-color: ${formIdx ? 'green': 'lime'}; color: white`, set(doPrintFieldAtom, field));
+        }
+
+    }
+);
+
+const doPrintFieldAtom = atom(
+    null, 
+    (get, set, field: NormalField.RowCtx): string => {
+        const s = `${get(field.labelAtom)}`;
+        return s;
+    }
+);
+
 
 const manualModeViewClasses = "\
 min-w-60 min-h-0 \
