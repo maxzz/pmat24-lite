@@ -16,9 +16,10 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
 
     useEffect(
         () => {
-            console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
-            console.log('%c login render fields', 'background-color: lime; color: white', loginFields);
-            console.log('%c cpass render fields', 'background-color: green; color: white', cpassFields);
+            doPrintFields({ label: `${ctx.formIdx ? 'cpass' : 'login'}`, formIdx: ctx.formIdx, fields: loginFields });
+            // console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
+            // console.log('%c login render fields', 'background-color: lime; color: white', loginFields);
+            // console.log('%c cpass render fields', 'background-color: green; color: white', cpassFields);
         }, [loginFields, cpassFields]
     );
 
