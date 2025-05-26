@@ -16,10 +16,10 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
 
     useEffect(
         () => {
-            doPrintFields({ label: `${ctx.formIdx ? 'cpass' : 'login'}`, formIdx: ctx.formIdx, fields: loginFields });
-            // console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
-            // console.log('%c login render fields', 'background-color: lime; color: white', loginFields);
-            // console.log('%c cpass render fields', 'background-color: green; color: white', cpassFields);
+            console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
+
+            doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
+            doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
         }, [loginFields, cpassFields]
     );
 
@@ -45,19 +45,19 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
 const doPrintFieldsAtom = atom(
     null, 
     (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FormFields; }): void => {
-        console.log(`%c ${label} ------------`, 'background-color: magenta; color: white', `${formIdx ? 'cpass' : 'login'}`);
+        const color = formIdx ? 'green' : 'limegreen';
+        console.log(`  ${label}:`);
 
         for (const field of fields) {
-            console.log('%c              field', `background-color: ${formIdx ? 'green': 'lime'}; color: white`, set(doPrintFieldAtom, field));
+            console.log('%c    field:', `color: ${color}`, set(doPrintFieldAtom, field));
         }
-
     }
 );
 
 const doPrintFieldAtom = atom(
     null, 
     (get, set, field: NormalField.RowCtx): string => {
-        const s = `${get(field.labelAtom)}`;
+        const s = `"${get(field.labelAtom)}"`;
         return s;
     }
 );
