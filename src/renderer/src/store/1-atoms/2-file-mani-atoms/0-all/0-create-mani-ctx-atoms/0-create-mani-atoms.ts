@@ -10,11 +10,13 @@ export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUs
     const rv: any = [];
     const maniAtoms = rv as ManiAtoms;
 
-    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms));
-    rv.push(createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms));
+    const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms);
+    const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms);
 
-    rv.push(rv[FormIdx.login]?.fieldsAtom);
-    rv.push(rv[FormIdx.cpass]?.fieldsAtom);
+    rv.push(loginFormCtx);
+    rv.push(cpassFormCtx);
+    rv.push(loginFormCtx?.formFieldsAtom || atom([]));
+    rv.push(cpassFormCtx?.formFieldsAtom || atom([]));
 
     //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
     return rv;

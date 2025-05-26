@@ -1,19 +1,22 @@
 import { useEffect, type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { cpassFieldsIdx, loginFieldsIdx, type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const formFields = useAtomValue(ctx.fieldsAtom);
+    const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
+    const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
 
     useEffect(
         () => {
-            console.log('%c render formFields', 'background-color: green; color: white', formFields);
-        }, [formFields]
+            console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
+            console.log('%c login render fields', 'background-color: lime; color: white', loginFields);
+            console.log('%c cpass render fields', 'background-color: green; color: white', cpassFields);
+        }, [loginFields, cpassFields]
     );
 
     return (
