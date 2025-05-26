@@ -11,7 +11,7 @@ export function usePrintFieldAtoms({ ctx }: { ctx: MFormContextProps; }) {
 
     useEffect(
         () => {
-            console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
+            console.log(`%c ------------render ------------%c ${ctx.formIdx ? 'cpass' : 'login'} `, 'background-color: #ff00ff50; color: white;', 'color: magenta');
 
             doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
             doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
@@ -23,10 +23,10 @@ const doPrintFieldsAtom = atom(
     null, 
     (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FormFields; }): void => {
         const color = formIdx ? 'green' : 'limegreen';
-        console.log(`  ${label}:`);
+        console.log(`    ${label}:`);
 
         for (const field of fields) {
-            console.log('%c    field:', `color: ${color}`, set(doPrintFieldAtom, field));
+            console.log('%c        field:', `color: ${color}`, set(doPrintFieldAtom, field));
         }
     }
 );
