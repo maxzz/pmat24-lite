@@ -24,7 +24,8 @@ export const doFieldHighlightAtom = atom(
 
         if (nFieldCtx) {
             set(normalFieldHighlightAtom, nFieldCtx, params);
-        } else if (mFieldCtx) {
+        }
+        else if (mFieldCtx) {
             set(manualFieldHighlightAtom, mFieldCtx, params);
         }
     }

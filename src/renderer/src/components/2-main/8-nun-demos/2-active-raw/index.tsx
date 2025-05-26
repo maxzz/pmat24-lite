@@ -4,18 +4,18 @@ import { classNames } from "@/utils";
 import { napiBuildProgress, sawHandleAtom } from "@/store";
 
 export function SawHwndPropsGrid() {
-    const secondActiveWindow = useAtomValue(sawHandleAtom);
+    const sawHandle = useAtomValue(sawHandleAtom);
     const lastBuildProgress = useSnapshot(napiBuildProgress).lastProgress;
 
     return (<>
-        {secondActiveWindow && (
+        {sawHandle && (
             <div className="relative text-xs">
 
                 <div className="border-primary-500 border rounded grid grid-cols-[auto_1fr]">
-                    <GridRow name="caption"   /**/ value={secondActiveWindow.caption} className="font-semibold" highlight={true} />
-                    <GridRow name="classname" /**/ value={secondActiveWindow.classname} />
-                    <GridRow name="process"   /**/ value={secondActiveWindow.process} />
-                    <GridRow name="hwnd"      /**/ value={(secondActiveWindow?.hwnd || '').replace(/^00000000/, '')} />
+                    <GridRow name="caption"   /**/ value={sawHandle.caption} className="font-semibold" highlight={true} />
+                    <GridRow name="classname" /**/ value={sawHandle.classname} />
+                    <GridRow name="process"   /**/ value={sawHandle.process} />
+                    <GridRow name="hwnd"      /**/ value={(sawHandle?.hwnd || '').replace(/^00000000/, '')} />
                 </div>
 
                 {!!lastBuildProgress && (
