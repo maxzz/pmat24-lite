@@ -7,21 +7,23 @@ import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 import { FormIdx } from "@/store/manifest";
+import { usePrintFieldAtoms } from "./8-print-field-atoms";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
-    const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
+    // const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
+    // const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
 
-    const doPrintFields = useSetAtom(doPrintFieldsAtom);
+    // const doPrintFields = useSetAtom(doPrintFieldsAtom);
 
-    useEffect(
-        () => {
-            console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
+    // useEffect(
+    //     () => {
+    //         console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
 
-            doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
-            doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
-        }, [loginFields, cpassFields]
-    );
+    //         doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
+    //         doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
+    //     }, [loginFields, cpassFields]
+    // );
+    usePrintFieldAtoms({ ctx });
 
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
