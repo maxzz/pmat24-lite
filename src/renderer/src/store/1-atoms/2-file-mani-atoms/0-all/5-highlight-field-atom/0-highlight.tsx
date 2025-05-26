@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type Meta } from "@/store/manifest";
+import { FormIdx, type Meta } from "@/store/manifest";
 import { type FieldHighlightCtx } from "../../9-types";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
@@ -10,18 +10,23 @@ import { type ManualFieldState } from "../../2-manual-fields";
 
 export const doFieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, mFieldCtx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
+    (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
         if (!focusOrBlur) { // No need so far blur events
             return;
         }
 
-        const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog (unless we create a separate atom for new manifest).
-
-        const hwndHandle = currentFileUs && get(currentFileUs.hwndLoginAtom);
+        const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
-            console.log('temp. doFieldHighlightAtom: no hwnd'); // temp trace
+            console.log('temp. doFieldHighlightAtom: no hwndHandle'); // temp trace
             return;
         }
+
+        // const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog (unless we create a separate atom for new manifest).
+        // const hwndHandle = currentFileUs && get(currentFileUs.hwndLoginAtom);
+        // if (!hwndHandle) {
+        //     console.log('temp. doFieldHighlightAtom: no hwnd'); // temp trace
+        //     return;
+        // }
 
         console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 
