@@ -49,6 +49,9 @@ export const doSaveOneAtom = atom(
         set(fileUs.rawCpassAtom, undefined);
         fileUsChanges.setUnchanged({ fileUs });
 
+        set(fileUs.hwndLoginAtom, null); // Turn off fields highlight on both login and cpass
+        set(fileUs.hwndCpassAtom, null);
+
         //parse xml and so on...
         set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });
         return true;

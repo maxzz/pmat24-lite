@@ -23,6 +23,8 @@ export const doFieldHighlightAtom = atom(
             return;
         }
 
+        console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
+
         const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn };
 
         if (nFieldCtx) {
@@ -84,5 +86,11 @@ function getFieldRect(loc: string | undefined): TargetClientRect | undefined {
     }
 
     const [x, y, w, h] = allStr.split(' ').map(Number);
+
+    console.log(`loc "${loc}" x:%s y:%s r:%s b:%s width:${w-x} height:${h-y}`, x, y, w, h);
+    // return { left: x, top: y, right: w-h, bottom: h-y };
+    // return { left: x, top: y, right: w, bottom: h };
+
+    // const [x, y, w, h] = allStr.split(' ').map(Number);
     return { left: x, top: y, right: x + w, bottom: y + h };
 }
