@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { type FormFields, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx, NormalField } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NormalField, type FormFields, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx  } from "@/store/1-atoms/2-file-mani-atoms";
 import { FormIdx } from "@/store/manifest";
 
 export function usePrintFieldAtoms({ ctx }: { ctx: MFormContextProps; }) {

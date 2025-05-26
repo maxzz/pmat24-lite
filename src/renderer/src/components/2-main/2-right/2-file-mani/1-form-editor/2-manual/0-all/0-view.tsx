@@ -1,28 +1,13 @@
-import { useEffect, type ComponentPropsWithoutRef } from "react";
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
-import { type FormFields, type ManiAtoms, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx, NormalField } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
-import { FormIdx } from "@/store/manifest";
 import { usePrintFieldAtoms } from "./8-print-field-atoms";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    // const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
-    // const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
-
-    // const doPrintFields = useSetAtom(doPrintFieldsAtom);
-
-    // useEffect(
-    //     () => {
-    //         console.log('%c render ------------', 'background-color: magenta; color: white', `${ctx.formIdx ? 'cpass' : 'login'}`);
-
-    //         doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
-    //         doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
-    //     }, [loginFields, cpassFields]
-    // );
     usePrintFieldAtoms({ ctx });
 
     return (
@@ -43,27 +28,6 @@ export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextP
         </div>
     );
 }
-
-const doPrintFieldsAtom = atom(
-    null, 
-    (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FormFields; }): void => {
-        const color = formIdx ? 'green' : 'limegreen';
-        console.log(`  ${label}:`);
-
-        for (const field of fields) {
-            console.log('%c    field:', `color: ${color}`, set(doPrintFieldAtom, field));
-        }
-    }
-);
-
-const doPrintFieldAtom = atom(
-    null, 
-    (get, set, field: NormalField.RowCtx): string => {
-        const s = `"${get(field.labelAtom)}"`;
-        return s;
-    }
-);
-
 
 const manualModeViewClasses = "\
 min-w-60 min-h-0 \
