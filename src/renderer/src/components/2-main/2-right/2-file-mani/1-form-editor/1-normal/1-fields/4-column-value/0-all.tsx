@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef, useMemo } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { type ValueLife, ValueAs } from "@/store/manifest";
-import { type FieldHighlightCtx, fieldHighlightAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FieldHighlightCtx, doFieldHighlightAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
@@ -17,7 +17,7 @@ type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
 };
 
 export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, highlightCtx, ...rest }: Column4_ValueProps) {
-    const highlightField = useSetAtom(fieldHighlightAtom);
+    const highlightField = useSetAtom(doFieldHighlightAtom);
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);

@@ -10,7 +10,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
 
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const isFormLogin = fileUsCtx.formIdx === FormIdx.cpass;
+    const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
 
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const valueRowClasses = fcAllowed ? "grid grid-cols-[1fr,1fr,auto]" : "grid grid-cols-[1fr,auto]";

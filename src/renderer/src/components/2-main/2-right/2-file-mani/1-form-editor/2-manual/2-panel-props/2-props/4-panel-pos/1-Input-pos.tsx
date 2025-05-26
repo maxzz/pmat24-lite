@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
-import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
+import { type FieldHighlightCtx, doFieldHighlightAtom } from '@/store';
 
 //import { InputXY } from "./2-input-xy";
 // function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
@@ -12,7 +12,7 @@ import { type FieldHighlightCtx, fieldHighlightAtom } from '@/store';
 // }
 
 export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInputStateAtom; label: string; highlightCtx?: FieldHighlightCtx; }) {
-    const doFieldHighlight = useSetAtom(fieldHighlightAtom);
+    const doFieldHighlight = useSetAtom(doFieldHighlightAtom);
 
     function onFocusBlur(focusOn: boolean) {
         if (highlightCtx) {

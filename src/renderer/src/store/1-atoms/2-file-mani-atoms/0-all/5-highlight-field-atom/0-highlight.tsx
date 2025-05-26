@@ -7,7 +7,7 @@ import { R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 
-export const fieldHighlightAtom = atom(
+export const doFieldHighlightAtom = atom(
     null,
     (get, set, { nFieldCtx, mFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => {
         if (!focusOn) { // No need so far blur events
