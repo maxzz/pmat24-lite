@@ -15,7 +15,7 @@ export const doFieldHighlightAtom = atom(
             return;
         }
 
-        const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog. TODO: not true.
+        const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog (unless we create a separate atom for new manifest).
 
         const hwndHandle = currentFileUs && get(currentFileUs.hwndAtom);
         if (!hwndHandle) {
