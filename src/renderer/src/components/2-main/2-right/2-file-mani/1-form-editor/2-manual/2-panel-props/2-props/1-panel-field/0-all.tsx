@@ -60,6 +60,10 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                     <ManualFieldPolicy item={item} />
             )}
 
+            {!isFormCpass && (
+                isFieldPsw && <ManualFieldPolicy item={item} />
+            )}
+
         </div>
     </>);
 }
