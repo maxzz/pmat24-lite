@@ -31,7 +31,7 @@ export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDis
 
     function onFocusBlur(focusOn: boolean) {
         if (highlightCtx) {
-            highlightField({ ...highlightCtx, focusOn });
+            highlightField({ ...highlightCtx, focusOrBlur: focusOn });
         }
     }
 

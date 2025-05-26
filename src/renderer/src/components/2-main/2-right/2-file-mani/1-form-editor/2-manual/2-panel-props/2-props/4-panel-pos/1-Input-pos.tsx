@@ -16,7 +16,7 @@ export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInp
 
     function onFocusBlur(focusOn: boolean) {
         if (highlightCtx) {
-            doFieldHighlight({ ...highlightCtx, focusOn });
+            doFieldHighlight({ ...highlightCtx, focusOrBlur: focusOn });
         }
     }
 

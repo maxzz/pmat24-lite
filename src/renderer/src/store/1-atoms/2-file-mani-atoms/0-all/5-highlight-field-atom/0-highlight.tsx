@@ -10,8 +10,8 @@ import { type ManualFieldState } from "../../2-manual-fields";
 
 export const doFieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, mFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
-        if (!focusOn) { // No need so far blur events
+    (get, set, { nFieldCtx, mFieldCtx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
+        if (!focusOrBlur) { // No need so far blur events
             return;
         }
 
@@ -25,7 +25,7 @@ export const doFieldHighlightAtom = atom(
 
         console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 
-        const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn };
+        const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur };
 
         if (nFieldCtx) {
             set(normalFieldHighlightAtom, nFieldCtx, params);

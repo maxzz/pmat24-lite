@@ -35,7 +35,7 @@ export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, .
 
     function onFocusBlur(focusOn: boolean) {
         if (highlightCtx) {
-            doFieldHighlight({ ...highlightCtx, focusOn });
+            doFieldHighlight({ ...highlightCtx, focusOrBlur: focusOn });
         }
     }
 
