@@ -3,7 +3,7 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { type NormalField, type FormFields, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx  } from "@/store/1-atoms/2-file-mani-atoms";
 import { FormIdx } from "@/store/manifest";
 
-export function usePrintFieldAtoms({ ctx }: { ctx: MFormContextProps; }) {
+export function usePrintFormFields({ ctx }: { ctx: MFormContextProps; }) {
     const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
     const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
 

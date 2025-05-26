@@ -5,11 +5,10 @@ import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isNewManifest } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
-import { usePrintFieldAtoms } from "./8-print-field-atoms";
+import { usePrintFormFields } from "./8-print-form-fields-atom";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    usePrintFieldAtoms({ ctx });
-
+    usePrintFormFields({ ctx });
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
 
