@@ -66,7 +66,7 @@ export const doMoveToSecondDlgAtom = atom(
         }
 
         if (!inlineEditor) {
-            const endedByOk = await asyncExecuteNewManiDlg(set);
+            const endedByOk = await asyncExecuteNewManiDlg(set); //TODO: fields highlight should be done differently for dialog editor (if we need it at all)
             if (!endedByOk) {
                 newManiContent.disposeActive(get, set);
                 set(close_NewManiDlgAtom);
@@ -89,7 +89,7 @@ export const doMoveToSecondDlgAtom = atom(
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-        set(doClearSawHandleAtom); // Turn off fields highlight //TODO: this should be done differently for inline editor
+        setHighlightAtoms({ fileUs, makingCpass, get, set });
         setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
         printAtomSaved(newFileUsAtomAtom);
@@ -123,6 +123,18 @@ function addToFilesTree({ fileUsAtom, fileUs, makingCpass, get, set }: { fileUsA
 
     notificationNewSaved(fileUs);
 }
+
+function setHighlightAtoms({ fileUs, makingCpass, get, set }: { fileUs: FileUs; makingCpass: boolean; get: Getter; set: Setter; }): void {
+    const hwnd = get(sawHandleAtom);
+    if (makingCpass) {
+        set(fileUs.hwndCpassAtom, hwnd);
+    } else {
+        set(fileUs.hwndLoginAtom, hwnd);
+    }
+    set(doClearSawHandleAtom);
+}
+
+//
 
 function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
     console.groupCollapsed(
