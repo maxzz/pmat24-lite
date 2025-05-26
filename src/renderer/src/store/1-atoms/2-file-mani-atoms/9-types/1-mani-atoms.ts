@@ -51,8 +51,8 @@ export const cpassFieldsIdx = 3;
 export type ManiAtoms = readonly [
     login: AnyFormAtoms | undefined,
     cpass: AnyFormAtoms | undefined,
-    loginFields: Atom<FormFields> | undefined,
-    cpassFields: Atom<FormFields> | undefined
+    loginFields: Atom<FormFields> | undefined, //TODO: this should be always defined or empty array
+    cpassFields: Atom<FormFields> | undefined  //TODO: this should be always defined or empty array
 ];
 
 //
