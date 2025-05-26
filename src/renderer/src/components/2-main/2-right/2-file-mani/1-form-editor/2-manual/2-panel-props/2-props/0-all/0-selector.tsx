@@ -8,7 +8,7 @@ export function ScriptItemPropsEditorSelector({ ctx, fileUsCtx }: { ctx: ManualF
     switch (ctx.type) {
         case 'fld': return <PropsEditorFld item={ctx} fileUsCtx={fileUsCtx} />;
         case 'kbd': return <PropsEditorKey item={ctx} />;
-        case 'pos': return <PropsEditorPos item={ctx} />;
+        case 'pos': return <PropsEditorPos item={ctx} fileUsCtx={fileUsCtx} />;
         case 'dly': return <PropsEditorDly item={ctx} />;
         default: {
             const really: never = ctx;

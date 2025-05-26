@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { buildState } from "./8-pos-build-state";
 import { InputPos } from "./1-Input-pos";
 
-export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
+export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const setPosValueX = useSetAtom(item.xAtom);
     const setPosValueY = useSetAtom(item.yAtom);
 
@@ -24,8 +24,8 @@ export function PropsEditorPos({ item }: { item: ManualFieldState.CtxPos; }) {
 
     return (<>
         <div className="flex items-center space-x-2">
-            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={{ mFieldCtx: item }} />
-            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={{ mFieldCtx: item }} />
+            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }} />
+            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }} />
 
             {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
                 <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}

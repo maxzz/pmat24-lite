@@ -35,7 +35,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
         <Column3_Label
             useItAtom={useItAtom}
             valueAtom={labelAtom}
-            highlightCtx={{ nFieldCtx: rowCtx }}
+            highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
             onClick={enableRow}
         />
 

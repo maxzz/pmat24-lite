@@ -29,7 +29,7 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <Column3_Label
                     useItAtom={useItAtom}
                     valueAtom={labelAtom}
-                    highlightCtx={{ mFieldCtx: item }}
+                    highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
                 />
             </InputLabel>
         </div>
