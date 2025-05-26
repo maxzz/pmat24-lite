@@ -44,10 +44,9 @@ export type FileUs = {
 
     mainForCpassAtom: FileUsAtom | undefined;       // Defined when creating password change form
     rawCpassAtom: PA<string | undefined>;           // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
-    hwndAtom: PA<GetTargetWindowResult | null>;     // Windows window handle to highlight window field. Available when file is created, but can be acquired later.
+    hwndAtom: PA<GetTargetWindowResult | null>;     // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later.
 };
 
 export type FileUsAtom = PA<FileUs>;
 export type ManiAtomsAtom = PA<ManiAtoms | null>
-
-//export type ManiAtomsAtom = PrimitiveAtom<ManiAtoms>; // already checked at top level if not null and ready to use
+export type ManiAtomsSureAtom = PA<ManiAtoms>;      // Already checked not null at the level above if not null and ready to use wo/ checking null

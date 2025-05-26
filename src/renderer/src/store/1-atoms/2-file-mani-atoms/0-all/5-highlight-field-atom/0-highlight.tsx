@@ -1,22 +1,25 @@
 import { atom } from "jotai";
 import { type Meta } from "@/store/manifest";
 import { type FieldHighlightCtx } from "../../9-types";
-import { doHighlightFieldAtom, sawHandleAtom } from "@/store/7-napi-atoms";
+import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
+import { fileUsOfRightPanelAtom } from "@/store/1-atoms/3-right-panel";
 import { R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 
 export const doFieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, mFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => {
+    (get, set, { nFieldCtx, mFieldCtx, focusOn }: FieldHighlightCtx & { focusOn: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
         if (!focusOn) { // No need so far blur events
             return;
         }
 
-        const hwndHandle = get(sawHandleAtom);
+        const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog. TODO: not true.
+
+        const hwndHandle = currentFileUs && get(currentFileUs.hwndAtom);
         if (!hwndHandle) {
-            console.log('normalFieldHighlightAtom: no hwndHandle'); // temp trace
+            console.log('temp. doFieldHighlightAtom: no hwnd'); // temp trace
             return;
         }
 
