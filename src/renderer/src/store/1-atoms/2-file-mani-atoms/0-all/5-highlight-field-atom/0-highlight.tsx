@@ -10,7 +10,7 @@ import { type ManualFieldState } from "../../2-manual-fields";
 
 export const doFieldHighlightAtom = atom(
     null,
-    (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => { // focusOn i.e. focus event if true or blur event otherwise
+    (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => {
         if (!focusOrBlur) { // No need so far blur events
             return;
         }
@@ -20,13 +20,6 @@ export const doFieldHighlightAtom = atom(
             console.log('temp. doFieldHighlightAtom: no hwndHandle'); // temp trace
             return;
         }
-
-        // const currentFileUs = get(fileUsOfRightPanelAtom); // We do highlight always for the right panel item, i.e. no support for dialog (unless we create a separate atom for new manifest).
-        // const hwndHandle = currentFileUs && get(currentFileUs.hwndLoginAtom);
-        // if (!hwndHandle) {
-        //     console.log('temp. doFieldHighlightAtom: no hwnd'); // temp trace
-        //     return;
-        // }
 
         console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 

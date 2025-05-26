@@ -44,8 +44,9 @@ export type FileUs = {
 
     mainForCpassAtom: FileUsAtom | undefined;           // Defined when creating password change form
     rawCpassAtom: PA<string | undefined>;               // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
+
     hwndLoginAtom: PA<GetTargetWindowResult | null>;    // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later.
-    hwndCpassAtom: PA<GetTargetWindowResult | null>;    // Login and Cpass can have different hwnd when created at the same time.
+    hwndCpassAtom: PA<GetTargetWindowResult | null>;    // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
 };
 
 export type FileUsAtom = PA<FileUs>;
