@@ -9,8 +9,8 @@ import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-nor
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
 
-    const isFormCpass = fileUsCtx.formIdx === FormIdx.cpass;
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const isFormLogin = fileUsCtx.formIdx === FormIdx.cpass;
 
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const valueRowClasses = fcAllowed ? "grid grid-cols-[1fr,1fr,auto]" : "grid grid-cols-[1fr,auto]";
@@ -53,16 +53,13 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 </InputLabel>
             </>)}
 
-            {isFormCpass && (
-                isFieldPsw ?
-                    <LinkToLoginForm item={item} />
-                    :
-                    <ManualFieldPolicy item={item} />
-            )}
+            {isFieldPsw && <>
+                {isFormLogin
+                    ? <ManualFieldPolicy item={item} />
+                    : <LinkToLoginForm item={item} />
 
-            {!isFormCpass && (
-                isFieldPsw && <ManualFieldPolicy item={item} />
-            )}
+                }
+            </>}
 
         </div>
     </>);
