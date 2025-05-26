@@ -1,6 +1,6 @@
 import { type PrimitiveAtom as PA } from "jotai";
 import { type Mani, type Meta, type CatalogFile } from "../manifest";
-import { type FileContent } from "@shared/ipc-types";
+import { type GetTargetWindowResult, type FileContent } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FceAtoms } from "../1-atoms/4-field-catalogs";
 
@@ -44,6 +44,7 @@ export type FileUs = {
 
     mainForCpassAtom: FileUsAtom | undefined;       // Defined when creating password change form
     rawCpassAtom: PA<string | undefined>;           // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
+    hwndAtom: PA<GetTargetWindowResult | null>;     // Windows window handle to highlight window field. Available when file is created, but can be acquired later.
 };
 
 export type FileUsAtom = PA<FileUs>;
