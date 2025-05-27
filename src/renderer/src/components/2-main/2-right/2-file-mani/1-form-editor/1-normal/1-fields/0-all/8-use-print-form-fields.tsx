@@ -11,20 +11,23 @@ export function usePrintFileUsHwnds({ ctx }: { ctx: FileUsCtx; }) {
 
     useEffect(
         () => {
-            doFileUsHwnds({ label: ctx.formIdx === FormIdx.login ? 'login' : 'cpass', ctx });
+            doFileUsHwnds({ label: '', ctx });
         }, [loginHwnd, cpassHwnd]
     );
 }
 
 const doFileUsHwndsAtom = atom(
-    null, 
-    (get, set, {label, ctx}: { label: string; ctx: FileUsCtx; }): void => {
+    null,
+    (get, set, { label, ctx }: { label: string; ctx: FileUsCtx; }): void => {
         const fileUs = ctx.fileUs;
         const formIdx = ctx.formIdx;
 
         const loginHwnd = get(fileUs.hwndLoginAtom);
         const cpassHwnd = get(fileUs.hwndCpassAtom);
+        const title1 = `${label}${formIdx === FormIdx.login ? 'login' : 'cpass'} ${ctx.fileUsAtom.toString()}`;
+        const title2 = `${label}     `;
 
-        console.log(`%c💎                ${label} hwnd:`, 'color: magenta', loginHwnd, cpassHwnd);
+        console.log(`%c🍵  ${title1} hwnd login:`, 'color: magenta', loginHwnd);
+        console.log(`%c🍵  ${title2} hwnd cpass:`, 'color: magenta', cpassHwnd);
     }
 );

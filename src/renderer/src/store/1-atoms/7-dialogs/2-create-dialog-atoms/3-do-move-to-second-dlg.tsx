@@ -86,11 +86,11 @@ export const doMoveToSecondDlgAtom = atom(
             makingCpass ? fileUsChanges.setCpass({ fileUs }, true) : fileUsChanges.setNewLogin({ fileUs });
         }
 
+        setHighlightAtoms({ fileUs, makingCpass, get, set });
         addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
+        setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
-        setHighlightAtoms({ fileUs, makingCpass, get, set });
-        setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
         printAtomSaved(newFileUsAtomAtom);
     }
