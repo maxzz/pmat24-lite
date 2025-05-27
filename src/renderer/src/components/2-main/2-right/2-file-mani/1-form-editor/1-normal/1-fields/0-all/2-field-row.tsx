@@ -8,6 +8,7 @@ import { Column3_Label } from "../3-column-label";
 import { Column4_Value } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
+import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
@@ -20,6 +21,8 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
 
     function onSelectCatItem(item: FceItem | undefined) {
     }
+
+    usePrintFileUsHwnds({ ctx: fileUsCtx });
 
     return (<>
         <Column2_Type
