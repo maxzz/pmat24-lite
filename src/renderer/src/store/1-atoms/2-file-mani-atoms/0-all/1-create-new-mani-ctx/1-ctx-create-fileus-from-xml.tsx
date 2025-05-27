@@ -55,7 +55,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
-        const newFileUsAtom: FileUsAtom = atom(fileUs);
+        const newFileUsAtom: FileUsAtom = newManiContent.maniForCpassAtom || atom(fileUs);
 
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom });
 
