@@ -11,23 +11,22 @@ export function usePrintFileUsHwnds({ ctx }: { ctx: FileUsCtx; }) {
 
     useEffect(
         () => {
-            doFileUsHwnds({ label: '', ctx });
+            doFileUsHwnds({ ctx });
         }, [loginHwnd, cpassHwnd]
     );
 }
 
 const doFileUsHwndsAtom = atom(
     null,
-    (get, set, { label, ctx }: { label: string; ctx: FileUsCtx; }): void => {
+    (get, set, { ctx }: { ctx: FileUsCtx; }): void => {
         const fileUs = ctx.fileUs;
         const formIdx = ctx.formIdx;
 
         const loginHwnd = get(fileUs.hwndLoginAtom);
         const cpassHwnd = get(fileUs.hwndCpassAtom);
-        const title1 = `${label}${formIdx === FormIdx.login ? 'login' : 'cpass'} ${ctx.fileUsAtom.toString()}`;
-        const title2 = `${label}     `;
+        const title1 = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
+        const title3 = `${title1}\n    %clogin: ${fileUs.hwndLoginAtom.toString()} ${JSON.stringify(loginHwnd)}\n    cpass: ${fileUs.hwndCpassAtom.toString()} ${JSON.stringify(cpassHwnd)}`;
 
-        console.log(`%c🍵  ${title1} hwnd login:`, 'color: magenta', loginHwnd);
-        console.log(`%c🍵  ${title2} hwnd cpass:`, 'color: magenta', cpassHwnd);
+        console.log(title3, 'color: magenta', 'color: green', 'color: silver');
     }
 );
