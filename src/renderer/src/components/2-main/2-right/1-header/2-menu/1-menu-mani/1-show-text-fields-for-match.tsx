@@ -1,9 +1,12 @@
 import { useSnapshot } from "valtio";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type ManiAtoms, appSettings } from "@/store";
+import { type ManiAtoms, appSettings, maniAtiveTabToFormIdx } from "@/store";
 
 export function MenuItem_ShowTextFieldsForMatch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
+    const { activeTab } = useSnapshot(appSettings.right.mani);
+    const formIdx = maniAtiveTabToFormIdx(activeTab);
+    const isScript = formIdx && maniAtoms[formIdx]?.fileUsCtx?.fileUs?.parsedSrc.meta?.[formIdx]?.disp.isScript;
     return (
         <DropdownMenuCheckboxItem
             checked={showFormTextFields}

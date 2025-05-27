@@ -13,12 +13,12 @@ export function setManiActiveTab(tab: ManiTabValue) {
     appSettings.right.mani.activeTab = tab;
 }
 
-export function maniAtiveTabToFormIdx(tab: ManiTabValue): FormIdx | undefined {
+export function maniAtiveTabToFormIdx(tab: string): FormIdx | undefined {
     return (
-        tab === 'options'
-            ? undefined
+        tab === 'login'
+            ? 0
             : tab === 'cpass'
                 ? 1
-                : 0
+                : undefined
     );
 }
