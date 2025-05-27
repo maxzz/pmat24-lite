@@ -1,8 +1,8 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
+import { type ManiAtoms, appSettings } from "@/store";
 
-export function MenuItem_ShowTextFieldsForMatch() {
+export function MenuItem_ShowTextFieldsForMatch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
     return (
         <DropdownMenuCheckboxItem

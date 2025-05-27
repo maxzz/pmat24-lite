@@ -6,7 +6,7 @@ import { MenuItem_ShowTextFieldsForMatch } from "./1-show-text-fields-for-match"
 
 export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     return (<>
-        <MenuItem_ShowTextFieldsForMatch />
+        <MenuItem_ShowTextFieldsForMatch maniAtoms={maniAtoms} />
         <MenuItem_ShowXML />
         <DropdownMenuSeparator />
         <MenuItem_More />
