@@ -1,13 +1,13 @@
 import { useSnapshot } from "valtio";
-import { RightPanelViewType, appSettings } from "@/store";
+import { appSettings } from "@/store";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
 
 export function MenuItem_ShowTextFieldsForMatch() {
-    const { activeView } = useSnapshot(appSettings).right;
+    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
     return (
         <DropdownMenuCheckboxItem
-            checked={activeView === RightPanelViewType.xml}
-            onCheckedChange={(checked) => appSettings.right.activeView = checked ? RightPanelViewType.xml : RightPanelViewType.forms}
+            checked={showFormTextFields}
+            onCheckedChange={(checked) => appSettings.appUi.uiGeneral.showFormTextFields = checked}
         >
             Show Text Fields for Match
         </DropdownMenuCheckboxItem>
