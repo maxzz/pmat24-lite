@@ -24,9 +24,12 @@ const doFileUsHwndsAtom = atom(
 
         const loginHwnd = get(fileUs.hwndLoginAtom);
         const cpassHwnd = get(fileUs.hwndCpassAtom);
-        const title1 = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
-        const title3 = `${title1}\n    %clogin: ${fileUs.hwndLoginAtom.toString()} ${JSON.stringify(loginHwnd)}\n    cpass: ${fileUs.hwndCpassAtom.toString()} ${JSON.stringify(cpassHwnd)}`;
 
-        console.log(title3, 'color: magenta', 'color: green', 'color: silver');
+        const first = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
+        
+        const titleL = `login: ${fileUs.hwndLoginAtom.toString()} ${JSON.stringify(loginHwnd)}`;
+        const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} ${JSON.stringify(cpassHwnd)}`;
+
+        console.log(`${first}\n    %c${titleL}\n    ${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver');
     }
 );
