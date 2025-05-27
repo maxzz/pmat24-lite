@@ -65,6 +65,9 @@ export const doMoveToSecondDlgAtom = atom(
             throw new Error('no.fileUs');
         }
 
+        console.log(`%c 🍵 Create ('${makingCpass ? 'cpass':'login'}') fileUsAtom:%c${newFileUsAtomAtom.toString()}`, 'color: orange; font-size:0.55rem', 'color: green');
+        
+
         if (!inlineEditor) {
             const endedByOk = await asyncExecuteNewManiDlg(set); //TODO: fields highlight should be done differently for dialog editor (if we need it at all)
             if (!endedByOk) {

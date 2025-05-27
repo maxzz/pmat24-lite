@@ -51,16 +51,16 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 3. Parse maniXml to fileUs
     try {
-        const mainForCpass = newManiContent.maniForCpassAtom && get(newManiContent.maniForCpassAtom);
+        const mainForCpassFileUs = newManiContent.maniForCpassAtom && get(newManiContent.maniForCpassAtom);
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
-        const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpass);
+        const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpassFileUs);
         const newFileUsAtom: FileUsAtom = newManiContent.maniForCpassAtom || atom(fileUs);
 
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom });
 
-        if (mainForCpass && newManiContent.maniForCpassAtom) {
-            const cpassManiAtoms = get(mainForCpass.maniAtomsAtom);
+        if (mainForCpassFileUs && newManiContent.maniForCpassAtom) {
+            const cpassManiAtoms = get(mainForCpassFileUs.maniAtomsAtom);
             if (!cpassManiAtoms) {
                 throw new Error('cpass wo/ ManiAtoms');
             }
@@ -69,18 +69,18 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             const cpassForm = createdManiAtoms[FormIdx.login];
 
             const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.formFieldsAtom || atom([]), cpassForm?.formFieldsAtom || atom([])];
-            set(mainForCpass.maniAtomsAtom, newManiAtoms);
-            fileUsChanges.setCpass({ fileUs: mainForCpass }, true);
+            set(mainForCpassFileUs.maniAtomsAtom, newManiAtoms);
+            fileUsChanges.setCpass({ fileUs: mainForCpassFileUs }, true);
 
             const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
-            set(mainForCpass.rawCpassAtom, xml);
+            set(mainForCpassFileUs.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
         } else {
             set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
-        set(newManiContent.newFileUsAtomAtom, mainForCpass ? undefined : newFileUsAtom);
+        set(newManiContent.newFileUsAtomAtom, mainForCpassFileUs ? undefined : newFileUsAtom);
 
         printNewFileUsCreated(newFileUsAtom, get);
         return true;

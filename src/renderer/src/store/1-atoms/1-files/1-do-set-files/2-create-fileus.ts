@@ -25,8 +25,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
 
         mainForCpassAtom: undefined,
         rawCpassAtom: atom<string | undefined>(undefined),
-        hwndLoginAtom: atom<GetTargetWindowResult | null>(null),
-        hwndCpassAtom: atom<GetTargetWindowResult | null>(null),
+        hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<GetTargetWindowResult | null>(null),
+        hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<GetTargetWindowResult | null>(null),
     };
 
     return rv;
