@@ -1,7 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
-import { addToTotalManis, appSettings } from "../../9-ui-state";
+import { addToTotalManis, appSettings } from "../../../9-ui-state";
 import { R2MCalls } from "@/xternal-to-main";
 import { createGuid } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";

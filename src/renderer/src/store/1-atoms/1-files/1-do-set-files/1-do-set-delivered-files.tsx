@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { busyIndicator, clearTotalManis, addToTotalManis } from "../../9-ui-state";
+import { addToTotalManis, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";

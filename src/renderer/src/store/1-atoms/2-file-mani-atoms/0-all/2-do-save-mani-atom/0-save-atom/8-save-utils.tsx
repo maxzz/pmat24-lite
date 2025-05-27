@@ -1,4 +1,4 @@
-import { appSettings } from "@/store/1-atoms/9-ui-state";
+import { appSettings } from "@/store/9-ui-state";
 import { getFilenameAndExt } from "@/utils";
 import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";

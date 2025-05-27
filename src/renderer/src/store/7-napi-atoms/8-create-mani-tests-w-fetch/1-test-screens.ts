@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
-import { appSettings } from "@/store/1-atoms/9-ui-state";
+import { appSettings } from "@/store/9-ui-state";
 import { napiBuildProgress } from "@/store/7-napi-atoms";
 import { type TlwScreenshot } from "@shared/ipc-types";
 import { type TestScreenEnum } from "./9-types-of-tests";

@@ -3,7 +3,7 @@ import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
 import { napiBuildState, napiLock, splitTypedError, typedErrorToString } from "../9-napi-build-state";
-import { debugSettings } from "@/store/1-atoms";
+import { debugSettings } from "@/store/9-ui-state";
 import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 import { sawHandleAtom } from "../1-do-get-hwnd";
 

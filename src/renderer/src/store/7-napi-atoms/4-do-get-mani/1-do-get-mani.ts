@@ -1,7 +1,7 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { debugSettings } from "@/store/1-atoms";
+import { debugSettings } from "@/store/9-ui-state";
 import { type ManifestForWindowCreatorParams } from "@shared/ipc-types";
 import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";

@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { appSettings } from "@/store/1-atoms/9-ui-state";
+import { appSettings } from "@/store/9-ui-state";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
 import { defaultFcName } from "../../9-types";

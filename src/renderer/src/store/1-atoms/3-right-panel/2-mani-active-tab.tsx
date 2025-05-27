@@ -1,4 +1,4 @@
-import { appSettings } from "../9-ui-state";
+import { appSettings } from "../../9-ui-state";
 
 export type ManiTabValue = 'options' | 'login' | 'cpass';
 

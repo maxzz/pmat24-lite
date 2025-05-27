@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { removeFromTotalManis } from "@/store/1-atoms/9-ui-state";
+import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "../../9-types";
 import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";

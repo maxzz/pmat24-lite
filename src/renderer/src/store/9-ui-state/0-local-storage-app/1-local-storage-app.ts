@@ -1,10 +1,10 @@
 import { proxy, subscribe } from "valtio";
 import { atomWithProxy } from "jotai-valtio";
 import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
+import { initializeMru } from "@/store/1-atoms/1-files";
 import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
-import { initializeMru } from "../../1-files/0-files-atom/4-mru-dirs";
 
 const STORE_KEY = "pmat25-ui";
 const STORE_VER = 'v1';

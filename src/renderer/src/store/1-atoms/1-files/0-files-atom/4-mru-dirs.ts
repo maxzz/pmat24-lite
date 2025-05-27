@@ -2,7 +2,7 @@ import { ref, snapshot, subscribe } from "valtio";
 import { errorToString, toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
 import { hasMain } from "@/xternal-to-main";
-import { appSettings } from "../../9-ui-state";
+import { appSettings } from "../../../9-ui-state";
 import { type PmatFolder } from "./9-types";
 import { isPmatFolderEmpty } from "@/store";
 
