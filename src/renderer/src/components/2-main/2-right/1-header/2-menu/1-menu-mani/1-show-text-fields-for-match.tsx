@@ -6,9 +6,10 @@ export function MenuItem_ShowTextFieldsForMatch({ maniAtoms }: { maniAtoms: Mani
     const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
     const { activeTab } = useSnapshot(appSettings.right.mani);
     const formIdx = maniAtiveTabToFormIdx(activeTab);
-    const isScript = formIdx && maniAtoms[formIdx]?.fileUsCtx?.fileUs?.parsedSrc.meta?.[formIdx]?.disp.isScript;
+    const isNormalForm = formIdx !== undefined && maniAtoms[formIdx]?.normal;
     return (
         <DropdownMenuCheckboxItem
+            disabled={!isNormalForm}
             checked={showFormTextFields}
             onCheckedChange={(checked) => appSettings.appUi.uiGeneral.showFormTextFields = checked}
         >
