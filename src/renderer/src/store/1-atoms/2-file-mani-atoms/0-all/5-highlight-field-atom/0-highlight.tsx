@@ -83,12 +83,15 @@ function getFieldRect(loc: string | undefined): TargetClientRect | undefined {
         return undefined;
     }
 
-    const [x, y, w, h] = allStr.split(' ').map(Number);
-
-    console.log(`loc "${loc}" x:%s y:%s r:%s b:%s width:${w-x} height:${h-y}`, x, y, w, h);
-    // return { left: x, top: y, right: w-h, bottom: h-y };
-    // return { left: x, top: y, right: w, bottom: h };
+    const [left, top, right, bottom] = allStr.split(' ').map(Number);
+    return { left, top, right, bottom };
 
     // const [x, y, w, h] = allStr.split(' ').map(Number);
-    return { left: x, top: y, right: x + w, bottom: y + h };
+
+    // console.log(`loc "${loc}" x:%s y:%s r:%s b:%s width:${w-x} height:${h-y}`, x, y, w, h);
+    //     // return { left: x, top: y, right: w-h, bottom: h-y };
+    //     // return { left: x, top: y, right: w, bottom: h };
+
+    //     // const [x, y, w, h] = allStr.split(' ').map(Number);
+    // return { left: x, top: y, right: x + w, bottom: y + h };
 }
