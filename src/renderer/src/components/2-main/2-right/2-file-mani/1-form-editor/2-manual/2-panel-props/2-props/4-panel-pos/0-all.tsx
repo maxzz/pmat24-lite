@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputPos } from "./1-Input-pos";
-import { buildState } from "./8-pos-build-state";
+import { buildState } from "./9-pos-build-state";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const setPosValueX = useSetAtom(item.xAtom);
