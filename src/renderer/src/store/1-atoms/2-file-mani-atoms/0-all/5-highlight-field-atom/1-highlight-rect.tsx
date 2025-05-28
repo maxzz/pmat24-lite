@@ -3,12 +3,11 @@ import { FormIdx, type Meta } from "@/store/manifest";
 import { type FieldHighlightCtx } from "../../9-types";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
-import { fileUsOfRightPanelAtom } from "@/store/1-atoms/3-right-panel";
 import { R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 
-export const doFieldHighlightAtom = atom(
+export const doHighlightRectAtom = atom(
     null,
     (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => {
         if (!focusOrBlur) { // No need so far blur events
