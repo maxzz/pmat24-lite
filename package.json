@@ -64,7 +64,7 @@
         "tailwindcss": "^3.4.17",
         "typescript": "^5.8.3",
         "use-resize-observer": "^9.1.0",
-        "valtio": "^2.1.4",
+        "valtio": "^2.1.5",
         "vaul": "^1.1.2",
         "vite": "^6.3.5"
     },

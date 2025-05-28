@@ -122,7 +122,7 @@ importers:
         version: 2.12.5(@types/react@18.3.18)(react@18.3.1)
       jotai-valtio:
         specifier: ^0.6.0
-        version: 0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
+        version: 0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.5(@types/react@18.3.18)(react@18.3.1))
       lucide-react:
         specifier: ^0.507.0
         version: 0.507.0(react@18.3.1)
@@ -175,8 +175,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       valtio:
-        specifier: ^2.1.4
-        version: 2.1.4(@types/react@18.3.18)(react@18.3.1)
+        specifier: ^2.1.5
+        version: 2.1.5(@types/react@18.3.18)(react@18.3.1)
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3471,8 +3471,8 @@ packages:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
-  valtio@2.1.4:
-    resolution: {integrity: sha512-O6U79SacltN5E5XOwLNixrGSAc4+TNkQw8AWSqjcpvvRjvFbfMvdbFW98g/VgxKoT8v9kb8WQkD8lvf+Dcme8w==}
+  valtio@2.1.5:
+    resolution: {integrity: sha512-vsh1Ixu5mT0pJFZm+Jspvhga5GzHUTYv0/+Th203pLfh3/wbHwxhu/Z2OkZDXIgHfjnjBns7SN9HNcbDvPmaGw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=18.0.0'
@@ -6156,10 +6156,10 @@ snapshots:
   jiti@2.4.2:
     optional: true
 
-  jotai-valtio@0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1)):
+  jotai-valtio@0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.5(@types/react@18.3.18)(react@18.3.1)):
     dependencies:
       jotai: 2.12.5(@types/react@18.3.18)(react@18.3.1)
-      valtio: 2.1.4(@types/react@18.3.18)(react@18.3.1)
+      valtio: 2.1.5(@types/react@18.3.18)(react@18.3.1)
 
   jotai@2.12.5(@types/react@18.3.18)(react@18.3.1):
     optionalDependencies:
@@ -7139,7 +7139,7 @@ snapshots:
 
   uuid@11.1.0: {}
 
-  valtio@2.1.4(@types/react@18.3.18)(react@18.3.1):
+  valtio@2.1.5(@types/react@18.3.18)(react@18.3.1):
     dependencies:
       proxy-compare: 3.0.1
     optionalDependencies:
