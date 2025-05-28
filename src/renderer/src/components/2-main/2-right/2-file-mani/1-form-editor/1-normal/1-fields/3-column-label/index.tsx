@@ -3,6 +3,38 @@ import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
 import { type FieldHighlightCtx, doFieldHighlightAtom } from '@/store';
 
+type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
+    useItAtom: PrimitiveAtom<boolean>;
+    valueAtom: PrimitiveAtom<string>;
+    highlightCtx?: FieldHighlightCtx;
+};
+
+export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, ...rest }: Column3_LabelProps) {
+    const [value, setValue] = useAtom(valueAtom);
+    const useIt = useAtomValue(useItAtom);
+    
+    const doFieldHighlight = useSetAtom(doFieldHighlightAtom);
+
+    function onFocusBlur(focusOrBlur: boolean) {
+        if (highlightCtx) {
+            doFieldHighlight({ ...highlightCtx, focusOrBlur });
+        }
+    }
+
+    return (
+        <input
+            className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            onFocus={() => onFocusBlur(true)}
+            onBlur={() => onFocusBlur(false)}
+            title={useIt ? "This is a label that appears next to an input field." : undefined}
+            {...turnOffAutoComplete}
+            {...rest}
+        />
+    );
+}
+
 const Column3_LabelClasses = "\
 px-2 py-3 h-7 \
 \
@@ -20,37 +52,5 @@ truncate \
 outline-none \
 rounded \
 ";
-
-type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
-    useItAtom: PrimitiveAtom<boolean>;
-    valueAtom: PrimitiveAtom<string>;
-    highlightCtx?: FieldHighlightCtx;
-};
-
-export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, ...rest }: Column3_LabelProps) {
-    const [value, setValue] = useAtom(valueAtom);
-    const useIt = useAtomValue(useItAtom);
-    
-    const doFieldHighlight = useSetAtom(doFieldHighlightAtom);
-
-    function onFocusBlur(focusOn: boolean) {
-        if (highlightCtx) {
-            doFieldHighlight({ ...highlightCtx, focusOrBlur: focusOn });
-        }
-    }
-
-    return (
-        <input
-            className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            onFocus={() => onFocusBlur(true)}
-            onBlur={() => onFocusBlur(false)}
-            title={useIt ? "This is a label that appears next to an input field." : undefined}
-            {...turnOffAutoComplete}
-            {...rest}
-        />
-    );
-}
 
 //TODO: add default text 'Give me a name' or 'No name, give me one';

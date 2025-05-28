@@ -2,30 +2,33 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { buildState } from "./8-pos-build-state";
 import { InputPos } from "./1-Input-pos";
+import { buildState } from "./8-pos-build-state";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const setPosValueX = useSetAtom(item.xAtom);
     const setPosValueY = useSetAtom(item.yAtom);
+    const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
 
-    useEffect(() => {
-        const unsubscribe = subscribe(buildState.getPosProgress,
-            () => {
-                console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
-                //TODO: use debounce
+    useEffect(
+        () => {
+            const unsubscribe = subscribe(buildState.getPosProgress,
+                () => {
+                    console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
+                    //TODO: use debounce
 
-                setPosValueX((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.x || 0}` }));
-                setPosValueY((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.y || 0}` }));
-            }
-        );
-        return unsubscribe;
-    }, []);
+                    setPosValueX((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.x || 0}` }));
+                    setPosValueY((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.y || 0}` }));
+                }
+            );
+            return unsubscribe;
+        }, []
+    );
 
     return (<>
         <div className="flex items-center space-x-2">
-            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }} />
-            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }} />
+            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={highlightCtx} />
+            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={highlightCtx} />
 
             {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
                 <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}

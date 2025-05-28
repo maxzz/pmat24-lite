@@ -13,16 +13,22 @@ import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
+    const isTextField = maniField.type === 'text';
 
     const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
 
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
 
     function onSelectCatItem(item: FceItem | undefined) {
     }
 
     usePrintFileUsHwnds({ ctx: fileUsCtx });
+
+    if (!showFormTextFields && isTextField) {
+        return null;
+    }
 
     return (<>
         <Column2_Type
