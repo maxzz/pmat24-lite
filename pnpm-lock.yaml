@@ -118,11 +118,11 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       jotai:
-        specifier: ^2.12.3
-        version: 2.12.3(@types/react@18.3.18)(react@18.3.1)
+        specifier: ^2.12.5
+        version: 2.12.5(@types/react@18.3.18)(react@18.3.1)
       jotai-valtio:
         specifier: ^0.6.0
-        version: 0.6.0(jotai@2.12.3(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
+        version: 0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1))
       lucide-react:
         specifier: ^0.507.0
         version: 0.507.0(react@18.3.1)
@@ -2484,8 +2484,8 @@ packages:
       jotai: '>=2.0.0'
       valtio: '>=2.0.0'
 
-  jotai@2.12.3:
-    resolution: {integrity: sha512-DpoddSkmPGXMFtdfnoIHfueFeGP643nqYUWC6REjUcME+PG2UkAtYnLbffRDw3OURI9ZUTcRWkRGLsOvxuWMCg==}
+  jotai@2.12.5:
+    resolution: {integrity: sha512-G8m32HW3lSmcz/4mbqx0hgJIQ0ekndKWiYP7kWVKi0p6saLXdSoye+FZiOFyonnd7Q482LCzm8sMDl7Ar1NWDw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -6156,12 +6156,12 @@ snapshots:
   jiti@2.4.2:
     optional: true
 
-  jotai-valtio@0.6.0(jotai@2.12.3(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1)):
+  jotai-valtio@0.6.0(jotai@2.12.5(@types/react@18.3.18)(react@18.3.1))(valtio@2.1.4(@types/react@18.3.18)(react@18.3.1)):
     dependencies:
-      jotai: 2.12.3(@types/react@18.3.18)(react@18.3.1)
+      jotai: 2.12.5(@types/react@18.3.18)(react@18.3.1)
       valtio: 2.1.4(@types/react@18.3.18)(react@18.3.1)
 
-  jotai@2.12.3(@types/react@18.3.18)(react@18.3.1):
+  jotai@2.12.5(@types/react@18.3.18)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.18
       react: 18.3.1
