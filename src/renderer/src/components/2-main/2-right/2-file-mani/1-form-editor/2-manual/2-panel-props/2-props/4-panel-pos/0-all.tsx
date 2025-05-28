@@ -4,7 +4,7 @@ import { subscribe } from "valtio";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputPos } from "./1-Input-pos";
 import { buildState } from "./9-pos-build-state";
-import { Button } from "@/ui";
+import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const setPosValueX = useSetAtom(item.xAtom);
@@ -32,9 +32,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={highlightCtx} />
 
             <div className="row-start-2 self-end pb-1">
-                <Button variant="outline" size="xs">
-                    Highlight
-                </Button>
+                <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
 
             {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
@@ -52,4 +50,3 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
 // TODO: zoom in/out buttons
 // TODO: button: select the click point
 // app preview or drag with client rects recalculation
-
