@@ -64,6 +64,8 @@ const manualFieldHighlightAtom = atom(
             set(doHighlightFieldAtom, params);
 
             console.log(`manualFieldHighlightAtom.manual: location "${x} x ${y}", focusOn: ${focusOn}`);
+        } else if (mFieldCtx.type === 'fld') {
+            console.log('not yet');            
         }
     }
 );
