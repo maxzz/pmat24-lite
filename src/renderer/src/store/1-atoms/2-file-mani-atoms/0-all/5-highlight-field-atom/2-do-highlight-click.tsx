@@ -15,40 +15,22 @@ export const doHighlightClickAtom = atom(
             return;
         }
 
-        const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
-        if (!hwndHandle) {
-            console.log('temp. doFieldHighlightAtom: no hwndHandle'); // temp trace
+        if (!mFieldCtx) {
+            console.log('temp. doHighlightClick: no mFieldCtx'); // temp trace
             return;
         }
 
-        console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
+        const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
+        if (!hwndHandle) {
+            console.log('temp. doHighlightClick: no hwndHandle'); // temp trace
+            return;
+        }
+
+        console.log(`%cdoHighlightClick hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 
         const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur };
 
-        if (nFieldCtx) {
-            set(normalFieldHighlightAtom, nFieldCtx, params);
-        }
-        else if (mFieldCtx) {
-            set(manualFieldHighlightAtom, mFieldCtx, params);
-        }
-    }
-);
-
-const normalFieldHighlightAtom = atom(
-    null,
-    (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn }: { hwnd: string; isBrowser: boolean; focusOn: boolean; }) => {
-
-        const metaField: Meta.Field = nFieldCtx.metaField;
-        const path: Meta.Path = metaField.path;
-
-        const params: R2MParams.HighlightRect = {
-            hwnd,
-            rect: isBrowser ? undefined : getFieldRect(path.loc),
-            accId: isBrowser ? metaField.pidx : undefined,
-        };
-        set(doHighlightFieldAtom, params);
-
-        console.log(`normalFieldHighlightAtom.normal: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`);
+        set(manualFieldHighlightAtom, mFieldCtx, params);
     }
 );
 

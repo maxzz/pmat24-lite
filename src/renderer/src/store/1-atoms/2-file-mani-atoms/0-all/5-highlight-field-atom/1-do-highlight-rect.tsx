@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { FormIdx, type Meta } from "@/store/manifest";
-import { type FieldHighlightCtx } from "../../9-types";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
-import { R2MParams } from "@shared/ipc-types";
+import { type FieldHighlightCtx } from "../../9-types";
+import { type R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 
@@ -16,11 +16,11 @@ export const doHighlightRectAtom = atom(
 
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
-            console.log('temp. doFieldHighlightAtom: no hwndHandle'); // temp trace
+            console.log('temp. doHighlightRectAtom: no hwndHandle'); // temp trace
             return;
         }
 
-        console.log(`%cdoFieldHighlightAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
+        console.log(`%cdoHighlightRectAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 
         const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur };
 
