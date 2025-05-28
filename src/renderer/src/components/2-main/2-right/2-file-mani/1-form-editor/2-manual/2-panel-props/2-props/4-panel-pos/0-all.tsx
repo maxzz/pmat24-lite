@@ -4,6 +4,7 @@ import { subscribe } from "valtio";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputPos } from "./1-Input-pos";
 import { buildState } from "./9-pos-build-state";
+import { Button } from "@/ui";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const setPosValueX = useSetAtom(item.xAtom);
@@ -26,9 +27,15 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     );
 
     return (<>
-        <div className="flex items-center space-x-2">
+        <div className="h-full grid grid-cols-[auto,auto,1fr] grid-row-[1fr,auto] gap-2">
             <InputPos valueAtom={item.xAtom} label="X" highlightCtx={highlightCtx} />
             <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={highlightCtx} />
+
+            <div className="row-start-2 self-end pb-1">
+                <Button variant="outline" size="xs">
+                    Highlight
+                </Button>
+            </div>
 
             {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
                 <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}

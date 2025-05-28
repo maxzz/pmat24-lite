@@ -27,14 +27,12 @@ export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInp
             </span>
 
             <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <div>
-                    <InputOrCheckWithErrorMsg
-                        stateAtom={valueAtom}
-                        asCheckbox={false}
-                        onFocus={() => onFocusBlur(true)}
-                        onBlur={() => onFocusBlur(false)}
-                    />
-                </div>
+                <InputOrCheckWithErrorMsg
+                    stateAtom={valueAtom}
+                    asCheckbox={false}
+                    onFocus={() => onFocusBlur(true)}
+                    onBlur={() => onFocusBlur(false)}
+                />
 
                 <span className="pt-0.5">
                     px
