@@ -16,6 +16,7 @@ export const doHighlightRectAtom = atom(
 
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
+            //findHwnd(hwndHandle);
             console.log('temp. doHighlightRectAtom: no hwndHandle'); // temp trace
             return;
         }
