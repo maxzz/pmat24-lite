@@ -55,18 +55,15 @@ const normalFieldHighlightAtom = atom(
 const manualFieldHighlightAtom = atom(
     null,
     (get, set, mFieldCtx: ManualFieldState.Ctx, { hwnd, focusOn }: { hwnd: string; isBrowser: boolean; focusOn: boolean; }) => {
-
         if (mFieldCtx.type === 'pos') {
             const x = +get(mFieldCtx.xAtom).data;
             const y = +get(mFieldCtx.yAtom).data;
-            const rect = { left: x, top: y, right: x + 10, bottom: y + 10 };
+            const rect = { left: x - 10, top: y - 10, right: x + 10, bottom: y + 10 };
 
             const params: R2MParams.HighlightRect = { hwnd, rect, };
             set(doHighlightFieldAtom, params);
 
             console.log(`manualFieldHighlightAtom.manual: location "${x} x ${y}", focusOn: ${focusOn}`);
-        } else if (mFieldCtx.type === 'fld') {
-            console.log('not yet');            
         }
     }
 );
