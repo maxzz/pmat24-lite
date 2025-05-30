@@ -91,10 +91,10 @@ function getFieldRect(loc: string | undefined, bounds: Meta.Bounds): TargetClien
 
     let [left, top, right, bottom] = allStr.split(' ').map(Number);
 
-    left = left - bounds.x1; // convert to client rect
-    top = top - bounds.y1;
-    right = right - bounds.x1;
-    bottom = bottom - bounds.y1;
+    left = left - bounds.x1 - 5; // convert to client rect // temp. add hardcoded client area offset
+    top = top - bounds.y1 - 39;
+    right = right - bounds.x1 - 5;
+    bottom = bottom - bounds.y1 - 39;
 
     return { left, top, right, bottom };
 
