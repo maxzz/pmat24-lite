@@ -130,8 +130,8 @@ importers:
         specifier: ^12.15.0
         version: 12.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       pm-manifest:
-        specifier: ^1.2.81
-        version: 1.2.81
+        specifier: ^1.2.82
+        version: 1.2.82
       pm-manifest-icons:
         specifier: latest
         version: 1.0.3(react@18.3.1)
@@ -2167,8 +2167,8 @@ packages:
   fast-shallow-equal@1.0.0:
     resolution: {integrity: sha512-HPtaa38cPgWvaCFmRNhlc6NG7pv6NUHqjPgVAkWGoB9mQMwYB27/K0CvOM5Czy+qpT3e8XJ6Q4aPAnzpNpzNaw==}
 
-  fast-xml-parser@4.5.0:
-    resolution: {integrity: sha512-/PlTQCI96+fZMAOLMZK4CWG1ItCbfZ/0jx7UIJFChPNrx7tcEgerUgWbeieCM9MfHInUDyK8DWYZ+YrywDJuTg==}
+  fast-xml-parser@5.2.3:
+    resolution: {integrity: sha512-OdCYfRqfpuLUFonTNjvd30rCBZUneHpSQkCqfaeWQ9qrKcl6XlWeDBNVwGb+INAIxRshuN2jF+BE0L6gbBO2mw==}
     hasBin: true
 
   fastest-stable-stringify@2.0.2:
@@ -2936,8 +2936,8 @@ packages:
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
 
-  pm-manifest@1.2.81:
-    resolution: {integrity: sha512-P/I2e+YuHnJxjK/Q96ai2vVZbI7ucPIVf6FYHD986Z2vxgs6cclhI1h+bqJmuBpw7v6bF0T39EwhQE0LzScKfg==}
+  pm-manifest@1.2.82:
+    resolution: {integrity: sha512-0W+i8oBIGU7f/G2LJKrTql5lmmvBxPCJmX1KgkzTfjDVcbQyDKDPuGCUqnpFYkLfVca5NtwIPELHrTSFQaqH4g==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -3348,8 +3348,8 @@ packages:
     resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
     engines: {node: '>=12'}
 
-  strnum@1.1.2:
-    resolution: {integrity: sha512-vrN+B7DBIoTTZjnPNewwhx6cBA/H+IS7rfW68n7XxC1y7uoiGQBxaKzqucGUgavX15dJgiGztLJ8vxuEzwqBdA==}
+  strnum@2.1.1:
+    resolution: {integrity: sha512-7ZvoFTiCnGxBtDqJ//Cu6fWtZtc7Y3x+QOirG15wztbdngGSkht27o2pyGWrVy0b4WAy3jbKmnoK6g5VlVNUUw==}
 
   stylis@4.3.5:
     resolution: {integrity: sha512-K7npNOKGRYuhAFFzkzMGfxFDpN6gDwf8hcMiE+uveTVbBgm93HrNP3ZDUpKqzZ4pG7TP6fmb+EMAQPjq9FqqvA==}
@@ -5864,9 +5864,9 @@ snapshots:
 
   fast-shallow-equal@1.0.0: {}
 
-  fast-xml-parser@4.5.0:
+  fast-xml-parser@5.2.3:
     dependencies:
-      strnum: 1.1.2
+      strnum: 2.1.1
 
   fastest-stable-stringify@2.0.2: {}
 
@@ -6637,10 +6637,10 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  pm-manifest@1.2.81:
+  pm-manifest@1.2.82:
     dependencies:
       '@types/uuid': 10.0.0
-      fast-xml-parser: 4.5.0
+      fast-xml-parser: 5.2.3
       uuid: 11.1.0
 
   postcss-import@15.1.0(postcss@8.5.3):
@@ -7054,7 +7054,7 @@ snapshots:
     dependencies:
       ansi-regex: 6.1.0
 
-  strnum@1.1.2: {}
+  strnum@2.1.1: {}
 
   stylis@4.3.5: {}
 

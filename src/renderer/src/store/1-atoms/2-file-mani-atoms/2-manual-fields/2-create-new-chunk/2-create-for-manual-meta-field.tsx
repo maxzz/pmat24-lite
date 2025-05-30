@@ -7,8 +7,8 @@ export function createForManualMetaField(password: boolean): Meta.Field {
         ftyp: FieldTyp.edit,
         life: createEmptyValueLife({ fType: FieldTyp.edit }),
         path: {},
-        pidx: 0, // index is irrelevant for manual fields for now
-        ridx: 0, // index is irrelevant for manual fields for now
+        pidx: 0,        // profile index is irrelevant for manual fields for now
+        previewIdx: 0,  // preview index is irrelevant for manual fields for now
         uuid: uuid.asRelativeNumber(),
     };
     return rv;
