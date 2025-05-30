@@ -1,8 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FceItemEditor, type FceItem, type FceItemValue, type FceItemMeta } from "@/store/1-atoms";
-import { createGuid, type FieldTyp, startTime, uuid } from "pm-manifest";
-import { createEmptyValueLife } from "./2-value-life";
+import { createEmptyValueLife, createGuid, type FieldTyp, startTime, uuid } from "pm-manifest";
 
 export function createEmptyFceItemValue(fType: FieldTyp): FceItemValue {
     return {
