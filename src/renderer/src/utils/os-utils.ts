@@ -91,3 +91,5 @@ export function toWindows(fileName: string): string {
 }
 
 // -----------------------------
+
+//TODO: https://github.com/sindresorhus/unused-filename for `file.txt` → `file (1).txt`

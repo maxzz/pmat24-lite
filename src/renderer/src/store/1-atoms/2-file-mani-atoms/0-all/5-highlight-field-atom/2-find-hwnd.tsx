@@ -4,24 +4,14 @@ import { FormIdx } from "@/store/manifest";
 import { type GetTargetWindowResult, type TlwInfo } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
 
-export async function findHwnd({caption, classname}: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
-    // 1. get all tlw infos
-    const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
-    const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
-
-    console.log(`Infos`, JSON.stringify(infos, null, 2));
-
-    const rv = infos.find((item) => item.caption === caption && item.classname === classname);
-    return rv;
-}
-
 export const doFindHwndAtom = atom(
     null,
     async (get, set, { fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }): Promise<void> => {
-        const formAtoms = fileUs.maniAtomsAtom[formIdx];
+
+        const formAtoms = fileUs.maniAtomsAtom && get(fileUs.maniAtomsAtom)?.[formIdx];
         const options = formAtoms?.options;
         if (!options) {
-            console.log('no options');
+            console.log('no.form');
             return;
         }
 
@@ -30,13 +20,13 @@ export const doFindHwndAtom = atom(
             return;
         }
 
-        const caption = get(options.captionAtom);
+        const caption = get(options.p2Detect.captionAtom)?.data;
         if (!caption) {
             console.log('no caption');
             return;
         }
 
-        const classname = get(options.classnameAtom);
+        const classname = get(options.p2Detect.dlg_classAtom)?.data;
         if (!classname) {
             console.log('no classname');
             return;
@@ -47,8 +37,22 @@ export const doFindHwndAtom = atom(
         // const hwnd: GetTargetWindowResult = { hwnd: '000000000014103E', caption, classname, isBrowser: false };
 
 
+        const rv = await findHwnd({ caption, classname });
         //const options 
         // // const rv = await findHwnd(hwnd);
         // console.log('findHwnd', rv);
     }
 );
+
+async function findHwnd({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
+    // 1. get all tlw infos
+    const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
+    const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
+
+    console.log(`Infos`, JSON.stringify(infos, null, 2));
+
+    const rv = infos.find((item) => item.caption === caption && item.classname === classname);
+    return rv;
+}
+
+//TODO: maybe use process name in addition to caption and classname
