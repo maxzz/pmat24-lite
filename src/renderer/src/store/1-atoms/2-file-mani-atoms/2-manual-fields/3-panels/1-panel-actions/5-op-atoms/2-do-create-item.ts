@@ -1,9 +1,11 @@
 import { atom } from "jotai";
-import { type ChunkKey } from "@/store/manifest";
-import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { createScriptItem } from "../../../2-create-new-chunk";
 import { clamp } from "@/utils";
+import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
+import { type ManualFieldState } from "../../../9-types";
+import { type ChunkKey, createScriptItemByType } from "@/store/manifest";
+import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
+import { ManualFieldConv } from "../../../0-conv";
 
 export const doCreateItemAtom = atom(
     null,
@@ -25,3 +27,9 @@ export const doCreateItemAtom = atom(
         set(doSelectIdxAtom, ctx, selectedIdx);
     }
 );
+
+function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
+    const newItem = createScriptItemByType({type, password});
+    const rv = ManualFieldConv.createAtom(newItem, onChange);
+    return rv;
+}
