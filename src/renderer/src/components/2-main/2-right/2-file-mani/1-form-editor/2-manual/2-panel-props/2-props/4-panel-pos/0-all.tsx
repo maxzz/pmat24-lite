@@ -2,16 +2,17 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputPos } from "./1-Input-pos";
 import { buildState } from "./9-pos-build-state";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
+import { type FieldHighlightCtx, doHighlightRectAtom } from '@/store';
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
 
     useBuildStateLink(item);
 
-    return (<>
+    return (
         <div className="h-full grid grid-cols-[auto,auto,1fr] grid-row-[1fr,auto] gap-2">
             <InputPos valueAtom={item.xAtom} label="X" highlightCtx={highlightCtx} />
             <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={highlightCtx} />
@@ -20,7 +21,31 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
-    </>);
+    );
+}
+
+function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInputStateAtom; label: string; highlightCtx?: FieldHighlightCtx; }) {
+    const doHighlightRect = useSetAtom(doHighlightRectAtom);
+
+    function expose() {
+        highlightCtx && doHighlightRect({ ...highlightCtx, focusOrBlur: true });
+    }
+
+    return (
+        <label className="flex flex-col gap-1">
+            <span>
+                {label}
+            </span>
+
+            <div className="min-w-16 max-w-16 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
+                <InputOrCheckWithErrorMsg stateAtom={valueAtom} onFocus={expose}/>
+
+                <span className="pt-0.5">
+                    px
+                </span>
+            </div>
+        </label>
+    );
 }
 
 function useBuildStateLink(item: ManualFieldState.CtxPos) {
@@ -43,6 +68,6 @@ function useBuildStateLink(item: ManualFieldState.CtxPos) {
     );
 }
 
-// TODO: zoom in/out buttons
-// TODO: button: select the click point
+// TODO: Add button: select the click point
 // TODO: App preview or drag with client rects recalculation
+// TODO: Add zoom in/out buttons
