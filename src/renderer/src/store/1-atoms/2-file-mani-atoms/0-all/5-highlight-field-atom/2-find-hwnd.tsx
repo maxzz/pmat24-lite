@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileUs } from "@/store/store-types";
@@ -40,6 +41,25 @@ export const doFindHwndAtom = atom(
         return rv;
     }
 );
+
+async function getTlwInfos(): Promise<TlwInfo[]> {
+    try {
+        if (!hasMain()) {
+            throw new Error('no.main');
+        }
+
+        // 1. get all tlw infos
+        const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
+        const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
+
+        //console.log(`Infos`, JSON.stringify(infos, null, 2));
+
+        return infos;
+    } catch (error) {
+        console.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
+        return [];
+    }
+}
 
 async function findHwnd({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
     // 1. get all tlw infos
