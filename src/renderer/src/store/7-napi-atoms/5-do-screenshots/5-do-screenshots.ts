@@ -8,6 +8,7 @@ import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
 import { napiBuildState, napiLock } from "../9-napi-build-state";
 import { errorToString } from "@/utils";
+import { asyncGetTlwInfos } from "./8-get-twl-infos";
 
 export type TlwScreenshotInfo = {
     item: TlwScreenshot;
@@ -46,9 +47,8 @@ export const doSetScreenshotsAtom = atom(
 
 async function doLiveScreenshots(width: number, set: Setter) {
     try {
-        // 1. get all tlw infos
-        const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
-        const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
+        // 1. get all tlw infos and hwnds
+        const infos: TlwInfo[] = await asyncGetTlwInfos();
         const hwnds = infos.map(obj => obj.hwnd);
 
         console.log(`Infos`, JSON.stringify(infos, null, 2));
