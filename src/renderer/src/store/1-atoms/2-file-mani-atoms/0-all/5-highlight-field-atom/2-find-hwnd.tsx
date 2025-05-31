@@ -4,6 +4,7 @@ import { FormIdx } from "@/store/manifest";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileUs } from "@/store/store-types";
 import { type TlwInfo } from "@shared/ipc-types";
+import { asyncGetTlwInfos } from "@/store/7-napi-atoms";
 
 export const doFindHwndAtom = atom(
     null,
@@ -42,44 +43,13 @@ export const doFindHwndAtom = atom(
     }
 );
 
-async function getTlwInfos(): Promise<TlwInfo[]> {
-    try {
-        if (!hasMain()) {
-            throw new Error('no.main');
-        }
-
-        // 1. get all tlw infos
-        const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
-        const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
-
-        //console.log(`Infos`, JSON.stringify(infos, null, 2));
-
-        return infos;
-    } catch (error) {
-        console.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
-        return [];
-    }
-}
-
 async function findHwnd({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
-    // 1. get all tlw infos
-    const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
-    const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
-
-    console.log(`Infos`, JSON.stringify(infos, null, 2));
-
-    const rv = infos.find((item) => item.caption === caption && item.classname === classname);
+    const rv = (await asyncGetTlwInfos()).find((item) => item.caption === caption && item.classname === classname);
     return rv;
 }
 
 async function findHwndHandle({ hwnd }: { hwnd: string; }): Promise<TlwInfo | undefined> {
-    // 1. get all tlw infos
-    const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
-    const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
-
-    console.log(`Infos`, JSON.stringify(infos, null, 2));
-
-    const rv = infos.find((item) => item.hwnd === hwnd);
+    const rv = (await asyncGetTlwInfos()).find((item) => item.hwnd === hwnd);
     return rv;
 }
 
