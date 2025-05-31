@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { type GetTargetWindowResult, type FileContent } from '@shared/ipc-types';
+import { type FileContent, type TlwInfo } from '@shared/ipc-types';
 import { type FileUs, type ManiAtomsAtom, finalizeFileContent } from "@/store";
 import { type ManiAtoms } from '@/store/1-atoms/2-file-mani-atoms';
 import { createParsedSrc } from './4-create-parsed-src';
@@ -25,8 +25,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
 
         mainForCpassAtom: undefined,
         rawCpassAtom: atom<string | undefined>(undefined),
-        hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<GetTargetWindowResult | null>(null),
-        hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<GetTargetWindowResult | null>(null),
+        hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<TlwInfo | null>(null),
+        hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<TlwInfo | null>(null),
     };
 
     return rv;

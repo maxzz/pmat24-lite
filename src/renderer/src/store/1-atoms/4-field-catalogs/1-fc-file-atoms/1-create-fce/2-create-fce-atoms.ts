@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
-import { type GetTargetWindowResult, type FileContent } from "@shared/ipc-types";
+import { type FileContent, type TlwInfo } from "@shared/ipc-types";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { rootDir } from "@/store/1-atoms/1-files/0-files-atom";
@@ -29,8 +29,8 @@ export function createFileUsForNewFc(): FileUs {
 
         mainForCpassAtom: undefined,
         rawCpassAtom: atom<string | undefined>(undefined),
-        hwndLoginAtom: atom<GetTargetWindowResult | null>(null),
-        hwndCpassAtom: atom<GetTargetWindowResult | null>(null),
+        hwndLoginAtom: atom<TlwInfo | null>(null),
+        hwndCpassAtom: atom<TlwInfo | null>(null),
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });

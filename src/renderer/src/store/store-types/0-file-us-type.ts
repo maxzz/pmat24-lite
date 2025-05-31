@@ -1,6 +1,6 @@
 import { type PrimitiveAtom as PA } from "jotai";
 import { type Mani, type Meta, type CatalogFile } from "../manifest";
-import { type GetTargetWindowResult, type FileContent } from "@shared/ipc-types";
+import { type GetTargetWindowResult, type FileContent, type TlwInfo } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FceAtoms } from "../1-atoms/4-field-catalogs";
 
@@ -45,8 +45,8 @@ export type FileUs = {
     mainForCpassAtom: FileUsAtom | undefined;           // Defined when creating password change form
     rawCpassAtom: PA<string | undefined>;               // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
 
-    hwndLoginAtom: PA<GetTargetWindowResult | null>;    // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later.
-    hwndCpassAtom: PA<GetTargetWindowResult | null>;    // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
+    hwndLoginAtom: PA<TlwInfo | null>;                  // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later. When manifest created it has type GetTargetWindowResult (i.e. with process and isBrowser).
+    hwndCpassAtom: PA<TlwInfo | null>;                  // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
 };
 
 export type FileUsAtom = PA<FileUs>;
