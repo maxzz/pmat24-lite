@@ -45,10 +45,11 @@ export type FileUs = {
     mainForCpassAtom: FileUsAtom | undefined;           // Defined when creating password change form
     rawCpassAtom: PA<string | undefined>;               // Raw xml of 2 forms after password change created but before save (exists only before cpass saved)
 
-    hwndLoginAtom: PA<TlwInfo | null>;                  // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later. When manifest created it has type GetTargetWindowResult (i.e. with process and isBrowser).
-    hwndCpassAtom: PA<TlwInfo | null>;                  // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
+    hwndLoginAtom: PA<HighlightHwnd>;                   // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later. When manifest created it has type GetTargetWindowResult (i.e. with process and isBrowser).
+    hwndCpassAtom: PA<HighlightHwnd>;                   // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
 };
 
 export type FileUsAtom = PA<FileUs>;
 export type ManiAtomsAtom = PA<ManiAtoms | null>;
 export type ManiAtomsSureAtom = PA<ManiAtoms>;          // Already checked not null at the level above if not null and ready to use wo/ checking null
+export type HighlightHwnd = TlwInfo | null | undefined;
