@@ -3,45 +3,33 @@ import { toast } from "sonner";
 import { Button } from "@/ui/shadcn";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState, doFindHwndAtom, doHighlightRectAtom } from "@/store/1-atoms/2-file-mani-atoms";
-import { type TlwInfo } from "@shared/ipc-types";
 
 export function ButtonHighlightClick({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
-    const highlightClick = useSetAtom(highlightClickAtom);
-
-    async function onClick() {
-        highlightClick({ mFieldCtx: item, fileUsCtx });
-    }
-
+    const doHighlightClick = useSetAtom(doHighlightClickAtom);
+    
     return (
-        <Button variant="outline" size="xs" onClick={onClick}>
+        <Button variant="outline" size="xs" onClick={() => doHighlightClick({ mFieldCtx: item, fileUsCtx })}>
             Highlight
         </Button>
     );
 }
 
-const highlightClickAtom = atom(
+const doHighlightClickAtom = atom(
     null,
     async (get, set, { mFieldCtx, fileUsCtx }: { mFieldCtx: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) => {
+        const fileUs = fileUsCtx.fileUs;
         const formIdx = fileUsCtx.formIdx;
-        const hwndAtom = formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
+        const hwndAtom = formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom;
 
-        let hwndHandle = get(hwndAtom);
+        // Find window every time since window can be closed and atom stores stale hwnd
+        set(hwndAtom, await set(doFindHwndAtom, { fileUs, formIdx }));
 
-        //if (!hwndHandle) { // do it every time since window can be closed and atom stores stale hwnd
-        const twInfo = await set(doFindHwndAtom, { fileUs: fileUsCtx.fileUs, formIdx });
-        if (twInfo) {
-            set(hwndAtom, twInfo); //TODO: when to clean up?
-        } else {
-            set(hwndAtom, undefined);
-        }
-        //}
-
-        hwndHandle = get(hwndAtom);
+        const hwndHandle = get(hwndAtom);
         if (!hwndHandle) {
             toast.info('Open target window first');
             return;
         }
 
-        set(doHighlightRectAtom, { mFieldCtx, fileUs: fileUsCtx.fileUs, formIdx, focusOrBlur: true });
+        set(doHighlightRectAtom, { mFieldCtx, fileUs, formIdx, focusOrBlur: true });
     }
 );
