@@ -1,21 +1,27 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
+import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { buildState } from "./9-pos-build-state";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
-import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
-import { type FieldHighlightCtx, doHighlightRectAtom } from '@/store';
+import { doHighlightRectAtom } from '@/store';
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
-    const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
+
+    const doHighlightRect = useSetAtom(doHighlightRectAtom);
+
+    function expose() {
+        const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
+        doHighlightRect({ ...highlightCtx, focusOrBlur: true });
+    }
 
     useBuildStateLink(item);
 
     return (
         <div className="h-full grid grid-cols-[auto,auto,1fr] grid-row-[1fr,auto] gap-2">
-            <InputPos valueAtom={item.xAtom} label="X" highlightCtx={highlightCtx} />
-            <InputPos valueAtom={item.yAtom} label="Y" highlightCtx={highlightCtx} />
+            <InputPos valueAtom={item.xAtom} label="X" expose={expose} />
+            <InputPos valueAtom={item.yAtom} label="Y" expose={expose} />
 
             <div className="row-start-2 self-end pb-1">
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
@@ -24,13 +30,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     );
 }
 
-function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInputStateAtom; label: string; highlightCtx?: FieldHighlightCtx; }) {
-    const doHighlightRect = useSetAtom(doHighlightRectAtom);
-
-    function expose() {
-        highlightCtx && doHighlightRect({ ...highlightCtx, focusOrBlur: true });
-    }
-
+function InputPos({ valueAtom, label, expose }: { valueAtom: RowInputStateAtom; label: string; expose: () => void; }) {
     return (
         <label className="flex flex-col gap-1">
             <span>
