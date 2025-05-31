@@ -1,4 +1,4 @@
-import { atom, useAtomValue } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState, doFindHwndAtom } from "@/store/1-atoms/2-file-mani-atoms";
@@ -10,9 +10,12 @@ export function ButtonHighlightClick({ item, fileUsCtx }: { item: ManualFieldSta
 
     const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
 
-    function onClick() {
+    async function onClick() {
+        await highlightClick({ mFieldCtx: item, fileUs: fileUsCtx, formIdx: fileUsCtx.formIdx });
         console.log(`ButtonHighlightClick.onClick`, highlightCtx);
     }
+
+    const highlightClick = useSetAtom(highlightClickAtom);
 
     return (
         <Button variant="outline" size="xs" onClick={onClick}>
