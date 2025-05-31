@@ -20,8 +20,6 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
-
-        {/* Maybe later: */}{/* <InputXY item={item} /> */}
     </>);
 }
 
@@ -34,7 +32,7 @@ function useBuildStateLink(item: ManualFieldState.CtxPos) {
             const unsubscribe = subscribe(buildState.getPosProgress,
                 () => {
                     console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
-                    //TODO: use debounce
+                    //TODO: use debounce and don't do highlight during dragging
 
                     setPosValueX((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.x || 0}` }));
                     setPosValueY((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.y || 0}` }));
@@ -47,4 +45,4 @@ function useBuildStateLink(item: ManualFieldState.CtxPos) {
 
 // TODO: zoom in/out buttons
 // TODO: button: select the click point
-// app preview or drag with client rects recalculation
+// TODO: App preview or drag with client rects recalculation

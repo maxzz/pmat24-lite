@@ -2,15 +2,6 @@ import { useSetAtom } from "jotai";
 import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 import { type FieldHighlightCtx, doHighlightRectAtom } from '@/store';
 
-//import { InputXY } from "./2-input-xy";
-// function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
-//     let n = parseInt(e.target.value);
-//     if (Number.isNaN(n)) {
-//         n = defValue;
-//     }
-//     return n;
-// }
-
 export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInputStateAtom; label: string; highlightCtx?: FieldHighlightCtx; }) {
     const doHighlightRect = useSetAtom(doHighlightRectAtom);
 

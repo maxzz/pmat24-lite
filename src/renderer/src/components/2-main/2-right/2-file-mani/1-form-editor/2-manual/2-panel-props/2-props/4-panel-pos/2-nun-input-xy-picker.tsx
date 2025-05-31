@@ -46,3 +46,22 @@ export function InputXY({ item }: { item: ManualFieldState.CtxPos }) {
         </div>
     );
 }
+
+//import { InputXY } from "./2-input-xy";
+//
+// function eventNumber(e: React.ChangeEvent<HTMLInputElement>, defValue: number = 0) {
+//     let n = parseInt(e.target.value);
+//     if (Number.isNaN(n)) {
+//         n = defValue;
+//     }
+//     return n;
+// }
+
+// as alternative to InputPos
+// {/* Maybe later: */}{/* <InputXY item={item} /> */}
+
+// {/* <RowInputWLabel stateAtom={item.xAtom} label="x" className="w-12" />
+//     <RowInputWLabel stateAtom={item.yAtom} label="y" className="w-12" /> */}
+//
+// {/* <InputField className="w-12" label="x" horizontal={true} value={`${snap.x}`} onChange={(e) => item.x = eventNumber(e)} />
+//     <InputField className="w-12" label="y" horizontal={true} value={`${snap.y}`} onChange={(e) => item.y = eventNumber(e)} /> */}
