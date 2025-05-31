@@ -22,22 +22,23 @@ export function ButtonHighlightClick({ item, fileUsCtx }: { item: ManualFieldSta
 const highlightClickAtom = atom(
     null,
     async (get, set, { mFieldCtx, fileUsCtx }: { mFieldCtx: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) => {
-        const posX = get(mFieldCtx.xAtom);
-        const posY = get(mFieldCtx.yAtom);
-        
         const formIdx = fileUsCtx.formIdx;
+        const hwndAtom = formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
 
-        let hwndHandle = fileUsCtx && get(formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom);
-        if (!hwndHandle) {
-            const twInfo = await set(doFindHwndAtom, { fileUs: fileUsCtx.fileUs, formIdx }) as GetTargetWindowResult;
-            if (twInfo) {
-                twInfo.isBrowser = false;
-                twInfo.process = ''; //TODO: we need process name
-                set(formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom, twInfo); //TODO: when to clean up?
-            }
+        let hwndHandle = get(hwndAtom);
+
+        //if (!hwndHandle) { // do it every time since window can be closed and atom stores stale hwnd
+        const twInfo = await set(doFindHwndAtom, { fileUs: fileUsCtx.fileUs, formIdx }) as GetTargetWindowResult;
+        if (twInfo) {
+            twInfo.isBrowser = false;
+            twInfo.process = ''; //TODO: we need process name
+            set(hwndAtom, twInfo); //TODO: when to clean up?
+        } else {
+            set(hwndAtom, null);
         }
+        //}
 
-        hwndHandle = fileUsCtx && get(formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom);
+        hwndHandle = get(hwndAtom);
         if (!hwndHandle) {
             toast.info('Open target window first');
             return;
