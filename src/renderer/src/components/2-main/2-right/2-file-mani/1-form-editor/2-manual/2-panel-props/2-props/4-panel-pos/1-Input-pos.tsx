@@ -26,7 +26,7 @@ export function InputPos({ valueAtom, label, highlightCtx }: { valueAtom: RowInp
                 {label}
             </span>
 
-            <div className="max-w-24 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
+            <div className="min-w-16 max-w-16 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
                 <InputOrCheckWithErrorMsg
                     stateAtom={valueAtom}
                     asCheckbox={false}
