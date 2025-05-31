@@ -69,8 +69,8 @@ async function doLiveScreenshots(width: number, set: Setter) {
 
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
     } catch (error) {
-        console.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
-        toast.error(`'doCollectScreenshotsAtom' ${errorToString(error)}`);
+        console.error(`'doLiveScreenshots' ${errorToString(error)}`);
+        toast.error(`'doLiveScreenshots' ${errorToString(error)}`);
         set(allScreenshotAtom, []);
     }
 }

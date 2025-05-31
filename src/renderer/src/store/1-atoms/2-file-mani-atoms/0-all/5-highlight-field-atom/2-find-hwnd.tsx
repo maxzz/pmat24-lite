@@ -1,10 +1,9 @@
 import { atom } from "jotai";
-import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { hasMain } from "@/xternal-to-main";
 import { type FileUs } from "@/store/store-types";
 import { type TlwInfo } from "@shared/ipc-types";
-import { asyncGetTlwInfos } from "@/store/7-napi-atoms";
+import { asyncFindWindowByCaption } from "@/store/7-napi-atoms";
 
 export const doFindHwndAtom = atom(
     null,
@@ -38,19 +37,9 @@ export const doFindHwndAtom = atom(
             return;
         }
 
-        const rv = await findHwnd({ caption, classname });
+        const rv = await asyncFindWindowByCaption({ caption, classname });
         return rv;
     }
 );
-
-async function findHwnd({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
-    const rv = (await asyncGetTlwInfos()).find((item) => item.caption === caption && item.classname === classname);
-    return rv;
-}
-
-async function findHwndHandle({ hwnd }: { hwnd: string; }): Promise<TlwInfo | undefined> {
-    const rv = (await asyncGetTlwInfos()).find((item) => item.hwnd === hwnd);
-    return rv;
-}
 
 //TODO: maybe use process name in addition to caption and classname

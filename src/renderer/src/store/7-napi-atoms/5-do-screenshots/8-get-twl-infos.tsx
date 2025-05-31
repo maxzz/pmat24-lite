@@ -14,3 +14,13 @@ export async function asyncGetTlwInfos(): Promise<TlwInfo[]> {
         return [];
     }
 }
+
+export async function asyncFindWindowByCaption({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
+    const rv = (await asyncGetTlwInfos()).find((item) => item.caption === caption && item.classname === classname);
+    return rv;
+}
+
+export async function asyncFindWindowByHandle({ hwnd }: { hwnd: string; }): Promise<TlwInfo | undefined> {
+    const rv = (await asyncGetTlwInfos()).find((item) => item.hwnd === hwnd);
+    return rv;
+}

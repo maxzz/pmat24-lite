@@ -38,7 +38,6 @@ const highlightClickAtom = atom(
                 twInfo.process = ''; //TODO: we need process name
                 set(formIdx === FormIdx.login ? fileUs.fileUs.hwndLoginAtom : fileUs.fileUs.hwndCpassAtom, twInfo); //TODO: when to clean up?
             }
-
         }
 
         if (!hwndHandle) {
