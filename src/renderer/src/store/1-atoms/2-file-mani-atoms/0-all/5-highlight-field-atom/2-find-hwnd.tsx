@@ -1,12 +1,16 @@
 import { atom } from "jotai";
-import { type FileUs } from "@/store/store-types";
 import { FormIdx } from "@/store/manifest";
-import { type GetTargetWindowResult, type TlwInfo } from "@shared/ipc-types";
-import { invokeMainTyped } from "@/xternal-to-main";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { type FileUs } from "@/store/store-types";
+import { type TlwInfo } from "@shared/ipc-types";
 
 export const doFindHwndAtom = atom(
     null,
-    async (get, set, { fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }): Promise<void> => {
+    async (get, set, { fileUs, formIdx }: { fileUs: FileUs; formIdx: FormIdx; }): Promise<TlwInfo | undefined> => {
+        if (!hasMain()) {
+            console.log('no.main');
+            return;
+        }
 
         const formAtoms = fileUs.maniAtomsAtom && get(fileUs.maniAtomsAtom)?.[formIdx];
         const options = formAtoms?.options;
@@ -32,15 +36,8 @@ export const doFindHwndAtom = atom(
             return;
         }
 
-        // const hwnd: TlwInfo = ;
-
-        // const hwnd: GetTargetWindowResult = { hwnd: '000000000014103E', caption, classname, isBrowser: false };
-
-
         const rv = await findHwnd({ caption, classname });
-        //const options 
-        // // const rv = await findHwnd(hwnd);
-        // console.log('findHwnd', rv);
+        return rv;
     }
 );
 
