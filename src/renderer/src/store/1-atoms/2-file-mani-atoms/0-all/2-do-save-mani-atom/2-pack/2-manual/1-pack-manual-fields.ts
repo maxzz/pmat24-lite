@@ -12,18 +12,18 @@ export function packManualFields(formCtx: MFormCtx, formIdx: FormIdx, packParams
     const chunkAndSns: EditorDataForOneAndSn[] = stringifyFromEditor(scriptItems);
 
     const rv: Mani.Field[] = chunkAndSns.map(
-        (chunkAndsn) => {
-            const from: EditorField.Members = NormalFieldConv.forMani(chunkAndsn.chunk.editField);
+        (chunkAndSn) => {
+            const from: EditorField.Members = NormalFieldConv.forMani(chunkAndSn.chunk.editField);
             const ftyp = fieldTyp4Str(from);
 
             const newField: Mani.Field = mergeToManiField({
                 from,
-                maniField: chunkAndsn.chunk.field.mani,
+                maniField: chunkAndSn.chunk.field.mani,
                 ftyp,
                 isSubmit: false,
             });
 
-            newField.path = mergeSn(chunkAndsn.sn);
+            newField.path_ext = mergeSn(chunkAndSn.sn);
 
             return newField;
         }
