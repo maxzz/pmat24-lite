@@ -52,4 +52,15 @@ async function findHwnd({ caption, classname }: { caption: string; classname: st
     return rv;
 }
 
+async function findHwndHandle({ hwnd }: { hwnd: string; }): Promise<TlwInfo | undefined> {
+    // 1. get all tlw infos
+    const infosStr = await invokeMainTyped({ type: 'r2mi:get-tlw-infos' });
+    const infos = JSON.parse(infosStr || '[]') as TlwInfo[];
+
+    console.log(`Infos`, JSON.stringify(infos, null, 2));
+
+    const rv = infos.find((item) => item.hwnd === hwnd);
+    return rv;
+}
+
 //TODO: maybe use process name in addition to caption and classname
