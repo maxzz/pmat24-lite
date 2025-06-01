@@ -65,7 +65,7 @@ const manualFieldHighlightAtom = atom(
         if (mFieldCtx.type === 'pos') {
             const x = +get(mFieldCtx.xAtom).data;
             const y = +get(mFieldCtx.yAtom).data;
-            const rect = { left: x - 10, top: y - 10, right: x + 10, bottom: y + 10 };
+            const rect = { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1 };
 
             const params: R2MParams.HighlightRect = { hwnd, rect, };
             set(doHighlightFieldAtom, params);

@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type RowInputStateAtom, InputErrorPopupMessage, InputOrCheckWithErrorMsg, OptionAsString } from "@/ui/local-ui";
+import { classNames } from "@/utils";
+import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { buildState } from "./9-pos-build-state";
-import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 import { doHighlightRectAtom } from '@/store';
-import { classNames } from "@/utils";
+import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
@@ -22,7 +22,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
 
     useBuildStateLink(item);
 
-    return (<>
+    return (
         <div className="h-full grid grid-rows-[auto,1fr,auto]">
             <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
                 <div className="pb-0.5">
@@ -33,29 +33,17 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                     y
                 </div>
 
-                <InputPosNumbers item={item} />
+                <InputPosNumbers item={item} expose={expose} />
             </div>
 
             <div className="row-start-3 self-end pb-1">
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
-
-            {/* <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
-                <div className="pb-0.5">
-                    x
-                </div>
-
-                <div>
-                    y
-                </div>
-
-                <InputPosNumbers item={item} />
-            </div> */}
-    </>);
+    );
 }
 
-function InputPosNumbers({ item }: { item: ManualFieldState.CtxPos; }) {
+function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expose: () => void; }) {
 
     const xAtom = item.xAtom;
     const yAtom = item.yAtom;
@@ -71,12 +59,12 @@ function InputPosNumbers({ item }: { item: ManualFieldState.CtxPos; }) {
 
     return (<>
         <div className="py-0.5 flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
-            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} />
+            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} onBlur={expose}/>
             px
         </div>
 
         <div className="flex items-center gap-0.5" style={{ gridArea: 'r22' }}>
-            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} />
+            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} onBlur={expose}/>
             px
         </div>
 
@@ -84,25 +72,6 @@ function InputPosNumbers({ item }: { item: ManualFieldState.CtxPos; }) {
             <InputErrorPopupMessage hasError={hasErrorMin || hasErrorMax} error={minState.error || maxState.error} />
         </div>
     </>);
-}
-
-
-function InputPos({ valueAtom, label, expose }: { valueAtom: RowInputStateAtom; label: string; expose: () => void; }) {
-    return (
-        <label className="flex flex-col gap-1">
-            <span>
-                {label}
-            </span>
-
-            <div className="min-w-16 max-w-16 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputOrCheckWithErrorMsg stateAtom={valueAtom} onFocus={expose} />
-
-                <span className="pt-0.5">
-                    px
-                </span>
-            </div>
-        </label>
-    );
 }
 
 function useBuildStateLink(item: ManualFieldState.CtxPos) {
