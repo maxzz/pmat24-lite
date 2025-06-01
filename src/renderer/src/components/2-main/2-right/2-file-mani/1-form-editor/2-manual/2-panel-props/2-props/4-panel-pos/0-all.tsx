@@ -23,25 +23,35 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     useBuildStateLink(item);
 
     return (<>
-        <div className="h-full grid grid-cols-[auto,auto,1fr] grid-row-[1fr,auto] gap-2">
-            <InputPos valueAtom={item.xAtom} label="X" expose={expose} />
-            <InputPos valueAtom={item.yAtom} label="Y" expose={expose} />
+        <div className="h-full grid grid-row-[auto,1fr,auto]">
+            <div className="grid grid-cols-[auto_auto_1fr] grid-row-[34px,34px,1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
+                <div className="1pb-0.5 h-3">
+                    x
+                </div>
 
-            <div className="row-start-2 self-end pb-1">
+                <div className="1pb-0.5 h-3">
+                    y
+                </div>
+
+                <InputPosNumbers item={item} />
+            </div>
+
+            <div className="row-start-3 self-end pb-1">
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
 
-        <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
-            <div className="pb-0.5">
-                x
-            </div>
-            <div>
-                y
-            </div>
+            {/* <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
+                <div className="pb-0.5">
+                    x
+                </div>
 
-            <InputPosNumbers item={item} />
-        </div>
+                <div>
+                    y
+                </div>
+
+                <InputPosNumbers item={item} />
+            </div> */}
     </>);
 }
 
@@ -60,7 +70,6 @@ function InputPosNumbers({ item }: { item: ManualFieldState.CtxPos; }) {
     }
 
     return (<>
-        {/* <div className="flex items-center gap-1" style={{ gridArea: 'r22' }}> */}
         <div className="flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
             <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} />
             px
