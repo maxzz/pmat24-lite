@@ -4,7 +4,6 @@ import { classNames } from "@/utils";
 import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { doHighlightRectAtom } from '@/store';
-import { useBuildStateLink } from "./1-build-state-link";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
@@ -18,8 +17,6 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
         },
         [item, fileUsCtx.fileUs, fileUsCtx.formIdx]
     );
-
-    useBuildStateLink(item);
 
     return (
         <div className="h-full grid grid-rows-[auto,1fr,auto]">
