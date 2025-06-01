@@ -15,10 +15,10 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, onB
                     data: value,
                     dirty: state.initialData !== value,
                 };
-                onValueStateChange?.(rv);
                 return rv;
             }
         );
+        onValueStateChange?.();
     }
 
     function onLocalBlur(e: FocusEvent<HTMLInputElement>) {
@@ -29,10 +29,10 @@ export function OptionAsCheckbox({ stateAtom, className, onValueStateChange, onB
                     touched: true,
                     dirty: state.initialData !== prev.data,
                 };
-                onValueStateChange?.(rv);
                 return rv;
             }
         );
+        onValueStateChange?.();
         onBlur?.(e);
     }
 

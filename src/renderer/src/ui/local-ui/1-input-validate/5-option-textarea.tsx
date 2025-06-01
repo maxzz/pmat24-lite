@@ -17,10 +17,10 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, onB
                     error: prev.validate?.(value),
                     dirty: prev.initialData !== value,
                 };
-                onValueStateChange?.(rv);
                 return rv;
             }
         );
+        onValueStateChange?.();
     }
 
     function onLocalBlur(e: FocusEvent<HTMLTextAreaElement>) {

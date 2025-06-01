@@ -55,12 +55,12 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 
     return (<>
         <div className="py-0.5 flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
-            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} onBlur={expose}/>
+            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} onBlur={expose} onValueStateChange={expose}/>
             px
         </div>
 
         <div className="flex items-center gap-0.5" style={{ gridArea: 'r22' }}>
-            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} onBlur={expose}/>
+            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} onBlur={expose} onValueStateChange={expose}/>
             px
         </div>
 
@@ -76,5 +76,5 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 
 //05.31.25
 //TODO: manifest default name
-//TODO: proper grid
-//TODO: only one call get tlw info with PROCESS NAME i.e. is open (no need to check minimize)
+//TODO: proper grid - done
+//TODO: only one call get tlw info with PROCESS NAME i.e. is open (no need to check minimize) and this should done for array of windows

@@ -10,9 +10,9 @@ export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, 
         const value = newValue === '0' ? '' : newValue;
         setState((prev) => {
             const rv = { ...prev, data: value, dirty: prev.initialData !== value, };
-            onValueChange?.(rv);
             return rv;
         });
+        onValueChange?.();
     }
 
     return (

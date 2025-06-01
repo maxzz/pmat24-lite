@@ -17,10 +17,10 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, onBlu
                     error: prev.validate?.(value),
                     dirty: prev.initialData !== value,
                 };
-                onValueStateChange?.(rv);
                 return rv;
             }
         );
+        onValueStateChange?.();
     }
 
     function onLocalBlur(e: FocusEvent<HTMLInputElement>) {
@@ -47,7 +47,7 @@ export function OptionAsString({ stateAtom, className, onValueStateChange, onBlu
             {...state.error && { 'aria-invalid': true }}
             {...turnOffAutoComplete}
             {...rest}
-            // type="number" min={0} max={99999} step={1}
+        // type="number" min={0} max={99999} step={1}
         />
     );
 }
