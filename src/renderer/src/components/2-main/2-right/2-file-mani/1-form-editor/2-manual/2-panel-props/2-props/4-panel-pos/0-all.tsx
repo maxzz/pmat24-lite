@@ -33,11 +33,10 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
         </div>
 
         <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
-            <div className="pb-0.5" style={{ gridArea: 'r11' }}>
+            <div className="pb-0.5">
                 x
             </div>
-
-            <div style={{ gridArea: 'r12' }}>
+            <div>
                 y
             </div>
 
