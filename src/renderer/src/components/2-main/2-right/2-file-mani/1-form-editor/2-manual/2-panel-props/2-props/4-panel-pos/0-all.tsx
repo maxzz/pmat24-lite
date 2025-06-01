@@ -1,11 +1,10 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { subscribe } from "valtio";
 import { classNames } from "@/utils";
 import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { buildState } from "./9-pos-build-state";
 import { doHighlightRectAtom } from '@/store';
+import { useBuildStateLink } from "./1-build-state-link";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
@@ -72,26 +71,6 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
             <InputErrorPopupMessage hasError={hasErrorMin || hasErrorMax} error={minState.error || maxState.error} />
         </div>
     </>);
-}
-
-function useBuildStateLink(item: ManualFieldState.CtxPos) {
-    const setPosValueX = useSetAtom(item.xAtom);
-    const setPosValueY = useSetAtom(item.yAtom);
-
-    useEffect(
-        () => {
-            const unsubscribe = subscribe(buildState.getPosProgress,
-                () => {
-                    console.log('buildState.getPosProgress.point', buildState.getPosProgress.point);
-                    //TODO: use debounce and don't do highlight during dragging
-
-                    setPosValueX((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.x || 0}` }));
-                    setPosValueY((prev) => ({ ...prev, data: `${buildState.getPosProgress.point?.y || 0}` }));
-                }
-            );
-            return unsubscribe;
-        }, []
-    );
 }
 
 //TODO: Add button: select the click point
