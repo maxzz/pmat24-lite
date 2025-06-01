@@ -1,24 +1,28 @@
-import { useEffect } from "react";
-import { useSetAtom } from "jotai";
+import { useCallback, useEffect } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
+import { type RowInputStateAtom, InputErrorPopupMessage, InputOrCheckWithErrorMsg, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { buildState } from "./9-pos-build-state";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 import { doHighlightRectAtom } from '@/store';
+import { classNames } from "@/utils";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
     const doHighlightRect = useSetAtom(doHighlightRectAtom);
 
-    function expose() {
-        const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
-        doHighlightRect({ ...highlightCtx, focusOrBlur: true });
-    }
+    const expose = useCallback(
+        () => {
+            const highlightCtx = { mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx };
+            doHighlightRect({ ...highlightCtx, focusOrBlur: true });
+        },
+        [item, fileUsCtx.fileUs, fileUsCtx.formIdx]
+    );
 
     useBuildStateLink(item);
 
-    return (
+    return (<>
         <div className="h-full grid grid-cols-[auto,auto,1fr] grid-row-[1fr,auto] gap-2">
             <InputPos valueAtom={item.xAtom} label="X" expose={expose} />
             <InputPos valueAtom={item.yAtom} label="Y" expose={expose} />
@@ -27,8 +31,53 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
-    );
+
+        <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
+            <div className="pb-0.5" style={{ gridArea: 'r11' }}>
+                x
+            </div>
+
+            <div style={{ gridArea: 'r12' }}>
+                y
+            </div>
+
+            <InputPosNumbers item={item} />
+        </div>
+    </>);
 }
+
+function InputPosNumbers({ item }: { item: ManualFieldState.CtxPos; }) {
+
+    const xAtom = item.xAtom;
+    const yAtom = item.yAtom;
+
+    const minState = useAtomValue(xAtom);
+    const maxState = useAtomValue(yAtom);
+    const hasErrorMin = !!(minState.error && minState.touched);
+    const hasErrorMax = !!(maxState.error && maxState.touched);
+
+    function errorClasses(hasError: boolean) {
+        return classNames("px-2 h-7 text-xs max-w-[7ch]", hasError && 'outline-offset-[0px] outline-red-500', "text-xs");
+    }
+
+    return (<>
+        {/* <div className="flex items-center gap-1" style={{ gridArea: 'r22' }}> */}
+        <div className="flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
+            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} />
+            px
+        </div>
+
+        <div className="flex items-center gap-0.5" style={{ gridArea: 'r22' }}>
+            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} />
+            px
+        </div>
+
+        <div style={{ gridArea: 'r33' }}>
+            <InputErrorPopupMessage hasError={hasErrorMin || hasErrorMax} error={minState.error || maxState.error} />
+        </div>
+    </>);
+}
+
 
 function InputPos({ valueAtom, label, expose }: { valueAtom: RowInputStateAtom; label: string; expose: () => void; }) {
     return (
@@ -38,7 +87,7 @@ function InputPos({ valueAtom, label, expose }: { valueAtom: RowInputStateAtom; 
             </span>
 
             <div className="min-w-16 max-w-16 flex items-center gap-1" title={`${label} offset from the top-left corner of the window client area`}>
-                <InputOrCheckWithErrorMsg stateAtom={valueAtom} onFocus={expose}/>
+                <InputOrCheckWithErrorMsg stateAtom={valueAtom} onFocus={expose} />
 
                 <span className="pt-0.5">
                     px
@@ -68,6 +117,11 @@ function useBuildStateLink(item: ManualFieldState.CtxPos) {
     );
 }
 
-// TODO: Add button: select the click point
-// TODO: App preview or drag with client rects recalculation
-// TODO: Add zoom in/out buttons
+//TODO: Add button: select the click point
+//TODO: App preview or drag with client rects recalculation
+//TODO: Add zoom in/out buttons
+
+//05.31.25
+//TODO: manifest default name
+//TODO: proper grid
+//TODO: only one call get tlw info with PROCESS NAME i.e. is open (no need to check minimize)
