@@ -44,10 +44,11 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
     const xAtom = item.xAtom;
     const yAtom = item.yAtom;
 
-    const minState = useAtomValue(xAtom);
-    const maxState = useAtomValue(yAtom);
-    const hasErrorMin = !!(minState.error && minState.touched);
-    const hasErrorMax = !!(maxState.error && maxState.touched);
+    const xState = useAtomValue(xAtom);
+    const yState = useAtomValue(yAtom);
+    const hasErrorX = !!(xState.error && xState.touched);
+    const hasErrorY = !!(yState.error && yState.touched);
+    const hasError = hasErrorX || hasErrorY;
 
     function errorClasses(hasError: boolean) {
         return classNames("px-2 h-7 text-xs max-w-[7ch]", hasError && 'outline-offset-[0px] outline-red-500', "text-xs");
@@ -55,17 +56,17 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 
     return (<>
         <div className="py-0.5 flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
-            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorMin)} onBlur={expose} onValueStateChange={expose}/>
+            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorX)} onBlur={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
             px
         </div>
 
         <div className="flex items-center gap-0.5" style={{ gridArea: 'r22' }}>
-            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorMax)} onBlur={expose} onValueStateChange={expose}/>
+            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorY)} onBlur={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
             px
         </div>
 
         <div style={{ gridArea: 'r33' }}>
-            <InputErrorPopupMessage hasError={hasErrorMin || hasErrorMax} error={minState.error || maxState.error} />
+            <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} />
         </div>
     </>);
 }
@@ -77,4 +78,8 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 //05.31.25
 //TODO: manifest default name
 //TODO: proper grid - done
+
+//06.01.25
+//TODO: hihglight debounce
 //TODO: only one call get tlw info with PROCESS NAME i.e. is open (no need to check minimize) and this should done for array of windows
+//TODO: for proper highlight, we need to get the window handle and then get the client rect
