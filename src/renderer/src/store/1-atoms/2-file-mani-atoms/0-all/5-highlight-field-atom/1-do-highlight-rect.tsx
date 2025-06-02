@@ -7,6 +7,7 @@ import { type R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
+import { debounce } from "@/utils";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -22,23 +23,32 @@ export const doHighlightRectAtom = atom(
             return;
         }
 
-        console.log(`%cdoHighlightRectAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
+        //console.log(`%cdoHighlightRectAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
 
         const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur, fileUs, formIdx };
 
         if (nFieldCtx) {
-            set(normalFieldHighlightAtom, nFieldCtx, params);
+            //set(normalFieldHighlightAtom, nFieldCtx, params);
+            debouncedNormalHighlight(set, nFieldCtx, params);
         }
         else if (mFieldCtx) {
-            set(manualFieldHighlightAtom, mFieldCtx, params);
+            //set(manualFieldHighlightAtom, mFieldCtx, params);
+            debouncedManualHighlight(set, mFieldCtx, params);
         }
     }
 );
 
+const debouncedNormalHighlight = debounce((set, nFieldCtx, params) => {
+    set(normalFieldHighlightAtom, nFieldCtx, params);
+}, 750);
+
+const debouncedManualHighlight = debounce((set, mFieldCtx, params) => {
+    set(manualFieldHighlightAtom, mFieldCtx, params);
+}, 750);
+
 const normalFieldHighlightAtom = atom(
     null,
     (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn, fileUs, formIdx }: { hwnd: string; isBrowser: boolean; focusOn: boolean; fileUs: FileUs; formIdx: FormIdx; }) => {
-
         const bounds = fileUs.parsedSrc?.meta?.[formIdx]?.view?.bounds;
         if (!bounds) {
             console.log('no bounds');
@@ -66,6 +76,8 @@ const manualFieldHighlightAtom = atom(
             const x = +get(mFieldCtx.xAtom).data;
             const y = +get(mFieldCtx.yAtom).data;
             const rect = { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1 };
+
+            console.log('manualFieldHighlightAtom', x, y);
 
             const params: R2MParams.HighlightRect = { hwnd, rect, };
             set(doHighlightFieldAtom, params);
