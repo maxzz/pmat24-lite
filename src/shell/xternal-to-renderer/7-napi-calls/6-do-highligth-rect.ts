@@ -14,7 +14,7 @@ export function highlightField(params: WindowControlHighlighterParams): void {
 
     const paramStr = JSON.stringify(params);
 
-    const tempCb = (err: any, data: string) => {
+    const tempCb = (err: any, data: string) => { //TODO: update it to promise
         if (err) {
             console.error('highlightField error', err);
         }
