@@ -4,6 +4,15 @@ import { type RowInputStateAtom } from "@/ui";
 import { type ManiAtoms } from "../../9-types";
 import { type FileUsAtom } from "@/store/store-types";
 
+export const getManiDispNameAtomAtom = atom(
+    null,
+    (get, set, fileUsAtom: FileUsAtom | undefined): RowInputStateAtom | undefined => {
+        const fileUs = fileUsAtom && get(fileUsAtom);
+        const rv = fileUs?.maniAtomsAtom && pathToManiNameAtom(get(fileUs.maniAtomsAtom));
+        return rv;
+    },
+);
+
 /**
  * The same as `get(fileUs.maniAtomsAtom)?.[FormIdx.login]?.options.p1General.nameAtom`
  * ```
@@ -16,16 +25,7 @@ import { type FileUsAtom } from "@/store/store-types";
  * const { nameAtom } = loginCtx.oAllAtoms.options.p1General;
  * ```
  */
-export function linkToManiNameAtom(maniAtoms: ManiAtoms | null): RowInputStateAtom | undefined {
+export function pathToManiNameAtom(maniAtoms: ManiAtoms | null): RowInputStateAtom | undefined {
     const rv = maniAtoms?.[FormIdx.login]?.options.p1General?.nameAtom;
     return rv;
 }
-
-export const getManiDispNameAtomAtom = atom(
-    null,
-    (get, set, fileUsAtom: FileUsAtom | undefined): RowInputStateAtom | undefined => {
-        const fileUs = fileUsAtom && get(fileUsAtom);
-        const rv = fileUs?.maniAtomsAtom && linkToManiNameAtom(get(fileUs.maniAtomsAtom));
-        return rv;
-    },
-);

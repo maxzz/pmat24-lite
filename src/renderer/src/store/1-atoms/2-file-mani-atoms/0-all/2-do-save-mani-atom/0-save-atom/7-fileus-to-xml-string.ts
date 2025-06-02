@@ -3,6 +3,7 @@ import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Ma
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceAtoms } from "@/store/1-atoms/4-field-catalogs";
 import { type ManiAtoms } from "../../../9-types";
+import { getManiDispNameAtomAtom } from "../../../4-options";
 import { doManiNameDlgAtom } from "@/store/1-atoms/7-dialogs";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, filterOneLevelEmptyValues, packManifest, toManiFileFormat } from "../2-pack";
@@ -32,27 +33,22 @@ export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolea
 
     return xml;
 }
-// export function TestManiName() {
-//     const currentAtom = useAtomValue(rightPanelAtomAtom);
-//     const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
-//     return (
-//         <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doManiNameDlg(currentAtom)}>
-//             Name...
-//         </Button>
-//     );
-// }
 
 async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms | null, validate: boolean, get: Getter, set: Setter): Promise<ConvertToXmlStringResult | undefined> {
     if (!maniAtoms) {
         throw new Error('No maniAtoms');
     }
 
-    //TODO: check name before putting all to xml
-    // now it is async and we can call dialog to confirm file name
+    // Check name before putting all to xml.
 
-    const okManiName = await set(doManiNameDlgAtom, fileUsAtom);
-    if (!okManiName) {
-        return;
+    const maniNameAtom = set(getManiDispNameAtomAtom, fileUsAtom);
+    const maniName = maniNameAtom && get(maniNameAtom).data;
+    const cofirmNameOption = false; //TODO: add it to options dialog
+    if (!maniName || cofirmNameOption) {
+        const okManiName = await set(doManiNameDlgAtom, fileUsAtom);
+        if (!okManiName) {
+            return;
+        }
     }
 
     if (validate && stopIfInvalidAny(maniAtoms, get, set)) {
