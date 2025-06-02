@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Setter, atom } from "jotai";
 import { type Meta, FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
@@ -18,37 +18,29 @@ export const doHighlightRectAtom = atom(
 
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
-            //findHwnd(hwndHandle);
-            console.log('temp. doHighlightRectAtom: no hwndHandle'); // temp trace
+            console.log('%cdoHighlightRectAtom.no.hwnd', 'color: blue');
             return;
         }
 
-        //console.log(`%cdoHighlightRectAtom hwnd: ${hwndHandle.hwnd}`, 'color: magenta');
-
-        const params = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur, fileUs, formIdx };
+        const params: HighlightParams = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur, fileUs, formIdx };
 
         if (nFieldCtx) {
-            //set(normalFieldHighlightAtom, nFieldCtx, params);
             debouncedNormalHighlight(set, nFieldCtx, params);
         }
         else if (mFieldCtx) {
-            //set(manualFieldHighlightAtom, mFieldCtx, params);
             debouncedManualHighlight(set, mFieldCtx, params);
         }
     }
 );
 
-const debouncedNormalHighlight = debounce((set, nFieldCtx, params) => {
-    set(normalFieldHighlightAtom, nFieldCtx, params);
-}, 750);
+type HighlightParams = R2MParams.HighlightRect & { isBrowser: boolean; focusOn: boolean; fileUs: FileUs; formIdx: FormIdx; };
 
-const debouncedManualHighlight = debounce((set, mFieldCtx, params) => {
-    set(manualFieldHighlightAtom, mFieldCtx, params);
-}, 750);
+const debouncedNormalHighlight = debounce((set: Setter, nFieldCtx: NormalField.RowCtx, params: HighlightParams) => set(normalFieldHighlightAtom, nFieldCtx, params), 500);
+const debouncedManualHighlight = debounce((set: Setter, mFieldCtx: ManualFieldState.Ctx, params: HighlightParams) => set(manualFieldHighlightAtom, mFieldCtx, params), 500);
 
 const normalFieldHighlightAtom = atom(
     null,
-    (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn, fileUs, formIdx }: { hwnd: string; isBrowser: boolean; focusOn: boolean; fileUs: FileUs; formIdx: FormIdx; }) => {
+    (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn, fileUs, formIdx }: HighlightParams) => {
         const bounds = fileUs.parsedSrc?.meta?.[formIdx]?.view?.bounds;
         if (!bounds) {
             console.log('no bounds');
@@ -65,24 +57,22 @@ const normalFieldHighlightAtom = atom(
         };
         set(doHighlightFieldAtom, params);
 
-        console.log(`normalFieldHighlightAtom.normal: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`);
+        console.log(`%cnormalFieldHighlightAtom: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`, 'color: magenta');
     }
 );
 
 const manualFieldHighlightAtom = atom(
     null,
-    (get, set, mFieldCtx: ManualFieldState.Ctx, { hwnd, focusOn }: { hwnd: string; isBrowser: boolean; focusOn: boolean; }) => {
+    (get, set, mFieldCtx: ManualFieldState.Ctx, { hwnd, focusOn }: HighlightParams) => {
         if (mFieldCtx.type === 'pos') {
             const x = +get(mFieldCtx.xAtom).data;
             const y = +get(mFieldCtx.yAtom).data;
             const rect = { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1 };
 
-            console.log('manualFieldHighlightAtom', x, y);
-
             const params: R2MParams.HighlightRect = { hwnd, rect, };
             set(doHighlightFieldAtom, params);
 
-            console.log(`manualFieldHighlightAtom.manual: location "${x} x ${y}", focusOn: ${focusOn}`);
+            console.log(`%cmanualFieldHighlightAtom hwnd: ${hwnd}: x:${x} y:${y}`, 'color: magenta');
         }
     }
 );
