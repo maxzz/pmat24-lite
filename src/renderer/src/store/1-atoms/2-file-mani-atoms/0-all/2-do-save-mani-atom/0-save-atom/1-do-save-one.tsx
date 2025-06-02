@@ -25,7 +25,7 @@ export const doSaveOneAtom = atom(
 
         // 1. Create xml to be saved
 
-        const xml = fileUsToXmlString(fileUsAtom, true, get, set); //printXmlManiFile(xml);
+        const xml = await fileUsToXmlString(fileUsAtom, true, get, set); //printXmlManiFile(xml);
         if (!xml) {
             return false;
         }

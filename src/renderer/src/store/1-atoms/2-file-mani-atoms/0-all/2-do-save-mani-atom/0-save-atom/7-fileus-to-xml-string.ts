@@ -10,13 +10,13 @@ import { printTestManifest } from "./8-save-utils";
  * @param validate - validation is ommited when we get xml after cpass created
  * @returns xml string or undefined if validation failed
  */
-export function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, get: Getter, set: Setter): string | undefined {
+export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, get: Getter, set: Setter): Promise<string | undefined> {
     const fileUs = get(fileUsAtom);
 
     let res: ConvertToXmlStringResult | undefined =
         fileUs.fceAtomsForFcFile
             ? getFcContentText(fileUs.fceAtomsForFcFile, validate, get, set)
-            : getManiContentText(fileUs, get(fileUs.maniAtomsAtom), validate, get, set);
+            : await getManiContentText(fileUs, get(fileUs.maniAtomsAtom), validate, get, set);
     if (!res) {
         return;
     }
@@ -31,10 +31,13 @@ export function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, get
     return xml;
 }
 
-function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, validate: boolean, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+async function getManiContentText(fileUs: FileUs, maniAtoms: ManiAtoms | null, validate: boolean, get: Getter, set: Setter): Promise<ConvertToXmlStringResult | undefined> {
     if (!maniAtoms) {
         throw new Error('No maniAtoms');
     }
+
+    //TODO: check name before putting all to xml
+    // now it is async and we can call dialog to confirm file name
 
     if (validate && stopIfInvalidAny(maniAtoms, get, set)) {
         return;

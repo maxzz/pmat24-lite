@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
+import { InputErrorPopupMessage, InputPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
@@ -30,6 +30,12 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 </div>
 
                 <InputPosNumbers item={item} expose={expose} />
+
+                {/* Not working: share the same space */}
+                {/* <div style={{ gridArea: 'r33' }}>
+                    <InputPopupMessage show={true} message="open targer window to see the click point" messageClasses="text-slate-500" />
+                </div> */}
+
             </div>
 
             <div className="row-start-3 self-end pb-1">
@@ -67,9 +73,11 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 
         <div style={{ gridArea: 'r33' }}>
             <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} />
-            
+
+            {/* OK: */}
             {/* TODO: the below works but should be different message: open targer window to see the click point */}
-            {/* <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} /> */}
+            {/* <InputPopupMessage show={hasError} message="open targer window to see the click point" messageClasses="text-slate-500" /> */}
+            {/* or show icon as linked to the target window and button name: Find target window */}
         </div>
     </>);
 }

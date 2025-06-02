@@ -72,7 +72,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             set(mainForCpassFileUs.maniAtomsAtom, newManiAtoms);
             fileUsChanges.setCpass({ fileUs: mainForCpassFileUs }, true);
 
-            const xml = fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
+            const xml = await fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
             set(mainForCpassFileUs.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
