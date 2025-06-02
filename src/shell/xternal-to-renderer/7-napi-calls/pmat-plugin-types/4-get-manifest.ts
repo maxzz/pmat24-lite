@@ -29,7 +29,7 @@ export type ManifestForWindowCreatorResult = WindowControlsCollectProgress | Man
 
 export interface ManifestForWindowCreator {
     new(): ManifestForWindowCreator;
-    create(manifestForWindowCreatorParams: string, cb: PluginDataCallback): void;
+    create(manifestForWindowCreatorParams: string, cb: PluginDataCallback<ManifestForWindowCreatorResult>): void;
     cancel(): void;
 }
 

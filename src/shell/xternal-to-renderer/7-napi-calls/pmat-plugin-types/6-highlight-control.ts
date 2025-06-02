@@ -1,4 +1,5 @@
-import { type TargetClientRect } from "./9-types";
+import { type BrowserExtErrors } from "./4-get-manifest";
+import { type PluginDataCallback, type TargetClientRect } from "./9-types";
 
 // Highlight desktop app window control
 
@@ -7,6 +8,8 @@ export type WindowControlHighlighterParams = {
     rect?: TargetClientRect;     // Used to highlight controls in desktop apps
     accId?: number;              // Used to highlight controls in browsers
 };
+
+//TODO: highlight() show have result: with ok, or error like 'window not found', 'window is minimized', 'no open browser', and so on
 
 /**
  * Class for getting window icon. Instantiate once and call getIcon multiple times.
@@ -21,7 +24,18 @@ export type WindowControlHighlighterParams = {
  * TODO: There is no hide highlighter call. Is that done by timer? How to set timer interval in that case or reset show to see rect again?
  */
 
+export type Win32Errors =
+    | 'no.hwnd';                    // No hwnd found
+
+export type HighlightError = {
+    type: 'error';
+    error: BrowserExtErrors | Win32Errors;
+};
+
+export type WindowControlHighlighterResult = HighlightError;
+
+
 export interface WindowControlHighlighter {
     new(): WindowControlHighlighter;
-    highlight(windowControlHighlighterParams: string): void;
+    highlight(windowControlHighlighterParams: string, cb: PluginDataCallback<WindowControlHighlighterResult>): void;
 }

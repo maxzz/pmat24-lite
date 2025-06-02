@@ -51,6 +51,8 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
         }
     }
 
+    // Validation
+
     if (validate && stopIfInvalidAny(maniAtoms, get, set)) {
         return;
     }

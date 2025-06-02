@@ -21,5 +21,5 @@ export type DragAndDropResult = {
 } & TargetPosition;
 
 export interface DragAndDrop {
-    (DragAndDropParams: string, cb: PluginDataCallback): void;
+    (DragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): void;
 }

@@ -21,7 +21,7 @@ export type WindowControlsCollectorCollectResult = WindowControlsCollectProgress
 
 export interface WindowControlsCollector {
     new(): WindowControlsCollector;
-    collect(windowControlsCollectorCollectParams: string, cb: PluginDataCallback): void;
+    collect(windowControlsCollectorCollectParams: string, cb: PluginDataCallback<WindowControlsCollectorCollectResult>): void;
     cancel(): void;
 }
 

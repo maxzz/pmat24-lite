@@ -9,5 +9,5 @@ export type TargetClientRect = {
     bottom: number;
 };
 
-export type PluginDataCallback = (err: string, data: string) => void;
+export type PluginDataCallback<T> = (err: string, data: string) => void;
 export type PluginErrorCallback = (err: string) => void;

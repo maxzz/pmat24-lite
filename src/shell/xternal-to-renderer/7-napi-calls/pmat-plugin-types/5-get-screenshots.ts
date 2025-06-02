@@ -45,7 +45,7 @@ export type GetTlwInfoResult = {
 };
 
 export interface GetTlwInfos {
-    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback): void;
+    (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback<GetTlwInfoResult>): void;
 }
 
 // 2. Get top-level window screenshots
@@ -59,5 +59,5 @@ export type GetTlwScreenshotsParams = {
 export type GetTlwScreenshotsResult = TlwScreenshot[];
 
 export interface GetTlwScreenshots {
-    (GetTLWScreenshotsParams: string, cb: PluginDataCallback): void;
+    (GetTLWScreenshotsParams: string, cb: PluginDataCallback<GetTlwScreenshotsResult>): void;
 }

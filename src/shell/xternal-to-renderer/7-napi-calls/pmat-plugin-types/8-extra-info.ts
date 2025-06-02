@@ -20,5 +20,5 @@ export type WindowExtraResult = {
 };
 
 export interface GetWindowExtras {
-    (WindowExtraParams: string, cb: PluginDataCallback): void;
+    (WindowExtraParams: string, cb: PluginDataCallback<WindowExtraResult>): void;
 }

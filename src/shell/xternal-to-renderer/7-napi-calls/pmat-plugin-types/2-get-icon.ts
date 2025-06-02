@@ -25,5 +25,5 @@ export type WindowIconGetterResult = {
 
 export interface WindowIconGetter {
     new(): WindowIconGetter;
-    getWindowIcon(windowIconGetterParamsParams: string, cb: PluginDataCallback): void;
+    getWindowIcon(windowIconGetterParamsParams: string, cb: PluginDataCallback<WindowIconGetterResult>): void;
 }

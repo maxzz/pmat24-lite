@@ -14,5 +14,5 @@ export type GetTargetWindowResult = {   // SAW - Second Active Window
 };
 
 export interface GetTargetWindow {
-    (getTargetWindowParams: string, cb: PluginDataCallback): void;
+    (getTargetWindowParams: string, cb: PluginDataCallback<GetTargetWindowResult>): void;
 }
