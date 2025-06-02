@@ -14,5 +14,11 @@ export function highlightField(params: WindowControlHighlighterParams): void {
 
     const paramStr = JSON.stringify(params);
 
-    gWindowControlHighlighter.highlight(paramStr);
+    const tempCb = (err: any, data: string) => {
+        if (err) {
+            console.error('highlightField error', err);
+        }
+    };
+
+    gWindowControlHighlighter.highlight(paramStr, tempCb);
 }
