@@ -56,17 +56,20 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 
     return (<>
         <div className="py-0.5 flex items-center gap-0.5" style={{ gridArea: 'r21' }}>
-            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorX)} onBlur={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
+            <OptionAsString stateAtom={xAtom} className={errorClasses(hasErrorX)} onFocus={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
             px
         </div>
 
         <div className="flex items-center gap-0.5" style={{ gridArea: 'r22' }}>
-            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorY)} onBlur={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
+            <OptionAsString stateAtom={yAtom} className={errorClasses(hasErrorY)} onFocus={() => !hasError && expose()} onValueStateChange={() => !hasError && expose()} />
             px
         </div>
 
         <div style={{ gridArea: 'r33' }}>
             <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} />
+            
+            {/* TODO: the below works but should be different message */}
+            {/* <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} /> */}
         </div>
     </>);
 }
@@ -80,6 +83,9 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 //TODO: proper grid - done
 
 //06.01.25
-//TODO: hihglight debounce
+//TODO: hihglight debounce - done
 //TODO: only one call get tlw info with PROCESS NAME i.e. is open (no need to check minimize) and this should done for array of windows
 //TODO: for proper highlight, we need to get the window handle and then get the client rect
+//
+//TODO: validate should be done inside highlight. Now it is done in the main process and not handled properly.
+//TODO: show popup hint if there is no hwnd

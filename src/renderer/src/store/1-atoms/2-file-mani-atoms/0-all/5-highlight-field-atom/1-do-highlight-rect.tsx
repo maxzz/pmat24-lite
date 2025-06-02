@@ -18,7 +18,7 @@ export const doHighlightRectAtom = atom(
 
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
-            console.log('%cdoHighlightRectAtom.no.hwnd', 'color: blue');
+            console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
             return;
         }
 
