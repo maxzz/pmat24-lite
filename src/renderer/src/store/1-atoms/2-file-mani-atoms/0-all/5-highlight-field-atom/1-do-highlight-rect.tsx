@@ -65,8 +65,17 @@ const manualFieldHighlightAtom = atom(
     null,
     (get, set, mFieldCtx: ManualFieldState.Ctx, { hwnd, focusOn }: HighlightParams) => {
         if (mFieldCtx.type === 'pos') {
-            const x = +get(mFieldCtx.xAtom).data;
-            const y = +get(mFieldCtx.yAtom).data;
+            const xState = get(mFieldCtx.xAtom);
+            const yState = get(mFieldCtx.yAtom);
+
+            if (xState.error || yState.error) {
+                console.log('manualFieldHighlightAtom: x or y is invalid'); //TODO: after error state paste did not trigger highlight
+                return;
+            }
+
+            const x = +xState.data;
+            const y = +yState.data;
+
             const rect = { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1 };
 
             const params: R2MParams.HighlightRect = { hwnd, rect, };

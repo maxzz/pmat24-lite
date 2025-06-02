@@ -58,6 +58,18 @@ export function InputErrorPopupMessage({ hasError, error, errorClasses }: { hasE
     );
 }
 
+export function InputPopupMessage({ show, message, messageClasses }: { show: boolean | undefined | ''; message: ReactNode; messageClasses?: string; }) {
+    return (
+        <AnimatePresence initial={false}>
+            {show && (
+                <motion.div className={messageClasses} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                    {message}
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+}
+
 const variants: Variants = {
     expanded: { height: 'auto', opacity: 1 },
     collapsed: { height: 0, opacity: 0 },

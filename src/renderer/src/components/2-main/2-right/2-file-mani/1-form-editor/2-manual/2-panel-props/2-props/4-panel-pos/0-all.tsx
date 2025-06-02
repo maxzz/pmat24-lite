@@ -68,7 +68,7 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
         <div style={{ gridArea: 'r33' }}>
             <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} />
             
-            {/* TODO: the below works but should be different message */}
+            {/* TODO: the below works but should be different message: open targer window to see the click point */}
             {/* <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} /> */}
         </div>
     </>);
@@ -89,3 +89,5 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
 //
 //TODO: validate should be done inside highlight. Now it is done in the main process and not handled properly.
 //TODO: show popup hint if there is no hwnd
+//
+//TODO: after error state paste did not trigger highlight
