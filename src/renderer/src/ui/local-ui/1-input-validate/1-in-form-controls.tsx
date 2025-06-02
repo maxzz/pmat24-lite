@@ -48,13 +48,7 @@ export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, cl
 
 export function InputErrorPopupMessage({ hasError, error, errorClasses }: { hasError: boolean | undefined | ''; error: string | undefined; errorClasses?: string; }) {
     return (
-        <AnimatePresence initial={false}>
-            {hasError && (
-                <motion.div className={classNames("text-[0.65rem] text-red-500", errorClasses)} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
-                    {error}
-                </motion.div>
-            )}
-        </AnimatePresence>
+        <InputPopupMessage show={hasError} message={error} messageClasses={classNames("text-[0.65rem] text-red-500", errorClasses)} />
     );
 }
 
