@@ -6,6 +6,7 @@ import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-ma
 import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 import { InputXY } from "./11-nun-input-xy-picker";
+import { NewInputXY } from "./5-dnd-icon";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
@@ -40,6 +41,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </div>
 
             <div className="row-start-3 self-end pb-1">
+                <NewInputXY item={item} />
                 <InputXY item={item} />
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
