@@ -5,6 +5,7 @@ import { InputErrorPopupMessage, InputPopupMessage, OptionAsString } from "@/ui/
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
+import { InputXY } from "./11-nun-input-xy-picker";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
@@ -39,6 +40,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </div>
 
             <div className="row-start-3 self-end pb-1">
+                <InputXY item={item} />
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>
         </div>
