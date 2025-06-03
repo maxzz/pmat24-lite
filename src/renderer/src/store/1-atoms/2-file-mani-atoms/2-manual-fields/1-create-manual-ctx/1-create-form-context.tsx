@@ -1,11 +1,9 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { parseForEditor } from "@/store/manifest";
 import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { areTheSame, chunksToCompareString } from "../0-conv/4-comparison";
-import { isChunkInvalid } from "../0-conv/6-verify";
 
 export namespace ManualFieldsState {
 
@@ -33,7 +31,7 @@ export namespace ManualFieldsState {
 
         const ctx: MFormCtx = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
-            initialChunks: chunksToCompareString(chunks),
+            initialChunks: ManualFieldConv.chunksToCompareString(chunks),
             selectedIdxStoreAtom: atom(0),
             onChangeItem,
             onChangeOrder,
@@ -44,7 +42,7 @@ export namespace ManualFieldsState {
 
     export function resetChunks(ctx: MFormCtx, get: Getter, set: Setter) {
         const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(ctx.fromFile, ctx.onChangeItem);
-        const initialChunks = chunksToCompareString(chunks);
+        const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(ctx.chunksAtom, chunks);
         ctx.initialChunks = initialChunks;
     }
@@ -58,7 +56,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
 
     if (Array.isArray(nextValue)) {
         const chunks = get(manualFormAtoms.chunksAtom);
-        const newChunksStr = chunksToCompareString(chunks);
+        const newChunksStr = ManualFieldConv.chunksToCompareString(chunks);
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
@@ -73,9 +71,9 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
         changed = !NormalFieldConv.areTheSame(fromUi, nextValue.rowCtx.fromFile);
     } else {
         const fromUi = ManualFieldConv.fromAtom(nextValue, get);
-        changed = !areTheSame(fromUi, nextValue.original);
+        changed = !ManualFieldConv.areTheSame(fromUi, nextValue.original);
 
-        set(nextValue.hasErrorAtom, isChunkInvalid(nextValue, get, set));
+        set(nextValue.hasErrorAtom, ManualFieldConv.isChunkInvalid(nextValue, get, set));
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
