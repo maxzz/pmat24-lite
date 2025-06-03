@@ -28,9 +28,9 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
     const { nameAtom } = dlgData;
     const [{ data: name, error }, setNameData] = useAtom(nameAtom);
 
-    useKey('Enter', (event: KeyboardEvent) => {
+    useKey('Enter', () => {
         const active = document.activeElement as HTMLInputElement;
-        const isValid = active?.matches('textarea') && active.ariaInvalid !== 'true' && !event.ctrlKey;
+        const isValid = active?.matches('textarea') && active.ariaInvalid !== 'true';
         if (isValid) {
             onCloseDlg(true);
         } else {
@@ -44,7 +44,7 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
                 Please provide a name for the manifest. This name will be used in the list of manifests in the left pane.
             </DialogDescription>
 
-            <InputWithTitle2Rows label="Managed login name" stateAtom={nameAtom} asTextarea /> {/* don't use asTextarea otherwise enter will not work */}
+            <InputWithTitle2Rows label="Managed login name" stateAtom={nameAtom} asTextarea />
 
             <DialogFooter className="py-4 flex-row justify-end gap-2">
                 <Button className="min-w-14" variant="default" disabled={!name} onClick={() => onCloseDlg(true)}>
