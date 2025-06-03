@@ -1,4 +1,5 @@
 import { type Setter, atom } from "jotai";
+import { debounce } from "@/utils";
 import { type Meta, FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
@@ -7,7 +8,6 @@ import { type R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-normal-fields";
 import { type ManualFieldState } from "../../2-manual-fields";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
-import { debounce } from "@/utils";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -41,23 +41,17 @@ const debouncedManualHighlight = debounce((set: Setter, mFieldCtx: ManualFieldSt
 const normalFieldHighlightAtom = atom(
     null,
     (get, set, nFieldCtx: NormalField.RowCtx, { hwnd, isBrowser, focusOn, fileUs, formIdx }: HighlightParams) => {
-        const bounds = fileUs.parsedSrc?.meta?.[formIdx]?.view?.bounds;
-        if (!bounds) {
-            console.log('no bounds');
-            return;
-        }
-
         const metaField: Meta.Field = nFieldCtx.metaField;
         const path: Meta.Path = metaField.path;
 
         const params: R2MParams.HighlightRect = {
             hwnd,
-            rect: isBrowser ? undefined : getFieldRect(path.loc, bounds),
+            rect: isBrowser ? undefined : getFieldRect(path.loc),
             accId: isBrowser ? metaField.pidx : undefined,
         };
         set(doHighlightFieldAtom, params);
 
-        console.log(`%cnormalFieldHighlightAtom: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`, 'color: magenta');
+        //console.log(`%cnormalFieldHighlightAtom: isBrower: ${isBrowser}, params: "${JSON.stringify(params)}", focusOn: ${focusOn}`, 'color: magenta');
     }
 );
 
@@ -81,16 +75,15 @@ const manualFieldHighlightAtom = atom(
             const params: R2MParams.HighlightRect = { hwnd, rect, };
             set(doHighlightFieldAtom, params);
 
-            console.log(`%cmanualFieldHighlightAtom hwnd: ${hwnd}: x:${x} y:${y}`, 'color: magenta');
+            //console.log(`%cmanualFieldHighlightAtom hwnd: ${hwnd}: x:${x} y:${y}`, 'color: magenta');
         }
     }
 );
 
 /**
  * Get location of field in the form as the last items in locations string.
- * @param loc - // "x y w h"
  */
-function getFieldRect(loc: string | undefined, bounds: Meta.Bounds): TargetClientRect | undefined {
+function getFieldRect(loc: string | undefined): TargetClientRect | undefined {
     if (!loc) {
         return undefined;
     }
@@ -101,20 +94,5 @@ function getFieldRect(loc: string | undefined, bounds: Meta.Bounds): TargetClien
     }
 
     let [left, top, right, bottom] = allStr.split(' ').map(Number);
-
-    // left = left - bounds.x1; // convert to client rect // temp. add hardcoded client area offset
-    // top = top - bounds.y1;
-    // right = right - bounds.x1;
-    // bottom = bottom - bounds.y1;
-
     return { left, top, right, bottom };
-
-    // const [x, y, w, h] = allStr.split(' ').map(Number);
-
-    // console.log(`loc "${loc}" x:%s y:%s r:%s b:%s width:${w-x} height:${h-y}`, x, y, w, h);
-    //     // return { left: x, top: y, right: w-h, bottom: h-y };
-    //     // return { left: x, top: y, right: w, bottom: h };
-
-    //     // const [x, y, w, h] = allStr.split(' ').map(Number);
-    // return { left: x, top: y, right: x + w, bottom: y + h };
 }
