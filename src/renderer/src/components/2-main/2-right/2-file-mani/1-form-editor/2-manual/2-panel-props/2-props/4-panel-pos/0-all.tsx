@@ -41,7 +41,8 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </div>
 
             <div className="row-start-3 self-end pb-1">
-                <NewInputXY item={item} />
+                <NewInputXY item={item} fileUsCtx={fileUsCtx} />
+
                 {/* <InputXY item={item} /> */}
                 <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
             </div>

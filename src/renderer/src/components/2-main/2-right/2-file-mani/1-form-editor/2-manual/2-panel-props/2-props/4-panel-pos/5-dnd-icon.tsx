@@ -1,8 +1,10 @@
-import { ManualFieldState } from "@/store";
-import { IconColorPicker, IconColorPickerChrome } from "@/ui/icons";
-import { NewPositionIcon } from "./6-dnd-target-pos";
+import { atom } from "jotai";
+import { FormIdx } from "@/store/manifest";
+import { invokeMainTyped } from "@/xternal-to-main";
+import { IconColorPickerChrome } from "@/ui/icons";
+import { type FileUsCtx, type ManualFieldState } from "@/store";
 
-export function NewInputXY({ item }: { item: ManualFieldState.CtxPos; }) {
+export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     return (
         <div className="my-4 space-y-1">
             <div>
@@ -21,3 +23,19 @@ function NapiPicker() {
         </div>
     );
 }
+
+const getDndPositionAtom = atom(
+    null,
+    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos;fileUsCtx: FileUsCtx; }): Promise<void> => {
+        const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
+        const hwnd = get(hwndAtom);
+        if (!hwnd) {
+            console.log('hwnd not found');
+            return;
+        }
+        
+        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', hwnd: hwnd.hwnd });
+        console.log('data', data);
+        
+    }
+);
