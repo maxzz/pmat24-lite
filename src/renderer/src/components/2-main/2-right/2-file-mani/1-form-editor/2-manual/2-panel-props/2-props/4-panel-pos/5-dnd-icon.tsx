@@ -1,15 +1,15 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped } from "@/xternal-to-main";
-import { IconColorPickerChrome } from "@/ui/icons";
+import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState } from "@/store";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     return (
         <div className="my-4 space-y-1">
-            <div>
+            {/* <div>
                 Click on the preview window below to select the click point.
-            </div>
+            </div> */}
 
             <NapiPicker />
         </div>
@@ -18,8 +18,8 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
 
 function NapiPicker() {
     return (
-        <div className="inline-block bg-primary-950 border-primary-700 border rounded shadow-inner shadow-primary-100/10">
-            <IconColorPickerChrome className="size-8" />
+        <div className="p-1 inline-block border-border border rounded shadow">
+            <IconDndTarget className="size-8" />
         </div>
     );
 }
