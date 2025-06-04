@@ -7,8 +7,12 @@ import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 import { InputXY } from "./11-nun-input-xy-picker";
 import { NewInputXY } from "./5-dnd-icon";
+import { hasMain } from "@/xternal-to-main";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
+
+    const showHighlightControls = hasMain();
+    // const showHighlightControls = false;
 
     const doHighlightRect = useSetAtom(doHighlightRectAtom);
 
@@ -41,10 +45,12 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </div>
 
             <div className="row-start-3 self-end pb-1">
-                <NewInputXY item={item} fileUsCtx={fileUsCtx} />
+                {showHighlightControls && (<>
+                    <NewInputXY item={item} fileUsCtx={fileUsCtx} />
+                    {/* <InputXY item={item} /> */}
 
-                {/* <InputXY item={item} /> */}
-                <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
+                    <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
+                </>)}
             </div>
         </div>
     );
