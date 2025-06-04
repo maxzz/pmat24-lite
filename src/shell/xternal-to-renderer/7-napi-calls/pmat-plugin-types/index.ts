@@ -6,4 +6,6 @@ export * from "./4-get-manifest";
 export * from "./5-get-screenshots";
 export * from "./6-highlight-control";
 export * from "./7-drag-and-drop";
+export * from "./8-extra-info";
+export * from "./8-pass-through";
 export * from "./9-types";

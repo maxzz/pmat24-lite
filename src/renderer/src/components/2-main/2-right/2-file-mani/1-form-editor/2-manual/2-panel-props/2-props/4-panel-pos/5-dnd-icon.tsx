@@ -38,7 +38,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     }
 
     return (
-        <div className="p-1 inline-block border-border border rounded shadow" onPointerDown={onClick}>
+        <div className="p-1 inline-block border-border border rounded shadow" onClick={onClick}>
             <IconDndTarget className="size-8" />
         </div>
     );
