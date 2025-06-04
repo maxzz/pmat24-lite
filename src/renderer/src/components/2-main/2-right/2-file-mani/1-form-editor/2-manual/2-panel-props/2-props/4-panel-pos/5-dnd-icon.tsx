@@ -3,8 +3,12 @@ import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped } from "@/xternal-to-main";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState } from "@/store";
+import { useBuildStateLink } from "./10-nun-build-state-link";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
+
+    useBuildStateLink(item);
+
     return (
         <div className="my-4 space-y-1">
             {/* <div>
@@ -19,13 +23,22 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
 function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const getDndPosition = useSetAtom(getDndPositionAtom);
 
-    async function onClick(e: React.MouseEvent<HTMLDivElement>) {
-        console.log('NapiPicker.onClick');
+    async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+        event.preventDefault();
+        event.stopPropagation();
+        // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
         await getDndPosition({ item, fileUsCtx });
+        console.log('NapiPicker.onPointerDown');
+    }
+
+    async function onClick() {
+        // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
+        await getDndPosition({ item, fileUsCtx });
+        console.log('NapiPicker.onClick');
     }
 
     return (
-        <div className="p-1 inline-block border-border border rounded shadow" onClick={onClick}>
+        <div className="p-1 inline-block border-border border rounded shadow" onPointerDown={onClick}>
             <IconDndTarget className="size-8" />
         </div>
     );
