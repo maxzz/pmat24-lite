@@ -20,5 +20,5 @@ const line1Classes = "[stroke-miterlimit:10] fill-none stroke-white opacity-50";
 const line2Classes = "[stroke-miterlimit:10] fill-none stroke-black";
 const line3Classes = "[stroke-miterlimit:10] fill-none stroke-red-500 [stroke-linecap:round] [stroke-linejoin:round]";
 
-const width1Classes = "stroke-[.62px]";
-const width2Classes = "stroke-[.7px]";
+const width1Classes = "stroke-[.9px]";
+const width2Classes = "stroke-[.9px]";
