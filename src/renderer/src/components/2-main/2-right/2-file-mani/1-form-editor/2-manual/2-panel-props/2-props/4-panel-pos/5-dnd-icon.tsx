@@ -15,19 +15,33 @@ export function NewInputXY({ item }: { item: ManualFieldState.CtxPos }) {
                 </div>
             </div> */}
 
+            <NapiPicker />
+
             <div className="flex items-center space-x-2">
-                <IconColorPickerChrome className="w-8 h-8" />
-                <div className="p-2 bg-primary-950 border-primary-700 border rounded shadow-inner shadow-primary-100/10">
-                    <IconColorPicker className="w-7 h-7 stroke-[1.5]" />
-                </div>
+
+                <IconColorPickerChrome className="size-8" />
+
+                {/* <div className="p-2 bg-primary-950 border-primary-700 border rounded shadow-inner shadow-primary-100/10">
+                    <IconColorPicker className="size-7 stroke-[1.5]" />
+                </div> */}
 
                 {/* <TargetPositionDisplay /> */}
-                <NewPositionIcon />
+                {/* <NewPositionIcon /> */}
 
                 {/* <IconLibra className="w-6 h-6 stroke-[1]" />
                 <IconSearch className="w-5 h-5 stroke-[1]" /> */}
             </div>
 
+        </div>
+    );
+}
+
+function NapiPicker() {
+    return (
+        <div className="flex items-center space-x-2">
+            <div className="p-2 bg-primary-950 border-primary-700 border rounded shadow-inner shadow-primary-100/10">
+                <IconColorPickerChrome className="size-8" />
+            </div>
         </div>
     );
 }
