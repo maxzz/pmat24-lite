@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped } from "@/xternal-to-main";
 import { IconDndTarget } from "@/ui/icons";
@@ -11,14 +11,21 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
                 Click on the preview window below to select the click point.
             </div> */}
 
-            <NapiPicker />
+            <NapiPicker item={item} fileUsCtx={fileUsCtx} />
         </div>
     );
 }
 
-function NapiPicker() {
+function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
+    const getDndPosition = useSetAtom(getDndPositionAtom);
+
+    async function onClick(e: React.MouseEvent<HTMLDivElement>) {
+        console.log('NapiPicker.onClick');
+        await getDndPosition({ item, fileUsCtx });
+    }
+
     return (
-        <div className="p-1 inline-block border-border border rounded shadow">
+        <div className="p-1 inline-block border-border border rounded shadow" onClick={onClick}>
             <IconDndTarget className="size-8" />
         </div>
     );
@@ -26,16 +33,16 @@ function NapiPicker() {
 
 const getDndPositionAtom = atom(
     null,
-    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos;fileUsCtx: FileUsCtx; }): Promise<void> => {
+    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
         const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
         const hwnd = get(hwndAtom);
         if (!hwnd) {
             console.log('hwnd not found');
             return;
         }
-        
+
         const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', hwnd: hwnd.hwnd });
-        console.log('data', data);
-        
+        console.log('done. data', data);
+
     }
 );
