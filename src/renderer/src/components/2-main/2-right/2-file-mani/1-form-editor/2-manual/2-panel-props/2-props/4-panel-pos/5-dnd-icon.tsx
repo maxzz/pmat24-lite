@@ -24,8 +24,8 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     const getDndPosition = useSetAtom(getDndPositionAtom);
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
-        event.preventDefault();
-        event.stopPropagation();
+        // event.preventDefault();
+        // event.stopPropagation();
         // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
         await getDndPosition({ item, fileUsCtx });
         console.log('NapiPicker.onPointerDown');
@@ -38,7 +38,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     }
 
     return (
-        <div className="p-1 inline-block border-border border rounded shadow" onClick={onClick}>
+        <div className="p-1 inline-block border-border border rounded shadow" onPointerDown={onPointerDown}>
             <IconDndTarget className="size-8" />
         </div>
     );
