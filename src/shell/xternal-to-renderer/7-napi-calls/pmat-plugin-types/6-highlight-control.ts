@@ -25,11 +25,14 @@ export type WindowControlHighlighterParams = {
  */
 
 export type Win32Errors =
-    | 'no.hwnd';                    // No hwnd found
+    | 'no.hwnd'                    // No hwnd found
+    | 'internal';                  // Internal error
 
 export type HighlightError = {
     type: 'error';
     error: BrowserExtErrors | Win32Errors;
+    hr?: number                    // Optional HRESULT for the error
+    message?: string               // Optional error message
 };
 
 export type WindowControlHighlighterResult = HighlightError;

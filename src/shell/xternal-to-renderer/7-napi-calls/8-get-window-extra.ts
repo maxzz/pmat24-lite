@@ -10,7 +10,7 @@ export async function getWindowExtras(params: WindowExtraParams) {
             const param = JSON.stringify(params);
             const paramsStr = JSON.stringify(params);
 
-            addon.getWindowExtras(paramsStr,
+            addon.getTopLevelWindowsExtraInfo(paramsStr,
                 (err: string, data: string) => {
                     if (err) {
                         reject(err);
