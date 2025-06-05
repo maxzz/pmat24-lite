@@ -10,6 +10,7 @@ export * from "./image-to-blob";
 export * from "./numbers";
 export * from "./os-utils";
 export * from "./prepend-url-path";
+export * from "./round-int";
 export * from "./shorten-windows-caption";
 export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
