@@ -6,11 +6,13 @@
     "author": "example.com",
     "homepage": "https://electron-vite.org",
     "packageManager": "pnpm@10.10.0",
-    "onlyBuiltDependencies": [
-        "electron",
-        "electron-winstaller",
-        "esbuild"
-    ],
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "electron",
+            "electron-winstaller",
+            "esbuild"
+        ]
+    },
     "dependencies": {
         "@electron-toolkit/preload": "^3.0.2",
         "@electron-toolkit/utils": "^4.0.0",

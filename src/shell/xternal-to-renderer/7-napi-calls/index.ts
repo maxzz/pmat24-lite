@@ -7,4 +7,5 @@ export * from "./4-get-window-mani";
 export * from "./5-get-screenshots";
 export * from "./6-do-highligth-rect";
 export * from "./7-get-window-pos";
+export * from "./8-get-window-extra";
 export * from "./9-types-napi-error";

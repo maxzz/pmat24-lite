@@ -83,6 +83,11 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
     };
 
+    export type GetWindowExtras = {
+        type: 'r2mi:get-window-extras';
+        hwnds: string[];
+    };
+
     export type AllInvokes =
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
@@ -100,6 +105,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetTlwInfos
         | GetTlwScreenshots
         | HighlightField
+        | GetWindowExtras
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -157,6 +163,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : T extends HighlightField           //'r2mi:highlight-field'
+        ? string
+
+        : T extends GetWindowExtras          //'r2mi:get-window-extras'
         ? string
 
         : never;
