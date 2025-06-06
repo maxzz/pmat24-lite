@@ -1,5 +1,5 @@
 import { type TargetPosition } from "@shared/ipc-types";
-import { type MainFileContent } from "./3-file-content";
+import { type MainFileContent } from "./9-file-content";
 
 export namespace M2R { // Main to Renderer
 

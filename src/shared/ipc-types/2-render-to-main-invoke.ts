@@ -10,15 +10,8 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         filenames: string[];
         allowedExt?: string[];
     };
-
-    // type DoLoadfiles2 = {
-    //     type: 'r2mi:load-files2';
-    //     filenames: string[];
-    // };
-    // type DoLoadfiles3 = {
-    //     type: 'r2mi:load-files3';
-    //     filenames: string[];
-    // };
+    // type DoLoadfiles2 = { type: 'r2mi:load-files2'; filenames: string[]; };
+    // type DoLoadfiles3 = { type: 'r2mi:load-files3'; filenames: string[]; };
 
     // save file
 
@@ -167,7 +160,8 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : never;
-}
+
+} //namespace R2MInvoke
 
 export namespace R2MInvokeParams {
     export type DoLoadfiles = Omit<R2MInvoke.DoLoadfiles, 'type'>;

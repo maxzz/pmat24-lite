@@ -1,3 +1,3 @@
-export * from "./1-main-incoming-calls";
-export * from "./2-main-incoming-invoke";
-export * from "./3-main-to-renderer";
+export * from "./1-dispatch-in-main-renderer-calls";
+export * from "./2-dispatch-in-main-renderer-invokes";
+export * from "./3-in-main-send-to-renderer";
