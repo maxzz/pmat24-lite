@@ -11,7 +11,7 @@ export const doHighlightFieldAtom = atom(
             return;
         }
 
-        if (napiLock.locked('high')) {
+        if (napiLock.locked('highlight')) {
             return;
         }
 

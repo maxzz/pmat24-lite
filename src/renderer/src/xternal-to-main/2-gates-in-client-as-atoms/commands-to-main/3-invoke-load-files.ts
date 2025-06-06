@@ -12,7 +12,7 @@ export type InvokeLoadFilesResult = {
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<InvokeLoadFilesResult> {
     const { filesCnt, emptyFolder } = await invokeMainTyped({ type: 'r2mi:load-files', filenames, ...(allowedExt && { allowedExt }), });
     
-    const rv: { filesCnt: FileContent[]; emptyFolder: string; } = { 
+    const rv: InvokeLoadFilesResult = { 
         filesCnt: (filesCnt || []).map(finalizeFileContent), 
         emptyFolder,
      };

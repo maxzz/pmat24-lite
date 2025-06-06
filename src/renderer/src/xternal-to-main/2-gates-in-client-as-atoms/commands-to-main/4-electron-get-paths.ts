@@ -1,4 +1,8 @@
-export type FilePathAndDir = [file: File, path: string, isDirectory: boolean];
+export type FilePathAndDir = [
+    file: File,
+    path: string,
+    isDirectory: boolean,
+];
 
 /**
  * electron filenames with external call to main process. Names without path skipped.
