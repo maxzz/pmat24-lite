@@ -7,7 +7,6 @@ import { type WindowExtraParams } from "./pmat-plugin-types";
 export async function getWindowExtras(params: WindowExtraParams) {
     return new Promise<string>(
         (resolve, reject) => {
-            const param = JSON.stringify(params);
             const paramsStr = JSON.stringify(params);
 
             addon.getTopLevelWindowsExtraInfo(paramsStr,
