@@ -41,13 +41,6 @@ export namespace R2M { // Main from Renderer
         type: 'r2m:cancel-detection';
     };
 
-    export type HighlightField = {
-        type: 'r2m:highlight-field';
-        hwnd: string;
-        rect?: TargetClientRect;
-        accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
-    };
-
     export type SetSawMode = {
         type: 'r2m:set-saw-mode';
         setOn: boolean;
@@ -78,7 +71,6 @@ export namespace R2M { // Main from Renderer
 
         | SetNapiOptions
         | CancelDetection
-        | HighlightField
         | SetSawMode
         | ShowHideWindow
 
@@ -94,7 +86,6 @@ export namespace R2MParams {
     export type NotifyMessage = Omit<R2M.NotifyMessage, 'type'>;
     export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
-    export type HighlightRect = Omit<R2M.HighlightField, 'type'>;
     export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;
     export type ShowHideWindow = Omit<R2M.ShowHideWindow, 'type'>;
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;

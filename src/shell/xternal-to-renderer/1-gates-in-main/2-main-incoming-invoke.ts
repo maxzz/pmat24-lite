@@ -1,6 +1,6 @@
 import { R2MInvoke } from "@shared/ipc-types";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos } from "../7-napi-calls";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos, highlightField } from "../7-napi-calls";
 import { getTlwInfos, getTlwScreenshots } from "../7-napi-calls/5-get-screenshots";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 
@@ -75,6 +75,11 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetTlwScreenshots> = await getTlwScreenshots(data.tlwInfos);
             return rv;
         }
+        case 'r2mi:highlight-field': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.HighlightField> = await highlightField(data);
+            return rv;
+        }
+
 
         default: {
             const really: never = data;

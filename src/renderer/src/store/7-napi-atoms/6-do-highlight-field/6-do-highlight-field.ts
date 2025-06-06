@@ -1,11 +1,11 @@
 import { atom } from "jotai";
 import { napiLock } from "../9-napi-build-state";
-import { type R2MParams } from "@shared/ipc-types";
-import { R2MCalls } from "@/xternal-to-main";
+import { type R2MInvokeParams } from "@shared/ipc-types";
+import { R2MInvokes } from "@/xternal-to-main";
 
 export const doHighlightFieldAtom = atom(
     null,
-    (get, set, { hwnd, rect, accId }: R2MParams.HighlightRect) => {
+    async (get, set, { hwnd, rect, accId }: R2MInvokeParams.HighlightField): Promise<string | undefined> => {
         if (!hwnd || (!rect && accId === undefined)) {
             console.log('invalid params');
             return;
@@ -15,8 +15,9 @@ export const doHighlightFieldAtom = atom(
             return;
         }
 
-        R2MCalls.highlightField({ hwnd, rect, accId });
+        const rv = await R2MInvokes.highlightField({ hwnd, rect, accId });
 
         napiLock.unlock();
+        return rv;
     }
 );

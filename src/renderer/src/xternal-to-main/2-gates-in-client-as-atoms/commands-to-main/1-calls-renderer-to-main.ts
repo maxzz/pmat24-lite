@@ -34,10 +34,6 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:cancel-detection' });
     }
 
-    export function highlightField(params: R2MParams.HighlightRect): void {
-        sendToMainTyped({ type: 'r2m:highlight-field', ...params });
-    }
-
     export function setSawModeOnMain(params: R2MParams.SetSawMode): void {
         sendToMainTyped({ type: 'r2m:set-saw-mode', ...params });
     }

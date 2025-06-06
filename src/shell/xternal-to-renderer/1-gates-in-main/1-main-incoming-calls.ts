@@ -49,10 +49,6 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             electronState.cancelDetection = true;
             break;
         }
-        case 'r2m:highlight-field': {
-            highlightField(data);
-            break;
-        }
 
         case 'r2m:set-saw-mode': {
             setSawModeOnMain(winApp, data);

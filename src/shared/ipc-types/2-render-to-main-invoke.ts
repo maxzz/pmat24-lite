@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type TargetClientRect } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -83,6 +83,13 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         tlwInfos: GetTlwScreenshotsParams;
     };
 
+    export type HighlightField = {
+        type: 'r2mi:highlight-field';
+        hwnd: string;
+        rect?: TargetClientRect;
+        accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
+    };
+
     export type AllInvokes =
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
@@ -99,6 +106,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetWindowPos
         | GetTlwInfos
         | GetTlwScreenshots
+        | HighlightField
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -155,5 +163,25 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends GetTlwScreenshots        //'r2mi:get-tlw-screenshots'
         ? string
 
+        : T extends HighlightField           //'r2mi:highlight-field'
+        ? string
+
         : never;
+}
+
+export namespace R2MInvokeParams {
+    export type DoLoadfiles = Omit<R2MInvoke.DoLoadfiles, 'type'>;
+    export type SaveFile = Omit<R2MInvoke.SaveFile, 'type'>;
+    export type Deletefile = Omit<R2MInvoke.Deletefile, 'type'>;
+    export type FileExists = Omit<R2MInvoke.FileExists, 'type'>;
+    export type GetUniqueFilename = Omit<R2MInvoke.GetUniqueFilename, 'type'>;
+    export type RevealInExplorer = Omit<R2MInvoke.RevealInExplorer, 'type'>;
+    export type GetSecondWindowHandle = Omit<R2MInvoke.GetSecondWindowHandle, 'type'>;
+    export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
+    export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;
+    export type GetSecondWindowMani = Omit<R2MInvoke.GetSecondWindowMani, 'type'>;
+    export type GetWindowPos = Omit<R2MInvoke.GetWindowPos, 'type'>;
+    export type GetTlwInfos = Omit<R2MInvoke.GetTlwInfos, 'type'>;
+    export type GetTlwScreenshots = Omit<R2MInvoke.GetTlwScreenshots, 'type'>;
+    export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
 }
