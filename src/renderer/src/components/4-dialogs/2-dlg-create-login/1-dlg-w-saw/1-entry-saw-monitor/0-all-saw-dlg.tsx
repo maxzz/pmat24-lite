@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { useDissmissNextToasts } from "@/utils";
+import { classNames, useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
 import { napiBuildState } from "@/store/7-napi-atoms";
@@ -46,8 +46,21 @@ function SawMonitorDlgBody() {
                     <ButtonContinue />
                 </div>
 
+                <CornerSelector className="absolute left-2 bottom-1" />
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
+        </div>
+    );
+}
+
+function CornerSelector({ className }: { className?: string; }) {
+    return (
+        <div className={classNames("grid grid-cols-3 grid-rows-3 1gap-1 text-xs", className)}>
+            <div className="size-4 border border-border col-start-1 row-start-1 grid place-items-center">1</div>
+            <div className="size-4 border border-border col-start-3 row-start-1 grid place-items-center">2</div>
+            <div className="1absolute 1inset-2 size-4 border border-border col-start-2 row-start-2 grid place-items-center">3</div>
+            <div className="size-4 border border-border col-start-1 row-start-3 grid place-items-center">4</div>
+            <div className="size-4 border border-border col-start-3 row-start-3 grid place-items-center">5</div>
         </div>
     );
 }
