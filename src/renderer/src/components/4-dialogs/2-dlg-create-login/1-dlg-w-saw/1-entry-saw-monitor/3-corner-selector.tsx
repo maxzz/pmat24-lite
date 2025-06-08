@@ -1,26 +1,30 @@
 import { type ComponentPropsWithoutRef } from "react";
+import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
+import { appSettings } from "@/store";
 
 export function CornerSelector({ className }: { className?: string; }) {
     return (
-        <div className={classNames("grid grid-cols-[auto,0px,auto] grid-rows-[auto,0px,auto] 1gap-1 text-xs", className)}>
-            {/* <div className={classNames("grid grid-cols-3 grid-rows-3 1gap-1 text-xs", className)}> */}
+        <div className={classNames("grid grid-cols-2 grid-rows-2 text-xs", className)}>
 
-            <Tile className="absolute -left-2 -top-2 bg-purple-500 col-start-2 row-start-2">0</Tile>
+            <Tile idx={0} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">0</Tile>
 
-            <Tile className="col-start-1 row-start-1">1</Tile>
-            <Tile className="col-start-3 row-start-1">2</Tile>
-            
-            <Tile className="bg-slate-500 col-start-1 row-start-3">3</Tile>
-            <Tile className="col-start-3 row-start-3">4</Tile>
+            <Tile idx={1} className="">1</Tile>
+            <Tile idx={2} className="">2</Tile>
+            <Tile idx={3} className="">3</Tile>
+            <Tile idx={4} className="">4</Tile>
         </div>
     );
 }
 
-function Tile({ children, className, ...rest }: ComponentPropsWithoutRef<'div'>) {
+function Tile({ idx, children, className, ...rest }: { idx: number; } & ComponentPropsWithoutRef<'div'>) {
+    const { sawPosition } = useSnapshot(appSettings.appUi.uiGeneral);
+    const isActive = sawPosition === idx;
     return (
-        <div className={classNames("size-4 border border-border grid place-items-center", className)} {...rest}>
+        <div className={classNames(tileClasses, isActive && "!bg-accent", className)} {...rest} onClick={() => appSettings.appUi.uiGeneral.sawPosition = idx}>
             {children}
         </div>
     );
 }
+
+const tileClasses = "size-6 bg-background border border-border grid place-items-center select-none cursor-pointer";
