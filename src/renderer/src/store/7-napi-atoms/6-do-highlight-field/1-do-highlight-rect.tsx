@@ -2,8 +2,10 @@ import { type Setter, atom } from "jotai";
 import { debounce } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
-import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 import { getHighlightParams } from "./8-get-highlight-data";
+import { type R2MInvokeParams } from "@shared/ipc-types";
+import { napiLock } from "../9-napi-build-state";
+import { R2MInvokes } from "@/xternal-to-main";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -36,6 +38,30 @@ const workHighlightAtom = atom(
         if (rv) {
             //TODO: reset highlight atom and query again
             console.log('rv', rv);
+        }
+    }
+);
+
+const doHighlightFieldAtom = atom(
+    null,
+    async (get, set, { hwnd, rect, accId }: R2MInvokeParams.HighlightField): Promise<string | undefined> => {
+        if (!hwnd || (!rect && accId === undefined)) {
+            console.log('invalid params');
+            return;
+        }
+
+        if (napiLock.locked('highlight')) {
+            return;
+        }
+
+        try {
+            const rv = await R2MInvokes.highlightField({ hwnd, rect, accId });
+            return rv;
+        } catch (error) {
+            console.error('error', error);
+        }
+        finally {
+            napiLock.unlock();
         }
     }
 );
