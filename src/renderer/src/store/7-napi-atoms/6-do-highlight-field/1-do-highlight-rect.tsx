@@ -8,6 +8,7 @@ import { type R2MInvokeParams, type R2MParams } from "@shared/ipc-types";
 import { type NormalField } from "../../1-atoms/2-file-mani-atoms/1-normal-fields";
 import { type ManualFieldState } from "../../1-atoms/2-file-mani-atoms/2-manual-fields";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
+import { getHighlightParams } from "./8-get-highlight-data";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -16,8 +17,12 @@ export const doHighlightRectAtom = atom(
             return;
         }
 
-        //debouncedWorkHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
-        set(workHighlightAtom, { nFieldCtx, mFieldCtx, fileUs, formIdx })
+        console.log('--debouncedWorkHighlight 1');
+        
+        debouncedWorkHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
+        //await set(workHighlightAtom, { nFieldCtx, mFieldCtx, fileUs, formIdx })
+
+        console.log('--debouncedWorkHighlight 2');
 
         /*
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
@@ -65,54 +70,24 @@ const workHighlightAtom = atom(
             return;
         }
 
+        console.log('hihglightParams 1', hwndHandle, fileUs, formIdx);
+
         const hihglightParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, { nFieldCtx, mFieldCtx, fileUs, formIdx }, get);
         if (!hihglightParams) {
             return;
         }
+
+        console.log('hihglightParams 2', hihglightParams);
 
         const rv = await set(doHighlightFieldAtom, hihglightParams); //TODO: debounce
         if (rv) {
             //TODO: reset highlight atom and query again
             console.log('rv', rv);
         }
+
+        console.log('hihglightParams 3');
     }
 );
-
-function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx, fileUs, formIdx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
-    if (nFieldCtx) {
-        const metaField: Meta.Field = nFieldCtx.metaField;
-        const path: Meta.Path = metaField.path;
-
-        const params: R2MInvokeParams.HighlightField = {
-            hwnd,
-            rect: isBrowser ? undefined : getFieldRect(path.loc),
-            accId: isBrowser ? metaField.pidx : undefined,
-        };
-        return params;
-    }
-    else if (mFieldCtx) {
-        if (mFieldCtx.type === 'pos') {
-            const xState = get(mFieldCtx.xAtom);
-            const yState = get(mFieldCtx.yAtom);
-
-            if (xState.error || yState.error) {
-                console.log('manualFieldHighlightAtom: x or y is invalid'); //TODO: after error state paste did not trigger highlight
-                return;
-            }
-
-            const x = +xState.data;
-            const y = +yState.data;
-
-            const rect = { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1 };
-
-            const params: R2MInvokeParams.HighlightField = {
-                hwnd,
-                rect,
-            };
-            return params;
-        }
-    }
-}
 
 const normalFieldHighlightAtom = atom(
     null,

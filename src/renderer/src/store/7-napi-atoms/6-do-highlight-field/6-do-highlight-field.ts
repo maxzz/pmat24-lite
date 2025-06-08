@@ -15,15 +15,20 @@ export const doHighlightFieldAtom = atom(
             return;
         }
 
+        console.log('doHighlightFieldAtom to call', hwnd);
+
         try {
             const rv = await R2MInvokes.highlightField({ hwnd, rect, accId });
+            console.log('doHighlightFieldAtom done 1');
             return rv;
         } catch (error) {
             console.error('error', error);
         }
         finally {
+            console.log('doHighlightFieldAtom finally unlock');
             napiLock.unlock();
         }
 
+        console.log('doHighlightFieldAtom done 2');
     }
 );
