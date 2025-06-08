@@ -19,11 +19,11 @@ export function highlightField(params: WindowControlHighlighterParams): Promise<
         }
 
         gHighlighter?.highlight(paramStr,
-            (err: any, data: string) => {
+            (err: any, _data: string) => {
                 if (err) {
-                    reject(err);
+                    resolve(err);
                 } else {
-                    resolve(data);
+                    resolve('');
                 }
             }
         );
