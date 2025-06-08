@@ -1,5 +1,5 @@
 import { R2MInvoke } from "@shared/ipc-types";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos, highlightField, getTlwInfos, getTlwScreenshots, getWindowExtras } from "../7-napi-calls";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getWindowPos, highlightField, getTlwInfos, getTlwScreenshots, getWindowExtras, highlightTargetHwnd } from "../7-napi-calls";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 
@@ -48,6 +48,10 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
 
         case 'r2mi:get-target-hwnd': {
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowHandle> = await getTargetHwnd();
+            return rv;
+        }
+        case 'r2mi:highlight-target-hwnd': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.HighlightTargetHwnd> = await highlightTargetHwnd(data);
             return rv;
         }
         case 'r2mi:get-window-controls': {
