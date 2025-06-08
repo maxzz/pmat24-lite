@@ -29,11 +29,9 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
             const x = +xState.data;
             const y = +yState.data;
 
-            const rect = { left: x - 10, top: y - 10, right: x + 10, bottom: y + 10, };
-
             const params: R2MInvokeParams.HighlightField = {
                 hwnd,
-                rect,
+                rect: { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1, },
             };
             return params;
         }

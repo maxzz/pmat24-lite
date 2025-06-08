@@ -1,40 +1,44 @@
 import { type Setter, atom } from "jotai";
 import { debounce } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
-import { getHighlightParams } from "./8-get-highlight-data";
-import { type R2MInvokeParams } from "@shared/ipc-types";
-import { napiLock } from "../9-napi-build-state";
 import { R2MInvokes } from "@/xternal-to-main";
+import { napiLock } from "../9-napi-build-state";
+import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
+import { type R2MInvokeParams } from "@shared/ipc-types";
+import { getHighlightParams } from "./8-get-highlight-params";
 
 export const doHighlightRectAtom = atom(
     null,
-    async (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }) => {
-        if (!focusOrBlur) { // No need so far blur events
-            return;
+    (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
+        if (focusOrBlur) { // No need so far blur events
+            debouncedHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
         }
-
-        debouncedWorkHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
     }
 );
 
-const debouncedWorkHighlight = debounce((set: Setter, fieldHighlightCtx: FieldHighlightCtx) => set(workHighlightAtom, fieldHighlightCtx), 500);
+const debouncedHighlight = debounce((set: Setter, fieldHighlightCtx: FieldHighlightCtx) => set(workHighlightAtom, fieldHighlightCtx), 300);
 
 const workHighlightAtom = atom(
     null,
-    async (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx }: FieldHighlightCtx) => {
+    async (get, set, params: FieldHighlightCtx) => {
+
+        const { fileUs, formIdx } = params;
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
             console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
             return;
         }
 
-        const hihglightParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, { nFieldCtx, mFieldCtx, fileUs, formIdx }, get);
-        if (!hihglightParams) {
+        const callParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, params, get);
+        if (!callParams) {
+            return;
+        }
+        if (!hwndHandle.hwnd || (!callParams.rect && callParams.accId === undefined)) {
+            console.log('inv.params');
             return;
         }
 
-        const rv = await set(doHighlightFieldAtom, hihglightParams); //TODO: debounce
+        const rv = await callMainToHighlight(callParams);
         if (rv) {
             //TODO: reset highlight atom and query again
             console.log('rv', rv);
@@ -42,26 +46,18 @@ const workHighlightAtom = atom(
     }
 );
 
-const doHighlightFieldAtom = atom(
-    null,
-    async (get, set, { hwnd, rect, accId }: R2MInvokeParams.HighlightField): Promise<string | undefined> => {
-        if (!hwnd || (!rect && accId === undefined)) {
-            console.log('invalid params');
-            return;
-        }
-
-        if (napiLock.locked('highlight')) {
-            return;
-        }
-
-        try {
-            const rv = await R2MInvokes.highlightField({ hwnd, rect, accId });
-            return rv;
-        } catch (error) {
-            console.error('error', error);
-        }
-        finally {
-            napiLock.unlock();
-        }
+async function callMainToHighlight(params: R2MInvokeParams.HighlightField): Promise<string | undefined> {
+    if (napiLock.locked('highlight')) {
+        return;
     }
-);
+
+    try {
+        const rv = await R2MInvokes.highlightField(params);
+        return rv;
+    } catch (error) {
+        console.error('error', error);
+    }
+    finally {
+        napiLock.unlock();
+    }
+}
