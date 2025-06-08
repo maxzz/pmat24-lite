@@ -16,6 +16,10 @@ export const doHighlightRectAtom = atom(
             return;
         }
 
+        //debouncedWorkHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
+        set(workHighlightAtom, { nFieldCtx, mFieldCtx, fileUs, formIdx })
+
+        /*
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
             console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
@@ -32,6 +36,7 @@ export const doHighlightRectAtom = atom(
             //TODO: reset highlight atom and query again
             console.log('rv', rv);
         }
+        */
 
         // const params: HighlightParams = { hwnd: hwndHandle.hwnd, isBrowser: hwndHandle.isBrowser, focusOn: focusOrBlur, fileUs, formIdx };
         //
