@@ -49,6 +49,30 @@ type HighlightParams = R2MInvokeParams.HighlightField & { isBrowser: boolean; fo
 const debouncedNormalHighlight = debounce((set: Setter, nFieldCtx: NormalField.RowCtx, params: HighlightParams) => set(normalFieldHighlightAtom, nFieldCtx, params), 500);
 const debouncedManualHighlight = debounce((set: Setter, mFieldCtx: ManualFieldState.Ctx, params: HighlightParams) => set(manualFieldHighlightAtom, mFieldCtx, params), 500);
 
+const debouncedWorkHighlight = debounce((set: Setter, fieldHighlightCtx: FieldHighlightCtx) => set(workHighlightAtom, fieldHighlightCtx), 500);
+
+const workHighlightAtom = atom(
+    null,
+    async (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx }: FieldHighlightCtx) => {
+        const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
+        if (!hwndHandle) {
+            console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
+            return;
+        }
+
+        const hihglightParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, { nFieldCtx, mFieldCtx, fileUs, formIdx }, get);
+        if (!hihglightParams) {
+            return;
+        }
+
+        const rv = await set(doHighlightFieldAtom, hihglightParams); //TODO: debounce
+        if (rv) {
+            //TODO: reset highlight atom and query again
+            console.log('rv', rv);
+        }
+    }
+);
+
 function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx, fileUs, formIdx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
     if (nFieldCtx) {
         const metaField: Meta.Field = nFieldCtx.metaField;
