@@ -91,7 +91,6 @@ export type OnChangeProps = {
 export type FieldHighlightCtx = {
     nFieldCtx?: NormalField.RowCtx;
     mFieldCtx?: ManualFieldState.Ctx;
-    
     fileUs: FileUs;
     formIdx: FormIdx;
 };

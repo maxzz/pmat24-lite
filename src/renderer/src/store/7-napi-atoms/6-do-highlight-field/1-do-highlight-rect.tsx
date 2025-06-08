@@ -2,11 +2,11 @@ import { type Getter, type Setter, atom } from "jotai";
 import { debounce } from "@/utils";
 import { type Meta, FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
-import { type TargetClientRect } from "../../../../../../../shell/xternal-to-renderer/7-napi-calls";
-import { type FieldHighlightCtx } from "../../9-types";
+import { type TargetClientRect } from "../../../../../shell/xternal-to-renderer/7-napi-calls";
+import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { type R2MInvokeParams, type R2MParams } from "@shared/ipc-types";
-import { type NormalField } from "../../1-normal-fields";
-import { type ManualFieldState } from "../../2-manual-fields";
+import { type NormalField } from "../../1-atoms/2-file-mani-atoms/1-normal-fields";
+import { type ManualFieldState } from "../../1-atoms/2-file-mani-atoms/2-manual-fields";
 import { doHighlightFieldAtom } from "@/store/7-napi-atoms";
 
 export const doHighlightRectAtom = atom(

@@ -2,11 +2,13 @@ import { type ComponentPropsWithoutRef, useMemo } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { type ValueLife, ValueAs } from "@/store/manifest";
-import { type FieldHighlightCtx, doHighlightRectAtom } from "@/store/1-atoms/2-file-mani-atoms";
+
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
+import { doHighlightRectAtom } from "@/store/7-napi-atoms";
+import { type FieldHighlightCtx } from "@/store/1-atoms/2-file-mani-atoms";
 
 type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     useItAtom: PrimitiveAtom<boolean>;

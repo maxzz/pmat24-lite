@@ -2,7 +2,8 @@ import { atom, useSetAtom } from "jotai";
 import { toast } from "sonner";
 import { Button } from "@/ui/shadcn";
 import { FormIdx } from "@/store/manifest";
-import { type FileUsCtx, type ManualFieldState, doFindHwndAtom, doHighlightRectAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { doFindHwndAtom, doHighlightRectAtom } from "@/store/7-napi-atoms";
 
 export function ButtonHighlightClick({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const doHighlightClick = useSetAtom(doHighlightClickAtom);
