@@ -5,7 +5,7 @@ import { R2MInvokes } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { type R2MInvokeParams } from "@shared/ipc-types";
-import { getHighlightParams } from "./8-get-highlight-params";
+import { getHighlightParams } from "./2-get-highlight-params";
 
 export const doHighlightRectAtom = atom(
     null,

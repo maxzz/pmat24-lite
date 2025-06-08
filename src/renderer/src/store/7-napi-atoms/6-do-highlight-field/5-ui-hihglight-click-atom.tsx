@@ -2,7 +2,8 @@ import { atom } from "jotai";
 import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { doFindHwndAtom, doHighlightRectAtom } from "@/store/7-napi-atoms";
+import { doHighlightRectAtom } from "./1-do-highlight-rect";
+import { doFindHwndAtom } from "./6-find-hwnd";
 
 export const doHighlightClickAtom = atom(
     null,

@@ -38,15 +38,12 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
     }
 }
 
-/**
- * Get location of field in the form as the last items in locations string.
- */
 function getFieldRect(loc: string | undefined): TargetClientRect | undefined {
     if (!loc) {
         return undefined;
     }
 
-    const allStr = loc.split('|').pop() || '';
+    const allStr = loc.split('|').pop() || ''; // Get location of field in the form as the last items in locations string.
     if (!allStr) {
         return undefined;
     }
