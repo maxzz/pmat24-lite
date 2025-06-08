@@ -11,8 +11,6 @@ export function highlightField(params: WindowControlHighlighterParams): Promise<
         }
     }
 
-    console.log('%cin.main:highlightField in', 'color: magenta', params);
-
     const paramStr = JSON.stringify(params);
 
     return new Promise<string>((resolve, reject) => {
@@ -22,14 +20,9 @@ export function highlightField(params: WindowControlHighlighterParams): Promise<
 
         gHighlighter?.highlight(paramStr,
             (err: any, _data: string) => {
-
-                console.log('%cin.main:highlightField result', 'color: magenta', err, _data);
-
                 if (err) {
-                    console.log('%cin.main:highlightField cb err', 'color: magenta', err, _data);
                     resolve(err);
                 } else {
-                    console.log('%cin.main:highlightField cb data', 'color: magenta', err, _data);
                     resolve('');
                 }
             }
