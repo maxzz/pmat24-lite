@@ -6,8 +6,9 @@ import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-ma
 import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 import { InputLabel } from "../8-props-ui";
 import { ManualFieldType } from "./2-col-field-type";
-import { ManualFieldPolicy } from "./6-col-policy-btn";
+import { ManualFieldPolicyBtn, PolicyOrLink } from "./6-col-policy-or-link";
 import { ManualFieldValue } from "./5-col-value";
+import { Col_FiledCatalog } from "./7-col-field-catalog";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
@@ -18,9 +19,9 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const valueRowClasses = fcAllowed ? "grid grid-cols-[1fr,1fr,auto] gap-2" : "grid grid-cols-[1fr,auto] gap-2";
 
-    function onSelectCatItem(item: FceItem | undefined) {
-        /*TODO:*/
-    }
+    // function onSelectCatItem(item: FceItem | undefined) {
+    //     /*TODO:*/
+    // }
 
     return (<>
         <div className="grid grid-cols-[auto,1fr] gap-2">
@@ -47,7 +48,8 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
             </InputLabel>
 
-            {fcAllowed && (<>
+            <Col_FiledCatalog item={item} fileUsCtx={fileUsCtx} />
+            {/* {fcAllowed && (<>
                 <InputLabel label="Catalog">
                     <Column5_Catalog
                         rowCtx={item.rowCtx}
@@ -55,24 +57,18 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                         onSelectCatItem={onSelectCatItem}
                     />
                 </InputLabel>
-            </>)}
+            </>)} */}
 
-            {isFieldPsw && <>
+            <PolicyOrLink item={item} fileUsCtx={fileUsCtx} />
+
+            {/* {isFieldPsw && <>
                 {isFormLogin
-                    ? <ManualFieldPolicy item={item} />
+                    ? <ManualFieldPolicyBtn item={item} />
                     : <LinkToLoginForm item={item} />
 
                 }
-            </>}
+            </>} */}
 
         </div>
     </>);
-}
-
-function LinkToLoginForm({ item }: { item: ManualFieldState.CtxFld; }) {
-    return (
-        <InputLabel label="Link to login form">
-            Link
-        </InputLabel>
-    );
 }
