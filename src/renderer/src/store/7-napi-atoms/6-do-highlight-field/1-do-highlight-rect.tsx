@@ -6,6 +6,7 @@ import { napiLock } from "../9-napi-build-state";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { type R2MInvokeParams } from "@shared/ipc-types";
 import { getHighlightParams } from "./2-get-highlight-params";
+import { asyncGetWindowExtrasAtom } from "../1-do-get-hwnd";
 
 export const doHighlightRectAtom = atom(
     null,
@@ -28,6 +29,9 @@ const workHighlightAtom = atom(
             console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
             return;
         }
+
+        const windowExtra = await set(asyncGetWindowExtrasAtom, {hwnds: [hwndHandle.hwnd]});
+        console.log('windowExtra', JSON.stringify(windowExtra));
 
         const callParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, params, get);
         if (!callParams) {
