@@ -38,7 +38,7 @@ const workHighlightAtom = atom(
             return;
         }
 
-        const rv = await callMainToHighlight(callParams);
+        const rv = await callMainToHighlightField(callParams);
         if (rv) {
             //TODO: reset highlight atom and query again
             console.log('rv', rv);
@@ -46,7 +46,7 @@ const workHighlightAtom = atom(
     }
 );
 
-async function callMainToHighlight(params: R2MInvokeParams.HighlightField): Promise<string | undefined> {
+async function callMainToHighlightField(params: R2MInvokeParams.HighlightField): Promise<string | undefined> {
     if (napiLock.locked('highlight')) {
         return;
     }

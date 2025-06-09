@@ -198,4 +198,5 @@ export namespace R2MInvokeParams {
     export type GetTlwInfos = Omit<R2MInvoke.GetTlwInfos, 'type'>;
     export type GetTlwScreenshots = Omit<R2MInvoke.GetTlwScreenshots, 'type'>;
     export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
+    export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
 }
