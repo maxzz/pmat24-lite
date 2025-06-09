@@ -138,5 +138,5 @@ export function App(): JSX.Element {
 //TODO: password change: don't show text fields and add button show/hide text fields; maybe text field should go to 'Screen Detection' block
 
 //06.08.25
-//TODO: call to main to set saw monitor window position
-//TODO: get window extra info atom
+//TODO: call to main to set saw monitor window position - done
+//TODO: get window extra info atom - done
