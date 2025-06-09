@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputSelectUi } from "./4-input-select-ui";
+import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { FieldTyp, type OptionTextValue } from "@/store/manifest";
 
 export function ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {

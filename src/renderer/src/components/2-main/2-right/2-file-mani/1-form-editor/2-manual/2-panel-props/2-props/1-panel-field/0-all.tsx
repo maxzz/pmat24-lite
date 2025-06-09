@@ -1,10 +1,12 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { FieldTyp, FormIdx } from "@/store/manifest";
-import { InputLabel, ManualFieldPolicy, ManualFieldType } from "../8-props-ui";
 import { type FceItem, appSettings } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
+import { InputLabel } from "../8-props-ui";
+import { ManualFieldType } from "./5-col-field-type";
+import { ManualFieldPolicy } from "./6-col-policy-btn";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
