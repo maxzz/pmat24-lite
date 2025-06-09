@@ -22,6 +22,48 @@ export function centerRect(currentRect: RectangleInt, size: SizeInt): RectangleI
     };
 }
 
+const sideOffset = 10;
+
+export function relocateRect(currentRect: RectangleInt, size: SizeInt, position: number): RectangleInt {
+    const display = screen.getDisplayMatching(currentRect) || screen.getDisplayNearestPoint(currentRect);
+
+    position = !position || position < 0 || position > 4 ? 0 : position;
+    let rv: RectangleInt = { x: 0, y: 0, width: size.width, height: size.height };
+
+    switch (position) {
+        case 0: { // center
+            rv.x = display.bounds.x + display.bounds.width / 2 - size.width / 2;
+            rv.y = display.bounds.y + display.bounds.height / 2 - size.height / 2;
+            break;
+        }
+        case 1: { // top-left
+            rv.x = display.bounds.x + sideOffset;
+            rv.y = display.bounds.y + sideOffset;
+            break;
+        }
+        case 2: { // top-right
+            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffset;
+            rv.y = display.bounds.y + sideOffset;
+            break;
+        }
+        case 3: { // bottom-left
+            rv.x = display.bounds.x + sideOffset;
+            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffset;
+            break;
+        }
+        case 4: { // bottom-right
+            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffset;
+            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffset;
+            break;
+        }
+        default: {
+            throw new Error(`\nUnknown position: ${position}\n`);
+        }
+    }
+
+    return rv;
+}
+
 export function applyZoom(size: SizeInt, zoomFactor: number): SizeInt {
     return {
         width: Math.round(size.width * zoomFactor),

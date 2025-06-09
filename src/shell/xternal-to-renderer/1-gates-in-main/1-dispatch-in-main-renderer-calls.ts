@@ -4,7 +4,7 @@ import { electronState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-in-main-send-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
 import { getElectronModulePaths } from "../7-napi-calls";
-import { openFileDialogAndReply, setSawModeOnMain } from "../2-commands-in-main";
+import { openFileDialogAndReply, setSawModeOnMain, setSawPositionOnMain } from "../2-commands-in-main";
 
 export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
@@ -36,6 +36,11 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
 
         case 'r2m:notify': {
             new Notification({ title: 'My Noti', body: data.message }).show();
+            break;
+        }
+
+        case 'r2m:set-saw-position': {
+            setSawPositionOnMain(winApp, data.position);
             break;
         }
 

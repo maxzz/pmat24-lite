@@ -136,3 +136,7 @@ export function App(): JSX.Element {
 //TODO: password change: add column ref from login form; if ref is set then list options are 'Ask-Reuse' and 'Write-Only'
 //TODO: password change: remove column Policy
 //TODO: password change: don't show text fields and add button show/hide text fields; maybe text field should go to 'Screen Detection' block
+
+//06.08.25
+//TODO: call to main to set saw monitor window position
+//TODO: get window extra info atom

@@ -96,7 +96,9 @@ export function AccordionItem({ value, children, className }: AccordionItemProps
             {React.Children.map(children,
                 (child) => {
                     if (React.isValidElement(child)) {
-                        return React.cloneElement(child, { ...child.props, value, expanded: isExpanded, } as AccordionItemAugmentedProps);
+                        return React.cloneElement(child, { ...child.props as any, value, expanded: isExpanded, } as AccordionItemAugmentedProps); // For React 18 and 19 compatibility (any vs. unknown)
+                        // return React.cloneElement(child, { ...child.props, value, expanded: isExpanded, } as AccordionItemAugmentedProps);
+                        // return React.cloneElement(child, { ...(typeof child.props === 'object' && child.props !== null ? child : {}), value, expanded: isExpanded, } as AccordionItemAugmentedProps);
                     }
                     return child;
                 }

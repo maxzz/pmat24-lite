@@ -1,6 +1,6 @@
-import { atom, PrimitiveAtom } from "jotai";
+import { type PrimitiveAtom, atom } from "jotai";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
-import { close_SawMonitorAtom } from "@/store";
+import { appSettings, close_SawMonitorAtom } from "@/store";
 
 // doCancelSawModeByMainAtom is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
 
@@ -21,12 +21,14 @@ const setWindowSize_SawMonitorAtom = atom(
     (get, set, { turnOn, canceledByMain, cancelByMainAtom }: DoSawModeOnClientAtomParams) => {
         const isOn = get(_sawModeStateAtom);
 
+        const position = appSettings.appUi.uiGeneral.sawPosition;
+
         if (turnOn) {
             if (isOn) {
                 return;
             }
 
-            R2MCalls.setSawModeOnMain({ setOn: true });
+            R2MCalls.setSawModeOnMain({ setOn: true, position });
             set(_sawModeStateAtom, true);
         } else {
             if (!isOn) {
@@ -35,7 +37,7 @@ const setWindowSize_SawMonitorAtom = atom(
 
             canceledByMain && cancelByMainAtom && set(cancelByMainAtom);
 
-            R2MCalls.setSawModeOnMain({ setOn: false });
+            R2MCalls.setSawModeOnMain({ setOn: false, position });
             set(_sawModeStateAtom, false);
         }
     }

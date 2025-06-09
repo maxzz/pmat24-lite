@@ -5,26 +5,23 @@ import { appSettings } from "@/store";
 
 export function CornerSelector({ className }: { className?: string; }) {
     return (
-        <div className={classNames("grid grid-cols-2 grid-rows-2 text-xs", className)}>
+        <div className={classNames("grid grid-cols-2 grid-rows-2 text-xs", className)} title="The position of this monitor window on the screen">
 
-            <Tile idx={0} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">0</Tile>
-
-            <Tile idx={1} className="">1</Tile>
-            <Tile idx={2} className="">2</Tile>
-            <Tile idx={3} className="">3</Tile>
-            <Tile idx={4} className="">4</Tile>
+            <Tile idx={0} className="absolute size-5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <Tile idx={1} />
+            <Tile idx={2} />
+            <Tile idx={3} />
+            <Tile idx={4} />
         </div>
     );
 }
 
-function Tile({ idx, children, className, ...rest }: { idx: number; } & ComponentPropsWithoutRef<'div'>) {
+function Tile({ idx, className, ...rest }: { idx: number; } & ComponentPropsWithoutRef<'div'>) {
     const { sawPosition } = useSnapshot(appSettings.appUi.uiGeneral);
     const isActive = sawPosition === idx;
     return (
-        <div className={classNames(tileClasses, isActive && "!bg-accent", className)} {...rest} onClick={() => appSettings.appUi.uiGeneral.sawPosition = idx}>
-            {children}
-        </div>
+        <div className={classNames(tileClasses, isActive && "!bg-accent", className)} {...rest} onClick={() => appSettings.appUi.uiGeneral.sawPosition = idx} />
     );
 }
 
-const tileClasses = "size-6 bg-background border border-border grid place-items-center select-none cursor-pointer";
+const tileClasses = "size-4 bg-background border border-border grid place-items-center select-none cursor-pointer";

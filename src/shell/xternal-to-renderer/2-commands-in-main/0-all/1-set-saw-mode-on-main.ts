@@ -1,9 +1,9 @@
-import { screen, BrowserWindow } from "electron";
-import { type SizeInt, type R2M, type RectangleInt } from "@shared/ipc-types";
+import { BrowserWindow } from "electron";
 import { electronState } from "@shell/2-electron-globals";
-import { applyZoom, centerRect, getWindowRect, setWindowRect } from "@shell/3-utils-main";
+import { type SizeInt, type RectangleInt, type R2MParams } from "@shared/ipc-types";
+import { applyZoom, centerRect, getWindowRect, relocateRect, setWindowRect } from "@shell/3-utils-main";
 
-export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: Omit<R2M.SetSawMode, 'type'>): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, position, size }: R2MParams.SetSawMode): void {
     if (!winApp) {
         return;
     }
@@ -17,7 +17,9 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
         saved.rect = getWindowRect(winApp); // this call should go after unmaximize()
         saved.title = winApp.getTitle();
 
-        setWindowRect(winApp, centerRect(saved.rect, applyZoom(size ? size : defaultSize, winApp.webContents.getZoomFactor())));
+        const newSize = size ? size : defaultSize;
+        const zoomRect = relocateRect(saved.rect, applyZoom(newSize, winApp.webContents.getZoomFactor()), position);
+        setWindowRect(winApp, zoomRect);
 
         winApp.setAlwaysOnTop(true, 'pop-up-menu');
         winApp.setTitle('PMAT - Select application');
@@ -30,17 +32,19 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, size }: 
 
         electronState.sawModeIsOn = false;
     }
-    
+
     // winApp.show();
 }
 
-const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls, and toaster on top
-
-const saved: { // saved state before saw mode
+type SavedWindowState = { // saved state before saw mode
     rect: RectangleInt;
     title: string;
     maximized: boolean;
-} = {
+};
+
+const defaultSize: SizeInt = { width: 350, height: 330, }; // add extra height to the client area for the Windows border and controls, and toaster on top
+
+const saved: SavedWindowState = {
     rect: { x: 0, y: 0, ...defaultSize },
     title: 'PMAT',
     maximized: false,

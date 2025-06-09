@@ -26,6 +26,11 @@ export namespace R2M { // Main from Renderer
         message: string;
     };
 
+    export type SetSawPosition = {
+        type: 'r2m:set-saw-position';
+        position: number;              // 0 center, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right
+    };
+
     // napi
 
     export type NapiOptions = {
@@ -44,7 +49,8 @@ export namespace R2M { // Main from Renderer
     export type SetSawMode = {
         type: 'r2m:set-saw-mode';
         setOn: boolean;
-        size?: SizeInt; // This can be provided to override server side position and have the same size on client side.
+        position: number;              // 0 center, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right
+        size?: SizeInt;                // This can be provided to override server side position and have the same size on client side.
     };
 
     export type ShowHideWindow = {
@@ -68,6 +74,7 @@ export namespace R2M { // Main from Renderer
 
         | DarkMode
         | NotifyMessage
+        | SetSawPosition
 
         | SetNapiOptions
         | CancelDetection
@@ -84,6 +91,7 @@ export namespace R2MParams {
     export type LoadManifestsDialog = Omit<R2M.LoadManifestsDialog, 'type'>;
     export type DarkMode = Omit<R2M.DarkMode, 'type'>;
     export type NotifyMessage = Omit<R2M.NotifyMessage, 'type'>;
+    export type SetSawPosition = Omit<R2M.SetSawPosition, 'type'>;
     export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
     export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;
