@@ -5,7 +5,6 @@ import { useAtomValue } from "jotai";
 import { FieldTyp } from "pm-manifest";
 
 export function ManualFieldPolicy({ item }: { item: ManualFieldState.CtxFld; }) {
-
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
 
     const isPassword = useAtomValue(typeAtom) === FieldTyp.psw;
@@ -14,7 +13,7 @@ export function ManualFieldPolicy({ item }: { item: ManualFieldState.CtxFld; }) 
     }
 
     return (
-        <InputLabel label="Policy" className="ml-2">
+        <InputLabel label="Policy">
             <Column6_Policy
                 useItAtom={useItAtom}
                 typeAtom={typeAtom}
