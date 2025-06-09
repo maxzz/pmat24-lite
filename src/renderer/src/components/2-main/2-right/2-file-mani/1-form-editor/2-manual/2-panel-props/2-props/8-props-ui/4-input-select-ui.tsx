@@ -155,3 +155,5 @@ const popupColorClasses = "\
 h-6 \
 bg-primary-100 dark:bg-primary-900 \
 text-primary-900 dark:text-primary-300";
+
+//const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";

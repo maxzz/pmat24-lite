@@ -4,14 +4,14 @@ import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-ma
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputLabel } from "../8-props-ui/1-input-label";
 
-export function PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
+export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
+    if (!isFieldPsw) {
+        return null;
+    }
 
-    const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
-    
     return (<>
-        {isFieldPsw
+        {fileUsCtx.formIdx === FormIdx.login
             ? <ManualFieldPolicyBtn item={item} />
             : <LinkToLoginForm item={item} />
         }
@@ -20,12 +20,6 @@ export function PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFl
 
 export function ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
-
-    const isPassword = useAtomValue(typeAtom) === FieldTyp.psw;
-    if (!isPassword) {
-        return null;
-    }
-
     return (
         <InputLabel label="Policy">
             <Column6_Policy

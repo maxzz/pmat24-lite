@@ -1,32 +1,21 @@
-import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { FieldTyp, FormIdx } from "@/store/manifest";
-import { type FceItem, appSettings } from "@/store";
+import { appSettings } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { Column3_Label, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
+import { Column3_Label } from "../../../../1-normal/1-fields";
 import { InputLabel } from "../8-props-ui";
-import { ManualFieldType } from "./2-col-field-type";
-import { ManualFieldPolicyBtn, PolicyOrLink } from "./6-col-policy-or-link";
-import { ManualFieldValue } from "./5-col-value";
+import { Col_ManualFieldType } from "./2-col-field-type";
+import { Col_PolicyOrLink } from "./6-col-policy-or-link";
+import { Col_ManualFieldValue } from "./5-col-value";
 import { Col_FiledCatalog } from "./7-col-field-catalog";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, labelAtom, valueLifeAtom, typeAtom } = item.rowCtx;
-
-    const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
-
+    const { useItAtom, labelAtom } = item.rowCtx;
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
-    const valueRowClasses = fcAllowed ? "grid grid-cols-[1fr,1fr,auto] gap-2" : "grid grid-cols-[1fr,auto] gap-2";
-
-    // function onSelectCatItem(item: FceItem | undefined) {
-    //     /*TODO:*/
-    // }
 
     return (<>
         <div className="grid grid-cols-[auto,1fr] gap-2">
             <InputLabel label="Type">
-                <ManualFieldType item={item} />
+                <Col_ManualFieldType item={item} />
             </InputLabel>
 
             <InputLabel label="Label">
@@ -38,37 +27,14 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </InputLabel>
         </div>
 
-        <div className={valueRowClasses}>
+        <div className={fcAllowed ? "grid grid-cols-[1fr,1fr,auto] gap-2" : "grid grid-cols-[1fr,auto] gap-2"}>
             <InputLabel label="Value">
-                {/* <Column4_Value
-                    useItAtom={useItAtom}
-                    valueLifeAtom={valueLifeAtom}
-                    choosevalue=""
-                /> */}
-                <ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
+                <Col_ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
             </InputLabel>
 
             <Col_FiledCatalog item={item} fileUsCtx={fileUsCtx} />
-            {/* {fcAllowed && (<>
-                <InputLabel label="Catalog">
-                    <Column5_Catalog
-                        rowCtx={item.rowCtx}
-                        fileUsCtx={fileUsCtx}
-                        onSelectCatItem={onSelectCatItem}
-                    />
-                </InputLabel>
-            </>)} */}
 
-            <PolicyOrLink item={item} fileUsCtx={fileUsCtx} />
-
-            {/* {isFieldPsw && <>
-                {isFormLogin
-                    ? <ManualFieldPolicyBtn item={item} />
-                    : <LinkToLoginForm item={item} />
-
-                }
-            </>} */}
-
+            <Col_PolicyOrLink item={item} fileUsCtx={fileUsCtx} />
         </div>
     </>);
 }

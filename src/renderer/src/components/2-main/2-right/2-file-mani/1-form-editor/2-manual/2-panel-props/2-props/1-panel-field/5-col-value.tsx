@@ -1,30 +1,27 @@
+import { useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
-export function ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, valueLifeAtom, typeAtom } = item.rowCtx;
+export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { typeAtom } = item.rowCtx;
 
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
     const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
-    const specialCpass = !isFormLogin && isFieldPsw;
+    const specialCpass = !isFormLogin && isFieldPsw; //TODO: and not linked; add field for linked value
 
     return (<>
         {specialCpass
-            ? <ManualFieldValueCpass item={item} />
-            : <ManualFieldValueLogin item={item} fileUsCtx={fileUsCtx} />
+            ? <ValueForCpassPsw item={item} />
+            : <ValueForLoginAndNotPsw item={item} fileUsCtx={fileUsCtx} />
         }
     </>);
 }
 
-function ManualFieldValueLogin({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, valueLifeAtom, typeAtom } = item.rowCtx;
-
-    const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
-
+function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, valueLifeAtom } = item.rowCtx;
     return (
         <Column4_Value
             useItAtom={useItAtom}
@@ -34,20 +31,19 @@ function ManualFieldValueLogin({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     );
 }
 
-function ManualFieldValueCpass({ item }: { item: ManualFieldState.CtxFld; }) {
-
-    const [type, setType] = useAtom(item.rowCtx.typeAtom);
-
+function ValueForCpassPsw({ item }: { item: ManualFieldState.CtxFld; }) {
+    const [type, setType] = useState('1');
     return (
         <InputSelectUi
             items={inputTypes}
             value={`${type}`}
-            onValueChange={(value) => setType(+value as FieldTyp)}
+            onValueChange={(value) => setType(value)}
         />
     );
 }
 
 const inputTypes: OptionTextValue[] = [
-    ["Text", `${FieldTyp.edit}`],
-    ["Passowrd", `${FieldTyp.psw}`],
+    // ["no link", "0"],
+    ["Current password", "1"],
+    ["New passowrd", "2"],
 ];

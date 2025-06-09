@@ -3,10 +3,8 @@ import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { FieldTyp, type OptionTextValue } from "@/store/manifest";
 
-export function ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
-
+export function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
     const [type, setType] = useAtom(item.rowCtx.typeAtom);
-
     return (
         <InputSelectUi
             items={inputTypes}
