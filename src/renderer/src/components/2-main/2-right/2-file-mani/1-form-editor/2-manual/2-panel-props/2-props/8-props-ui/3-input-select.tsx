@@ -2,6 +2,7 @@ import { InputHTMLAttributes } from "react";
 import { classNames } from "@/utils";
 import { type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi, StringValueChangeProps } from "./4-input-select-ui";
+import { InputLabel } from "./1-input-label";
 
 type InputSelectProps = InputHTMLAttributes<HTMLInputElement> & StringValueChangeProps & {
     label: string;
@@ -12,14 +13,10 @@ type InputSelectProps = InputHTMLAttributes<HTMLInputElement> & StringValueChang
     items: OptionTextValue[];
 };
 
-export function InputSelect({ items, label, labelClasses, title, horizontal = false, ...rest }: InputSelectProps) {
+export function InputSelect({ items, label, labelClasses, title, horizontal, ...rest }: InputSelectProps) {
     return (
-        <div className={classNames("flex", horizontal ? "items-center gap-x-2" : "flex-col gap-y-0.5")} title={title}>
-            <div className={classNames("text-xs", labelClasses)}>
-                {label}
-            </div>
-
+        <InputLabel label={label} labelClasses={labelClasses} horizontal={horizontal} title={title}>
             <InputSelectUi items={items} {...rest} />
-        </div>
+        </InputLabel>
     );
 }
