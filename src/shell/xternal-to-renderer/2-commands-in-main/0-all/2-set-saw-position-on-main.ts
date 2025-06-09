@@ -1,6 +1,6 @@
 import { screen, BrowserWindow } from "electron";
 import { type RectangleInt } from "@shared/ipc-types";
-import { getWindowRect, setWindowRect } from "@shell/3-utils-main";
+import { getWindowRect, relocateRect, setWindowRect } from "@shell/3-utils-main";
 import { electronState } from "@shell/2-electron-globals";
 
 export function setSawPositionOnMain(winApp: BrowserWindow | null, position: number): void {
@@ -9,7 +9,8 @@ export function setSawPositionOnMain(winApp: BrowserWindow | null, position: num
     }
 
     const rect = getWindowRect(winApp);
-    const newRect = applyPosition(rect, position);
+    // const newRect = applyPosition(rect, position);
+    const newRect = relocateRect(rect, { width: rect.width, height: rect.height }, position);
     
     setWindowRect(winApp, newRect);
 }

@@ -22,7 +22,8 @@ export function centerRect(currentRect: RectangleInt, size: SizeInt): RectangleI
     };
 }
 
-const sideOffset = 10;
+const sideOffsetX = 15;
+const sideOffsetY = 45;
 
 export function relocateRect(currentRect: RectangleInt, size: SizeInt, position: number): RectangleInt {
     const display = screen.getDisplayMatching(currentRect) || screen.getDisplayNearestPoint(currentRect);
@@ -37,23 +38,23 @@ export function relocateRect(currentRect: RectangleInt, size: SizeInt, position:
             break;
         }
         case 1: { // top-left
-            rv.x = display.bounds.x + sideOffset;
-            rv.y = display.bounds.y + sideOffset;
+            rv.x = display.bounds.x + sideOffsetX;
+            rv.y = display.bounds.y + sideOffsetY;
             break;
         }
         case 2: { // top-right
-            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffset;
-            rv.y = display.bounds.y + sideOffset;
+            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffsetX;
+            rv.y = display.bounds.y + sideOffsetY;
             break;
         }
         case 3: { // bottom-left
-            rv.x = display.bounds.x + sideOffset;
-            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffset;
+            rv.x = display.bounds.x + sideOffsetX;
+            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffsetY;
             break;
         }
         case 4: { // bottom-right
-            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffset;
-            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffset;
+            rv.x = display.bounds.x + display.bounds.width - size.width - sideOffsetX;
+            rv.y = display.bounds.y + display.bounds.height - size.height - sideOffsetY;
             break;
         }
         default: {

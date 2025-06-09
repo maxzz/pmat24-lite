@@ -2,6 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { appSettings } from "@/store";
+import { R2MCalls } from "@/xternal-to-main";
 
 export function CornerSelector({ className }: { className?: string; }) {
     return (
@@ -20,8 +21,17 @@ function Tile({ idx, className, ...rest }: { idx: number; } & ComponentPropsWith
     const { sawPosition } = useSnapshot(appSettings.appUi.uiGeneral);
     const isActive = sawPosition === idx;
     return (
-        <div className={classNames(tileClasses, isActive && "!bg-accent", className)} {...rest} onClick={() => appSettings.appUi.uiGeneral.sawPosition = idx} />
+        <div
+            className={classNames(tileClasses, isActive && "!bg-accent", className)}
+            onClick={() => setPoisition(idx)}
+            {...rest}
+        />
     );
+}
+
+function setPoisition(position: number) {
+    appSettings.appUi.uiGeneral.sawPosition = position;
+    R2MCalls.setSawPosition({ position });
 }
 
 const tileClasses = "size-4 bg-background border border-border grid place-items-center select-none cursor-pointer";

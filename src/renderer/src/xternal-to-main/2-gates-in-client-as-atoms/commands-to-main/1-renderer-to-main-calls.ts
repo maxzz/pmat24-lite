@@ -24,6 +24,10 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:notify', ...params });
     }
 
+    export function setSawPosition(params: R2MParams.SetSawPosition): void {
+        sendToMainTyped({ type: 'r2m:set-saw-position', ...params });
+    }
+
     // napi
 
     export function setNapiOptions(params: R2MParams.SetNapiOptions): void {
