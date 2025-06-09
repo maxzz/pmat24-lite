@@ -56,7 +56,7 @@
         "jotai-valtio": "^0.6.0",
         "lucide-react": "^0.513.0",
         "motion": "^12.15.0",
-        "pm-manifest": "^1.4.2",
+        "pm-manifest": "^1.4.3",
         "pm-manifest-icons": "latest",
         "postcss": "^8.5.4",
         "react": "^18.3.1",

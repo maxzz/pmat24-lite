@@ -6,7 +6,7 @@ import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { typeAtom } = item.rowCtx;
+    const { typeAtom, rfieldAtom, rfieldIndexAtom } = item.rowCtx;
 
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
     const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
@@ -44,6 +44,9 @@ function ValueForCpassPsw({ item }: { item: ManualFieldState.CtxFld; }) {
 
 const inputTypes: OptionTextValue[] = [
     // ["no link", "0"],
-    ["Current password", "1"],
-    ["New passowrd", "2"],
+    ["Current password", "1"], // 'in'
+    ["New passowrd", "2"], // 'out'
 ];
+
+// rfield: string;                 // 'in' | 'out': in(old psw) - from login form field value, out(new psw) - to login form field value
+// rfieldIndex: number;            // Index to password field in login from cpass, like '2'
