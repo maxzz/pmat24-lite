@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { cpassFieldsIdx, loginFieldsIdx, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
@@ -20,6 +20,9 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const loginFormFields = maniAtoms?.[loginFieldsIdx];
     const cpassFormFields = maniAtoms?.[cpassFieldsIdx];
 
+    const links = useSetAtom(getLinksAtom);
+    console.log('links', links(fileUsCtx));
+
     return (<>
         {specialCpass
             ? <ValueForCpassPsw item={item} />
@@ -27,6 +30,28 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
         }
     </>);
 }
+
+const getLinksAtom = atom(
+    null,
+    (get, set, fileUsCtx: FileUsCtx) => {
+        const maniAtoms = get(fileUsCtx.fileUs.maniAtomsAtom);
+        const formIdx = fileUsCtx.formIdx;
+        const currentForm = maniAtoms?.[formIdx];
+        if (!currentForm) {
+            return;
+        }
+
+        const loginFormFieldsAtom = maniAtoms?.[loginFieldsIdx];
+        const cpassFormFieldsAtom = maniAtoms?.[cpassFieldsIdx];
+
+        if (formIdx === FormIdx.login) {
+            return loginFormFieldsAtom && get(loginFormFieldsAtom);
+        }
+        else if (formIdx === FormIdx.cpass) {
+            return cpassFormFieldsAtom && get(cpassFormFieldsAtom);
+        }
+    }
+)
 
 function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, valueLifeAtom } = item.rowCtx;
