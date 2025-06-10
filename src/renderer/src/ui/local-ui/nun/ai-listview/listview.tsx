@@ -40,7 +40,7 @@ export function ListViewCo() {
                     {items.map(
                         (item, index) => (
                             <div
-                                ref={(el) => (itemRefs.current[index] = el)}
+                                ref={(el) => { itemRefs.current[index] = el; }}
                                 className={`p-2 ${focusedIndex === index ? 'bg-blue-500 text-white' : 'bg-white'}`}
                                 onFocus={() => setFocusedIndex(index)}
                                 tabIndex={-1}

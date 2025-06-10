@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type JSX, useState } from 'react';
 import { hasMain } from '@/xternal-to-main';
 
 export function Versions(): JSX.Element {

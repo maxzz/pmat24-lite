@@ -12,7 +12,7 @@ type ListViewProps = {
     items?: ListItem[];
 };
 
-const scrollIntoView = (viewportRef: RefObject<HTMLDivElement>, el: HTMLElement) => {
+const scrollIntoView = (viewportRef: RefObject<HTMLDivElement | null>, el: HTMLElement) => {
     if (viewportRef.current) {
         const viewportRect = viewportRef.current.getBoundingClientRect();
         const elRect = el.getBoundingClientRect();

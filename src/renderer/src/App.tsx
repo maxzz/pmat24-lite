@@ -1,3 +1,4 @@
+import { type JSX } from "react";
 import { UISymbolDefs } from "@ui/icons";
 import { AppGlobals } from "./components/4-dialogs";
 import { AppContent } from "./components";

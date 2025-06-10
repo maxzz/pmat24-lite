@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type JSX, type HTMLAttributes } from "react";
 import {
     IconExPol01Face,
     IconExPol02Fido,

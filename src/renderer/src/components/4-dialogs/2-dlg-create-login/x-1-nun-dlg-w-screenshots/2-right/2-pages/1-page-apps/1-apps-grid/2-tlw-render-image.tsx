@@ -1,4 +1,4 @@
-import { type ComponentProps } from "react";
+import { type JSX, type ComponentProps } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "motion/react";

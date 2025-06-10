@@ -162,7 +162,7 @@ export function AccordionItem({ value, className, children, }: AccordionItemProp
             {Children.map(children,
                 (child) => {
                     if (isValidElement(child)) {
-                        return cloneElement(child, { ...child.props, value, expanded: isExpanded, });
+                        return cloneElement(child, { ...child.props as any, value, expanded: isExpanded, });
                     }
                     return child;
                 }

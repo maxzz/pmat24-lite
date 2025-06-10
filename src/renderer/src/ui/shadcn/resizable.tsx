@@ -55,9 +55,9 @@ export function togglePanel(panel: R.ImperativePanelHandle | null) {
     panel?.[panel.isCollapsed() ? 'expand' : 'collapse']();
 }
 
-export function togglePanels(refA: RefObject<R.ImperativePanelHandle>, refB: RefObject<R.ImperativePanelHandle>, isA: boolean) {
-    const a = refA.current;
-    const b = refB.current;
+export function togglePanels(refA: RefObject<R.ImperativePanelHandle | null>, refB: RefObject<R.ImperativePanelHandle | null>, isA: boolean) {
+    const a = refA?.current;
+    const b = refB?.current;
     if (a && b) {
         togglePanel((!a.isCollapsed() && !b.isCollapsed() ? isA : !isA) ? a : b);
     }
@@ -71,7 +71,7 @@ bg-border \
 outline outline-1 outline-muted-foreground/30 \
 rounded-sm";
 
-export function ResizableHandleToys({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+export function ResizableHandleToys({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("w-3 h-4 rounded-sm border bg-border flex items-center justify-center z-10", className)} {...rest}>
             <DragHandleDots2Icon className="h-2.5 w-2.5" />
