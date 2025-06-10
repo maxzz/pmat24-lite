@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
-import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { cpassFieldsIdx, loginFieldsIdx, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
@@ -11,6 +11,14 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
     const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
     const specialCpass = !isFormLogin && isFieldPsw; //TODO: and not linked; add field for linked value
+
+    const maniAtoms = useAtomValue(fileUsCtx.fileUs.maniAtomsAtom);
+    const rfield = useAtomValue(rfieldAtom); // in|out
+    const rindexfield = useAtomValue(rfieldIndexAtom);
+
+    const currentForm = maniAtoms?.[fileUsCtx.formIdx];
+    const loginFormFields = maniAtoms?.[loginFieldsIdx];
+    const cpassFormFields = maniAtoms?.[cpassFieldsIdx];
 
     return (<>
         {specialCpass
