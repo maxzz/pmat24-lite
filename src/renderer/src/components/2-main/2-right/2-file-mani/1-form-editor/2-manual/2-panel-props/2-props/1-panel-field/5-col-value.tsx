@@ -31,6 +31,15 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     </>);
 }
 
+function useLinks(fileUsCtx: FileUsCtx) {
+    const maniAtoms = useAtomValue(fileUsCtx.fileUs.maniAtomsAtom);
+
+    const currentForm = maniAtoms?.[fileUsCtx.formIdx];
+    const loginFormFields = maniAtoms?.[loginFieldsIdx];
+    const cpassFormFields = maniAtoms?.[cpassFieldsIdx];
+
+}
+
 const getLinksAtom = atom(
     null,
     (get, set, fileUsCtx: FileUsCtx) => {
