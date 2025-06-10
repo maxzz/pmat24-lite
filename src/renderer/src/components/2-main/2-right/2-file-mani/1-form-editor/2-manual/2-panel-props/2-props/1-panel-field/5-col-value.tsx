@@ -44,14 +44,12 @@ const getLinksAtom = atom(
         const loginFormFieldsAtom = maniAtoms?.[loginFieldsIdx];
         const cpassFormFieldsAtom = maniAtoms?.[cpassFieldsIdx];
 
-        if (formIdx === FormIdx.login) {
-            return loginFormFieldsAtom && get(loginFormFieldsAtom);
-        }
-        else if (formIdx === FormIdx.cpass) {
-            return cpassFormFieldsAtom && get(cpassFormFieldsAtom);
-        }
+        return [
+            loginFormFieldsAtom && get(loginFormFieldsAtom),
+            cpassFormFieldsAtom && get(cpassFormFieldsAtom)
+        ];
     }
-)
+);
 
 function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, valueLifeAtom } = item.rowCtx;
