@@ -48,6 +48,14 @@ function convertField(field: Mani.Field): FileMani.Field {
     let rv: FileMani.Field = {
         ...field as FileMani.Field,
     };
+    if (rv.rfieldindex as any === -1) {
+        delete rv.rfieldindex;
+        delete rv.rfield;
+    }
+    if (rv.rfieldform as any === -1) {
+        delete rv.rfieldform;
+        delete rv.rfield;
+    }
     rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
