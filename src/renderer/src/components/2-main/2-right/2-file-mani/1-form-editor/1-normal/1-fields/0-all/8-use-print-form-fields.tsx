@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { FormIdx } from "@/store/manifest";
+import { type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type HighlightHwnd } from "@/store/store-types";
 
 export function usePrintFileUsHwnds({ ctx }: { ctx: FileUsCtx; }) {
     const loginHwnd = useAtomValue(ctx.fileUs.hwndLoginAtom);
@@ -25,11 +26,18 @@ const doFileUsHwndsAtom = atom(
         const loginHwnd = get(fileUs.hwndLoginAtom);
         const cpassHwnd = get(fileUs.hwndCpassAtom);
 
-        const first = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
-        
-        const titleL = `login: ${fileUs.hwndLoginAtom.toString()} ${JSON.stringify(loginHwnd)}`;
-        const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} ${JSON.stringify(cpassHwnd)}`;
-
-        console.log(`${first}\n    %c${titleL}\n    ${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver');
+        printHwns({ ctx, loginHwnd, cpassHwnd });
     }
 );
+
+function printHwns({ ctx, loginHwnd, cpassHwnd }: { ctx: FileUsCtx; loginHwnd: HighlightHwnd | undefined; cpassHwnd: HighlightHwnd | undefined; }) {
+    const fileUs = ctx.fileUs;
+    const formIdx = ctx.formIdx;
+
+    const first = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
+
+    const titleL = `login: ${fileUs.hwndLoginAtom.toString()} hwnd: "${JSON.stringify(loginHwnd)}"`;
+    const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} hwnd: "${JSON.stringify(cpassHwnd)}"`;
+
+    console.log(`${first}\n    %c${titleL}\n    ${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver');
+}
