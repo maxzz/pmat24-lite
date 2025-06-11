@@ -16,9 +16,9 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const rfield = useAtomValue(rfieldAtom); // in|out
     const rindexfield = useAtomValue(rfieldIndexAtom);
 
-    const currentForm = maniAtoms[fileUsCtx.formIdx];
-    const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
-    const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
+    // const currentForm = maniAtoms[fileUsCtx.formIdx];
+    // const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
+    // const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
 
     const label = useAtomValue(item.rowCtx.labelAtom);
 
