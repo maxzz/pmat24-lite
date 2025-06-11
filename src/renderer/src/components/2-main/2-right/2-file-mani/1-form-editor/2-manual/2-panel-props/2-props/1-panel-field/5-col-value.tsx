@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
@@ -20,11 +20,13 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
     const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
 
+    const label = useAtomValue(item.rowCtx.labelAtom);
+
     // console.log('loginFormFields', loginFormFields);
     // console.log('cpassFormFields', cpassFormFields);
 
     const links = useSetAtom(getLinksAtom);
-    console.log('links', links(fileUsCtx));
+    console.log(`links "${label}":`, links(fileUsCtx));
 
     return (<>
         {specialCpass
@@ -44,12 +46,9 @@ const getLinksAtom = atom(
             return;
         }
 
-        const loginFormFieldsAtom = maniAtoms[loginFieldsIdx];
-        const cpassFormFieldsAtom = maniAtoms[cpassFieldsIdx];
-
         return [
-            loginFormFieldsAtom && get(loginFormFieldsAtom),
-            cpassFormFieldsAtom && get(cpassFormFieldsAtom)
+            get(maniAtoms[loginFieldsIdx]),
+            get(maniAtoms[cpassFieldsIdx]),
         ];
     }
 );
