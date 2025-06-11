@@ -1,11 +1,10 @@
-import { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/manifest";
+import { EditorDataForDly, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/manifest";
 import { ManualFieldState } from "../9-types";
-import { NormalFieldConv } from "../../1-normal-fields";
 
 //
 
 export function chunksToCompareString(chunks: ManualFieldState.Ctx[]): string {
-    return chunks.map((chunk) => chunk.uid5).join('');
+    return chunks.map((chunk) => chunk.uid5).join('.');
 }
 
 export function areTheSameOrder(chunks: ManualFieldState.Ctx[], initialChunks: string): boolean {

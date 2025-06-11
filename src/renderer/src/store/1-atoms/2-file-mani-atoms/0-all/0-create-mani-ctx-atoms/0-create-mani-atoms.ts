@@ -39,6 +39,8 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
         normal = NormalModeState.createNormalCtx(fileUsCtx, maniAtoms);
     }
 
+    console.log(`%c🥑 createFormFieldsAtom ${formIdx ? 'cpass' : 'login'} normal:%o manual:%o`, 'color: magenta', normal, manual);
+
     const rv: AnyFormAtoms = {
         normal,
         manual,
@@ -51,8 +53,6 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
 }
 
 function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
-    console.log('%c🥑 createFormFieldsAtom', 'color: magenta', normal, manual);
-
     const rv = atom<FormFields>(
         (get) => {
             let fields: FormFields | undefined;
