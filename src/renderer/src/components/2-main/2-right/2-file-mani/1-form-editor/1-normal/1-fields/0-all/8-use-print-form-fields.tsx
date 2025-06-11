@@ -39,5 +39,5 @@ function printHwns({ ctx, loginHwnd, cpassHwnd }: { ctx: FileUsCtx; loginHwnd: H
     const titleL = `login: ${fileUs.hwndLoginAtom.toString()} hwnd: ${loginHwnd ? `"${JSON.stringify(loginHwnd)}"` : undefined}`;
     const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} hwnd: ${cpassHwnd ? `"${JSON.stringify(loginHwnd)}"` : undefined}`;
 
-    console.log(`${first}\n    %c${titleL}\n    ${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver');
+    console.log(`${first}\n   %c${titleL}\n%c   %c${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver; font-size:0.55rem', 'color: gray', 'color: silver; font-size:0.55rem');
 }
