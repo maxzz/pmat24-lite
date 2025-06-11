@@ -94,3 +94,10 @@ export type FieldHighlightCtx = {
     fileUs: FileUs;
     formIdx: FormIdx;
 };
+
+export function safeManiAtoms(maniAtoms: ManiAtoms | null): ManiAtoms {
+    if (!maniAtoms) {
+        throw new Error('no.ManiAtoms');
+    }
+    return maniAtoms;
+}

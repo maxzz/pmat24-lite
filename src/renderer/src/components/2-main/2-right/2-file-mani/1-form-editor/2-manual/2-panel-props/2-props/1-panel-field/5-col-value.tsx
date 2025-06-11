@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
-import { cpassFieldsIdx, loginFieldsIdx, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
@@ -12,13 +12,16 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
     const specialCpass = !isFormLogin && isFieldPsw; //TODO: and not linked; add field for linked value
 
-    const maniAtoms = useAtomValue(fileUsCtx.fileUs.maniAtomsAtom);
+    const maniAtoms = safeManiAtoms(useAtomValue(fileUsCtx.fileUs.maniAtomsAtom));
     const rfield = useAtomValue(rfieldAtom); // in|out
     const rindexfield = useAtomValue(rfieldIndexAtom);
 
-    const currentForm = maniAtoms?.[fileUsCtx.formIdx];
-    const loginFormFields = maniAtoms?.[loginFieldsIdx];
-    const cpassFormFields = maniAtoms?.[cpassFieldsIdx];
+    const currentForm = maniAtoms[fileUsCtx.formIdx];
+    const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
+    const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
+
+    console.log('loginFormFields', loginFormFields);
+    console.log('cpassFormFields', cpassFormFields);
 
     const links = useSetAtom(getLinksAtom);
     console.log('links', links(fileUsCtx));
@@ -32,11 +35,11 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
 }
 
 function useLinks(fileUsCtx: FileUsCtx) {
-    const maniAtoms = useAtomValue(fileUsCtx.fileUs.maniAtomsAtom);
+    const maniAtoms = safeManiAtoms(useAtomValue(fileUsCtx.fileUs.maniAtomsAtom));
 
-    const currentForm = maniAtoms?.[fileUsCtx.formIdx];
-    const loginFormFields = maniAtoms?.[loginFieldsIdx];
-    const cpassFormFields = maniAtoms?.[cpassFieldsIdx];
+    const currentForm = maniAtoms[fileUsCtx.formIdx];
+    const loginFormFields = maniAtoms[loginFieldsIdx];
+    const cpassFormFields = maniAtoms[cpassFieldsIdx];
 
 }
 
