@@ -36,8 +36,8 @@ function printHwns({ ctx, loginHwnd, cpassHwnd }: { ctx: FileUsCtx; loginHwnd: H
 
     const first = `%c 🍵 Render field of "${formIdx === FormIdx.login ? 'login' : 'cpass'}" form. fileUsAtom:%c${ctx.fileUsAtom.toString()}`;
 
-    const titleL = `login: ${fileUs.hwndLoginAtom.toString()} hwnd: "${JSON.stringify(loginHwnd)}"`;
-    const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} hwnd: "${JSON.stringify(cpassHwnd)}"`;
+    const titleL = `login: ${fileUs.hwndLoginAtom.toString()} hwnd: ${loginHwnd ? `"${JSON.stringify(loginHwnd)}"` : undefined}`;
+    const titleC = `cpass: ${fileUs.hwndCpassAtom.toString()} hwnd: ${cpassHwnd ? `"${JSON.stringify(loginHwnd)}"` : undefined}`;
 
     console.log(`${first}\n    %c${titleL}\n    ${titleC}`, 'color: magenta; font-size:0.55rem', 'color: green', 'color: silver');
 }
