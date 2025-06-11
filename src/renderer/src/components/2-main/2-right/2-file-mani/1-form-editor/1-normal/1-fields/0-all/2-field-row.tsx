@@ -24,7 +24,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fi
     function onSelectCatItem(item: FceItem | undefined) {
     }
 
-    usePrintFileUsHwnds({ ctx: fileUsCtx });
+    //usePrintFileUsHwnds({ ctx: fileUsCtx });
 
     if (!showFormTextFields && isTextField) {
         return null;
