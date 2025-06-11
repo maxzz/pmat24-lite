@@ -95,9 +95,18 @@ export type FieldHighlightCtx = {
     formIdx: FormIdx;
 };
 
+// Safe accessors by context of calling function
+
 export function safeManiAtoms(maniAtoms: ManiAtoms | null): ManiAtoms {
     if (!maniAtoms) {
-        throw new Error('no.ManiAtoms');
+        throw new Error('no.mani');
     }
     return maniAtoms;
+}
+
+export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
+    if (!obj) {
+        throw new Error('no.obj');
+    }
+    return obj;
 }

@@ -20,8 +20,11 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
     const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
 
-    console.log('loginFormFields', loginFormFields);
-    console.log('cpassFormFields', cpassFormFields);
+    // console.log('loginFormFields', loginFormFields);
+    // console.log('cpassFormFields', cpassFormFields);
+
+    const links = useSetAtom(getLinksAtom);
+    console.log('links', links(fileUsCtx));
 
     return (<>
         {specialCpass
@@ -30,6 +33,26 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
         }
     </>);
 }
+
+const getLinksAtom = atom(
+    null,
+    (get, set, fileUsCtx: FileUsCtx) => {
+        const maniAtoms = safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom));
+
+        const currentForm = maniAtoms[fileUsCtx.formIdx];
+        if (!currentForm) {
+            return;
+        }
+
+        const loginFormFieldsAtom = maniAtoms[loginFieldsIdx];
+        const cpassFormFieldsAtom = maniAtoms[cpassFieldsIdx];
+
+        return [
+            loginFormFieldsAtom && get(loginFormFieldsAtom),
+            cpassFormFieldsAtom && get(cpassFormFieldsAtom)
+        ];
+    }
+);
 
 function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, valueLifeAtom } = item.rowCtx;
