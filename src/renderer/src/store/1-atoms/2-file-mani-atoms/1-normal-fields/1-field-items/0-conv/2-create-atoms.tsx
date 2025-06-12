@@ -14,6 +14,7 @@ export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValu
         
         rfieldAtom: atomWithCallback(rfield, onChange),
         rfieldIndexAtom: atomWithCallback(rfieldIndex, onChange),
+        rfieldUuidAtom: atomWithCallback(rfieldForm, onChange),
         rfieldFormAtom: atomWithCallback(rfieldForm, onChange),
     };
 
