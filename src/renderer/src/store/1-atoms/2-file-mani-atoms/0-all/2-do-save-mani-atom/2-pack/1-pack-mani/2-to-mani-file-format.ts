@@ -56,8 +56,7 @@ function convertField(field: Mani.Field): FileMani.Field {
 }
 
 function convertNumbersToString(field: FileMani.Field) {
-    // rv.rfieldindex and rv.rfieldform are defined as string in manifest but in editor it is number
-    //TODO: check if we write it as string not number for compatibility
+    // mani.rfieldindex and mani.rfieldform are defined as string in manifest but in editor it is number
 
     field.rfieldindex = field.rfieldindex || `${field.rfieldindex}`;
     field.rfieldform = field.rfieldform || `${field.rfieldform}`;
@@ -66,7 +65,7 @@ function convertNumbersToString(field: FileMani.Field) {
         delete field.rfieldindex;
         delete field.rfield;
     }
-    
+
     if (field.rfieldform === '-1') {
         delete field.rfieldform;
         delete field.rfield;
