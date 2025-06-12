@@ -49,28 +49,26 @@ function convertField(field: Mani.Field): FileMani.Field {
         ...field as FileMani.Field,
     };
 
-    // rv.rfieldindex and rv.rfieldform are defined as string in manifest but in editor it is number
-    //TODO: check if we write it as string not number for compatibility
-    rv.rfieldindex = rv.rfieldindex || `${rv.rfieldindex}`;
-    rv.rfieldform = rv.rfieldform || `${rv.rfieldform}`;
-    if (rv.rfieldindex === '-1') {
-        delete rv.rfieldindex;
-        delete rv.rfield;
-    }
-    if (rv.rfieldform === '-1') {
-        delete rv.rfieldform;
-        delete rv.rfield;
-    }
+    convertNumbersToString(rv);
 
     rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
 
-function convertNumbersToString(field: FileMani.Field): FileMani.Field {
-    const rv: FileMani.Field = {
-        ...field as FileMani.Field,
-        ...(field.rfieldindex && { rfieldindex: `${field.rfieldindex}` }),
-        ...(field.rfieldform && { rfieldform: `${field.rfieldform}` }),
-    };
-    return rv;
+function convertNumbersToString(field: FileMani.Field) {
+    // rv.rfieldindex and rv.rfieldform are defined as string in manifest but in editor it is number
+    //TODO: check if we write it as string not number for compatibility
+
+    field.rfieldindex = field.rfieldindex || `${field.rfieldindex}`;
+    field.rfieldform = field.rfieldform || `${field.rfieldform}`;
+
+    if (field.rfieldindex === '-1') {
+        delete field.rfieldindex;
+        delete field.rfield;
+    }
+    
+    if (field.rfieldform === '-1') {
+        delete field.rfieldform;
+        delete field.rfield;
+    }
 }
