@@ -58,7 +58,7 @@
         "motion": "^12.15.0",
         "pm-manifest": "^1.4.4",
         "pm-manifest-icons": "latest",
-        "postcss": "^8.5.4",
+        "postcss": "^8.5.5",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-resizable-panels": "^2.1.7",
