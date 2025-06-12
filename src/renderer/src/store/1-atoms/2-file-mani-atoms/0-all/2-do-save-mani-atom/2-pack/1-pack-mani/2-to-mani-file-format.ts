@@ -53,7 +53,7 @@ function convertField(field: Mani.Field): FileMani.Field {
     //TODO: check if we write it as string not number for compatibility
     rv.rfieldindex = rv.rfieldindex || `${rv.rfieldindex}`;
     rv.rfieldform = rv.rfieldform || `${rv.rfieldform}`;
-    if (rv.rfieldindex === '-1') { 
+    if (rv.rfieldindex === '-1') {
         delete rv.rfieldindex;
         delete rv.rfield;
     }
@@ -63,5 +63,14 @@ function convertField(field: Mani.Field): FileMani.Field {
     }
 
     rv = filterOneLevelEmptyValues(rv)!;
+    return rv;
+}
+
+function convertNumbersToString(field: FileMani.Field): FileMani.Field {
+    const rv: FileMani.Field = {
+        ...field as FileMani.Field,
+        ...(field.rfieldindex && { rfieldindex: `${field.rfieldindex}` }),
+        ...(field.rfieldform && { rfieldform: `${field.rfieldform}` }),
+    };
     return rv;
 }
