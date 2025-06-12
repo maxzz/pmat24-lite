@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { addToTotalManis, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
+import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
@@ -147,9 +147,9 @@ function printSorted(items: FileUs[]) {
 }
 
 function showUnsupportedFilesMsg(unsupported: FileUs[]) {
-    //console.warn('Unsupported files:', unsupported);
+    const { notifyAlienfiles } = appSettings.appUi.uiGeneral;
 
-    if (!unsupported.length) {
+    if (!unsupported.length || !notifyAlienfiles) {
         return;
     }
 

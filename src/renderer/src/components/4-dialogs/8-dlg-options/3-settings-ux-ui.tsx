@@ -6,7 +6,7 @@ import { classNames } from "@/utils";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 
 export function UiUxSettings() {
-    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile } = useSnapshot(appSettings.appUi.uiGeneral);
+    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile, notifyAlienfiles } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveUiGeneral = appSettings.appUi.uiGeneral;
     return (<>
         {allowWelcome && (<>
@@ -35,7 +35,14 @@ export function UiUxSettings() {
         <div className={subClasses}>
             <Label className={rowClasses}>
                 <Checkbox checked={notifyNewFile} onCheckedChange={(v) => liveUiGeneral.notifyNewFile = !!v} />
-                Show new file created notification
+                Notification: Show popup when new file created
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={notifyAlienfiles} onCheckedChange={(v) => liveUiGeneral.notifyAlienfiles = !!v} />
+                Notification: Show popup on attempt to open non-manifest files
             </Label>
         </div>
 
