@@ -48,14 +48,20 @@ function convertField(field: Mani.Field): FileMani.Field {
     let rv: FileMani.Field = {
         ...field as FileMani.Field,
     };
-    if (rv.rfieldindex as any === -1) { // it is defined as string in manifest but in editor it is number //TODO: check if we write it as string not number for compatibility
+
+    // rv.rfieldindex and rv.rfieldform are defined as string in manifest but in editor it is number
+    //TODO: check if we write it as string not number for compatibility
+    rv.rfieldindex = rv.rfieldindex || `${rv.rfieldindex}`;
+    rv.rfieldform = rv.rfieldform || `${rv.rfieldform}`;
+    if (rv.rfieldindex === '-1') { 
         delete rv.rfieldindex;
         delete rv.rfield;
     }
-    if (rv.rfieldform as any === -1) { // it is defined as string in manifest but in editor it is number //TODO: check if we write it as string not number for compatibility
+    if (rv.rfieldform === '-1') {
         delete rv.rfieldform;
         delete rv.rfield;
     }
+
     rv = filterOneLevelEmptyValues(rv)!;
     return rv;
 }
