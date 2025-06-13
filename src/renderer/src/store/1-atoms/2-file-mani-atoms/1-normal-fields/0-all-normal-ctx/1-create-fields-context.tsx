@@ -19,31 +19,6 @@ export namespace NormalFieldsState {
         return rv;
     }
 
-    /*
-    function setCpassLinks(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms) {
-        if (fileUsCtx.formIdx !== FormIdx.cpass) {
-            return;
-        }
-
-        const metaLoginForm = fileUsCtx.fileUs.parsedSrc.meta?.[FormIdx.login];
-        const metaCpassForm = fileUsCtx.fileUs.parsedSrc.meta?.[FormIdx.cpass];
-
-        if (!metaLoginForm || !metaCpassForm) {
-            return;
-        }
-
-        metaCpassForm.fields.forEach((cpassField, idx) => {
-            if (cpassField.mani.rfieldindex && cpassField.mani.rfieldindex !== -1) {
-                const loginField = metaLoginForm.fields[cpassField.mani.rfieldindex];
-                if (loginField) {
-                    cpassField.mani.
-                    
-                }
-        });
-
-    }
-    */
-
     function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx {
 
         function onChange({ get, set }: { get: Getter, set: Setter; }) {
