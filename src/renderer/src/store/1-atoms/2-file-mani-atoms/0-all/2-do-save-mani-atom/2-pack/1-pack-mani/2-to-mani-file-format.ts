@@ -56,18 +56,14 @@ function convertField(field: Mani.Field): FileMani.Field {
 }
 
 function convertNumbersToString(field: FileMani.Field) {
-    // mani.rfieldindex and mani.rfieldform are defined as string in manifest but in editor it is number
-
-    field.rfieldindex = field.rfieldindex || `${field.rfieldindex}`;
-    field.rfieldform = field.rfieldform || `${field.rfieldform}`;
-
-    if (field.rfieldindex === '-1') {
-        delete field.rfieldindex;
-        delete field.rfield;
+    if (!!field.rfieldindex && (field.rfieldindex as any) === -1) { // mani.rfieldindex defined as string in manifest but in editor it is number
+        field.rfieldindex = '';
     }
 
-    if (field.rfieldform === '-1') {
-        delete field.rfieldform;
-        delete field.rfield;
+    if (!!field.rfieldform && (field.rfieldform as any) === -1) { // mani.rfieldform defined as string in manifest but in editor it is number
+        field.rfieldform = '';
     }
+
+    field.rfieldindex = field.rfieldindex && `${field.rfieldindex}`;
+    field.rfieldform = field.rfieldform && `${field.rfieldform}`;
 }
