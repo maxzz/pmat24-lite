@@ -15,18 +15,18 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        const rv = nonButtonFields.map(mapMetaFieldToFieldRowAtoms) || [];
+        const rv = nonButtonFields.map((field, idx) => mapMetaFieldToFieldRowAtoms(field, idx, fileUsCtx, maniAtoms));
         return rv;
+    }
 
-        function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number): NormalField.RowCtx {
+    function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx {
 
-            function onChange({ get, set }: { get: Getter, set: Setter; }) {
-                onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
-            }
-
-            const rowAtoms = createUiRowAtoms(field, onChange);
-            return rowAtoms;
+        function onChange({ get, set }: { get: Getter, set: Setter; }) {
+            onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
         }
+
+        const rowAtoms = createUiRowAtoms(field, onChange);
+        return rowAtoms;
     }
 
     function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowCtx {
@@ -39,7 +39,8 @@ export namespace NormalFieldsState {
         };
         return rv;
     }
-}
+
+} //namespace NormalFieldsState
 
 function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
