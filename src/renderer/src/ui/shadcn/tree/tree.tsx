@@ -89,11 +89,11 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
         );
 
         const refRoot = useRef<HTMLDivElement | null>(null);
-        const [refRootCb, { width, height }] = useRefSize();
+        const { width, height } = useRefSize(refRoot);
 
         return (
             <div
-                ref={(elm) => { refRootCb(elm); refRoot.current = elm; }}
+                ref={(elm) => { refRoot.current = elm; refRoot.current = elm; }}
                 className={classNames(treeActiveClasses, className)}
                 tabIndex={0}
                 onKeyDown={(e) => {

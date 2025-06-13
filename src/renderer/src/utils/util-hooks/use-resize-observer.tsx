@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-export function useRefSize() {
+export function useRefSize2() { //https://github.com/ZeeCoder/use-resize-observer/issues/108
     const [size, setSize] = useState<DOMRect>(defaultRect);
     const observerRef = useRef<ResizeObserver | null>(null);
 
@@ -13,7 +13,7 @@ export function useRefSize() {
         }
 
         console.log('useRefSize', node);
-        
+
 
         if (node) {
             const updateSize = () => {
@@ -36,3 +36,40 @@ export function useRefSize() {
 }
 
 const defaultRect = { x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0 } as DOMRect;
+
+export const useRefSize = <T extends React.RefObject<Element | null>>(target: T) => {
+    const [size, setSize] = useState<DOMRect>(defaultRect);
+
+    const updateSize = useCallback(() => {
+        if (target.current) {
+            const size = target.current.getBoundingClientRect();
+            setSize(size);
+        }
+    }, [target]);
+
+    useEffect(() => {
+        const { current } = target;
+
+        updateSize();
+
+        const observer = new ResizeObserver((entries) => {
+            if (entries.length > 0) {
+                updateSize();
+            }
+        });
+
+        if (current) {
+            observer.observe(current);
+        }
+
+        return () => {
+            if (current) {
+                observer.unobserve(current);
+            }
+
+            observer.disconnect();
+        };
+    }, [target, updateSize]);
+
+    return size;
+};
