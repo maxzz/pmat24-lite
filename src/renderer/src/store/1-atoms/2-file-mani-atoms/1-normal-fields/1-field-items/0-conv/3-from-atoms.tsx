@@ -13,7 +13,6 @@ export function fromAtoms(rowCtx: NormalField.RowCtx, get: Getter, set?: Setter)
         policies: get(rowCtx.policiesAtom),
         
         rfield: get(rowCtx.rfieldAtom),
-        rfieldIndex: get(rowCtx.rfieldIndexAtom),
         rfieldUuid: get(rowCtx.rfieldUuidAtom),
         rfieldForm: get(rowCtx.rfieldFormAtom),
     };

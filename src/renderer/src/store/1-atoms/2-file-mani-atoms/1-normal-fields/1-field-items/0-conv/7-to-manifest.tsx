@@ -14,7 +14,7 @@ export function forMani(from: EditorField.ForAtoms): EditorField.Members {
         options: from.policies.options,
 
         rfield: from.rfield as 'in' | 'out' | undefined,
-        rfieldindex: from.rfieldIndex,
+        rfieldindex: from.rfieldUuid, //TODO: should be converted to index number
         rfieldform: from.rfieldForm,
     };
 

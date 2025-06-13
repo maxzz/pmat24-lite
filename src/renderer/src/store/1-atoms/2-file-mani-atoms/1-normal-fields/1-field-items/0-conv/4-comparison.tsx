@@ -21,7 +21,7 @@ export function areTheSame(from: EditorField.ForAtoms, to: EditorField.ForAtoms)
         samePolicyStrings(from.policies, to.policies) &&
         
         from.rfield === to.rfield &&
-        from.rfieldIndex === to.rfieldIndex &&
+        from.rfieldUuid === to.rfieldUuid &&
         from.rfieldForm === to.rfieldForm
     );
     return rv;
