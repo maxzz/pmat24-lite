@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{ebf50d37-c181-44c5-8cd2-d6d7bad714f1}"
+		created="1dbdb42 22f9341b"
+		modified="1dbdbe2 57ae83d6"
+		integrity="OTS2.027f33649245e4439315a29f87d63df6a"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Change password"
+				dlg_class="#32770"
+				names_ext="96_:#32770:9_140000:12_100000:9_100000:Edit:2a_20100000:0 0 0 0:1626 869 2214 1232:1631 908 2210 1227:1784 924 2192 959:1787 927 2189 955:1784 969 2192 1004:1787 972 2189 1000:1784 1016 2192 1051:1787 1019 2189 1047:ComboBox:2e_100400:1784 1067 2192 1099:1784 1067 2192 1098:2a_100000:1784 1115 2192 1150:1787 1118 2189 1146:Button:Save:2b_100000:1647 1176 1776 1211:1647 1176 1776 1210:Static:Old password:29_40:1647 924 1776 944:1647 924 1776 943:Retype password:1647 1016 1776 1036:1647 1016 1776 1035:New password:1647 969 1776 989:1647 969 1776 988:Password hint:1647 1067 1776 1087:1647 1067 1776 1086:Hint answer:1647 1115 1776 1135:1647 1115 1776 1134"
+				processname="C:\z\bugs\[1]-win32-test-apps\Clogin22.exe"
+				commandline="&quot;C:\z\bugs\[1]-win32-test-apps\Clogin22.exe&quot; "
+			/>
+			<options
+				choosename="06.11.25, fake login as cpass, ref3"
+				autoprompt="0"
+				submittype="nosubmit"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Login Old"
+					type="edit"
+					dbname="{200529e6-5d16-4f25-9595-5a9548c55a83}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|0.4.5.|0.6..[loc]7|8|9|a|b"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Login New"
+					type="edit"
+					dbname="{f0f00613-17b0-423a-9553-e24f4f923431}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|1.4.5.|0.6..[loc]7|8|9|c|d"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Login Conf"
+					type="edit"
+					dbname="{f845e833-c792-4b9d-a3aa-5870755be8d1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|2.4.5.|0.6..[loc]7|8|9|e|f"
+					password="1"
+					useit="1"
+				/>
+				<field
+					type="combo"
+					dbname="{d32ebf36-7ff5-4e93-b708-05b89bfc35f8}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|3.4.10.|0.11.10.[loc]7|8|9|12|13"
+					choosevalue="Name of your high school?:Your city of birth?:Your favorite pet name?"
+				/>
+				<field
+					type="edit"
+					dbname="{8ecedf01-b42d-4809-8324-6d19621b5567}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|4.4.5.|0.14..[loc]7|8|9|15|16"
+					useit="1"
+				/>
+				<field
+					displayname="Save"
+					type="button"
+					dbname="{4e802c94-6f7b-4615-9743-791be2e878d3}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|5.4.17.18|0.19..18[loc]7|8|9|1a|1b"
+					submit="1"
+				/>
+				<field
+					displayname="Old password"
+					type="text"
+					dbname="{3d9401d6-08fc-4532-88e0-cb2f6dfec907}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|6.4.1c.1d|0.1e..1d[loc]7|8|9|1f|20"
+				/>
+				<field
+					displayname="Retype password"
+					type="text"
+					dbname="{70ffc02b-6a48-4df9-9dd5-86c525193d73}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|7.4.1c.21|0.1e..21[loc]7|8|9|22|23"
+				/>
+				<field
+					displayname="New password"
+					type="text"
+					dbname="{ca36d3ba-7187-46b2-b6d3-6cdc0bea1dfe}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|8.4.1c.24|0.1e..24[loc]7|8|9|25|26"
+				/>
+				<field
+					displayname="Password hint"
+					type="text"
+					dbname="{acd20435-3a36-4134-959c-aabd6876b511}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|9.4.1c.27|0.1e..27[loc]7|8|9|28|29"
+				/>
+				<field
+					displayname="Hint answer"
+					type="text"
+					dbname="{b14c41c4-9301-4a3d-96c3-087d7025d299}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|a.4.1c.2a|0.1e..2a[loc]7|8|9|2b|2c"
+				/>
+			</fields>
+		</form>
+		<form>
+			<fcontext
+				type="pchange"
+				name="1"
+			/>
+			<detection
+				caption="Password Change Test Dialog"
+				dlg_class="#32770"
+				names_ext="96_:#32770:9_140000:12_100000:9_100000:Static:Old password^2dot;:29_40:0 0 0 0:1707 914 2193 1378:1719 960 2181 1365:1736 1116 1876 1151:1736 1116 1875 1150:Edit:2a_20100000:1875 1116 2166 1151:1878 1119 2163 1147:New password^2dot;:1736 1179 1876 1214:1736 1179 1875 1213:1875 1179 2166 1214:1878 1182 2163 1210:Retype password^2dot;:1736 1244 1876 1279:1736 1244 1875 1278:1875 1244 2166 1279:1878 1247 2163 1275:Button:OK:2b_100000:1916 1314 2029 1349:1916 1314 2028 1348:Cancel:2052 1314 2165 1349:2052 1314 2164 1348:This is the most vanilla password change dialog, with labels in proper tab order, etc^dot;:1736 977 2167 1028:1736 977 2166 1028:User name^2dot;:1736 1053 1876 1088:1736 1053 1875 1087"
+				processname="C:\z\bugs\[1]-win32-test-apps\PasswordManagerTestDialogs.exe"
+				commandline="C:\z\bugs\[1]-win32-test-apps\PasswordManagerTestDialogs.exe"
+			/>
+			<options
+				autoprompt="0"
+				submittype="nosubmit"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="new. new login"
+					type="edit"
+					dbname="{f845e833-c792-4b9d-a3aa-5870755be8d1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|1.4.d.6|0.e..6[loc]8|9|a|f|10"
+					rfield="in"
+					rfieldindex="2"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="old. new login"
+					type="edit"
+					dbname="{f845e833-c792-4b9d-a3aa-5870755be8d1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|3.4.d.11|0.e..11[loc]8|9|a|14|15"
+					rfield="out"
+					rfieldindex="2"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="cnf. new login"
+					type="edit"
+					dbname="{f845e833-c792-4b9d-a3aa-5870755be8d1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|5.4.d.16|0.e..16[loc]8|9|a|19|1a"
+					rfield="out"
+					rfieldindex="2"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="OK"
+					type="button"
+					dbname="{69fbb1ff-15be-44f5-aeed-203b2c9190de}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|6.4.1b.1c|0.1d..1c[loc]8|9|a|1e|1f"
+					submit="1"
+				/>
+				<field
+					displayname="Cancel"
+					type="button"
+					dbname="{a0e96398-13fb-4aa9-9910-e66fd3e6e46d}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|7.4.1b.20|0.1d..20[loc]8|9|a|21|22"
+					submit="1"
+				/>
+				<field
+					displayname="This is the most vanilla password change dialog, with labels in proper tab order, etc."
+					type="text"
+					dbname="{8324d60c-797e-4f52-8b0d-7e8a57e41558}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|8.4.5.23|0.7..23[loc]8|9|a|24|25"
+				/>
+				<field
+					displayname="User name:"
+					type="text"
+					dbname="{3e7c7626-ccb7-48d9-9783-423dab1f2bb1}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|a.4.5.26|0.7..26[loc]8|9|a|27|28"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>

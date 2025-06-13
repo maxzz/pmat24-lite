@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{0456fe1d-841f-43f4-abcc-8ec323bb143e}"
+		created="1dbdb35 7be9d6b6"
+		modified="1dbdb36 74c11fdd"
+		integrity="OTS2.0efbaee1c24b7dd5b69bd0a3dd0c3b6b4"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Login"
+				dlg_class="#32770"
+				names_ext="96_:#32770:9_140000:12_100000:9_100000:Edit:2a_100000:0 0 0 0:1628 939 2213 1163:1632 978 2208 1158:1785 995 2193 1030:1788 998 2190 1026:2a_20100000:1785 1040 2193 1075:1788 1043 2190 1071:Button:Login:2b_100000:1649 1107 1762 1142:1649 1107 1761 1141:Cancel:2081 1107 2194 1142:2081 1107 2193 1141:Static:User Name:29_40:1649 995 1778 1015:1649 995 1778 1014:Password:1649 1040 1778 1060:1649 1040 1778 1059"
+				processname="C:\z\bugs\[1]-win32-test-apps\Clogin22.exe"
+				commandline="&quot;C:\z\bugs\[1]-win32-test-apps\Clogin22.exe&quot; "
+			/>
+			<options
+				choosename="06.11.25, origianl PMAT login22"
+				autoprompt="0"
+				submittype="nosubmit"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Username"
+					type="edit"
+					dbname="{b3cc8a79-bfc4-4f24-be07-d23857078e9f}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|0.4.5.|0.6..[loc]7|8|9|a|b"
+					useit="1"
+				/>
+				<field
+					displayname="Password"
+					type="edit"
+					dbname="{2e037e97-7cfc-49b5-ad06-43a1eb9ee7cc}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|1.4.5.|0.c..[loc]7|8|9|d|e"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Login"
+					type="button"
+					dbname="{6280d1e8-fbd2-46e5-a118-173cc96b3e55}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|2.4.f.10|0.11..10[loc]7|8|9|12|13"
+					submit="1"
+				/>
+				<field
+					displayname="Cancel"
+					type="button"
+					dbname="{9374bc29-5a73-433d-b186-fac4ca65a59f}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|3.4.f.14|0.11..14[loc]7|8|9|15|16"
+					submit="1"
+				/>
+				<field
+					displayname="User Name"
+					type="text"
+					dbname="{d5f4c98c-f16d-46a1-a2ac-0cfd6439bf8d}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|4.4.17.18|0.19..18[loc]7|8|9|1a|1b"
+				/>
+				<field
+					displayname="Password"
+					type="text"
+					dbname="{22c78974-e539-4508-9b37-ec0307795cdc}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|5.4.17.1c|0.19..1c[loc]7|8|9|1d|1e"
+				/>
+			</fields>
+		</form>
+		<form>
+			<fcontext
+				type="pchange"
+				name="1"
+			/>
+			<detection
+				caption="Change password"
+				dlg_class="#32770"
+				names_ext="96_:#32770:9_140000:12_100000:9_100001:Edit:2a_20100001:0 0 0 0:2682 767 3270 1130:2687 806 3266 1125:2840 822 3248 857:2843 825 3245 853:2840 867 3248 902:2843 870 3245 898:2840 914 3248 949:2843 917 3245 945:9_100000:ComboBox:2e_100400:2840 965 3248 997:2840 965 3248 996:2a_100001:2840 1013 3248 1048:2843 1016 3245 1044:Button:Save:2b_100000:2703 1074 2832 1109:2703 1074 2832 1108:Static:Old password:29_40:2703 822 2832 842:2703 822 2832 841:Retype password:2703 914 2832 934:2703 914 2832 933:New password:2703 867 2832 887:2703 867 2832 886:Password hint:2703 965 2832 985:2703 965 2832 984:Hint answer:2703 1013 2832 1033:2703 1013 2832 1032"
+				processname="C:\z\bugs\[1]-win32-test-apps\Clogin22.exe"
+				commandline="&quot;C:\z\bugs\[1]-win32-test-apps\Clogin22.exe&quot; "
+			/>
+			<options
+				autoprompt="0"
+				lockfields="1"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					type="edit"
+					dbname="{2e037e97-7cfc-49b5-ad06-43a1eb9ee7cc}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|0.4.5.|0.6..[loc]7|8|9|a|b"
+					rfield="in"
+					rfieldindex="1"
+					password="1"
+					useit="1"
+				/>
+				<field
+					type="edit"
+					dbname="{2e037e97-7cfc-49b5-ad06-43a1eb9ee7cc}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|1.4.5.|0.6..[loc]7|8|9|c|d"
+					rfield="out"
+					rfieldindex="1"
+					password="1"
+					useit="1"
+				/>
+				<field
+					type="edit"
+					dbname="{2e037e97-7cfc-49b5-ad06-43a1eb9ee7cc}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|2.4.5.|0.6..[loc]7|8|9|e|f"
+					rfield="out"
+					rfieldindex="1"
+					password="1"
+					useit="1"
+				/>
+				<field
+					type="combo"
+					dbname="{72700d5e-6804-4bca-8725-1715e9c4c30f}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|3.10.11.|0.12.11.[loc]7|8|9|13|14"
+					choosevalue="Name of your high school?:Your city of birth?:Your favorite pet name?"
+				/>
+				<field
+					type="edit"
+					dbname="{14f7db1c-f241-40e0-b742-8631c7252754}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|4.4.5.|0.15..[loc]7|8|9|16|17"
+					useit="1"
+				/>
+				<field
+					displayname="Save"
+					type="button"
+					dbname="{a73d5851-b5cd-4dfe-9cad-699224cf5860}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|5.10.18.19|0.1a..19[loc]7|8|9|1b|1c"
+					submit="1"
+					useit="1"
+				/>
+				<field
+					displayname="Old password"
+					type="text"
+					dbname="{63f85cd6-ec2a-4558-a7a4-ae756d04d34b}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|6.10.1d.1e|0.1f..1e[loc]7|8|9|20|21"
+				/>
+				<field
+					displayname="Retype password"
+					type="text"
+					dbname="{a5dc1b95-1f58-4721-8df6-c6ce2b5ad0d5}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|7.10.1d.22|0.1f..22[loc]7|8|9|23|24"
+				/>
+				<field
+					displayname="New password"
+					type="text"
+					dbname="{5ab4a270-1e82-4f7f-ba06-5f88bad99e13}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|8.10.1d.25|0.1f..25[loc]7|8|9|26|27"
+				/>
+				<field
+					displayname="Password hint"
+					type="text"
+					dbname="{3321b565-5ae9-4be4-a667-3ed515f5fdcb}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|9.10.1d.28|0.1f..28[loc]7|8|9|29|2a"
+				/>
+				<field
+					displayname="Hint answer"
+					type="text"
+					dbname="{a9f26ffe-6a42-4b85-b492-b4b2a157e6ea}"
+					path_ext="[p4a]0.0.1.|0.2.1.|0.3..|a.10.1d.2b|0.1f..2b[loc]7|8|9|2c|2d"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>
