@@ -8,11 +8,11 @@ import { Column4_Value } from "../../../../1-normal/1-fields";
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { typeAtom, rfieldAtom, rfieldUuidAtom } = item.rowCtx;
 
-    const rindexfield = useAtomValue(rfieldUuidAtom);
+    const rindexUuid = useAtomValue(rfieldUuidAtom);
 
     const isFieldPsw = useAtomValue(typeAtom) === FieldTyp.psw;
     const isFormLogin = fileUsCtx.formIdx === FormIdx.login;
-    const specialCpass = !isFormLogin && isFieldPsw && !!rindexfield; //TODO: and not linked; add field for linked value
+    const specialCpass = !isFormLogin && isFieldPsw && !!rindexUuid; //TODO: and not linked; add field for linked value
 
     const maniAtoms = safeManiAtoms(useAtomValue(fileUsCtx.fileUs.maniAtomsAtom));
     const rfield = useAtomValue(rfieldAtom); // in|out
@@ -26,8 +26,8 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     // console.log('loginFormFields', loginFormFields);
     // console.log('cpassFormFields', cpassFormFields);
 
-    // const links = useSetAtom(getLinksAtom);
-    // console.log(`links "${label}":`, links(fileUsCtx));
+    const links = useSetAtom(getLinksAtom);
+    console.log(`links "${label} link: ${rindexUuid}":`, links(fileUsCtx));
 
     return (<>
         {specialCpass
