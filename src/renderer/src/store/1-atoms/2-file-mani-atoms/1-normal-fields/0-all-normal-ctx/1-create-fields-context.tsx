@@ -1,6 +1,6 @@
 import { atom, type Getter, type Setter } from 'jotai';
 import { type OnValueChangeAny, debounce } from '@/utils';
-import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
+import { convFieldForEditor, FieldTyp, FormIdx, type Meta } from '@/store/manifest';
 import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
 import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
 
@@ -18,6 +18,31 @@ export namespace NormalFieldsState {
         const rv = nonButtonFields.map((field, idx) => mapMetaFieldToFieldRowAtoms(field, idx, fileUsCtx, maniAtoms));
         return rv;
     }
+
+    /*
+    function setCpassLinks(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms) {
+        if (fileUsCtx.formIdx !== FormIdx.cpass) {
+            return;
+        }
+
+        const metaLoginForm = fileUsCtx.fileUs.parsedSrc.meta?.[FormIdx.login];
+        const metaCpassForm = fileUsCtx.fileUs.parsedSrc.meta?.[FormIdx.cpass];
+
+        if (!metaLoginForm || !metaCpassForm) {
+            return;
+        }
+
+        metaCpassForm.fields.forEach((cpassField, idx) => {
+            if (cpassField.mani.rfieldindex && cpassField.mani.rfieldindex !== -1) {
+                const loginField = metaLoginForm.fields[cpassField.mani.rfieldindex];
+                if (loginField) {
+                    cpassField.mani.
+                    
+                }
+        });
+
+    }
+    */
 
     function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx {
 
