@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-
+/*
 export function useRefSize2() { //https://github.com/ZeeCoder/use-resize-observer/issues/108
     const [size, setSize] = useState<DOMRect>(defaultRect);
     const observerRef = useRef<ResizeObserver | null>(null);
@@ -73,3 +73,4 @@ export const useRefSize = <T extends React.RefObject<Element | null>>(target: T)
 
     return size;
 };
+*/
