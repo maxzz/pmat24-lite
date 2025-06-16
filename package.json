@@ -55,7 +55,7 @@
         "idb-keyval": "^6.2.2",
         "jotai": "^2.12.5",
         "jotai-valtio": "^0.6.0",
-        "lucide-react": "^0.514.0",
+        "lucide-react": "^0.515.0",
         "motion": "^12.17.0",
         "pm-manifest": "^1.4.8",
         "pm-manifest-icons": "latest",
