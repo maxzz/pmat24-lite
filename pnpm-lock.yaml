@@ -137,7 +137,7 @@ importers:
         version: 1.4.8
       pm-manifest-icons:
         specifier: latest
-        version: 1.0.3(react@19.1.0)
+        version: 1.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       postcss:
         specifier: ^8.5.5
         version: 8.5.5
@@ -2898,10 +2898,11 @@ packages:
     resolution: {integrity: sha512-uysumyrvkUX0rX/dEVqt8gC3sTBzd4zoWfLeS29nb53imdaXVvLINYXTI2GNqzaMuvacNx4uJQ8+b3zXR0pkgQ==}
     engines: {node: '>=10.4.0'}
 
-  pm-manifest-icons@1.0.3:
-    resolution: {integrity: sha512-KIYGr2leVRRohxcfi/2doprvF64c7M+8YZcvLNMTT6m8bDqs4EYiK1ZDcMM1M7jbnoigUIVfjU5bzXCndGK1xw==}
+  pm-manifest-icons@1.0.4:
+    resolution: {integrity: sha512-IvvAZlxM7vElOm5r2wUOIUJl4bTstAE7nUb9Ewy5DApnUT00eGfgw2G6GXi5J3kD1gOaiGPdAwRVIvodPB0vpA==}
     peerDependencies:
-      react: ^16.x || ^17.x || ^18.x
+      react: ^18.2.0 || ^19
+      react-dom: ^18.2.0 || ^19
 
   pm-manifest@1.4.8:
     resolution: {integrity: sha512-duy4n+tuS3tbnK5P2JH4PZf3uxVZoIEJK8PqrqJun8caCT+OINy2mfWBzJhEqmIDSTSF4OSqJhz1tM11cyXSuA==}
@@ -6579,9 +6580,10 @@ snapshots:
       base64-js: 1.5.1
       xmlbuilder: 15.1.1
 
-  pm-manifest-icons@1.0.3(react@19.1.0):
+  pm-manifest-icons@1.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   pm-manifest@1.4.8:
     dependencies:
