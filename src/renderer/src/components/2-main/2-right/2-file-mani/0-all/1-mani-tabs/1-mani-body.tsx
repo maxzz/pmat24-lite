@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { type Atom, useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import useResizeObserver from "use-resize-observer";
+import { useResizeDetector } from "react-resize-detector";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { type FileUs, type ManiTabValue, appSettings, maniTabValue, rightPanelAtomAtom, setManiActiveTab } from "@/store";
 import { type FileUsAtom } from "@/store/store-types";
@@ -21,7 +21,7 @@ export function ManiBody() {
 }
 
 function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
-    const { ref, width, height } = useResizeObserver();
+    const { ref, width, height } = useResizeDetector();
     const activeTab = useSnapshot(appSettings).right.mani.activeTab;
 
     const fileUs = useAtomValue(fileUsAtom);

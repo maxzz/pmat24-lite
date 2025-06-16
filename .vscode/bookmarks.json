@@ -74,6 +74,16 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "package.json",
+			"bookmarks": [
+				{
+					"line": 21,
+					"column": 24,
+					"label": ""
+				}
+			]
 		}
 	]
 }

@@ -17,6 +17,9 @@ importers:
       electron-updater:
         specifier: ^6.6.2
         version: 6.6.2
+      react-resize-detector:
+        specifier: ^12.0.2
+        version: 12.0.2(react@19.1.0)
     devDependencies:
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
@@ -3031,6 +3034,11 @@ packages:
     peerDependencies:
       react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
+  react-resize-detector@12.0.2:
+    resolution: {integrity: sha512-aAI4WxWAysWLhA8wKDpsS+PnnxQ0lWCkTlk2t+2ijalWvoSa7vPxmcKRLURkH+PU84QE4KP4dO58oVP3ypWkKA==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
 
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
@@ -6685,6 +6693,11 @@ snapshots:
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
+
+  react-resize-detector@12.0.2(react@19.1.0):
+    dependencies:
+      lodash: 4.17.21
+      react: 19.1.0
 
   react-style-singleton@2.2.3(@types/react@19.1.8)(react@19.1.0):
     dependencies:
