@@ -14,7 +14,7 @@ export function FilesTreeViewContextMenu({ children }: { children: ReactNode; })
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>
-                <div>
+                <div className="size-full">
                     {children}
                 </div>
             </ContextMenuTrigger>
