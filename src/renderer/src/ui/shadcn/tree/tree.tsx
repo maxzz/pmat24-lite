@@ -3,8 +3,8 @@ import { useSnapshot } from "valtio";
 import { classNames, cn } from "@/utils";
 import * as A from "@radix-ui/react-accordion";
 import { ScrollArea, ScrollAreaProps } from "@ui/shadcn/scroll-area";
+import { useResizeDetector } from "react-resize-detector";
 import { ChevronRight } from "lucide-react";
-import useResizeObserver from "use-resize-observer";
 import { type DataItemNavigation, type DataItemCore, type TreenIconComponent, TypeTreeFolder, TypeTreeFolderTrigger } from "./shared/types";
 import { collectExpandedItemIds, findTreeItemById, getNextId } from "./shared/utils";
 import { folderBaseClasses, folderSelectedClasses, folderIconClasses, leafBaseClasses, leafSelectedClasses, leafIconClasses } from "./shared/classes";
@@ -89,7 +89,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps & HTMLAttributes<HTMLDi
         );
 
         const refRoot = useRef<HTMLDivElement | null>(null);
-        const { ref: refRootCb, width, height } = useResizeObserver();
+        const { ref: refRootCb, width, height } = useResizeDetector();
 
         return (
             <div
