@@ -9,7 +9,7 @@ type RightPanelGuardProps = {
     className?: string;
 };
 
-const transition: Transition = { type: "ease", ease: "easeInOut", duration: 0.2 };
+const transition: Transition = { ease: "easeInOut", duration: 0.2 };
 
 const panelClasses = "min-w-44 text-xs bg-background border-border border rounded-e shadow flex flex-col overflow-hidden";
 
