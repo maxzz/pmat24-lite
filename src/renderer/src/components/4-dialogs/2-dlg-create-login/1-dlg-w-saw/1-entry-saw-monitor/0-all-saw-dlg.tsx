@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
-import { type AnimationProps, type Transition, AnimatePresence, motion } from "motion/react";
+import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from "motion/react";
 import { napiBuildState } from "@/store/7-napi-atoms";
 import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { CurrentApp } from "./1-current-app";
@@ -69,7 +69,7 @@ const animationTransition: Transition = {
     duration: 0.2,
 };
 
-const animationProps: AnimationProps = {
+const animationProps: MotionNodeOptions = {
     // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
     animate: { opacity: 1, scale: 1 },
     // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
