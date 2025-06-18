@@ -11,6 +11,9 @@ export type WindowControlHighlighterParams = {
 
 export type Win32Errors =
     | 'no.hwnd'                     // No hwnd found
+    | 'no.init'                     // Call not initialized`
+    | 'bad.rect'                    // Rectangle is too small for the border width.
+    | 'bad.color'                   // Selected color cannot be used.
     | 'internal';                   // Internal error
 
 export type HighlightError = {
