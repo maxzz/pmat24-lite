@@ -1,4 +1,4 @@
-import { type PluginDataCallback, type TargetClientRect } from "./9-types";
+import { type PluginDataCallback, type TargetClientRect, type PluginErrorCallback } from "./9-types";
 
 // Drag And Drop icon to a window (for programmatic mouse click to a control in manual mode)
 
@@ -12,14 +12,18 @@ export type PointXY = {                 // x and y coordinates relative to clien
 };
 
 export type TargetPosition = {
-    point: PointXY;
-    rect?: TargetClientRect;            // TODO: why c++ returns clientRect?
+    point: PointXY;                           // Current mouse coordinates converted to the client area of target window.
+    clientRect?: TargetClientRect;            // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
+    windowRect?: TargetClientRect;            // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
 };
 
 export type DragAndDropResult = {
-    status: 'progress' | 'done';        // TODO: status 'done' never returns
+    status: 'progress';        // TODO: status 'done' never returns
 } & TargetPosition;
 
-export interface DragAndDrop {
-    (DragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): void;
+export interface DragAndDropper {
+    new(): DragAndDropper;
+    init(dragAndDropParams: string, cb: PluginErrorCallback): void;
+    move(params: string, cb: PluginDataCallback<DragAndDropper>): void;
+    stop(params: string, cb: PluginErrorCallback): void;
 }

@@ -2,7 +2,7 @@ export type Base64String = string;
 
 export type ImageFormatType = 'png' | 'jpg';
 
-export type TargetClientRect = {
+export type TargetClientRect = { // TODO: Rename, iis t not necessarily client rect.
     left: number;
     right: number;
     top: number;
