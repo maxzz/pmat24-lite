@@ -83,11 +83,16 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
     };
 
-    export type HighlightTarget = {
-        type: 'r2mi:highlight-target';
-        showOrHide: boolean;
-        params: WindowHighlighterParams;
-    };
+    export type HighlightTarget =
+        | {
+            type: 'r2mi:highlight-target';
+            showOrHide: true;
+            params: WindowHighlighterParams;
+        }
+        | {
+            type: 'r2mi:highlight-target';
+            showOrHide: false;
+        };
 
     export type GetWindowExtras = {
         type: 'r2mi:get-window-extras';
