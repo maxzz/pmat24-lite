@@ -1,4 +1,4 @@
-import { type TargetClientRect, type PluginDataCallback } from "./9-types";
+import { type Rect4, type PluginDataCallback } from "./9-types";
 import { type WindowControlHighlighterResult } from "./6-highlight-control";
 
 // Get Target Window
@@ -12,7 +12,7 @@ export type GetTargetWindowResult = {   // SAW - Second Active Window
     classname: string;                  // "Chrome_WidgetWin_1",
     process: string;                    // "C:\\Program Files\\Microsoft VS Code\\Code.exe"
     isBrowser: boolean;                 // True if the process is web browser, false otherwise.
-    screenRect: TargetClientRect;       // Screen rectangle of the window to show as target window for the manifest creation.
+    screenRect: Rect4;                  // Screen rectangle of the window to show as target window for the manifest creation.
 };
 
 export interface GetTargetWindow {
@@ -24,7 +24,7 @@ export interface GetTargetWindow {
 
 export type HighlightTargetWindowParams = {
     hwnd: string;                       // TODO: define as: type Hwnd = string; and comment // "000000000014103E", // hwnd should be string because int64 and js number types are different
-    rect: TargetClientRect;             // Screen rectangle of the window to show as target window for the manifest creation.
+    rect: Rect4;             // Screen rectangle of the window to show as target window for the manifest creation.
     showOrHide: boolean;                // True to show, false to hide window.
 };
 

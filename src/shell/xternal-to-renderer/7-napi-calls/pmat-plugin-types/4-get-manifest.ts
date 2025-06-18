@@ -1,4 +1,4 @@
-import { type PluginDataCallback } from "./9-types";
+import { type BrowserExtErrors, type PluginDataCallback } from "./9-types";
 import { type WindowControlsCollectProgress } from "./3-get-controls";
 
 export type ManifestForWindowCreatorParams = {
@@ -18,12 +18,6 @@ export type ManifestCreationError = { // TODO: This should not be here. It is re
     error: BrowserExtErrors;
 };
 
-export type BrowserExtErrors =
-    | 'noBrExt'                    // No extension detected
-    | 'obsoleteBrExt'              // Obsolete extension detected (DPAgent is OK but the extension has not replied)
-    | 'incompatiblePM'             // DPAgent has not replied
-    | 'noControls';                // Desktop app does not have any editable controls
-
 export type ManifestForWindowCreatorResult = WindowControlsCollectProgress | ManifestCreationError | ManifestCreationDataResult;
 
 
@@ -32,7 +26,3 @@ export interface ManifestForWindowCreator {
     create(manifestForWindowCreatorParams: string, cb: PluginDataCallback<ManifestForWindowCreatorResult>): void;
     cancel(): void;
 }
-
-// export type ManifestForWindowCreatorFinalAfterParse =
-//     | ManifestCreationError
-//     | string;   // xml string if started with '<' character

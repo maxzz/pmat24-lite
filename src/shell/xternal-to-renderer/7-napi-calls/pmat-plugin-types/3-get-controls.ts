@@ -25,6 +25,8 @@ export interface WindowControlsCollector {
     cancel(): void;
 }
 
+// Type of WindowControlsCollectResult.controls after parsing
+
 export type EngineControl = {
     type: string;
     dispname: string;

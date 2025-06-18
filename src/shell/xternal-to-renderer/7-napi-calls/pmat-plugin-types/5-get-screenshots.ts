@@ -4,9 +4,9 @@ import { type Base64String, type PluginDataCallback, type ImageFormatType } from
 
 export type TlwData = {
     type: 'data';
-    hwnd: string;                       // "000000000014103E", // hwnd should be string because int64 and js number types are different
-    caption: string;                    // "ipc-invoke.ts - electron-window-monitor - Visual Studio Code",
-    classname: string;
+    hwnd: string;                       // Like: "000000000014103E"; hwnd should be string because int64 and js number are different
+    caption: string;                    // Like "ipc-invoke.ts - electron-window-monitor - Visual Studio Code"
+    classname: string;                  // Window classname
     isBrowser: boolean;                 // True if the process is web browser, false otherwise.
     data: Base64String;                 // base64 encoded image data
     width: number;                      // image width in pixels
@@ -22,16 +22,16 @@ export type TlwError = {
     caption: string
 };
 
-export type TlwErrorCode =              // not negative values, to avoid c++ to js conversion issues (long, short, etc)
-    | 2                                 // 2 - hwnd not found. This mostly happens when the window is closed.
-    | 1;                                // 1 - unknown error. This will mostly be silently ignored.
+export type TlwErrorCode =              // This is intentionally not negative values, to avoid C++ to js conversion issues (long, short, etc)
+    | 2                                 // 2: hwnd not found. This mostly happens when the window is closed.
+    | 1;                                // 1: unknown error. This will mostly be silently ignored.
 
 export type TlwScreenshot = TlwData | TlwError; // Discriminated union of "data" or "error"
 
+//---------------------------------------------------------------------------
 // 1. Get a list of top-level windows
 
-export type GetTlwInfoParams = {        //TODO: for type GetTlwInfo param GetNumberOfTLWindowsParams was not defined
-};
+export type GetTlwInfoParams = {};      //TODO: for type GetTlwInfo param GetNumberOfTLWindowsParams was not defined
 
 export type TlwInfo = {
     hwnd: string;
@@ -48,6 +48,7 @@ export interface GetTlwInfos {
     (GetNumberOfTLWindowsParams: string, cb: PluginDataCallback<GetTlwInfoResult>): void;
 }
 
+//---------------------------------------------------------------------------
 // 2. Get top-level window screenshots
 
 export type GetTlwScreenshotsParams = {

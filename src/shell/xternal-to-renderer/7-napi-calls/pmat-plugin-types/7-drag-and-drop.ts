@@ -1,29 +1,23 @@
-import { type PluginDataCallback, type TargetClientRect, type PluginErrorCallback } from "./9-types";
+import { type PluginDataCallback, type Rect4, type PluginErrorCallback, type PointXY } from "./9-types";
 
-// Drag And Drop icon to a window (for programmatic mouse click to a control in manual mode)
+// Drag And Drop icon to a window (for manual mode runtime: mouse click to set position for the next script action).
 
 export type DragAndDropParams = {
     hwnd: string;
 };
 
-export type PointXY = {                 // x and y coordinates relative to client area of the window
-    x: number;
-    y: number;
-};
-
-export type TargetPosition = {
-    point: PointXY;                           // Current mouse coordinates converted to the client area of target window.
-    clientRect?: TargetClientRect;            // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
-    windowRect?: TargetClientRect;            // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
-};
-
 export type DragAndDropResult = {
-    status: 'progress';        // TODO: status 'done' never returns
-} & TargetPosition;
+    status: 'progress';
+    point: PointXY;                     // Current mouse coordinates converted to the client area of target window.
+    clientRect?: Rect4;                 // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
+    windowRect?: Rect4;                 // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
+};
+
+export type TargetPosition = Omit<DragAndDropResult, 'status'>;
 
 export interface DragAndDropper {
     new(): DragAndDropper;
     init(dragAndDropParams: string, cb: PluginErrorCallback): void;
-    move(params: string, cb: PluginDataCallback<DragAndDropper>): void;
+    move(params: string, cb: PluginDataCallback<DragAndDropResult>): void;
     stop(params: string, cb: PluginErrorCallback): void;
 }

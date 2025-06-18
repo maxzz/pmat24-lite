@@ -22,7 +22,6 @@ export type WindowIconGetterResult = {
  * let getter = new WindowIconGetter();
  * let [iconBinaryBmp, iconTypeBmp] = await getter.getIcon(0x1114C, 'png');
  */
-
 export interface WindowIconGetter {
     new(): WindowIconGetter;
     getWindowIcon(windowIconGetterParamsParams: string, cb: PluginDataCallback<WindowIconGetterResult>): void;
