@@ -6,6 +6,7 @@ import { type GetTlwInfos } from "./5-get-screenshots";
 import { type GetWindowExtras } from "./8-extra-info";
 import { type GetTlwScreenshots } from "./5-get-screenshots";
 import { type WindowControlHighlighter } from "./6-highlight-control";
+import { type WindowHighlighter } from "./6-highlight-window";
 import { type DragAndDropper } from "./7-drag-and-drop";
 
 export type AddonTypes = {
@@ -15,6 +16,7 @@ export type AddonTypes = {
     WindowControlsCollector: WindowControlsCollector;
     ManifestForWindowCreator: ManifestForWindowCreator;
     WindowControlHighlighter: WindowControlHighlighter;
+    WindowHighlighter: WindowHighlighter;
     getTopLevelWindowsInfo: GetTlwInfos;
     getTopLevelWindowsExtraInfo: GetWindowExtras;
     getTopLevelWindowsScreenshots: GetTlwScreenshots;
