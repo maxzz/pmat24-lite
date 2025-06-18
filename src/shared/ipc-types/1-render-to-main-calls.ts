@@ -1,5 +1,3 @@
-import { type TargetClientRect } from "@shared/ipc-types";
-
 export namespace R2M { // Main from Renderer
 
     // menu, load files

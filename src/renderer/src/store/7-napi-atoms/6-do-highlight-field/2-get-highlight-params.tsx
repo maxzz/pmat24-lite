@@ -1,6 +1,6 @@
 import { type Getter } from "jotai";
 import { type Meta } from "@/store/manifest";
-import { type TargetClientRect } from "../../../../../shell/xternal-to-renderer/7-napi-calls";
+import { type Rect4 } from "../../../../../shell/xternal-to-renderer/7-napi-calls";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { type R2MInvokeParams } from "@shared/ipc-types";
 
@@ -38,7 +38,7 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
     }
 }
 
-function getFieldRect(loc: string | undefined): TargetClientRect | undefined {
+function getFieldRect(loc: string | undefined): Rect4 | undefined {
     if (!loc) {
         return undefined;
     }

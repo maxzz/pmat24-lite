@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type TargetClientRect, type WindowHighlighterParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type Rect4, type WindowHighlighterParams } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -79,25 +79,14 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     export type HighlightField = {
         type: 'r2mi:highlight-field';
         hwnd: string;
-        rect?: TargetClientRect;
+        rect?: Rect4;
         accId?: number;                         // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
     };
 
-    export type HighlightTarget =        {
-            type: 'r2mi:highlight-target';
-            params?: WindowHighlighterParams;   // If not set, then hide highlighter
-        };
-
-    // export type HighlightTarget =
-    //     | {
-    //         type: 'r2mi:highlight-target';
-    //         showOrHide: true;
-    //         params: WindowHighlighterParams;
-    //     }
-    //     | {
-    //         type: 'r2mi:highlight-target';
-    //         showOrHide: false;
-    //     };
+    export type HighlightTarget = {
+        type: 'r2mi:highlight-target';
+        params?: WindowHighlighterParams;       // If not set, then hide highlighter
+    };
 
     export type GetWindowExtras = {
         type: 'r2mi:get-window-extras';
