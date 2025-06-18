@@ -80,19 +80,24 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         type: 'r2mi:highlight-field';
         hwnd: string;
         rect?: TargetClientRect;
-        accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
+        accId?: number;                         // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
     };
 
-    export type HighlightTarget =
-        | {
+    export type HighlightTarget =        {
             type: 'r2mi:highlight-target';
-            showOrHide: true;
-            params: WindowHighlighterParams;
-        }
-        | {
-            type: 'r2mi:highlight-target';
-            showOrHide: false;
+            params?: WindowHighlighterParams;   // If not set, then hide highlighter
         };
+
+    // export type HighlightTarget =
+    //     | {
+    //         type: 'r2mi:highlight-target';
+    //         showOrHide: true;
+    //         params: WindowHighlighterParams;
+    //     }
+    //     | {
+    //         type: 'r2mi:highlight-target';
+    //         showOrHide: false;
+    //     };
 
     export type GetWindowExtras = {
         type: 'r2mi:get-window-extras';
