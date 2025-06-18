@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type TargetClientRect } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type TargetClientRect, type WindowHighlighterParams } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -47,13 +47,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         type: 'r2mi:get-target-hwnd';
     };
 
-    export type HighlightTargetHwnd = {
-        type: 'r2mi:highlight-target-hwnd';
-        hwnd: string;
-        rect: TargetClientRect;
-        showOrHide: boolean;
-    };
-
     export type GetSecondWindowContent = {
         type: 'r2mi:get-window-controls';
         hwnd: string;
@@ -90,6 +83,12 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         accId?: number;                 // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
     };
 
+    export type HighlightTarget = {
+        type: 'r2mi:highlight-target';
+        showOrHide: boolean;
+        params: WindowHighlighterParams;
+    };
+
     export type GetWindowExtras = {
         type: 'r2mi:get-window-extras';
         hwnds: string[];
@@ -105,7 +104,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | RevealInExplorer
 
         | GetSecondWindowHandle
-        | HighlightTargetHwnd
         | GetSecondWindowContent
         | GetSecondWindowIcon
         | GetSecondWindowMani
@@ -113,6 +111,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetTlwInfos
         | GetTlwScreenshots
         | HighlightField
+        | HighlightTarget
         | GetWindowExtras
         ;
 
@@ -152,9 +151,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends GetSecondWindowHandle    //'r2mi:get-target-hwnd'
         ? string
 
-        : T extends HighlightTargetHwnd      //'r2mi:highlight-target-hwnd'
-        ? string
-
         : T extends GetSecondWindowContent   //'r2mi:get-window-controls'
         ? string
 
@@ -174,6 +170,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : T extends HighlightField           //'r2mi:highlight-field'
+        ? string
+
+        : T extends HighlightTarget          //'r2mi:highlight-target'
         ? string
 
         : T extends GetWindowExtras          //'r2mi:get-window-extras'
@@ -198,5 +197,6 @@ export namespace R2MInvokeParams {
     export type GetTlwInfos = Omit<R2MInvoke.GetTlwInfos, 'type'>;
     export type GetTlwScreenshots = Omit<R2MInvoke.GetTlwScreenshots, 'type'>;
     export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
+    export type HighlightTarget = Omit<R2MInvoke.HighlightTarget, 'type'>;
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
 }
