@@ -5,6 +5,7 @@ import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "../2-tree-item";
 import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-action-atoms";
+import { ListViewWithDynamicTooltipTest } from "../2-tree-item/3-tree-item-tooltip-wrap";
 
 export function FilesTreeView() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
@@ -31,6 +32,8 @@ export function FilesTreeView() {
     return (
         <div className="relative size-full">
             <div className="absolute inset-px bottom-0.5 text-xs select-none">
+                <div className="flex flex-col">
+
                 <Tree
                     data={dataWithState}
                     treeState={treeState}
@@ -46,6 +49,8 @@ export function FilesTreeView() {
                     onSelectChange={onSelectChange}
                     onDoubleClick={onDoubleClick}
                 />
+                <ListViewWithDynamicTooltipTest />
+                </div>
             </div>
         </div>
     );
