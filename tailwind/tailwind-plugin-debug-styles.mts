@@ -1,7 +1,7 @@
-const plugin = require('tailwindcss/plugin'); // http://tachyons.io/docs/debug-grid
+import plugin from 'tailwindcss/plugin'; 
 
-module.exports = plugin(
-    function ({ addComponents }) {
+export const debugStyles = plugin(
+    function ({ addComponents }) { // http://tachyons.io/docs/debug-grid
         addComponents({
             '.debug *': {
                 outline: '1px solid gold', //goldenrod
@@ -51,3 +51,5 @@ module.exports = plugin(
         });
     },
 );
+
+export default debugStyles;

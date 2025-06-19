@@ -1,4 +1,4 @@
-const plugin = require("tailwindcss/plugin")
+import  plugin from "tailwindcss/plugin"
 
 function filterDefault(values) {
 	return Object.fromEntries(
@@ -6,7 +6,7 @@ function filterDefault(values) {
 	)
 }
 
-module.exports = plugin(
+export const animate = plugin(
 	({ addUtilities, matchUtilities, theme }) => {
 		addUtilities({
 			"@keyframes enter": theme("keyframes.enter"),
@@ -87,7 +87,7 @@ module.exports = plugin(
 		)
 
 		matchUtilities(
-			{ "duration-ani": (value) => ({ animationDuration: value }) },
+			{ "duration-ani": (value: any) => ({ animationDuration: value }) },
 			{ values: filterDefault(theme("animationDuration")) },
 		)
 
@@ -97,7 +97,7 @@ module.exports = plugin(
 		)
 
 		matchUtilities(
-			{ "ease-ani": (value) => ({ animationTimingFunction: value }) },
+			{ "ease-ani": (value: any) => ({ animationTimingFunction: value }) },
 			{ values: filterDefault(theme("animationTimingFunction")) },
 		)
 
@@ -187,3 +187,5 @@ module.exports = plugin(
 		},
 	},
 )
+
+export default animate;

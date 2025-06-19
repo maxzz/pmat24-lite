@@ -1,4 +1,5 @@
-const colors = require("tailwindcss/colors");
+import colors from "tailwindcss/colors";
+//const colors = require("tailwindcss/colors");
 // const shadcnColors = require("./tailwind/colors");
 // const shadcnTheRest = require("./tailwind/the-rest");
 

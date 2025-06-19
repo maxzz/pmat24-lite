@@ -1,6 +1,6 @@
-const plugin = require('tailwindcss/plugin');
+import plugin from 'tailwindcss/plugin';
 
-module.exports = plugin(function ({ addUtilities }) {
+export const overflowOverlay = plugin(function ({ addUtilities }) {
 
     /*
     Don't use plugin: tailwind cannot have two overlays: auto and overlay at the same time and will break for Firefox. Use index.css instead: 
@@ -15,15 +15,15 @@ module.exports = plugin(function ({ addUtilities }) {
     
     const overlays = {
         '.overflow-overlay': {
-            'overflow': 'auto',
+            // 'overflow': 'auto', // TODO: object can't have multiple properties with the same name
             'overflow': 'overlay',
         },
         '.overflow-y-overlay': {
-            'overflow-y': 'auto',
+            // 'overflow-y': 'auto',
             'overflow-y': 'overlay',
         },
         '.overflow-x-overlay': {
-            'overflow-x': 'auto',
+            // 'overflow-x': 'auto',
             'overflow-x': 'overlay',
         },
 
@@ -84,3 +84,5 @@ module.exports = plugin(function ({ addUtilities }) {
     addUtilities(resizer);
 
 });
+
+export default overflowOverlay;
