@@ -6,7 +6,7 @@ import { R2MCalls } from "@/xternal-to-main";
 
 export function CornerSelector({ className }: { className?: string; }) {
     return (
-        <div className={classNames("grid grid-cols-2 grid-rows-2 text-xs", className)} title="The position of this monitor window on the screen">
+        <div className={classNames("grid grid-cols-2 grid-rows-2 gap-px text-xs", className)} title="The position of this monitor window on the screen">
 
             <Tile idx={0} className="absolute size-4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md" />
             <Tile idx={1} className="rounded-tl-md" />

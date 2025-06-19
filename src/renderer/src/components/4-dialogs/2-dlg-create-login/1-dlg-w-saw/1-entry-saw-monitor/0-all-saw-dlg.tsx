@@ -47,7 +47,7 @@ function SawMonitorDlgBody() {
                     <ButtonContinue />
                 </div>
 
-                <CornerSelector className="absolute left-3 bottom-4" />
+                <CornerSelector className="absolute left-1.5 bottom-4" />
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>
