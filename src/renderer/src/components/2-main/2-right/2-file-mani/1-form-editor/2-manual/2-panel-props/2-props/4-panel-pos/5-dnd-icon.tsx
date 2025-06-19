@@ -30,34 +30,34 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     const [isBusy, setIsBusy] = useState(false);
 
     async function onDragStart(event: React.DragEvent<HTMLDivElement>) {
-        event.dataTransfer.setData('text/plain', 'Drag started');
+        //event.dataTransfer.setData('text/plain', 'Drag started');
 
-        await dndActionInit({ item, fileUsCtx });
+        // await dndActionInit({ item, fileUsCtx });
         console.log('NapiPicker.onPointerDown');
         setIsDown(true);
 
     }
 
     async function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
-        event.dataTransfer.setData('text/plain', 'Drag ended');
+        //event.dataTransfer.setData('text/plain', 'Drag ended');
 
-        await dndActionStop({ item, fileUsCtx });
+        // await dndActionStop({ item, fileUsCtx });
         console.log('NapiPicker.onPointerUp');
         setIsDown(false);
     }
 
     async function onDragOver(event: React.DragEvent<HTMLDivElement>) {
         event.preventDefault();
-        event.dataTransfer.dropEffect = 'move';
+        //event.dataTransfer.dropEffect = 'move';
 
-        if (!isDown) {
-            return;
-        }
-        if (isBusy) {
-            return;
-        }
+        // if (!isDown) {
+        //     return;
+        // }
+        // if (isBusy) {
+        //     return;
+        // }
         setIsBusy(true);
-        await dndActionMove({ item, fileUsCtx });
+        // await dndActionMove({ item, fileUsCtx });
         console.log('NapiPicker.onPointerMove');
         setIsBusy(false);
     }
