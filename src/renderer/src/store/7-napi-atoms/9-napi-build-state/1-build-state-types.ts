@@ -42,7 +42,7 @@ export function setNapiGetPosXY(x: number, y: number) {
     if (xyNew.x !== xyOld.x || xyNew.y !== xyOld.y) {
         napiBuildProgress.getPosProgress = { point: xyNew };
 
-        //console.log(`napi-xy-progress {x:${xyNew.x}, y:${xyNew.y}}`);
+        console.log(`napi-xy-progress {x:${xyNew.x}, y:${xyNew.y}}`);
     }
 }
 
