@@ -2,57 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { atom, type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { type DoSetFilesFrom_Dnd_Atom } from "@/store";
 
-type DragHandlersProps = {
-    doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;
-    activeAtom: PrimitiveAtom<boolean>;
-};
-
-export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHandlersProps) {
-    const setDropActive = useSetAtom(activeAtom);
-    const droppedFiles = useSetAtom(doSetFilesFromDropAtom);
-    const activeListenersRef = useRef(0);
-
-    useEffect(
-        () => {
-            function _onDragEnter() {
-                if (!activeListenersRef.current++) {
-                    setDropActive(true);
-                }
-            }
-            function _onDragOver(event: DragEvent) {
-                event.preventDefault();
-            }
-            function _onDragLeave() {
-                if (!--activeListenersRef.current) {
-                    setDropActive(false);
-                }
-            }
-            function _onDrop(event: DragEvent) {
-                event.preventDefault();
-                activeListenersRef.current = 0;
-                setDropActive(false);
-                event.dataTransfer && droppedFiles(event.dataTransfer);
-            }
-
-            const a = document.addEventListener;
-            a('dragenter', _onDragEnter);
-            a('dragover', _onDragOver);
-            a('dragleave', _onDragLeave);
-            a('drop', _onDrop);
-
-            return () => {
-                const r = document.removeEventListener;
-                r('dragenter', _onDragEnter);
-                r('dragover', _onDragOver);
-                r('dragleave', _onDragLeave);
-                r('drop', _onDrop);
-            };
-        }, []
-    );
-}
-
 export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom; }) {
-    const [activeAtom] = useState(atom(false));
+    const [activeAtom] = useState(() => atom(false));
     const active = useAtomValue(activeAtom);
     useDragHandlers({ doSetFilesFromDropAtom, activeAtom, });
     return (<>
@@ -62,4 +13,55 @@ export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: 
             </div>
         )}
     </>);
+}
+
+export type DragHandlersProps = {
+    doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;
+    activeAtom: PrimitiveAtom<boolean>;
+};
+
+export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHandlersProps) {
+    const droppedFiles = useSetAtom(doSetFilesFromDropAtom);
+    const setDropActive = useSetAtom(activeAtom);
+    const activeListenersRef = useRef(0);
+
+    useEffect(
+        () => {
+            function onDragEnter() {
+                if (!activeListenersRef.current++) {
+                    setDropActive(true);
+                }
+            }
+
+            function onDragOver(event: DragEvent) {
+                event.preventDefault();
+            }
+
+            function onDragLeave() {
+                if (!--activeListenersRef.current) {
+                    setDropActive(false);
+                }
+            }
+
+            function onDrop(event: DragEvent) {
+                event.preventDefault();
+                activeListenersRef.current = 0;
+                setDropActive(false);
+                event.dataTransfer && droppedFiles(event.dataTransfer);
+            }
+
+            const controller = new AbortController();
+            const signal = { signal: controller.signal };
+
+            const a = document.addEventListener;
+            a('dragenter', onDragEnter, signal);
+            a('dragover', onDragOver, signal);
+            a('dragleave', onDragLeave, signal);
+            a('drop', onDrop, signal);
+
+            return () => {
+                controller.abort();
+            };
+        }, []
+    );
 }
