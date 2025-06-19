@@ -79,7 +79,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
 
     async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
         try {
-            const res = await dndActionStop({ item, fileUsCtx });
+            const res = await dndActionStop();
             console.log('%cDragging. stop', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -96,7 +96,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         }
         setIsBusy(true);
         try {
-            const res = await dndActionMove({ item, fileUsCtx });
+            const res = await dndActionMove();
             console.log('%cDragging. move', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -122,48 +122,32 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
 
 const dndActionInitAtom = atom(
     null,
-    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
+    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<string> => {
 
         const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
         const hwnd = get(hwndAtom);
         if (!hwnd) {
             console.log('hwnd not found');
-            return;
+            return 'no.wnd';
         }
 
         const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'init', hwnd: hwnd.hwnd } });
-        console.log('dndActionInitAtom. data', data);
+        return data;
     }
 );
 
 const dndActionMoveAtom = atom(
     null,
-    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
-
-        const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
-        const hwnd = get(hwndAtom);
-        if (!hwnd) {
-            console.log('hwnd not found');
-            return;
-        }
-
+    async (get, set): Promise<string> => {
         const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'move' } });
-        console.log('dndActionMoveAtom. data', data);
+        return data;
     }
 );
 
 const dndActionStopAtom = atom(
     null,
-    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
-
-        const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
-        const hwnd = get(hwndAtom);
-        if (!hwnd) {
-            console.log('hwnd not found');
-            return;
-        }
-
+    async (get, set): Promise<string> => {
         const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'stop' } });
-        console.log('dndActionStopAtom. data', data);
+        return data;
     }
 );

@@ -69,8 +69,8 @@ function ContextItems() {
         <ContextMenuItem className="text-xs" onClick={onRename}>Rename</ContextMenuItem>
         <ContextMenuItem className="text-xs" onClick={onDelete}>Delete</ContextMenuItem>
 
-        {hasMain() ?
-            (
+        {hasMain()
+            ? (
                 <ContextMenuItem className="text-xs" onClick={onRevealInExplorer}>Reveal in File Explorer</ContextMenuItem>
             )
             : (

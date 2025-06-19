@@ -2,10 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, getTreeItemDisplayText } from "@/store";
 import { type TreeIconAndTextProps } from "@ui/shadcn/tree";
-import { castTreeItemToFileUs } from "../0-all/2-tree-atoms";
+import { castTreeItemToFileUs } from "../0-all/2-tree-action-atoms";
 import { TreeItemIconWithAttention } from "./2-tree-item-icon";
-import { TreeItemFileIndex } from "./1-tree-item-index";
-import { TreeItemName } from "./3-tree-item-name";
+import { TreeItemFileIndex } from "./1-tree-item-file-index";
+import { TreeItemName } from "./5-tree-item-name";
 
 /**
  * This is used by FilesTreeView.

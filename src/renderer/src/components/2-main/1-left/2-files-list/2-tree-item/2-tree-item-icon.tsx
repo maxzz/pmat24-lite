@@ -1,8 +1,8 @@
 import { FileUs } from "@/store/store-types";
 import { isAnyWhy } from "@/store/manifest";
 import { TreenIconComponent } from "@ui/shadcn/tree";
-import { TreeItemTooltip } from "./4-tooltip-all";
-import { TooltipBody } from "./5-tooltip-body";
+import { TreeItemTooltip } from "./3-tree-item-tooltip-wrap";
+import { TooltipBody } from "./4-tree-item-tooltip-body";
 
 type FileIconAttentionProps = {
     fileUs: FileUs;

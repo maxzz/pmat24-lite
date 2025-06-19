@@ -4,7 +4,7 @@ import { appSettings, doTriggerRightPanelSelectedAtom, doManiNameDlgAtom } from 
 import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { TreeItemRowRender } from "../2-tree-item";
-import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-atoms";
+import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-action-atoms";
 
 export function FilesTreeView() {
     const { selectAsTrigger, selectEmptySpace } = useSnapshot(appSettings.files.itemsState);
@@ -29,12 +29,12 @@ export function FilesTreeView() {
     // printTreeData(dataWithState);
 
     return (
-        <div className="relative w-full h-full">
+        <div className="relative size-full">
             <div className="absolute inset-px bottom-0.5 text-xs select-none">
                 <Tree
                     data={dataWithState}
                     treeState={treeState}
-                    className="w-full h-full outline-none"
+                    className="size-full outline-none"
                     scrollAreaProps={{ parentContentWidth: true, fixedWidth: true }}
                     IconTextRender={TreeItemRowRender}
                     IconForFolder={IconFolder}

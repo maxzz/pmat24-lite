@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { SymbolFire } from "@/ui/icons";
 import { appSettings, getTreeItemDisplayText } from "@/store";
 import { type FileUs } from "@/store/store-types";
-import { type TreeFileItemWState } from "../0-all/2-tree-atoms";
+import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
 
 /**
  * This is used by main files tree.
