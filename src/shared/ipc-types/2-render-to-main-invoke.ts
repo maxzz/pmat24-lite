@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type Rect4, type WindowHighlighterParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type Rect4, type WindowHighlighterParams, type DragAndDropCallParams } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -64,7 +64,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     export type GetWindowPos = {
         type: 'r2mi:get-window-pos';
-        hwnd: string;
+        params: DragAndDropCallParams;
     };
 
     export type GetTlwInfos = {
@@ -160,7 +160,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : T extends GetWindowPos             //'r2mi:get-window-pos'
-        ? TargetPosition
+        ? string                             // in case of 'move' this is DragAndDropResult otherwise it is empty string if no error
 
         : T extends GetTlwInfos              //'r2mi:get-tlw-infos'
         ? string
