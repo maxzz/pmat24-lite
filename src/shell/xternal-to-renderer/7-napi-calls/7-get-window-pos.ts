@@ -1,6 +1,7 @@
 import { addon } from "./0-addon";
 import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type TargetPosition } from "./pmat-plugin-types";
 import { mainToRenderer } from "./9-external";
+import { a } from "@react-spring/web";
 
 /**
  * Get position inside window by drag and drop for manual mode 'position' action.
@@ -57,105 +58,15 @@ export function dndAction(params: DragAndDropCallParams) {
             return;
         }
 
-        switch (params.what) {
-            case 'init': {
-                const initParams: DragAndDropParams = params;
-                const initParam = JSON.stringify(initParams);
+        const actionName: keyof DragAndDropper = params.what;
+        const actionParams = params.what === 'init' ? JSON.stringify({ hwnd: params.hwnd }) : '';
 
-                gDragAndDropper.init(initParam, (err: any) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve();
-                    }
-                });
-                break;
-            }
-
-            // case 'move': {
-            //     const moveParams: DragAndDropParams = params;
-            //     const moveParam = JSON.stringify(moveParams);
-
-            //     gDragAndDropper.move(moveParam, (err: any, data: string) => {
-            //         if (err) {
-            //             reject(err);
-            //         } else {
-            //             try {
-            //                 const res = JSON.parse(data) as DragAndDropResult;
-            //                 resolve(res);
-            //             } catch (error) {
-            //                 reject('>>>Faieled to get posiotion.');
-            //             }
-            //         }
-            //     });
-            //     break;
-            // }
-
-            case 'move':
-            case 'stop': {
-                gDragAndDropper.stop('', (err: any) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve();
-                    }
-                });
-                break;
-            }
-        }
-    }
-}
-
-export async function test06_dragAndDropTest(hwnd: string) {
-        let params: DragAndDropParams = {
-            hwnd: hwnd
-        };
-
-        const instance = new addon.DragAndDropper();
-
-        instance.init(JSON.stringify(params), (err: any) => {
+        gDragAndDropper[actionName](actionParams, (err: any) => {
             if (err) {
-                console.error('dragAndDrop init error', err);
-            }
-            else {
-                console.log('dragAndDrop init OK');
+                reject(err);
+            } else {
+                resolve();
             }
         });
-
-        const rv = new Promise<void>((resolve, reject) => {
-            let i = 0;
-
-            let moveFunc = () => {
-                if (++i < 3) {
-                    setTimeout(() => {
-                        instance.move('', (err, data) => {
-                            if (err) {
-                                console.error('dragAndDrop error', err);
-                            }
-                            else {
-                                console.log(data);
-                            }
-                        });
-                        moveFunc();
-                    }, 100);
-                }
-                else {
-                    setTimeout(() => {
-                        instance.stop('', (err) => {
-                            if (err) {
-                                console.error('dragAndDrop stop error', err);
-                            }
-                            else {
-                                console.log('dragAndDrop stop OK');
-                            }
-                        });
-                        resolve();
-                    }, 100);
-                }
-            };
-
-            moveFunc();
-        });
-
-        return rv;
-    }
+    });
+}
