@@ -8,11 +8,11 @@ export function CornerSelector({ className }: { className?: string; }) {
     return (
         <div className={classNames("grid grid-cols-2 grid-rows-2 text-xs", className)} title="The position of this monitor window on the screen">
 
-            <Tile idx={0} className="absolute size-5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-            <Tile idx={1} />
-            <Tile idx={2} />
-            <Tile idx={3} />
-            <Tile idx={4} />
+            <Tile idx={0} className="absolute size-4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md" />
+            <Tile idx={1} className="rounded-tl-md" />
+            <Tile idx={2} className="rounded-tr-md" />
+            <Tile idx={3} className="rounded-bl-md" />
+            <Tile idx={4} className="rounded-br-md" />
         </div>
     );
 }
@@ -34,4 +34,4 @@ function setPoisition(position: number) {
     R2MCalls.setSawPosition({ position });
 }
 
-const tileClasses = "size-4 bg-background border border-border grid place-items-center select-none cursor-pointer";
+const tileClasses = "size-3.5 bg-background border border-border grid place-items-center select-none cursor-pointer";
