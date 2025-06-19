@@ -39,6 +39,7 @@ interface ListViewProps {
 
 const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
     const [activeItem, setActiveItem] = useState<ListItem | null>(null);
+    const [isMouseOverTooltipContent, setIsMouseOverTooltipContent] = useState(false);
 
     const handleMouseEnter = (item: ListItem) => (event: MouseEvent<HTMLLIElement>) => {
         console.log('handleMouseEnter');
@@ -47,14 +48,41 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
 
     const handleMouseLeave = (event: MouseEvent<HTMLLIElement>) => {
         console.log('handleMouseLeave');
-        setActiveItem(null);
+        // We only close the tooltip if the mouse is not over the tooltip content
+        if (!isMouseOverTooltipContent) {
+            setActiveItem(null);
+        }
+    };
+
+    const handleTooltipContentMouseEnter = () => {
+        setIsMouseOverTooltipContent(true);
+    };
+
+    const handleTooltipContentMouseLeave = () => {
+        setIsMouseOverTooltipContent(false);
+        // If the mouse leaves the tooltip content, and no item is currently hovered, close the tooltip
+        if (!activeItem) {
+            setActiveItem(null);
+        }
+    };
+
+    const handleTooltipOpenChange = (open: boolean) => {
+        if (!open && !isMouseOverTooltipContent) {
+            setActiveItem(null);
+        }
     };
 
     return (
         <TooltipProvider delayDuration={1700} disableHoverableContent>
-            <Tooltip open={!!activeItem}>
+            <Tooltip open={!!activeItem} onOpenChange={handleTooltipOpenChange}>
                 <TooltipPortal>
-                    <TooltipContent>{activeItem?.tooltipContent}</TooltipContent>
+                    <TooltipContent
+                        className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none"
+                        onMouseEnter={handleTooltipContentMouseEnter}
+                        onMouseLeave={handleTooltipContentMouseLeave}
+                    >
+                        {activeItem?.tooltipContent}
+                    </TooltipContent>
                 </TooltipPortal>
                 <ul>
                     {items.map((item) => (
