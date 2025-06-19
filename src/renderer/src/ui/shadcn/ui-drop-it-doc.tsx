@@ -15,11 +15,6 @@ export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: 
     </>);
 }
 
-export type DragHandlersProps = {
-    doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;
-    activeAtom: PrimitiveAtom<boolean>;
-};
-
 export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHandlersProps) {
     const droppedFiles = useSetAtom(doSetFilesFromDropAtom);
     const setDropActive = useSetAtom(activeAtom);
@@ -65,3 +60,8 @@ export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHand
         }, []
     );
 }
+
+export type DragHandlersProps = {
+    doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom;
+    activeAtom: PrimitiveAtom<boolean>;
+};

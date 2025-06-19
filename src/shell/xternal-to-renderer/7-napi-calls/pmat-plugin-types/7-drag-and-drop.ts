@@ -21,3 +21,13 @@ export interface DragAndDropper {
     move(params: string, cb: PluginDataCallback<DragAndDropResult>): void;
     stop(params: string, cb: PluginErrorCallback): void;
 }
+
+/**
+ *TODO: It should be:
+    export interface PositionTracker {
+        new(): DragAndDropper;
+        watch(dragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): void; // This will subscribe to track move events and show target icon at cursor position
+        move(params: ''): void; // This will trigger move event for track method
+        stop(params: ''): void; // This will unsubscribe from move events
+}
+*/

@@ -31,51 +31,59 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     const [isDown, setIsDown] = useState(false);
     const [isBusy, setIsBusy] = useState(false);
 
-    async function onDragStart(event: React.DragEvent<HTMLDivElement>) {
-        //event.dataTransfer.setData('text/plain', 'Drag started');
+    // async function onDragStart(event: React.DragEvent<HTMLDivElement>) {
+    //     //event.dataTransfer.setData('text/plain', 'Drag started');
 
-        // await dndActionInit({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerDown');
-        setIsDown(true);
+    //     // await dndActionInit({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerDown');
+    //     setIsDown(true);
 
-    }
+    // }
 
-    async function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
-        //event.dataTransfer.setData('text/plain', 'Drag ended');
+    // async function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
+    //     //event.dataTransfer.setData('text/plain', 'Drag ended');
 
-        // await dndActionStop({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerUp');
-        setIsDown(false);
-    }
+    //     // await dndActionStop({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerUp');
+    //     setIsDown(false);
+    // }
 
-    async function onDragOver(event: React.DragEvent<HTMLDivElement>) {
-        event.preventDefault();
-        //event.dataTransfer.dropEffect = 'move';
+    // async function onDragOver(event: React.DragEvent<HTMLDivElement>) {
+    //     event.preventDefault();
+    //     //event.dataTransfer.dropEffect = 'move';
 
-        // if (!isDown) {
-        //     return;
-        // }
-        // if (isBusy) {
-        //     return;
-        // }
-        setIsBusy(true);
-        // await dndActionMove({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerMove');
-        setIsBusy(false);
-    }
+    //     // if (!isDown) {
+    //     //     return;
+    //     // }
+    //     // if (isBusy) {
+    //     //     return;
+    //     // }
+    //     setIsBusy(true);
+    //     // await dndActionMove({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerMove');
+    //     setIsBusy(false);
+    // }
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         const elm = event.target as HTMLDivElement;
         elm.setPointerCapture(event.pointerId);
 
-        await dndActionInit({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerDown');
+        try {
+            const res = await dndActionInit({ item, fileUsCtx });
+            console.log('%cDragging. init', 'color:magenta', res);
+        } catch (err) {
+            console.error(err);
+        }
         setIsDown(true);
     }
 
     async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
-        await dndActionStop({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerUp');
+        try {
+            const res = await dndActionStop({ item, fileUsCtx });
+            console.log('%cDragging. stop', 'color:magenta', res);
+        } catch (err) {
+            console.error(err);
+        }
         setIsDown(false);
     }
 
@@ -87,8 +95,12 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
             return;
         }
         setIsBusy(true);
-        await dndActionMove({ item, fileUsCtx });
-        console.log('NapiPicker.onPointerMove');
+        try {
+            const res = await dndActionMove({ item, fileUsCtx });
+            console.log('%cDragging. move', 'color:magenta', res);
+        } catch (err) {
+            console.error(err);
+        }
         setIsBusy(false);
     }
 
