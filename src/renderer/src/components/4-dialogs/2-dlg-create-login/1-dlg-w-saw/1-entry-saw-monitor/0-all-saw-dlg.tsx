@@ -8,7 +8,6 @@ import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorA
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
-import { CornerSelector } from "./3-corner-selector";
 
 export function DialogSawMonitor() {
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
@@ -39,7 +38,7 @@ function SawMonitorDlgBody() {
 
                     <CurrentApp />
 
-                    <Label className="place-self-start text-xs flex items-center gap-2 select-none">
+                    <Label className="place-self-start text-xs flex items-center gap-2 select-none cursor-pointer">
                         <Checkbox className="size-4" checked={checkboxCreateManualMode} onCheckedChange={(v) => setCheckboxCreateManualMode(!!v)} />
                         Set up a managed logon manually
                     </Label>
@@ -47,7 +46,7 @@ function SawMonitorDlgBody() {
                     <ButtonContinue />
                 </div>
 
-                <CornerSelector className="absolute left-1.5 bottom-4" />
+                {/* <CornerSelector className="absolute left-1.5 bottom-4" /> */}
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>

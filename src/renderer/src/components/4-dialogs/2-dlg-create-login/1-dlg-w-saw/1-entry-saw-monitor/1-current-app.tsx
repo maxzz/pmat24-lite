@@ -6,10 +6,12 @@ import { Button, ImageHolder } from "@/ui";
 import { napiBuildProgress, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
 import { Spinner } from "@/ui/icons";
 import { useSnapshot } from "valtio";
+import { CornerSelector } from "./3-corner-selector";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     return (
-        <div className={classNames("px-4 py-2 w-full bg-background 1bg-muted/50 border-border border shadow-inner rounded-md grid place-items-center gap-2", className)} {...rest}>
+        <div className={classNames("relative px-4 py-2 w-full bg-background 1bg-muted/50 border-border border shadow-inner rounded-md grid place-items-center gap-2", className)} {...rest}>
+            <CornerSelector className="absolute right-1 top-1" />
             <div className="select-none">
                 Active application:
             </div>
