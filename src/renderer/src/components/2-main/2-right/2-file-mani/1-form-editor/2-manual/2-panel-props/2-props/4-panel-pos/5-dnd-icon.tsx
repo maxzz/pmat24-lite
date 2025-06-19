@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped } from "@/xternal-to-main";
@@ -21,32 +22,54 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
 }
 
 function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
-    const getDndPosition = useSetAtom(getDndPositionAtom);
+    const dndActionInit = useSetAtom(dndActionInitAtom);
+    const dndActionMove = useSetAtom(dndActionMoveAtom);
+    const dndActionStop = useSetAtom(dndActionStopAtom);
+
+    const [isDown, setIsDown] = useState(false);
+    const [isBusy, setIsBusy] = useState(false);
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
-        // event.preventDefault();
-        // event.stopPropagation();
-        // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
-        await getDndPosition({ item, fileUsCtx });
+        await dndActionInit({ item, fileUsCtx });
         console.log('NapiPicker.onPointerDown');
+        setIsDown(true);
     }
 
-    async function onClick() {
-        // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
-        await getDndPosition({ item, fileUsCtx });
-        console.log('NapiPicker.onClick');
+    async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
+        await dndActionStop({ item, fileUsCtx });
+        console.log('NapiPicker.onPointerUp');
+        setIsDown(false);
+    }
+
+    async function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+        if (!isDown) {
+            return;
+        }
+        if (isBusy) {
+            return;
+        }
+        setIsBusy(true);
+        await dndActionMove({ item, fileUsCtx });
+        console.log('NapiPicker.onPointerMove');
+        setIsBusy(false);
     }
 
     return (
-        <div className="p-1 inline-block border-border border rounded shadow" onPointerDown={onPointerDown}>
+        <div
+            className="p-1 inline-block border-border border rounded shadow"
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerMove={onPointerMove}
+        >
             <IconDndTarget className="size-8" />
         </div>
     );
 }
 
-const getDndPositionAtom = atom(
+const dndActionInitAtom = atom(
     null,
     async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
+
         const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
         const hwnd = get(hwndAtom);
         if (!hwnd) {
@@ -54,8 +77,39 @@ const getDndPositionAtom = atom(
             return;
         }
 
-        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', hwnd: hwnd.hwnd });
-        console.log('done. data', data);
+        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'init', hwnd: hwnd.hwnd } });
+        console.log('dndActionInitAtom. data', data);
+    }
+);
 
+const dndActionMoveAtom = atom(
+    null,
+    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
+
+        const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
+        const hwnd = get(hwndAtom);
+        if (!hwnd) {
+            console.log('hwnd not found');
+            return;
+        }
+
+        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'move' } });
+        console.log('dndActionMoveAtom. data', data);
+    }
+);
+
+const dndActionStopAtom = atom(
+    null,
+    async (get, set, { item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }): Promise<void> => {
+
+        const hwndAtom = fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
+        const hwnd = get(hwndAtom);
+        if (!hwnd) {
+            console.log('hwnd not found');
+            return;
+        }
+
+        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'stop' } });
+        console.log('dndActionStopAtom. data', data);
     }
 );
