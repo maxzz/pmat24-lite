@@ -73,7 +73,7 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
     };
 
     return (
-        <TooltipProvider delayDuration={1700} disableHoverableContent>
+        <TooltipProvider delayDuration={1700}>
             <Tooltip open={!!activeItem} onOpenChange={handleTooltipOpenChange}>
                 <TooltipPortal>
                     <TooltipContent

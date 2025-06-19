@@ -32,7 +32,7 @@ export function FilesTreeView() {
     return (
         <div className="relative size-full">
             <div className="absolute inset-px bottom-0.5 text-xs select-none">
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col"> */}
 
                 <Tree
                     data={dataWithState}
@@ -49,8 +49,8 @@ export function FilesTreeView() {
                     onSelectChange={onSelectChange}
                     onDoubleClick={onDoubleClick}
                 />
-                <ListViewWithDynamicTooltipTest />
-                </div>
+                {/* <ListViewWithDynamicTooltipTest />
+                </div> */}
             </div>
         </div>
     );
