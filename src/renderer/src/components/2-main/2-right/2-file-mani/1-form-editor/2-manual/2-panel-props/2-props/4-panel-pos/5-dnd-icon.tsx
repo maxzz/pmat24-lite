@@ -29,19 +29,27 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     const [isDown, setIsDown] = useState(false);
     const [isBusy, setIsBusy] = useState(false);
 
-    async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    async function onDragStart(event: React.DragEvent<HTMLDivElement>) {
+        event.dataTransfer.setData('text/plain', 'Drag started');
+
         await dndActionInit({ item, fileUsCtx });
         console.log('NapiPicker.onPointerDown');
         setIsDown(true);
+
     }
 
-    async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
+    async function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
+        event.dataTransfer.setData('text/plain', 'Drag ended');
+
         await dndActionStop({ item, fileUsCtx });
         console.log('NapiPicker.onPointerUp');
         setIsDown(false);
     }
 
-    async function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    async function onDragOver(event: React.DragEvent<HTMLDivElement>) {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+
         if (!isDown) {
             return;
         }
@@ -54,12 +62,41 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         setIsBusy(false);
     }
 
+    // async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    //     await dndActionInit({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerDown');
+    //     setIsDown(true);
+    // }
+
+    // async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
+    //     await dndActionStop({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerUp');
+    //     setIsDown(false);
+    // }
+
+    // async function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    //     if (!isDown) {
+    //         return;
+    //     }
+    //     if (isBusy) {
+    //         return;
+    //     }
+    //     setIsBusy(true);
+    //     await dndActionMove({ item, fileUsCtx });
+    //     console.log('NapiPicker.onPointerMove');
+    //     setIsBusy(false);
+    // }
+
     return (
         <div
             className="p-1 inline-block border-border border rounded shadow"
-            onPointerDown={onPointerDown}
-            onPointerUp={onPointerUp}
-            onPointerMove={onPointerMove}
+            draggable={true}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onDragOver={onDragOver}
+            // onPointerDown={onPointerDown}
+            // onPointerUp={onPointerUp}
+            // onPointerMove={onPointerMove}
         >
             <IconDndTarget className="size-8" />
         </div>
