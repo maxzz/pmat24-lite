@@ -1,13 +1,15 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback } from "react";
+import { type Getter, type Setter, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from "motion/react";
-import { napiBuildState } from "@/store/7-napi-atoms";
+import { napiBuildState, useSawHandleListener } from "@/store/7-napi-atoms";
 import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
+import { GetTargetWindowResult } from "@shared/ipc-types";
 
 export function DialogSawMonitor() {
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
@@ -27,6 +29,7 @@ export function DialogSawMonitor() {
 function SawMonitorDlgBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     useDissmissNextToasts();
+    useSawHandleMonitor();
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
             <DebugFrame>
@@ -50,6 +53,19 @@ function SawMonitorDlgBody() {
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>
+    );
+}
+
+//TODO: move out of this file
+function useSawHandleMonitor() {
+    useSawHandleListener(
+        useCallback(
+            (get: Getter, set: Setter, newVal: GetTargetWindowResult | null, prevVal: GetTargetWindowResult | null) => {
+                if (newVal?.hwnd !== prevVal?.hwnd) {
+                    console.log('useSawHandleListener', newVal);
+                }
+            }, []
+        )
     );
 }
 
