@@ -1,6 +1,6 @@
 import React, { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
-import { TooltipArrow } from "@radix-ui/react-tooltip";
+import { Content as TooltipAllContent, TooltipArrow } from "@radix-ui/react-tooltip";
 
 export function TreeItemTooltip({ trigger, body }: { trigger: ReactNode; body: ReactNode; }) {
     return (
@@ -84,7 +84,7 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
         <TooltipProvider delayDuration={1700}>
             <Tooltip open={!!activeItem} onOpenChange={handleTooltipOpenChange}>
                 <TooltipPortal>
-                    <TooltipContent
+                    <TooltipAllContent
                         className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none"
                         side="top"
                         sideOffset={10}
@@ -92,7 +92,7 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
                         onMouseLeave={handleTooltipContentMouseLeave}
                     >
                         {activeItem?.tooltipContent}
-                    </TooltipContent>
+                    </TooltipAllContent>
                 </TooltipPortal>
 
                 <ul>
