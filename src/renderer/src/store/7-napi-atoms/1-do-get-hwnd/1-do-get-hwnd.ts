@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { errorToString, shortenWindowCaption } from "@/utils";
+import { atomWithListeners, errorToString, shortenWindowCaption } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { GetTargetWindowResult } from "@shared/ipc-types";
@@ -9,7 +9,7 @@ import { sawContentAtom, sawContentStrAtom } from "../3-do-get-controls";
 import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetch";
 
 export const sawHandleStrAtom = atom<string | undefined>('');
-export const sawHandleAtom = atom<GetTargetWindowResult | null>(null);
+export const [sawHandleAtom, useSawHandleListener] = atomWithListeners<GetTargetWindowResult | null>(null);
 
 export const sawHandleCaptionAtom = atom(
     (get) => {
