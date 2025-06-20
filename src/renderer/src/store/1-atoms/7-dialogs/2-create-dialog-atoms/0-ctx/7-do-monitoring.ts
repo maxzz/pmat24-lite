@@ -31,11 +31,14 @@ const doMonitoringTimerAtom = atom(
             function runTimeout() {
                 set(doUpdateHwndAndIconAtom);
                 set(_monitorCountAtom, get(_monitorCountAtom) + 1);
+
                 timeoutId.id = setTimeout(runTimeout, 1000 / timesPerSecond);
             }
         }
     }
 );
+
+// Seconds counter
 
 export const secondsCounterAtom = atom(
     (get) => Math.ceil(get(_monitorCountAtom) / timesPerSecond)
@@ -55,7 +58,7 @@ const timeoutId = {
     }
 };
 
-//
+// Update hwnd and icon
 
 export const doUpdateHwndAndIconAtom = atom(
     null,
