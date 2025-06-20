@@ -1,4 +1,4 @@
-import React, { useRef, useState, type ReactNode, type MouseEvent } from "react";
+import React, { useRef, useState, type ReactNode, type MouseEvent, useEffect } from "react";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui";
 import { Content as TooltipAllContent, TooltipArrow } from "@radix-ui/react-tooltip";
 
@@ -40,6 +40,9 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
     const [isMouseOverTooltipContent, setIsMouseOverTooltipContent] = useState(false);
     const hideTooltipTimer = useRef<number | null>(null);
 
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 }); // State for mouse position
+    const listRef = useRef<HTMLUListElement>(null); // Ref for the list container
+
     const clearHideTooltipTimer = () => {
         if (hideTooltipTimer.current) {
             clearTimeout(hideTooltipTimer.current);
@@ -80,22 +83,52 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
         }
     };
 
+    // (1) not working
+    // Effect to track mouse position within the list container
+    // useEffect(() => {
+    //     const handleMouseMove = (event: globalThis.MouseEvent) => {
+    //         if (listRef.current && listRef.current.contains(event.target as Node)) {
+    //             console.log('handleMouseMove', { x: event.clientX, y: event.clientY });
+                
+    //             setMousePosition({ x: event.clientX, y: event.clientY });
+    //         }
+    //     };
+
+    //     if (listRef.current) {
+    //         listRef.current.addEventListener('mousemove', handleMouseMove);
+    //     }
+
+    //     return () => {
+    //         if (listRef.current) {
+    //             listRef.current.removeEventListener('mousemove', handleMouseMove);
+    //         }
+    //     };
+    // }, []);
+
     return (
         <TooltipProvider delayDuration={1700}>
             <Tooltip open={!!activeItem} onOpenChange={handleTooltipOpenChange}>
                 <TooltipPortal>
                     <TooltipAllContent
-                        className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none"
-                        side="top"
-                        sideOffset={10}
+                        className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none z-[120]"
+                        // side="top"
+                        // sideOffset={10}
                         onMouseEnter={handleTooltipContentMouseEnter}
                         onMouseLeave={handleTooltipContentMouseLeave}
+
+                        // (1) not working
+                        // style={{
+                        //     position: 'fixed', // Use fixed positioning
+                        //     left: `${mousePosition.x + 10}px`, // Adjust left offset (e.g., 10px)
+                        //     top: `${mousePosition.y - 20}px`, // Adjust top offset (e.g., 20px above)
+                        //     pointerEvents: 'none', // Prevent the tooltip content from interfering with mouse events on the list items
+                        // }}
                     >
                         {activeItem?.tooltipContent}
                     </TooltipAllContent>
                 </TooltipPortal>
 
-                <ul>
+                <ul ref={listRef}> {/* Attach ref to the list container */}
                     {items.map((item) => (
                         <li
                             key={item.id}
