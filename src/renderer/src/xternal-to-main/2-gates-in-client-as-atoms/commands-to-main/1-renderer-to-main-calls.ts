@@ -46,6 +46,10 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:show-hide-window', showHide });
     }
 
+    export function getWindowPosAction(params: 'move' | 'stop'): void {
+        sendToMainTyped({ type: 'r2m:get-window-pos-action', params });
+    }
+
     // tests
 
     export function loadTestManifests(): void {

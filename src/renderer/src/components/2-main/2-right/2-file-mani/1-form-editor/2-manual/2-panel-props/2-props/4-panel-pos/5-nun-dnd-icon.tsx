@@ -21,19 +21,19 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
 }
 
 function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
-    const getDndPosition = useSetAtom(getDndPositionAtom);
+    // const getDndPosition = useSetAtom(getDndPositionAtom);
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         // event.preventDefault();
         // event.stopPropagation();
         // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
-        await getDndPosition({ item, fileUsCtx });
+        // await getDndPosition({ item, fileUsCtx });
         console.log('NapiPicker.onPointerDown');
     }
 
     async function onClick() {
         // setTimeout(() => getDndPosition({ item, fileUsCtx }), 100);
-        await getDndPosition({ item, fileUsCtx });
+        // await getDndPosition({ item, fileUsCtx });
         console.log('NapiPicker.onClick');
     }
 
@@ -54,8 +54,8 @@ const getDndPositionAtom = atom(
             return;
         }
 
-        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'init', hwnd: hwnd.hwnd } });
-        console.log('done. data', data);
+        // const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'init', hwnd: hwnd.hwnd } });
+        // console.log('done. data', data);
 
     }
 );

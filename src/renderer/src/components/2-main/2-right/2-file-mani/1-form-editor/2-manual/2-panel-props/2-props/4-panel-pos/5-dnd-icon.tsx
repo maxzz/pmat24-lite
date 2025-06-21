@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { invokeMainTyped } from "@/xternal-to-main";
+import { invokeMainTyped, R2MCalls } from "@/xternal-to-main";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState } from "@/store";
 import { useBuildStateLink } from "./10-nun-build-state-link";
@@ -131,23 +131,21 @@ const dndActionInitAtom = atom(
             return 'no.wnd';
         }
 
-        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'init', hwnd: hwnd.hwnd } });
+        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos-init', params: { what: 'init', hwnd: hwnd.hwnd } });
         return data;
     }
 );
 
 const dndActionMoveAtom = atom(
     null,
-    async (get, set): Promise<string> => {
-        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'move' } });
-        return data;
+    (get, set): void => {
+        R2MCalls.getWindowPosAction('move');
     }
 );
 
 const dndActionStopAtom = atom(
     null,
-    async (get, set): Promise<string> => {
-        const data = await invokeMainTyped({ type: 'r2mi:get-window-pos', params: { what: 'stop' } });
-        return data;
+    (get, set): void => {
+        R2MCalls.getWindowPosAction('stop');
     }
 );
