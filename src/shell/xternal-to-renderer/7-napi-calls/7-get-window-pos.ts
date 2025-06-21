@@ -14,6 +14,7 @@ export function dndActionInit(params: DragAndDropParams): string {
     if (!gDragAndDropper) {
         return 'no.glb';
     }
+    
 
     const actionParams = JSON.stringify({ hwnd: params.hwnd });
     let rv_error: string = '';
@@ -60,7 +61,7 @@ export function dndAction(actionName: DragAndDropActionParams): void {
     gDragAndDropper[actionName]('');
 }
 
-export type DragAndDropInitParams = Prettify<{ what: 'init'; } & DragAndDropParams>;
+export type DragAndDropInitParams = DragAndDropParams;
 export type DragAndDropActionParams = 'move' | 'stop';
 
 let gDragAndDropper: DragAndDropper | null = null;

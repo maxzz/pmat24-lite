@@ -57,7 +57,7 @@ export namespace R2M { // Main from Renderer
     };
 
     export type GetWindowPosAction = {  // For manual mode position tracking inside target window
-        type: 'r2mi:get-window-pos-init';
+        type: 'r2m:get-window-pos-action';
         params: 'move' | 'stop';
     };
 
