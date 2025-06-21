@@ -1,24 +1,23 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
 import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult } from "./pmat-plugin-types";
+import { debounce } from "@shell/3-utils-main";
 
 /**
- * Get position inside window by drag and drop for manual mode 'position' action.
+ * Init get position inside window operation by drag and drop for manual mode 'position' action.
  */
-
 export function dndActionInit(params: DragAndDropParams): string {
-    if (!gDragAndDropper) {
-        gDragAndDropper = new addon.DragAndDropper();
-    }
-
-    if (!gDragAndDropper) {
-        return 'no.glb';
+    if (!dragAndDropper) {
+        dragAndDropper = new addon.DragAndDropper();
+        if (!dragAndDropper) {
+            return 'no.glb';
+        }
     }
 
     const actionParams = JSON.stringify({ hwnd: params.hwnd });
     let rv_error: string = '';
 
-    gDragAndDropper.init(actionParams,
+    dragAndDropper.init(actionParams,
         (err: any, data?: string) => {
             if (err) {
                 console.error('dnd.error 1');
@@ -30,11 +29,8 @@ export function dndActionInit(params: DragAndDropParams): string {
                 const tempFix = (data || '').replace(/{status:/g, '{"status":');
                 const res = JSON.parse(tempFix || '') as DragAndDropResult;
 
-                if (res.status === 'progress') { // status: 'initialized' | 'progress' | 'done' | 'abandoned'
-                    //console.log('dnd.progress', data);
-
-                    mainToRenderer({ type: 'm2r:position-progress', progress: res });
-                    return;
+                if (res.status === 'progress') {
+                    debouncedSendToClient(res);
                 } else {
                     console.log('dnd.utility res', res);
                 }
@@ -50,18 +46,24 @@ export function dndActionInit(params: DragAndDropParams): string {
 }
 
 export function dndAction(actionName: DragAndDropActionParams): void {
-    if (!gDragAndDropper) {
-        gDragAndDropper = new addon.DragAndDropper();
-    }
-
-    if (!gDragAndDropper) {
-        return;
-    }
-
-    gDragAndDropper[actionName]('');
+    dragAndDropper?.[actionName](''); // console.log('call.init.fisrt');
 }
 
 export type DragAndDropInitParams = DragAndDropParams;
 export type DragAndDropActionParams = 'move' | 'stop';
 
-let gDragAndDropper: DragAndDropper | null = null;
+let dragAndDropper: DragAndDropper | null = null;
+
+function roundInt(num: number) {
+    return Math.round(num);
+}
+
+function sendToClient(res: DragAndDropResult) {
+    
+    res.point.x = roundInt(res.point.x);
+    res.point.y = roundInt(res.point.y);
+
+    mainToRenderer({ type: 'm2r:position-progress', progress: res });
+}
+
+const debouncedSendToClient = debounce(sendToClient, 100);

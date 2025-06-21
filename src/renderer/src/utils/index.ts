@@ -1,5 +1,7 @@
 export * from "./util-hooks";
 export * from "./classnames";
+export * from "./compare-rect";
+export * from "./console-styles";
 export * from "./debounce";
 export * from "./debug-time";
 export * from "./delay";
@@ -18,5 +20,5 @@ export * from "./theme-apply";
 export * from './merge-options';
 export * from "./valtio-array";
 export * from "./verify-permission";
-export * from "./console-styles";
-//export * from "./uuid"; // use it from manifest
+
+// export * from "./uuid"; // use it from manifest

@@ -1,5 +1,5 @@
-import { R2MInvoke } from "@shared/ipc-types";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightField, highlightTargetWindow, getWindowExtras, dndAction, dndActionInit } from "../7-napi-calls";
+import { type R2MInvoke } from "@shared/ipc-types";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightField, highlightTargetWindow, getWindowExtras, dndActionInit } from "../7-napi-calls";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 
@@ -59,7 +59,7 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             return rv;
         }
         case 'r2mi:get-window-pos-init': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowPosInit> = await dndActionInit(data.params);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowPosInit> = dndActionInit(data.params);
             return rv;
         }
         case 'r2mi:get-window-mani': {
