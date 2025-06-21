@@ -56,6 +56,11 @@ export namespace R2M { // Main from Renderer
         showHide: boolean;              // true - show, false - hide
     };
 
+    export type GetWindowPosAction = {  // For manual mode position tracking inside target window
+        type: 'r2mi:get-window-pos-init';
+        params: 'move' | 'stop';
+    };
+
     // tests
 
     export type LoadTestManifests = {   // will reply with 'm2r:loaded-files' from dialog
@@ -78,6 +83,7 @@ export namespace R2M { // Main from Renderer
         | CancelDetection
         | SetSawMode
         | ShowHideWindow
+        | GetWindowPosAction
 
         | LoadManifestsDialog
         | StartTestFromMain
@@ -94,6 +100,7 @@ export namespace R2MParams {
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
     export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;
     export type ShowHideWindow = Omit<R2M.ShowHideWindow, 'type'>;
+    export type GetWindowPosAction = Omit<R2M.GetWindowPosAction, 'type'>;
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
     export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
 }

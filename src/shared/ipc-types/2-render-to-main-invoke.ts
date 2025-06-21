@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type TargetPosition, type Rect4, type WindowHighlighterParams, type DragAndDropCallParams } from "../../shell/xternal-to-renderer/7-napi-calls";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams } from "../../shell/xternal-to-renderer/7-napi-calls";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -62,9 +62,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         params: ManifestForWindowCreatorParams;
     };
 
-    export type GetWindowPos = {
-        type: 'r2mi:get-window-pos';
-        params: DragAndDropCallParams;
+    export type GetWindowPosInit = {
+        type: 'r2mi:get-window-pos-init';
+        params: DragAndDropParams;
     };
 
     export type GetTlwInfos = {
@@ -106,7 +106,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetSecondWindowContent
         | GetSecondWindowIcon
         | GetSecondWindowMani
-        | GetWindowPos
+        | GetWindowPosInit
         | GetTlwInfos
         | GetTlwScreenshots
         | HighlightField
@@ -159,7 +159,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends GetSecondWindowMani      //'r2mi:get-window-mani'
         ? string
 
-        : T extends GetWindowPos             //'r2mi:get-window-pos'
+        : T extends GetWindowPosInit         //'r2mi:get-window-pos-init'
         ? string                             // in case of 'move' this is DragAndDropResult otherwise it is empty string if no error
 
         : T extends GetTlwInfos              //'r2mi:get-tlw-infos'
@@ -192,7 +192,7 @@ export namespace R2MInvokeParams {
     export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
     export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;
     export type GetSecondWindowMani = Omit<R2MInvoke.GetSecondWindowMani, 'type'>;
-    export type GetWindowPos = Omit<R2MInvoke.GetWindowPos, 'type'>;
+    export type GetWindowPos = Omit<R2MInvoke.GetWindowPosInit, 'type'>;
     export type GetTlwInfos = Omit<R2MInvoke.GetTlwInfos, 'type'>;
     export type GetTlwScreenshots = Omit<R2MInvoke.GetTlwScreenshots, 'type'>;
     export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
