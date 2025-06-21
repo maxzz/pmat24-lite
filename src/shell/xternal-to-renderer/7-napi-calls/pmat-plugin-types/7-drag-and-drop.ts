@@ -7,7 +7,7 @@ export type DragAndDropParams = {
 };
 
 export type DragAndDropResult = {
-    status: 'progress';
+    status: 'initialized' | 'progress' | 'done' | 'abandoned';
     point: PointXY;                     // Current mouse coordinates converted to the client area of target window.
     clientRect?: Rect4;                 // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
     windowRect?: Rect4;                 // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
@@ -15,19 +15,16 @@ export type DragAndDropResult = {
 
 export type TargetPosition = Omit<DragAndDropResult, 'status'>;
 
+// export interface DragAndDropper {
+//     new(): DragAndDropper;
+//     init(dragAndDropParams: string, cb: PluginErrorCallback): void;
+//     move(params: string, cb: PluginDataCallback<DragAndDropResult>): void;
+//     stop(params: string, cb: PluginErrorCallback): void;
+// }
+
 export interface DragAndDropper {
     new(): DragAndDropper;
-    init(dragAndDropParams: string, cb: PluginErrorCallback): void;
-    move(params: string, cb: PluginDataCallback<DragAndDropResult>): void;
-    stop(params: string, cb: PluginErrorCallback): void;
+    init(dragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): void; // This will subscribe to track move events and show target icon at cursor position
+    move(params: ''): void; // This will trigger move event for track method
+    stop(params: ''): void; // This will unsubscribe from move events
 }
-
-/**
- *TODO: It should be:
-    export interface PositionTracker {
-        new(): DragAndDropper;
-        watch(dragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): void; // This will subscribe to track move events and show target icon at cursor position
-        move(params: ''): void; // This will trigger move event for track method
-        stop(params: ''): void; // This will unsubscribe from move events
-}
-*/
