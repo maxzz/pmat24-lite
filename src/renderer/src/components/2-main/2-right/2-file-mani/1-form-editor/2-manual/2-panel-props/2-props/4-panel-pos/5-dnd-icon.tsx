@@ -79,7 +79,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
 
     async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
         try {
-            const res = await dndActionStop();
+            const res = dndActionStop();
             console.log('%cDragging. stop', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -96,7 +96,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         }
         setIsBusy(true);
         try {
-            const res = await dndActionMove();
+            const res = dndActionMove();
             console.log('%cDragging. move', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -132,6 +132,9 @@ const dndActionInitAtom = atom(
         }
 
         const data = await invokeMainTyped({ type: 'r2mi:get-window-pos-init', params: { what: 'init', hwnd: hwnd.hwnd } });
+        if (data) {
+            console.log('failed: dnd.init', data);
+        }
         return data;
     }
 );
