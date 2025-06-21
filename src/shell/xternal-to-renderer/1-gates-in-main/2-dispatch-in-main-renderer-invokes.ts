@@ -62,10 +62,6 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowPosInit> = await dndActionInit(data.params);
             return rv;
         }
-        // case 'r2mi:get-window-pos': {
-        //     const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowPos> = await getWindowPos(data.hwnd);
-        //     return rv;
-        // }
         case 'r2mi:get-window-mani': {
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetSecondWindowMani> = await getWindowMani(data.params);
             return rv;

@@ -14,7 +14,6 @@ export function dndActionInit(params: DragAndDropParams): string {
     if (!gDragAndDropper) {
         return 'no.glb';
     }
-    
 
     const actionParams = JSON.stringify({ hwnd: params.hwnd });
     let rv_error: string = '';
@@ -28,19 +27,20 @@ export function dndActionInit(params: DragAndDropParams): string {
             }
 
             try {
-                const res = JSON.parse(data || '') as DragAndDropResult;
+                const tempFix = (data || '').replace(/{status:/g, '{"status":');
+                const res = JSON.parse(tempFix || '') as DragAndDropResult;
 
                 if (res.status === 'progress') { // status: 'initialized' | 'progress' | 'done' | 'abandoned'
-                    console.log('dnd.progress', res);
+                    //console.log('dnd.progress', data);
 
-                    mainToRenderer({ type: "m2r:position-progress", progress: res });
+                    mainToRenderer({ type: 'm2r:position-progress', progress: res });
                     return;
                 } else {
                     console.log('dnd.utility res', res);
                 }
             }
             catch (error) {
-                console.error('dnd.error 2', error);
+                console.error('dnd.error 2', error, data);
                 rv_error = `'dnd.error 2': ${error}`;
             }
         }
@@ -65,41 +65,3 @@ export type DragAndDropInitParams = DragAndDropParams;
 export type DragAndDropActionParams = 'move' | 'stop';
 
 let gDragAndDropper: DragAndDropper | null = null;
-/*
-export function getWindowPos(hwnd: string): Promise<TargetPosition> {
-    return new Promise<TargetPosition>(
-        (resolve, reject) => {
-            const params: DragAndDropParams = { hwnd };
-            const param = JSON.stringify(params);
-
-            addon.dragAndDrop(param,
-                (err: string, data: string) => {
-                    console.log('+++++++++++++', data);
-
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-
-                    try {
-                        const res = JSON.parse(data) as DragAndDropResult;
-
-                        if (res.status === 'progress') {
-                            console.log('progress', res.point);
-
-                            mainToRenderer({ type: "m2r:position-progress", progress: res });
-                            return;
-                        }
-
-                        resolve(res);
-                    } catch (error) {
-                        console.error('error', error);
-
-                        reject('>>>Faieled to get posiotion.');
-                    }
-                }
-            );
-        }
-    );
-}
-*/
