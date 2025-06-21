@@ -35,3 +35,7 @@ export type Win32Errors =
 
 export type PluginDataCallback<T> = (err: string, data: string) => void;
 export type PluginErrorCallback = (err: string) => void;
+
+// Clarification types
+
+export type OKIfEmptyString = string | '';

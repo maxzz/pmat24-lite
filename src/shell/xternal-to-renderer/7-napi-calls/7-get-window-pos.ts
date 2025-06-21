@@ -1,12 +1,12 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
-import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult } from "./pmat-plugin-types";
+import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OKIfEmptyString } from "./pmat-plugin-types";
 import { debounce } from "@shell/3-utils-main";
 
 /**
  * Init get position inside window operation by drag and drop for manual mode 'position' action.
  */
-export function dndActionInit(params: DragAndDropParams): string {
+export function dndActionInit(params: DragAndDropParams): OKIfEmptyString {
     if (!dragAndDropper) {
         dragAndDropper = new addon.DragAndDropper();
         if (!dragAndDropper) {
@@ -54,15 +54,9 @@ export type DragAndDropActionParams = 'move' | 'stop';
 
 let dragAndDropper: DragAndDropper | null = null;
 
-function roundInt(num: number) {
-    return Math.round(num);
-}
-
 function sendToClient(res: DragAndDropResult) {
-    
-    res.point.x = roundInt(res.point.x);
-    res.point.y = roundInt(res.point.y);
-
+    res.point.x = Math.round(res.point.x);
+    res.point.y = Math.round(res.point.y);
     mainToRenderer({ type: 'm2r:position-progress', progress: res });
 }
 
