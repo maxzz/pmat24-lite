@@ -6,6 +6,7 @@ export * from "./4-do-get-mani";
 export * from "./5-do-screenshots";
 export * from "./6-do-highlight-field";
 export * from "./6-do-highlight-window";
+export * from "./7-do-pos-tracking";
 export * from "./8-create-mani-tests-w-fetch";
 export * from "./9-napi-build-state";
 
