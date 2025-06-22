@@ -14,10 +14,10 @@ export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
         }
     }
 
-    const actionParams = JSON.stringify({ hwnd: params.hwnd });
+    const paramsStr = JSON.stringify({ hwnd: params.hwnd });
     let error: string = '';
 
-    dragAndDropper.init(actionParams,
+    dragAndDropper.init(paramsStr,
         (err: any, data?: string) => {
             if (err) {
                 console.error('dnd.error 1');

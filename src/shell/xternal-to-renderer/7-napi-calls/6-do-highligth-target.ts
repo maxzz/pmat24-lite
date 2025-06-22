@@ -12,11 +12,11 @@ export function highlightTargetWindow(params: WindowHighlighterParams | undefine
     }
 
     const showOrHide = !!params;
-    const paramStr = showOrHide ? JSON.stringify(params) : '';
+    const paramsStr = showOrHide ? JSON.stringify(params) : '';
     const methodName = showOrHide ? 'highlight' : 'unHighlight';
 
     return new Promise<string>((resolve, reject) => {
-        highlighter![methodName](paramStr,
+        highlighter![methodName](paramsStr,
             (err: any, _data: string) => {
                 if (err) {
                     resolve(err);

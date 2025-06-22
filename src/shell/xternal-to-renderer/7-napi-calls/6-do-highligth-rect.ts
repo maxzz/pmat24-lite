@@ -11,10 +11,10 @@ export function highlightField(params: WindowControlHighlighterParams): Promise<
         }
     }
 
-    const paramStr = JSON.stringify(params);
+    const paramsStr = JSON.stringify(params);
 
     return new Promise<string>((resolve, reject) => {
-        highlighter!.highlight(paramStr,
+        highlighter!.highlight(paramsStr,
             (err: any, _data: string) => {
                 if (err) {
                     resolve(err);

@@ -18,9 +18,9 @@ export async function test08_GetTopLevelWindowsScreenshots(windowsInfos: TlwInfo
 export async function getTlwScreenshots(params: GetTlwScreenshotsParams): Promise<string> {
     return new Promise<string>(
         (resolve, reject) => {
-            const param = JSON.stringify(params);
+            const paramsStr = JSON.stringify(params);
 
-            addon.getTopLevelWindowsScreenshots(param,
+            addon.getTopLevelWindowsScreenshots(paramsStr,
                 (err: string, data: string) => {
                     if (err) {
                         reject(err);

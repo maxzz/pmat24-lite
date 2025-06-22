@@ -7,11 +7,11 @@ import { type ManifestForWindowCreatorParams, type ManifestForWindowCreatorResul
 export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<string> {
     return new Promise<string>(
         (resolve, reject) => {
-            const param = JSON.stringify(params);
+            const paramsStr = JSON.stringify(params);
 
             const collector = new addon.ManifestForWindowCreator();
 
-            collector.create(param,
+            collector.create(paramsStr,
                 (err: any, str: string) => {
                     if (err) {
                         reject(err);

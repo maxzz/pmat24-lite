@@ -5,9 +5,9 @@ export function getTargetHwnd(): Promise<string> {
     return new Promise<string>(
         (resolve, reject) => {
             const params: GetTargetWindowParams = {};
-            const param = JSON.stringify(params);
+            const paramsStr = JSON.stringify(params);
 
-            addon.getTargetWindow(param,
+            addon.getTargetWindow(paramsStr,
                 (err: string, data: string) => err ? reject(err) : resolve(data)
             );
         }
