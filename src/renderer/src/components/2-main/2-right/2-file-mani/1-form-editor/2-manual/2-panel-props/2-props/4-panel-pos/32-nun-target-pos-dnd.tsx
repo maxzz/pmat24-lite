@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { classNames } from "@/utils";
-import { buildState, PointXY } from "./9-pos-build-state";
+import { buildState, PointXY } from "./19-pos-build-state";
 // import { IconTarget } from "@/components/ui/icons";
 
-export function NewPositionIcon() {
+export function PositionIcon() {
     const [iconVisible, setIconVisible] = useState(true);
 
     function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {

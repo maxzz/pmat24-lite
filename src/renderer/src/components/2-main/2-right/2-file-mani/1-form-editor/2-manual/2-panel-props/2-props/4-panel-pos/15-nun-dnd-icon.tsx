@@ -3,7 +3,7 @@ import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped } from "@/xternal-to-main";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState } from "@/store";
-import { useBuildStateLink } from "./10-nun-build-state-link";
+import { useBuildStateLink } from "./30-nun-build-state-link";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 

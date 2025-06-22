@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { buildState } from "./9-pos-build-state";
+import { buildState } from "./19-pos-build-state";
 
 export function useBuildStateLink(item: ManualFieldState.CtxPos) {
     const setPosValueX = useSetAtom(item.xAtom);
