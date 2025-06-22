@@ -1,12 +1,12 @@
 import { addon } from "./0-addon";
-import { type WindowHighlighterParams, type WindowHighlighter } from "./pmat-plugin-types";
+import { type WindowHighlighterParams, type WindowHighlighter, OkIfEmptyString } from "./pmat-plugin-types";
 
-let gHighlighter: WindowHighlighter | null = null;
+let highlighter: WindowHighlighter | null = null;
 
-export function highlightTargetWindow(params: WindowHighlighterParams | undefined): Promise<string> {
-    if (!gHighlighter) {
-        gHighlighter = new addon.WindowHighlighter();
-        if (!gHighlighter) {
+export function highlightTargetWindow(params: WindowHighlighterParams | undefined): Promise<OkIfEmptyString> {
+    if (!highlighter) {
+        highlighter = new addon.WindowHighlighter();
+        if (!highlighter) {
             throw new Error('no.gh');
         }
     }
@@ -16,12 +16,7 @@ export function highlightTargetWindow(params: WindowHighlighterParams | undefine
     if (showOrHide) {
         const paramStr = JSON.stringify(params);
         return new Promise<string>((resolve, reject) => {
-            if (!gHighlighter) {
-                reject('no.hi');
-                return;
-            }
-
-            gHighlighter.highlight(paramStr,
+            highlighter!.highlight(paramStr,
                 (err: any, _data: string) => {
                     if (err) {
                         resolve(err);
@@ -33,12 +28,7 @@ export function highlightTargetWindow(params: WindowHighlighterParams | undefine
         });
     } else {
         return new Promise<string>((resolve, reject) => {
-            if (!gHighlighter) {
-                reject('no.hi');
-                return;
-            }
-
-            gHighlighter.unHighlight('',
+            highlighter!.unHighlight('',
                 (err: any, _data: string) => {
                     if (err) {
                         resolve(err);
