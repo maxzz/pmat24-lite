@@ -1,6 +1,6 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
-import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OkIfEmptyString, type TargetPosition, type Rect4 } from "./pmat-plugin-types";
+import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OkIfEmptyString, type TargetPosition, type Rect4, type PointXY } from "./pmat-plugin-types";
 import { debounce, isPointInsideRect } from "@shell/3-utils-main";
 
 /**
@@ -31,7 +31,7 @@ export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
 
                 if (res.status === 'progress') {
                     debouncedSendToClient(res);
-                    printProgress(res);
+                    debouncedPrintProgress(res);
                 } else {
                     console.log('dnd.utility res', res);
                 }
@@ -46,16 +46,18 @@ export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
     return error;
 }
 
-export function dndAction(actionName: DragAndDropActionParams): void {
+export function dndAction(actionName: 'move' | 'stop'): void {
     dragAndDropper?.[actionName](''); // console.log('call.init.fisrt');
 }
 
-export type DragAndDropInitParams = DragAndDropParams;
-export type DragAndDropActionParams = 'move' | 'stop';
-
 let dragAndDropper: DragAndDropper | null = null;
 
-//
+// Call to client
+
+export type DndCallbackType = {
+    pt: PointXY;        // rounded to int point coordinates
+    isInside: boolean;  // point is inside client rect of the window defined in init params
+};
 
 function sendToClient(res: TargetPosition) {
     res.point.x = Math.round(res.point.x);
@@ -65,7 +67,7 @@ function sendToClient(res: TargetPosition) {
 
 const debouncedSendToClient = debounce(sendToClient, 100);
 
-//
+// Print utilities
 
 function Rect4ToString(rect: Rect4) {
     const [l, t, r, b] = Object.values(rect).map((v, idx) => `${Math.round(v)}`[idx === 0 || idx === 2 ? 'padStart' : 'padEnd'](4, ' '));
@@ -83,3 +85,5 @@ function printProgress(res: TargetPosition) {
         { data: JSON.stringify(res) }
     );
 }
+
+const debouncedPrintProgress = debounce(printProgress, 1000);
