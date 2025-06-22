@@ -18,51 +18,16 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
             </div> */}
 
             <NapiPicker item={item} fileUsCtx={fileUsCtx} />
-            <TestTargetWindowPosition />
         </div>
     );
 }
 
 function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
     const dndActionInit = useSetAtom(dndActionInitAtom);
-    const dndActionMove = useSetAtom(dndActionMoveAtom);
-    const dndActionStop = useSetAtom(dndActionStopAtom);
+    const dndAction = useSetAtom(dndActionAtom);
 
     const [isDown, setIsDown] = useState(false);
     const [isBusy, setIsBusy] = useState(false);
-
-    // async function onDragStart(event: React.DragEvent<HTMLDivElement>) {
-    //     //event.dataTransfer.setData('text/plain', 'Drag started');
-
-    //     // await dndActionInit({ item, fileUsCtx });
-    //     console.log('NapiPicker.onPointerDown');
-    //     setIsDown(true);
-
-    // }
-
-    // async function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
-    //     //event.dataTransfer.setData('text/plain', 'Drag ended');
-
-    //     // await dndActionStop({ item, fileUsCtx });
-    //     console.log('NapiPicker.onPointerUp');
-    //     setIsDown(false);
-    // }
-
-    // async function onDragOver(event: React.DragEvent<HTMLDivElement>) {
-    //     event.preventDefault();
-    //     //event.dataTransfer.dropEffect = 'move';
-
-    //     // if (!isDown) {
-    //     //     return;
-    //     // }
-    //     // if (isBusy) {
-    //     //     return;
-    //     // }
-    //     setIsBusy(true);
-    //     // await dndActionMove({ item, fileUsCtx });
-    //     console.log('NapiPicker.onPointerMove');
-    //     setIsBusy(false);
-    // }
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         const elm = event.target as HTMLDivElement;
@@ -71,15 +36,15 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         try {
             const res = await dndActionInit({ item, fileUsCtx });
             console.log('%cDragging. init', 'color:magenta', res);
+            setIsDown(true);
         } catch (err) {
             console.error(err);
         }
-        setIsDown(true);
     }
 
-    async function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
+    function onPointerUp() {
         try {
-            const res = dndActionStop();
+            const res = dndAction('stop');
             console.log('%cDragging. stop', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -87,7 +52,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         setIsDown(false);
     }
 
-    async function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    function onPointerMove() {
         if (!isDown) {
             return;
         }
@@ -96,7 +61,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
         }
         setIsBusy(true);
         try {
-            const res = dndActionMove();
+            const res = dndAction('move');
             console.log('%cDragging. move', 'color:magenta', res);
         } catch (err) {
             console.error(err);
@@ -107,10 +72,6 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     return (
         <div
             className="p-1 inline-block border-border border rounded shadow"
-            // draggable={true}
-            // onDragStart={onDragStart}
-            // onDragEnd={onDragEnd}
-            // onDragOver={onDragOver}
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
             onPointerMove={onPointerMove}
@@ -139,16 +100,9 @@ const dndActionInitAtom = atom(
     }
 );
 
-const dndActionMoveAtom = atom(
+const dndActionAtom = atom(
     null,
-    (get, set): void => {
-        R2MCalls.getWindowPosAction('move');
-    }
-);
-
-const dndActionStopAtom = atom(
-    null,
-    (get, set): void => {
-        R2MCalls.getWindowPosAction('stop');
+    (get, set, action: 'move' | 'stop'): void => {
+        R2MCalls.getWindowPosAction(action);
     }
 );
