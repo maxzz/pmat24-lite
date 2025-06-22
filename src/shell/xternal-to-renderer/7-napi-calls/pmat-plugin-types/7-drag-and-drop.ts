@@ -6,14 +6,19 @@ export type DragAndDropParams = {
     hwnd: string;
 };
 
-export type DragAndDropResult = {
-    status: 'initialized' | 'progress' | 'done' | 'abandoned';
+export type DragAndDropResult =
+    | {
+        status: 'initialized' | 'done' | 'abandoned';
+    }
+    | {
+        status: 'progress';
+    } & TargetPosition;
+
+export type TargetPosition = {
     point: PointXY;                     // Current mouse coordinates converted to the client area of target window.
     clientRect?: Rect4;                 // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
     windowRect?: Rect4;                 // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
 };
-
-export type TargetPosition = Omit<DragAndDropResult, 'status'>;
 
 export interface DragAndDropper {
     new(): DragAndDropper;
