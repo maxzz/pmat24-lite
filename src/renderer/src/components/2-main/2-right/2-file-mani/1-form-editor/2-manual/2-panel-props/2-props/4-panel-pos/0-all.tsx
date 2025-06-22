@@ -5,8 +5,8 @@ import { InputErrorPopupMessage, InputPopupMessage, OptionAsString } from "@/ui/
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
-import { InputXY } from "./31-nun-input-xy-picker";
-import { NewInputXY } from "./15-dnd-icon";
+import { InputXY } from "./31-nun-picker-input-xy";
+import { NewInputXY } from "./1-picker-dnd-w-napi";
 import { hasMain } from "@/xternal-to-main";
 
 export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {

@@ -4,8 +4,8 @@ import { FormIdx } from "@/store/manifest";
 import { invokeMainTyped, R2MCalls } from "@/xternal-to-main";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState } from "@/store";
-import { useBuildStateLink } from "./30-nun-build-state-link";
-import { TestTargetWindowPosition } from "./21-test-target-position";
+import { useBuildStateLink } from "./33-nun-build-state-link";
+import { TestTargetWindowPosition } from "./17-nun-picker-dnd-w-dom";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 

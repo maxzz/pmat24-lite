@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { classNames } from "@/utils";
-import { buildState, PointXY } from "./19-pos-build-state";
+import { buildState, PointXY } from "./19-nun-pos-build-state";
 // import { IconTarget } from "@/components/ui/icons";
 
 export function NewPositionIcon() {

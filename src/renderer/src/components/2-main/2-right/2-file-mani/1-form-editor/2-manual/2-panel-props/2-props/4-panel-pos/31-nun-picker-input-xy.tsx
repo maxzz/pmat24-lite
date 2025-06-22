@@ -1,6 +1,6 @@
 import { IconColorPicker, IconColorPickerChrome } from "@/ui/icons";
 import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { PositionIcon } from "./32-nun-target-pos-dnd";
+import { PositionIcon } from "./32-nun-picker-w-dom";
 
 // export function TargetPositionDisplay() {
 //     const { getPosProgress } = useSnapshot(buildState);
