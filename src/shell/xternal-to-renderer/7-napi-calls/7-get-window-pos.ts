@@ -1,7 +1,7 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
 import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OkIfEmptyString, type TargetPosition, type Rect4, type PointXY } from "./pmat-plugin-types";
-import { debounce, isPointInsideRect } from "@shell/3-utils-main";
+import { debounce, ptInsideRect } from "@shell/3-utils-main";
 
 /**
  * Init get position inside window operation by drag and drop for manual mode 'position' action.
@@ -62,9 +62,15 @@ export type PosTrackerCbType = Prettify<
 >;
 
 function sendToClient(res: TargetPosition) {
-    res.point.x = Math.round(res.point.x);
-    res.point.y = Math.round(res.point.y);
-    mainToRenderer({ type: 'm2r:position-progress', progress: res });
+    const { point: { x, y }, clientRect } = res;
+    mainToRenderer({
+        type: 'm2r:position-progress',
+        progress: {
+            x: Math.round(x),
+            y: Math.round(y),
+            isInside: ptInsideRect(x, y, clientRect),
+        }
+    });
 }
 
 const debouncedSendToClient = debounce(sendToClient, 100);
@@ -77,13 +83,14 @@ function Rect4ToString(rect: Rect4) {
 }
 
 function printProgress(res: TargetPosition) {
+    const { point: { x, y }, clientRect, windowRect } = res;
     console.log(
         `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, WINDOW: {%s}, MSG: %o`,
-        isPointInsideRect(res.point, res.clientRect) ? ' IN' : 'OUT',
-        `${Math.round(res.point.x)}`.padStart(4, ' '),
-        `${Math.round(res.point.y)}`.padStart(4, ' '),
-        Rect4ToString(res.clientRect),
-        Rect4ToString(res.windowRect),
+        ptInsideRect(x, y, clientRect) ? ' IN' : 'OUT',
+        `${Math.round(x)}`.padStart(4, ' '),
+        `${Math.round(y)}`.padStart(4, ' '),
+        Rect4ToString(clientRect),
+        Rect4ToString(windowRect),
         { data: JSON.stringify(res) }
     );
 }

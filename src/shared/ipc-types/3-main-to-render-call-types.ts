@@ -1,4 +1,4 @@
-import { type TargetPosition } from "@shared/ipc-types";
+import { type PosTrackerCbType } from "@shared/ipc-types";
 import { type MainFileContent } from "./9-file-content";
 
 export namespace M2R { // Main to Renderer
@@ -31,7 +31,7 @@ export namespace M2R { // Main to Renderer
 
     export type PositionProgress = {
         type: 'm2r:position-progress';
-        progress: TargetPosition;
+        progress: PosTrackerCbType;
     };
 
     export type SawModeCanceled = {

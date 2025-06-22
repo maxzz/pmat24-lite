@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../../shared/ipc-types";
 import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
-import { napiBuildProgress, napiBuildState } from "@/store/7-napi-atoms";
+import { napiBuildProgress, napiBuildState, stateNapiPosTracker } from "@/store/7-napi-atoms";
 import { cancelSizeSmall_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
 
@@ -43,7 +43,9 @@ export const doFromMainAtom = atom(
                 break;
             }
             case 'm2r:position-progress': {
-                napiBuildProgress.getPosProgress = data.progress;
+                stateNapiPosTracker.current.x = data.progress.x;
+                stateNapiPosTracker.current.y = data.progress.y;
+                stateNapiPosTracker.current.isInside = data.progress.isInside;
                 break;
             }
             case 'm2r:failed-raw-content': {

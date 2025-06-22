@@ -50,6 +50,7 @@ export const debouncedSetNapiGetPosXY = debounce(setNapiGetPosXY, 100);
 
 type StateNapiPosTracker = {
     current: PosTrackerCbType;
+    dragIsRunning: boolean;
 };
 
 export const stateNapiPosTracker = proxy<StateNapiPosTracker>({
@@ -58,4 +59,5 @@ export const stateNapiPosTracker = proxy<StateNapiPosTracker>({
         y: 0,
         isInside: false,
     },
+    dragIsRunning: false,
 });
