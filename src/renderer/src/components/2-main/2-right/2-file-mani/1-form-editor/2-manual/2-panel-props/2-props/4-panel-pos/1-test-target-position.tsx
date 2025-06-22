@@ -9,6 +9,7 @@ export function TestTargetWindowPosition({ className, ...rest }: ComponentPropsW
     function startDragging(event: React.PointerEvent<HTMLDivElement>) {
         const elm = event.target as HTMLDivElement;
         elm.setPointerCapture(event.pointerId);
+        
         setIconVisible(false);
         console.log('%cDragging. start', 'color:magenta');
 

@@ -143,4 +143,8 @@ export function App(): JSX.Element {
 //TODO: get window extra info atom - done
 
 //06.18.25				
-// TODO: support for single page logins: add checkbox: 'This is single page login and next page has password'.
+//TODO: support for single page logins: add checkbox: 'This is single page login and next page has password'.
+
+//06.22.25
+//TODO: show window screenshot instead of icon inside SAW monitor
+//TODO: move business logic from renderer to main: at least SAW monitor timer
