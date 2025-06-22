@@ -1,12 +1,12 @@
 import { addon } from "./0-addon";
-import { type WindowControlHighlighterParams, type WindowControlHighlighter } from "./pmat-plugin-types";
+import { type WindowControlHighlighterParams, type WindowControlHighlighter, type OkIfEmptyString } from "./pmat-plugin-types";
 
-let gHighlighter: WindowControlHighlighter | null = null;
+let highlighter: WindowControlHighlighter | null = null;
 
-export function highlightField(params: WindowControlHighlighterParams): Promise<string> {
-    if (!gHighlighter) {
-        gHighlighter = new addon.WindowControlHighlighter();
-        if (!gHighlighter) {
+export function highlightField(params: WindowControlHighlighterParams): Promise<OkIfEmptyString> {
+    if (!highlighter) {
+        highlighter = new addon.WindowControlHighlighter();
+        if (!highlighter) {
             throw new Error('no.gh');
         }
     }
@@ -14,11 +14,7 @@ export function highlightField(params: WindowControlHighlighterParams): Promise<
     const paramStr = JSON.stringify(params);
 
     return new Promise<string>((resolve, reject) => {
-        if (!gHighlighter) {
-            reject('no.gh');
-        }
-
-        gHighlighter?.highlight(paramStr,
+        highlighter!.highlight(paramStr,
             (err: any, _data: string) => {
                 if (err) {
                     resolve(err);

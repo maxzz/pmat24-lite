@@ -1,5 +1,5 @@
 import { addon } from "./0-addon";
-import { type WindowHighlighterParams, type WindowHighlighter, OkIfEmptyString } from "./pmat-plugin-types";
+import { type WindowHighlighterParams, type WindowHighlighter, type OkIfEmptyString } from "./pmat-plugin-types";
 
 let highlighter: WindowHighlighter | null = null;
 
@@ -12,31 +12,18 @@ export function highlightTargetWindow(params: WindowHighlighterParams | undefine
     }
 
     const showOrHide = !!params;
+    const paramStr = showOrHide ? JSON.stringify(params) : '';
+    const methodName = showOrHide ? 'highlight' : 'unHighlight';
 
-    if (showOrHide) {
-        const paramStr = JSON.stringify(params);
-        return new Promise<string>((resolve, reject) => {
-            highlighter!.highlight(paramStr,
-                (err: any, _data: string) => {
-                    if (err) {
-                        resolve(err);
-                    } else {
-                        resolve('');
-                    }
+    return new Promise<string>((resolve, reject) => {
+        highlighter![methodName](paramStr,
+            (err: any, _data: string) => {
+                if (err) {
+                    resolve(err);
+                } else {
+                    resolve('');
                 }
-            );
-        });
-    } else {
-        return new Promise<string>((resolve, reject) => {
-            highlighter!.unHighlight('',
-                (err: any, _data: string) => {
-                    if (err) {
-                        resolve(err);
-                    } else {
-                        resolve('');
-                    }
-                }
-            );
-        });
-    }
+            }
+        );
+    });
 }

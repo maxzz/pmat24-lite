@@ -9,4 +9,5 @@ export * from "./6-do-highligth-rect";
 export * from "./6-do-highligth-target";
 export * from "./7-get-window-pos";
 export * from "./8-get-window-extra";
+export * from "./8-get-tlw-infos";
 export * from "./9-types-napi-error";
