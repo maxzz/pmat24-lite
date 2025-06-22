@@ -54,10 +54,12 @@ let dragAndDropper: DragAndDropper | null = null;
 
 // Call to client
 
-export type DndCallbackType = {
-    pt: PointXY;        // rounded to int point coordinates
-    isInside: boolean;  // point is inside client rect of the window defined in init params
-};
+export type PosTrackerCbType = Prettify<
+    & PointXY                 // Current mouse coordinates converted to the client area of target window.
+    & {
+        isInside: boolean;    // Is mouse inside the target window
+    }
+>;
 
 function sendToClient(res: TargetPosition) {
     res.point.x = Math.round(res.point.x);
@@ -87,3 +89,5 @@ function printProgress(res: TargetPosition) {
 }
 
 const debouncedPrintProgress = debounce(printProgress, 1000);
+
+//
