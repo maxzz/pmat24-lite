@@ -1,4 +1,4 @@
-import { type PluginDataCallback, type Rect4, type PointXY, type OKIfEmptyString } from "./9-types";
+import { type PluginDataCallback, type Rect4, type PointXY, type OkIfEmptyString } from "./9-types";
 
 // Drag And Drop icon to a window (for manual mode runtime: mouse click to set position for the next script action).
 
@@ -22,7 +22,7 @@ export type TargetPosition = {
 
 export interface DragAndDropper {
     new(): DragAndDropper;
-    init(DragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): OKIfEmptyString; // This will subscribe to track move events and show target icon at cursor position
+    init(DragAndDropParams: string, cb: PluginDataCallback<DragAndDropResult>): OkIfEmptyString; // This will subscribe to track move events and show target icon at cursor position
     move(params: ''): void;             // This will trigger move event for track method
     stop(params: ''): void;             // This will unsubscribe from move events
 }

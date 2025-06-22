@@ -38,4 +38,4 @@ export type PluginErrorCallback = (err: string) => void;
 
 // Clarification types
 
-export type OKIfEmptyString = string | '';
+export type OkIfEmptyString = string | '';

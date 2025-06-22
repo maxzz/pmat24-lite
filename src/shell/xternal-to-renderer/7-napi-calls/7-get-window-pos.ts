@@ -1,12 +1,12 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
-import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OKIfEmptyString, type TargetPosition } from "./pmat-plugin-types";
+import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OkIfEmptyString, type TargetPosition } from "./pmat-plugin-types";
 import { debounce } from "@shell/3-utils-main";
 
 /**
  * Init get position inside window operation by drag and drop for manual mode 'position' action.
  */
-export function dndActionInit(params: DragAndDropParams): OKIfEmptyString {
+export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
     if (!dragAndDropper) {
         dragAndDropper = new addon.DragAndDropper();
         if (!dragAndDropper) {
@@ -15,13 +15,13 @@ export function dndActionInit(params: DragAndDropParams): OKIfEmptyString {
     }
 
     const actionParams = JSON.stringify({ hwnd: params.hwnd });
-    let rv_error: string = '';
+    let error: string = '';
 
     dragAndDropper.init(actionParams,
         (err: any, data?: string) => {
             if (err) {
                 console.error('dnd.error 1');
-                rv_error = `'dnd.error 1': ${err}`;
+                error = `'dnd.error 1': ${err}`;
                 return;
             }
 
@@ -37,12 +37,12 @@ export function dndActionInit(params: DragAndDropParams): OKIfEmptyString {
             }
             catch (error) {
                 console.error('dnd.error 2', error, data);
-                rv_error = `'dnd.error 2': ${error}`;
+                error = `'dnd.error 2': ${error}`;
             }
         }
     );
 
-    return rv_error;
+    return error;
 }
 
 export function dndAction(actionName: DragAndDropActionParams): void {
