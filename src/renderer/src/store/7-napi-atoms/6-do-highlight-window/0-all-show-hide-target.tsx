@@ -28,6 +28,14 @@ const doHideTargetAtom = atom(
 export function useSawHandleMonitor() {
     const doHideTarget = useSetAtom(doHideTargetAtom);
 
+    useEffect(
+        () => {
+            return () => {
+                doHideTarget();
+            };
+        }, []
+    );
+
     useSawHandleListener(
         useCallback(
             (get: Getter, set: Setter, newVal: GetTargetWindowResult | null, prevVal: GetTargetWindowResult | null) => {
@@ -46,13 +54,5 @@ export function useSawHandleMonitor() {
                 }
             }, []
         )
-    );
-
-    useEffect(
-        () => {
-            return () => {
-                doHideTarget();
-            };
-        }, []
     );
 }

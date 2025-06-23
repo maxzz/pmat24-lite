@@ -1,14 +1,10 @@
 import { useEffect } from 'react';
-import { type Getter, type Setter, type SetStateAction, atom, useSetAtom } from 'jotai';
-
-//https://jotai.org/docs/recipes/atom-with-listeners //GH: 'atomWithListeners path:*.ts'
-
-type Callback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;
+import { type Getter, type Setter, type SetStateAction, atom, useSetAtom } from 'jotai'; //https://jotai.org/docs/recipes/atom-with-listeners //GH: 'atomWithListeners path:*.ts'
 
 export function atomWithListeners<Value>(initialValue: Value) {
 
     const baseAtom = atom(initialValue);
-    const listenersAtom = atom<Callback<Value>[]>([]);
+    const listenersAtom = atom<ListenerCallback<Value>[]>([]);
 
     const anAtom = atom(
         (get) => get(baseAtom),
@@ -27,22 +23,25 @@ export function atomWithListeners<Value>(initialValue: Value) {
         }
     );
 
-    const useListener = (callback: Callback<Value>) => {
+    const useListener = (callback: ListenerCallback<Value>) => {
         const setListeners = useSetAtom(listenersAtom);
-
         useEffect(
             () => {
                 setListeners((prev) => [...prev, callback]);
-                return () =>
+                
+                return () => {
                     setListeners(
                         (prev) => {
-                            const index = prev.indexOf(callback);
-                            return [...prev.slice(0, index), ...prev.slice(index + 1)];
+                            const idx = prev.indexOf(callback);
+                            return [...prev.slice(0, idx), ...prev.slice(idx + 1)];
                         }
                     );
+                };
             }, [setListeners, callback]
         );
     };
 
     return [anAtom, useListener] as const;
 }
+
+type ListenerCallback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;
