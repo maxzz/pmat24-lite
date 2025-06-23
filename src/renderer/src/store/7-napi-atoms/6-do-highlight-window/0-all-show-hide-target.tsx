@@ -6,7 +6,7 @@ import { useSawHandleListener } from "../1-do-get-hwnd";
 
 const lastHighlightingedAtom = atom(false);
 
-export const doShowTargetAtom = atom(
+const doShowTargetAtom = atom(
     null,
     async (get, set, params: WindowHighlighterParams | undefined) => {
         const res = await invokeMainTyped({ type: 'r2mi:highlight-target', params });
@@ -15,7 +15,7 @@ export const doShowTargetAtom = atom(
     }
 );
 
-export const doHideTargetAtom = atom(
+const doHideTargetAtom = atom(
     null,
     async (get, set) => {
         const res = await invokeMainTyped({ type: 'r2mi:highlight-target' });

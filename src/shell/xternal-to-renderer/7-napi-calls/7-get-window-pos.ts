@@ -20,7 +20,6 @@ export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
     dragAndDropper.init(paramsStr,
         (err: any, data?: string) => {
             if (err) {
-                console.error('dnd.error 1');
                 error = `'dnd.error 1': ${err}`;
                 return;
             }
@@ -31,13 +30,12 @@ export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
 
                 if (res.status === 'progress') {
                     debouncedSendToClient(res);
-                    debouncedPrintProgress(res);
+                    //printProgressDebounced(res);
                 } else {
                     console.log('dnd.utility res', res);
                 }
             }
             catch (error) {
-                console.error('dnd.error 2', error, data);
                 error = `'dnd.error 2': ${error}`;
             }
         }
@@ -82,19 +80,19 @@ function Rect4ToString(rect: Rect4) {
     return `lt: ${l},${t}, rb: ${r},${b}`;
 }
 
-function printProgress(res: TargetPosition) {
-    const { point: { x, y }, clientRect, windowRect } = res;
-    console.log(
-        `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, WINDOW: {%s}, MSG: %o`,
-        ptInsideRect(x, y, clientRect) ? ' IN' : 'OUT',
-        `${Math.round(x)}`.padStart(4, ' '),
-        `${Math.round(y)}`.padStart(4, ' '),
-        Rect4ToString(clientRect),
-        Rect4ToString(windowRect),
-        { data: JSON.stringify(res) }
-    );
-}
-
-const debouncedPrintProgress = debounce(printProgress, 1000);
+const printProgressDebounced = debounce(
+    function printProgress(res: TargetPosition) {
+        const { point: { x, y }, clientRect, windowRect } = res;
+        console.log(
+            `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, WINDOW: {%s}, MSG: %o`,
+            ptInsideRect(x, y, clientRect) ? ' IN' : 'OUT',
+            `${Math.round(x)}`.padStart(4, ' '),
+            `${Math.round(y)}`.padStart(4, ' '),
+            Rect4ToString(clientRect),
+            Rect4ToString(windowRect),
+            { data: JSON.stringify(res) }
+        );
+    }, 1000
+);
 
 //
