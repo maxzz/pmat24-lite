@@ -12,13 +12,13 @@ export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.C
 
     return (<>
         {fileUsCtx.formIdx === FormIdx.login
-            ? <ManualFieldPolicyBtn item={item} />
-            : <LinkToLoginForm item={item} />
+            ? <Case_ManualFieldPolicyBtn item={item} />
+            : <Case_LinkToLoginForm item={item} />
         }
     </>);
 }
 
-export function ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {
+export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
     return (
         <InputLabel label="Policy">
@@ -31,7 +31,7 @@ export function ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; 
     );
 }
 
-function LinkToLoginForm({ item }: { item: ManualFieldState.CtxFld; }) {
+function Case_LinkToLoginForm({ item }: { item: ManualFieldState.CtxFld; }) {
     return (
         <InputLabel label="Link to login form">
             Link

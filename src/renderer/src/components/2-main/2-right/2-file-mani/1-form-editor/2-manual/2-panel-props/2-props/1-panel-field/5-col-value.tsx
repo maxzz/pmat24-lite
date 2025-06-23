@@ -4,6 +4,7 @@ import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
+import { doGetLinksAtom } from "./8-forms-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { typeAtom, rfieldAtom, rfieldUuidAtom } = item.rowCtx;
@@ -26,35 +27,18 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     // console.log('loginFormFields', loginFormFields);
     // console.log('cpassFormFields', cpassFormFields);
 
-    const links = useSetAtom(getLinksAtom);
-    console.log(`links "${label} link: ${rindexUuid}":`, links(fileUsCtx));
+    const doGetLinks = useSetAtom(doGetLinksAtom);
+    console.log(`links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
 
     return (<>
         {specialCpass
-            ? <ValueForCpassPsw item={item} />
-            : <ValueForLoginAndNotPsw item={item} fileUsCtx={fileUsCtx} />
+            ? <Case_ValueForCpassPsw item={item} />
+            : <Case_ValueForLoginAndNotPsw item={item} fileUsCtx={fileUsCtx} />
         }
     </>);
 }
 
-const getLinksAtom = atom(
-    null,
-    (get, set, fileUsCtx: FileUsCtx) => {
-        const maniAtoms = safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom));
-
-        const currentForm = maniAtoms[fileUsCtx.formIdx];
-        if (!currentForm) {
-            return;
-        }
-
-        return [
-            get(maniAtoms[loginFieldsIdx]),
-            get(maniAtoms[cpassFieldsIdx]),
-        ];
-    }
-);
-
-function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+function Case_ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, valueLifeAtom } = item.rowCtx;
     return (
         <Column4_Value
@@ -65,7 +49,7 @@ function ValueForLoginAndNotPsw({ item, fileUsCtx }: { item: ManualFieldState.Ct
     );
 }
 
-function ValueForCpassPsw({ item }: { item: ManualFieldState.CtxFld; }) {
+function Case_ValueForCpassPsw({ item }: { item: ManualFieldState.CtxFld; }) {
     const [type, setType] = useState('1');
     return (
         <InputSelectUi
