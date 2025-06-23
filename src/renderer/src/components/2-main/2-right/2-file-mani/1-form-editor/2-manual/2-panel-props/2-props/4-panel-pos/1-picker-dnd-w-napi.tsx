@@ -20,10 +20,9 @@ export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos;
 }
 
 function NapiPicker({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const { dragIsRunning } = useSnapshot(stateNapiPosTracker);
     const dndActionInit = useSetAtom(dndActionInitAtom);
     const dndAction = useSetAtom(dndActionAtom);
-
-    const [isDown, setIsDown] = useState(false);
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         if (event.buttons !== 1) { // if left button is not pressed then do nothing
@@ -35,21 +34,21 @@ function NapiPicker({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 
         try {
             const error = await dndActionInit(getFileUsConnectedHwndAtom(fileUsCtx));
-            error ? console.error('dnd.failed', error) : setIsDown(true);
+            error ? console.error('dnd.failed', error) : stateNapiPosTracker.dragIsRunning = true;
         } catch (err) {
             console.error(err);
         }
     }
 
     function onPointerUp() {
-        if (isDown) {
+        if (dragIsRunning) {
             dndAction('stop');
-            setIsDown(false);
+            stateNapiPosTracker.dragIsRunning = false;
         }
     }
 
     function onPointerMove() {
-        if (isDown) {
+        if (dragIsRunning) {
             dndAction('move');
         }
     }
@@ -61,7 +60,7 @@ function NapiPicker({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
             onPointerUp={onPointerUp}
             onPointerMove={onPointerMove}
         >
-            <IconDndTarget className={classNames("size-8", isDown && "opacity-10")} />
+            <IconDndTarget className={classNames("size-8", dragIsRunning && "opacity-10")} />
         </div>
     );
 }
@@ -72,9 +71,15 @@ function getFileUsConnectedHwndAtom(fileUsCtx: FileUsCtx): PrimitiveAtom<Highlig
 
 function DraggingHint() {
     const { current: { isInside }, dragIsRunning } = useSnapshot(stateNapiPosTracker);
+    const text =
+        dragIsRunning
+            ? isInside
+                ? 'Drop it!'
+                : 'Move cursor over the target window'
+            : 'To update click the coordinates, drag the icon over the target window and release it!';
     return (
         <div>
-            Click on the preview window below to select the click point.
+            {text}
         </div>
     );
 }
