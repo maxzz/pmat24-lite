@@ -172,7 +172,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string
 
         : T extends HighlightTarget          //'r2mi:highlight-target'
-        ? string
+        ? OkIfEmptyString
 
         : T extends GetWindowExtras          //'r2mi:get-window-extras'
         ? string

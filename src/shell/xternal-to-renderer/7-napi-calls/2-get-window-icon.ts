@@ -3,7 +3,7 @@ import { type WindowIconGetterParams, type ImageFormatType, type WindowIconGette
 
 let windowIconGetter: WindowIconGetter | null = null;
 
-export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 'png'): Promise<string> {
+export async function getWindowIcon(hwnd: string, iconFormat: ImageFormatType = 'png'): Promise<string> { // call 'r2mi:get-window-icon' in main
     if (!windowIconGetter) {
         windowIconGetter = new addon.WindowIconGetter();
         if (!windowIconGetter) {

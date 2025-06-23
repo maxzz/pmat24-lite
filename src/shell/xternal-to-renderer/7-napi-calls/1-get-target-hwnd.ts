@@ -1,7 +1,7 @@
 import { addon } from "./0-addon";
 import { type GetTargetWindowParams } from "./pmat-plugin-types";
 
-export function getTargetHwnd(): Promise<string> {
+export function getTargetHwnd(): Promise<string> { // call 'r2mi:get-target-hwnd' in main
     return new Promise<string>(
         (resolve, reject) => {
             const params: GetTargetWindowParams = {};

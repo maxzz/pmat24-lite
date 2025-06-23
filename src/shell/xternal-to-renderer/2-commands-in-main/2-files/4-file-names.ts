@@ -6,7 +6,7 @@ import { errorToString } from '@shell/3-utils-main';
  * Check if file from renderer exists in the main process.
  * @param fileName - file name with path
  */
-export async function existsFileInMain(fileName: string): Promise<{ exists: boolean; error: string; }> {
+export async function existsFileInMain(fileName: string): Promise<{ exists: boolean; error: string; }> { // call 'r2mi:file-exists' in main
     try {
         if (!fs.existsSync(fileName)) {
             return {
@@ -39,7 +39,7 @@ export async function existsFileInMain(fileName: string): Promise<{ exists: bool
  * Generate unique filename from file name pattern.
  * @param fileName - file name with path
  */
-export async function generateUniqueFilename(fileNamePattern: string): Promise<{ newFilename: string; error: string; }> {
+export async function generateUniqueFilename(fileNamePattern: string): Promise<{ newFilename: string; error: string; }> { // call 'r2mi:get-unique-filename' in main
     try {
         const fext = path.extname(fileNamePattern);
         const fname = path.basename(fileNamePattern, fext);

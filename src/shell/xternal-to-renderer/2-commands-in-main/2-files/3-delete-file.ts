@@ -7,7 +7,7 @@ import { errorToString } from '@shell/3-utils-main';
  * @param fileName - file name with path
  * @returns - error message or empty string
  */
-export async function deleteFileInMain(fileName: string): Promise<string> {
+export async function deleteFileInMain(fileName: string): Promise<string> { // call 'r2mi:delete-file' in main
     try {
         if (!fs.existsSync(fileName)) {
             return '';

@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { exec } from 'child_process';
 
-export function revealInExplorer(fpath: string): string {
+export function revealInExplorer(fpath: string): string { // call 'r2mi:reveal-in-explorer' in main
     if (!fs.existsSync(fpath)) {
         return 'File not found';
     }

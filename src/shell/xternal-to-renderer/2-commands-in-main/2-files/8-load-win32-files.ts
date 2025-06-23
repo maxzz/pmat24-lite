@@ -9,7 +9,7 @@ import { type MainFileContent } from "@shared/ipc-types";
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
-export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } {
+export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } { // call 'r2mi:load-files' in main
 
     let rv: MainFileContent[] = [];
     collectNamesRecursively(filenames, rv);

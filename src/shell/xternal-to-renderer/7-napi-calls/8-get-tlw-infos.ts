@@ -4,7 +4,7 @@ import { type GetTlwInfoParams } from "./pmat-plugin-types";
 /**
  * Get top-level Windows information
 */
-export async function getTlwInfos() {
+export async function getTlwInfos() { // call 'r2mi:get-tlw-infos' in main
     return new Promise<string>(
         (resolve, reject) => {
             const params: GetTlwInfoParams = {};

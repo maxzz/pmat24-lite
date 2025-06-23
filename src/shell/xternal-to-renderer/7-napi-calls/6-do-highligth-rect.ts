@@ -3,7 +3,7 @@ import { type WindowControlHighlighterParams, type WindowControlHighlighter, typ
 
 let highlighter: WindowControlHighlighter | null = null;
 
-export function highlightField(params: WindowControlHighlighterParams): Promise<OkIfEmptyString> {
+export function highlightField(params: WindowControlHighlighterParams): Promise<OkIfEmptyString> { // call 'r2mi:highlight-field' in main
     if (!highlighter) {
         highlighter = new addon.WindowControlHighlighter();
         if (!highlighter) {

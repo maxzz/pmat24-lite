@@ -8,7 +8,7 @@ import { errorToString } from '@shell/3-utils-main';
  * @param content - file content
  * @returns - error message or empty string
  */
-export async function saveFileInMain(fileName: string, content: string): Promise<string> {
+export async function saveFileInMain(fileName: string, content: string): Promise<string> { // call 'r2mi:save-file' in main
 
     // 1. Create dir if needed
 

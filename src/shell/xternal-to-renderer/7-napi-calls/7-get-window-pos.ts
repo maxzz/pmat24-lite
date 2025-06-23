@@ -6,7 +6,7 @@ import { debounce, ptInsideRect } from "@shell/3-utils-main";
 /**
  * Init get position inside window operation by drag and drop for manual mode 'position' action.
  */
-export function dndActionInit(params: DragAndDropParams): OkIfEmptyString {
+export function dndActionInit(params: DragAndDropParams): OkIfEmptyString { // call 'r2mi:get-window-pos-init' in main
     if (!dragAndDropper) {
         dragAndDropper = new addon.DragAndDropper();
         if (!dragAndDropper) {

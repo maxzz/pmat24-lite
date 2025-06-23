@@ -4,7 +4,7 @@ import { makeTypedError } from "./9-types-napi-error";
 import { mainStore, mainToRenderer } from "./9-external";
 import { type WindowControlsCollectorCollectResult, type WindowControlsCollectorCollectParams } from "./pmat-plugin-types";
 
-export function getWindowControls(hwnd: string): Promise<string> {
+export function getWindowControls(hwnd: string): Promise<string> { // call 'r2mi:get-window-controls' in main
     return new Promise<string>(
         (resolve, reject) => {
             const params: WindowControlsCollectorCollectParams = { hwnd };

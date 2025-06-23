@@ -15,7 +15,7 @@ export async function test08_GetTopLevelWindowsScreenshots(windowsInfos: TlwInfo
 }
 ```
 */
-export async function getTlwScreenshots(params: GetTlwScreenshotsParams): Promise<string> {
+export async function getTlwScreenshots(params: GetTlwScreenshotsParams): Promise<string> { // call 'r2mi:get-tlw-screenshots' in main
     return new Promise<string>(
         (resolve, reject) => {
             const paramsStr = JSON.stringify(params);

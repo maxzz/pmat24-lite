@@ -4,7 +4,7 @@ import { makeTypedError } from "./9-types-napi-error";
 import { mainStore, mainToRenderer } from "./9-external";
 import { type ManifestForWindowCreatorParams, type ManifestForWindowCreatorResult } from "./pmat-plugin-types";
 
-export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<string> {
+export function getWindowMani(params: ManifestForWindowCreatorParams): Promise<string> { // call 'r2mi:get-window-mani' in main
     return new Promise<string>(
         (resolve, reject) => {
             const paramsStr = JSON.stringify(params);
