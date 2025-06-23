@@ -5,7 +5,7 @@ import { invokeMainTyped } from "@/xternal-to-main";
 import { useSawHandleListener } from "../1-do-get-hwnd";
 import { compareRect } from "@/utils";
 
-export function useSawHandleMonitor() {
+export function useSawRectMonitor() {
     const doHideTarget = useSetAtom(doHideTargetAtom);
 
     useEffect(
