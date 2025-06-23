@@ -1,7 +1,7 @@
 import { Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
 import { electronState } from "@shell/2-electron-globals";
-import { mainToRenderer } from "./3-in-main-send-to-renderer";
+import { mainToRenderer } from "./3-send-in-main-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
 import { dndAction, getElectronModulePaths } from "../7-napi-calls";
 import { openFileDialogAndReply, setSawModeOnMain, setSawPositionOnMain } from "../2-commands-in-main";

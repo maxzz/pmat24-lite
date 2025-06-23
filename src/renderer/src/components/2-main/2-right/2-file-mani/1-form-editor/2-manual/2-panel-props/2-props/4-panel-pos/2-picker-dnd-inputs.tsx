@@ -13,14 +13,10 @@ export function useStateNapiPosTracker(item: ManualFieldState.CtxPos) {
             const unsubscribe = subscribe(stateNapiPosTracker.current,
                 () => {
                     const { x, y, isInside } = stateNapiPosTracker.current;
-
-                    if (!isInside) {
-                        return;
+                    if (isInside) {
+                        setPosValueX((prev) => ({ ...prev, data: `${x}` }));
+                        setPosValueY((prev) => ({ ...prev, data: `${y}` }));
                     }
-                    setPosValueX((prev) => ({ ...prev, data: `${x}` }));
-                    setPosValueY((prev) => ({ ...prev, data: `${y}` }));
-
-                    console.log('stateNapiPosTracker', {...stateNapiPosTracker.current});
                 }
             );
             return unsubscribe;

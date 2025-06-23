@@ -4,6 +4,7 @@ import { FormIdx } from "@/store/manifest";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom } from "@/store";
 import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
+import { classNames } from "@/utils";
 //import { TestTargetWindowPosition } from "./17-nun-picker-dnd-w-dom";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
@@ -28,13 +29,16 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
     const [isDown, setIsDown] = useState(false);
 
     async function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+        if (event.buttons !== 1) { // if left button is not pressed then do nothing
+            return;
+        }
+
         const elm = event.target as HTMLDivElement;
         elm.setPointerCapture(event.pointerId);
 
         try {
-            const res = await dndActionInit(getFileUsConnectedHwndAtom(fileUsCtx));
-            console.log('%cDragging. init', 'color:magenta', res);
-            setIsDown(true);
+            const error = await dndActionInit(getFileUsConnectedHwndAtom(fileUsCtx));
+            error ? console.error('dnd.failed', error) : setIsDown(true);
         } catch (err) {
             console.error(err);
         }
@@ -60,7 +64,7 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
             onPointerUp={onPointerUp}
             onPointerMove={onPointerMove}
         >
-            <IconDndTarget className="size-8" />
+            <IconDndTarget className={classNames("size-8", isDown && "opacity-10")} />
         </div>
     );
 }
