@@ -1,28 +1,25 @@
 import { useState } from "react";
 import { type PrimitiveAtom, useSetAtom } from "jotai";
-import { FormIdx } from "@/store/manifest";
-import { IconDndTarget } from "@/ui/icons";
-import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom } from "@/store";
-import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
+import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-//import { TestTargetWindowPosition } from "./17-nun-picker-dnd-w-dom";
+import { IconDndTarget } from "@/ui/icons";
+import { FormIdx } from "@/store/manifest";
+import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store";
+import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
     useStateNapiPosTracker(item);
 
     return (
-        <div className="my-4 space-x-2">
-            {/* <div>
-                Click on the preview window below to select the click point.
-            </div> */}
-
-            <NapiPicker item={item} fileUsCtx={fileUsCtx} />
+        <div className="my-4 flex items-center gap-x-2">
+            <NapiPicker fileUsCtx={fileUsCtx} />
+            <DraggingHint />
         </div>
     );
 }
 
-function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
+function NapiPicker({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const dndActionInit = useSetAtom(dndActionInitAtom);
     const dndAction = useSetAtom(dndActionAtom);
 
@@ -71,4 +68,13 @@ function NapiPicker({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUs
 
 function getFileUsConnectedHwndAtom(fileUsCtx: FileUsCtx): PrimitiveAtom<HighlightHwnd> {
     return fileUsCtx.formIdx === FormIdx.login ? fileUsCtx.fileUs.hwndLoginAtom : fileUsCtx.fileUs.hwndCpassAtom;
+}
+
+function DraggingHint() {
+    const { current: { isInside }, dragIsRunning } = useSnapshot(stateNapiPosTracker);
+    return (
+        <div>
+            Click on the preview window below to select the click point.
+        </div>
+    );
 }
