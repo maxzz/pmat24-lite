@@ -148,3 +148,10 @@ export function App(): JSX.Element {
 //06.22.25
 //TODO: show window screenshot instead of icon inside SAW monitor
 //TODO: move business logic from renderer to main: at least SAW monitor timer
+
+//06.23.25
+    // * TBD: need some utility function to map points (like mapPoints(hwnd | toScreen, [pts])):
+    // 	client to screen; 
+    // 	client to window;
+    // 	screen to window;
+    // 	window to screen; 
