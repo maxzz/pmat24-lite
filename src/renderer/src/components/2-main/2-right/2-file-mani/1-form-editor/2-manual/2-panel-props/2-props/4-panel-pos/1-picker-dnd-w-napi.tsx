@@ -3,12 +3,12 @@ import { type PrimitiveAtom, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { IconDndTarget } from "@/ui/icons";
 import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom } from "@/store";
-import { useBuildStateLink } from "./33-nun-build-state-link";
+import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
 //import { TestTargetWindowPosition } from "./17-nun-picker-dnd-w-dom";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
 
-    useBuildStateLink(item);
+    useStateNapiPosTracker(item);
 
     return (
         <div className="my-4 space-x-2">
