@@ -1,11 +1,10 @@
 import { useCallback } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { InputErrorPopupMessage, InputPopupMessage, OptionAsString } from "@/ui/local-ui";
+import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { doHighlightRectAtom } from '@/store';
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
-import { InputXY } from "./31-nun-picker-input-xy";
 import { NewInputXY } from "./1-picker-dnd-w-napi";
 import { hasMain } from "@/xternal-to-main";
 
@@ -30,25 +29,16 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
                 <div className="pb-0.5">
                     x
                 </div>
-
                 <div>
                     y
                 </div>
 
                 <InputPosNumbers item={item} expose={expose} />
-
-                {/* Not working: share the same space */}
-                {/* <div style={{ gridArea: 'r33' }}>
-                    <InputPopupMessage show={true} message="open targer window to see the click point" messageClasses="text-slate-500" />
-                </div> */}
-
             </div>
 
             <div className="row-start-3 self-end pb-1">
                 {showHighlightControls && (<>
                     <NewInputXY item={item} fileUsCtx={fileUsCtx} />
-                    {/* <InputXY item={item} /> */}
-
                     <ButtonHighlightClick item={item} fileUsCtx={fileUsCtx} />
                 </>)}
             </div>
@@ -86,7 +76,7 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
             <InputErrorPopupMessage hasError={hasError} error={xState.error || yState.error} />
 
             {/* OK: */}
-            {/* TODO: the below works but should be different message: open targer window to see the click point */}
+            {/* TODO: the below works but should be different message: open target window to see the click point */}
             {/* <InputPopupMessage show={hasError} message="open targer window to see the click point" messageClasses="text-slate-500" /> */}
             {/* or show icon as linked to the target window and button name: Find target window */}
         </div>

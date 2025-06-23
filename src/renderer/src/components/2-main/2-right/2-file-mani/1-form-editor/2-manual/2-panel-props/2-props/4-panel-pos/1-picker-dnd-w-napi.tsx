@@ -1,7 +1,7 @@
 import { type PrimitiveAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { IconDndTarget } from "@/ui/icons";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store";
