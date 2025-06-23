@@ -1,18 +1,16 @@
-import { useState } from "react";
 import { type PrimitiveAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
+import { AnimatePresence, motion } from "motion/react";
 import { IconDndTarget } from "@/ui/icons";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store";
 import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {
-
     useStateNapiPosTracker(item);
-
     return (
-        <div className="my-4 flex items-center gap-x-2">
+        <div className="my-4 min-h-12 flex items-center gap-x-2">
             <NapiPicker fileUsCtx={fileUsCtx} />
             <DraggingHint />
         </div>
@@ -75,11 +73,21 @@ function DraggingHint() {
         dragIsRunning
             ? isInside
                 ? 'Drop it!'
-                : 'Move cursor over the target window'
-            : 'To update click the coordinates, drag the icon over the target window and release it!';
+                : 'Move cursor over the target window.'
+            : 'To update the x and y coordinates, drag the icon to the target window, position it where you want the click to occur, and release the mouse button.';
+            // : 'To update the x and y coordinates, drag the icon to the target window and position it where you want the click to occur.';
+            // : 'To update the x and y coordinates, drag the icon onto the target window and release it.';
+            // : 'To update click the coordinates, drag the icon over the target window and release it!';
     return (
-        <div>
+        <motion.div
+            key={text}
+            className="1text-balance"
+            initial={{ opacity: 0, transition: { delay: .2 } }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: .7, }}
+            style={{ ...(dragIsRunning && { color: isInside ? 'green' : 'red' }) }}
+        >
             {text}
-        </div>
+        </motion.div>
     );
 }
