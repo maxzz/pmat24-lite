@@ -22,13 +22,13 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     // const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
     // const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
 
-    const label = useAtomValue(item.rowCtx.labelAtom);
-
+    
     // console.log('loginFormFields', loginFormFields);
     // console.log('cpassFormFields', cpassFormFields);
-
-    const doGetLinks = useSetAtom(doGetLinksAtom);
-    console.log(`links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
+    
+    // const label = useAtomValue(item.rowCtx.labelAtom);
+    // const doGetLinks = useSetAtom(doGetLinksAtom);
+    // console.log(`links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
 
     return (<>
         {specialCpass

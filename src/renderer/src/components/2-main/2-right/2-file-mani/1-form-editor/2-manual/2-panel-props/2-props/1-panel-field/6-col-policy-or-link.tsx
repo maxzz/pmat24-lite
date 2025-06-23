@@ -1,8 +1,10 @@
-import { useAtomValue } from "jotai";
-import { FieldTyp, FormIdx } from "@/store/manifest";
+import { useState } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
+import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
-import { InputLabel } from "../8-props-ui/1-input-label";
+import { InputLabel, InputSelectUi } from "../8-props-ui";
+import { doGetLinksAtom } from "./8-forms-fields";
 
 export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
@@ -13,7 +15,7 @@ export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.C
     return (<>
         {fileUsCtx.formIdx === FormIdx.login
             ? <Case_ManualFieldPolicyBtn item={item} />
-            : <Case_LinkToLoginForm item={item} />
+            : <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
         }
     </>);
 }
@@ -31,12 +33,31 @@ export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.Ctx
     );
 }
 
-function Case_LinkToLoginForm({ item }: { item: ManualFieldState.CtxFld; }) {
+function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const [type, setType] = useState('1');
+
+    const { rfieldUuidAtom } = item.rowCtx;
+
+    const rindexUuid = useAtomValue(rfieldUuidAtom);
+    const label = useAtomValue(item.rowCtx.labelAtom);
+    const doGetLinks = useSetAtom(doGetLinksAtom);
+    console.log(`field links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
+
     return (
         <InputLabel label="Link to login form">
-            Link
+            
+            <InputSelectUi
+                items={inputTypes}
+                value={`${type}`}
+                onValueChange={(value) => setType(value)}
+            />
+
         </InputLabel>
     );
 }
 
-//TODO: Policy button if field password
+const inputTypes: OptionTextValue[] = [
+    // ["no link", "0"],
+    ["Current password", "1"], // 'in'
+    ["New passowrd", "2"], // 'out'
+];
