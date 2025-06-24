@@ -26,7 +26,7 @@ export function useSawRectMonitor() {
 
                 const unchanged = prevVal?.screenRect && compareRect(newVal.screenRect, prevVal.screenRect) && get(highlightIsOnAtom);
                 if (!unchanged) {
-                    set(doShowTargetAtom, { hwnd: newVal.hwnd, rect: newVal.screenRect, highlightColor: '#ff8800', width: 5 });
+                    set(doShowTargetAtom, { hwnd: newVal.hwnd, /*rect: newVal.screenRect,*/ highlightColor: '#ff8800', width: 5 }); // for now use only hwnd for show window client rect
                 }
             }, []
         )
