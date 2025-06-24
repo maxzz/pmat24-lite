@@ -2,7 +2,7 @@ import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai"
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, napiBuildState, createNewFileContent, fileUsChanges, doInitNewManiContentAtom, ManiAtoms } from "@/store";
+import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess, createNewFileContent, fileUsChanges, doInitNewManiContentAtom, ManiAtoms } from "@/store";
 import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { newManiContent } from "./0-ctx-content";
@@ -31,7 +31,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, });
 
-        if (napiBuildState.buildError) {
+        if (stateNapiAccess.buildError) {
             showBuildErrorReason(set);
             return false;
         }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
-import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FormFields, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputLabel, InputSelectUi } from "../8-props-ui";
 import { doGetLinksAtom } from "./8-forms-fields";
@@ -36,12 +36,24 @@ export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.Ctx
 function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const [type, setType] = useState('1');
 
-    const { rfieldUuidAtom } = item.rowCtx;
-
+    const { labelAtom, rfieldUuidAtom } = item.rowCtx;
     const rindexUuid = useAtomValue(rfieldUuidAtom);
-    const label = useAtomValue(item.rowCtx.labelAtom);
+    const label = useAtomValue(labelAtom);
+
     const doGetLinks = useSetAtom(doGetLinksAtom);
-    console.log(`field links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
+
+    const links = doGetLinks(fileUsCtx);
+    console.log(`field links "${label} link: ${rindexUuid}":`, links);
+
+    // function filterLinks(links: readonly FormFields[] | undefined) {
+    //     if (!links) {
+    //         return [];
+    //     }
+
+    //     links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
+
+    //     return links.filter((link) => link.uuid === rindexUuid);
+    // }
 
     return (
         <InputLabel label="Link to login form">
@@ -61,3 +73,16 @@ const inputTypes: OptionTextValue[] = [
     ["Current password", "1"], // 'in'
     ["New passowrd", "2"], // 'out'
 ];
+
+// const getLoginFormPswFieldsAtom = atom(
+//     null,
+//     (get, set, fileUsCtx: FileUsCtx) => {
+//         const links = get(doGetLinksAtom(fileUsCtx));
+//         if (!links) {
+//             return;
+//         }
+
+//         const rv = links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
+//         return rv;
+//     }
+// );

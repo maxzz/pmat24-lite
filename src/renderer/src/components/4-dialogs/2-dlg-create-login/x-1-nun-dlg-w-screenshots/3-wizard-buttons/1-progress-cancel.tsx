@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { BarsLoader, Button } from "@/ui";
 import { classNames } from "@/utils";
 import { newManiCtx } from "../0-new-mani-ctx";
-import { napiBuildProgress, napiLock } from "@/store/7-napi-atoms";
+import { stateNapiBuildMani, napiLock } from "@/store/7-napi-atoms";
 
 export function ProgressBarControlsScan({ className }: { className?: string; }) {
 
@@ -36,7 +36,7 @@ export function ProgressBarControlsScan({ className }: { className?: string; }) 
 }
 
 function BuildCounter() {
-    const { buildCounter } = useSnapshot(napiBuildProgress);
+    const { buildCounter } = useSnapshot(stateNapiBuildMani);
     if (buildCounter < 200) {
         return null;
     }

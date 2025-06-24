@@ -6,7 +6,7 @@ import { debugSettings } from "@/store/9-ui-state";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";
 import { doLoadFakeScreensAtom } from "../8-create-mani-tests-w-fetch";
-import { napiBuildState, napiLock } from "../9-napi-build-state";
+import { stateNapiAccess, napiLock } from "../9-napi-build-state";
 import { errorToString } from "@/utils";
 import { asyncGetTlwInfos } from "./8-get-twl-infos";
 

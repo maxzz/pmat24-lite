@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
 import { appSettings, debugSettings } from "@/store/9-ui-state";
-import { makeTypedError, napiBuildProgress, napiLock, setBuildState } from "@/store/7-napi-atoms";
+import { makeTypedError, stateNapiBuildMani, napiLock, setBuildState } from "@/store/7-napi-atoms";
 import { type TestManiEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
 import { easyDelayInput } from "./8-easy-delay-input";
@@ -24,10 +24,10 @@ export const doLoadFakeManiAtom = atom(
             const nDelays = nDelay / 500;
             for (let i = 0; i < nDelays; i++) {
                 if (napiLock.canceled) {
-                    setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: makeTypedError({ error: 'canceled-by-user' }) });
+                    setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: makeTypedError({ error: 'canceled-by-user' }) });
                     return '';
                 }
-                napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);
+                stateNapiBuildMani.buildCounter = i * 500 + randomIntExclusive(0, 100);
                 await delay(500);
             }
         }
@@ -35,7 +35,7 @@ export const doLoadFakeManiAtom = atom(
         // 2. Get content
         const rv = await get(hashedQueryAtom(fname)) as string; //console.log('doLoadFakeManiAtom', fname, cnt);
 
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: '' });
 
         return rv;
     }

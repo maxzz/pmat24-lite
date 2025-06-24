@@ -1,50 +1,34 @@
 import { proxy } from 'valtio';
 import { atomWithProxy } from 'jotai-valtio';
-import { debounce, roundInt } from '@/utils';
-import { type PosTrackerCbType, type PointXY, type TargetPosition } from '@shared/ipc-types';
+import { type PosTrackerCbType } from '@shared/ipc-types';
 
 // Build state
 
-type NapiBuildState = {                         // State of Napi multistep build: icons, controls, manifest
+type StateNapiAccess = {                        // State of Napi multistep build: icons, controls, manifest
     buildRunning: boolean;                      // Content check build is runnning. Make shure there is no multiple calls at the same time or use counter as lock
     buildError: string;                         // Error message if build failed
     buildFailedBody: string;                    // Raw string returned from main that failed to parse
 };
 
-export const napiBuildState = proxy<NapiBuildState>({
+export const stateNapiAccess = proxy<StateNapiAccess>({
     buildRunning: false,
     buildError: '',
     buildFailedBody: '',
 });
 
-export const napiBuildStateAtom = atomWithProxy(napiBuildState);
+export const stateNapiAccessAtom = atomWithProxy(stateNapiAccess);
 
-// Get window position progress
+// State of build manifest progress
 
-type NapiBuildProgress = {
+type StateNapiBuildMani = {
     buildCounter: number;                       // Controls detection progress
     lastProgress: number;                       // Last number of build progress or 0
-    getPosProgress: TargetPosition | null;      // Get window position progress
 };
 
-export const napiBuildProgress = proxy<NapiBuildProgress>({
+export const stateNapiBuildMani = proxy<StateNapiBuildMani>({
     buildCounter: 0,
     lastProgress: 0,
-    getPosProgress: null,
 });
-
-function setNapiGetPosXY(x: number, y: number) {
-    const xyNew: PointXY = { x: roundInt(x), y: roundInt(y) };
-    const xyOld = napiBuildProgress.getPosProgress?.point || { x: 0, y: 0 };
-
-    if (xyNew.x !== xyOld.x || xyNew.y !== xyOld.y) {
-        napiBuildProgress.getPosProgress = { point: xyNew, isInside: false };
-
-        console.log(`napi-xy-progress {x:${xyNew.x}, y:${xyNew.y}}`);
-    }
-}
-
-export const debouncedSetNapiGetPosXY = debounce(setNapiGetPosXY, 100);
 
 // State of napi pos tracker
 

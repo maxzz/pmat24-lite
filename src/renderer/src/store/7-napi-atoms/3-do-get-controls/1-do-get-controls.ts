@@ -4,7 +4,7 @@ import { invokeMainTyped } from "@/xternal-to-main";
 import { type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlsWithMeta } from "./9-types";
 import { controlsReplyToEngineControlWithMeta } from "./2-conv-controls-meta";
-import { napiBuildProgress, napiBuildState, setBuildState } from "../9-napi-build-state";
+import { stateNapiBuildMani, stateNapiAccess, setBuildState } from "../9-napi-build-state";
 
 export const sawContentStrAtom = atom<string | undefined>('');                  // raw unprocessed reply string from napi to compare with current
 export const sawContentAtom = atom<EngineControlsWithMeta | null>(null);        // reply with controls and pool
@@ -17,7 +17,7 @@ export const doGetWindowControlsAtom = atom(
                 throw new Error('No hwnd');
             }
 
-            if (napiBuildState.buildRunning) {
+            if (stateNapiAccess.buildRunning) {
                 return;
             }
 
@@ -40,12 +40,12 @@ export const doGetWindowControlsAtom = atom(
             const final = controlsReplyToEngineControlWithMeta(poolAndControls);
 
             set(sawContentAtom, final);
-            setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+            setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: '' });
 
             printControlsData(poolAndControls);
         } catch (error) {
             set(doClearWindowControlsAtom);
-            setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: errorToString(error) });
+            setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: errorToString(error) });
         }
     }
 );

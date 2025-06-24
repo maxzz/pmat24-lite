@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { delay, randomIntExclusive } from "@/utils";
 import { appSettings } from "@/store/9-ui-state";
-import { napiBuildProgress } from "@/store/7-napi-atoms";
+import { stateNapiBuildMani } from "@/store/7-napi-atoms";
 import { type TlwScreenshot } from "@shared/ipc-types";
 import { type TestScreenEnum } from "./9-types-of-tests";
 import { hashedQueryAtom } from "./8-hashed-query";
@@ -16,7 +16,7 @@ export const doLoadFakeScreensAtom = atom(
         if (nDelay) {
             const nDelays = nDelay / 500;
             for (let i = 0; i < nDelays; i++) {
-                napiBuildProgress.buildCounter = i * 500 + randomIntExclusive(0, 100);
+                stateNapiBuildMani.buildCounter = i * 500 + randomIntExclusive(0, 100);
                 await delay(500);
             }
         }

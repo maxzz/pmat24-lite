@@ -3,7 +3,7 @@ import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { debugSettings } from "@/store/9-ui-state";
 import { type ManifestForWindowCreatorParams } from "@shared/ipc-types";
-import { napiBuildProgress, napiLock, setBuildState } from "../9-napi-build-state";
+import { stateNapiBuildMani, napiLock, setBuildState } from "../9-napi-build-state";
 import { doLoadFakeManiAtom } from "../8-create-mani-tests-w-fetch";
 
 export const maniXmlStrAtom = atom<string | undefined>(undefined);   // raw unprocessed reply string from napi to compare with current
@@ -44,7 +44,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
         }
         set(maniXmlStrAtom, res); //printStrResultData(res);
 
-        setBuildState({ progress: 0, lastProgress: napiBuildProgress.buildCounter, isRunning: false, error: '' });
+        setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: '' });
     } catch (error) {
         set(maniXmlStrAtom, undefined);
         setBuildState({ progress: 0, isRunning: false, error: errorToString(error) });

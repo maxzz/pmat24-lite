@@ -1,11 +1,11 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { napiBuildProgress, sawHandleAtom } from "@/store";
+import { stateNapiBuildMani, sawHandleAtom } from "@/store";
 
 export function SawHwndPropsGrid() {
     const sawHandle = useAtomValue(sawHandleAtom);
-    const lastBuildProgress = useSnapshot(napiBuildProgress).lastProgress;
+    const lastBuildProgress = useSnapshot(stateNapiBuildMani).lastProgress;
 
     return (<>
         {sawHandle && (

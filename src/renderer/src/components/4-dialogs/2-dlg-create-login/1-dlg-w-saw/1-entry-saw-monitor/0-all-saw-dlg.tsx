@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from "motion/react";
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
-import { napiBuildState, useSawRectMonitor } from "@/store/7-napi-atoms";
+import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
 import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
@@ -55,7 +55,7 @@ function SawMonitorDlgBody() {
 }
 
 function ButtonContinue() {
-    const isRunning = useSnapshot(napiBuildState).buildRunning;
+    const isRunning = useSnapshot(stateNapiAccess).buildRunning;
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     return (
         <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={isRunning} onClick={() => doMoveToSecondDlg({ cancel: false })}>

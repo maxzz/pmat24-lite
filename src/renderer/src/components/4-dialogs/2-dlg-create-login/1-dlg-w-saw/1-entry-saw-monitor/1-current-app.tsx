@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { napiBuildProgress, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
+import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
 import { Spinner } from "@/ui/icons";
 import { useSnapshot } from "valtio";
 import { CornerSelector } from "./3-corner-selector";
@@ -78,7 +78,7 @@ function DetectionProgress({ className, ...rest }: ComponentPropsWithoutRef<'div
 }
 
 function BuildCounter() {
-    const { buildCounter } = useSnapshot(napiBuildProgress);
+    const { buildCounter } = useSnapshot(stateNapiBuildMani);
     if (buildCounter < 200) {
         return null;
     }

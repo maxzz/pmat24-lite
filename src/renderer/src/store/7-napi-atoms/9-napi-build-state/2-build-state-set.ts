@@ -1,4 +1,4 @@
-import { napiBuildProgress, napiBuildState } from "./1-build-state-types";
+import { stateNapiBuildMani, stateNapiAccess } from "./1-build-state-types";
 
 type SetBuildStateParams = {
     progress?: number;          // controls detection progress
@@ -9,9 +9,9 @@ type SetBuildStateParams = {
 };
 
 export function setBuildState({ progress, lastProgress, isRunning, error, failedBody }: SetBuildStateParams) {
-    progress !== undefined && (napiBuildProgress.buildCounter = progress);
-    lastProgress !== undefined && (napiBuildProgress.lastProgress = lastProgress);
-    isRunning !== undefined && (napiBuildState.buildRunning = isRunning);
-    error !== undefined && (napiBuildState.buildError = error);
-    failedBody !== undefined && (napiBuildState.buildFailedBody = failedBody);
+    progress !== undefined && (stateNapiBuildMani.buildCounter = progress);
+    lastProgress !== undefined && (stateNapiBuildMani.lastProgress = lastProgress);
+    isRunning !== undefined && (stateNapiAccess.buildRunning = isRunning);
+    error !== undefined && (stateNapiAccess.buildError = error);
+    failedBody !== undefined && (stateNapiAccess.buildFailedBody = failedBody);
 }

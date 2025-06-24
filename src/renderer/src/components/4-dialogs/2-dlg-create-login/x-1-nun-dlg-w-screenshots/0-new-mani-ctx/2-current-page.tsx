@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
-import { napiBuildState } from "@/store/7-napi-atoms";
+import { stateNapiAccess } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, checkboxCreateManualModeAtom, newManiContent } from "@/store";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
@@ -32,7 +32,7 @@ export function create_DoAdvancePageAtom() {
         null,
         async (get, set, { next }: { next: boolean; }) => {
 
-            if (napiBuildState.buildRunning) {
+            if (stateNapiAccess.buildRunning) {
                 set(doAddNextToastIdAtom, toast.info('Build running...'));
                 return;
             }
