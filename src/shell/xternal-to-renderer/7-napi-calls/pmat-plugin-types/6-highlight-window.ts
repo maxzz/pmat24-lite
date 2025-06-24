@@ -8,26 +8,6 @@ import { type HighlightError } from "./6-highlight-control";
  * If rect is not defined and hwnd defined then the window client area will be used and deflated by the border width.
  * If rect is not defined and hwnd is not defined then error will be returned (hwnd should be valid window handle).
  */
-// export type WindowHighlighterParams = {
-//     rect?: Rect4;                       // If rect is defined it will be used to highlight target window in screen coordinates.
-//     hwnd?: string;                      // If rect is not defined and hwnd defined then the window client area will be used and deflated by the border width.
-//     highlightColor?: string;            // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.
-//     width?: number                      // Width of the highlighted border in pixels. Default: 5
-// };
-
-export type HighlighterOptions = {
-    highlightColor?: string;               // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.
-    width?: number;                        // Width of the highlighted border in pixels. Default: 5
-};
-
-type HighlightRectParams = {
-    rect: Rect4;                           // If rect is defined it will be used to highlight target window in screen coordinates.
-} & HighlighterOptions;
-
-type HighlightHwndParams = {
-    hwnd: string;                          // If rect is not defined and hwnd defined then the window client area will be used and deflated by the border width.
-} & HighlighterOptions;
-
 export type WindowHighlighterParams =
     | {
         rect: Rect4;                       // If rect is defined it will be used to highlight target window in screen coordinates.
@@ -37,6 +17,11 @@ export type WindowHighlighterParams =
         hwnd: string;                      // If rect is not defined and hwnd defined then the window client area will be used and deflated by the border width.
     }
     & HighlighterOptions;
+
+export type HighlighterOptions = {
+    highlightColor?: string;               // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.
+    width?: number;                        // Width of the highlighted border in pixels. Default: 5
+};
 
 export type WindowHighlighterResult = HighlightError | undefined | ''; // If empty string, then opetation is started and will be finished later
 
