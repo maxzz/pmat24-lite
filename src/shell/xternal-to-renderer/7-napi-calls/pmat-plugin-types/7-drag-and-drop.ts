@@ -16,8 +16,7 @@ export type DragAndDropResult =
 
 export type TargetPosition = {          // For Chrome browser client and window areas are the same
     point: PointXY;                     // Current mouse coordinates converted to the client area of target window.
-    clientRect: Rect4;                  // Client rect of the target window, in client coordinates (i.e. top-left is 0,0)
-    windowRect: Rect4;                  // Window rect of the target window, in client coordinates of the target window (i.e. top is negative)
+    isInside: boolean;                  // Is mouse inside the target window
 };
 
 export interface DragAndDropper {

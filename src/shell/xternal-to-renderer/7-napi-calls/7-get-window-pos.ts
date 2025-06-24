@@ -60,13 +60,13 @@ export type PosTrackerCbType = Prettify<
 >;
 
 function sendToClient(res: TargetPosition) {
-    const { point: { x, y }, clientRect } = res;
+    const { point: { x, y }, isInside } = res;
     mainToRenderer({
         type: 'm2r:position-progress',
         progress: {
             x: Math.round(x),
             y: Math.round(y),
-            isInside: ptInsideRect(x, y, clientRect),
+            isInside: isInside,
         }
     });
 }
@@ -82,14 +82,12 @@ function Rect4ToString(rect: Rect4) {
 
 const printProgressDebounced = debounce(
     function printProgress(res: TargetPosition) {
-        const { point: { x, y }, clientRect, windowRect } = res;
+        const { point: { x, y }, isInside } = res;
         console.log(
             `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, WINDOW: {%s}, MSG: %o`,
-            ptInsideRect(x, y, clientRect) ? ' IN' : 'OUT',
+            isInside ? ' IN' : 'OUT',
             `${Math.round(x)}`.padStart(4, ' '),
             `${Math.round(y)}`.padStart(4, ' '),
-            Rect4ToString(clientRect),
-            Rect4ToString(windowRect),
             { data: JSON.stringify(res) }
         );
     }, 1000

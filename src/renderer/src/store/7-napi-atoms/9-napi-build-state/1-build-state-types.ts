@@ -38,7 +38,7 @@ function setNapiGetPosXY(x: number, y: number) {
     const xyOld = napiBuildProgress.getPosProgress?.point || { x: 0, y: 0 };
 
     if (xyNew.x !== xyOld.x || xyNew.y !== xyOld.y) {
-        napiBuildProgress.getPosProgress = { point: xyNew, clientRect: { left: 0, top: 0, right: 0, bottom: 0 }, windowRect: { left: 0, top: 0, right: 0, bottom: 0 } }; //TODO: this is temp and wrong; get is from main
+        napiBuildProgress.getPosProgress = { point: xyNew, isInside: false };
 
         console.log(`napi-xy-progress {x:${xyNew.x}, y:${xyNew.y}}`);
     }
