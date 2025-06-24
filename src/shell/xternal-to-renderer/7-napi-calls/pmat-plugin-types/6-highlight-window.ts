@@ -12,11 +12,9 @@ export type WindowHighlighterParams =
     | {
         rect: Rect4;                       // If rect is defined it will be used to highlight target window in screen coordinates.
     } & HighlighterOptions
-    |
-    {
+    | {
         hwnd: string;                      // If rect is not defined and hwnd defined then the window client area will be used and deflated by the border width.
-    }
-    & HighlighterOptions;
+    } & HighlighterOptions;
 
 export type HighlighterOptions = {
     highlightColor?: string;               // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.

@@ -1,4 +1,4 @@
-import { type Win32Errors, type BrowserExtErrors, type PluginDataCallback, type Rect4 } from "./9-types";
+import { type Win32Errors, type BrowserExtErrors, type PluginDataCallback, type Rect4, type PluginErrorCallback } from "./9-types";
 
 // Highlight desktop app window control
 
@@ -6,6 +6,10 @@ export type WindowControlHighlighterParams = {
     hwnd: string;                   // Window handle. We get process name from this window handle to decide whether it is a browser or a desktop app.
     rect?: Rect4;                   // Used to highlight controls in desktop apps
     accId?: number;                 // Used to highlight controls in browsers
+    
+    highlightColor?: string;        // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.
+    width?: number                  // Width of the highlighted border in pixels. Default: 5
+    blinks?: number;                // Number of times to blink the highlighting rectangle. Default: 3; zero means no blick and use hide() to stop hihglighting
 };
 
 export type HighlightError = {
@@ -30,4 +34,5 @@ export type WindowControlHighlighterResult = HighlightError | undefined | ''; //
 export interface WindowControlHighlighter {
     new(): WindowControlHighlighter;
     highlight(windowControlHighlighterParams: string, cb: PluginDataCallback<WindowControlHighlighterResult>): void;
+    hide(dummy: string, cb: PluginErrorCallback): void;
 }
