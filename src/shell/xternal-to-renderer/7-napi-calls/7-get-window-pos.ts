@@ -1,7 +1,7 @@
 import { addon } from "./0-addon";
 import { mainToRenderer } from "../1-gates-in-main";
+import { debounce } from "@shell/3-utils-main";
 import { type DragAndDropper, type DragAndDropParams, type DragAndDropResult, type OkIfEmptyString, type TargetPosition, type Rect4, type PointXY } from "./pmat-plugin-types";
-import { debounce, ptInsideRect } from "@shell/3-utils-main";
 
 /**
  * Init get position inside window operation by drag and drop for manual mode 'position' action.
@@ -53,7 +53,7 @@ let dragAndDropper: DragAndDropper | null = null;
 // Call to client
 
 export type PosTrackerCbType = Prettify<
-    & PointXY                 // Current mouse coordinates converted to the client area of target window.
+    & PointXY                 // Current mouse coordinates converted to the client area of the target window.
     & {
         isInside: boolean;    // Is mouse inside the target window
     }

@@ -24,9 +24,9 @@ export function useSawRectMonitor() {
                     return;
                 }
 
-                const unchanged = prevVal?.screenRect && compareRect(newVal.screenRect, prevVal.screenRect) && get(highlightIsOnAtom);
+                const unchanged = prevVal?.screenClientRect && compareRect(newVal.screenClientRect, prevVal.screenClientRect) && get(highlightIsOnAtom);
                 if (!unchanged) {
-                    set(doShowTargetAtom, { hwnd: newVal.hwnd, /*rect: newVal.screenRect,*/ highlightColor: '#ff8800', width: 5 }); // for now use only hwnd for show window client rect
+                    set(doShowTargetAtom, { hwnd: newVal.hwnd, /*rect: newVal.screenClientRect,*/ highlightColor: '#ff8800', width: 5 }); // for now use only hwnd for show window client rect
                 }
             }, []
         )
