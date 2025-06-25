@@ -57,3 +57,24 @@ const doHideTargetAtom = atom(
         error && console.log('doHideTargetAtom', error);
     }
 );
+
+const doTargetWindowAtom = atom(
+    null,
+    async (get, set, { action, params }: { action: 'show', params: WindowHighlighterParams; } | { action: 'hide', params?: undefined; }) => {
+        let error: string | undefined;
+
+        if (action === 'show') {
+            set(highlightIsOnAtom, true);
+            error = await invokeMainTyped({ type: 'r2mi:highlight-target', params });
+        }
+        else if (action === 'hide') {
+            if (!get(highlightIsOnAtom)) {
+                return;
+            }
+            set(highlightIsOnAtom, false);
+            error = await invokeMainTyped({ type: 'r2mi:highlight-target' });
+        }
+
+        error && console.log('doTargetWindowAtom', error);
+    }
+);
