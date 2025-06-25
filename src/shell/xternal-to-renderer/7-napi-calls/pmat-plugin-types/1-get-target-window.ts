@@ -12,7 +12,8 @@ export type GetTargetWindowResult = {   // SAW - Second Active Window
     classname: string;                  // "Chrome_WidgetWin_1",
     process: string;                    // "C:\\Program Files\\Microsoft VS Code\\Code.exe"
     isBrowser: boolean;                 // True if the process is web browser, false otherwise.
-    screenRect: Rect4;                  // Screen rectangle of the window to show as target window for the manifest creation.
+    screenWindowRect: Rect4;            // Window rect in screen coordinates to show as target window for the manifest creation and edit.
+    screenClientRect: Rect4;            // Client rect in screen coordinates to show as target window for the manifest creation and edit.
 };
 
 export interface GetTargetWindow {
