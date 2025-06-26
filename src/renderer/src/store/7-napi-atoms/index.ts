@@ -4,7 +4,7 @@ export * from "./3-do-get-controls";
 export * from "./3-do-get-controls/2-conv-controls-meta";
 export * from "./4-do-get-mani";
 export * from "./5-do-screenshots";
-export * from "./6-do-highlight-field";
+export * from "./6-do-highlight-control";
 export * from "./6-do-highlight-window";
 export * from "./7-do-pos-tracking";
 export * from "./8-create-mani-tests-w-fetch";

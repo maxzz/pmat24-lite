@@ -3,12 +3,12 @@ import { debounce } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { R2MInvokes } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
-import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { type R2MInvokeParams } from "@shared/ipc-types";
-import { getHighlightParams } from "./2-get-highlight-params";
+import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { asyncGetWindowExtrasAtom } from "../1-do-get-hwnd";
+import { getHighlightFieldParams } from "./2-get-highlight-params";
 
-export const doHighlightRectAtom = atom(
+export const doHighlightControlAtom = atom(
     null,
     (get, set, params: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
         debouncedHighlight(set, params);
@@ -35,10 +35,10 @@ const doHighlightAtom = atom(
             return;
         }
 
-        const windowExtra = await set(asyncGetWindowExtrasAtom, { hwnds: [hwndHandle.hwnd] });
-        console.log('windowExtra', JSON.stringify(windowExtra));
+        //const windowExtra = await set(asyncGetWindowExtrasAtom, { hwnds: [hwndHandle.hwnd] });
+        //console.log('windowExtra', JSON.stringify(windowExtra));
 
-        const callParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, params, get);
+        const callParams = getHighlightFieldParams(hwndHandle.hwnd, hwndHandle.isBrowser, params, get);
         if (!callParams) {
             return;
         }

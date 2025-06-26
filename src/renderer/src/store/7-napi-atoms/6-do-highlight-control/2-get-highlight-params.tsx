@@ -3,7 +3,7 @@ import { type Meta } from "@/store/manifest";
 import { type Rect4, type R2MInvokeParams } from "@shared/ipc-types";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
 
-export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
+export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
     if (nFieldCtx) {
         const metaField: Meta.Field = nFieldCtx.metaField;
         const path: Meta.Path = metaField.path;

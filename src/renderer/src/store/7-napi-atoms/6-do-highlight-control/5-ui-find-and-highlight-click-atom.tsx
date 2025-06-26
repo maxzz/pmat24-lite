@@ -2,10 +2,10 @@ import { atom } from "jotai";
 import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { doHighlightRectAtom } from "./1-do-highlight-rect";
+import { doHighlightControlAtom } from "./1-do-highlight-control";
 import { doFindHwndAtom } from "./6-find-hwnd";
 
-export const doHighlightClickAtom = atom(
+export const doHighlightPosClickAtom = atom(
     null,
     async (get, set, { mFieldCtx, fileUsCtx }: { mFieldCtx: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) => {
         const fileUs = fileUsCtx.fileUs;
@@ -21,6 +21,6 @@ export const doHighlightClickAtom = atom(
             return;
         }
 
-        set(doHighlightRectAtom, { mFieldCtx, fileUs, formIdx, focusOrBlur: true });
+        set(doHighlightControlAtom, { mFieldCtx, fileUs, formIdx, focusOrBlur: true });
     }
 );

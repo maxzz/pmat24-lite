@@ -7,7 +7,7 @@ import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
 import { isKeyToClearDefault } from "../6-fields-shared-ui";
-import { doHighlightRectAtom } from "@/store/7-napi-atoms";
+import { doHighlightControlAtom } from "@/store/7-napi-atoms";
 import { type FieldHighlightCtx } from "@/store/1-atoms/2-file-mani-atoms";
 
 type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
@@ -19,7 +19,7 @@ type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
 };
 
 export function Column4_Value({ useItAtom, valueLifeAtom, choosevalue, parentDisabled, className, highlightCtx, ...rest }: Column4_ValueProps) {
-    const doHighlightRect = useSetAtom(doHighlightRectAtom);
+    const doHighlightRect = useSetAtom(doHighlightControlAtom);
 
     const useIt = useAtomValue(useItAtom);
     const [valueLife, setValueLife] = useAtom(valueLifeAtom);

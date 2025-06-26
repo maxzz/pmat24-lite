@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes } from 'react';
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { classNames, turnOffAutoComplete } from '@/utils';
-import { type FieldHighlightCtx, doHighlightRectAtom } from '@/store';
+import { type FieldHighlightCtx, doHighlightControlAtom } from '@/store';
 
 type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
@@ -13,7 +13,7 @@ export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, .
     const [value, setValue] = useAtom(valueAtom);
     const useIt = useAtomValue(useItAtom);
     
-    const doHighlightRect = useSetAtom(doHighlightRectAtom);
+    const doHighlightRect = useSetAtom(doHighlightControlAtom);
 
     function onFocusBlur(focusOrBlur: boolean) {
         if (highlightCtx) {
