@@ -5,6 +5,7 @@ import { type FormFields, type FileUsCtx, type ManualFieldState, type NormalFiel
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputLabel, InputSelectUi } from "../8-props-ui";
 import { doGetLinksAtom } from "./8-forms-fields";
+import { classNames } from "@/utils";
 
 export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
@@ -46,7 +47,7 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
 
     const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
     const fields = getLoginFormPswFields(fileUsCtx);
-    
+
     //console.log(`psw fields "${label} link: ${rindexUuid}":`, fields);
     const doPrintFields = useSetAtom(printFieldsAtom);
     doPrintFields(rindexUuid, fields);
@@ -55,9 +56,10 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
     const dropdownAllItems = doBuildDropdownFields(rindexUuid, fields);
 
     return (
-        <InputLabel label="Link to login form">
+        <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
 
             <InputSelectUi
+                triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
                 items={dropdownAllItems}
                 value={`${type}`}
                 onValueChange={(value) => setType(value)}
@@ -66,6 +68,8 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
         </InputLabel>
     );
 }
+
+const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-pointer";
 
 const inputTypes: OptionTextValue[] = [
     // ["no link", "0"],
@@ -89,15 +93,8 @@ const getLoginFormPswFieldsAtom = atom(
 const buildDropdownFieldsAtom = atom(
     null,
     (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined): OptionTextValue[] => {
-        if (!fields) {
-            return [['no fields', '']];
-        }
-
-        const rv = fields.map<OptionTextValue>((field) => ([
-            get(field.labelAtom),
-            get(field.dbnameAtom),
-        ]));
-
+        const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), get(field.dbnameAtom)]));
+        rv.unshift(['No link', '0']);
         return rv;
     }
 );
