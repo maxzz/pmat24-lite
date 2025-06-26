@@ -37,7 +37,7 @@ const workHighlightAtom = atom(
         if (!callParams) {
             return;
         }
-        if (!hwndHandle.hwnd || (!callParams.rect && callParams.accId === undefined)) {
+        if (!hwndHandle.hwnd || (!callParams.params?.rect && callParams.params?.accId === undefined)) {
             console.log('inv.params');
             return;
         }

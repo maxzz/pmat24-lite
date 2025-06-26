@@ -75,7 +75,7 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             return rv;
         }
         case 'r2mi:highlight-field': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.HighlightField> = await highlightControl(data);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.HighlightField> = await highlightControl(data.params);
             return rv;
         }
         case 'r2mi:highlight-target': {

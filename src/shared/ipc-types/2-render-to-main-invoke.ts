@@ -78,9 +78,15 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     export type HighlightField = {
         type: 'r2mi:highlight-field';
-        hwnd: string;
-        rect?: Rect4;
-        accId?: number;                         // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
+        params?: {                              // If not set, then hide highlighter
+            hwnd: string;
+            rect?: Rect4;
+            accId?: number;                     // We accId (not be profile id) as ordered in manifest (accId does not skip buttons).
+
+            highlightColor?: string;            // Color of the highlighted border, in HTML form #RRGGBB. Default: #FF0000. Do not send #000000 or #008080.
+            width?: number;                     // Width of the highlighted border in pixels. Default: 5
+            blinks?: number;                    // Number of times to blink the highlighting rectangle. Default: 3; zero means no blick and use hide() to stop hihglighting
+        };
     };
 
     export type HighlightTarget = {

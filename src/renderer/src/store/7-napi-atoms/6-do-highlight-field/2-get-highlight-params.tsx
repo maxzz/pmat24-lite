@@ -9,9 +9,14 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
         const path: Meta.Path = metaField.path;
 
         const params: R2MInvokeParams.HighlightField = {
-            hwnd,
-            rect: isBrowser ? undefined : getFieldRect(path.loc),
-            accId: isBrowser ? metaField.pidx : undefined,
+            params: {
+                hwnd,
+                rect: isBrowser ? undefined : getFieldRect(path.loc),
+                accId: isBrowser ? metaField.pidx : undefined,
+
+                highlightColor: '#ff8800',
+                width: 5,
+            }
         };
         return params;
     }
@@ -29,8 +34,13 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
             const y = +yState.data;
 
             const params: R2MInvokeParams.HighlightField = {
-                hwnd,
-                rect: { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1, },
+                params: {
+                    hwnd,
+                    rect: { left: x - 1, top: y - 1, right: x + 1, bottom: y + 1, },
+
+                    highlightColor: '#ff8800',
+                    width: 5,
+                }
             };
             return params;
         }
@@ -47,6 +57,7 @@ function getFieldRect(loc: string | undefined): Rect4 | undefined {
         return undefined;
     }
 
-    let [left, top, right, bottom] = allStr.split(' ').map(Number);
-    return { left, top, right, bottom };
+    const [left, top, right, bottom] = allStr.split(' ').map(Number);
+    const rv = { left: left + 2, top: top + 2, right: right - 2, bottom: bottom - 2, };
+    return rv;
 }
