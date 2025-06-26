@@ -26,9 +26,9 @@ export function useSawRectMonitor() {
 
                 const unchanged = prevVal?.screenClientRect && compareRect(newVal.screenClientRect, prevVal.screenClientRect) && get(highlightIsOnAtom);
                 if (!unchanged) {
-                    // set(doRectAtom, { action: 'show', params: { /*hwnd: newVal.hwnd,*/ rect: newVal.screenClientRect, highlightColor: '#ff8800', width: 5 } }); // for now use only hwnd for show window client rect
-                    set(doRectAtom, { action: 'show', params: { /*hwnd: newVal.hwnd,*/ rect: newVal.screenWindowRect, highlightColor: '#ff8800', width: 5 } }); // for now use only hwnd for show window client rect
-                    // set(doRectAtom, { action: 'show', params: { hwnd: newVal.hwnd, /*rect: newVal.screenClientRect,*/ highlightColor: '#ff8800', width: 5 } }); // for now use only hwnd for show window client rect
+                    set(doRectAtom, { action: 'show', params: { /*hwnd: newVal.hwnd,*/ rect: newVal.screenWindowRect, highlightColor: '#ff8800', width: 5 } });
+                    // set(doRectAtom, { action: 'show', params: { /*hwnd: newVal.hwnd,*/ rect: newVal.screenClientRect, highlightColor: '#ff8800', width: 5 } });
+                    // set(doRectAtom, { action: 'show', params: { hwnd: newVal.hwnd, /*rect: newVal.screenClientRect,*/ highlightColor: '#ff8800', width: 5 } });
                 }
             }, []
         )

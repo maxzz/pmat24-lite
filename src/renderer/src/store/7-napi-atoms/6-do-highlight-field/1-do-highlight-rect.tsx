@@ -10,18 +10,23 @@ import { asyncGetWindowExtrasAtom } from "../1-do-get-hwnd";
 
 export const doHighlightRectAtom = atom(
     null,
-    (get, set, { nFieldCtx, mFieldCtx, fileUs, formIdx, focusOrBlur }: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
-        if (focusOrBlur) { // No need so far blur events
-            debouncedHighlight(set, { nFieldCtx, mFieldCtx, fileUs, formIdx });
-        }
+    (get, set, params: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
+        debouncedHighlight(set, params);
     }
 );
 
-const debouncedHighlight = debounce((set: Setter, fieldHighlightCtx: FieldHighlightCtx) => set(workHighlightAtom, fieldHighlightCtx), 300);
+const debouncedHighlight = debounce((set: Setter, fieldHighlightCtx: FieldHighlightCtx & { focusOrBlur: boolean; }) => set(doHighlightAtom, fieldHighlightCtx), 300);
 
-const workHighlightAtom = atom(
+const doHighlightAtom = atom(
     null,
-    async (get, set, params: FieldHighlightCtx) => {
+    async (get, set, params: FieldHighlightCtx & { focusOrBlur: boolean; }) => {
+        if (!params.focusOrBlur) { // No need so far blur events
+            const rv = await callMainToHighlightField(undefined);
+            if (rv) {
+                console.error('rv', rv); //TODO: reset highlight atom and query again
+            }
+            return;
+        }
 
         const { fileUs, formIdx } = params;
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
@@ -30,7 +35,7 @@ const workHighlightAtom = atom(
             return;
         }
 
-        const windowExtra = await set(asyncGetWindowExtrasAtom, {hwnds: [hwndHandle.hwnd]});
+        const windowExtra = await set(asyncGetWindowExtrasAtom, { hwnds: [hwndHandle.hwnd] });
         console.log('windowExtra', JSON.stringify(windowExtra));
 
         const callParams = getHighlightParams(hwndHandle.hwnd, hwndHandle.isBrowser, params, get);
@@ -38,19 +43,18 @@ const workHighlightAtom = atom(
             return;
         }
         if (!hwndHandle.hwnd || (!callParams.params?.rect && callParams.params?.accId === undefined)) {
-            console.log('inv.params');
+            console.error('inv.params');
             return;
         }
 
         const rv = await callMainToHighlightField(callParams);
         if (rv) {
-            //TODO: reset highlight atom and query again
-            console.log('rv', rv);
+            console.log('rv', rv); //TODO: reset highlight atom and query again
         }
     }
 );
 
-async function callMainToHighlightField(params: R2MInvokeParams.HighlightField): Promise<string | undefined> {
+async function callMainToHighlightField(params: R2MInvokeParams.HighlightField | undefined): Promise<string | undefined> {
     if (napiLock.locked('highlight')) {
         return;
     }
@@ -60,8 +64,7 @@ async function callMainToHighlightField(params: R2MInvokeParams.HighlightField):
         return rv;
     } catch (error) {
         console.error('error', error);
-    }
-    finally {
+    } finally {
         napiLock.unlock();
     }
 }

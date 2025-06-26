@@ -16,6 +16,7 @@ export function getHighlightParams(hwnd: string, isBrowser: boolean, { nFieldCtx
 
                 highlightColor: '#ff8800',
                 width: 5,
+                blinks: 0,
             }
         };
         return params;
