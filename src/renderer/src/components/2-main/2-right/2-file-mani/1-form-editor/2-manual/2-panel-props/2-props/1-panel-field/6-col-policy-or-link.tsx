@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
-import { type FormFields, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FormFields, type FileUsCtx, type ManualFieldState, type NormalField } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputLabel, InputSelectUi } from "../8-props-ui";
 import { doGetLinksAtom } from "./8-forms-fields";
@@ -40,24 +40,19 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const label = useAtomValue(labelAtom);
 
-    const doGetLinks = useSetAtom(doGetLinksAtom);
+    // const doGetLinks = useSetAtom(doGetLinksAtom);
+    // const links = doGetLinks(fileUsCtx);
+    // console.log(`field links "${label} link: ${rindexUuid}":`, links);
 
-    const links = doGetLinks(fileUsCtx);
-    console.log(`field links "${label} link: ${rindexUuid}":`, links);
-
-    // function filterLinks(links: readonly FormFields[] | undefined) {
-    //     if (!links) {
-    //         return [];
-    //     }
-
-    //     links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
-
-    //     return links.filter((link) => link.uuid === rindexUuid);
-    // }
+    const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
+    const fields = getLoginFormPswFields(fileUsCtx);
+    //console.log(`psw fields "${label} link: ${rindexUuid}":`, fields);
+    const doPrintFields = useSetAtom(printFieldsAtom);
+    doPrintFields(rindexUuid, fields);
 
     return (
         <InputLabel label="Link to login form">
-            
+
             <InputSelectUi
                 items={inputTypes}
                 value={`${type}`}
@@ -74,15 +69,36 @@ const inputTypes: OptionTextValue[] = [
     ["New passowrd", "2"], // 'out'
 ];
 
-// const getLoginFormPswFieldsAtom = atom(
-//     null,
-//     (get, set, fileUsCtx: FileUsCtx) => {
-//         const links = get(doGetLinksAtom(fileUsCtx));
-//         if (!links) {
-//             return;
-//         }
+const getLoginFormPswFieldsAtom = atom(
+    null,
+    (get, set, fileUsCtx: FileUsCtx) => {
+        const loginFields = set(doGetLinksAtom, fileUsCtx)?.[FormIdx.login];
+        if (!loginFields) {
+            return;
+        }
 
-//         const rv = links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
-//         return rv;
+        const rv = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        return rv;
+    }
+);
+
+const printFieldsAtom = atom(
+    null,
+    (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined) => {
+        if (!fields) {
+            return;
+        }
+        const all = fields.map((field) => `label:${get(field.labelAtom)} dbid:${get(field.dbnameAtom)}`);
+        console.log(`for uuid:"${rindexUuid}" login fields:`, all);
+    }
+);
+
+// function filterLinks(links: readonly FormFields[] | undefined) {
+//     if (!links) {
+//         return [];
 //     }
-// );
+
+//     links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
+
+//     return links.filter((link) => link.uuid === rindexUuid);
+// }

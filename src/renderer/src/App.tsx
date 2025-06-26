@@ -155,3 +155,6 @@ export function App(): JSX.Element {
     // 	client to window;
     // 	screen to window;
     // 	window to screen; 
+
+//06.26.25
+//TODO: add option hihglight color, blinks, use client or window rect for highlight
