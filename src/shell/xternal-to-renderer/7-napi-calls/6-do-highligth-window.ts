@@ -3,7 +3,7 @@ import { type WindowHighlighterParams, type WindowHighlighter, type OkIfEmptyStr
 
 let highlighter: WindowHighlighter | null = null;
 
-export function highlightTargetWindow(params: WindowHighlighterParams | undefined): Promise<OkIfEmptyString> { // call 'r2mi:highlight-target' in main
+export function highlightWindow(params: WindowHighlighterParams | undefined): Promise<OkIfEmptyString> { // call 'r2mi:highlight-target' in main
     if (!highlighter) {
         highlighter = new addon.WindowHighlighter();
         if (!highlighter) {
