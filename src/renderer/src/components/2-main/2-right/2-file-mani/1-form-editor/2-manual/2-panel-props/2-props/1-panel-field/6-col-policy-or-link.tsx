@@ -46,15 +46,19 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
 
     const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
     const fields = getLoginFormPswFields(fileUsCtx);
+    
     //console.log(`psw fields "${label} link: ${rindexUuid}":`, fields);
     const doPrintFields = useSetAtom(printFieldsAtom);
     doPrintFields(rindexUuid, fields);
+
+    const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
+    const dropdownAllItems = doBuildDropdownFields(rindexUuid, fields);
 
     return (
         <InputLabel label="Link to login form">
 
             <InputSelectUi
-                items={inputTypes}
+                items={dropdownAllItems}
                 value={`${type}`}
                 onValueChange={(value) => setType(value)}
             />
@@ -78,6 +82,22 @@ const getLoginFormPswFieldsAtom = atom(
         }
 
         const rv = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        return rv;
+    }
+);
+
+const buildDropdownFieldsAtom = atom(
+    null,
+    (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined): OptionTextValue[] => {
+        if (!fields) {
+            return [['no fields', '']];
+        }
+
+        const rv = fields.map<OptionTextValue>((field) => ([
+            get(field.labelAtom),
+            get(field.dbnameAtom),
+        ]));
+
         return rv;
     }
 );
