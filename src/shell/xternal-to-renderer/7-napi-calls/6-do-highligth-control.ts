@@ -3,6 +3,46 @@ import { type WindowControlHighlighterParams, type WindowControlHighlighter, typ
 
 let highlighter: WindowControlHighlighter | null = null;
 
+/* export function highlightControl(params: WindowControlHighlighterParams | undefined): Promise<OkIfEmptyString> { // call 'r2mi:highlight-field' in main
+    if (!highlighter) {
+        highlighter = new addon.WindowControlHighlighter();
+        if (!highlighter) {
+            throw new Error('no.gh');
+        }
+    }
+
+    const showOrHide = !!params;
+    const paramsStr = showOrHide ? JSON.stringify(params) : '';
+    const methodName = showOrHide ? 'highlight' : 'hide';
+
+    if (showOrHide) {
+        return new Promise<string>((resolve, reject) => {
+            highlighter!.highlight(paramsStr,
+                (err: any, data?: string) => {
+                    if (err) {
+                        resolve(err);
+                    } else {
+                        resolve('');
+                    }
+                }
+            );
+        });
+    } else {
+        return new Promise<string>((resolve, reject) => {
+            highlighter!.hide(paramsStr,
+                (err: any, data?: string) => {
+                    if (err) {
+                        resolve(err);
+                    } else {
+                        resolve('');
+                    }
+                }
+            );
+        });
+    }
+}
+*/
+
 export function highlightControl(params: WindowControlHighlighterParams | undefined): Promise<OkIfEmptyString> { // call 'r2mi:highlight-field' in main
     if (!highlighter) {
         highlighter = new addon.WindowControlHighlighter();
