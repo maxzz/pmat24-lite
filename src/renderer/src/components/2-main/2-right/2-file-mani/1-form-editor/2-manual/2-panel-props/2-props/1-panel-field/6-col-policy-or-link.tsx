@@ -41,18 +41,12 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const label = useAtomValue(labelAtom);
 
-    // const doGetLinks = useSetAtom(doGetLinksAtom);
-    // const links = doGetLinks(fileUsCtx);
-    // console.log(`field links "${label} link: ${rindexUuid}":`, links);
-
     const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
-    const fields = getLoginFormPswFields(fileUsCtx);
-
-    //console.log(`psw fields "${label} link: ${rindexUuid}":`, fields);
     const doPrintFields = useSetAtom(printFieldsAtom);
-    doPrintFields(rindexUuid, fields);
-
     const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
+
+    const fields = getLoginFormPswFields(fileUsCtx);
+    doPrintFields(rindexUuid, fields);
     const dropdownAllItems = doBuildDropdownFields(rindexUuid, fields);
 
     return (
@@ -109,13 +103,3 @@ const printFieldsAtom = atom(
         console.log(`for uuid:"${rindexUuid}" login fields:`, all);
     }
 );
-
-// function filterLinks(links: readonly FormFields[] | undefined) {
-//     if (!links) {
-//         return [];
-//     }
-
-//     links[FormIdx.login].filter((field) => field.typeAtom === FieldTyp.psw);
-
-//     return links.filter((link) => link.uuid === rindexUuid);
-// }
