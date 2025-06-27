@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
+import { classNames } from "@/utils";
 import { appSettings } from "@/store";
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
@@ -11,14 +12,18 @@ import { Col_FiledCatalog } from "./7-col-field-catalog";
 export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const isFieldPsw = useAtomValue(rowCtx.rowCtx.typeAtom) === FieldTyp.psw;
-    
+
     const containerClasses =
         fcAllowed
-            ? "grid grid-cols-[1fr,1fr,auto] gap-2"
-            : "grid grid-cols-[1fr,auto] gap-2";
+            ? isFieldPsw
+                ? "grid-cols-[1fr,1fr,auto]"
+                : "grid-cols-[1fr,auto]"
+            : isFieldPsw
+                ? "grid-cols-[1fr,auto]"
+                : "grid-cols-[auto]";
 
     return (
-        <div className={containerClasses}>
+        <div className={classNames("grid gap-2", containerClasses)}>
 
             <InputLabel label="Value">
                 <Col_ManualFieldValue item={rowCtx} fileUsCtx={fileUsCtx} />
