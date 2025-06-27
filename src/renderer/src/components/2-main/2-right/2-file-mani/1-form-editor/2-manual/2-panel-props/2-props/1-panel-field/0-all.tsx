@@ -21,6 +21,6 @@ export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.Ctx
             </InputLabel>
         </div>
 
-        <SecondRow item={item} fileUsCtx={fileUsCtx} />
+        <SecondRow rowCtx={item} fileUsCtx={fileUsCtx} />
     </>);
 }
