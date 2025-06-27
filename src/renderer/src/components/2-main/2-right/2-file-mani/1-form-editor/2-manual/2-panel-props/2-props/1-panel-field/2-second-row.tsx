@@ -24,7 +24,6 @@ export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxF
 
     return (
         <div className={classNames("grid gap-2", containerClasses)}>
-
             <InputLabel label="Value">
                 <Col_ManualFieldValue item={rowCtx} fileUsCtx={fileUsCtx} />
             </InputLabel>

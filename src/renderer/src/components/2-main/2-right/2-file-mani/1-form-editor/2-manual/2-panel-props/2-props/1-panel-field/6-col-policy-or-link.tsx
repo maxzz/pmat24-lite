@@ -4,7 +4,7 @@ import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputLabel, InputSelectUi } from "../8-props-ui";
-import { buildDropdownFieldsAtom } from "./8-forms-fields";
+import { buildDropdownFieldsAtom } from "./8-form-field-atoms";
 import { classNames } from "@/utils";
 
 export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {

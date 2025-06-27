@@ -28,14 +28,14 @@ function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
     const [type, setType] = useAtom(item.rowCtx.typeAtom);
     return (
         <InputSelectUi
-            items={inputTypes}
+            items={inputTypeNames}
             value={`${type}`}
             onValueChange={(value) => setType(+value as FieldTyp)}
         />
     );
 }
 
-const inputTypes: OptionTextValue[] = [
+const inputTypeNames: OptionTextValue[] = [
     ["Text", `${FieldTyp.edit}`], 
     ["Passowrd", `${FieldTyp.psw}`],
 ];
