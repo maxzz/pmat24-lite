@@ -10,8 +10,15 @@ import { Col_FiledCatalog } from "./7-col-field-catalog";
 
 export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    const isFieldPsw = useAtomValue(rowCtx.rowCtx.typeAtom) === FieldTyp.psw;
+    
+    const containerClasses =
+        fcAllowed
+            ? "grid grid-cols-[1fr,1fr,auto] gap-2"
+            : "grid grid-cols-[1fr,auto] gap-2";
+
     return (
-        <div className={fcAllowed ? "grid grid-cols-[1fr,1fr,auto] gap-2" : "grid grid-cols-[1fr,auto] gap-2"}>
+        <div className={containerClasses}>
 
             <InputLabel label="Value">
                 <Col_ManualFieldValue item={rowCtx} fileUsCtx={fileUsCtx} />
@@ -19,17 +26,14 @@ export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxF
 
             <Col_FiledCatalog item={rowCtx} fileUsCtx={fileUsCtx} />
 
-            <Col_PolicyOrLink rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+            {isFieldPsw && (
+                <Col_PolicyOrLink rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+            )}
         </div>
     );
 }
 
 function Col_PolicyOrLink({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const isFieldPsw = useAtomValue(rowCtx.rowCtx.typeAtom) === FieldTyp.psw;
-    if (!isFieldPsw) {
-        return null;
-    }
-
     return (<>
         {fileUsCtx.formIdx === FormIdx.login
             ? (
