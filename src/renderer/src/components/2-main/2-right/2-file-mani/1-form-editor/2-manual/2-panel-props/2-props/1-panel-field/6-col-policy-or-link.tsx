@@ -41,11 +41,8 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const label = useAtomValue(labelAtom);
 
-    const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
     const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
-
-    const fields = getLoginFormPswFields(fileUsCtx);
-    const dropdownAllItems = doBuildDropdownFields(rindexUuid, fields);
+    const dropdownAllItems = doBuildDropdownFields(rindexUuid, fileUsCtx);
 
     return (
         <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
@@ -63,15 +60,9 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
 
 const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-pointer";
 
-const inputTypes: OptionTextValue[] = [
-    // ["no link", "0"],
-    ["Current password", "1"], // 'in'
-    ["New passowrd", "2"], // 'out'
-];
-
 const getLoginFormPswFieldsAtom = atom(
     null,
-    (get, set, fileUsCtx: FileUsCtx) => {
+    (get, set, fileUsCtx: FileUsCtx): NormalField.RowCtx[] | undefined => {
         const loginFields = set(doGetLinksAtom, fileUsCtx)?.[FormIdx.login];
         if (!loginFields) {
             return;
@@ -84,7 +75,9 @@ const getLoginFormPswFieldsAtom = atom(
 
 const buildDropdownFieldsAtom = atom(
     null,
-    (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined): OptionTextValue[] => {
+    (get, set, rindexUuid: number, fileUsCtx: FileUsCtx): OptionTextValue[] => {
+        const fields = set(getLoginFormPswFieldsAtom, fileUsCtx);
+
         set(printFieldsAtom, rindexUuid, fields);
 
         const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), get(field.dbnameAtom)]));
