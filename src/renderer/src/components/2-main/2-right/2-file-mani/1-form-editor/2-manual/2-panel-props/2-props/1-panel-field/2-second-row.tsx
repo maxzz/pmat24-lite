@@ -28,7 +28,15 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 <Col_ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
             </InputLabel>
 
-            <Col_FiledCatalog item={item} fileUsCtx={fileUsCtx} />
+            {fcAllowed && (
+                <InputLabel label="Catalog">
+                    <Column5_Catalog
+                        rowCtx={item.rowCtx}
+                        fileUsCtx={fileUsCtx}
+                        onSelectCatItem={function onSelectCatItem(item: FceItem | undefined) {/*TODO:*/ }}
+                    />
+                </InputLabel>
+            )}
 
             {isFieldPsw && (
                 fileUsCtx.formIdx === FormIdx.login
@@ -45,19 +53,4 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
             )}
         </div>
     );
-}
-
-function Col_FiledCatalog({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
-    return (<>
-        {fcAllowed && (
-            <InputLabel label="Catalog">
-                <Column5_Catalog
-                    rowCtx={item.rowCtx}
-                    fileUsCtx={fileUsCtx}
-                    onSelectCatItem={function onSelectCatItem(item: FceItem | undefined) {/*TODO:*/}}
-                />
-            </InputLabel>
-        )}
-    </>);
 }
