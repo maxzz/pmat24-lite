@@ -5,22 +5,27 @@ import { Col_ManualFieldType } from "./1-col-field-type";
 import { SecondRow } from "./2-second-row";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, labelAtom } = item.rowCtx;
     return (<>
+        <FirstRow rowCtx={item} fileUsCtx={fileUsCtx} />
+        <SecondRow rowCtx={item} fileUsCtx={fileUsCtx} />
+    </>);
+}
+
+function FirstRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, labelAtom } = rowCtx.rowCtx;
+    return (
         <div className="grid grid-cols-[auto,1fr] gap-2">
             <InputLabel label="Type">
-                <Col_ManualFieldType item={item} />
+                <Col_ManualFieldType item={rowCtx} />
             </InputLabel>
 
             <InputLabel label="Label">
                 <Column3_Label
                     useItAtom={useItAtom}
                     valueAtom={labelAtom}
-                    highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                    highlightCtx={{ mFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
                 />
             </InputLabel>
         </div>
-
-        <SecondRow rowCtx={item} fileUsCtx={fileUsCtx} />
-    </>);
+    );
 }
