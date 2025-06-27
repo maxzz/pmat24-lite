@@ -37,12 +37,13 @@ export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.Ctx
 function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const [type, setType] = useState('1');
 
-    const { labelAtom, rfieldUuidAtom } = item.rowCtx;
+    const { rfieldUuidAtom } = item.rowCtx;
     const rindexUuid = useAtomValue(rfieldUuidAtom);
-    const label = useAtomValue(labelAtom);
 
     const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
-    const dropdownAllItems = doBuildDropdownFields(rindexUuid, fileUsCtx);
+    const dropdownAllItems = doBuildDropdownFields(item.rowCtx, fileUsCtx);
+
+    // return null;
 
     return (
         <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
