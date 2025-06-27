@@ -47,7 +47,7 @@ function Col_PolicyOrLink({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxF
                 </InputLabel>
             )
             : (
-                <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
+                <InputLabel label="Link to login form" className="min-w-32">
                     <Case_LinkToLoginForm item={rowCtx} fileUsCtx={fileUsCtx} />
                 </InputLabel>
             )
