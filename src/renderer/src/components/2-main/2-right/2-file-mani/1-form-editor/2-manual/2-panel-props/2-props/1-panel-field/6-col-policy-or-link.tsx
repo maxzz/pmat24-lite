@@ -42,11 +42,9 @@ function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxF
     const label = useAtomValue(labelAtom);
 
     const getLoginFormPswFields = useSetAtom(getLoginFormPswFieldsAtom);
-    const doPrintFields = useSetAtom(printFieldsAtom);
     const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
 
     const fields = getLoginFormPswFields(fileUsCtx);
-    doPrintFields(rindexUuid, fields);
     const dropdownAllItems = doBuildDropdownFields(rindexUuid, fields);
 
     return (
@@ -87,6 +85,8 @@ const getLoginFormPswFieldsAtom = atom(
 const buildDropdownFieldsAtom = atom(
     null,
     (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined): OptionTextValue[] => {
+        set(printFieldsAtom, rindexUuid, fields);
+
         const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), get(field.dbnameAtom)]));
         rv.unshift(['No link', '0']);
         return rv;
