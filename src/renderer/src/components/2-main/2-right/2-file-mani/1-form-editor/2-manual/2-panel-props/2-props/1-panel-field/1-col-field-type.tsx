@@ -1,9 +1,30 @@
 import { useAtom } from "jotai";
-import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldTyp, type OptionTextValue } from "@/store/manifest";
+import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
+import { InputLabel } from "../8-props-ui";
+import { Column3_Label } from "../../../../1-normal/1-fields";
 
-export function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
+export function FirstRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, labelAtom } = rowCtx.rowCtx;
+    return (
+        <div className="grid grid-cols-[auto,1fr] gap-2">
+            <InputLabel label="Type">
+                <Col_ManualFieldType item={rowCtx} />
+            </InputLabel>
+
+            <InputLabel label="Label">
+                <Column3_Label
+                    useItAtom={useItAtom}
+                    valueAtom={labelAtom}
+                    highlightCtx={{ mFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                />
+            </InputLabel>
+        </div>
+    );
+}
+
+function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
     const [type, setType] = useAtom(item.rowCtx.typeAtom);
     return (
         <InputSelectUi
