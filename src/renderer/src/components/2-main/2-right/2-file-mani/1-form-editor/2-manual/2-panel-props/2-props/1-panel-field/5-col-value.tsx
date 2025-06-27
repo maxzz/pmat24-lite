@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";

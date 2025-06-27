@@ -4,7 +4,7 @@ import { SecondRow } from "./2-second-row";
 
 export function PropsEditorFld({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     return (<>
-        <FirstRow rowCtx={item} fileUsCtx={fileUsCtx} />
-        <SecondRow rowCtx={item} fileUsCtx={fileUsCtx} />
+        <FirstRow item={item} fileUsCtx={fileUsCtx} />
+        <SecondRow item={item} fileUsCtx={fileUsCtx} />
     </>);
 }

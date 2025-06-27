@@ -1,17 +1,17 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { appSettings } from "@/store";
 import { FieldTyp, FormIdx } from "@/store/manifest";
+import { appSettings, type FceItem } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputLabel } from "../8-props-ui";
+import { Column5_Catalog } from "../../../../1-normal/1-fields";
 import { Case_LinkToLoginForm, Case_ManualFieldPolicyBtn } from "./6-col-policy-or-link";
 import { Col_ManualFieldValue } from "./5-col-value";
-import { Col_FiledCatalog } from "./7-col-field-catalog";
 
-export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
-    const isFieldPsw = useAtomValue(rowCtx.rowCtx.typeAtom) === FieldTyp.psw;
+    const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
 
     const containerClasses =
         fcAllowed
@@ -25,24 +25,39 @@ export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxF
     return (
         <div className={classNames("grid gap-2", containerClasses)}>
             <InputLabel label="Value">
-                <Col_ManualFieldValue item={rowCtx} fileUsCtx={fileUsCtx} />
+                <Col_ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
             </InputLabel>
 
-            <Col_FiledCatalog item={rowCtx} fileUsCtx={fileUsCtx} />
+            <Col_FiledCatalog item={item} fileUsCtx={fileUsCtx} />
 
             {isFieldPsw && (
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
                         <InputLabel label="Policy">
-                            <Case_ManualFieldPolicyBtn item={rowCtx} />
+                            <Case_ManualFieldPolicyBtn item={item} />
                         </InputLabel>
                     )
                     : (
                         <InputLabel label="Link to login form" className="min-w-32">
-                            <Case_LinkToLoginForm item={rowCtx} fileUsCtx={fileUsCtx} />
+                            <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
                         </InputLabel>
                     )
             )}
         </div>
     );
+}
+
+function Col_FiledCatalog({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    return (<>
+        {fcAllowed && (
+            <InputLabel label="Catalog">
+                <Column5_Catalog
+                    rowCtx={item.rowCtx}
+                    fileUsCtx={fileUsCtx}
+                    onSelectCatItem={function onSelectCatItem(item: FceItem | undefined) {/*TODO:*/}}
+                />
+            </InputLabel>
+        )}
+    </>);
 }

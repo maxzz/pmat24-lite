@@ -5,19 +5,19 @@ import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { InputLabel } from "../8-props-ui";
 import { Column3_Label } from "../../../../1-normal/1-fields";
 
-export function FirstRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, labelAtom } = rowCtx.rowCtx;
+export function FirstRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, labelAtom } = item.rowCtx;
     return (
         <div className="grid grid-cols-[auto,1fr] gap-2">
             <InputLabel label="Type">
-                <Col_ManualFieldType item={rowCtx} />
+                <Col_ManualFieldType item={item} />
             </InputLabel>
 
             <InputLabel label="Label">
                 <Column3_Label
                     useItAtom={useItAtom}
                     valueAtom={labelAtom}
-                    highlightCtx={{ mFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                    highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
                 />
             </InputLabel>
         </div>
