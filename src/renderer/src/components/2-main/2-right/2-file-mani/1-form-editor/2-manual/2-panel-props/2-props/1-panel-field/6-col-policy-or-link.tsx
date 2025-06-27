@@ -7,20 +7,6 @@ import { InputLabel, InputSelectUi } from "../8-props-ui";
 import { buildDropdownFieldsAtom } from "./8-forms-fields";
 import { classNames } from "@/utils";
 
-export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
-    if (!isFieldPsw) {
-        return null;
-    }
-
-    return (<>
-        {fileUsCtx.formIdx === FormIdx.login
-            ? <Case_ManualFieldPolicyBtn item={item} />
-            : <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
-        }
-    </>);
-}
-
 export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
     return (
@@ -34,7 +20,7 @@ export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.Ctx
     );
 }
 
-function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const [type, setType] = useState('1');
 
     const { rfieldUuidAtom } = item.rowCtx;
