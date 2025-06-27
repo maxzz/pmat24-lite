@@ -31,25 +31,18 @@ export function SecondRow({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxF
             <Col_FiledCatalog item={rowCtx} fileUsCtx={fileUsCtx} />
 
             {isFieldPsw && (
-                <Col_PolicyOrLink rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+                fileUsCtx.formIdx === FormIdx.login
+                    ? (
+                        <InputLabel label="Policy">
+                            <Case_ManualFieldPolicyBtn item={rowCtx} />
+                        </InputLabel>
+                    )
+                    : (
+                        <InputLabel label="Link to login form" className="min-w-32">
+                            <Case_LinkToLoginForm item={rowCtx} fileUsCtx={fileUsCtx} />
+                        </InputLabel>
+                    )
             )}
         </div>
     );
-}
-
-function Col_PolicyOrLink({ rowCtx, fileUsCtx }: { rowCtx: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    return (<>
-        {fileUsCtx.formIdx === FormIdx.login
-            ? (
-                <InputLabel label="Policy">
-                    <Case_ManualFieldPolicyBtn item={rowCtx} />
-                </InputLabel>
-            )
-            : (
-                <InputLabel label="Link to login form" className="min-w-32">
-                    <Case_LinkToLoginForm item={rowCtx} fileUsCtx={fileUsCtx} />
-                </InputLabel>
-            )
-        }
-    </>);
 }
