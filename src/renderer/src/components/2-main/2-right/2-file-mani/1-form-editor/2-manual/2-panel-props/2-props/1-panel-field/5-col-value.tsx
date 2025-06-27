@@ -4,7 +4,6 @@ import { FieldTyp, FormIdx, type OptionTextValue } from "@/store/manifest";
 import { cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
-import { doGetLinksAtom } from "./8-forms-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { typeAtom, rfieldAtom, rfieldUuidAtom } = item.rowCtx;
@@ -17,18 +16,6 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
 
     const maniAtoms = safeManiAtoms(useAtomValue(fileUsCtx.fileUs.maniAtomsAtom));
     const rfield = useAtomValue(rfieldAtom); // in|out
-
-    // const currentForm = maniAtoms[fileUsCtx.formIdx];
-    // const loginFormFields = useAtomValue(maniAtoms[loginFieldsIdx]);
-    // const cpassFormFields = useAtomValue(maniAtoms[cpassFieldsIdx]);
-
-    
-    // console.log('loginFormFields', loginFormFields);
-    // console.log('cpassFormFields', cpassFormFields);
-    
-    // const label = useAtomValue(item.rowCtx.labelAtom);
-    // const doGetLinks = useSetAtom(doGetLinksAtom);
-    // console.log(`links "${label} link: ${rindexUuid}":`, doGetLinks(fileUsCtx));
 
     return (<>
         {specialCpass
