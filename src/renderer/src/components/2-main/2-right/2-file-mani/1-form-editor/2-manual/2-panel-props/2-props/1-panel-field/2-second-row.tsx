@@ -31,8 +31,16 @@ export function Col_PolicyOrLink({ item, fileUsCtx }: { item: ManualFieldState.C
 
     return (<>
         {fileUsCtx.formIdx === FormIdx.login
-            ? <Case_ManualFieldPolicyBtn item={item} />
-            : <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
+            ? (
+                <InputLabel label="Policy">
+                    <Case_ManualFieldPolicyBtn item={item} />
+                </InputLabel>
+            )
+            : (
+                <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
+                    <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
+                </InputLabel>
+            )
         }
     </>);
 }

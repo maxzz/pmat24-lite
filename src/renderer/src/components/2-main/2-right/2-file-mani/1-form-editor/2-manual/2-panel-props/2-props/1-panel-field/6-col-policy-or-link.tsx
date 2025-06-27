@@ -10,13 +10,11 @@ import { classNames } from "@/utils";
 export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.CtxFld; }) {
     const { useItAtom, typeAtom, policiesAtom } = item.rowCtx;
     return (
-        <InputLabel label="Policy">
-            <Column6_Policy
-                useItAtom={useItAtom}
-                typeAtom={typeAtom}
-                policiesAtom={policiesAtom}
-            />
-        </InputLabel>
+        <Column6_Policy
+            useItAtom={useItAtom}
+            typeAtom={typeAtom}
+            policiesAtom={policiesAtom}
+        />
     );
 }
 
@@ -32,16 +30,12 @@ export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldSta
     // return null;
 
     return (
-        <InputLabel label="Link to login form" labelClasses="pb-0.5" className="min-w-32">
-
-            <InputSelectUi
-                triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
-                items={dropdownAllItems}
-                value={`${type}`}
-                onValueChange={(value) => setType(value)}
-            />
-
-        </InputLabel>
+        <InputSelectUi
+            triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
+            items={dropdownAllItems}
+            value={`${type}`}
+            onValueChange={(value) => setType(value)}
+        />
     );
 }
 
