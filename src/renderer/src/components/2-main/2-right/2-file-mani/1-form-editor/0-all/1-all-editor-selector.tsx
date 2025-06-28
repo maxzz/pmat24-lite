@@ -21,14 +21,14 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     }
 
     if (formManiAtoms.manual) {
-        const ctx: MFormContextProps = { maniAtoms, formIdx, fieldsAtom: formManiAtoms.formFieldsAtom, mAllAtoms: formManiAtoms as MFormAtoms };
+        const ctx: MFormContextProps = { maniAtoms, formIdx, mAllAtoms: formManiAtoms as MFormAtoms };
         return (
             <TabContent_ManualForm ctx={ctx} {...rest} />
         );
     }
 
     if (formManiAtoms.normal) {
-        const ctx: NFormContextProps = { maniAtoms, formIdx, fieldsAtom: formManiAtoms.formFieldsAtom, nAllAtoms: formManiAtoms as NFormAtoms };
+        const ctx: NFormContextProps = { maniAtoms, formIdx, nAllAtoms: formManiAtoms as NFormAtoms };
         return (
             <TabContent_NormalForm ctx={ctx} />
         );

@@ -61,14 +61,12 @@ export type NFormContextProps = {           // To access normal form fields and 
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     nAllAtoms: NFormAtoms;
-    fieldsAtom: Atom<FormFields>;           // Reactive fields in normal form (they are never changed)
 };
 
 export type MFormContextProps = {           // To access manual form fields
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     mAllAtoms: MFormAtoms;
-    fieldsAtom: Atom<FormFields>;           // Reactive fields in manual form (updated when chunks are changed)
 };
 
 export type OFormContextProps = {           // To access form options
@@ -111,7 +109,7 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
     return obj;
 }
 
-// Form fields atoms
+// Form fields access atoms
 
 type FormsFieldsAtoms = {
     loginAtom: Atom<FormFields>,
