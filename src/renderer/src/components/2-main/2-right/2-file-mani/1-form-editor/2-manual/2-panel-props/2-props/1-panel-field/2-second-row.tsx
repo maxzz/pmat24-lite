@@ -23,17 +23,17 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 : "grid-cols-[auto]";
 
     return (
-        <div className={classNames("grid gap-2", containerClasses)}>
+        <div className={classNames("grid", containerClasses)}>
             <InputLabel label="Value">
                 <Col_ManualFieldValue item={item} fileUsCtx={fileUsCtx} />
             </InputLabel>
 
             {fcAllowed && (
-                <InputLabel label="Catalog">
+                <InputLabel label="Catalog" className="ml-2">
                     <Column5_Catalog
                         rowCtx={item.rowCtx}
                         fileUsCtx={fileUsCtx}
-                        onSelectCatItem={function onSelectCatItem(item: FceItem | undefined) {/*TODO:*/ }}
+                        onSelectCatItem={function onSelectCatItem(item: FceItem | undefined) { /*TODO:*/ }}
                     />
                 </InputLabel>
             )}
@@ -41,12 +41,12 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
             {isFieldPsw && (
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
-                        <InputLabel label="Policy">
+                        <InputLabel label="Policy" className="ml-2">
                             <Case_ManualFieldPolicyBtn item={item} />
                         </InputLabel>
                     )
                     : (
-                        <InputLabel label="Link to login form" className="min-w-32">
+                        <InputLabel label="Link to login form" className="ml-2 min-w-32">
                             <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
                         </InputLabel>
                     )
