@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
@@ -19,10 +19,10 @@ export function Case_ManualFieldPolicyBtn({ item }: { item: ManualFieldState.Ctx
 }
 
 export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const [type, setType] = useState('1');
+    const [type, setType] = useState('0');
 
     const { rfieldUuidAtom } = item.rowCtx;
-    const rindexUuid = useAtomValue(rfieldUuidAtom);
+    const [rindexUuid, setRindexUuid] = useAtom(rfieldUuidAtom);
 
     const doBuildDropdownFields = useSetAtom(buildDropdownFieldsAtom);
     const dropdownAllItems = doBuildDropdownFields(item.rowCtx, fileUsCtx);
@@ -33,8 +33,8 @@ export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldSta
         <InputSelectUi
             triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
-            value={`${type}`}
-            onValueChange={(value) => setType(value)}
+            value={`${rindexUuid}`}
+            onValueChange={(value) => setRindexUuid(+value)}
         />
     );
 }
