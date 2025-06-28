@@ -42,12 +42,12 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
                         <InputLabel label="Policy" className="ml-2">
-                            <Case_ManualFieldPolicyBtn item={item} />
+                            <Case_ManualFieldPolicyBtn rowCtx={item.rowCtx} />
                         </InputLabel>
                     )
                     : (
                         <InputLabel label="Link to login form" className="ml-2 min-w-32">
-                            <Case_LinkToLoginForm item={item} fileUsCtx={fileUsCtx} />
+                            <Case_LinkToLoginForm rowCtx={item.rowCtx} fileUsCtx={fileUsCtx} />
                         </InputLabel>
                     )
             )}
