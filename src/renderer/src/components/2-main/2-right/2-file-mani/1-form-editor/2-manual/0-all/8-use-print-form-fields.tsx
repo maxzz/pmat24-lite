@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { type NormalField, type FormFields, type MFormContextProps, cpassFieldsIdx, loginFieldsIdx  } from "@/store/1-atoms/2-file-mani-atoms";
 import { FormIdx } from "@/store/manifest";
+import { type ManiAtoms, type FormFields, type NormalField, getFormsFieldsAtoms  } from "@/store/1-atoms/2-file-mani-atoms";
 
-export function usePrintFormFields({ ctx }: { ctx: MFormContextProps; }) {
-    const loginFields = useAtomValue(ctx.maniAtoms[loginFieldsIdx]);
-    const cpassFields = useAtomValue(ctx.maniAtoms[cpassFieldsIdx]);
+export function usePrintFormFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
+    const { loginAtom, cpassAtom } = getFormsFieldsAtoms(maniAtoms);
+    const loginFields = useAtomValue(loginAtom);
+    const cpassFields = useAtomValue(cpassAtom);
 
     const doPrintFields = useSetAtom(doPrintFieldsAtom);
 
     useEffect(
         () => {
-            console.log(`%c ------------render ------------%c ${ctx.formIdx ? 'cpass' : 'login'} `, 'background-color: #ff00ff50; color: white;', 'color: magenta');
+            console.log(`%c ------------render ------------%c ${formIdx ? 'cpass' : 'login'} `, 'background-color: #ff00ff50; color: white;', 'color: magenta');
 
-            doPrintFields({ label: `login`, formIdx: ctx.formIdx, fields: loginFields });
-            doPrintFields({ label: `cpass`, formIdx: ctx.formIdx, fields: cpassFields });
+            doPrintFields({ label: `login`, formIdx, fields: loginFields });
+            doPrintFields({ label: `cpass`, formIdx, fields: cpassFields });
         }, [loginFields, cpassFields]
     );
 }

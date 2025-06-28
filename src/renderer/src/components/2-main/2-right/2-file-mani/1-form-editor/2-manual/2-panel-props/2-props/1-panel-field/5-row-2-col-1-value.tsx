@@ -43,9 +43,9 @@ function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
 }
 
 const inputTypes: OptionTextValue[] = [
-    // ["no link", "0"],
-    ["Current password", "1"], // 'in'
-    ["New passowrd", "2"], // 'out'
+    ["Current password", "in"], // old password
+    ["New passowrd", "out"], // new password
+    //["Confirm new passowrd", "out"], // new password //TODO: confirm new password, so far two new passwords are the same
 ];
 
 // rfield: string;                 // 'in' | 'out': in(old psw) - from login form field value, out(new psw) - to login form field value

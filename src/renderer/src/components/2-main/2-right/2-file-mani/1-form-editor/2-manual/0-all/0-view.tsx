@@ -8,7 +8,7 @@ import { InFormBlockOptions } from "../../../2-form-options";
 import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
-    // usePrintFormFields({ ctx });
+    //usePrintFormFields({ maniAtoms: ctx.maniAtoms, formIdx: ctx.formIdx });
     return (
         <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
 

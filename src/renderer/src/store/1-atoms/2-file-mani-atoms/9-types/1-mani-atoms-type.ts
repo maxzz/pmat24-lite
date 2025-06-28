@@ -43,10 +43,10 @@ export type AnyFormAtoms = Prettify<
 export type NFormAtoms = Prettify<{ normal: NFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
 export type MFormAtoms = Prettify<{ manual: MFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
 
-//
+// ManiAtoms
 
-export const loginFieldsIdx = 2;
-export const cpassFieldsIdx = 3;
+const loginFieldsIdx = 2;
+const cpassFieldsIdx = 3;
 
 export type ManiAtoms = readonly [
     login: AnyFormAtoms | undefined,
