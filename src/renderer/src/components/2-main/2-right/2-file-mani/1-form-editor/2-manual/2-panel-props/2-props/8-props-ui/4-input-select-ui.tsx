@@ -118,11 +118,14 @@ export type StringValueChangeProps = {
     onValueChange: (value: string) => void;
 };
 
-type InputSelectUiProps = StringValueChangeProps & {
-    items: OptionTextValue[];
-    triggerClasses?: string;
-    placeholder?: string;
-};
+type InputSelectUiProps = Prettify<
+    & {
+        items: OptionTextValue[];
+        triggerClasses?: string;
+        placeholder?: string;
+    }
+    & StringValueChangeProps
+>;
 
 export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     return (

@@ -34,7 +34,7 @@ export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldSta
             triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
             value={`${rindexUuid}`}
-            onValueChange={(value) => setRindexUuid(+value)}
+            onValueChange={(value) => setRindexUuid(value as unknown as number)}
         />
     );
 }

@@ -9,7 +9,7 @@ export const buildDropdownFieldsAtom = atom(
 
         set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), fields);
 
-        const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), `${get(field.rfieldUuidAtom)}`]));
+        const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), get(field.dbnameAtom)]));
         rv.unshift(['No link', '0']);
         return rv;
     }
