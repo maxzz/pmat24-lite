@@ -31,7 +31,7 @@ export function Case_LinkToLoginForm({ item, fileUsCtx }: { item: ManualFieldSta
 
     return (
         <InputSelectUi
-            triggerClasses={classNames("w-full", type === '0' && inputAsRefClasses)}
+            triggerClasses={classNames("w-full", `${rindexUuid}` === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
             value={`${rindexUuid}`}
             onValueChange={(value) => setRindexUuid(value as unknown as number)}
