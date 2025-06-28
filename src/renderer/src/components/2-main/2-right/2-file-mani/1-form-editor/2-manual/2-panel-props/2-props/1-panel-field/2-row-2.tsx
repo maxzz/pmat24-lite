@@ -6,8 +6,8 @@ import { appSettings, type FceItem } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputLabel } from "../8-props-ui";
 import { Column5_Catalog } from "../../../../1-normal/1-fields";
-import { Case_LinkToLoginForm, Case_ManualFieldPolicyBtn } from "./6-col-policy-or-link";
-import { Col_ManualFieldValue } from "./5-col-value";
+import { Case_LinkToLoginForm, Case_ManualFieldPolicyBtn } from "./6-row-2-col-policy-or-link";
+import { Col_ManualFieldValue } from "./5-row-2-col-value";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
