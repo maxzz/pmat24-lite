@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FormFields, type FileUsCtx, type NormalField, cpassFieldsIdx, loginFieldsIdx, safeManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FormFields, type FileUsCtx, type NormalField, cpassFieldsIdx, loginFieldsIdx, safeManiAtoms, getFormsFieldsAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 
 export const buildDropdownFieldsAtom = atom(
@@ -30,14 +30,11 @@ const doGetLinksAtom = atom(
         const { fileUs: { maniAtomsAtom }, formIdx } = fileUsCtx;
         const maniAtoms = safeManiAtoms(get(maniAtomsAtom));
 
-        const currentForm = maniAtoms[formIdx];
-        if (!currentForm) {
-            return [[], []];
-        }
+        const { login, cpass } = getFormsFieldsAtoms(maniAtoms);
 
         const rv = [
-            get(maniAtoms[loginFieldsIdx]),
-            get(maniAtoms[cpassFieldsIdx]),
+            get(login),
+            get(cpass),
         ] as const;
 
         return rv;

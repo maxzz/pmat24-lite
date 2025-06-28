@@ -110,3 +110,19 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
     }
     return obj;
 }
+
+// Form fields atoms
+
+type FormsFieldsAtoms = {
+    login: Atom<FormFields>,
+    cpass: Atom<FormFields>,
+};
+
+export function getFormsFieldsAtoms(maniAtoms: ManiAtoms): FormsFieldsAtoms {
+    return {
+        login: maniAtoms[loginFieldsIdx],
+        cpass: maniAtoms[cpassFieldsIdx],
+    };
+}
+
+//
