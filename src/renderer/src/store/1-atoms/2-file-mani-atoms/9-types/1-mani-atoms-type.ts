@@ -118,10 +118,23 @@ type FormsFieldsAtoms = {
     cpassAtom: Atom<FormFields>,
 };
 
+type FormsFields = {
+    login: FormFields,
+    cpass: FormFields,
+};
+
 export function getFormsFieldsAtoms(maniAtoms: ManiAtoms): FormsFieldsAtoms {
     return {
         loginAtom: maniAtoms[loginFieldsIdx],
         cpassAtom: maniAtoms[cpassFieldsIdx],
+    };
+}
+
+export function getFormsFields(fileUsCtx: FileUsCtx, get: Getter): FormsFields {
+    const { loginAtom, cpassAtom } = getFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
+    return {
+        login: get(loginAtom),
+        cpass: get(cpassAtom),
     };
 }
 
