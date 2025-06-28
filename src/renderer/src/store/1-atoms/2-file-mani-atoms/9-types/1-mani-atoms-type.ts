@@ -114,14 +114,14 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 // Form fields atoms
 
 type FormsFieldsAtoms = {
-    login: Atom<FormFields>,
-    cpass: Atom<FormFields>,
+    loginAtom: Atom<FormFields>,
+    cpassAtom: Atom<FormFields>,
 };
 
 export function getFormsFieldsAtoms(maniAtoms: ManiAtoms): FormsFieldsAtoms {
     return {
-        login: maniAtoms[loginFieldsIdx],
-        cpass: maniAtoms[cpassFieldsIdx],
+        loginAtom: maniAtoms[loginFieldsIdx],
+        cpassAtom: maniAtoms[cpassFieldsIdx],
     };
 }
 

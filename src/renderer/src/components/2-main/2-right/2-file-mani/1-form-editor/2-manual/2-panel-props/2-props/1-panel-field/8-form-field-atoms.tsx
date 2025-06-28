@@ -5,7 +5,7 @@ import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 export const buildDropdownFieldsAtom = atom(
     null,
     (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
-        const fields = set(passwordsFromLoginAtom, fileUsCtx);
+        const fields = set(loginFormPasswordsAtom, fileUsCtx);
 
         set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), fields);
 
@@ -15,7 +15,7 @@ export const buildDropdownFieldsAtom = atom(
     }
 );
 
-const passwordsFromLoginAtom = atom(
+const loginFormPasswordsAtom = atom(
     null,
     (get, set, fileUsCtx: FileUsCtx): NormalField.RowCtx[] => {
         const loginFields = set(doGetLinksAtom, fileUsCtx)[FormIdx.login];
@@ -27,14 +27,11 @@ const passwordsFromLoginAtom = atom(
 const doGetLinksAtom = atom(
     null,
     (get, set, fileUsCtx: FileUsCtx): readonly FormFields[] => {
-        const { fileUs: { maniAtomsAtom }, formIdx } = fileUsCtx;
-        const maniAtoms = safeManiAtoms(get(maniAtomsAtom));
-
-        const { login, cpass } = getFormsFieldsAtoms(maniAtoms);
+        const { loginAtom, cpassAtom } = getFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
 
         const rv = [
-            get(login),
-            get(cpass),
+            get(loginAtom),
+            get(cpassAtom),
         ] as const;
 
         return rv;
