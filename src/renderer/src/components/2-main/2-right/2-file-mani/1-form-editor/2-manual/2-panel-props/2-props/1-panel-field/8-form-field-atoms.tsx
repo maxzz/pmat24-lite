@@ -7,8 +7,8 @@ import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 export const isSpecialCpassFieldAtom = atom(
     null,
     (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx) => {
-        const isCpass = fileUsCtx.formIdx === FormIdx.cpass;
-        const specialCpass = isCpass && get(rowCtx.typeAtom) === FieldTyp.psw && !!get(rowCtx.rfieldUuidAtom); //TODO: and not linked; add field for linked value
+        const isCpassForm = fileUsCtx.formIdx === FormIdx.cpass;
+        const specialCpass = isCpassForm && get(rowCtx.typeAtom) === FieldTyp.psw && !!get(rowCtx.rfieldUuidAtom); //TODO: and not linked; add field for linked value
         return specialCpass;
     }
 );
