@@ -18,21 +18,14 @@ export const isSpecialCpassFieldAtom = atom(
 export const buildLoginDropdownFieldsAtom = atom(
     null,
     (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
-        const fields = set(loginFormPasswordsAtom, fileUsCtx);
-
-        set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), fields);
-
-        const rv = (fields || []).map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
-        rv.unshift(['No link', '0']);
-        return rv;
-    }
-);
-
-const loginFormPasswordsAtom = atom(
-    null,
-    (get, set, fileUsCtx: FileUsCtx): NormalField.RowCtx[] => {
         const loginFields = getFormsFields(fileUsCtx, get).login;
-        const rv = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+
+        set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), loginPasswords);
+
+        const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
+        rv.unshift(['No link', '0']);
+        
         return rv;
     }
 );
