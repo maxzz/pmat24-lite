@@ -4,7 +4,7 @@ import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
 import { stateNapiAccess, napiLock, splitTypedError, typedErrorToString } from "../9-napi-build-state";
 import { debugSettings } from "@/store/9-ui-state";
-import { type TestHwnd, doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
+import { doLoadFakeHwndAtom } from "../8-create-mani-tests-w-fetch";
 import { sawHandleAtom } from "../1-do-get-hwnd";
 
 export const sawIconStrAtom = atom<string | undefined>(undefined);
@@ -98,9 +98,8 @@ const doClearSawIconAtom = atom(
     }
 );
 
-/**
- * Print hwnd and icon in format that can be used in tests.
- */
+// Utilities. Print hwnd and icon in format that can be used in tests.
+
 function printToCreateTestData(get: Getter) {
     const testHwnd = get(sawHandleAtom);
     const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;

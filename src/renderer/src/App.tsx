@@ -164,3 +164,7 @@ export function App(): JSX.Element {
 //TODO: convert to/from atoms 'in' and 'out'; rfieldindex
 //TODO: set initial relations login <-> cpass
 //TODO: template for manual mode new cpass
+
+//06.29.25
+//TODO: use screenshot instead of icon inside SAW monitor
+//TODO: check option create manual mode manifest when create new manifest without main

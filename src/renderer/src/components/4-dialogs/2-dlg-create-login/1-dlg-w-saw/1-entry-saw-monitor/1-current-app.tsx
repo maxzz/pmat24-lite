@@ -1,11 +1,11 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
 import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
 import { Spinner } from "@/ui/icons";
-import { useSnapshot } from "valtio";
 import { CornerSelector } from "./3-corner-selector";
 
 export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
