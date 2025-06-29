@@ -1,6 +1,7 @@
 import { atom, type Setter } from "jotai";
-import { type FileUsCtx, type ManiAtoms, type NormalField, getFormsFields, getManiAtomsFormsFields } from "@/store/1-atoms/2-file-mani-atoms";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
+import { type FileUsCtx, type ManiAtoms, getFormsFields, getManiAtomsFormsFields } from "../9-types";
+import { type NormalField } from "../1-normal-fields";
 
 // Checks
 
