@@ -47,7 +47,7 @@ const printFieldsAtom = atom(
 //TODO: convert to/from atoms 'in' and 'out'; rfieldindex
 //TODO: set initial relations login <-> cpass
 
-const doSetInitialRelationsAtom = atom(
+export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, fileUsCtx: FileUsCtx) => {
         const { login: loginFields, cpass: cpassFields } = getFormsFields(fileUsCtx, get);
@@ -61,15 +61,19 @@ const doSetInitialRelationsAtom = atom(
         const cpassCfmPsw = cpassPasswords[2];
 
         if (loginPsw) {
-            set(cpassOldPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
-            set(cpassOldPsw.rfieldAtom, 'in');
-
-            set(cpassNewPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
-            set(cpassNewPsw.rfieldAtom, 'out');
-
-            set(cpassCfmPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
-            set(cpassCfmPsw.rfieldAtom, 'out');
+            linkField(loginPsw, 'in', set);
+            linkField(cpassOldPsw, 'out', set);
+            linkField(cpassNewPsw, 'out', set);
+            linkField(cpassCfmPsw, 'out', set);
         }
 
     }
 );
+
+function linkField(field: NormalField.RowCtx | undefined, dir: 'in' | 'out', set: Setter) {
+    if (!field) {
+        return;
+    }
+    set(field.rfieldUuidAtom, field.metaField.uuid);
+    set(field.rfieldAtom, dir);
+}
