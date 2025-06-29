@@ -43,12 +43,12 @@ export const doLoadFakeManiAtom = atom(
 
 const testLoginFormManis: Record<TestManiEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/2-mani/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
-    web: 'tests/2-mani/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+    win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
+    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
 };
 
 const testCpassFormManis: Record<TestManiEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/2-mani/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
-    web: 'tests/2-mani/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+    win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
+    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
 };
