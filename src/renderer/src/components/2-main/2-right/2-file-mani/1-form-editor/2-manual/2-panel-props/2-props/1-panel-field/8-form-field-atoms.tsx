@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, type Setter } from "jotai";
 import { type FileUsCtx, type NormalField, getFormsFields } from "@/store/1-atoms/2-file-mani-atoms";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 
@@ -25,7 +25,7 @@ export const buildLoginDropdownFieldsAtom = atom(
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
         rv.unshift(['No link', '0']);
-        
+
         return rv;
     }
 );
@@ -40,5 +40,36 @@ const printFieldsAtom = atom(
         }
         const all = fields.map((field) => `label:${get(field.labelAtom)}, dbid:${get(field.dbnameAtom)}`);
         console.log(`for uuid:"${rindexUuid}" login fields:`, all);
+    }
+);
+
+//TODO: validate before save
+//TODO: convert to/from atoms 'in' and 'out'; rfieldindex
+//TODO: set initial relations login <-> cpass
+
+const doSetInitialRelationsAtom = atom(
+    null,
+    async (get, set, fileUsCtx: FileUsCtx) => {
+        const { login: loginFields, cpass: cpassFields } = getFormsFields(fileUsCtx, get);
+
+        const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        const cpassPasswords = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+
+        const loginPsw = loginPasswords[0];
+        const cpassOldPsw = cpassPasswords[0];
+        const cpassNewPsw = cpassPasswords[1];
+        const cpassCfmPsw = cpassPasswords[2];
+
+        if (loginPsw) {
+            set(cpassOldPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
+            set(cpassOldPsw.rfieldAtom, 'in');
+
+            set(cpassNewPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
+            set(cpassNewPsw.rfieldAtom, 'out');
+
+            set(cpassCfmPsw.rfieldUuidAtom, loginPsw.metaField.uuid);
+            set(cpassCfmPsw.rfieldAtom, 'out');
+        }
+
     }
 );
