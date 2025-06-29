@@ -34,7 +34,7 @@ export const doLoadFakeHwndAtom = atom(
 
 const testHwnds: Record<TestHwndEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/1-hwnd/1-hwnd-cpp.json',
+    win32: 'tests/1-hwnd/1-hwnd-cpp-clogin22.json',
     web: 'tests/1-hwnd/2-hwnd-edge.json',
     // win32: 'tests/1-hwnd/3-hwnd-vscode.json',
     // web: 'tests/1-hwnd/4-hwnd-notepad.json',
