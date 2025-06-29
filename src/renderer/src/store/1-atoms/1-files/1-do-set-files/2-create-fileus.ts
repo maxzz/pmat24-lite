@@ -19,7 +19,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        maniAtomsAtom: createManiAtomsTraceAtom(null),
+        maniAtomsAtom: createManiAtomsWithPrintAtom(null), // Debug version
+        //maniAtomsAtom: atom<ManiAtoms | null>(null), // Non-debug version
 
         fceAtomsForFcFile: undefined,   // will be assigned later when all files are loaded
         fceAtomsRefForMani: undefined,  // will be assigned later when all files are loaded
@@ -33,10 +34,9 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
     return rv;
 }
 
-/**
- * For non-debug version return: atom<ManiAtoms | null>(null)
- */
-export function createManiAtomsTraceAtom(initial: ManiAtoms | null): ManiAtomsAtom {
+// Utilities for printing
+
+export function createManiAtomsWithPrintAtom(initial: ManiAtoms | null): ManiAtomsAtom {
     const base = atom<ManiAtoms | null>(initial); // initial is null always
     //printBaseManiAtomsCreated(base);
 

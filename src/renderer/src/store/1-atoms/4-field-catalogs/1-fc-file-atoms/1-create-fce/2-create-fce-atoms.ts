@@ -6,7 +6,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { finalizeFileContent } from "@/store/store-utils";
-import { createManiAtomsTraceAtom, createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
+import { createManiAtomsWithPrintAtom, createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
 import { catalogItemInFileToFceItemValue } from "../../../2-file-mani-atoms";
 import { createFceCtx } from "./3-create-fce-ctx";
 
@@ -22,7 +22,7 @@ export function createFileUsForNewFc(): FileUs {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        maniAtomsAtom: createManiAtomsTraceAtom(null),
+        maniAtomsAtom: createManiAtomsWithPrintAtom(null),
 
         fceAtomsForFcFile: undefined,
         fceAtomsRefForMani: undefined,
