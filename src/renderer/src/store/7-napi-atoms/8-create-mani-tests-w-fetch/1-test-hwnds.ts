@@ -9,7 +9,7 @@ import { easyDelayInput } from "./8-easy-delay-input";
 
 export const doLoadFakeHwndAtom = atom(
     null,
-    async (get, set, tsId: TestHwndEnum): Promise<string> => {
+    async (get, set, tsId: TestHwndEnum): Promise<TestHwnd | undefined> => {
 
         // 1. Check if we need to delay
         const nDelay = easyDelayInput(appSettings.appUi.uiAdvanced.testCreateHwndDelay);
@@ -24,10 +24,10 @@ export const doLoadFakeHwndAtom = atom(
         // 2. Get content
         const fname = testHwnds[tsId];
         if (!fname) {
-            return '';
+            return;
         }
         
-        const rv = await get(hashedQueryAtom(fname)) as string; //console.log('doLoadFakeManiAtom', fname, cnt);
+        const rv = await get(hashedQueryAtom(fname)) as TestHwnd; //console.log('doLoadFakeManiAtom', fname, cnt);
         return rv;
     }
 );

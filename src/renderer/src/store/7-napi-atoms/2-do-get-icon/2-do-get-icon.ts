@@ -76,7 +76,7 @@ async function doTestIcon(hwnd: string, get: Getter, set: Setter) {
     // }
     // lastTestCreateHwnd = debugSettings.testCreate.hwnd;
 
-    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
+    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd));
 
     if (testHwnd?.icon?.data) {
         const image = new Image();

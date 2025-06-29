@@ -1,7 +1,6 @@
 import { atom, type Getter, type Setter } from "jotai";
 import { atomWithListeners, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { type R2MInvoke } from "@shared/ipc-types";
 import { GetTargetWindowResult } from "@shared/ipc-types";
 import { debugSettings } from "@/store/9-ui-state";
 import { napiLock } from "../9-napi-build-state";
@@ -52,8 +51,8 @@ async function doTestHwnd(get: Getter, set: Setter) {
     // }
     // lastTestCreateHwnd = debugSettings.testCreate.hwnd;
 
-    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd)) as unknown as TestHwnd;
-    set(sawHandleStrAtom, JSON.stringify(testHwnd));
+    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd));
+    set(sawHandleStrAtom, JSON.stringify(testHwnd || ''));
     set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
