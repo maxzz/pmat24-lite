@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from "react";
-import { compareRect } from "@/utils";
 import { type Getter, type Setter, atom, useSetAtom } from "jotai";
+import { compareRect } from "@/utils";
+import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTargetWindowResult, type WindowHighlighterParams } from "@shared/ipc-types";
-import { invokeMainTyped } from "@/xternal-to-main";
 import { useSawHandleListener } from "../1-do-get-hwnd";
 
 export function useSawRectMonitor() {
@@ -40,6 +40,10 @@ const highlightIsOnAtom = atom(false);
 const doRectAtom = atom(
     null,
     async (get, set, { action, params }: { action: 'show', params: WindowHighlighterParams; } | { action: 'hide', params?: undefined; }) => {
+        if (!hasMain()) {
+            return;
+        }
+
         let error: string | undefined;
 
         if (action === 'show') {
