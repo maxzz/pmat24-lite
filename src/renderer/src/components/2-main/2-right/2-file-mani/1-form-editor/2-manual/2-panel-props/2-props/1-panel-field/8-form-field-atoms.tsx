@@ -1,5 +1,5 @@
 import { atom, type Setter } from "jotai";
-import { type FileUsCtx, type NormalField, getFormsFields } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type ManiAtoms, type NormalField, getFormsFields, getManiAtomsFormsFields } from "@/store/1-atoms/2-file-mani-atoms";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 
 // Checks
@@ -49,11 +49,10 @@ const printFieldsAtom = atom(
 
 export const doSetInitialRelationsAtom = atom(
     null,
-    async (get, set, fileUsCtx: FileUsCtx) => {
-        const { login: loginFields, cpass: cpassFields } = getFormsFields(fileUsCtx, get);
-
-        const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        const cpassPasswords = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+    async (get, set, maniAtoms: ManiAtoms) => {
+        const { login, cpass } = getManiAtomsFormsFields(maniAtoms, get);
+        const loginPasswords = login.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        const cpassPasswords = cpass.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
         const loginPsw = loginPasswords[0];
         const cpassOldPsw = cpassPasswords[0];
