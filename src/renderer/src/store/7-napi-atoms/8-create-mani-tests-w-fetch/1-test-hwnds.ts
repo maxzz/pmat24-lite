@@ -32,12 +32,12 @@ export const doLoadFakeHwndAtom = atom(
     }
 );
 
-const testHwnds: Record<TestHwndEnum, string> = {
+const testHwnds: Record<TestHwndEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/25.02.28.25/1-hwnd-cpp.json',
-    web: 'tests/25.02.28.25/2-hwnd-edge.json',
-    // win32: 'tests/25.02.28.25/3-hwnd-vscode.json',
-    // web: 'tests/25.02.28.25/4-hwnd-notepad.json',
+    win32: 'tests/1-hwnd/1-hwnd-cpp.json',
+    web: 'tests/1-hwnd/2-hwnd-edge.json',
+    // win32: 'tests/1-hwnd/3-hwnd-vscode.json',
+    // web: 'tests/1-hwnd/4-hwnd-notepad.json',
 }
 
 export type TestHwnd = {

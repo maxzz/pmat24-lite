@@ -32,8 +32,8 @@ export const doLoadFakeScreensAtom = atom(
     }
 );
 
-const testScreenIds: Record<TestScreenEnum, string> = {
+const testScreenIds: Record<TestScreenEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    A: 'tests/25.01.16.25/TopLevelWindowsScreenshots.json',
-    B: 'tests/25.01.16.25/TopLevelWindowsScreenshots2many.json',
+    A: 'tests/3-screenshots/1-tlw-screenshots.json',
+    B: 'tests/3-screenshots/2-tlw-screenshots-many.json',
 };
