@@ -8,7 +8,6 @@ import { doMoveToSecondDlgAtom } from "@/store/1-atoms/7-dialogs";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
-
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
 
     if (hasMain()) {

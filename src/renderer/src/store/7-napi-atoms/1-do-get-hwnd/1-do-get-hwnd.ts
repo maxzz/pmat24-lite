@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { atomWithListeners, errorToString, shortenWindowCaption } from "@/utils";
+import { atomWithListeners, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { GetTargetWindowResult } from "@shared/ipc-types";
@@ -10,28 +10,6 @@ import { doLoadFakeHwndAtom, type TestHwnd } from "../8-create-mani-tests-w-fetc
 
 export const sawHandleStrAtom = atom<string | undefined>('');
 export const [sawHandleAtom, useSawHandleListener] = atomWithListeners<GetTargetWindowResult | null>(null);
-
-export const sawHandleCaptionAtom = atom(
-    (get) => {
-        const { dummyCaption, hwnd } = debugSettings.testCreate;
-
-        if (hasMain() || !dummyCaption) {
-            return shortenWindowCaption(get(sawHandleAtom)?.caption);
-        }
-
-        let rv = get(sawHandleAtom)?.caption;
-        if (hwnd === 'none') {
-            rv = '';
-        }
-        else if (hwnd === 'win32') {
-            rv = 'long name C:\\Y\\w\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\7-napi-atoms\\1-do-get-hwnd';
-            // rv = 'C:\\Users\\maxzz\\Desktop\\HID bugs\\89863\\temp-for-max\\DigitalPersona Templates Edge\\C\\copies-from-here';
-        } else {
-            rv = 'short name';
-        }
-        return rv;
-    }
-);
 
 export const doGetTargetHwndAtom = atom(
     null,
