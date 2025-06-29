@@ -2,26 +2,17 @@ import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai"
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
-//import { type FileUsAtom, type FileUs, doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess, createNewFileContent, fileUsChanges, doInitNewManiContentAtom, ManiAtoms } from "@/store";
-//import { createFileUsFromFileContent, createManiAtoms } from "@/store/1-atoms";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "../../../../7-napi-atoms";
+import { createNewFileContent } from "@/store/store-utils";
 import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/8-save-utils";
-import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "../../../../7-napi-atoms";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges, type ManiAtoms } from "../../9-types";
-import { createNewFileContent } from "@/store/store-utils";
 import { createFileUsFromFileContent } from "../../../1-files";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { doSetInitialRelationsAtom } from "../../3-cpass-links";
-
-type MoveFromAppsToNextPageParams = {
-    params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
-    showProgressAtom?: PA<boolean>; // show controls scan progress atom
-    get: Getter;
-    set: Setter;
-};
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -102,6 +93,15 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         return false;
     }
 }
+
+type MoveFromAppsToNextPageParams = {
+    params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
+    showProgressAtom?: PA<boolean>; // show controls scan progress atom
+    get: Getter;
+    set: Setter;
+};
+
+// Utilities
 
 function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, get: Getter) {
     const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';

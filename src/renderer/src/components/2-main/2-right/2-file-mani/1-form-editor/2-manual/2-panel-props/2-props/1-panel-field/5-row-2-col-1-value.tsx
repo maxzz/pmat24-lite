@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
-import { type NormalField, type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NormalField, type FileUsCtx, type ManualFieldState, isSpecialCpassFieldAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
-import { isSpecialCpassFieldAtom } from "./8-form-field-atoms";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const isSpecialCpassField = useSetAtom(isSpecialCpassFieldAtom); //TODO: and not linked; add field for linked value

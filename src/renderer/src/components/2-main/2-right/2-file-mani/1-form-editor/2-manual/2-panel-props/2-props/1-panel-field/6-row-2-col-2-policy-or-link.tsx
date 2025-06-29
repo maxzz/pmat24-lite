@@ -1,8 +1,7 @@
 import { useAtom, useSetAtom } from "jotai";
-import { type NormalField, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NormalField, type FileUsCtx, buildLoginDropdownFieldsAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputSelectUi } from "../8-props-ui";
-import { buildLoginDropdownFieldsAtom } from "./8-form-field-atoms";
 import { classNames } from "@/utils";
 
 export function Case_ManualFieldPolicyBtn({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {

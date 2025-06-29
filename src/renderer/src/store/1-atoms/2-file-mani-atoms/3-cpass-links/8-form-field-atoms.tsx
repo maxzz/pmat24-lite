@@ -44,10 +44,6 @@ const printFieldsAtom = atom(
     }
 );
 
-//TODO: validate before save
-//TODO: convert to/from atoms 'in' and 'out'; rfieldindex
-//TODO: set initial relations login <-> cpass
-
 export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, maniAtoms: ManiAtoms) => {

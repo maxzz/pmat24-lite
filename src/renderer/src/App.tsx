@@ -158,3 +158,9 @@ export function App(): JSX.Element {
 
 //06.26.25
 //TODO: add option hihglight color, blinks, use client or window rect for highlight
+
+//06.28.25
+//TODO: validate before save
+//TODO: convert to/from atoms 'in' and 'out'; rfieldindex
+//TODO: set initial relations login <-> cpass
+//TODO: template for manual mode new cpass
