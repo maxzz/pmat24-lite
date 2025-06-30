@@ -3,25 +3,27 @@ import { classNames } from "@/utils";
 import { type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
-import { isNewManifest } from "../../0-all";
+import { isManualManifestNew } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 import { usePrintFormFields } from "./8-use-print-form-fields";
 
-export function ManualModeView({ ctx, className, ...rest }: { ctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+export function ManualModeView({ mFormctx, className, ...rest }: { mFormctx: MFormContextProps; } & ComponentPropsWithoutRef<'div'>) {
+
     //usePrintFormFields({ maniAtoms: ctx.maniAtoms, formIdx: ctx.formIdx });
+
     return (
-        <div className={classNames(manualModeViewClasses, isNewManifest(ctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
+        <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormctx) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
 
-            <ManualPanelActions className="@container/actions" ctx={ctx} />
+            <ManualPanelActions className="@container/actions" mFormCtx={mFormctx} />
 
-            <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={ctx} />
+            <ManualPanelProps className="@container/props min-h-[180px] text-xs" ctx={mFormctx} />
 
             <div className="font-semibold">
                 Additional options
             </div>
 
             <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
-                <InFormBlockOptions n_m_ctx={ctx} />
+                <InFormBlockOptions n_m_ctx={mFormctx} />
             </div>
 
         </div>
