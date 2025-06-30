@@ -133,8 +133,8 @@ importers:
         specifier: ^12.18.1
         version: 12.18.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       pm-manifest:
-        specifier: ^1.4.8
-        version: 1.4.8
+        specifier: ^1.4.10
+        version: 1.4.10
       pm-manifest-icons:
         specifier: latest
         version: 1.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1991,6 +1991,10 @@ packages:
     resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
+  dotenv@16.6.1:
+    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
+    engines: {node: '>=12'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -2904,8 +2908,8 @@ packages:
       react: ^18.2.0 || ^19
       react-dom: ^18.2.0 || ^19
 
-  pm-manifest@1.4.8:
-    resolution: {integrity: sha512-duy4n+tuS3tbnK5P2JH4PZf3uxVZoIEJK8PqrqJun8caCT+OINy2mfWBzJhEqmIDSTSF4OSqJhz1tM11cyXSuA==}
+  pm-manifest@1.4.10:
+    resolution: {integrity: sha512-Vyvf/4ngBkaXhu0bqFGIoH+ybUqPvPppVaXxCJHrpzMKHKEJStpeTcplRriyOn291byjXZZA+voJGJrPlxVgog==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -5117,7 +5121,7 @@ snapshots:
       config-file-ts: 0.2.8-rc1
       debug: 4.4.1
       dmg-builder: 25.1.8(electron-builder-squirrel-windows@26.0.12)
-      dotenv: 16.5.0
+      dotenv: 16.6.1
       dotenv-expand: 11.0.7
       ejs: 3.1.10
       electron-builder-squirrel-windows: 26.0.12(dmg-builder@25.1.8)
@@ -5560,6 +5564,8 @@ snapshots:
       dotenv: 16.5.0
 
   dotenv@16.5.0: {}
+
+  dotenv@16.6.1: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -6585,7 +6591,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  pm-manifest@1.4.8:
+  pm-manifest@1.4.10:
     dependencies:
       '@types/uuid': 10.0.0
       fast-xml-parser: 5.2.3
