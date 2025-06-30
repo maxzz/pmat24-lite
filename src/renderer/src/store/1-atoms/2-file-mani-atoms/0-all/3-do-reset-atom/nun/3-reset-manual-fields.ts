@@ -6,5 +6,5 @@ import { ManualFieldsState } from "../../../2-manual-fields";
 export function resetManualFields(formCtx: MFormCtx, formIdx: FormIdx, ctx: ResetManifestCtx) {
     const { get, set } = ctx;
 
-    ManualFieldsState.resetChunks(formCtx, get, set);
+    ManualFieldsState.resetChunks(formCtx, formIdx, get, set);
 }

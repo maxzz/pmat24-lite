@@ -1,4 +1,4 @@
-import { forwardRef, type Ref } from "react";
+import { forwardRef, type MouseEvent, type Ref } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { classNames } from "@/utils";
@@ -7,8 +7,8 @@ import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapIt
 import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
 
-export function PanelActionsListWoRef({ ctx: ctxForm }: { ctx: MFormContextProps; }, ref: Ref<HTMLDivElement>) {
-    const ctx = ctxForm.mAllAtoms.manual;
+export function PanelActionsListWoRef({ mFormCtx }: { mFormCtx: MFormContextProps; }, ref: Ref<HTMLDivElement>) {
+    const ctx = mFormCtx.mAllAtoms.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectByKey = useSetAtom(doSelectByKbdAtom);
@@ -38,7 +38,7 @@ export function PanelActionsListWoRef({ ctx: ctxForm }: { ctx: MFormContextProps
                                 chunk={chunk}
                                 menuState={menuState}
                                 idx={idx}
-                                onClick={(e) => selectItem(ctx, idx, (v) => e.ctrlKey ? !v : true)}
+                                onClick={(e: MouseEvent) => selectItem(ctx, idx, (v) => e.ctrlKey ? !v : true)}
                                 key={chunk.uid5}
                                 // Not yet, AnimatePresence not working when switching between files
                                 // initial={{ opacity: 0, height: 0 }}
