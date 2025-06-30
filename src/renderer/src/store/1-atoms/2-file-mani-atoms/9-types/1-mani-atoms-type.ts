@@ -13,12 +13,12 @@ export type FileUsCtx = {
 
 //
 
-export type NFormCtx = {
+export type NFormCnt = {                    // Normal form content
     rowCtxs: NormalField.RowCtx[];
     submitCtx: SubmitFieldTypes.Ctx;
 };
 
-export type MFormCtx = ManualEditorTypes.Ctx;
+export type MFormCnt = ManualEditorTypes.Ctx; // Manual form content
 
 //
 
@@ -31,8 +31,8 @@ export type FormFields = NormalField.RowCtx[];
 
 export type AnyFormAtoms = Prettify<
     & {
-        normal?: NFormCtx;                  // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-        manual?: MFormCtx;                  // If form is not manual then it'll dummy empty []
+        normal?: NFormCnt;                  // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+        manual?: MFormCnt;                  // If form is not manual then it'll dummy empty []
     }
     & {
         formFieldsAtom: Atom<FormFields>;   // Fields in normal or manual form (maybe enough just passwords?)
@@ -40,8 +40,8 @@ export type AnyFormAtoms = Prettify<
     & FormOptionsAndFileUsCtxAtoms
 >;
 
-export type NFormAtoms = Prettify<{ normal: NFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
-export type MFormAtoms = Prettify<{ manual: MFormCtx; } & FormOptionsAndFileUsCtxAtoms>;
+export type NFormAtoms = Prettify<{ normal: NFormCnt; } & FormOptionsAndFileUsCtxAtoms>;
+export type MFormAtoms = Prettify<{ manual: MFormCnt; } & FormOptionsAndFileUsCtxAtoms>;
 
 // ManiAtoms
 

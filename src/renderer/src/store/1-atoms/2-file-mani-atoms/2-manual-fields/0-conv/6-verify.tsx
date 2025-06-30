@@ -1,14 +1,14 @@
 import { type PrimitiveAtom, type Getter, type Setter } from "jotai";
-import { type MFormCtx, type VerifyError } from "../../9-types";
-import { type ManualFieldState } from "../9-types";
 import { FormIdx } from "@/store/manifest";
+import { type MFormCnt, type VerifyError } from "../../9-types";
+import { type ManualFieldState } from "../9-types";
 import { getAllAtomValuesForValidate, getChunkValuesForValidate, type RowInputStateUuid } from "./6-verify-state-access";
 
-export function getFormVerifyErrors(ctx: MFormCtx, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
+export function getFormVerifyErrors(mFormCnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
 
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
 
-    const chunks = get(ctx.chunksAtom);
+    const chunks = get(mFormCnt.chunksAtom);
 
     if (!hasFieldChunk(chunks)) {
         return [{ error: 'The action list must contain at least one "Field" action.', tab }]; //TODO: it's better to dissmis this error when the user adds a field

@@ -1,20 +1,20 @@
 import { type ComponentType, forwardRef, type ForwardRefExoticComponent, type Ref, type RefAttributes, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { motion } from "motion/react";
-import { type MFormCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormCnt, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
 import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
-    formCtx: MFormCtx;
+    formCnt: MFormCnt;
     chunk: ManualFieldState.Ctx;
     menuState: MenuState;
     idx: number;
 };
 
-function SingleRowWRef({ formCtx, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
+function SingleRowWRef({ formCnt, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);

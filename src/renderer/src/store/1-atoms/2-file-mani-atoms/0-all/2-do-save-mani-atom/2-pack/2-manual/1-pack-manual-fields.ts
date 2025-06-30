@@ -1,12 +1,12 @@
 import { stringifyFromEditor, type FormIdx, type Mani, type EditorDataForOneAndSn, type EditorField, fieldTyp4Str, mergeSn } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { ManualFieldConv, NormalFieldConv, type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { ManualFieldConv, NormalFieldConv, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { mergeToManiField } from "../1-normal";
 
-export function packManualFields(formCtx: MFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): Mani.Field[] {
+export function packManualFields(formCnt: MFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): Mani.Field[] {
     const { get } = packParams;
 
-    const chunks = get(formCtx.chunksAtom);
+    const chunks = get(formCnt.chunksAtom);
     const scriptItems = ManualFieldConv.fromAtoms(chunks, get);
 
     const chunkAndSns: EditorDataForOneAndSn[] = stringifyFromEditor(scriptItems);

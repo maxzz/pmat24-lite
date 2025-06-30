@@ -6,7 +6,7 @@ import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms } fro
 
 export namespace NormalFieldsState {
 
-    export function createFieldsCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx[] {
+    export function createFieldsCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 

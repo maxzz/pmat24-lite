@@ -3,30 +3,30 @@ import { clamp } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "../../../9-types";
 import { type ChunkKey, createScriptItemByType, FormIdx } from "@/store/manifest";
-import { type MFormContextProps, type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type MFormContextProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
 
 export const doCreateItemAtom = atom(
     null,
     (get, set, formCtx: MFormContextProps, type: ChunkKey, password: boolean) => {
-        const ctx: MFormCtx = formCtx.mAllAtoms.manual;
+        const cnt: MFormCnt = formCtx.mAllAtoms.manual;
 
-        const newItem = createScriptItem(type, password, ctx.onChangeItem, formCtx.formIdx === FormIdx.cpass);
+        const newItem = createScriptItem(type, password, cnt.onChangeItem, formCtx.formIdx === FormIdx.cpass);
 
-        deselectCurrent(ctx, get, set);
+        deselectCurrent(cnt, get, set);
 
-        const chunks = get(ctx.chunksAtom);
+        const chunks = get(cnt.chunksAtom);
 
-        let selectedIdx = get(ctx.selectedIdxStoreAtom);
+        let selectedIdx = get(cnt.selectedIdxStoreAtom);
         selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
 
         const newChunks = [...chunks];
         newChunks.splice(selectedIdx, 0, newItem);
 
-        set(ctx.chunksAtom, newChunks);
+        set(cnt.chunksAtom, newChunks);
 
-        set(doSelectIdxAtom, ctx, selectedIdx);
+        set(doSelectIdxAtom, cnt, selectedIdx);
     }
 );
 

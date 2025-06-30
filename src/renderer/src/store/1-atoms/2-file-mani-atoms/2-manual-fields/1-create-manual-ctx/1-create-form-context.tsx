@@ -1,13 +1,13 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { FormIdx, parseForEditor } from "@/store/manifest";
-import { type MFormCtx, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
+import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
 
 export namespace ManualFieldsState {
 
-    export function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCtx {
+    export function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
         const { fileUs, formIdx } = fileUsCtx;
 
         const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
@@ -29,7 +29,7 @@ export namespace ManualFieldsState {
 
         const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(editorData, onChangeItem, formIdx === FormIdx.cpass);
 
-        const ctx: MFormCtx = {
+        const ctx: MFormCnt = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
             initialChunks: ManualFieldConv.chunksToCompareString(chunks),
             selectedIdxStoreAtom: atom(0),
@@ -40,7 +40,7 @@ export namespace ManualFieldsState {
         return ctx;
     }
 
-    export function resetChunks(ctx: MFormCtx, formIdx: FormIdx, get: Getter, set: Setter) {
+    export function resetChunks(ctx: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
         const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(ctx.fromFile, ctx.onChangeItem, formIdx === FormIdx.cpass);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(ctx.chunksAtom, chunks);
@@ -48,7 +48,7 @@ export namespace ManualFieldsState {
     }
 }
 
-function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+function onChangeWithScope(mFormcnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
     if (!manualFormAtoms) {
         return;
@@ -60,7 +60,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
+        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormcnt, get, set, nextValue });
         return;
     }
 
@@ -77,7 +77,7 @@ function onChangeWithScope(ctx: MFormCtx, updateName: string, nextValue: ManualF
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.changesSet], ctx, get, set, nextValue });
+    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormcnt, get, set, nextValue });
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);

@@ -4,7 +4,7 @@ import { type SubmitFieldTypes, SubmitConv } from "../2-submit/0-conv";
 
 export namespace NormalSubmitState {
 
-    export function createSubmitCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): SubmitFieldTypes.Ctx {
+    export function createSubmitCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): SubmitFieldTypes.Ctx {
 
         const { fileUs, formIdx } = fileUsCtx;
         const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here

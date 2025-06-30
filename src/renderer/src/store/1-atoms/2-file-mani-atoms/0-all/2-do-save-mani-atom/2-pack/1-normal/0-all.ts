@@ -1,6 +1,6 @@
 import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type SubmitFieldTypes, type NFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type SubmitFieldTypes, type NFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { type RecordOldNewFieldByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
@@ -13,11 +13,11 @@ type PackResult = {
     submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
 };
 
-export function packNormalFieldsAndSubmit(formCtx: NFormCtx, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
+export function packNormalFieldsAndSubmit(formCnt: NFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
 
     const allByUuid = getByUiidAllFields(packParams, formIdx);
-    const newRowFieldsByUuid = getByUuidNewFields(formCtx, packParams);
-    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCtx, packParams);
+    const newRowFieldsByUuid = getByUuidNewFields(formCnt, packParams);
+    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCnt, packParams);
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -68,7 +68,7 @@ function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx
 /**
  * Get new fields created by editors and assign them new Mani.Field
  */
-function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
+function getByUuidNewFields(formCtx: NFormCnt, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
     const editAndMeta = getNormalFieldValues(formCtx, packParams);
 
     const newRowFieldsByUuid: RecordOldNewFieldByUuid = editAndMeta.reduce<RecordOldNewFieldByUuid>(
@@ -96,7 +96,7 @@ function getByUuidNewFields(formCtx: NFormCtx, packParams: PackManifestDataParam
 /**
  * Get submit type
  */
-function getSubmitsByUuid(formCtx: NFormCtx, packParams: PackManifestDataParams): { newSubmitsByUuid: RecordOldNewFieldByUuid; doFormSubmit: SUBMIT | undefined; } {
+function getSubmitsByUuid(formCtx: NFormCnt, packParams: PackManifestDataParams): { newSubmitsByUuid: RecordOldNewFieldByUuid; doFormSubmit: SUBMIT | undefined; } {
     const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(formCtx, packParams);
 
     let selected = submitsValues.selected;

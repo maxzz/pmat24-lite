@@ -1,5 +1,5 @@
 import { atom, type Getter, type Setter } from "jotai";
-import { type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { kbdToIndex } from "./b-kbd-to-index";
 
 /**
@@ -7,15 +7,15 @@ import { kbdToIndex } from "./b-kbd-to-index";
  */
 export const doSelectIdxAtom = atom(
     null,
-    (get, set, ctx: MFormCtx, idx: number) => {
-        deselectCurrent(ctx, get, set);
+    (get, set, cnt: MFormCnt, idx: number) => {
+        deselectCurrent(cnt, get, set);
 
-        const chunks = get(ctx.chunksAtom);
+        const chunks = get(cnt.chunksAtom);
 
         const currentAtom = chunks[idx]?.selectedAtom;
         currentAtom && set(currentAtom, true);
 
-        set(ctx.selectedIdxStoreAtom, idx);
+        set(cnt.selectedIdxStoreAtom, idx);
     }
 );
 
@@ -24,19 +24,19 @@ export const doSelectIdxAtom = atom(
  */
 export const doSetSelectItemValueAtom = atom(
     null,
-    (get, set, ctx: MFormCtx, idx: number, value: boolean | ((v: boolean) => boolean)) => {
-        const currentIdx = get(ctx.selectedIdxStoreAtom);
+    (get, set, cnt: MFormCnt, idx: number, value: boolean | ((v: boolean) => boolean)) => {
+        const currentIdx = get(cnt.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
-            deselectCurrent(ctx, get, set);
+            deselectCurrent(cnt, get, set);
         }
 
-        const chunks = get(ctx.chunksAtom);
+        const chunks = get(cnt.chunksAtom);
 
         const currentAtom = chunks[idx]?.selectedAtom;
         if (currentAtom) {
             value = typeof value === "function" ? value(get(currentAtom)) : value;
             set(currentAtom, value);
-            set(ctx.selectedIdxStoreAtom, value ? idx : -1);
+            set(cnt.selectedIdxStoreAtom, value ? idx : -1);
         }
     }
 );
@@ -44,9 +44,9 @@ export const doSetSelectItemValueAtom = atom(
 /**
  * deselect current item
  */
-export function deselectCurrent(ctx: MFormCtx, get: Getter, set: Setter) {
-    const currentIdx = get(ctx.selectedIdxStoreAtom);
-    const chunks = get(ctx.chunksAtom);
+export function deselectCurrent(cnt: MFormCnt, get: Getter, set: Setter) {
+    const currentIdx = get(cnt.selectedIdxStoreAtom);
+    const chunks = get(cnt.chunksAtom);
 
     const current = chunks[currentIdx]?.selectedAtom;
     current && set(current, false);
@@ -57,11 +57,11 @@ export function deselectCurrent(ctx: MFormCtx, get: Getter, set: Setter) {
  */
 export const doSelectByKbdAtom = atom(
     null,
-    (get, set, ctx: MFormCtx, keyName: string) => {
-        const idx = get(ctx.selectedIdxStoreAtom);
-        const chunks = get(ctx.chunksAtom);
+    (get, set, cnt: MFormCnt, keyName: string) => {
+        const idx = get(cnt.selectedIdxStoreAtom);
+        const chunks = get(cnt.chunksAtom);
 
         const newIdx = kbdToIndex(idx, chunks.length, keyName);
-        newIdx !== undefined && set(doSelectIdxAtom, ctx, newIdx);
+        newIdx !== undefined && set(doSelectIdxAtom, cnt, newIdx);
     }
 );

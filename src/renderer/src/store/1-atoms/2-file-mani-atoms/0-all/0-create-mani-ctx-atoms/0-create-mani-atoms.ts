@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type MFormCtx, type NFormCtx, type FileUsCtx, type AnyFormAtoms, type ManiAtoms, type FormFields } from "../../9-types";
+import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormAtoms, type ManiAtoms, type FormFields } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
@@ -30,13 +30,13 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
         return;
     }
 
-    let normal: NFormCtx | undefined;
-    let manual: MFormCtx | undefined;
+    let normal: NFormCnt | undefined;
+    let manual: MFormCnt | undefined;
 
     if (metaForm.disp.isScript) {
         manual = ManualFieldsState.createFormCtx(fileUsCtx, maniAtoms);
     } else {
-        normal = NormalModeState.createNormalCtx(fileUsCtx, maniAtoms);
+        normal = NormalModeState.createNormalCnt(fileUsCtx, maniAtoms);
     }
 
     //console.log(`%c🥑 createFormFieldsAtom ${formIdx ? 'cpass' : 'login'} normal:%o manual:%o`, 'color: magenta', normal, manual);
@@ -52,7 +52,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     return rv;
 }
 
-function createFormFieldsAtom(normal: NFormCtx | undefined, manual: MFormCtx | undefined): Atom<FormFields> {
+function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | undefined): Atom<FormFields> {
     const rv = atom<FormFields>(
         (get) => {
             let fields: FormFields | undefined;
