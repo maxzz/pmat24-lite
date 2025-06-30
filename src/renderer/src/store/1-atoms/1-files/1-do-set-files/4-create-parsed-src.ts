@@ -51,7 +51,7 @@ export function defaultManualCpassFormFields(): Mani.Field[] {
             type: "edit",
             password: true,
             dbname: createGuid(),
-            path_ext: "[sn]3.2.delay,ms=100;keys,key=tab;field;",
+            path_ext: "[sn]3.2.delay,ms=100;keys,key=tab;field;keys,key=enter;",
             useit: true,
         },
     ];

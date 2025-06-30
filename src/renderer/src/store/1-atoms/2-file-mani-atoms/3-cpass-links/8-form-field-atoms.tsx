@@ -56,20 +56,16 @@ export const doSetInitialRelationsAtom = atom(
         const cpassNewPsw = cpassPasswords[1];
         const cpassCfmPsw = cpassPasswords[2];
 
-        if (loginPsw) {
-            linkField(loginPsw, 'in', set);
-            linkField(cpassOldPsw, 'out', set);
-            linkField(cpassNewPsw, 'out', set);
-            linkField(cpassCfmPsw, 'out', set);
-        }
-
+        linkField(cpassOldPsw, loginPsw, 'in', set);
+        linkField(cpassNewPsw, loginPsw, 'out', set);
+        linkField(cpassCfmPsw, loginPsw, 'out', set);
     }
 );
 
-function linkField(field: NormalField.RowCtx | undefined, dir: 'in' | 'out', set: Setter) {
-    if (!field) {
+function linkField(cpassField: NormalField.RowCtx | undefined, loginField: NormalField.RowCtx | undefined, dir: 'in' | 'out', set: Setter) {
+    if (!cpassField || !loginField) {
         return;
     }
-    set(field.rfieldUuidAtom, field.metaField.uuid);
-    set(field.rfieldAtom, dir);
+    set(cpassField.rfieldUuidAtom, loginField.metaField.uuid); // TODO: do dbname too but when we save manifest. dbname maybe changed, so track only uuid, but maybe track both dbname only istead of uuid?
+    set(cpassField.rfieldAtom, dir);
 }
