@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
 import { type FileContent } from '@shared/ipc-types';
-import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx } from '@/store/manifest';
+import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx, createGuid } from '@/store/manifest';
 
 export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = { mani: undefined, meta: undefined, fcat: undefined, stats: {} as FileUsStats, }; // the real stats will be assigned after parsing content
@@ -28,6 +28,36 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
     return rv;
 }
 
+export function defaultManualCpassFormFields(): Mani.Field[] {
+    return [
+        {
+            displayname: "current password",
+            type: "edit",
+            password: true,
+            dbname: createGuid(),
+            path_ext: "[sn]3.0.pos,x=10,y=10,units=abs;keys,key=tab;field;",
+            useit: true,
+        },
+        {
+            displayname: "New password",
+            type: "edit",
+            password: true,
+            dbname: createGuid(),
+            path_ext: "[sn]3.1.delay,ms=100;keys,key=tab;field;",
+            useit: true,
+        },
+        {
+            displayname: "Confirm new password",
+            type: "edit",
+            password: true,
+            dbname: createGuid(),
+            path_ext: "[sn]3.2.delay,ms=100;keys,key=tab;field;",
+            useit: true,
+        },
+    ];
+}
+
+
 function tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile }: { parsedMani: Mani.Manifest | undefined; maniForCpass: FileUs | undefined; newAsManual: boolean; newFile: boolean; }): void {
     if (!parsedMani || !newFile) {
         return;
@@ -43,7 +73,7 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile }: { pars
 
     if (newAsManual) {
         parsedMani.forms[0] = createNewManualFormFrom(loginForm);
-        parsedMani.forms[0].fields = defaultManualFormFields();
+        parsedMani.forms[0].fields = maniForCpass ? defaultManualCpassFormFields() : defaultManualFormFields();
     }
 
     if (maniForCpass) {
