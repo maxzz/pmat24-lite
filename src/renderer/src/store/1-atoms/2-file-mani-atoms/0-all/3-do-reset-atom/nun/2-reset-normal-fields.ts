@@ -3,10 +3,9 @@ import { type NFormCnt } from "../../../9-types";
 import { type ResetManifestCtx } from "./9-types";
 import { NormalFieldConv, SubmitConv, type SubmitFieldTypes } from "../../../1-normal-fields";
 
-export function resetNormalFieldsAndSubmit(formCnt: NFormCnt, formIdx: FormIdx, ctx: ResetManifestCtx) {
+export function resetNormalFieldsAndSubmit(cnt: NFormCnt, formIdx: FormIdx, ctx: ResetManifestCtx) {
     const { get, set } = ctx;
-
-    const { rowCtxs, submitCtx } = formCnt;
+    const { rowCtxs, submitCtx } = cnt;
 
     rowCtxs.forEach(
         (rowCtx) => {

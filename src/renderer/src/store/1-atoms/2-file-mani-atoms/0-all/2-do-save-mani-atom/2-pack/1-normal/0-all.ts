@@ -13,11 +13,11 @@ type PackResult = {
     submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
 };
 
-export function packNormalFieldsAndSubmit(formCnt: NFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
+export function packNormalFieldsAndSubmit(cnt: NFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
 
     const allByUuid = getByUiidAllFields(packParams, formIdx);
-    const newRowFieldsByUuid = getByUuidNewFields(formCnt, packParams);
-    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(formCnt, packParams);
+    const newRowFieldsByUuid = getByUuidNewFields(cnt, packParams);
+    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(cnt, packParams);
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -68,8 +68,8 @@ function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx
 /**
  * Get new fields created by editors and assign them new Mani.Field
  */
-function getByUuidNewFields(formCtx: NFormCnt, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
-    const editAndMeta = getNormalFieldValues(formCtx, packParams);
+function getByUuidNewFields(cnt: NFormCnt, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
+    const editAndMeta = getNormalFieldValues(cnt, packParams);
 
     const newRowFieldsByUuid: RecordOldNewFieldByUuid = editAndMeta.reduce<RecordOldNewFieldByUuid>(
         (acc, { metaField, editField }) => {
@@ -96,13 +96,13 @@ function getByUuidNewFields(formCtx: NFormCnt, packParams: PackManifestDataParam
 /**
  * Get submit type
  */
-function getSubmitsByUuid(formCtx: NFormCnt, packParams: PackManifestDataParams): { newSubmitsByUuid: RecordOldNewFieldByUuid; doFormSubmit: SUBMIT | undefined; } {
-    const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(formCtx, packParams);
+function getSubmitsByUuid(cnt: NFormCnt, packParams: PackManifestDataParams): { newSubmitsByUuid: RecordOldNewFieldByUuid; doFormSubmit: SUBMIT | undefined; } {
+    const submitsValues: SubmitFieldTypes.ForAtoms = getNormalSubmitValues(cnt, packParams);
 
     let selected = submitsValues.selected;
     let doFormSubmit: SUBMIT | undefined;
 
-    if (formCtx.submitCtx.isWeb) { //NOTE: for web forms we don't clean up useIt for submit and buttons. They are ignore by browser extension.
+    if (cnt.submitCtx.isWeb) { //NOTE: for web forms we don't clean up useIt for submit and buttons. They are ignore by browser extension.
         doFormSubmit = !!selected ? SUBMIT.dosumbit : SUBMIT.nosumbit;
         selected = -1;
     }

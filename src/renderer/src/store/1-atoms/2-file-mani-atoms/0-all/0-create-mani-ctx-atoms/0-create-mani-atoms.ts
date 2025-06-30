@@ -34,7 +34,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     let manual: MFormCnt | undefined;
 
     if (metaForm.disp.isScript) {
-        manual = ManualFieldsState.createFormCtx(fileUsCtx, maniAtoms);
+        manual = ManualFieldsState.createFormCnt(fileUsCtx, maniAtoms);
     } else {
         normal = NormalModeState.createNormalCnt(fileUsCtx, maniAtoms);
     }

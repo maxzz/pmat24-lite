@@ -7,7 +7,7 @@ import { NormalFieldConv } from "../../1-normal-fields";
 
 export namespace ManualFieldsState {
 
-    export function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
+    export function createFormCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
         const { fileUs, formIdx } = fileUsCtx;
 
         const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
@@ -48,7 +48,7 @@ export namespace ManualFieldsState {
     }
 }
 
-function onChangeWithScope(mFormcnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
     if (!manualFormAtoms) {
         return;
@@ -60,7 +60,7 @@ function onChangeWithScope(mFormcnt: MFormCnt, updateName: string, nextValue: Ma
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormcnt, get, set, nextValue });
+        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormCnt, get, set, nextValue });
         return;
     }
 
@@ -77,7 +77,7 @@ function onChangeWithScope(mFormcnt: MFormCnt, updateName: string, nextValue: Ma
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormcnt, get, set, nextValue });
+    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormCnt, get, set, nextValue });
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
