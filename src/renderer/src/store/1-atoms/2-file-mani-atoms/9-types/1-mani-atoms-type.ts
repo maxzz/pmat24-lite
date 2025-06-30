@@ -13,29 +13,29 @@ export type FileUsCtx = {
 
 //
 
-export type NFormCnt = {                    // Normal form content
+export type NFormCnt = {                        // Normal form content
     rowCtxs: NormalField.RowCtx[];
     submitCtx: SubmitFieldTypes.Ctx;
 };
 
-export type MFormCnt = ManualEditorTypes.Ctx; // Manual form content
+export type MFormCnt = ManualEditorTypes.Ctx;   // Manual form content
 
 //
 
-export type FormOptionsAndFileUsCtxAtoms = {
+type FormOptionsAndFileUsCtxAtoms = {
     fileUsCtx: FileUsCtx;
     options: OptionsState.Atoms;
 };
 
-export type FormFields = NormalField.RowCtx[];
+export type FormFieldCtxs = NormalField.RowCtx[];
 
 export type AnyFormAtoms = Prettify<
     & {
-        normal?: NFormCnt;                  // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-        manual?: MFormCnt;                  // If form is not manual then it'll dummy empty []
+        normal?: NFormCnt;                      // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+        manual?: MFormCnt;                      // If form is not manual then it'll dummy empty []
     }
     & {
-        formFieldsAtom: Atom<FormFields>;   // Fields in normal or manual form (maybe enough just passwords?)
+        formFieldsAtom: Atom<FormFieldCtxs>;    // Fields in normal or manual form (maybe enough just passwords?)
     }
     & FormOptionsAndFileUsCtxAtoms
 >;
@@ -51,25 +51,25 @@ const cpassFieldsIdx = 3;
 export type ManiAtoms = readonly [
     login: AnyFormAtoms | undefined,
     cpass: AnyFormAtoms | undefined,
-    loginFields: Atom<FormFields>,          // These are always defined, read only, and reactive
-    cpassFields: Atom<FormFields>,          // If login or cpass form does not exist then this is empty array
+    loginFields: Atom<FormFieldCtxs>,           // These are always defined, read only, and reactive
+    cpassFields: Atom<FormFieldCtxs>,           // If login or cpass form does not exist then this is empty array
 ];
 
 //
 
-export type NFormContextProps = {           // To access normal form fields and submit
+export type NFormContextProps = {               // To access normal form fields and submit
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     nAllAtoms: NFormAtoms;
 };
 
-export type MFormContextProps = {           // To access manual form fields
+export type MFormContextProps = {               // To access manual form fields
     maniAtoms: ManiAtoms;
     formIdx: FormIdx;
     mAllAtoms: MFormAtoms;
 };
 
-export type OFormContextProps = {           // To access form options
+export type OFormContextProps = {               // To access form options
     maniAtoms: ManiAtoms;
     oAllAtoms: FormOptionsAndFileUsCtxAtoms;
     formIdx: FormIdx;
@@ -112,13 +112,13 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 // Form fields access atoms
 
 type FormsFieldsAtoms = {
-    loginAtom: Atom<FormFields>,
-    cpassAtom: Atom<FormFields>,
+    loginAtom: Atom<FormFieldCtxs>,
+    cpassAtom: Atom<FormFieldCtxs>,
 };
 
 type FormsFields = {
-    login: FormFields,
-    cpass: FormFields,
+    login: FormFieldCtxs,
+    cpass: FormFieldCtxs,
 };
 
 export function getFormsFieldsAtoms(maniAtoms: ManiAtoms): FormsFieldsAtoms {
