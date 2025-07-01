@@ -1,6 +1,6 @@
 import { type ComponentType, forwardRef, type ForwardRefExoticComponent, type Ref, type RefAttributes, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { motion, MotionProps } from "motion/react";
+import { motion, type MotionProps } from "motion/react";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
@@ -8,7 +8,6 @@ import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
-
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);
     const dispText = rowColumnName(chunk.type);
@@ -55,4 +54,7 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
 
 type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRef>[0] & RefAttributes<HTMLDivElement>>;
 
-export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as unknown as SingleRowRefType & MotionProps;
+interface MyMotionComponentProps extends SingleRowRefType, MotionProps {}
+
+export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as MyMotionComponentProps;
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as SingleRowRefType & MotionProps;
