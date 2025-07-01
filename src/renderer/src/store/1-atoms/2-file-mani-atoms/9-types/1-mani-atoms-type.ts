@@ -111,33 +111,33 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 
 // Form fields access atoms
 
-type FormsFieldsAtoms = {
+type AllFormsFieldsAtoms = {
     loginAtom: Atom<FormFieldCtxs>,
     cpassAtom: Atom<FormFieldCtxs>,
 };
 
-type FormsFields = {
+type AllFormsFields = {
     login: FormFieldCtxs,
     cpass: FormFieldCtxs,
 };
 
-export function getFormsFieldsAtoms(maniAtoms: ManiAtoms): FormsFieldsAtoms {
+export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtoms {
     return {
         loginAtom: maniAtoms[loginFieldsIdx],
         cpassAtom: maniAtoms[cpassFieldsIdx],
     };
 }
 
-export function getManiAtomsFormsFields(maniAtoms: ManiAtoms, get: Getter): FormsFields {
-    const { loginAtom, cpassAtom } = getFormsFieldsAtoms(maniAtoms);
+export function getManiAtomsAllFormsFields(maniAtoms: ManiAtoms, get: Getter): AllFormsFields {
+    const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
     return {
         login: get(loginAtom),
         cpass: get(cpassAtom),
     };
 }
 
-export function getFormsFields(fileUsCtx: FileUsCtx, get: Getter): FormsFields {
-    const { loginAtom, cpassAtom } = getFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
+export function getAllFormsFields(fileUsCtx: FileUsCtx, get: Getter): AllFormsFields {
+    const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
     return {
         login: get(loginAtom),
         cpass: get(cpassAtom),

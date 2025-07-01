@@ -1,6 +1,6 @@
 import { atom, type Setter } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
-import { type FileUsCtx, type ManiAtoms, getFormsFields, getManiAtomsFormsFields } from "../9-types";
+import { type FileUsCtx, type ManiAtoms, getAllFormsFields, getManiAtomsAllFormsFields } from "../9-types";
 import { type NormalField } from "../1-normal-fields";
 
 // Checks
@@ -19,7 +19,7 @@ export const isSpecialCpassFieldAtom = atom(
 export const buildLoginDropdownFieldsAtom = atom(
     null,
     (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
-        const loginFields = getFormsFields(fileUsCtx, get).login;
+        const loginFields = getAllFormsFields(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
         set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), loginPasswords);
@@ -47,7 +47,7 @@ const printFieldsAtom = atom(
 export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, maniAtoms: ManiAtoms) => {
-        const { login, cpass } = getManiAtomsFormsFields(maniAtoms, get);
+        const { login, cpass } = getManiAtomsAllFormsFields(maniAtoms, get);
         const loginPasswords = login.filter((field) => get(field.typeAtom) === FieldTyp.psw);
         const cpassPasswords = cpass.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
