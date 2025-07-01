@@ -8,13 +8,13 @@ import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
-    formCnt: MFormCnt;
+    mFormCnt: MFormCnt;
     chunk: ManualFieldState.Ctx;
     menuState: MenuState;
     idx: number;
 };
 
-function SingleRowWRef({ formCnt, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
+function SingleRowWRef({ mFormCnt, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);
@@ -52,8 +52,7 @@ type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRe
 // type Check = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>
 //ComponentType<Omit<MotionComponentProps<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 
-const cc: SingleRowRefType = forwardRef(SingleRowWRef);
-export const SingleRow: any = motion.create(cc);
+export const SingleRow = motion.create<SingleRowProps & RefAttributes<HTMLDivElement>>(forwardRef(SingleRowWRef));
 // export const SingleRow = motion.create(forwardRef(SingleRowWRef));
 
 const rowLocalClasses = "\
