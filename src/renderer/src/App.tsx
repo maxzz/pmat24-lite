@@ -168,3 +168,4 @@ export function App(): JSX.Element {
 //06.29.25
 //TODO: use screenshot instead of icon inside SAW monitor
 //TODO: check option create manual mode manifest when create new manifest without main
+//TODO: add visual feedback for linked password field in password change form

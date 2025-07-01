@@ -84,6 +84,16 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/App.tsx",
+			"bookmarks": [
+				{
+					"line": 167,
+					"column": 10,
+					"label": ""
+				}
+			]
 		}
 	]
 }
