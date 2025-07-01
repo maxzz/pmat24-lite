@@ -7,13 +7,6 @@ import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details
 import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 
-type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
-    mFormProps: MFormProps
-    chunk: ManualFieldState.Ctx;
-    menuState: MenuState;
-    idx: number;
-};
-
 function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
 
     const isSelected = useAtomValue(chunk.selectedAtom);
@@ -44,19 +37,6 @@ function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRow
     );
 }
 
-//type SingleRowRefType = typeof SingleRow;
-// type SingleRowRefType = ForwardRefExoticComponent<Omit<Parameters<typeof SingleRowWRef>, "ref"> & RefAttributes<HTMLDivElement>>;
-type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRef>[0] & RefAttributes<HTMLDivElement>>;
-// type SingleRowRefType = ComponentType<MotionComponentProps<Parameters<typeof SingleRowWRef>[0]> & RefAttributes<HTMLDivElement>>;
-
-// type Check = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>
-//ComponentType<Omit<MotionComponentProps<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
-
-// export const SingleRow = motion.create<SingleRowProps & RefAttributes<HTMLDivElement>>(forwardRef<HTMLDivElement, SingleRowProps>(SingleRowWRef));
-// export const SingleRow = motion.create(forwardRef(SingleRowWRef));
-
-export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as unknown as SingleRowRefType & MotionProps;
-
 const rowLocalClasses = "\
 mx-1 py-px leading-6 \
 grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
@@ -64,5 +44,15 @@ grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \
 cursor-pointer";
-
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
+
+type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
+    mFormProps: MFormProps
+    chunk: ManualFieldState.Ctx;
+    menuState: MenuState;
+    idx: number;
+};
+
+type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRef>[0] & RefAttributes<HTMLDivElement>>;
+
+export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as unknown as SingleRowRefType & MotionProps;
