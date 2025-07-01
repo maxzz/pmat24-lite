@@ -1,6 +1,6 @@
 import { type ComponentType, forwardRef, type ForwardRefExoticComponent, type Ref, type RefAttributes, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { motion } from "motion/react";
+import { motion, MotionProps } from "motion/react";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
@@ -52,8 +52,10 @@ type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRe
 // type Check = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>
 //ComponentType<Omit<MotionComponentProps<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 
-export const SingleRow = motion.create<SingleRowProps & RefAttributes<HTMLDivElement>>(forwardRef<HTMLDivElement, SingleRowProps>(SingleRowWRef));
+// export const SingleRow = motion.create<SingleRowProps & RefAttributes<HTMLDivElement>>(forwardRef<HTMLDivElement, SingleRowProps>(SingleRowWRef));
 // export const SingleRow = motion.create(forwardRef(SingleRowWRef));
+
+export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as unknown as SingleRowRefType & MotionProps;
 
 const rowLocalClasses = "\
 mx-1 py-px leading-6 \
