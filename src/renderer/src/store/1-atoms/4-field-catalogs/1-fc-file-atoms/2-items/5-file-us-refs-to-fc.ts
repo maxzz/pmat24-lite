@@ -3,7 +3,7 @@ import { FieldTyp, FormIdx, Mani } from "@/store/manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { filesAtom } from "../../../1-files";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
-import { type ManualFieldState, type NormalField } from "../../../2-file-mani-atoms";
+import { type FieldRowCtx, type ManualFieldState } from "../../../2-file-mani-atoms";
 import { type FceItem } from "../../9-types";
 import { doPreloadManiAtomsAtom } from "../../../3-right-panel";
 import { getRootFceAtoms } from "../1-create-fce";
@@ -43,7 +43,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                     const form = maniAtoms[formIdx];
 
                     if (form?.normal) {
-                        const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
+                        const fields: FieldRowCtx[] = form.normal?.rowCtxs || [];
 
                         for (const field of fields) {
                             if (field.metaField.ftyp === FieldTyp.button || field.metaField.mani.rfieldform !== Mani.FORMNAME.fieldcatalog) {
@@ -105,7 +105,7 @@ export const removeLinksToFceItemAtom = atom(null,
                 const form = maniAtoms[formIdx];
 
                 if (form?.normal) {
-                    const fields: NormalField.RowCtx[] = form.normal?.rowCtxs || [];
+                    const fields: FieldRowCtx[] = form.normal?.rowCtxs || [];
 
                     for (const field of fields) {
                         if (field.metaField.ftyp === FieldTyp.button) {

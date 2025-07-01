@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
 import { type AtomizeWithType } from "@/utils";
 import { type EditorDataForKbd, type EditorDataForPos, type EditorDataForDly, type EditorDataForFld, type ChunkKey } from "@/store/manifest";
-import { type NormalField } from "../../1-normal-fields";
+import { type FieldRowCtx } from "../../9-types";
 import { type RowInputState } from "@/ui";
 
 export namespace ManualFieldState {
@@ -31,7 +31,7 @@ export namespace ManualFieldState {
 
     export type CtxFld = Prettify<CtxExtra & {
         type: 'fld';
-        rowCtx: NormalField.RowCtx;
+        rowCtx: FieldRowCtx;
         original: EditorDataForFld;             // this was used only by field catalog to check if field is from field catalog
     }>;
 

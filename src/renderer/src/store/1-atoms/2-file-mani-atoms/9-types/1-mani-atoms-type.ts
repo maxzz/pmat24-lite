@@ -14,7 +14,7 @@ export type FileUsCtx = {
 //
 
 export type NFormCnt = {                        // Normal form content
-    rowCtxs: NormalField.RowCtx[];
+    rowCtxs: FieldRowCtx[];
     submitCtx: SubmitFieldTypes.Ctx;
 };
 
@@ -27,7 +27,8 @@ type FormOptionsAndFileUsCtxAtoms = {
     options: OptionsState.Atoms;
 };
 
-export type FormFieldCtxs = NormalField.RowCtx[];
+export type FieldRowCtx = NormalField.RowCtx;
+export type FormFieldCtxs = FieldRowCtx[];
 
 export type AnyFormAtoms = Prettify<
     & {
@@ -87,7 +88,7 @@ export type OnChangeProps = {
 // Field highlight during manifest creation
 
 export type FieldHighlightCtx = {
-    nFieldCtx?: NormalField.RowCtx;
+    nFieldCtx?: FieldRowCtx;
     mFieldCtx?: ManualFieldState.Ctx;
     fileUs: FileUs;
     formIdx: FormIdx;

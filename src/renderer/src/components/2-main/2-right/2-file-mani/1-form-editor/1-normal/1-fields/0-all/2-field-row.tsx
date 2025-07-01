@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { type FceItem, appSettings } from "@/store";
-import { type FileUsCtx, type NormalField } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type FieldRowCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
 import { Column3_Label } from "../3-column-label";
@@ -10,7 +10,7 @@ import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
-export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: NormalField.RowCtx; fileUsCtx: FileUsCtx; }) {
+export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
     const isTextField = maniField.type === 'text';

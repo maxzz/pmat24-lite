@@ -1,13 +1,12 @@
 import { atom, type Setter } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
-import { type FileUsCtx, type ManiAtoms, getAllFormsFields, getManiAtomsAllFormsFields } from "../9-types";
-import { type NormalField } from "../1-normal-fields";
+import { type FieldRowCtx, type FileUsCtx, type ManiAtoms, getAllFormsFields, getManiAtomsAllFormsFields } from "../9-types";
 
 // Checks
 
 export const isSpecialCpassFieldAtom = atom(
     null,
-    (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx) => {
+    (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) => {
         const isCpassForm = fileUsCtx.formIdx === FormIdx.cpass;
         const specialCpass = isCpassForm && get(rowCtx.typeAtom) === FieldTyp.psw && !!get(rowCtx.rfieldUuidAtom); //TODO: and not linked; add field for linked value
         return specialCpass;
@@ -18,7 +17,7 @@ export const isSpecialCpassFieldAtom = atom(
 
 export const buildLoginDropdownFieldsAtom = atom(
     null,
-    (get, set, rowCtx: NormalField.RowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
+    (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
         const loginFields = getAllFormsFields(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
@@ -35,7 +34,7 @@ export const buildLoginDropdownFieldsAtom = atom(
 
 const printFieldsAtom = atom(
     null,
-    (get, set, rindexUuid: number, fields: NormalField.RowCtx[] | undefined) => {
+    (get, set, rindexUuid: number, fields: FieldRowCtx[] | undefined) => {
         if (!fields) {
             return;
         }
@@ -62,7 +61,7 @@ export const doSetInitialRelationsAtom = atom(
     }
 );
 
-function linkField(cpassField: NormalField.RowCtx | undefined, loginField: NormalField.RowCtx | undefined, dir: 'in' | 'out', set: Setter) {
+function linkField(cpassField: FieldRowCtx | undefined, loginField: FieldRowCtx | undefined, dir: 'in' | 'out', set: Setter) {
     if (!cpassField || !loginField) {
         return;
     }

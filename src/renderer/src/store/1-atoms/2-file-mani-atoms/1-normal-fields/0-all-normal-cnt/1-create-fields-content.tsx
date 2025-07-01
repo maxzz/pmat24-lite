@@ -1,12 +1,12 @@
 import { atom, type Getter, type Setter } from 'jotai';
 import { type OnValueChangeAny, debounce } from '@/utils';
 import { convFieldForEditor, FieldTyp, FormIdx, type Meta } from '@/store/manifest';
-import { NormalFieldConv, type NormalField } from '../1-field-items/0-conv';
-import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms } from "../../9-types";
+import { NormalFieldConv } from '../1-field-items/0-conv';
+import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms, type FieldRowCtx } from "../../9-types";
 
 export namespace NormalFieldsState {
 
-    export function createFieldsCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx[] {
+    export function createFieldsCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): FieldRowCtx[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
@@ -19,7 +19,7 @@ export namespace NormalFieldsState {
         return rv;
     }
 
-    function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): NormalField.RowCtx {
+    function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): FieldRowCtx {
 
         function onChange({ get, set }: { get: Getter, set: Setter; }) {
             onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
@@ -29,9 +29,9 @@ export namespace NormalFieldsState {
         return rowAtoms;
     }
 
-    function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): NormalField.RowCtx {
+    function createUiRowAtoms(field: Meta.Field, onChange: OnValueChangeAny): FieldRowCtx {
         const forAtoms = convFieldForEditor(field.mani);
-        const rv: NormalField.RowCtx = {
+        const rv: FieldRowCtx = {
             ...NormalFieldConv.createAtoms(forAtoms, onChange),
             metaField: field,
             fromFile: forAtoms,
@@ -48,7 +48,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }:
         return;
     }
 
-    const rowCtx: NormalField.RowCtx = nomalFormAtoms.rowCtxs[fieldIdx];
+    const rowCtx: FieldRowCtx = nomalFormAtoms.rowCtxs[fieldIdx];
 
     const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);

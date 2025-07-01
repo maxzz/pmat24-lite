@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
-import { type NormalField, type FileUsCtx, type ManualFieldState, isSpecialCpassFieldAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, isSpecialCpassFieldAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
@@ -16,7 +16,7 @@ export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldSta
     </>);
 }
 
-function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
+function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const { useItAtom, valueLifeAtom } = rowCtx;
     return (
         <Column4_Value
@@ -27,7 +27,7 @@ function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: NormalField.RowCtx; }
     );
 }
 
-function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: NormalField.RowCtx; }) {
+function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [type, setType] = useState('1');
 
     const rfield = useAtomValue(rowCtx.rfieldAtom); // in|out

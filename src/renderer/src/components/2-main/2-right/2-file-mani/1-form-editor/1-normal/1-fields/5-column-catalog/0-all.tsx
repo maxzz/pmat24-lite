@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Mani, FieldTyp, type ValueLife } from "@/store/manifest";
-import { type NormalField, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
 import { inputRingClasses } from "@/ui";
 import { InputSelectUi } from "./1-dropdown";
@@ -16,7 +16,7 @@ rounded overflow-hidden cursor-pointer";
 const selectAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
 
 type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
-    rowCtx: NormalField.RowCtx;
+    rowCtx: FieldRowCtx;
     fileUsCtx: FileUsCtx;
     onSelectCatItem: (item: FceItem | undefined) => void;
 };
@@ -78,7 +78,7 @@ export function Column5_Catalog({ rowCtx, fileUsCtx, onSelectCatItem, className,
     );
 }
 
-function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: NormalField.RowCtx; }): () => void {
+function useOpenFcDialog({ fileUsCtx, rowCtx }: { fileUsCtx: FileUsCtx; rowCtx: FieldRowCtx; }): () => void {
     const doOpenFldCatDialog = useSetAtom(doOpenFceDlgAtom);
     const doSetFormFieldFromFc = useSetAtom(doSetFormFieldFromFcAtom);
 
@@ -136,14 +136,14 @@ function getFceItemFromValue<T>(listItems: T[], value: string): FceItem | undefi
 // Action atoms
 
 const doSetFormFieldNotFromFcAtom = atom(null,
-    (get, set, rowCtx: NormalField.RowCtx) => {
+    (get, set, rowCtx: FieldRowCtx) => {
         set(rowCtx.fromFcAtom, undefined);
         set(rowCtx.rfieldFormAtom, Mani.FORMNAME.noname);
     }
 );
 
 const doSetFormFieldFromFcAtom = atom(null,
-    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem) => {
+    (get, set, rowCtx: FieldRowCtx, fceItem: FceItem) => {
         set(rowCtx.fromFcAtom, fceItem);
         set(rowCtx.rfieldFormAtom, Mani.FORMNAME.fieldcatalog);
         set(doCopyValueLifeFceItemToRowCtxAtom, rowCtx, fceItem);
@@ -154,7 +154,7 @@ const doSetFormFieldFromFcAtom = atom(null,
  * Copy field catalog item valueLife to manifest item
  */
 const doCopyValueLifeFceItemToRowCtxAtom = atom(null,
-    (get, set, rowCtx: NormalField.RowCtx, fceItem: FceItem) => {
+    (get, set, rowCtx: FieldRowCtx, fceItem: FceItem) => {
 
         const { dbname, valueAs, value, isRef, fType, isNon, } = fceItem.fieldValue;
         const valueLife: ValueLife = { valueAs, value, isRef, fType, isNon, };
