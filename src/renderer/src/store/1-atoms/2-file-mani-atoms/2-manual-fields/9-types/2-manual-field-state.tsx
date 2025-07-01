@@ -11,7 +11,6 @@ export namespace ManualFieldState {
         uid5: number;                           // unique id for each row
         selectedAtom: PrimitiveAtom<boolean>;   // is atom selected now
         hasErrorAtom: PrimitiveAtom<boolean>;   // is atom has error
-        isCpassForm: boolean;                   // is this row inisde cpass form
     };
 
     export type CtxKbd = Prettify<CtxExtra & AtomizeWithType<Omit<EditorDataForKbd, 'type'>, RowInputState> & {
