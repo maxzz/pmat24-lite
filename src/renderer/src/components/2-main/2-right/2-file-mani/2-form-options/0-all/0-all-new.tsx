@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
-import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect, SectionTitle } from "../9-controls";
 import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
@@ -23,22 +23,22 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginCtx: OFormContextProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-    const cpassCtx: OFormContextProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
+    const loginProps: OFormProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
+    const cpassProps: OFormProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
 
     return (
         <div className={optionsAllGroupsClasses}>
-            {loginCtx && (<>
+            {loginProps && (<>
                 {/* <SectionTitle label="Manifest options" /> */}
-                {/* <GroupManiGeneral ctx={loginCtx} /> */}
+                {/* <GroupManiGeneral oFormProps={loginProps} /> */}
 
                 {/* <SectionTitle label="Login form options" /> */}
-                <GroupFormLogin ctx={loginCtx} />
+                <GroupFormLogin oFormProps={loginProps} />
             </>)}
 
-            {/* {cpassCtx && (<>
+            {/* {cpassProps && (<>
                 <SectionTitle label="Password change form options" />
-                <GroupFormCpass ctx={cpassCtx} />
+                <GroupFormCpass oFormProps={cpassProps} />
             </>)} */}
         </div>
     );
@@ -46,8 +46,8 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
 
 const optionsAllGroupsClasses = "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
 
-function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
-    const { options } = ctx.oAllAtoms;
+function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { options } = oFormProps.oAllAtoms;
     const { nameAtom, balloonAtom } = options.p1General;
     const { aimAtom, lockAtom, auth_plAtom } = options.p3Auth;
     return (<>
@@ -62,23 +62,23 @@ function GroupFormLogin({ ctx }: { ctx: OFormContextProps; }) {
 
         <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" className="!w-16" />
 
-        {/* <BlockWrap_Auth ctx={ctx} /> */}
-        {/* <BlockWrap_Quicklink ctx={ctx} /> */}
+        {/* <BlockWrap_Auth ctx={oFormProps} /> */}
+        {/* <BlockWrap_Quicklink ctx={oFormProps} /> */}
 
-        {/* <BlockWrap_Detection ctx={ctx} /> */}
-        {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
-        {/* <BlockWrap_Icon ctx={ctx} /> */}
+        {/* <BlockWrap_Detection ctx={oFormProps} /> */}
+        {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
+        {/* <BlockWrap_Icon ctx={oFormProps} /> */}
     </>);
 }
 
-function GroupFormCpass({ ctx }: { ctx: OFormContextProps; }) {
+function GroupFormCpass({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
-        <BlockWrap_Auth ctx={ctx} />
-        <BlockWrap_Quicklink ctx={ctx} />
+        <BlockWrap_Auth oFormProps={oFormProps} />
+        <BlockWrap_Quicklink oFormProps={oFormProps} />
 
-        {/* <BlockWrap_Detection ctx={ctx} /> */}
-        {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
-        {/* <BlockWrap_Icon ctx={ctx} /> */}
+        {/* <BlockWrap_Detection ctx={oFormProps} /> */}
+        {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
+        {/* <BlockWrap_Icon ctx={oFormProps} /> */}
     </>);
 }
 

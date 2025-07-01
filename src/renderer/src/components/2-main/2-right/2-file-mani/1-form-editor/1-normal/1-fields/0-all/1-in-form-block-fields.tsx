@@ -1,15 +1,15 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
-export function InFormBlockFields({ ctx }: { ctx: NFormContextProps; }) {
-    if (!ctx.nAllAtoms.normal.rowCtxs.length) {
+export function InFormBlockFields({ nFormProps }: { nFormProps: NFormProps; }) {
+    if (!nFormProps.nAllAtoms.normal.rowCtxs.length) {
         return <NoFields />;
     }
 
-    return <FieldsGridBody ctx={ctx} />;
+    return <FieldsGridBody nFormProps={nFormProps} />;
 }
 
 function NoFields() {
@@ -20,7 +20,7 @@ function NoFields() {
     );
 }
 
-function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
+function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
 
     //highlightFieldAtom
@@ -31,9 +31,9 @@ function FieldsGridBody({ ctx }: { ctx: NFormContextProps; }) {
         <div className={getFieldsGridClasses(fcAllowed)}>
             <TableHeader />
 
-            {ctx.nAllAtoms.normal.rowCtxs.map(
+            {nFormProps.nAllAtoms.normal.rowCtxs.map(
                 (fieldRowAtoms, idx) => (
-                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={ctx.nAllAtoms.fileUsCtx} key={idx} />
+                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={nFormProps.nAllAtoms.fileUsCtx} key={idx} />
                 ))
             }
         </div>

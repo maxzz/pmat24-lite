@@ -1,10 +1,10 @@
 import { useAtomValue } from "jotai";
-import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputWithTitle2Cols } from "@/ui/local-ui";
 
-export function Block4_ScreenDetection({ ctx }: { ctx: OFormContextProps; }) {
+export function Block4_ScreenDetection({ oFormProps }: { oFormProps: OFormProps; }) {
 
-    const atoms = ctx.oAllAtoms.options;
+    const atoms = oFormProps.oAllAtoms.options;
     const isWeb = useAtomValue(atoms.isWebAtom);
 
     const {

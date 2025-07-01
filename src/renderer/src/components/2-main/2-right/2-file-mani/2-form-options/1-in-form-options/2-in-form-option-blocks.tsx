@@ -1,8 +1,8 @@
-import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 
-export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
-    const { ourlAtom, murlAtom, } = ctx.oAllAtoms.options.p2Detect;
+export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { ourlAtom, murlAtom, } = oFormProps.oAllAtoms.options.p2Detect;
     return (
         <div className={textClasses}>
             <InputWithTitle2Rows stateAtom={ourlAtom} label="Original URL (readonly)" asTextarea readOnly />
@@ -11,8 +11,8 @@ export function DetectionContent_Web({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
-export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
-    const { captionAtom, monitorAtom, dlg_classAtom, } = ctx.oAllAtoms.options.p2Detect; // dlg_tabAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom,
+export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { captionAtom, monitorAtom, dlg_classAtom, } = oFormProps.oAllAtoms.options.p2Detect; // dlg_tabAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom,
     return (
         <div className={textClasses}>
             <InputWithTitle2Rows stateAtom={captionAtom} label="Windows caption" />
@@ -27,8 +27,8 @@ export function DetectionContent_W32({ ctx }: { ctx: OFormContextProps; }) {
     );
 }
 
-export function PMIcon_W32({ ctx }: { ctx: OFormContextProps; }) {
-    const { idAtom, locAtom } = ctx.oAllAtoms.options.p5Icon;
+export function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { idAtom, locAtom } = oFormProps.oAllAtoms.options.p5Icon;
     return (
         <div className={textClasses}>
             <InputWithTitle2Rows stateAtom={idAtom} label="Location ID" />

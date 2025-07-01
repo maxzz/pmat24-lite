@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { type FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
-import { type ManiAtoms, type MFormAtoms, type MFormContextProps, type NFormAtoms, type NFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type ManiAtoms, type MFormAtoms, type MFormProps, type NFormAtoms, type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { TabContent_NormalForm } from "./2-tab-content-normal";
 import { TabContent_ManualForm } from "./3-tab-content-manual";
 import { TabContent_NoForm } from "./4-tab-content-no-form";
@@ -21,16 +21,16 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     }
 
     if (formManiAtoms.manual) {
-        const mFormctx: MFormContextProps = { maniAtoms, formIdx, mAllAtoms: formManiAtoms as MFormAtoms };
+        const mFormProps: MFormProps = { maniAtoms, formIdx, mAllAtoms: formManiAtoms as MFormAtoms };
         return (
-            <TabContent_ManualForm mFormctx={mFormctx} {...rest} />
+            <TabContent_ManualForm mFormProps={mFormProps} {...rest} />
         );
     }
 
     if (formManiAtoms.normal) {
-        const nFormctx: NFormContextProps = { maniAtoms, formIdx, nAllAtoms: formManiAtoms as NFormAtoms };
+        const nFormProps: NFormProps = { maniAtoms, formIdx, nAllAtoms: formManiAtoms as NFormAtoms };
         return (
-            <TabContent_NormalForm nFormctx={nFormctx} />
+            <TabContent_NormalForm nFormProps={nFormProps} />
         );
     }
 

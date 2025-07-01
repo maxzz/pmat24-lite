@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue } from "jotai";
 import { type Meta } from "@/store/manifest";
-import { type NFormContextProps, type NFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NFormProps, type NFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { RadioGroup } from "./3-nun-radio-group-for";
 
 function ManiSection2_Submit({ nFormCnt, metaForm }: { nFormCnt: NFormCnt; metaForm: Meta.Form; }) {
@@ -19,7 +19,7 @@ function ManiSection2_Submit({ nFormCnt, metaForm }: { nFormCnt: NFormCnt; metaF
     );
 }
 
-export function TabSubmitOld({ nAllAtoms, formIdx }: NFormContextProps) {
+export function TabSubmitOld({ nAllAtoms, formIdx }: NFormProps) {
     const metaForm = nAllAtoms.fileUsCtx.fileUs.parsedSrc.meta?.[formIdx]!; // We are under FormEditor umbrella, so we can safely use ! here
     return (
         <div className="px-1">

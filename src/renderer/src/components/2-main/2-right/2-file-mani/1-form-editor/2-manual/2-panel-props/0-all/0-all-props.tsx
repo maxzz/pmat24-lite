@@ -1,13 +1,13 @@
 import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { type MFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditorSelector } from "../2-props";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
-export function ManualPanelProps({ ctx: ctxForm, className, ...rest }: { ctx: MFormContextProps; } & HTMLAttributes<HTMLDivElement>) {
-    const { manual: ctx, fileUsCtx } = ctxForm.mAllAtoms;
+export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
+    const { manual: ctx, fileUsCtx } = mFormProps.mAllAtoms;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);

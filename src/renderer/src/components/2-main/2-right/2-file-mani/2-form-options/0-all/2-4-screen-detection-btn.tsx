@@ -1,7 +1,7 @@
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { type OFormContextProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Block4_ScreenDetection } from "./2-4-screen-detection";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 import * as D from "@/ui/shadcn/dialog";
@@ -11,9 +11,9 @@ import { UiAccordion3Example } from "../9-controls/nun/ui-accordion3-motion";
 import { UiAccordion4Example } from "../9-controls/nun/ui-accordion4-motion";
 import { UiAccordion5Example } from "../9-controls/nun/ui-accordion5-motion";
 
-export function BlockWrap_Detection_Button({ ctx }: { ctx: OFormContextProps; }) {
+export function BlockWrap_Detection_Button({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "detection";
-    const { formIdx } = ctx.oAllAtoms.options;
+    const { formIdx } = oFormProps.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
 
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -22,14 +22,14 @@ export function BlockWrap_Detection_Button({ ctx }: { ctx: OFormContextProps; })
         <div className="col-span-1 w-full">
             <Button variant="outline" size={"sm"} className="px-2 justify-start" onClick={() => doOpenOptionsDialog(true)}>Screen detection...</Button>
         </div>
-        
-        <AppOptionsDialog ctx={ctx} />
+
+        <AppOptionsDialog oFormProps={oFormProps} />
     </>);
 }
 
 const doOpenOptionsDialogAtom = atom(false);
 
-function AppOptionsDialog({ ctx }: { ctx: OFormContextProps; }) {
+function AppOptionsDialog({ oFormProps }: { oFormProps: OFormProps; }) {
 
     const [optionsDialogOpen, doOpenOptionsDialog] = useAtom(doOpenOptionsDialogAtom);
     if (!optionsDialogOpen) {
@@ -44,7 +44,7 @@ function AppOptionsDialog({ ctx }: { ctx: OFormContextProps; }) {
                 hiddenTitle="Options"
                 overlayClasses={overlayClasses}
             >
-                <DialogOptionsBody setIsOpen={doOpenOptionsDialog} ctx={ctx} />
+                <DialogOptionsBody setIsOpen={doOpenOptionsDialog} oFormProps={oFormProps} />
             </D.DialogContent>
         </D.Dialog>
     );
@@ -52,7 +52,7 @@ function AppOptionsDialog({ ctx }: { ctx: OFormContextProps; }) {
 
 const contentClasses = "p-0 !w-4/5 max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:[animation-duration:200ms]";
 
-function DialogOptionsBody({ setIsOpen, ctx }: { setIsOpen: (v: boolean) => void; ctx: OFormContextProps; }) {
+function DialogOptionsBody({ setIsOpen, oFormProps }: { setIsOpen: (v: boolean) => void; oFormProps: OFormProps; }) {
     return (
         <div className="text-xs select-none grid grid-rows-[auto,1fr,auto]">
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
@@ -62,7 +62,7 @@ function DialogOptionsBody({ setIsOpen, ctx }: { setIsOpen: (v: boolean) => void
 
             <div className="relative w-full h-full">
                 <div className="absolute inset-0">
-                    <DialogMiddleArea ctx={ctx} />
+                    <DialogMiddleArea oFormProps={oFormProps} />
                 </div>
             </div>
 
@@ -75,14 +75,14 @@ function DialogOptionsBody({ setIsOpen, ctx }: { setIsOpen: (v: boolean) => void
     );
 }
 
-function DialogMiddleArea({ ctx }: { ctx: OFormContextProps; }) {
+function DialogMiddleArea({ oFormProps }: { oFormProps: OFormProps; }) {
     return (
         <ScrollArea className="size-full overflow-auto" fullHeight>
             <div className="size-full px-4 py-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
                 {/* <UiAccordion3Example /> */}
                 {/* <UiAccordion4Example /> */}
                 <UiAccordion5Example />
-                {/* <Block4_ScreenDetection ctx={ctx} /> */}
+                {/* <Block4_ScreenDetection oFormProps={oFormProps} /> */}
             </div>
         </ScrollArea>
     );

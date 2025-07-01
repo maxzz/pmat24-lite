@@ -3,16 +3,16 @@ import { clamp } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "../../../9-types";
 import { type ChunkKey, createScriptItemByType, FormIdx } from "@/store/manifest";
-import { type MFormContextProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
 
 export const doCreateItemAtom = atom(
     null,
-    (get, set, formCtx: MFormContextProps, type: ChunkKey, password: boolean) => {
-        const cnt: MFormCnt = formCtx.mAllAtoms.manual;
+    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean) => {
+        const cnt: MFormCnt = mFormProps.mAllAtoms.manual;
 
-        const newItem = createScriptItem(type, password, cnt.onChangeItem, formCtx.formIdx === FormIdx.cpass);
+        const newItem = createScriptItem(type, password, cnt.onChangeItem, mFormProps.formIdx === FormIdx.cpass);
 
         deselectCurrent(cnt, get, set);
 
