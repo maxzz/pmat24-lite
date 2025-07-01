@@ -44,7 +44,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
     const maniNameAtom = set(getManiDispNameAtomAtom, fileUsAtom);
     const maniName = maniNameAtom && get(maniNameAtom).data;
     const cofirmNameOption = false; //TODO: add it to options dialog
-    if (!maniName || cofirmNameOption) {
+    if (validate && !maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
         const okManiName = await set(doManiNameDlgAtom, fileUsAtom);
         if (!okManiName) {
             return;
