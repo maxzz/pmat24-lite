@@ -86,6 +86,26 @@
 			]
 		},
 		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/9-types/2-manual-field-state.tsx",
+			"bookmarks": [
+				{
+					"line": 6,
+					"column": 27,
+					"label": "type ManualFieldState.CtxExtra"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/1-normal-fields/1-field-items/0-conv/9-types.tsx",
+			"bookmarks": [
+				{
+					"line": 5,
+					"column": 18,
+					"label": "type NormalField.Rowctx"
+				}
+			]
+		},
+		{
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/9-types/1-mani-atoms-type.ts",
 			"bookmarks": [
 				{
