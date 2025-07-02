@@ -35,7 +35,7 @@ function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, get
         return;
     }
     const rindexUuid = get(rowCtx.rfieldUuidAtom);
-    const all = fields.map((field) => `label:${get(field.labelAtom)}, dbid:${get(field.dbnameAtom)}`);
+    const all = fields.map((field) => `\n  label:${get(field.labelAtom)}, uuid:${field.metaField.uuid}, dbid:${get(field.dbnameAtom)}`).join('') || '[]';
     console.log(`for uuid:"${rindexUuid}" login fields:`, all);
 }
 
