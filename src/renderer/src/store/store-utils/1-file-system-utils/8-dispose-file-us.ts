@@ -1,7 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
-import { type ManiAtoms, type AnyFormAtoms, type FceCtx, filesAtom } from "@/store/1-atoms";
+import { type ManiAtoms, type AnyFormCtx, type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
  * Discard all array of FileUs atom
@@ -45,14 +45,14 @@ export const doDisposeFileUsAtomAtom = atom(
 export function disposeFileUsManiAtoms(maniAtoms: ManiAtoms | null) {
     let localManiAtoms = maniAtoms as Writeable<ManiAtoms> | null;
     if (localManiAtoms) {
-        disposeFormAtoms(localManiAtoms[0]);
-        disposeFormAtoms(localManiAtoms[1]);
+        disposeFormCtx(localManiAtoms[0]);
+        disposeFormCtx(localManiAtoms[1]);
         localManiAtoms[0] = undefined;
         localManiAtoms[1] = undefined;
     }
 }
 
-function disposeFormAtoms(formAtoms: AnyFormAtoms | undefined) {
+function disposeFormCtx(formAtoms: AnyFormCtx | undefined) {
     if (formAtoms) {
         discardValues(formAtoms.normal);
         discardValues(formAtoms.manual);

@@ -1,5 +1,5 @@
 import { type Mani, createGuid, FormIdx, TimeUtils } from "@/store/manifest";
-import { type AnyFormAtoms } from "../../../../9-types";
+import { type AnyFormCtx } from "../../../../9-types";
 import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
@@ -36,7 +36,7 @@ function packDescriptor(packParams: PackManifestDataParams) {
     fileUs.parsedSrc.mani?.options && (newMani.options = fileUs.parsedSrc.mani.options);
 }
 
-function packForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {
+function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {
     if (form) {
         const { newMani } = packParams;
 

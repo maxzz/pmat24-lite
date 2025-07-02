@@ -1,26 +1,27 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type AnyFormAtoms, type ManiAtoms, appSettings, maniAtiveTabToFormIdx } from "@/store";
+import { type AnyFormCtx, type ManiAtoms, appSettings, maniAtiveTabToFormIdx } from "@/store";
 
 export function MenuItem_ShowTextFieldsForMatch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { activeTab } = useSnapshot(appSettings.right.mani);
     const formIdx = maniAtiveTabToFormIdx(activeTab);
-    const formAtoms = formIdx !== undefined && maniAtoms[formIdx];
-    if (!formAtoms) {
+    
+    const formCtx = formIdx !== undefined && maniAtoms[formIdx];
+    if (!formCtx) {
         return null;
     }
 
     return (
-        <MenuItem_Guarded formAtoms={formAtoms} />
+        <MenuItem_Guarded formCtx={formCtx} />
     );
 }
 
-function MenuItem_Guarded({ formAtoms }: { formAtoms: AnyFormAtoms; }) {
+function MenuItem_Guarded({ formCtx }: { formCtx: AnyFormCtx; }) {
     const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
-    const isNormalForm = formAtoms.normal;
-    const isWebForm = useAtomValue(formAtoms.options.isWebAtom);
-    
+    const isNormalForm = formCtx.normal;
+    const isWebForm = useAtomValue(formCtx.options.isWebAtom);
+
     return (<>
         {isNormalForm && !isWebForm && (
             <DropdownMenuCheckboxItem

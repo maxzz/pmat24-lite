@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/manifest";
-import { type AnyFormAtoms } from "../../../9-types";
+import { type AnyFormCtx } from "../../../9-types";
 import { type ResetManifestCtx } from "./9-types";
 import { resetNormalFieldsAndSubmit } from "./2-reset-normal-fields";
 import { resetManualFields } from "./3-reset-manual-fields";
@@ -13,7 +13,7 @@ export function resetManifest(ctx: ResetManifestCtx) {
     resetForm(cpassFormAtoms, FormIdx.cpass, ctx);
 }
 
-function resetForm(form: AnyFormAtoms | undefined, formIdx: FormIdx, ctx: ResetManifestCtx) {
+function resetForm(form: AnyFormCtx | undefined, formIdx: FormIdx, ctx: ResetManifestCtx) {
     if (form) {
         resetFormOptions(form.options, formIdx, ctx);
 
