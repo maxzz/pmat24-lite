@@ -22,6 +22,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
 
     if (formManiAtoms.manual) {
         const mFormProps: MFormProps = { maniAtoms, formIdx, mAllAtoms: formManiAtoms as MFormAtoms };
+        console.log(`%c✴ ManiEditorFormSelector:`, 'color: magenta', mFormProps);
         return (
             <TabContent_ManualForm mFormProps={mFormProps} {...rest} />
         );

@@ -10,11 +10,15 @@ export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProp
     const { manual: ctx, fileUsCtx } = mFormProps.mAllAtoms;
     const chunks = useAtomValue(ctx.chunksAtom);
 
+    console.log(`%c✴ ManualPanelProps1:`, 'color: magenta', mFormProps);
+
     const selectedRef = useAtomValue(ctx.selectedIdxStoreAtom);
     const selectedItem = chunks[selectedRef];
     if (!selectedItem) {
         return null;
     }
+
+    console.log(`%c✴ ManualPanelProps2:`, 'color: magenta', mFormProps);
 
     return (
         <div className={classNames(PanelPropsClasses, "p-1 border-border border rounded", focusWithinClasses, className)} {...rest}>

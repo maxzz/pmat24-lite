@@ -11,14 +11,16 @@ import { Col_ManualFieldValue } from "./5-row-2-col-1-value";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
-    const isFieldPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
+    
+    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
+    //item.rowCtx.isCpassForm && isPsw && console.log(`SecondRow: formIdx:${fileUsCtx.formIdx} isCpassForm:${item.rowCtx.isCpassForm}`);
 
     const containerClasses =
         fcAllowed
-            ? isFieldPsw
+            ? isPsw
                 ? "grid-cols-[1fr,1fr,auto]"
                 : "grid-cols-[1fr,auto]"
-            : isFieldPsw
+            : isPsw
                 ? "grid-cols-[1fr,auto]"
                 : "grid-cols-[auto]";
 
@@ -38,7 +40,7 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 </InputLabel>
             )}
 
-            {isFieldPsw && (
+            {isPsw && (
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
                         <InputLabel label="Policy" className="ml-2">
