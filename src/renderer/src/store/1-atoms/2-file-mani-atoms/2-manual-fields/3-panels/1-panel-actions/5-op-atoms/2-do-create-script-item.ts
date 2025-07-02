@@ -7,7 +7,7 @@ import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atom
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
 
-export const doCreateItemAtom = atom(
+export const doCreateScriptItemAtom = atom(
     null,
     (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean) => {
         const cnt: MFormCnt = mFormProps.mAllAtoms.manual;

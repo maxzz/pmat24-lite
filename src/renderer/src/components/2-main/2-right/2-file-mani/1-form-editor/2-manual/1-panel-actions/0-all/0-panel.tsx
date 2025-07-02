@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { classNames, delay } from "@/utils";
 import { ScrollArea } from "@/ui";
 import { type ChunkKey } from "@/store/manifest";
-import { type MFormProps, doCreateItemAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormProps, doCreateScriptItemAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
 import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
@@ -15,10 +15,10 @@ export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormPr
     const initCb = useInitSelectedIdx(mFormProps.mAllAtoms.manual);
     useEffect(() => { initCb(); }, []);
 
-    const doCreateItem = useSetAtom(doCreateItemAtom);
+    const doCreateScriptItem = useSetAtom(doCreateScriptItemAtom);
 
     async function onCreateNewManual(type: ChunkKey, password: boolean) {
-        doCreateItem(mFormProps, type, password);
+        doCreateScriptItem(mFormProps, type, password);
         
         await delay(500); // TODO: fix this temp hack for the focus
         // console.log('onCreateNewManual', listRef.current);
