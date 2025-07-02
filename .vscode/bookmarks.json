@@ -86,6 +86,26 @@
 			]
 		},
 		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/9-types/1-mani-atoms-type.ts",
+			"bookmarks": [
+				{
+					"line": 51,
+					"column": 21,
+					"label": "type ManiAtoms"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/1-create-new-mani-ctx/1-ctx-create-fileus-from-xml.tsx",
+			"bookmarks": [
+				{
+					"line": 20,
+					"column": 31,
+					"label": "createFileUsFromNewXml()"
+				}
+			]
+		},
+		{
 			"path": "src/renderer/src/App.tsx",
 			"bookmarks": [
 				{

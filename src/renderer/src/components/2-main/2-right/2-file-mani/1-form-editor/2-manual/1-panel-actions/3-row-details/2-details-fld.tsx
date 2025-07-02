@@ -1,17 +1,28 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "pm-manifest";
-import type { ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { isSpecialCpassFieldAtom, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { detailKbdClasses } from "./1-details-key";
 
 export function DetailsFld({ item }: { item: ManualFieldState.CtxFld; }) {
-    const type = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw ? 'Password' : 'Text';
+    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
+    const rfieldUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
+
+    
+    
+    //item.isCpassForm && isPsw && !!rfieldUuid && console.log('isSpecialCpassField', item);
+
+    
+    
+    // const isSpecialCpassField = useSetAtom(isSpecialCpassFieldAtom)(item.rowCtx, false);
+    // get(rowCtx.typeAtom) === FieldTyp.psw && !!get(rowCtx.rfieldUuidAtom)
+
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
             <FieldName item={item} />
 
             <span className={classNames(detailKbdClasses, "font-normal")}>
-                {type}
+                {isPsw ? 'Password' : 'Text'}
             </span>
         </div>
     );
@@ -25,3 +36,5 @@ function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
         </div>
     );
 }
+
+//TODO: add visual feedback for linked password field in password change form

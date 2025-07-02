@@ -36,6 +36,7 @@ export namespace NormalFieldsState {
             metaField: field,
             fromFile: forAtoms,
             fromFcAtom: atom(),
+            isCpassForm: false, // This will be initialized later when form created in doSetAsCpassFormAtom or during normal load
         };
         return rv;
     }
