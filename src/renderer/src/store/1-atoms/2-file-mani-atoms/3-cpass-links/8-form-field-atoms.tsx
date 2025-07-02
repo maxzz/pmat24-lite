@@ -1,8 +1,8 @@
-import { atom, type Setter } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, type ManiAtoms, getAllFormsFields, getManiAtomsAllFormsFields } from "../9-types";
 
-// Checks
+// Running context check
 
 export const isSpecialCpassFieldAtom = atom(
     null,
@@ -21,7 +21,7 @@ export const buildLoginDropdownFieldsAtom = atom(
         const loginFields = getAllFormsFields(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-        set(printFieldsAtom, get(rowCtx.rfieldUuidAtom), loginPasswords);
+        printFields(rowCtx, loginPasswords, get);
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
         rv.unshift(['No link', '0']);
@@ -30,18 +30,16 @@ export const buildLoginDropdownFieldsAtom = atom(
     }
 );
 
-// Utilities
-
-const printFieldsAtom = atom(
-    null,
-    (get, set, rindexUuid: number, fields: FieldRowCtx[] | undefined) => {
-        if (!fields) {
-            return;
-        }
-        const all = fields.map((field) => `label:${get(field.labelAtom)}, dbid:${get(field.dbnameAtom)}`);
-        console.log(`for uuid:"${rindexUuid}" login fields:`, all);
+function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, get: Getter) {
+    if (!fields) {
+        return;
     }
-);
+    const rindexUuid = get(rowCtx.rfieldUuidAtom);
+    const all = fields.map((field) => `label:${get(field.labelAtom)}, dbid:${get(field.dbnameAtom)}`);
+    console.log(`for uuid:"${rindexUuid}" login fields:`, all);
+}
+
+// Initial relations for newly created password change form
 
 export const doSetInitialRelationsAtom = atom(
     null,
