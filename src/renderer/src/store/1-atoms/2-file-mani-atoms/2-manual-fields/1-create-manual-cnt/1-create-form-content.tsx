@@ -1,7 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { FormIdx, parseForEditor } from "@/store/manifest";
-import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
+import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
 
@@ -10,7 +10,7 @@ export namespace ManualFieldsState {
     export function createFormCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
         const { fileUs, formIdx } = fileUsCtx;
 
-        const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const metaForm = safeByContext(fileUs.parsedSrc.meta)[formIdx]; // We are under createFormAtoms umbrella
 
         const fields = metaForm.fields || [];
 
@@ -40,11 +40,11 @@ export namespace ManualFieldsState {
         return ctx;
     }
 
-    export function resetChunks(ctx: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
-        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(ctx.fromFile, ctx.onChangeItem, formIdx === FormIdx.cpass);
+    export function resetChunks(mFormCnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
+        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem, formIdx === FormIdx.cpass);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
-        set(ctx.chunksAtom, chunks);
-        ctx.initialChunks = initialChunks;
+        set(mFormCnt.chunksAtom, chunks);
+        mFormCnt.initialChunks = initialChunks;
     }
 }
 
