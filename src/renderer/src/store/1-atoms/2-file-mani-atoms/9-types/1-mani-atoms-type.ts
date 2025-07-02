@@ -23,26 +23,23 @@ export type MFormCnt = ManualEditorTypes.Ctx;   // Manual form content
 //
 
 export type AnyFormAtoms = {
-    normal?: NFormCnt;                          // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-    manual?: MFormCnt;                          // If form is not manual then it'll dummy empty []
-    options: OptionsState.Atoms;
     fileUsCtx: FileUsCtx;
+    normal?: NFormCnt;
+    manual?: MFormCnt;
+    options: OptionsState.Atoms;
     fieldsAtom: Atom<FieldRowCtx[]>;            // Fields in normal or manual form (maybe enough just passwords?)
 };
-
-// type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
-//     Pick<T, Exclude<keyof T, Keys>>
-//     & {
-//         [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>
-//     }[Keys];
 
 // type NFormCtx = Omit<AnyFormAtoms, 'manual'>;
 // type MFormCtx = Omit<AnyFormAtoms, 'normal'>;
 // type MFormCtx2 = Prettify<RequireAtLeastOne<MFormCtx, 'manual'>>;
 
+type NFormCtx = Omit<AnyFormAtoms, 'manual'>;
+type MFormCtx = Omit<AnyFormAtoms, 'normal'>;
+type MFormCtx2 = Prettify<RequireAtLeastOne<Pick<AnyFormAtoms, 'manual' | 'options' | 'fileUsCtx'>, 'manual'>>;
 
 type FormOptionsAndFileUsCtxAtoms = Prettify<
-    Pick<AnyFormAtoms, 'fileUsCtx' | 'options'>
+    Pick<AnyFormAtoms, 'options' | 'fileUsCtx'>
 >;
 
 export type NFormAtoms = Prettify<{ normal: NFormCnt; } & FormOptionsAndFileUsCtxAtoms>;
@@ -56,28 +53,28 @@ const cpassFieldsIdx = 3;
 export type ManiAtoms = readonly [
     login: AnyFormAtoms | undefined,
     cpass: AnyFormAtoms | undefined,
-    loginFields: Atom<FieldRowCtx[]>,           // These are always defined, read only, and reactive
-    cpassFields: Atom<FieldRowCtx[]>,           // If login or cpass form does not exist then this is empty array
+    lFields: Atom<FieldRowCtx[]>,               // login fields // login and cpass fields are always defined (if no form then it's []), read only, and reactive
+    cFields: Atom<FieldRowCtx[]>,               // cpass fields
 ];
 
 // Props given to children of form editor
 
 export type NFormProps = {                      // To access normal form fields and submit
-    maniAtoms: ManiAtoms;
     formIdx: FormIdx;
+    maniAtoms: ManiAtoms;
     nAllAtoms: NFormAtoms;
 };
 
 export type MFormProps = {                      // To access manual form fields
-    maniAtoms: ManiAtoms;
     formIdx: FormIdx;
+    maniAtoms: ManiAtoms;
     mAllAtoms: MFormAtoms;
 };
 
 export type OFormProps = {                      // To access form options
+    formIdx: FormIdx;
     maniAtoms: ManiAtoms;
     oAllAtoms: FormOptionsAndFileUsCtxAtoms;
-    formIdx: FormIdx;
 };
 
 // Changes callback props
