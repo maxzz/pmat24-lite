@@ -41,10 +41,10 @@ export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; 
                                 onClick={(e: MouseEvent) => selectItem(ctx, idx, (v) => e.ctrlKey ? !v : true)}
                                 key={chunk.uid5}
                                 // Not yet, AnimatePresence not working when switching between files
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
+                                // initial={{ opacity: 0, height: 0 }}
+                                // animate={{ opacity: 1, height: "auto" }}
+                                // exit={{ opacity: 0, height: 0 }}
+                                // transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
                             />
                         );
                     })

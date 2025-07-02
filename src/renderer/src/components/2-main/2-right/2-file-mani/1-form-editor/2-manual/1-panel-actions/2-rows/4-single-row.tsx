@@ -46,7 +46,7 @@ cursor-pointer";
 const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
-    mFormProps: MFormProps
+    mFormProps: MFormProps;
     chunk: ManualFieldState.Ctx;
     menuState: MenuState;
     idx: number;
@@ -54,7 +54,19 @@ type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
 
 type SingleRowRefType = ForwardRefExoticComponent<Parameters<typeof SingleRowWRef>[0] & RefAttributes<HTMLDivElement>>;
 
-interface MyMotionComponentProps extends SingleRowRefType, MotionProps {}
+// interface MyMotionComponentProps extends SingleRowRefType, MotionProps { }
+// export const SingleRow = motion(forwardRef(SingleRowWRef)) as React.FC<MyMotionComponentProps>;
 
-export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as MyMotionComponentProps;
+// interface MyMotionComponentProps extends SingleRowRefType, MotionProps { }
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as React.FC<MyMotionComponentProps>;
+
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as React.FC<SingleRowRefType & MotionProps>;
+
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as React.FC<SingleRowRefType & MotionProps>;
+
 // export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as SingleRowRefType & MotionProps;
+
+// interface MyMotionComponentProps extends SingleRowRefType, MotionProps {}
+// export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as MyMotionComponentProps;
+
+export const SingleRow = motion.create(forwardRef(SingleRowWRef)) as SingleRowRefType & MotionProps;
