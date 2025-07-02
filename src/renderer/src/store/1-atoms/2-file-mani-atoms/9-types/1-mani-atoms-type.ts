@@ -27,9 +27,6 @@ type FormOptionsAndFileUsCtxAtoms = {
     options: OptionsState.Atoms;
 };
 
-export type FieldRowCtx = NormalField.RowCtx;
-export type FormFieldCtxs = FieldRowCtx[];
-
 export type AnyFormAtoms = Prettify<
     & {
         normal?: NFormCnt;                      // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
@@ -39,6 +36,21 @@ export type AnyFormAtoms = Prettify<
         formFieldsAtom: Atom<FormFieldCtxs>;    // Fields in normal or manual form (maybe enough just passwords?)
     }
     & FormOptionsAndFileUsCtxAtoms
+>;
+
+// type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
+//     Pick<T, Exclude<keyof T, Keys>>
+//     & {
+//         [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>
+//     }[Keys];
+
+// type NFormCtx = Omit<AnyFormAtoms, 'manual'>;
+// type MFormCtx = Omit<AnyFormAtoms, 'normal'>;
+// type MFormCtx2 = Prettify<RequireAtLeastOne<MFormCtx, 'manual'>>;
+
+
+type AnyFormAtoms2 = Prettify<
+    Pick<AnyFormAtoms, 'fileUsCtx' | 'options'>
 >;
 
 export type NFormAtoms = Prettify<{ normal: NFormCnt; } & FormOptionsAndFileUsCtxAtoms>;
@@ -56,7 +68,7 @@ export type ManiAtoms = readonly [
     cpassFields: Atom<FormFieldCtxs>,           // If login or cpass form does not exist then this is empty array
 ];
 
-//
+// Props given to children of form editor
 
 export type NFormProps = {                      // To access normal form fields and submit
     maniAtoms: ManiAtoms;
@@ -76,7 +88,7 @@ export type OFormProps = {                      // To access form options
     formIdx: FormIdx;
 };
 
-//
+// Changes callback props
 
 export type OnChangeProps = {
     fileUsCtx: FileUsCtx;
@@ -111,6 +123,9 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 }
 
 // Form fields access atoms
+
+export type FieldRowCtx = NormalField.RowCtx;
+export type FormFieldCtxs = FieldRowCtx[];
 
 type AllFormsFieldsAtoms = {
     loginAtom: Atom<FormFieldCtxs>,
