@@ -1,18 +1,19 @@
 import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
 import { errorToString } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { type AnyFormCtx, type ManiAtoms, fileUsChanges } from "../../9-types";
+import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "../../../../7-napi-atoms";
 import { createNewFileContent } from "@/store/store-utils";
-import { showBuildErrorReason, printNewMani, showMessage } from "./2-ctx-create-messages";
+import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
+import { createManiAtoms } from "../0-create-mani-ctx-atoms";
+import { createFileUsFromFileContent } from "../../../1-files";
+import { doSetInitialRelationsAtom } from "../../3-cpass-links";
 import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/8-save-utils";
-import { fileUsChanges, type ManiAtoms } from "../../9-types";
-import { createFileUsFromFileContent } from "../../../1-files";
-import { createManiAtoms } from "../0-create-mani-ctx-atoms";
-import { doSetInitialRelationsAtom } from "../../3-cpass-links";
+//import { printNewMani } from "./2-ctx-create-messages";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -49,39 +50,43 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 3. Parse maniXml to fileUs
     try {
-        const mainForCpassFileUs = newManiContent.maniForCpassAtom && get(newManiContent.maniForCpassAtom);
+        const { maniForCpassAtom: fileUsAtom_ForCpass } = newManiContent;
+        const fileUs_ForCpass = fileUsAtom_ForCpass && get(fileUsAtom_ForCpass);
+        if (fileUsAtom_ForCpass && !fileUs_ForCpass) {
+            throw new Error('cpass.wo.FileUs');
+        }
+
+        const maniAtoms_ForCpass = fileUs_ForCpass && get(fileUs_ForCpass.maniAtomsAtom);
+        if (fileUs_ForCpass && !maniAtoms_ForCpass) {
+            throw new Error('cpass.wo.ManiAtoms');
+        }
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
-        const fileUs: FileUs = createFileUsFromFileContent(fileContent, mainForCpassFileUs);
-        const newFileUsAtom: FileUsAtom = newManiContent.maniForCpassAtom || atom(fileUs);
+        const fileUs: FileUs = createFileUsFromFileContent(fileContent, fileUs_ForCpass);
+        const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
-        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom });
+        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
-        if (mainForCpassFileUs && newManiContent.maniForCpassAtom) {
-            const cpassManiAtoms = get(mainForCpassFileUs.maniAtomsAtom);
-            if (!cpassManiAtoms) {
-                throw new Error('cpass wo/ ManiAtoms');
-            }
-
-            const loginForm = cpassManiAtoms[FormIdx.login];
-            const cpassForm = createdManiAtoms[FormIdx.login];
+        if (fileUs_ForCpass && fileUsAtom_ForCpass && maniAtoms_ForCpass) {
+            const loginForm: AnyFormCtx | undefined = maniAtoms_ForCpass[FormIdx.login];
+            const cpassForm: AnyFormCtx | undefined = createdManiAtoms[FormIdx.login];
 
             const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.fieldsAtom || atom([]), cpassForm?.fieldsAtom || atom([])];
-            set(mainForCpassFileUs.maniAtomsAtom, newManiAtoms);
-            
-            set(doSetInitialRelationsAtom, newManiAtoms);
-            
-            fileUsChanges.setCpass({ fileUs: mainForCpassFileUs }, true);
+            set(fileUs_ForCpass.maniAtomsAtom, newManiAtoms);
 
-            const xml = await fileUsToXmlString(newManiContent.maniForCpassAtom, false, get, set); //printXmlManiFile(xml);
-            set(mainForCpassFileUs.rawCpassAtom, xml);
+            set(doSetInitialRelationsAtom, newManiAtoms);
+
+            fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
+
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, get, set); //printXmlManiFile(xml);
+            set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
         } else {
             set(fileUs.maniAtomsAtom, createdManiAtoms);
         }
 
-        set(newManiContent.newFileUsAtomAtom, mainForCpassFileUs ? undefined : newFileUsAtom);
+        set(newManiContent.newFileUsAtomAtom, fileUs_ForCpass ? undefined : newFileUsAtom);
 
         printNewFileUsCreated(newFileUsAtom, get);
         return true;

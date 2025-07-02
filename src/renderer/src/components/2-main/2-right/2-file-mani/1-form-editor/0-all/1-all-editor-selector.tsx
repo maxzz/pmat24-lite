@@ -9,11 +9,10 @@ import { TabContent_NoForm } from "./4-tab-content-no-form";
 
 export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: FileUs; formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
-    //printFormEditor(fileUs, formIdx, maniAtoms);
-
     if (!maniAtoms) {
         return null;
     }
+    //printFormEditor(fileUs, formIdx, maniAtoms);
 
     const formCtx = maniAtoms[formIdx];
     if (!formCtx) {

@@ -6,7 +6,11 @@ import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
-export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }): ManiAtoms {
+/**
+ * @param embeddTo - if defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
+ * @returns 
+ */
+export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     const rv: any = [];
     const maniAtoms = rv as ManiAtoms;
 
@@ -34,9 +38,9 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
     let manual: MFormCnt | undefined;
 
     if (metaForm.disp.isScript) {
-        manual = ManualFieldsState.createFormCnt(fileUsCtx, maniAtoms);
+        manual = ManualFieldsState.createManualFormCnt(fileUsCtx, maniAtoms);
     } else {
-        normal = NormalModeState.createNormalCnt(fileUsCtx, maniAtoms);
+        normal = NormalModeState.createNormalFormCnt(fileUsCtx, maniAtoms);
     }
 
     //console.log(`%c🥑 createFormFieldsAtom ${formIdx ? 'cpass' : 'login'} normal:%o manual:%o`, 'color: magenta', normal, manual);

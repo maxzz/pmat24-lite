@@ -20,7 +20,7 @@ export type NFormCnt = {                        // Normal form content
 
 export type MFormCnt = ManualEditorTypes.Ctx;   // Manual form content
 
-//
+// ManiAtoms as ManiFormsCtx witn all atoms
 
 export type AnyFormCtx = {
     fileUsCtx: FileUsCtx;
@@ -29,11 +29,6 @@ export type AnyFormCtx = {
     options: OptionsState.Atoms;
     fieldsAtom: Atom<FieldRowCtx[]>;            // Fields in normal or manual form (maybe enough just passwords?)
 };
-
-// ManiAtoms
-
-const loginFieldsIdx = 2;
-const cpassFieldsIdx = 3;
 
 export type ManiAtoms = readonly [
     login: AnyFormCtx | undefined,
@@ -103,7 +98,6 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 // Form fields access atoms
 
 export type FieldRowCtx = NormalField.RowCtx;
-//export type FormFieldCtxs = FieldRowCtx[];
 
 type AllFormsFieldsAtoms = {
     loginAtom: Atom<FieldRowCtx[]>,
@@ -114,6 +108,9 @@ type AllFormsFields = {
     login: FieldRowCtx[],
     cpass: FieldRowCtx[],
 };
+
+const loginFieldsIdx = 2;
+const cpassFieldsIdx = 3;
 
 export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtoms {
     return {

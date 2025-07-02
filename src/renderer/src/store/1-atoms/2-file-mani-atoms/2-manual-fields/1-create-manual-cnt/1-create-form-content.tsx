@@ -7,7 +7,7 @@ import { NormalFieldConv } from "../../1-normal-fields";
 
 export namespace ManualFieldsState {
 
-    export function createFormCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
+    export function createManualFormCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
         const { fileUs, formIdx } = fileUsCtx;
 
         const metaForm = safeByContext(fileUs.parsedSrc.meta)[formIdx]; // We are under createFormAtoms umbrella
