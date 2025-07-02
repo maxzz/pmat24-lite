@@ -33,7 +33,7 @@ export type AnyFormAtoms = Prettify<
         manual?: MFormCnt;                      // If form is not manual then it'll dummy empty []
     }
     & {
-        formFieldsAtom: Atom<FormFieldCtxs>;    // Fields in normal or manual form (maybe enough just passwords?)
+        formFieldsAtom: Atom<FieldRowCtx[]>;    // Fields in normal or manual form (maybe enough just passwords?)
     }
     & {
         fileUsCtx: FileUsCtx;
@@ -67,8 +67,8 @@ const cpassFieldsIdx = 3;
 export type ManiAtoms = readonly [
     login: AnyFormAtoms | undefined,
     cpass: AnyFormAtoms | undefined,
-    loginFields: Atom<FormFieldCtxs>,           // These are always defined, read only, and reactive
-    cpassFields: Atom<FormFieldCtxs>,           // If login or cpass form does not exist then this is empty array
+    loginFields: Atom<FieldRowCtx[]>,           // These are always defined, read only, and reactive
+    cpassFields: Atom<FieldRowCtx[]>,           // If login or cpass form does not exist then this is empty array
 ];
 
 // Props given to children of form editor
@@ -128,16 +128,16 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
 // Form fields access atoms
 
 export type FieldRowCtx = NormalField.RowCtx;
-export type FormFieldCtxs = FieldRowCtx[];
+//export type FormFieldCtxs = FieldRowCtx[];
 
 type AllFormsFieldsAtoms = {
-    loginAtom: Atom<FormFieldCtxs>,
-    cpassAtom: Atom<FormFieldCtxs>,
+    loginAtom: Atom<FieldRowCtx[]>,
+    cpassAtom: Atom<FieldRowCtx[]>,
 };
 
 type AllFormsFields = {
-    login: FormFieldCtxs,
-    cpass: FormFieldCtxs,
+    login: FieldRowCtx[],
+    cpass: FieldRowCtx[],
 };
 
 export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtoms {

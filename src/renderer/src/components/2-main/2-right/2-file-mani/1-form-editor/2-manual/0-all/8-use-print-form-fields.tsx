@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type FormFieldCtxs, type FieldRowCtx, getAllFormsFieldsAtoms  } from "@/store/1-atoms/2-file-mani-atoms";
+import { type ManiAtoms, type FieldRowCtx, getAllFormsFieldsAtoms  } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function usePrintFormFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
     const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
@@ -22,7 +22,7 @@ export function usePrintFormFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtom
 
 const doPrintFieldsAtom = atom(
     null, 
-    (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FormFieldCtxs; }): void => {
+    (get, set, {label, formIdx, fields}: { label: string; formIdx: FormIdx; fields: FieldRowCtx[]; }): void => {
         const color = formIdx ? 'green' : 'limegreen';
         console.log(`    ${label}:`);
 
