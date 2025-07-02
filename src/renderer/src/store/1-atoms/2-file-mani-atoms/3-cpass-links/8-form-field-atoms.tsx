@@ -43,6 +43,12 @@ const printFieldsAtom = atom(
     }
 );
 
+const doSetAsCpassFormAtom = atom(
+    null,
+    async (get, set, maniAtoms: ManiAtoms) => {
+    }
+);
+
 export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, maniAtoms: ManiAtoms) => {
