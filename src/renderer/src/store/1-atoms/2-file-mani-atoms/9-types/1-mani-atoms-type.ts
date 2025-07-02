@@ -22,24 +22,13 @@ export type MFormCnt = ManualEditorTypes.Ctx;   // Manual form content
 
 //
 
-// type FormOptionsAndFileUsCtxAtoms = {
-//     fileUsCtx: FileUsCtx;
-//     options: OptionsState.Atoms;
-// };
-
-export type AnyFormAtoms = Prettify<
-    & {
-        normal?: NFormCnt;                      // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
-        manual?: MFormCnt;                      // If form is not manual then it'll dummy empty []
-    }
-    & {
-        formFieldsAtom: Atom<FieldRowCtx[]>;    // Fields in normal or manual form (maybe enough just passwords?)
-    }
-    & {
-        fileUsCtx: FileUsCtx;
-        options: OptionsState.Atoms;
-    }
->;
+export type AnyFormAtoms = {
+    normal?: NFormCnt;                          // If form is not manual then it'll dummy empty [] and dummy SubmitState.Atoms
+    manual?: MFormCnt;                          // If form is not manual then it'll dummy empty []
+    options: OptionsState.Atoms;
+    fileUsCtx: FileUsCtx;
+    fieldsAtom: Atom<FieldRowCtx[]>;            // Fields in normal or manual form (maybe enough just passwords?)
+};
 
 // type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
 //     Pick<T, Exclude<keyof T, Keys>>

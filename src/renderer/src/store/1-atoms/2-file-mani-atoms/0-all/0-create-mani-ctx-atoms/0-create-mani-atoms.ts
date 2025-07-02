@@ -15,8 +15,8 @@ export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUs
 
     rv.push(loginFormCtx);
     rv.push(cpassFormCtx);
-    rv.push(loginFormCtx?.formFieldsAtom || atom([]));
-    rv.push(cpassFormCtx?.formFieldsAtom || atom([]));
+    rv.push(loginFormCtx?.fieldsAtom || atom([]));
+    rv.push(cpassFormCtx?.fieldsAtom || atom([]));
 
     //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
     return rv;
@@ -44,7 +44,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormAtoms
     const rv: AnyFormAtoms = {
         normal,
         manual,
-        formFieldsAtom: createFormFieldsAtom(normal, manual),
+        fieldsAtom: createFormFieldsAtom(normal, manual),
         options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
         fileUsCtx: fileUsCtx,
     };

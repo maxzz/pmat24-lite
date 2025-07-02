@@ -104,7 +104,7 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
 
         // update maniAtoms
         const loginForm = maniAtoms[FormIdx.login];
-        const newManiAtoms: ManiAtoms = [loginForm, undefined, loginForm?.formFieldsAtom || atom([]), atom([])];
+        const newManiAtoms: ManiAtoms = [loginForm, undefined, loginForm?.fieldsAtom || atom([]), atom([])];
         set(fileUs.maniAtomsAtom, newManiAtoms);
 
         // set file changed
