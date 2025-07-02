@@ -11,7 +11,7 @@ export type FileUsCtx = {
     formIdx: FormIdx;
 };
 
-//
+// Form content
 
 export type NFormCnt = {                        // Normal form content
     rowCtxs: FieldRowCtx[];
@@ -22,10 +22,10 @@ export type MFormCnt = ManualEditorTypes.Ctx;   // Manual form content
 
 //
 
-type FormOptionsAndFileUsCtxAtoms = {
-    fileUsCtx: FileUsCtx;
-    options: OptionsState.Atoms;
-};
+// type FormOptionsAndFileUsCtxAtoms = {
+//     fileUsCtx: FileUsCtx;
+//     options: OptionsState.Atoms;
+// };
 
 export type AnyFormAtoms = Prettify<
     & {
@@ -35,7 +35,10 @@ export type AnyFormAtoms = Prettify<
     & {
         formFieldsAtom: Atom<FormFieldCtxs>;    // Fields in normal or manual form (maybe enough just passwords?)
     }
-    & FormOptionsAndFileUsCtxAtoms
+    & {
+        fileUsCtx: FileUsCtx;
+        options: OptionsState.Atoms;
+    }
 >;
 
 // type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
@@ -49,7 +52,7 @@ export type AnyFormAtoms = Prettify<
 // type MFormCtx2 = Prettify<RequireAtLeastOne<MFormCtx, 'manual'>>;
 
 
-type AnyFormAtoms2 = Prettify<
+type FormOptionsAndFileUsCtxAtoms = Prettify<
     Pick<AnyFormAtoms, 'fileUsCtx' | 'options'>
 >;
 
