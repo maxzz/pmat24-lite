@@ -8,21 +8,20 @@ export function DetailsFld({ item }: { item: ManualFieldState.CtxFld; }) {
     const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
     const rfieldUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
 
-    
-    
-    //item.isCpassForm && isPsw && !!rfieldUuid && console.log('isSpecialCpassField', item);
+    const isLinked = item.rowCtx.isCpassForm && isPsw && !!rfieldUuid;
 
-    
-    
-    // const isSpecialCpassField = useSetAtom(isSpecialCpassFieldAtom)(item.rowCtx, false);
-    // get(rowCtx.typeAtom) === FieldTyp.psw && !!get(rowCtx.rfieldUuidAtom)
+    const text = isPsw
+        ? isLinked
+            ? 'Password (linked)'
+            : 'Password'
+        : 'Text';
 
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
             <FieldName item={item} />
 
             <span className={classNames(detailKbdClasses, "font-normal")}>
-                {isPsw ? 'Password' : 'Text'}
+                {text}
             </span>
         </div>
     );
