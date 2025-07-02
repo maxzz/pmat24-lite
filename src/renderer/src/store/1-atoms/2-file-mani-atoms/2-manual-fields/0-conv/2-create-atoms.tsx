@@ -34,7 +34,6 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 hasErrorAtom: atom(!!repeatData.error),
-                isCpassForm,
                 original: chunk,
                 ...chunkData,
             };
@@ -63,7 +62,6 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 hasErrorAtom: atom(!!xData.error || !!yData.error || !!resData.error),
-                isCpassForm,
                 original: chunk,
                 ...chunkData,
             };
@@ -87,7 +85,6 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 hasErrorAtom: atom(!!nData.error),
-                isCpassForm,
                 original: chunk,
                 ...chunkData,
             };
@@ -107,6 +104,7 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 metaField: chunk.field,
                 fromFile: fieldForAtoms,
                 fromFcAtom: atom(),
+                isCpassForm,
             };
 
             const rv: ManualFieldState.CtxFld = {
@@ -114,7 +112,6 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 uid5,
                 selectedAtom,
                 hasErrorAtom: atom(false),
-                isCpassForm,
                 original: chunk,
                 rowCtx,
             };
