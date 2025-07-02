@@ -5,7 +5,7 @@ import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
 export function InFormBlockFields({ nFormProps }: { nFormProps: NFormProps; }) {
-    if (!nFormProps.nAllAtoms.normal.rowCtxs.length) {
+    if (!nFormProps.nFormCtx.normal.rowCtxs.length) {
         return <NoFields />;
     }
 
@@ -31,9 +31,9 @@ function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
         <div className={getFieldsGridClasses(fcAllowed)}>
             <TableHeader />
 
-            {nFormProps.nAllAtoms.normal.rowCtxs.map(
+            {nFormProps.nFormCtx.normal.rowCtxs.map(
                 (fieldRowAtoms, idx) => (
-                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={nFormProps.nAllAtoms.fileUsCtx} key={idx} />
+                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={nFormProps.nFormCtx.fileUsCtx} key={idx} />
                 ))
             }
         </div>

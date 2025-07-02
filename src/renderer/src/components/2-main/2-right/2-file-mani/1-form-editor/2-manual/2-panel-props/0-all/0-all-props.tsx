@@ -7,7 +7,7 @@ import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
 
 export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
-    const { manual: ctx, fileUsCtx } = mFormProps.mAllAtoms;
+    const { manual: ctx, fileUsCtx } = mFormProps.mFormCtx;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     console.log(`%c✴ ManualPanelProps1:`, 'color: magenta', mFormProps);

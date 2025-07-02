@@ -8,7 +8,7 @@ import { SingleRow } from "./4-single-row";
 import { MenuState } from "./5-row-popup-menu";
 
 export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; }, ref: Ref<HTMLDivElement>) {
-    const ctx = mFormProps.mAllAtoms.manual;
+    const ctx = mFormProps.mFormCtx.manual;
     const chunks = useAtomValue(ctx.chunksAtom);
 
     const selectByKey = useSetAtom(doSelectByKbdAtom);

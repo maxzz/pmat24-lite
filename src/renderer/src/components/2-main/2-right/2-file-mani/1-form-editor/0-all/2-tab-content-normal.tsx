@@ -5,7 +5,7 @@ import { InFormBlockFields, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
 
 export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFormProps: NFormProps; } & ComponentPropsWithoutRef<'div'>) {
-    const hasFieldsNeedSubmit = !!nFormProps.nAllAtoms.normal.rowCtxs.length;
+    const hasFieldsNeedSubmit = !!nFormProps.nFormCtx.normal.rowCtxs.length;
     return (
         <div className={classNames("pr-1 flex flex-col", className)} {...rest}>
 

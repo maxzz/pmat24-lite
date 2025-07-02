@@ -30,10 +30,6 @@ export type AnyFormCtx = {
     fieldsAtom: Atom<FieldRowCtx[]>;            // Fields in normal or manual form (maybe enough just passwords?)
 };
 
-export type NFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'manual'>, 'normal'>>;
-export type MFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'normal'>, 'manual'>>;
-type OFormCtx = Prettify<Pick<AnyFormCtx, 'options' | 'fileUsCtx'>>;
-
 // ManiAtoms
 
 const loginFieldsIdx = 2;
@@ -51,13 +47,13 @@ export type ManiAtoms = readonly [
 export type NFormProps = {                      // To access 'normal' form fields and submit
     formIdx: FormIdx;
     maniAtoms: ManiAtoms;
-    nAllAtoms: NFormCtx;                        // This is maniAtoms[formIdx] with required 'normal' member
+    nFormCtx: NFormCtx;                         // This is maniAtoms[formIdx] with required 'normal' member
 };
 
 export type MFormProps = {                      // To access 'manual' form fields
     formIdx: FormIdx;
     maniAtoms: ManiAtoms;
-    mAllAtoms: MFormCtx;                        // This is maniAtoms[formIdx] with required 'manual' member
+    mFormCtx: MFormCtx;                         // This is maniAtoms[formIdx] with required 'manual' member
 };
 
 export type OFormProps = {                      // To access form options
@@ -65,6 +61,10 @@ export type OFormProps = {                      // To access form options
     maniAtoms: ManiAtoms;
     oAllAtoms: OFormCtx;
 };
+
+export type NFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'manual'>, 'normal'>>;
+export type MFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'normal'>, 'manual'>>;
+type OFormCtx = Prettify<Pick<AnyFormCtx, 'options' | 'fileUsCtx'>>;
 
 // Changes callback props
 

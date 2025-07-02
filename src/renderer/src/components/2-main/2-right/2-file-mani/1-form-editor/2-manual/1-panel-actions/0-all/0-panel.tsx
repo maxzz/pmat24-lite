@@ -12,7 +12,7 @@ import { focusWithinClasses } from "../../8-manual-shared-styles";
 export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
     const listRef = useRef<HTMLDivElement>(null);
 
-    const initCb = useInitSelectedIdx(mFormProps.mAllAtoms.manual);
+    const initCb = useInitSelectedIdx(mFormProps.mFormCtx.manual);
     useEffect(() => { initCb(); }, []);
 
     const doCreateScriptItem = useSetAtom(doCreateScriptItemAtom);

@@ -3,7 +3,7 @@ import { type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 export function InFormBlockSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
-    const isWeb = nFormProps.nAllAtoms.normal.submitCtx.isWeb;
+    const isWeb = nFormProps.nFormCtx.normal.submitCtx.isWeb;
     return (
         <div className="ml-1 p-1 1flex items-center gap-1 select-none">
             {isWeb
@@ -23,7 +23,7 @@ function SubmitBodyForWeb({ nFormProps }: { nFormProps: NFormProps; }) {
 }
 
 function SubmitBodyForWin32({ nFormProps }: { nFormProps: NFormProps; }) {
-    const selected = useAtomValue(nFormProps.nAllAtoms.normal.submitCtx.selectedAtom) !== 0;
+    const selected = useAtomValue(nFormProps.nFormCtx.normal.submitCtx.selectedAtom) !== 0;
     return (<>
         After filling in the form fields,
         {selected ? " the" : ""}
@@ -34,7 +34,7 @@ function SubmitBodyForWin32({ nFormProps }: { nFormProps: NFormProps; }) {
 
 function DropdownSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
 
-    const { buttonNameItemsAtom, selectedAtom } = nFormProps.nAllAtoms.normal.submitCtx;
+    const { buttonNameItemsAtom, selectedAtom } = nFormProps.nFormCtx.normal.submitCtx;
     const buttonNameItems = useAtomValue(buttonNameItemsAtom);
     const [selected, setSelected] = useAtom(selectedAtom);
 

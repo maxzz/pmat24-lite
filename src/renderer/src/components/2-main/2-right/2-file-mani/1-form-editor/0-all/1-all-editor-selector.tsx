@@ -21,7 +21,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     }
 
     if (formCtx.manual) {
-        const mFormProps: MFormProps = { maniAtoms, formIdx, mAllAtoms: formCtx as MFormCtx };
+        const mFormProps: MFormProps = { maniAtoms, formIdx, mFormCtx: formCtx as MFormCtx };
         console.log(`%c✴ ManiEditorFormSelector:`, 'color: magenta', mFormProps);
         return (
             <TabContent_ManualForm mFormProps={mFormProps} {...rest} />
@@ -29,7 +29,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     }
 
     if (formCtx.normal) {
-        const nFormProps: NFormProps = { maniAtoms, formIdx, nAllAtoms: formCtx as NFormCtx };
+        const nFormProps: NFormProps = { maniAtoms, formIdx, nFormCtx: formCtx as NFormCtx };
         return (
             <TabContent_NormalForm nFormProps={nFormProps} />
         );

@@ -10,7 +10,7 @@ import { ManualFieldConv } from "../../../0-conv";
 export const doCreateScriptItemAtom = atom(
     null,
     (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean) => {
-        const cnt: MFormCnt = mFormProps.mAllAtoms.manual;
+        const cnt: MFormCnt = mFormProps.mFormCtx.manual;
 
         const newItem = createScriptItem(type, password, cnt.onChangeItem, mFormProps.formIdx === FormIdx.cpass);
 
