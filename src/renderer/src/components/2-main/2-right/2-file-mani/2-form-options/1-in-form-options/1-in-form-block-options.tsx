@@ -4,12 +4,14 @@ import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { DetectionContent_Web, DetectionContent_W32, PMIcon_W32 } from "./2-in-form-option-blocks";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
-    const oAllAtoms = anyFormProps.maniAtoms?.[anyFormProps.formIdx];
+    const anyProps = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
+    const formIdx = anyProps?.fileUsCtx.formIdx;
+    const oAllAtoms = anyFormProps.maniAtoms?.[formIdx];
     if (!oAllAtoms) {
         return null;
     }
     
-    const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms, formIdx: anyFormProps.formIdx };
+    const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms };
 
     return (<>
         <FormDetection oFormProps={oFormProps} />

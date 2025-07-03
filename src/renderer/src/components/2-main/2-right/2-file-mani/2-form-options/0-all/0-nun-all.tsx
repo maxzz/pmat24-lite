@@ -1,9 +1,8 @@
 import { useAtomValue } from "jotai";
-import { FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SectionTitle } from "../9-controls";
-import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
+import { BlockWrap_Detection, BlockWrap_Icon, BlockWrap_Auth, BlockWrap_Quicklink, GroupManiGeneral } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
@@ -21,8 +20,8 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginCtx: OFormProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-    const cpassCtx: OFormProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
+    const loginCtx: OFormProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options } };
+    const cpassCtx: OFormProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options } };
 
     return (
         <div className={optionsAllGroupsClasses}>
@@ -59,7 +58,7 @@ function GroupFormCpass({ ctx }: { ctx: OFormProps; }) {
     return (<>
         <BlockWrap_Auth oFormProps={ctx} />
         <BlockWrap_Quicklink oFormProps={ctx} />
-        
+
         {/* <BlockWrap_Detection ctx={ctx} /> */}
         {/* <BlockWrap_Detection_Button ctx={ctx} /> */}
         {/* <BlockWrap_Icon ctx={ctx} /> */}

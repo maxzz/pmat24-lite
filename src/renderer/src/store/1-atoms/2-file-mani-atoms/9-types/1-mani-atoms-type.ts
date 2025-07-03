@@ -40,19 +40,16 @@ export type ManiAtoms = readonly [
 // Props given to children of form editor
 
 export type NFormProps = {                      // To access 'normal' form fields and submit
-    formIdx: FormIdx;
     maniAtoms: ManiAtoms;
     nFormCtx: NFormCtx;                         // This is maniAtoms[formIdx] with required 'normal' member
 };
 
 export type MFormProps = {                      // To access 'manual' form fields
-    formIdx: FormIdx;
     maniAtoms: ManiAtoms;
     mFormCtx: MFormCtx;                         // This is maniAtoms[formIdx] with required 'manual' member
 };
 
 export type OFormProps = {                      // To access form options
-    formIdx: FormIdx;
     maniAtoms: ManiAtoms;
     oAllAtoms: OFormCtx;
 };

@@ -1,9 +1,8 @@
 import { useAtomValue } from "jotai";
-import { FormIdx } from "@/store/manifest";
 import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect, SectionTitle } from "../9-controls";
-import { BlockWrap_Detection, BlockWrap_Auth, BlockWrap_Quicklink, BlockWrap_Icon, GroupManiGeneral } from "./1-all-block-wraps";
+import { BlockWrap_Detection, BlockWrap_Icon, GroupManiGeneral, BlockWrap_Auth, BlockWrap_Quicklink } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
 import { ManiLoginNameGuarded } from "@/components/4-dialogs";
@@ -23,8 +22,8 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginProps: OFormProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options }, formIdx: FormIdx.login };
-    const cpassProps: OFormProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options }, formIdx: FormIdx.cpass };
+    const loginProps: OFormProps | undefined = login && { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options } };
+    const cpassProps: OFormProps | undefined = cpass && { maniAtoms, oAllAtoms: { fileUsCtx: cpass.fileUsCtx, options: cpass.options } };
 
     return (
         <div className={optionsAllGroupsClasses}>
