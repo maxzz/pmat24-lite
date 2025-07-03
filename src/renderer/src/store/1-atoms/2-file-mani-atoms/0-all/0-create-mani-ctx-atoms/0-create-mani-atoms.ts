@@ -10,7 +10,7 @@ import { OptionsState } from "../../4-options";
  * @param embeddTo - if defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
  * @returns 
  */
-export function createManiAtoms({ fileUs, fileUsAtom, embeddTo, get, set }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; get?: Getter; set?: Setter; }): ManiAtoms {
+export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     if (!embeddTo) {
         const rv: any = [];
         const maniAtoms = rv as ManiAtoms;
@@ -26,9 +26,6 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo, get, set }: { fi
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
     } else {
-        if (!get || !set) {
-            throw new Error('no.jotai');
-        }
         const rv: any = embeddTo;
         const maniAtoms = rv as ManiAtoms;
 

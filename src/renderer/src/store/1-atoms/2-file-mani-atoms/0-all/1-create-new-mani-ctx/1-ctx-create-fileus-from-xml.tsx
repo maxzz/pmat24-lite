@@ -62,21 +62,11 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, fileUs_ForCpass);
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
-        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass, get, set });
+        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
         if (fileUsAtom_ForCpass && fileUs_ForCpass && maniAtoms_ForCpass) {
-            // const loginForm: AnyFormCtx | undefined = maniAtoms_ForCpass[FormIdx.login];
-            // const cpassForm: AnyFormCtx | undefined = createdManiAtoms[FormIdx.login];
-
-            // const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.fieldsAtom || atom([]), cpassForm?.fieldsAtom || atom([])];
-
-            const newManiAtoms: ManiAtoms = createdManiAtoms;
-            set(fileUs_ForCpass.maniAtomsAtom, newManiAtoms);
-
-            console.log(`create: fileUs_ForCpass.maniAtomsAtom:${fileUs_ForCpass.maniAtomsAtom.toString()}`);
-            
-
-            set(doSetInitialRelationsAtom, newManiAtoms);
+            set(fileUs_ForCpass.maniAtomsAtom, createdManiAtoms);
+            set(doSetInitialRelationsAtom, createdManiAtoms);
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
