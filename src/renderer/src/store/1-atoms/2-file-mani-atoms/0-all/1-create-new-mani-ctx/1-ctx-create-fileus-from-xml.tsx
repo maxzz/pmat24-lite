@@ -69,8 +69,12 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             // const cpassForm: AnyFormCtx | undefined = createdManiAtoms[FormIdx.login];
 
             // const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.fieldsAtom || atom([]), cpassForm?.fieldsAtom || atom([])];
+
             const newManiAtoms: ManiAtoms = createdManiAtoms;
             set(fileUs_ForCpass.maniAtomsAtom, newManiAtoms);
+
+            console.log(`create: fileUs_ForCpass.maniAtomsAtom:${fileUs_ForCpass.maniAtomsAtom.toString()}`);
+            
 
             set(doSetInitialRelationsAtom, newManiAtoms);
 

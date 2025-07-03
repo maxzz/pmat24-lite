@@ -128,6 +128,9 @@ export function getManiAtomsAllFormsFields(maniAtoms: ManiAtoms, get: Getter): A
 }
 
 export function getAllFormsFields(fileUsCtx: FileUsCtx, get: Getter): AllFormsFields {
+    const maniAtoms = get(fileUsCtx.fileUs.maniAtomsAtom);
+    console.log(`getAllFormsFields fileUsCtx.fileUs.maniAtomsAtom:${fileUsCtx.fileUs.maniAtomsAtom.toString()} maniAtoms:${maniAtoms?.toString()}`);
+    
     const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
     return {
         login: get(loginAtom),
