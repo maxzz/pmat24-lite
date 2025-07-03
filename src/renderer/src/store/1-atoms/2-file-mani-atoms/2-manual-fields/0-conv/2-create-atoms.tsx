@@ -6,7 +6,7 @@ import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
-export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName, isCpassForm: boolean): ManualFieldState.Ctx {
+export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
     const validateNumberOptions = { validate: validateNumber, options: { initialValidate: true } };
@@ -104,7 +104,6 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
                 metaField: chunk.field,
                 fromFile: fieldForAtoms,
                 fromFcAtom: atom(),
-                isCpassForm,
             };
 
             const rv: ManualFieldState.CtxFld = {
@@ -120,9 +119,9 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     }
 }
 
-export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName, isCpassForm: boolean): ManualFieldState.Ctx[] {
+export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
     const ctxs = initialState.map(
-        (chunk, idx) => createAtom(chunk, onChange, isCpassForm)
+        (chunk, idx) => createAtom(chunk, onChange)
     );
     return ctxs;
 }

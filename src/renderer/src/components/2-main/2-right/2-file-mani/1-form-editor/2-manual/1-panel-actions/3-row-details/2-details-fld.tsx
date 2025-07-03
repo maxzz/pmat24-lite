@@ -1,16 +1,13 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { FieldTyp } from "pm-manifest";
+import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { detailKbdClasses } from "./1-details-key";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
     const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
     const rfieldUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
-
-    const isLinked = item.rowCtx.isCpassForm && isPsw && !!rfieldUuid;
-
-    console.log(`%c ✴ formIdx:${mFormProps.formIdx}`, 'color: orange; font-size:0.55rem', 'color: green');
+    const isLinked = mFormProps.formIdx === FormIdx.cpass && isPsw && !!rfieldUuid;
 
     const text = isPsw
         ? isLinked

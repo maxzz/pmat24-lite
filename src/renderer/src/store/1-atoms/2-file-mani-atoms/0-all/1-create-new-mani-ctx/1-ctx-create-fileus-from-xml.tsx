@@ -1,8 +1,7 @@
 import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
 import { errorToString } from "@/utils";
-import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type AnyFormCtx, type ManiAtoms, fileUsChanges } from "../../9-types";
+import { fileUsChanges } from "../../9-types";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "../../../../7-napi-atoms";
 import { createNewFileContent } from "@/store/store-utils";

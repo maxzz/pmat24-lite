@@ -4,7 +4,7 @@ import { type FieldRowCtx, type FileUsCtx, type ManiAtoms, getAllFormsFields, ge
 
 // Running context check
 
-export const isSpecialCpassFieldAtom = atom(
+export const isLinkedCpassFormFieldAtom = atom(
     null,
     (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) => {
         const isCpassForm = fileUsCtx.formIdx === FormIdx.cpass;
@@ -45,8 +45,6 @@ export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, maniAtoms: ManiAtoms) => {
         const { login, cpass } = getManiAtomsAllFormsFields(maniAtoms, get);
-
-        cpass.forEach((field) => field.isCpassForm = true); // doSetInitialRelationsAtom atom is used only when we create password change form from login form
 
         const loginPasswords = login.filter((field) => get(field.typeAtom) === FieldTyp.psw);
         const cpassPasswords = cpass.filter((field) => get(field.typeAtom) === FieldTyp.psw);
