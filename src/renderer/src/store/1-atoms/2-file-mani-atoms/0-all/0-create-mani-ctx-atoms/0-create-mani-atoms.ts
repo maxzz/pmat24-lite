@@ -35,8 +35,13 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo, get, set }: { fi
         const initialFileUsCtx: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
         const loginFormCtx: AnyFormCtx | undefined = maniAtoms[FormIdx.login];
+        if (!loginFormCtx) {
+            throw new Error('no.loginFormCtx');
+        }
         const cpassFormCtx: AnyFormCtx | undefined = createFormCtx(initialFileUsCtx, embeddTo);
 
+        initialFileUsCtx.fileUs = loginFormCtx.fileUsCtx.fileUs;
+        initialFileUsCtx.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
         initialFileUsCtx.formIdx = FormIdx.cpass;
 
         rv[FormIdx.login] = loginFormCtx;
