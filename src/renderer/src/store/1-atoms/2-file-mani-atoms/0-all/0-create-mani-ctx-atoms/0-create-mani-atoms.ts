@@ -44,7 +44,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
-        return embeddTo;
+        return [...embeddTo];
     }
 }
 
