@@ -1,5 +1,5 @@
 import { type SVGProps } from "react";
-import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type ChunkKey } from "@/store/manifest";
 import { DetailsKbd } from "./1-details-key";
 import { DetailsFld } from "./2-details-fld";
@@ -36,10 +36,10 @@ export function RowColumnIcon({ type, className = chunkIconClasses }: { type: Ch
     }
 }
 
-export function RowColumnDetails({ ctx }: { ctx: ManualFieldState.Ctx; }) {
+export function RowColumnDetails({ ctx, mFormProps }: { ctx: ManualFieldState.Ctx; mFormProps: MFormProps; }) {
     switch (ctx.type) {
         case 'kbd': return <DetailsKbd item={ctx} />;
-        case 'fld': return <DetailsFld item={ctx} />;
+        case 'fld': return <DetailsFld item={ctx} mFormProps={mFormProps} />;
         case 'dly': return <DetailsDly item={ctx} />;
         case 'pos': return <DetailsPos item={ctx} />;
         default: {

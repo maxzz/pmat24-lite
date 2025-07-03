@@ -28,7 +28,7 @@ function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRow
             </div>
 
             <div className="px-4 text-[.65rem] font-light">
-                <RowColumnDetails ctx={chunk} />
+                <RowColumnDetails ctx={chunk} mFormProps={mFormProps} />
             </div>
 
             <RowMenuButton menuState={menuState} />
