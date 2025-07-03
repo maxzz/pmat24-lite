@@ -1,4 +1,4 @@
-import { type Atom, atom } from "jotai";
+import { type Atom, atom, type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx } from "../../9-types";
@@ -10,20 +10,42 @@ import { OptionsState } from "../../4-options";
  * @param embeddTo - if defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
  * @returns 
  */
-export function createManiAtoms({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
-    const rv: any = [];
-    const maniAtoms = rv as ManiAtoms;
+export function createManiAtoms({ fileUs, fileUsAtom, embeddTo, get, set }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; get?: Getter; set?: Setter; }): ManiAtoms {
+    if (!embeddTo) {
+        const rv: any = [];
+        const maniAtoms = rv as ManiAtoms;
 
-    const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms);
-    const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms);
+        const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms);
+        const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms);
 
-    rv.push(loginFormCtx);
-    rv.push(cpassFormCtx);
-    rv.push(loginFormCtx?.fieldsAtom || atom([]));
-    rv.push(cpassFormCtx?.fieldsAtom || atom([]));
+        rv.push(loginFormCtx);
+        rv.push(cpassFormCtx);
+        rv.push(loginFormCtx?.fieldsAtom || atom([]));
+        rv.push(cpassFormCtx?.fieldsAtom || atom([]));
 
-    //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
-    return rv;
+        //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
+        return rv;
+    } else {
+        if (!get || !set) {
+            throw new Error('no.jotai');
+        }
+        const rv: any = embeddTo;
+        const maniAtoms = rv as ManiAtoms;
+
+        const initialFileUsCtx: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
+
+        const loginFormCtx: AnyFormCtx | undefined = maniAtoms[FormIdx.login];
+        const cpassFormCtx: AnyFormCtx | undefined = createFormCtx(initialFileUsCtx, embeddTo);
+
+        initialFileUsCtx.formIdx = FormIdx.cpass;
+
+        rv[FormIdx.login] = loginFormCtx;
+        rv[FormIdx.cpass] = cpassFormCtx;
+        rv[FormIdx.login + 2] = loginFormCtx?.fieldsAtom || atom([]);
+        rv[FormIdx.cpass + 2] = cpassFormCtx?.fieldsAtom || atom([]);
+
+        return embeddTo;
+    }
 }
 
 function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx | undefined {

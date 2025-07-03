@@ -52,26 +52,24 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     try {
         const { maniForCpassAtom: fileUsAtom_ForCpass } = newManiContent;
         const fileUs_ForCpass = fileUsAtom_ForCpass && get(fileUsAtom_ForCpass);
-        if (fileUsAtom_ForCpass && !fileUs_ForCpass) {
-            throw new Error('cpass.wo.FileUs');
-        }
-
         const maniAtoms_ForCpass = fileUs_ForCpass && get(fileUs_ForCpass.maniAtomsAtom);
-        if (fileUs_ForCpass && !maniAtoms_ForCpass) {
-            throw new Error('cpass.wo.ManiAtoms');
+
+        if (fileUsAtom_ForCpass && (!fileUs_ForCpass || !maniAtoms_ForCpass)) {
+            throw new Error('cpass.wo.FileUs.or.ManiAtoms');
         }
 
         const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
         const fileUs: FileUs = createFileUsFromFileContent(fileContent, fileUs_ForCpass);
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
-        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
+        const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass, get, set });
 
-        if (fileUs_ForCpass && fileUsAtom_ForCpass && maniAtoms_ForCpass) {
-            const loginForm: AnyFormCtx | undefined = maniAtoms_ForCpass[FormIdx.login];
-            const cpassForm: AnyFormCtx | undefined = createdManiAtoms[FormIdx.login];
+        if (fileUsAtom_ForCpass && fileUs_ForCpass && maniAtoms_ForCpass) {
+            // const loginForm: AnyFormCtx | undefined = maniAtoms_ForCpass[FormIdx.login];
+            // const cpassForm: AnyFormCtx | undefined = createdManiAtoms[FormIdx.login];
 
-            const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.fieldsAtom || atom([]), cpassForm?.fieldsAtom || atom([])];
+            // const newManiAtoms: ManiAtoms = [loginForm, cpassForm, loginForm?.fieldsAtom || atom([]), cpassForm?.fieldsAtom || atom([])];
+            const newManiAtoms: ManiAtoms = createdManiAtoms;
             set(fileUs_ForCpass.maniAtomsAtom, newManiAtoms);
 
             set(doSetInitialRelationsAtom, newManiAtoms);
