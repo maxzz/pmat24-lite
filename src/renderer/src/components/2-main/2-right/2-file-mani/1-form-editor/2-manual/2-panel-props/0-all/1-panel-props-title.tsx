@@ -1,6 +1,6 @@
 import { type ChunkKey } from "@/store/manifest";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
-import { chunkIconClasses, RowColumnIcon, rowColumnName } from "../../1-panel-actions/3-row-details";
+import { chunkIconClasses, RowColumnIcon, rowColumnActionName } from "../../1-panel-actions/3-row-details";
 import { classNames } from "@/utils";
 
 export function PanelPropsTitle({ type }: { type: ChunkKey; }) {
@@ -12,7 +12,7 @@ export function PanelPropsTitle({ type }: { type: ChunkKey; }) {
 }
 
 function PanelPropsTitleBody({ type }: { type: ChunkKey; }) {
-    const dispName = rowColumnName(type);
+    const dispName = rowColumnActionName(type);
     return (<>
         <div className="text-xs font-light">
             Action{' '}

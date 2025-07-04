@@ -8,7 +8,7 @@ import { DetailsPos } from "./4-details-pos";
 import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
 import { classNames } from "@/utils";
 
-export function rowColumnName(type: ChunkKey): string {
+export function rowColumnActionName(type: ChunkKey): string {
     switch (type) {
         case 'kbd': return "Keystroke";
         case 'fld': return "Field";

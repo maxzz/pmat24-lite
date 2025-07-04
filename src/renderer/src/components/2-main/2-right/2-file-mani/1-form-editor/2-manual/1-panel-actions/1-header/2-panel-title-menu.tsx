@@ -4,7 +4,7 @@ import { type ChunkKey } from "@/store/manifest";
 import { type CreateNewManualAction } from "../0-all/9-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { focusClasses, menuItemClasses } from "../../8-manual-shared-styles";
-import { RowColumnIcon, rowColumnName } from "../3-row-details";
+import { RowColumnIcon, rowColumnActionName } from "../3-row-details";
 
 export function ButtonActionsMenuAdd({ addNew }: { addNew: CreateNewManualAction; }) {
     return (
@@ -28,7 +28,7 @@ export function ButtonActionsMenuAdd({ addNew }: { addNew: CreateNewManualAction
 }
 
 function MenuRow({ type, password, addNew }: { type: ChunkKey; password?: boolean; addNew: CreateNewManualAction; }) {
-    const dispName = rowColumnName(type);
+    const dispName = rowColumnActionName(type);
     return (
         <DropdownMenuItem
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}

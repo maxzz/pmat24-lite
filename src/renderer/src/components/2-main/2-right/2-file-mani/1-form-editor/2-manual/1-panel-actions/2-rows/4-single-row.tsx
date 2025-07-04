@@ -3,14 +3,14 @@ import { useAtomValue } from "jotai";
 import { motion, type MotionProps } from "motion/react";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
-import { RowColumnDetails, RowColumnIcon, rowColumnName } from "../3-row-details";
+import { RowColumnDetails, RowColumnIcon, rowColumnActionName } from "../3-row-details";
 import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 
 function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRowProps, ref: Ref<HTMLDivElement>) {
     const isSelected = useAtomValue(chunk.selectedAtom);
     const hasError = useAtomValue(chunk.hasErrorAtom);
-    const dispText = rowColumnName(chunk.type);
+    const dispText = rowColumnActionName(chunk.type);
     const title = hasError ? "This row has errors" : undefined;
 
     return (
