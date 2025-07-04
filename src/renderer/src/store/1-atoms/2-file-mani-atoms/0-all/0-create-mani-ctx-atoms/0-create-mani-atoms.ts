@@ -73,7 +73,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
     const rv: AnyFormCtx = {
         normal,
         manual,
-        fieldsAtom: createFormFieldsAtom(normal, manual),
+        fieldsAtom: createFormFieldsAtom(normal, manual, formIdx),
         options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
         fileUsCtx: fileUsCtx,
     };
@@ -81,7 +81,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
     return rv;
 }
 
-function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | undefined): Atom<FieldRowCtx[]> {
+function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | undefined, formIdx: FormIdx): Atom<FieldRowCtx[]> {
     const rv = atom<FieldRowCtx[]>(
         (get) => {
             let fields: FieldRowCtx[] | undefined;
@@ -93,7 +93,7 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
-                                //console.log('    accessing fld', chunk.rowCtx.fromFile.dbname);
+                                console.log(`    FormField. Form: '${!formIdx ? 'login' : 'cpass'}' Field: '${get(chunk.rowCtx.labelAtom)}'`);
                                 return chunk.rowCtx;
                             }
                         }
