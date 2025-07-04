@@ -79,6 +79,26 @@
 					"label": "createManiAtoms()"
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/0-conv/2-create-atoms.tsx",
+			"bookmarks": [
+				{
+					"line": 8,
+					"column": 32,
+					"label": "createManualAtom"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/1-create-manual-cnt/1-create-form-content.tsx",
+			"bookmarks": [
+				{
+					"line": 9,
+					"column": 39,
+					"label": "createManualFormCnt"
+				}
+			]
 		}
 	]
 }
