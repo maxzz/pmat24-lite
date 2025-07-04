@@ -9,12 +9,13 @@ export function DetailsKbd({ item }: { item: ManualFieldState.CtxKbd; }) {
 
     return (
         <div className={containerClasses}>
-            <div>
-                {repeat} {pluralWord(repeat, 'time')}
-            </div>
-
             <div className={detailKbdClasses}>
                 {char}
+            </div>
+
+            <div>
+                {repeat}
+                {pluralWord(repeat, 'time')}
             </div>
         </div>
     );
