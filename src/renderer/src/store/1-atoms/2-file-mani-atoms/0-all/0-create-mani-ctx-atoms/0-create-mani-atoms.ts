@@ -107,7 +107,7 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
 }
 
 function printFormField(formIdx: FormIdx, label: string, uuid: number) {
-    console.log(`👀 FormField: ${!formIdx ? 'login' : 'cpass'}.'${label}' uuid:${uuid}`);
+    console.log(`👀 FormField: %c${!formIdx ? 'login' : 'cpass'}%c${label} ${uuid}`, !formIdx ? 'color: lime' : 'color: magenta', 'color: gray');
 }
 
 function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
