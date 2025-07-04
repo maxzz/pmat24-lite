@@ -32,6 +32,6 @@ export const doCreateScriptItemAtom = atom(
 
 function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const newItem = createScriptItemByType({type, password});
-    const rv = ManualFieldConv.createAtom(newItem, onChange);
+    const rv = ManualFieldConv.createManualAtom(newItem, onChange);
     return rv;
 }

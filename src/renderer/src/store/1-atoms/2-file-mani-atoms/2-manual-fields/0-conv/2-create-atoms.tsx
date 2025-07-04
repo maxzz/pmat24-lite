@@ -6,7 +6,7 @@ import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
-export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
+export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const uid5 = uuid.asRelativeNumber();
     const selectedAtom = atom(false);
     const validateNumberOptions = { validate: validateNumber, options: { initialValidate: true } };
@@ -119,9 +119,9 @@ export function createAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithU
     }
 }
 
-export function createAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
+export function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
     const ctxs = initialState.map(
-        (chunk, idx) => createAtom(chunk, onChange)
+        (chunk, idx) => createManualAtom(chunk, onChange)
     );
     return ctxs;
 }

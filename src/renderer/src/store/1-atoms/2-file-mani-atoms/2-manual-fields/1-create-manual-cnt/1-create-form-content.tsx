@@ -27,7 +27,7 @@ export namespace ManualFieldsState {
             onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
-        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(editorData, onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createManualAtoms(editorData, onChangeItem);
 
         const ctx: MFormCnt = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
@@ -41,7 +41,7 @@ export namespace ManualFieldsState {
     }
 
     export function resetChunks(mFormCnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
-        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);
         mFormCnt.initialChunks = initialChunks;
