@@ -1,13 +1,13 @@
 import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx, safeByContext, lFieldsIdx, cFieldsIdx } from "../../9-types";
+import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx, safeByContext } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
 
 /**
- * @param embeddTo - if defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
+ * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
  */
 export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     if (!embeddTo) {
@@ -39,10 +39,10 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
             cpassFormCtx,
             loginFormCtx.fieldsAtom || atom([]),
             cpassFormCtx.fieldsAtom || atom([]),
-        ]
+        ];
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
-        return rv; 
+        return rv;
     }
 }
 

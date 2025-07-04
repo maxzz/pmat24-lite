@@ -106,8 +106,8 @@ type AllFormsFields = {
     cpass: FieldRowCtx[],
 };
 
-export const lFieldsIdx = 2;                    // Login fields index in maniAtoms
-export const cFieldsIdx = 3;                    // Cpass fields index in maniAtoms
+const lFieldsIdx = 2;                           // Login fields index in maniAtoms
+const cFieldsIdx = 3;                           // Cpass fields index in maniAtoms
 
 export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtoms {
     return {
