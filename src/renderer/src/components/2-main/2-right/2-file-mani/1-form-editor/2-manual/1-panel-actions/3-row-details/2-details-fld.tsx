@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { detailKbdClasses } from "./1-details-key";
+import { detailKbdClasses } from "./8-classes";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
     const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
