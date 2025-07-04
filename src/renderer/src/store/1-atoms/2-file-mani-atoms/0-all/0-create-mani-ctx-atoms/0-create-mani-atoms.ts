@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx, safeByContext } from "../../9-types";
+import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx, safeByContext, cFieldsIdx, lFieldsIdx } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { OptionsState } from "../../4-options";
@@ -25,21 +25,21 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
     } else {
+        const rv: any = [...embeddTo]; // make result immutable to trigger rerender; ref to array should be defined ahead of time
+
         const cpassScope: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]);
-        const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope, embeddTo));
+        const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope, rv));
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
         cpassScope.formIdx = FormIdx.cpass;
 
-        const rv: ManiAtoms = [ // make result immutable to trigger rerender
-            loginFormCtx,
-            cpassFormCtx,
-            loginFormCtx.fieldsAtom || atom([]),
-            cpassFormCtx.fieldsAtom || atom([]),
-        ];
+        rv[FormIdx.login] = loginFormCtx;
+        rv[FormIdx.cpass] = cpassFormCtx;
+        rv[lFieldsIdx] = loginFormCtx.fieldsAtom || atom([]);
+        rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
