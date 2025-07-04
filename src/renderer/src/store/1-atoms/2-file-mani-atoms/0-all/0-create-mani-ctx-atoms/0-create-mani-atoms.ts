@@ -93,7 +93,7 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
-                                console.log('    accessing fld', chunk.rowCtx.fromFile.dbname);
+                                //console.log('    accessing fld', chunk.rowCtx.fromFile.dbname);
                                 return chunk.rowCtx;
                             }
                         }

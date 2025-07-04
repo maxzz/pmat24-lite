@@ -10,6 +10,9 @@ import { getHighlightFieldParams } from "./2-get-highlight-params";
 export const doHighlightControlAtom = atom(
     null,
     (get, set, params: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
+        if (!hasMain()) {
+            return;
+        }
         debouncedHighlight(set, params);
     }
 );
@@ -51,10 +54,6 @@ const doHighlightAtom = atom(
 );
 
 async function callMainToHighlightField(params: R2MInvokeParams.HighlightField | undefined): Promise<string | undefined> {
-    if (!hasMain()) { // It's better to block somewhere higher but here is ok as well
-        return;
-    }
-
     if (napiLock.locked('highlight')) {
         return;
     }
