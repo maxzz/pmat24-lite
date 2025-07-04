@@ -10,10 +10,9 @@ import { getHighlightFieldParams } from "./2-get-highlight-params";
 export const doHighlightControlAtom = atom(
     null,
     (get, set, params: FieldHighlightCtx & { focusOrBlur: boolean; }): void => {
-        if (!hasMain()) {
-            return;
+        if (hasMain()) {
+            debouncedHighlight(set, params);
         }
-        debouncedHighlight(set, params);
     }
 );
 
@@ -33,7 +32,7 @@ const doHighlightAtom = atom(
         const { fileUs, formIdx } = params;
         const hwndHandle = fileUs && get(formIdx === FormIdx.login ? fileUs.hwndLoginAtom : fileUs.hwndCpassAtom);
         if (!hwndHandle) {
-            console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
+            //console.log('%chighlight.no.hwnd', 'color: slateblue'); //TODO: show popup hint
             return;
         }
 
