@@ -1,7 +1,7 @@
 import { type Setter, atom } from "jotai";
 import { debounce } from "@/utils";
 import { FormIdx } from "@/store/manifest";
-import { R2MInvokes } from "@/xternal-to-main";
+import { hasMain, R2MInvokes } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
 import { type R2MInvokeParams } from "@shared/ipc-types";
 import { type FieldHighlightCtx } from "../../1-atoms/2-file-mani-atoms/9-types";
@@ -51,6 +51,10 @@ const doHighlightAtom = atom(
 );
 
 async function callMainToHighlightField(params: R2MInvokeParams.HighlightField | undefined): Promise<string | undefined> {
+    if (!hasMain()) { // It's better to block somewhere higher but here is ok as well
+        return;
+    }
+
     if (napiLock.locked('highlight')) {
         return;
     }

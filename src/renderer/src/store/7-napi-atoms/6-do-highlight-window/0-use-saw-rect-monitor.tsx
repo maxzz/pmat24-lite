@@ -40,7 +40,7 @@ const highlightIsOnAtom = atom(false);
 const doRectAtom = atom(
     null,
     async (get, set, { action, params }: { action: 'show', params: WindowHighlighterParams; } | { action: 'hide', params?: undefined; }) => {
-        if (!hasMain()) {
+        if (!hasMain()) { // It's better to block somewhere higher but here is ok as well
             return;
         }
 
