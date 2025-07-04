@@ -22,11 +22,13 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const doBuildDropdownFields = useSetAtom(buildLoginDropdownFieldsAtom);
     const dropdownAllItems = doBuildDropdownFields(rowCtx, fileUsCtx);
 
+    const rIndexUuidValue = dropdownAllItems.find(([label, uuid]) => uuid === `${rindexUuid}`) ? `${rindexUuid}` : '0';
+
     return (
         <InputSelectUi
             triggerClasses={classNames("w-full", `${rindexUuid}` === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
-            value={`${rindexUuid}`}
+            value={rIndexUuidValue}
             onValueChange={(value) => setRindexUuid(+value)}
         />
     );
