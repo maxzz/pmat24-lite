@@ -17,11 +17,11 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
 
     return (
         <div className="hidden @[300px]/actions:flex items-center justify-between">
-            <FieldName item={item} />
-
             <span className={classNames(detailKbdClasses, "font-normal")}>
                 {text}
             </span>
+
+            <FieldName item={item} />
         </div>
     );
 }
