@@ -93,7 +93,7 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
-                                console.log(`    FormField. Form: '${!formIdx ? 'login' : 'cpass'}' Field: '${get(chunk.rowCtx.labelAtom)}'`);
+                                console.log(`🌠    FormField. '${!formIdx ? 'login' : 'cpass'}'.'${get(chunk.rowCtx.labelAtom)}'`);
                                 return chunk.rowCtx;
                             }
                         }
