@@ -106,10 +106,6 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
     return rv;
 }
 
-function printFormField(formIdx: FormIdx, label: string, uuid: number) {
-    console.log(`👀 FormField: ${uuid} %c${!formIdx ? 'login' : 'cpass'} %c'${label}'`, !formIdx ? 'color: forestgreen' : 'color: darkseagreen', 'color: black');
-}
-
 function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
     console.groupCollapsed(
         `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
@@ -120,4 +116,8 @@ function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms:
     );
     console.trace();
     console.groupEnd();
+}
+
+function printFormField(formIdx: FormIdx, label: string, uuid: number) {
+    console.log(`  %c👀 FormField: ${uuid} %c${!formIdx ? 'login' : 'cpass'} %c'${label}'`, 'font-size:0.5rem', !formIdx ? 'color: forestgreen' : 'color: darkseagreen', 'color: black');
 }
