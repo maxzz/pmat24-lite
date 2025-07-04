@@ -3,15 +3,15 @@ import { useClickAway } from "react-use";
 import { classNames } from "@/utils";
 import { IconArrowUp, IconArrowDown, IconTrash24, IconClose, IconMenuHamburger5 } from "@/ui/icons";
 
-export type MenuState = {
+export type PopupMenuItemState = {
+    hasUp: boolean;
+    hasDn: boolean;
     onDelete: (event: React.MouseEvent) => void;
     onUp: (event: React.MouseEvent) => void;
     onDn: (event: React.MouseEvent) => void;
-    hasUp: boolean;
-    hasDn: boolean;
 };
 
-export function RowMenuButton({ menuState }: { menuState: MenuState; }) {
+export function RowMenuButton({ menuState }: { menuState: PopupMenuItemState; }) {
     const btnRef = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,7 +30,7 @@ export function RowMenuButton({ menuState }: { menuState: MenuState; }) {
     );
 }
 
-function FloatingMenuButtons({ menuState, onClose }: { menuState: MenuState; onClose: (event: React.MouseEvent) => void; }) {
+function FloatingMenuButtons({ menuState, onClose }: { menuState: PopupMenuItemState; onClose: (event: React.MouseEvent) => void; }) {
     const { onDelete, onUp, onDn, hasUp, hasDn } = menuState;
     return (
         <div className={FloatingMenuButtonsClasses}>

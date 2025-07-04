@@ -2,7 +2,7 @@ import { type ComponentType, forwardRef, type ForwardRefExoticComponent, type Re
 import { useAtomValue } from "jotai";
 import { motion, type MotionProps } from "motion/react";
 import { type MFormProps, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { type MenuState, RowMenuButton } from "./5-row-popup-menu";
+import { type PopupMenuItemState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnActionName } from "../3-row-details";
 import { classNames } from "@/utils";
 import { rowSelectClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
@@ -48,7 +48,7 @@ const rowClasses = `${rowLocalClasses} ${rowSelectClasses}`;
 type SingleRowProps = HTMLAttributes<HTMLDivElement> & {
     mFormProps: MFormProps;
     chunk: ManualFieldState.Ctx;
-    menuState: MenuState;
+    menuState: PopupMenuItemState;
     idx: number;
 };
 

@@ -5,7 +5,7 @@ import { classNames } from "@/utils";
 import { rowParentActiveClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
 import { doDeleteItemAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
-import { MenuState } from "./5-row-popup-menu";
+import { PopupMenuItemState } from "./5-row-popup-menu";
 
 export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; }, ref: Ref<HTMLDivElement>) {
     const ctx = mFormProps.mFormCtx.manual;
@@ -24,12 +24,12 @@ export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; 
                     (chunk, idx) => {
                         const lastItemIdx = chunks.length - 1;
 
-                        const menuState: MenuState = {
+                        const menuState: PopupMenuItemState = {
+                            hasUp: idx > 0,
+                            hasDn: idx < lastItemIdx,
                             onDelete: (e) => { e.stopPropagation(); deleteItem(ctx, idx); },
                             onUp: (e) => { e.stopPropagation(); swapItems(ctx, idx, idx - 1); },
                             onDn: (e) => { e.stopPropagation(); swapItems(ctx, idx, idx + 1); },
-                            hasUp: idx > 0,
-                            hasDn: idx < lastItemIdx,
                         };
 
                         return (
