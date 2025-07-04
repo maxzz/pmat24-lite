@@ -8,6 +8,9 @@ import { OptionsState } from "../../4-options";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
+ * NOTE: (*1) 
+ *        We need to create login form context here because we need to get login form fields from fileUs.
+ *        You can see that in ManualFieldsState.onChangeWithScope when active login the maniAtoms param has only one login form.
  */
 export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     if (!embeddTo) {
@@ -29,7 +32,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
 
         const cpassScope: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
-        const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]);
+        const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope, rv));
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
