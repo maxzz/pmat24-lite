@@ -93,7 +93,7 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
-                                console.log(`🌠    FormField. '${!formIdx ? 'login' : 'cpass'}'.'${get(chunk.rowCtx.labelAtom)}'`);
+                                printFormField(formIdx, get(chunk.rowCtx.labelAtom), chunk.rowCtx.metaField.uuid);
                                 return chunk.rowCtx;
                             }
                         }
@@ -104,6 +104,10 @@ function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | u
         }
     );
     return rv;
+}
+
+function printFormField(formIdx: FormIdx, label: string, uuid: number) {
+    console.log(`👀 FormField: ${!formIdx ? 'login' : 'cpass'}.'${label}' uuid:${uuid}`);
 }
 
 function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
