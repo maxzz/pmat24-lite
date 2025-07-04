@@ -8,7 +8,6 @@ import { OptionsState } from "../../4-options";
 
 /**
  * @param embeddTo - if defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
- * @returns 
  */
 export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     if (!embeddTo) {
@@ -26,25 +25,24 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
     } else {
-        const rv: any = embeddTo;
-        const maniAtoms = rv as ManiAtoms;
-
         const cpassScope: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
-        const loginFormCtx: AnyFormCtx = safeByContext(maniAtoms[FormIdx.login]);
+        const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]);
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope, embeddTo));
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
         cpassScope.formIdx = FormIdx.cpass;
 
-        rv[FormIdx.login] = loginFormCtx;
-        rv[FormIdx.cpass] = cpassFormCtx;
-        rv[lFieldsIdx] = loginFormCtx.fieldsAtom || atom([]);
-        rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
+        const rv: ManiAtoms = [ // make result immutable to trigger rerender
+            loginFormCtx,
+            cpassFormCtx,
+            loginFormCtx.fieldsAtom || atom([]),
+            cpassFormCtx.fieldsAtom || atom([]),
+        ]
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
-        return [...embeddTo];
+        return rv; 
     }
 }
 
