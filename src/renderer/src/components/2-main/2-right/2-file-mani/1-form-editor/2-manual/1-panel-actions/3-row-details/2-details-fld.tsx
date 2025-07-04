@@ -16,7 +16,7 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
         : 'Text';
 
     return (
-        <div className="hidden @[300px]/actions:flex items-center justify-between">
+        <div className={containerClasses}>
             <span className={classNames(detailKbdClasses, "font-normal")}>
                 {text}
             </span>
@@ -29,10 +29,12 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
 function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
     const name = useAtomValue(item.rowCtx.labelAtom) || 'Field';
     return (
-        <div className="hidden @[300px]/actions:flex items-center justify-between">
+        <div className={containerClasses}>
             {name}
         </div>
     );
 }
+
+const containerClasses = "hidden @[300px]/actions:flex items-center justify-between";
 
 //TODO: add visual feedback for linked password field in password change form

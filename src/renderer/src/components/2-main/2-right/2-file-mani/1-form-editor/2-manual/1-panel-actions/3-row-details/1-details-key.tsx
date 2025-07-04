@@ -21,6 +21,8 @@ export function DetailsKbd({ item }: { item: ManualFieldState.CtxKbd; }) {
     );
 }
 
+const containerClasses = "hidden @[300px]/actions:flex items-center justify-between space-x-1";
+
 export const detailKbdClasses = "\
 px-1 py-px min-w-[1.5rem] text-[.55rem] leading-4 text-center \
 \
@@ -30,8 +32,6 @@ border-primary-300 dark:border-primary-500 \
 \
 border border-dotted rounded-sm \
 shadow-sm dark:shadow-inner dark:shadow-primary-400/20";
-
-const containerClasses = "hidden @[300px]/actions:flex items-center justify-between space-x-1";
 
 // Use sub-grid to align the key name to the left or not. It's okay for now.
 // const containerClasses2 = "hidden @[300px]/actions:grid grid-cols-[1fr,auto] place-items-center justify-items-start space-x-1";
