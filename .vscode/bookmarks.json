@@ -1,87 +1,22 @@
 {
 	"files": [
 		{
-			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/2-ots_password_policy_advanced.h",
-			"bookmarks": [
-				{
-					"line": 1130,
-					"column": 24,
-					"label": ""
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/wiz_page3_collect2_fields_policy_dlg.cpp",
-			"bookmarks": [
-				{
-					"line": 246,
-					"column": 24,
-					"label": ""
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/4-ots_password_policy_advanced_ui.h",
-			"bookmarks": [
-				{
-					"line": 381,
-					"column": 15,
-					"label": ""
-				},
-				{
-					"line": 453,
-					"column": 14,
-					"label": ""
-				},
-				{
-					"line": 467,
-					"column": 19,
-					"label": ""
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/oti_manifest_io.h",
-			"bookmarks": [
-				{
-					"line": 1291,
-					"column": 11,
-					"label": ""
-				},
-				{
-					"line": 2000,
-					"column": 5,
-					"label": ""
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/manifest/3-policy-io/sources-cpp/wiz_page3_collect2_fields_policy.cpp",
-			"bookmarks": [
-				{
-					"line": 55,
-					"column": 12,
-					"label": ""
-				}
-			]
-		},
-		{
-			"path": "node_modules/.pnpm/electron@34.3.0/node_modules/electron/electron.d.ts",
-			"bookmarks": [
-				{
-					"line": 16116,
-					"column": 25,
-					"label": ""
-				}
-			]
-		},
-		{
 			"path": "package.json",
 			"bookmarks": [
 				{
 					"line": 21,
 					"column": 24,
 					"label": ""
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/App.tsx",
+			"bookmarks": [
+				{
+					"line": 167,
+					"column": 10,
+					"label": "Todos"
 				}
 			]
 		},
@@ -126,12 +61,22 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/App.tsx",
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/1-do-save-one.tsx",
 			"bookmarks": [
 				{
-					"line": 167,
-					"column": 10,
-					"label": ""
+					"line": 55,
+					"column": 12,
+					"label": "updateManiAtomsAfterSaveOrResetAtom"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/0-create-mani-ctx-atoms/0-create-mani-atoms.ts",
+			"bookmarks": [
+				{
+					"line": 17,
+					"column": 31,
+					"label": "createManiAtoms()"
 				}
 			]
 		}

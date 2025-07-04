@@ -7,7 +7,7 @@ import { detailKbdClasses } from "./8-classes";
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
     const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
     const rfieldUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
-    const isLinked = mFormProps.mFormCtx.fileUsCtx.formIdx === FormIdx.cpass && isPsw && !!rfieldUuid;
+    const isLinked = mFormProps.mFormCtx.fileUsCtx?.formIdx === FormIdx.cpass && isPsw && !!rfieldUuid;
 
     const text = isPsw
         ? isLinked

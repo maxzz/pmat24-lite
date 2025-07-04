@@ -9,8 +9,11 @@ import { OptionsState } from "../../4-options";
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
  * NOTE: (*1) 
- *        We need to create login form context here because we need to get login form fields from fileUs.
- *        You can see that in ManualFieldsState.onChangeWithScope when active login the maniAtoms param has only one login form.
+ *          We need to create login form context here because we need to get login form fields from fileUs.
+ *          You can see that in ManualFieldsState.onChangeWithScope when active login the maniAtoms param has only one login form.
+ *       (*2)
+ *          We have reactive changes inside callback or when we use atoms. If we use atoms maniAtoms can be invalid 
+ *          (maniAtomsAtom deleted on savebut render function will use old mFormProps. We call from updateManiAtomsAfterSaveOrReset() createManiAtoms and disposeFileUsManiAtoms).
  */
 export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
     if (!embeddTo) {
