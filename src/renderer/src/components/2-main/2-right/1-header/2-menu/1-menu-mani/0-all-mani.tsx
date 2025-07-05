@@ -7,15 +7,6 @@ import { MenuItem_Manual_ClearScriptActions, MenuItem_Normal_ShowTextFields } fr
 import { NoMenu } from "../0-all/1-no-menu";
 
 export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
-    return (<>
-        <FormCtxGuarded maniAtoms={maniAtoms} />
-        <MenuItem_ShowXML />
-        <DropdownMenuSeparator />
-        <MenuItem_More />
-    </>);
-}
-
-function FormCtxGuarded({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { activeTab } = useSnapshot(appSettings.right.mani);
     const formIdx = maniAtiveTabToFormIdx(activeTab);
 
@@ -27,12 +18,18 @@ function FormCtxGuarded({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     if (isNormalForm(formCtx)) {
         return (<>
             <MenuItem_Normal_ShowTextFields formCtx={formCtx} />
+            <MenuItem_ShowXML />
+            <DropdownMenuSeparator />
+            <MenuItem_More />
         </>);
     }
 
     if (isManualForm(formCtx)) {
         return (<>
             <MenuItem_Manual_ClearScriptActions formCtx={formCtx} />
+            <MenuItem_ShowXML />
+            <DropdownMenuSeparator />
+            <MenuItem_More />
         </>);
     }
 
