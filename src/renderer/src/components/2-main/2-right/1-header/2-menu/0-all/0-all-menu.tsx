@@ -7,6 +7,7 @@ import { IconMenuHamburger5 } from "@/ui/icons";
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
 import { R_PanelMenuXml } from "../3-menu-xml";
+import { NoMenu } from "./1-no-menu";
 
 export function R_PanelMenu() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -30,7 +31,7 @@ export function R_PanelMenu() {
 function MenuSelector() {
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
     if (!fileUs) {
-        return null;
+        return <NoMenu />;
     }
 
     if (appSettings.right.activeView === RightPanelViewType.xml) {
@@ -43,6 +44,8 @@ function MenuSelector() {
 
     return <MenuForManifestGuard fileUs={fileUs} />;
 }
+
+// Guards
 
 function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -61,11 +64,5 @@ function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
 function MenuForXmlGuard({ fileUs }: { fileUs: FileUs; }) {
     return (
         <R_PanelMenuXml fileUs={fileUs} />
-    );
-}
-
-function NoMenu() {
-    return (
-        <div>no menu</div>
     );
 }
