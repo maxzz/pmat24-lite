@@ -40,5 +40,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
     set(fileUs.maniAtomsAtom, newManiAtoms);
 
     printDisposeManiAtomsAtom(fileUs.maniAtomsAtom, get, set);
-    disposeFileUsManiAtoms(savedManiAtoms); // after new atom set dispose old one
+    console.log('%cdisposeFileUsManiAtoms temp not disposing', 'color: magenta');
+    
+    //disposeFileUsManiAtoms(savedManiAtoms); // after new atom set dispose old one
 }
