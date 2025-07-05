@@ -92,6 +92,16 @@ export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
     return obj;
 }
 
+// Type safety guards
+
+export function isNormalForm(formCtx: AnyFormCtx): formCtx is NFormCtx {
+    return !!formCtx.normal;
+}
+
+export function isManualForm(formCtx: AnyFormCtx): formCtx is MFormCtx {
+    return !!formCtx.manual;
+}
+
 // Form fields access atoms
 
 export type FieldRowCtx = NormalField.RowCtx;
