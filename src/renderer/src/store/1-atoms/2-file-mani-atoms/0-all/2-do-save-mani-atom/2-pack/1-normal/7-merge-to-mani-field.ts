@@ -18,8 +18,10 @@ export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiF
         ...maniField,
         ...from,
         submit: isSubmit,
-        rfieldform: restoreLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform, 
+        rfieldform: restoreLink ? Mani.FORMNAME.fieldcatalog : from.rfieldform,
     };
+
+    (maniField.password && !from.password) && (rv.password = undefined); // case when manual mode password became text
 
     rv.value = getFieldStringValue(from.value, ftyp);
 
