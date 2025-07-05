@@ -79,6 +79,7 @@
     "scripts": {
         "dev": "electron-vite dev",
         "web": "vite --config electron.vite.config-browser.mts",
+        "can-i-use": "pnpx update-browserslist-db@latest",
         "....................................................................................1": ".......................................................",
         "build": "pnpm run typecheck && electron-vite build",
         "preview": "electron-vite preview",

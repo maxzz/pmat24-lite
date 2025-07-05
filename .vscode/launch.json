@@ -34,6 +34,7 @@
             "request": "launch",
             "type": "chrome",
             "webRoot": "${workspaceFolder}/src/renderer",
+            "runtimeArgs": ["--preserve-symlinks"],
             "timeout": 60000,
         }
     ],
