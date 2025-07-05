@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useAtomValue } from "jotai";
-import { appSettings, type FileUs, fileUsOfRightPanelAtom, RightPanelViewType } from "@/store";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
+import { type FileUs, appSettings, fileUsOfRightPanelAtom, maniAtomsOfRightPanelAtom, RightPanelViewType } from "@/store";
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
 import { R_PanelMenuXml } from "../3-menu-xml";
@@ -35,34 +35,40 @@ function MenuSelector() {
     }
 
     if (appSettings.right.activeView === RightPanelViewType.xml) {
-        return <MenuForXmlGuard fileUs={fileUs} />;
+        return (
+            <R_PanelMenuXml fileUs={fileUs} />
+        );
     }
 
     if (fileUs.parsedSrc.stats.isFCat) {
-        return <MenuForFcGuard fileUs={fileUs} />;
+        return (
+            <MenuForFieldCatalogGuard fileUs={fileUs} />
+        );
     }
 
-    return <MenuForManifestGuard fileUs={fileUs} />;
+    return (
+        <MenuForManifestGuard />
+    );
 }
 
 // Guards
 
-function MenuForManifestGuard({ fileUs }: { fileUs: FileUs; }) {
-    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
+function MenuForManifestGuard() {
+    const maniAtoms = useAtomValue(maniAtomsOfRightPanelAtom);
     return (<>
-        {maniAtoms ? <R_PanelMenuMani maniAtoms={maniAtoms} /> : <NoMenu />}
+        {maniAtoms
+            ? <R_PanelMenuMani maniAtoms={maniAtoms} />
+            : <NoMenu />
+        }
     </>);
 }
 
-function MenuForFcGuard({ fileUs }: { fileUs: FileUs; }) {
+function MenuForFieldCatalogGuard({ fileUs }: { fileUs: FileUs; }) {
     const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
     return (<>
-        {fceCtx ? <R_PanelMenuFc fceCtx={fceCtx} /> : <NoMenu />}
+        {fceCtx
+            ? <R_PanelMenuFc fceCtx={fceCtx} />
+            : <NoMenu />
+        }
     </>);
-}
-
-function MenuForXmlGuard({ fileUs }: { fileUs: FileUs; }) {
-    return (
-        <R_PanelMenuXml fileUs={fileUs} />
-    );
 }

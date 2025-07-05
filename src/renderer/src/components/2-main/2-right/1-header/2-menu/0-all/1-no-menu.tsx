@@ -1,5 +1,7 @@
+import { DropdownMenuItem } from "@/ui/shadcn";
+
 export function NoMenu() {
     return (
-        <div>Manifest not selected</div>
+        <DropdownMenuItem>Manifest not selected</DropdownMenuItem>
     );
 }

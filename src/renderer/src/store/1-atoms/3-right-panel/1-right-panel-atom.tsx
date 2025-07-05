@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { createManiAtoms } from "../2-file-mani-atoms";
+import { type ManiAtoms, createManiAtoms } from "../2-file-mani-atoms";
 
 export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);
 
@@ -50,6 +50,13 @@ export const fileUsOfRightPanelAtom = atom(
     (get): FileUs | undefined => {
         const currentAtom = get(rightPanelAtomAtom);
         return currentAtom ? get(currentAtom) : undefined;
+    },
+);
+
+export const maniAtomsOfRightPanelAtom = atom(
+    (get): ManiAtoms | undefined | null => {
+        const fileUs = get(fileUsOfRightPanelAtom);
+        return fileUs?.maniAtomsAtom && get(fileUs.maniAtomsAtom);
     },
 );
 
