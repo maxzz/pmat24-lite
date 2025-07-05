@@ -29,6 +29,8 @@ export function R_PanelMenu() {
 }
 
 function MenuSelector() {
+    const maniAtoms = useAtomValue(maniAtomsOfRightPanelAtom);
+
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
     if (!fileUs) {
         return <NoMenu />;
@@ -41,33 +43,18 @@ function MenuSelector() {
     }
 
     if (fileUs.parsedSrc.stats.isFCat) {
-        return (
-            <MenuForFieldCatalogGuard fileUs={fileUs} />
-        );
+        const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
+        return (<>
+            {fceCtx
+                ? <R_PanelMenuFc fceCtx={fceCtx} />
+                : <NoMenu />
+            }
+        </>);
     }
 
-    return (
-        <MenuForManifestGuard />
-    );
-}
-
-// Guards
-
-function MenuForManifestGuard() {
-    const maniAtoms = useAtomValue(maniAtomsOfRightPanelAtom);
     return (<>
         {maniAtoms
             ? <R_PanelMenuMani maniAtoms={maniAtoms} />
-            : <NoMenu />
-        }
-    </>);
-}
-
-function MenuForFieldCatalogGuard({ fileUs }: { fileUs: FileUs; }) {
-    const fceCtx = fileUs.fceAtomsForFcFile?.viewFceCtx;
-    return (<>
-        {fceCtx
-            ? <R_PanelMenuFc fceCtx={fceCtx} />
             : <NoMenu />
         }
     </>);
