@@ -1,29 +1,17 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type AnyFormCtx, type ManiAtoms, appSettings, maniAtiveTabToFormIdx } from "@/store";
+import { DropdownMenuCheckboxItem, DropdownMenuItem } from "@/ui/shadcn";
+import { type MFormCtx, type NFormCtx, appSettings } from "@/store";
 
-export function MenuItem_ShowTextFieldsForMatch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
-    const { activeTab } = useSnapshot(appSettings.right.mani);
-    const formIdx = maniAtiveTabToFormIdx(activeTab);
-    
-    const formCtx = formIdx !== undefined && maniAtoms[formIdx];
-    if (!formCtx) {
-        return null;
-    }
-
-    return (
-        <MenuItem_Guarded formCtx={formCtx} />
-    );
-}
-
-function MenuItem_Guarded({ formCtx }: { formCtx: AnyFormCtx; }) {
-    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
+export function MenuItem_Normal_ShowTextFields({ formCtx }: { formCtx: NFormCtx; }) {
     const isNormalForm = formCtx.normal;
     const isWebForm = useAtomValue(formCtx.options.isWebAtom);
+    const showIt = isNormalForm && !isWebForm;
+    
+    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
 
     return (<>
-        {isNormalForm && !isWebForm && (
+        {showIt && (
             <DropdownMenuCheckboxItem
                 disabled={!isNormalForm}
                 checked={showFormTextFields}
@@ -37,3 +25,23 @@ function MenuItem_Guarded({ formCtx }: { formCtx: AnyFormCtx; }) {
 
 //05.27.25
 //TODO: maybe put it to the additional options as a separate button
+
+export function MenuItem_Manual_ClearScriptActions({ formCtx }: { formCtx: MFormCtx; }) {
+    const isManualForm = formCtx.manual;
+    const isWebForm = useAtomValue(formCtx.options.isWebAtom);
+    const showIt = isManualForm && !isWebForm;
+    const listIdEmpty = useAtomValue(formCtx.manual.chunksAtom).length === 0;
+    
+    return (<>
+        {showIt && (
+            <DropdownMenuItem
+                disabled={listIdEmpty}
+                onClick={() => {
+                    //formCtx.manual.chunksAtom.set([]);
+                }}
+            >
+                Delete Script Actions
+            </DropdownMenuItem>
+        )}
+    </>);
+}
