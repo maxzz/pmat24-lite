@@ -19,8 +19,8 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const { rfieldUuidAtom } = rowCtx;
     const [rindexUuid, setRindexUuid] = useAtom(rfieldUuidAtom);
 
-    const doBuildDropdownFields = useSetAtom(buildLoginDropdownFieldsAtom);
-    const dropdownAllItems = doBuildDropdownFields(rowCtx, fileUsCtx);
+    const doBuildLoginDropdownFields = useSetAtom(buildLoginDropdownFieldsAtom);
+    const dropdownAllItems = doBuildLoginDropdownFields(rowCtx, fileUsCtx);
 
     const rIndexUuidValue = dropdownAllItems.find(([label, uuid]) => uuid === `${rindexUuid}`) ? `${rindexUuid}` : '0';
 
