@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { AnyFormCtx, MFormCtx, type ManiAtoms, NFormCtx, appSettings, maniAtiveTabToFormIdx } from "@/store";
+import { AnyFormCtx, MFormCtx, type ManiAtoms, NFormCtx, appSettings, isManualForm, isNormalForm, maniAtiveTabToFormIdx } from "@/store";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_More } from "../8-more";
@@ -29,11 +29,11 @@ function FormCtxGuarded({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 }
 
 function Menu_Selector({ formCtx }: { formCtx: AnyFormCtx; }) {
-    if (formCtx.normal) {
-        return <MenuItem_ShowTextFields formCtx={formCtx as NFormCtx} />;
+    if (isNormalForm(formCtx)) {
+        return <MenuItem_ShowTextFields formCtx={formCtx} />;
     }
-    if (formCtx.manual) {
-        return <MenuItem_ClearScriptActions formCtx={formCtx as MFormCtx} />;
+    if (isManualForm(formCtx)) {
+        return <MenuItem_ClearScriptActions formCtx={formCtx} />;
     }
     return null;
 }
