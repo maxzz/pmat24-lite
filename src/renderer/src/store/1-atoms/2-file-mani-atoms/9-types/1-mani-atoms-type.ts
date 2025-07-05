@@ -136,7 +136,7 @@ export function getAllFormsFields(fileUsCtx: FileUsCtx, get: Getter): AllFormsFi
 
 export function guardedFormIdx(mFormProps: MFormProps): FormIdx {
     if (mFormProps?.mFormCtx?.fileUsCtx?.formIdx === undefined) {
-        console.error('mFormProps.mFormCtx.fileUsCtx.formIdx is undefined');
+        console.error('no.mFormProps');
     }
     return mFormProps?.mFormCtx?.fileUsCtx?.formIdx || 0;
 }

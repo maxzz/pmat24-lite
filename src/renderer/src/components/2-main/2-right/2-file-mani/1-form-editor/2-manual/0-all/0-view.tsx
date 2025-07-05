@@ -8,24 +8,18 @@ import { InFormBlockOptions } from "../../../2-form-options";
 import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
-
     //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
-
     return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
-
             <ManualPanelActions className="@container/actions" mFormProps={mFormProps} />
-
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
 
             <div className="font-semibold">
                 Additional options
             </div>
-
             <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
                 <InFormBlockOptions anyFormProps={mFormProps} />
             </div>
-
         </div>
     );
 }

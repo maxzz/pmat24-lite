@@ -4,6 +4,7 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, type FieldRowCtx, safeByContext, cFieldsIdx, lFieldsIdx } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
+import { createFormFieldsAtom } from "../../3-cpass-links";
 import { OptionsState } from "../../4-options";
 
 /**
@@ -81,31 +82,6 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
     return rv;
 }
 
-function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | undefined, formIdx: FormIdx): Atom<FieldRowCtx[]> {
-    const rv = atom<FieldRowCtx[]>(
-        (get) => {
-            let fields: FieldRowCtx[] | undefined;
-            if (normal) {
-                fields = normal.rowCtxs;
-            }
-            if (manual) {
-                fields = get(manual.chunksAtom)
-                    .map(
-                        (chunk) => {
-                            if (chunk.type === 'fld') {
-                                printFormField(formIdx, get(chunk.rowCtx.labelAtom), chunk.rowCtx.metaField.uuid);
-                                return chunk.rowCtx;
-                            }
-                        }
-                    )
-                    .filter(Boolean);
-            }
-            return fields || [];
-        }
-    );
-    return rv;
-}
-
 function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
     console.groupCollapsed(
         `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
@@ -116,8 +92,4 @@ function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms:
     );
     console.trace();
     console.groupEnd();
-}
-
-function printFormField(formIdx: FormIdx, label: string, uuid: number) {
-    console.log(`  %c👀 FormField: ${uuid} %c${!formIdx ? 'login' : 'cpass'} %c'${label}'`, 'font-size:0.5rem', !formIdx ? 'color: forestgreen' : 'color: darkseagreen', 'color: black');
 }

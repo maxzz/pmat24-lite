@@ -21,7 +21,7 @@ export const buildLoginDropdownFieldsAtom = atom(
         const loginFields = getAllFormsFields(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-        //printFields(rowCtx, loginPasswords, get);
+        printFields(rowCtx, loginPasswords, get);
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
         rv.unshift(['No link', '0']);
