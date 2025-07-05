@@ -74,7 +74,7 @@
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/0-create-mani-ctx-atoms/0-create-mani-atoms.ts",
 			"bookmarks": [
 				{
-					"line": 17,
+					"line": 18,
 					"column": 31,
 					"label": "createManiAtoms()"
 				}
@@ -97,6 +97,16 @@
 					"line": 9,
 					"column": 39,
 					"label": "createManualFormCnt"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/store-utils/1-file-system-utils/8-dispose-file-us.ts",
+			"bookmarks": [
+				{
+					"line": 21,
+					"column": 36,
+					"label": "doDisposeFileUsAtomAtom"
 				}
 			]
 		}
