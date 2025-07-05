@@ -132,4 +132,13 @@ export function getAllFormsFields(fileUsCtx: FileUsCtx, get: Getter): AllFormsFi
     };
 }
 
+// Guards
+
+export function guardedFormIdx(mFormProps: MFormProps): FormIdx {
+    if (mFormProps?.mFormCtx?.fileUsCtx?.formIdx === undefined) {
+        console.error('mFormProps.mFormCtx.fileUsCtx.formIdx is undefined');
+    }
+    return mFormProps?.mFormCtx?.fileUsCtx?.formIdx || 0;
+}
+
 //

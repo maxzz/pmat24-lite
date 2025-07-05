@@ -9,7 +9,7 @@ import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
 
-    //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: mFormProps.mFormCtx.fileUsCtx.formIdx });
+    //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
 
     return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
