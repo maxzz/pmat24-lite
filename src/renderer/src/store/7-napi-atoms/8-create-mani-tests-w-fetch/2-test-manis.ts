@@ -43,12 +43,14 @@ export const doLoadFakeManiAtom = atom(
 
 const testLoginFormManis: Record<TestManiEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
-    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+    // win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}-manual-web.dpm',
+    win32: 'tests/2-manis/{cf3e9911-52f0-46fe-a100-df1a27a5148c}-manual-w32-cpass.dpm',
+    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}-normal-web-cpass.dpm',
 };
 
 const testCpassFormManis: Record<TestManiEnum, string> = { // This is relative to the public/tests folder
     none: '',
-    win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}.dpm',
-    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}.dpm',
+    // win32: 'tests/2-manis/{1d88e2f5-70b7-4c9f-bda4-b72afd02005d}-manual-web.dpm',
+    win32: 'tests/2-manis/{cf3e9911-52f0-46fe-a100-df1a27a5148c}-manual-w32-cpass.dpm',
+    web: 'tests/2-manis/{1fdf1f83-a96f-422c-981e-3ca4e6cedd20}-normal-web-cpass.dpm',
 };

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+	<descriptor
+		id="{afbffd6f-adb5-4068-9640-35a502d4e1ee}"
+		created="1dbee0f 8dfcbc7a"
+		modified="1dbee10 b0f7a49d"
+		integrity="OTS2.03f776d40d768e56e92fe088145961c36"
+		version="2.4.3"
+	/>
+	<forms>
+		<form>
+			<detection
+				caption="Login"
+				dlg_class="#32770"
+				processname="C:\z\bugs\[1]-win32-test-apps\Clogin22.exe"
+				commandline="&quot;C:\z\bugs\[1]-win32-test-apps\Clogin22.exe&quot; "
+			/>
+			<options
+				choosename="manual-login22"
+				autoprompt="0"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Username"
+					type="edit"
+					dbname="{4e902a30-d520-4949-9091-a07958cb0caf}"
+					path_ext="[sn]2.0.field;"
+					useit="1"
+				/>
+				<field
+					displayname="Password"
+					type="edit"
+					dbname="{d7274c0c-2180-4125-95fd-07e332a91cfa}"
+					path_ext="[sn]2.1.field;"
+					password="1"
+					useit="1"
+				/>
+			</fields>
+		</form>
+		<form>
+			<fcontext
+				type="pchange"
+				name="1"
+			/>
+			<detection
+				caption="Password Change Test Dialog"
+				dlg_class="#32770"
+				processname="C:\z\bugs\[1]-win32-test-apps\PasswordManagerTestDialogs.exe"
+				commandline="C:\z\bugs\[1]-win32-test-apps\PasswordManagerTestDialogs.exe"
+			/>
+			<options
+				autoprompt="0"
+				lockfields="1"
+				usequicklink="2"
+			/>
+			<fields>
+				<field
+					displayname="Current password"
+					type="edit"
+					dbname="{d7274c0c-2180-4125-95fd-07e332a91cfa}"
+					path_ext="[sn]3.0.field;"
+					rfield="in"
+					rfieldindex="1"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="New password"
+					type="edit"
+					dbname="{d7274c0c-2180-4125-95fd-07e332a91cfa}"
+					path_ext="[sn]3.1.field;"
+					rfield="out"
+					rfieldindex="1"
+					password="1"
+					useit="1"
+				/>
+				<field
+					displayname="Confirm password"
+					type="edit"
+					dbname="{4e902a30-d520-4949-9091-a07958cb0caf}"
+					path_ext="[sn]3.2.field;"
+					rfield="out"
+					useit="1"
+				/>
+			</fields>
+		</form>
+	</forms>
+</manifest>
