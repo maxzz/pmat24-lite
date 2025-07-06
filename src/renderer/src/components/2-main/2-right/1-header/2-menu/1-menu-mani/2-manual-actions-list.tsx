@@ -1,0 +1,50 @@
+import { useAtomValue, useSetAtom } from "jotai";
+import { DropdownMenuItem } from "@/ui/shadcn";
+import { type MFormCtx, doCreateDefaultScriptItemsAtom, doDeleteAllChunksAtom } from "@/store";
+
+export function MenuItem_Manual_ClearScriptActions({ formCtx }: { formCtx: MFormCtx; }) {
+    const isManualForm = formCtx.manual;
+    const isWebForm = useAtomValue(formCtx.options.isWebAtom); // manual mode not allowed for web
+    const showIt = isManualForm && !isWebForm;
+    const listIsEmpty = useAtomValue(formCtx.manual.chunksAtom).length === 0;
+    const doDeleteAllChunks = useSetAtom(doDeleteAllChunksAtom);
+
+    return (<>
+        {showIt && (
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={listIsEmpty}
+                onClick={() => {
+                    doDeleteAllChunks(formCtx.manual);
+                }}
+            >
+                Delete Script Actions
+            </DropdownMenuItem>
+        )}
+    </>);
+}
+
+export function MenuItem_Manual_CreateDefaultScriptActions({ formCtx }: { formCtx: MFormCtx; }) {
+    const isManualForm = formCtx.manual;
+    const isWebForm = useAtomValue(formCtx.options.isWebAtom); // manual mode not allowed for web
+    const showIt = isManualForm && !isWebForm;
+    const listIsEmpty = useAtomValue(formCtx.manual.chunksAtom).length === 0;
+    const doCreateDefaultScriptItems = useSetAtom(doCreateDefaultScriptItemsAtom);
+
+    return (<>
+        {showIt && (
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={listIsEmpty}
+                onClick={() => {
+                    doCreateDefaultScriptItems(formCtx.manual, formCtx.fileUsCtx.formIdx);
+                }}
+            >
+                Add Actions Template
+            </DropdownMenuItem>
+        )}
+    </>);
+}
+
+//05.27.25
+//TODO: maybe put it to the additional options as a separate button
