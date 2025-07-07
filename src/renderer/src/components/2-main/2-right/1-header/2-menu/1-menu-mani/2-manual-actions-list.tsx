@@ -18,7 +18,7 @@ export function MenuItem_Manual_ClearScriptActions({ formCtx }: { formCtx: MForm
                     doDeleteAllChunks(formCtx.manual);
                 }}
             >
-                Clear Actions
+                Delete All Actions...
             </DropdownMenuItem>
         )}
     </>);
@@ -43,6 +43,3 @@ export function MenuItem_Manual_CreateDefaultScriptActions({ formCtx }: { formCt
         )}
     </>);
 }
-
-//05.27.25
-//TODO: maybe put it to the additional options as a separate button

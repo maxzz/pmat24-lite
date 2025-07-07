@@ -7,7 +7,7 @@ import { ManualFieldConv } from "../../../0-conv";
 
 export const doCreateScriptItemAtom = atom(
     null,
-    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean) => {
+    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean): void => {
         const fieldData = createScriptItemByType({ type, password, name: 'No name' });
         insertScriptItems([fieldData], mFormProps.mFormCtx.manual, get, set);
     }
@@ -15,13 +15,13 @@ export const doCreateScriptItemAtom = atom(
 
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
-    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
+    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx): void => {
         const fieldsData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
         insertScriptItems(fieldsData, mFormCnt, get, set);
     }
 );
 
-function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, get: Getter, set: Setter) {
+function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, get: Getter, set: Setter): void {
     const newItems = fieldsData.map((field) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
     
     deselectCurrent(mFormCnt, get, set);

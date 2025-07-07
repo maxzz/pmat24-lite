@@ -19,6 +19,14 @@ export const confirmDeleteCpassMessages: ConfirmationMessages = {
     isDafaultOk: false,
 };
 
+export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
+    title: 'Delete all actions?',
+    message: 'Are you sure you want to delete all actions?',
+    buttonOk: 'Delete',
+    buttonCancel: 'Cancel',
+    isDafaultOk: false,
+};
+
 /**
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.

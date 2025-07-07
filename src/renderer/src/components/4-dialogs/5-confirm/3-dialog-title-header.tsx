@@ -1,12 +1,5 @@
 import { DialogContent, DialogHeader, DialogCloseButton } from '@/ui/shadcn/dialog';
 
-type DialogTitleHeaderProps = {
-    title: string;
-    className: string;
-    children: React.ReactNode;
-    onDlgClose: (ok: boolean) => void;
-};
-
 export function DialogTitleHeader({ title, className, children, onDlgClose }: DialogTitleHeaderProps) {
     return (
         <DialogContent
@@ -27,3 +20,10 @@ export function DialogTitleHeader({ title, className, children, onDlgClose }: Di
         </DialogContent>
     );
 }
+
+type DialogTitleHeaderProps = {
+    title: string;
+    className: string;
+    children: React.ReactNode;
+    onDlgClose: (ok: boolean) => void;
+};
