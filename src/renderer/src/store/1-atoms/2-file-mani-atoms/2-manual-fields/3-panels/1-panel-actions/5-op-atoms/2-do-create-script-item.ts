@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { clamp } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "../../../9-types";
-import { type ChunkKey, createScriptItemByType, FormIdx } from "@/store/manifest";
+import { type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
 import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
@@ -39,7 +39,10 @@ function createScriptItem(type: ChunkKey, password: boolean, name: string, onCha
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
     (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
-        const newScriptItem = createScriptItemByType({ type: 'fld', password: false, name: 'No name' });
+        const fieldsEditorData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
+
+        const newScriptItem = fieldsEditorData.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
+
         console.log('doCreateDefaultScriptItems', formIdx, newScriptItem);
     }
 );
