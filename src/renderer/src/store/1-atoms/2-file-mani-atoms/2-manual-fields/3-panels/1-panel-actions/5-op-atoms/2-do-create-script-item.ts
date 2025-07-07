@@ -43,6 +43,14 @@ export const doCreateDefaultScriptItemsAtom = atom(
 
         const newScriptItem = fieldsEditorData.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
 
-        console.log('doCreateDefaultScriptItems', formIdx, newScriptItem);
+        const chunks = get(mFormCnt.chunksAtom);
+        const selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
+
+        const newChunks = [...chunks];
+        newChunks.splice(selectedIdx, 0, ...newScriptItem);
+
+        set(mFormCnt.chunksAtom, newChunks);
+        
+        set(doSelectIdxAtom, mFormCnt, selectedIdx);
     }
 );
