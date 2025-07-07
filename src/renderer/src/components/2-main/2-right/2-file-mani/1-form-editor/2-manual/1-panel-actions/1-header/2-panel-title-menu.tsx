@@ -32,7 +32,7 @@ function MenuRow({ type, password, addNew }: { type: ChunkKey; password?: boolea
     return (
         <DropdownMenuItem
             className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
-            onClick={() => addNew(type, !!password)}
+            onClick={(event) => addNew({ type, password, event })}
         >
             <RowColumnIcon type={type} />
 

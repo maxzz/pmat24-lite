@@ -2,14 +2,14 @@ import { type Getter, type Setter, atom } from "jotai";
 import { clamp } from "@/utils";
 import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
 import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
+import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
 
 export const doCreateScriptItemAtom = atom(
     null,
-    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean, formIdx: FormIdx): void => {
-        const fieldData = createScriptItemByType({ type, password, name: 'No name' });
+    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean | undefined, formIdx: FormIdx): void => {
+        const fieldData = createScriptItemByType({ type, password: !!password, name: 'No name' });
         insertScriptItems([fieldData], mFormProps.mFormCtx.manual, get, set);
         asyncSelectPanelActionsList(formIdx);
     }
@@ -32,7 +32,9 @@ function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, g
     const chunks = get(mFormCnt.chunksAtom);
 
     let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
+    console.log('selectedIdx 1', selectedIdx);
     selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
+    console.log('selectedIdx 2', selectedIdx);
 
     const newChunks = [...chunks];
     newChunks.splice(selectedIdx, 0, ...newItems);

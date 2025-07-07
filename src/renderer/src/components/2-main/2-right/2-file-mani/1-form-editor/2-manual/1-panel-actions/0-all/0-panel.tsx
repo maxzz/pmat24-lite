@@ -1,9 +1,10 @@
-import { type HTMLAttributes, useEffect } from "react";
+import { type HTMLAttributes, type MouseEvent, useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui";
 import { type ChunkKey } from "@/store/manifest";
 import { type MFormProps, doCreateScriptItemAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type CreateNewManualAction } from "./9-types";
 import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
 import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
@@ -15,7 +16,7 @@ export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormPr
 
     const doCreateScriptItem = useSetAtom(doCreateScriptItemAtom);
 
-    function onCreateNewManual(type: ChunkKey, password: boolean) {
+    function onCreateNewManual({type, password, event}: { type: ChunkKey, password: boolean | undefined, event: MouseEvent<HTMLElement> }) {
         doCreateScriptItem(mFormProps, type, password, mFormProps.mFormCtx.fileUsCtx.formIdx);
     }
 
