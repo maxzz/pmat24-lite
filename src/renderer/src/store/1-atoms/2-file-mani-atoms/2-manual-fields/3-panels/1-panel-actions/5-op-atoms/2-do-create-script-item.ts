@@ -44,7 +44,8 @@ export const doCreateDefaultScriptItemsAtom = atom(
         const newScriptItem = fieldsEditorData.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
 
         const chunks = get(mFormCnt.chunksAtom);
-        const selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
+        let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
+        selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
 
         const newChunks = [...chunks];
         newChunks.splice(selectedIdx, 0, ...newScriptItem);
