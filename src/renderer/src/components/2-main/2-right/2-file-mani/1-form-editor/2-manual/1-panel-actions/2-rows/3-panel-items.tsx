@@ -17,8 +17,14 @@ export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; 
     const swapItems = useSetAtom(doSwapItemsAtom);
 
     return (<>
-        <div ref={ref} className={classNames("min-h-10 outline-none", rowParentActiveClasses)} tabIndex={0} onKeyDown={(e) => selectByKey(ctx, e.key)}>
-
+        <div
+            ref={ref}
+            className={classNames("min-h-10 outline-none", rowParentActiveClasses)}
+            onKeyDown={(e) => selectByKey(ctx, e.key)}
+            tabIndex={0}
+            // data-panel-actions-list={`panel-actions-list-${mFormProps.mFormCtx.fileUsCtx.formIdx}`}
+            data-panel-actions-list={mFormProps.mFormCtx.fileUsCtx.formIdx}
+        >
             <AnimatePresence initial={false}>
                 {chunks.map(
                     (chunk, idx) => {
@@ -40,11 +46,11 @@ export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; 
                                 idx={idx}
                                 onClick={(e: MouseEvent) => selectItem(ctx, idx, (v) => e.ctrlKey ? !v : true)}
                                 key={chunk.uid5}
-                                // Not yet, AnimatePresence not working when switching between files
-                                // initial={{ opacity: 0, height: 0 }}
-                                // animate={{ opacity: 1, height: "auto" }}
-                                // exit={{ opacity: 0, height: 0 }}
-                                // transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
+                            // Not yet, AnimatePresence not working when switching between files
+                            // initial={{ opacity: 0, height: 0 }}
+                            // animate={{ opacity: 1, height: "auto" }}
+                            // exit={{ opacity: 0, height: 0 }}
+                            // transition={{ opacity: { duration: .2 }, type: "spring", duration: 1 }}
                             />
                         );
                     })
