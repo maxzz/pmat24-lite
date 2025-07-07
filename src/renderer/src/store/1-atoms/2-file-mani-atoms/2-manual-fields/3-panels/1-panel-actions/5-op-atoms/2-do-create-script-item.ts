@@ -14,19 +14,7 @@ export const doCreateScriptItemAtom = atom(
 
         const newItem = createScriptItem(type, password, 'No name', cnt.onChangeItem);
 
-        deselectCurrent(cnt, get, set);
-
-        const chunks = get(cnt.chunksAtom);
-
-        let selectedIdx = get(cnt.selectedIdxStoreAtom);
-        selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
-
-        const newChunks = [...chunks];
-        newChunks.splice(selectedIdx, 0, newItem);
-
-        set(cnt.chunksAtom, newChunks);
-
-        set(doSelectIdxAtom, cnt, selectedIdx);
+        insertScriptItems([newItem], cnt, get, set);
     }
 );
 
@@ -43,20 +31,13 @@ export const doCreateDefaultScriptItemsAtom = atom(
 
         const newItems = fields.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
 
-        const chunks = get(mFormCnt.chunksAtom);
-        let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
-        selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
-
-        const newChunks = [...chunks];
-        newChunks.splice(selectedIdx, 0, ...newItems);
-
-        set(mFormCnt.chunksAtom, newChunks);
-
-        set(doSelectIdxAtom, mFormCnt, selectedIdx);
+        insertScriptItems(newItems, mFormCnt, get, set);
     }
 );
 
 function insertScriptItems(newItems: ManualFieldState.Ctx[], mFormCnt: MFormCnt, get: Getter, set: Setter) {
+    deselectCurrent(mFormCnt, get, set);
+
     const chunks = get(mFormCnt.chunksAtom);
 
     let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
