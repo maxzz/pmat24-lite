@@ -1,23 +1,26 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { clamp, delay } from "@/utils";
+import { clamp } from "@/utils";
 import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
 import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
+import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
 
 export const doCreateScriptItemAtom = atom(
     null,
-    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean): void => {
+    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean, formIdx: FormIdx): void => {
         const fieldData = createScriptItemByType({ type, password, name: 'No name' });
         insertScriptItems([fieldData], mFormProps.mFormCtx.manual, get, set);
+        asyncSelectPanelActionsList(formIdx);
     }
 );
 
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
-    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx): void => {
+    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
         const fieldsData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
         insertScriptItems(fieldsData, mFormCnt, get, set);
+        asyncSelectPanelActionsList(formIdx);
     }
 );
 
@@ -37,18 +40,4 @@ function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, g
     set(mFormCnt.chunksAtom, newChunks);
 
     set(doSelectIdxAtom, mFormCnt, selectedIdx);
-}
-
-// List action activation
-
-export const panelActionsListId = (formIdx: FormIdx) => ({
-    'data-panel-actions-list': formIdx,
-});
-
-export async function selectPanelActionsList(formIdx: FormIdx): Promise<void> {
-    const list = document.querySelector<HTMLDivElement>(`[data-panel-actions-list="${formIdx}"]`);
-    if (list) {
-        await delay(500);
-        list.focus();
-    }
 }
