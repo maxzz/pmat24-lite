@@ -8,23 +8,26 @@ import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
 
 export const doCreateScriptItemAtom = atom(
     null,
-    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean | undefined, formIdx: FormIdx): void => {
+    (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean | undefined, formIdx: FormIdx, isCtrlKey: boolean): void => {
         const fieldData = createScriptItemByType({ type, password: !!password, name: 'No name' });
-        insertScriptItems([fieldData], mFormProps.mFormCtx.manual, get, set);
+        insertScriptItems([fieldData], mFormProps.mFormCtx.manual, isCtrlKey, get, set);
         asyncSelectPanelActionsList(formIdx);
     }
 );
 
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
-    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
+    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx, isCtrlKey: boolean) => {
         const fieldsData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
-        insertScriptItems(fieldsData, mFormCnt, get, set);
+        insertScriptItems(fieldsData, mFormCnt, isCtrlKey, get, set);
         asyncSelectPanelActionsList(formIdx);
     }
 );
 
-function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, get: Getter, set: Setter): void {
+/**
+ * @param isCtrlKey - if true then create default script items will be created before selected item, by default they will be created after selected item. TODO: not implemented yet
+ */
+function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, isCtrlKey: boolean, get: Getter, set: Setter): void {
     const newItems = fieldsData.map((field) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
 
     deselectCurrent(mFormCnt, get, set);

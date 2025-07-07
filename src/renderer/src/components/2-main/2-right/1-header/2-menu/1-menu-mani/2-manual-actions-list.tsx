@@ -34,8 +34,8 @@ export function MenuItem_Manual_CreateDefaultScriptActions({ formCtx }: { formCt
         {showIt && (
             <DropdownMenuItem
                 className="pl-8"
-                onClick={() => {
-                    doCreateDefaultScriptItems(formCtx.manual, formCtx.fileUsCtx.formIdx);
+                onClick={(event) => {
+                    doCreateDefaultScriptItems(formCtx.manual, formCtx.fileUsCtx.formIdx, event.ctrlKey);
                 }}
             >
                 Add Actions Template
