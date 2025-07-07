@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { clamp } from "@/utils";
+import { clamp, delay } from "@/utils";
 import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
 import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
@@ -23,7 +23,7 @@ export const doCreateDefaultScriptItemsAtom = atom(
 
 function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, get: Getter, set: Setter): void {
     const newItems = fieldsData.map((field) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
-    
+
     deselectCurrent(mFormCnt, get, set);
 
     const chunks = get(mFormCnt.chunksAtom);
@@ -37,4 +37,18 @@ function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, g
     set(mFormCnt.chunksAtom, newChunks);
 
     set(doSelectIdxAtom, mFormCnt, selectedIdx);
+}
+
+// List action activation
+
+export const panelActionsListId = (formIdx: FormIdx) => ({
+    'data-panel-actions-list': formIdx,
+});
+
+export async function selectPanelActionsList(formIdx: FormIdx): Promise<void> {
+    const list = document.querySelector<HTMLDivElement>(`[data-panel-actions-list="${formIdx}"]`);
+    if (list) {
+        await delay(500);
+        list.focus();
+    }
 }
