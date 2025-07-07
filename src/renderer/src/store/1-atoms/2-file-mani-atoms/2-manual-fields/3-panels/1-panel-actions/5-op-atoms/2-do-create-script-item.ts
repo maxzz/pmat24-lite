@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { clamp } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "../../../9-types";
-import { type ChunkKey, createScriptItemByType } from "@/store/manifest";
+import { type ChunkKey, createScriptItemByType, FormIdx } from "@/store/manifest";
 import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { ManualFieldConv } from "../../../0-conv";
@@ -12,7 +12,7 @@ export const doCreateScriptItemAtom = atom(
     (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean) => {
         const cnt: MFormCnt = mFormProps.mFormCtx.manual;
 
-        const newItem = createScriptItem(type, password, cnt.onChangeItem);
+        const newItem = createScriptItem(type, password, 'No name', cnt.onChangeItem);
 
         deselectCurrent(cnt, get, set);
 
@@ -30,8 +30,16 @@ export const doCreateScriptItemAtom = atom(
     }
 );
 
-function createScriptItem(type: ChunkKey, password: boolean, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
-    const newItem = createScriptItemByType({type, password});
+function createScriptItem(type: ChunkKey, password: boolean, name: string, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
+    const newItem = createScriptItemByType({type, password, name});
     const rv = ManualFieldConv.createManualAtom(newItem, onChange);
     return rv;
 }
+
+export const doCreateDefaultScriptItemsAtom = atom(
+    null,
+    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
+        const newScriptItem = createScriptItemByType({ type: 'fld', password: false, name: 'No name' });
+        console.log('doCreateDefaultScriptItems', formIdx, newScriptItem);
+    }
+);
