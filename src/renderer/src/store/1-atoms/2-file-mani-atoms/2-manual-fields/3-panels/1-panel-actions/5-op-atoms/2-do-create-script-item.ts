@@ -39,16 +39,16 @@ function createScriptItem(type: ChunkKey, password: boolean, name: string, onCha
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
     (get, set, mFormCnt: MFormCnt, formIdx: FormIdx) => {
-        const fieldsEditorData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
+        const fields = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
 
-        const newScriptItem = fieldsEditorData.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
+        const newItems = fields.map((field, idx) => ManualFieldConv.createManualAtom(field, mFormCnt.onChangeItem));
 
         const chunks = get(mFormCnt.chunksAtom);
         let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
         selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
 
         const newChunks = [...chunks];
-        newChunks.splice(selectedIdx, 0, ...newScriptItem);
+        newChunks.splice(selectedIdx, 0, ...newItems);
 
         set(mFormCnt.chunksAtom, newChunks);
         

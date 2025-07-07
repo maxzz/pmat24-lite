@@ -18,7 +18,7 @@ export function MenuItem_Manual_ClearScriptActions({ formCtx }: { formCtx: MForm
                     doDeleteAllChunks(formCtx.manual);
                 }}
             >
-                Delete Script Actions
+                Clear Actions
             </DropdownMenuItem>
         )}
     </>);
@@ -28,14 +28,12 @@ export function MenuItem_Manual_CreateDefaultScriptActions({ formCtx }: { formCt
     const isManualForm = formCtx.manual;
     const isWebForm = useAtomValue(formCtx.options.isWebAtom); // manual mode not allowed for web
     const showIt = isManualForm && !isWebForm;
-    const listIsEmpty = useAtomValue(formCtx.manual.chunksAtom).length === 0;
     const doCreateDefaultScriptItems = useSetAtom(doCreateDefaultScriptItemsAtom);
 
     return (<>
         {showIt && (
             <DropdownMenuItem
                 className="pl-8"
-                disabled={listIsEmpty}
                 onClick={() => {
                     doCreateDefaultScriptItems(formCtx.manual, formCtx.fileUsCtx.formIdx);
                 }}
