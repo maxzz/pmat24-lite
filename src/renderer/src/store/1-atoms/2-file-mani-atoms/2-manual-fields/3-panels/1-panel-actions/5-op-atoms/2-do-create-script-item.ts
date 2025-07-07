@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { clamp } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "../../../9-types";
@@ -31,7 +31,7 @@ export const doCreateScriptItemAtom = atom(
 );
 
 function createScriptItem(type: ChunkKey, password: boolean, name: string, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
-    const newItem = createScriptItemByType({type, password, name});
+    const newItem = createScriptItemByType({ type, password, name });
     const rv = ManualFieldConv.createManualAtom(newItem, onChange);
     return rv;
 }
@@ -51,7 +51,21 @@ export const doCreateDefaultScriptItemsAtom = atom(
         newChunks.splice(selectedIdx, 0, ...newItems);
 
         set(mFormCnt.chunksAtom, newChunks);
-        
+
         set(doSelectIdxAtom, mFormCnt, selectedIdx);
     }
 );
+
+function insertScriptItems(newItems: ManualFieldState.Ctx[], mFormCnt: MFormCnt, get: Getter, set: Setter) {
+    const chunks = get(mFormCnt.chunksAtom);
+
+    let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
+    selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
+
+    const newChunks = [...chunks];
+    newChunks.splice(selectedIdx, 0, ...newItems);
+
+    set(mFormCnt.chunksAtom, newChunks);
+
+    set(doSelectIdxAtom, mFormCnt, selectedIdx);
+}
