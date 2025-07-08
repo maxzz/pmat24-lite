@@ -11,3 +11,5 @@ export * from "./7-get-window-pos";
 export * from "./8-get-window-extra";
 export * from "./8-get-tlw-infos";
 export * from "./9-types-napi-error";
+export * from "./10-general-info";
+export * from "./11-perform-command";

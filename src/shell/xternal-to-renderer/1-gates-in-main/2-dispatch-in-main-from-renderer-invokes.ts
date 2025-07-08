@@ -1,5 +1,5 @@
 import { type R2MInvoke } from "@shared/ipc-types";
-import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightControl, highlightWindow, getWindowExtras, dndActionInit } from "../7-napi-calls";
+import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightControl, highlightWindow, getWindowExtras, dndActionInit, getGeneralInfo, performCommand } from "../7-napi-calls";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 
@@ -84,6 +84,15 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         }
         case 'r2mi:get-window-extras': {
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetWindowExtras> = await getWindowExtras({ hwnds: data.hwnds });
+            return rv;
+        }
+
+        case 'r2mi:get-general-info': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GeneralInfo> = await getGeneralInfo();
+            return rv;
+        }
+        case 'r2mi:perform-command': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.PerformCommand> = await performCommand(data.params);
             return rv;
         }
 

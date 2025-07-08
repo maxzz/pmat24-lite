@@ -1,4 +1,4 @@
-import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams, type OkIfEmptyString } from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types-export";
+import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams, type OkIfEmptyString, type PerformCommandParams } from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types-export";
 import { type MainFileContent } from "../ipc-types";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
@@ -99,6 +99,15 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         hwnds: string[];
     };
 
+    export type GeneralInfo = {
+        type: 'r2mi:get-general-info';
+    };
+
+    export type PerformCommand = {
+        type: 'r2mi:perform-command';
+        params: PerformCommandParams;
+    };
+
     export type AllInvokes =
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
@@ -118,6 +127,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | HighlightField
         | HighlightTarget
         | GetWindowExtras
+        
+        | GeneralInfo
+        | PerformCommand
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -181,6 +193,12 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? OkIfEmptyString
 
         : T extends GetWindowExtras          //'r2mi:get-window-extras'
+        ? string
+
+        : T extends GeneralInfo              //'r2mi:get-general-info'
+        ? string
+
+        : T extends PerformCommand           //'r2mi:perform-command'
         ? string
 
         : never;
