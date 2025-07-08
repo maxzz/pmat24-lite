@@ -8,6 +8,8 @@ import { type GetTlwScreenshots } from "./5-get-screenshots";
 import { type WindowControlHighlighter } from "./6-highlight-control";
 import { type WindowHighlighter } from "./6-highlight-window";
 import { type DragAndDropper } from "./7-drag-and-drop";
+import { type GetGeneralInfo } from "./10-general-info";
+import { type PerformCommand } from "./11-perform-command";
 
 export type AddonTypes = {
     getTargetWindow: GetTargetWindow;
@@ -20,4 +22,6 @@ export type AddonTypes = {
     getTopLevelWindowsInfo: GetTlwInfos;
     getTopLevelWindowsExtraInfo: GetWindowExtras;
     getTopLevelWindowsScreenshots: GetTlwScreenshots;
+    getGeneralInfo: GetGeneralInfo;
+    performCommand: PerformCommand;
 };

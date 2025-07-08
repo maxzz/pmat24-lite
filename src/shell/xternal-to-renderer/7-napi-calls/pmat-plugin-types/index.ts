@@ -9,3 +9,5 @@ export * from "./6-highlight-window";
 export * from "./7-drag-and-drop";
 export * from "./8-extra-info";
 export * from "./9-types";
+export * from "./10-general-info"
+export * from "./11-perform-command"
