@@ -35,9 +35,7 @@ function insertScriptItems(fieldsData: EditorDataForOne[], mFormCnt: MFormCnt, i
     const chunks = get(mFormCnt.chunksAtom);
 
     let selectedIdx = get(mFormCnt.selectedIdxStoreAtom);
-    console.log('selectedIdx 1', selectedIdx);
-    selectedIdx = clamp(selectedIdx + 1, 0, chunks.length - 1);
-    console.log('selectedIdx 2', selectedIdx);
+    selectedIdx = clamp(selectedIdx + 1, 0, chunks.length ? chunks.length - 1 : 0);
 
     const newChunks = [...chunks];
     newChunks.splice(selectedIdx, 0, ...newItems);

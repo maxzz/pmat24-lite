@@ -10,12 +10,13 @@ import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
 
 export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
+    
     const doInitIndexCb = useInitSelectedIdx(mFormProps.mFormCtx.manual);
     useEffect(() => { doInitIndexCb(); }, []);
 
     const doCreateScriptItem = useSetAtom(doCreateScriptItemAtom);
 
-    function onCreateNewManual({type, password, event}: Parameters<CreateNewManualAction>[0]) {
+    function onCreateNewManual({ type, password, event }: Parameters<CreateNewManualAction>[0]) {
         doCreateScriptItem(mFormProps, type, password, mFormProps.mFormCtx.fileUsCtx.formIdx, event.ctrlKey);
     }
 

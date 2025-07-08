@@ -169,3 +169,7 @@ export function App(): JSX.Element {
 //TODO: use screenshot instead of icon inside SAW monitor
 //TODO: check option create manual mode manifest when create new manifest without main
 //TODO: add visual feedback for linked password field in password change form
+
+//07.07.25
+//TODO: doCreateDefaultScriptItemsAtom: highlight new items for a second
+//TODO: insertScriptItems: implement isCtrlKey check to insert new items before selected item vs. after selected item
