@@ -9,5 +9,7 @@ export * from "./6-do-highlight-window";
 export * from "./7-do-pos-tracking";
 export * from "./8-create-mani-tests-w-fetch";
 export * from "./9-napi-build-state";
+export * from "./a-do-get-general-info";
+export * from "./b-do-perform-command";
 
 // Abbreviations: SAW - Second Active Window
