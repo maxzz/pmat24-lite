@@ -19,9 +19,9 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     if (isNormalForm(formCtx)) {
         return (<>
             <MenuItem_Normal_ShowTextFields formCtx={formCtx} />
-            <MenuItem_ShowXML />
             <DropdownMenuSeparator />
-            <MenuItem_More />
+            <MenuItem_ShowXML />
+            {/* <MenuItem_More /> */}
         </>);
     }
 
@@ -29,9 +29,9 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
         return (<>
             <MenuItem_Manual_CreateDefaultScriptActions formCtx={formCtx} />
             <MenuItem_Manual_ClearScriptActions formCtx={formCtx} />
-            <MenuItem_ShowXML />
             <DropdownMenuSeparator />
-            <MenuItem_More />
+            <MenuItem_ShowXML />
+            {/* <MenuItem_More /> */}
         </>);
     }
 

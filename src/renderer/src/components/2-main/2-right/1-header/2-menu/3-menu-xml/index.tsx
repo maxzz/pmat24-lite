@@ -6,7 +6,7 @@ import { MenuItem_More } from "../8-more";
 export function R_PanelMenuXml({ fileUs }: { fileUs: FileUs; }) {
     return (<>
         <MenuItem_ShowXML />
-        <DropdownMenuSeparator />
-        <MenuItem_More />
+        {/* <DropdownMenuSeparator />
+        <MenuItem_More /> */}
     </>);
 }
