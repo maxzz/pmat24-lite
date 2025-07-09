@@ -1,13 +1,13 @@
 import { type Setter, atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
-import { type FieldRowCtx, type ManiAtoms, getManiAtomsAllFormsFields } from "../9-types";
+import { type FieldRowCtx, type ManiAtoms, getAllFormsFields_byManiAtoms } from "../9-types";
 
 // Initial relations for newly created password change form
 
 export const doSetInitialRelationsAtom = atom(
     null,
     async (get, set, maniAtoms: ManiAtoms) => {
-        const { login, cpass } = getManiAtomsAllFormsFields(maniAtoms, get);
+        const { login, cpass } = getAllFormsFields_byManiAtoms(maniAtoms, get);
 
         const loginPasswords = login.filter((field) => get(field.typeAtom) === FieldTyp.psw);
         const cpassPasswords = cpass.filter((field) => get(field.typeAtom) === FieldTyp.psw);

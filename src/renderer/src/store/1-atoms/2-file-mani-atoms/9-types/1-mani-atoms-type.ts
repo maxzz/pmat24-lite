@@ -126,7 +126,7 @@ export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtom
     };
 }
 
-export function getManiAtomsAllFormsFields(maniAtoms: ManiAtoms, get: Getter): AllFormsFields {
+export function getAllFormsFields_byManiAtoms(maniAtoms: ManiAtoms, get: Getter): AllFormsFields {
     const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
     return {
         login: get(loginAtom),
@@ -134,12 +134,9 @@ export function getManiAtomsAllFormsFields(maniAtoms: ManiAtoms, get: Getter): A
     };
 }
 
-export function getAllFormsFields(fileUsCtx: FileUsCtx, get: Getter): AllFormsFields {
-    const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom)));
-    return {
-        login: get(loginAtom),
-        cpass: get(cpassAtom),
-    };
+export function getAllFormsFields_byFileUsCtx(fileUsCtx: FileUsCtx, get: Getter): AllFormsFields {
+    const maniAtoms = safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom));
+    return getAllFormsFields_byManiAtoms(maniAtoms, get);
 }
 
 // Guards
