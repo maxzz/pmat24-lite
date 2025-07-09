@@ -17,6 +17,9 @@ importers:
       electron-updater:
         specifier: ^6.6.2
         version: 6.6.2
+      jotai-effect:
+        specifier: ^2.0.4
+        version: 2.0.4(jotai@2.12.5(@types/react@19.1.8)(react@19.1.0))
       react-resize-detector:
         specifier: ^12.1.0
         version: 12.1.0(react@19.1.0)
@@ -2506,6 +2509,12 @@ packages:
   jiti@2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
+
+  jotai-effect@2.0.4:
+    resolution: {integrity: sha512-V2ARMu1JvRCie43X6SwCXPpecMR+cRI7JuSoOz/6uziOEQJnziJFRzvWHoWple+DvWdARHcFMjlIp+BEDsUoVQ==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      jotai: '>=2.12.1'
 
   jotai-valtio@0.6.0:
     resolution: {integrity: sha512-ohn1On9O8dUZRfl04BFdJk1JcFjYmjLV8UZWNNypxpyzrx0nKKqbnu7mvAZjE8430obnqYQX1KRb+4CluFVPeA==}
@@ -6223,6 +6232,10 @@ snapshots:
 
   jiti@2.4.2:
     optional: true
+
+  jotai-effect@2.0.4(jotai@2.12.5(@types/react@19.1.8)(react@19.1.0)):
+    dependencies:
+      jotai: 2.12.5(@types/react@19.1.8)(react@19.1.0)
 
   jotai-valtio@0.6.0(jotai@2.12.5(@types/react@19.1.8)(react@19.1.0))(valtio@2.1.5(@types/react@19.1.8)(react@19.1.0)):
     dependencies:
