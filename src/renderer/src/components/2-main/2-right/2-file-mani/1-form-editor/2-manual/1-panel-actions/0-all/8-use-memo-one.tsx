@@ -1,47 +1,61 @@
-import { useRef, useState, useEffect } from 'react';
+//https://github.com/pmndrs/react-spring/blob/main/packages/shared/src/hooks/useMemoOne.ts
 
-/**
- * @param getResult - getResult changes on every call
- * @param inputs - the inputs array changes on every call
- * @returns cached result
- */
-export function useMemoOne<T>(getResult: () => T, inputs?: any[]): T {
-    // using useState to generate initial value as it is lazy
-    const initial: Cache<T> = useState(() => ({ inputs, result: getResult(), }))[0];
-
-    const isFirstRun = useRef<boolean>(true);
-    const committed = useRef<Cache<T>>(initial);
-
-    // persist any uncommitted changes after they have been committed
-    const useCache: boolean =
-        isFirstRun.current ||
-        Boolean(
-            inputs &&
-            committed.current.inputs &&
-            areInputsEqual(inputs, committed.current.inputs),
-        );
-
-    // create a new cache if required
-    const cache: Cache<T> = useCache
-        ? committed.current
-        : {
-            inputs,
-            result: getResult(),
-        };
-
-    // commit the cache
-    useEffect(() => {
-        isFirstRun.current = false;
-        committed.current = cache;
-    }, [cache]);
-
-    return cache.result;
-}
+import { useEffect, useRef, useState } from 'react'
 
 type Cache<T> = {
-    inputs?: (any[]),
-    result: T,
-};
+  inputs?: any[]
+  result?: T
+}
+
+// TODO: remove once merged (https://github.com/alexreardon/use-memo-one/pull/10)
+export function useMemoOne<T>(getResult: () => T, inputs?: any[]): T {
+  const [initial] = useState(
+    (): Cache<T> => ({
+      inputs,
+      result: getResult(),
+    })
+  )
+
+  const committed = useRef<Cache<T> | undefined>(undefined)
+  const prevCache = committed.current
+
+  let cache = prevCache
+  if (cache) {
+    const useCache = Boolean(
+      inputs && cache.inputs && areInputsEqual(inputs, cache.inputs)
+    )
+    if (!useCache) {
+      cache = {
+        inputs,
+        result: getResult(),
+      }
+    }
+  } else {
+    cache = initial
+  }
+
+  useEffect(() => {
+    committed.current = cache
+    if (prevCache == initial) {
+      initial.inputs = initial.result = undefined
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cache])
+
+  return cache.result!
+}
+
+function areInputsEqual(next: any[], prev: any[]) {
+  if (next.length !== prev.length) {
+    return false
+  }
+  for (let i = 0; i < next.length; i++) {
+    if (next[i] !== prev[i]) {
+      return false
+    }
+  }
+  return true
+}
 
 /**
  * @param callback - getResult changes on every call
@@ -50,21 +64,4 @@ type Cache<T> = {
  */
 export function useCallbackOne<T extends Function>(callback: T, inputs?: any[]): T {
     return useMemoOne(() => callback, inputs);
-}
-
-export function areInputsEqual(newInputs: any[], lastInputs: any[]) {
-    // no checks needed if the inputs length has changed
-    if (newInputs.length !== lastInputs.length) {
-        return false;
-    }
-    // Using for loop for speed. It generally performs better than array.every
-    // https://github.com/alexreardon/memoize-one/pull/59
-
-    for (let i = 0; i < newInputs.length; i++) {
-        // using shallow equality check
-        if (newInputs[i] !== lastInputs[i]) {
-            return false;
-        }
-    }
-    return true;
 }
