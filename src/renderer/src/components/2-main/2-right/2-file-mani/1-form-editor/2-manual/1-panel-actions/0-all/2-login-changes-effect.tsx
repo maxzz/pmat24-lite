@@ -1,19 +1,7 @@
-import { atomEffect } from "jotai-effect";
-import { useCallbackOne, useMemoOne } from "@/utils";
+import { useCallbackOne } from "@/utils";
 import { type MFormProps, getAllFormsFieldsAtoms, safeByContext } from "@/store/1-atoms/2-file-mani-atoms";
-import { useAtomValue } from "jotai";
 
-type EffectFn = Parameters<typeof atomEffect>[0];
-
-export function useAtomEffect(effectFn: EffectFn) {
-    useAtomValue(
-        useMemoOne(
-            () => atomEffect(effectFn), [effectFn]
-        )
-    );
-}
-
-export function useLoginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) {
+export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) {
     const rv = useCallbackOne(
         (get, set) => {
             const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));

@@ -2,6 +2,7 @@ export * from "./atomsX";
 export * from "./atomWithListeners";
 export * from "./merge-refs";
 export * from "./toasts-next";
+export * from "./use-atom-effect";
 export * from "./use-memo-one";
 export * from "./use-resize-observer";
 export * from "./spy-all-icons";
