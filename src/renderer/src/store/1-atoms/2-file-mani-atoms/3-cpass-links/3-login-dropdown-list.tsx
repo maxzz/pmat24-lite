@@ -1,5 +1,5 @@
 import { type Getter, atom } from "jotai";
-import { type OptionTextValue, FieldTyp } from "@/store/manifest";
+import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields } from "../9-types";
 
 // Build dropdown login form fields for cpass form
@@ -10,7 +10,7 @@ export const buildLoginDropdownFieldsAtom = atom(
         const loginFields = getAllFormsFields(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-        printFields(rowCtx, loginPasswords, get);
+        printFields(rowCtx, loginPasswords, fileUsCtx.formIdx, get);
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
         rv.unshift(['No link', '0']);
@@ -19,11 +19,13 @@ export const buildLoginDropdownFieldsAtom = atom(
     }
 );
 
-function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, get: Getter) {
+function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, formIdx: FormIdx, get: Getter) {
     if (!fields) {
         return;
     }
+    console.log(`Form ${formIdx}:`);
     const rindexUuid = get(rowCtx.rfieldUuidAtom);
+    
     const all = fields.map((field) => `\n  label:${get(field.labelAtom)}, uuid:${field.metaField.uuid}, dbid:${get(field.dbnameAtom)}`).join('') || '[]';
-    console.log(`for uuid:"${rindexUuid}" login fields:`, all);
+    console.log(`  for uuid:"${rindexUuid}" login fields:`, all);
 }
