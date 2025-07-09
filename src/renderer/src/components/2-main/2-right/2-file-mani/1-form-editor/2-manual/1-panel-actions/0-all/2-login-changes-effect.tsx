@@ -1,6 +1,7 @@
 import { atomEffect } from "jotai-effect";
-import { useCallbackOne } from "@/utils";
+import { useCallbackOne, useMemoOne } from "@/utils";
 import { type MFormProps, getAllFormsFieldsAtoms, safeByContext } from "@/store/1-atoms/2-file-mani-atoms";
+import { useAtomValue } from "jotai";
 
 export function useLoginChangesEffect({ mFormProps }: { mFormProps: MFormProps; }) {
     atomEffect(
@@ -16,4 +17,29 @@ export function useLoginChangesEffect({ mFormProps }: { mFormProps: MFormProps; 
             }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
         )
     );
+}
+
+//
+
+type EffectFn = Parameters<typeof atomEffect>[0];
+
+export function useAtomEffect(effectFn: EffectFn) {
+    useAtomValue(useMemoOne(
+        () => atomEffect(effectFn), [effectFn]
+    ));
+}
+
+export function useLoginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) {
+    const rv = useCallbackOne(
+        (get, set) => {
+            const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
+            const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
+            const loginFields = get(loginAtom);
+            const cpassFields = get(cpassAtom);
+
+            console.log('cb: loginFields', loginFields);
+            console.log('cb: cpassFields', cpassFields);
+        }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
+    );
+    return rv;
 }
