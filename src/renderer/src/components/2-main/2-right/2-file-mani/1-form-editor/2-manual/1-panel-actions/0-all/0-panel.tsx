@@ -8,20 +8,16 @@ import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
 import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
-import { useLoginChanges } from "./1-login-changes";
-import { useAtomEffect, useLoginChangesEffect, useLoginChangesEffectFn } from "./2-login-changes-effect";
+import { useAtomEffect, useLoginChangesEffectFn } from "./2-login-changes-effect";
 
 export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
 
     const doInitIndexCb = useInitSelectedIdx(mFormProps.mFormCtx.manual);
     useEffect(() => { doInitIndexCb(); }, []);
 
-    // const { loginFields, cpassFields } = 
-    //useLoginChanges({mFormProps});
-
-    //useLoginChangesEffect({ mFormProps });
-
-    useAtomEffect(useLoginChangesEffectFn({ mFormProps }));
+    useAtomEffect(
+        useLoginChangesEffectFn({ mFormProps })
+    );
 
     const doCreateScriptItem = useSetAtom(doCreateScriptItemAtom);
 
