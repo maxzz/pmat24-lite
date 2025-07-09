@@ -5,7 +5,12 @@ import { type PluginDataCallback } from "./9-types";
 // not call invoke
 
 export type MessageToPm = {
+    hwnd: string;    // Window handle. We get process name from this window handle to decide whether it is a browser only not a desktop app.
     message: string; // message to send to PM broser extension; this multi-purpose call can be used for training or future customization, and so on
+};
+
+export type MessageToPmResult = {
+    res: string;     // Message from PM broser extension
 };
 
 export interface SendMessageToPm {

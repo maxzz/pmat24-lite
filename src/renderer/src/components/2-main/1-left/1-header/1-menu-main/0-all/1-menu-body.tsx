@@ -13,6 +13,7 @@ import { MenuItem_OpenRecent } from "../10-file-open-recent";
 import { MenuItem_Options } from "../20-options";
 import { MenuItem_FilterFiles } from "../1-filter-files";
 import { MenuItem_GeneralInfo, MenuItem_PerformCommand } from "../22-more";
+import { hasMain } from "@/xternal-to-main";
 //import { MenuItem_CloseFolder } from "../2-close-folder";
 //import { PreferencesSubMenu } from "./2-nun-preferences-sub-munu";
 
@@ -41,8 +42,9 @@ export function FilesMainMenuBody() {
         {/* <PreferencesSubMenu /> */}
 
         <DropdownMenuSeparator />
-        <MenuItem_GeneralInfo />
-        <MenuItem_PerformCommand />
+
+        {hasMain() && <MenuItem_GeneralInfo />}
+        {hasMain() && <MenuItem_PerformCommand />}
 
         <MenuItem_FileExit />
     </>);

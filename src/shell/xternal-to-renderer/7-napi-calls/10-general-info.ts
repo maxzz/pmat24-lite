@@ -1,5 +1,5 @@
 import { addon } from "./0-addon";
-import { GeneralInfoParams, type GetTlwInfoParams } from "./pmat-plugin-types";
+import { GeneralInfoParams } from "./pmat-plugin-types";
 
 export async function getGeneralInfo() { // call 'r2mi:get-general-info' in main
     return new Promise<string>(
