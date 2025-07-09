@@ -2,18 +2,17 @@
 
 // @flow
 import { useRef, useState, useEffect } from 'react';
-import areInputsEqual from './are-inputs-equal';
 
-type Cache<T> = {|
-  inputs: ?(mixed[]),
+type Cache<T> = {
+  inputs?: (any[]),
   result: T,
-|};
+};
 
 export function useMemoOne<T>(
   // getResult changes on every call,
   getResult: () => T,
   // the inputs array changes on every call
-  inputs?: mixed[],
+  inputs?: any[],
 ): T {
   // using useState to generate initial value as it is lazy
   const initial: Cache<T> = useState(() => ({
@@ -49,32 +48,20 @@ export function useMemoOne<T>(
   return cache.result;
 }
 
-export function useCallbackOne<T: Function>(
+export function useCallbackOne<T extends Function>(
   // getResult changes on every call,
   callback: T,
   // the inputs array changes on every call
-  inputs?: mixed[],
+  inputs?: any[],
 ): T {
   return useMemoOne(() => callback, inputs);
 }
 
-// Aliased exports
-// A drop in replacement for useMemo and useCallback that plays
-// very well with eslint-plugin-react-hooks
-
-export const useMemo = useMemoOne;
-export const useCallback = useCallbackOne;
 
 
-
-
-
-
-// @flow
-
-export default function areInputsEqual(
-  newInputs: mixed[],
-  lastInputs: mixed[],
+export function areInputsEqual(
+  newInputs: any[],
+  lastInputs: any[],
 ) {
   // no checks needed if the inputs length has changed
   if (newInputs.length !== lastInputs.length) {
