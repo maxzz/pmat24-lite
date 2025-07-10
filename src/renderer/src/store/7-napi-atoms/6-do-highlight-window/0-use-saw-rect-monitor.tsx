@@ -3,7 +3,7 @@ import { type Getter, type Setter, atom, useSetAtom } from "jotai";
 import { compareRect } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTargetWindowResult, type WindowHighlighterParams } from "@shared/ipc-types";
-import { useSawHandleListener } from "../1-do-get-hwnd";
+import { sawHandleAtom } from "../1-do-get-hwnd";
 
 export function useSawRectMonitor() {
     const doRect = useSetAtom(doRectAtom);
@@ -16,7 +16,7 @@ export function useSawRectMonitor() {
         }, []
     );
 
-    useSawHandleListener(
+    sawHandleAtom.useListener(
         useCallback(
             (get: Getter, set: Setter, newVal: GetTargetWindowResult | null, prevVal: GetTargetWindowResult | null) => {
                 if (!newVal?.hwnd) {
