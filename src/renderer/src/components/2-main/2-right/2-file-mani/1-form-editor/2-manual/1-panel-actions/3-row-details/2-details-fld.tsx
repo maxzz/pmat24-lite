@@ -9,11 +9,12 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
     const isLinkedFn = useSetAtom(isLinkedToLoginAtom);
     const isLinked = isLinkedFn(item.rowCtx, mFormProps.mFormCtx.fileUsCtx);
 
-    const text = isPsw
-        ? isLinked
-            ? 'Password (linked)'
-            : 'Password'
-        : 'Text';
+    const text =
+        isPsw
+            ? isLinked
+                ? 'Password (linked)'
+                : 'Password'
+            : 'Text';
 
     return (
         <div className={containerClasses}>

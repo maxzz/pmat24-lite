@@ -1,13 +1,18 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { classNames } from "@/utils";
+import { classNames, useAtomEffect } from "@/utils";
 import { type MFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isManualManifestNew } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
-import { usePrintFormFields } from "./8-use-print-form-fields";
+import { loginChangesEffectFn } from "./2-login-changes-effect";
+//import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
+    useAtomEffect(
+        loginChangesEffectFn({ mFormProps })
+    );
+
     //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
     return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
