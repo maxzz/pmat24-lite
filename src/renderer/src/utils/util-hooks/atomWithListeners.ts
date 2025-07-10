@@ -4,12 +4,14 @@ import { type Getter, type Setter, type SetStateAction, PrimitiveAtom, atom, use
 export type AtomWithListeners<Value> = ReturnType<typeof atomWithListeners<Value>>;
 export type ListenerCallback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;
 
-export function atomWithListeners<Value>(initialValue: Value): readonly [PrimitiveAtom<Value>, (callback: ListenerCallback<Value>) => void] {
+export type AtomAndUseListener<Value> = PrimitiveAtom<Value> & { useListener: (callback: ListenerCallback<Value>) => void; };
+
+export function atomWithListeners<Value>(initialValue: Value): readonly [AtomAndUseListener<Value>, (callback: ListenerCallback<Value>) => void] {
 
     const baseAtom = atom(initialValue);
     const listenersAtom = atom<ListenerCallback<Value>[]>([]);
 
-    const anAtom = atom(
+    const anAtom: PrimitiveAtom<Value> = atom(
         (get) => get(baseAtom),
         (get, set, arg: SetStateAction<Value>) => {
             const prevVal = get(baseAtom);
@@ -26,12 +28,12 @@ export function atomWithListeners<Value>(initialValue: Value): readonly [Primiti
         }
     );
 
-    const useListener = (callback: ListenerCallback<Value>) => { // This is stable callback, it's created once when atom is created
+    const useListener = (callback: ListenerCallback<Value>): void => { // This is stable callback, it's created once when atom is created
         const setListeners = useSetAtom(listenersAtom);
         useEffect(
             () => {
                 setListeners((prev) => [...prev, callback]);
-                
+
                 return () => {
                     setListeners(
                         (prev) => {
@@ -44,5 +46,11 @@ export function atomWithListeners<Value>(initialValue: Value): readonly [Primiti
         );
     };
 
-    return [anAtom, useListener] as const;
+    (anAtom as AtomAndUseListener<Value>).useListener = useListener;
+
+    return [(anAtom as AtomAndUseListener<Value>), useListener] as const;
+}
+
+export function atomAndUseListener<Value>(initialValue: Value): AtomAndUseListener<Value> {
+    return atomWithListeners(initialValue)[0];
 }
