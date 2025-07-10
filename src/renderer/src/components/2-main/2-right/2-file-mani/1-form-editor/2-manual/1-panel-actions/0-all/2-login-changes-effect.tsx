@@ -5,6 +5,8 @@ import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms, safeByContex
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) {
     const rv = useCallbackOne(
         (get: GetterWithPeek, set: SetterWithRecurse) => {
+            //printMFormProps(mFormProps);
+
             const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
             const loginFields = get(loginAtom);
@@ -25,4 +27,8 @@ function printFields(mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFi
 
 function printField(fields: FieldRowCtx[], get: Getter) {
     console.log(fields.map((field) => `  uuid:${field.rfieldUuidAtom} ${get(field.labelAtom)}\n`).join(''));
+}
+
+function printMFormProps(mFormProps: MFormProps) {
+    console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
 }
