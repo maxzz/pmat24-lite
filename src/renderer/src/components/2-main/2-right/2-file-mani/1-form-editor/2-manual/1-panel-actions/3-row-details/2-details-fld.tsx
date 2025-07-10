@@ -5,15 +5,13 @@ import { type MFormProps, type ManualFieldState, isLinkedToLoginAtom } from "@/s
 import { detailKbdClasses } from "./8-classes";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
-    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
-    const isLinkedFn = useSetAtom(isLinkedToLoginAtom);
-    
-    const thisUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
-    const thisIsPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
-    const isLinked = isLinkedFn(thisUuid, thisIsPsw, mFormProps.mFormCtx.fileUsCtx);
+    const { typeAtom, rfieldUuidAtom } = item.rowCtx;
+    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const thisUuid = useAtomValue(rfieldUuidAtom);
+    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, mFormProps.mFormCtx.fileUsCtx);
 
     const text =
-        isPsw
+        thisIsPsw
             ? isLinked
                 ? 'Password (linked)'
                 : 'Password'
