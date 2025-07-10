@@ -26,7 +26,7 @@ export function atomWithListeners<Value>(initialValue: Value): readonly [Primiti
         }
     );
 
-    const useListener = (callback: ListenerCallback<Value>) => {
+    const useListener = (callback: ListenerCallback<Value>) => { // This is stable callback, it's created once when atom is created
         const setListeners = useSetAtom(listenersAtom);
         useEffect(
             () => {
