@@ -2,60 +2,53 @@ import { useEffect, useRef, useState } from 'react'; //https://github.com/pmndrs
 
 /**
  * @param getResult - getResult changes on every call
- * @param inputs - the inputs array changes on every call
+ * @param deps - the inputs array changes on every call
  * @returns cached result
  * //TODO: remove once merged (https://github.com/alexreardon/use-memo-one/pull/10)
  */
-export function useMemoOne<T>(getResult: () => T, inputs?: any[]): T {
-    const [initial] = useState(
-        (): Cache<T> => ({
-            inputs,
-            result: getResult(),
-        })
-    );
-
+export function useMemoOne<T>(getResult: () => T, deps?: any[]): T {
+    const initial: Cache<T> = useState(() => ({ result: getResult(), deps, }))[0];
     const committed = useRef<Cache<T> | undefined>(undefined);
     const prevCache = committed.current;
 
     let cache = prevCache;
     if (cache) {
-        const useCache = Boolean(
-            inputs && cache.inputs && areInputsEqual(inputs, cache.inputs)
-        );
+        const useCache = Boolean(deps && cache.deps && areInputsEqual(deps, cache.deps));
         if (!useCache) {
-            cache = {
-                inputs,
-                result: getResult(),
-            };
+            //console.log(`useMemoOne.cache miss: deps:%o cache.deps:%o`, deps, cache.deps);
+            cache = { result: getResult(), deps, };
         }
     } else {
         cache = initial;
     }
 
-    useEffect(() => {
-        committed.current = cache;
-        if (prevCache == initial) {
-            initial.inputs = initial.result = undefined;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cache]);
+    useEffect(
+        () => {
+            committed.current = cache;
+            if (prevCache == initial) {
+                initial.deps = initial.result = undefined;
+            }
+        }, [cache]
+    );
 
     return cache.result!;
 }
 
 type Cache<T> = {
-    inputs?: any[];
     result?: T;
+    deps?: any[];
 };
 
 /**
  * @param callback - getResult changes on every call
- * @param inputs - the inputs array changes on every call
+ * @param deps - the inputs array changes on every call
  * @returns cached result
  */
-export function useCallbackOne<T extends Function>(callback: T, inputs?: any[]): T {
-    return useMemoOne(() => callback, inputs);
+export function useCallbackOne<T extends Function>(callback: T, deps?: any[]): T {
+    return useMemoOne(() => callback, deps);
 }
+
+//
 
 export function areInputsEqual(next: any[], prev: any[]) {
     if (next.length !== prev.length) {
