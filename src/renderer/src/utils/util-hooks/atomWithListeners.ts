@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { type Getter, type Setter, type SetStateAction, atom, useSetAtom } from 'jotai'; //https://jotai.org/docs/recipes/atom-with-listeners //GH: 'atomWithListeners path:*.ts'
+import { type Getter, type Setter, type SetStateAction, PrimitiveAtom, atom, useSetAtom } from 'jotai'; //https://jotai.org/docs/recipes/atom-with-listeners //GH: 'atomWithListeners path:*.ts'
+import { useCallbackOne } from './use-memo-one';
 
 export type AtomWithListeners<Value> = ReturnType<typeof atomWithListeners<Value>>;
 export type ListenerCallback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;
 
-export function atomWithListeners<Value>(initialValue: Value) {
+export function atomWithListeners<Value>(initialValue: Value): readonly [PrimitiveAtom<Value>, (callback: ListenerCallback<Value>) => void] {
 
     const baseAtom = atom(initialValue);
     const listenersAtom = atom<ListenerCallback<Value>[]>([]);
@@ -26,23 +27,25 @@ export function atomWithListeners<Value>(initialValue: Value) {
         }
     );
 
-    const useListener = (callback: ListenerCallback<Value>) => {
-        const setListeners = useSetAtom(listenersAtom);
-        useEffect(
-            () => {
-                setListeners((prev) => [...prev, callback]);
-                
-                return () => {
-                    setListeners(
-                        (prev) => {
-                            const idx = prev.indexOf(callback);
-                            return [...prev.slice(0, idx), ...prev.slice(idx + 1)];
-                        }
-                    );
-                };
-            }, [setListeners, callback]
-        );
-    };
+    const useListener = useCallbackOne(
+        (callback: ListenerCallback<Value>) => {
+            const setListeners = useSetAtom(listenersAtom);
+            useEffect(
+                () => {
+                    setListeners((prev) => [...prev, callback]);
+
+                    return () => {
+                        setListeners(
+                            (prev) => {
+                                const idx = prev.indexOf(callback);
+                                return [...prev.slice(0, idx), ...prev.slice(idx + 1)];
+                            }
+                        );
+                    };
+                }, [setListeners, callback]
+            );
+        }, []
+    );
 
     return [anAtom, useListener] as const;
 }
