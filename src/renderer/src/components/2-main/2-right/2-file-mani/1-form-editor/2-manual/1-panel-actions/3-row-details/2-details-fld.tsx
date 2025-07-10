@@ -7,7 +7,10 @@ import { detailKbdClasses } from "./8-classes";
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
     const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
     const isLinkedFn = useSetAtom(isLinkedToLoginAtom);
-    const isLinked = isLinkedFn(item.rowCtx, mFormProps.mFormCtx.fileUsCtx);
+    
+    const thisUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
+    const thisIsPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
+    const isLinked = isLinkedFn(thisUuid, thisIsPsw, mFormProps.mFormCtx.fileUsCtx);
 
     const text =
         isPsw

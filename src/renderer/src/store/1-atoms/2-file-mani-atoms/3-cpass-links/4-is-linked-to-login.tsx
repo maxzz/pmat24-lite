@@ -4,19 +4,15 @@ import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from 
 
 export const isLinkedToLoginAtom = atom(
     null,
-    (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): boolean => {
-
-        const ourUuid = get(rowCtx.rfieldUuidAtom);
-
+    (get, set, thisUuid: number, isPsw: boolean, fileUsCtx: FileUsCtx): boolean => {
         const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-        const rIndexUuidItem = loginPasswords.find((field) => field.metaField.uuid === ourUuid);
+        const rIndexUuidItem = loginPasswords.find((field) => field.metaField.uuid === thisUuid);
 
         const isCpassForm = fileUsCtx.formIdx === FormIdx.cpass;
-        const isPsw = get(rowCtx.typeAtom) === FieldTyp.psw;
-        const isLinked = isCpassForm && isPsw && !!ourUuid && !!rIndexUuidItem;
 
+        const isLinked = isCpassForm && isPsw && !!thisUuid && !!rIndexUuidItem;
         return isLinked;
     }
 );
