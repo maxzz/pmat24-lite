@@ -5,18 +5,14 @@ import { buildLoginDropdownFieldsAtom, guardedFormIdx, type MFormProps, type Man
 import { detailKbdClasses } from "./8-classes";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
-    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
-    
     const rfieldUuid = useAtomValue(item.rowCtx.rfieldUuidAtom);
+    
     const doBuildLoginDropdownFields = useSetAtom(buildLoginDropdownFieldsAtom);
-
-    const isCpassForm = guardedFormIdx(mFormProps) === FormIdx.cpass;
-
     const dropdownAllItems = doBuildLoginDropdownFields(item.rowCtx, mFormProps.mFormCtx.fileUsCtx);
-
     const rIndexUuidItem = dropdownAllItems.find(([label, uuid]) => uuid === `${rfieldUuid}`);
     
-    
+    const isCpassForm = guardedFormIdx(mFormProps) === FormIdx.cpass;
+    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
     const isLinked = isCpassForm && isPsw && !!rfieldUuid && !!rIndexUuidItem;
 
     const text = isPsw
@@ -46,5 +42,3 @@ function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
 }
 
 const containerClasses = "hidden @[300px]/actions:flex items-center justify-between";
-
-//TODO: add visual feedback for linked password field in password change form

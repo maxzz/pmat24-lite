@@ -173,3 +173,7 @@ export function App(): JSX.Element {
 //07.07.25
 //TODO: doCreateDefaultScriptItemsAtom: highlight new items for a second
 //TODO: insertScriptItems: implement isCtrlKey check to insert new items before selected item vs. after selected item
+
+//07.09.25
+//TODO: add visual feedback for linked password field in password change form - done
+//TODO: add menu item to link password change passwords to login form. If more then one password in login form then show warning or show select dialog
