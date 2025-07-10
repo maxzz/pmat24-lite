@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { atomAndUseListener, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTargetWindowResult } from "@shared/ipc-types";
@@ -46,17 +46,17 @@ async function doLiveHwnd(get: Getter, set: Setter) {
 }
 
 async function doTestHwnd(get: Getter, set: Setter) {
-    // if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
-    //     return;
-    // }
-    // lastTestCreateHwnd = debugSettings.testCreate.hwnd;
+    if (prevHwnd === debugSettings.testCreate.hwnd) {
+        return;
+    }
+    prevHwnd = debugSettings.testCreate.hwnd;
 
-    const testHwnd = (await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd));
+    const testHwnd = await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd);
     set(sawHandleStrAtom, JSON.stringify(testHwnd || ''));
     set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
-// let lastTestCreateHwnd: typeof debugSettings.testCreate.hwnd = 'none';
+let prevHwnd: typeof debugSettings.testCreate.hwnd = 'none';
 
 export const doClearSawHandleAtom = atom(
     null,
