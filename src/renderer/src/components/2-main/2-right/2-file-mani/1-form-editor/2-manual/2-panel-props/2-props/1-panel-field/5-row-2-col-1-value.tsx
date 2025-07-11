@@ -1,19 +1,12 @@
 import { useState } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { FieldTyp, type OptionTextValue } from "@/store/manifest";
-import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, isLinkedToLoginAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { useAtomValue } from "jotai";
+import { type OptionTextValue } from "@/store/manifest";
+import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, useIsLinkedToLogin } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-
     const isLinked = useIsLinkedToLogin(item.rowCtx, fileUsCtx);
-
-    // const { typeAtom, rfieldUuidAtom } = item.rowCtx;
-    // const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    // const thisUuid = useAtomValue(rfieldUuidAtom);
-    // const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
-
     return (<>
         {isLinked
             ? <Case_ValueForCpassPsw rowCtx={item.rowCtx} />
@@ -34,7 +27,7 @@ function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 }
 
 function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
-    const [type, setType] = useState('1');
+    const [type, setType] = useState('in'); //TODO: count index of passwords in cpass form and if more then one, then use 'out'
 
     const rfield = useAtomValue(rowCtx.rfieldAtom); // in|out
 
@@ -55,12 +48,3 @@ const inputTypes: OptionTextValue[] = [
 
 // rfield: string;                 // 'in' | 'out': in(old psw) - from login form field value, out(new psw) - to login form field value
 // rfieldIndex: number;            // Index to password field in login from cpass, like '2'
-
-function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
-    const { typeAtom, rfieldUuidAtom } = rowCtx;
-    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const thisUuid = useAtomValue(rfieldUuidAtom);
-
-    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
-    return isLinked;
-}

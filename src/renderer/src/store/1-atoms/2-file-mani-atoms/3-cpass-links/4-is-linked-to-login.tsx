@@ -1,6 +1,6 @@
-import { atom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/manifest";
-import { type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
+import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
 
 export const isLinkedToLoginAtom = atom(
     null,
@@ -17,3 +17,12 @@ export const isLinkedToLoginAtom = atom(
         return !!rIndexUuidItem;
     }
 );
+
+export function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
+    const { typeAtom, rfieldUuidAtom } = rowCtx;
+    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const thisUuid = useAtomValue(rfieldUuidAtom);
+
+    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
+    return isLinked;
+}
