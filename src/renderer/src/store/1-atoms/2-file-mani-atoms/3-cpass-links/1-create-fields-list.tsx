@@ -29,10 +29,14 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
 }
 
 function printFields(fields: FieldRowCtx[], formIdx: FormIdx, get: Getter) {
-    console.log(`%c👀 FormFields %c${!formIdx ? 'login' : 'cpass'}`, 'font-size:0.5rem', !formIdx ? 'color: forestgreen' : 'color: darkseagreen');
-    fields.forEach((field) => {
-        console.log(`  %c${field.metaField.uuid} %c${get(field.labelAtom)}`, 'color: forestgreen', 'color: black');
+    console.log(`%c👀 Cretate.Form.Fields %c${!formIdx ? 'login' : 'cpass'}`, 'font-size:0.5rem', !formIdx ? 'color: forestgreen' : 'color: darkseagreen');
+    const colors: string[] = [];
+    const lines: string[] = [];
+    fields.map((field) => {
+        lines.push(`%c        this.uuid: ${field.metaField.uuid} '${get(field.labelAtom)}'`);
+        colors.push('font-size:0.5rem; color: black');
     });
+    console.log(lines.join('\n'), ...colors);
 }
 
 function printFormField(formIdx: FormIdx, label: string, uuid: number) {
