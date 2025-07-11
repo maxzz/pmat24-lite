@@ -14,7 +14,6 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                     .map(
                         (chunk) => {
                             if (chunk.type === 'fld') {
-                                //printFormField(formIdx, get(chunk.rowCtx.labelAtom), chunk.rowCtx.metaField.uuid);
                                 return chunk.rowCtx;
                             }
                         }
@@ -33,17 +32,8 @@ function printFields(fields: FieldRowCtx[], formIdx: FormIdx, get: Getter) {
     const colors: string[] = [];
     const lines: string[] = [];
     fields.map((field) => {
-        lines.push(`%c        this.uuid: ${field.metaField.uuid} '${get(field.labelAtom)}'`);
-        colors.push('font-size:0.5rem; color: black');
+        lines.push(`%c        this.uuid: %c${field.metaField.uuid} %c'${get(field.labelAtom)}'`);
+        colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
     });
     console.log(lines.join('\n'), ...colors);
-}
-
-function printFormField(formIdx: FormIdx, label: string, uuid: number) {
-    console.log(
-        `  %c👀 FormField: ${uuid} %c${!formIdx ? 'login' : 'cpass'} %c'${label}'`,
-        'font-size:0.5rem',
-        !formIdx ? 'color: forestgreen' : 'color: darkseagreen',
-        'color: black'
-    );
 }
