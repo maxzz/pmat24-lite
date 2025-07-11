@@ -1,14 +1,12 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/manifest";
-import { type MFormProps, type ManualFieldState, isLinkedToLoginAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormProps, type ManualFieldState, useIsLinkedToLogin } from "@/store/1-atoms/2-file-mani-atoms";
 import { detailKbdClasses } from "./8-classes";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {
-    const { typeAtom, rfieldUuidAtom } = item.rowCtx;
-    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const thisUuid = useAtomValue(rfieldUuidAtom);
-    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, mFormProps.mFormCtx.fileUsCtx);
+    const isLinked = useIsLinkedToLogin(item.rowCtx, mFormProps.mFormCtx.fileUsCtx);
+    const thisIsPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
 
     const text =
         thisIsPsw
