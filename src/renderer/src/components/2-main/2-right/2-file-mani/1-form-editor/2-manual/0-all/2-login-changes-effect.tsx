@@ -21,25 +21,40 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 }
             });
 
-            printFields('Effect after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
+            printForms('Effect after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
     );
     return rv;
 }
 
-function printFields(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
+function printForms(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
     console.log(`${label}: formIdx`, formIdx);
-    
-    let colors: string[] = [];
-    let lines: string[] = [];
-    printField(loginFields, get);
-    console.log(lines.join('\n'), ...colors);
 
-    colors = [];
-    lines = [];
-    printField(cpassFields, get);
-    console.log(lines.join('\n'), ...colors);
+    printFields(loginFields, get);
+    printFields(cpassFields, get);
+
+    // let colors: string[] = [];
+    // let lines: string[] = [];
+    // printField(loginFields, get);
+    // console.log(lines.join('\n'), ...colors);
+
+    // colors = [];
+    // lines = [];
+    // printField(cpassFields, get);
+    // console.log(lines.join('\n'), ...colors);
+
+    // function printField(fields: FieldRowCtx[], get: Getter) {
+    //     fields.forEach((field) => {
+    //         lines.push(`%c        this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
+    //         colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
+    //     });
+    // }
+}
+
+function printFields(fields: FieldRowCtx[], get: Getter) {
+    const colors: string[] = [];
+    const lines: string[] = [];
 
     function printField(fields: FieldRowCtx[], get: Getter) {
         fields.forEach((field) => {
@@ -47,6 +62,9 @@ function printFields(label: string, mFormProps: MFormProps, loginFields: FieldRo
             colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
         });
     }
+
+    printField(fields, get);
+    console.log(lines.join('\n'), ...colors);
 }
 
 function printMFormProps(mFormProps: MFormProps) {
