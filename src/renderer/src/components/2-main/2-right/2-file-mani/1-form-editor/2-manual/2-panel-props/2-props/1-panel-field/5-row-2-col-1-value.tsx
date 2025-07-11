@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { type OptionTextValue } from "@/store/manifest";
-import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, isLinkedCpassFormFieldAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { FieldTyp, type OptionTextValue } from "@/store/manifest";
+import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, isLinkedToLoginAtom } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
 import { Column4_Value } from "../../../../1-normal/1-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const isSpecialCpassField = useSetAtom(isLinkedCpassFormFieldAtom); //TODO: and not linked; add field for linked value
-    const specialCpass = isSpecialCpassField(item.rowCtx, fileUsCtx);
+
+    const { typeAtom, rfieldUuidAtom } = item.rowCtx;
+    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const thisUuid = useAtomValue(rfieldUuidAtom);
+    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
+
     return (<>
-        {specialCpass
+        {isLinked
             ? <Case_ValueForCpassPsw rowCtx={item.rowCtx} />
             : <Case_ValueForLoginAndNotPsw rowCtx={item.rowCtx} />
         }
@@ -31,7 +35,7 @@ function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [type, setType] = useState('1');
 
     const rfield = useAtomValue(rowCtx.rfieldAtom); // in|out
-    
+
     return (
         <InputSelectUi
             items={inputTypes}

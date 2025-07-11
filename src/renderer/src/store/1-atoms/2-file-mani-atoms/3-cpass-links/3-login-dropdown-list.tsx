@@ -13,6 +13,7 @@ export const buildLoginDropdownFieldsAtom = atom(
         //printFields(rowCtx, loginPasswords, fileUsCtx.formIdx, get);
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
+        
         if (loginPasswords.length) {
             rv.unshift(['No link', '0']);
         } else {
