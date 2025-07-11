@@ -7,10 +7,12 @@ import { Column4_Value } from "../../../../1-normal/1-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
 
-    const { typeAtom, rfieldUuidAtom } = item.rowCtx;
-    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const thisUuid = useAtomValue(rfieldUuidAtom);
-    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
+    const isLinked = useIsLinkedToLogin(item.rowCtx, fileUsCtx);
+
+    // const { typeAtom, rfieldUuidAtom } = item.rowCtx;
+    // const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    // const thisUuid = useAtomValue(rfieldUuidAtom);
+    // const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
 
     return (<>
         {isLinked
@@ -53,3 +55,12 @@ const inputTypes: OptionTextValue[] = [
 
 // rfield: string;                 // 'in' | 'out': in(old psw) - from login form field value, out(new psw) - to login form field value
 // rfieldIndex: number;            // Index to password field in login from cpass, like '2'
+
+function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
+    const { typeAtom, rfieldUuidAtom } = rowCtx;
+    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const thisUuid = useAtomValue(rfieldUuidAtom);
+
+    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
+    return isLinked;
+}
