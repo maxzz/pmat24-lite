@@ -10,7 +10,6 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
 
             const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
-            //printFields(loginChangesEffectFnbefore linking', mFormProps, get(loginAtom), get(cpassAtom), get);
 
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
@@ -21,7 +20,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 }
             });
 
-            printForms('loginChangesEffectFn after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
+            printForms('loginChangesEffectFn after links update', mFormProps, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
     );
     return rv;
@@ -33,7 +32,7 @@ function printMFormProps(mFormProps: MFormProps) {
 
 function printForms(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
-    console.log(`${label}: %c${formIdx === FormIdx.login ? 'login' : 'cpass'}`, formIdx === FormIdx.login ? 'color: forestgreen' : 'color: darkseagreen');
+    console.log(`%c${formIdx === FormIdx.login ? 'login' : 'cpass'} %c${label}`, formIdx === FormIdx.login ? 'color: forestgreen' : 'color: darkseagreen', 'font-size:0.5rem');
 
     loginFields.length && printFields(loginFields, get);
     cpassFields.length && printFields(cpassFields, get);
@@ -45,7 +44,7 @@ function printFields(fields: FieldRowCtx[], get: Getter) {
 
     function collect(fields: FieldRowCtx[], get: Getter) {
         fields.forEach((field) => {
-            lines.push(`%c        ${get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt'}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
+            lines.push(`%c          ${get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt'}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
             colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
         });
     }
