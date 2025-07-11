@@ -1,7 +1,7 @@
 import { type Getter } from "jotai";
 import { type GetterWithPeek, type SetterWithRecurse, useCallbackOne } from "@/utils";
 import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms, safeByContext } from "@/store/1-atoms/2-file-mani-atoms";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp, FormIdx } from "@/store/manifest";
 
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) {
     const rv = useCallbackOne(
@@ -33,7 +33,7 @@ function printMFormProps(mFormProps: MFormProps) {
 
 function printForms(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
-    console.log(`${label}: formIdx`, formIdx);
+    console.log(`${label}: %c${formIdx === FormIdx.login ? 'login' : 'cpass'}`, formIdx === FormIdx.login ? 'color: forestgreen' : 'color: darkseagreen');
 
     loginFields.length && printFields(loginFields, get);
     cpassFields.length && printFields(cpassFields, get);
@@ -45,7 +45,7 @@ function printFields(fields: FieldRowCtx[], get: Getter) {
 
     function collect(fields: FieldRowCtx[], get: Getter) {
         fields.forEach((field) => {
-            lines.push(`%c        this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
+            lines.push(`%c        ${get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt'}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
             colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
         });
     }
