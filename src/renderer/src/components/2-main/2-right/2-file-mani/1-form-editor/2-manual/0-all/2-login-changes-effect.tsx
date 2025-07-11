@@ -10,7 +10,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
 
             const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
-            printFields('Effect before linking', mFormProps, get(loginAtom), get(cpassAtom), get);
+            //printFields('Effect before linking', mFormProps, get(loginAtom), get(cpassAtom), get);
 
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
@@ -20,18 +20,11 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                     set(field.rfieldUuidAtom, 0);
                 }
             });
-            //printFieldLinks(mFormProps, cpassPsws, get);
-            printFields('Effect after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
 
+            printFields('Effect after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
     );
     return rv;
-}
-
-function printFieldLinks(mFormProps: MFormProps, cpassFields: FieldRowCtx[], get: Getter) {
-    const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
-    console.log('Effect.linked: formIdx', formIdx);
-    console.log(cpassFields.map((field) => `  refToUuid:${get(field.rfieldUuidAtom)} ${get(field.labelAtom)}\n`).join(''));
 }
 
 function printFields(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
