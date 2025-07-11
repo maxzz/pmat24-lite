@@ -46,17 +46,17 @@ async function doLiveHwnd(get: Getter, set: Setter) {
 }
 
 async function doTestHwnd(get: Getter, set: Setter) {
-    if (prevHwnd === debugSettings.testCreate.hwnd) {
-        return;
-    }
-    prevHwnd = debugSettings.testCreate.hwnd;
+    // if (prevHwnd === debugSettings.testCreate.hwnd) {
+    //     return;
+    // }
+    // prevHwnd = debugSettings.testCreate.hwnd;
 
     const testHwnd = await set(doLoadFakeHwndAtom, debugSettings.testCreate.hwnd);
     set(sawHandleStrAtom, JSON.stringify(testHwnd || ''));
     set(sawHandleAtom, testHwnd?.hwnd ? testHwnd.hwnd : null);
 }
 
-let prevHwnd: typeof debugSettings.testCreate.hwnd = 'none';
+// let prevHwnd: typeof debugSettings.testCreate.hwnd = 'none'; // somehow not always working
 
 export const doClearSawHandleAtom = atom(
     null,
