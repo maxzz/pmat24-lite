@@ -19,7 +19,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                         }
                     )
                     .filter(Boolean);
-                printFields(fields, formIdx, get);
+                //printFields(fields, formIdx, get);
             }
             return fields || [];
         }
@@ -35,7 +35,7 @@ function printFields(fields: FieldRowCtx[], formIdx: FormIdx, get: Getter) {
 
     const colors: string[] = [];
     const lines: string[] = [];
-    
+
     fields.forEach(
         (field) => {
             lines.push(`%c        this.uuid: %c${field.metaField.uuid} %c'${get(field.labelAtom)}'`);
