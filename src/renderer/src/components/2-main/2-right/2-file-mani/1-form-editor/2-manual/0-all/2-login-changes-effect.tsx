@@ -10,7 +10,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
 
             const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
-            printFields(mFormProps, get(loginAtom), get(cpassAtom), get);
+            printFields('Effect before linking', mFormProps, get(loginAtom), get(cpassAtom), get);
 
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
@@ -20,7 +20,8 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                     set(field.rfieldUuidAtom, 0);
                 }
             });
-            printFieldLinks(mFormProps, cpassPsws, get);
+            //printFieldLinks(mFormProps, cpassPsws, get);
+            printFields('Effect after linking', mFormProps, get(loginAtom), get(cpassAtom), get);
 
         }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
     );
@@ -33,14 +34,25 @@ function printFieldLinks(mFormProps: MFormProps, cpassFields: FieldRowCtx[], get
     console.log(cpassFields.map((field) => `  refToUuid:${get(field.rfieldUuidAtom)} ${get(field.labelAtom)}\n`).join(''));
 }
 
-function printFields(mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
+function printFields(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
-    console.log('Effect: formIdx', formIdx);
+    console.log(`${label}: formIdx`, formIdx);
+    
+    let colors: string[] = [];
+    let lines: string[] = [];
     printField(loginFields, get);
+    console.log(lines.join('\n'), ...colors);
+
+    colors = [];
+    lines = [];
     printField(cpassFields, get);
+    console.log(lines.join('\n'), ...colors);
 
     function printField(fields: FieldRowCtx[], get: Getter) {
-        console.log(fields.map((field) => `  metaUuid:${field.metaField.uuid} refToUuid:${get(field.rfieldUuidAtom)} ${get(field.labelAtom)}\n`).join(''));
+        fields.forEach((field) => {
+            lines.push(`%c        this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
+            colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
+        });
     }
 }
 
