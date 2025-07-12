@@ -46,10 +46,17 @@ export const onSetRefUuidAtom = atom(
         const rindexUuid = get(rfieldUuidAtom);
         const rfield = get(rfieldAtom);
 
-        // const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).login;
-        // const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        const thisUuid = rowCtx.metaField.uuid;
 
-        //if (newValue !== 0 && )
+        const cpassFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).cpass;
+        const cpassPasswords = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        const thisIdx = cpassPasswords.findIndex((field) => field.metaField.uuid === thisUuid);
+
+        if (newValue !== 0 && thisIdx !== -1) {
+            if (thisIdx !== 0) {
+                set(rfieldAtom, 'out');
+            }
+        }
 
         set(rfieldUuidAtom, newValue);
     }
