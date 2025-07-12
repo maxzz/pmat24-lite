@@ -1,4 +1,4 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { type Getter, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, buildLoginDropdownFieldsAtom, getAllFormsFields_byFileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
@@ -46,11 +46,7 @@ export const onSetRefUuidAtom = atom(
         const rindexUuid = get(rfieldUuidAtom);
         const rfield = get(rfieldAtom);
 
-        const thisUuid = rowCtx.metaField.uuid;
-
-        const cpassFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).cpass;
-        const cpassPasswords = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        const thisIdx = cpassPasswords.findIndex((field) => field.metaField.uuid === thisUuid);
+        const thisIdx = getInPswFormFieldIdx(rowCtx.metaField.uuid, fileUsCtx, get);
 
         if (newValue !== 0 && thisIdx !== -1) {
             if (thisIdx !== 0) {
@@ -61,3 +57,10 @@ export const onSetRefUuidAtom = atom(
         set(rfieldUuidAtom, newValue);
     }
 );
+
+function getInPswFormFieldIdx(uuid: number, fileUsCtx: FileUsCtx, get: Getter) {
+    const cpassFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).cpass;
+    const cpassPasswords = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+    const thisIdx = cpassPasswords.findIndex((field) => field.metaField.uuid === uuid);
+    return thisIdx;
+}
