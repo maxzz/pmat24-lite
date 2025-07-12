@@ -43,31 +43,33 @@ function printForms(label: string, mFormProps: MFormProps, loginFields: FieldRow
 
     loginFields.length && printFields(loginFields, get);
     cpassFields.length && printFields(cpassFields, get);
-}
 
-function printFields(fields: FieldRowCtx[], get: Getter) {
-    const colors: string[] = [];
-    const lines: string[] = [];
+    function printFields(fields: FieldRowCtx[], get: Getter) {
+        const colors: string[] = [];
+        const lines: string[] = [];
 
-    function collect(fields: FieldRowCtx[], get: Getter) {
-        fields.forEach((field) => {
-            const type = get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt';
-            const rfieldValue = get(field.rfieldAtom);
-            const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '   ';
-            lines.push(`%c          ${type}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %cdir:'${rfield}' %c'${get(field.labelAtom)}'`);
-            colors.push(
-                'font-size:0.5rem; color: forestgreen',
-                'color: forestgreen',
-                'font-size:0.5rem; color: forestgreen',
-                'color: forestgreen',
-                'font-size:0.5rem; color: forestgreen',
-                'color: black'
-            );
-        });
+        function collect(fields: FieldRowCtx[], get: Getter) {
+            fields.forEach((field) => {
+                const type = get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt';
+                const rfieldValue = get(field.rfieldAtom);
+                const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '   ';
+                lines.push(`%c          ${type}: this.uuid: %c${asString(field.metaField.uuid)} %cref.uuid: %c${asString(get(field.rfieldUuidAtom))} %cdir:'${rfield}' %c'${get(field.labelAtom)}'`);
+                colors.push(
+                    'font-size:0.5rem; color: forestgreen',
+                    'color: forestgreen',
+                    'font-size:0.5rem; color: forestgreen',
+                    'color: forestgreen',
+                    'font-size:0.5rem; color: forestgreen',
+                    'color: black'
+                );
+            });
+        }
+
+        collect(fields, get);
+        console.log(lines.join('\n'), ...colors);
     }
 
-    collect(fields, get);
-    console.log(lines.join('\n'), ...colors);
+    function asString(nvalue: number, n: number = 7): string {
+        return nvalue.toString().padEnd(n, ' ');
+    }
 }
-
-//TODO: drill down context reactive atoms to avoid useSetAtom

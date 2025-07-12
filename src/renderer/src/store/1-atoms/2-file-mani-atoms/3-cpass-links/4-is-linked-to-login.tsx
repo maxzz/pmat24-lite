@@ -2,7 +2,16 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
 
-export const isLinkedToLoginAtom = atom(
+export function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
+    const { typeAtom, rfieldUuidAtom } = rowCtx;
+    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
+    const thisUuid = useAtomValue(rfieldUuidAtom);
+
+    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
+    return isLinked;
+}
+
+const isLinkedToLoginAtom = atom(
     null,
     (get, set, thisUuid: number, isPsw: boolean, fileUsCtx: FileUsCtx): boolean => {
         if (!thisUuid || !isPsw || fileUsCtx.formIdx !== FormIdx.cpass) {
@@ -17,12 +26,3 @@ export const isLinkedToLoginAtom = atom(
         return !!rIndexUuidItem;
     }
 );
-
-export function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
-    const { typeAtom, rfieldUuidAtom } = rowCtx;
-    const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
-    const thisUuid = useAtomValue(rfieldUuidAtom);
-
-    const isLinked = useSetAtom(isLinkedToLoginAtom)(thisUuid, thisIsPsw, fileUsCtx);
-    return isLinked;
-}
