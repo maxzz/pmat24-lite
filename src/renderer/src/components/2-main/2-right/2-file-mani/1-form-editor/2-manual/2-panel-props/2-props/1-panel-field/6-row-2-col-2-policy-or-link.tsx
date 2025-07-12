@@ -1,6 +1,6 @@
 import { type Getter, atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
-import { type FieldRowCtx, type FileUsCtx, buildLoginDropdownFieldsAtom, getAllFormsFields_byFileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FieldRowCtx, type FileUsCtx, buildLoginFieldsDropdownAtom, getAllFormsFields_byFileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column6_Policy } from "../../../../1-normal/1-fields/6-column-policy";
 import { InputSelectUi } from "../8-props-ui";
 import { classNames } from "@/utils";
@@ -20,7 +20,7 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const { rfieldUuidAtom } = rowCtx;
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const setRefUuid = useSetAtom(onSetRefUuidAtom);
-    const dropdownAllItems = useSetAtom(buildLoginDropdownFieldsAtom)(rowCtx, fileUsCtx);
+    const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
 
     function onValueChange(value: string) {
         setRefUuid(rowCtx, value, fileUsCtx);

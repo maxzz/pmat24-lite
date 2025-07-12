@@ -4,7 +4,7 @@ import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from 
 
 // Build dropdown login form fields for cpass form
 
-export const buildLoginDropdownFieldsAtom = atom(
+export const buildLoginFieldsDropdownAtom = atom(
     null,
     (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
         const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).login;

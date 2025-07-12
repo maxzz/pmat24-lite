@@ -9,7 +9,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             //printMFormProps(mFormProps);
 
             const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
-            if (!maniAtomsAtom) { //console.log('disconnected maniAtomsAtom'); // This is happening when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
+            if (!maniAtomsAtom) { // This may happen when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
                 return;
             }
 
@@ -27,7 +27,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 }
             );
 
-            printForms('loginChangesEffectFn after links update', mFormProps, get(loginAtom), get(cpassAtom), get);
+            printForms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
     );
     return rv;
@@ -37,8 +37,7 @@ function printMFormProps(mFormProps: MFormProps) {
     console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
 }
 
-function printForms(label: string, mFormProps: MFormProps, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
-    const { fileUsCtx: { formIdx } } = mFormProps.mFormCtx;
+function printForms(label: string, formIdx: FormIdx, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     console.log(`%c${formIdx === FormIdx.login ? 'login' : 'cpass'} %c${label}`, formIdx === FormIdx.login ? 'color: forestgreen' : 'color: darkseagreen', 'font-size:0.5rem');
 
     loginFields.length && printFields(loginFields, get);
