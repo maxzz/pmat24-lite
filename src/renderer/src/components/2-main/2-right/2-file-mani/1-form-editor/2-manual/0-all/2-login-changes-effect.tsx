@@ -9,8 +9,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             //printMFormProps(mFormProps);
 
             const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
-            if (!maniAtomsAtom) {
-                //console.log('disconnected maniAtomsAtom'); // This is happening when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
+            if (!maniAtomsAtom) { //console.log('disconnected maniAtomsAtom'); // This is happening when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
                 return;
             }
 
@@ -54,8 +53,8 @@ function printFields(fields: FieldRowCtx[], get: Getter) {
         fields.forEach((field) => {
             const type = get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt';
             const rfieldValue = get(field.rfieldAtom);
-            const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '???';
-            lines.push(`%c          ${type}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %cdir:${rfield} %c'${get(field.labelAtom)}'`);
+            const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '   ';
+            lines.push(`%c          ${type}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %cdir:'${rfield}' %c'${get(field.labelAtom)}'`);
             colors.push(
                 'font-size:0.5rem; color: forestgreen',
                 'color: forestgreen',
