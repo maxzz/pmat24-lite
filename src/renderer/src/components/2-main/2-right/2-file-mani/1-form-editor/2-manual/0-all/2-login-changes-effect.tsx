@@ -14,11 +14,13 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-            cpassPsws.forEach((field) => {
-                if (!loginPsws.has(get(field.rfieldUuidAtom))) {
-                    set(field.rfieldUuidAtom, 0);
+            cpassPsws.forEach(
+                (field) => {
+                    if (!loginPsws.has(get(field.rfieldUuidAtom))) {
+                        set(field.rfieldUuidAtom, 0);
+                    }
                 }
-            });
+            );
 
             printForms('loginChangesEffectFn after links update', mFormProps, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]

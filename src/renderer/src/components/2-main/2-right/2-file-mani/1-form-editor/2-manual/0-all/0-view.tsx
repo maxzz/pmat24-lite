@@ -12,8 +12,8 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
     useAtomEffect(
         loginChangesEffectFn({ mFormProps })
     );
-
     //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
+    
     return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" mFormProps={mFormProps} />
