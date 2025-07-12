@@ -6,7 +6,7 @@ import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
 import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
-export function packManifest(packParams: PackManifestDataParams) {
+export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
 
@@ -16,16 +16,17 @@ export function packManifest(packParams: PackManifestDataParams) {
     packForm(cpassFormAtoms, FormIdx.cpass, packParams);
 }
 
-function packDescriptor(packParams: PackManifestDataParams) {
+function packDescriptor(packParams: PackManifestDataParams): void {
     const { newMani } = packParams;
 
     const { fileUs } = packParams;
 
     let descriptor = fileUs.parsedSrc.mani?.descriptor;
 
-    descriptor = descriptor
-        ? { ...descriptor, }
-        : { id: `{${createGuid()}}`, created: TimeUtils.timeNowAsDpTime(), } as Mani.Descriptor;
+    descriptor =
+        descriptor
+            ? { ...descriptor, }
+            : { id: `{${createGuid()}}`, created: TimeUtils.timeNowAsDpTime(), } as Mani.Descriptor;
 
     descriptor.modified = TimeUtils.timeNowAsDpTime();
     descriptor.version = '2.4.5';
@@ -35,7 +36,7 @@ function packDescriptor(packParams: PackManifestDataParams) {
     fileUs.parsedSrc.mani?.options && (newMani.options = fileUs.parsedSrc.mani.options);
 }
 
-function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: PackManifestDataParams) {
+function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: PackManifestDataParams): void {
     if (form) {
         const { newMani } = packParams;
 
