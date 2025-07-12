@@ -8,7 +8,13 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
         (get: GetterWithPeek, set: SetterWithRecurse) => {
             //printMFormProps(mFormProps);
 
-            const maniAtoms = safeByContext(get(mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom));
+            const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
+            if (!maniAtomsAtom) {
+                //console.log('disconnected maniAtomsAtom'); // This is happening when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
+                return;
+            }
+
+            const maniAtoms = safeByContext(get(maniAtomsAtom));
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
 
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
@@ -23,7 +29,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             );
 
             printForms('loginChangesEffectFn after links update', mFormProps, get(loginAtom), get(cpassAtom), get);
-        }, [mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom]
+        }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
     );
     return rv;
 }
@@ -46,8 +52,18 @@ function printFields(fields: FieldRowCtx[], get: Getter) {
 
     function collect(fields: FieldRowCtx[], get: Getter) {
         fields.forEach((field) => {
-            lines.push(`%c          ${get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt'}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %c'${get(field.labelAtom)}'`);
-            colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
+            const type = get(field.typeAtom) === FieldTyp.psw ? 'psw' : 'txt';
+            const rfieldValue = get(field.rfieldAtom);
+            const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '???';
+            lines.push(`%c          ${type}: this.uuid: %c${field.metaField.uuid} %cref.uuid: %c${get(field.rfieldUuidAtom)} %cdir:${rfield} %c'${get(field.labelAtom)}'`);
+            colors.push(
+                'font-size:0.5rem; color: forestgreen',
+                'color: forestgreen',
+                'font-size:0.5rem; color: forestgreen',
+                'color: forestgreen',
+                'font-size:0.5rem; color: forestgreen',
+                'color: black'
+            );
         });
     }
 
