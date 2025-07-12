@@ -41,16 +41,13 @@ const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-pointer";
 export const onSetRefUuidAtom = atom(
     null,
     (get, set, rowCtx: FieldRowCtx, value: string, fileUsCtx: FileUsCtx) => {
-        const newValue = +value;
         const { rfieldAtom, rfieldUuidAtom } = rowCtx;
-        const rindexUuid = get(rfieldUuidAtom);
-        const rfield = get(rfieldAtom);
-
-        const thisIdx = getInPswFormFieldIdx(rowCtx.metaField.uuid, fileUsCtx, get);
-
-        if (newValue !== 0 && thisIdx !== -1) {
-            if (thisIdx !== 0) {
-                set(rfieldAtom, 'out');
+        const newValue = +value;
+        
+        if (newValue) {
+            const thisIdx = getInPswFormFieldIdx(rowCtx.metaField.uuid, fileUsCtx, get);
+            if (thisIdx !== -1) {
+                set(rfieldAtom, thisIdx === 0 ? 'in' : 'out');
             }
         }
 
