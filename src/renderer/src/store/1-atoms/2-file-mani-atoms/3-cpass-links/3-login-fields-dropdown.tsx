@@ -14,7 +14,7 @@ export const buildLoginFieldsDropdownAtom = atom(
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
 
         if (loginPasswords.length) {
-            rv.unshift(['No link', '0']);
+            rv.unshift(['Not linked', '0']); // vs. 'No link'
         } else {
             rv.unshift(['There is no password in the login form', '0']);
         }

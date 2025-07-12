@@ -6,7 +6,6 @@ import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
 import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
-
 export function packManifest(packParams: PackManifestDataParams) {
     const { maniAtoms } = packParams;
     const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
