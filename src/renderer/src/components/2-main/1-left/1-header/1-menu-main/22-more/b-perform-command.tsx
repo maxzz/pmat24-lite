@@ -5,7 +5,7 @@ import { doPerformCommandAtom } from "@/store/7-napi-atoms";
 export function MenuItem_PerformCommand() {
     const doPerformCommand = useSetAtom(doPerformCommandAtom);
     return (<>
-        <DropdownMenuItem onClick={() => doPerformCommand({ command: 'reloadCache', params: {} })}>
+        <DropdownMenuItem onClick={() => doPerformCommand({ command: 'reloadCache' })}>
             Perform Command
         </DropdownMenuItem>
     </>);

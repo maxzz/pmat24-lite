@@ -18,17 +18,13 @@ export function Case_ManualFieldPolicyBtn({ rowCtx }: { rowCtx: FieldRowCtx; }) 
 export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;
     const [rindexUuid, setRindexUuid] = useAtom(rfieldUuidAtom);
-
-    const doBuildLoginDropdownFields = useSetAtom(buildLoginDropdownFieldsAtom);
-    const dropdownAllItems = doBuildLoginDropdownFields(rowCtx, fileUsCtx);
-
-    const rIndexUuidValue = dropdownAllItems.find(([label, uuid]) => uuid === `${rindexUuid}`) ? `${rindexUuid}` : '0';
+    const dropdownAllItems = useSetAtom(buildLoginDropdownFieldsAtom)(rowCtx, fileUsCtx);
 
     return (
         <InputSelectUi
             triggerClasses={classNames("w-full", `${rindexUuid}` === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
-            value={rIndexUuidValue}
+            value={`${rindexUuid}`}
             onValueChange={(value) => setRindexUuid(+value)}
         />
     );
