@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, useIsLinkedToLogin } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
@@ -27,15 +27,12 @@ function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 }
 
 function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
-    const [type, setType] = useState('in'); //TODO: count index of passwords in cpass form and if more then one, then use 'out'
-
-    const rfield = useAtomValue(rowCtx.rfieldAtom); // in|out
-
+    const [rfield, setRfield] = useAtom(rowCtx.rfieldAtom);
     return (
         <InputSelectUi
             items={inputTypes}
-            value={`${type}`}
-            onValueChange={(value) => setType(value)}
+            value={rfield}
+            onValueChange={setRfield}
         />
     );
 }
