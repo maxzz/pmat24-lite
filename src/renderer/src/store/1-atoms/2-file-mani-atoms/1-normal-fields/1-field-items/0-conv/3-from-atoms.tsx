@@ -15,6 +15,8 @@ export function fromAtoms(rowCtx: NormalField.RowCtx, get: Getter, set?: Setter)
         rfield: get(rowCtx.rfieldAtom),
         rfieldUuid: get(rowCtx.rfieldUuidAtom),
         rfieldForm: get(rowCtx.rfieldFormAtom),
+
+        memOnly: get(rowCtx.memOnlyAtom),
     };
 
     return rv;
