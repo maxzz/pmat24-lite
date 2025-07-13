@@ -45,13 +45,13 @@ function printFormFields(fields: FieldRowCtx[], get: Getter) {
             const memOnlyFromAtm = memOnlyToString(field.memOnlyAtom ? get(field.memOnlyAtom) : undefined);
             const memOnlyFromFld = memOnlyToString(field.metaField.mani.memOnly);
 
-            lines.push(`%c        this.meta.uuid: %c${field.metaField.uuid}\n %c        fromAtm:${memOnlyFromAtm}\n %c        fromFld:${memOnlyFromFld}\n        %c'${fieldStr}'`);
+            lines.push(`%c    '${fieldStr}'\n%c        this.meta.uuid: %c${field.metaField.uuid}\n%c        fromAtm:${memOnlyFromAtm}\n%c        fromFld:${memOnlyFromFld}`);
             colors.push(
-                'font-size:0.5rem; color: forestgreen',
+                'font-size:0.65rem; color: black',
+                'font-size:0.65rem; color: forestgreen',
                 'color: forestgreen',
-                'font-size:0.5rem; color: black; font-family: monospace; font-face: Consolas',
-                'font-size:0.5rem; color: black; font-family: monospace; font-face: Consolas',
-                'color: black',
+                'font-size:0.65rem; color: black; font-family: monospace;',
+                'font-size:0.65rem; color: black; font-family: monospace;',
             );
         }
     );
@@ -64,5 +64,5 @@ function memOnlyToString(memOnly: Mani.MemOnly['memOnly'] | undefined): string {
         return 'memOnly:undefined';
     }
     const { formIdx, uuidThis, uuidLoginFld, dbnameInitial } = memOnly;
-    return `form:${formIdx} uuidThis:${uuidThis} uuidLoginFld:${uuidLoginFld} dbnameInitial:${dbnameInitial}`;
+    return `formIdx:${formIdx} uuid.this:${uuidThis} uuid.login.fld:${uuidLoginFld} dbname.initial:${dbnameInitial}`;
 }
