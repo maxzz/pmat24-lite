@@ -56,8 +56,7 @@ export function areTheSame(from: EditorDataForOne, to: EditorDataForOne): boolea
             return areTheSamePos(from, to as EditorDataForPos);
         }
         case 'fld': {
-            //return NormalFieldConv.areTheSame(from.field.mani, (to as EditorDataForFld).field.mani);
-            return false;
+            throw new Error('not.here'); // This is handled by ManualFieldsState.onChangeWithScope with NormalFieldConv.areTheSame
         }
     }
 }

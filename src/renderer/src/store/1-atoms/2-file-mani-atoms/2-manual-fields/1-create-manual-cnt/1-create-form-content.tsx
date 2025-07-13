@@ -46,7 +46,8 @@ export namespace ManualFieldsState {
         set(mFormCnt.chunksAtom, chunks);
         mFormCnt.initialChunks = initialChunks;
     }
-}
+
+} //namespace ManualFieldsState
 
 function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
