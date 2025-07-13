@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type Atomize, atomWithCallback } from "@/utils";
 import { type ManualFieldState } from "../9-types";
-import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
+import { EditorDataForFld, type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
 import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
@@ -93,7 +93,7 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
         case "fld": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
-                    onChange(`${name}-${uid5}`)({ get, set, nextValue: rv });
+                    onChange(`${name}-${uid5}-uuid-${(chunk as EditorDataForFld).field.uuid}`)({ get, set, nextValue: rv });
                 };
             };
 
