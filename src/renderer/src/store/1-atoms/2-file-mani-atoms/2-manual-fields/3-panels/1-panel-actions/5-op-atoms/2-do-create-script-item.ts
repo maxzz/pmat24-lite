@@ -9,7 +9,7 @@ import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
 export const doCreateScriptItemAtom = atom(
     null,
     (get, set, mFormProps: MFormProps, type: ChunkKey, password: boolean | undefined, formIdx: FormIdx, isCtrlKey: boolean): void => {
-        const fieldData = createScriptItemByType({ type, password: !!password, name: 'No name' });
+        const fieldData = createScriptItemByType({ formIdx, type, password: !!password, name: 'No name' });
         insertScriptItems([fieldData], mFormProps.mFormCtx.manual, isCtrlKey, get, set);
         asyncSelectPanelActionsList(formIdx);
     }
