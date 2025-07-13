@@ -1,3 +1,4 @@
+import { atom } from "jotai";
 import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/utils";
 import { EditorField } from "@/store/manifest";
 
@@ -16,7 +17,7 @@ export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValu
         rfieldUuidAtom: atomWithCallback(rfieldUuid, onChange),
         rfieldFormAtom: atomWithCallback(rfieldForm, onChange),
 
-        memOnlyAtom: atomWithCallback(memOnly, onChange),
+        memOnlyAtom: atom(memOnly),
     };
 
     return rv;
