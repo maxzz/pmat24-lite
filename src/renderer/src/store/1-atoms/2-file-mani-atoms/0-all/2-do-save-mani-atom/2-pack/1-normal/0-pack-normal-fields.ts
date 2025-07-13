@@ -13,11 +13,11 @@ type PackResult = {
     submittype: SUBMIT | undefined; // this is form sumbit type 'dosubmit', 'nosubmit' or undefined
 };
 
-export function packNormalFieldsAndSubmit(cnt: NFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
+export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): PackResult {
 
     const allByUuid = getByUiidAllFields(packParams, formIdx);
-    const newRowFieldsByUuid = getByUuidNewFields(cnt, packParams);
-    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(cnt, packParams);
+    const newRowFieldsByUuid = getByUuidNewFields(nFormCnt, packParams);
+    const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(nFormCnt, packParams);
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -68,8 +68,8 @@ function getByUiidAllFields(packParams: PackManifestDataParams, formIdx: FormIdx
 /**
  * Get new fields created by editors and assign them new Mani.Field
  */
-function getByUuidNewFields(cnt: NFormCnt, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
-    const editAndMeta = getNormalFieldValues(cnt, packParams);
+function getByUuidNewFields(nFormCnt: NFormCnt, packParams: PackManifestDataParams): RecordOldNewFieldByUuid {
+    const editAndMeta = getNormalFieldValues(nFormCnt, packParams);
 
     const newRowFieldsByUuid: RecordOldNewFieldByUuid = editAndMeta.reduce<RecordOldNewFieldByUuid>(
         (acc, { metaField, editField }) => {
