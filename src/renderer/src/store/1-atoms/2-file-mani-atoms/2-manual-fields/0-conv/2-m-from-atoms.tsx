@@ -2,7 +2,7 @@ import { type Getter } from "jotai";
 import type { EditorDataForDly, EditorDataForFld, EditorDataForKbd, EditorDataForPos, EditorDataForOne, EditorField } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { getKbdChunkValues, getPosChunkValues, getDlyChunkValues } from "./6-verify-state-access";
+import { getKbdChunkValues, getPosChunkValues, getDlyChunkValues } from "./4-m-verify-state-access";
 
 export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, get: Getter): EditorDataForOne {
     switch (scriptItemCtx.type) {

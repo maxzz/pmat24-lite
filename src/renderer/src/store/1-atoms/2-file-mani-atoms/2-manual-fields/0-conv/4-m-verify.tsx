@@ -2,7 +2,7 @@ import { type PrimitiveAtom, type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
-import { getAllAtomValuesForValidate, getChunkValuesForValidate, type RowInputStateUuid } from "./6-verify-state-access";
+import { getAllAtomValuesForValidate, getChunkValuesForValidate, type RowInputStateUuid } from "./4-m-verify-state-access";
 
 export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
 
