@@ -94,7 +94,7 @@
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/1-create-manual-cnt/1-create-form-content.tsx",
 			"bookmarks": [
 				{
-					"line": 9,
+					"line": 11,
 					"column": 39,
 					"label": "createManualFormCnt"
 				}

@@ -1,9 +1,11 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
-import { FormIdx, parseForEditor } from "@/store/manifest";
+import { type OnChangeValueWithUpdateName } from "@/ui";
+import { type EditorDataForOne, FormIdx, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../0-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
+import { createManualAtom } from "../0-conv/2-create-atoms";
 
 export namespace ManualFieldsState {
 
@@ -28,7 +30,7 @@ export namespace ManualFieldsState {
             onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
-        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createManualAtoms(editorData, onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, onChangeItem);
 
         const ctx: MFormCnt = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
@@ -42,13 +44,20 @@ export namespace ManualFieldsState {
     }
 
     export function resetChunks(mFormCnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
-        const chunks: ManualFieldState.Ctx[] = ManualFieldConv.createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);
         mFormCnt.initialChunks = initialChunks;
     }
 
 } //namespace ManualFieldsState
+
+function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
+    const ctxs = initialState.map(
+        (chunk, idx) => createManualAtom(chunk, onChange)
+    );
+    return ctxs;
+}
 
 function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;

@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type Atomize, atomWithCallback } from "@/utils";
 import { type ManualFieldState } from "../9-types";
-import { EditorDataForFld, type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
+import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
 import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
@@ -118,11 +118,4 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
             return rv;
         }
     }
-}
-
-export function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
-    const ctxs = initialState.map(
-        (chunk, idx) => createManualAtom(chunk, onChange)
-    );
-    return ctxs;
 }
