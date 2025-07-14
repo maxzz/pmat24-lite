@@ -19,19 +19,25 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-            cpassPsws.forEach(
-                (field) => {
-                    if (!loginPsws.has(get(field.rfieldUuidAtom))) {
-                        set(field.rfieldUuidAtom, 0);
+            setTimeout(() => {
+                cpassPsws.forEach(
+                    (field) => {
+                        const rfieldUuid = get(field.rfieldUuidAtom);
+                        if (rfieldUuid && !loginPsws.has(rfieldUuid)) {
+                            set(field.rfieldUuidAtom, 0);
+                        }
                     }
-                }
-            );
+                );
+            }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
             printForms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
     );
     return rv;
 }
+
+//TODO: rfieldUuid as atom initialized too late - done
+//TODO: no changes for manual mode labal. type, value - done
 
 function printMFormProps(mFormProps: MFormProps) {
     console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);

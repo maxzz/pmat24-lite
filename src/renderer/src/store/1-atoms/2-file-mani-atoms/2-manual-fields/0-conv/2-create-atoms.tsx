@@ -93,6 +93,7 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
         case "fld": {
             function onScopedChange(name: string) {
                 return ({ get, set, nextValue }): void => {
+                    console.log(`onScopedChange fld`, { chunk, uid5, nextValue });
                     onChange(name)({ get, set, nextValue: rv });
                 };
             };

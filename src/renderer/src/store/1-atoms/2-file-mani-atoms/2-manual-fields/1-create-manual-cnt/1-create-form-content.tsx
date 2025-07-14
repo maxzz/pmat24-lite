@@ -18,6 +18,7 @@ export namespace ManualFieldsState {
 
         function onChangeItem(updateName: string) {
             function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
+                //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
                 onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;

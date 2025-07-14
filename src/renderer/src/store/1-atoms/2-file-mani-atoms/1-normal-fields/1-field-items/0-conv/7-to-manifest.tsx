@@ -3,7 +3,6 @@ import { type EditorField, TransformValue, fieldTyp2Obj } from "@/store/manifest
 // Back to manifest
 
 export function forMani(from: EditorField.ForAtoms): EditorField.Members {
-
     const rv: EditorField.Members = {
         useit: from.useIt,
         displayname: from.label,
@@ -16,9 +15,10 @@ export function forMani(from: EditorField.ForAtoms): EditorField.Members {
         rfield: from.rfield as 'in' | 'out' | undefined,
         rfieldindex: from.rfieldUuid, //TODO: should be converted to index number
         rfieldform: from.rfieldForm,
+
+        //TODO: memOnly: from.memOnly,
     };
 
     TransformValue.valueLife2Mani(from.valueLife, rv);
-
     return rv;
 }
