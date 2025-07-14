@@ -13,4 +13,6 @@ export function valuesToAtoms(values: EditorField.ForAtoms, atoms: Atomize<Edito
     set(atoms.rfieldAtom, values.rfield);
     set(atoms.rfieldUuidAtom, values.rfieldUuid);
     set(atoms.rfieldFormAtom, values.rfieldForm);
+
+    set(atoms.memOnlyAtom, values.memOnly);
 }

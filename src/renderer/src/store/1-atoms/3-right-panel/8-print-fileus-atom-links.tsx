@@ -41,15 +41,21 @@ function printFormFields(fields: FieldRowCtx[], get: Getter) {
 
     fields.forEach(
         (field) => {
-            const fieldStr = field.labelAtom ? get(field.labelAtom) : 'null';
+            const fieldStr = get(field.labelAtom);
+
+            const rfieldValue = get(field.rfieldAtom);
+            const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '   ';
+            const other = `rfieldUuid:${get(field.rfieldUuidAtom)} rfield:'${rfield}'`;
+            
             const memOnlyFromAtm = memOnlyToString(field.memOnlyAtom ? get(field.memOnlyAtom) : undefined);
             const memOnlyFromFld = memOnlyToString(field.metaField.mani.memOnly);
-
-            lines.push(`%c    '${fieldStr}'\n%c        this.meta.uuid: %c${field.metaField.uuid}\n%c        fromAtm:${memOnlyFromAtm}\n%c        fromFld:${memOnlyFromFld}`);
+            
+            lines.push(`%c    '${fieldStr}'\n%c        this.meta.uuid: %c${field.metaField.uuid}%c ${other}\n%c        fromAtm:${memOnlyFromAtm}\n%c        fromFld:${memOnlyFromFld}`);
             colors.push(
                 'font-size:0.65rem; color: black',
                 'font-size:0.65rem; color: forestgreen',
                 'color: forestgreen',
+                'font-size:0.65rem; color: forestgreen',
                 'font-size:0.65rem; color: black; font-family: monospace;',
                 'font-size:0.65rem; color: black; font-family: monospace;',
             );
@@ -59,7 +65,7 @@ function printFormFields(fields: FieldRowCtx[], get: Getter) {
     console.log(lines.join('\n'), ...colors);
 }
 
-function memOnlyToString(memOnly: Mani.MemOnly['memOnly'] | undefined): string {
+function memOnlyToString(memOnly: Mani.MemOnly | undefined): string {
     if (!memOnly) {
         return 'memOnly:undefined';
     }
