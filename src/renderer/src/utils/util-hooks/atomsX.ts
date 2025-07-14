@@ -6,6 +6,11 @@ export type OnValueChangeParams<Value = any> = { get: Getter; set: Setter; nextV
 export type OnValueChange<Value> = ({ get, set, nextValue }: OnValueChangeParams<Value>) => void;
 export type OnValueChangeAny = ({ get, set, nextValue }: { get: Getter; set: Setter; nextValue: any; }) => void;
 
+export type OnValueChangePair = {
+    onChange: OnValueChangeAny;             // debounced version
+    onChangeWoDebounce: OnValueChangeAny;   // without debounce
+}
+
 export function atomWithCallback<Value>(initialValue: Value, onValueChange: OnValueChange<Value>): WritableAtom<Value, [update: SetStateAction<Value>], void> {
     const baseAtom = atom(initialValue);
     const derivedAtom = atom(
