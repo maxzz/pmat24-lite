@@ -8,12 +8,14 @@ import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
 export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;
-    const [loginFormAtoms, cpassFormAtoms] = maniAtoms;
+    const [loginFormCtx, cpassFormCtx] = maniAtoms;
 
     packDescriptor(packParams);
 
-    packForm(loginFormAtoms, FormIdx.login, packParams);
-    packForm(cpassFormAtoms, FormIdx.cpass, packParams);
+    packForm(loginFormCtx, FormIdx.login, packParams);
+    packForm(cpassFormCtx, FormIdx.cpass, packParams);
+
+    convertCpassUuidToIdx(packParams.newMani.forms);
 }
 
 function packDescriptor(packParams: PackManifestDataParams): void {
@@ -63,6 +65,22 @@ function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: Pa
 
         //printFields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
     }
+}
+
+function convertCpassUuidToIdx(forms: Mani.Form[] | undefined) {
+    const loginFields = forms?.[FormIdx.login]?.fields || [];
+    const cpassFields = forms?.[FormIdx.cpass]?.fields || [];
+
+    cpassFields.forEach(
+        (field: Mani.Field) => {
+            const rfieldUuid = field.rfieldindex;
+            if (rfieldUuid) {
+                const loginIdx = loginFields.findIndex((loginField) => loginField.memOnly?.uuidThis === rfieldUuid);
+                field.rfieldindex = loginIdx >= 0 ?loginIdx : undefined;
+            }
+        }
+    );
+
 }
 
 function printFields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {

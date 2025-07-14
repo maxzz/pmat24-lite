@@ -24,6 +24,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                     (field) => {
                         const rfieldUuid = get(field.rfieldUuidAtom);
                         if (rfieldUuid && !loginPsws.has(rfieldUuid)) {
+                            console.log(`cpassChangesEffectFn: rfieldUuid:${rfieldUuid} is not in loginPsws`, { loginPsws, cpassPsws, field });
                             set(field.rfieldUuidAtom, 0);
                         }
                     }
