@@ -1,7 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { clamp } from "@/utils";
 import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
-import { type MFormProps, type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type MFormProps, type MFormCnt, type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { ManualFieldConv } from "../../../0-conv";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
@@ -17,9 +17,9 @@ export const doCreateScriptItemAtom = atom(
 
 export const doCreateDefaultScriptItemsAtom = atom(
     null,
-    (get, set, mFormCnt: MFormCnt, formIdx: FormIdx, isCtrlKey: boolean) => {
+    (get, set, mFormCtx: MFormCtx, formIdx: FormIdx, isCtrlKey: boolean) => {
         const fieldsData = formIdx === FormIdx.login ? loginEditorData() : cpassEditorData();
-        insertScriptItems(fieldsData, mFormCnt, isCtrlKey, get, set);
+        insertScriptItems(fieldsData, mFormCtx.manual, isCtrlKey, get, set);
         asyncSelectPanelActionsList(formIdx);
     }
 );
