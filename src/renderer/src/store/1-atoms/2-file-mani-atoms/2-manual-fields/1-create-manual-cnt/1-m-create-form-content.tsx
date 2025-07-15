@@ -1,7 +1,7 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui";
-import { type EditorDataForOne, FormIdx, parseForEditor } from "@/store/manifest";
+import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
@@ -57,7 +57,7 @@ export namespace ManualFieldsState {
 
 } //namespace ManualFieldsState
 
-function createOnUpdateItemCb(onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms) {
+function createOnUpdateItemCb(onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx) {
     function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
         const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
         //onChangeWithScope(onChangeProps, nextValue);
