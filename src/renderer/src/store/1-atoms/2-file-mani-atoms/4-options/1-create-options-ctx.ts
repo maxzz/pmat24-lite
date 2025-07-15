@@ -1,4 +1,4 @@
-import { type OnChangeProps, type FileUsCtx, type ManiAtoms } from "../9-types";
+import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFileUsCtx } from "../9-types";
 import { type FormOptionsState, FormOptionsConv } from "./0-conv";
 import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
@@ -12,7 +12,7 @@ export namespace OptionsState {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
-                onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
+                onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, get, set });
             };
         };
 
@@ -23,10 +23,10 @@ export namespace OptionsState {
     }
 }
 
-function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
-    // const optionsAtoms: OptionsState.Atoms | undefined = maniAtoms[fileUsCtx.formIdx]?.options; // can be undefined after reset
-    // if (nextValue.dirty && optionsAtoms) {
-    //     const fromUi = OptionsConv.fromAtoms(optionsAtoms, get, set);
+function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileUsCtx, get, set }: OnChangeProps) {
+    // const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options; // can be undefined after reset
+    // if (nextValue.dirty && oFormCtx) {
+    //     const fromUi = OptionsConv.fromAtoms(oFormCtx, get, set);
     //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
     // }
 

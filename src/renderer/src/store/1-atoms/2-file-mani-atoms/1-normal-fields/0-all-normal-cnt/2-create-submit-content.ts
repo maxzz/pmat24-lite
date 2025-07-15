@@ -1,5 +1,5 @@
-import { type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges } from "../../9-types";
 import { debounce } from "@/utils";
+import { type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type SubmitFieldTypes, SubmitConv } from "../2-submit/0-conv";
 
 export namespace NormalSubmitState {
@@ -11,7 +11,7 @@ export namespace NormalSubmitState {
         const forAtoms = SubmitConv.forAtoms(metaForm);
 
         const onChange = ({ get, set }) => {
-            onChangeWithScopeDebounced({ fileUsCtx, maniAtoms, get, set });
+            onChangeWithScopeDebounced({ fileUsCtx, get, set });
         };
 
         const rv: SubmitFieldTypes.Ctx = {
@@ -25,13 +25,13 @@ export namespace NormalSubmitState {
     }
 }
 
-function onChangeWithScope({ fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
-    const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
-    if (!nomalFormAtoms) {
+function onChangeWithScope({ fileUsCtx, get, set }: OnChangeProps) {
+    const nFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.normal;
+    if (!nFormCtx) {
         return;
     }
 
-    const atoms: SubmitFieldTypes.Ctx = nomalFormAtoms.submitCtx;
+    const atoms: SubmitFieldTypes.Ctx = nFormCtx.submitCtx;
     const fromUi = SubmitConv.fromAtoms(atoms, get, set);
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
 

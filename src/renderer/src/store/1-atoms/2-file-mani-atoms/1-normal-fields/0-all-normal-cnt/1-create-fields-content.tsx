@@ -1,8 +1,8 @@
 import { atom, type Getter, type Setter } from 'jotai';
 import { type OnValueChangeAny, debounce } from '@/utils';
-import { convFieldForEditor, FieldTyp, FormIdx, type Meta } from '@/store/manifest';
+import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
 import { NormalFieldConv } from '../1-field-items/0-conv';
-import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms, type FieldRowCtx } from "../../9-types";
+import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms, type FieldRowCtx, safeManiAtomsFromFileUsCtx } from "../../9-types";
 
 export namespace NormalFieldsState {
 
@@ -22,7 +22,7 @@ export namespace NormalFieldsState {
     function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): FieldRowCtx {
 
         function onChange({ get, set }: { get: Getter, set: Setter; }) {
-            onChangeWithScopeDebounced(idx, { fileUsCtx, maniAtoms, get, set });
+            onChangeWithScopeDebounced(idx, { fileUsCtx, get, set });
         }
 
         const rowAtoms = createUiRowAtoms(field, onChange);
@@ -42,13 +42,13 @@ export namespace NormalFieldsState {
 
 } //namespace NormalFieldsState
 
-function onChangeWithScope(fieldIdx: number, { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
-    const nomalFormAtoms = maniAtoms[fileUsCtx.formIdx]!.normal;
-    if (!nomalFormAtoms) {
+function onChangeWithScope(fieldIdx: number, { fileUsCtx, get, set }: OnChangeProps) {
+    const nFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.normal;
+    if (!nFormCtx) {
         return;
     }
 
-    const rowCtx: FieldRowCtx = nomalFormAtoms.rowCtxs[fieldIdx];
+    const rowCtx: FieldRowCtx = nFormCtx.rowCtxs[fieldIdx];
 
     const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);

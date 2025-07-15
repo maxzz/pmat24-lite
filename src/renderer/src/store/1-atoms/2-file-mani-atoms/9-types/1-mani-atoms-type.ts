@@ -62,7 +62,7 @@ type OFormCtx = Prettify<Pick<AnyFormCtx, 'options' | 'fileUsCtx'>>;
 
 export type OnChangeProps = {
     fileUsCtx: FileUsCtx;
-    maniAtoms: ManiAtoms;
+    //maniAtoms: ManiAtoms;
     get: Getter;
     set: Setter;
 };
@@ -78,6 +78,13 @@ export type FieldHighlightCtx = {
 
 // Safe accessors by context of calling function
 
+export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
+    if (!obj) {
+        throw new Error('no.obj');
+    }
+    return obj;
+}
+
 export function safeManiAtoms(maniAtoms: ManiAtoms | null): ManiAtoms {
     if (!maniAtoms) {
         throw new Error('no.mani');
@@ -85,11 +92,8 @@ export function safeManiAtoms(maniAtoms: ManiAtoms | null): ManiAtoms {
     return maniAtoms;
 }
 
-export function safeByContext<T>(obj: T | null | undefined): NonNullable<T> {
-    if (!obj) {
-        throw new Error('no.obj');
-    }
-    return obj;
+export function safeManiAtomsFromFileUsCtx(fileUsCtx: FileUsCtx | null | undefined, get: Getter): ManiAtoms {
+    return safeByContext(get(safeByContext(fileUsCtx?.fileUs?.maniAtomsAtom)));
 }
 
 // Type safety guards
