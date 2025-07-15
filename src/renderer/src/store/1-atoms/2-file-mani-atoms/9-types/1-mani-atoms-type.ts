@@ -56,13 +56,12 @@ export type OFormProps = {                      // To access form options
 
 export type NFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'manual'>, 'normal'>>;
 export type MFormCtx = Prettify<RequireAtLeastOne<Omit<AnyFormCtx, 'normal'>, 'manual'>>;
-type OFormCtx = Prettify<Pick<AnyFormCtx, 'options' | 'fileUsCtx'>>;
+export type OFormCtx = Prettify<Pick<AnyFormCtx, 'options' | 'fileUsCtx'>>;
 
 // Changes callback props
 
 export type OnChangeProps = {
     fileUsCtx: FileUsCtx;
-    //maniAtoms: ManiAtoms;
     get: Getter;
     set: Setter;
 };
