@@ -8,7 +8,7 @@ export type PerformCommandParams =
         command: "queryExtension";              // Command to perform. "queryExtension" sends arbitrary string to browser extension
         params: {
             hwnd: string;                       // HWND of the browser window (not used currently, the active browser window is used)
-            queryId: string;                    // The query ID is used to identify the query in the response
+            queryid: string;                    // The query ID is used to identify the query in the response
             query: string;                      // Query string to send. THe string must be passable through stringified JSON
         };
     };
