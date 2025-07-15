@@ -1,7 +1,7 @@
-import { atom, type Getter, type Setter } from 'jotai';
-import { type OnValueChangeAny, debounce } from '@/utils';
-import { convFieldForEditor, FieldTyp, type Meta } from '@/store/manifest';
-import { NormalFieldConv } from '../1-field-items/0-conv';
+import { atom, type Getter, type Setter } from "jotai";
+import { type OnValueChangeAny, debounce } from "@/utils";
+import { convFieldForEditor, FieldTyp, type Meta } from "@/store/manifest";
+import { NormalFieldConv } from "../1-field-items";
 import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms, type FieldRowCtx, safeManiAtomsFromFileUsCtx } from "../../9-types";
 
 export namespace NormalFieldsState {

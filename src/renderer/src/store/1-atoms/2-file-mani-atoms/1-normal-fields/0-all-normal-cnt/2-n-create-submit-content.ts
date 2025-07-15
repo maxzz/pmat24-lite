@@ -1,6 +1,6 @@
 import { debounce } from "@/utils";
 import { type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeManiAtomsFromFileUsCtx } from "../../9-types";
-import { type SubmitFieldTypes, SubmitConv } from "../2-submit/0-conv";
+import { type SubmitFieldTypes, SubmitConv } from "../2-submit";
 
 export namespace NormalSubmitState {
 
