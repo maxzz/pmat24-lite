@@ -1,5 +1,5 @@
-import { classNames } from '@/utils';
-import { HTMLAttributes, SVGAttributes } from 'react';
+import { classNames } from "@/utils";
+import { HTMLAttributes, SVGAttributes } from "react";
 
 export function SvgSymbolDot() {
     return (<>

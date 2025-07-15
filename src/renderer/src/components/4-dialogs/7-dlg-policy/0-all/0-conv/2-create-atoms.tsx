@@ -1,4 +1,4 @@
-import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/utils';
+import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/utils";
 import { PolicyDlgTypes } from "./9-types";
 
 export function createAtoms(initialState: PolicyDlgTypes.ForAtoms, onChange: OnValueChangeAny): Atomize<PolicyDlgTypes.ForAtoms> {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'; //https://github.com/pmndrs/react-spring/blob/main/packages/shared/src/hooks/useMemoOne.ts
+import { useEffect, useRef, useState } from "react"; //https://github.com/pmndrs/react-spring/blob/main/packages/shared/src/hooks/useMemoOne.ts
 
 /**
  * @param getResult - getResult changes on every call

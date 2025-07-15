@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
-import { FocusScope } from '@radix-ui/react-focus-scope';
+import { useState, useRef, useEffect } from "react";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { FocusScope } from "@radix-ui/react-focus-scope";
 
 const items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
 

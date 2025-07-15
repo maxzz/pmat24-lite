@@ -1,5 +1,5 @@
-import { HTMLAttributes, SVGAttributes } from 'react';
-import { classNames } from '@/utils';
+import { HTMLAttributes, SVGAttributes } from "react";
+import { classNames } from "@/utils";
 
 export function SvgSymbolAppWebChrome() { // https://lucide.dev/icons/chrome
     return (

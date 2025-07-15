@@ -1,8 +1,8 @@
-import { type HTMLAttributes } from 'react';
-import { ScrollArea } from '@/ui';
-import { SyntaxHighlighterXml } from './syntax-highlighter-xml';
-import useResizeObserver from 'use-resize-observer';
-import { classNames } from '@/utils';
+import { type HTMLAttributes } from "react";
+import { ScrollArea } from "@/ui";
+import { SyntaxHighlighterXml } from "./syntax-highlighter-xml";
+import useResizeObserver from "use-resize-observer";
+import { classNames } from "@/utils";
 
 /**/
 export function Body_Xml({ text, className, ...rest }: { text: string; } & HTMLAttributes<HTMLDivElement>) {

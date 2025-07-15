@@ -1,12 +1,12 @@
-import { type ReactNode, type InputHTMLAttributes } from 'react';
-import { type PrimitiveAtom } from 'jotai';
+import { type ReactNode, type InputHTMLAttributes } from "react";
+import { type PrimitiveAtom } from "jotai";
 
 export type RowInputStateOptions = {
     initialValidate: boolean;               // Validate value on init and set touched if value is invalid
 };
 
 export type RowInputState = {
-    type: 'string' | 'textarea' | 'number' | 'boolean';
+    type: "string" | "textarea" | "number" | "boolean";
     data: string;
     initialData: string;
     dirty: boolean;                         // True if the value has been changed
@@ -15,12 +15,12 @@ export type RowInputState = {
     validate?: (value: string) => string | undefined;
     options?: RowInputStateOptions;         // options exist only during initialization
 
-    //nameOfChange: string;                 //TODO: This may simplify the onChange function. see 'src/store/1-atoms/2-file-mani-atoms/4-options/0-conv/2-create-atoms.tsx'
+    //nameOfChange: string;                 //TODO: This may simplify the onChange function. see "src/store/1-atoms/2-file-mani-atoms/4-options/0-conv/2-create-atoms.tsx"
     //uuid: number;                         //TODO: This may simplify validation
 };
 
 export type OptionInputProps =
-    & Pick<InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'onFocus' | 'onBlur' | 'readOnly'> // & Omit<InputHTMLAttributes<HTMLInputElement>, 'value'>
+    & Pick<InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, "onFocus" | "onBlur" | "readOnly"> // & Omit<InputHTMLAttributes<HTMLInputElement>, "value">
     & {
         className?: string;
     }

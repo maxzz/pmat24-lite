@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { type Getter, type Setter, type SetStateAction, PrimitiveAtom, atom, useSetAtom } from 'jotai'; //https://jotai.org/docs/recipes/atom-with-listeners //GH: 'atomWithListeners path:*.ts'
+import { useEffect } from "react";
+import { type Getter, type Setter, type SetStateAction, PrimitiveAtom, atom, useSetAtom } from "jotai"; //https://jotai.org/docs/recipes/atom-with-listeners //GH: "atomWithListeners path:*.ts"
 
 export type AtomWithListeners<Value> = ReturnType<typeof atomWithListeners<Value>>;
 export type ListenerCallback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;
@@ -28,7 +28,7 @@ export function atomWithListeners<Value>(initialValue: Value): readonly [AtomAnd
         }
     );
 
-    const useListener = (callback: ListenerCallback<Value>): void => { // This is stable callback, it's created once when atom is created
+    const useListener = (callback: ListenerCallback<Value>): void => { // This is stable callback, it"s created once when atom is created
         const setListeners = useSetAtom(listenersAtom);
         useEffect(
             () => {

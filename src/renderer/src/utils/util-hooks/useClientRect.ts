@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 export function useClientRect<T extends HTMLElement = HTMLElement>(): readonly [(node: T) => void, DOMRect | null] {
     const [rect, setRect] = useState<DOMRect | null>(null);

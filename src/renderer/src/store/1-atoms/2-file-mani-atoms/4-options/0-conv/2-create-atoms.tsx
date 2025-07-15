@@ -1,5 +1,5 @@
-import { type Getter, type Setter } from 'jotai';
-import { atomWithCallback } from '@/utils';
+import { type Getter, type Setter } from "jotai";
+import { atomWithCallback } from "@/utils";
 import { type FormOptionsState } from "./9-types";
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNonEmptyWithMessage, validateNumber } from "@/ui";
 

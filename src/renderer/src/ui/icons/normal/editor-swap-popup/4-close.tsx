@@ -1,5 +1,5 @@
-import { HTMLAttributes, SVGAttributes } from 'react';
-import { classNames } from '@/utils'; // https://heroicons.com/close
+import { HTMLAttributes, SVGAttributes } from "react";
+import { classNames } from "@/utils"; // https://heroicons.com/close
 
 export function IconClose({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (

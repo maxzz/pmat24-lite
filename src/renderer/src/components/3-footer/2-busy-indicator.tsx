@@ -1,6 +1,6 @@
-import { useSnapshot } from 'valtio';
+import { useSnapshot } from "valtio";
 import { useSpring, a } from "@react-spring/web";
-import { busyIndicator } from '@/store';
+import { busyIndicator } from "@/store";
 import { IconRocket } from "@ui/icons";
 import css from "./2-busy-indicator.module.css";
 

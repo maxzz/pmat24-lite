@@ -2,7 +2,7 @@ import { type Getter, type Setter, atom } from "jotai";
 import { clamp } from "@/utils";
 import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
 import { type MFormProps, type MFormCnt, type MFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { ManualFieldConv } from "../../../0-conv";
+import { ManualFieldConv } from "../../../2-conv";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";
 import { asyncSelectPanelActionsList } from "./d-panel-actions-list-activation";
 

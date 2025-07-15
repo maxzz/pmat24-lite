@@ -1,4 +1,4 @@
-import { type Atomize } from '@/utils';
+import { type Atomize } from "@/utils";
 import { type Meta } from "@/store/manifest";
 
 export namespace SubmitFieldTypes {

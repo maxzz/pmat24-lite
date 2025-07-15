@@ -1,8 +1,8 @@
-import { InputHTMLAttributes } from 'react';
-import { PrimitiveAtom as PA, useAtomValue } from 'jotai';
-import { Mani } from '@/store/manifest';
-import { classNames } from '@/utils';
-import { FieldTypeIconComponent, fieldTypeTitle } from '@/store/manifest/manifest-field-icons';
+import { InputHTMLAttributes } from "react";
+import { PrimitiveAtom as PA, useAtomValue } from "jotai";
+import { Mani } from "@/store/manifest";
+import { classNames } from "@/utils";
+import { FieldTypeIconComponent, fieldTypeTitle } from "@/store/manifest/manifest-field-icons";
 
 const column2_TypeClasses = "\
 size-7 pt-1 text-[.6rem] \

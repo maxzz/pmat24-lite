@@ -1,4 +1,4 @@
-import { atom } from 'jotai';
+import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 
 // Files

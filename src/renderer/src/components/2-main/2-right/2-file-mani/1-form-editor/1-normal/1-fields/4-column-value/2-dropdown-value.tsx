@@ -1,7 +1,7 @@
-import { type PrimitiveAtom } from 'jotai';
-import * as M from '@radix-ui/react-dropdown-menu';
-import { SymbolChevronDown, SymbolDot } from '@ui/icons';
-import { classNames } from '@/utils';
+import { type PrimitiveAtom } from "jotai";
+import * as M from "@radix-ui/react-dropdown-menu";
+import { SymbolChevronDown, SymbolDot } from "@ui/icons";
+import { classNames } from "@/utils";
 
 const menuContentClasses = "\
 py-1 max-h-[50vh] \

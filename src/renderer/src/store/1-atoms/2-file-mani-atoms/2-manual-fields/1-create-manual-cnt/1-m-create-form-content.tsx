@@ -3,9 +3,9 @@ import { atomWithCallback, debounce } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type EditorDataForOne, FormIdx, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
-import { type ManualFieldState, ManualFieldConv } from "../0-conv";
+import { type ManualFieldState, ManualFieldConv } from "../2-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { createManualAtom } from "../0-conv/1-m-create-atoms";
+import { createManualAtom } from "../2-conv/1-m-create-atoms";
 
 export namespace ManualFieldsState {
 

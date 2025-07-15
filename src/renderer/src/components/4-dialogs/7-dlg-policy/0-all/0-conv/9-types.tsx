@@ -1,4 +1,4 @@
-import { type Atomize } from '@/utils';
+import { type Atomize } from "@/utils";
 import { type Mani } from "@/store/manifest";
 import { type RowInputState } from "@/ui";
 import { type PolicyParser } from "@/store/manifest/3-policy-io";

@@ -1,5 +1,5 @@
-import { type JSX, useState } from 'react';
-import { hasMain } from '@/xternal-to-main';
+import { type JSX, useState } from "react";
+import { hasMain } from "@/xternal-to-main";
 
 export function Versions(): JSX.Element {
     //TODO: if (!hasMain()) { this is not working yet

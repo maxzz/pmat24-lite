@@ -1,7 +1,7 @@
-import { useCallback, useRef, KeyboardEvent, Fragment, RefObject } from 'react';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
-// import * as Separator from '@radix-ui/react-separator';
-import { FocusScope } from '@radix-ui/react-focus-scope';
+import { useCallback, useRef, KeyboardEvent, Fragment, RefObject } from "react";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
+// import * as Separator from "@radix-ui/react-separator";
+import { FocusScope } from "@radix-ui/react-focus-scope";
 
 type ListItem = {
     id: string;

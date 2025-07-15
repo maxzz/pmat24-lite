@@ -5,7 +5,7 @@ import { classNames, type ThemeMode } from "@/utils";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./dropdown-menu";
 import { Button } from "./button";
 import { IconDark, IconLight, IconSystem } from "../icons/normal";
-import { ChevronDown, CheckIcon } from 'lucide-react';
+import { ChevronDown, CheckIcon } from "lucide-react";
 
 export function ThemeSwitch({className, ...rest}: ComponentPropsWithoutRef<"div">) {
     const { theme: snapTheme } = useSnapshot(appSettings).appUi;

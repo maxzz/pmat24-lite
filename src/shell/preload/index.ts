@@ -1,6 +1,6 @@
 import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
-import { statSync } from 'fs';
+import { statSync } from "fs";
 
 // Custom APIs for renderer
 const api: TmApi = {

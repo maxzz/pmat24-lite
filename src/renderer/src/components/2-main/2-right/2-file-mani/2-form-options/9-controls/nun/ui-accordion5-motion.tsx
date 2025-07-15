@@ -1,6 +1,6 @@
 //"use client"; //https://github.com/maxzz/test-motion-primitives/blob/main/src/assets/samples/FAQ%20Sections/1.tsx
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from './ui-accordion-motion';
-import { ChevronUp } from 'lucide-react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from "./ui-accordion-motion";
+import { ChevronUp } from "lucide-react";
 
 export function UiAccordion5Example() {
     return (

@@ -1,5 +1,5 @@
 import { type HTMLAttributes, type ReactNode } from "react";
-import * as Select from '@radix-ui/react-select';
+import * as Select from "@radix-ui/react-select";
 import { SymbolChevronDown } from "@ui/icons";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { classNames } from "@/utils";

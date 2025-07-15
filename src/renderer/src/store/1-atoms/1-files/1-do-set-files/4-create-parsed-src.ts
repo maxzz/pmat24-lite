@@ -1,7 +1,7 @@
-import { atom } from 'jotai';
-import { type FileUs, type ParsedSrc, type FileUsStats } from '@/store';
-import { type FileContent } from '@shared/ipc-types';
-import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx, createGuid } from '@/store/manifest';
+import { atom } from "jotai";
+import { type FileUs, type ParsedSrc, type FileUsStats } from "@/store";
+import { type FileContent } from "@shared/ipc-types";
+import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx, createGuid } from "@/store/manifest";
 
 export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = { mani: undefined, meta: undefined, fcat: undefined, stats: {} as FileUsStats, }; // the real stats will be assigned after parsing content

@@ -1,7 +1,7 @@
 // 5-row-input-w-atom-ai-ideas.tsx
 
-import { useEffect, useState } from 'react';
-import { PrimitiveAtom, useAtom } from 'jotai';
+import { useEffect, useState } from "react";
+import { PrimitiveAtom, useAtom } from "jotai";
 
 function validateError(value: string) {
     return value === '111' ? '' : `Value ${value} is invalid, should be 111`;

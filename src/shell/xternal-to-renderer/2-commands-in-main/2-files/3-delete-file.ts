@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { errorToString } from '@shell/3-utils-main';
+import fs from "fs";
+import path from "path";
+import { errorToString } from "@shell/3-utils-main";
 
 /**
  * Delete file (not directory) from renderer in the main process.

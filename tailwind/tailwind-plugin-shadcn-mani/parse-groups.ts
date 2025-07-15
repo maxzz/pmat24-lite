@@ -1,5 +1,5 @@
 import { FileThemes } from "./parse-lines";
-import type { RecursiveKeyValuePair } from 'tailwindcss/types/config';
+import type { RecursiveKeyValuePair } from "tailwindcss/types/config";
 
 /**
 *```

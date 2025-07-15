@@ -1,9 +1,9 @@
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useKey } from 'react-use';
-import { Dialog, DialogDescription, DialogFooter, Button } from '@/ui/shadcn';
-import { InputWithTitle2Rows } from '@/ui/local-ui';
-import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from '@/store';
-import { DialogTitleHeader } from './3-dialog-title-header';
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useKey } from "react-use";
+import { Dialog, DialogDescription, DialogFooter, Button } from "@/ui/shadcn";
+import { InputWithTitle2Rows } from "@/ui/local-ui";
+import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from "@/store";
+import { DialogTitleHeader } from "./3-dialog-title-header";
 
 export function ManiNameDialog() {
     const maniNameDlgClose = useSetAtom(maniNameDlgCloseAtom);

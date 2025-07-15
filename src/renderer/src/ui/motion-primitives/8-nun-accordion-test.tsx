@@ -1,5 +1,5 @@
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from './1-accordion'; //https://motion-primitives.com/docs/accordion
-import { ChevronRight } from 'lucide-react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from "./1-accordion"; //https://motion-primitives.com/docs/accordion
+import { ChevronRight } from "lucide-react";
 
 export function TestAccordionVariant() {
     return (

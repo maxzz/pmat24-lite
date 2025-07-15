@@ -1,6 +1,6 @@
-import { proxy } from 'valtio';
-import { atomWithProxy } from 'jotai-valtio';
-import { type PosTrackerCbType } from '@shared/ipc-types';
+import { proxy } from "valtio";
+import { atomWithProxy } from "jotai-valtio";
+import { type PosTrackerCbType } from "@shared/ipc-types";
 
 // Build state
 

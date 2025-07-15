@@ -1,7 +1,7 @@
-import { type InputHTMLAttributes } from 'react';
-import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { classNames, turnOffAutoComplete } from '@/utils';
-import { type FieldHighlightCtx, doHighlightControlAtom } from '@/store';
+import { type InputHTMLAttributes } from "react";
+import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { classNames, turnOffAutoComplete } from "@/utils";
+import { type FieldHighlightCtx, doHighlightControlAtom } from "@/store";
 
 type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;

@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 import { a, useSpring } from "@react-spring/web";
-import { classNames } from '@/utils';
+import { classNames } from "@/utils";
 
 export function UiArrow({ open, className, ...rest }: { open: boolean; } & SVGAttributes<SVGSVGElement>) {
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from "react";
 /*
 export function useRefSize2() { //https://github.com/ZeeCoder/use-resize-observer/issues/108
     const [size, setSize] = useState<DOMRect>(defaultRect);

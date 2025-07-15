@@ -1,4 +1,4 @@
-import { R2MCalls } from '@/xternal-to-main';
+import { R2MCalls } from "@/xternal-to-main";
 
 // Non-reactive Napi reentrancy lock
 

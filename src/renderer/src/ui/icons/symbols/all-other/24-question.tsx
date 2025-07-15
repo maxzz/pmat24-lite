@@ -1,5 +1,5 @@
-import { HTMLAttributes, SVGAttributes } from 'react'; //https://lucide.dev/icons/circle-help
-import { classNames } from '@/utils';
+import { HTMLAttributes, SVGAttributes } from "react"; //https://lucide.dev/icons/circle-help
+import { classNames } from "@/utils";
 
 export function SvgSymbolQuestion() {
     return (<>

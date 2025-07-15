@@ -1,7 +1,7 @@
-import { atom } from 'jotai';
-import { type ConfirmationMessages, doAsyncConfirmDialogAtom } from './2-confirm-delete-atoms';
-import { removeFromDirsMru } from '../../1-files/0-files-atom/4-mru-dirs';
-import { type PmatFolder } from '../../1-files';
+import { atom } from "jotai";
+import { type ConfirmationMessages, doAsyncConfirmDialogAtom } from "./2-confirm-delete-atoms";
+import { removeFromDirsMru } from "../../1-files/0-files-atom/4-mru-dirs";
+import { type PmatFolder } from "../../1-files";
 
 export const confirmDeleteMessages: ConfirmationMessages = {
     title: 'Delete file?',

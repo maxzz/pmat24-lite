@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'; // GAI: react global double shortcut key component
+import React, { useState, useEffect, useCallback } from "react"; // GAI: react global double shortcut key component
 
 export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: string[]; onMatch: () => void; timeout?: number; }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
@@ -47,7 +47,7 @@ export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: str
     return null;
 };
 
-//import React, { useEffect, useState } from 'react';
+//import React, { useEffect, useState } from "react";
 
 interface DoubleKeyShortcutProps {
     keys: [string, string];
@@ -99,8 +99,8 @@ export const DoubleKeyShortcutTs: React.FC<DoubleKeyShortcutProps> = ({ keys, on
 };
 
 /** /
-//import React from 'react';
-import DoubleKeyShortcut from './DoubleKeyShortcut';
+//import React from "react";
+import DoubleKeyShortcut from "./DoubleKeyShortcut";
 
 const MyComponent = () => {
     function handleShortcutMatch() {
@@ -118,8 +118,8 @@ export default MyComponent;
 /**/
 
 /** /
-//import React, { useEffect, useState } from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
+//import React, { useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 interface DoubleShortcutProps {
     firstKey: string;
@@ -173,7 +173,7 @@ const DoubleShortcut3: React.FC<DoubleShortcutProps> = ({ firstKey, secondKey, o
     return null; // This component doesn't render anything visually.
 };
 
-import DoubleShortcut from './DoubleShortcut';
+import DoubleShortcut from "./DoubleShortcut";
 
 function App() {
     function handleMyDoubleShortcut() {

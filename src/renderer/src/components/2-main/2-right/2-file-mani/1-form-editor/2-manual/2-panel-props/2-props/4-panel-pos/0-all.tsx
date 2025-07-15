@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { doHighlightControlAtom } from '@/store';
+import { doHighlightControlAtom } from "@/store";
 import { ButtonHighlightClick } from "./4-btn-hihglight-click";
 import { NewInputXY } from "./1-picker-dnd-w-napi";
 import { hasMain } from "@/xternal-to-main";

@@ -1,5 +1,5 @@
 import { type PrimitiveAtom } from "jotai";
-import { type AtomizeWithType } from '@/utils';
+import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui";
 import { type FormIdx } from "@/store/manifest";
 

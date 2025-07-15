@@ -1,5 +1,5 @@
-import { type HTMLAttributes, type SVGAttributes } from 'react';
-import { classNames } from '@/utils';
+import { type HTMLAttributes, type SVGAttributes } from "react";
+import { classNames } from "@/utils";
 
 export function IconDndTarget({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (

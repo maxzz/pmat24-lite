@@ -1,5 +1,5 @@
-import { HTMLAttributes } from 'react';
-import { classNames } from '@/utils';
+import { HTMLAttributes } from "react";
+import { classNames } from "@/utils";
 
 export function IconArrowDown({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (

@@ -1,5 +1,5 @@
-import { HTMLAttributes, SVGAttributes } from 'react'; // https://lucide.dev/icons/ellipsis
-import { classNames } from '@/utils';
+import { HTMLAttributes, SVGAttributes } from "react"; // https://lucide.dev/icons/ellipsis
+import { classNames } from "@/utils";
 
 export function SvgSymbolEllipsis() {
     return (<>

@@ -1,9 +1,9 @@
-import { type HTMLAttributes } from 'react';
-import { type SyntaxHighlighterProps } from 'react-syntax-highlighter';
-import { default as SyntaxHighlighter } from 'react-syntax-highlighter/dist/esm/light';
-import xml from 'react-syntax-highlighter/dist/esm/languages/hljs/xml';
-//import theme from './highlight-night-owl';
-import './highlight-inline.css';
+import { type HTMLAttributes } from "react";
+import { type SyntaxHighlighterProps } from "react-syntax-highlighter";
+import { default as SyntaxHighlighter } from "react-syntax-highlighter/dist/esm/light";
+import xml from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
+//import theme from "./highlight-night-owl";
+import "./highlight-inline.css";
 
 SyntaxHighlighter.registerLanguage('xml', xml); /* cannot use lazy load */
 

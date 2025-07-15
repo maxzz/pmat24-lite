@@ -1,5 +1,5 @@
-import { RefObject, useEffect, useRef } from 'react';
-import { on, off } from 'react-use/esm/misc/util';
+import { RefObject, useEffect, useRef } from "react";
+import { on, off } from "react-use/esm/misc/util";
 
 const defaultEvents = ['mousedown', 'touchstart'];
 

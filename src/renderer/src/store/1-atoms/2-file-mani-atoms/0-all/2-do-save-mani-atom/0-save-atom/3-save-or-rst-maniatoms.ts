@@ -1,5 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
-import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom, fileUsChanges } from '@/store';
+import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom, fileUsChanges } from "@/store";
 
 /**
  * @param fileUsAtom - fileUs to update

@@ -1,4 +1,4 @@
-import { type Atomize, type OnValueChangeAny, atomWithCallback } from '@/utils';
+import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/utils";
 import { type SubmitFieldTypes } from "./9-types";
 
 export function createAtoms(initialState: SubmitFieldTypes.ForAtoms, onChange: OnValueChangeAny): Atomize<SubmitFieldTypes.ForAtoms> {

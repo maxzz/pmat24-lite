@@ -1,1 +1,1 @@
-export * from './1-local-storage-debug';
+export * from "./1-local-storage-debug";

@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { classNames } from '@/utils';
+import { classNames } from "@/utils";
 
 export function Radio({ children, name, checked, onChange, className, ...rest }: { name: string; checked: boolean; } & HTMLAttributes<HTMLElement>) {
     return (

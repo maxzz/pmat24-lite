@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from "react";
 
 function RadioButton({ label, ...rest }: { label: string; } & InputHTMLAttributes<HTMLElement>) {
     return (

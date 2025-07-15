@@ -16,7 +16,7 @@ export * from "./round-int";
 export * from "./base64-to-buffer";
 export * from "./load-file-as-blob";
 export * from "./theme-apply";
-export * from './merge-options';
+export * from "./merge-options";
 export * from "./valtio-array";
 export * from "./verify-permission";
 

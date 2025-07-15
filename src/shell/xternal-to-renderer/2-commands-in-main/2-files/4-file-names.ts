@@ -1,6 +1,6 @@
-import path from 'path';
-import fs from 'fs';
-import { errorToString } from '@shell/3-utils-main';
+import path from "path";
+import fs from "fs";
+import { errorToString } from "@shell/3-utils-main";
 
 /**
  * Check if file from renderer exists in the main process.

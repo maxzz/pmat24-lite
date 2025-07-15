@@ -1,30 +1,30 @@
 //https://github.com/radix-ui/primitives/blob/74b182b401c8ca0fa5b66a5a9a47f507bb3d5adc/packages/react/select/src/Select.tsx "version": "2.1.2", 11.03.24
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { clamp } from '@radix-ui/number';
-import { composeEventHandlers } from '@radix-ui/primitive';
-import { createCollection } from '@radix-ui/react-collection';
-import { useComposedRefs } from '@radix-ui/react-compose-refs';
-import { createContextScope } from '@radix-ui/react-context';
-import { useDirection } from '@radix-ui/react-direction';
-import { DismissableLayer } from '@radix-ui/react-dismissable-layer';
-import { useFocusGuards } from '@radix-ui/react-focus-guards';
-import { FocusScope } from '@radix-ui/react-focus-scope';
-import { useId } from '@radix-ui/react-id';
-import * as PopperPrimitive from '@radix-ui/react-popper';
-import { createPopperScope } from '@radix-ui/react-popper';
-import { Portal as PortalPrimitive } from '@radix-ui/react-portal';
-import { Primitive } from '@radix-ui/react-primitive';
-import { Slot } from '@radix-ui/react-slot';
-import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
-import { useControllableState } from '@radix-ui/react-use-controllable-state';
-import { useLayoutEffect } from '@radix-ui/react-use-layout-effect';
-import { usePrevious } from '@radix-ui/react-use-previous';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { hideOthers } from 'aria-hidden';
-import { RemoveScroll } from 'react-remove-scroll';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { clamp } from "@radix-ui/number";
+import { composeEventHandlers } from "@radix-ui/primitive";
+import { createCollection } from "@radix-ui/react-collection";
+import { useComposedRefs } from "@radix-ui/react-compose-refs";
+import { createContextScope } from "@radix-ui/react-context";
+import { useDirection } from "@radix-ui/react-direction";
+import { DismissableLayer } from "@radix-ui/react-dismissable-layer";
+import { useFocusGuards } from "@radix-ui/react-focus-guards";
+import { FocusScope } from "@radix-ui/react-focus-scope";
+import { useId } from "@radix-ui/react-id";
+import * as PopperPrimitive from "@radix-ui/react-popper";
+import { createPopperScope } from "@radix-ui/react-popper";
+import { Portal as PortalPrimitive } from "@radix-ui/react-portal";
+import { Primitive } from "@radix-ui/react-primitive";
+import { Slot } from "@radix-ui/react-slot";
+import { useCallbackRef } from "@radix-ui/react-use-callback-ref";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { useLayoutEffect } from "@radix-ui/react-use-layout-effect";
+import { usePrevious } from "@radix-ui/react-use-previous";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { hideOthers } from "aria-hidden";
+import { RemoveScroll } from "react-remove-scroll";
 
-import type { Scope } from '@radix-ui/react-context';
+import type { Scope } from "@radix-ui/react-context";
 
 type Direction = 'ltr' | 'rtl';
 
