@@ -23,13 +23,13 @@ export namespace ManualFieldsState {
                 const onChangeProps: OnChangeProps = { fileUsCtx, maniAtoms, get, set };
 
                 //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
-                onChangeWithScopeDebounced(mFormCnt, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
+                onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
         function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[]; }) {
-            onChangeWithScopeDebounced(mFormCnt, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
+            onChangeWithScopeDebounced('order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
         const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, onChangeItem);
@@ -57,7 +57,7 @@ export namespace ManualFieldsState {
 
 } //namespace ManualFieldsState
 
-function createOnUpdatefunction(onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms) {
+function createOnUpdateItemCb(onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms) {
     function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
         const onChangeProps: OnChangeProps = { fileUsCtx, maniAtoms, get, set };
         //onChangeWithScope(onChangeProps, nextValue);
@@ -87,7 +87,7 @@ function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeV
 
 //type OnManualChangeItemProps = { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[]; };
 
-function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
+function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
     if (!manualFormAtoms) {
         return;
@@ -99,7 +99,7 @@ function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: Ma
         const changed = newChunksStr !== manualFormAtoms.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormCnt, get, set, nextValue });
+        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
         return;
     }
 
@@ -116,7 +116,7 @@ function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: Ma
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], mFormCnt, get, set, nextValue });
+    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
