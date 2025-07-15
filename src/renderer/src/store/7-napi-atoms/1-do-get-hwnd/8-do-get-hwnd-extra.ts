@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { WindowExtraResult, type R2MInvokeParams } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
+import { type WindowExtraResult, type R2MInvokeParams } from "@shared/ipc-types";
 
 export const asyncGetWindowExtrasAtom = atom(
     null,

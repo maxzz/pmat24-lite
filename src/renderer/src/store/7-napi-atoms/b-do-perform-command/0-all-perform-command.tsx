@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { PerformCommandParams } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
+import { type PerformCommandParams } from "@shared/ipc-types";
 
 export const doPerformCommandAtom = atom(
     null,
