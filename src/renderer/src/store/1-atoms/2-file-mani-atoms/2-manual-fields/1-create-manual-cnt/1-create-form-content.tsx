@@ -19,14 +19,14 @@ export namespace ManualFieldsState {
         const editorData = parseForEditor(fields);
 
         function onChangeItem(updateName: string) {
-            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
+            function onChangeWName({ get, set, nextValue }: OnManualChangeItemProps) {
                 //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
                 onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
             return onChangeWName;
         }
 
-        function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[]; }) {
+        function onChangeOrder({ get, set, nextValue }: OnManualChangeItemProps) {
             onChangeWithScopeDebounced(ctx, 'order', nextValue, { fileUsCtx, maniAtoms, get, set });
         }
 
@@ -53,11 +53,25 @@ export namespace ManualFieldsState {
 } //namespace ManualFieldsState
 
 function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx[] {
+    // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
     const ctxs = initialState.map(
-        (chunk, idx) => createManualAtom(chunk, onChange)
+        (chunk, idx) => {
+
+            // function onChangeItem(updateName: string) {
+            //     function onChangeWName({ get, set, nextValue }: OnManualChangeItemProps) {
+            //         //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
+            //         onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
+            //     };
+            //     return onChangeWName;
+            // }
+
+            return createManualAtom(chunk, onChange);
+        }
     );
     return ctxs;
 }
+
+type OnManualChangeItemProps = { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[]; };
 
 function onChangeWithScope(mFormCnt: MFormCnt, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, maniAtoms, get, set }: OnChangeProps) {
     const manualFormAtoms = maniAtoms[fileUsCtx.formIdx]!.manual;
