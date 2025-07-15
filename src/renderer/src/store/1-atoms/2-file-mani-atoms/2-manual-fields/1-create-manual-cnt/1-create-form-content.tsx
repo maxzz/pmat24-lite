@@ -20,6 +20,8 @@ export namespace ManualFieldsState {
 
         function onChangeItem(updateName: string) {
             function onChangeWName({ get, set, nextValue }: OnManualChangeItemProps) {
+                const onChangeProps: OnChangeProps = { fileUsCtx, maniAtoms, get, set };
+
                 //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
                 onChangeWithScopeDebounced(ctx, updateName, nextValue, { fileUsCtx, maniAtoms, get, set });
             };
@@ -44,7 +46,9 @@ export namespace ManualFieldsState {
     }
 
     export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
-        //const pnChangeProps: OnChangeProps = { fileUsCtx: mFormCnt.fileUsCtx, maniAtoms: mFormCnt.maniAtoms, get, set };
+        const maniAtoms = safeByContext(get(fileUsCtx.fileUs.maniAtomsAtom));
+        const onChangeProps: OnChangeProps = { fileUsCtx, maniAtoms, get, set };
+
         const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);
@@ -57,6 +61,7 @@ function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeV
     // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
     const ctxs = initialState.map(
         (chunk, idx) => {
+            //const onChangeProps: OnChangeProps = { fileUsCtx, maniAtoms, get, set };
 
             // function onChangeItem(updateName: string) {
             //     function onChangeWName({ get, set, nextValue }: OnManualChangeItemProps) {
