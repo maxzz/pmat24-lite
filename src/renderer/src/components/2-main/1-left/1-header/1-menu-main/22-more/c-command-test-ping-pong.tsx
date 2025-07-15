@@ -1,7 +1,7 @@
 import { atom, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
 import { asyncGetTlwInfos, asyncGetWindowExtrasAtom, doPerformCommandAtom } from "@/store/7-napi-atoms";
-import { TlwInfo, WindowExtra } from "@shared/ipc-types";
+import { type TlwInfo } from "@shared/ipc-types";
 
 export function MenuItem_TestPingPong() {
     const doPerformCommand = useSetAtom(getBrowserWindowAtom);
@@ -10,16 +10,11 @@ export function MenuItem_TestPingPong() {
         doPerformCommand();
     }
 
-    return (<>
+    return (
         <DropdownMenuItem onClick={onClick}>
             Command: Test Ping-Pong
         </DropdownMenuItem>
-    </>);
-}
-
-export async function asyncFindWindowByCaption({ caption, classname }: { caption: string; classname: string; }): Promise<TlwInfo | undefined> {
-    const rv = (await asyncGetTlwInfos()).find((item) => item.isBrowser);
-    return rv;
+    );
 }
 
 const getBrowserWindowAtom = atom(
@@ -28,10 +23,10 @@ const getBrowserWindowAtom = atom(
         const hwndInfos: TlwInfo[] = (await asyncGetTlwInfos()).filter((item) => item.isBrowser && item.classname === 'Chrome_WidgetWin_1' && !item.caption.includes('DevTools'));
         const hwnds = hwndInfos.map((item) => item.hwnd);
 
-        const { extra } = (await set(asyncGetWindowExtrasAtom, { hwnds }));
-        const browserWindow = extra.find((item) => !item.isClosed && item.process === 'msedge.exe');
+        const windowExtras = await set(asyncGetWindowExtrasAtom, { hwnds });
+        const browserWindow = windowExtras.extra.find((item) => !item.isClosed && item.process === 'msedge.exe');
 
-        console.log('get browser window', { hwndInfos, hwnds, windowExtra: extra, browserWindow });
+        console.log('get browser window', { hwndInfos, hwnds, windowExtra: windowExtras, browserWindow });
 
         if (!browserWindow) {
             console.log('no browser window');
