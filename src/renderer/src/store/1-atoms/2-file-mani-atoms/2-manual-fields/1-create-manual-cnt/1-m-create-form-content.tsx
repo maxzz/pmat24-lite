@@ -32,7 +32,7 @@ export namespace ManualFieldsState {
             onChangeWithScopeDebounced('order', nextValue, { fileUsCtx, get, set });
         }
 
-        const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, onChangeItem);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, onChangeItem, fileUsCtx);
 
         const mFormCnt: MFormCnt = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
@@ -46,10 +46,9 @@ export namespace ManualFieldsState {
     }
 
     export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
-        const maniAtoms = safeByContext(get(fileUsCtx.fileUs.maniAtomsAtom));
         const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
 
-        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem/*, onChangeProps*/);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem, fileUsCtx);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);
         mFormCnt.initialChunks = initialChunks;
@@ -57,19 +56,32 @@ export namespace ManualFieldsState {
 
 } //namespace ManualFieldsState
 
-function createOnUpdateItemCb(onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx) {
+function createOnUpdateItemCb(updateName: string, fileUsCtx: FileUsCtx) {
     function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
         const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-        //onChangeWithScope(onChangeProps, nextValue);
+        onChangeWithScope(updateName, nextValue, onChangeProps);
     };
     return onChangeWName;
 }
 
-function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName/*, onChangeProps: OnChangeProps*/): ManualFieldState.Ctx[] {
+function createOnUpdateItemCb2(fileUsCtx: FileUsCtx) {
+    function onChangeWName2(updateName: string) {
+        function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
+            const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
+            onChangeWithScope(updateName, nextValue, onChangeProps);
+        };
+        return onChangeWName;
+    }
+    return onChangeWName2;
+}
+
+function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
     // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
     const ctxs = initialState.map(
         (chunk, idx) => {
-            //const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
+            const name = '???'; //TODO:
+            const onChangeProps = createOnUpdateItemCb(name, fileUsCtx);
+            // const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
 
             // function onChangeItem(updateName: string) {
             //     function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
@@ -88,15 +100,15 @@ function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeV
 //type OnManualChangeItemProps = { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[]; };
 
 function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
-    const maniFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.manual;
-    if (!maniFormCtx) {
+    const mFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.manual;
+    if (!mFormCtx) {
         return;
     }
 
-    if (Array.isArray(nextValue)) { // called when chunks are reordered
-        const chunks = get(maniFormCtx.chunksAtom);
+    if (Array.isArray(nextValue)) { // called when chunks are re-ordered
+        const chunks = get(mFormCtx.chunksAtom);
         const newChunksStr = ManualFieldConv.chunksToCompareString(chunks);
-        const changed = newChunksStr !== maniFormCtx.initialChunks;
+        const changed = newChunksStr !== mFormCtx.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
         // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
