@@ -43,7 +43,8 @@ export namespace ManualFieldsState {
         return ctx;
     }
 
-    export function resetChunks(mFormCnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter) {
+    export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
+        //const pnChangeProps: OnChangeProps = { fileUsCtx: mFormCnt.fileUsCtx, maniAtoms: mFormCnt.maniAtoms, get, set };
         const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, mFormCnt.onChangeItem);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);

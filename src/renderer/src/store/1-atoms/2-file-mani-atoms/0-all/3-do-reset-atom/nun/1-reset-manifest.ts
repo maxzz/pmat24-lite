@@ -18,11 +18,11 @@ function resetForm(form: AnyFormCtx | undefined, formIdx: FormIdx, ctx: ResetMan
         resetFormOptions(form.options, formIdx, ctx);
 
         if (form.normal) {
-            resetNormalFieldsAndSubmit(form.normal, formIdx, ctx);
+            resetNormalFieldsAndSubmit(form.normal, form.fileUsCtx, ctx);
         }
 
         if (form.manual) {
-            resetManualFields(form.manual, formIdx, ctx);
+            resetManualFields(form.manual, form.fileUsCtx, ctx);
         }
     }
 }

@@ -1,11 +1,11 @@
-import { type EditorField, type FormIdx } from "@/store/manifest";
-import { type NFormCnt } from "../../../9-types";
+import { type EditorField } from "@/store/manifest";
+import { type FileUsCtx, type NFormCnt } from "../../../9-types";
 import { type ResetManifestCtx } from "./9-types";
 import { NormalFieldConv, SubmitConv, type SubmitFieldTypes } from "../../../1-normal-fields";
 
-export function resetNormalFieldsAndSubmit(cnt: NFormCnt, formIdx: FormIdx, ctx: ResetManifestCtx) {
+export function resetNormalFieldsAndSubmit(nFormCnt: NFormCnt, fileUsCtx: FileUsCtx, ctx: ResetManifestCtx) {
+    const { rowCtxs, submitCtx } = nFormCnt;
     const { get, set } = ctx;
-    const { rowCtxs, submitCtx } = cnt;
 
     rowCtxs.forEach(
         (rowCtx) => {
