@@ -32,13 +32,13 @@ export namespace ManualFieldsState {
             onChangeWithScopeDebounced('order', nextValue, { fileUsCtx, get, set });
         }
 
-        const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, onChangeItem, fileUsCtx);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, fileUsCtx);
 
         const mFormCnt: MFormCnt = {
             chunksAtom: atomWithCallback(chunks, onChangeOrder),
             initialChunks: ManualFieldConv.chunksToCompareString(chunks),
             selectedIdxStoreAtom: atom(0),
-            onChangeItem,
+            onChangeItem: createOnUpdateItemCb(fileUsCtx),
             onChangeOrder,
             fromFile: editorData,
         };
@@ -48,7 +48,7 @@ export namespace ManualFieldsState {
     export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
         const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
 
-        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, createOnUpdateItemCb(fileUsCtx), fileUsCtx);
+        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, fileUsCtx);
         const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
         set(mFormCnt.chunksAtom, chunks);
         mFormCnt.initialChunks = initialChunks;
@@ -67,7 +67,7 @@ function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
     return scopeName;
 }
 
-function createManualAtoms(initialState: EditorDataForOne[], onChange: OnChangeValueWithUpdateName, fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
+function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
     // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
     const ctxs = initialState.map(
         (chunk, idx) => {
