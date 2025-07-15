@@ -59,14 +59,15 @@ export namespace ManualFieldsState {
 function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
     function scopeName(updateName: string) {
         console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
-        
+
         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
             const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
             onChangeWithScope(updateName, nextValue, onChangeProps);
-        };
-        return debounce(scopeNameAndAtomsAccess, 2000);
+        }
+
+        return scopeNameAndAtomsAccess;
     }
-    return scopeName;
+    return debounce(scopeName, 2000) as typeof scopeName;
 }
 
 function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
@@ -110,7 +111,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-    // console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
+    console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
 }
 
 const onChangeWithScopeDebounced = debounce(onChangeWithScope);
