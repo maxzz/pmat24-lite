@@ -58,11 +58,13 @@ export namespace ManualFieldsState {
 
 function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
     function scopeName(updateName: string) {
+        console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
+        
         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
             const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
             onChangeWithScope(updateName, nextValue, onChangeProps);
         };
-        return debounce(scopeNameAndAtomsAccess);
+        return debounce(scopeNameAndAtomsAccess, 2000);
     }
     return scopeName;
 }
