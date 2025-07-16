@@ -13,10 +13,10 @@ export namespace ManualFieldsState {
         const metaForm = safeByContext(fileUs?.parsedSrc?.meta)[formIdx]; // We are under createFormAtoms umbrella
         const editorData = parseForEditor(metaForm?.fields || []);
 
-        const onChangeWithScopeDebounced = debounce(onChangeWithScope);
+        const debouncedOnChangeOrderWithScope = debounce(onChangeWithScope);
 
         function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[]; }) {
-            onChangeWithScopeDebounced('order', nextValue, { fileUsCtx, get, set });
+            debouncedOnChangeOrderWithScope('order', nextValue, { fileUsCtx, get, set });
         }
 
         const chunks: ManualFieldState.Ctx[] = createManualAtoms(editorData, fileUsCtx);
@@ -35,7 +35,7 @@ export namespace ManualFieldsState {
     export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
         const newChunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, fileUsCtx);
         const newChunksStr = ManualFieldConv.chunksToCompareString(newChunks);
-        
+
         set(mFormCnt.chunksAtom, newChunks);
         mFormCnt.initialChunks = newChunksStr;
     }
@@ -54,11 +54,11 @@ function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCt
 // Debounced callback and callback
 
 function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
-    const localOnChangeWithScope = debounce(onChangeWithScope, 200); // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
+    const debouncedOnChangeWithScope = debounce(onChangeWithScope, 200); // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
 
     function scopeName(updateName: string) {
         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
-            localOnChangeWithScope(updateName, nextValue, { fileUsCtx, get, set });
+            debouncedOnChangeWithScope(updateName, nextValue, { fileUsCtx, get, set });
         }
         return scopeNameAndAtomsAccess;
     }

@@ -9,10 +9,10 @@ export namespace NormalSubmitState {
         const metaForm = safeByContext(fileUs?.parsedSrc?.meta)[formIdx] || []; // We are under createFormAtoms umbrella
         const forAtoms = SubmitConv.forAtoms(metaForm);
 
-        const debouncedScopeFileUsCtxAndAtomsAccess = debounce(onChangeWithScope);
+        const debouncedOnChangeWithScope = debounce(onChangeWithScope);
 
         const onChange = ({ get, set }) => {
-            debouncedScopeFileUsCtxAndAtomsAccess({ fileUsCtx, get, set });
+            debouncedOnChangeWithScope({ fileUsCtx, get, set });
         };
 
         const rv: SubmitFieldTypes.Ctx = {

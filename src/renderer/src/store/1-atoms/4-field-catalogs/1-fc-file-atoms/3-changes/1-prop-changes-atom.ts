@@ -18,8 +18,8 @@ export const doFcePropChangesAtom = atom(
             return;
         }
 
-        debouncedHandleFcePropChanges(selectedItem, props, get, set); //TODO: perhaps not a good idea to debounce changes on object members
+        debouncedOnChangeFcePropWithScope(selectedItem, props, get, set); //TODO: perhaps not a good idea to debounce changes on object members
     },
 );
 
-const debouncedHandleFcePropChanges = debounce(handleFcePropChanges, 500);
+const debouncedOnChangeFcePropWithScope = debounce(handleFcePropChanges, 500);

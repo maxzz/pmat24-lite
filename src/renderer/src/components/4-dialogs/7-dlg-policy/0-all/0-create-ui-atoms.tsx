@@ -27,4 +27,4 @@ function onChangeWithScope(dlgUiAtoms: PolicyDlgTypes.PolicyUiCtx, get: Getter, 
     dlgUiAtoms.changed = changed;
 }
 
-export const onChangeWithScopeDebounced = debounce(onChangeWithScope);
+export const debouncedOnChangeWithScope = debounce(onChangeWithScope);

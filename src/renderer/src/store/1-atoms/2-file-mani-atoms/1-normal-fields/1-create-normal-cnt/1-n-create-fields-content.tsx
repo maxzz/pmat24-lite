@@ -18,10 +18,10 @@ export namespace NormalFieldsState {
 } //namespace NormalFieldsState
 
 function createNormalAtomsForRow(field: Meta.Field, fieldIdx: number, fileUsCtx: FileUsCtx): FieldRowCtx {
-    const debouncedScopeFileUsCtxAndAtomsAccess = debounce(onChangeWithScope);
+    const debouncedOnChangeWithScope = debounce(onChangeWithScope);
 
     function onChange({ get, set }: { get: Getter, set: Setter; }) {
-        debouncedScopeFileUsCtxAndAtomsAccess(fieldIdx, { fileUsCtx, get, set });
+        debouncedOnChangeWithScope(fieldIdx, { fileUsCtx, get, set });
     }
 
     const rv = createUiRowAtoms(field, onChange);
