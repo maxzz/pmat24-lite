@@ -1,17 +1,18 @@
 import { debounce } from "@/utils";
-import { type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeManiAtomsFromFileUsCtx } from "../../9-types";
+import { type FileUsCtx, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type SubmitFieldTypes, SubmitConv } from "../2-conv-submit";
 
 export namespace NormalSubmitState {
 
     export function createSubmitCnt(fileUsCtx: FileUsCtx): SubmitFieldTypes.Ctx {
-
         const { fileUs, formIdx } = fileUsCtx;
-        const metaForm = fileUs.parsedSrc.meta?.[formIdx]!; // We are under createFormAtoms umbrella, so we can safely use ! here
+        const metaForm = safeByContext(fileUs?.parsedSrc?.meta)[formIdx] || []; // We are under createFormAtoms umbrella
         const forAtoms = SubmitConv.forAtoms(metaForm);
 
+        const debouncedScopeFileUsCtxAndAtomsAccess = debounce(onChangeWithScope);
+
         const onChange = ({ get, set }) => {
-            onChangeWithScopeDebounced({ fileUsCtx, get, set });
+            debouncedScopeFileUsCtxAndAtomsAccess({ fileUsCtx, get, set });
         };
 
         const rv: SubmitFieldTypes.Ctx = {
@@ -23,7 +24,10 @@ export namespace NormalSubmitState {
 
         return rv;
     }
-}
+
+} //namespace NormalSubmitState
+
+// Callback
 
 function onChangeWithScope({ fileUsCtx, get, set }: OnChangeProps) {
     const nFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.normal;
@@ -38,4 +42,3 @@ function onChangeWithScope({ fileUsCtx, get, set }: OnChangeProps) {
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-submit`);
 }
 
-const onChangeWithScopeDebounced = debounce(onChangeWithScope);

@@ -9,5 +9,4 @@ export namespace NormalModeState {
             submitCtx: NormalSubmitState.createSubmitCnt(fileUsCtx),
         };
     }
-
 }

@@ -10,6 +10,8 @@ export namespace OptionsState {
 
     export function createAtoms(fileUsCtx: FileUsCtx): Atoms {
 
+        const onChangeWithScopeDebounced = debounce(onChangeWithScope);
+
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {
                 onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, get, set });
@@ -38,5 +40,3 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
 }
-
-const onChangeWithScopeDebounced = debounce(onChangeWithScope);
