@@ -57,18 +57,38 @@ export namespace ManualFieldsState {
 } //namespace ManualFieldsState
 
 function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
+
+    const localDebounced = debounce(onChangeWithScope, 2000);
+    
     function scopeName(updateName: string) {
         console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
 
         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
             const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-            onChangeWithScope(updateName, nextValue, onChangeProps);
+            localDebounced(updateName, nextValue, onChangeProps);
         }
 
         return scopeNameAndAtomsAccess;
     }
-    return debounce(scopeName, 2000) as typeof scopeName;
+    // return debounce(scopeName, 2000) as typeof scopeName;
+    return scopeName;
 }
+
+// function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
+
+//     function scopeName(updateName: string) {
+//         console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
+
+//         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
+//             const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
+//             onChangeWithScope(updateName, nextValue, onChangeProps);
+//         }
+
+//         return scopeNameAndAtomsAccess;
+//     }
+//     // return debounce(scopeName, 2000) as typeof scopeName;
+//     return scopeName;
+// }
 
 function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
     // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
