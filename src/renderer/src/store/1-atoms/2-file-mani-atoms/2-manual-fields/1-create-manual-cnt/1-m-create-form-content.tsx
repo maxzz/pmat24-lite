@@ -1,28 +1,17 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
-import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
+import { type MFormCnt, type FileUsCtx, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-conv";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createManualAtom } from "../2-conv/1-m-create-atoms";
 
 export namespace ManualFieldsState {
 
-    export function createManualFormCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): MFormCnt {
+    export function createManualFormCnt(fileUsCtx: FileUsCtx): MFormCnt {
         const { fileUs, formIdx } = fileUsCtx;
-
         const metaForm = safeByContext(fileUs?.parsedSrc?.meta)[formIdx]; // We are under createFormAtoms umbrella
-
-        const fields = metaForm.fields || [];
-
-        const editorData = parseForEditor(fields);
-
-        function onChangeItem(updateName: string) {
-            function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
-                onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, get, set });
-            };
-            return scopeNameAndAtomsAccess;
-        }
+        const editorData = parseForEditor(metaForm?.fields || []);
 
         const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 
@@ -44,12 +33,11 @@ export namespace ManualFieldsState {
     }
 
     export function resetChunks(mFormCnt: MFormCnt, fileUsCtx: FileUsCtx, get: Getter, set: Setter) {
-        const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-
-        const chunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, fileUsCtx);
-        const initialChunks = ManualFieldConv.chunksToCompareString(chunks);
-        set(mFormCnt.chunksAtom, chunks);
-        mFormCnt.initialChunks = initialChunks;
+        const newChunks: ManualFieldState.Ctx[] = createManualAtoms(mFormCnt.fromFile, fileUsCtx);
+        const newChunksStr = ManualFieldConv.chunksToCompareString(newChunks);
+        
+        set(mFormCnt.chunksAtom, newChunks);
+        mFormCnt.initialChunks = newChunksStr;
     }
 
 } //namespace ManualFieldsState

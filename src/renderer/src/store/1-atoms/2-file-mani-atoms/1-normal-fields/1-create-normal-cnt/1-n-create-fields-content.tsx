@@ -2,11 +2,11 @@ import { atom, type Getter, type Setter } from "jotai";
 import { type OnValueChangeAny, debounce } from "@/utils";
 import { convFieldForEditor, FieldTyp, type Meta } from "@/store/manifest";
 import { NormalFieldConv } from "../2-conv-field-tems";
-import { type OnChangeProps, fileUsChanges, type FileUsCtx, type ManiAtoms, type FieldRowCtx, safeManiAtomsFromFileUsCtx } from "../../9-types";
+import { type OnChangeProps, fileUsChanges, type FileUsCtx, type FieldRowCtx, safeManiAtomsFromFileUsCtx } from "../../9-types";
 
 export namespace NormalFieldsState {
 
-    export function createFieldsCnt(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): FieldRowCtx[] {
+    export function createFieldsCnt(fileUsCtx: FileUsCtx): FieldRowCtx[] {
 
         const { fileUs, formIdx } = fileUsCtx;
 
@@ -15,11 +15,11 @@ export namespace NormalFieldsState {
         const fields = metaForm.fields || [];
         const nonButtonFields = fields.filter((field) => field.ftyp !== FieldTyp.button);
 
-        const rv = nonButtonFields.map((field, idx) => mapMetaFieldToFieldRowAtoms(field, idx, fileUsCtx, maniAtoms));
+        const rv = nonButtonFields.map((field, idx) => mapMetaFieldToFieldRowAtoms(field, idx, fileUsCtx));
         return rv;
     }
 
-    function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): FieldRowCtx {
+    function mapMetaFieldToFieldRowAtoms(field: Meta.Field, idx: number, fileUsCtx: FileUsCtx): FieldRowCtx {
 
         function onChange({ get, set }: { get: Getter, set: Setter; }) {
             onChangeWithScopeDebounced(idx, { fileUsCtx, get, set });
