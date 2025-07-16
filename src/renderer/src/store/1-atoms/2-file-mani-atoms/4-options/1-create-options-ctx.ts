@@ -8,7 +8,7 @@ export namespace OptionsState {
 
     export type Atoms = FormOptionsState.AllAtoms;
 
-    export function createAtoms(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): Atoms {
+    export function createAtoms(fileUsCtx: FileUsCtx): Atoms {
 
         const onChange = (updateName: string): OnValueChange<RowInputState> => {
             return ({ get, set, nextValue }) => {

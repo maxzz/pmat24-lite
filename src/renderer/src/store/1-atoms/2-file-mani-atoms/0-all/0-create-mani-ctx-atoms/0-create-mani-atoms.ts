@@ -21,8 +21,8 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const rv: any = [];
         const maniAtoms = rv as ManiAtoms;
 
-        const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login }, maniAtoms);
-        const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass }, maniAtoms);
+        const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login });
+        const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass });
 
         rv.push(loginFormCtx);
         rv.push(cpassFormCtx);
@@ -37,7 +37,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const cpassScope: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
-        const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope, rv));
+        const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope));
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
@@ -53,7 +53,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
     }
 }
 
-function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx | undefined {
+function createFormCtx(fileUsCtx: FileUsCtx): AnyFormCtx | undefined {
 
     const { fileUs, formIdx } = fileUsCtx;
     const metaForm = fileUs.parsedSrc.meta?.[formIdx]; // This is parent's umbrella, so we can safely use ! enywhere under it
@@ -67,7 +67,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
     if (metaForm.disp.isScript) {
         manual = ManualFieldsState.createManualFormCnt(fileUsCtx);
     } else {
-        normal = NormalModeState.createNormalFormCnt(fileUsCtx, maniAtoms);
+        normal = NormalModeState.createNormalFormCnt(fileUsCtx);
     }
     //console.log(`%c🥑 createFormFieldsAtom ${formIdx ? 'cpass' : 'login'} normal:%o manual:%o`, 'color: magenta', normal, manual);
 
@@ -75,7 +75,7 @@ function createFormCtx(fileUsCtx: FileUsCtx, maniAtoms: ManiAtoms): AnyFormCtx |
         normal,
         manual,
         fieldsAtom: createFormFieldsAtom(normal, manual, formIdx),
-        options: OptionsState.createAtoms(fileUsCtx, maniAtoms),
+        options: OptionsState.createAtoms(fileUsCtx),
         fileUsCtx: fileUsCtx,
     };
 
