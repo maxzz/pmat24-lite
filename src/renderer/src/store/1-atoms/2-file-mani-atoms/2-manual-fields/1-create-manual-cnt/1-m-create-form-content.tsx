@@ -1,6 +1,5 @@
 import { type Getter, type Setter, atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
-import { type OnChangeValueWithUpdateName } from "@/ui";
 import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type ManiAtoms, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-conv";
@@ -19,14 +18,13 @@ export namespace ManualFieldsState {
         const editorData = parseForEditor(fields);
 
         function onChangeItem(updateName: string) {
-            function onChangeWName({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
-                const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-
-                //console.log(`createManualFormCnt.onChangeItem ${updateName}`, { nextValue });
+            function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
                 onChangeWithScopeDebounced(updateName, nextValue, { fileUsCtx, get, set });
             };
-            return onChangeWName;
+            return scopeNameAndAtomsAccess;
         }
+
+        const onChangeWithScopeDebounced = debounce(onChangeWithScope);
 
         function onChangeOrder({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx[]; }) {
             onChangeWithScopeDebounced('order', nextValue, { fileUsCtx, get, set });
@@ -56,42 +54,7 @@ export namespace ManualFieldsState {
 
 } //namespace ManualFieldsState
 
-function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
-
-    const localDebounced = debounce(onChangeWithScope, 2000);
-    
-    function scopeName(updateName: string) {
-        console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
-
-        function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
-            const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-            localDebounced(updateName, nextValue, onChangeProps);
-        }
-
-        return scopeNameAndAtomsAccess;
-    }
-    // return debounce(scopeName, 2000) as typeof scopeName;
-    return scopeName;
-}
-
-// function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
-
-//     function scopeName(updateName: string) {
-//         console.log(`createOnUpdateItemCb scopeName: ${updateName}`);
-
-//         function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
-//             const onChangeProps: OnChangeProps = { fileUsCtx, get, set };
-//             onChangeWithScope(updateName, nextValue, onChangeProps);
-//         }
-
-//         return scopeNameAndAtomsAccess;
-//     }
-//     // return debounce(scopeName, 2000) as typeof scopeName;
-//     return scopeName;
-// }
-
 function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCtx): ManualFieldState.Ctx[] {
-    // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
     const ctxs = initialState.map(
         (chunk, idx) => {
             return createManualAtom(chunk, createOnUpdateItemCb(fileUsCtx));
@@ -100,7 +63,20 @@ function createManualAtoms(initialState: EditorDataForOne[], fileUsCtx: FileUsCt
     return ctxs;
 }
 
-//type OnManualChangeItemProps = { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[]; };
+// Debounced callback and callback
+
+function createOnUpdateItemCb(fileUsCtx: FileUsCtx) {
+    const localOnChangeWithScope = debounce(onChangeWithScope, 200); // If any two values can be changed in the same time, then we should not use shared debounced function (case: uuid change and any other change).
+
+    function scopeName(updateName: string) {
+        function scopeNameAndAtomsAccess({ get, set, nextValue }: { get: Getter, set: Setter, nextValue: ManualFieldState.Ctx; }) {
+            localOnChangeWithScope(updateName, nextValue, { fileUsCtx, get, set });
+        }
+        return scopeNameAndAtomsAccess;
+    }
+
+    return scopeName;
+}
 
 function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
     const mFormCtx = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.manual;
@@ -108,13 +84,13 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
         return;
     }
 
-    if (Array.isArray(nextValue)) { // called when chunks are re-ordered
+    if (Array.isArray(nextValue)) { // This call when chunks are re-ordered
         const chunks = get(mFormCtx.chunksAtom);
         const newChunksStr = ManualFieldConv.chunksToCompareString(chunks);
         const changed = newChunksStr !== mFormCtx.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-        // console.log(`on Change w/ scope form "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
+        //printChanges('onChangeWScope.chunks', updateName, nextValue, { fileUsCtx, get, set });
         return;
     }
 
@@ -131,7 +107,11 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
-    console.log(`on Change w/ scope item "${updateName}"`, { chg: [...fileUsCtx.fileUs.fileCnt.changesSet], get, set, nextValue });
+    //printChanges('onChangeWScope.item', updateName, nextValue, { fileUsCtx, get, set });
 }
 
-const onChangeWithScopeDebounced = debounce(onChangeWithScope);
+// Utilities
+
+function printChanges(label: string, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
+    console.log(`${label}: "${updateName}" chg:`, JSON.stringify([...fileUsCtx.fileUs.fileCnt.changesSet]), { nextValue });
+}
