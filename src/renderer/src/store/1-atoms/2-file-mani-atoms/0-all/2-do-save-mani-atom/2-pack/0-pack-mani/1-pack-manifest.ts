@@ -76,12 +76,14 @@ function convertCpassUuidToIdx(forms: Mani.Form[] | undefined) {
             const rfieldUuid = field.rfieldindex;
             if (rfieldUuid) {
                 const loginIdx = loginFields.findIndex((loginField) => loginField.memOnly?.uuidThis === rfieldUuid);
-                field.rfieldindex = loginIdx >= 0 ?loginIdx : undefined;
+                field.rfieldindex = loginIdx >= 0 ? loginIdx : undefined;
             }
         }
     );
 
 }
+
+// Utilities
 
 function printFields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {
     const items =

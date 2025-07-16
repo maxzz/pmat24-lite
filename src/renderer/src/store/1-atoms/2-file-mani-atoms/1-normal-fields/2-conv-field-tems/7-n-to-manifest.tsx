@@ -13,10 +13,8 @@ export function forMani(from: EditorField.ForAtoms): EditorField.Members {
         options: from.policies.options,
 
         rfield: from.rfield as 'in' | 'out' | undefined,
-        rfieldindex: from.rfieldUuid, //TODO: should be converted to index number
+        rfieldindex: from.rfieldUuid, //convert uuid to index number is done in pack manifest with convertCpassUuidToIdx()
         rfieldform: from.rfieldForm,
-
-        //TODO: memOnly: from.memOnly,
     };
 
     TransformValue.valueLife2Mani(from.valueLife, rv);

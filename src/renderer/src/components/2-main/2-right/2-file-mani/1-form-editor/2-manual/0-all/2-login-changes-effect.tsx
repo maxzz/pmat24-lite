@@ -37,9 +37,6 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
     return rv;
 }
 
-//TODO: rfieldUuid as atom initialized too late - done
-//TODO: no changes for manual mode labal. type, value - done
-
 function printMFormProps(mFormProps: MFormProps) {
     console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
 }

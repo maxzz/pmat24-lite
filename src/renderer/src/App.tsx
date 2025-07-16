@@ -172,6 +172,8 @@ export function App(): JSX.Element {
 
 //07.06.25
 //TODO: isLinkedToLoginAtom: drill down context reactive atoms to avoid useSetAtom
+//TODO: rfieldUuid as atom initialized too late - done
+//TODO: no changes for manual mode labal. type, value - done
 
 //07.07.25
 //TODO: doCreateDefaultScriptItemsAtom: highlight new items for a second
