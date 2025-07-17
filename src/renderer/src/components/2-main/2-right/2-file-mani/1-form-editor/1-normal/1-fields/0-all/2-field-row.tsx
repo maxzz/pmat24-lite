@@ -9,6 +9,7 @@ import { Column4_ValueSelector } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_Policy } from "../6-column-policy";
 import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
+import { Column6_PolicySelector } from "../6-column-policy/0-all";
 
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
@@ -63,11 +64,9 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx
             />
         )}
 
-        <Column6_Policy
-            useItAtom={useItAtom}
-            typeAtom={typeAtom}
-            policiesAtom={policiesAtom}
-            onClick={enableRow}
+        <Column6_PolicySelector
+            rowCtx={rowCtx}
+            fileUsCtx={fileUsCtx}
         />
     </>);
 }
