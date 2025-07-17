@@ -1,5 +1,6 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
+import { FormIdx } from "@/store/manifest";
 import { type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
@@ -13,14 +14,15 @@ export function InFormBlockFields({ nFormProps }: { nFormProps: NFormProps; }) {
 
 function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
+    const isPasswordForm = nFormProps.nFormCtx.fileUsCtx.formIdx === FormIdx.cpass;
 
-    //highlightFieldAtom
+    //TODO: (maybe) highlightFieldAtom. Now we highlight only label column
     //onblur={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
     //onfocus={() => highlightFieldAtom({ nCtx: ctx, fieldIdx: ctx.nAllAtoms.normal.rowCtxs.length })}
 
     return (
         <div className={getFieldsGridClasses(fcAllowed)}>
-            <TableHeader />
+            <TableHeader isPasswordForm={isPasswordForm} />
 
             {nFormProps.nFormCtx.normal.rowCtxs.map(
                 (fieldRowAtoms, idx) => (

@@ -25,14 +25,14 @@ const rowColumns = [
     ['Policy',              /*5*/ 'Password policy for the field'],
 ];
 
-export function TableHeader() {
+export function TableHeader({ isPasswordForm }: { isPasswordForm: boolean; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
     const skipIdx = fcAllowed ? -1 : 4;
     return (<>
         {rowColumns.map(
             ([title, hint], idx) => {
                 return (
-                    skipIdx === idx
+                    idx === skipIdx
                         ? undefined
                         : (
                             <div className={headerClasses} title={hint} key={idx}>
