@@ -2,11 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { FieldTyp, FormIdx } from "@/store/manifest";
-import { appSettings, type FceItem } from "@/store";
+import { type FieldRowCtx, type FceItem, useIsLinkedToLogin, appSettings } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputLabel } from "../8-props-ui";
-import { Case_LinkToLoginForm, Case_PswFieldPolicyBtn, Column5_Catalog } from "../../../../1-normal/1-fields";
-import { Col_ManualFieldValue } from "./5-row-2-col-1-value";
+import { Case_LinkToLoginForm, Case_PswFieldPolicyBtn, Case_ValueForCpassPsw, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
@@ -51,5 +50,27 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                     )
             )}
         </div>
+    );
+}
+
+function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
+    const { rowCtx } = item;
+    const isLinked = useIsLinkedToLogin(rowCtx, fileUsCtx);
+    return (<>
+        {isLinked
+            ? <Case_ValueForCpassPsw rowCtx={rowCtx} />
+            : <Case_ValueForLoginAndNotPsw rowCtx={rowCtx} />
+        }
+    </>);
+}
+
+function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
+    const { useItAtom, valueLifeAtom } = rowCtx;
+    return (
+        <Column4_Value
+            useItAtom={useItAtom}
+            valueLifeAtom={valueLifeAtom}
+            choosevalue=""
+        />
     );
 }
