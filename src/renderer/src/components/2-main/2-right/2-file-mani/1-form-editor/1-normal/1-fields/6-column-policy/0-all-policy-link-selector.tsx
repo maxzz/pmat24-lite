@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { Case_LinkToLoginForm } from "../../../2-manual/2-panel-props/2-props/1-panel-field/7-col-link-to-cpass";
-import { Column6_Policy } from "./1-trigger";
+import { Column6_Policy } from "./1-col-policy";
 //import { Case_ManualFieldPolicyBtn } from "../../../2-manual/2-panel-props/2-props/1-panel-field/6-row-2-col-2-policy-or-link";
 
 export function Column6_PolicySelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {

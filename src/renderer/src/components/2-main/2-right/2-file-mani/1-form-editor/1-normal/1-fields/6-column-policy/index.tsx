@@ -1,1 +1,1 @@
-export * from "./1-trigger";
+export * from "./1-col-policy";

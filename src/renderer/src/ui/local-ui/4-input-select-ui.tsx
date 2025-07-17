@@ -2,7 +2,7 @@ import { classNames } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type OptionTextValue } from "@/store/manifest";
 
-export type StringValueChangeProps = {
+type StringValueChangeProps = {
     value: string;
     onValueChange: (value: string) => void;
 };

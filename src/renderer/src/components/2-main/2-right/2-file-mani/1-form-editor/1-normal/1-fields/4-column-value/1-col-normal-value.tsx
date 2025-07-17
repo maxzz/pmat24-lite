@@ -5,7 +5,7 @@ import { type ValueLife, ValueAs } from "@/store/manifest";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
-import { isKeyToClearDefault } from "../6-fields-shared-ui";
+import { isKeyToClearDefault } from "../8-fields-shared-ui";
 import { doHighlightControlAtom } from "@/store/7-napi-atoms";
 import { type FieldHighlightCtx } from "@/store/1-atoms/2-file-mani-atoms";
 
