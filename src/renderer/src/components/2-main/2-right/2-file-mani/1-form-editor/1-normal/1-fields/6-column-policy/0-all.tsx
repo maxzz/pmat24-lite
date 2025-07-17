@@ -6,22 +6,22 @@ import { Column6_Policy } from "./1-trigger";
 //import { Case_ManualFieldPolicyBtn } from "../../../2-manual/2-panel-props/2-props/1-panel-field/6-row-2-col-2-policy-or-link";
 
 export function Column6_PolicySelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
-
-    // const isPsw = useAtomValue(rowCtx.typeAtom) === FieldTyp.psw;
-    const isPsw = false;
-
+    const isPsw = useAtomValue(rowCtx.typeAtom) === FieldTyp.psw;
     return (<>
-    <div className="">222</div>
-        {/* {isPsw && (
-            fileUsCtx.formIdx === FormIdx.login
-                ? (
-                    <Case_ManualFieldPolicyBtn rowCtx={rowCtx} />
-                )
-                : (
-                    // <Case_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
-                    <Case_ManualFieldPolicyBtn rowCtx={rowCtx} />
-                )
-        )} */}
+        {isPsw
+            ? (
+                fileUsCtx.formIdx === FormIdx.login
+                    ? (
+                        <Case_ManualFieldPolicyBtn rowCtx={rowCtx} />
+                    )
+                    : (
+                        <Case_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+                    )
+            )
+            : (
+                <div className="text-center" />
+            )
+        }
     </>);
 }
 
