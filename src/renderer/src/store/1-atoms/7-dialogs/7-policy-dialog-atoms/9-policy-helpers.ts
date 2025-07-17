@@ -3,7 +3,7 @@ import { FieldTyp, Meta } from "@/store/manifest";
 export enum PolicyAction {
     add,     // 'Add',
     edit,    // 'Edit',
-    na,      // 'n/a',
+    hide,    // 'n/a',
 }
 
 export function getPolicyExplanation(policy: string | undefined, policy2: string | undefined, ftyp: FieldTyp): PolicyAction {
@@ -14,16 +14,16 @@ export function getPolicyExplanation(policy: string | undefined, policy2: string
             return PolicyAction.add;
         }
 
-        return PolicyAction.na;
+        return PolicyAction.hide;
     }
 
     return PolicyAction.edit;
 }
 
-export function getPolicyExplanationText(action: PolicyAction): string {
+export function getPolicyBtnText(action: PolicyAction): string {
     switch (action) {
         case PolicyAction.add: return 'Add';
         case PolicyAction.edit: return 'Edit';
-        case PolicyAction.na: return 'n/a';
+        case PolicyAction.hide: return 'n/a';
     }
 }

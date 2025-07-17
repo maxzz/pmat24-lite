@@ -3,36 +3,6 @@ import * as M from "@radix-ui/react-dropdown-menu";
 import { SymbolChevronDown, SymbolDot } from "@ui/icons";
 import { classNames } from "@/utils";
 
-const menuContentClasses = "\
-py-1 max-h-[50vh] \
-\
-text-popover-foreground bg-popover \
-\
-border-mani-border border \
-\
-radix-side-top:animate-slide-up \
-radix-side-bottom:animate-slide-down \
-\
-rounded-lg shadow-md \
-\
-overflow-auto smallscroll smallscroll-light \
-\
-grid grid-cols-1 \
-z-[51]"; // dialog has z-index 50, so we need to be higher
-//TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
-
-const menuItemClasses = "\
-relative mx-1 pl-7 pr-2 py-1.5 text-xs \
-\
-text-accent-foreground \
-\
-focus:text-accent-foreground \
-focus:bg-accent \
-\
-rounded-md outline-none select-none cursor-default \
-\
-flex items-center";
-
 type DropdownValueProps = {
     useItAtom: PrimitiveAtom<boolean>;
     items: string[];
@@ -59,6 +29,24 @@ export function DropdownValue({ useItAtom, items, selectedIndex, onSetIndex }: D
         </M.Root>
     );
 }
+
+const menuContentClasses = "\
+py-1 max-h-[50vh] \
+\
+text-popover-foreground bg-popover \
+\
+border-mani-border border \
+\
+radix-side-top:animate-slide-up \
+radix-side-bottom:animate-slide-down \
+\
+rounded-lg shadow-md \
+\
+overflow-auto smallscroll smallscroll-light \
+\
+grid grid-cols-1 \
+z-[51]"; // dialog has z-index 50, so we need to be higher
+//TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 type MenuItemValueProps = {
     item: string;
@@ -87,3 +75,15 @@ function MenuItemValue({ item, idx, selectedIndex, onSetIndex }: MenuItemValuePr
         </M.Item>
     );
 }
+
+const menuItemClasses = "\
+relative mx-1 pl-7 pr-2 py-1.5 text-xs \
+\
+text-accent-foreground \
+\
+focus:text-accent-foreground \
+focus:bg-accent \
+\
+rounded-md outline-none select-none cursor-default \
+\
+flex items-center";

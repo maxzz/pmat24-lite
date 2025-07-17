@@ -1,26 +1,10 @@
 import { type HTMLAttributes, useState } from "react";
 import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
 import { type FieldTyp, type Mani } from "@/store/manifest";
-import { PolicyAction, getPolicyExplanation, getPolicyExplanationText } from "@/store/1-atoms/2-file-mani-atoms";
+import { PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/1-atoms/2-file-mani-atoms";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 import { Button } from "@/ui";
 import { classNames } from "@/utils";
-
-const Column6_PolicyClasses = "\
-px-2 py-3 h-7 text-[.65rem] \
-\
-text-mani-foreground bg-mani-background \
-\
-border-mani-border-muted border \
-\
-ring-mani-ring \
-focus:ring-1 \
-focus:ring-offset-1 \
-focus:ring-offset-mani-background \
-focus:ring-mani-ring-activated \
-\
-rounded outline-none \
-flex items-center justify-center gap-0.5";
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
@@ -39,11 +23,9 @@ export function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, o
 
     const action = getPolicyExplanation(policies.policy, policies.policy2, ftyp);
 
-    if (action === PolicyAction.na) {
+    if (action === PolicyAction.hide) {
         return <div className="text-center" />;
     }
-
-    const text = getPolicyExplanationText(action);
 
     return (<>
         <Button
@@ -51,7 +33,7 @@ export function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, o
             onClick={(e) => { enableRowClick?.(e); setDlgOpen(true); }}
             {...rest}
         >
-            {text}...
+            {getPolicyBtnText(action)}...
         </Button>
 
         <PolicyEditorDlg
@@ -61,5 +43,21 @@ export function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, o
         />
     </>);
 }
+
+const Column6_PolicyClasses = "\
+px-2 py-3 h-7 text-[.65rem] \
+\
+text-mani-foreground bg-mani-background \
+\
+border-mani-border-muted border \
+\
+ring-mani-ring \
+focus:ring-1 \
+focus:ring-offset-1 \
+focus:ring-offset-mani-background \
+focus:ring-mani-ring-activated \
+\
+rounded outline-none \
+flex items-center justify-center gap-0.5";
 
 //TODO: add default text 'Give me a name' or 'No name, give me one';

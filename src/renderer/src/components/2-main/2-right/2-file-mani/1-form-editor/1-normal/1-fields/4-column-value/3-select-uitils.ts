@@ -1,4 +1,4 @@
-import { FieldTyp, LIST_references, LIST_valueAskNames, ReferenceItem, ValueAs, ValueLife } from "@/store/manifest";
+import { type ReferenceItem, type ValueLife, FieldTyp, ValueAs, LIST_references, LIST_valueAskNames } from "@/store/manifest";
 
 type getValueUiStateReturn = {
     dropdownAllItems: string[];

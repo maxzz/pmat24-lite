@@ -5,19 +5,10 @@ import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
 export function InFormBlockFields({ nFormProps }: { nFormProps: NFormProps; }) {
-    if (!nFormProps.nFormCtx.normal.rowCtxs.length) {
-        return <NoFields />;
+    if (nFormProps.nFormCtx.normal.rowCtxs.length) {
+        return <FieldsGridBody nFormProps={nFormProps} />;
     }
-
-    return <FieldsGridBody nFormProps={nFormProps} />;
-}
-
-function NoFields() {
-    return (
-        <div className="p-2 text-xs text-mani-title/30 select-none">
-            There are no fields in the form.
-        </div>
-    );
+    return <NoFields />;
 }
 
 function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
@@ -33,9 +24,21 @@ function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
 
             {nFormProps.nFormCtx.normal.rowCtxs.map(
                 (fieldRowAtoms, idx) => (
-                    <FieldRow rowCtx={fieldRowAtoms} fileUsCtx={nFormProps.nFormCtx.fileUsCtx} key={idx} />
+                    <FieldRow
+                        rowCtx={fieldRowAtoms}
+                        fileUsCtx={nFormProps.nFormCtx.fileUsCtx}
+                        key={idx}
+                    />
                 ))
             }
+        </div>
+    );
+}
+
+function NoFields() {
+    return (
+        <div className="p-2 text-xs text-mani-title/30 select-none">
+            There are no fields in the form.
         </div>
     );
 }

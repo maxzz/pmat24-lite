@@ -3,7 +3,7 @@ import { useAtom, type PrimitiveAtom } from "jotai";
 import { type FceCtx } from "@/store";
 import { Input, Textarea } from "@/ui/shadcn";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value/0-all";
+import { Column4_Value } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/4-column-value";
 import { inputRingClasses } from "@/ui";
 
 const itemClasses = "text-xs font-normal flex flex-col select-none cursor-default";
