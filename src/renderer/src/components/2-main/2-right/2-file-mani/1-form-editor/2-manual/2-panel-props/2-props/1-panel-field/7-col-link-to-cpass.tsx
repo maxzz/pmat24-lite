@@ -2,7 +2,7 @@ import { type Getter, atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, buildLoginFieldsDropdownAtom, getAllFormsFields_byFileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputSelectUi } from "../8-props-ui";
+import { InputSelectUi } from "@/ui";
 
 export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;

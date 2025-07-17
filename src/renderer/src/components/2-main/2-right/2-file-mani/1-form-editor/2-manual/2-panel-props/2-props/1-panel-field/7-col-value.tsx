@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
 import { type FieldRowCtx } from "@/store/1-atoms/2-file-mani-atoms";
-import { InputSelectUi } from "../8-props-ui/4-input-select-ui";
+import { InputSelectUi } from "@/ui";
 
 export function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [rfield, setRfield] = useAtom(rowCtx.rfieldAtom);
