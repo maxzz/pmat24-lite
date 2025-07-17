@@ -1,10 +1,22 @@
 import { type HTMLAttributes, useState } from "react";
 import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
-import { type FieldTyp, type Mani } from "@/store/manifest";
-import { PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/1-atoms/2-file-mani-atoms";
-import { PolicyEditorDlg } from "@/components/4-dialogs";
-import { Button } from "@/ui";
 import { classNames } from "@/utils";
+import { type FieldTyp, type Mani } from "@/store/manifest";
+import { type FieldRowCtx, PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/1-atoms/2-file-mani-atoms";
+import { Button } from "@/ui";
+import { PolicyEditorDlg } from "@/components/4-dialogs";
+
+export function Case_PswFieldPolicyBtn({ rowCtx }: { rowCtx: FieldRowCtx; } & { onClick?: () => void; }) {
+    const { useItAtom, typeAtom, policiesAtom } = rowCtx;
+    return (
+        <Column6_Policy
+            useItAtom={useItAtom}
+            typeAtom={typeAtom}
+            policiesAtom={policiesAtom}
+            
+        />
+    );
+}
 
 type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     useItAtom: PrimitiveAtom<boolean>;
@@ -12,7 +24,7 @@ type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
     policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
 };
 
-export function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
+function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const openDlgAtom = useState(() => atom(false))[0];
     const setDlgOpen = useSetAtom(openDlgAtom);

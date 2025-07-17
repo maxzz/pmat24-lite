@@ -1,6 +1,5 @@
 import { type FieldRowCtx, type FileUsCtx, type ManualFieldState, useIsLinkedToLogin } from "@/store/1-atoms/2-file-mani-atoms";
-import { Column4_Value } from "../../../../1-normal/1-fields";
-import { Case_ValueForCpassPsw } from "./7-col-value";
+import { Case_ValueForCpassPsw, Column4_Value } from "../../../../1-normal/1-fields";
 
 export function Col_ManualFieldValue({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { rowCtx } = item;

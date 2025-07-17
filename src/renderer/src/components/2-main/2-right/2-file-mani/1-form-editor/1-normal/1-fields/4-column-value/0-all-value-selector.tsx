@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useIsLinkedToLogin, type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { Column4_Value } from "./1-col-normal-value";
-import { Case_ValueForCpassPsw } from "../../../2-manual/2-panel-props/2-props/1-panel-field/7-col-value";
+import { Case_ValueForCpassPsw } from "./7-col-value";
 
 export function Column4_ValueSelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
