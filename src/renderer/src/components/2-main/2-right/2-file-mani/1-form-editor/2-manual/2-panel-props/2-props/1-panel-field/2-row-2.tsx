@@ -12,16 +12,14 @@ import { Case_LinkToLoginForm } from "./7-col-link-to-cpass";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
-    
-    const isPsw = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
-    //item.rowCtx.isCpassForm && isPsw && console.log(`SecondRow: formIdx:${fileUsCtx.formIdx} isCpassForm:${item.rowCtx.isCpassForm}`);
+    const isFieldPassword = useAtomValue(item.rowCtx.typeAtom) === FieldTyp.psw;
 
     const containerClasses =
         fcAllowed
-            ? isPsw
+            ? isFieldPassword
                 ? "grid-cols-[1fr,1fr,auto]"
                 : "grid-cols-[1fr,auto]"
-            : isPsw
+            : isFieldPassword
                 ? "grid-cols-[1fr,auto]"
                 : "grid-cols-[auto]";
 
@@ -41,7 +39,7 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 </InputLabel>
             )}
 
-            {isPsw && (
+            {isFieldPassword && (
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
                         <InputLabel label="Policy" className="ml-2">

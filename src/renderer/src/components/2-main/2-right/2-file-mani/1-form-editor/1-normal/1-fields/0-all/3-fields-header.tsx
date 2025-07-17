@@ -12,9 +12,7 @@ export function TableHeader({ isPasswordForm }: { isPasswordForm: boolean; }) {
                     return undefined;
                 }
                 if (idx === 5 && isPasswordForm) {
-                    [title, hint] = lastColumn[0];
-                    // title = 'Link';
-                    // hint = 'Link to login form';
+                    [title, hint] = rowLastColumn;
                 }
                 return (
                     <div className={headerClasses} title={hint} key={idx}>
@@ -35,9 +33,8 @@ const rowColumns = [
     ['Policy',              /*5*/ 'Password policy for the field'],
 ];
 
-const lastColumn = [
-    ['Link2',                /*6*/ 'Link to login form'],
-];
+const rowLastColumn =
+    ['Link to login',       /*5*/ 'Link to login form'];
 
 export function getFieldsGridClasses(showFieldCatalog: boolean) {
     const colsClasses =
