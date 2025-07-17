@@ -6,10 +6,19 @@ import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
 export function FieldsList({ nFormProps }: { nFormProps: NFormProps; }) {
-    if (nFormProps.nFormCtx.normal.rowCtxs.length) {
-        return <FieldsGridBody nFormProps={nFormProps} />;
-    }
-    return <NoFields />;
+    const noFields = !nFormProps.nFormCtx.normal.rowCtxs.length;
+    return (<>
+        {noFields
+            ? (
+                <div className="p-2 text-xs text-mani-title/30 select-none">
+                    There are no fields in the form.
+                </div>
+            )
+            : (
+                <FieldsGridBody nFormProps={nFormProps} />
+            )
+        }
+    </>);
 }
 
 function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
@@ -33,14 +42,6 @@ function FieldsGridBody({ nFormProps }: { nFormProps: NFormProps; }) {
                     />
                 ))
             }
-        </div>
-    );
-}
-
-function NoFields() {
-    return (
-        <div className="p-2 text-xs text-mani-title/30 select-none">
-            There are no fields in the form.
         </div>
     );
 }
