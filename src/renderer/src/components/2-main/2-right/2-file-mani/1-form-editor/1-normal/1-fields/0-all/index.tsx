@@ -1,1 +1,1 @@
-export * from "./1-in-form-block-fields";
+export * from "./1-fields-list";

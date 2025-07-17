@@ -5,7 +5,7 @@ import { type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
 
-export function InFormBlockFields({ nFormProps }: { nFormProps: NFormProps; }) {
+export function FieldsList({ nFormProps }: { nFormProps: NFormProps; }) {
     if (nFormProps.nFormCtx.normal.rowCtxs.length) {
         return <FieldsGridBody nFormProps={nFormProps} />;
     }
