@@ -7,18 +7,21 @@ import { Column6_Policy } from "./1-trigger";
 
 export function Column6_PolicySelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
 
-    const isPsw = useAtomValue(rowCtx.typeAtom) === FieldTyp.psw;
+    // const isPsw = useAtomValue(rowCtx.typeAtom) === FieldTyp.psw;
+    const isPsw = false;
 
     return (<>
-        {isPsw && (
+    <div className="">222</div>
+        {/* {isPsw && (
             fileUsCtx.formIdx === FormIdx.login
                 ? (
                     <Case_ManualFieldPolicyBtn rowCtx={rowCtx} />
                 )
                 : (
-                    <Case_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+                    // <Case_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+                    <Case_ManualFieldPolicyBtn rowCtx={rowCtx} />
                 )
-        )}
+        )} */}
     </>);
 }
 
