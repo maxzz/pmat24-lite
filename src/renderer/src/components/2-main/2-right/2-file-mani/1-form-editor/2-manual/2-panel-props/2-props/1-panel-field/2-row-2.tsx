@@ -6,8 +6,8 @@ import { appSettings, type FceItem } from "@/store";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { InputLabel } from "../8-props-ui";
 import { Column5_Catalog } from "../../../../1-normal/1-fields";
+import { Case_ManualFieldPolicyBtn } from "../../../../1-normal/1-fields/6-column-policy/0-all-policy-link-selector";
 import { Col_ManualFieldValue } from "./5-row-2-col-1-value";
-import { Case_ManualFieldPolicyBtn } from "./6-row-2-col-2-policy-or-link";
 import { Case_LinkToLoginForm } from "./7-col-link-to-cpass";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
