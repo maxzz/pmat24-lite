@@ -7,9 +7,8 @@ import { Column2_Type } from "../2-column-type";
 import { Column3_Label } from "../3-column-label";
 import { Column4_ValueSelector } from "../4-column-value";
 import { Column5_Catalog } from "../5-column-catalog";
-import { Column6_Policy } from "../6-column-policy";
-import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 import { Column6_PolicySelector } from "../6-column-policy/0-all";
+//import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;

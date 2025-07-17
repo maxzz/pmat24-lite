@@ -3,9 +3,10 @@ import { appSettings } from "@/store";
 import { classNames } from "@/utils";
 
 export function getFieldsGridClasses(showFieldCatalog: boolean) {
-    const colsClasses = showFieldCatalog
-        ? "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]"
-        : "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]";
+    const colsClasses =
+        showFieldCatalog
+            ? "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]"
+            : "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]";
     return classNames("p-2 grid items-center gap-[3px] text-foreground rounded-sm", colsClasses);
 };
 
@@ -16,12 +17,12 @@ border-b \
 select-none";
 
 const rowColumns = [
-    ['Type',                /**/ 'The type of the field'],
-    ['Use it',              /**/ 'Use this field or not'],
-    ['Label',               /**/ 'The label is shown to the user next to\nthe field for entering a value'],
-    ['Value',               /**/ 'Specifies the value to fill out the field\nand how it is stored'],
-    ['Shared ID (Catalog)', /**/ 'The Shared ID determines whether the value\nwill be shared through the field catalog'],
-    ['Policy',              /**/ 'Password policy for the field'],
+    ['Type',                /*0*/ 'The type of the field'],
+    ['Use it',              /*1*/ 'Use this field or not'],
+    ['Label',               /*2*/ 'The label is shown to the user next to\nthe field for entering a value'],
+    ['Value',               /*3*/ 'Specifies the value to fill out the field\nand how it is stored'],
+    ['Shared ID (Catalog)', /*4*/ 'The Shared ID determines whether the value\nwill be shared through the field catalog'],
+    ['Policy',              /*5*/ 'Password policy for the field'],
 ];
 
 export function TableHeader() {
