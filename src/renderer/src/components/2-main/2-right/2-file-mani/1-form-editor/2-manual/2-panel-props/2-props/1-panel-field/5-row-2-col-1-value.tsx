@@ -27,6 +27,8 @@ function Case_ValueForLoginAndNotPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     );
 }
 
+// this is a copy of Column4_ValueSelector
+
 function Case_ValueForCpassPsw({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [rfield, setRfield] = useAtom(rowCtx.rfieldAtom);
     return (
