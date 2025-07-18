@@ -1,12 +1,11 @@
 import { type HTMLAttributes, useState } from "react";
-import { type PrimitiveAtom, atom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { type FieldTyp, type Mani } from "@/store/manifest";
 import { type FieldRowCtx, PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/1-atoms/2-file-mani-atoms";
 import { Button } from "@/ui";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 
-export function Column6_Policy({ rowCtx, className, onClick: enableRowClick, ...rest }: { rowCtx: FieldRowCtx; onClick?: () => void; } & HTMLAttributes<HTMLButtonElement>) {
+export function Column6_Policy({ rowCtx, className, onClick: enableRowClick, ...rest }: { rowCtx: FieldRowCtx; } & HTMLAttributes<HTMLButtonElement>) {
     const { useItAtom, typeAtom, policiesAtom } = rowCtx;
 
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
@@ -41,7 +40,7 @@ export function Column6_Policy({ rowCtx, className, onClick: enableRowClick, ...
 }
 
 const Column6_PolicyClasses = "\
-px-2 py-3 h-7 text-[.65rem] \
+px-2 py-3 w-24 h-7 text-[.65rem] \
 \
 text-mani-foreground bg-mani-background \
 \

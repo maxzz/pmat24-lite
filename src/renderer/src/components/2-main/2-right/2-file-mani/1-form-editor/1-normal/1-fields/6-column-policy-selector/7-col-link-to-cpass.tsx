@@ -16,7 +16,7 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
 
     return (
         <InputSelectUi
-            triggerClasses={classNames("w-full", `${rindexUuid}` === '0' && inputAsRefClasses)}
+            triggerClasses={classNames("w-24", `${rindexUuid}` === '0' && inputAsRefClasses)}
             items={dropdownAllItems}
             value={`${rindexUuid}`}
             onValueChange={onValueChange}
