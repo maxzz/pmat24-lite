@@ -5,7 +5,7 @@ import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FieldRowCtx, type FceItem, useIsLinkedToLogin, appSettings } from "@/store";
 import { InputLabel } from "../8-props-ui";
-import { Case_LinkToLoginForm, Case_PswFieldPolicyBtn, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
+import { Case_LinkToLoginForm, Column6_Policy, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { rowCtx } = item;
@@ -41,7 +41,7 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                 fileUsCtx.formIdx === FormIdx.login
                     ? (
                         <InputLabel label="Policy" className="ml-2">
-                            <Case_PswFieldPolicyBtn rowCtx={rowCtx} />
+                            <Column6_Policy rowCtx={rowCtx} />
                         </InputLabel>
                     )
                     : (

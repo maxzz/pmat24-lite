@@ -6,25 +6,9 @@ import { type FieldRowCtx, PolicyAction, getPolicyExplanation, getPolicyBtnText 
 import { Button } from "@/ui";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 
-export function Case_PswFieldPolicyBtn({ rowCtx }: { rowCtx: FieldRowCtx; } & { onClick?: () => void; }) {
+export function Column6_Policy({ rowCtx, className, onClick: enableRowClick, ...rest }: { rowCtx: FieldRowCtx; onClick?: () => void; } & HTMLAttributes<HTMLButtonElement>) {
     const { useItAtom, typeAtom, policiesAtom } = rowCtx;
-    return (
-        <Column6_Policy
-            useItAtom={useItAtom}
-            typeAtom={typeAtom}
-            policiesAtom={policiesAtom}
-            
-        />
-    );
-}
 
-type Column6_LabelProps = HTMLAttributes<HTMLButtonElement> & {
-    useItAtom: PrimitiveAtom<boolean>;
-    typeAtom: PrimitiveAtom<FieldTyp>;
-    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
-};
-
-function Column6_Policy({ useItAtom, typeAtom, policiesAtom, className, onClick: enableRowClick, ...rest }: Column6_LabelProps) {
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const openDlgAtom = useState(() => atom(false))[0];
     const setDlgOpen = useSetAtom(openDlgAtom);
