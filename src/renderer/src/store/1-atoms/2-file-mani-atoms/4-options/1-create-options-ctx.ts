@@ -10,16 +10,16 @@ export namespace OptionsState {
 
     export function createAtoms(fileUsCtx: FileUsCtx): Atoms {
 
-        const debouncedOnChangeWithScope = debounce(onChangeWithScope);
+        const debouncedOnChangeWithNameScope = debounce(onChangeWithScope);
 
-        const onChange = (updateName: string): OnValueChange<RowInputState> => {
-            return ({ get, set, nextValue }) => {
-                debouncedOnChangeWithScope(updateName, nextValue, { fileUsCtx, get, set });
+        function onChange(updateName: string): OnValueChange<RowInputState> {
+            return function OnChangeWithNameScope({ get, set, nextValue }) {
+                debouncedOnChangeWithNameScope(updateName, nextValue, { fileUsCtx, get, set });
             };
-        };
+        }
 
-        const state = FormOptionsConv.forAtoms(fileUsCtx);
-        const rv = FormOptionsConv.createAtoms(state, onChange);
+        const initialState = FormOptionsConv.forAtoms(fileUsCtx);
+        const rv = FormOptionsConv.createAtoms(initialState, onChange);
 
         return rv;
     }
