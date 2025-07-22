@@ -1,7 +1,7 @@
 import { type PrimitiveAtom } from "jotai";
 import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui";
-import { type FormIdx } from "@/store/manifest";
+import { type Matching, type FormIdx } from "@/store/manifest";
 
 export namespace FormOptionsState {
 
@@ -19,6 +19,10 @@ export namespace FormOptionsState {
     type p2Detect = {               // Part Screen Detection
         ourl: string;               // original URL
         murl: string;               // match URL
+        how: Matching.How;          // how to match URL
+        opt: Matching.Options;      // how to match URL
+        url: string;                // Matching URL (as usual regex)
+        
         webCheckUrl: boolean;       // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
         caption: string;            // Windows Caption
         variablecaption: string;    // Variable Caption

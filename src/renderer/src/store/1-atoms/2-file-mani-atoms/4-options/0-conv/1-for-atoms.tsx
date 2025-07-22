@@ -1,3 +1,4 @@
+import { Matching } from "@/store/manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
 
@@ -10,6 +11,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const options = maniForm?.options || {};
     const detection = maniForm?.detection || {};
     const isFormWeb = !!detection.web_ourl;
+
+    const { how, opt, url } = Matching.parseRawMatchData(detection.web_murl || '');
 
     const rv: FormOptionsState.ForAtoms = {
         p1General: {
@@ -28,6 +31,10 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
             ourl: detection.web_ourl || '',
             murl: detection.web_murl || '',
+            how,
+            opt,
+            url,
+
             webCheckUrl: !!detection.web_checkurl,
 
             dlg_tab: detection.dlg_tab || '',

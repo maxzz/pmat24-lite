@@ -21,6 +21,11 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
             monitor: get(p2Detect.monitorAtom).data === '1',
             ourl: get(p2Detect.ourlAtom).data,
             murl: get(p2Detect.murlAtom).data,
+
+            how: +get(p2Detect.howAtom).data,
+            opt: +get(p2Detect.optAtom).data,
+            url: get(p2Detect.urlAtom).data,
+
             webCheckUrl: get(p2Detect.webCheckUrlAtom).data === '1',
 
             dlg_tab: get(p2Detect.dlg_tabAtom).data,
