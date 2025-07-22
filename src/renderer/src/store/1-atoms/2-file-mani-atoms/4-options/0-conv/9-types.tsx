@@ -18,6 +18,7 @@ export namespace FormOptionsState {
 
     type p2Detect = {               // Part Screen Detection
         ourl: string;               // original URL
+        
         murl: string;               // match URL
         how: Matching.How;          // how to match URL
         opt: Matching.Options;      // how to match URL
@@ -79,5 +80,6 @@ export namespace FormOptionsState {
 
         isWebAtom: PrimitiveAtom<boolean>;
         formIdx: FormIdx;
+        fromFileHOU: Matching.RawMatchData; // Initial values of how, opt, url (HOW) for murl from file
     };
 }
