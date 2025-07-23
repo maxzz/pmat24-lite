@@ -19,18 +19,31 @@ type InputSelectUiProps = Prettify<
 
 export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
     const [open, setOpen] = useState(false);
+    const [listItems, setListItems] = useState(['1', '2', '3']);
     return (
         <Select value={value} onValueChange={onValueChange} open={open} onOpenChange={setOpen}>
 
-            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses)} onClick={(event) => {
-                console.log('onClick ctrl:', event.ctrlKey);
-                // setOpen(true);
-            }}>
+            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses)}
+                // onClick={(event) => {
+                //     console.log('onClick ctrl:', event.ctrlKey);
+                //     // setOpen(true);
+                // }}
+                onPointerDown={(event) => {
+                    console.log('onPointerDown ctrl:', event.ctrlKey);
+                    if (event.ctrlKey) {
+                        setListItems(['4', '5', '6']);
+                    } else {
+                        setListItems(['1', '2', '3']);
+                    }
+                    
+                    setOpen(true);
+                }}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
-                {items.map(
+                {/* {items.map( */}
+                {listItems.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';
                         const label = isString ? item : item[0];
