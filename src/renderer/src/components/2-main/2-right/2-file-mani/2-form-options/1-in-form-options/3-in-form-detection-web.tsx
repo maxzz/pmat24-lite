@@ -1,7 +1,7 @@
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { MatchMurl } from "./5-2-url-match";
+import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -12,7 +12,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <InputWithTitle2Rows stateAtom={ourlAtom} label="Original URL (readonly)" asTextarea readOnly />
 
                 <div className="">How to match URL:</div>
-                <MatchMurl oFormProps={oFormProps} />
+                <MatchHow oFormProps={oFormProps} />
 
                 <InputWithTitle2Rows stateAtom={murlAtom} label="Match URL" asTextarea />
             </div>
