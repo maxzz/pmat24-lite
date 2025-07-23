@@ -1,27 +1,34 @@
-import { useState } from "react";
-import { useAtom } from "jotai";
-import { type OptionTextValue } from "@/store/manifest";
+import { useAtomValue, useSetAtom } from "jotai";
+import { type Matching, type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi } from "@/ui";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { setUrlsEditorDataAtom } from "./5-9-set-atoms";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
-    const [rfield, setRfield] = useState('0');
 
-    const isFullNames = false; //TODO: select by ctrl+click or by values from manifest
-    const items = isFullNames ? allHowNames : shortHowNames;
+    const { options } = oFormProps.oAllAtoms;
+
+    const how = useAtomValue(options.howAtom);
+    const setUrlsEditorData = useSetAtom(setUrlsEditorDataAtom);
+
+    const items = getNamesList(how);
 
     function setValue(v: string) {
-        setRfield(v);
+        setUrlsEditorData({ options, how: +v });
     }
 
     return (
         <InputSelectUi
             triggerClasses={inputAsRefClasses}
             items={items}
-            value={rfield}
+            value={`${how}`}
             onValueChange={setValue}
         />
     );
+}
+
+function getNamesList(how: Matching.How) {
+    return how !== 0 && how !== 3 ? allHowNames : shortHowNames;
 }
 
 const shortHowNames: OptionTextValue[] = [
