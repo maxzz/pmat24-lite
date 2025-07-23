@@ -2,15 +2,21 @@ import { useState } from "react";
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi } from "@/ui";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 
-export function MatchMurl() {
+export function MatchMurl({ oFormProps }: { oFormProps: OFormProps; }) {
     const [rfield, setRfield] = useState('org');
+
+    function setValue(v: string) {
+        setRfield(v);
+    }
+    
     return (
         <InputSelectUi
             triggerClasses={inputAsRefClasses}
             items={inputTypes}
             value={rfield}
-            onValueChange={setRfield}
+            onValueChange={setValue}
         />
     );
 }
