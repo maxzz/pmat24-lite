@@ -1,7 +1,8 @@
-import { atom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { Matching } from "@/store/manifest";
 import { setAtomRowInputState } from "@/ui/local-ui/1-input-validate";
 import { type FormOptionsState } from "@/store/1-atoms/2-file-mani-atoms/4-options";
+import { useEffect, useState } from "react";
 
 export const setUrlsEditorDataAtom = atom(
     null,
@@ -37,7 +38,7 @@ export const setUrlsEditorDataAtom = atom(
     }
 );
 
-export const showExampleAtom = atom(
+export const isShowExampleAtom = atom(
     null,
     (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
         const how = get(options.howAtom);
@@ -48,3 +49,20 @@ export const showExampleAtom = atom(
         }
     }
 );
+
+export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | undefined {
+    const isShowExample = useSetAtom(isShowExampleAtom);
+    const [showExample, setShowExample] = useState<boolean | undefined>(false);
+
+    const how = useAtomValue(options.howAtom);
+    const o = useAtomValue(options.p2Detect.ourlAtom);
+    const r = useAtomValue(options.p2Detect.rurlAtom);
+
+    useEffect(
+        () => {
+            setShowExample(isShowExample(options));
+        }, [options, how, o, r]
+    );
+
+    return showExample;
+}
