@@ -38,18 +38,6 @@ export const setUrlsEditorDataAtom = atom(
     }
 );
 
-export const isShowExampleAtom = atom(
-    null,
-    (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
-        const how = get(options.howAtom);
-        if (how === Matching.How.regex) {
-            const o = get(options.p2Detect.ourlAtom).data;
-            const r = get(options.p2Detect.rurlAtom).data;
-            return o === r;
-        }
-    }
-);
-
 export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | undefined {
     const isShowExample = useSetAtom(isShowExampleAtom);
     const [showExample, setShowExample] = useState<boolean | undefined>(false);
@@ -66,3 +54,15 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
 
     return showExample;
 }
+
+const isShowExampleAtom = atom(
+    null,
+    (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
+        const how = get(options.howAtom);
+        if (how === Matching.How.regex) {
+            const o = get(options.p2Detect.ourlAtom).data;
+            const r = get(options.p2Detect.rurlAtom).data;
+            return o === r;
+        }
+    }
+);
