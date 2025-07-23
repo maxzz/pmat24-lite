@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
-import { InputSelectUi } from "@/ui";
+// import { InputSelectUi } from "@/ui";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { InputSelectUi } from "./4-input-select-ui";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const [rfield, setRfield] = useState('0');
+
+    const isFullNames = false; //TODO: select by ctrl+click or by values from manifest
+    const items = isFullNames ? allHowNames : shortHowNames;
 
     function setValue(v: string) {
         setRfield(v);
@@ -14,7 +18,7 @@ export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     return (
         <InputSelectUi
             triggerClasses={inputAsRefClasses}
-            items={shortHowNames}
+            items={items}
             value={rfield}
             onValueChange={setValue}
         />
