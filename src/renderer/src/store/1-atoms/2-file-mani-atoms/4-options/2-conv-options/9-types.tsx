@@ -80,8 +80,8 @@ export namespace FormOptionsState {
 
         isWebAtom: PrimitiveAtom<boolean>;
         formIdx: FormIdx;
-        fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
-        how: PrimitiveAtom<Matching.How>;       // how to match URL
-        opt: PrimitiveAtom<Matching.Options>;   // how to match URL
+        fromFileHOU: Matching.RawMatchData;         // Initial values of how, opt, url (HOW) for murl from file
+        howAtom: PrimitiveAtom<Matching.How>;       // how to match URL
+        optAtom: PrimitiveAtom<Matching.Options>;   // how to match URL
     };
 }

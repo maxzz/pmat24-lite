@@ -56,8 +56,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
         isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
         fromFileHOU: atoms.fromFileHOU,
-        how: get(atoms.how),
-        opt: get(atoms.opt),
+        how: get(atoms.howAtom),
+        opt: get(atoms.optAtom),
     };
 
     return rv;
