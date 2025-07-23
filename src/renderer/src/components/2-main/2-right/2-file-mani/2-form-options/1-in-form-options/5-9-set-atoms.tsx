@@ -36,3 +36,15 @@ export const setUrlsEditorDataAtom = atom(
         }
     }
 );
+
+export const showExampleAtom = atom(
+    null,
+    (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
+        const how = get(options.howAtom);
+        if (how === Matching.How.regex) {
+            const o = get(options.p2Detect.ourlAtom).data;
+            const r = get(options.p2Detect.rurlAtom).data;
+            return o === r;
+        }
+    }
+);
