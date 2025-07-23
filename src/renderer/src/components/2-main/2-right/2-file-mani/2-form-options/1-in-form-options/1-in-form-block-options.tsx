@@ -4,8 +4,8 @@ import { DetectionContent_W32 } from "./2-in-form-detection-w32";
 import { DetectionContent_Web } from "./3-in-form-detection-web";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
-    const anyProps = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
-    const formIdx = anyProps?.fileUsCtx.formIdx;
+    const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
+    const formIdx = anyFormCtx?.fileUsCtx.formIdx;
 
     const oAllAtoms = anyFormProps.maniAtoms?.[formIdx];
     if (!oAllAtoms) {
@@ -13,14 +13,6 @@ export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps 
     }
 
     const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms };
-
-    return (<>
-        <FormDetectionSelector oFormProps={oFormProps} />
-        {/* <FormW32IconPosition oFormProps={oFormProps} /> */}
-    </>);
-}
-
-function FormDetectionSelector({ oFormProps }: { oFormProps: OFormProps; }) {
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
 
     return (<>
