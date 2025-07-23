@@ -5,12 +5,9 @@ import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { setUrlsEditorDataAtom } from "./5-9-set-atoms";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
-
     const { options } = oFormProps.oAllAtoms;
-
-    const how = useAtomValue(options.howAtom);
     const setUrlsEditorData = useSetAtom(setUrlsEditorDataAtom);
-
+    const how = useAtomValue(options.howAtom);
     const items = getNamesList(how);
 
     function setValue(v: string) {

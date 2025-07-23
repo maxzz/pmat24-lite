@@ -5,7 +5,8 @@ import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
-    const { ourlAtom, murlAtom, } = oFormProps.oAllAtoms.options.p2Detect;
+    const { ourlAtom, rurlAtom, } = oFormProps.oAllAtoms.options.p2Detect;
+    
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
@@ -14,7 +15,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <div className="">How to match URL:</div>
                 <MatchHow oFormProps={oFormProps} />
 
-                <InputWithTitle2Rows stateAtom={murlAtom} label="Match URL" asTextarea />
+                <InputWithTitle2Rows stateAtom={rurlAtom} label="Match URL" asTextarea />
             </div>
         </AccordionWithTrigger>
     );
