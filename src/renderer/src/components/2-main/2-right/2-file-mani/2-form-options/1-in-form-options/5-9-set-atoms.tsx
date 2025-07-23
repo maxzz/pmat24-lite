@@ -1,7 +1,7 @@
-import { atom } from "jotai";
+import { type Getter, type Setter, atom } from "jotai";
 import { Matching } from "@/store/manifest";
 import { type FormOptionsState } from "@/store/1-atoms/2-file-mani-atoms/4-options";
-import { RowInputState } from "@/ui/local-ui";
+import { type RowInputState, type RowInputStateAtom, resetRowInputState } from "@/ui/local-ui/1-input-validate";
 
 export const setUrlsEditorDataAtom = atom(
     null,
@@ -9,16 +9,7 @@ export const setUrlsEditorDataAtom = atom(
         const detect = options.p2Detect
 
         if (o !== undefined) {
-            set(detect.ourlAtom, (prev) => {
-                const value = o;
-                const rv: RowInputState = {
-                    ...prev,
-                    data: value,
-                    error: prev.validate?.(value),
-                    dirty: prev.initialData !== value,
-                };
-                return rv;
-            });
+            setAtomRowInputState(detect.ourlAtom, o, get, set);
         }
 
         if (how !== undefined || opt !== undefined || url !== undefined) {
@@ -29,14 +20,7 @@ export const setUrlsEditorDataAtom = atom(
                 set(options.howAtom, how);
 
                 if (how === Matching.How.undef) {
-                    const orulSate = get(detect.ourlAtom);
-                    const rv: RowInputState = {
-                        ...orulSate,
-                        data: orulSate.data,
-                        error: orulSate.validate?.(orulSate.data),
-                        dirty: orulSate.initialData !== orulSate.data,
-                    };
-                    set(detect.rurlAtom, rv);
+                    setAtomRowInputState(detect.rurlAtom, get(detect.ourlAtom).data, get, set);
                 }
             }
             if (opt !== undefined) {
@@ -45,27 +29,21 @@ export const setUrlsEditorDataAtom = atom(
             }
             if (url !== undefined) {
                 current.url = url;
-                const rurlState = get(detect.rurlAtom);
-                const rv: RowInputState = {
-                    ...rurlState,
-                    data: url,
-                    error: rurlState.validate?.(url),
-                    dirty: rurlState.initialData !== url,
-                };
-                set(detect.rurlAtom, rv);
+                setAtomRowInputState(detect.rurlAtom, url, get, set);
             }
 
-            set(detect.murlAtom, (prev) => {
-                const murlState = get(detect.murlAtom);
-                const newValue = Matching.stringifyRawMatchData(current, prev.data);
-                const rv: RowInputState = {
-                    ...murlState,
-                    data: newValue,
-                    error: murlState.validate?.(newValue),
-                    dirty: murlState.initialData !== newValue,
-                };
-                return rv;
-            });
+            setAtomRowInputState(detect.murlAtom, Matching.stringifyRawMatchData(current, get(detect.ourlAtom).data), get, set);
         }
     }
 );
+
+function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], get: Getter, set: Setter) {
+    const state = get(stateAtom);
+    const newState: RowInputState = {
+        ...state,
+        data: value,
+        error: state.validate?.(value),
+        dirty: state.initialData !== value,
+    };
+    set(stateAtom, newState);
+}

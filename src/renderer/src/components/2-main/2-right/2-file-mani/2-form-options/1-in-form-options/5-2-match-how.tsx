@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
-// import { InputSelectUi } from "@/ui";
+import { InputSelectUi } from "@/ui";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { InputSelectUi } from "@/ui/local-ui/4-input-select-ui-nun-dynamic-list";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const [rfield, setRfield] = useState('0');
