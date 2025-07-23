@@ -1,7 +1,8 @@
 import { useAtomValue } from "jotai";
 import { type OFormProps, type MFormProps, type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { DetectionContent_Web, DetectionContent_W32, PMIcon_W32 } from "./2-in-form-option-blocks";
+import { DetectionContent_W32, PMIcon_W32 } from "./2-in-form-detection-w32";
+import { DetectionContent_Web } from "./3-in-form-detection-web";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyProps = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;

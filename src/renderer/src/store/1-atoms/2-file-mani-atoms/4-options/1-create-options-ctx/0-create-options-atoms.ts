@@ -1,8 +1,8 @@
-import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFileUsCtx } from "../9-types";
-import { type FormOptionsState, FormOptionsConv } from "./0-conv";
+import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFileUsCtx } from "../../9-types";
+import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
 import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
-import { fileUsChanges } from "../9-types";
+import { fileUsChanges } from "../../9-types";
 
 export namespace OptionsState {
 
