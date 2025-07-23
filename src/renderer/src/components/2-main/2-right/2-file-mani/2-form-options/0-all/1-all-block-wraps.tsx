@@ -76,7 +76,7 @@ export function BlockWrap_Detection({ oFormProps }: { oFormProps: OFormProps; })
     </>);
 }
 
-export function BlockWrap_Icon({ oFormProps }: { oFormProps: OFormProps; }) {
+export function BlockWrap_IconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "icon";
     const { formIdx, isWebAtom } = oFormProps.oAllAtoms.options;
     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];

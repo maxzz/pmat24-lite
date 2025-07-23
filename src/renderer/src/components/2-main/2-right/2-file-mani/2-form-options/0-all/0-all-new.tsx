@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect, SectionTitle } from "../9-controls";
-import { BlockWrap_Detection, BlockWrap_Icon, GroupManiGeneral, BlockWrap_Auth, BlockWrap_Quicklink } from "./1-all-block-wraps";
+import { BlockWrap_Detection, BlockWrap_IconPosition, GroupManiGeneral, BlockWrap_Auth, BlockWrap_Quicklink } from "./1-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-4-screen-detection-btn";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
 import { ManiLoginNameGuarded } from "@/components/4-dialogs";
@@ -66,7 +66,7 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
 
         {/* <BlockWrap_Detection ctx={oFormProps} /> */}
         {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
-        {/* <BlockWrap_Icon ctx={oFormProps} /> */}
+        {/* <BlockWrap_IconPosition ctx={oFormProps} /> */}
     </>);
 }
 
@@ -77,7 +77,7 @@ function GroupFormCpass({ oFormProps }: { oFormProps: OFormProps; }) {
 
         {/* <BlockWrap_Detection ctx={oFormProps} /> */}
         {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
-        {/* <BlockWrap_Icon ctx={oFormProps} /> */}
+        {/* <BlockWrap_IconPosition ctx={oFormProps} /> */}
     </>);
 }
 
