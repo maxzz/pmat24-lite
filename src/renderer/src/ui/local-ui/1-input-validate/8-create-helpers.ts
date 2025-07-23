@@ -1,3 +1,4 @@
+import { type Getter, type Setter } from "jotai";
 import { type OnValueChange, atomWithCallback } from "@/utils";
 import { type RowInputState, type RowInputStateAtom } from "./9-types";
 
@@ -54,6 +55,17 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
         touched: undefined,
     };
     return rv;
+}
+
+export function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], get: Getter, set: Setter) {
+    const state = get(stateAtom);
+    const newState: RowInputState = {
+        ...state,
+        data: value,
+        error: state.validate?.(value),
+        dirty: state.initialData !== value,
+    };
+    set(stateAtom, newState);
 }
 
 export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): RowInputStateAtom {

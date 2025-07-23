@@ -1,7 +1,7 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { Matching } from "@/store/manifest";
+import { setAtomRowInputState } from "@/ui/local-ui/1-input-validate";
 import { type FormOptionsState } from "@/store/1-atoms/2-file-mani-atoms/4-options";
-import { type RowInputState, type RowInputStateAtom, resetRowInputState } from "@/ui/local-ui/1-input-validate";
 
 export const setUrlsEditorDataAtom = atom(
     null,
@@ -36,14 +36,3 @@ export const setUrlsEditorDataAtom = atom(
         }
     }
 );
-
-function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], get: Getter, set: Setter) {
-    const state = get(stateAtom);
-    const newState: RowInputState = {
-        ...state,
-        data: value,
-        error: state.validate?.(value),
-        dirty: state.initialData !== value,
-    };
-    set(stateAtom, newState);
-}
