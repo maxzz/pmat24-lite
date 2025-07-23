@@ -19,12 +19,10 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
             caption: get(p2Detect.captionAtom).data,
             variablecaption: get(p2Detect.variablecaptionAtom).data,
             monitor: get(p2Detect.monitorAtom).data === '1',
+
             ourl: get(p2Detect.ourlAtom).data,
             murl: get(p2Detect.murlAtom).data,
-
-            how: +get(p2Detect.howAtom).data,
-            opt: +get(p2Detect.optAtom).data,
-            url: get(p2Detect.urlAtom).data,
+            rurl: get(p2Detect.rurlAtom).data,
 
             webCheckUrl: get(p2Detect.webCheckUrlAtom).data === '1',
 
@@ -57,6 +55,9 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, get: Getter, set: Se
 
         isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
+        fromFileHOU: atoms.fromFileHOU,
+        how: get(atoms.how),
+        opt: get(atoms.opt),
     };
 
     return rv;

@@ -12,7 +12,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const detection = maniForm?.detection || {};
     const isFormWeb = !!detection.web_ourl;
 
-    const { how, opt, url } = Matching.parseRawMatchData(detection.web_murl || '');
+    const fromFileHOU = Matching.parseRawMatchData(detection.web_murl || '');
 
     const rv: FormOptionsState.ForAtoms = {
         p1General: {
@@ -29,11 +29,10 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             caption: detection.caption || '',                   //TODO: show only for Win32
             variablecaption: detection.variablecaption || '',   //TODO: show only for Win32
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
+            
             ourl: detection.web_ourl || '',
             murl: detection.web_murl || '',
-            how,
-            opt,
-            url,
+            rurl: fromFileHOU.url,
 
             webCheckUrl: !!detection.web_checkurl,
 
@@ -66,6 +65,9 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 
         isFormWeb,
         formIdx,
+        fromFileHOU,
+        how: fromFileHOU.how,
+        opt: fromFileHOU.opt,
     };
 
     return rv;

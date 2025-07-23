@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from "jotai";
+import { atom, type Getter, type Setter } from "jotai";
 import { atomWithCallback } from "@/utils";
 import { type FormOptionsState } from "./9-types";
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNonEmptyWithMessage, validateNumber } from "@/ui";
@@ -6,6 +6,7 @@ import { Matching } from "@/store/manifest";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
+    const initialHOU = Matching.parseRawMatchData(p2Detect.murl);
 
     const rv: FormOptionsState.AllAtoms = {
         p1General: {
@@ -22,12 +23,10 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             captionAtom: createAtomForInput(p2Detect.caption, onChange('caption'), { validate: validateNonEmptyWithMessage('Value cannot be empty. The screen cannot be detected if the window caption is empty.') }), // validateNonEmpty just for testing purposes of error state
             variablecaptionAtom: createAtomForInput(p2Detect.variablecaption, onChange('variablecaption')),
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
-            ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             
+            ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
-            howAtom: createAtomForInput(p2Detect.how, onChange('how')),
-            optAtom: createAtomForInput(p2Detect.opt, onChange('opt')),
-            urlAtom: createAtomForInput(p2Detect.url, onChange('url')),
+            rurlAtom: createAtomForInput(initialHOU.url, onChange('rurl')),
             
             webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
@@ -60,7 +59,9 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
 
         isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
         formIdx: initialState.formIdx,
-        fromFileHOU: Matching.parseRawMatchData(p2Detect.murl),
+        fromFileHOU: initialHOU,
+        how: atom(initialHOU.how),
+        opt: atom(initialHOU.opt),
     };
 
     return rv;
