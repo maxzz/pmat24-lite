@@ -14,12 +14,12 @@ export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps 
     const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms };
 
     return (<>
-        <FormDetection oFormProps={oFormProps} />
-        {/* <FormW32Icon oFormProps={oFormProps} /> */}
+        <FormDetectionSelector oFormProps={oFormProps} />
+        {/* <FormW32IconPosition oFormProps={oFormProps} /> */}
     </>);
 }
 
-function FormDetection({ oFormProps }: { oFormProps: OFormProps; }) {
+function FormDetectionSelector({ oFormProps }: { oFormProps: OFormProps; }) {
 
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -34,7 +34,7 @@ function FormDetection({ oFormProps }: { oFormProps: OFormProps; }) {
     );
 }
 
-function FormW32Icon({ oFormProps }: { oFormProps: OFormProps; }) {
+function FormW32IconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
 
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
     const formIdx = oFormProps.oAllAtoms.options.formIdx;

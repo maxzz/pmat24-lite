@@ -19,7 +19,7 @@ export namespace FormOptionsState {
     type p2Detect = {               // Part Screen Detection
         ourl: string;               // original URL
         murl: string;               // match URL
-        rurl: string;               // Regex matching (or any other like wildcards) URL (as usual regex)
+        rurl: string;               // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
         
         webCheckUrl: boolean;       // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
         caption: string;            // Windows Caption

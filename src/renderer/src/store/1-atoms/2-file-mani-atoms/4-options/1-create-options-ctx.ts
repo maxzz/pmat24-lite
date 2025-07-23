@@ -36,6 +36,11 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, nextValue.data);
     }
 
+    if (updateName === 'rurl') {
+        console.log('rurl', nextValue.data); // rurl will update murl
+        return;
+    }
+
     fileUsChanges.set(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
 
     //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
