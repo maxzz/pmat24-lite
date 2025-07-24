@@ -20,7 +20,7 @@ export type RowInputState = {
 };
 
 export type OptionInputProps =
-    & Pick<InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, "onFocus" | "onBlur" | "readOnly" | "disabled"> // & Omit<InputHTMLAttributes<HTMLInputElement>, "value">
+    & Pick<InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, "onFocus" | "onBlur" | "readOnly" | "disabled" | "onClick"> // & Omit<InputHTMLAttributes<HTMLInputElement>, "value">
     & {
         className?: string;
     }

@@ -1,9 +1,10 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
+import { toast } from "sonner";
 import { Matching } from "@/store/manifest";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { useIsShowExample } from "./5-9-set-atoms";
 import { MatchHow } from "./5-2-match-how";
 
@@ -23,7 +24,14 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <div className="mt-4">How to match URL:</div>
                 <MatchHow oFormProps={oFormProps} />
 
-                <InputWithTitle2Rows stateAtom={rurlAtom} label="Match URL" asTextarea disabled={disabled} className={classNames(disabled && 'opacity-50')} />
+                <InputWithTitle2Rows
+                    label="Match URL"
+                    className={classNames(disabled && 'opacity-50 cursor-default')}
+                    stateAtom={rurlAtom}
+                    readOnly={disabled}
+                    asTextarea
+                    onClick={() => disabled && toast.info('This input is disabled since it is will be matched as the original URL.')}
+                />
 
                 {showExample && (<>
                     <div className="mt-1">
