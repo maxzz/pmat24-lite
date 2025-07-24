@@ -1,12 +1,12 @@
 import { type Getter, type Setter } from "jotai";
-import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, showError } from "@/store/manifest";
+import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceAtoms } from "@/store/1-atoms/4-field-catalogs";
 import { type ManiAtoms } from "../../../9-types";
 import { getManiDispNameAtomAtom } from "../../../4-options";
 import { doManiNameDlgAtom } from "@/store/1-atoms/7-dialogs";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
-import { fceItemValueToCatalogItemInFile, filterOneLevelEmptyValues, packManifest, toManiFileFormat } from "../2-pack";
+import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
 import { printTestManifest } from "./8-save-utils";
 
 /**

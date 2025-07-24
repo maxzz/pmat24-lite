@@ -1,10 +1,9 @@
-import { type Mani, createGuid, FormIdx, TimeUtils } from "@/store/manifest";
+import { type Mani, createGuid, filterOneLevelEmptyValues, FormIdx, TimeUtils } from "@/store/manifest";
 import { type AnyFormCtx } from "../../../../9-types";
 import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
-import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
 export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;

@@ -1,4 +1,4 @@
-import { FormIdx, type FileMani, type Mani } from "@/store/manifest";
+import { FormIdx, type FileMani, type Mani } from "pm-manifest";
 import { filterOneLevelEmptyValues } from "./3-filter-empty-values";
 
 //TODO: order is wrong
