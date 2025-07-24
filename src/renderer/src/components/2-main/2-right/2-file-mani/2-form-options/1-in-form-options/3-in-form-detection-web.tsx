@@ -1,14 +1,19 @@
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { useAtomValue } from "jotai";
+import { classNames } from "@/utils";
+import { Matching } from "@/store/manifest";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { MatchHow } from "./5-2-match-how";
+import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { useIsShowExample } from "./5-9-set-atoms";
+import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
-    const { ourlAtom, rurlAtom } = oFormProps.oAllAtoms.options.p2Detect;
+    const { p2Detect: { ourlAtom, rurlAtom }, howAtom } = oFormProps.oAllAtoms.options;
+    const how = useAtomValue(howAtom);
 
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
+    const disabled = how === Matching.How.undef;
 
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
@@ -18,7 +23,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <div className="mt-4">How to match URL:</div>
                 <MatchHow oFormProps={oFormProps} />
 
-                <InputWithTitle2Rows stateAtom={rurlAtom} label="Match URL" asTextarea />
+                <InputWithTitle2Rows stateAtom={rurlAtom} label="Match URL" asTextarea disabled={disabled} className={classNames(disabled && 'opacity-50')} />
 
                 {showExample && (<>
                     <div className="mt-1">
@@ -40,3 +45,5 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 
 const textClasses = "pl-6 pr-0.5";
 const exampleClasses = "text-blue-500";
+
+//TODO: Since we allow to modify original URL in Match URL field, we should should rename "As original URL" to "Match exact string" that includes the original URL domain and protocol, or dissable "Match URL" input in this case.
