@@ -19,7 +19,13 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
-                <InputWithTitle2Rows stateAtom={ourlAtom} label="Original website URL (readonly)" asTextarea readOnly />
+                <InputWithTitle2Rows
+                    label="Original URL of the website (readonly)"
+                    labelClasses="font-normal"
+                    stateAtom={ourlAtom}
+                    asTextarea
+                    readOnly
+                />
 
                 <div className="mt-4">How to match URL:</div>
                 <MatchHow oFormProps={oFormProps} />
@@ -30,7 +36,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     stateAtom={rurlAtom}
                     readOnly={disabled}
                     asTextarea
-                    onClick={() => disabled && toast.info('This input is disabled since it is will be matched as the original URL.')}
+                    onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set as the source URL.')}
                 />
 
                 {showExample && (<>
