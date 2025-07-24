@@ -35,6 +35,7 @@ export type OptionInputWTypeProps =
         asCheckbox?: boolean;
         asTextarea?: boolean;
         containerClasses?: string;
+        labelClasses?: string;
         twoRows?: boolean;                  // if true, then label and input will be in two rows otherwise in one row for label anf input (i.e. two columns)
     };
 

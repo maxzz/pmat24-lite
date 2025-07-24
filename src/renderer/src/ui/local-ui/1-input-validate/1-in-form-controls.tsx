@@ -12,17 +12,17 @@ export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { 
     );
 }
 
-export function InputWithTitle2Cols({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
+        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
         </FormRowChildren>
     );
 }
 
-export function InputWithTitle2Rows({ label, containerClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={label2RowsClasses}>
+        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
         </FormRowChildren>
     );
