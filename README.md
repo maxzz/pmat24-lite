@@ -8,6 +8,16 @@ An Electron application with React and TypeScript
 
 ![](./src/renderer/src/assets/previews/2024-05-10_17-32-32-submit.png)
 
+## notes
+
+From pmac project:
+```ts
+export type RootGroup = {
+    rootFolder: string;         // this group root folder
+    fnames: string[];           // fnames relative to the rootFolder wo/ the rootFolder but w/ possible sub-folders: A(InUse), B(NotInUse), and C(NotInUseTest).
+};
+```
+
 ## resources 
 
  * icon - https://seeklogo.com/vector-logo/450809/hid-global
