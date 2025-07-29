@@ -8,7 +8,6 @@ export function stopIfInvalidNormal(maniAtoms: ManiAtoms, get: Getter, set: Sett
     const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
 
     const [login, cpass] = maniAtoms;
-
     if (!login) {
         errors.push({ error: 'Login form is missing', tab: 'options' });
     }

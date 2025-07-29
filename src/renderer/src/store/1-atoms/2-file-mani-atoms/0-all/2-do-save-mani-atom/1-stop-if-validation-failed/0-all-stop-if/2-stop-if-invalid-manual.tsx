@@ -7,7 +7,7 @@ export function stopIfInvalidManual(maniAtoms: ManiAtoms, get: Getter, set: Sett
     
     const errors = set(doVerifyManualFormAtom, { maniAtoms });
 
-    const rv = showValidationErrors({ fromTab: errors?.[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
+    const rv = showValidationErrors({ fromTab: errors?.[0].tab, verifyErrors: errors });
     return rv;
 }
 
