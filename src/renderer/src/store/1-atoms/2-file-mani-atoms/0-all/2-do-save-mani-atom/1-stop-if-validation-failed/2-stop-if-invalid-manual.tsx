@@ -1,6 +1,6 @@
 import { type Getter, type Setter } from "jotai";
 import { type ManiAtoms } from "../../../9-types";
-import { doVerifyManualFormAtom } from "../../8-do-verify-atom/5-do-verify-manual-atom";
+import { doVerifyManualFormAtom } from "./8-do-verify-atom/5-do-verify-manual-atom";
 import { toast } from "sonner";
 import { appSettings } from "@/store";
 
