@@ -1,9 +1,9 @@
-import { type Getter, type Setter } from "jotai";
+import { type GetSet } from "@/utils";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormOptionsConv } from "../../../../4-options";
 import { FormIdx } from "@/store/manifest";
 
-export function optionsVerifyErrors([login, cpass]: ManiAtoms, get: Getter, set: Setter): VerifyError[] | undefined {
+export function optionsVerifyErrors([login, cpass]: ManiAtoms, {get,set}: GetSet): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
 
     if (login) {

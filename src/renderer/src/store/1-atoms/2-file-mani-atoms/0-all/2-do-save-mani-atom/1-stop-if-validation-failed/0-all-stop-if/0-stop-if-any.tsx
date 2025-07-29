@@ -1,4 +1,4 @@
-import { type Getter, type Setter } from "jotai";
+import { type GetSet } from "@/utils";
 import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
@@ -7,16 +7,16 @@ import { normalFormsVerifyErrors } from "./1-normal-verify-errors";
 import { manualFormsVerifyErrors } from "./2-manual-verify-errors";
 import { optionsVerifyErrors } from "./3-options-verify-errors";
 
-export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login]
         ? undefined
         : [{ error: 'Login form is missing', tab: 'options' }];
 
     const errors: VerifyError[] | undefined =
         maniItself ||
-        optionsVerifyErrors(maniAtoms, get, set) ||
-        normalFormsVerifyErrors(maniAtoms, get, set) ||
-        manualFormsVerifyErrors(maniAtoms, get, set);
+        optionsVerifyErrors(maniAtoms, getset) ||
+        normalFormsVerifyErrors(maniAtoms, getset) ||
+        manualFormsVerifyErrors(maniAtoms, getset);
 
     if (!errors?.length) {
         return false;
