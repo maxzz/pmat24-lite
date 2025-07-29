@@ -5,39 +5,38 @@ import { stopIfInvalidManual } from "./2-stop-if-invalid-manual";
 import { stopIfInvalidOptions } from "./3-stop-if-invalid-options";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    // Options
 
+    // Options
     if (stopIfInvalidOptions(maniAtoms, get, set)) {
         return true;
     }
 
-    // Normal mode
-
     const [login, cpass] = maniAtoms;
 
-    if (login?.normal) {
-        if (stopIfInvalidNormal(maniAtoms, get, set)) {
-            return true;
+    if (login) {
+        if (login.normal) {
+            if (stopIfInvalidNormal(maniAtoms, get, set)) {
+                return true;
+            }
+        }
+        else if (login.manual) {
+            if (stopIfInvalidManual(maniAtoms, get, set)) {
+                return true;
+            }
         }
     }
 
-    if (cpass?.normal) {
-        if (stopIfInvalidNormal(maniAtoms, get, set)) {
-            return true;
+    if (cpass) {
+        if (cpass.normal) {
+            if (stopIfInvalidNormal(maniAtoms, get, set)) {
+                return true;
+            }
         }
-    }
-
-    // Manual mode
-
-    if (login?.manual) {
-        if (stopIfInvalidManual(maniAtoms, get, set)) {
-            return true;
-        }
-    }
-
-    if (cpass?.manual) {
-        if (stopIfInvalidManual(maniAtoms, get, set)) {
-            return true;
+        else if (cpass.manual) {
+            console.log('cpass.manual');
+            if (stopIfInvalidManual(maniAtoms, get, set)) {
+                return true;
+            }
         }
     }
 }
