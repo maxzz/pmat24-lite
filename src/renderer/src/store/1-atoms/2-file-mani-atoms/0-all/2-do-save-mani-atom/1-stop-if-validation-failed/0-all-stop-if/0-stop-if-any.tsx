@@ -5,24 +5,15 @@ import { doVerifyManualFormAtom, doVerifyNormalFormAtom, doVerifyOptionsAtom } f
 import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-
-    if (stopIfInvalid_Mani(maniAtoms, get, set)) {
-        return true;
-    }
-
-    if (stopIfInvalid_Options(maniAtoms, get, set)) {
-        return true;
-    }
-
     const [login, cpass] = maniAtoms;
 
-    if (isInvalidForm(login, maniAtoms, FormIdx.login, get, set)) {
-        return true;
-    }
+    const isInvalid =
+        stopIfInvalid_Mani(maniAtoms, get, set) ||
+        stopIfInvalid_Options(maniAtoms, get, set) ||
+        isInvalidForm(login, maniAtoms, FormIdx.login, get, set)
+        isInvalidForm(cpass, maniAtoms, FormIdx.cpass, get, set)
 
-    if (isInvalidForm(cpass, maniAtoms, FormIdx.cpass, get, set)) {
-        return true;
-    }
+    return isInvalid;
 }
 
 function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formIdx: FormIdx, get: Getter, set: Setter): boolean | undefined {
