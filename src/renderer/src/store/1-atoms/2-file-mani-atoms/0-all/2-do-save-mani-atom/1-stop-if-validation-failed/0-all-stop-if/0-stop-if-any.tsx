@@ -1,5 +1,5 @@
 import { type Getter, type Setter } from "jotai";
-import { type ManiAtoms } from "../../../9-types";
+import { type ManiAtoms } from "../../../../9-types";
 import { stopIfInvalidNormal } from "./1-stop-if-invalid-normal";
 import { stopIfInvalidManual } from "./2-stop-if-invalid-manual";
 import { stopIfInvalidOptions } from "./3-stop-if-invalid-options";
