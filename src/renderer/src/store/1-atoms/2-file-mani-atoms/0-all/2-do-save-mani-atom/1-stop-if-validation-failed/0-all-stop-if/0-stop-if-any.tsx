@@ -16,21 +16,6 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter)
     return isInvalid;
 }
 
-function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formIdx: FormIdx, get: Getter, set: Setter): boolean | undefined {
-    if (form) {
-        if (form.normal) {
-            if (stopIfInvalid_Normal(maniAtoms, get, set)) {
-                return true;
-            }
-        }
-        else if (form.manual) {
-            if (stopIfInvalid_Manual(maniAtoms, get, set)) {
-                return true;
-            }
-        }
-    }
-}
-
 function stopIfInvalid_Mani(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
     const errors: VerifyError[] = [];
 
@@ -43,26 +28,29 @@ function stopIfInvalid_Mani(maniAtoms: ManiAtoms, get: Getter, set: Setter): boo
     return rv;
 }
 
-function stopIfInvalid_Normal(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
-
-    const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
-    return rv;
-}
-
-function stopIfInvalid_Manual(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const errors = set(doVerifyManualFormAtom, { maniAtoms });
-
-    const rv = showValidationErrors({ fromTab: errors?.[0].tab, verifyErrors: errors });
-    return rv;
-}
-//TODO: validation: activate row
-//TODO: validation: activate initial row
-
 function stopIfInvalid_Options(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
     const errors = set(doVerifyOptionsAtom, { maniAtoms });
 
     const rv = showValidationErrors({ fromTab: 'options', verifyErrors: errors });
     return rv;
 }
-//TODO: validation: activate row (balloon)
+
+function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formIdx: FormIdx, get: Getter, set: Setter): boolean | undefined {
+
+    const verifyAtom = form?.normal ? doVerifyNormalFormAtom : form?.manual ? doVerifyManualFormAtom : undefined;
+    if (!verifyAtom) {
+        return true;
+    }
+
+    const errors: VerifyError[] | undefined = set(verifyAtom, { maniAtoms });
+    if (!errors?.length) {
+        return false;
+    }
+
+    const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
+    return rv;
+}
+
+//TODO: manual validation: activate row
+//TODO: manual validation: activate initial row
+//TODO: options validation: activate row (balloon)
