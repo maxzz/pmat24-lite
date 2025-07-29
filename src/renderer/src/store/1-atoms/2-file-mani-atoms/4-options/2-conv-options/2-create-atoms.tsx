@@ -26,7 +26,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
-            rurlAtom: createAtomForInput(initialHOU.url, onChange('rurl')),
+            rurlAtom: createAtomForInput(initialHOU.url, onChange('rurl'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
             
             webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
