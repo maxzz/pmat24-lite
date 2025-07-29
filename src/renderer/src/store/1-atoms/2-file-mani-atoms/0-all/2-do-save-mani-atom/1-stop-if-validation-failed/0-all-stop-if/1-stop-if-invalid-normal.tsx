@@ -26,5 +26,4 @@ export function stopIfInvalidNormal(maniAtoms: ManiAtoms, get: Getter, set: Sett
         toast.error(<div className="flex flex-col">{messages}</div>);
         return true;
     }
-
 }

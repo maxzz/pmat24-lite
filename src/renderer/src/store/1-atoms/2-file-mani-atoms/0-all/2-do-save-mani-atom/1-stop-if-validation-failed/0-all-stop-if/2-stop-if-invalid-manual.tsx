@@ -7,6 +7,7 @@ import { appSettings } from "@/store";
 export function stopIfInvalidManual(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
     
     const errors = set(doVerifyManualFormAtom, { maniAtoms });
+    
     if (errors) {
         appSettings.right.mani.activeTab = errors[0].tab;
 

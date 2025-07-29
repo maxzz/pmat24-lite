@@ -5,7 +5,9 @@ import { toast } from "sonner";
 import { appSettings } from "@/store";
 
 export function stopIfInvalidOptions(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+
     const errors = set(doVerifyOptionsAtom, { maniAtoms });
+    
     if (errors) {
         appSettings.right.mani.activeTab = 'options';
 
