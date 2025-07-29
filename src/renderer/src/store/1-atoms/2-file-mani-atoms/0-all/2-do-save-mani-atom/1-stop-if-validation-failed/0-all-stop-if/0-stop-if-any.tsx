@@ -1,13 +1,12 @@
 import { type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { type AnyFormCtx, type ManiAtoms } from "../../../../9-types";
-import { stopIfInvalidNormal } from "./1-stop-if-invalid-normal";
-import { stopIfInvalidManual } from "./2-stop-if-invalid-manual";
-import { stopIfInvalidOptions } from "./3-stop-if-invalid-options";
+import { VerifyError, type AnyFormCtx, type ManiAtoms } from "../../../../9-types";
+import { doVerifyManualFormAtom, doVerifyNormalFormAtom, doVerifyOptionsAtom } from "../1-do-verify-atoms";
+import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
 
-    if (stopIfInvalidOptions(maniAtoms, get, set)) {
+    if (stopIfInvalid_Options(maniAtoms, get, set)) {
         return true;
     }
 
@@ -25,14 +24,43 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter)
 function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formIdx: FormIdx, get: Getter, set: Setter): boolean | undefined {
     if (form) {
         if (form.normal) {
-            if (stopIfInvalidNormal(maniAtoms, get, set)) {
+            if (stopIfInvalid_Normal(maniAtoms, get, set)) {
                 return true;
             }
         }
         else if (form.manual) {
-            if (stopIfInvalidManual(maniAtoms, get, set)) {
+            if (stopIfInvalid_Manual(maniAtoms, get, set)) {
                 return true;
             }
         }
     }
 }
+
+function stopIfInvalid_Normal(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
+
+    const [login, cpass] = maniAtoms;
+    if (!login) {
+        errors.push({ error: 'Login form is missing', tab: 'options' });
+    }
+
+    const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
+    return rv;
+}
+
+function stopIfInvalid_Manual(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors = set(doVerifyManualFormAtom, { maniAtoms });
+
+    const rv = showValidationErrors({ fromTab: errors?.[0].tab, verifyErrors: errors });
+    return rv;
+}
+//TODO: validation: activate row
+//TODO: validation: activate initial row
+
+function stopIfInvalid_Options(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors = set(doVerifyOptionsAtom, { maniAtoms });
+
+    const rv = showValidationErrors({ fromTab: 'options', verifyErrors: errors });
+    return rv;
+}
+//TODO: validation: activate row (balloon)
