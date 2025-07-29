@@ -7,19 +7,13 @@ import { doVerifyOptionsAtom } from "./3-do-verify-options";
 import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const isInvalid = stopIfInvalidForms(maniAtoms, get, set);
-    return isInvalid;
-}
-
-function stopIfInvalidForms(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-
     const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login] ? undefined : [{ error: 'Login form is missing', tab: 'options' }];
 
     const errors: VerifyError[] | undefined =
         maniItself ||
-        set(doVerifyOptionsAtom, { maniAtoms }) ||
-        set(doVerifyNormalFormsAtom, { maniAtoms }) ||
-        set(doVerifyManualFormsAtom, { maniAtoms });
+        doVerifyOptionsAtom(get, set, { maniAtoms }) ||
+        doVerifyNormalFormsAtom(get, set, { maniAtoms }) ||
+        doVerifyManualFormsAtom(get, set, { maniAtoms });
 
     if (!errors?.length) {
         return false;
