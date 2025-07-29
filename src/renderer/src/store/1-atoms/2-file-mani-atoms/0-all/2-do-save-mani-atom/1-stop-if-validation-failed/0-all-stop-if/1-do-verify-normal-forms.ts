@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 
-export const doVerifyNormalFormAtom = atom(null,
+export const doVerifyNormalFormsAtom = atom(null,
     (get, set, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined => {
 
         const rv: VerifyError[] = [];
