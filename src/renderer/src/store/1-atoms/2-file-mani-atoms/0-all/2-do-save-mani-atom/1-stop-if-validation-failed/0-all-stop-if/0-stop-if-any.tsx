@@ -12,8 +12,7 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter)
     const isInvalid =
         stopIfInvalid_Mani(maniAtoms, get, set) ||
         stopIfInvalid_Options(maniAtoms, get, set) ||
-        isInvalidForm(login, maniAtoms, FormIdx.login, get, set) ||
-        isInvalidForm(cpass, maniAtoms, FormIdx.cpass, get, set);
+        stopIfInvalidForms(maniAtoms, get, set);
 
     return isInvalid;
 }
@@ -37,14 +36,13 @@ function stopIfInvalid_Options(maniAtoms: ManiAtoms, get: Getter, set: Setter): 
     return rv;
 }
 
-function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formIdx: FormIdx, get: Getter, set: Setter): boolean | undefined {
+function stopIfInvalidForms(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
 
-    const verifyAtom = form?.normal ? doVerifyNormalFormsAtom : form?.manual ? doVerifyManualFormsAtom : undefined;
-    if (!verifyAtom) {
-        return true;
-    }
+    const errors: VerifyError[] | undefined = 
+        set(doVerifyNormalFormsAtom, { maniAtoms }) ||
+        set(doVerifyManualFormsAtom, { maniAtoms });
 
-    const errors: VerifyError[] | undefined = set(verifyAtom, { maniAtoms });
+
     if (!errors?.length) {
         return false;
     }
