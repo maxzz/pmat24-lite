@@ -1,7 +1,7 @@
 import { type Getter, type Setter } from "jotai";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 
-export function doVerifyNormalFormsAtom(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function normalFormsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
     const [login, cpass] = maniAtoms;
 

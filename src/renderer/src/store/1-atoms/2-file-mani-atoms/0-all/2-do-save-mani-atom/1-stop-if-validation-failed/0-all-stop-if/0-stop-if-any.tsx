@@ -1,9 +1,9 @@
 import { type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
-import { doVerifyNormalFormsAtom } from "./1-do-verify-normal-forms";
-import { doVerifyManualFormsAtom } from "./2-do-verify-manual-forms";
-import { doVerifyOptionsAtom } from "./3-do-verify-options";
+import { normalFormsVerifyErrors } from "./1-do-verify-normal-forms";
+import { manualFormsVerifyErrors } from "./2-do-verify-manual-forms";
+import { optionsVerifyErrors } from "./3-do-verify-options";
 import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
@@ -11,9 +11,9 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter)
 
     const errors: VerifyError[] | undefined =
         maniItself ||
-        doVerifyOptionsAtom(get, set, { maniAtoms }) ||
-        doVerifyNormalFormsAtom(get, set, { maniAtoms }) ||
-        doVerifyManualFormsAtom(get, set, { maniAtoms });
+        optionsVerifyErrors(get, set, { maniAtoms }) ||
+        normalFormsVerifyErrors(get, set, { maniAtoms }) ||
+        manualFormsVerifyErrors(get, set, { maniAtoms });
 
     if (!errors?.length) {
         return false;

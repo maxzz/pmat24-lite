@@ -3,7 +3,7 @@ import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormIdx } from "@/store/manifest";
 import { ManualFieldConv } from "../../../../2-manual-fields";
 
-export function doVerifyManualFormsAtom(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function manualFormsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
     const [login, cpass] = maniAtoms;
 

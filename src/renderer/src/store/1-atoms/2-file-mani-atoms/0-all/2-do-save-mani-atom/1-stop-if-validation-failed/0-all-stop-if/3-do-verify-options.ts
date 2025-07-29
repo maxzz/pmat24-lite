@@ -3,7 +3,7 @@ import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormOptionsConv } from "../../../../4-options";
 import { FormIdx } from "@/store/manifest";
 
-export function doVerifyOptionsAtom(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function optionsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
     const [login, cpass] = maniAtoms;
 
