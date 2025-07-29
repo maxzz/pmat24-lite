@@ -1,9 +1,9 @@
 import { type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
-import { normalFormsVerifyErrors } from "./1-do-verify-normal-forms";
-import { manualFormsVerifyErrors } from "./2-do-verify-manual-forms";
-import { optionsVerifyErrors } from "./3-do-verify-options";
+import { normalFormsVerifyErrors } from "./1-normal-verify-errors";
+import { manualFormsVerifyErrors } from "./2-manual-verify-errors";
+import { optionsVerifyErrors } from "./3-options-verify-errors";
 import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
@@ -19,8 +19,8 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter)
         return false;
     }
 
-    const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
-    return rv;
+    showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
+    return true;
 }
 
 //TODO: manual validation: activate row
