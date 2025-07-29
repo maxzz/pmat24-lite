@@ -1,9 +1,8 @@
 import { type Getter, type Setter } from "jotai";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "../../../../9-types";
 
-export function normalFormsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function normalFormsVerifyErrors([login, cpass]: ManiAtoms, get: Getter, set: Setter): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
-    const [login, cpass] = maniAtoms;
 
     if (login?.normal && !totalFieldsInUse(login.normal.rowCtxs, get)) {
         rv.push({ error: 'No login fields selected', tab: 'login' });

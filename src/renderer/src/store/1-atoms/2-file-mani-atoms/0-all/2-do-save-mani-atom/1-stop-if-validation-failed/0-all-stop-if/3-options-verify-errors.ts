@@ -3,9 +3,8 @@ import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormOptionsConv } from "../../../../4-options";
 import { FormIdx } from "@/store/manifest";
 
-export function optionsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function optionsVerifyErrors([login, cpass]: ManiAtoms, get: Getter, set: Setter): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
-    const [login, cpass] = maniAtoms;
 
     if (login) {
         const errors = FormOptionsConv.getVerifyErrors(login.options, FormIdx.login, get, set);

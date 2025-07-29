@@ -8,13 +8,15 @@ import { manualFormsVerifyErrors } from "./2-manual-verify-errors";
 import { optionsVerifyErrors } from "./3-options-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login] ? undefined : [{ error: 'Login form is missing', tab: 'options' }];
+    const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login]
+        ? undefined
+        : [{ error: 'Login form is missing', tab: 'options' }];
 
     const errors: VerifyError[] | undefined =
         maniItself ||
-        optionsVerifyErrors(get, set, { maniAtoms }) ||
-        normalFormsVerifyErrors(get, set, { maniAtoms }) ||
-        manualFormsVerifyErrors(get, set, { maniAtoms });
+        optionsVerifyErrors(maniAtoms, get, set) ||
+        normalFormsVerifyErrors(maniAtoms, get, set) ||
+        manualFormsVerifyErrors(maniAtoms, get, set);
 
     if (!errors?.length) {
         return false;

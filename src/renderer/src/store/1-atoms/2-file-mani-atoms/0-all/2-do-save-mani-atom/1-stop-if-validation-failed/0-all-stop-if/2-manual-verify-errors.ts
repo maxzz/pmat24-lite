@@ -3,9 +3,8 @@ import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormIdx } from "@/store/manifest";
 import { ManualFieldConv } from "../../../../2-manual-fields";
 
-export function manualFormsVerifyErrors(get: Getter, set: Setter, { maniAtoms }: { maniAtoms: ManiAtoms; }): VerifyError[] | undefined {
+export function manualFormsVerifyErrors([login, cpass]: ManiAtoms, get: Getter, set: Setter): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
-    const [login, cpass] = maniAtoms;
 
     if (login?.manual) {
         const errors = ManualFieldConv.getFormVerifyErrors(login.manual, FormIdx.login, get, set);
