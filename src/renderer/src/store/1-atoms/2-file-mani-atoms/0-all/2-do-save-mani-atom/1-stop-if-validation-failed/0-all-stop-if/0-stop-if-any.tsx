@@ -6,6 +6,10 @@ import { showValidationErrors } from "./8-show-validation-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
 
+    if (stopIfInvalid_Mani(maniAtoms, get, set)) {
+        return true;
+    }
+
     if (stopIfInvalid_Options(maniAtoms, get, set)) {
         return true;
     }
@@ -36,13 +40,20 @@ function isInvalidForm(form: AnyFormCtx | undefined, maniAtoms: ManiAtoms, formI
     }
 }
 
-function stopIfInvalid_Normal(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
-    const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
+function stopIfInvalid_Mani(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors: VerifyError[] = [];
 
     const [login, cpass] = maniAtoms;
     if (!login) {
         errors.push({ error: 'Login form is missing', tab: 'options' });
     }
+
+    const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
+    return rv;
+}
+
+function stopIfInvalid_Normal(maniAtoms: ManiAtoms, get: Getter, set: Setter): boolean | undefined {
+    const errors: VerifyError[] = set(doVerifyNormalFormAtom, { maniAtoms }) || [];
 
     const rv = showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
     return rv;
