@@ -11,8 +11,6 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
         ? undefined
         : [{ error: 'Login form is missing', tab: 'options' }];
 
-    const [login, cpass] = maniAtoms;
-
     const errors: VerifyError[] | undefined =
         maniItself ||
         optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||

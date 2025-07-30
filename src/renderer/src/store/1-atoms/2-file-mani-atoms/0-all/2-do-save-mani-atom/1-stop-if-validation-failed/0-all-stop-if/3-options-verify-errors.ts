@@ -2,10 +2,10 @@ import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { FormOptionsConv } from "../../../../4-options";
 import { FormIdx } from "@/store/manifest";
 
-export function optionsFormVerifyErrors([login, cpass]: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+export function optionsFormVerifyErrors(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
 
-    const formCtx = formIdx === FormIdx.login ? login : formIdx === FormIdx.cpass ? cpass : undefined;
+    const formCtx = maniAtoms[formIdx];
 
     if (formCtx) {
         const errors = FormOptionsConv.getVerifyErrors(formCtx.options, formIdx, getset);
