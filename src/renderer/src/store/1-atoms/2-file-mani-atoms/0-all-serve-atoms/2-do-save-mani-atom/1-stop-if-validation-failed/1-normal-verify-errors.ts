@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "../../../../9-types";
+import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "../../../9-types";
 
 export function normalFormVerifyErrors(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const rv: VerifyError[] = [];

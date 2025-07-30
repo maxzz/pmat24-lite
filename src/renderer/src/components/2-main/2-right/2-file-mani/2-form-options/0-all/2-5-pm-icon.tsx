@@ -1,4 +1,4 @@
-import { OptionsState } from "@/store/1-atoms/2-file-mani-atoms/4-options";
+import { OptionsState } from "@/store/1-atoms/2-file-mani-atoms/3-options";
 import { InputWithTitle2Cols } from "@/ui/local-ui";
 
 export function Block5_PMIcon({ atoms }: { atoms: OptionsState.Atoms; }) {

@@ -1,7 +1,7 @@
 import { appSettings } from "@/store/9-ui-state";
 import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type VerifyError } from "../../../../9-types";
+import { type ManiAtoms, type VerifyError } from "../../../9-types";
 import { normalFormVerifyErrors } from "./1-normal-verify-errors";
 import { manualFormVerifyErrors } from "./2-manual-verify-errors";
 import { optionsFormVerifyErrors } from "./3-options-verify-errors";

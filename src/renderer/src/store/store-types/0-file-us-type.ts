@@ -1,6 +1,5 @@
-import { type PrimitiveAtom as PA } from "jotai";
 import { type Mani, type Meta, type CatalogFile } from "../manifest";
-import { type GetTargetWindowResult, type FileContent, type TlwInfo } from "@shared/ipc-types";
+import { type FileContent, type TlwInfo } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/1-atoms/2-file-mani-atoms";
 import { type FceAtoms } from "../1-atoms/4-field-catalogs";
 

@@ -5,7 +5,7 @@ import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type Man
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
 import { createFormFieldsAtom } from "../../4-cpass-to-login-links";
-import { OptionsState } from "../../4-options";
+import { OptionsState } from "../../3-options";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.

@@ -3,7 +3,7 @@ import { type RowInputStateAtom } from "@/ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { pathToManiNameAtom } from "../../4-options";
+import { pathToManiNameAtom } from "../../3-options";
 
 class NewManiContent implements NewManiContentType {
     maniXmlStrAtom = atom<string | undefined>(undefined);

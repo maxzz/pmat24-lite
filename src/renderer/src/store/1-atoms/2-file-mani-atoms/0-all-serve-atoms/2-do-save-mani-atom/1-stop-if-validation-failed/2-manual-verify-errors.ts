@@ -1,6 +1,6 @@
-import { type ManiAtoms, type VerifyError } from "../../../../9-types";
+import { type ManiAtoms, type VerifyError } from "../../../9-types";
 import { FormIdx } from "@/store/manifest";
-import { ManualFieldConv } from "../../../../2-manual-fields";
+import { ManualFieldConv } from "../../../2-manual-fields";
 
 export function manualFormVerifyErrors(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const rv: VerifyError[] = [];

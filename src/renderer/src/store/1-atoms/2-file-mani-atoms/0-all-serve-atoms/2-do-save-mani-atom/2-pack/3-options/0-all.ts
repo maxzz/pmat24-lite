@@ -1,5 +1,5 @@
 import { type Mani, FormIdx } from "@/store/manifest";
-import { type FormOptionsState, FormOptionsConv } from "../../../../4-options";
+import { type FormOptionsState, FormOptionsConv } from "../../../../3-options";
 import { type PackManifestDataParams } from "../9-types";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {

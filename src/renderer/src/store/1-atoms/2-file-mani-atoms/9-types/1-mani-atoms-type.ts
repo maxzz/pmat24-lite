@@ -3,7 +3,7 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FormIdx } from "@/store/manifest";
 import { type SubmitFieldTypes, type NormalField } from "../1-normal-fields";
 import { type ManualFieldState, type ManualEditorTypes } from "../2-manual-fields";
-import { type OptionsState } from "../4-options";
+import { type OptionsState } from "../3-options";
 
 export type FileUsCtx = {
     fileUs: FileUs;
