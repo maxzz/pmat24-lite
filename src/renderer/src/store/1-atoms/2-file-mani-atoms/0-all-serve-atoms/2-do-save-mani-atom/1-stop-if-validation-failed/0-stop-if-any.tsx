@@ -15,8 +15,10 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
         maniItself ||
         optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
         optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
+
         normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
         normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
+
         manualFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
         manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
 
@@ -26,6 +28,27 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
 
     showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
     return true;
+}
+
+function getOptionsErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    const errors =
+        optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
+    return errors;
+}
+
+function getLoginErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    const errors =
+        normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        manualFormVerifyErrors(maniAtoms, FormIdx.login, getset);
+    return errors;
+}
+
+function getCpassErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    const errors =
+        normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
+        manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
+    return errors;
 }
 
 function showValidationErrors({ fromTab, verifyErrors }: { fromTab: string | undefined; verifyErrors: VerifyError[]; }): void {
@@ -44,7 +67,7 @@ function showValidationErrors({ fromTab, verifyErrors }: { fromTab: string | und
     );
 
     toast.error(<div className="flex flex-col">{messages}</div>);
-}
+};
 
 //TODO: manual validation: activate row
 //TODO: manual validation: activate initial row
