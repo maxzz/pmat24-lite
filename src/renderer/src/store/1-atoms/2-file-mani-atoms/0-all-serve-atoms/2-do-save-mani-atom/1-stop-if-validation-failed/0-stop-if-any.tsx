@@ -7,15 +7,11 @@ import { manualFormVerifyErrors } from "./2-manual-verify-errors";
 import { optionsFormVerifyErrors } from "./3-options-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
-    const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login]
-        ? undefined
-        : [{ error: 'Login form is missing', tab: 'options' }];
-
     type Fn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
     const order = new Map<ManiTabValue, Fn>([['options', getOptionsErrors], ['login', getLoginErrors], ['cpass', getCpassErrors]]);
     const currentTab = appSettings.right.mani.activeTab;
 
-    let errors: VerifyError[] | undefined = order[currentTab]?.(maniAtoms, getset);
+    let errors: VerifyError[] | undefined = order[currentTab]?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
     if (!errors?.length) {
         order.delete(currentTab);
 
@@ -27,18 +23,10 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
         }
     }
 
-    // const errors: VerifyError[] | undefined =
-    //     maniItself ||
-    //     getOptionsErrors(maniAtoms, getset) ||
-    //     getLoginErrors(maniAtoms, getset) ||
-    //     getCpassErrors(maniAtoms, getset);
-
-    if (!errors?.length) {
-        return false;
+    if (errors?.length) {
+        showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors });
+        return true;
     }
-
-    showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors }); // errors[0].tab or 'login'
-    return true;
 }
 
 function getOptionsErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
