@@ -2,20 +2,25 @@ import { appSettings } from "@/store/9-ui-state";
 import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
-import { normalFormsVerifyErrors } from "./1-normal-verify-errors";
-import { manualFormsVerifyErrors } from "./2-manual-verify-errors";
-import { optionsVerifyErrors } from "./3-options-verify-errors";
+import { normalFormVerifyErrors } from "./1-normal-verify-errors";
+import { manualFormVerifyErrors } from "./2-manual-verify-errors";
+import { optionsFormVerifyErrors } from "./3-options-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const maniItself: VerifyError[] | undefined = maniAtoms[FormIdx.login]
         ? undefined
         : [{ error: 'Login form is missing', tab: 'options' }];
 
+    const [login, cpass] = maniAtoms;
+
     const errors: VerifyError[] | undefined =
         maniItself ||
-        optionsVerifyErrors(maniAtoms, getset) ||
-        normalFormsVerifyErrors(maniAtoms, getset) ||
-        manualFormsVerifyErrors(maniAtoms, getset);
+        optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
+        normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
+        manualFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
 
     if (!errors?.length) {
         return false;

@@ -1,14 +1,17 @@
+import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "../../../../9-types";
 
-export function normalFormsVerifyErrors([login, cpass]: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+export function normalFormVerifyErrors([login, cpass]: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const rv: VerifyError[] = [];
 
-    if (login?.normal && !totalFieldsInUse(login.normal.rowCtxs, getset)) {
-        rv.push({ error: 'No login fields selected', tab: 'login' });
-    }
+    const formCtx = formIdx === FormIdx.login ? login : formIdx === FormIdx.cpass ? cpass : undefined;
 
-    if (cpass?.normal && !totalFieldsInUse(cpass.normal.rowCtxs, getset)) {
-        rv.push({ error: 'No password change fields selected', tab: 'cpass' });
+    if (formCtx?.normal && !totalFieldsInUse(formCtx.normal.rowCtxs, getset)) {
+        if (formIdx === FormIdx.login) {
+            rv.push({ error: 'No login fields selected', tab: 'login' });
+        } else if (formIdx === FormIdx.cpass) {
+            rv.push({ error: 'No password change fields selected', tab: 'cpass' });
+        }
     }
 
     return rv.length ? rv : undefined;
