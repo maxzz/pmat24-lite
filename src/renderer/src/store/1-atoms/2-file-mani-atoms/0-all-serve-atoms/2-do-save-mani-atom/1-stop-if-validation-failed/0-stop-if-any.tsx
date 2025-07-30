@@ -13,14 +13,9 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
 
     const errors: VerifyError[] | undefined =
         maniItself ||
-        optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
-        optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
-
-        normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
-        normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
-
-        manualFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
-        manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
+        getOptionsErrors(maniAtoms, getset) ||
+        getLoginErrors(maniAtoms, getset) ||
+        getCpassErrors(maniAtoms, getset);
 
     if (!errors?.length) {
         return false;
